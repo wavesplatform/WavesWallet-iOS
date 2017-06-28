@@ -1,0 +1,4 @@
+module base58 [system][extern_c] {
+    header "base58.h"
+    export *
+}

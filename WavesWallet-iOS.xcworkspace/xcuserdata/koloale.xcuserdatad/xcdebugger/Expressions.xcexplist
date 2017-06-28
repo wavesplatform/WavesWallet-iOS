@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "BackupVerifyViewController.setupPlaceholders() -&gt; ():BackupVerifyViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexName[safe: chosenWordsIdx[0]]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LaunchViewController.viewDidLoad() -&gt; ():LaunchViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AccountsViewController.tableView(UITableView, heightForRowAt : IndexPath) -&gt; CGFloat:AccountsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "hiddenExpanded">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateNewWalletViewController.onCreateWallet(Any) -&gt; ():CreateNewWalletViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "AuthenticationPolicy.userPresence">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.onEdit(Any) -&gt; ():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableView.isEditing ? &quot;Done&quot; : &quot;Edit&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SelectAccountCollectionCell.bindItem(AssetBalance?) -&gt; ():SelectAccountCollectionCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ab.balance">
+            </PersistentString>
+            <PersistentString
+               value = "ab.issueTransaction?.decimals">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SendViewController.formatAmount(String?, Int) -&gt; String:SendViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Array(str.utf16)[3]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LaunchViewController.(onChooseEnvironment(Any) -&gt; ()).(closure #1):LaunchViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SendViewController.(selectedAsset.getter).(closure #1):SendViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TransactionsViewController.(setupTableView() -&gt; ()).(closure #3):TransactionsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "basicTx.id">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WordList.randomBytes(Int) -&gt; [UInt8]:WordList.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Array(res)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WordList.generatePhrase() -&gt; String:WordList.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SendViewController.(selectedAsset.getter).(closure #1).(closure #1):SendViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lhs == rhs">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SendViewController.(totalMinusFeeDriver.getter).(closure #1).(closure #1):SendViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static WalletManager.getWalletsRealm() -&gt; Realm:WalletManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "config.fileURL!.deletingLastPathComponent().appendingPathComponent(&quot;wallets.realm&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "config.fileURL!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AccountsViewController.loadDataFromRealm() -&gt; ():AccountsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "objectsBySection">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WordList.bytesToBits([UInt8]) -&gt; [Bool]:WordList.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UInt8(1 &lt;&lt; 7 - j)">
+            </PersistentString>
+            <PersistentString
+               value = "1 &lt;&lt; 6">
+            </PersistentString>
+            <PersistentString
+               value = "data[i]">
+            </PersistentString>
+            <PersistentString
+               value = "data[i] &amp; UInt8(1 &lt;&lt; 7 - j)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SelectAccountViewController.selectAccount(assetId : String) -&gt; ():SelectAccountViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "findAssetBalance(assetId: assetId)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TransactionCell.toggelBlinkAnimation() -&gt; ():TransactionCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentTransaction.isPending">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Base58.decode(String) -&gt; [UInt8]:Base58.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Array(r)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Base58.encode([UInt8]) -&gt; String:Base58.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = " data.subdata(in: 0..&lt;size)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static StoryboardManager.transactionDetailViewController(tx : Transaction) -&gt; BaseTransactionDetailViewController:StoryboardManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "vc as! BaseTransactionDetailViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateNewWalletViewController.(walletSeed.getter).(closure #1).(closure #1):CreateNewWalletViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "log(58.0)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RxTableViewSectionedAnimatedDataSource.(tableView(UITableView, observedEvent : Event&lt;[A]&gt;) -&gt; ()).(closure #1).(closure #1):RxTableViewSectionedAnimatedDataSource.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "newSections[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "differencesForSectionedView&lt;A where ...&gt; (initialSections : [A], finalSections : [A]) throws -&gt; [Changeset&lt;A&gt;]:Differentiator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "finalSections[2]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ExchangeTransaction.init(json : [String : Any]) -&gt; ExchangeTransaction?:Transaction.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;orderType&quot; &lt;~~ json">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AccountsViewController.tableView(UITableView, heightForFooterInSection : Int) -&gt; CGFloat:AccountsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "objectsBySection[section][0].isHidden">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WalletManager.getWalletsConfig() -&gt; Realm.Configuration:WalletManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Environments.current.scheme">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateNewWalletViewController.(onCreateWallet(Any) -&gt; ()).(closure #1):CreateNewWalletViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommandGenerator.generateDeleteSectionsDeletedItemsAndUpdatedItems() throws -&gt; [Changeset&lt;A&gt;]:Differentiator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "finalItem.balance">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AccountsViewController.(loadDataFromNode() -&gt; ()).(closure #4).(closure #1):AccountsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "deleted.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BaseTransactionDetailViewController.setupFields() -&gt; ():BaseTransactionDetailViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tx.type">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static MoneyUtil.parseUnscaled(String, Int) -&gt; Int64?:MoneyUtil.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Int64(NSDecimalNumber(decimal: d * Decimal(10^^scale)))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

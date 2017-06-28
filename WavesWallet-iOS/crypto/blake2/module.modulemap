@@ -1,0 +1,4 @@
+module blake2 [system][extern_c] {
+    header "blake2.h"
+    export *
+}

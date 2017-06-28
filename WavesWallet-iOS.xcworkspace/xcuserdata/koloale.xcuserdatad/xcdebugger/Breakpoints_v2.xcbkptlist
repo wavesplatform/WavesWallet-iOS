@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WavesWallet-iOS/AppDelegate.swift"
+            timestampString = "515607930.419766"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "testBase58()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WavesWallet_iOS.AppDelegate.testBase58 () -&gt; ()"
+                  moduleName = "WavesWallet-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/koloale/iosprojects/WavesWallet-iOS/WavesWallet-iOS/AppDelegate.swift"
+                  timestampString = "518128204.957452"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WavesWallet_iOS.AppDelegate.(testBase58 () -&gt; ()).(implicit closure #1)"
+                  moduleName = "WavesWallet-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/koloale/iosprojects/WavesWallet-iOS/WavesWallet-iOS/AppDelegate.swift"
+                  timestampString = "518128204.959735"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
