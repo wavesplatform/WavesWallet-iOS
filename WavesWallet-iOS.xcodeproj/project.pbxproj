@@ -10,6 +10,7 @@
 		7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
 		F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */; };
+		F73553761F03D9FC00ADC449 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73553751F03D9FC00ADC449 /* Order.swift */; };
 		F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B11EAB8D1600C3B84D /* AddressBook.swift */; };
 		F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B21EAB8D1600C3B84D /* AssetBalance.swift */; };
 		F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B31EAB8D1600C3B84D /* Transaction.swift */; };
@@ -87,6 +88,7 @@
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F71B77691EABA4F80096CA85 /* TransferRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequest.swift; sourceTree = "<group>"; };
 		F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F73553751F03D9FC00ADC449 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F74240B11EAB8D1600C3B84D /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		F74240B21EAB8D1600C3B84D /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		F74240B31EAB8D1600C3B84D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -219,6 +221,14 @@
 				F77A92061EB09D3700C77439 /* BackupVerifyViewController.swift */,
 			);
 			path = settings;
+			sourceTree = "<group>";
+		};
+		F73553741F03D94000ADC449 /* dex */ = {
+			isa = PBXGroup;
+			children = (
+				F73553751F03D9FC00ADC449 /* Order.swift */,
+			);
+			path = dex;
 			sourceTree = "<group>";
 		};
 		F74240AF1EAB8D1600C3B84D /* api */ = {
@@ -407,6 +417,7 @@
 				F74240CA1EAB8EFF00C3B84D /* accounts */,
 				F763B9A01EABBFBE00FA3701 /* transactions */,
 				F7B713A31EABA0C300331E1B /* transfer */,
+				F73553741F03D94000ADC449 /* dex */,
 				F72EECFE1EAD1207002BBA26 /* settings */,
 				F7F97E861EAA0CF800BE2F6F /* customviews */,
 				F7F97E881EAA0CF800BE2F6F /* extensions */,
@@ -633,6 +644,7 @@
 				F7F97E921EAA0CF800BE2F6F /* UIColorExtension.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
+				F73553761F03D9FC00ADC449 /* Order.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				F74240D01EAB8EFF00C3B84D /* AccountsViewController.swift in Sources */,
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
