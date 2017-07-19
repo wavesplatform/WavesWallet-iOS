@@ -13,5 +13,5 @@ class AppColors {
     static let lightGreyText = UIColor(netHex: 0xc2c5ce)
     static let greyText = UIColor(netHex: 0x9299a2)
     static let darkGreyText = UIColor(netHex: 0x3B3B3B)
-    
+    static let dexNavBarColor = UIColor(netHex: 0x2a2a2a)
 }

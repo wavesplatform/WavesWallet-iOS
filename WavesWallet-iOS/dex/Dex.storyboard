@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="12q-J4-3VR">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Custom Navigation Controller-->
+        <scene sceneID="7b6-UB-Rs4">
+            <objects>
+                <navigationController id="12q-J4-3VR" customClass="CustomNavigationController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rFp-5e-4ig">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hAv-pC-LHu" kind="relationship" relationship="rootViewController" id="MSt-bs-fPH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pUo-ty-Unj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-188" y="269"/>
+        </scene>
+        <!--Dex-->
+        <scene sceneID="DUv-mV-GxH">
+            <objects>
+                <viewController storyboardIdentifier="DexViewController" id="hAv-pC-LHu" customClass="DexViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ReC-YV-uE9"/>
+                        <viewControllerLayoutGuide type="bottom" id="rce-zu-LJ8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ooj-kT-bLJ">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1ve-TD-W9k">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexTableListCell" rowHeight="70" id="yKK-Bx-V8Y" customClass="DexTableListCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yKK-Bx-V8Y" id="BjR-qr-4Ei">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LO5-Mh-EZK">
+                                                    <rect key="frame" x="4" y="2" width="367" height="66"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1X-7C-h7p">
+                                                            <rect key="frame" x="10" y="8" width="42" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.40784313725490196" green="0.41568627450980389" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="LO5-Mh-EZK" secondAttribute="bottom" constant="2" id="17F-pw-A2o"/>
+                                                <constraint firstAttribute="trailing" secondItem="LO5-Mh-EZK" secondAttribute="trailing" constant="4" id="Hrm-x7-whx"/>
+                                                <constraint firstItem="LO5-Mh-EZK" firstAttribute="leading" secondItem="BjR-qr-4Ei" secondAttribute="leading" constant="4" id="InJ-bI-Dxq"/>
+                                                <constraint firstItem="LO5-Mh-EZK" firstAttribute="top" secondItem="BjR-qr-4Ei" secondAttribute="top" constant="2" id="P72-bH-395"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="labelTitle" destination="l1X-7C-h7p" id="ORQ-Rz-UrW"/>
+                                            <outlet property="viewContent" destination="LO5-Mh-EZK" id="fui-pq-fEu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hAv-pC-LHu" id="iuE-EO-Lnb"/>
+                                    <outlet property="delegate" destination="hAv-pC-LHu" id="leM-y4-joD"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.24649259448051453" green="0.24649924039840698" blue="0.24649569392204285" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1ve-TD-W9k" firstAttribute="leading" secondItem="Ooj-kT-bLJ" secondAttribute="leading" id="1A2-OW-jlz"/>
+                            <constraint firstItem="rce-zu-LJ8" firstAttribute="top" secondItem="1ve-TD-W9k" secondAttribute="bottom" id="bS4-wL-Ii0"/>
+                            <constraint firstAttribute="trailing" secondItem="1ve-TD-W9k" secondAttribute="trailing" id="e7u-H1-xhM"/>
+                            <constraint firstItem="1ve-TD-W9k" firstAttribute="top" secondItem="ReC-YV-uE9" secondAttribute="bottom" id="twG-an-dj1"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Dex" image="dex" id="n4K-X3-6Fm"/>
+                    <navigationItem key="navigationItem" id="3po-8F-jUB"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="1ve-TD-W9k" id="OwA-99-ws7"/>
+                        <segue destination="fGT-Cl-8Bh" kind="show" identifier="DexContainerViewController" id="KrS-Rc-Iy6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mek-Kc-xWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="581" y="269"/>
+        </scene>
+        <!--Dex Container View Controller-->
+        <scene sceneID="DAX-fh-QXp">
+            <objects>
+                <viewController id="fGT-Cl-8Bh" customClass="DexContainerViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Su-Wi-bV3"/>
+                        <viewControllerLayoutGuide type="bottom" id="OU6-HL-3L9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5cj-56-RL3">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Am-YS-L9n">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="heH-gj-uhT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="ORDERBOOK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="orderBookTapped:" destination="fGT-Cl-8Bh" eventType="touchUpInside" id="nnK-4G-xJ9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9s-w6-lLN">
+                                <rect key="frame" x="125" y="0.0" width="125" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="CHART">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="chartTapped:" destination="fGT-Cl-8Bh" eventType="touchUpInside" id="hgm-w3-CfK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkD-Gp-ZNG">
+                                <rect key="frame" x="250" y="0.0" width="125" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="LAST TRADES">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="lastTradersTapped:" destination="fGT-Cl-8Bh" eventType="touchUpInside" id="sa4-cG-Ycs"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBI-g6-Dd2" userLabel="ViewLine">
+                                <rect key="frame" x="0.0" y="40" width="125" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="etF-pO-k1f"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l68-DS-6sY">
+                                <rect key="frame" x="0.0" y="41" width="375" height="513"/>
+                                <connections>
+                                    <outlet property="delegate" destination="fGT-Cl-8Bh" id="lY4-R1-m4R"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e9s-w6-lLN" firstAttribute="leading" secondItem="6Am-YS-L9n" secondAttribute="trailing" id="0KE-gI-Q3t"/>
+                            <constraint firstItem="WkD-Gp-ZNG" firstAttribute="leading" secondItem="e9s-w6-lLN" secondAttribute="trailing" id="5Iw-ma-UO5"/>
+                            <constraint firstItem="6Am-YS-L9n" firstAttribute="width" secondItem="e9s-w6-lLN" secondAttribute="width" id="6eA-b8-x7A"/>
+                            <constraint firstItem="UBI-g6-Dd2" firstAttribute="width" secondItem="6Am-YS-L9n" secondAttribute="width" id="7y4-cQ-eyp"/>
+                            <constraint firstItem="WkD-Gp-ZNG" firstAttribute="top" secondItem="e9s-w6-lLN" secondAttribute="top" id="BJW-nu-exM"/>
+                            <constraint firstItem="l68-DS-6sY" firstAttribute="top" secondItem="UBI-g6-Dd2" secondAttribute="bottom" id="K5F-Cd-j04"/>
+                            <constraint firstAttribute="trailing" secondItem="l68-DS-6sY" secondAttribute="trailing" id="NR5-Im-3Eq"/>
+                            <constraint firstItem="6Am-YS-L9n" firstAttribute="top" secondItem="5Su-Wi-bV3" secondAttribute="bottom" id="Xh4-VA-DJm"/>
+                            <constraint firstItem="UBI-g6-Dd2" firstAttribute="top" secondItem="WkD-Gp-ZNG" secondAttribute="bottom" id="bai-gQ-8Sl"/>
+                            <constraint firstItem="UBI-g6-Dd2" firstAttribute="leading" secondItem="5cj-56-RL3" secondAttribute="leading" id="dBo-DS-Oog"/>
+                            <constraint firstItem="e9s-w6-lLN" firstAttribute="top" secondItem="6Am-YS-L9n" secondAttribute="top" id="dVK-bQ-sxa"/>
+                            <constraint firstItem="6Am-YS-L9n" firstAttribute="leading" secondItem="5cj-56-RL3" secondAttribute="leading" id="fyP-pK-wZP"/>
+                            <constraint firstItem="l68-DS-6sY" firstAttribute="leading" secondItem="5cj-56-RL3" secondAttribute="leading" id="njD-on-AIQ"/>
+                            <constraint firstItem="e9s-w6-lLN" firstAttribute="height" secondItem="6Am-YS-L9n" secondAttribute="height" id="qAL-wi-g6p"/>
+                            <constraint firstItem="e9s-w6-lLN" firstAttribute="width" secondItem="WkD-Gp-ZNG" secondAttribute="width" id="qXF-vE-H7u"/>
+                            <constraint firstItem="WkD-Gp-ZNG" firstAttribute="height" secondItem="e9s-w6-lLN" secondAttribute="height" id="qaq-bm-2v6"/>
+                            <constraint firstAttribute="trailing" secondItem="WkD-Gp-ZNG" secondAttribute="trailing" id="rkG-Q1-Gwm"/>
+                            <constraint firstItem="OU6-HL-3L9" firstAttribute="top" secondItem="l68-DS-6sY" secondAttribute="bottom" id="v6Z-Kw-CkA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonChart" destination="e9s-w6-lLN" id="hsb-f8-KDl"/>
+                        <outlet property="buttonLastTraders" destination="WkD-Gp-ZNG" id="ZA4-is-jDW"/>
+                        <outlet property="buttonOrderBook" destination="6Am-YS-L9n" id="J0V-go-GTm"/>
+                        <outlet property="scrollView" destination="l68-DS-6sY" id="gYn-wZ-N75"/>
+                        <outlet property="viewLeadingOffset" destination="dBo-DS-Oog" id="BGI-nN-svX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mcH-8u-6pV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1436" y="269"/>
+        </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="xE8-EQ-Khn">
+            <objects>
+                <viewController storyboardIdentifier="ChartViewController" id="jUI-Ah-cOY" customClass="ChartViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rSz-Wl-mjC"/>
+                        <viewControllerLayoutGuide type="bottom" id="WZX-ht-osw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ijg-ml-Jil">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-NU-29X" customClass="CandleStickChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.17254901960784313" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="QOd-NU-29X" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" id="8Pw-Qr-0fh"/>
+                            <constraint firstAttribute="trailing" secondItem="QOd-NU-29X" secondAttribute="trailing" id="8ht-vA-7ln"/>
+                            <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="NM6-f9-O0J"/>
+                            <constraint firstItem="WZX-ht-osw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" id="hsk-zR-okH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="candleChartView" destination="QOd-NU-29X" id="Imk-GI-9uG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="swX-ng-dB6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193" y="269"/>
+        </scene>
+        <!--Order Book View Controller-->
+        <scene sceneID="nFx-Ca-CaI">
+            <objects>
+                <viewController storyboardIdentifier="OrderBookViewController" id="sMa-tU-hMW" customClass="OrderBookViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bdO-23-wgP"/>
+                        <viewControllerLayoutGuide type="bottom" id="RBf-0k-pe7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dPk-Bm-y2N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OrderBook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2o-4T-ivQ">
+                                <rect key="frame" x="135" y="20" width="105.5" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="o2o-4T-ivQ" firstAttribute="centerX" secondItem="dPk-Bm-y2N" secondAttribute="centerX" id="8wB-F6-do4"/>
+                            <constraint firstItem="o2o-4T-ivQ" firstAttribute="top" secondItem="bdO-23-wgP" secondAttribute="bottom" id="GxP-p6-6fJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G5e-33-V2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193" y="-383"/>
+        </scene>
+        <!--Last Traders View Controller-->
+        <scene sceneID="McO-gl-g55">
+            <objects>
+                <viewController storyboardIdentifier="LastTradersViewController" id="Gxk-3F-pxT" customClass="LastTradersViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6CX-jz-6ix"/>
+                        <viewControllerLayoutGuide type="bottom" id="6Jm-cu-9AK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sR4-0t-vfm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Traders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lr-lQ-Km3">
+                                <rect key="frame" x="127.5" y="20" width="121" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7lr-lQ-Km3" firstAttribute="top" secondItem="6CX-jz-6ix" secondAttribute="bottom" id="AHG-1I-zTd"/>
+                            <constraint firstItem="7lr-lQ-Km3" firstAttribute="centerX" secondItem="sR4-0t-vfm" secondAttribute="centerX" id="ULj-Z4-tDJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cHH-O6-yp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193" y="935"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dex" width="24" height="24"/>
+    </resources>
+</document>

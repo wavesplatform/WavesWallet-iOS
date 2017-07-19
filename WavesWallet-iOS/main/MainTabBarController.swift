@@ -50,4 +50,22 @@ class MainTabBarController: UITabBarController {
         //UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)], for: .normal)
     }
 
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        var isDexTab = false
+        for (index, element) in (tabBar.items?.enumerated())! {
+            
+            if index == 3 && element == item {
+                isDexTab = true
+            }
+        }
+        
+        if isDexTab {
+            tabBar.barTintColor = AppColors.dexNavBarColor
+        }
+        else {
+            tabBar.barTintColor = AppColors.wavesColor
+        }
+    }
 }

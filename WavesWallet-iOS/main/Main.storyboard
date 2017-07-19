@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghG-cw-MPU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghG-cw-MPU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -215,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVO-bm-JvI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1552.8" y="-152.47376311844079"/>
+            <point key="canvasLocation" x="1718" y="-152"/>
         </scene>
         <!--Accounts View Controller-->
         <scene sceneID="CNZ-rc-sjC">
@@ -301,7 +301,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J1z-8A-baW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="672"/>
+            <point key="canvasLocation" x="1086" y="672"/>
         </scene>
         <!--Accounts View Controller-->
         <scene sceneID="sMA-tL-WCs">
@@ -569,17 +569,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="waB-6S-W7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="-939"/>
+            <point key="canvasLocation" x="-51" y="-972"/>
         </scene>
-        <!--ReceiveNavViewController-->
+        <!--Dex-->
         <scene sceneID="G2m-B4-vBa">
             <objects>
-                <viewControllerPlaceholder storyboardName="Transfer" referencedIdentifier="ReceiveNavViewController" id="uHy-o4-4md" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="4sA-n3-FTc"/>
+                <viewControllerPlaceholder storyboardName="Dex" id="uHy-o4-4md" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="4sA-n3-FTc"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ks-Ij-mzd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1" y="-848"/>
+            <point key="canvasLocation" x="47" y="-849"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="hVi-X9-Fct">

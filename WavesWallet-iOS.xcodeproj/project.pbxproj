@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */; };
+		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
+		E963CF871F1E3602001494FD /* CandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF861F1E3602001494FD /* CandleModel.swift */; };
+		E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */; };
+		E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E988E8B41F0C03170013EAF6 /* Dex.storyboard */; };
+		E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */; };
+		E988E8B91F0D32360013EAF6 /* OrderBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */; };
+		E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */; };
+		E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
 		F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */; };
 		F73553761F03D9FC00ADC449 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73553751F03D9FC00ADC449 /* Order.swift */; };
@@ -86,6 +94,14 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E963CF861F1E3602001494FD /* CandleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleModel.swift; sourceTree = "<group>"; };
+		E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexViewController.swift; sourceTree = "<group>"; };
+		E988E8B41F0C03170013EAF6 /* Dex.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dex.storyboard; sourceTree = "<group>"; };
+		E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexContainerViewController.swift; sourceTree = "<group>"; };
+		E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderBookViewController.swift; sourceTree = "<group>"; };
+		E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradersViewController.swift; sourceTree = "<group>"; };
 		F71B77691EABA4F80096CA85 /* TransferRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequest.swift; sourceTree = "<group>"; };
 		F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F73553751F03D9FC00ADC449 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -227,6 +243,12 @@
 			isa = PBXGroup;
 			children = (
 				F73553751F03D9FC00ADC449 /* Order.swift */,
+				E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */,
+				E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */,
+				E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */,
+				E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */,
+				E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */,
+				E988E8B41F0C03170013EAF6 /* Dex.storyboard */,
 			);
 			path = dex;
 			sourceTree = "<group>";
@@ -237,6 +259,7 @@
 				F74240B01EAB8D1600C3B84D /* model */,
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				F78E33141EB329DF00132A8B /* Environment.swift */,
+				E963CF811F1CF970001494FD /* NetworkManager.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -247,6 +270,7 @@
 				F74240B11EAB8D1600C3B84D /* AddressBook.swift */,
 				F74240B21EAB8D1600C3B84D /* AssetBalance.swift */,
 				F74240B31EAB8D1600C3B84D /* Transaction.swift */,
+				E963CF861F1E3602001494FD /* CandleModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -504,8 +528,8 @@
 				TargetAttributes = {
 					F7E954E31EA8FE0700A804DE = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 96SW78M3KJ;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = VXSTVA5CJ4;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -535,6 +559,7 @@
 				F7E954FF1EA90CA600A804DE /* Login.storyboard in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
 				F7E954F41EA8FE0700A804DE /* LaunchScreen.storyboard in Resources */,
+				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
@@ -615,6 +640,7 @@
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				F79C43D31EAEB0F6006057B0 /* HalfModalPresentationController.swift in Sources */,
 				F7E955071EA9120300A804DE /* CreateNewWalletViewController.swift in Sources */,
+				E988E8B91F0D32360013EAF6 /* OrderBookViewController.swift in Sources */,
 				F74240D11EAB8EFF00C3B84D /* SelectAccountCollectionCell.swift in Sources */,
 				F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */,
 				F761428E1EAFD6C500F4C749 /* OpenUrlManager.swift in Sources */,
@@ -624,11 +650,14 @@
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
+				E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */,
+				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				F7C683B31EA93AEB00C87DAF /* utils.c in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
 				F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */,
 				F7C683B11EA93AEB00C87DAF /* generichash_blake2_api.c in Sources */,
+				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */,
 				F7C683B01EA93AEB00C87DAF /* crypto_generichash.c in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
@@ -638,9 +667,12 @@
 				F762B3A31EABB6C000EAD7FF /* SendViewController.swift in Sources */,
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
 				F77A92091EB0A9D500C77439 /* ArrayExtension.swift in Sources */,
+				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
+				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
 				F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */,
+				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColorExtension.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
@@ -779,15 +811,15 @@
 			baseConfigurationReference = 965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				DEVELOPMENT_TEAM = VXSTVA5CJ4;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "219529cf-aa25-4097-ba57-9e40e29036a3";
+				PROVISIONING_PROFILE_SPECIFIER = "profile all";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -798,15 +830,15 @@
 			baseConfigurationReference = 3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				DEVELOPMENT_TEAM = VXSTVA5CJ4;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "219529cf-aa25-4097-ba57-9e40e29036a3";
+				PROVISIONING_PROFILE_SPECIFIER = "profile all";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 			};
