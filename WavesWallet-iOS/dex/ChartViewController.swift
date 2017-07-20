@@ -61,7 +61,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         xAxis.labelTextColor = UIColor.white
         xAxis.labelFont = UIFont.systemFont(ofSize: 9)
         xAxis.valueFormatter = TimeAxisValueFormatter()
-        
+        xAxis.granularityEnabled = true
+
         let rightAxis = candleChartView.rightAxis
         rightAxis.enabled = true
         rightAxis.labelCount = 10
@@ -222,7 +223,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         let valueFormatter = candleChartView.xAxis.valueFormatter as! TimeAxisValueFormatter
         valueFormatter.timeFrame = timeframe
-
+        
         let sortedItems = items.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
         
         let yVals1 = NSMutableArray()

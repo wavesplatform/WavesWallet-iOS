@@ -43,7 +43,6 @@ class TimeAxisValueFormatter: NSObject, IAxisValueFormatter {
         
         let time = value * 60 * Double(timeFrame)
         let date = Date.init(timeIntervalSince1970: time)
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm\ndd.MM.yyyy"
         return formatter.string(from: date)
