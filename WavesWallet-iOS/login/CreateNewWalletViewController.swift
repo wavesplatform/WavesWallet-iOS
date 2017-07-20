@@ -183,22 +183,23 @@ class CreateNewWalletViewController: UIViewController {
             .label("Waves wallet seeds")
             .accessibility(.whenUnlocked)
         
-        saveToRealm(wallet: wallet)
-        
         DispatchQueue.global().async {
             do {
                 let policy = self.isTouchIdAvailable() ? AuthenticationPolicy.userPresence : AuthenticationPolicy.applicationPassword
                 
                 try keychain
-                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
-                    .accessibility(.whenPasscodeSetThisDeviceOnly, authenticationPolicy: policy)
+                    .authenticationPrompt("Authenticate to store encrypted wallet seed")
+                    .accessibility(.whenUnlocked, authenticationPolicy: policy)
                     .set(seed, key: wallet.publicKey)
                 DispatchQueue.main.async {
+                    self.saveToRealm(wallet: wallet)
                     WalletManager.didLogin(toWallet: wallet)
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    self.presentBasicAlertWithTitle(title: "Failed to decrypt your seed", message: error.localizedDescription)
+                    print(error.localizedDescription)
+                    self.presentBasicAlertWithTitle(title: "Failed to encrypt your seed",
+                                                    message: "To use Waves Wallet you must enable Passcode on your device")
                 }
             }
         }

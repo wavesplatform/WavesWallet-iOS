@@ -218,7 +218,7 @@ class WalletManager {
                             .get(pubKey) {
                         observer.onNext(PrivateKeyAccount(seed: Base58.decode(restoredSeed)))
                     } else {
-                        observer.onError(WalletError.Generic("Private key is not founf"))
+                        observer.onError(WalletError.Generic("Private key is not found"))
                     }
                     
                 } catch let error {
