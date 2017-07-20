@@ -52,7 +52,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         
         
         /////
-//        chartTapped(buttonChart)
+        chartTapped(buttonChart)
 
     }
     

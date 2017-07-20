@@ -60,10 +60,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         xAxis.gridLineCap = CGLineCap.butt
         xAxis.labelTextColor = UIColor.white
         xAxis.labelFont = UIFont.systemFont(ofSize: 9)
-        
-        let valueFormatter = TimeAxisValueFormatter()
-        valueFormatter.timeFrame = timeframe
-        xAxis.valueFormatter = valueFormatter
+        xAxis.valueFormatter = TimeAxisValueFormatter()
         
         let rightAxis = candleChartView.rightAxis
         rightAxis.enabled = true
@@ -89,9 +86,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
     func nameFromTimeFrame(_ value: Int) -> String {
         
-        let timeFrames = [5, 15, 30, 60, 240, 1440]
-
-        if value >= timeFrames.last! {
+        if value == 1440 {
             return "D1"
         }
         else if value >= 60 {
@@ -225,6 +220,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     func setupData(_ items: NSArray) {
         
+        let valueFormatter = candleChartView.xAxis.valueFormatter as! TimeAxisValueFormatter
+        valueFormatter.timeFrame = timeframe
+
         let sortedItems = items.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
         
         let yVals1 = NSMutableArray()

@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         showStartController()
         
-//        if (window?.rootViewController?.isKind(of: UITabBarController.classForCoder()))! {
-//            let tabBar = window?.rootViewController as! UITabBarController
-//            tabBar.selectedIndex = 3
-//        }
+        if (window?.rootViewController?.isKind(of: UITabBarController.classForCoder()))! {
+            let tabBar = window?.rootViewController as! UITabBarController
+            tabBar.selectedIndex = 3
+        }
         
         return true
     }

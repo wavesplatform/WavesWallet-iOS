@@ -32,7 +32,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         navigationController?.navigationBar.barTintColor = AppColors.dexNavBarColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         
-//        performSegue(withIdentifier: "DexContainerViewController", sender: nil)
+        performSegue(withIdentifier: "DexContainerViewController", sender: nil)
     }
 
     func addTapped() {
