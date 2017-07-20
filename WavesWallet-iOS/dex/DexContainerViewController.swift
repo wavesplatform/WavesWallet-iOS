@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DexContainerViewController: UIViewController, UIScrollViewDelegate {
+class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartViewControllerDelegate {
 
     var orderBookController : OrderBookViewController!
     var chartController : ChartViewController!
@@ -39,6 +39,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         orderBookController.didMove(toParentViewController: self)
         
         chartController = storyboard?.instantiateViewController(withIdentifier: "ChartViewController") as! ChartViewController
+        chartController.delegate = self
         addChildViewController(chartController)
         scrollView.addSubview(chartController.view)
         chartController.didMove(toParentViewController: self)
@@ -50,8 +51,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         
         
         
-        
-//        orderBookTapped(buttonChart)
+        /////
+//        chartTapped(buttonChart)
 
     }
     
@@ -77,6 +78,26 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.contentSize.height)
     }
     
+    func orderTapped() {
+        
+    }
+    
+    func changeChartTimeFrame() {
+        chartController.timeFrameTapped()
+    }
+    
+    //MARK: ChartViewControllerDelegate
+    
+    func chartViewControllerDidChangeTimeFrame() {
+     
+        let btnTimeFrame = UIBarButtonItem.init(title: chartController.nameFromTimeFrame(DataManager.getCandleTimeFrame()), style: .done, target: self, action: #selector(changeChartTimeFrame))
+        let btnOrder = UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))
+        navigationItem.rightBarButtonItems = [btnOrder, btnTimeFrame]
+    }
+    
+    
+    //MARK: ButtonCalls
+    
     @IBAction func orderBookTapped(_ sender: Any) {
         
         if selectedPage == 0 {
@@ -89,8 +110,11 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         buttonOrderBook.setTitleColor(UIColor.white, for: .normal)
         buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+    
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
     }
 
+    
     @IBAction func chartTapped(_ sender: Any) {
         
         if selectedPage == 1 {
@@ -103,6 +127,9 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonChart.setTitleColor(UIColor.white, for: .normal)
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+   
+        
+        chartViewControllerDidChangeTimeFrame()
     }
     
     @IBAction func lastTradersTapped(_ sender: Any) {
@@ -117,6 +144,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate {
         buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonLastTraders.setTitleColor(UIColor.white, for: .normal)
+ 
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
     }
     
     func setupViewLinePosition(sender: UIButton) {

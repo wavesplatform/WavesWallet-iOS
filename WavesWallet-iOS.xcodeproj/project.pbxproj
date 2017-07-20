@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */; };
+		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
 		E963CF871F1E3602001494FD /* CandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF861F1E3602001494FD /* CandleModel.swift */; };
 		E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */; };
@@ -94,6 +95,7 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E963CF861F1E3602001494FD /* CandleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleModel.swift; sourceTree = "<group>"; };
 		E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				F78E33141EB329DF00132A8B /* Environment.swift */,
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
+				E93827DE1F20E38900E37599 /* DataManager.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				F761428E1EAFD6C500F4C749 /* OpenUrlManager.swift in Sources */,
 				F76AF2021EBB6CAE0081A8BD /* base58.c in Sources */,
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
+				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				F7C683B41EA93AEB00C87DAF /* keccak.c in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
