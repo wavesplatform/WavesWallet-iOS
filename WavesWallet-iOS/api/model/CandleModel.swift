@@ -35,7 +35,7 @@ class CandleModel : NSObject {
     }
 }
 
-class TimeAxisValueFormatter: NSObject, IAxisValueFormatter {
+class CandleTimeAxisValueFormatter: NSObject, IAxisValueFormatter {
     
     var timeFrame = 0
     
@@ -50,11 +50,26 @@ class TimeAxisValueFormatter: NSObject, IAxisValueFormatter {
 }
 
 
-class ValueAxisValueFormatter: NSObject, IAxisValueFormatter {
+class CandleAxisValueFormatter: NSObject, IAxisValueFormatter {
 
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 
         return String(format: "%0.6f", value)
+    }
+}
+
+class BarAxisValueFormatter: NSObject, IAxisValueFormatter {
+    
+    let numberFormatter = NumberFormatter()
+
+    override init() {
+        numberFormatter.formatterBehavior = .behavior10_4
+        numberFormatter.numberStyle = .decimal
+    }
+
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        
+        return numberFormatter.string(for: value)!
     }
 }

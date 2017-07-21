@@ -30,58 +30,23 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     
     @IBOutlet weak var candleChartView: CandleStickChartView!
-    
+    @IBOutlet weak var barChartView: BarChartView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        candleChartView.delegate = self
-        candleChartView.chartDescription?.enabled = false
-        candleChartView.maxVisibleCount = 30
-        candleChartView.pinchZoomEnabled = false
-        candleChartView.scaleYEnabled = false
-        candleChartView.autoScaleMinMaxEnabled = true
-        candleChartView.leftAxis.enabled = false
-        candleChartView.legend.enabled = false
-        candleChartView.doubleTapToZoomEnabled = false
-        candleChartView.drawGridBackgroundEnabled = false
-        candleChartView.minOffset = 0
-        candleChartView.noDataTextColor = UIColor.white
-        
-        candleChartView.scaleXEnabled = true
-        candleChartView.scaleYEnabled = false
-        candleChartView.autoScaleMinMaxEnabled = true
-        
-        let xAxis = candleChartView.xAxis;
-        xAxis.labelPosition = .bottom;
-        xAxis.gridLineWidth = 0.2
-        xAxis.labelCount = 4
-        xAxis.gridLineDashPhase = 0.1
-        xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        xAxis.gridLineCap = CGLineCap.butt
-        xAxis.labelTextColor = UIColor.white
-        xAxis.labelFont = UIFont.systemFont(ofSize: 9)
-        xAxis.valueFormatter = TimeAxisValueFormatter()
-        xAxis.granularityEnabled = true
-
-        let rightAxis = candleChartView.rightAxis
-        rightAxis.enabled = true
-        rightAxis.labelCount = 10
-        rightAxis.gridLineWidth = 0.2
-        rightAxis.gridLineDashPhase = 0.1
-        rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        rightAxis.gridLineCap = CGLineCap.butt
-        rightAxis.labelTextColor = UIColor.white
-        rightAxis.labelFont = UIFont.systemFont(ofSize: 9)
-        rightAxis.valueFormatter = ValueAxisValueFormatter()
-        rightAxis.minWidth = 55
-        rightAxis.maxWidth = 55
+        setupBarStyle()
         
         candleChartView.isHidden = true
+        barChartView.isHidden = true
+        
         preloadInfo {
             self.activityIndicator.stopAnimating()
             self.candleChartView.isHidden = false
+            self.barChartView.isHidden = false
             
             self.candleChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+            self.barChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
         }
     }
 
@@ -193,12 +158,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         present(controller, animated: true, completion: nil)
     }
     
-    func calculateBeginEndDates() {
-        dateTo = dateFrom
-        let additionalTime : Double = Double(3600 * ((timeframe * 100) / 60))
-        dateFrom = dateFrom.addingTimeInterval(-additionalTime)
-    }
-    
     func preloadInfo(complete: @escaping () -> Void) {
         
         if isLoading {
@@ -206,7 +165,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         }
         
         isLoading = true
-        calculateBeginEndDates()
+        
+        dateTo = dateFrom
+        let additionalTime : Double = Double(3600 * ((timeframe * 100) / 60))
+        dateFrom = dateFrom.addingTimeInterval(-additionalTime)
         
         NetworkManager.getCandles(amountAsset: "WAVES", priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", timeframe: timeframe, from: dateFrom, to: dateTo) { (items: NSArray?, errorMessage: String?) in
             
@@ -221,12 +183,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     func setupData(_ items: NSArray) {
         
-        let valueFormatter = candleChartView.xAxis.valueFormatter as! TimeAxisValueFormatter
+        let valueFormatter = candleChartView.xAxis.valueFormatter as! CandleTimeAxisValueFormatter
         valueFormatter.timeFrame = timeframe
         
         let sortedItems = items.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
-        
-        let yVals1 = NSMutableArray()
 
         for item in sortedItems {
             let model = CandleModel()
@@ -241,26 +201,44 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         candles.sort(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
         
+        let candleYVals = NSMutableArray()
+        let barYVals = NSMutableArray()
+
         for _model in candles {
             let model = _model as! CandleModel
-            yVals1.add(CandleChartDataEntry(x: model.timestamp, shadowH:model.high , shadowL:model.low , open:model.open, close: model.close, data: model))
+            
+            candleYVals.add(CandleChartDataEntry(x: model.timestamp, shadowH:model.high , shadowL:model.low , open:model.open, close: model.close))
+            barYVals.add(BarChartDataEntry.init(x: model.timestamp, y: model.volume))
         }
         
-        let set = CandleChartDataSet.init(values: yVals1 as? [ChartDataEntry], label: "Data Set")
-        set.axisDependency = .right
-        set.setColor(NSUIColor.init(cgColor: UIColor.init(white: 80/255, alpha: 1).cgColor))
-        set.drawIconsEnabled = false
-        set.drawValuesEnabled = false
-        set.shadowWidth = 0.7;
-        set.decreasingColor = UIColor(red: 228, green: 91, blue: 87)
-        set.decreasingFilled = true
-        set.increasingColor = UIColor(red: 98, green: 171, blue: 109)
-        set.increasingFilled = true
-        set.neutralColor = UIColor(red: 136, green: 226, blue: 247)
-        set.shadowColorSameAsCandle = true
+        let candleSet = CandleChartDataSet.init(values: candleYVals as? [ChartDataEntry], label: "")
+        candleSet.axisDependency = .right
+        candleSet.setColor(NSUIColor.init(cgColor: UIColor.init(white: 80/255, alpha: 1).cgColor))
+        candleSet.drawIconsEnabled = false
+        candleSet.drawValuesEnabled = false
+        candleSet.shadowWidth = 0.7;
+        candleSet.decreasingColor = UIColor(red: 228, green: 91, blue: 87)
+        candleSet.decreasingFilled = true
+        candleSet.increasingColor = UIColor(red: 98, green: 171, blue: 109)
+        candleSet.increasingFilled = true
+        candleSet.neutralColor = UIColor(red: 136, green: 226, blue: 247)
+        candleSet.shadowColorSameAsCandle = true
         
-        candleChartView.data = CandleChartData.init(dataSet: set)
-        self.candleChartView.notifyDataSetChanged()
+        candleChartView.data = CandleChartData.init(dataSet: candleSet)
+        candleChartView.notifyDataSetChanged()
+        
+        
+        let barSet = BarChartDataSet.init(values: barYVals as? [ChartDataEntry], label: "")
+        barSet.axisDependency = .right
+        barSet.drawIconsEnabled = false
+        barSet.drawValuesEnabled = false
+        barSet.highlightColor = UIColor(red: 103, green: 105, blue: 111)
+        barSet.setColor(UIColor(red: 195, green: 199, blue: 210))
+        
+        let barData = BarChartData.init(dataSet:barSet)
+        barData.barWidth = 0.80
+        barChartView.data = barData
+        barChartView.notifyDataSetChanged()
     }
 
     
@@ -277,11 +255,25 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
-        print(#function)
-        
+
+        if chartView == candleChartView {
+            barChartView.zoom(scaleX: candleChartView.scaleX, scaleY: candleChartView.scaleY, xValue: 0, yValue: 0, axis: YAxis.AxisDependency.right)
+            barChartView.moveViewToX(candleChartView.lowestVisibleX)
+        }
+        else {
+            candleChartView.zoom(scaleX: barChartView.scaleX, scaleY: barChartView.scaleY, xValue: 0, yValue: 0, axis: YAxis.AxisDependency.right)
+            candleChartView.moveViewToX(barChartView.lowestVisibleX)
+        }
     }
     
     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
+        
+        if chartView == candleChartView {
+            barChartView.moveViewToX(candleChartView.lowestVisibleX)
+        }
+        else {
+            candleChartView.moveViewToX(barChartView.lowestVisibleX)
+        }
         
         if candles.count > 0 {
             
@@ -302,12 +294,94 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                         
                         self.candleChartView.moveViewToAnimated(xValue: self.lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
                         self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                        
+                        self.barChartView.moveViewToAnimated(xValue: self.lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+                        self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
                     }
                 }
             }
         }
     }
     
+    //MARK: SetupBars
+    
+    func setupBarStyle() {
+        
+        candleChartView.delegate = self
+        candleChartView.chartDescription?.enabled = false
+        candleChartView.pinchZoomEnabled = false
+        candleChartView.scaleYEnabled = false
+        candleChartView.scaleXEnabled = true
+        candleChartView.autoScaleMinMaxEnabled = true
+        candleChartView.autoScaleMinMaxEnabled = true
+        candleChartView.leftAxis.enabled = false
+        candleChartView.legend.enabled = false
+        candleChartView.doubleTapToZoomEnabled = false
+        candleChartView.drawGridBackgroundEnabled = false
+        candleChartView.minOffset = 0
+        candleChartView.noDataTextColor = UIColor.white
+        
+        candleChartView.xAxis.labelPosition = .bottom;
+        candleChartView.xAxis.gridLineWidth = 0.2
+        candleChartView.xAxis.labelCount = 4
+        candleChartView.xAxis.gridLineDashPhase = 0.1
+        candleChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+        candleChartView.xAxis.gridLineCap = CGLineCap.butt
+        candleChartView.xAxis.labelTextColor = UIColor.white
+        candleChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 9)
+        candleChartView.xAxis.valueFormatter = CandleTimeAxisValueFormatter()
+        candleChartView.xAxis.granularityEnabled = true
+        
+        candleChartView.rightAxis.enabled = true
+        candleChartView.rightAxis.labelCount = 10
+        candleChartView.rightAxis.gridLineWidth = 0.2
+        candleChartView.rightAxis.gridLineDashPhase = 0.1
+        candleChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+        candleChartView.rightAxis.gridLineCap = CGLineCap.butt
+        candleChartView.rightAxis.labelTextColor = UIColor.white
+        candleChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 9)
+        candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
+        candleChartView.rightAxis.minWidth = 55
+        candleChartView.rightAxis.maxWidth = 55
+        
+        
+        
+        
+        
+        barChartView.delegate = self
+        barChartView.chartDescription?.enabled = false
+        barChartView.pinchZoomEnabled = false
+        barChartView.scaleYEnabled = false
+        barChartView.scaleXEnabled = true
+        barChartView.autoScaleMinMaxEnabled = true
+        barChartView.autoScaleMinMaxEnabled = true
+        barChartView.leftAxis.enabled = false
+        barChartView.legend.enabled = false
+        barChartView.doubleTapToZoomEnabled = false
+        barChartView.drawGridBackgroundEnabled = false
+        barChartView.minOffset = 0
+        barChartView.noDataTextColor = UIColor.white
+        barChartView.noDataText = ""
+        
+        barChartView.rightAxis.enabled = true
+        barChartView.rightAxis.labelCount = 4
+        barChartView.rightAxis.gridLineWidth = 0.2
+        barChartView.rightAxis.gridLineDashPhase = 0.1
+        barChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+        barChartView.rightAxis.gridLineCap = CGLineCap.butt
+        barChartView.rightAxis.labelTextColor = UIColor.white
+        barChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
+        barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
+        barChartView.rightAxis.minWidth = 55
+        barChartView.rightAxis.maxWidth = 55
+        
+        barChartView.xAxis.gridLineWidth = 0.2
+        barChartView.xAxis.labelCount = 4
+        barChartView.xAxis.gridLineDashPhase = 0.1
+        barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+        barChartView.xAxis.gridLineCap = CGLineCap.butt
+        barChartView.xAxis.drawLabelsEnabled = false
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -208,25 +208,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-NU-29X" customClass="CandleStickChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Om-rc-ckM">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNN-mz-QCw" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="572" width="375" height="95"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.17254901960784313" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RNN-mz-QCw" secondAttribute="trailing" id="005-db-Lz0"/>
+                            <constraint firstItem="RNN-mz-QCw" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="7JL-wh-BXr"/>
                             <constraint firstItem="QOd-NU-29X" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" id="8Pw-Qr-0fh"/>
                             <constraint firstAttribute="trailing" secondItem="QOd-NU-29X" secondAttribute="trailing" id="8ht-vA-7ln"/>
                             <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="NM6-f9-O0J"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerX" secondItem="Ijg-ml-Jil" secondAttribute="centerX" id="VUb-V3-r3G"/>
-                            <constraint firstItem="WZX-ht-osw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" id="hsk-zR-okH"/>
+                            <constraint firstItem="RNN-mz-QCw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="5" id="WkO-uy-Gfc"/>
+                            <constraint firstAttribute="bottom" secondItem="RNN-mz-QCw" secondAttribute="bottom" id="fr9-qN-fWk"/>
+                            <constraint firstItem="WZX-ht-osw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="100" id="hsk-zR-okH"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerY" secondItem="Ijg-ml-Jil" secondAttribute="centerY" id="z6w-Tr-xUe"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="2Om-rc-ckM" id="oNG-av-zMV"/>
+                        <outlet property="barChartView" destination="RNN-mz-QCw" id="STI-Zd-dwE"/>
                         <outlet property="candleChartView" destination="QOd-NU-29X" id="Imk-GI-9uG"/>
                     </connections>
                 </viewController>
