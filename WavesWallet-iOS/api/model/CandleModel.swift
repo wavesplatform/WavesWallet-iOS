@@ -73,3 +73,10 @@ class BarAxisValueFormatter: NSObject, IAxisValueFormatter {
         return numberFormatter.string(for: value)!
     }
 }
+
+class BarAxisSpaceFormatter: NSObject, IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return ""
+    }
+}

@@ -346,14 +346,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         
         
-        
-        
         barChartView.delegate = self
         barChartView.chartDescription?.enabled = false
         barChartView.pinchZoomEnabled = false
         barChartView.scaleYEnabled = false
         barChartView.scaleXEnabled = true
-        barChartView.autoScaleMinMaxEnabled = true
         barChartView.autoScaleMinMaxEnabled = true
         barChartView.leftAxis.enabled = false
         barChartView.legend.enabled = false
@@ -376,11 +373,22 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.rightAxis.maxWidth = 55
         
         barChartView.xAxis.gridLineWidth = 0.2
-        barChartView.xAxis.labelCount = 4
         barChartView.xAxis.gridLineDashPhase = 0.1
         barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
         barChartView.xAxis.gridLineCap = CGLineCap.butt
         barChartView.xAxis.drawLabelsEnabled = false
+
+        
+//        barChartView.rightAxis.drawTopYLabelEntryEnabled = false
+//        barChartView.rightAxis.labelCount = 5
+        barChartView.rightAxis.axisMinimum = 0
+        barChartView.rightAxis.spaceBottom = 0
+        
+        
+        barChartView.xAxis.valueFormatter = BarAxisSpaceFormatter()
+        barChartView.xAxis.labelPosition = .bottom;
+        barChartView.xAxis.drawLabelsEnabled = true
+
     }
     
     override func didReceiveMemoryWarning() {
