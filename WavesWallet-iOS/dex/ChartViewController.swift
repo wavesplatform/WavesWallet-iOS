@@ -407,7 +407,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.legend.enabled = false
         candleChartView.doubleTapToZoomEnabled = false
         candleChartView.drawGridBackgroundEnabled = false
-        candleChartView.minOffset = 0
         candleChartView.noDataTextColor = UIColor.white
         
         candleChartView.xAxis.labelPosition = .bottom;
@@ -432,12 +431,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
         candleChartView.rightAxis.minWidth = 55
         candleChartView.rightAxis.maxWidth = 55
-        
         candleChartView.rightAxis.forceLabelsEnabled = true
-//        candleChartView.rightAxis.drawTopYLabelEntryEnabled = false
-//        candleChartView.rightAxis.spaceMin = 0.5
-//        candleChartView.rightAxis.granularityEnabled = true
-//        candleChartView.rightAxis.yOffset = 5
         
         barChartView.delegate = self
         barChartView.chartDescription?.enabled = false
@@ -449,7 +443,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.legend.enabled = false
         barChartView.doubleTapToZoomEnabled = false
         barChartView.drawGridBackgroundEnabled = false
-        barChartView.minOffset = 0
         barChartView.noDataTextColor = UIColor.white
         barChartView.noDataText = ""
         
@@ -473,7 +466,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.xAxis.gridLineCap = CGLineCap.butt
         barChartView.xAxis.valueFormatter = BarAxisSpaceFormatter()
         barChartView.xAxis.labelPosition = .bottom;
-
     }
     
     override func didReceiveMemoryWarning() {

@@ -208,14 +208,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-NU-29X" customClass="CandleStickChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="20" width="375" height="547"/>
+                                <rect key="frame" x="-10" y="20" width="385" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Om-rc-ckM">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNN-mz-QCw" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="572" width="375" height="100"/>
+                                <rect key="frame" x="-10" y="572" width="385" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-aE-S3V">
@@ -236,12 +236,12 @@
                         <color key="backgroundColor" red="0.16078431372549018" green="0.17254901960784313" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RNN-mz-QCw" secondAttribute="trailing" id="005-db-Lz0"/>
-                            <constraint firstItem="RNN-mz-QCw" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="7JL-wh-BXr"/>
+                            <constraint firstItem="RNN-mz-QCw" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="-10" id="7JL-wh-BXr"/>
                             <constraint firstItem="QOd-NU-29X" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" id="8Pw-Qr-0fh"/>
                             <constraint firstAttribute="trailing" secondItem="QOd-NU-29X" secondAttribute="trailing" id="8ht-vA-7ln"/>
                             <constraint firstItem="0c0-ws-xBa" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="top" id="Bnx-X3-JFV"/>
                             <constraint firstAttribute="trailing" secondItem="0c0-ws-xBa" secondAttribute="trailing" id="IWV-DO-lkE"/>
-                            <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="NM6-f9-O0J"/>
+                            <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="-10" id="NM6-f9-O0J"/>
                             <constraint firstItem="vK8-aE-S3V" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="10" id="VK1-Xp-Mfp"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerX" secondItem="Ijg-ml-Jil" secondAttribute="centerX" id="VUb-V3-r3G"/>
                             <constraint firstItem="RNN-mz-QCw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="5" id="WkO-uy-Gfc"/>
