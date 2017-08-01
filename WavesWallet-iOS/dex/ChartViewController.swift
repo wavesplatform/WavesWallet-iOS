@@ -371,23 +371,14 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
         barChartView.rightAxis.minWidth = 55
         barChartView.rightAxis.maxWidth = 55
+        barChartView.rightAxis.axisMinimum = 0
         
         barChartView.xAxis.gridLineWidth = 0.2
         barChartView.xAxis.gridLineDashPhase = 0.1
         barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
         barChartView.xAxis.gridLineCap = CGLineCap.butt
-        barChartView.xAxis.drawLabelsEnabled = false
-
-        
-//        barChartView.rightAxis.drawTopYLabelEntryEnabled = false
-//        barChartView.rightAxis.labelCount = 5
-        barChartView.rightAxis.axisMinimum = 0
-        barChartView.rightAxis.spaceBottom = 0
-        
-        
         barChartView.xAxis.valueFormatter = BarAxisSpaceFormatter()
         barChartView.xAxis.labelPosition = .bottom;
-        barChartView.xAxis.drawLabelsEnabled = true
 
     }
     
