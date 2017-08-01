@@ -28,20 +28,26 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var isLoading = false
     var lastOffsetX : Double = 0
     
+    @IBOutlet weak var viewLimitLine: UIView!
+    @IBOutlet weak var viewLimitLineOffset: NSLayoutConstraint!
+    
     @IBOutlet weak var labelCandleInfo: UILabel!
     
     @IBOutlet weak var candleChartView: CandleStickChartView!
     @IBOutlet weak var barChartView: BarChartView!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBarStyle()
+        setupChartsStyle()
         
         candleChartView.isHidden = true
         barChartView.isHidden = true
         
         setupLabelCandleInfo()
+        
+        viewLimitLine.isHidden = true
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
@@ -50,6 +56,27 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
             self.candleChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
             self.barChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+        
+            self.updateCandleLimitLine()
+        }
+    }
+    
+    
+    
+    func updateCandleLimitLine() {
+        NetworkManager.getCandleLimitLine(amountAsset: "WAVES", priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS") { (price, errorMessage) in
+            
+            if price > 0 && self.candleChartView.data != nil {
+                
+                let limitLine = ChartLimitLine(limit: price)
+                
+                limitLine.lineColor = ((((self.candleChartView.data as? CandleChartData)?.dataSets.first) as? CandleChartDataSet)?.highlightColor)!
+                limitLine.lineWidth = 1
+                
+                self.candleChartView.rightAxis.removeAllLimitLines()
+                self.candleChartView.rightAxis.addLimitLine(limitLine);
+                self.candleChartView.notifyDataSetChanged()
+            }
         }
     }
     
@@ -60,20 +87,12 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
             for model in candles as! [CandleModel] {
                 if model.timestamp == highlighted?.x {
-                    labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), BITTREX, \(model.getFormatterDateTime(timeFrame: timeframe))\nO: \(model.open), H: \(model.high), L: \(model.low), C: \(model.close)\nV: \(model.volume)"
-//                    
-//                    O H L C V
-//                    
-//                    var close : Double = 0
-//                    var high : Double = 0
-//                    var low : Double = 0
-//                    var open : Double = 0
-//                    var volume : Double = 0
+                    labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), \(model.getFormatterDateTime(timeFrame: timeframe))\nO: \(model.open), H: \(model.high), L: \(model.low), C: \(model.close)\nV: \(model.volume)"
                 }
             }
         }
         else {
-            labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), BITTREX"
+            labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe))"
         }
     }
 
@@ -266,6 +285,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.notifyDataSetChanged()
         
         
+        
         let barSet = BarChartDataSet.init(values: barYVals as? [ChartDataEntry], label: "")
         barSet.axisDependency = .right
         barSet.drawIconsEnabled = false
@@ -353,11 +373,28 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 }
             }
         }
+        
+        viewLimitLineOffset.constant = getLimitLineOffset() - viewLimitLine.frame.size.height / 2
+    }
+    
+    func getLimitLineOffset() -> CGFloat {
+
+        var position = CGPoint(x: 0.0, y: 0.0)
+        let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix
+        let l = candleChartView.rightAxis.limitLines.first!
+        var clippingRect = candleChartView.viewPortHandler.contentRect
+        clippingRect.origin.y -= l.lineWidth / 2.0
+        clippingRect.size.height += l.lineWidth
+        position.x = 0.0
+        position.y = CGFloat(l.limit)
+        position = position.applying(trans!)
+        
+        return position.y
     }
     
     //MARK: SetupBars
     
-    func setupBarStyle() {
+    func setupChartsStyle() {
         
         candleChartView.delegate = self
         candleChartView.chartDescription?.enabled = false
@@ -391,12 +428,16 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
         candleChartView.rightAxis.gridLineCap = CGLineCap.butt
         candleChartView.rightAxis.labelTextColor = UIColor.white
-        candleChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 9)
+        candleChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
         candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
         candleChartView.rightAxis.minWidth = 55
         candleChartView.rightAxis.maxWidth = 55
         
-        
+        candleChartView.rightAxis.forceLabelsEnabled = true
+//        candleChartView.rightAxis.drawTopYLabelEntryEnabled = false
+//        candleChartView.rightAxis.spaceMin = 0.5
+//        candleChartView.rightAxis.granularityEnabled = true
+//        candleChartView.rightAxis.yOffset = 5
         
         barChartView.delegate = self
         barChartView.chartDescription?.enabled = false
@@ -424,7 +465,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.rightAxis.minWidth = 55
         barChartView.rightAxis.maxWidth = 55
         barChartView.rightAxis.axisMinimum = 0
-        
+        barChartView.rightAxis.forceLabelsEnabled = true
+
         barChartView.xAxis.gridLineWidth = 0.2
         barChartView.xAxis.gridLineDashPhase = 0.1
         barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]

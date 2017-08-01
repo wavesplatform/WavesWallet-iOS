@@ -47,4 +47,23 @@ class NetworkManager: NSObject
             complete(info as? NSArray, errorMessage)
         }
     }
+    
+    class func getCandleLimitLine(amountAsset : String, priceAsset : String, complete: @escaping (_ price: Double, _ errorMessage: String?) -> Void) {
+        
+        getRequestWithPath(path: "trades/\(amountAsset)/\(priceAsset)/1", parameters: nil) { (info, errorMessage) in
+            
+            if let item = (info as? NSArray)?.firstObject as? NSDictionary {
+                
+                if item["price"] is String {
+                    complete(Double(item["price"] as! String)!, errorMessage)
+                }
+                else {
+                    complete(item["price"] as! Double, errorMessage)
+                }
+            }
+            else {
+                complete(0, errorMessage)
+            }
+        }
+    }
 }

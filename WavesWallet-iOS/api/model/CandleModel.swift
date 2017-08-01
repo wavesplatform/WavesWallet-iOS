@@ -76,6 +76,7 @@ class BarAxisValueFormatter: NSObject, IAxisValueFormatter {
     override init() {
         numberFormatter.formatterBehavior = .behavior10_4
         numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = "."
     }
 
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
