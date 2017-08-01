@@ -218,6 +218,12 @@
                                 <rect key="frame" x="0.0" y="567" width="375" height="105"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-aE-S3V">
+                                <rect key="frame" x="10" y="30" width="21.5" height="10"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.17254901960784313" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -226,8 +232,10 @@
                             <constraint firstItem="QOd-NU-29X" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" id="8Pw-Qr-0fh"/>
                             <constraint firstAttribute="trailing" secondItem="QOd-NU-29X" secondAttribute="trailing" id="8ht-vA-7ln"/>
                             <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" id="NM6-f9-O0J"/>
+                            <constraint firstItem="vK8-aE-S3V" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="10" id="VK1-Xp-Mfp"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerX" secondItem="Ijg-ml-Jil" secondAttribute="centerX" id="VUb-V3-r3G"/>
                             <constraint firstItem="RNN-mz-QCw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" id="WkO-uy-Gfc"/>
+                            <constraint firstItem="vK8-aE-S3V" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" constant="10" id="fVT-OD-keQ"/>
                             <constraint firstAttribute="bottom" secondItem="RNN-mz-QCw" secondAttribute="bottom" constant="-5" id="fr9-qN-fWk"/>
                             <constraint firstItem="WZX-ht-osw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="100" id="hsk-zR-okH"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerY" secondItem="Ijg-ml-Jil" secondAttribute="centerY" id="z6w-Tr-xUe"/>
@@ -237,6 +245,7 @@
                         <outlet property="activityIndicator" destination="2Om-rc-ckM" id="oNG-av-zMV"/>
                         <outlet property="barChartView" destination="RNN-mz-QCw" id="STI-Zd-dwE"/>
                         <outlet property="candleChartView" destination="QOd-NU-29X" id="Imk-GI-9uG"/>
+                        <outlet property="labelCandleInfo" destination="vK8-aE-S3V" id="GAE-2b-Egh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swX-ng-dB6" userLabel="First Responder" sceneMemberID="firstResponder"/>

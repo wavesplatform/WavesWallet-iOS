@@ -28,6 +28,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var isLoading = false
     var lastOffsetX : Double = 0
     
+    @IBOutlet weak var labelCandleInfo: UILabel!
     
     @IBOutlet weak var candleChartView: CandleStickChartView!
     @IBOutlet weak var barChartView: BarChartView!
@@ -40,6 +41,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.isHidden = true
         barChartView.isHidden = true
         
+        setupLabelCandleInfo()
+        
         preloadInfo {
             self.activityIndicator.stopAnimating()
             self.candleChartView.isHidden = false
@@ -47,6 +50,30 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
             self.candleChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
             self.barChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+        }
+    }
+    
+    func setupLabelCandleInfo() {
+        
+        if candleChartView.highlighted.first != nil && candles.count > 0 {
+            let highlighted = candleChartView.highlighted.first
+
+            for model in candles as! [CandleModel] {
+                if model.timestamp == highlighted?.x {
+                    labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), BITTREX, \(model.getFormatterDateTime(timeFrame: timeframe))\nO: \(model.open), H: \(model.high), L: \(model.low), C: \(model.close)\nV: \(model.volume)"
+//                    
+//                    O H L C V
+//                    
+//                    var close : Double = 0
+//                    var high : Double = 0
+//                    var low : Double = 0
+//                    var open : Double = 0
+//                    var volume : Double = 0
+                }
+            }
+        }
+        else {
+            labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), BITTREX"
         }
     }
 
@@ -64,23 +91,32 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     func updateCandle() {
         
-        self.activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
-        self.candleChartView.isHidden = true
-        self.dateFrom = Date()
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        candleChartView.isHidden = true
+        barChartView.isHidden = true
+        dateFrom = Date()
         
         let prevCount = self.candles.count
         self.candles.removeAllObjects()
+        setupLabelCandleInfo()
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
             self.candleChartView.isHidden = false
-            
+            self.barChartView.isHidden = false
+
             let zoom = CGFloat(self.candles.count) * self.candleChartView.scaleX / CGFloat(prevCount)
             let additionalZoom = zoom / self.candleChartView.scaleX
             
             self.candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
             self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+
+            self.barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+            self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+
+            self.candleChartView.highlightValue(nil)
+            self.barChartView.highlightValue(nil)
         }
     }
     
@@ -223,6 +259,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleSet.increasingFilled = true
         candleSet.neutralColor = UIColor(red: 136, green: 226, blue: 247)
         candleSet.shadowColorSameAsCandle = true
+        candleSet.drawHorizontalHighlightIndicatorEnabled = false
+        candleSet.highlightLineWidth = 0.4
         
         candleChartView.data = CandleChartData.init(dataSet: candleSet)
         candleChartView.notifyDataSetChanged()
@@ -245,13 +283,27 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     //MARK: ChartViewDelegate
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(#function)
         
+        if chartView == barChartView {
+            candleChartView.highlightValue(chartView.highlighted.first)
+        }
+        else {
+            barChartView.highlightValue(chartView.highlighted.first)
+        }
+        
+        setupLabelCandleInfo()
     }
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
-        print(#function)
         
+        if chartView == barChartView {
+            candleChartView.highlightValue(nil)
+        }
+        else {
+            barChartView.highlightValue(nil)
+        }
+
+        setupLabelCandleInfo()
     }
     
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {

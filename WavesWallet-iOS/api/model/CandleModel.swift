@@ -33,6 +33,17 @@ class CandleModel : NSObject {
             timestamp = Double((item["timestamp"] as? String)!)! / Double(1000 * 60 * timeFrame)
         }
     }
+    
+    func getFormatterDateTime(timeFrame: Int) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+     
+        let time = timestamp * 60 * Double(timeFrame)
+        let date = Date.init(timeIntervalSince1970: time)
+        
+        return dateFormatter.string(from: date)
+    }
 }
 
 class CandleTimeAxisValueFormatter: NSObject, IAxisValueFormatter {
@@ -51,7 +62,6 @@ class CandleTimeAxisValueFormatter: NSObject, IAxisValueFormatter {
 
 
 class CandleAxisValueFormatter: NSObject, IAxisValueFormatter {
-
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 
