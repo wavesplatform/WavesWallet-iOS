@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-protocol ChartViewControllerDelegate {
+protocol ChartViewControllerDelegate: class {
 
     func chartViewControllerDidChangeTimeFrame()
 }
@@ -18,7 +18,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var delegate : ChartViewControllerDelegate!
+    weak var delegate : ChartViewControllerDelegate?
     
     var timeframe = DataManager.getCandleTimeFrame()
     var candles = NSMutableArray()
@@ -29,6 +29,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var lastOffsetX : Double = 0
     
     @IBOutlet weak var viewLimitLine: UIView!
+    @IBOutlet weak var viewLimitLineView1: UIView!
+    @IBOutlet weak var viewLimitLineViewArrow: UIView!
+    @IBOutlet weak var labelLimitLineValue: UILabel!
     @IBOutlet weak var viewLimitLineOffset: NSLayoutConstraint!
     
     @IBOutlet weak var labelCandleInfo: UILabel!
@@ -36,6 +39,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var candleChartView: CandleStickChartView!
     @IBOutlet weak var barChartView: BarChartView!
 
+    var timer : Timer! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +48,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         candleChartView.isHidden = true
         barChartView.isHidden = true
+        viewLimitLine.isHidden = true
         
         setupLabelCandleInfo()
         
-        viewLimitLine.isHidden = true
+        viewLimitLineViewArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
@@ -61,9 +66,36 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if timer == nil {
+            self.timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateCandleLimitLine), userInfo: nil, repeats: true)
+        }
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+        }
+    }
+    
+    func setupLimitLinePosition() {
+        
+        viewLimitLineOffset.constant = getLimitLineOffset() - viewLimitLine.frame.size.height / 2 - 0.1
+        
+        if viewLimitLineOffset.constant > candleChartView.frame.origin.y + candleChartView.frame.size.height - 30 ||
+            viewLimitLineOffset.constant < 5 {
+            viewLimitLine.isHidden = true
+        }
+        else {
+            viewLimitLine.isHidden = false
+        }
+    }
     
     func updateCandleLimitLine() {
+        
         NetworkManager.getCandleLimitLine(amountAsset: "WAVES", priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS") { (price, errorMessage) in
             
             if price > 0 && self.candleChartView.data != nil {
@@ -71,11 +103,17 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 let limitLine = ChartLimitLine(limit: price)
                 
                 limitLine.lineColor = ((((self.candleChartView.data as? CandleChartData)?.dataSets.first) as? CandleChartDataSet)?.highlightColor)!
-                limitLine.lineWidth = 1
+                limitLine.lineWidth = 0.5
                 
                 self.candleChartView.rightAxis.removeAllLimitLines()
                 self.candleChartView.rightAxis.addLimitLine(limitLine);
                 self.candleChartView.notifyDataSetChanged()
+                
+                self.viewLimitLineView1.backgroundColor = limitLine.lineColor
+                self.viewLimitLineViewArrow.backgroundColor = limitLine.lineColor
+                self.labelLimitLineValue.text = String(format: "%.06f",price)
+                
+                self.setupLimitLinePosition()
             }
         }
     }
@@ -114,6 +152,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         activityIndicator.startAnimating()
         candleChartView.isHidden = true
         barChartView.isHidden = true
+        viewLimitLine.isHidden = true
+        
         dateFrom = Date()
         
         let prevCount = self.candles.count
@@ -136,6 +176,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
             self.candleChartView.highlightValue(nil)
             self.barChartView.highlightValue(nil)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                self.setupLimitLinePosition()
+            })
         }
     }
     
@@ -150,42 +194,42 @@ class ChartViewController: UIViewController, ChartViewDelegate {
           
             self.timeframe = 5
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         let buttonTime15 = UIAlertAction.init(title: nameFromTimeFrame(15), style: .default) { (action: UIAlertAction) in
             
             self.timeframe = 15
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         let buttonTime30 = UIAlertAction.init(title: nameFromTimeFrame(30), style: .default) { (action: UIAlertAction) in
             
             self.timeframe = 30
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         let buttonTime60 = UIAlertAction.init(title: nameFromTimeFrame(60), style: .default) { (action: UIAlertAction) in
             
             self.timeframe = 60
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         let buttonTime240 = UIAlertAction.init(title: nameFromTimeFrame(240), style: .default) { (action: UIAlertAction) in
             
             self.timeframe = 240
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         let buttonTime1440 = UIAlertAction.init(title: nameFromTimeFrame(1440), style: .default) { (action: UIAlertAction) in
             
             self.timeframe = 1440
             DataManager.setCandleTimeFrame(self.timeframe)
-            self.delegate.chartViewControllerDidChangeTimeFrame()
+            self.delegate?.chartViewControllerDidChangeTimeFrame()
             self.updateCandle()
         }
         
@@ -374,22 +418,28 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             }
         }
         
-        viewLimitLineOffset.constant = getLimitLineOffset() - viewLimitLine.frame.size.height / 2
+        setupLimitLinePosition()
+        
     }
     
     func getLimitLineOffset() -> CGFloat {
 
-        var position = CGPoint(x: 0.0, y: 0.0)
-        let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix
-        let l = candleChartView.rightAxis.limitLines.first!
-        var clippingRect = candleChartView.viewPortHandler.contentRect
-        clippingRect.origin.y -= l.lineWidth / 2.0
-        clippingRect.size.height += l.lineWidth
-        position.x = 0.0
-        position.y = CGFloat(l.limit)
-        position = position.applying(trans!)
-        
-        return position.y
+        if candleChartView.rightAxis.limitLines.count > 0 {
+            
+            var position = CGPoint(x: 0.0, y: 0.0)
+            let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix
+            let l = candleChartView.rightAxis.limitLines.first!
+            var clippingRect = candleChartView.viewPortHandler.contentRect
+            clippingRect.origin.y -= l.lineWidth / 2.0
+            clippingRect.size.height += l.lineWidth
+            position.x = 0.0
+            position.y = CGFloat(l.limit)
+            position = position.applying(trans!)
+            
+            return position.y
+        }
+
+        return -100
     }
     
     //MARK: SetupBars

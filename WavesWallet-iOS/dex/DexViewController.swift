@@ -70,7 +70,6 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             let indexPath = sender
             let DexContainerViewController = segue.destination
-            print(segue.destination)
         }
     }
     

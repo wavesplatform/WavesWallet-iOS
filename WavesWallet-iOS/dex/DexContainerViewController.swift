@@ -37,7 +37,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         addChildViewController(orderBookController)
         scrollView.addSubview(orderBookController.view)
         orderBookController.didMove(toParentViewController: self)
-        
+
         chartController = storyboard?.instantiateViewController(withIdentifier: "ChartViewController") as! ChartViewController
         chartController.delegate = self
         addChildViewController(chartController)
@@ -48,10 +48,10 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         addChildViewController(lastTraderController)
         scrollView.addSubview(lastTraderController.view)
         lastTraderController.didMove(toParentViewController: self)
+
         
         
         
-        /////
         chartTapped(buttonChart)
 
     }
