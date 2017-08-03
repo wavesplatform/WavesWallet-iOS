@@ -274,7 +274,7 @@
                             <constraint firstItem="QOd-NU-29X" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="-10" id="NM6-f9-O0J"/>
                             <constraint firstItem="vK8-aE-S3V" firstAttribute="leading" secondItem="Ijg-ml-Jil" secondAttribute="leading" constant="10" id="VK1-Xp-Mfp"/>
                             <constraint firstItem="2Om-rc-ckM" firstAttribute="centerX" secondItem="Ijg-ml-Jil" secondAttribute="centerX" id="VUb-V3-r3G"/>
-                            <constraint firstItem="RNN-mz-QCw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="5" id="WkO-uy-Gfc"/>
+                            <constraint firstItem="RNN-mz-QCw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="5" id="Wd1-kp-Yub"/>
                             <constraint firstItem="vK8-aE-S3V" firstAttribute="top" secondItem="rSz-Wl-mjC" secondAttribute="bottom" constant="10" id="fVT-OD-keQ"/>
                             <constraint firstAttribute="bottom" secondItem="RNN-mz-QCw" secondAttribute="bottom" constant="-5" id="fr9-qN-fWk"/>
                             <constraint firstItem="WZX-ht-osw" firstAttribute="top" secondItem="QOd-NU-29X" secondAttribute="bottom" constant="100" id="hsk-zR-okH"/>
@@ -284,6 +284,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="2Om-rc-ckM" id="oNG-av-zMV"/>
                         <outlet property="barChartView" destination="RNN-mz-QCw" id="STI-Zd-dwE"/>
+                        <outlet property="candleBottomOffset" destination="hsk-zR-okH" id="mVw-J6-Xfg"/>
                         <outlet property="candleChartView" destination="QOd-NU-29X" id="Imk-GI-9uG"/>
                         <outlet property="labelCandleInfo" destination="vK8-aE-S3V" id="GAE-2b-Egh"/>
                         <outlet property="labelLimitLineValue" destination="FcD-qE-KYG" id="ia2-M0-Uzy"/>

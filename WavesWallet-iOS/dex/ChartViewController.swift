@@ -41,6 +41,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
     var timer : Timer! = nil
     
+    @IBOutlet weak var candleBottomOffset: NSLayoutConstraint!
+    
+    var isShowBarChart = DataManager.isShowBarChart()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +57,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         setupLabelCandleInfo()
         
         viewLimitLineViewArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 4))
+        
+        if !isShowBarChart {
+            candleBottomOffset.constant = 0
+        }
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
@@ -78,6 +86,24 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         if timer != nil {
             timer.invalidate()
             timer = nil
+        }
+    }
+    
+    func showHideBarChart() {
+     
+        isShowBarChart = !isShowBarChart
+        
+        if isShowBarChart {
+            candleBottomOffset.constant = 100
+        }
+        else {
+            candleBottomOffset.constant = 0
+        }
+        
+        DataManager.setShowBarChart(isShow: isShowBarChart)
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { 
+            self.setupLimitLinePosition()
         }
     }
     

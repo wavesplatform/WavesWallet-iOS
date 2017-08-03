@@ -86,13 +86,19 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         chartController.timeFrameTapped()
     }
     
+    func bottomChartTapped() {
+        chartController.showHideBarChart()
+    }
+    
     //MARK: ChartViewControllerDelegate
     
     func chartViewControllerDidChangeTimeFrame() {
      
         let btnTimeFrame = UIBarButtonItem.init(title: chartController.nameFromTimeFrame(DataManager.getCandleTimeFrame()), style: .done, target: self, action: #selector(changeChartTimeFrame))
         let btnOrder = UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))
-        navigationItem.rightBarButtonItems = [btnOrder, btnTimeFrame]
+        let btnBottomChart = UIBarButtonItem.init(image: UIImage(named: "btn_bars"), style: .plain, target: self, action: #selector(bottomChartTapped))
+        
+        navigationItem.rightBarButtonItems = [btnOrder, btnTimeFrame, btnBottomChart]
     }
     
     
@@ -144,7 +150,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonLastTraders.setTitleColor(UIColor.white, for: .normal)
- 
+        
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
     }
     

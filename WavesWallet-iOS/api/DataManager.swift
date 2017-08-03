@@ -25,4 +25,13 @@ class DataManager: NSObject {
         UserDefaults.standard.set(timeFrame, forKey: "candleTimeFrame")
         UserDefaults.standard.synchronize()
     }
+    
+    class func isShowBarChart() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isShowBarChart")
+    }
+    
+    class func setShowBarChart(isShow: Bool) {
+        UserDefaults.standard.set(isShow, forKey: "isShowBarChart")
+        UserDefaults.standard.synchronize()
+    }
 }
