@@ -10,6 +10,9 @@ import UIKit
 
 class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartViewControllerDelegate {
 
+    var priceAsset : String!
+    var amountAsset : String!
+
     var orderBookController : OrderBookViewController!
     var chartController : ChartViewController!
     var lastTraderController : LastTradersViewController!
@@ -40,19 +43,21 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
         chartController = storyboard?.instantiateViewController(withIdentifier: "ChartViewController") as! ChartViewController
         chartController.delegate = self
+        chartController.amountAsset = amountAsset
+        chartController.priceAsset = priceAsset
         addChildViewController(chartController)
         scrollView.addSubview(chartController.view)
         chartController.didMove(toParentViewController: self)
 
         lastTraderController = storyboard?.instantiateViewController(withIdentifier: "LastTradersViewController") as! LastTradersViewController
+        lastTraderController.amountAsset = amountAsset
+        lastTraderController.priceAsset = priceAsset
         addChildViewController(lastTraderController)
         scrollView.addSubview(lastTraderController.view)
         lastTraderController.didMove(toParentViewController: self)
 
         
-        
-        
-        chartTapped(buttonChart)
+        lastTradersTapped(buttonLastTraders)
 
     }
     
@@ -152,6 +157,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonLastTraders.setTitleColor(UIColor.white, for: .normal)
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        
+        lastTraderController.controllerWillAppear()
     }
     
     func setupViewLinePosition(sender: UIButton) {

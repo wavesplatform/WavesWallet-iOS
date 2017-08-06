@@ -69,7 +69,9 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         if segue.identifier == "DexContainerViewController" {
             
             let indexPath = sender
-            let DexContainerViewController = segue.destination
+            let dexContainerViewController = segue.destination as! DexContainerViewController
+            dexContainerViewController.amountAsset = "WAVES"
+            dexContainerViewController.priceAsset = "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"
         }
     }
     

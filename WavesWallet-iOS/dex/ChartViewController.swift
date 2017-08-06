@@ -16,6 +16,9 @@ protocol ChartViewControllerDelegate: class {
 
 class ChartViewController: UIViewController, ChartViewDelegate {
 
+    var priceAsset : String!
+    var amountAsset : String!
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     weak var delegate : ChartViewControllerDelegate?
@@ -122,7 +125,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     func updateCandleLimitLine() {
         
-        NetworkManager.getCandleLimitLine(amountAsset: "WAVES", priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS") { (price, errorMessage) in
+        NetworkManager.getCandleLimitLine(amountAsset: amountAsset, priceAsset: priceAsset) { (price, errorMessage) in
             
             if price > 0 && self.candleChartView.data != nil {
                 
@@ -295,7 +298,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         let additionalTime : Double = Double(3600 * ((timeframe * 100) / 60))
         dateFrom = dateFrom.addingTimeInterval(-additionalTime)
         
-        NetworkManager.getCandles(amountAsset: "WAVES", priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", timeframe: timeframe, from: dateFrom, to: dateTo) { (items: NSArray?, errorMessage: String?) in
+        NetworkManager.getCandles(amountAsset: amountAsset, priceAsset: priceAsset, timeframe: timeframe, from: dateFrom, to: dateTo) { (items: NSArray?, errorMessage: String?) in
             
             self.isLoading = false
             

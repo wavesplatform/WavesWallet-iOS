@@ -66,4 +66,12 @@ class NetworkManager: NSObject
             }
         }
     }
+    
+    class func getLastTranders(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
+    
+        getRequestWithPath(path: "trades/\(amountAsset)/\(priceAsset)/100", parameters: nil) { (info, errorMessage) in
+            
+            complete(info as? NSArray, errorMessage)
+        }
+    }
 }
