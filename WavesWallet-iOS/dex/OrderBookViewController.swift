@@ -10,10 +10,16 @@ import UIKit
 
 class OrderBookViewController: UIViewController {
 
+    var priceAsset : String!
+    var amountAsset : String!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        NetworkManager.getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset) { (items, errorMessage) in
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {

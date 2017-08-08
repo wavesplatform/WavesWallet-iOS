@@ -61,11 +61,11 @@ class MainTabBarController: UITabBarController {
             }
         }
         
-        if isDexTab {
-            tabBar.barTintColor = AppColors.dexNavBarColor
-        }
-        else {
-            tabBar.barTintColor = AppColors.wavesColor
-        }
+//        if isDexTab {
+//            tabBar.barTintColor = AppColors.dexNavBarColor
+//        }
+//        else {
+//            tabBar.barTintColor = AppColors.wavesColor
+//        }
     }
 }

@@ -491,10 +491,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.xAxis.labelPosition = .bottom;
         candleChartView.xAxis.gridLineWidth = 0.2
         candleChartView.xAxis.labelCount = 4
-        candleChartView.xAxis.gridLineDashPhase = 0.1
-        candleChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        candleChartView.xAxis.gridLineCap = CGLineCap.butt
-        candleChartView.xAxis.labelTextColor = UIColor.white
+//        candleChartView.xAxis.gridLineDashPhase = 0.1
+//        candleChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+//        candleChartView.xAxis.gridLineCap = CGLineCap.butt
+        candleChartView.xAxis.labelTextColor = UIColor.darkGray
         candleChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 9)
         candleChartView.xAxis.valueFormatter = CandleTimeAxisValueFormatter()
         candleChartView.xAxis.granularityEnabled = true
@@ -502,10 +502,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleChartView.rightAxis.enabled = true
         candleChartView.rightAxis.labelCount = 10
         candleChartView.rightAxis.gridLineWidth = 0.2
-        candleChartView.rightAxis.gridLineDashPhase = 0.1
-        candleChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        candleChartView.rightAxis.gridLineCap = CGLineCap.butt
-        candleChartView.rightAxis.labelTextColor = UIColor.white
+//        candleChartView.rightAxis.gridLineDashPhase = 0.1
+//        candleChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+//        candleChartView.rightAxis.gridLineCap = CGLineCap.butt
+        candleChartView.rightAxis.labelTextColor = UIColor.darkGray
         candleChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
         candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
         candleChartView.rightAxis.minWidth = 55
@@ -528,10 +528,10 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.rightAxis.enabled = true
         barChartView.rightAxis.labelCount = 4
         barChartView.rightAxis.gridLineWidth = 0.2
-        barChartView.rightAxis.gridLineDashPhase = 0.1
-        barChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        barChartView.rightAxis.gridLineCap = CGLineCap.butt
-        barChartView.rightAxis.labelTextColor = UIColor.white
+//        barChartView.rightAxis.gridLineDashPhase = 0.1
+//        barChartView.rightAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+//        barChartView.rightAxis.gridLineCap = CGLineCap.butt
+        barChartView.rightAxis.labelTextColor = UIColor.darkGray
         barChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
         barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
         barChartView.rightAxis.minWidth = 55
@@ -540,9 +540,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barChartView.rightAxis.forceLabelsEnabled = true
 
         barChartView.xAxis.gridLineWidth = 0.2
-        barChartView.xAxis.gridLineDashPhase = 0.1
-        barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
-        barChartView.xAxis.gridLineCap = CGLineCap.butt
+//        barChartView.xAxis.gridLineDashPhase = 0.1
+//        barChartView.xAxis.gridLineDashLengths = [0.1, 0.3, 0.6]
+//        barChartView.xAxis.gridLineCap = CGLineCap.butt
         barChartView.xAxis.valueFormatter = BarAxisSpaceFormatter()
         barChartView.xAxis.labelPosition = .bottom;
     }

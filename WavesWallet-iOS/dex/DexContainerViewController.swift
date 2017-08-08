@@ -25,18 +25,28 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     @IBOutlet weak var buttonChart: UIButton!
     @IBOutlet weak var buttonLastTraders: UIButton!
     
+    @IBOutlet weak var viewShadow: UIView!
+    
     var selectedPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Test"
-        view.backgroundColor = AppColors.dexNavBarColor
+        view.backgroundColor = AppColors.wavesColor
         orderBookTapped(buttonOrderBook)
     
+        viewShadow.backgroundColor = AppColors.wavesColor
+        viewShadow.layer.shadowColor = UIColor.black.cgColor
+        viewShadow.layer.shadowRadius = 7
+        viewShadow.layer.shadowOpacity = 0.7
+        viewShadow.layer.shadowOffset = CGSize(width: 0, height: 1)
+        
         scrollView.isScrollEnabled = false
         
         orderBookController = storyboard?.instantiateViewController(withIdentifier: "OrderBookViewController") as! OrderBookViewController
+        orderBookController.amountAsset = amountAsset
+        orderBookController.priceAsset = priceAsset
         addChildViewController(orderBookController)
         scrollView.addSubview(orderBookController.view)
         orderBookController.didMove(toParentViewController: self)

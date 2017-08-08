@@ -16,11 +16,11 @@ class LastTraderCell: UITableViewCell {
     @IBOutlet weak var labelSum: UILabel!
 
     class func darkBgColor() -> UIColor {
-        return UIColor(netHex: 0x363941)
+        return UIColor(red: 240, green: 240, blue: 240)//(netHex: 0x363941)
     }
     
     class func lightBgColor() -> UIColor {
-        return UIColor(netHex: 0x3f424a)
+        return UIColor.white//(netHex: 0x3f424a)
     }
     
     class func sellColor() -> UIColor {
