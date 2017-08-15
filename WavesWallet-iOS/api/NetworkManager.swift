@@ -13,7 +13,7 @@ class NetworkManager: NSObject
 {
     class private func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void)  {
         
-        var url = "https://nodes.wavesnodes.com"
+        var url = "https://nodes.wavesnodes.com/"
         
         if customUrl != nil {
             url = customUrl!
@@ -79,7 +79,7 @@ class NetworkManager: NSObject
     }
     
     class func getLastTranders(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
-    
+        
         getRequestWithPath(path: "trades/\(amountAsset)/\(priceAsset)/100", parameters: nil, customUrl: getCandleUrl()) { (info, errorMessage) in
             
             complete(info as? NSArray, errorMessage)
@@ -88,8 +88,21 @@ class NetworkManager: NSObject
     
     class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
     
-        getRequestWithPath(path: "/matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: nil) { (info, errorMessage) in
+        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: nil) { (info, errorMessage) in
             print(info, errorMessage)
+        }
+    }
+    
+    class func getAllOrderBooks (_ complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
+    
+        getRequestWithPath(path: "matcher/orderbook", parameters: nil, customUrl: nil) { (info, errorMessage) in            
+            complete((info as? NSDictionary)?["markets"] as? NSArray, errorMessage)
+        }
+    }
+    
+    class func getVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
+        getRequestWithPath(path: "verified-assets.json", parameters: nil, customUrl: "https://waves-wallet.firebaseio.com/") { (info, errorMessage) in
+            complete(info as? NSDictionary, errorMessage)
         }
     }
 }

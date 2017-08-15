@@ -10,6 +10,11 @@ import UIKit
 
 class DataManager: NSObject {
 
+    var orderBooks: NSArray! = nil
+    var verifiedAssets: NSDictionary! = nil
+    
+    static let shared = DataManager()
+    
     class func getCandleTimeFrame() -> Int {
         
         let timeFrame = UserDefaults.standard.integer(forKey: "candleTimeFrame")
@@ -34,4 +39,5 @@ class DataManager: NSObject {
         UserDefaults.standard.set(isShow, forKey: "isShowBarChart")
         UserDefaults.standard.synchronize()
     }
+    
 }

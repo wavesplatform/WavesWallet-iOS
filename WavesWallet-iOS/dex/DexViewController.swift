@@ -12,11 +12,21 @@ class DexTableListCell : UITableViewCell {
     
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var viewContent: UIView!
+    @IBOutlet weak var labelTime: UILabel!
+    @IBOutlet weak var labelLow: UILabel!
+    @IBOutlet weak var labelHigh: UILabel!
+    @IBOutlet weak var labelPercent: UILabel!
+    @IBOutlet weak var imageViewArrow: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
         viewContent.layer.cornerRadius = 3
+        viewContent.backgroundColor = UIColor.white
+        viewContent.layer.shadowColor = UIColor.black.cgColor
+        viewContent.layer.shadowRadius = 2
+        viewContent.layer.shadowOpacity = 0.3
+        viewContent.layer.shadowOffset = CGSize(width: 0, height: 1)
     }
 }
 
@@ -28,14 +38,17 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.white
         title = "Dex"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         
-        self.performSegue(withIdentifier: "DexContainerViewController", sender: nil)
+//        self.performSegue(withIdentifier: "DexContainerViewController", sender: nil)
     }
     
     func addTapped() {
         
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DexSearchViewController") as! DexSearchViewController
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     //MARK: UITableView
@@ -46,7 +59,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 81
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -10,6 +10,7 @@
 		7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */; };
 		E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929B46A1F36EC4500A335F7 /* LastTraderHeaderView.swift */; };
 		E929B46D1F36EC4E00A335F7 /* LastTraderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E929B46C1F36EC4E00A335F7 /* LastTraderHeaderView.xib */; };
+		E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93621541F3CAC01009F0459 /* DexSearchViewController.swift */; };
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
 		E963CF871F1E3602001494FD /* CandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF861F1E3602001494FD /* CandleModel.swift */; };
@@ -99,6 +100,7 @@
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E929B46A1F36EC4500A335F7 /* LastTraderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTraderHeaderView.swift; sourceTree = "<group>"; };
 		E929B46C1F36EC4E00A335F7 /* LastTraderHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastTraderHeaderView.xib; sourceTree = "<group>"; };
+		E93621541F3CAC01009F0459 /* DexSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSearchViewController.swift; sourceTree = "<group>"; };
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E963CF861F1E3602001494FD /* CandleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleModel.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */,
 				E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */,
 				E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */,
+				E93621541F3CAC01009F0459 /* DexSearchViewController.swift */,
 				E988E8B41F0C03170013EAF6 /* Dex.storyboard */,
 			);
 			path = dex;
@@ -709,6 +712,7 @@
 				F7F97E941EAA0CF800BE2F6F /* UIView+Borders.swift in Sources */,
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,
+				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				F7C683AF1EA93AEB00C87DAF /* blake2b-ref.c in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,

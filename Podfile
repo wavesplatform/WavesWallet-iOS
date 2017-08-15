@@ -25,5 +25,6 @@ target 'WavesWallet-iOS' do
   pod 'UILabel+Copyable', '~> 1.0.0'
   pod 'QRCodeReader.swift', '~> 7.4.1'
   pod 'Charts'
-
+  pod 'TPKeyboardAvoiding'
+  
 end
