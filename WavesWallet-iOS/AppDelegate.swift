@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tabBar = window?.rootViewController as! UITabBarController
             tabBar.selectedIndex = 3
         }
+        
+        SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.setDefaultMaskType(.clear)
         
         return true
     }

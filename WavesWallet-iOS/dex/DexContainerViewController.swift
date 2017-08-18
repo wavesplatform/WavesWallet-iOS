@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kNotifDidChangeDexItems = "kNotifDidChangeDexItems"
+
 class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartViewControllerDelegate {
 
     var priceAsset : String!
@@ -32,7 +34,6 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Test"
         view.backgroundColor = AppColors.wavesColor
         orderBookTapped(buttonOrderBook)
     
@@ -53,6 +54,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
         chartController = storyboard?.instantiateViewController(withIdentifier: "ChartViewController") as! ChartViewController
         chartController.delegate = self
+        chartController.valueTitle = title
         chartController.amountAsset = amountAsset
         chartController.priceAsset = priceAsset
         addChildViewController(chartController)
@@ -65,10 +67,6 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         addChildViewController(lastTraderController)
         scrollView.addSubview(lastTraderController.view)
         lastTraderController.didMove(toParentViewController: self)
-
-        
-        lastTradersTapped(buttonLastTraders)
-
     }
     
     override func viewDidLayoutSubviews() {

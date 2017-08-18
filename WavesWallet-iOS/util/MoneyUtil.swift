@@ -18,6 +18,17 @@ struct Money {
     }
 }
 
+extension Decimal {
+    var doubleValue:Double {
+        return NSDecimalNumber(decimal:self).doubleValue
+    }
+    
+    var floatValue: Float {
+        return NSDecimalNumber(decimal: self).floatValue
+    }
+}
+
+
 class MoneyUtil {
     class func getScaledText(_ amount: Int64, decimals: Int) -> String {
         let f = NumberFormatter()
@@ -70,6 +81,19 @@ class MoneyUtil {
         let f = NumberFormatter()
         f.numberStyle = .decimal
         return f.number(from: s)?.decimalValue
+    }
+    
+    class func parseDecimalPoint(_ text: String) -> Decimal? {
+        let s = text.replacingOccurrences(of: " ", with: "")
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.decimalSeparator = "."
+        return f.number(from: s)?.decimalValue
+    }
+ 
+    class func getDecimalPoint(_ point: Double) -> Decimal? {
+        let decimal = NSDecimalNumber(value: point)
+        return decimal.decimalValue
     }
     
     class func formatDecimals(_ amount: Decimal, decimals: Int) -> String {

@@ -74,6 +74,16 @@ class DexSearchCell: UITableViewCell {
         
         labelAmountAsset.text = item["amountAsset"] as? String
         labelPriceAsset.text = item["priceAsset"] as? String
+
+        
+        if DataManager.hasPair(item) {
+            imageViewCheckmark.image = UIImage(named: "checkmark_fill_gray")
+        }
+        else {
+            imageViewCheckmark.image = UIImage(named: "checkmark_empty_gray")
+        }
+        
+        imageViewCheckmark.alpha = DataManager.isWavesWbtcPair(item) ? 0.6 : 1
     }
 }
 
@@ -88,7 +98,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     var searchItems = [NSDictionary]()
     
     var isLoading = false
-    var wavesWBTCItem: NSDictionary? = nil
+    var isSearchMode: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +120,6 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             loadInfo()
         }
         else {
-            self.setupDefaultItem()
             activityIndicator.stopAnimating()
             textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
         }
@@ -119,18 +128,6 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     override func viewWillDisappear(_ animated: Bool) {
         textFieldSearch.resignFirstResponder()
     }
-    
-    func setupDefaultItem() {
-        
-        for item in DataManager.shared.orderBooks as! [NSDictionary] {
-            
-            if item["amountAsset"] as? String == "WAVES" &&
-                item["priceAssetName"] as? String == "WBTC" {
-                    wavesWBTCItem = item
-                }
-        }
-    }
-
     
     func loadInfo() {
         isLoading = true
@@ -142,7 +139,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                 self.activityIndicator.stopAnimating()
             }
             else {
-                DataManager.shared.orderBooks = items
+                DataManager.shared.orderBooks = items as! [NSDictionary]
                 NetworkManager.getVerifiedAssets({ (assets, errorMessage) in
                     
                     self.activityIndicator.stopAnimating()
@@ -152,7 +149,6 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
-                        self.setupDefaultItem()
                         self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
                         DataManager.shared.verifiedAssets = assets
                         self.tableView.reloadData()
@@ -163,7 +159,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     }
     
     func addTapped() {
-        navigationController?.popViewController(animated: true)
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DexNewPairViewController")
+        navigationController?.pushViewController(controller!, animated: true)
     }
     
     func trimmingSpaceTextFrom(text: String) -> String {
@@ -174,7 +171,9 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         
         searchItems = []
         
-        if textFieldSearch.text!.characters.count > 0 {
+        isSearchMode = textFieldSearch.text!.characters.count > 0
+        
+        if isSearchMode {
             
             var textAmountAsset = ""
             var textPriceAsset = ""
@@ -189,7 +188,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             
             if textAmountAsset.characters.count > 0 && textPriceAsset.characters.count > 0 {
                
-                for item in DataManager.shared.orderBooks as! [NSDictionary] {
+                for item in DataManager.shared.orderBooks{
                     
                     if (item["amountAssetName"] as? String)?.lowercased() == textAmountAsset.lowercased() &&
                        ((item["priceAssetName"] as! String).lowercased() as NSString).range(of: textPriceAsset.lowercased()).location != NSNotFound {
@@ -199,7 +198,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             }
             else if textAmountAsset.characters.count > 0 || textPriceAsset.characters.count > 0 {
                 
-                for item in DataManager.shared.orderBooks as! [NSDictionary] {
+                for item in DataManager.shared.orderBooks {
                     
                     if textAmountAsset.characters.count > 0 {
                         
@@ -218,7 +217,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             else {
                 let words = textFieldSearch.text?.components(separatedBy: " ")
                 
-                for item in DataManager.shared.orderBooks as! [NSDictionary] {
+                for item in DataManager.shared.orderBooks {
                     for word in words! {
                         if word.characters.count > 0 {
                             if ((item["amountAssetName"] as! String).lowercased() as NSString).range(of: word.lowercased()).location != NSNotFound ||
@@ -234,6 +233,10 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         tableView.reloadData()
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return DataManager.shared.orderBooks.count > 0
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -243,31 +246,39 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 0 {
+        if isSearchMode {
+            let item = searchItems[indexPath.row]
             
+            if DataManager.hasPair(item) {
+                DataManager.removePair(item)
+            }
+            else {
+                DataManager.addPair(item)
+            }
         }
         else {
+            let item = DataManager.shared.orderBooks[indexPath.row]
             
-            let item = searchItems[indexPath.row]
-            print(item)
+            if DataManager.hasPair(item) {
+                DataManager.removePair(item)
+            }
+            else {
+                DataManager.addPair(item)
+            }
         }
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        
+        tableView.reloadData()
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue:kNotifDidChangeDexItems), object: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0 {
-            if isLoading || (textFieldSearch.text?.characters.count)! > 0 {
-                return 0
-            }
-            
-            return wavesWBTCItem == nil ? 0 : 1
+        if isSearchMode {
+            return searchItems.count
         }
         
-        return searchItems.count
+        return DataManager.shared.orderBooks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -275,12 +286,13 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         
         let cell: DexSearchCell = tableView.dequeueReusableCell(withIdentifier: "DexSearchCell", for: indexPath) as! DexSearchCell
         
-        if indexPath.section == 0 {
-            cell.setupCell(wavesWBTCItem!)
-        }
-        else {
+        if isSearchMode {
             cell.setupCell(searchItems[indexPath.row])
         }
+        else {
+            cell.setupCell(DataManager.shared.orderBooks[indexPath.row])
+        }
+        
         return cell
     }
     

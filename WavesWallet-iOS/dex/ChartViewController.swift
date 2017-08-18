@@ -30,6 +30,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     var dateTo = Date()
     var isLoading = false
     var lastOffsetX : Double = 0
+    var valueTitle: String! = nil
     
     @IBOutlet weak var viewLimitLine: UIView!
     @IBOutlet weak var viewLimitLineView1: UIView!
@@ -67,13 +68,18 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
-            self.candleChartView.isHidden = false
-            self.barChartView.isHidden = false
             
-            self.candleChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
-            self.barChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
-        
-            self.updateCandleLimitLine()
+            if self.candles.count > 1 {
+                self.candleChartView.isHidden = false
+                self.barChartView.isHidden = false
+
+                if self.candles.count > 10 {
+                    self.candleChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+                    self.barChartView.zoom(scaleX: 10, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+                }
+                
+                self.updateCandleLimitLine()
+            }
         }
     }
     
@@ -125,7 +131,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     
     func updateCandleLimitLine() {
         
-        NetworkManager.getCandleLimitLine(amountAsset: amountAsset, priceAsset: priceAsset) { (price, errorMessage) in
+        NetworkManager.getLastTraderPairPrice(amountAsset: amountAsset, priceAsset: priceAsset) { (price, timestamp, errorMessage) in
             
             if price > 0 && self.candleChartView.data != nil {
                 
@@ -154,12 +160,13 @@ class ChartViewController: UIViewController, ChartViewDelegate {
 
             for model in candles as! [CandleModel] {
                 if model.timestamp == highlighted?.x {
-                    labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe)), \(model.getFormatterDateTime(timeFrame: timeframe))\nO: \(model.open), H: \(model.high), L: \(model.low), C: \(model.close)\nV: \(model.volume)"
+                    
+                    labelCandleInfo.text = String(format: "%@, %@, %@\nO: %0.8f, H: %0.8f, L: %0.8f, C: %0.8f\nV: %0.6f", valueTitle!, nameFromTimeFrame(timeframe), model.getFormatterDateTime(timeFrame: timeframe), model.open, model.high, model.low, model.close, model.volume)
                 }
             }
         }
         else {
-            labelCandleInfo.text = "WAVES/BTC, \(nameFromTimeFrame(timeframe))"
+            labelCandleInfo.text = "\(valueTitle!), \(nameFromTimeFrame(timeframe))"
         }
     }
 
@@ -191,24 +198,28 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         
         preloadInfo {
             self.activityIndicator.stopAnimating()
-            self.candleChartView.isHidden = false
-            self.barChartView.isHidden = false
-
-            let zoom = CGFloat(self.candles.count) * self.candleChartView.scaleX / CGFloat(prevCount)
-            let additionalZoom = zoom / self.candleChartView.scaleX
             
-            self.candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-            self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-
-            self.barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-            self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-
-            self.candleChartView.highlightValue(nil)
-            self.barChartView.highlightValue(nil)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-                self.setupLimitLinePosition()
-            })
+            if self.candles.count > 1 {
+                
+                self.candleChartView.isHidden = false
+                self.barChartView.isHidden = false
+                
+                let zoom = CGFloat(self.candles.count) * self.candleChartView.scaleX / CGFloat(prevCount)
+                let additionalZoom = zoom / self.candleChartView.scaleX
+                
+                self.candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+                self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                
+                self.barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+                self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                
+                self.candleChartView.highlightValue(nil)
+                self.barChartView.highlightValue(nil)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                    self.setupLimitLinePosition()
+                })
+            }
         }
     }
     
@@ -304,8 +315,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             
             if items != nil {
                 self.setupData(items!)
-                complete()
             }
+            
+            complete()
         }
     }
     
@@ -319,12 +331,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         for item in sortedItems {
             let model = CandleModel()
             model.setupModel(item as! NSDictionary, timeFrame: timeframe)
-            
-            if model.volume == 0 || candles.contains(model) {
-                continue
+    
+            if model.volume > 0 || !candles.contains(model) {
+                candles.add(model)
             }
             
-            candles.add(model)
         }
         
         candles.sort(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
@@ -400,7 +411,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     }
     
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
-
+        
         if chartView == candleChartView {
             barChartView.zoom(scaleX: candleChartView.scaleX, scaleY: candleChartView.scaleY, xValue: 0, yValue: 0, axis: YAxis.AxisDependency.right)
             barChartView.moveViewToX(candleChartView.lowestVisibleX)
@@ -420,7 +431,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             candleChartView.moveViewToX(barChartView.lowestVisibleX)
         }
         
-        if candles.count > 0 {
+        if candles.count > 10 {
             
             let value = round(candleChartView.lowestVisibleX)
             let model = candles.firstObject as! CandleModel
@@ -465,7 +476,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             position.y = CGFloat(l.limit)
             position = position.applying(trans!)
             
-            return position.y
+            return position.y.isNaN ? -100 : position.y
         }
 
         return -100

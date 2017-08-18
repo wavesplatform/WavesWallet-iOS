@@ -64,7 +64,7 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
         
         isLoading = true
         
-        NetworkManager.getLastTranders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, errorMessage) in
+        NetworkManager.getLastTraders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, errorMessage) in
             
             self.isLoading = false
             self.activityIndicatorView.stopAnimating()

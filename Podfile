@@ -26,5 +26,6 @@ target 'WavesWallet-iOS' do
   pod 'QRCodeReader.swift', '~> 7.4.1'
   pod 'Charts'
   pod 'TPKeyboardAvoiding'
+  pod 'SVProgressHUD'
   
 end
