@@ -122,6 +122,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             loadInfo()
         }
         else {
+            setupVerifiedItems()
             activityIndicator.stopAnimating()
             textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
         }
@@ -154,14 +155,18 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                         self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
                         DataManager.shared.verifiedAssets = assets
                         
-                        for item in DataManager.shared.orderBooks {
-                            if self.isVerifiedAsset(asset: item) {
-                                self.verifiedItems.append(item)
-                            }
-                        }
+                        self.setupVerifiedItems()
                         self.tableView.reloadData()
                     }
                 })
+            }
+        }
+    }
+    
+    func setupVerifiedItems() {
+        for item in DataManager.shared.orderBooks {
+            if self.isVerifiedAsset(asset: item) {
+                self.verifiedItems.append(item)
             }
         }
     }

@@ -50,7 +50,6 @@ class DexTableListCell : UITableViewCell {
             let lastPrice = dataItem!["price"] as! Double
             
             labelValue1.text = String(format: "%.08f", lastPrice)
-            labelValue2.text = String(format: "%.08f", lastPrice - lastPriceOpen24)
             
             labelLow.text = "low: \(dataItem?["24h_low"] as! String)"
             labelHigh.text = "high: \(dataItem?["24h_high"] as! String)"
@@ -74,12 +73,14 @@ class DexTableListCell : UITableViewCell {
             }
             
             if lastPrice - lastPriceOpen24 >= 0 {
+                labelValue2.text = String(format: "+%.08f", lastPrice - lastPriceOpen24)
                 imageViewArrow.image = UIImage(named: "arrow_green")
                 labelValue1.textColor = UIColor(netHex: 0x5EAC69)
                 labelValue2.textColor = UIColor(netHex: 0x5EAC69)
                 labelPercent.textColor = UIColor(netHex: 0x5EAC69)
             }
             else {
+                labelValue2.text = String(format: "%.08f", lastPrice - lastPriceOpen24)
                 imageViewArrow.image = UIImage(named: "arrow_red")
                 labelValue1.textColor = UIColor(netHex: 0xE56C69)
                 labelValue2.textColor = UIColor(netHex: 0xE56C69)
