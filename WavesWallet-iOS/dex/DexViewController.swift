@@ -42,7 +42,7 @@ class DexTableListCell : UITableViewCell {
      
         labelTitle.text = "\(item["amountAssetName"]!) / \(item["priceAssetName"]!)"
     
-        let data = dataItem?["24h_high"]
+        let data = dataItem?["24h_open"]
         
         if data != nil {
 
@@ -66,6 +66,19 @@ class DexTableListCell : UITableViewCell {
                 let percent = lastPrice / lastPriceOpen24 * 100
                 labelPercent.text = String(format: "%.02f%%", percent)
             }
+                        
+            if lastPriceOpen24 >= 0 {
+                imageViewArrow.image = UIImage(named: "arrow_green")
+                labelValue1.textColor = UIColor(netHex: 0x5EAC69)
+                labelValue2.textColor = UIColor(netHex: 0x5EAC69)
+                labelPercent.textColor = UIColor(netHex: 0x5EAC69)
+            }
+            else {
+                imageViewArrow.image = UIImage(named: "arrow_red")
+                labelValue1.textColor = UIColor(netHex: 0xE56C69)
+                labelValue2.textColor = UIColor(netHex: 0xE56C69)
+                labelPercent.textColor = UIColor(netHex: 0xE56C69)
+            }
         }
         else {
             labelValue1.text = "0.00"
@@ -74,6 +87,10 @@ class DexTableListCell : UITableViewCell {
             labelHigh.text = "high: 0.00"
             labelTime.text = nil
             labelPercent.text = "0.00 %"
+            imageViewArrow.image = UIImage(named: "arrow_green")
+            labelValue1.textColor = UIColor(netHex: 0x5EAC69)
+            labelValue2.textColor = UIColor(netHex: 0x5EAC69)
+            labelPercent.textColor = UIColor(netHex: 0x5EAC69)
         }
     }
 }
