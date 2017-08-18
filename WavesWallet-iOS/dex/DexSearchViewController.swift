@@ -100,6 +100,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     var isLoading = false
     var isSearchMode: Bool = false
     
+    var verifiedItems = [NSDictionary]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -114,7 +116,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         textFieldSearch.returnKeyType = .done
         navigationItem.titleView = textFieldSearch
     
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_action"), style: .plain, target: self, action: #selector(actionTapped))
         
         if DataManager.shared.verifiedAssets == nil {
             loadInfo()
@@ -151,6 +153,12 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                     else {
                         self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
                         DataManager.shared.verifiedAssets = assets
+                        
+                        for item in DataManager.shared.orderBooks {
+                            if self.isVerifiedAsset(asset: item) {
+                                self.verifiedItems.append(item)
+                            }
+                        }
                         self.tableView.reloadData()
                     }
                 })
@@ -158,14 +166,49 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         }
     }
     
-    func addTapped() {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DexNewPairViewController")
-        navigationController?.pushViewController(controller!, animated: true)
+    func actionTapped() {
+        
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let addPair = UIAlertAction(title: "Add New Market", style: .default) { (action) in
+            
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "DexNewPairViewController")
+            self.navigationController?.pushViewController(controller!, animated: true)
+        }
+        
+        let filterTitle = DataManager.isShowUnverifiedAssets() ? "Hide Unverified Assets" : "Show Unverified Assets"
+        
+        let filter = UIAlertAction(title: filterTitle, style: .default) { (action) in
+            
+            DataManager.setShowUnverifiedAssets(!DataManager.isShowUnverifiedAssets())
+            self.textFieldDidChange()
+        }
+        
+        controller.addAction(cancel)
+        controller.addAction(addPair)
+        controller.addAction(filter)
+        
+        present(controller, animated: true, completion: nil)
+        
     }
+    
     
     func trimmingSpaceTextFrom(text: String) -> String {
         return text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
+    
+    func isVerifiedAsset(asset: NSDictionary) -> Bool {
+        
+        if let array = DataManager.shared.verifiedAssets.allKeys as? NSArray {
+            if array.contains(asset["amountAsset"]!) &&
+                array.contains(asset["priceAsset"]!) {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     
     func textFieldDidChange() {
         
@@ -178,6 +221,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             var textAmountAsset = ""
             var textPriceAsset = ""
             
+            let items = DataManager.isShowUnverifiedAssets() ? DataManager.shared.orderBooks : verifiedItems
+            
             if (textFieldSearch.text! as NSString).range(of: "/").location != NSNotFound {
                 textAmountAsset = textFieldSearch.text!.substring(to: textFieldSearch.text!.range(of: "/")!.lowerBound)
                 textAmountAsset = textAmountAsset.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -188,17 +233,18 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             
             if textAmountAsset.characters.count > 0 && textPriceAsset.characters.count > 0 {
                
-                for item in DataManager.shared.orderBooks{
+                for item in items {
                     
                     if (item["amountAssetName"] as? String)?.lowercased() == textAmountAsset.lowercased() &&
                        ((item["priceAssetName"] as! String).lowercased() as NSString).range(of: textPriceAsset.lowercased()).location != NSNotFound {
+                        
                         self.searchItems.append(item)
                     }
                 }
             }
             else if textAmountAsset.characters.count > 0 || textPriceAsset.characters.count > 0 {
                 
-                for item in DataManager.shared.orderBooks {
+                for item in items {
                     
                     if textAmountAsset.characters.count > 0 {
                         
@@ -217,7 +263,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             else {
                 let words = textFieldSearch.text?.components(separatedBy: " ")
                 
-                for item in DataManager.shared.orderBooks {
+                for item in items {
                     for word in words! {
                         if word.characters.count > 0 {
                             if ((item["amountAssetName"] as! String).lowercased() as NSString).range(of: word.lowercased()).location != NSNotFound ||
@@ -257,7 +303,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             }
         }
         else {
-            let item = DataManager.shared.orderBooks[indexPath.row]
+            let item = DataManager.isShowUnverifiedAssets() ? DataManager.shared.orderBooks[indexPath.row] : verifiedItems[indexPath.row]
             
             if DataManager.hasPair(item) {
                 DataManager.removePair(item)
@@ -278,7 +324,11 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             return searchItems.count
         }
         
-        return DataManager.shared.orderBooks.count
+        if DataManager.isShowUnverifiedAssets() {
+            return DataManager.shared.orderBooks.count
+        }
+        
+        return verifiedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -290,7 +340,13 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             cell.setupCell(searchItems[indexPath.row])
         }
         else {
-            cell.setupCell(DataManager.shared.orderBooks[indexPath.row])
+            
+            if DataManager.isShowUnverifiedAssets() {
+                cell.setupCell(DataManager.shared.orderBooks[indexPath.row])
+            }
+            else {
+                cell.setupCell(verifiedItems[indexPath.row])
+            }
         }
         
         return cell

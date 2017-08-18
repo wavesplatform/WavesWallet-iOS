@@ -125,4 +125,13 @@ class DataManager: NSObject {
         
         return pairs as! NSArray
     }
+    
+    class func isShowUnverifiedAssets() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isShowUnverifiedAssets")
+    }
+    
+    class func setShowUnverifiedAssets(_ show: Bool) {
+        UserDefaults.standard.set(show, forKey: "isShowUnverifiedAssets")
+        UserDefaults.standard.synchronize()
+    }
 }
