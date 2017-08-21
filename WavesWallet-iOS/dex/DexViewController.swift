@@ -385,6 +385,8 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             let dexContainerViewController = segue.destination as! DexContainerViewController
             dexContainerViewController.amountAsset = item["amountAsset"] as! String
             dexContainerViewController.priceAsset = item["priceAsset"] as! String
+            dexContainerViewController.priceAssetDecimal = (item["priceAssetInfo"] as? NSDictionary)?["decimals"] as? Int ?? 8
+            dexContainerViewController.amountAssetDecimal = (item["amountAssetInfo"] as? NSDictionary)?["decimals"] as? Int ?? 8
             dexContainerViewController.title = cell?.labelTitle.text ?? ""
         }
     }

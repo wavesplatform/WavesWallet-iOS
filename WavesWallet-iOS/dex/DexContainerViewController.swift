@@ -14,7 +14,9 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
     var priceAsset : String!
     var amountAsset : String!
-
+    var priceAssetDecimal: Int!
+    var amountAssetDecimal: Int!
+    
     var orderBookController : OrderBookViewController!
     var chartController : ChartViewController!
     var lastTraderController : LastTradersViewController!
@@ -48,6 +50,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         orderBookController = storyboard?.instantiateViewController(withIdentifier: "OrderBookViewController") as! OrderBookViewController
         orderBookController.amountAsset = amountAsset
         orderBookController.priceAsset = priceAsset
+        orderBookController.amountAssetDecimal = amountAssetDecimal
+        orderBookController.priceAssetDecimal = priceAssetDecimal
         addChildViewController(orderBookController)
         scrollView.addSubview(orderBookController.view)
         orderBookController.didMove(toParentViewController: self)
@@ -131,6 +135,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
     
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        
+        orderBookController.controllerWillAppear()
     }
 
     
