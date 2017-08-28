@@ -35,7 +35,13 @@ struct Environment {
         self.scheme = scheme
         self.generalAssetIds = generalAssetIds
     }
+    
+    let isTestNet: Bool = {
+        return UserDefaults.standard.bool(forKey: "isTestEnvironment")
+    }()
+ 
 }
+
 class Environments {
     static let Testnet = Environment("Testnet", "http://52.30.47.67:6869", "T",
         [AssetInfo("", "WAVES", 10000000000000000, 8),
@@ -75,6 +81,5 @@ class Environments {
             _current = newValue
         }
     }
-        
 
 }

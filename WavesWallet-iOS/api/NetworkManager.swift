@@ -63,13 +63,12 @@ class NetworkManager: NSObject
 
     
     @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
-        
-        var url = "https://nodes.wavesnodes.com/"
-        
+
+        var url = Environments.current.nodeUrl.relativeString.appending("/")
+      
         if customUrl != nil {
             url = customUrl!
         }
-        
         
         return Alamofire.request(url + path, parameters : parameters)
             
@@ -103,6 +102,10 @@ class NetworkManager: NSObject
         }
     }
     
+    fileprivate class func getMatcherUrl() -> String? {
+        return Environments.current.isTestNet ? "http://52.30.47.67:6886/" : nil
+    }
+    
     fileprivate class func getMarketUrl() -> String {
         return "https://marketdata.wavesplatform.com/api/"
     }
@@ -126,11 +129,7 @@ class NetworkManager: NSObject
                 if let item = (info as? NSArray)?.firstObject as? NSDictionary {
                                         
                     if item["price"] is String {
-                        var value = Double(item["price"] as! String)!
-                        
-//                        if value > 0 && value <= 0.00000009 {
-//                            value = 0
-//                        }
+                        let value = Double(item["price"] as! String)!
                         complete(value, item["timestamp"] as! Int64, errorMessage)
                     }
                     else {
@@ -153,14 +152,14 @@ class NetworkManager: NSObject
     
     class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
     
-        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: nil) { (info, errorMessage) in
+        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete(info as? NSDictionary, errorMessage)
         }
     }
     
     class func getAllOrderBooks (_ complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
     
-        getRequestWithPath(path: "matcher/orderbook", parameters: nil, customUrl: nil) { (info, errorMessage) in            
+        getRequestWithPath(path: "matcher/orderbook", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete((info as? NSDictionary)?["markets"] as? NSArray, errorMessage)
         }
     }
@@ -183,5 +182,12 @@ class NetworkManager: NSObject
         getRequestWithPath(path: "transactions/info/\(asset)", parameters: nil, customUrl: nil) { (info, errorMessage) in
             complete(info as? NSDictionary, errorMessage)
         }
+    }
+    
+    class func getBalancePair(priceAsset: String, amountAsset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
+        
+        getRequestWithPath(path: "matcher/orderbook/\(priceAsset)/\(amountAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
+            complete(info as? NSDictionary, errorMessage)
+        }        
     }
 }

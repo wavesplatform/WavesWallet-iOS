@@ -117,8 +117,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let item = asks[indexPath.row]
              
-            cell.labelPrice.text = MoneyUtil.getScaledTextTrimZeros(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
-            cell.labelSell.text = MoneyUtil.getScaledText(item["amount"] as! Int64, decimals: amountAssetDecimal)
+            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
+            cell.labelSell.text = MoneyUtil.getScaledTextTrimZeros(item["amount"] as! Int64, decimals: amountAssetDecimal)
 
             cell.labelBuy.text = ""
             cell.labelBuy.backgroundColor = UIColor.clear
@@ -134,8 +134,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let item = bids[indexPath.row]
             
-            cell.labelPrice.text = MoneyUtil.getScaledTextTrimZeros(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
-            cell.labelBuy.text = MoneyUtil.getScaledText(item["amount"] as! Int64, decimals: amountAssetDecimal)
+            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
+            cell.labelBuy.text = MoneyUtil.getScaledTextTrimZeros(item["amount"] as! Int64, decimals: amountAssetDecimal)
             
             cell.labelSell.text = ""
             cell.labelSell.backgroundColor = UIColor.clear

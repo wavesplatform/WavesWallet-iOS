@@ -17,9 +17,13 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
     
+    var priceAssetName : String!
+    var amountAssetName : String!
+
     var orderBookController : OrderBookViewController!
     var chartController : ChartViewController!
     var lastTraderController : LastTradersViewController!
+    var myOrdersController: MyOrdersViewController!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -28,6 +32,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     @IBOutlet weak var buttonOrderBook: UIButton!
     @IBOutlet weak var buttonChart: UIButton!
     @IBOutlet weak var buttonLastTraders: UIButton!
+    @IBOutlet weak var buttonMyOrders: UIButton!
     
     @IBOutlet weak var viewShadow: UIView!
     
@@ -38,7 +43,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
         view.backgroundColor = AppColors.wavesColor
         orderBookTapped(buttonOrderBook)
-    
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+
         viewShadow.backgroundColor = AppColors.wavesColor
         viewShadow.layer.shadowColor = UIColor.black.cgColor
         viewShadow.layer.shadowRadius = 7
@@ -71,6 +77,11 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         addChildViewController(lastTraderController)
         scrollView.addSubview(lastTraderController.view)
         lastTraderController.didMove(toParentViewController: self)
+    
+        myOrdersController = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") as! MyOrdersViewController
+        addChildViewController(myOrdersController)
+        scrollView.addSubview(myOrdersController.view)
+        myOrdersController.didMove(toParentViewController: self)
     }
     
     override func viewDidLayoutSubviews() {
@@ -92,11 +103,24 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         frame.size.height = scrollView.frame.size.height
         lastTraderController.view.frame = frame
         
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.contentSize.height)
+        frame = myOrdersController.view.frame
+        frame.origin.x = scrollView.frame.size.width * 3
+        frame.size.width = scrollView.frame.size.width
+        frame.size.height = scrollView.frame.size.height
+        myOrdersController.view.frame = frame
+        
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.contentSize.height)
     }
     
     func orderTapped() {
         
+        let controller = storyboard?.instantiateViewController(withIdentifier: "CreateOrderViewController") as! CreateOrderViewController
+        controller.priceAsset = priceAsset
+        controller.amountAsset = amountAsset
+        controller.priceAssetName = priceAssetName
+        controller.amountAssetName = amountAssetName
+        
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func changeChartTimeFrame() {
@@ -133,7 +157,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonOrderBook.setTitleColor(UIColor.white, for: .normal)
         buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
-    
+        buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
         
         orderBookController.controllerWillAppear()
@@ -152,7 +177,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonChart.setTitleColor(UIColor.white, for: .normal)
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
-   
+        buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         
         chartViewControllerDidChangeTimeFrame()
     }
@@ -169,10 +194,27 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonLastTraders.setTitleColor(UIColor.white, for: .normal)
+        buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
         
         lastTraderController.controllerWillAppear()
+    }
+    
+    @IBAction func myOrdersTapped(_ sender: Any) {
+        if selectedPage == 3 {
+            return
+        }
+        
+        selectedPage = 3
+        setupViewLinePosition(sender: sender as! UIButton)
+        
+        buttonOrderBook.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+        buttonChart.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+        buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+        buttonMyOrders.setTitleColor(UIColor.white, for: .normal)
+
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
     }
     
     func setupViewLinePosition(sender: UIButton) {
@@ -199,6 +241,9 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         }
         else if page == 2 {
             lastTradersTapped(buttonLastTraders)
+        }
+        else if page == 3 {
+            myOrdersTapped(buttonMyOrders)
         }
         
     }
