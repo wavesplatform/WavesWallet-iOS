@@ -31,8 +31,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     var priceAssetName: String!
     var amountAssetName: String!
     
-    var priceAssetAvailable: Double = 0
-    var amountAssetAvailable: Double = 0
+    var priceAssetAvailable: Int64 = 0
+    var amountAssetAvailable: Int64 = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +51,11 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             }
             else {
                 self.showAllSubviews()
+                self.priceAssetAvailable = info![self.priceAsset] as! Int64
+                self.amountAssetAvailable = info![self.amountAsset] as! Int64
                 
-                self.priceAssetAvailable = info![self.priceAsset] as! Double
-                self.amountAssetAvailable = info![self.amountAsset] as! Double
-                
-                self.labelPriceAvailableCount.text = "\(self.priceAssetAvailable)"
-                self.labelAmountAvailableCount.text = "\(self.amountAssetAvailable)"
+                self.labelPriceAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.priceAssetAvailable, decimals: 8)
+                self.labelAmountAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.amountAssetAvailable, decimals: 8)
             }
         }
     }

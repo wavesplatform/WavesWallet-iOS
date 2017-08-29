@@ -108,3 +108,68 @@ class Order {
     
 }
 
+class MyOrdersRequest {
+    let senderPublicKey: PublicKeyAccount
+    let timestamp: Int64
+    
+    init(senderPublicKey: PublicKeyAccount) {
+        self.senderPublicKey = senderPublicKey
+        self.timestamp = Int64(Date().millisecondsSince1970)
+    }
+    
+    var senderPrivateKey: PrivateKeyAccount?
+
+    var toSign: [UInt8] {
+        let s1 = senderPublicKey.publicKey
+        let s2 = toByteArray(timestamp)
+        return s1 + s2
+    }
+    
+    func getSignature() -> [UInt8] {
+        guard let pk = senderPrivateKey else { return [] }
+        let b = toSign
+        return Hash.sign(b, pk.privateKey)
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "senderPublicKey" ~~> Base58.encode(senderPublicKey.publicKey),
+            "timestamp" ~~> timestamp,
+            "signature" ~~> Base58.encode(getSignature()),
+            ])
+    }
+}
+
+class CancelOrderRequest {
+    let sender: PublicKeyAccount
+    let orderId: String
+    
+    init(sender: PublicKeyAccount, orderId: String) {
+        self.sender = sender
+        self.orderId = orderId
+    }
+    
+    var senderPrivateKey: PrivateKeyAccount?
+    
+    var toSign: [UInt8] {
+        let s1 = sender.publicKey
+        let s2 =  Base58.decode(orderId)
+        return s1 + s2
+    }
+    
+    func getSignature() -> [UInt8] {
+        guard let pk = senderPrivateKey else { return [] }
+        let b = toSign
+        return Hash.sign(b, pk.privateKey)
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "sender" ~~> Base58.encode(sender.publicKey),
+            "orderId" ~~> orderId,
+            "signature" ~~> Base58.encode(getSignature()),
+            ])
+    }
+}
+
+
