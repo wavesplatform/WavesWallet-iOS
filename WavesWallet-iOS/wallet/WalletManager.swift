@@ -34,7 +34,8 @@ class WalletItem: Object {
 struct Wallet {
     let name: String
     let publicKeyAccount: PublicKeyAccount
-    
+    var matcherKeyAccount: PublicKeyAccount?
+
     var address: String {
         return publicKeyAccount.address
     }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SwiftyJSON
+import SVProgressHUD
+
 
 class CreateOrderViewController: UIViewController, UITextFieldDelegate {
 
@@ -25,6 +28,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var labelTotalPrice: UILabel!
     
+    @IBOutlet weak var labelPriceAssetName2: UILabel!
     
     var priceAsset: String!
     var amountAsset: String!
@@ -34,13 +38,22 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     var priceAssetAvailable: Int64 = 0
     var amountAssetAvailable: Int64 = 0
     
+    var priceAssetDecimal: Int!
+    var amountAssetDecimal: Int!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Place Order"
         
         labelPriceAssetName.text = priceAssetName
         labelAmountAssetName.text = amountAssetName
-
+        labelPriceAssetName2.text = priceAssetName
+        
+        textFieldPrice.text = "0"
+        textFieldAmount.text = "0"
+        calculateTotalPrice()
+        
         hideAllSubviews()
         NetworkManager.getBalancePair(priceAsset: priceAsset, amountAsset: amountAsset) { (info, errorMessage) in
             
@@ -54,10 +67,47 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
                 self.priceAssetAvailable = info![self.priceAsset] as! Int64
                 self.amountAssetAvailable = info![self.amountAsset] as! Int64
                 
-                self.labelPriceAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.priceAssetAvailable, decimals: 8)
-                self.labelAmountAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.amountAssetAvailable, decimals: 8)
+                self.labelPriceAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
+                self.labelAmountAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
             }
         }
+        
+//
+        
+        if WalletManager.currentWallet?.matcherKeyAccount == nil {
+            let key = "CRxqEuxhdZBEHX42MU4FfyJxuHmbDBTaHMhM3Uki7pLw"
+            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key))
+        }
+
+        textFieldPrice.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textFieldAmount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    func textFieldDidChange(textField: UITextField) {
+        textField.text = textField.text?.replacingOccurrences(of: ",", with: ".")
+        
+        calculateTotalPrice()
+    }
+    
+    func textFieldFormatString(assetAvailable: Int64, decimals: Int) -> String {
+
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.groupingSeparator = ""
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = 0
+        return f.string(from: Decimal(assetAvailable) / pow(10, Int(decimals)) as NSNumber)!
+    }
+    
+    @IBAction func amountAvailableTapped(_ sender: Any) {
+
+        textFieldAmount.text = textFieldFormatString(assetAvailable: self.amountAssetAvailable, decimals: self.amountAssetDecimal)
+        calculateTotalPrice()
+    }
+    
+    @IBAction func priceAvailableTapped(_ sender: Any) {
+        textFieldPrice.text = textFieldFormatString(assetAvailable: self.priceAssetAvailable, decimals: self.priceAssetDecimal)
+        calculateTotalPrice()
     }
     
     func hideAllSubviews() {
@@ -77,28 +127,79 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func sellTapped(_ sender: Any) {
     
+    func getAssetPair() -> AssetPair {
+        return  AssetPair(json: ["amountAsset" : amountAsset, "priceAsset" : priceAsset])!
     }
     
-    @IBAction func buyTapped(_ sender: Any) {
+    @IBAction func sellTapped(_ sender: Any) {
+       
+        SVProgressHUD.show()
+        WalletManager.restorePrivateKey().bind { (privateKey) in
+            
+            let publicKey = WalletManager.currentWallet!.publicKeyAccount
+            let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
+            
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, self.priceAssetDecimal)!
+            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+            
+            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.sell, price: price, amount: amount)
+            order.senderPrivateKey = privateKey
     
+            NetworkManager.buySellOrder(order: order, complete: { (info, errorMessage) in
+                SVProgressHUD.dismiss()
+                
+            })
+        }
+    }
+  
+    @IBAction func buyTapped(_ sender: Any) {
+        
+        WalletManager.restorePrivateKey().bind { (privateKey) in
+
+            let publicKey = WalletManager.currentWallet!.publicKeyAccount
+            let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
+            
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, self.priceAssetDecimal)!
+            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+            
+            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.buy, price: price, amount: amount)
+            order.senderPrivateKey = privateKey
+        
+            NetworkManager.buySellOrder(order: order, complete: { (info, errorMessage) in
+                SVProgressHUD.dismiss()
+                
+            })
+        }
+    }
+    
+    func calculateTotalPrice() {
+        
+        let price = MoneyUtil.parseUnscaled(textFieldPrice.text!, priceAssetDecimal - amountAssetDecimal)!
+        let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+        
+        let total = price * amount
+        labelTotalPrice.text = MoneyUtil.getScaledTextTrimZeros(total, decimals: self.priceAssetDecimal)
     }
     
     @IBAction func plusPriceTapped(_ sender: Any) {
         formatPlus(textField: textFieldPrice)
+        calculateTotalPrice()
     }
     
     @IBAction func minusPriceTapped(_ sender: Any) {
         formatMinus(textField: textFieldPrice)
+        calculateTotalPrice()
     }
     
     @IBAction func plusAmountTapped(_ sender: Any) {
         formatPlus(textField: textFieldAmount)
+        calculateTotalPrice()
     }
     
     @IBAction func minusAmountTapped(_ sender: Any) {
         formatMinus(textField: textFieldAmount)
+        calculateTotalPrice()
     }
     
     // MARK: CalculateTapped
@@ -108,7 +209,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
         let string: NSString = textField.text! as NSString
         
         var decimals = 0
-        let range = string.range(of: ",")
+        let range = string.range(of: ".")
         
         if range.location != NSNotFound {
             let substring = string.substring(from: range.location + 1)
@@ -131,17 +232,15 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     }
     
     func formatPlus(textField: UITextField) {
-        var string: NSString = textField.text! as NSString
-        string = string.replacingOccurrences(of: ",", with: ".") as NSString
+        let string: NSString = textField.text! as NSString
         var value = string.doubleValue
         let decimals = countDecimalsFrom(value, textField: textField)
         value += deltaValueFrom(value, textField: textField)
-        textField.text = String(format: "%.0\(decimals)f", value).replacingOccurrences(of: ".", with: ",")
+        textField.text = String(format: "%.0\(decimals)f", value)
     }
     
     func formatMinus(textField: UITextField) {
-        var string: NSString = textField.text! as NSString
-        string = string.replacingOccurrences(of: ",", with: ".") as NSString
+        let string: NSString = textField.text! as NSString
         var value = string.doubleValue
         let decimals = countDecimalsFrom(value, textField: textField)
         value -= deltaValueFrom(value, textField: textField)
@@ -150,7 +249,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             value = 0
         }
         
-        textField.text = String(format: "%.0\(decimals)f", value).replacingOccurrences(of: ".", with: ",")
+        textField.text = String(format: "%.0\(decimals)f", value)
     }
     
     
@@ -158,9 +257,9 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        if string == "," {
-
-            if ((textField.text! as NSString).range(of: ",") as NSRange).location != NSNotFound {
+        if string == "," || string == "." {
+            
+            if ((textField.text! as NSString).range(of: ".") as NSRange).location != NSNotFound {
                 return false
             }
             else if textField.text!.characters.count == 0 {
@@ -169,7 +268,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
         }
         else if string.characters.count > 0 {
             if textField.text!.characters.count == 1 && textField.text! == "0" {
-                textField.text = "0,"
+                textField.text = "0."
             }            
         }
         

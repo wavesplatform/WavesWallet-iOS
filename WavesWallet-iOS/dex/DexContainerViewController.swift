@@ -119,7 +119,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         controller.amountAsset = amountAsset
         controller.priceAssetName = priceAssetName
         controller.amountAssetName = amountAssetName
-        
+        controller.priceAssetDecimal = priceAssetDecimal
+        controller.amountAssetDecimal = amountAssetDecimal
         navigationController?.pushViewController(controller, animated: true)
     }
     

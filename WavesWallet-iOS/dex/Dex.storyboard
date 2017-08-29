@@ -910,6 +910,18 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZRe-oV-sMR">
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coa-9H-e94">
+                                <rect key="frame" x="225" y="59.5" width="130" height="22"/>
+                                <connections>
+                                    <action selector="amountAvailableTapped:" destination="Y1z-Kk-k21" eventType="touchUpInside" id="RZP-Yk-oty"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hs-QE-706">
+                                <rect key="frame" x="225" y="91.5" width="130" height="22"/>
+                                <connections>
+                                    <action selector="priceAvailableTapped:" destination="Y1z-Kk-k21" eventType="touchUpInside" id="6vE-L7-xWa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -917,18 +929,24 @@
                             <constraint firstItem="lS7-Pq-SYy" firstAttribute="centerY" secondItem="MVs-JU-4V4" secondAttribute="centerY" id="2Fj-eN-XwP"/>
                             <constraint firstItem="J9u-eD-UJV" firstAttribute="top" secondItem="zxu-ye-1Um" secondAttribute="bottom" constant="50" id="9Ve-RD-F6K"/>
                             <constraint firstItem="lS7-Pq-SYy" firstAttribute="trailing" secondItem="ieY-I3-myp" secondAttribute="trailing" id="BLE-a8-khM"/>
+                            <constraint firstItem="coa-9H-e94" firstAttribute="height" secondItem="ieY-I3-myp" secondAttribute="height" id="CnU-Fi-oJq"/>
                             <constraint firstItem="ieY-I3-myp" firstAttribute="centerY" secondItem="7jF-f0-0tx" secondAttribute="centerY" id="De4-SN-5xe"/>
+                            <constraint firstItem="2hs-QE-706" firstAttribute="centerY" secondItem="lS7-Pq-SYy" secondAttribute="centerY" id="EDn-2j-OYt"/>
                             <constraint firstItem="o9y-7X-qqy" firstAttribute="trailing" secondItem="ag4-gv-Pdk" secondAttribute="trailing" id="EjH-qH-aEq"/>
+                            <constraint firstItem="coa-9H-e94" firstAttribute="centerX" secondItem="ieY-I3-myp" secondAttribute="centerX" id="GwM-sn-ZfK"/>
                             <constraint firstAttribute="trailing" secondItem="HOy-Zq-0WQ" secondAttribute="trailing" id="Joq-PD-VMp"/>
                             <constraint firstItem="ag4-gv-Pdk" firstAttribute="trailing" secondItem="dfs-0B-Q5K" secondAttribute="trailing" id="PWs-EN-3aF"/>
                             <constraint firstItem="7jF-f0-0tx" firstAttribute="top" secondItem="GK3-Uq-TIF" secondAttribute="bottom" constant="10" id="R0d-SV-Gdo"/>
+                            <constraint firstItem="coa-9H-e94" firstAttribute="centerY" secondItem="ieY-I3-myp" secondAttribute="centerY" id="R2X-4d-tmo"/>
                             <constraint firstAttribute="trailing" secondItem="dfs-0B-Q5K" secondAttribute="trailing" constant="15" id="VJr-Yi-KHZ"/>
                             <constraint firstItem="9iq-RK-xa1" firstAttribute="leading" secondItem="J9u-eD-UJV" secondAttribute="leading" id="Wi8-gF-zN2"/>
                             <constraint firstItem="LVw-Od-MYn" firstAttribute="top" secondItem="HOy-Zq-0WQ" secondAttribute="bottom" id="WyU-JU-yIS"/>
                             <constraint firstItem="zxu-ye-1Um" firstAttribute="centerX" secondItem="DEi-49-cTn" secondAttribute="centerX" id="X8r-sy-ieZ"/>
+                            <constraint firstItem="2hs-QE-706" firstAttribute="height" secondItem="lS7-Pq-SYy" secondAttribute="height" id="ZKh-54-0Cs"/>
                             <constraint firstItem="MVs-JU-4V4" firstAttribute="leading" secondItem="7jF-f0-0tx" secondAttribute="leading" id="Ztb-Ix-FbB"/>
                             <constraint firstItem="BJO-Uh-8ZE" firstAttribute="top" secondItem="dfs-0B-Q5K" secondAttribute="bottom" constant="3" id="akw-nD-uu3"/>
                             <constraint firstItem="BJO-Uh-8ZE" firstAttribute="trailing" secondItem="dfs-0B-Q5K" secondAttribute="trailing" id="bN7-82-Tqp"/>
+                            <constraint firstItem="2hs-QE-706" firstAttribute="width" secondItem="lS7-Pq-SYy" secondAttribute="width" id="cLl-bS-x1B"/>
                             <constraint firstItem="MVs-JU-4V4" firstAttribute="top" secondItem="7jF-f0-0tx" secondAttribute="bottom" constant="15" id="caw-B0-K1n"/>
                             <constraint firstAttribute="trailing" secondItem="ieY-I3-myp" secondAttribute="trailing" constant="20" id="cjM-P9-4px"/>
                             <constraint firstItem="J9u-eD-UJV" firstAttribute="leading" secondItem="DEi-49-cTn" secondAttribute="leading" constant="20" id="d72-85-b0U"/>
@@ -940,11 +958,13 @@
                             <constraint firstItem="GK3-Uq-TIF" firstAttribute="leading" secondItem="DEi-49-cTn" secondAttribute="leading" constant="20" id="jIQ-cq-OJV"/>
                             <constraint firstItem="dfs-0B-Q5K" firstAttribute="centerY" secondItem="J9u-eD-UJV" secondAttribute="centerY" id="k1A-av-xMB"/>
                             <constraint firstItem="9iq-RK-xa1" firstAttribute="top" secondItem="J9u-eD-UJV" secondAttribute="bottom" constant="40" id="mRr-qb-61z"/>
+                            <constraint firstItem="2hs-QE-706" firstAttribute="centerX" secondItem="lS7-Pq-SYy" secondAttribute="centerX" id="mnQ-Jf-cgf"/>
                             <constraint firstItem="Ocb-Pv-enN" firstAttribute="width" secondItem="HOy-Zq-0WQ" secondAttribute="width" id="oz6-bQ-xHh"/>
                             <constraint firstItem="LVw-Od-MYn" firstAttribute="top" secondItem="Ocb-Pv-enN" secondAttribute="bottom" id="px7-YQ-mYd"/>
                             <constraint firstItem="ZRe-oV-sMR" firstAttribute="centerX" secondItem="DEi-49-cTn" secondAttribute="centerX" id="s8d-MZ-baL"/>
                             <constraint firstItem="HOy-Zq-0WQ" firstAttribute="leading" secondItem="Ocb-Pv-enN" secondAttribute="trailing" id="sCM-T7-TjP"/>
                             <constraint firstItem="zxu-ye-1Um" firstAttribute="top" secondItem="lS7-Pq-SYy" secondAttribute="bottom" constant="30" id="sn2-xc-qm6"/>
+                            <constraint firstItem="coa-9H-e94" firstAttribute="width" secondItem="ieY-I3-myp" secondAttribute="width" id="uQs-j1-Nqq"/>
                         </constraints>
                     </view>
                     <connections>
@@ -952,6 +972,7 @@
                         <outlet property="labelAmountAssetName" destination="7jF-f0-0tx" id="hIh-nH-DBI"/>
                         <outlet property="labelAmountAvailableCount" destination="ieY-I3-myp" id="dqS-rR-jeX"/>
                         <outlet property="labelPriceAssetName" destination="MVs-JU-4V4" id="ob9-Hy-E1T"/>
+                        <outlet property="labelPriceAssetName2" destination="o9y-7X-qqy" id="k6F-v5-Eia"/>
                         <outlet property="labelPriceAvailableCount" destination="lS7-Pq-SYy" id="t2B-Mk-3Sb"/>
                         <outlet property="labelTotalPrice" destination="ag4-gv-Pdk" id="0gQ-K7-Gzz"/>
                         <outlet property="textFieldAmount" destination="sUy-dT-8zd" id="uyU-7G-Vp4"/>

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 
 class NetworkManager: NSObject
@@ -62,44 +63,55 @@ class NetworkManager: NSObject
     }
 
     
-    @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
-
+    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+        
         var url = Environments.current.nodeUrl.relativeString.appending("/")
-      
+        
         if customUrl != nil {
             url = customUrl!
         }
         
-        return Alamofire.request(url + path, parameters : parameters)
+        return Alamofire.request(url + path, method: method, parameters : parameters)
             
-                .responseJSON { response in
+            .responseJSON { response in
+                
+                if response.error != nil {
                     
-                    if response.error != nil {
-                        
-                        let error = response.error as NSError?
-
-                        if error?.code != NSURLErrorCancelled {
-                            complete(nil, response.error?.localizedDescription)
-                        }
+                    let error = response.error as NSError?
+                    
+                    if error?.code != NSURLErrorCancelled {
+                        complete(nil, response.error?.localizedDescription)
                     }
-                    else if response.response?.statusCode != 200 {
-                        complete(nil, (response.result.value as? NSDictionary)?["message"] as? String)
-                    }
-                    else {
-                        
-                        if let dict = response.result.value as? NSDictionary {
-                            if dict["status"] as? String == "error" {
-                                complete (nil, dict["message"] as? String)
-                            }
-                            else {
-                                complete (parsedObjectFromResponse(response.result.value), nil)
-                            }
+                }
+                else if response.response?.statusCode != 200 {
+                    complete(nil, (response.result.value as? NSDictionary)?["message"] as? String)
+                }
+                else {
+                    
+                    if let dict = response.result.value as? NSDictionary {
+                        if dict["status"] as? String == "error" {
+                            complete (nil, dict["message"] as? String)
                         }
                         else {
                             complete (parsedObjectFromResponse(response.result.value), nil)
                         }
                     }
+                    else {
+                        complete (parsedObjectFromResponse(response.result.value), nil)
+                    }
+                }
         }
+
+    }
+
+    @discardableResult fileprivate class func postRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    
+        return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, complete: complete)
+    }
+    
+    @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+
+        return baseRequestWithPath(path: path, method: .get, parameters: parameters, customUrl: customUrl, complete: complete)
     }
     
     fileprivate class func getMatcherUrl() -> String? {
@@ -189,5 +201,33 @@ class NetworkManager: NSObject
         getRequestWithPath(path: "matcher/orderbook/\(priceAsset)/\(amountAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete(info as? NSDictionary, errorMessage)
         }        
+    }
+    
+    class func getMatcherPublicKey(complete: @escaping (_ key: String?, _ errorMessage: String?) -> Void) {
+        
+//        let req = getRequestWithPath(path: "matcher", parameters: nil, customUrl: nil) { (info, errorMessage) in
+//            print(info, errorMessage)
+//        }
+//
+//        var url = Environments.current.nodeUrl.relativeString.appending("/")
+//        
+//        let header = ["Accept" : "text/plain"]
+//
+//        Alamofire.request(url + "matcher", parameters : nil, headers:header).validate(contentType: ["text/plain"])
+//
+//        .responseString { (responce) in
+//            print (responce.result.value)
+//        }
+//            .responseData { (responce) in
+//                print(responce.result.value)
+//            }
+        }
+    
+    class func buySellOrder(order: Order, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
+        
+        postRequestWithPath(path: "matcher/orderbook", parameters: order.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
+            
+            complete(info as? NSDictionary, errorMessage)
+        }
     }
 }
