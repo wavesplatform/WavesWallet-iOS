@@ -224,7 +224,7 @@ class NetworkManager: NSObject
         }
     
     class func buySellOrder(order: Order, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
-        
+        print(order.toJSON())
         postRequestWithPath(path: "matcher/orderbook", parameters: order.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
             
             complete(info as? NSDictionary, errorMessage)

@@ -39,6 +39,15 @@ class MoneyUtil {
         return result ?? ""
     }
 
+    class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = decimals;
+        f.minimumFractionDigits = 1
+        let result = f.string(from: amount as NSNumber);
+        return result ?? ""
+    }
+    
     class func getScaledTextTrimZeros(_ amount: Int64, decimals: Int) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal

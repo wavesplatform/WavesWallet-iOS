@@ -9,7 +9,7 @@
 import Foundation
 import Gloss
 
-class AssetPair: Decodable {
+class AssetPair: Decodable, Glossy {
     
     var amountAsset: String?
     var priceAsset: String?
@@ -26,6 +26,13 @@ class AssetPair: Decodable {
     
     var bytes: [UInt8] {
         return assetIdBytes(amountAsset) + assetIdBytes(priceAsset)
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "amountAsset" ~~> self.amountAsset,
+            "priceAsset" ~~> self.priceAsset
+            ])
     }
 }
 

@@ -175,11 +175,12 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     
     func calculateTotalPrice() {
         
-        let price = MoneyUtil.parseUnscaled(textFieldPrice.text!, priceAssetDecimal - amountAssetDecimal)!
-        let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+        if let price = MoneyUtil.parseDecimal(textFieldPrice.text!),
+            let amount = MoneyUtil.parseDecimal(textFieldAmount.text!) {
         
-        let total = price * amount
-        labelTotalPrice.text = MoneyUtil.getScaledTextTrimZeros(total, decimals: self.priceAssetDecimal)
+            let total = price * amount
+            labelTotalPrice.text = MoneyUtil.formatDecimals(total, decimals: self.priceAssetDecimal)
+        }
     }
     
     @IBAction func plusPriceTapped(_ sender: Any) {
