@@ -39,6 +39,15 @@ class MoneyUtil {
         return result ?? ""
     }
 
+    class func formatDecimalNoGroupingAndZeros(_ amount: Decimal, decimals: Int) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.groupingSeparator = ""
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = 0
+        return f.string(from: amount as NSNumber)!
+    }
+    
     class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
@@ -75,6 +84,10 @@ class MoneyUtil {
         } else {
             return nil
         }
+    }
+    
+    class func getScaledDecimal(_ value: Int64, _ scale: Int) -> Decimal {
+        return Decimal(value) / Decimal(10^^scale)
     }
     
     class func parseMoney(_ text: String, _ scale: Int) -> Money? {

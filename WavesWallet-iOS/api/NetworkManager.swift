@@ -63,7 +63,7 @@ class NetworkManager: NSObject
     }
 
     
-    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, customUrl: String?, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
         
         var url = Environments.current.nodeUrl.relativeString.appending("/")
         
@@ -71,7 +71,7 @@ class NetworkManager: NSObject
             url = customUrl!
         }
         
-        return Alamofire.request(url + path, method: method, parameters : parameters)
+        return Alamofire.request(url + path, method: method, parameters : parameters, encoding: encoding)
             
             .responseJSON { response in
                 
@@ -106,7 +106,7 @@ class NetworkManager: NSObject
 
     @discardableResult fileprivate class func postRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
     
-        return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, complete: complete)
+        return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, encoding: JSONEncoding.default, complete: complete)
     }
     
     @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {

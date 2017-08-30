@@ -35,8 +35,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
     var priceAssetName: String!
     var amountAssetName: String!
     
-    var priceAssetAvailable: Int64 = 0
-    var amountAssetAvailable: Int64 = 0
+    var priceAssetAvailable: Decimal = 0
+    var amountAssetAvailable: Decimal = 0
     
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
@@ -64,11 +64,12 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             }
             else {
                 self.showAllSubviews()
-                self.priceAssetAvailable = info![self.priceAsset] as! Int64
-                self.amountAssetAvailable = info![self.amountAsset] as! Int64
                 
-                self.labelPriceAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
-                self.labelAmountAvailableCount.text = MoneyUtil.getScaledTextTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
+                self.priceAssetAvailable = MoneyUtil.getScaledDecimal(info![self.priceAsset] as! Int64, self.priceAssetDecimal)
+                self.amountAssetAvailable = MoneyUtil.getScaledDecimal(info![self.amountAsset] as! Int64, self.amountAssetDecimal)
+                
+                self.labelPriceAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
+                self.labelAmountAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
             }
         }
         
@@ -89,25 +90,17 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
         calculateTotalPrice()
     }
     
-    func textFieldFormatString(assetAvailable: Int64, decimals: Int) -> String {
-
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.groupingSeparator = ""
-        f.maximumFractionDigits = decimals
-        f.minimumFractionDigits = 0
-        return f.string(from: Decimal(assetAvailable) / pow(10, Int(decimals)) as NSNumber)!
-    }
-    
     @IBAction func amountAvailableTapped(_ sender: Any) {
 
-        textFieldAmount.text = textFieldFormatString(assetAvailable: self.amountAssetAvailable, decimals: self.amountAssetDecimal)
+        textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
         calculateTotalPrice()
     }
     
     @IBAction func priceAvailableTapped(_ sender: Any) {
-        textFieldPrice.text = textFieldFormatString(assetAvailable: self.priceAssetAvailable, decimals: self.priceAssetDecimal)
-        calculateTotalPrice()
+        if let price = MoneyUtil.parseDecimal(textFieldPrice.text!), price > 0 {
+            textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.priceAssetAvailable/price, decimals: self.priceAssetDecimal)
+            calculateTotalPrice()
+        }
     }
     
     func hideAllSubviews() {
@@ -140,7 +133,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             
-            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, self.priceAssetDecimal)!
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
             let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
             
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.sell, price: price, amount: amount)
@@ -160,7 +153,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             
-            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, self.priceAssetDecimal)!
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
             let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
             
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.buy, price: price, amount: amount)
