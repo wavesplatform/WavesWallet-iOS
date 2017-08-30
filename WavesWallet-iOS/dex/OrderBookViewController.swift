@@ -117,7 +117,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let item = asks[indexPath.row]
              
-            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
+            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
             cell.labelSell.text = MoneyUtil.getScaledTextTrimZeros(item["amount"] as! Int64, decimals: amountAssetDecimal)
 
             cell.labelBuy.text = ""
@@ -134,7 +134,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let item = bids[indexPath.row]
             
-            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: 8 + priceAssetDecimal - amountAssetDecimal)
+            cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
             cell.labelBuy.text = MoneyUtil.getScaledTextTrimZeros(item["amount"] as! Int64, decimals: amountAssetDecimal)
             
             cell.labelSell.text = ""

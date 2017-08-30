@@ -30,12 +30,12 @@ extension Decimal {
 
 
 class MoneyUtil {
-    class func getScaledText(_ amount: Int64, decimals: Int) -> String {
+    class func getScaledText(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        f.maximumFractionDigits = Int(decimals);
-        f.minimumFractionDigits = Int(decimals)
-        let result = f.string(from: Decimal(amount) / pow(10, Int(decimals)) as NSNumber);
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = decimals
+        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
         return result ?? ""
     }
 
@@ -51,18 +51,18 @@ class MoneyUtil {
     class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        f.maximumFractionDigits = decimals;
+        f.maximumFractionDigits = decimals
         f.minimumFractionDigits = 1
         let result = f.string(from: amount as NSNumber);
         return result ?? ""
     }
     
-    class func getScaledTextTrimZeros(_ amount: Int64, decimals: Int) -> String {
+    class func getScaledTextTrimZeros(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals;
         f.minimumFractionDigits = 1
-        let result = f.string(from: Decimal(amount) / pow(10, Int(decimals)) as NSNumber);
+        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber);
         return result ?? ""
     }
     
