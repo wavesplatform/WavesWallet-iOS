@@ -125,6 +125,15 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
         return  AssetPair(json: ["amountAsset" : amountAsset, "priceAsset" : priceAsset])!
     }
     
+    func presentSuccessAlert () {
+        let alert = UIAlertController(title: "Order Accepted", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func sellTapped(_ sender: Any) {
        
         SVProgressHUD.show()
@@ -139,15 +148,22 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.sell, price: price, amount: amount)
             order.senderPrivateKey = privateKey
     
-            NetworkManager.buySellOrder(order: order, complete: { (info, errorMessage) in
+            NetworkManager.buySellOrder(order: order, complete: { (errorMessage) in
                 SVProgressHUD.dismiss()
-                
+
+                if errorMessage != nil {
+                    self.presentBasicAlertWithTitle(title: errorMessage!)
+                }
+                else {
+                    self.presentSuccessAlert()
+                }
             })
         }
     }
   
     @IBAction func buyTapped(_ sender: Any) {
         
+        SVProgressHUD.show()
         WalletManager.restorePrivateKey().bind { (privateKey) in
 
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
@@ -159,9 +175,15 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate {
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: OrderType.buy, price: price, amount: amount)
             order.senderPrivateKey = privateKey
         
-            NetworkManager.buySellOrder(order: order, complete: { (info, errorMessage) in
+            NetworkManager.buySellOrder(order: order, complete: { (errorMessage) in
                 SVProgressHUD.dismiss()
                 
+                if errorMessage != nil {
+                    self.presentBasicAlertWithTitle(title: errorMessage!)
+                }
+                else {
+                    self.presentSuccessAlert()
+                }                
             })
         }
     }
