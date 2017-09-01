@@ -63,24 +63,37 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
                 self.presentBasicAlertWithTitle(title: errorMessage!)
             }
             else {
-                self.showAllSubviews()
                 
-                self.priceAssetAvailable = MoneyUtil.getScaledDecimal(info![self.priceAsset] as! Int64, self.priceAssetDecimal)
-                self.amountAssetAvailable = MoneyUtil.getScaledDecimal(info![self.amountAsset] as! Int64, self.amountAssetDecimal)
-                
-                self.labelPriceAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
-                self.labelAmountAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
+                if WalletManager.currentWallet?.matcherKeyAccount == nil {
+
+                    NetworkManager.getMatcherPublicKey(complete: { (key, errorMessage) in
+                        if errorMessage != nil {
+                            self.presentBasicAlertWithTitle(title: errorMessage!)
+                        }
+                        else {
+                            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key!))
+                            self.setupInfo(info)
+                        }
+                    })
+                }
+                else {
+                    self.setupInfo(info)
+                }
             }
-        }
-        
-///
-        if WalletManager.currentWallet?.matcherKeyAccount == nil {
-            let key = "CRxqEuxhdZBEHX42MU4FfyJxuHmbDBTaHMhM3Uki7pLw"
-            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key))
         }
 
         textFieldPrice.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textFieldAmount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    func setupInfo(_ info : NSDictionary?) {
+        self.showAllSubviews()
+        
+        self.priceAssetAvailable = MoneyUtil.getScaledDecimal(info![self.priceAsset] as! Int64, self.priceAssetDecimal)
+        self.amountAssetAvailable = MoneyUtil.getScaledDecimal(info![self.amountAsset] as! Int64, self.amountAssetDecimal)
+        
+        self.labelPriceAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
+        self.labelAmountAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
     }
     
     func textFieldDidChange(textField: UITextField) {

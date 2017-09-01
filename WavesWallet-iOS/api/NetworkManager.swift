@@ -205,23 +205,10 @@ class NetworkManager: NSObject
     
     class func getMatcherPublicKey(complete: @escaping (_ key: String?, _ errorMessage: String?) -> Void) {
         
-//        let req = getRequestWithPath(path: "matcher", parameters: nil, customUrl: nil) { (info, errorMessage) in
-//            print(info, errorMessage)
-//        }
-//
-//        var url = Environments.current.nodeUrl.relativeString.appending("/")
-//        
-//        let header = ["Accept" : "text/plain"]
-//
-//        Alamofire.request(url + "matcher", parameters : nil, headers:header).validate(contentType: ["text/plain"])
-//
-//        .responseString { (responce) in
-//            print (responce.result.value)
-//        }
-//            .responseData { (responce) in
-//                print(responce.result.value)
-//            }
+        getRequestWithPath(path: "matcher", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
+            complete(info as? String, errorMessage)
         }
+    }
     
     class func buySellOrder(order: Order, complete: @escaping (_ errorMessage: String?) -> Void) {
         postRequestWithPath(path: "matcher/orderbook", parameters: order.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
@@ -246,4 +233,19 @@ class NetworkManager: NSObject
             }
         }
     }
+    
+    class func cancelOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
+    
+        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/cancel", parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
+            complete(errorMessage)
+        }
+    }
+
+    class func deleteOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
+        
+        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete", parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
+            complete(errorMessage)
+        }
+    }
+
 }

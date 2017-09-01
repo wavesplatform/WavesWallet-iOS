@@ -81,7 +81,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         myOrdersController = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") as! MyOrdersViewController
         myOrdersController.amountAsset = amountAsset
         myOrdersController.priceAsset = priceAsset
-
+        myOrdersController.amountAssetDecimal = amountAssetDecimal
+        myOrdersController.priceAssetDecimal = priceAssetDecimal
         addChildViewController(myOrdersController)
         scrollView.addSubview(myOrdersController.view)
         myOrdersController.didMove(toParentViewController: self)

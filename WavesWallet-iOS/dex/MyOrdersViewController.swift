@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+
 
 let kNotifDidCreateOrder = "kNotifDidCreateOrder"
 
@@ -20,6 +22,7 @@ class MyOrderCell : UITableViewCell {
     @IBOutlet weak var labelSum: UILabel!
     @IBOutlet weak var labelStatus: UILabel!
     @IBOutlet weak var buttonDelete: UIButton!
+    @IBOutlet weak var labelFilled: UILabel!
 
     let dateFormatter = DateFormatter()
 
@@ -49,17 +52,6 @@ class MyOrderCell : UITableViewCell {
         
         labelPrice.textColor = labelType.textColor
 
-        /*
-        amount = 100000000;
-        assetPair =         {
-            amountAsset = WAVES;
-            priceAsset = Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe;
-        };
-        filled = 0;
-        id = ESLFAsJEnzRzCHUdD2ZiVAyPqLfA66cy6hE2ueEwKR56;
-        price = 100000000;
-        */
-        
         if item["status"] as? String == "Accepted" {
             labelStatus.text = "Open"
             labelStatus.textColor = LastTraderCell.buyColor()
@@ -78,6 +70,18 @@ class MyOrderCell : UITableViewCell {
             labelStatus.text = "Filled"
             labelStatus.textColor = LastTraderCell.sellColor()
         }
+        
+        labelFilled.textColor = labelStatus.textColor
+
+        if item["status"] as? String == "Accepted" ||
+            item["status"] as? String == "PartiallyFilled" {
+            buttonDelete.setImage(nil, for: .normal)
+            buttonDelete.setTitle("X", for: .normal)
+        }
+        else {
+            buttonDelete.setImage(UIImage(named:"delete"), for: .normal)
+            buttonDelete.setTitle(nil, for: .normal)
+        }
     }
 }
 
@@ -87,7 +91,10 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     
     var amountAsset: String!
     var priceAsset: String!
-    
+
+    var amountAssetDecimal: Int!
+    var priceAssetDecimal: Int!
+
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var myOrders : NSArray = []
@@ -109,14 +116,53 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
             self.activityIndicatorView.stopAnimating()
             if items != nil {
-                self.myOrders = (items?.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as? NSArray)!
+                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as! NSArray
                 self.tableView.reloadData()
             }
         }
     }
     
-    func deleteTapped(sender: UIButton) {
+    func deleteCancelTapped(sender: UIButton) {
         
+        SVProgressHUD.show()
+        WalletManager.restorePrivateKey().bind { (privateKey) in
+            
+            let item = self.myOrders[sender.tag] as! NSMutableDictionary
+            
+            let req = CancelOrderRequest(sender: WalletManager.currentWallet!.publicKeyAccount, orderId: item["id"] as! String)
+            req.senderPrivateKey = privateKey
+            
+            if item["status"] as? String == "Filled" ||
+                item["status"] as? String == "Cancelled" {
+                
+                NetworkManager.deleteOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
+                    SVProgressHUD.dismiss()
+
+                    if errorMessage != nil {
+                        self.presentBasicAlertWithTitle(title: errorMessage!)
+                    }
+                    else {
+                        self.loadInfo()
+                    }
+                })
+            }
+            else if item["status"] as? String == "Accepted" ||
+                item["status"] as? String == "PartiallyFilled" {
+         
+                NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
+
+                    SVProgressHUD.dismiss()
+                    
+                    if errorMessage != nil {
+                        self.presentBasicAlertWithTitle(title: errorMessage!)
+                    }
+                    else {
+                        item["status"] = "Cancelled"
+                        self.tableView.reloadData()
+                    }
+                })
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -145,18 +191,27 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
         
         if cell.buttonDelete.allTargets.count == 0 {
-            cell.buttonDelete.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
+            cell.buttonDelete.addTarget(self, action: #selector(deleteCancelTapped), for: .touchUpInside)
         }
         
         cell.buttonDelete.tag = indexPath.row
+        let item = myOrders[indexPath.row] as! NSDictionary
+        cell.setupCell(item)
         
-        cell.setupCell(myOrders[indexPath.row] as! NSDictionary)
+        cell.labelFilled.text = MoneyUtil.getScaledTextTrimZeros(item["filled"] as! Int64, decimals: self.amountAssetDecimal)
+        let amount = item["amount"] as! Int64
+        let price = item["price"] as! Int64
+        let sum = MoneyUtil.getScaledDecimal(amount, amountAssetDecimal) * MoneyUtil.getScaledDecimal(price, 8 + self.priceAssetDecimal - self.amountAssetDecimal)
+        cell.labelSum.text = MoneyUtil.formatDecimals(sum, decimals: self.priceAssetDecimal)
+
+        cell.labelPrice.text = MoneyUtil.getScaledText(price, decimals: 8 + self.priceAssetDecimal - self.amountAssetDecimal)
+        cell.labelAmount.text = MoneyUtil.getScaledTextTrimZeros(amount, decimals: self.amountAssetDecimal)
         
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = LastTraderCell.darkBgColor()
+            cell.backgroundColor = LastTraderCell.lightBgColor()
         }
         else {
-            cell.backgroundColor = LastTraderCell.lightBgColor()
+            cell.backgroundColor = LastTraderCell.darkBgColor()
         }
         
         return cell

@@ -103,10 +103,10 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "LastTraderCell", for: indexPath) as! LastTraderCell
        
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = LastTraderCell.darkBgColor()
+            cell.backgroundColor = LastTraderCell.lightBgColor()
         }
         else {
-            cell.backgroundColor = LastTraderCell.lightBgColor()
+            cell.backgroundColor = LastTraderCell.darkBgColor()
         }
         
         let item = lastTraders[indexPath.row] as! NSDictionary
