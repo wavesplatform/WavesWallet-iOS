@@ -14,12 +14,16 @@
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
 		E963CF871F1E3602001494FD /* CandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF861F1E3602001494FD /* CandleModel.swift */; };
+		E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96AFE701F5799A70046B1CA /* MyOrderHeaderView.swift */; };
+		E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AFE721F5799AF0046B1CA /* MyOrderHeaderView.xib */; };
 		E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */; };
 		E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E988E8B41F0C03170013EAF6 /* Dex.storyboard */; };
 		E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */; };
 		E988E8B91F0D32360013EAF6 /* OrderBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */; };
 		E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */; };
 		E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */; };
+		E99ECC601F59A7A100ADB12D /* OrderConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99ECC5F1F59A7A100ADB12D /* OrderConfirmView.swift */; };
+		E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99ECC611F59A7B800ADB12D /* OrderConfirmView.xib */; };
 		E9E2A90A1F4C42C40093782E /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */; };
 		E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */; };
 		E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA21B31F45CBF8008BF4C4 /* DexNewPairViewController.swift */; };
@@ -107,12 +111,16 @@
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E963CF861F1E3602001494FD /* CandleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleModel.swift; sourceTree = "<group>"; };
+		E96AFE701F5799A70046B1CA /* MyOrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderHeaderView.swift; sourceTree = "<group>"; };
+		E96AFE721F5799AF0046B1CA /* MyOrderHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderHeaderView.xib; sourceTree = "<group>"; };
 		E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexViewController.swift; sourceTree = "<group>"; };
 		E988E8B41F0C03170013EAF6 /* Dex.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dex.storyboard; sourceTree = "<group>"; };
 		E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexContainerViewController.swift; sourceTree = "<group>"; };
 		E988E8B81F0D32360013EAF6 /* OrderBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderBookViewController.swift; sourceTree = "<group>"; };
 		E988E8BA1F0D323E0013EAF6 /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradersViewController.swift; sourceTree = "<group>"; };
+		E99ECC5F1F59A7A100ADB12D /* OrderConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmView.swift; sourceTree = "<group>"; };
+		E99ECC611F59A7B800ADB12D /* OrderConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderConfirmView.xib; sourceTree = "<group>"; };
 		E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
 		E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		E9FA21B31F45CBF8008BF4C4 /* DexNewPairViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexNewPairViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +256,8 @@
 			children = (
 				E929B46A1F36EC4500A335F7 /* LastTraderHeaderView.swift */,
 				E929B46C1F36EC4E00A335F7 /* LastTraderHeaderView.xib */,
+				E96AFE701F5799A70046B1CA /* MyOrderHeaderView.swift */,
+				E96AFE721F5799AF0046B1CA /* MyOrderHeaderView.xib */,
 			);
 			path = Dex;
 			sourceTree = "<group>";
@@ -265,6 +275,8 @@
 		F73553741F03D94000ADC449 /* dex */ = {
 			isa = PBXGroup;
 			children = (
+				E99ECC5F1F59A7A100ADB12D /* OrderConfirmView.swift */,
+				E99ECC611F59A7B800ADB12D /* OrderConfirmView.xib */,
 				F73553751F03D9FC00ADC449 /* Order.swift */,
 				E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */,
 				E988E8B61F0D28A20013EAF6 /* DexContainerViewController.swift */,
@@ -592,6 +604,8 @@
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
+				E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */,
+				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -691,6 +705,7 @@
 				F7C683B11EA93AEB00C87DAF /* generichash_blake2_api.c in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */,
+				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
 				F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				F7C683B01EA93AEB00C87DAF /* crypto_generichash.c in Sources */,
@@ -721,6 +736,7 @@
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
 				F79C43D81EAEB101006057B0 /* HalfModalInteractiveTransition.swift in Sources */,
 				F770753D1EAA3DD000FE6995 /* NavigationAccessoryView.swift in Sources */,
+				E99ECC601F59A7A100ADB12D /* OrderConfirmView.swift in Sources */,
 				F7F97E941EAA0CF800BE2F6F /* UIView+Borders.swift in Sources */,
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,

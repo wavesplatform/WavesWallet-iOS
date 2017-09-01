@@ -63,7 +63,7 @@ class NetworkManager: NSObject
     }
 
     
-    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, customUrl: String?, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
         
         var url = Environments.current.nodeUrl.relativeString.appending("/")
         
@@ -71,7 +71,7 @@ class NetworkManager: NSObject
             url = customUrl!
         }
         
-        return Alamofire.request(url + path, method: method, parameters : parameters, encoding: encoding)
+        return Alamofire.request(url + path, method: method, parameters : parameters, encoding: encoding, headers: headers)
             
             .responseJSON { response in
                 
@@ -109,9 +109,9 @@ class NetworkManager: NSObject
         return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, encoding: JSONEncoding.default, complete: complete)
     }
     
-    @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
 
-        return baseRequestWithPath(path: path, method: .get, parameters: parameters, customUrl: customUrl, complete: complete)
+        return baseRequestWithPath(path: path, method: .get, parameters: parameters, headers:headers, customUrl: customUrl, complete: complete)
     }
     
     fileprivate class func getMatcherUrl() -> String? {
@@ -198,7 +198,7 @@ class NetworkManager: NSObject
     
     class func getBalancePair(priceAsset: String, amountAsset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
         
-        getRequestWithPath(path: "matcher/orderbook/\(priceAsset)/\(amountAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
+        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete(info as? NSDictionary, errorMessage)
         }        
     }
@@ -227,6 +227,23 @@ class NetworkManager: NSObject
         postRequestWithPath(path: "matcher/orderbook", parameters: order.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
             
             complete (errorMessage)
+        }
+    }
+    
+    class func getMyOrders(amountAsset: String, priceAsset: String, complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
+        
+        WalletManager.restorePrivateKey().bind { (privateKey) in
+            let req = MyOrdersRequest(senderPublicKey: WalletManager.currentWallet!.publicKeyAccount)
+            req.senderPrivateKey = privateKey
+            
+            let headers : HTTPHeaders = ["timestamp" : "\(req.toJSON()!["timestamp"]!)",
+                "signature" : req.toJSON()!["signature"] as! String]
+            
+            let path = "matcher/orderbook/\(amountAsset)/\(priceAsset)/publicKey/\(WalletManager.currentWallet!.publicKeyStr)"
+            
+            getRequestWithPath(path: path, parameters: nil, headers: headers, customUrl: getMatcherUrl()) { (info, errorMessage) in
+                complete (info as? NSArray, errorMessage)
+            }
         }
     }
 }

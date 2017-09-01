@@ -60,7 +60,10 @@ class DataManager: NSObject {
         
         let array = NSMutableArray()
         array.addObjects(from: getDexPairs() as! [Any])
-        array.add(item)
+        
+        let newItem = NSMutableDictionary(dictionary: item)
+        newItem["isTest"] = Environments.current.isTestNet ? true : false
+        array.add(newItem)
         
         UserDefaults.standard.set(array, forKey: "dexPairs")
         UserDefaults.standard.synchronize()
@@ -125,7 +128,23 @@ class DataManager: NSObject {
             return []
         }
         
-        return pairs as! NSArray
+        let array = NSMutableArray()
+        
+        for item in pairs as! [NSDictionary] {
+            
+            if Environments.current.isTestNet {
+                if item["isTest"] as? Bool == true {
+                    array.add(item)
+                }
+            }
+            else {
+                if item["isTest"] as? Bool == false {
+                    array.add(item)
+                }
+            }
+        }
+        
+        return array
     }
     
     class func isShowUnverifiedAssets() -> Bool {
