@@ -57,7 +57,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         textFieldAmount.text = "0"
         
         if price != nil && amount != nil {
-            textFieldPrice.text = ""
+//            textFieldPrice.text = ""
             
         }
         
