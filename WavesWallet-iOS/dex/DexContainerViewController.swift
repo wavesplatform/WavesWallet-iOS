@@ -51,13 +51,13 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         viewShadow.layer.shadowOpacity = 0.7
         viewShadow.layer.shadowOffset = CGSize(width: 0, height: 1)
         
-        scrollView.isScrollEnabled = false
-        
         orderBookController = storyboard?.instantiateViewController(withIdentifier: "OrderBookViewController") as! OrderBookViewController
         orderBookController.amountAsset = amountAsset
         orderBookController.priceAsset = priceAsset
         orderBookController.amountAssetDecimal = amountAssetDecimal
         orderBookController.priceAssetDecimal = priceAssetDecimal
+        orderBookController.priceAssetName = priceAssetName
+        orderBookController.amountAssetName = amountAssetName
         addChildViewController(orderBookController)
         scrollView.addSubview(orderBookController.view)
         orderBookController.didMove(toParentViewController: self)

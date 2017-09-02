@@ -41,6 +41,9 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
 
+
+    var amount: Int64?
+    var price: Int64?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,12 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         
         textFieldPrice.text = "0"
         textFieldAmount.text = "0"
+        
+        if price != nil && amount != nil {
+            textFieldPrice.text = ""
+            
+        }
+        
         calculateTotalPrice()
         
         hideAllSubviews()

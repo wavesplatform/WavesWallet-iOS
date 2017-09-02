@@ -10,7 +10,6 @@ import UIKit
 import SVProgressHUD
 
 
-let kNotifDidCreateOrder = "kNotifDidCreateOrder"
 
 class MyOrderCell : UITableViewCell {
     

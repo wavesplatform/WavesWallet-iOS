@@ -23,6 +23,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
     var amountAsset : String!
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
+    var priceAssetName : String!
+    var amountAssetName : String!
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -36,6 +38,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(controllerWillAppear), name: Notification.Name(rawValue: kNotifDidCreateOrder), object: nil)
+
         loadInfo {
             self.activityIndicator.stopAnimating()
             
@@ -45,6 +49,10 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func controllerWillAppear() {
         
         if isLoading {
@@ -74,7 +82,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
                 
                 if var _asks = info!["asks"] as? NSArray {
-                    _asks = _asks.sortedArray(using: [NSSortDescriptor.init(key: "amount", ascending: false)]) as NSArray
+                    _asks = _asks.sortedArray(using: [NSSortDescriptor.init(key: "price", ascending: false)]) as NSArray
                     self.asks.append(contentsOf: _asks as! [NSDictionary])
                 }
                 
@@ -83,6 +91,31 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             
             complete()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "CreateOrderViewController") as! CreateOrderViewController
+
+        if indexPath.section == 0 {
+            let item = asks[indexPath.row]
+            controller.price = item["price"] as? Int64
+            controller.amount = item["amount"] as? Int64
+        }
+        else {
+            let item = bids[indexPath.row]
+            controller.price = item["price"] as? Int64
+            controller.amount = item["amount"] as? Int64
+        }
+        
+        controller.priceAsset = priceAsset
+        controller.amountAsset = amountAsset
+        controller.priceAssetName = priceAssetName
+        controller.amountAssetName = amountAssetName
+        controller.priceAssetDecimal = priceAssetDecimal
+        controller.amountAssetDecimal = amountAssetDecimal
+        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

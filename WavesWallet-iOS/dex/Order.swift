@@ -9,6 +9,8 @@
 import Foundation
 import Gloss
 
+let kNotifDidCreateOrder : String = "kNotifDidCreateOrder"
+
 class AssetPair: Decodable, Glossy {
     
     var amountAsset: String?
