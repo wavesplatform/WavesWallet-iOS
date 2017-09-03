@@ -71,6 +71,8 @@ class LoginViewController: UIViewController {
             realm.delete(wallet)
         }
         
+        WalletManager.clearPrivateMemoryKey()
+
         if let err = WalletManager.removePrivateKey(publicKey: publicKey) {
             presentBasicAlertWithTitle(title: err.localizedDescription)
         }

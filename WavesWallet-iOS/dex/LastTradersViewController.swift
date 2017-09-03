@@ -59,7 +59,7 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
     func controllerWillAppear() {
         
         if isLoading {
-            return
+            return()
         }
         
         isLoading = true
@@ -81,10 +81,19 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
     
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+      
+        if lastTraders.count == 0 {
+            return 0
+        }
+        
         return LastTraderHeaderView.viewHeight()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if lastTraders.count == 0 {
+            return nil
+        }
         
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: LastTraderHeaderView.getIdentifier())
         return view

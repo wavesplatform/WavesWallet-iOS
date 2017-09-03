@@ -162,9 +162,9 @@ class NetworkManager: NSObject
         }
     }
     
-    class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
+    class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) -> DataRequest {
     
-        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
+        return getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete(info as? NSDictionary, errorMessage)
         }
     }
@@ -219,7 +219,8 @@ class NetworkManager: NSObject
     
     class func getMyOrders(amountAsset: String, priceAsset: String, complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
         
-        WalletManager.restorePrivateKey().bind { (privateKey) in
+        WalletManager.getPrivateKey { (privateKey) in
+
             let req = MyOrdersRequest(senderPublicKey: WalletManager.currentWallet!.publicKeyAccount)
             req.senderPrivateKey = privateKey
             

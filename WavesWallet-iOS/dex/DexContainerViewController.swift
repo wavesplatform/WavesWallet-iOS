@@ -185,6 +185,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         
         chartViewControllerDidChangeTimeFrame()
+        
+        orderBookController.controllerWillDissapear()
     }
     
     @IBAction func lastTradersTapped(_ sender: Any) {
@@ -204,6 +206,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
         
         lastTraderController.controllerWillAppear()
+        orderBookController.controllerWillDissapear()
     }
     
     @IBAction func myOrdersTapped(_ sender: Any) {
@@ -220,6 +223,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonMyOrders.setTitleColor(UIColor.white, for: .normal)
 
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        
+        orderBookController.controllerWillDissapear()
     }
     
     func setupViewLinePosition(sender: UIButton) {

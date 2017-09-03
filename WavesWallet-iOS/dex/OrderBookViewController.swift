@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+
 
 class OrderCell: UITableViewCell {
     
@@ -33,7 +35,11 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
     var bids = [NSDictionary]()
     var asks = [NSDictionary]()
     
-    var isLoading: Bool = true
+    var timer: Timer! = nil
+
+    var orderRequest : DataRequest? = nil
+    
+    var hasFirstRequest = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +52,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             if self.asks.count > 0 && self.bids.count > 0 {
                 self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 1), at: .middle, animated: false)
             }
+            
+            self.hasFirstRequest = true
         }
     }
 
@@ -53,24 +61,53 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         NotificationCenter.default.removeObserver(self)
     }
     
-    func controllerWillAppear() {
-        
-        if isLoading {
-            return
+    func clearTimer() {
+
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
         }
+
+        orderRequest?.cancel()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        clearTimer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        if hasFirstRequest {
+            controllerWillAppear()
+        }
+    }
+    
+    func controllerWillAppear() {
+        //called when top tabs changed
         
+        if timer == nil {
+            loadInfo {
+                
+            }
+        }
+    }
+    
+    func controllerWillDissapear() {
+        //called when top tabs changed
+
+        clearTimer()
+    }
+    
+    func updateInfo() {
         loadInfo {
             
         }
     }
-    
-    
+
     func loadInfo(complete: @escaping (Void) -> Void)  {
-        isLoading = true
-    
-        NetworkManager.getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset) { (info, errorMessage) in
-            
-            self.isLoading = false
+        
+        clearTimer()
+        orderRequest = NetworkManager.getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset) { (info, errorMessage) in
             
             if info != nil {
                 
@@ -90,6 +127,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             
             complete()
+            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateInfo), userInfo: nil, repeats: true)
         }
     }
     
@@ -115,7 +153,6 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         controller.priceAssetDecimal = priceAssetDecimal
         controller.amountAssetDecimal = amountAssetDecimal
         navigationController?.pushViewController(controller, animated: true)
-
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

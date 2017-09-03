@@ -124,8 +124,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     func deleteCancelTapped(sender: UIButton) {
         
         SVProgressHUD.show()
-        WalletManager.restorePrivateKey().bind { (privateKey) in
-            
+        
+        WalletManager.getPrivateKey { (privateKey) in
+
             let item = self.myOrders[sender.tag] as! NSMutableDictionary
             
             let req = CancelOrderRequest(sender: WalletManager.currentWallet!.publicKeyAccount, orderId: item["id"] as! String)

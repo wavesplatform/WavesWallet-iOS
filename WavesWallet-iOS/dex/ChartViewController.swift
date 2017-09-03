@@ -300,7 +300,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     func preloadInfo(complete: @escaping () -> Void) {
         
         if isLoading {
-            return
+            return()
         }
         
         isLoading = true

@@ -57,8 +57,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         textFieldAmount.text = "0"
         
         if price != nil && amount != nil {
-//            textFieldPrice.text = ""
-            
+            textFieldAmount.text = textFieldFormatString(assetAvailable: amount!, decimals: self.amountAssetDecimal)
+            textFieldPrice.text = textFieldFormatString(assetAvailable: price!, decimals: self.priceAssetDecimal)
         }
         
         calculateTotalPrice()
@@ -94,6 +94,18 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         textFieldPrice.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textFieldAmount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
+    
+    
+    func textFieldFormatString(assetAvailable: Int64, decimals: Int) -> String {
+        
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.groupingSeparator = ""
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = 0
+        return f.string(from: Decimal(assetAvailable) / pow(10, Int(decimals)) as NSNumber)!
+    }
+
     
     func setupInfo(_ info : NSDictionary?) {
         self.showAllSubviews()
@@ -164,8 +176,9 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     
     func executeSellBuyAction(type: OrderType) {
         SVProgressHUD.show()
-        WalletManager.restorePrivateKey().bind { (privateKey) in
-            
+        
+        WalletManager.getPrivateKey { (privateKey) in
+
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             

@@ -147,7 +147,6 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func refresh() {
-    
         updateInfo()
     }
     
@@ -260,7 +259,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             }
             
             tableView.reloadData()
-            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateInfo), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateInfo), userInfo: nil, repeats: true)
         }
     }
     

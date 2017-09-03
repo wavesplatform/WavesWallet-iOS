@@ -35,6 +35,7 @@ struct Wallet {
     let name: String
     let publicKeyAccount: PublicKeyAccount
     var matcherKeyAccount: PublicKeyAccount?
+    var privateKey: PrivateKeyAccount?
 
     var address: String {
         return publicKeyAccount.address
@@ -233,6 +234,7 @@ class WalletManager {
     }
     
     class func removePrivateKey(publicKey: String) -> Error? {
+        
         let keychain = Keychain(service: "com.wavesplatform.wallets")
 
         do {
@@ -243,5 +245,19 @@ class WalletManager {
         return nil
     }
     
+    class func clearPrivateMemoryKey() {
+        WalletManager.currentWallet?.privateKey = nil
+    }
     
+    class func getPrivateKey(complete: @escaping(_ key: PrivateKeyAccount) -> Void) {
+        if let key = WalletManager.currentWallet?.privateKey {
+            complete(key)
+        }
+        else {
+            WalletManager.restorePrivateKey().bind { (key) in
+                WalletManager.currentWallet?.privateKey = key
+                complete(key)
+            }
+        }
+    }
 }
