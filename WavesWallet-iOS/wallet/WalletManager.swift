@@ -249,15 +249,19 @@ class WalletManager {
         WalletManager.currentWallet?.privateKey = nil
     }
     
-    class func getPrivateKey(complete: @escaping(_ key: PrivateKeyAccount) -> Void) {
+    class func getPrivateKey(complete: @escaping(_ key: PrivateKeyAccount) -> Void, fail:@escaping (_ errorMessage: String) -> Void) {
         if let key = WalletManager.currentWallet?.privateKey {
             complete(key)
         }
         else {
-            WalletManager.restorePrivateKey().bind { (key) in
+            
+            WalletManager.restorePrivateKey().subscribe(onNext: { (key) in
                 WalletManager.currentWallet?.privateKey = key
                 complete(key)
-            }
+            }, onError: { (error) in
+                fail("Private key is not founf")
+
+            }, onCompleted: nil, onDisposed: nil)
         }
     }
 }
