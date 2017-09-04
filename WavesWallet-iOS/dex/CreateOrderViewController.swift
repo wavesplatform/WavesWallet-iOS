@@ -152,7 +152,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     
     
     func getAssetPair() -> AssetPair {
-        return  AssetPair(json: ["amountAsset" : amountAsset, "priceAsset" : priceAsset])!
+        return AssetPair(amountAsset: amountAsset, priceAsset: priceAsset)
     }
     
     func presentSuccessAlert () {
