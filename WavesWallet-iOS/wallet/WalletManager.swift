@@ -258,7 +258,10 @@ class WalletManager {
             WalletManager.restorePrivateKey().subscribe(onNext: { (key) in
                 WalletManager.currentWallet?.privateKey = key
                 complete(key)
-            }.addDisposableTo(bag)
+            }, onError: { (error) in
+                fail("Private key is not founf")
+
+            }, onCompleted: nil, onDisposed: nil)
         }
     }
 }
