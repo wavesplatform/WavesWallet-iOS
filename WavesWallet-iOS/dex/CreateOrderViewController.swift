@@ -182,8 +182,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             
-            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
-            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal, decimalSeparator: ".")!
+            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal, decimalSeparator: ".")!
             
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: type, price: price, amount: amount)
             order.senderPrivateKey = privateKey

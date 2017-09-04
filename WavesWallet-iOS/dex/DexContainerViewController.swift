@@ -224,6 +224,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
         
+        myOrdersController.controllerWillAppear()
         orderBookController.controllerWillDissapear()
     }
     
