@@ -75,10 +75,13 @@ class MoneyUtil {
         return (s2, s1)
     }
     
-    class func parseUnscaled(_ text: String, _ scale: Int) -> Int64? {
+    class func parseUnscaled(_ text: String, _ scale: Int, decimalSeparator: String? = nil) -> Int64? {
         let s = text.replacingOccurrences(of: groupSeparator(), with: "")
         let f = NumberFormatter()
         f.numberStyle = .decimal
+        if let separator = decimalSeparator{
+            f.decimalSeparator = separator
+        }
         if let d = f.number(from: s)?.decimalValue {
             return Int64(NSDecimalNumber(decimal: d * Decimal(10^^scale)))
         } else {

@@ -98,6 +98,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     
     var myOrders : NSArray = []
     
+    var isLoading = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -112,13 +115,25 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadInfo () {
+        
+        isLoading = true
         NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
+            self.isLoading = false
             self.activityIndicatorView.stopAnimating()
             if items != nil {
                 self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as! NSArray
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    func controllerWillAppear() {
+        
+        if isLoading {
+            return()
+        }
+        
+        loadInfo()
     }
     
     func deleteCancelTapped(sender: UIButton) {
