@@ -100,7 +100,8 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     
     var isLoading = false
     
-    
+    let refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -108,6 +109,13 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     
         loadInfo()
         NotificationCenter.default.addObserver(self, selector: #selector(loadInfo), name: Notification.Name(rawValue: kNotifDidCreateOrder), object: nil)
+
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    func refresh() {
+        controllerWillAppear()
     }
     
     deinit {
@@ -124,6 +132,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                 self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as! NSArray
                 self.tableView.reloadData()
             }
+            
+            self.refreshControl.endRefreshing()
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -151,9 +162,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                 item["status"] as? String == "Cancelled" {
                 
                 NetworkManager.deleteOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
-                    SVProgressHUD.dismiss()
 
                     if errorMessage != nil {
+                        SVProgressHUD.dismiss()
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
@@ -165,9 +176,8 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                 item["status"] as? String == "PartiallyFilled" {
          
                 NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
-
                     SVProgressHUD.dismiss()
-                    
+
                     if errorMessage != nil {
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
