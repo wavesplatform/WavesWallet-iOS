@@ -191,7 +191,7 @@ class CreateNewWalletViewController: UIViewController {
                 
                 try keychain
                     .authenticationPrompt("Authenticate to store encrypted wallet private key")
-                    .accessibility(.whenPasscodeSetThisDeviceOnly, authenticationPolicy: policy)
+                    .accessibility(.whenUnlocked, authenticationPolicy: policy)
                     .set(seed, key: wallet.publicKey)
                 DispatchQueue.main.async {
                     WalletManager.didLogin(toWallet: wallet)
