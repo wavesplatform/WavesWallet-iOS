@@ -176,14 +176,13 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                 item["status"] as? String == "PartiallyFilled" {
          
                 NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
-                    SVProgressHUD.dismiss()
 
                     if errorMessage != nil {
+                        SVProgressHUD.dismiss()
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
-                        item["status"] = "Cancelled"
-                        self.tableView.reloadData()
+                        self.loadInfo()
                     }
                 })
             }
