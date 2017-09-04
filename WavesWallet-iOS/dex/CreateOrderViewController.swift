@@ -41,6 +41,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
 
+    @IBOutlet weak var labelFee: UILabel!
 
     var amount: Int64?
     var price: Int64?
@@ -60,6 +61,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             textFieldAmount.text = textFieldFormatString(assetAvailable: amount!, decimals: self.amountAssetDecimal)
             textFieldPrice.text = textFieldFormatString(assetAvailable: price!, decimals: self.priceAssetDecimal)
         }
+        
+        labelFee.text = MoneyUtil.getScaledTextTrimZeros(300000, decimals: 8)
         
         calculateTotalPrice()
         
@@ -91,8 +94,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             }
         }
 
-        textFieldPrice.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textFieldAmount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textFieldPrice.addTarget(self, action: #selector(calculateTotalPrice), for: .editingChanged)
+        textFieldAmount.addTarget(self, action: #selector(calculateTotalPrice), for: .editingChanged)
     }
     
     
@@ -115,12 +118,6 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         
         self.labelPriceAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
         self.labelAmountAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
-    }
-    
-    func textFieldDidChange(textField: UITextField) {
-        textField.text = textField.text?.replacingOccurrences(of: ",", with: ".")
-        
-        calculateTotalPrice()
     }
     
     @IBAction func amountAvailableTapped(_ sender: Any) {
@@ -182,8 +179,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             
-            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal, decimalSeparator: ".")!
-            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal, decimalSeparator: ".")!
+            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
+            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
             
             let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: type, price: price, amount: amount)
             order.senderPrivateKey = privateKey
@@ -260,16 +257,27 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     
     // MARK: CalculateTapped
     
+    func decimalSeparator() -> String {
+        return NumberFormatter().decimalSeparator
+    }
+    
     func countDecimalsFrom(_ value: Double, textField: UITextField) -> Int {
         
         let string: NSString = textField.text! as NSString
         
         var decimals = 0
-        let range = string.range(of: ".")
+        var range = string.range(of: ".")
         
         if range.location != NSNotFound {
             let substring = string.substring(from: range.location + 1)
             decimals = substring.characters.count > 0 ? substring.characters.count : 1
+        }
+        else {
+            range = string.range(of: ",")
+            if range.location != NSNotFound {
+                let substring = string.substring(from: range.location + 1)
+                decimals = substring.characters.count > 0 ? substring.characters.count : 1
+            }
         }
         
         return decimals
@@ -288,15 +296,22 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     }
     
     func formatPlus(textField: UITextField) {
-        let string: NSString = textField.text! as NSString
+        var string: NSString = textField.text! as NSString
+        string = string.replacingOccurrences(of: ",", with: ".") as NSString
+        
         var value = string.doubleValue
         let decimals = countDecimalsFrom(value, textField: textField)
         value += deltaValueFrom(value, textField: textField)
-        textField.text = String(format: "%.0\(decimals)f", value)
+        
+        var text = String(format: "%.0\(decimals)f", value)
+        text = text.replacingOccurrences(of: ".", with: "\(decimalSeparator())")
+        textField.text = text
     }
     
     func formatMinus(textField: UITextField) {
-        let string: NSString = textField.text! as NSString
+        var string: NSString = textField.text! as NSString
+        string = string.replacingOccurrences(of: ",", with: ".") as NSString
+
         var value = string.doubleValue
         let decimals = countDecimalsFrom(value, textField: textField)
         value -= deltaValueFrom(value, textField: textField)
@@ -305,7 +320,9 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             value = 0
         }
         
-        textField.text = String(format: "%.0\(decimals)f", value)
+        var text = String(format: "%.0\(decimals)f", value)
+        text = text.replacingOccurrences(of: ".", with: "\(decimalSeparator())")
+        textField.text = text
     }
     
     
@@ -315,7 +332,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
 
         if string == "," || string == "." {
             
-            if ((textField.text! as NSString).range(of: ".") as NSRange).location != NSNotFound {
+            if ((textField.text! as NSString).range(of: ".") as NSRange).location != NSNotFound ||
+                ((textField.text! as NSString).range(of: ",") as NSRange).location != NSNotFound {
                 return false
             }
             else if textField.text!.characters.count == 0 {
@@ -324,7 +342,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         }
         else if string.characters.count > 0 {
             if textField.text!.characters.count == 1 && textField.text! == "0" {
-                textField.text = "0."
+                textField.text = "0\(decimalSeparator())"
             }            
         }
         

@@ -971,6 +971,7 @@
                         <outlet property="acitivityIndicatorView" destination="ZRe-oV-sMR" id="Oe2-EZ-Lvm"/>
                         <outlet property="labelAmountAssetName" destination="7jF-f0-0tx" id="hIh-nH-DBI"/>
                         <outlet property="labelAmountAvailableCount" destination="ieY-I3-myp" id="dqS-rR-jeX"/>
+                        <outlet property="labelFee" destination="dfs-0B-Q5K" id="f7b-Ne-aot"/>
                         <outlet property="labelPriceAssetName" destination="MVs-JU-4V4" id="ob9-Hy-E1T"/>
                         <outlet property="labelPriceAssetName2" destination="o9y-7X-qqy" id="k6F-v5-Eia"/>
                         <outlet property="labelPriceAvailableCount" destination="lS7-Pq-SYy" id="t2B-Mk-3Sb"/>
