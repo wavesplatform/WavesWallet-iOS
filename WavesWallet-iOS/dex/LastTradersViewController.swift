@@ -36,7 +36,9 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
 
     var priceAsset : String!
     var amountAsset : String!
-    
+    var priceAssetDecimal: Int!
+    var amountAssetDecimal: Int!
+
     var isLoading: Bool = false
     
     var lastTraders : NSArray = []
@@ -120,13 +122,13 @@ class LastTradersViewController: UIViewController, UITableViewDelegate, UITableV
         
         let item = lastTraders[indexPath.row] as! NSDictionary
 
-        let amount = Double((item["amount"] as! String))!
-        let price = Double((item["price"] as! String))!
+        let amount = (item["amount"] as! NSString).doubleValue
+        let price = (item["price"] as! NSString).doubleValue
         let sum = amount * price
         
-        cell.labelAmount.text = String(format: "%0.3f", amount)
-        cell.labelPrice.text = String(format: "%0.8f", price)
-        cell.labelSum.text = String(format: "%0.6f", sum)
+        cell.labelAmount.text = MoneyUtil.formatDecimals(Decimal(amount), decimals: amountAssetDecimal)
+        cell.labelPrice.text = MoneyUtil.formatDecimals(Decimal(price), decimals: priceAssetDecimal)
+        cell.labelSum.text = MoneyUtil.formatDecimals(Decimal(sum), decimals: priceAssetDecimal)
         
         if item["type"] as? String == "sell" {
             cell.labelPrice.textColor = LastTraderCell.sellColor()

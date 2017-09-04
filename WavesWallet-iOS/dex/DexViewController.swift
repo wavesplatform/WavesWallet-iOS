@@ -45,42 +45,51 @@ class DexTableListCell : UITableViewCell {
         let data = dataItem?["24h_open"]
         
         if data != nil {
+            let priceDecimal = (item["priceAssetInfo"] as? NSDictionary)?["decimals"] as? Int ?? 8
 
             let lastPriceOpen24 = Double(dataItem!["24h_open"] as! String)!
             let lastPrice = dataItem!["price"] as! Double
             
-            labelValue1.text = String(format: "%.08f", lastPrice)
+            labelValue1.text = MoneyUtil.formatDecimals(Decimal(lastPrice), decimals: priceDecimal)
             
-            labelLow.text = "low: \(dataItem?["24h_low"] as! String)"
-            labelHigh.text = "high: \(dataItem?["24h_high"] as! String)"
+            let low24h = (dataItem?["24h_low"] as! NSString).doubleValue
+            let high24h = (dataItem?["24h_high"] as! NSString).doubleValue
+            
+            labelLow.text = "low: \(MoneyUtil.formatDecimals(Decimal(low24h), decimals: priceDecimal))"
+            labelHigh.text = "high: \(MoneyUtil.formatDecimals(Decimal(high24h), decimals: priceDecimal))"
             
             let timestamp = dataItem?["timestamp"] as! Int64
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp / 1000))
             labelTime.text = timeFormatter.string(from: date)
             
             if lastPriceOpen24 == 0 {
-                labelPercent.text = "+0.00 %"
+                labelPercent.text = "+0\(MoneyUtil.decimalSeparator())00 %"
             }
             else {
                 let percent = (lastPrice - lastPriceOpen24) * 100 / lastPriceOpen24
                 
                 if percent >= 0 {
-                    labelPercent.text = String(format: "+%.02f%%", percent)
+                    var text = String(format: "+%.02f%%", percent)
+                    text = text.replacingOccurrences(of: ".", with: MoneyUtil.decimalSeparator())
+                    labelPercent.text = text
                 }
                 else {
-                    labelPercent.text = String(format: "%.02f%%", percent)
+                    var text = String(format: "%.02f%%", percent)
+                    text = text.replacingOccurrences(of: ".", with: MoneyUtil.decimalSeparator())
+                    labelPercent.text = text
                 }
             }
             
             if lastPrice - lastPriceOpen24 >= 0 {
-                labelValue2.text = String(format: "+%.08f", lastPrice - lastPriceOpen24)
+
+                labelValue2.text = "+\(MoneyUtil.formatDecimals(Decimal(lastPrice - lastPriceOpen24), decimals: priceDecimal))"
                 imageViewArrow.image = UIImage(named: "arrow_green")
                 labelValue1.textColor = UIColor(netHex: 0x5EAC69)
                 labelValue2.textColor = UIColor(netHex: 0x5EAC69)
                 labelPercent.textColor = UIColor(netHex: 0x5EAC69)
             }
             else {
-                labelValue2.text = String(format: "%.08f", lastPrice - lastPriceOpen24)
+                labelValue2.text = MoneyUtil.formatDecimals(Decimal(lastPrice - lastPriceOpen24), decimals: priceDecimal)
                 imageViewArrow.image = UIImage(named: "arrow_red")
                 labelValue1.textColor = UIColor(netHex: 0xE56C69)
                 labelValue2.textColor = UIColor(netHex: 0xE56C69)
@@ -88,12 +97,12 @@ class DexTableListCell : UITableViewCell {
             }
         }
         else {
-            labelValue1.text = "0.00"
-            labelValue2.text = "0.00"
-            labelLow.text = "low: 0.00"
-            labelHigh.text = "high: 0.00"
+            labelValue1.text = "0\(MoneyUtil.decimalSeparator())00"
+            labelValue2.text = "0\(MoneyUtil.decimalSeparator())00"
+            labelLow.text = "low: 0\(MoneyUtil.decimalSeparator())00"
+            labelHigh.text = "high: 0\(MoneyUtil.decimalSeparator())00"
             labelTime.text = nil
-            labelPercent.text = "0.00 %"
+            labelPercent.text = "0\(MoneyUtil.decimalSeparator())00 %"
             imageViewArrow.image = UIImage(named: "arrow_green")
             labelValue1.textColor = UIColor(netHex: 0x5EAC69)
             labelValue2.textColor = UIColor(netHex: 0x5EAC69)

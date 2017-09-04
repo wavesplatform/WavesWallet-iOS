@@ -74,6 +74,8 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         lastTraderController = storyboard?.instantiateViewController(withIdentifier: "LastTradersViewController") as! LastTradersViewController
         lastTraderController.amountAsset = amountAsset
         lastTraderController.priceAsset = priceAsset
+        lastTraderController.amountAssetDecimal = amountAssetDecimal
+        lastTraderController.priceAssetDecimal = priceAssetDecimal
         addChildViewController(lastTraderController)
         scrollView.addSubview(lastTraderController.view)
         lastTraderController.didMove(toParentViewController: self)
