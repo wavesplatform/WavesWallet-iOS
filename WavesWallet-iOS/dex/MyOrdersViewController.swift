@@ -140,8 +140,8 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         
         SVProgressHUD.show()
         
-        WalletManager.getPrivateKey { (privateKey) in
-
+        WalletManager.getPrivateKey(complete: { (privateKey) in
+          
             let item = self.myOrders[sender.tag] as! NSMutableDictionary
             
             let req = CancelOrderRequest(sender: WalletManager.currentWallet!.publicKeyAccount, orderId: item["id"] as! String)
@@ -177,7 +177,12 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                 })
             }
+            
+        }) { (errorMessage) in
+            SVProgressHUD.dismiss()
+            self.presentBasicAlertWithTitle(title: errorMessage)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

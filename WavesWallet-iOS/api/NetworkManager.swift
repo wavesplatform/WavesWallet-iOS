@@ -219,8 +219,8 @@ class NetworkManager: NSObject
     
     class func getMyOrders(amountAsset: String, priceAsset: String, complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
         
-        WalletManager.getPrivateKey { (privateKey) in
-
+        WalletManager.getPrivateKey(complete: { (privateKey) in
+      
             let req = MyOrdersRequest(senderPublicKey: WalletManager.currentWallet!.publicKeyAccount)
             req.senderPrivateKey = privateKey
             
@@ -232,6 +232,9 @@ class NetworkManager: NSObject
             getRequestWithPath(path: path, parameters: nil, headers: headers, customUrl: getMatcherUrl()) { (info, errorMessage) in
                 complete (info as? NSArray, errorMessage)
             }
+            
+        }) { (errorMessage) in
+            complete(nil, errorMessage)
         }
     }
     

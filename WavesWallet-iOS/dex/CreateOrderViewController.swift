@@ -177,8 +177,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     func executeSellBuyAction(type: OrderType) {
         SVProgressHUD.show()
         
-        WalletManager.getPrivateKey { (privateKey) in
-
+        WalletManager.getPrivateKey(complete: { (privateKey) in
+            
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
             
@@ -198,6 +198,9 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
                     self.presentSuccessAlert()
                 }
             })
+        }) { (errorMessage) in
+            SVProgressHUD.dismiss()
+            self.presentBasicAlertWithTitle(title: errorMessage)
         }
     }
     
