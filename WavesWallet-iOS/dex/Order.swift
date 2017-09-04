@@ -16,6 +16,15 @@ class AssetPair: Decodable, Glossy {
     var amountAsset: String?
     var priceAsset: String?
     
+    class func getAssetId(_ asset: String?) -> String? {
+        return asset == "WAVES" ? nil : asset
+    }
+    
+    public required init(amountAsset: String?, priceAsset: String?) {
+        self.amountAsset = AssetPair.getAssetId(amountAsset)
+        self.priceAsset = AssetPair.getAssetId(priceAsset)
+    }
+
     public required init?(json: JSON) {
         
         self.amountAsset = "amountAsset" <~~ json

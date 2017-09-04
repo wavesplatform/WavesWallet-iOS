@@ -257,7 +257,7 @@ class WalletManager {
             WalletManager.restorePrivateKey().bind { (key) in
                 WalletManager.currentWallet?.privateKey = key
                 complete(key)
-            }
+            }.addDisposableTo(bag)
         }
     }
 }
