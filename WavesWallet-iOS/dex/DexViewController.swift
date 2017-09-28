@@ -12,6 +12,7 @@ import Alamofire
 
 class DexTableListCell : UITableViewCell {
     
+    @IBOutlet weak var labelTitleLong: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var viewContent: UIView!
     @IBOutlet weak var labelTime: UILabel!
@@ -21,26 +22,26 @@ class DexTableListCell : UITableViewCell {
     @IBOutlet weak var imageViewArrow: UIImageView!
 
     @IBOutlet weak var labelValue1: UILabel!
-    @IBOutlet weak var labelValue2: UILabel!
     
     let timeFormatter = DateFormatter()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        viewContent.layer.cornerRadius = 3
+        /*viewContent.layer.cornerRadius = 3
         viewContent.backgroundColor = UIColor.white
         viewContent.layer.shadowColor = UIColor.black.cgColor
         viewContent.layer.shadowRadius = 2
         viewContent.layer.shadowOpacity = 0.3
-        viewContent.layer.shadowOffset = CGSize(width: 0, height: 1)
+        viewContent.layer.shadowOffset = CGSize(width: 0, height: 1)*/
         
         timeFormatter.dateFormat = "HH:mm:ss"
     }
 
     func setupCell(_ item: NSDictionary, dataItem: NSDictionary?) {
      
-        labelTitle.text = "\(item["amountAssetName"]!) / \(item["priceAssetName"]!)"
+        labelTitle.text = DataManager.shared.getTickersTitle(item: item)
+        labelTitleLong.text = "\(item["amountAssetName"]!) / \(item["priceAssetName"]!)"
     
         let data = dataItem?["24h_open"]
         
@@ -55,8 +56,8 @@ class DexTableListCell : UITableViewCell {
             let low24h = (dataItem?["24h_low"] as! NSString).doubleValue
             let high24h = (dataItem?["24h_high"] as! NSString).doubleValue
             
-            labelLow.text = "low: \(MoneyUtil.formatDecimals(Decimal(low24h), decimals: priceDecimal))"
-            labelHigh.text = "high: \(MoneyUtil.formatDecimals(Decimal(high24h), decimals: priceDecimal))"
+            labelLow.text = "L \(MoneyUtil.formatDecimals(Decimal(low24h), decimals: priceDecimal))"
+            labelHigh.text = "H \(MoneyUtil.formatDecimals(Decimal(high24h), decimals: priceDecimal))"
             
             let timestamp = dataItem?["timestamp"] as! Int64
             let date = Date(timeIntervalSince1970: TimeInterval(timestamp / 1000))
@@ -82,31 +83,22 @@ class DexTableListCell : UITableViewCell {
             
             if lastPrice - lastPriceOpen24 >= 0 {
 
-                labelValue2.text = "+\(MoneyUtil.formatDecimals(Decimal(lastPrice - lastPriceOpen24), decimals: priceDecimal))"
                 imageViewArrow.image = UIImage(named: "arrow_green")
-                labelValue1.textColor = UIColor(netHex: 0x5EAC69)
-                labelValue2.textColor = UIColor(netHex: 0x5EAC69)
-                labelPercent.textColor = UIColor(netHex: 0x5EAC69)
+                labelPercent.textColor = AppColors.dexBuyColor
             }
             else {
-                labelValue2.text = MoneyUtil.formatDecimals(Decimal(lastPrice - lastPriceOpen24), decimals: priceDecimal)
                 imageViewArrow.image = UIImage(named: "arrow_red")
-                labelValue1.textColor = UIColor(netHex: 0xE56C69)
-                labelValue2.textColor = UIColor(netHex: 0xE56C69)
-                labelPercent.textColor = UIColor(netHex: 0xE56C69)
+                labelPercent.textColor = AppColors.dexSellColor
             }
         }
         else {
             labelValue1.text = "0\(MoneyUtil.decimalSeparator())00"
-            labelValue2.text = "0\(MoneyUtil.decimalSeparator())00"
-            labelLow.text = "low: 0\(MoneyUtil.decimalSeparator())00"
-            labelHigh.text = "high: 0\(MoneyUtil.decimalSeparator())00"
+            labelLow.text = "L 0\(MoneyUtil.decimalSeparator())00"
+            labelHigh.text = "H 0\(MoneyUtil.decimalSeparator())00"
             labelTime.text = nil
             labelPercent.text = "0\(MoneyUtil.decimalSeparator())00 %"
             imageViewArrow.image = UIImage(named: "arrow_green")
-            labelValue1.textColor = UIColor(netHex: 0x5EAC69)
-            labelValue2.textColor = UIColor(netHex: 0x5EAC69)
-            labelPercent.textColor = UIColor(netHex: 0x5EAC69)
+            labelPercent.textColor = AppColors.dexBuyColor
         }
     }
 }
@@ -127,22 +119,14 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var isLoading = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.white
-        title = "Dex"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-            
-        let wavesWbtc = DataManager.getWavesWbtcPair()
-   
-        dataItems.add(NSMutableDictionary(dictionary: ["priceAsset" : wavesWbtc["priceAsset"]!, "amountAsset" : wavesWbtc["amountAsset"]!]))
-        
-        for item in DataManager.getDexPairs() as! [NSDictionary] {
-            dataItems.add(NSMutableDictionary(dictionary:["priceAsset" : item["priceAsset"]!, "amountAsset" : item["amountAsset"]!]))
-        }
-        
-        tableView.isHidden = true
+        setupNavigationBar()
+
+        setupTableView()
         
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: kNotifDidChangeDexItems), object: nil, queue: nil) { (notif) in
             
@@ -151,6 +135,38 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.tableView.reloadData()
         }
         
+        DataManager.withLoadedVerifiedAssets { (_, errorMessage) in
+            if errorMessage != nil {
+                self.presentBasicAlertWithTitle(title: errorMessage!)
+            }
+            else {
+                self.isLoading = false
+                let wavesWbtc = DataManager.getWavesWbtcPair()
+                
+                self.dataItems.add(NSMutableDictionary(dictionary: ["priceAsset" : wavesWbtc["priceAsset"]!, "amountAsset" : wavesWbtc["amountAsset"]!]))
+                
+                for item in DataManager.getDexPairs() as! [NSDictionary] {
+                    self.dataItems.add(NSMutableDictionary(dictionary:["priceAsset" : item["priceAsset"]!, "amountAsset" : item["amountAsset"]!]))
+                }
+                self.setupValidDataItems()
+                self.updateInfo()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func setupNavigationBar() {
+        view.backgroundColor = UIColor.white
+        title = "Dex"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    }
+    
+    func setupTableView() {
+        tableView.isHidden = true
+        tableView.tableFooterView = UIView()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 86
+
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
@@ -342,17 +358,13 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         performSegue(withIdentifier: "DexContainerViewController", sender: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 81
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
         if section == 0 {
             return 1
         }
         
-        return DataManager.getDexPairs().count
+        return isLoading ? 0 : DataManager.getDexPairs().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

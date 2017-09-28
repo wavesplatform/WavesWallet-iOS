@@ -68,12 +68,8 @@ class WalletManager {
     
     static var bag = DisposeBag()
     
-    static var currentWallet: Wallet? {
-        didSet {
-            bag = DisposeBag()
-        }
-    }
-
+    static var currentWallet: Wallet?
+    
     class func didLogin(toWallet: WalletItem) {
         var config = Realm.Configuration()
         config.fileURL = config.fileURL!.deletingLastPathComponent()
@@ -88,6 +84,7 @@ class WalletManager {
         }
 
         currentWallet = toWallet.toWallet
+        bag = DisposeBag()
         StoryboardManager.didEndLogin()
         autoUpdateFromNode()
     }
@@ -172,6 +169,7 @@ class WalletManager {
             wallets.setValue(false, forKeyPath: "isLoggedIn")
         }
         currentWallet = nil
+        bag = DisposeBag()
         StoryboardManager.didLogout()
     }
     

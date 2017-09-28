@@ -13,7 +13,42 @@ class DataManager: NSObject {
     var orderBooks = [NSDictionary]()
     var verifiedAssets: NSDictionary! = nil
     
+    var bestBid = [String: Int64]()
+    var bestAsk = [String: Int64]()
+    
     static let shared = DataManager()
+    
+    func getTickersTitle(item: NSDictionary) -> String {
+        let amountLabel = item["amountTicker"] ?? verifiedAssets[item["amountAsset"]!] ?? item["amountAssetName"]!
+        let priceLabel = item["priceTicker"] ?? verifiedAssets[item["priceAsset"]!] ?? item["priceAssetName"]!
+
+        return "\(amountLabel) / \(priceLabel)"
+    }
+    
+    func isVerified(asset: String) -> Bool {
+        return verifiedAssets != nil && verifiedAssets[asset] != nil
+    }
+    
+    func getTicker(asset: Any?) -> String? {
+        if verifiedAssets != nil, let key = asset, let tck = verifiedAssets[key] {
+            return tck as? String
+        } else {
+            return nil
+        }
+    }
+    
+    class func withLoadedVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
+        if DataManager.shared.verifiedAssets == nil {
+            NetworkManager.getVerifiedAssets {(assets, errorMessage) in
+                if let assets = assets {
+                    shared.verifiedAssets = assets
+                }
+                complete(assets, errorMessage)
+            }
+        } else {
+            complete(shared.verifiedAssets, nil)
+        }
+    }
     
     class func getCandleTimeFrame() -> Int {
         
@@ -46,10 +81,12 @@ class DataManager: NSObject {
         
         return  ["amountAsset" : "WAVES",
                 "amountAssetName" : "WAVES",
+                "amountTicker" : "WAVES",
                 "amountAssetInfo" : ["decimals" : 8],
                 "priceAsset" : priceAsset,
                 "priceAssetInfo" : ["decimals" : 8],
-                "priceAssetName" : "WBTC"]
+                "priceAssetName" : "Bitcoin",
+                "priceTicker" : "BTC"]
     }
     
     class func addPair(_ item: NSDictionary) {

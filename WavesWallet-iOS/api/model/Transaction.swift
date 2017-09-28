@@ -62,6 +62,10 @@ public class Transaction: Object, IdentifiableType, Decodable {
         return sender
     }
     
+    public func isOur() -> Bool {
+        return sender == WalletManager.getAddress() || getCounterParty() == WalletManager.getAddress()
+    }
+    
     /**
      WARNING: This is an internal initializer not intended for public use.
      :nodoc:
@@ -232,6 +236,7 @@ public class ExchangeTransaction: Transaction {
     dynamic var amountAsset = ""
     dynamic var priceAsset = ""
     
+    
     public required init?(json: JSON) {
         guard let sellSender: String = "order2.senderPublicKey" <~~ json
               , let buySender: String = "order1.senderPublicKey" <~~ json
@@ -272,5 +277,21 @@ public class ExchangeTransaction: Transaction {
     
     public override func getAmount() -> Int64 {
         return amount
+    }
+    
+    public override func isInput() -> Bool {
+        return buyerAddress == WalletManager.getAddress()
+    }
+    
+    var sellerAddress: String {
+        return PublicKeyAccount(publicKey: Base58.decode(sellSender)).address
+    }
+    
+    var buyerAddress: String {
+        return PublicKeyAccount(publicKey: Base58.decode(buySender)).address
+    }
+    
+    public override func isOur() -> Bool {
+        return sellerAddress == WalletManager.getAddress() || buyerAddress == WalletManager.getAddress()
     }
 }

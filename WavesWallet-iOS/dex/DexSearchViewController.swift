@@ -13,63 +13,26 @@ class DexSearchCell: UITableViewCell {
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var imageViewCheckmark: UIImageView!
 
-    @IBOutlet weak var labelValue1: UILabel!
-    @IBOutlet weak var labelValue2: UILabel!
+    @IBOutlet weak var labelTitleLong: UILabel!
+    @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var imageViewIcon1: UIImageView!
-    @IBOutlet weak var imageViewIcon2: UIImageView!
     
     @IBOutlet weak var labelAmountAsset: UILabel!
     @IBOutlet weak var labelPriceAsset: UILabel!
-    
-    @IBOutlet weak var label1Offset: NSLayoutConstraint!
-    @IBOutlet weak var label2Offset: NSLayoutConstraint!
-    
-    override func awakeFromNib() {
-        backgroundColor = UIColor.clear
-        viewContainer.layer.cornerRadius = 3
-        viewContainer.backgroundColor = UIColor.white
-        viewContainer.layer.shadowColor = UIColor.black.cgColor
-        viewContainer.layer.shadowRadius = 2
-        viewContainer.layer.shadowOpacity = 0.3
-        viewContainer.layer.shadowOffset = CGSize(width: 0, height: 1)
-    }
-    
-    func setupCell(_ item: NSDictionary) {
+    @IBOutlet weak var detailsView: UIStackView!
+    @IBOutlet weak var hideButton: UIButton!
+
+    func setupCell(_ item: NSDictionary, indexPath: IndexPath, isDetailsHidden: Bool) {
+        self.hideButton.tag = indexPath.row
         
-        labelValue1.text = "\(item["amountAssetName"]!)  /"
-        labelValue2.text = item["priceAssetName"] as? String
+        labelTitle.text = DataManager.shared.getTickersTitle(item: item)
+        labelTitleLong.text = "\(item["amountAssetName"]!) / \(item["priceAssetName"]!)"
         
-        label1Offset.constant = 65
-        label2Offset.constant = 5
-        
-        if item["amountAsset"] as? String == "WAVES" {
-            imageViewIcon1.image = UIImage(named: "icon_waves")
-        }
-        else {
-            
-            let arr = DataManager.shared.verifiedAssets.allKeys as NSArray
-            if arr.contains(item["amountAsset"]!) {
-                imageViewIcon1.image = UIImage(named: "icon_cert")
-            }
-            else {
-                label1Offset.constant = 45
-                imageViewIcon1.image = nil
-            }
-            
-        }
-        
-        if item["priceAsset"] as? String == "WAVES" {
-            imageViewIcon2.image = UIImage(named: "icon_waves")
-        }
-        else {
-            let arr = DataManager.shared.verifiedAssets.allKeys as NSArray
-            if arr.contains(item["priceAsset"]!) {
-                imageViewIcon2.image = UIImage(named: "icon_cert")
-            }
-            else {
-                label2Offset.constant = 0
-                imageViewIcon2.image = nil
-            }
+        if DataManager.shared.isVerified(asset: item["amountAsset"]! as! String)
+            && DataManager.shared.isVerified(asset: item["priceAsset"]! as! String) {
+            imageViewIcon1.image = #imageLiteral(resourceName: "verified")
+        } else {
+            imageViewIcon1.image = nil
         }
         
         labelAmountAsset.text = item["amountAsset"] as? String
@@ -77,19 +40,22 @@ class DexSearchCell: UITableViewCell {
 
         
         if DataManager.hasPair(item) {
-            imageViewCheckmark.image = UIImage(named: "checkmark_fill_gray")
+            imageViewCheckmark.image = #imageLiteral(resourceName: "pair-selected")
         }
         else {
-            imageViewCheckmark.image = UIImage(named: "checkmark_empty_gray")
+            imageViewCheckmark.image = #imageLiteral(resourceName: "pair-not-selected")
         }
         
+        detailsView.isHidden = isDetailsHidden
+        hideButton.setImage(isDetailsHidden ? #imageLiteral(resourceName: "down-chevron") : #imageLiteral(resourceName: "up-chevron@"), for: .normal)
         imageViewCheckmark.alpha = DataManager.isWavesWbtcPair(item) ? 0.6 : 1
     }
+
 }
 
 class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    var textFieldSearch : UITextField!
+    var textFieldSearch : CustomUITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -101,15 +67,24 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     var isSearchMode: Bool = false
     
     var verifiedItems = [NSDictionary]()
+    var detailsShown = Set<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
 
-        textFieldSearch = UITextField(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 40))
+        setupTableView()
+        
+        textFieldSearch = CustomUITextField(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 30))
+        textFieldSearch.backgroundColor = AppColors.darkPrimaryColor
+        textFieldSearch.leftView = UIImageView(image: #imageLiteral(resourceName: "search"))
+        textFieldSearch.leftViewMode = .always
+        textFieldSearch.leftPadding = 10.0
         textFieldSearch.clearButtonMode = .always
+        textFieldSearch.borderStyle = .roundedRect
         textFieldSearch.textColor = UIColor.white
+        
         textFieldSearch.delegate = self
         textFieldSearch.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textFieldSearch.autocorrectionType = .no
@@ -118,14 +93,25 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_action"), style: .plain, target: self, action: #selector(actionTapped))
         
-        if DataManager.shared.verifiedAssets == nil {
-            loadInfo()
+        isLoading = true
+        self.activityIndicator.startAnimating()
+        
+        DataManager.withLoadedVerifiedAssets { (assets, errorMessage) in
+            if errorMessage != nil {
+                self.isLoading = false
+                self.activityIndicator.stopAnimating()
+                 self.presentBasicAlertWithTitle(title: errorMessage!)
+            } else {
+                self.loadInfo()
+            }
+            
         }
-        else {
-            setupVerifiedItems()
-            activityIndicator.stopAnimating()
-            textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
-        }
+    }
+
+    func setupTableView() {
+        tableView.tableFooterView = UIView()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 106
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,38 +121,29 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     func loadInfo() {
         isLoading = true
         NetworkManager.getAllOrderBooks { (items, errorMessage) in
-           
+            self.isLoading = false
+            self.activityIndicator.stopAnimating()
             if errorMessage != nil {
                 self.presentBasicAlertWithTitle(title: errorMessage!)
-                self.isLoading = false
-                self.activityIndicator.stopAnimating()
             }
             else {
                 DataManager.shared.orderBooks = items as! [NSDictionary]
-                NetworkManager.getVerifiedAssets({ (assets, errorMessage) in
-                    
-                    self.activityIndicator.stopAnimating()
-                    self.isLoading = false
-
-                    if errorMessage != nil {
-                        self.presentBasicAlertWithTitle(title: errorMessage!)
-                    }
-                    else {
-                        self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor.white])
-                        DataManager.shared.verifiedAssets = assets
+                self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor(netHex: 0x8c8c8c)])
                         
-                        self.setupVerifiedItems()
-                        self.tableView.reloadData()
-                    }
-                })
+                self.setupVerifiedItems()
+                self.tableView.reloadData()
             }
         }
+
     }
     
     func setupVerifiedItems() {
         for item in DataManager.shared.orderBooks {
             if self.isVerifiedAsset(asset: item) {
-                self.verifiedItems.append(item)
+                let vi = NSMutableDictionary(dictionary: item)
+                vi["amountTicker"] = DataManager.shared.getTicker(asset: item["amountAsset"])
+                vi["priceTicker"] = DataManager.shared.getTicker(asset: item["priceAsset"])
+                self.verifiedItems.append(vi as NSDictionary)
             }
         }
     }
@@ -204,16 +181,25 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     
     func isVerifiedAsset(asset: NSDictionary) -> Bool {
         
-        if let array = DataManager.shared.verifiedAssets.allKeys as? NSArray {
-            if array.contains(asset["amountAsset"]!) &&
-                array.contains(asset["priceAsset"]!) {
+        if DataManager.shared.isVerified(asset: asset["amountAsset"]! as! String)
+            && DataManager.shared.isVerified(asset: asset["priceAsset"] as! String) {
                 return true
-            }
         }
         
         return false
     }
     
+    func isOurAsset(_ item: NSDictionary, _ key: String, _ value: String) -> Bool {
+        return (item["\(key)Name"] as? String)?.lowercased() == value.lowercased()
+            || DataManager.shared.getTicker(asset: item[key])?.lowercased() == value.lowercased()
+    }
+    
+    func isOurAssetContains(_ item: NSDictionary, _ key: String, _ value: String) -> Bool {
+        let isNameCountains = ((item["\(key)Name"] as! String).lowercased() as NSString).range(of: value.lowercased()).location != NSNotFound
+        let tckLocation = (DataManager.shared.getTicker(asset: item[key])?.lowercased() as NSString?)?.range(of: value.lowercased()).location
+        
+        return isNameCountains || (tckLocation != nil && tckLocation != NSNotFound)
+    }
     
     func textFieldDidChange() {
         
@@ -230,19 +216,17 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
             
             if (textFieldSearch.text! as NSString).range(of: "/").location != NSNotFound {
                 textAmountAsset = textFieldSearch.text!.substring(to: textFieldSearch.text!.range(of: "/")!.lowerBound)
-                textAmountAsset = textAmountAsset.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                textAmountAsset = textAmountAsset.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lowercased()
                 
                 textPriceAsset = textFieldSearch.text!.substring(from: textFieldSearch.text!.range(of: "/")!.upperBound)
-                textPriceAsset = textPriceAsset.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                textPriceAsset = textPriceAsset.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lowercased()
             }
             
             if textAmountAsset.characters.count > 0 && textPriceAsset.characters.count > 0 {
                
                 for item in items {
-                    
-                    if (item["amountAssetName"] as? String)?.lowercased() == textAmountAsset.lowercased() &&
-                       ((item["priceAssetName"] as! String).lowercased() as NSString).range(of: textPriceAsset.lowercased()).location != NSNotFound {
-                        
+                    if isOurAsset(item, "amountAsset", textAmountAsset)
+                        && isOurAssetContains(item, "priceAsset", textPriceAsset) {
                         self.searchItems.append(item)
                     }
                 }
@@ -253,13 +237,12 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                     
                     if textAmountAsset.characters.count > 0 {
                         
-                        if (item["amountAssetName"] as? String)?.lowercased() == textAmountAsset.lowercased() {
+                        if isOurAsset(item, "amountAsset", textAmountAsset) {
                             self.searchItems.append(item)
                         }
-                    }
-                    else {
+                    } else {
                         
-                        if ((item["priceAssetName"] as! String).lowercased() as NSString).range(of: textPriceAsset.lowercased()).location != NSNotFound {
+                        if isOurAssetContains(item, "priceAsset", textPriceAsset) {
                             self.searchItems.append(item)
                         }
                     }
@@ -271,8 +254,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                 for item in items {
                     for word in words! {
                         if word.characters.count > 0 {
-                            if ((item["amountAssetName"] as! String).lowercased() as NSString).range(of: word.lowercased()).location != NSNotFound ||
-                                ((item["priceAssetName"] as! String).lowercased() as NSString).range(of: word.lowercased()).location != NSNotFound {
+                            if isOurAssetContains(item, "amountAsset", word) ||
+                                isOurAssetContains(item, "priceAsset", word) {
                                 self.searchItems.append(item)
                             }
                         }
@@ -342,24 +325,34 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         let cell: DexSearchCell = tableView.dequeueReusableCell(withIdentifier: "DexSearchCell", for: indexPath) as! DexSearchCell
         
         if isSearchMode {
-            cell.setupCell(searchItems[indexPath.row])
+            cell.setupCell(searchItems[indexPath.row], indexPath: indexPath,
+                           isDetailsHidden: !detailsShown.contains(indexPath.row))
         }
         else {
             
             if DataManager.isShowUnverifiedAssets() {
-                cell.setupCell(DataManager.shared.orderBooks[indexPath.row])
+                cell.setupCell(DataManager.shared.orderBooks[indexPath.row], indexPath: indexPath,
+                               isDetailsHidden: !detailsShown.contains(indexPath.row))
             }
             else {
-                cell.setupCell(verifiedItems[indexPath.row])
+                cell.setupCell(verifiedItems[indexPath.row], indexPath: indexPath,
+                               isDetailsHidden: !detailsShown.contains(indexPath.row))
             }
         }
         
         return cell
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func onHideDetails(_ sender: Any) {
+        if let btn = sender as? UIButton {
+            if detailsShown.contains(btn.tag) {
+                detailsShown.remove(btn.tag)
+            } else {
+                detailsShown.insert(btn.tag)
+            }
+            self.tableView.reloadItemsAtIndexPaths([IndexPath(row: btn.tag, section: 0)], animationStyle: .automatic)
+        }
     }
+    
     
 }

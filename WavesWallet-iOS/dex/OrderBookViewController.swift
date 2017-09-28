@@ -23,6 +23,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
 
     var priceAsset : String!
     var amountAsset : String!
+    var assetPair : AssetPair!
     var priceAssetDecimal: Int!
     var amountAssetDecimal: Int!
     var priceAssetName : String!
@@ -44,6 +45,8 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        assetPair = AssetPair(amountAsset: amountAsset, priceAsset: priceAsset)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(controllerWillAppear), name: Notification.Name(rawValue: kNotifDidCreateOrder), object: nil)
 
         loadInfo {
@@ -114,11 +117,17 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.bids.removeAll()
                 self.asks.removeAll()
                 
-                if let _bids = info!["bids"] as? NSArray {
-                    self.bids.append(contentsOf: _bids as! [NSDictionary])
+                if let _bids = info!["bids"] as? [NSDictionary] {
+                    self.bids.append(contentsOf: _bids)
+                    if let best = _bids[safe: 0] {
+                        DataManager.shared.bestBid[self.assetPair.key] = (best["price"] as? Int64) ?? 0
+                    }
                 }
                 
                 if var _asks = info!["asks"] as? NSArray {
+                    if let best = (_asks as! [NSDictionary])[safe: 0] {
+                        DataManager.shared.bestAsk[self.assetPair.key] = (best["price"] as? Int64) ?? 0
+                    }
                     _asks = _asks.sortedArray(using: [NSSortDescriptor.init(key: "price", ascending: false)]) as NSArray
                     self.asks.append(contentsOf: _asks as! [NSDictionary])
                 }
@@ -152,6 +161,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         controller.amountAssetName = amountAssetName
         controller.priceAssetDecimal = priceAssetDecimal
         controller.amountAssetDecimal = amountAssetDecimal
+        controller.orderType = indexPath.section == 0 ? .buy : .sell
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -194,10 +204,10 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.labelBuy.backgroundColor = UIColor.clear
             
             if indexPath.row % 2 == 0 {
-                cell.labelSell.backgroundColor = UIColor(netHex: 0xe66a67)
+                cell.labelSell.backgroundColor = AppColors.dexSellColor
             }
             else {
-                cell.labelSell.backgroundColor = UIColor(netHex: 0xe97c79)
+                cell.labelSell.backgroundColor = AppColors.dexLightSellColor
             }
         }
         else {
@@ -211,10 +221,10 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.labelSell.backgroundColor = UIColor.clear
             
             if indexPath.row % 2 == 0 {
-                cell.labelBuy.backgroundColor = UIColor(netHex: 0x58a763)
+                cell.labelBuy.backgroundColor = AppColors.dexBuyColor
             }
             else {
-                cell.labelBuy.backgroundColor = UIColor(netHex: 0x77bf82)
+                cell.labelBuy.backgroundColor = AppColors.dexLightBuyColor
             }
         }
         

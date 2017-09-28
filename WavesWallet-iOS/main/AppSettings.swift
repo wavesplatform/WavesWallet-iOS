@@ -2,6 +2,7 @@ import UIKit
 
 class AppColors {
     static let wavesColor = UIColor(netHex: 0x37556e)//UIColor(netHex: 0x4b7190)
+    static let darkPrimaryColor = UIColor(netHex: 0x223D54)//UIColor(netHex: 0x4b7190)
     static let activeColor = UIColor.white
     static let inactiveColor = UIColor(netHex: 0xaaaaaa)
     static let greyBorderColor = UIColor(netHex: 0xc7c9cc)
@@ -14,4 +15,12 @@ class AppColors {
     static let greyText = UIColor(netHex: 0x9299a2)
     static let darkGreyText = UIColor(netHex: 0x3B3B3B)
     static let dexNavBarColor = UIColor(netHex: 0x2a2a2a)
+    
+    static let dexBuyColor = UIColor(netHex: 0x58a763)
+    static let dexLightBuyColor = UIColor(netHex: 0x77bf82)
+    static let dexSellColor = UIColor(netHex: 0xe66a67)
+    static let dexLightSellColor = UIColor(netHex: 0xe97c79)
+    
+    
+    
 }

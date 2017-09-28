@@ -27,6 +27,7 @@
 		E9E2A90A1F4C42C40093782E /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */; };
 		E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */; };
 		E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA21B31F45CBF8008BF4C4 /* DexNewPairViewController.swift */; };
+		F7179BD51F726CE400FAE8F5 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
 		F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */; };
 		F73553761F03D9FC00ADC449 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73553751F03D9FC00ADC449 /* Order.swift */; };
@@ -67,6 +68,7 @@
 		F79C43D91EAEB101006057B0 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43D61EAEB101006057B0 /* HalfModalTransitionAnimator.swift */; };
 		F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */; };
 		F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */; };
+		F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */; };
 		F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7B713A51EABA0C300331E1B /* Transfer.storyboard */; };
 		F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B713AC1EABA3EC00331E1B /* AddressBookViewController.swift */; };
 		F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683981EA93A4000C87DAF /* Hash.swift */; };
@@ -124,6 +126,7 @@
 		E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
 		E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		E9FA21B31F45CBF8008BF4C4 /* DexNewPairViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexNewPairViewController.swift; sourceTree = "<group>"; };
+		F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		F71B77691EABA4F80096CA85 /* TransferRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequest.swift; sourceTree = "<group>"; };
 		F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F73553751F03D9FC00ADC449 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		F79C43D61EAEB101006057B0 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfNavController.swift; sourceTree = "<group>"; };
 		F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
+		F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeTransactionViewController.swift; sourceTree = "<group>"; };
 		F7B713A51EABA0C300331E1B /* Transfer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transfer.storyboard; sourceTree = "<group>"; };
 		F7B713AC1EABA3EC00331E1B /* AddressBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		F7C683981EA93A4000C87DAF /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				F763B9A11EABBFBE00FA3701 /* TransactionCell.swift */,
 				F763B9A21EABBFBE00FA3701 /* TransactionsViewController.swift */,
 				F79C43CD1EAEA9F4006057B0 /* TransferTransactionViewController.swift */,
+				F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */,
 				F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */,
 			);
 			path = transactions;
@@ -513,6 +518,7 @@
 				F79C43D11EAEB0D9006057B0 /* HalfModalPresentationController */,
 				F7F97E871EAA0CF800BE2F6F /* CustomSectionHeader.swift */,
 				F770753C1EAA3DD000FE6995 /* NavigationAccessoryView.swift */,
+				F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 			files = (
 				F762B3A41EABB6C000EAD7FF /* SendViewModel.swift in Sources */,
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
+				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
@@ -705,6 +712,7 @@
 				F7C683B11EA93AEB00C87DAF /* generichash_blake2_api.c in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */,
+				F7179BD51F726CE400FAE8F5 /* CustomUITextField.swift in Sources */,
 				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
 				F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,

@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (window?.rootViewController?.isKind(of: UITabBarController.classForCoder()))! {
             let tabBar = window?.rootViewController as! UITabBarController
-            tabBar.selectedIndex = 3
         }
         
         SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))

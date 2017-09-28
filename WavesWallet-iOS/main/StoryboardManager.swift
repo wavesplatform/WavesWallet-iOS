@@ -22,6 +22,8 @@ class StoryboardManager {
         switch tx.type {
         case 4:
            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "TransferTransactionViewController")
+        case 7:
+            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "ExchangeTransactionViewController")
         default:
             return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "GenericTransactionViewController")
         }

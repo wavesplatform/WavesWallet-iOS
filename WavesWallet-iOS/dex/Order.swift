@@ -39,6 +39,10 @@ class AssetPair: Decodable, Glossy {
         return assetIdBytes(amountAsset) + assetIdBytes(priceAsset)
     }
     
+    var key: String {
+        return (amountAsset ?? "WAVES") + "-" + (priceAsset ?? "WAVES")
+    }
+    
     func toJSON() -> JSON? {
         return jsonify([
             "amountAsset" ~~> self.amountAsset,

@@ -11,12 +11,22 @@ import SwiftyJSON
 import SVProgressHUD
 
 
-class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderConfirmViewDelegate {
-
-    @IBOutlet weak var labelPriceAssetName: UILabel!
+class CreateOrderViewController: UITableViewController, UITextFieldDelegate, OrderConfirmViewDelegate {
+    let SellColor = UIColor(netHex: 0xFB0D00)
+    let BuyColor = UIColor(netHex: 0x00AE00)
     
+    @IBOutlet weak var tickerTitleLabel: UILabel!
+    @IBOutlet weak var iconPriceAvailable: UIImageView!
+    @IBOutlet weak var iconAmountAvailable: UIImageView!
+    
+    @IBOutlet weak var labelPriceAssetName: UILabel!
     @IBOutlet weak var labelAmountAssetName: UILabel!
     
+    @IBOutlet weak var labelPriceAssetName1: UILabel!
+    @IBOutlet weak var labelAmountAssetName1: UILabel!
+    
+    @IBOutlet weak var letterAmountAvailable: UILabel!
+    @IBOutlet weak var letterPriceAvailable: UILabel!
     @IBOutlet weak var labelPriceAvailableCount: UILabel!
     @IBOutlet weak var labelAmountAvailableCount: UILabel!
     
@@ -24,14 +34,19 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     
     @IBOutlet weak var textFieldAmount: UITextField!
     
-    @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
+    var acitivityIndicatorView: UIActivityIndicatorView!
     
     @IBOutlet weak var labelTotalPrice: UILabel!
     
     @IBOutlet weak var labelPriceAssetName2: UILabel!
     
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var sellButton: UIButton!
+    var bottomButtons: UIStackView!
+    
     var priceAsset: String!
     var amountAsset: String!
+    var assetPair: AssetPair!
     var priceAssetName: String!
     var amountAssetName: String!
     
@@ -45,13 +60,27 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
 
     var amount: Int64?
     var price: Int64?
+    var priceChanged = false
+    var orderType: OrderType = .buy
+    var buyPrice: String!
+    var sellPrice: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Place Order"
         
+        assetPair = AssetPair(amountAsset: amountAsset, priceAsset: priceAsset)
+        tickerTitleLabel.text = DataManager.shared.getTickersTitle(item: ["amountAsset": amountAsset, "amountAssetName": amountAssetName, "priceAsset": priceAsset, "priceAssetName": priceAssetName])
+        acitivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        acitivityIndicatorView.center = view.center
+        self.view.addSubview(acitivityIndicatorView)
+        
+        createSellBuyButtons()
+        
         labelPriceAssetName.text = priceAssetName
+        labelPriceAssetName1.text = priceAssetName
         labelAmountAssetName.text = amountAssetName
+        labelAmountAssetName1.text = amountAssetName
         labelPriceAssetName2.text = priceAssetName
         
         textFieldPrice.text = "0"
@@ -59,7 +88,8 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         
         if price != nil && amount != nil {
             textFieldAmount.text = textFieldFormatString(assetAvailable: amount!, decimals: self.amountAssetDecimal)
-            textFieldPrice.text = textFieldFormatString(assetAvailable: price!, decimals: self.priceAssetDecimal)
+            textFieldPrice.text = textFieldFormatString(assetAvailable: price!, decimals: 8 + self.priceAssetDecimal - self.amountAssetDecimal)
+            priceChanged = true
         }
         
         labelFee.text = MoneyUtil.getScaledTextTrimZeros(300000, decimals: 8)
@@ -96,6 +126,111 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
 
         textFieldPrice.addTarget(self, action: #selector(calculateTotalPrice), for: .editingChanged)
         textFieldAmount.addTarget(self, action: #selector(calculateTotalPrice), for: .editingChanged)
+        
+        setupAssetIcons()
+        setupBuySellButtons()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print(view.frame)
+        bottomButtons.frame = CGRect(x: 0, y: view.frame.height - 50, width: view.frame.width, height: 50)
+    }
+    
+    func toggleBuySellButtons() {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        
+        buyButton.borderWidth = orderType == .buy ? 0.0 : 1.0
+        let buyTxt = NSAttributedString(string: buyButton.attributedTitle(for: .normal)!.string,
+                                        attributes: [
+                                            NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
+                                            NSForegroundColorAttributeName: orderType == .buy ? UIColor.white : BuyColor,
+                                            NSParagraphStyleAttributeName: paragraph])
+        buyButton.setAttributedTitle(buyTxt, for: .normal)
+        buyButton.backgroundColor = orderType == .buy ? BuyColor : .white
+        
+        sellButton.backgroundColor = orderType == .sell ? SellColor : .white
+        sellButton.borderWidth = orderType == .sell ? 0.0 : 1.0
+        buyButton.borderWidth = orderType == .buy ? 0.0 : 1.0
+        let sellTxt = NSAttributedString(string: sellButton.attributedTitle(for: .normal)!.string,
+                                        attributes: [
+                                            NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
+                                            NSForegroundColorAttributeName: orderType == .sell ? UIColor.white : SellColor,
+                                            NSParagraphStyleAttributeName: paragraph])
+        sellButton.setAttributedTitle(sellTxt, for: .normal)
+        
+        if !priceChanged {
+            textFieldPrice.text = orderType == .buy ? buyPrice : sellPrice
+        }
+    }
+    
+    func setupBuySellButtons() {
+        
+        buyPrice = MoneyUtil.getScaledText(DataManager.shared.bestAsk[assetPair.key] ?? 0, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        let buyStr = NSAttributedString(string: "BUY\n" + buyPrice,
+            attributes: [
+                NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
+                NSForegroundColorAttributeName: UIColor.white,
+                NSParagraphStyleAttributeName: paragraph])
+        buyButton.setAttributedTitle(buyStr, for: .normal)
+        buyButton.borderColor = BuyColor
+        
+        sellPrice = MoneyUtil.getScaledText(DataManager.shared.bestBid[assetPair.key] ?? 0, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
+        let sellStr = NSAttributedString(string: "SELL\n" + sellPrice,
+            attributes: [
+                NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
+                NSForegroundColorAttributeName: UIColor.white,
+                NSParagraphStyleAttributeName: paragraph])
+        sellButton.setAttributedTitle(sellStr, for: .normal)
+        sellButton.borderColor = SellColor
+        
+        toggleBuySellButtons()
+    }
+    
+    func createSellBuyButtons() {
+        let placeOrder = UIButton()
+        placeOrder.backgroundColor = AppColors.accentColor
+        placeOrder.addTarget(self, action: #selector(buySellTapped(_:)), for: .touchUpInside)
+        placeOrder.backgroundColor = AppColors.accentColor
+        placeOrder.setTitleColor(.black, for: .normal)
+        placeOrder.setTitle("Place Order", for: .normal)
+        bottomButtons = UIStackView(arrangedSubviews: [placeOrder])
+        bottomButtons.distribution = .fillEqually
+        self.view.addSubview(bottomButtons)
+    }
+    
+    func setupAssetIcons() {
+        letterPriceAvailable.text = String(priceAssetName.characters.prefix(1)).capitalized
+        letterAmountAvailable.text = String(amountAssetName.characters.prefix(1)).capitalized
+        
+        if priceAsset == "WAVES" {
+            letterPriceAvailable.isHidden = true
+            iconPriceAvailable.image = #imageLiteral(resourceName: "icon_waves")
+        } else if priceAsset == "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS" {
+            letterPriceAvailable.isHidden = true
+            iconPriceAvailable.image = #imageLiteral(resourceName: "icon-btc")
+        } else if priceAsset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
+            letterPriceAvailable.isHidden = true
+            iconPriceAvailable.image = #imageLiteral(resourceName: "icon-eth")
+        } else {
+            iconPriceAvailable.isHidden = true
+        }
+        
+        if amountAsset == "WAVES" {
+            letterAmountAvailable.isHidden = true
+            iconAmountAvailable.image = #imageLiteral(resourceName: "icon_waves")
+        } else if priceAsset == "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS" {
+            letterAmountAvailable.isHidden = true
+            iconAmountAvailable.image = #imageLiteral(resourceName: "icon-btc")
+        } else if priceAsset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
+            letterAmountAvailable.isHidden = true
+            iconAmountAvailable.image = #imageLiteral(resourceName: "icon_waves")
+        } else {
+            iconAmountAvailable.isHidden = true
+        }
+
     }
     
     
@@ -118,19 +253,6 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         
         self.labelPriceAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.priceAssetAvailable, decimals: self.priceAssetDecimal)
         self.labelAmountAvailableCount.text = MoneyUtil.formatDecimalTrimZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
-    }
-    
-    @IBAction func amountAvailableTapped(_ sender: Any) {
-
-        textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
-        calculateTotalPrice()
-    }
-    
-    @IBAction func priceAvailableTapped(_ sender: Any) {
-        if let price = MoneyUtil.parseDecimal(textFieldPrice.text!), price > 0 {
-            textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.priceAssetAvailable/price, decimals: self.priceAssetDecimal)
-            calculateTotalPrice()
-        }
     }
     
     func hideAllSubviews() {
@@ -168,10 +290,10 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     }
     
     func orderConfirmViewDidConfirm(type: OrderType) {
-        executeSellBuyAction(type: type)
+        executeSellBuyAction()
     }
     
-    func executeSellBuyAction(type: OrderType) {
+    func executeSellBuyAction() {
         SVProgressHUD.show()
         
         WalletManager.getPrivateKey(complete: { (privateKey) in
@@ -182,7 +304,7 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
             let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
             let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
             
-            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: type, price: price, amount: amount)
+            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: self.orderType, price: price, amount: amount)
             order.senderPrivateKey = privateKey
             
             NetworkManager.buySellOrder(order: order, complete: { (errorMessage) in
@@ -201,29 +323,16 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         }
     }
     
-    @IBAction func sellTapped(_ sender: Any) {
+    @IBAction func buySellTapped(_ sender: Any) {
        
         if OrderConfirmView.needShow() {
             let view = OrderConfirmView.show()
             view.delegate = self
-            view.orderType = OrderType.sell
         }
         else {
-            executeSellBuyAction(type: OrderType.sell)
+            executeSellBuyAction()
         }
    }
-  
-    @IBAction func buyTapped(_ sender: Any) {
-        
-        if OrderConfirmView.needShow() {
-            let view = OrderConfirmView.show()
-            view.delegate = self
-            view.orderType = OrderType.buy
-        }
-        else {
-            executeSellBuyAction(type: OrderType.buy)
-        }
-    }
     
     func calculateTotalPrice() {
         
@@ -235,6 +344,18 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
         }
     }
     
+    @IBAction func onPriceChanged(_ sender: UIStepper) {
+        if sender.value > 0 {
+            formatPlus(textField: textFieldPrice)
+            calculateTotalPrice()
+        } else {
+            formatMinus(textField: textFieldPrice)
+            calculateTotalPrice()
+        }
+        priceChanged = true
+        sender.value = 0
+    }
+    
     @IBAction func plusPriceTapped(_ sender: Any) {
         formatPlus(textField: textFieldPrice)
         calculateTotalPrice()
@@ -243,6 +364,17 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     @IBAction func minusPriceTapped(_ sender: Any) {
         formatMinus(textField: textFieldPrice)
         calculateTotalPrice()
+    }
+    
+    @IBAction func onAmountChnaged(_ sender: UIStepper) {
+        if sender.value > 0 {
+            formatPlus(textField: textFieldAmount)
+            calculateTotalPrice()
+        } else {
+            formatMinus(textField: textFieldAmount)
+            calculateTotalPrice()
+        }
+        sender.value = 0
     }
     
     @IBAction func plusAmountTapped(_ sender: Any) {
@@ -352,5 +484,28 @@ class CreateOrderViewController: UIViewController, UITextFieldDelegate, OrderCon
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.amountAssetAvailable, decimals: self.amountAssetDecimal)
+            calculateTotalPrice()
+        } else if indexPath.section == 0 && indexPath.row == 1 {
+            if let price = MoneyUtil.parseDecimal(textFieldPrice.text!), price > 0 {
+                textFieldAmount.text = MoneyUtil.formatDecimalNoGroupingAndZeros(self.priceAssetAvailable/price, decimals: self.priceAssetDecimal)
+                calculateTotalPrice()
+            }
+        }
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    @IBAction func onBuySelected(_ sender: Any) {
+        orderType = .buy
+        toggleBuySellButtons()
+    }
+    
+    @IBAction func onSellSelected(_ sender: Any) {
+        orderType = .sell
+        toggleBuySellButtons()
     }
 }

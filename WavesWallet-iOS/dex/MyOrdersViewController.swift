@@ -148,7 +148,6 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func deleteCancelTapped(sender: UIButton) {
-        
         SVProgressHUD.show()
         
         WalletManager.getPrivateKey(complete: { (privateKey) in
@@ -168,7 +167,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
-                        self.loadInfo()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                            self.loadInfo()
+                        }
                     }
                 })
             }
@@ -177,6 +178,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
          
                 NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
 
+                    sender.isEnabled = true
                     if errorMessage != nil {
                         SVProgressHUD.dismiss()
                         self.presentBasicAlertWithTitle(title: errorMessage!)
@@ -233,7 +235,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         let sum = MoneyUtil.getScaledDecimal(amount, amountAssetDecimal) * MoneyUtil.getScaledDecimal(price, 8 + self.priceAssetDecimal - self.amountAssetDecimal)
         cell.labelSum.text = MoneyUtil.formatDecimals(sum, decimals: self.priceAssetDecimal)
 
-        cell.labelPrice.text = MoneyUtil.getScaledText(price, decimals: 8 + self.priceAssetDecimal - self.amountAssetDecimal)
+        cell.labelPrice.text = MoneyUtil.getScaledText(price, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
         cell.labelAmount.text = MoneyUtil.getScaledTextTrimZeros(amount, decimals: self.amountAssetDecimal)
         
         if indexPath.row % 2 == 0 {

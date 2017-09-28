@@ -24,11 +24,11 @@ class LastTraderCell: UITableViewCell {
     }
     
     class func sellColor() -> UIColor {
-        return UIColor(netHex: 0xc7626f)
+        return AppColors.dexSellColor
     }
     
     class func buyColor() -> UIColor {
-        return UIColor(netHex: 0x48976e)
+        return AppColors.dexBuyColor
     }
 }
 

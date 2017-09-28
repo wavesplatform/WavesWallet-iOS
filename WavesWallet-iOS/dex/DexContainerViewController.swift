@@ -43,7 +43,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
 
         view.backgroundColor = AppColors.wavesColor
         orderBookTapped(buttonOrderBook)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))]
 
         viewShadow.backgroundColor = AppColors.wavesColor
         viewShadow.layer.shadowColor = UIColor.black.cgColor
@@ -143,7 +143,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     func chartViewControllerDidChangeTimeFrame() {
      
         let btnTimeFrame = UIBarButtonItem.init(title: chartController.nameFromTimeFrame(DataManager.getCandleTimeFrame()), style: .done, target: self, action: #selector(changeChartTimeFrame))
-        let btnOrder = UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))
+        let btnOrder = UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))
         let btnBottomChart = UIBarButtonItem.init(image: UIImage(named: "btn_bars"), style: .plain, target: self, action: #selector(bottomChartTapped))
         
         navigationItem.rightBarButtonItems = [btnOrder, btnTimeFrame, btnBottomChart]
@@ -166,7 +166,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
 
-        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))]
         
         orderBookController.controllerWillAppear()
     }
@@ -205,7 +205,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonLastTraders.setTitleColor(UIColor.white, for: .normal)
         buttonMyOrders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         
-        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))]
         
         lastTraderController.controllerWillAppear()
         orderBookController.controllerWillDissapear()
@@ -224,7 +224,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         buttonLastTraders.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
         buttonMyOrders.setTitleColor(UIColor.white, for: .normal)
 
-        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(image: UIImage(named:"btn_order"), style: .plain, target: self, action: #selector(orderTapped))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))]
         
         myOrdersController.controllerWillAppear()
         orderBookController.controllerWillDissapear()
