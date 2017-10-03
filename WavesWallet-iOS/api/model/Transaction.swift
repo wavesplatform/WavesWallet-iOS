@@ -4,7 +4,7 @@ import RealmSwift
 import Realm
 import RxDataSources
 
-public class Transaction: Object, IdentifiableType, Decodable {
+public class Transaction: Object, IdentifiableType, Gloss.Decodable {
     public typealias Identity = String
 
     dynamic var id = ""

@@ -247,7 +247,7 @@ class NetworkManager: NSObject
 
     class func deleteOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
         
-        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete", parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
+        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete?" + String(Date().millisecondsSince1970), parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
             complete(errorMessage)
         }
     }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol OrderConfirmViewDelegate: class {
     
-    func orderConfirmViewDidConfirm(type: OrderType)
+    func orderConfirmViewDidConfirm()
 }
 
 class OrderConfirmView: UIView {
@@ -48,7 +48,7 @@ class OrderConfirmView: UIView {
     @IBAction func confirmTapped(_ sender: Any) {
         addBounceEndAnimation(viewBg)
         dismissView()
-        delegate?.orderConfirmViewDidConfirm(type: orderType)
+        delegate?.orderConfirmViewDidConfirm()
         
         if isCheking {
             UserDefaults.standard.set(true, forKey: "noNeedAsk")

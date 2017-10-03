@@ -167,7 +167,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             self.loadInfo()
                         }
                     }
@@ -184,7 +184,9 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
                         self.presentBasicAlertWithTitle(title: errorMessage!)
                     }
                     else {
-                        self.loadInfo()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self.loadInfo()
+                        }
                     }
                 })
             }

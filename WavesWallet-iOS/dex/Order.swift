@@ -11,7 +11,7 @@ import Gloss
 
 let kNotifDidCreateOrder : String = "kNotifDidCreateOrder"
 
-class AssetPair: Decodable, Glossy {
+class AssetPair: Gloss.Decodable, Glossy {
     
     var amountAsset: String?
     var priceAsset: String?

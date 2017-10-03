@@ -11,19 +11,20 @@ import UIKit
 class DexSearchCell: UITableViewCell {
     
     @IBOutlet weak var viewContainer: UIView!
-    @IBOutlet weak var imageViewCheckmark: UIImageView!
 
+    @IBOutlet weak var btnCheckmark: UIButton!
     @IBOutlet weak var labelTitleLong: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var imageViewIcon1: UIImageView!
     
-    @IBOutlet weak var labelAmountAsset: UILabel!
-    @IBOutlet weak var labelPriceAsset: UILabel!
-    @IBOutlet weak var detailsView: UIStackView!
-    @IBOutlet weak var hideButton: UIButton!
-
-    func setupCell(_ item: NSDictionary, indexPath: IndexPath, isDetailsHidden: Bool) {
-        self.hideButton.tag = indexPath.row
+    var item: NSDictionary!
+    var tableView: UITableView!
+    var indexPath: IndexPath!
+    
+    func setupCell(_ item: NSDictionary, indexPath: IndexPath, tableView: UITableView) {
+        self.item = item
+        self.tableView = tableView
+        self.indexPath = indexPath
         
         labelTitle.text = DataManager.shared.getTickersTitle(item: item)
         labelTitleLong.text = "\(item["amountAssetName"]!) / \(item["priceAssetName"]!)"
@@ -35,20 +36,26 @@ class DexSearchCell: UITableViewCell {
             imageViewIcon1.image = nil
         }
         
-        labelAmountAsset.text = item["amountAsset"] as? String
-        labelPriceAsset.text = item["priceAsset"] as? String
-
-        
         if DataManager.hasPair(item) {
-            imageViewCheckmark.image = #imageLiteral(resourceName: "pair-selected")
+            btnCheckmark.imageView?.image = #imageLiteral(resourceName: "pair-selected")
         }
         else {
-            imageViewCheckmark.image = #imageLiteral(resourceName: "pair-not-selected")
+            btnCheckmark.imageView?.image = #imageLiteral(resourceName: "pair-not-selected")
         }
         
-        detailsView.isHidden = isDetailsHidden
-        hideButton.setImage(isDetailsHidden ? #imageLiteral(resourceName: "down-chevron") : #imageLiteral(resourceName: "up-chevron@"), for: .normal)
-        imageViewCheckmark.alpha = DataManager.isWavesWbtcPair(item) ? 0.6 : 1
+        btnCheckmark.alpha = DataManager.isWavesWbtcPair(item) ? 0.6 : 1
+    }
+    
+    @IBAction func onSelect(_ sender: Any) {
+        if DataManager.hasPair(item) {
+            DataManager.removePair(item)
+            btnCheckmark.imageView?.image = #imageLiteral(resourceName: "pair-not-selected")
+        }
+        else {
+            DataManager.addPair(item)
+            btnCheckmark.imageView?.image = #imageLiteral(resourceName: "pair-selected")
+        }
+        self.tableView.reloadItemsAtIndexPaths([self.indexPath], animationStyle: .automatic)
     }
 
 }
@@ -67,7 +74,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     var isSearchMode: Bool = false
     
     var verifiedItems = [NSDictionary]()
-    var detailsShown = Set<Int>()
+    
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -276,10 +284,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         return true
     }
     
-    //MARK: UITableView
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    /*func addRemovePair(item: NSDictionary) {
         if isSearchMode {
             let item = searchItems[indexPath.row]
             
@@ -304,6 +309,26 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         tableView.reloadData()
         
         NotificationCenter.default.post(name: Notification.Name(rawValue:kNotifDidChangeDexItems), object: nil)
+    }*/
+    
+    //MARK: UITableView
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var item: NSDictionary!
+        if isSearchMode {
+            item = searchItems[indexPath.row]
+        } else {
+            item = DataManager.isShowUnverifiedAssets() ? DataManager.shared.orderBooks[indexPath.row] : verifiedItems[indexPath.row]
+        }
+        
+        self.textFieldSearch.resignFirstResponder()
+        
+        let vc = StoryboardManager.assetPairDetailsViewController(item: item)
+        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: vc)
+        
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = self.halfModalTransitioningDelegate
+        self.present(vc, animated: true, completion: nil)
+        //self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -325,33 +350,19 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         let cell: DexSearchCell = tableView.dequeueReusableCell(withIdentifier: "DexSearchCell", for: indexPath) as! DexSearchCell
         
         if isSearchMode {
-            cell.setupCell(searchItems[indexPath.row], indexPath: indexPath,
-                           isDetailsHidden: !detailsShown.contains(indexPath.row))
+            cell.setupCell(searchItems[indexPath.row], indexPath: indexPath, tableView: self.tableView)
         }
         else {
             
             if DataManager.isShowUnverifiedAssets() {
-                cell.setupCell(DataManager.shared.orderBooks[indexPath.row], indexPath: indexPath,
-                               isDetailsHidden: !detailsShown.contains(indexPath.row))
+                cell.setupCell(DataManager.shared.orderBooks[indexPath.row], indexPath: indexPath, tableView: self.tableView)
             }
             else {
-                cell.setupCell(verifiedItems[indexPath.row], indexPath: indexPath,
-                               isDetailsHidden: !detailsShown.contains(indexPath.row))
+                cell.setupCell(verifiedItems[indexPath.row], indexPath: indexPath, tableView: self.tableView)
             }
         }
         
         return cell
-    }
-    
-    @IBAction func onHideDetails(_ sender: Any) {
-        if let btn = sender as? UIButton {
-            if detailsShown.contains(btn.tag) {
-                detailsShown.remove(btn.tag)
-            } else {
-                detailsShown.insert(btn.tag)
-            }
-            self.tableView.reloadItemsAtIndexPaths([IndexPath(row: btn.tag, section: 0)], animationStyle: .automatic)
-        }
     }
     
     

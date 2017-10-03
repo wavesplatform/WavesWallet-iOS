@@ -29,6 +29,16 @@ class StoryboardManager {
         }
     }
     
+    class func assetPairDetailsViewController(item: NSDictionary) -> UIViewController {
+        let vc = UIStoryboard(name: "Dex", bundle: nil).instantiateViewController(withIdentifier: "AssetPairDetailsViewController")
+        if let nav = vc as? UINavigationController
+            , let topVc = nav.topViewController as? AssetPairDetailsViewController {
+            topVc.item = item
+        }
+        
+        return vc;
+    }
+    
     class func sendViewController(asset: AssetBalance) -> SendViewController {
         let vc = UIStoryboard(name: "Transfer", bundle: nil).instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
         vc.selectedAccount = asset
