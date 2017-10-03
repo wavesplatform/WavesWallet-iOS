@@ -19,7 +19,7 @@ class OrderCell: UITableViewCell {
     
 }
 
-class OrderBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OrderBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateOrderViewControllerDelegate {
 
     var priceAsset : String!
     var amountAsset : String!
@@ -107,6 +107,13 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 
+    func createOrderViewControllerDidCreateOrder() {
+        
+        if let parent = parent as? DexContainerViewController {
+            parent.createOrderViewControllerDidCreateOrder()
+        }
+    }
+    
     func loadInfo(complete: @escaping (Void) -> Void)  {
         
         clearTimer()
@@ -141,9 +148,10 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+   
         let controller = storyboard?.instantiateViewController(withIdentifier: "CreateOrderViewController") as! CreateOrderViewController
-
+        controller.delegate = self
+        
         if indexPath.section == 0 {
             let item = asks[indexPath.row]
             controller.price = item["price"] as? Int64

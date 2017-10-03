@@ -10,7 +10,7 @@ import UIKit
 
 let kNotifDidChangeDexItems = "kNotifDidChangeDexItems"
 
-class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartViewControllerDelegate {
+class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartViewControllerDelegate, CreateOrderViewControllerDelegate {
 
     var priceAsset : String!
     var amountAsset : String!
@@ -118,9 +118,14 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.contentSize.height)
     }
     
+    func createOrderViewControllerDidCreateOrder() {
+        myOrdersTapped(buttonMyOrders)
+    }
+    
     func orderTapped() {
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "CreateOrderViewController") as! CreateOrderViewController
+        controller.delegate = self
         controller.priceAsset = priceAsset
         controller.amountAsset = amountAsset
         controller.priceAssetName = priceAssetName

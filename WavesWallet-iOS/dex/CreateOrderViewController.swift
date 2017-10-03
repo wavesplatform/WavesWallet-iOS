@@ -10,8 +10,15 @@ import UIKit
 import SwiftyJSON
 import SVProgressHUD
 
+protocol CreateOrderViewControllerDelegate: class {
+ 
+    func createOrderViewControllerDidCreateOrder()
+}
 
 class CreateOrderViewController: UITableViewController, UITextFieldDelegate, OrderConfirmViewDelegate {
+    
+    var delegate: CreateOrderViewControllerDelegate?
+    
     let SellColor = UIColor(netHex: 0xFB0D00)
     let BuyColor = UIColor(netHex: 0x00AE00)
     let GreyColor = UIColor(netHex: 0xa5a5a5)
@@ -294,6 +301,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         let alert = UIAlertController(title: "Order Accepted", message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { (action) in
             self.navigationController?.popViewController(animated: true)
+            self.delegate?.createOrderViewControllerDidCreateOrder()
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
