@@ -9,6 +9,9 @@
 import UIKit
 import IQKeyboardManagerSwift
 import SVProgressHUD
+import Gloss
+
+typealias Decodable = Gloss.Decodable
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

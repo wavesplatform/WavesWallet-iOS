@@ -11,8 +11,8 @@ target 'WavesWallet-iOS' do
   pod 'RxDataSources', '~> 1.0'
   pod 'RxAlamofire'
   pod 'SwiftyJSON'
-  pod 'Gloss', '~> 1.2'
-  pod 'RealmSwift', '~> 2.6'
+  pod 'Gloss', '2.0.0-beta.1'
+  pod 'RealmSwift', '~> 2.10.0'
   pod 'RxRealm', '~> 0.6'
   pod 'MGSwipeTableCell'
   pod '25519', '~> 2.0.2'
@@ -29,3 +29,4 @@ target 'WavesWallet-iOS' do
   pod 'SVProgressHUD'
   
 end
+

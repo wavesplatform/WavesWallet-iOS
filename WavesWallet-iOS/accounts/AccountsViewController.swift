@@ -243,6 +243,7 @@ extension AccountsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
         let hidenCount = objectsBySection[section].filter { $0.isHidden }.count
         return hidenCount > 0 ? 40.0 : 0.5
     }
