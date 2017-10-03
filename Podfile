@@ -29,3 +29,4 @@ target 'WavesWallet-iOS' do
   pod 'SVProgressHUD'
   
 end
+
