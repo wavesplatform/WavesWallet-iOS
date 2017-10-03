@@ -118,8 +118,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
 
     func setupTableView() {
         tableView.tableFooterView = UIView()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 106
+        tableView.rowHeight = 80.0
+        //tableView.estimatedRowHeight = 80
     }
 
     override func viewWillDisappear(_ animated: Bool) {

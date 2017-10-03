@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="12q-J4-3VR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="12q-J4-3VR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +16,7 @@
                 <navigationController id="12q-J4-3VR" customClass="CustomNavigationController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rFp-5e-4ig">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -35,7 +36,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rce-zu-LJ8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ooj-kT-bLJ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1ve-TD-W9k">
@@ -198,7 +199,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="111" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yip-bM-hGO" customClass="TPKeyboardAvoidingTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yip-bM-hGO" customClass="TPKeyboardAvoidingTableView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -212,53 +213,49 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mH3-uF-SLX">
                                                     <rect key="frame" x="15" y="12" width="348" height="55.5"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="qZY-7B-Z54">
-                                                            <rect key="frame" x="31" y="0.0" width="317" height="55.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="myE-eg-3OE">
+                                                            <rect key="frame" x="31" y="0.0" width="233" height="41.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wp4-2b-Yjw">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="317" height="23.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="233" height="17"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="xkD-6c-Tv9">
-                                                                    <rect key="frame" x="0.0" y="27.5" width="317" height="28"/>
-                                                                    <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AvQ-Gq-h4x">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="105" height="28"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2O-8z-iEe">
-                                                                            <rect key="frame" x="277" y="0.0" width="40" height="28"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="40" id="7bI-RX-90I"/>
-                                                                                <constraint firstAttribute="height" constant="28" id="Aa6-14-epG"/>
-                                                                            </constraints>
-                                                                            <state key="normal" title="Button" image="pair-not-selected"/>
-                                                                            <connections>
-                                                                                <action selector="onSelect:" destination="wX8-8R-ThP" eventType="touchUpInside" id="XeT-LO-d1e"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                    </subviews>
-                                                                </stackView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AvQ-Gq-h4x">
+                                                                    <rect key="frame" x="0.0" y="21" width="233" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                         </stackView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="verified" translatesAutoresizingMaskIntoConstraints="NO" id="Rh7-rh-301">
-                                                            <rect key="frame" x="0.0" y="32" width="16" height="19"/>
+                                                            <rect key="frame" x="0.0" y="21.5" width="16" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="3Nu-Z5-aTL"/>
                                                                 <constraint firstAttribute="width" constant="16" id="gN9-Aj-J5r"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2O-8z-iEe">
+                                                            <rect key="frame" x="268" y="0.0" width="80" height="55.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="7bI-RX-90I"/>
+                                                            </constraints>
+                                                            <state key="normal" image="pair-not-selected"/>
+                                                            <connections>
+                                                                <action selector="onSelect:" destination="wX8-8R-ThP" eventType="touchUpInside" id="XeT-LO-d1e"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="AvQ-Gq-h4x" firstAttribute="centerY" secondItem="Rh7-rh-301" secondAttribute="centerY" id="BHX-Nt-2Xy"/>
-                                                        <constraint firstItem="Rh7-rh-301" firstAttribute="leading" secondItem="mH3-uF-SLX" secondAttribute="leading" id="Je7-oz-SQQ"/>
-                                                        <constraint firstItem="qZY-7B-Z54" firstAttribute="leading" secondItem="Rh7-rh-301" secondAttribute="trailing" constant="15" id="KsW-Pb-7yC"/>
-                                                        <constraint firstItem="qZY-7B-Z54" firstAttribute="top" secondItem="mH3-uF-SLX" secondAttribute="top" id="d2L-82-RFL"/>
-                                                        <constraint firstAttribute="trailing" secondItem="qZY-7B-Z54" secondAttribute="trailing" id="mdk-xh-lsH"/>
-                                                        <constraint firstAttribute="bottom" secondItem="qZY-7B-Z54" secondAttribute="bottom" id="q4i-IP-0NH"/>
+                                                        <constraint firstItem="N2O-8z-iEe" firstAttribute="top" secondItem="mH3-uF-SLX" secondAttribute="top" id="MNg-Do-PG9"/>
+                                                        <constraint firstItem="Rh7-rh-301" firstAttribute="leading" secondItem="mH3-uF-SLX" secondAttribute="leading" id="MwK-4h-glV"/>
+                                                        <constraint firstItem="N2O-8z-iEe" firstAttribute="leading" secondItem="myE-eg-3OE" secondAttribute="trailing" constant="4" id="Px0-ts-snd"/>
+                                                        <constraint firstItem="myE-eg-3OE" firstAttribute="top" secondItem="mH3-uF-SLX" secondAttribute="top" id="UG4-JJ-foF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="N2O-8z-iEe" secondAttribute="trailing" id="ev5-Ms-hkp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="N2O-8z-iEe" secondAttribute="bottom" id="mLK-zT-vhy"/>
+                                                        <constraint firstItem="AvQ-Gq-h4x" firstAttribute="centerY" secondItem="Rh7-rh-301" secondAttribute="centerY" id="sFT-mK-ja8"/>
+                                                        <constraint firstItem="myE-eg-3OE" firstAttribute="leading" secondItem="Rh7-rh-301" secondAttribute="trailing" constant="15" id="vRP-NK-aKz"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -316,7 +313,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OU6-HL-3L9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5cj-56-RL3">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l68-DS-6sY">
@@ -1752,7 +1749,7 @@
                 <navigationController storyboardIdentifier="AssetPairDetailsViewController" automaticallyAdjustsScrollViewInsets="NO" id="WLs-jq-hd5" customClass="HalfNavController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FbG-k1-EXE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1888,7 +1885,7 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="bnl-YP-ycU">
-                            <rect key="frame" x="50" y="5.5" width="287" height="33"/>
+                            <rect key="frame" x="44" y="5.5" width="287" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9lT-KA-DFc">
