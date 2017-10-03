@@ -243,14 +243,17 @@ extension AccountsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        let objs: Results<AssetBalance> = objectsBySection[section]
-        let hidenCount = objs.filter("isHidden == true").count
-        
+
+        let items = objectsBySection[section].filter { $0.isHidden }
+        let hidenCount = items.count
+
         return hidenCount > 0 ? 40.0 : 0.5
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let hidenCount = objectsBySection[section].filter("isHidden == true").count
+        let items = objectsBySection[section].filter { $0.isHidden }
+        let hidenCount = items.count
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "countSectionFooter") as! CustomSectionHeader
         cell.title?.text = hidenCount > 0 && !hiddenExpanded[section] ? "\(hidenCount) hidden assets" : "Hide"
         cell.contentView.backgroundColor = hidenCount > 0 ? AppColors.lightSectionColor : AppColors.greyBorderColor
