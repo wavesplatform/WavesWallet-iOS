@@ -56,6 +56,7 @@ class DexSearchCell: UITableViewCell {
             btnCheckmark.imageView?.image = #imageLiteral(resourceName: "pair-selected")
         }
         self.tableView.reloadItemsAtIndexPaths([self.indexPath], animationStyle: .automatic)
+        NotificationCenter.default.post(name: Notification.Name(rawValue:kNotifDidChangeDexItems), object: nil)
     }
 
 }
