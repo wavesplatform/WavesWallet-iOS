@@ -332,7 +332,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             let model = CandleModel()
             model.setupModel(item as! NSDictionary, timeFrame: timeframe)
     
-            if model.volume > 0 || !candles.contains(model) {
+            if model.volume > 0 {
                 candles.add(model)
             }
             

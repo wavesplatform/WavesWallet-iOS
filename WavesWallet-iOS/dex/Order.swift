@@ -86,7 +86,7 @@ class Order {
         self.price = price
         self.amount = amount
         self.timestamp = Int64(Date().millisecondsSince1970)
-        self.expiration = timestamp + 29 * 24 * 60 * 60 * 1000
+        self.expiration = timestamp + Int64(29) * Int64(24) * Int64(60) * Int64(60) * Int64(1000)
     }
     
     func arrayWithSize(_ s: String) -> [UInt8] {

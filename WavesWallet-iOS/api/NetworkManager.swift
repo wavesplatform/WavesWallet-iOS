@@ -9,7 +9,8 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-
+import RxSwift
+import RxAlamofire
 
 class NetworkManager: NSObject
 {
@@ -133,6 +134,22 @@ class NetworkManager: NSObject
         }
     }
     
+    class func getLastPairPrice(pair: AssetPair) -> Observable<(Double, Int64)> {
+        let u = URL(string: getMarketUrl())!.appendingPathComponent("trades/\(pair.amountAsset)/\(pair.priceAsset)/1")
+        return RxAlamofire.requestJSON(.get, u)
+            .flatMap { (resp, json) -> Observable<(Double, Int64)> in
+                if let infos = json as? [JSON] {
+                    if infos.count > 0 {
+                        let info = infos[0]
+                        if let p = info["price"].double,
+                            let ts = info["timestamp"].int64 {
+                            return Observable.just((p, ts))
+                        }
+                    }
+                }
+            return Observable.error(ApiError.IncorrectResponseFormat)
+        }
+    }
     
     @discardableResult class func getLastTraderPairPrice(amountAsset : String, priceAsset : String, complete: @escaping (_ price: Double, _ timestamp: Int64, _ errorMessage: String?) -> Void) -> DataRequest {
         

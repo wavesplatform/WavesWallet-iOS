@@ -10,6 +10,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name:
             NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         checkOpenUrl()
+        updateBadges()
     }
     
     deinit {
@@ -27,6 +28,7 @@ class MainTabBarController: UITabBarController {
     }
     
     func updateBadges() {
+        self.tabBar.items![4].badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
     }
     
     class func customiseTabBar(tabBar: UITabBar?) {

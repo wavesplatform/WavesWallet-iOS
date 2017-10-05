@@ -77,11 +77,9 @@ class MoneyUtil {
     
     class func parseUnscaled(_ text: String, _ scale: Int) -> Int64? {
         let s = text.replacingOccurrences(of: groupSeparator(), with: "")
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-       
-        if let d = f.number(from: s)?.decimalValue {
-            return Int64(NSDecimalNumber(decimal: d * Decimal(10^^scale)))
+        
+        if let d = Decimal(string: s, locale: Locale.current) {
+            return Int64(truncating: d * Decimal(10^^scale) as NSNumber)
         } else {
             return nil
         }
@@ -101,17 +99,12 @@ class MoneyUtil {
     
     class func parseDecimal(_ text: String) -> Decimal? {
         let s = text.replacingOccurrences(of: groupSeparator(), with: "")
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        return f.number(from: s)?.decimalValue
+        return Decimal(string: s, locale: Locale.current)
     }
     
     class func parseDecimalPoint(_ text: String) -> Decimal? {
         let s = text.replacingOccurrences(of: " ", with: "")
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.decimalSeparator = "."
-        return f.number(from: s)?.decimalValue
+        return Decimal(string: s, locale: Locale(identifier: "en_US"))
     }
  
     class func getDecimalPoint(_ point: Double) -> Decimal? {

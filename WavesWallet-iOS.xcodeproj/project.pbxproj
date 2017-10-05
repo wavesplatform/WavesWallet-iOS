@@ -61,6 +61,7 @@
 		F77A92091EB0A9D500C77439 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A92081EB0A9D500C77439 /* ArrayExtension.swift */; };
 		F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */; };
 		F78E33151EB329DF00132A8B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78E33141EB329DF00132A8B /* Environment.swift */; };
+		F79316361F856C54002D8636 /* AskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79316351F856C54002D8636 /* AskManager.swift */; };
 		F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F79C43CB1EAEA967006057B0 /* Transactions.storyboard */; };
 		F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43CD1EAEA9F4006057B0 /* TransferTransactionViewController.swift */; };
 		F79C43D31EAEB0F6006057B0 /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43D21EAEB0F6006057B0 /* HalfModalPresentationController.swift */; };
@@ -165,6 +166,7 @@
 		F77A92081EB0A9D500C77439 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTransactionDetailViewController.swift; sourceTree = "<group>"; };
 		F78E33141EB329DF00132A8B /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		F79316351F856C54002D8636 /* AskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskManager.swift; sourceTree = "<group>"; };
 		F79C43CB1EAEA967006057B0 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		F79C43CD1EAEA9F4006057B0 /* TransferTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTransactionViewController.swift; sourceTree = "<group>"; };
 		F79C43D21EAEB0F6006057B0 /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
+				F79316351F856C54002D8636 /* AskManager.swift */,
 			);
 			path = wallet;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				F7C683B41EA93AEB00C87DAF /* keccak.c in Sources */,
+				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,

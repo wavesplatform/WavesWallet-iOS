@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import KeychainAccess
-import LocalAuthentication
 import RxSwift
 import RxCocoa
 import RealmSwift
@@ -58,27 +56,6 @@ class CreateNewWalletViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }
-
-    func isTouchIdAvailable() -> Bool {
-        let myContext = LAContext()
-        
-        var authError: NSError? = nil
-        if #available(iOS 8.0, *) {
-            return myContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError)
-        } else {
-            return false
-        }
-    }
-
-    func saveToRealm(wallet: WalletItem) {
-        let realm = WalletManager.getWalletsRealm()
-        let w = WalletItem()
-        w.publicKey = wallet.publicKey
-        w.name = wallet.name
-        try! realm.write {
-            realm.add(w, update: true)
-        }
     }
     
     lazy var walletName: Driver<Try<String>> = {
@@ -171,38 +148,11 @@ class CreateNewWalletViewController: UIViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: {(w, s) in
                 if let w = w.toOpt, let s = s.toOpt {
-                    self.createWallet(wallet: w, seedBytes: s)
+                    print("setupSubmit \(Thread.current)")
+                    WalletManager.createWallet(wallet: w, seedBytes: s)
                 }
             })
             .addDisposableTo(bag)
-    }
-    
-    func createWallet(wallet: WalletItem, seedBytes: [UInt8]) {
-        let seed = Base58.encode(seedBytes)
-        let keychain = Keychain(service: "com.wavesplatform.wallets")
-            .label("Waves wallet seeds")
-            .accessibility(.whenUnlocked)
-        
-        saveToRealm(wallet: wallet)
-        
-        DispatchQueue.global().async {
-            do {
-                let policy = self.isTouchIdAvailable() ? AuthenticationPolicy.userPresence : AuthenticationPolicy.applicationPassword
-                
-                try keychain
-                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
-                    .accessibility(.whenUnlocked, authenticationPolicy: policy)
-                    .set(seed, key: wallet.publicKey)
-                DispatchQueue.main.async {
-                    WalletManager.didLogin(toWallet: wallet)
-                }
-            } catch let error {
-                DispatchQueue.main.async {
-                    self.presentBasicAlertWithTitle(title: "Failed to decrypt your seed", message: error.localizedDescription)
-                }
-            }
-        }
-        
     }
     
     lazy var readerVC: QRCodeReaderViewController = {

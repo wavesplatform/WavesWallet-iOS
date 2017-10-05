@@ -52,6 +52,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     @IBOutlet weak var sellButton: UIButton!
     var bottomButtons: UIStackView!
     
+    @IBOutlet weak var footerView: UIView!
     var priceAsset: String!
     var amountAsset: String!
     var assetPair: AssetPair!
@@ -65,7 +66,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     var amountAssetDecimal: Int!
 
     @IBOutlet weak var labelFee: UILabel!
-    var placeOrder: UIButton!
+    @IBOutlet weak var placeOrder: UIButton!
     
     var amount: Int64?
     var price: Int64?
@@ -76,15 +77,12 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Place Order"
-        
+
         assetPair = AssetPair(amountAsset: amountAsset, priceAsset: priceAsset)
-        tickerTitleLabel.text = DataManager.shared.getTickersTitle(item: ["amountAsset": amountAsset, "amountAssetName": amountAssetName, "priceAsset": priceAsset, "priceAssetName": priceAssetName])
+        title = DataManager.shared.getTickersTitle(item: ["amountAsset": amountAsset, "amountAssetName": amountAssetName, "priceAsset": priceAsset, "priceAssetName": priceAssetName])
         acitivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         acitivityIndicatorView.center = view.center
         self.view.addSubview(acitivityIndicatorView)
-        
-        createSellBuyButtons()
         
         labelPriceAssetName.text = priceAssetName
         labelPriceAssetName1.text = priceAssetName
@@ -141,8 +139,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     }
     
     override func viewDidLayoutSubviews() {
-        print(view.frame)
-        bottomButtons.frame = CGRect(x: 0, y: view.frame.height - 50, width: view.frame.width, height: 50)
+        footerView.frame.size.height = max(self.view.frame.height - footerView.frame.origin.y, CGFloat(135.0))
     }
     
     func toggleBuySellButtons() {
@@ -201,18 +198,6 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         sellButton.borderColor = GreyColor
         
         toggleBuySellButtons()
-    }
-    
-    func createSellBuyButtons() {
-        placeOrder = UIButton()
-        placeOrder.backgroundColor = AppColors.accentColor
-        placeOrder.addTarget(self, action: #selector(buySellTapped(_:)), for: .touchUpInside)
-        placeOrder.backgroundColor = AppColors.accentColor
-        placeOrder.setTitleColor(.white, for: .normal)
-        placeOrder.setTitle("Place Order", for: .normal)
-        bottomButtons = UIStackView(arrangedSubviews: [placeOrder])
-        bottomButtons.distribution = .fillEqually
-        self.view.addSubview(bottomButtons)
     }
     
     func setupAssetIcons() {

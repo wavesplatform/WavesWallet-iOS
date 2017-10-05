@@ -37,10 +37,14 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
     @IBOutlet weak var viewShadow: UIView!
     
     var selectedPage = 0
+    var previousTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        previousTitle = title
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
         view.backgroundColor = AppColors.wavesColor
         orderBookTapped(buttonOrderBook)
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(title: "Order", style: .plain, target: self, action: #selector(orderTapped))]
@@ -88,6 +92,17 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         addChildViewController(myOrdersController)
         scrollView.addSubview(myOrdersController.view)
         myOrdersController.didMove(toParentViewController: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        previousTitle = title
+        title = ""
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = previousTitle
     }
     
     override func viewDidLayoutSubviews() {

@@ -27,6 +27,5 @@ target 'WavesWallet-iOS' do
   pod 'Charts'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
-  
 end
 
