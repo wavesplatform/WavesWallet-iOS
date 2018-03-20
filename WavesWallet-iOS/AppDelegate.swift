@@ -8,6 +8,10 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SVProgressHUD
+import Gloss
+
+typealias Decodable = Gloss.Decodable
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.sharedManager().enable = true
         
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0.0, -1000.0), for: .default)
-        
         showStartController()
+        
+        if (window?.rootViewController?.isKind(of: UITabBarController.classForCoder()))! {
+            let tabBar = window?.rootViewController as! UITabBarController
+        }
+        
+        SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.setDefaultMaskType(.clear)
         
         return true
     }
@@ -52,8 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+        WalletManager.clearPrivateMemoryKey()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

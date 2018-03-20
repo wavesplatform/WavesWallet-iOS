@@ -138,6 +138,8 @@ class TransactionsViewController: UIViewController {
         switch basicTx.type {
         case 4:
             return realm.object(ofType: TransferTransaction.self, forPrimaryKey: basicTx.id)
+        case 7:
+            return realm.object(ofType: ExchangeTransaction.self, forPrimaryKey: basicTx.id)
         default:
             return realm.object(ofType: Transaction.self, forPrimaryKey: basicTx.id)
         }

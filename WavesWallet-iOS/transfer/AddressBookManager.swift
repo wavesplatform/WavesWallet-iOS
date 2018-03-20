@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 
 class AddressBookManager {
-    class func askForSaveAddress(parentController: UIViewController, address: String) {
+    class func askForSaveAddress(parentController: UIViewController, address: String) {        
         let alert = UIAlertController(title: "Add to Address Book", message: "Enter a name for address", preferredStyle: .alert)
         
         var d: Disposable?

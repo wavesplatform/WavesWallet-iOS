@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import KeychainAccess
-import LocalAuthentication
 import RxSwift
 import RxCocoa
 import RealmSwift
@@ -58,27 +56,6 @@ class CreateNewWalletViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }
-
-    func isTouchIdAvailable() -> Bool {
-        let myContext = LAContext()
-        
-        var authError: NSError? = nil
-        if #available(iOS 8.0, *) {
-            return myContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError)
-        } else {
-            return false
-        }
-    }
-
-    func saveToRealm(wallet: WalletItem) {
-        let realm = WalletManager.getWalletsRealm()
-        let w = WalletItem()
-        w.publicKey = wallet.publicKey
-        w.name = wallet.name
-        try! realm.write {
-            realm.add(w, update: true)
-        }
     }
     
     lazy var walletName: Driver<Try<String>> = {
@@ -171,7 +148,8 @@ class CreateNewWalletViewController: UIViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: {(w, s) in
                 if let w = w.toOpt, let s = s.toOpt {
-                    self.createWallet(wallet: w, seedBytes: s)
+                    print("setupSubmit \(Thread.current)")
+                    WalletManager.createWallet(wallet: w, seedBytes: s)
                 }
             })
             .addDisposableTo(bag)

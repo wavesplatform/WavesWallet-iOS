@@ -48,4 +48,13 @@ class Hash {
         return Array(digest[0..<len])
     }
     
+    static func sha512(_ data: [UInt8]) -> [UInt8] {
+        let len = Int(CC_SHA512_DIGEST_LENGTH)
+        var digest = [UInt8](repeating: 0, count: len)
+        
+        CC_SHA512(data, CC_LONG(data.count), &digest)
+        
+        return Array(digest[0..<len])
+    }
+    
 }

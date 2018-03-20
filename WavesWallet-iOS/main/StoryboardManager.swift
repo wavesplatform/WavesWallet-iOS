@@ -22,9 +22,21 @@ class StoryboardManager {
         switch tx.type {
         case 4:
            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "TransferTransactionViewController")
+        case 7:
+            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "ExchangeTransactionViewController")
         default:
             return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "GenericTransactionViewController")
         }
+    }
+    
+    class func assetPairDetailsViewController(item: NSDictionary) -> UIViewController {
+        let vc = UIStoryboard(name: "Dex", bundle: nil).instantiateViewController(withIdentifier: "AssetPairDetailsViewController")
+        if let nav = vc as? UINavigationController
+            , let topVc = nav.topViewController as? AssetPairDetailsViewController {
+            topVc.item = item
+        }
+        
+        return vc;
     }
     
     class func sendViewController(asset: AssetBalance) -> SendViewController {

@@ -68,16 +68,16 @@ class BaseTransactionDetailViewController: UITableViewController, HalfModalPrese
         directionLabel.text = basicTx.isInput ? "Received" : "Sent"
         directionLabel.textColor = basicTx.isInput ? AppColors.receiveGreen : AppColors.sendRed
         amountLabel.text = MoneyUtil.getScaledText(tx.getAmount(), decimals: Int(basicTx.asset?.decimals ?? 0))
-        feeLabel.text = "Transaction fee: \(MoneyUtil.getScaledTextTrimZeros(tx.fee, decimals: 8)) WAVES"
+        feeLabel?.text = "Transaction fee: \(MoneyUtil.getScaledTextTrimZeros(tx.fee, decimals: 8)) WAVES"
         dateLabel.text = DateUtil.formatFull(ts: tx.timestamp)
         fromLabel.text = tx.sender
         fromLabel.copyingEnabled = true
-        assetIdLabel.text = basicTx.assetId
+        assetIdLabel?.text = basicTx.assetId
         assetNameLabel.text = basicTx.asset?.name ?? "WAVES"
         txIdLabel.text = basicTx.id
 
         txIdLabel.copyingEnabled = true
-        assetIdLabel.copyingEnabled = true
+        assetIdLabel?.copyingEnabled = true
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
