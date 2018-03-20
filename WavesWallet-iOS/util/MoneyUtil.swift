@@ -152,8 +152,8 @@ func toByteArray<T>(_ value: T) -> [UInt8] {
 
 precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
 infix operator ^^ : PowerPrecedence
-func ^^ (radix: Int, power: Int) -> Int {
-    return Int(pow(Double(radix), Double(power)))
+func ^^ (radix: Int, power: Int) -> Int64 {
+    return Int64(pow(Double(radix), Double(power)))
 }
 
 

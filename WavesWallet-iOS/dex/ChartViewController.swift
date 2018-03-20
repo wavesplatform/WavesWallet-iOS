@@ -196,6 +196,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         self.candles.removeAllObjects()
         setupLabelCandleInfo()
         
+        candleChartView.clear()
         preloadInfo {
             self.activityIndicator.stopAnimating()
             
@@ -208,10 +209,13 @@ class ChartViewController: UIViewController, ChartViewDelegate {
                 let additionalZoom = zoom / self.candleChartView.scaleX
                 
                 self.candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-                self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
                 
                 self.barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-                self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                
+                if prevCount > 0 {
+                    self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                    self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                }
                 
                 self.candleChartView.highlightValue(nil)
                 self.barChartView.highlightValue(nil)
@@ -364,11 +368,11 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         candleSet.shadowColorSameAsCandle = true
         candleSet.drawHorizontalHighlightIndicatorEnabled = false
         candleSet.highlightLineWidth = 0.4
-        
-        candleChartView.data = CandleChartData.init(dataSet: candleSet)
-        candleChartView.notifyDataSetChanged()
-        
-        
+ 
+        if candleSet.entryCount > 0 {
+            candleChartView.data = CandleChartData.init(dataSet: candleSet)
+            candleChartView.notifyDataSetChanged()
+        }
         
         let barSet = BarChartDataSet.init(values: barYVals as? [ChartDataEntry], label: "")
         barSet.axisDependency = .right
@@ -381,6 +385,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         barData.barWidth = 0.80
         barChartView.data = barData
         barChartView.notifyDataSetChanged()
+ 
     }
 
     

@@ -26,7 +26,7 @@ class SelectAccountViewController: UIViewController, UICollectionViewDataSource 
         
         if let cv = self.collectionView
             , let layout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
-            cv.backgroundColor = AppColors.wavesColor
+            cv.backgroundColor = AppColors.mainBgColor
             cv.alwaysBounceVertical = false
             cv.showsHorizontalScrollIndicator = false
             cv.isPagingEnabled = true

@@ -32,10 +32,11 @@ class MainTabBarController: UITabBarController {
     }
     
     class func customiseTabBar(tabBar: UITabBar?) {
-        tabBar?.barTintColor = AppColors.wavesColor
+        //tabBar?.barTintColor = AppColors.darkBgColor
+        tabBar?.isTranslucent = true
         tabBar?.tintColor = AppColors.activeColor
         if #available(iOS 10.0, *) {
-            tabBar?.unselectedItemTintColor = AppColors.inactiveColor
+            //tabBar?.unselectedItemTintColor = AppColors.inactiveColor
         } else {
             // Fallback on earlier versions
         }

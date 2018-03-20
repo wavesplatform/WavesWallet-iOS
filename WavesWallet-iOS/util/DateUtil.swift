@@ -27,11 +27,11 @@ class DateUtil {
     }()
     
     class func formatTime(ts: Int64) -> String {
-         return timeFormatter.string(from: Date(milliseconds: Int(ts)))
+         return timeFormatter.string(from: Date(milliseconds: ts))
     }
     
     class func formatFull(ts: Int64) -> String {
-        return fullFormatter.string(from: Date(milliseconds: Int(ts)))
+        return fullFormatter.string(from: Date(milliseconds: ts))
     }
     
     class func formatStartOfDay(_ ts: Int64) -> String {
@@ -39,7 +39,7 @@ class DateUtil {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "en_US")
-        return dateFormatter.string(from: Date(milliseconds: Int(ts)))
+        return dateFormatter.string(from: Date(milliseconds: ts))
     }
     
 }

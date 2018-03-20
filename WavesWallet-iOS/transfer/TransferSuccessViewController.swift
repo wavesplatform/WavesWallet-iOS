@@ -71,7 +71,7 @@ class TransferSuccessViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     @IBAction func onClose(_ sender: Any) {

@@ -24,7 +24,6 @@ class LaunchViewController: UIViewController {
 
         envButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(onChooseEnvironment(_:)))
         envButton.tintColor = AppColors.activeColor
-        self.view.backgroundColor = AppColors.wavesColor
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

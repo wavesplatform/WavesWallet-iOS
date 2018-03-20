@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghG-cw-MPU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ghG-cw-MPU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -21,11 +21,11 @@
                         <viewControllerLayoutGuide type="bottom" id="0Ws-Jg-d02"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TE7-Gl-DQy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="67" sectionHeaderHeight="18" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1GM-Zw-rif">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="hu5-8D-od8">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -40,12 +40,13 @@
                                                 <segue destination="ttK-8U-znz" kind="embed" id="f8X-lu-dHJ"/>
                                             </connections>
                                         </containerView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRj-dI-CcU">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRj-dI-CcU">
                                             <rect key="frame" x="261.5" y="95" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="2Lq-QJ-ZbP"/>
                                                 <constraint firstAttribute="width" secondItem="ZRj-dI-CcU" secondAttribute="height" multiplier="1:1" id="j1Z-74-ENY"/>
                                             </constraints>
+                                            <color key="tintColor" red="0.47450980392156861" green="0.58431372549019611" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="receive_btn"/>
                                             <connections>
                                                 <action selector="onRequisite:" destination="tPw-qh-fZZ" eventType="touchUpInside" id="OQ6-sx-w3w"/>
@@ -65,17 +66,17 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xy5-gk-SmR">
                                             <rect key="frame" x="77.5" y="137" width="33.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.58431372550000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQd-5c-vGt">
                                             <rect key="frame" x="256.5" y="137" width="50.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.58431372550000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.2196078431372549" green="0.33333333333333331" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Xy5-gk-SmR" firstAttribute="top" secondItem="QgF-dP-fnS" secondAttribute="bottom" constant="2" id="6nA-8G-jNb"/>
                                         <constraint firstItem="QgF-dP-fnS" firstAttribute="top" secondItem="x8i-26-cCe" secondAttribute="bottom" constant="-5" id="7mJ-Nm-fo2"/>
@@ -104,7 +105,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="12:35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="xxi-wf-QN7">
                                                             <rect key="frame" x="0.0" y="0.0" width="38" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.4549019608" green="0.63921568630000003" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVJ-Hi-iCe">
@@ -202,6 +203,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1GM-Zw-rif" firstAttribute="top" secondItem="8lS-dJ-Nx3" secondAttribute="bottom" id="PVt-jg-C5K"/>
                             <constraint firstItem="1GM-Zw-rif" firstAttribute="leading" secondItem="TE7-Gl-DQy" secondAttribute="leading" id="i08-cO-4HY"/>
@@ -236,17 +238,17 @@
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w1K-26-Z7E" id="MP4-RY-AT8">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfK-HF-vhq">
-                                            <rect key="frame" x="16" y="8" width="51" height="21"/>
+                                            <rect key="frame" x="24" y="11" width="51" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="437,890.05020000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="el9-WW-jlm">
-                                            <rect key="frame" x="16" y="31" width="149" height="21"/>
+                                            <rect key="frame" x="24" y="34" width="149" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.015686274510000001" green="0.50588235290000005" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -313,7 +315,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Y37-l9-Hus"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="blc-4L-7rk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="GNB-JN-caj">
@@ -328,15 +330,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yc8-LD-obW">
-                                                    <rect key="frame" x="16" y="8" width="51" height="21"/>
+                                                    <rect key="frame" x="23" y="11" width="51" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="437,890.05020000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEq-Uj-xK3">
-                                                    <rect key="frame" x="16" y="31" width="149" height="21"/>
+                                                    <rect key="frame" x="23" y="34" width="149" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.015686274510000001" green="0.50588235290000005" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -411,7 +413,7 @@
             <objects>
                 <tableViewController id="rz7-9d-2ku" userLabel="More" customClass="SettingsViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="3ji-0A-eA1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -457,11 +459,11 @@
                                         <rect key="frame" x="0.0" y="151" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="75K-6V-6Kq" id="xeK-iN-9QP">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VA-Ch-W4O">
-                                                    <rect key="frame" x="303" y="18" width="24" height="24"/>
+                                                    <rect key="frame" x="302" y="18" width="24" height="24"/>
                                                     <color key="backgroundColor" red="0.98431372549999996" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="4VA-Ch-W4O" secondAttribute="height" multiplier="1:1" id="3h6-Td-dtM"/>
@@ -476,8 +478,8 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup Wallet Seed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9of-bY-Wav">
-                                                    <rect key="frame" x="17" y="19" width="152.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9of-bY-Wav">
+                                                    <rect key="frame" x="17" y="19" width="109" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -495,10 +497,10 @@
                                         <rect key="frame" x="0.0" y="211" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lqY-Kq-otB" id="t3Z-Wt-CKl">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Receive money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="02o-Ej-X8B">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Receive Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="02o-Ej-X8B">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="59.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -525,7 +527,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTE-hp-Nng">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="support@wavesplatform.com"/>
+                                                    <state key="normal" title="support@wavesplatform.com">
+                                                        <color key="titleColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="onSupport:" destination="rz7-9d-2ku" eventType="touchUpInside" id="t1P-hV-jQK"/>
                                                     </connections>
@@ -596,9 +600,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IaC-xB-S3X">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -634,10 +637,9 @@
             <objects>
                 <tabBarController storyboardIdentifier="MainTabBarController" id="ghG-cw-MPU" customClass="MainTabBarController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="wfK-qk-haj">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="wfK-qk-haj">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="barTintColor" red="0.2156862745" green="0.33333333329999998" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="knQ-x6-bd4" kind="relationship" relationship="viewControllers" id="b8l-ZY-kps"/>
@@ -651,7 +653,7 @@
             </objects>
             <point key="canvasLocation" x="-639" y="-169"/>
         </scene>
-        <!--Backup Seed-->
+        <!--Backup Wallet-->
         <scene sceneID="Wev-Vf-535">
             <objects>
                 <viewController id="zFv-NT-P4D" customClass="BackupSeedWordsViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -660,7 +662,7 @@
                         <viewControllerLayoutGuide type="bottom" id="g7y-qC-4Vq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="X0E-wC-s28">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJA-d4-sH8">
@@ -748,7 +750,7 @@
                                     <action selector="onSlideRight:" destination="zFv-NT-P4D" eventType="touchUpInside" id="gpt-6k-cS5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is important to make sure you write down your words exactly in the same ordser as they appear." textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vn8-gQ-Gd7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is important to make sure you write down your words exactly in the same order as they appear." textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vn8-gQ-Gd7">
                                 <rect key="frame" x="20" y="271" width="335" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <color key="textColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -756,7 +758,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXl-Cr-25g">
                                 <rect key="frame" x="20" y="84" width="1045" height="21"/>
-                                <string key="text">Write the following 15 words on a piece of paper. Anyone with access to your Seed has access to your money. So keep it safe and secure.</string>
+                                <string key="text">Write down or store the following 15 words in a safe place. Keep it so it is safe from others, but also so it is a backup for you if you every have to recover your wallet.</string>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <color key="textColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -787,7 +789,7 @@
                             <constraint firstItem="QXl-Cr-25g" firstAttribute="top" secondItem="TGf-Yz-sTu" secondAttribute="bottom" constant="20" id="zB1-I7-5bv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Backup Seed" id="KBg-2c-U94"/>
+                    <navigationItem key="navigationItem" title="Backup Wallet" id="KBg-2c-U94"/>
                     <connections>
                         <outlet property="collectionView" destination="Amv-gh-97Z" id="ArH-Ow-icW"/>
                         <outlet property="submitButton" destination="GJA-d4-sH8" id="FUC-JX-LbA"/>
@@ -798,20 +800,20 @@
             </objects>
             <point key="canvasLocation" x="2328.8000000000002" y="-887.40629685157433"/>
         </scene>
-        <!--Backup Seed-->
+        <!--Backup Wallet-->
         <scene sceneID="zuV-DB-0hu">
             <objects>
                 <tableViewController id="Iiy-zx-F9a" customClass="BackupVerifyViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="l7o-OO-CRz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="5cd-Fd-3F5">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="5cd-Fd-3F5">
                             <rect key="frame" x="0.0" y="222" width="375" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP4-I8-Z6o">
-                                    <rect key="frame" x="0.0" y="16.5" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="-32.5" width="375" height="43.5"/>
                                     <color key="backgroundColor" red="1" green="0.86666666670000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="qZo-bl-HV9"/>
@@ -927,7 +929,7 @@
                             <outlet property="delegate" destination="Iiy-zx-F9a" id="95z-kK-Bqr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Backup Seed" id="lX1-KM-lri"/>
+                    <navigationItem key="navigationItem" title="Backup Wallet" id="lX1-KM-lri"/>
                     <connections>
                         <outlet property="firstField" destination="vyJ-eV-S0p" id="0sk-cq-rfb"/>
                         <outlet property="secondField" destination="ZoZ-jf-X8z" id="t89-oE-4p2"/>
@@ -953,7 +955,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dGa-qc-h7j" customClass="CustomNavigationController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="History" image="history" id="mLp-2M-Bzp"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aAQ-3U-qrd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aAQ-3U-qrd">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -986,7 +988,7 @@
     </scenes>
     <resources>
         <image name="assets" width="24" height="24"/>
-        <image name="history" width="24" height="26"/>
+        <image name="history" width="22" height="22"/>
         <image name="receive_btn" width="42" height="42"/>
         <image name="send_btn" width="42" height="42"/>
         <image name="star" width="22" height="21"/>
@@ -994,6 +996,6 @@
         <image name="swipe_right" width="6" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDa-qR-dgM"/>
+        <segue reference="fOd-Pn-m0D"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import SVProgressHUD
+import RxSwift
 
 protocol CreateOrderViewControllerDelegate: class {
  
@@ -22,6 +23,8 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     let SellColor = UIColor(netHex: 0xFB0D00)
     let BuyColor = UIColor(netHex: 0x00AE00)
     let GreyColor = UIColor(netHex: 0xa5a5a5)
+    
+    let bag = DisposeBag()
     
     @IBOutlet weak var tickerTitleLabel: UILabel!
     @IBOutlet weak var iconPriceAvailable: UIImageView!
@@ -297,9 +300,8 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     }
     
     func executeSellBuyAction() {
-        SVProgressHUD.show()
-        
         WalletManager.getPrivateKey(complete: { (privateKey) in
+            SVProgressHUD.show()
             
             let publicKey = WalletManager.currentWallet!.publicKeyAccount
             let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
@@ -321,9 +323,9 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
                 }
             })
         }) { (errorMessage) in
-            SVProgressHUD.dismiss()
             self.presentBasicAlertWithTitle(title: errorMessage)
         }
+        
     }
     
     @IBAction func buySellTapped(_ sender: Any) {

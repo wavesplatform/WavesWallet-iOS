@@ -61,6 +61,15 @@ class DexSearchCell: UITableViewCell {
 
 }
 
+private func getTickerOrName(_ dic: NSDictionary, _ key: String) -> String {
+    let id = dic[key] as! String
+    if let t = DataManager.shared.getTicker(id) {
+        return t
+    } else {
+        return dic[key + "Name"] as! String
+    }
+}
+
 class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var textFieldSearch : CustomUITextField!
@@ -136,7 +145,20 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                 self.presentBasicAlertWithTitle(title: errorMessage!)
             }
             else {
-                DataManager.shared.orderBooks = items as! [NSDictionary]
+                let markets = (items as! [NSDictionary]).sorted(by: { d1, d2 -> Bool in
+                    let a1 = getTickerOrName(d1, "amountAsset")
+                    let a2 = getTickerOrName(d2, "amountAsset")
+                    let p1 = getTickerOrName(d1, "priceAsset")
+                    let p2 = getTickerOrName(d2, "priceAsset")
+                    let aRes = a1.caseInsensitiveCompare(a2)
+                    if  aRes == .orderedSame {
+                        return p1.caseInsensitiveCompare(p2) == .orderedAscending
+                    } else {
+                        return aRes == .orderedAscending
+                    }
+                })
+                
+                DataManager.shared.orderBooks = markets
                 self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor(netHex: 0x8c8c8c)])
                         
                 self.setupVerifiedItems()
@@ -150,8 +172,8 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         for item in DataManager.shared.orderBooks {
             if self.isVerifiedAsset(asset: item) {
                 let vi = NSMutableDictionary(dictionary: item)
-                vi["amountTicker"] = DataManager.shared.getTicker(asset: item["amountAsset"])
-                vi["priceTicker"] = DataManager.shared.getTicker(asset: item["priceAsset"])
+                vi["amountTicker"] = DataManager.shared.getTicker(item["amountAsset"])
+                vi["priceTicker"] = DataManager.shared.getTicker(item["priceAsset"])
                 self.verifiedItems.append(vi as NSDictionary)
             }
         }
@@ -200,12 +222,12 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
     
     func isOurAsset(_ item: NSDictionary, _ key: String, _ value: String) -> Bool {
         return (item["\(key)Name"] as? String)?.lowercased() == value.lowercased()
-            || DataManager.shared.getTicker(asset: item[key])?.lowercased() == value.lowercased()
+            || DataManager.shared.getTicker(item[key])?.lowercased() == value.lowercased()
     }
     
     func isOurAssetContains(_ item: NSDictionary, _ key: String, _ value: String) -> Bool {
         let isNameCountains = ((item["\(key)Name"] as! String).lowercased() as NSString).range(of: value.lowercased()).location != NSNotFound
-        let tckLocation = (DataManager.shared.getTicker(asset: item[key])?.lowercased() as NSString?)?.range(of: value.lowercased()).location
+        let tckLocation = (DataManager.shared.getTicker(item[key])?.lowercased() as NSString?)?.range(of: value.lowercased()).location
         
         return isNameCountains || (tckLocation != nil && tckLocation != NSNotFound)
     }

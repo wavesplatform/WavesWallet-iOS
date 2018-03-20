@@ -85,7 +85,7 @@ class Order {
         self.orderType = orderType
         self.price = price
         self.amount = amount
-        self.timestamp = Int64(Date().millisecondsSince1970)
+        self.timestamp = Date().millisecondsSince1970
         self.expiration = timestamp + Int64(29) * Int64(24) * Int64(60) * Int64(60) * Int64(1000)
     }
     

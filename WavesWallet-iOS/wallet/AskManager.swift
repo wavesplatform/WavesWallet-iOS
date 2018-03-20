@@ -15,7 +15,7 @@ class AskManager {
     static var askPasswordBag: DisposeBag?
     
     class func askForPassword() -> Observable<String> {
-        let alert = UIAlertController(title: "Enter Password", message: "Enter a password to decrypt your seed", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter Password", message: "Enter a password to decrypt your seed from the local storage", preferredStyle: .alert)
         
         askPasswordBag = DisposeBag()
         

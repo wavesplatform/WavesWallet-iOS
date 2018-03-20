@@ -84,8 +84,16 @@ func == (lhs: WalletItem, rhs: WalletItem) -> Bool {
     return lhs.publicKey == rhs.publicKey
 }
 
-public enum WalletError : Error {
+public enum WalletError: Error {
     case Generic(String)
+}
+
+extension WalletError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .Generic(let msg): return msg
+        }
+    }
 }
 
 class WalletManager {
@@ -268,17 +276,20 @@ class WalletManager {
                 } else {
                     return Observable.error(WalletError.Generic("Private key is not found in Realm"))
                 }
+            } else {
+                return Observable.error(WalletError.Generic("Incorrect password. Try again."))
             }
-            
-            return Observable.error(WalletError.Generic("Cannot decrypt storage with seed"))
         }
     }
     
     class func restorePrivateKey() -> Observable<PrivateKeyAccount> {
         return restorePrivateKeyFromKeychain()
             .catchError { err in
-                print(err)
-                return restorePrivateKeyFromRealm()
+                if isSeedRealmExist() {
+                    return restorePrivateKeyFromRealm()
+                } else {
+                    return Observable<PrivateKeyAccount>.error(err)
+                }
             }.observeOn(MainScheduler.instance)
     }
     
@@ -303,14 +314,15 @@ class WalletManager {
             complete(key)
         }
         else {
-            
-            WalletManager.restorePrivateKey().subscribe(onNext: { (key) in
-                WalletManager.currentWallet?.privateKey = key
-                complete(key)
-            }, onError: { (error) in
-                fail("Private key is not found")
-
-            }, onCompleted: nil, onDisposed: nil)
+            WalletManager.restorePrivateKey()
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { pk in
+                    WalletManager.currentWallet?.privateKey = pk
+                    complete(pk)
+                }, onError: { err in
+                   fail(err.localizedDescription)
+                })
+                .addDisposableTo(bag)
         }
     }
     

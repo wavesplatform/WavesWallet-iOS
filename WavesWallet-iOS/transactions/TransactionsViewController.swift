@@ -35,11 +35,11 @@ class TransactionsViewController: UIViewController {
     var realm: Realm!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     func getStartOfDay(ts: Int64) -> Int64 {
-        let s = Calendar.current.startOfDay(for: Date(milliseconds: Int(ts)))
+        let s = Calendar.current.startOfDay(for: Date(milliseconds: ts))
         return Int64(s.millisecondsSince1970)
     }
     
@@ -161,7 +161,7 @@ class TransactionsViewController: UIViewController {
         tableView.separatorColor = AppColors.greyBorderColor
         
         headerView = tableView.tableHeaderView
-        headerView.backgroundColor = AppColors.wavesColor
+        headerView.backgroundColor = AppColors.mainBgColor
         tableView.tableHeaderView = nil
         
         if selectedAccount == nil {

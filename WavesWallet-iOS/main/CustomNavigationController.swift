@@ -17,20 +17,20 @@ class CustomNavigationController: UINavigationController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     
     static func customizeNavBar(_ navigationBar: UINavigationBar?) {
         if let navigationBar = navigationBar {
-            navigationBar.barTintColor = AppColors.wavesColor
+            navigationBar.barTintColor = AppColors.mainBgColor
             navigationBar.tintColor = AppColors.activeColor
-            navigationBar.isTranslucent = false
+            navigationBar.isTranslucent = true
             
             navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: AppColors.activeColor]
             
-            navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.shadowImage = UIImage()
+            //navigationBar.setBackgroundImage(UIImage(), for: .default)
+            //navigationBar.shadowImage = UIImage()
         }
     }
 

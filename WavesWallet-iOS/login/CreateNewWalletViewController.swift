@@ -31,13 +31,11 @@ class CreateNewWalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = AppColors.wavesColor
 
         if isCreateNew {
             seedTextView.text = WordList.generatePhrase()
             seedTextView.isEditable = false
-            self.title = "Create Waves Wallet"
+            self.title = "Create Wallet"
             encodedView.isHidden = true
         } else {
             self.title = "Import Wallet"
@@ -46,7 +44,6 @@ class CreateNewWalletViewController: UIViewController {
             qrCodeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "qrcode"), style: .plain, target: self, action: #selector(onScanQrCode(_:)))
             qrCodeButton.tintColor = AppColors.activeColor
             self.navigationItem.rightBarButtonItem = qrCodeButton
-            self.view.backgroundColor = AppColors.wavesColor
             encodedView.isHidden = false
         }
 

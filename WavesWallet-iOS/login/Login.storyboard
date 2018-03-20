@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fTF-zF-icj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fTF-zF-icj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,99 +22,100 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nF7-TM-aJ9">
-                                <rect key="frame" x="40" y="304" width="295" height="343"/>
+                                <rect key="frame" x="40" y="84" width="295" height="563"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="RDe-XR-ghG">
-                                        <rect key="frame" x="0.0" y="71.5" width="295" height="200"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ozg-jd-P9P">
+                                        <rect key="frame" x="0.0" y="141.5" width="295" height="280"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xh-4w-fb7">
-                                                <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo3x" translatesAutoresizingMaskIntoConstraints="NO" id="Stn-NV-od9">
+                                                <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="XYd-e3-ohS"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Kt1-id-wTD"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Create New Wallet">
-                                                    <color key="titleColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="25"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="X50-VY-L8x" kind="show" id="hT6-2w-BDn"/>
+                                                    <outletCollection property="gestureRecognizers" destination="qyf-dp-tN1" appends="YES" id="m5m-aU-zCR"/>
                                                 </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFM-p6-vjz">
-                                                <rect key="frame" x="0.0" y="75" width="295" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="pEx-X0-Qji"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Login To Wallet">
-                                                    <color key="titleColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="25"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <segue destination="8dn-f3-gP2" kind="show" id="Li7-fk-bgd"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqb-n4-cZu">
-                                                <rect key="frame" x="0.0" y="150" width="295" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="EWF-Zc-SgP"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Import Wallet">
-                                                    <color key="titleColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="25"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="onImportWallet:" destination="e3B-Fu-vBy" eventType="touchUpInside" id="DYp-Ev-DF7"/>
-                                                    <segue destination="Pqu-Up-qpF" kind="show" identifier="ImportWallet" id="kRf-Qp-Mu5"/>
-                                                </connections>
-                                            </button>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="RDe-XR-ghG">
+                                                <rect key="frame" x="0.0" y="80" width="295" height="200"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xh-4w-fb7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
+                                                        <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="XYd-e3-ohS"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="Create New Wallet">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="25"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <segue destination="X50-VY-L8x" kind="show" id="hT6-2w-BDn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFM-p6-vjz">
+                                                        <rect key="frame" x="0.0" y="75" width="295" height="50"/>
+                                                        <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="pEx-X0-Qji"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="Login To Wallet">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="25"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <segue destination="8dn-f3-gP2" kind="show" id="Li7-fk-bgd"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqb-n4-cZu">
+                                                        <rect key="frame" x="0.0" y="150" width="295" height="50"/>
+                                                        <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="EWF-Zc-SgP"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="Import Wallet">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="25"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onImportWallet:" destination="e3B-Fu-vBy" eventType="touchUpInside" id="DYp-Ev-DF7"/>
+                                                            <segue destination="Pqu-Up-qpF" kind="show" identifier="ImportWallet" id="kRf-Qp-Mu5"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="RDe-XR-ghG" firstAttribute="leading" secondItem="nF7-TM-aJ9" secondAttribute="leading" id="KaD-gh-xyM"/>
-                                    <constraint firstItem="RDe-XR-ghG" firstAttribute="centerY" secondItem="nF7-TM-aJ9" secondAttribute="centerY" id="of8-j7-6I5"/>
-                                    <constraint firstAttribute="trailing" secondItem="RDe-XR-ghG" secondAttribute="trailing" id="yfE-k0-Wm4"/>
+                                    <constraint firstItem="ozg-jd-P9P" firstAttribute="centerY" secondItem="nF7-TM-aJ9" secondAttribute="centerY" id="eKE-2e-zCk"/>
+                                    <constraint firstAttribute="trailing" secondItem="ozg-jd-P9P" secondAttribute="trailing" id="l4g-Gm-AbD"/>
+                                    <constraint firstItem="ozg-jd-P9P" firstAttribute="leading" secondItem="nF7-TM-aJ9" secondAttribute="leading" id="pb2-Sk-idt"/>
                                 </constraints>
                             </view>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo3x" translatesAutoresizingMaskIntoConstraints="NO" id="Stn-NV-od9">
-                                <rect key="frame" x="37.5" y="84" width="300" height="200"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="5c0-Ku-05s"/>
-                                    <constraint firstAttribute="width" constant="300" id="gdD-p2-cEe"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="qyf-dp-tN1" appends="YES" id="m5m-aU-zCR"/>
-                                </connections>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nF7-TM-aJ9" secondAttribute="trailing" constant="40" id="8Ha-Fm-0QU"/>
-                            <constraint firstItem="Stn-NV-od9" firstAttribute="centerX" secondItem="FIu-5h-6Vx" secondAttribute="centerX" id="8Tf-Ii-ysV"/>
                             <constraint firstAttribute="bottom" secondItem="nF7-TM-aJ9" secondAttribute="bottom" constant="20" id="Ewp-Ga-cmv"/>
                             <constraint firstItem="nF7-TM-aJ9" firstAttribute="leading" secondItem="FIu-5h-6Vx" secondAttribute="leading" constant="40" id="W4t-aa-nLc"/>
-                            <constraint firstItem="Stn-NV-od9" firstAttribute="top" secondItem="eAq-k8-qDG" secondAttribute="bottom" constant="20" id="cdZ-OB-mSB"/>
-                            <constraint firstItem="nF7-TM-aJ9" firstAttribute="top" secondItem="Stn-NV-od9" secondAttribute="bottom" constant="20" id="jFm-un-46P"/>
+                            <constraint firstItem="nF7-TM-aJ9" firstAttribute="top" secondItem="eAq-k8-qDG" secondAttribute="bottom" constant="20" id="psV-lN-EQQ"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -151,7 +152,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Xij-le-zfQ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Waves Wallet to Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EMk-4j-9FN">
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Wallet to Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EMk-4j-9FN">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -222,14 +223,14 @@
                         <viewControllerLayoutGuide type="bottom" id="Sse-uW-fjr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4SW-aD-VqE" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UsU-pU-Ux8">
-                                <rect key="frame" x="67.5" y="80" width="240" height="324"/>
+                                <rect key="frame" x="67.5" y="80" width="240" height="282"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="T76-XA-cb5">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="171"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="150"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Seed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiZ-hh-81o">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="18"/>
@@ -249,7 +250,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed is required" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF0-bG-ypp">
-                                                <rect key="frame" x="0.0" y="154" width="240" height="17"/>
+                                                <rect key="frame" x="0.0" y="150" width="240" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -257,7 +258,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Vw6-v0-Mnk">
-                                        <rect key="frame" x="0.0" y="181" width="240" height="50"/>
+                                        <rect key="frame" x="0.0" y="160" width="240" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose format" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIn-mH-e3x">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="18"/>
@@ -276,7 +277,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ggl-jk-RJ4">
-                                        <rect key="frame" x="0.0" y="241" width="240" height="83"/>
+                                        <rect key="frame" x="0.0" y="220" width="240" height="62"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-1n-S6m">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="18"/>
@@ -295,7 +296,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is required" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFI-y4-r0C">
-                                                <rect key="frame" x="0.0" y="66" width="240" height="17"/>
+                                                <rect key="frame" x="0.0" y="62" width="240" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -310,16 +311,15 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcl-zE-uS1">
                                 <rect key="frame" x="0.0" y="553" width="375" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.86666666670000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="cif-Lw-yWr"/>
                                 </constraints>
                                 <state key="normal" title="Create Wallet">
-                                    <color key="titleColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UsU-pU-Ux8" firstAttribute="top" secondItem="9rs-Nt-zw5" secondAttribute="bottom" constant="80" id="dfI-2g-aGd"/>
                             <constraint firstItem="UsU-pU-Ux8" firstAttribute="centerX" secondItem="4SW-aD-VqE" secondAttribute="centerX" id="j2s-AG-aMb"/>
@@ -364,9 +364,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Wd-aD-OYG">
-                                <rect key="frame" x="69" y="74" width="237" height="160"/>
+                                <rect key="frame" x="137.5" y="74" width="100" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="9Wd-aD-OYG" secondAttribute="height" multiplier="321:217" id="aap-PR-hhz"/>
                                     <constraint firstAttribute="height" constant="160" id="o30-wF-n7n"/>
                                 </constraints>
                                 <color key="tintColor" red="0.29411764709999999" green="0.4431372549" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -377,7 +376,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <attributedString key="attributedText">
                                     <fragment>
-                                        <string key="content">NEW ACCOUNT - NOTICE
+                                        <string key="content">CREATE WALLET - NOTICE
 </string>
                                         <attributes>
                                             <font key="NSFont" size="15" name=".SFNSText"/>
@@ -408,13 +407,13 @@ Your SEED will also allow you to IMPORT your account to other devices (therefore
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOZ-s2-fLF">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.86666666670000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="1SP-Jc-O6D"/>
                                     <constraint firstAttribute="height" constant="50" id="9C3-XO-DpM"/>
                                 </constraints>
                                 <state key="normal" title="I Understand">
-                                    <color key="titleColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onCreateWallet:" destination="Pqu-Up-qpF" eventType="touchUpInside" id="ekn-nM-FGm"/>
@@ -448,7 +447,7 @@ Your SEED will also allow you to IMPORT your account to other devices (therefore
                 <navigationController storyboardIdentifier="NavLaunchViewController" automaticallyAdjustsScrollViewInsets="NO" id="fTF-zF-icj" customClass="CustomNavigationController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ihL-h5-t5v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -463,7 +462,7 @@ Your SEED will also allow you to IMPORT your account to other devices (therefore
     </scenes>
     <resources>
         <image name="back-chevron" width="13" height="21"/>
-        <image name="logo3x" width="321" height="217"/>
+        <image name="logo3x" width="100" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kRf-Qp-Mu5"/>
