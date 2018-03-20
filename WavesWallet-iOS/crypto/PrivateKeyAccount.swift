@@ -78,6 +78,10 @@ class PrivateKeyAccount: PublicKeyAccount {
         return String(data: Data(seed), encoding: .utf8)?.components(separatedBy: " ") ?? []
     }
     
+    var wordsStr: String {
+        return String(data: Data(seed), encoding: .utf8) ?? ""
+    }
+    
     convenience init(seedStr: String) {
         self.init(seed: Array(seedStr.utf8))
     }

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Realm
 
 class BackupVerifyViewController: UITableViewController, UITextFieldDelegate {
 
@@ -57,6 +58,14 @@ class BackupVerifyViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func verifyCompleted() {
+        let realm = WalletManager.getWalletsRealm()
+        try! realm.write {
+            realm.create(WalletItem.self, value: ["publicKey": WalletManager.currentWallet!.publicKeyStr, "isBackedUp": true], update: true)
+        }
+        WalletManager.currentWallet!.isBackedUp = true
+        if let items = self.tabBarController?.tabBar.items {
+            items[4].badgeValue = nil
+        }
         self.navigationController?.popToViewController(startVc, animated: true)
     }
     

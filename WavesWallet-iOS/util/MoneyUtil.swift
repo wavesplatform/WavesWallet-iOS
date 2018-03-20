@@ -18,22 +18,51 @@ struct Money {
     }
 }
 
+extension Decimal {
+    var doubleValue:Double {
+        return NSDecimalNumber(decimal:self).doubleValue
+    }
+    
+    var floatValue: Float {
+        return NSDecimalNumber(decimal: self).floatValue
+    }
+}
+
+
 class MoneyUtil {
-    class func getScaledText(_ amount: Int64, decimals: Int) -> String {
+    class func getScaledText(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        f.maximumFractionDigits = Int(decimals);
-        f.minimumFractionDigits = Int(decimals)
-        let result = f.string(from: Decimal(amount) / pow(10, Int(decimals)) as NSNumber);
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = decimals
+        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
         return result ?? ""
     }
 
-    class func getScaledTextTrimZeros(_ amount: Int64, decimals: Int) -> String {
+    class func formatDecimalNoGroupingAndZeros(_ amount: Decimal, decimals: Int) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.groupingSeparator = ""
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = 0
+        return f.string(from: amount as NSNumber)!
+    }
+    
+    class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = 1
+        let result = f.string(from: amount as NSNumber);
+        return result ?? ""
+    }
+    
+    class func getScaledTextTrimZeros(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals;
         f.minimumFractionDigits = 1
-        let result = f.string(from: Decimal(amount) / pow(10, Int(decimals)) as NSNumber);
+        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber);
         return result ?? ""
     }
     
@@ -48,13 +77,16 @@ class MoneyUtil {
     
     class func parseUnscaled(_ text: String, _ scale: Int) -> Int64? {
         let s = text.replacingOccurrences(of: groupSeparator(), with: "")
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        if let d = f.number(from: s)?.decimalValue {
-            return Int64(NSDecimalNumber(decimal: d * Decimal(10^^scale)))
+        
+        if let d = Decimal(string: s, locale: Locale.current) {
+            return Int64(truncating: d * Decimal(10^^scale) as NSNumber)
         } else {
             return nil
         }
+    }
+    
+    class func getScaledDecimal(_ value: Int64, _ scale: Int) -> Decimal {
+        return Decimal(value) / Decimal(10^^scale)
     }
     
     class func parseMoney(_ text: String, _ scale: Int) -> Money? {
@@ -67,9 +99,17 @@ class MoneyUtil {
     
     class func parseDecimal(_ text: String) -> Decimal? {
         let s = text.replacingOccurrences(of: groupSeparator(), with: "")
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        return f.number(from: s)?.decimalValue
+        return Decimal(string: s, locale: Locale.current)
+    }
+    
+    class func parseDecimalPoint(_ text: String) -> Decimal? {
+        let s = text.replacingOccurrences(of: " ", with: "")
+        return Decimal(string: s, locale: Locale(identifier: "en_US"))
+    }
+ 
+    class func getDecimalPoint(_ point: Double) -> Decimal? {
+        let decimal = NSDecimalNumber(value: point)
+        return decimal.decimalValue
     }
     
     class func formatDecimals(_ amount: Decimal, decimals: Int) -> String {

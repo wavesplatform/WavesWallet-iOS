@@ -7,7 +7,7 @@ import RxDataSources
 class AssetBalance
     : Object
     , IdentifiableType
-    , Decodable {
+    , Gloss.Decodable {
     
     typealias Identity = String
     
@@ -39,7 +39,7 @@ class AssetBalance
         super.init()
     }
     
-    public required init?(json: JSON) {
+    required init?(json: JSON) {
         guard let assetId: String = "assetId" <~~ json else {
             return nil
         }

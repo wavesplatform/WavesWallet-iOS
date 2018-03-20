@@ -64,24 +64,13 @@ class LoginViewController: UIViewController {
 
     }
     
-    func deleteWallet(wallet: WalletItem) {
-        let realm = WalletManager.getWalletsRealm()
-        let publicKey = wallet.publicKey
-        try! realm.write {
-            realm.delete(wallet)
-        }
-        
-        if let err = WalletManager.removePrivateKey(publicKey: publicKey) {
-            presentBasicAlertWithTitle(title: err.localizedDescription)
-        }
-    }
-    
     func askForDeletion(wallet: WalletItem) {
         let message = "Are you sure you want to delete \(wallet.name) wallet?"
         let warning = "Please confirm you have backed up your wallet seed elsewhere otherwise any money in this wallet will be inaccessible!!! "
         let alertView = UIAlertController(title: "Delete Wallet",
                                           message: warning + message, preferredStyle:.alert)
-        let okAction = UIAlertAction(title: "Delete", style: .default) { _ in self.deleteWallet(wallet: wallet) }
+        let okAction = UIAlertAction(title: "Delete", style: .default) { _ in
+            WalletManager.deleteWallet(walletItem: wallet) }
         alertView.addAction(okAction)
         
         let canceAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

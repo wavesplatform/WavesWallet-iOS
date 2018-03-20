@@ -56,19 +56,13 @@ class NodeManager {
     }
     
     class func loadPendingTransaction() -> Observable<[Transaction]> {
-        let address = WalletManager.getAddress()
         let u = Environments.current.nodeUrl.appendingPathComponent("/transactions/unconfirmed")
         return RxAlamofire.requestJSON(.get, u)
             .flatMap { (resp, json) -> Observable<[Transaction]> in
                 if let jTxs = json as? [JSON] {
                     var txs = [Transaction]()
                     for jTx in jTxs {
-                        if let sender = jTx["sender"] as? String, sender == address
-                            , let tx = parseTransaction(jTx) {
-                            tx.isPending = true
-                            txs += [tx]
-                        } else if let recipient = jTx["recipient"] as? String, recipient == address
-                            , let tx = parseTransaction(jTx) {
+                        if let tx = parseTransaction(jTx), tx.isOur() {
                             tx.isPending = true
                             txs += [tx]
                         }
@@ -179,4 +173,5 @@ class NodeManager {
                 }
         }
     }
+    
 }
