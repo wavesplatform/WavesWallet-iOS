@@ -22,7 +22,13 @@ class AppColors {
     static let dexLightBuyColor = UIColor(netHex: 0x77bf82)
     static let dexSellColor = UIColor(netHex: 0xe66a67)
     static let dexLightSellColor = UIColor(netHex: 0xe97c79)
+}
+
+struct Platform {
+
+    static let ScreenWidth = UIScreen.main.bounds.size.width
     
-    
-    
+    static let isIphoneX : Bool = {
+        return UIScreen.main.bounds.size.width == 375 && UIScreen.main.bounds.size.height == 812 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+    }()
 }

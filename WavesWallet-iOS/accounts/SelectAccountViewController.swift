@@ -106,8 +106,10 @@ class SelectAccountViewController: UIViewController, UICollectionViewDataSource 
                     } else {
                         let first = self.accounts.count > 1 ? 1 : 0
                         let i = IndexPath(item: first, section: 0)
-                        self.collectionView?.scrollToItem(at: i, at: .left, animated: false)
-                        self.selectedAccount.value = self.accounts[first]
+                        if self.collectionView.numberOfItems(inSection: i.section) > i.row {
+                            self.collectionView?.scrollToItem(at: i, at: .left, animated: false)
+                            self.selectedAccount.value = self.accounts[first]
+                        }
                     }
                 }
             })

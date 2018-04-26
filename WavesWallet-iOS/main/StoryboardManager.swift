@@ -10,6 +10,20 @@
 import UIKit
 
 class StoryboardManager {
+    
+    class func TransferStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Transfer", bundle: nil)
+    }
+    
+    class func MainStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Main", bundle: nil)
+    }
+    
+    class func DexStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Dex", bundle: nil)
+    }
+    
+    
     class func launchViewController() -> UIViewController {
         return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
     }
@@ -56,7 +70,7 @@ class StoryboardManager {
     
     class func didEndLogin() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = mainTabBarViewController()
+        appDelegate.window!.rootViewController = MainTabBarController()
     }
     
     class func didLogout() {

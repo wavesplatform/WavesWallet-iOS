@@ -27,5 +27,7 @@ target 'WavesWallet-iOS' do
   pod 'Charts', '3.0.3'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
+  pod 'RDVTabBarController'
+  
 end
 

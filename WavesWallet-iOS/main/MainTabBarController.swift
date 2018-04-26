@@ -1,74 +1,100 @@
 import UIKit
+import RDVTabBarController
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: RDVTabBarController {
 
+    override var viewControllers: [Any]! {
+        didSet {
+            let walletItem = tabBar.items[0] as! RDVTabBarItem
+            walletItem.title = "Wallet"
+            walletItem.setFinishedSelectedImage(UIImage(named: "tab_bar_wallet_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_wallet_gray"))
+
+            let dexItem = tabBar.items[1] as! RDVTabBarItem
+            dexItem.title = "Dex"
+            dexItem.setFinishedSelectedImage(UIImage(named: "tab_bar_dex_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_dex_gray"))
+
+            let plusItem = tabBar.items[2] as! RDVTabBarItem
+            plusItem.setFinishedSelectedImage(UIImage(named: "tab_bar_plus"), withFinishedUnselectedImage: UIImage(named: "tab_bar_plus"))
+
+            let historyItem = tabBar.items[3] as! RDVTabBarItem
+            historyItem.title = "History"
+            historyItem.setFinishedSelectedImage(UIImage(named: "tab_bar_history_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_history_gray"))
+
+            let profileItem = tabBar.items[4] as! RDVTabBarItem
+            profileItem.title = "Profile"
+            profileItem.setFinishedSelectedImage(UIImage(named: "tab_bar_profile_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_profile_gray"))
+            
+            for tabBarItem in tabBar.items {
+                setupTabBarItem(tabBarItem as! RDVTabBarItem)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MainTabBarController.customiseTabBar(tabBar: tabBar)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name:
-            NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        checkOpenUrl()
-        updateBadges()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func checkOpenUrl() {
-        if OpenUrlManager.openUrl != nil {
-            selectedIndex = 2
+        if Platform.isIphoneX {
+            tabBar.setHeight(83)
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    func updateBadges() {
-        self.tabBar.items![4].badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
-    }
-    
-    class func customiseTabBar(tabBar: UITabBar?) {
-        //tabBar?.barTintColor = AppColors.darkBgColor
-        tabBar?.isTranslucent = true
-        tabBar?.tintColor = AppColors.activeColor
-        if #available(iOS 10.0, *) {
-            //tabBar?.unselectedItemTintColor = AppColors.inactiveColor
-        } else {
-            // Fallback on earlier versions
+        else {
+            tabBar.setHeight(50)
         }
         
-        /*UITabBarItem.appearance().setTitleTextAttributes(
-            [NSFontAttributeName: UIFont.systemFont(ofSize: 12.0),
-             NSForegroundColorAttributeName: UIColor(netHex: 0x717171)],
-            forState: .Normal)
-        UITabBarItem.appearance().setTitleTextAttributes(
-            [NSFontAttributeName: UIFont(name: "Bariol-Bold", size:14)!,
-             NSForegroundColorAttributeName: UIColor(netHex: 0xFF585B)],
-            forState: .Selected)*/
+        let wallet = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "WalletViewController")
+        let navWallet = UINavigationController(rootViewController: wallet)
+        
+        let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
+        
+        let navHistory = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationHistory")
+        
+        let navProfile = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationProfile")
+        
+        viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
 
-        //UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)], for: .normal)
+        tabBar.backgroundView.backgroundColor = UIColor.white
+
+        let line = UIView(frame: CGRect(x: 0, y: 0, width: Platform.ScreenWidth, height: 0.5))
+        line.backgroundColor = UIColor(188, 188, 188)
+        tabBar.addSubview(line)
+
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name:
+//            NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+//        checkOpenUrl()
+//        updateBadges()
+    }
+    
+    
+    func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
+        tabBarItem.selectedTitleAttributes = [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : UIFont.systemFont(ofSize: 10)]
+        tabBarItem.unselectedTitleAttributes = [NSForegroundColorAttributeName : UIColor(153, 153, 153), NSFontAttributeName : UIFont.systemFont(ofSize: 10)]
+        tabBarItem.titlePositionAdjustment = UIOffsetMake(0, 3)
+        
+        if Platform.isIphoneX {
+            tabBarItem.imagePositionAdjustment = UIOffsetMake(0, -15)
+            tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -13)
+        }
+    }
+    
+    override func tabBar(_ tabBar: RDVTabBar!, shouldSelectItemAt index: Int) -> Bool {
+        if index == 2 {
+            return false
+        }
+        return true
     }
 
+//    func checkOpenUrl() {
+//        if OpenUrlManager.openUrl != nil {
+//            selectedIndex = 2
+//        }
+//    }
     
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
-        var isDexTab = false
-        for (index, element) in (tabBar.items?.enumerated())! {
-            
-            if index == 3 && element == item {
-                isDexTab = true
-            }
-        }
-        
-//        if isDexTab {
-//            tabBar.barTintColor = AppColors.dexNavBarColor
-//        }
-//        else {
-//            tabBar.barTintColor = AppColors.wavesColor
-//        }
-    }
+//    func updateBadges() {
+//        self.tabBar.items![4].badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
+//    }
+
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
+
 }
