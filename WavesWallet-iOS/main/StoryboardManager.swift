@@ -71,6 +71,8 @@ class StoryboardManager {
     class func didEndLogin() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window!.rootViewController = MainTabBarController()
+//        appDelegate.window!.rootViewController = mainTabBarViewController()
+
     }
     
     class func didLogout() {

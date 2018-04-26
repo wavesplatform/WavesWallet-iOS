@@ -3,6 +3,7 @@ import RDVTabBarController
 
 class MainTabBarController: RDVTabBarController {
 
+    
     override var viewControllers: [Any]! {
         didSet {
             let walletItem = tabBar.items[0] as! RDVTabBarItem
@@ -29,7 +30,7 @@ class MainTabBarController: RDVTabBarController {
             }
         }
     }
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,16 +40,16 @@ class MainTabBarController: RDVTabBarController {
         else {
             tabBar.setHeight(50)
         }
-        
+
         let wallet = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "WalletViewController")
         let navWallet = UINavigationController(rootViewController: wallet)
-        
+
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
-        
+
         let navHistory = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationHistory")
-        
+
         let navProfile = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationProfile")
-        
+
         viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
 
         tabBar.backgroundView.backgroundColor = UIColor.white
@@ -58,8 +59,7 @@ class MainTabBarController: RDVTabBarController {
         tabBar.addSubview(line)
 
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name:
-//            NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 //        checkOpenUrl()
 //        updateBadges()
     }
@@ -89,9 +89,10 @@ class MainTabBarController: RDVTabBarController {
 //        }
 //    }
     
-//    func updateBadges() {
-//        self.tabBar.items![4].badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
-//    }
+    func updateBadges() {
+        let profileItem = tabBar.items[4] as! RDVTabBarItem
+        profileItem.badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
+    }
 
 //    deinit {
 //        NotificationCenter.default.removeObserver(self)

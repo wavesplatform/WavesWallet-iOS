@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setDefaultMaskType(.clear)
         
+        UIBarButtonItem.appearance().tintColor = UIColor.black
+        
         return true
     }
     
