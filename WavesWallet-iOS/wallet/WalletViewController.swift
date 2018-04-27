@@ -8,31 +8,60 @@
 
 import UIKit
 
+protocol WalletTopTableCellDelegate: class {
+ 
+    func walletTopTableCellDidChangeIndex(_ index: Int)
+}
+
 class WalletTopTableCell: UITableViewCell {
-    
     
     @IBOutlet weak var buttonAssets: UIButton!
     @IBOutlet weak var buttonLeasing: UIButton!
+    @IBOutlet weak var leftBgViewOffset: NSLayoutConstraint!
+    
+    var delegate: WalletTopTableCellDelegate?
+    
+    var selectedIndex = 0
     
     class func cellHeight() -> CGFloat {
         return 60
     }
     
-    func setupCell(isSelectedAssets: Bool) {
-                
+    @IBAction func assetsTapped(_ sender: Any) {
+        
+        if selectedIndex == 0 {
+            return
+        }
+        
+        selectedIndex = 0
+        leftBgViewOffset.constant = 16
+        buttonAssets.setTitleColor(UIColor.white, for: .normal)
+        buttonLeasing.setTitleColor(UIColor.basic500, for: .normal)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
+        }
+        
+        delegate?.walletTopTableCellDidChangeIndex(selectedIndex)
+    }
+    
+    @IBAction func leasingTapped(_ sender: Any) {
+    
+        if selectedIndex == 1 {
+            return
+        }
+        
+        selectedIndex = 1
+        
+        leftBgViewOffset.constant = 126
+        buttonAssets.setTitleColor(UIColor.basic500, for: .normal)
+        buttonLeasing.setTitleColor(UIColor.white, for: .normal)
 
-        if isSelectedAssets {
-            buttonAssets.backgroundColor = UIColor.submit400
-            buttonAssets.setTitleColor(UIColor.white, for: .normal)
-            buttonLeasing.backgroundColor = UIColor.clear
-            buttonLeasing.setTitleColor(UIColor.basic500, for: .normal)
+        UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
         }
-        else {
-            buttonAssets.backgroundColor = UIColor.clear
-            buttonAssets.setTitleColor(UIColor.basic500, for: .normal)
-            buttonLeasing.backgroundColor = UIColor.submit400
-            buttonLeasing.setTitleColor(UIColor.white, for: .normal)
-        }
+        
+        delegate?.walletTopTableCellDidChangeIndex(selectedIndex)
     }
 }
 
@@ -54,7 +83,7 @@ class WalletTableCell: UITableViewCell {
     }
 }
 
-class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WalletTopTableCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
@@ -65,7 +94,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case hidden
     }
     
-    var isSelectedAssets = true
+    var selectedSegmentIndex = 0
     var isOpenHiddenAssets = false
     
     var lastScrollCorrectOffset: CGPoint?
@@ -165,14 +194,10 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func assetsTapped() {
-        isSelectedAssets = true
-        tableView.reloadData()
-    }
+    //MARK: - WalletTopTableCellDelegate
     
-    func leasingTapped() {
-        isSelectedAssets = false
-        tableView.reloadData()
+    func walletTopTableCellDidChangeIndex(_ index: Int) {
+        
     }
     
     //MARK: - UITableView
@@ -236,9 +261,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if indexPath.section == Section.top.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WalletTopTableCell") as! WalletTopTableCell
-            cell.buttonAssets.addTarget(self, action: #selector(assetsTapped), for: .touchUpInside)
-            cell.buttonLeasing.addTarget(self, action: #selector(leasingTapped), for: .touchUpInside)
-            cell.setupCell(isSelectedAssets: isSelectedAssets)
+            cell.delegate = self
             return cell
         }
         

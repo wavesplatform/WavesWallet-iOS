@@ -442,9 +442,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbT-yw-jSZ">
+                                                    <rect key="frame" x="16" y="10" width="100" height="30"/>
+                                                    <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qM-QB-d49">
                                                     <rect key="frame" x="16" y="10" width="100" height="30"/>
-                                                    <color key="backgroundColor" red="0.090196078431372548" green="0.31764705882352939" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Cte-lW-qoJ"/>
                                                         <constraint firstAttribute="width" constant="100" id="SBa-fj-1jC"/>
@@ -458,36 +466,46 @@
                                                             <real key="value" value="3"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="assetsTapped:" destination="l7d-7r-ILk" eventType="touchUpInside" id="wCK-rR-VJ3"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9H-ef-OLh">
                                                     <rect key="frame" x="126" y="10" width="100" height="30"/>
-                                                    <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="YCF-U7-FxY"/>
                                                         <constraint firstAttribute="height" constant="30" id="cMI-wa-3CV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="Leasing">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="titleColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="3"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="leasingTapped:" destination="l7d-7r-ILk" eventType="touchUpInside" id="TFd-AE-tEc"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="0qM-QB-d49" firstAttribute="leading" secondItem="vRz-sE-A6q" secondAttribute="leading" constant="16" id="1IB-Po-CNI"/>
                                                 <constraint firstItem="O9H-ef-OLh" firstAttribute="centerY" secondItem="0qM-QB-d49" secondAttribute="centerY" id="Gb8-tD-zJM"/>
                                                 <constraint firstItem="O9H-ef-OLh" firstAttribute="leading" secondItem="0qM-QB-d49" secondAttribute="trailing" constant="10" id="XOT-27-B3f"/>
+                                                <constraint firstItem="IbT-yw-jSZ" firstAttribute="width" secondItem="0qM-QB-d49" secondAttribute="width" id="ZFg-kU-1hc"/>
+                                                <constraint firstItem="IbT-yw-jSZ" firstAttribute="height" secondItem="0qM-QB-d49" secondAttribute="height" id="gKB-cc-E0N"/>
                                                 <constraint firstItem="0qM-QB-d49" firstAttribute="centerY" secondItem="vRz-sE-A6q" secondAttribute="centerY" id="hWW-Oc-pY8"/>
+                                                <constraint firstItem="IbT-yw-jSZ" firstAttribute="leading" secondItem="vRz-sE-A6q" secondAttribute="leading" constant="16" id="hgf-v2-rw1"/>
+                                                <constraint firstItem="IbT-yw-jSZ" firstAttribute="centerY" secondItem="vRz-sE-A6q" secondAttribute="centerY" id="wK9-sy-Bjz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="buttonAssets" destination="0qM-QB-d49" id="Q5h-Ag-BnG"/>
                                             <outlet property="buttonLeasing" destination="O9H-ef-OLh" id="h8x-K8-esB"/>
+                                            <outlet property="leftBgViewOffset" destination="hgf-v2-rw1" id="qBS-7b-lkJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
