@@ -8,13 +8,6 @@
 
 import UIKit
 
-class WalletHeaderView: UITableViewHeaderFooterView {
-    
-    override var reuseIdentifier: String? {
-        return "WalletHeaderView"
-    }
-}
-
 class WalletTopTableCell: UITableViewCell {
     
     
@@ -26,19 +19,18 @@ class WalletTopTableCell: UITableViewCell {
     }
     
     func setupCell(isSelectedAssets: Bool) {
-        
-        let blueColor = UIColor(31, 90, 246)
-        let textLightColor = UIColor(155, 166, 178)
+                
+
         if isSelectedAssets {
-            buttonAssets.backgroundColor = blueColor
+            buttonAssets.backgroundColor = UIColor.submit400
             buttonAssets.setTitleColor(UIColor.white, for: .normal)
             buttonLeasing.backgroundColor = UIColor.clear
-            buttonLeasing.setTitleColor(textLightColor, for: .normal)
+            buttonLeasing.setTitleColor(UIColor.basic500, for: .normal)
         }
         else {
             buttonAssets.backgroundColor = UIColor.clear
-            buttonAssets.setTitleColor(textLightColor, for: .normal)
-            buttonLeasing.backgroundColor = blueColor
+            buttonAssets.setTitleColor(UIColor.basic500, for: .normal)
+            buttonLeasing.backgroundColor = UIColor.submit400
             buttonLeasing.setTitleColor(UIColor.white, for: .normal)
         }
     }
@@ -54,11 +46,7 @@ class WalletTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewContent.layer.shadowColor = UIColor.black.cgColor
-        viewContent.layer.shadowOffset = CGSize(width: 0, height: 1)
-        viewContent.layer.shadowRadius = 1
-        viewContent.layer.shadowOpacity = 0.15
-        viewContent.layer.cornerRadius = 3
+        viewContent.addTableCellShadowStyle()
     }
     
     class func cellHeight() -> CGFloat {
@@ -78,18 +66,25 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     var isSelectedAssets = true
+    var isOpenHiddenAssets = false
     
+    var lastScrollCorrectOffset: CGPoint?
+    
+    var mainItems = ["Waves", "Bitcoin", "ETH"]
+
+//    var mainItems = ["Waves", "Bitcoin", "ETH", "ETH Classic", "Ripple"]
+    var hiddenItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Wallet"
-        navigationController?.navigationBar.barTintColor = UIColor(248, 249, 251)
+        navigationController?.navigationBar.barTintColor = UIColor.basic50
         
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
-
             navigationController?.navigationBar.prefersLargeTitles = true
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationItem.largeTitleDisplayMode = .never
         }
         
         
@@ -106,7 +101,17 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             tableView.refreshControl = refreshControl
         }
         
-        tableView.register(WalletHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: "WalletHeaderView")
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
+        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        lastScrollCorrectOffset = nil
     }
 
     func beginRefresh() {
@@ -121,12 +126,45 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func scanTapped() {
         
+        let controller = storyboard?.instantiateViewController(withIdentifier: "MyAddressViewController") as! MyAddressViewController
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func sortTapped() {
-        
+
+        lastScrollCorrectOffset = tableView.contentOffset
+        let sort = storyboard?.instantiateViewController(withIdentifier: "WalletSortViewController") as! WalletSortViewController
+        navigationController?.pushViewController(sort, animated: true)
+    
+        rdv_tabBarController.setTabBarHidden(true, animated: true)
     }
   
+    func headerTapped() {
+        isOpenHiddenAssets = !isOpenHiddenAssets
+        
+        var indexPathes : [IndexPath] = []
+        for i in 0..<hiddenItems.count {
+            indexPathes.append(IndexPath(row: i, section: Section.hidden.rawValue))
+        }
+
+        if isOpenHiddenAssets {
+            tableView.beginUpdates()
+            tableView.insertRows(at: indexPathes, with: .fade)
+            tableView.endUpdates()
+            
+            tableView.scrollToRow(at: IndexPath(row: 0, section:  Section.hidden.rawValue), at: .top, animated: true)
+        }
+        else {
+            tableView.beginUpdates()
+            tableView.deleteRows(at: indexPathes, with: .fade)
+            tableView.endUpdates()
+        }
+        
+        if let view = tableView.headerView(forSection: Section.hidden.rawValue) as? WalletHeaderView {
+            view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: true)
+        }
+    }
+    
     func assetsTapped() {
         isSelectedAssets = true
         tableView.reloadData()
@@ -139,13 +177,35 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //MARK: - UITableView
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if let offset = lastScrollCorrectOffset, Platform.isIphoneX {
+            scrollView.contentOffset = offset // to fix top bar offset in iPhoneX when tabBarHidden = true
+        }
+        
+        setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == Section.hidden.rawValue {
+            return 34
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WalletHeaderView")
-        return view
+        if section == Section.hidden.rawValue {
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: WalletHeaderView.identifier()) as! WalletHeaderView
+            view.buttonTap.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+            view.labelTitle.text = "Hidden assets (\(hiddenItems.count))"
+            view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: false)
+            return view
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -153,9 +213,12 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return WalletTopTableCell.cellHeight()
         }
         else if indexPath.section == Section.main.rawValue {
+            if indexPath.row == mainItems.count - 1 {
+                return WalletTableCell.cellHeight() + 10
+            }
             return WalletTableCell.cellHeight()
         }
-        return 0
+        return WalletTableCell.cellHeight()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -163,9 +226,10 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return 1
         }
         else if section == Section.main.rawValue {
-            return 10
+            return mainItems.count
         }
-        return 0
+        
+        return isOpenHiddenAssets ? hiddenItems.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,6 +243,22 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalletTableCell") as! WalletTableCell
+        
+        let text = "000.0000000"
+        
+        let range = (text as NSString).range(of: ".")
+        let attrString = NSMutableAttributedString(string: text)
+        attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: cell.labelSubtitle.font.pointSize, weight: UIFontWeightSemibold)], range: NSRange(location: 0, length: range.location))
+        
+        cell.labelSubtitle.attributedText = attrString
+        
+        if indexPath.section == Section.main.rawValue {
+            cell.labelTitle.text = mainItems[indexPath.row]
+        }
+        else {
+            cell.labelTitle.text = hiddenItems[indexPath.row]
+        }
+        
         return cell
     }
 

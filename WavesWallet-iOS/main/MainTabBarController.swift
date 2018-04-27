@@ -11,7 +11,7 @@ class MainTabBarController: RDVTabBarController {
             walletItem.setFinishedSelectedImage(UIImage(named: "tab_bar_wallet_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_wallet_gray"))
 
             let dexItem = tabBar.items[1] as! RDVTabBarItem
-            dexItem.title = "Dex"
+            dexItem.title = "DEX"
             dexItem.setFinishedSelectedImage(UIImage(named: "tab_bar_dex_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_dex_gray"))
 
             let plusItem = tabBar.items[2] as! RDVTabBarItem
@@ -80,7 +80,7 @@ class MainTabBarController: RDVTabBarController {
         if index == 2 {
             return false
         }
-        return true
+        return super.tabBar(tabBar, shouldSelectItemAt: index)
     }
 
 //    func checkOpenUrl() {
