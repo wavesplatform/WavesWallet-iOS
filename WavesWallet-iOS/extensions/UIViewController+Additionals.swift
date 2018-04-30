@@ -8,11 +8,22 @@
 
 import Foundation
 import UIKit
+import RESideMenu
+
 
 extension UIViewController {
     
     func createBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+    }
+    
+    func createMenuButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
+    }
+    
+    func menuTapped() {
+        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        menu.presentLeftMenuViewController()
     }
     
     func backTapped() {

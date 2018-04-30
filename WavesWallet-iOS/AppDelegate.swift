@@ -89,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    class func shared() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
 }
 

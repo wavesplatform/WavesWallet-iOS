@@ -8,6 +8,8 @@
 //
 
 import UIKit
+import RESideMenu
+
 
 class StoryboardManager {
     
@@ -70,9 +72,21 @@ class StoryboardManager {
     
     class func didEndLogin() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = MainTabBarController()
-//        appDelegate.window!.rootViewController = mainTabBarViewController()
+//        appDelegate.window!.rootViewController = MainTabBarController()
 
+
+        let menuController = MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
+        let sideMenuViewController = RESideMenu(contentViewController: MainTabBarController(), leftMenuViewController: menuController, rightMenuViewController: nil)!
+        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
+        sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
+        sideMenuViewController.contentViewShadowOpacity = 0.2
+        sideMenuViewController.contentViewShadowRadius = 15
+        sideMenuViewController.contentViewShadowEnabled = true
+        sideMenuViewController.panGestureEnabled = false
+        
+
+        appDelegate.window?.rootViewController = sideMenuViewController;
+        
     }
     
     class func didLogout() {

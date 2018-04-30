@@ -19,15 +19,16 @@ target 'WavesWallet-iOS' do
   pod 'KeychainAccess'
   pod 'MBProgressHUD', '~> 1.0.0'
   pod 'IQKeyboardManagerSwift'
-  pod "RxGesture"
+  pod 'RxGesture'
   pod 'UITextView+Placeholder'
-  pod "QRCode"
+  pod 'QRCode'
   pod 'UILabel+Copyable', '~> 1.0.0'
   pod 'QRCodeReader.swift', '~> 7.4.1'
   pod 'Charts', '3.0.3'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
   pod 'RDVTabBarController'
-  
+  pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
+
 end
 

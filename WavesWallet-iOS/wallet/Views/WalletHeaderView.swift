@@ -22,6 +22,10 @@ class WalletHeaderView: UITableViewHeaderFooterView {
         return "WalletHeaderView"
     }
     
+    class func viewHeight() -> CGFloat {
+        return 34
+    }
+    
     func setupArrow(isOpenHideenAsset: Bool, animation: Bool) {
         
         let transform = isOpenHideenAsset ? CGAffineTransform(rotationAngle: CGFloat.pi) : CGAffineTransform.identity

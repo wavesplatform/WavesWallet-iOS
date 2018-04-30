@@ -18,4 +18,9 @@ extension String {
     func removeCharacters(from: String) -> String {
         return removeCharacters(from: CharacterSet(charactersIn: from))
     }
+    
+    func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
+        let text = self as NSString
+        return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil).size.height)
+    }
 }
