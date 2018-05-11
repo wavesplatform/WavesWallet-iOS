@@ -18,4 +18,9 @@ extension UIView {
         layer.shadowOpacity = 0.15
         layer.cornerRadius = 3
     }
+    
+    class func loadView() -> UIView {
+        let clsName = String(describing: self)
+        return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! UIView
+    }
 }

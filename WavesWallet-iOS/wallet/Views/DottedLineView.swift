@@ -11,11 +11,8 @@ import UIKit
 @IBDesignable
 public class DottedLineView: UIView {
     
-    @IBInspectable
-    public var lineColor: UIColor = UIColor.black
-    
-    @IBInspectable
-    public var lineWidth: CGFloat = CGFloat(4)
+    let lineColor: UIColor = UIColor.accent100
+    let lineWidth: CGFloat = CGFloat(6)
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,11 +46,9 @@ public class DottedLineView: UIView {
     private func configurePath(path: UIBezierPath, rect: CGRect) {
 
         let center = rect.height * 0.5
-//        let drawWidth = rect.size.width - (rect.size.width.truncatingRemainder(dividingBy: (lineWidth * 2))) + lineWidth
         let drawWidth = rect.size.width
 
         let startPositionX : CGFloat = 0
-//        let startPositionX : CGFloat = 0//(rect.size.width - drawWidth) * 0.5 + lineWidth
 
         path.move(to: CGPoint(x: startPositionX, y: center))
         path.addLine(to: CGPoint(x: drawWidth, y: center))

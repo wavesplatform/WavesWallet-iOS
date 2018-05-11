@@ -29,15 +29,6 @@ class WalletLeasingCell: UITableViewCell {
     }
     
     func setupCell(_ title: String) {
-        
-        let range = (title as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: UIFontWeightSemibold)])
-        
-        if range.location != NSNotFound {
-            
-            let length = title.count - range.location
-            attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: UIFontWeightRegular)], range: NSRange(location: range.location, length: length))
-        }
-        labelTitle.attributedText = attrString
+        labelTitle.attributedText = DataManager.attributedBalanceText(text: title, font: labelTitle.font)
     }
 }

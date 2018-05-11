@@ -93,11 +93,6 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.isEditing = true
     }
     
-    override func backTapped() {
-        rdv_tabBarController.setTabBarHidden(false, animated: true)
-        navigationController?.popViewController(animated: true)
-    }
-    
     func changeStyle() {
         
         isVisibilityMode = !isVisibilityMode

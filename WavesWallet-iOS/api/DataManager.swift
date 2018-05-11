@@ -192,4 +192,16 @@ class DataManager: NSObject {
         UserDefaults.standard.set(show, forKey: "isShowUnverifiedAssets")
         UserDefaults.standard.synchronize()
     }
+    
+    class func attributedBalanceText(text: String, font: UIFont) -> NSAttributedString {
+        
+        let range = (text as NSString).range(of: ".")
+        let attrString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: font.pointSize, weight: UIFontWeightSemibold)])
+        
+        if range.location != NSNotFound {
+            let length = text.count - range.location
+            attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: font.pointSize, weight: UIFontWeightRegular)], range: NSRange(location: range.location, length: length))
+        }
+        return attrString
+    }
 }

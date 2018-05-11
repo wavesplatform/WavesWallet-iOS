@@ -24,11 +24,12 @@ target 'WavesWallet-iOS' do
   pod 'QRCode'
   pod 'UILabel+Copyable', '~> 1.0.0'
   pod 'QRCodeReader.swift', '~> 7.4.1'
-  pod 'Charts', '3.0.3'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
   pod 'RDVTabBarController'
   pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
-
+  pod 'Charts'
+  pod 'UPCarouselFlowLayout'
+  
 end
 

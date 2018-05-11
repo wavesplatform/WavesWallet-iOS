@@ -37,7 +37,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var isOpenHiddenAssets = false
     var isOpenActiveLeasing = true
     var isOpenQuickNote = false
-    var isAvailableLeasingHistory = false
+    var isAvailableLeasingHistory = true
     
     var hasFirstChangeSegment = false
     
@@ -53,18 +53,18 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .never
-        }
+        setupBigNavigationBar()
         
         createMenuButton()
         setupRightButons()
         
-        if #available(iOS 11.0, *) {
+        if #available(iOS 10.0, *) {
             refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
             tableView.refreshControl = refreshControl
+        }
+        else {
+            tableView.addSubview(refreshControl)
         }
         
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
@@ -121,6 +121,10 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+        
+        if rdv_tabBarController.isTabBarHidden {
+            rdv_tabBarController.setTabBarHidden(false, animated: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -135,6 +139,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func scanTapped() {
         
+        lastScrollCorrectOffset = tableView.contentOffset
         let controller = storyboard?.instantiateViewController(withIdentifier: "MyAddressViewController") as! MyAddressViewController
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -241,7 +246,26 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: - UITableView
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+
+        if selectedSegmentIndex == .assets {
+            
+            lastScrollCorrectOffset = tableView.contentOffset
+            let assetController = storyboard?.instantiateViewController(withIdentifier: "AssetViewController") as! AssetViewController
+            navigationController?.pushViewController(assetController, animated: true)
+            rdv_tabBarController.setTabBarHidden(true, animated: true)
+        }
+        else {
+            if indexPath.section == SectionLeasing.balance.rawValue {
+                if indexPath.row == 1 {
+                    
+                    lastScrollCorrectOffset = tableView.contentOffset
+                    let history = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
+                    history.isLeasingMode = true
+                    navigationController?.pushViewController(history, animated: true)
+                    rdv_tabBarController.setTabBarHidden(true, animated: true)
+                }
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -333,7 +357,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return WalletLeasingBalanceCell.cellHeight(isAvailableLeasingHistory: isAvailableLeasingHistory)
             }
             else if indexPath.row == 1 {
-                return WalletBalanceHistoryCell.cellHeight()
+                return WalletHistoryCell.cellHeight()
             }
         }
         else if indexPath.section == SectionLeasing.active.rawValue {
@@ -402,11 +426,19 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     return cell
                 }
                 else if indexPath.row == 1 {
-                    return tableView.dequeueReusableCell(withIdentifier: "WalletBalanceHistoryCell") as! WalletBalanceHistoryCell
+                    var cell : WalletHistoryCell! = tableView.dequeueReusableCell(withIdentifier: "WalletHistoryCell") as? WalletHistoryCell
+                    if cell == nil {
+                        cell = WalletHistoryCell.loadView() as? WalletHistoryCell
+                    }
+                    return cell
                 }
             }
             else if indexPath.section == SectionLeasing.active.rawValue {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "WalletLeasingCell") as! WalletLeasingCell
+                
+                var cell : WalletLeasingCell! = tableView.dequeueReusableCell(withIdentifier: "WalletLeasingCell") as? WalletLeasingCell
+                if cell == nil {
+                    cell = WalletLeasingCell.loadView() as? WalletLeasingCell
+                }
                 cell.setupCell(leasingActiveItems[indexPath.row])
                 return cell
             }

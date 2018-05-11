@@ -46,8 +46,10 @@ class MainTabBarController: RDVTabBarController {
 
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
 
-        let navHistory = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationHistory")
-
+        let history = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
+        history.isMenuButton = true
+        let navHistory = UINavigationController(rootViewController: history)
+        
         let navProfile = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationProfile")
 
         viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
@@ -57,13 +59,11 @@ class MainTabBarController: RDVTabBarController {
         let line = UIView(frame: CGRect(x: 0, y: 0, width: Platform.ScreenWidth, height: 0.5))
         line.backgroundColor = UIColor(188, 188, 188)
         tabBar.addSubview(line)
-
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 //        checkOpenUrl()
 //        updateBadges()
     }
-    
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
         tabBarItem.selectedTitleAttributes = [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : UIFont.systemFont(ofSize: 10)]

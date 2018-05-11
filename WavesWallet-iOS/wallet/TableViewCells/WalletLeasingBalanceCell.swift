@@ -32,12 +32,8 @@ class WalletLeasingBalanceCell: UITableViewCell {
     func setupCell(isAvailableLeasingHistory: Bool) {
         
         let text = "000.0000000"
-        
-        let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text)
-        attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: labelBalance.font.pointSize, weight: UIFontWeightSemibold)], range: NSRange(location: 0, length: range.location))
-        labelBalance.attributedText = attrString
-    
+        labelBalance.attributedText = DataManager.attributedBalanceText(text: text, font: labelBalance.font)
+
         let viewWidth = Platform.ScreenWidth - 32 - 32
         let leasedPercent : CGFloat = 40
         let leasedInPercent : CGFloat = 50

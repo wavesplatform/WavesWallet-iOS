@@ -157,7 +157,7 @@ class WalletManager {
             .timer(30, period: 30, scheduler: MainScheduler.instance)
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .subscribe(onNext: {_ in
-                print(Date())
+//                print(Date())
                 updateBalances(onComplete: nil)
                 updateTransactions(onComplete: nil)
             })

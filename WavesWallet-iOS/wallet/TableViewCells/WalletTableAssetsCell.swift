@@ -28,11 +28,6 @@ class WalletTableAssetsCell: UITableViewCell {
     func setupCell() {
         
         let text = "000.0000000"
-        
-        let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text)
-        attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: labelSubtitle.font.pointSize, weight: UIFontWeightSemibold)], range: NSRange(location: 0, length: range.location))
-        
-        labelSubtitle.attributedText = attrString
+        labelSubtitle.attributedText = DataManager.attributedBalanceText(text: text, font: labelSubtitle.font)
     }
 }
