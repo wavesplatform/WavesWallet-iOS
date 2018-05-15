@@ -23,4 +23,9 @@ extension String {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil).size.height)
     }
+    
+    func maxWidth(font: UIFont) -> CGFloat {
+        let text = self as NSString
+        return ceil(text.boundingRect(with: CGSize(width:CGFloat.greatestFiniteMagnitude, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil).size.width)
+    }
 }

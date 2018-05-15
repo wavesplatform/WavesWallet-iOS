@@ -23,13 +23,29 @@ target 'WavesWallet-iOS' do
   pod 'UITextView+Placeholder'
   pod 'QRCode'
   pod 'UILabel+Copyable', '~> 1.0.0'
-  pod 'QRCodeReader.swift', '~> 7.4.1'
+  pod 'QRCodeReader.swift', '~> 7.5.1'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
   pod 'RDVTabBarController'
   pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
   pod 'Charts'
   pod 'UPCarouselFlowLayout'
+  
+  post_install do |installer|
+      installer.pods_project.targets.each do |target|
+#          if target.name == 'QRCodeReader.swift'
+#              target.build_configurations.each do |config|
+#                  config.build_settings['SWIFT_VERSION'] = '4.1'
+#              end
+#          end
+          
+          if target.name == 'Charts'
+              target.build_configurations.each do |config|
+                  config.build_settings['SWIFT_VERSION'] = '4.1'
+              end
+          end
+      end
+  end
   
 end
 

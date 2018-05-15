@@ -34,18 +34,22 @@ extension UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func setupTopBarLine(tableContentOffsetY: CGFloat) {
+    func setupTopBarLine() {
         
-        let tableTopOffset : CGFloat = Platform.isIphoneX ? -88 : -64
-        let showImage = tableContentOffsetY >= tableTopOffset
-        if showImage {
-            if navigationController?.navigationBar.shadowImage != nil {
-                navigationController?.navigationBar.shadowImage = nil
+//        let tableTopOffset : CGFloat = Platform.isIphoneX ? -88 : -64
+//        let showImage = tableContentOffsetY >= tableTopOffset
+
+        if let nav = navigationController {
+            let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= 44
+            if showImage {
+                if nav.navigationBar.shadowImage != nil {
+                    nav.navigationBar.shadowImage = nil
+                }
             }
-        }
-        else {
-            if navigationController?.navigationBar.shadowImage == nil {
-                navigationController?.navigationBar.shadowImage = UIImage()
+            else {
+                if nav.navigationBar.shadowImage == nil {
+                    nav.navigationBar.shadowImage = UIImage()
+                }
             }
         }
     }

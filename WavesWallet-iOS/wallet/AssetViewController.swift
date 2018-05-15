@@ -96,11 +96,6 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         buttonFavourite.setImage(UIImage(named: inFavourite ? "topbarFavoriteOn" : "topbarFavoriteOff"), for: .normal)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        setupBigNavigationBar()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     @IBAction func backTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -224,6 +219,10 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let history = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
                 navigationController?.pushViewController(history, animated: true)
             }
+        }
+        else if indexPath.section == Section.chart.rawValue {
+            let chart = storyboard?.instantiateViewController(withIdentifier: "AssetChartViewController") as! AssetChartViewController
+            navigationController?.pushViewController(chart, animated: true)
         }
     }
     var maxScrollOffset: CGFloat {

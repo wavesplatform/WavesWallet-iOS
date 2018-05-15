@@ -159,7 +159,7 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: - UITableView
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine(tableContentOffsetY: scrollView.contentOffset.y)
+        setupTopBarLine()
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

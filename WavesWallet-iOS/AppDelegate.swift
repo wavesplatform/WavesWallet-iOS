@@ -21,13 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         
         showStartController()
-        
-        if (window?.rootViewController?.isKind(of: UITabBarController.classForCoder()))! {
-            let tabBar = window?.rootViewController as! UITabBarController
-        }
         
         SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
         SVProgressHUD.setDefaultStyle(.dark)
@@ -36,15 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().tintColor = UIColor.black
         
         return true
-    }
-    
-    func testBase58() {
-        let s = "trial appear battle what fiber hello weasel grunt spare heavy produce beach one friend sad"
-        let b = "KFWy4MpQgRcaEAdjwr9KenkSWCKzEUCzK9SXWCFGD4KWYsXiKBhmjW2Dma996W5XV5esBJTELoTjF88C6QBNVRKenMjCzYWinbvWTfcbUfB5YjjxVVhrt9FUKRM"
-        let b1 = "ZiCa"
-        let r = Base58.decode(b1)
-        let sr = String(data: Data(r), encoding: .utf8) ?? ""
-        print(sr)
     }
 
     func showStartController() {
@@ -59,8 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -69,15 +55,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

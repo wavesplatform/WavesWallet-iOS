@@ -23,4 +23,14 @@ extension UIView {
         let clsName = String(describing: self)
         return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! UIView
     }
+    
+    func shakeView() {
+        let anim = CAKeyframeAnimation.init(keyPath: "transform")
+        anim.values = [NSValue.init(caTransform3D: CATransform3DMakeTranslation(-7.0, 0.0, 0.0)),
+                       NSValue.init(caTransform3D:CATransform3DMakeTranslation(7.0, 0.0, 0.0))]
+        anim.autoreverses = true
+        anim.repeatCount = 2.0
+        anim.duration = 0.07
+        layer.add(anim, forKey: nil)
+    }
 }

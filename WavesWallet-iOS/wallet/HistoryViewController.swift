@@ -302,7 +302,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+        setupTopBarLine()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

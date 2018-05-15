@@ -53,8 +53,6 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         
-        setupBigNavigationBar()
-        
         createMenuButton()
         setupRightButons()
         
@@ -120,8 +118,11 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+        setupTopBarLine()
         
+        setupBigNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
@@ -137,9 +138,16 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func startLeasing() {
+        lastScrollCorrectOffset = tableView.contentOffset
+        let sort = storyboard?.instantiateViewController(withIdentifier: "StartLeasingViewController") as! StartLeasingViewController
+        navigationController?.pushViewController(sort, animated: true)
+        
+        rdv_tabBarController.setTabBarHidden(true, animated: true)
+    }
+    
     func scanTapped() {
         
-        lastScrollCorrectOffset = tableView.contentOffset
         let controller = storyboard?.instantiateViewController(withIdentifier: "MyAddressViewController") as! MyAddressViewController
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -274,7 +282,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             scrollView.contentOffset = offset // to fix top bar offset in iPhoneX when tabBarHidden = true
         }
         
-        setupTopBarLine(tableContentOffsetY: tableView.contentOffset.y)
+        setupTopBarLine()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -423,6 +431,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "WalletLeasingBalanceCell") as! WalletLeasingBalanceCell
                     cell.setupCell(isAvailableLeasingHistory: isAvailableLeasingHistory)
+                    cell.buttonStartLease.addTarget(self, action: #selector(startLeasing), for: .touchUpInside)
                     return cell
                 }
                 else if indexPath.row == 1 {

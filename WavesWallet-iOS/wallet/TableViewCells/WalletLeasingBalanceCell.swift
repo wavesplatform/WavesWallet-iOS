@@ -13,6 +13,7 @@ class WalletLeasingBalanceCell: UITableViewCell {
     @IBOutlet weak var viewContainer: UIView!
     
     @IBOutlet weak var labelBalance: UILabel!
+    @IBOutlet weak var buttonStartLease: UIButton!
     
     @IBOutlet weak var leasedWidth: NSLayoutConstraint!
     @IBOutlet weak var leasedInWidth: NSLayoutConstraint!
