@@ -25,13 +25,12 @@ class StoryboardManager {
         return UIStoryboard(name: "Dex", bundle: nil)
     }
     
+    class func TransactionsStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Transactions", bundle: nil)
+    }
     
     class func launchViewController() -> UIViewController {
         return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
-    }
-    
-    class func mainTabBarViewController() -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBarController")
     }
     
     class func transactionDetailViewController(tx: Transaction) -> UIViewController {

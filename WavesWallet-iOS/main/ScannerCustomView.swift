@@ -55,7 +55,6 @@ class ScannerCustomView: UIView, QRCodeReaderDisplayable {
             let maskLayer2 = CAShapeLayer()
             maskLayer2.strokeColor = UIColor.white.cgColor
             maskLayer2.lineWidth = 3
-            maskLayer2.lineWidth = 3
             maskLayer2.lineDashPattern = [3.0, 3.0]
             maskLayer2.lineDashPhase = 0
 

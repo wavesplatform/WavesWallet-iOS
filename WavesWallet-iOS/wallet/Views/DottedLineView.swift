@@ -31,7 +31,7 @@ public class DottedLineView: UIView {
     public override func draw(_ rect: CGRect) {
         
         let path = UIBezierPath()
-        path.lineWidth = lineWidth
+        path.lineWidth = 0.7
         configurePath(path: path, rect: rect)
         lineColor.setStroke()
         path.stroke()
@@ -45,13 +45,12 @@ public class DottedLineView: UIView {
     
     private func configurePath(path: UIBezierPath, rect: CGRect) {
 
-        let center = rect.height * 0.5
         let drawWidth = rect.size.width
 
         let startPositionX : CGFloat = 0
 
-        path.move(to: CGPoint(x: startPositionX, y: center))
-        path.addLine(to: CGPoint(x: drawWidth, y: center))
+        path.move(to: CGPoint(x: startPositionX, y: 0))
+        path.addLine(to: CGPoint(x: drawWidth, y: 0))
         
         let dashes: [CGFloat] = [lineWidth, lineWidth / 2]
         path.setLineDash(dashes, count: dashes.count, phase: 0)

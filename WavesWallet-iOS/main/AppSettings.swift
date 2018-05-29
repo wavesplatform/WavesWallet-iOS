@@ -24,6 +24,25 @@ class AppColors {
     static let dexLightSellColor = UIColor(netHex: 0xe97c79)
 }
 
+enum HistoryTransactionState: Int {
+    case viewReceived = 0
+    case viewSend
+    case viewLeasing
+    case exchange // not show comment, not show address
+    case selfTranserred // not show address
+    case tokenGeneration // show ID token
+    case tokenReissue // show ID token,
+    case tokenBurning // show ID token, do not have bottom state of token
+    case createdAlias // show ID token
+    case canceledLeasing
+    case incomingLeasing
+    case massSend // multiple addresses
+    case massReceived
+}
+
+let HistoryTransactionImages = ["asset_receive", "tSend48", "wallet_start_lease", "tExchange48", "tSelftrans48", "tTokengen48", "tTokenreis48", "tTokenburn48", "tAlias48", "tCloselease48", "tIncominglease48", "tMasstransfer48", "tMassreceived48"]
+
+
 struct Platform {
 
     static let ScreenWidth = UIScreen.main.bounds.size.width

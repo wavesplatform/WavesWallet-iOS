@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TransactionHistoryAccountIDView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="439" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-I1-z0O" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="16" y="74" width="407" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="zAB-ff-rgW"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dej-Af-Rd1">
+                    <rect key="frame" x="16" y="13" width="13" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="O9D-If-GI0">
+                    <rect key="frame" x="16" y="32" width="418" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Reissuable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flj-f9-4Et">
+                    <rect key="frame" x="16" y="50" width="73" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="O9D-If-GI0" secondAttribute="trailing" constant="5" id="0fj-vp-ea0"/>
+                <constraint firstItem="uS4-I1-z0O" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="6Fu-Gs-Q30"/>
+                <constraint firstItem="O9D-If-GI0" firstAttribute="top" secondItem="Dej-Af-Rd1" secondAttribute="bottom" constant="3" id="FxZ-TK-Ybz"/>
+                <constraint firstItem="Dej-Af-Rd1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="J51-96-6Ra"/>
+                <constraint firstItem="flj-f9-4Et" firstAttribute="top" secondItem="O9D-If-GI0" secondAttribute="bottom" constant="2" id="M2L-Kr-MbR"/>
+                <constraint firstAttribute="bottom" secondItem="uS4-I1-z0O" secondAttribute="bottom" id="WLm-mD-xfc"/>
+                <constraint firstItem="flj-f9-4Et" firstAttribute="leading" secondItem="O9D-If-GI0" secondAttribute="leading" id="Y1V-yy-Lec"/>
+                <constraint firstAttribute="trailing" secondItem="uS4-I1-z0O" secondAttribute="trailing" constant="16" id="fDp-Sw-EKH"/>
+                <constraint firstItem="O9D-If-GI0" firstAttribute="leading" secondItem="Dej-Af-Rd1" secondAttribute="leading" id="oit-wY-Wfv"/>
+                <constraint firstItem="Dej-Af-Rd1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="13" id="yNK-ES-8RD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="viewSeparator" destination="uS4-I1-z0O" id="y0W-nc-CwL"/>
+            </connections>
+        </view>
+    </objects>
+</document>

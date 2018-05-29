@@ -23,13 +23,30 @@ class MenuViewController: UIViewController {
             bottomOffset.constant = 20
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func wavesTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "http://wavescommunity.com")!)
     }
     
-
-   
+    @IBAction func gitTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://github.com/wavesplatform/")!)
+    }
+    
+    @IBAction func telegramTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://telegram.me/wavesnews")!)
+    }
+    
+    @IBAction func discordTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://discordapp.com/invite/cnFmDyA")!)
+    }
+    
+    @IBAction func twitterTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://twitter.com/wavesplatform")!)
+    }
+    
+    @IBAction func fbTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://www.facebook.com/wavesplatform")!)
+    }
+    
 
 }

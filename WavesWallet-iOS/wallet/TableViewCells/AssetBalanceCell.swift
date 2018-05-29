@@ -30,6 +30,19 @@ class AssetBalanceCell: UITableViewCell {
         
     }
 
+    @IBAction func receiveTapped(_ sender: Any) {
+        
+      
+    }
+    
+    @IBAction func sendTapped(_ sender: Any) {
+    
+    }
+    
+    @IBAction func exchangeTapped(_ sender: Any) {
+    
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

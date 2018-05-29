@@ -29,35 +29,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var isMenuButton = false
     
-    let allItems = [["title" : "February 12, 2018", "items" : [10.23, 2, 23.23, 31.32, 3213.43, 434.34, 55.5]],
-                     ["title" : "February 15, 2018", "items" : [0.23, 4, 13.3, 1.32, 0.43]],
-                     ["title" : "February 17, 2018", "items" : [1.2, 2.2, 2.3, 3.3, 1.3, 14.44, 10.5]],
-                     ["title" : "February 20, 2018", "items" : [31.32, 3213.43, 434.34, 55.5]]]
-
-    let sentItems = [["title" : "February 14, 2018", "items" : [1.32, 0.43]],
-                     ["title" : "February 16, 2018", "items" : [23.23, 31.32, 3213.43, 434.34, 10.23]]]
-
-    let receivedItems = [["title" : "February 10, 2018", "items" : [2.3, 3.3, 1.3, 14.44, 10.5]],
-                         ["title" : "February 12, 2018", "items" : [10.23, 2]],
-                         ["title" : "February 16, 2018", "items" : [13.3, 1.32, 0.43]]]
-
-    let exchangeItems = [["title" : "February 10, 2018", "items" : [3.3]],
-                         ["title" : "February 16, 2018", "items" : [1.32, 0.43]]]
-    
-    let leasedItems = [["title" : "February 10, 2018", "items" : [4, 13.3]],
-                         ["title" : "February 16, 2018", "items" : [10.23, 2, 23.23, 31.32, 3213.43, 434.34, 55.5]],
-                         ["title" : "February 18, 2018", "items" : [4, 13.3, 1.32, 0.43]]]
-    
-    let issuedItems = [["title" : "February 10, 2018", "items" : [0.43]]]
-    
-    let activeNowItems = [["title" : "February 14, 2018", "items" : [1.32, 0.43]],
-                          ["title" : "February 16, 2018", "items" : [23.23, 31.32, 3213.43, 434.34, 10.23]]]
-
-    let canceledItems = [["title" : "February 10, 2018", "items" : [4, 13.3]],
-                         ["title" : "February 16, 2018", "items" : [10.23, 2, 23.23, 31.32, 3213.43, 434.34, 55.5]],
-                         ["title" : "February 18, 2018", "items" : [4, 13.3, 1.32, 0.43]]]
-
-    
+    var allItems : [NSDictionary] = []
+    var sentItems : [NSDictionary] = []
+    var receivedItems : [NSDictionary] = []
+    var exchangeItems : [NSDictionary] = []
+    var leasedItems : [NSDictionary] = []
+    var issuedItems : [NSDictionary] = []
+    var activeNowItems : [NSDictionary] = []
+    var canceledItems : [NSDictionary] = []
+  
     var isLeasingMode = false
     
     override func viewDidLoad() {
@@ -92,6 +72,19 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         else {
             tableView.addSubview(refreshControl)
         }
+        
+        let path = Bundle.main.path(forResource: "HistoryInfo", ofType: "json")
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe)
+        let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! NSDictionary
+        
+        allItems.append(contentsOf: jsonResult["allItems"] as! [NSDictionary])
+        sentItems.append(contentsOf: jsonResult["sentItems"] as! [NSDictionary])
+        receivedItems.append(contentsOf: jsonResult["receivedItems"] as! [NSDictionary])
+        exchangeItems.append(contentsOf: jsonResult["exchangeItems"] as! [NSDictionary])
+        leasedItems.append(contentsOf: jsonResult["leasedItems"] as! [NSDictionary])
+        issuedItems.append(contentsOf: jsonResult["issuedItems"] as! [NSDictionary])
+        activeNowItems.append(contentsOf: jsonResult["activeNowItems"] as! [NSDictionary])
+        canceledItems.append(contentsOf: jsonResult["canceledItems"] as! [NSDictionary])
     }
 
     func beginRefresh() {
@@ -216,7 +209,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return allItems.count
     }
     
-    func itemForSection(_ section: Int) -> [String : Any] {
+    func itemForSection(_ section: Int) -> NSDictionary {
        
         if selectedState == .sent {
            return sentItems[section - 1]
@@ -278,7 +271,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func updateTable(insertSections: [Int], deleteSections: [Int], reloadSections: [Int], animationStyle: UITableViewRowAnimation) {
 
         tableView.beginUpdates()
-        tableView.insertSections(insertSections, animationStyle: animationStyle)
+        let insertAnimation : UITableViewRowAnimation = animationStyle == .left ? .right : .left
+        tableView.insertSections(insertSections, animationStyle: insertAnimation)
         tableView.deleteSections(deleteSections, animationStyle: animationStyle)
         tableView.reloadSections(reloadSections, animationStyle: animationStyle)
         tableView.endUpdates()
@@ -300,16 +294,82 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - UITableView
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func getAllItems() -> [NSDictionary] {
+        var items : [NSDictionary] = []
         
+        if selectedState == .sent {
+            for item in sentItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .received {
+            for item in receivedItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .exchaned {
+            for item in exchangeItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .leased {
+            for item in leasedItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .issued {
+            for item in issuedItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .activeNow {
+            for item in activeNowItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else if selectedState == .canceled {
+            for item in canceledItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        else {
+            for item in allItems {
+                items.append(contentsOf: item["items"] as! [NSDictionary])
+            }
+        }
+        
+        return items
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
     
+     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             return
         }
     
+        let sectionItems = getAllItems()
+        
+        var index = 0
+        let item = itemForSection(indexPath.section)
+        let items = item["items"] as! [Any]
+        let dict = items[indexPath.row] as! NSDictionary
+
+        for (i, value) in sectionItems.enumerated() {
+            if value == dict {
+                index = i
+                break
+            }
+        }
+        
+        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "TransactionHistoryViewController") as! TransactionHistoryViewController
+        controller.items = sectionItems
+        controller.currentPage = index
+        let popup = PopupViewController()
+        popup.present(contentViewController: controller)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -384,12 +444,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let item = itemForSection(indexPath.section)
         let items = item["items"] as! [Any]
-        let value = items[indexPath.row]
+        let dict: NSDictionary = items[indexPath.row] as! NSDictionary
+        let value = dict["value"]
+        let state = HistoryTransactionState(rawValue: dict["state"] as! Int)!
         if let val = value as? Double {
-            cell.setupCell(value: String(val))
+            cell.setupCell(value: String(val), state: state)
         }
         else if let val = value as? Int {
-            cell.setupCell(value: String(val))
+            cell.setupCell(value: String(val), state: state)
         }
         return cell
     }

@@ -56,6 +56,11 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         }
     }
     
+    @IBAction func startLeasingTapped(_ sender: Any) {
+    
+        textFieldAddress.shakeView()
+    }
+    
     override func amountTapped(_ sender: UIButton) {
         super.amountTapped(sender)
         
@@ -96,18 +101,18 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         
         setupButtonStartLease()
     }
-    
+
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.showSwitchCameraButton = false
             $0.showTorchButton = true
-            $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())            
+            $0.reader = QRCodeReader()
+            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
         }
-        
+
         return QRCodeReaderViewController(builder: builder)
     }()
-  
+
     @IBAction func scanTapped(_ sender: Any) {
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
@@ -116,6 +121,7 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
 
             if let address = result?.value {
                 self.textFieldAddress.text = address
+                self.updateAddressState()
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -127,11 +133,7 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         }
     }
     
-    func addresesTapped(_ sender: UIButton) {
-        
-        let value = addresses[sender.tag]
-        
-        textFieldAddress.text = value
+    func updateAddressState() {
         heightScrollGenerator.constant = 0
         textFieldAddress.isEnabled = false
         UIView.animate(withDuration: 0.3) {
@@ -142,6 +144,14 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         }
         
         setupButtonStartLease()
+    }
+    
+    func addresesTapped(_ sender: UIButton) {
+        
+        let value = addresses[sender.tag]
+        
+        textFieldAddress.text = value
+        updateAddressState()
     }
     
     override func keyboardWillHide() {

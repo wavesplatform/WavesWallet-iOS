@@ -12,6 +12,8 @@ class HistoryAssetCell: UITableViewCell {
 
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelValue: UILabel!
+    @IBOutlet weak var imageViewIcon: UIImageView!
+    @IBOutlet weak var labelTitle: UILabel!
     
     
     override func awakeFromNib() {
@@ -30,8 +32,82 @@ class HistoryAssetCell: UITableViewCell {
         return 76
     }
     
-    func setupCell(value: String) {
+    func textState(_ state: HistoryTransactionState) -> String {
+        
+        switch state {
+        case .viewReceived:
+            return "Received from"
+        case .viewSend:
+            return "Sent to"
+        case .viewLeasing:
+            return "Leasing to"
+        case .exchange:
+            return ""
+        case .selfTranserred:
+            return "Transerred"
+        case .tokenGeneration:
+            return "ID"
+        case .tokenReissue:
+            return "ID"
+        case .tokenBurning:
+            return "ID"
+        case .createdAlias:
+            return ""
+        case .canceledLeasing:
+            return "From"
+        case .incomingLeasing:
+            return "From"
+        case .massSend:
+            return "Recipient"
+        case .massReceived:
+            return "From"
+        }
+    }
+    
+    func setupCell(value: String, state: HistoryTransactionState) {
         
         labelValue.attributedText = DataManager.attributedBalanceText(text: value, font: labelValue.font)
+        imageViewIcon.image = UIImage(named: HistoryTransactionImages[state.rawValue])
+        
+        if state == .viewReceived {
+            labelTitle.text = "Received " + "Waves"
+        }
+        else if state == .viewSend {
+            labelTitle.text = "Sent " + "Waves"
+        }
+        else if state == .viewLeasing {
+            labelTitle.text = "Started Leasing"
+        }
+        else if state == .exchange {
+            labelTitle.text = "-0.00400000" + " " + "Waves"
+        }
+        else if state == .selfTranserred {
+            labelTitle.text = "Self-transfer " + "Waves"
+        }
+        else if state == .tokenGeneration {
+            labelTitle.text = "Waves" + " - Token Generation"
+        }
+        else if state == .tokenReissue {
+            labelTitle.text = "Waves" + " Token Reissue"
+        }
+        else if state == .tokenBurning {
+            labelTitle.text = "Waves" + " Token Burn"
+        }
+        else if state == .createdAlias {
+            labelTitle.text = "Create Alias"
+        }
+        else if state == .canceledLeasing {
+            labelTitle.text = "Canceled Leasing"
+        }
+        else if state == .incomingLeasing {
+            labelTitle.text = "Incoming Leasing"
+        }
+        else if state == .massSend {
+            labelTitle.text = "Send " + "Waves"
+        }
+        else if state == .massReceived {
+            labelTitle.text = "Received " + "Waves"
+        }
+            
     }
 }
