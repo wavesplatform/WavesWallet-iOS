@@ -295,7 +295,7 @@
                 <constraint firstAttribute="trailing" secondItem="aeu-7M-CKz" secondAttribute="trailing" id="Me4-g2-HW8"/>
                 <constraint firstItem="aeu-7M-CKz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fSW-8o-Pv5"/>
                 <constraint firstAttribute="bottom" secondItem="aeu-7M-CKz" secondAttribute="bottom" id="fzV-t3-b59"/>
-                <constraint firstItem="aeu-7M-CKz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ivf-au-TLP"/>
+                <constraint firstItem="aeu-7M-CKz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ivf-au-TLP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

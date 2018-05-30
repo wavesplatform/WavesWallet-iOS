@@ -32,38 +32,6 @@ class HistoryAssetCell: UITableViewCell {
         return 76
     }
     
-    func textState(_ state: HistoryTransactionState) -> String {
-        
-        switch state {
-        case .viewReceived:
-            return "Received from"
-        case .viewSend:
-            return "Sent to"
-        case .viewLeasing:
-            return "Leasing to"
-        case .exchange:
-            return ""
-        case .selfTranserred:
-            return "Transerred"
-        case .tokenGeneration:
-            return "ID"
-        case .tokenReissue:
-            return "ID"
-        case .tokenBurning:
-            return "ID"
-        case .createdAlias:
-            return ""
-        case .canceledLeasing:
-            return "From"
-        case .incomingLeasing:
-            return "From"
-        case .massSend:
-            return "Recipient"
-        case .massReceived:
-            return "From"
-        }
-    }
-    
     func setupCell(value: String, state: HistoryTransactionState) {
         
         labelValue.attributedText = DataManager.attributedBalanceText(text: value, font: labelValue.font)

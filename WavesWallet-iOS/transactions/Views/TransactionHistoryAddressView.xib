@@ -16,18 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Nl-Kz-Uc7">
-                    <rect key="frame" x="16" y="14" width="31" height="16"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="D0h-0E-gaU">
-                    <rect key="frame" x="16" y="33" width="312" height="16"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Z3-Nqm" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="16" y="61" width="343" height="1"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,23 +34,18 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="D0h-0E-gaU" firstAttribute="top" secondItem="7Nl-Kz-Uc7" secondAttribute="bottom" constant="3" id="46e-sX-IEy"/>
-                <constraint firstItem="D0h-0E-gaU" firstAttribute="leading" secondItem="7Nl-Kz-Uc7" secondAttribute="leading" id="CJK-cM-0O8"/>
                 <constraint firstAttribute="trailing" secondItem="vhU-Z3-Nqm" secondAttribute="trailing" constant="16" id="FpA-kc-SIv"/>
                 <constraint firstItem="vhU-Z3-Nqm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="KqE-Ze-Gfr"/>
                 <constraint firstItem="AS8-ip-W4d" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="11" id="T3Q-c2-LrY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vhU-Z3-Nqm" secondAttribute="bottom" id="V9h-t9-Uzt"/>
-                <constraint firstItem="AS8-ip-W4d" firstAttribute="leading" secondItem="D0h-0E-gaU" secondAttribute="trailing" id="bTM-Jd-Kzu"/>
-                <constraint firstItem="7Nl-Kz-Uc7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="gaS-mf-IRg"/>
-                <constraint firstItem="7Nl-Kz-Uc7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="14" id="ht3-he-e1V"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AS8-ip-W4d" secondAttribute="trailing" constant="7" id="oZ3-3Y-2QE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="buttonAddAddress" destination="AS8-ip-W4d" id="3Qf-VW-ivh"/>
-                <outlet property="labelTitle" destination="7Nl-Kz-Uc7" id="zpp-Eq-gnp"/>
-                <outlet property="viewSeparator" destination="vhU-Z3-Nqm" id="pAV-Cs-CBF"/>
+                <outlet property="buttonTopOffset" destination="T3Q-c2-LrY" id="NyK-bD-LQe"/>
+                <outlet property="viewSeparator" destination="vhU-Z3-Nqm" id="TIb-sE-L27"/>
             </connections>
         </view>
     </objects>

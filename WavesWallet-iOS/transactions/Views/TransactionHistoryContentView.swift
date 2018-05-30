@@ -17,6 +17,7 @@ class TransactionHistoryContentView: UIView {
     @IBOutlet weak var addressHeight: NSLayoutConstraint!
     @IBOutlet weak var addressContainer: UIView!
     
+    var massSentFullHeight: CGFloat = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +27,19 @@ class TransactionHistoryContentView: UIView {
         }
     }
   
+    func showAllAddresses() {
+        
+        let showAllView = addressContainer.subviews.first(where: {$0.isKind(of: TransactionHistoryShowAllView.classForCoder())})
+        
+        addressHeight.constant = massSentFullHeight
+        UIView.animate(withDuration: 0.3, animations: {
+            showAllView?.alpha = 0
+            self.layoutIfNeeded()
+        }) { (complete) in
+            showAllView?.removeFromSuperview()
+        }
+    }
+    
     func setup(_ item: NSDictionary) {
         var value = ""
         if let val = item["value"] as? Double {
@@ -48,54 +62,47 @@ class TransactionHistoryContentView: UIView {
             let countAddresses = item["countAddresses"] as! Int
             
             var offset : CGFloat = 0
+            massSentFullHeight = 0
+            
             for i in 0..<countAddresses {
                 
                 if i == 0 {
-                    let view = TransactionHistoryAddressNameView.loadView() as! TransactionHistoryAddressNameView
+                    let view = TransactionHistoryAddressView.loadView() as! TransactionHistoryAddressView
                     view.frame.origin.y = offset
-                    if i == countAddresses - 1 {
-                        view.setupInfo(item)
-                    }
+                    view.setupInfo(item, showComment: false)
                     addressContainer.addSubview(view)
                     offset += view.frame.size.height
+                    massSentFullHeight += view.frame.size.height
                 }
                 else {
-                    let view = TransactionMassSendView.loadView() as! TransactionMassSendView
-                    view.frame.origin.y = offset
-                    if i == countAddresses - 1 {
-                        view.setupInfo(item)
-                    }
+                    let view = TransactionHistoryMassSendView.loadView() as! TransactionHistoryMassSendView
+                    view.frame.origin.y = massSentFullHeight
+                    view.setupInfo(item, showComment: i == countAddresses - 1)
                     addressContainer.addSubview(view)
-                    offset += view.frame.size.height
+                    if i < 3 {
+                        offset += view.frame.size.height
+                    }
+                    massSentFullHeight += view.frame.size.height
                 }
+            }
+            
+            if countAddresses > 3 {
+                let view = TransactionHistoryShowAllView.loadView() as! TransactionHistoryShowAllView
+                view.buttonShow.addTarget(self, action: #selector(showAllAddresses), for: .touchUpInside)
+                view.buttonShow.setTitle("Show all (\(countAddresses))", for: .normal)
+                view.frame.origin.y = offset
+                view.setupInfo(item)
+                addressContainer.addSubview(view)
+                offset += view.frame.size.height
             }
             addressHeight.constant = offset
         }
         else {
             
-            if state == .selfTranserred {
-                
-            }
-            else if state == .tokenGeneration || state == .tokenReissue || state == .tokenBurning || state == .createdAlias {
-                let view = TransactionHistoryAccountIDView.loadView() as! TransactionHistoryAccountIDView
-                view.setupInfo(item)
-                addressContainer.addSubview(view)
-                addressHeight.constant = view.frame.size.height
-            }
-            else {
-                if item["hasAddedAddress"] as? Bool == true {
-                    let view = TransactionHistoryAddressNameView.loadView() as! TransactionHistoryAddressNameView
-                    view.setupInfo(item)
-                    addressContainer.addSubview(view)
-                    addressHeight.constant = view.frame.size.height
-                }
-                else {
-                    let view = TransactionHistoryAddressView.loadView() as! TransactionHistoryAddressView
-                    view.setupInfo(item)
-                    addressContainer.addSubview(view)
-                    addressHeight.constant = view.frame.size.height
-                }
-            }
+            let view = TransactionHistoryAddressView.loadView() as! TransactionHistoryAddressView
+            view.setupInfo(item, showComment: true)
+            addressContainer.addSubview(view)
+            addressHeight.constant = view.frame.size.height
         }
     }
 }
