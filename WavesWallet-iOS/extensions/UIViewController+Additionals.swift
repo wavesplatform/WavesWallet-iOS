@@ -36,9 +36,6 @@ extension UIViewController {
     
     func setupTopBarLine() {
         
-//        let tableTopOffset : CGFloat = Platform.isIphoneX ? -88 : -64
-//        let showImage = tableContentOffsetY >= tableTopOffset
-
         if let nav = navigationController {
             let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= 44
             if showImage {

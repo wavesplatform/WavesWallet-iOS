@@ -14,6 +14,8 @@ class HistoryAssetCell: UITableViewCell {
     @IBOutlet weak var labelValue: UILabel!
     @IBOutlet weak var imageViewIcon: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var viewSpam: UIView!
+    @IBOutlet weak var viewAssetType: UIView!
     
     
     override func awakeFromNib() {

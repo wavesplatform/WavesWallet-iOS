@@ -23,7 +23,7 @@ target 'WavesWallet-iOS' do
   pod 'UITextView+Placeholder'
   pod 'QRCode'
   pod 'UILabel+Copyable', '~> 1.0.0'
-  pod 'QRCodeReader.swift'
+  pod 'QRCodeReader.swift', '~> 7.5.1'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
   pod 'RDVTabBarController'
@@ -31,16 +31,17 @@ target 'WavesWallet-iOS' do
   pod 'Charts'
   pod 'UPCarouselFlowLayout'
   pod 'SwipeView'
-  
+  pod 'TTTAttributedLabel'
   
   post_install do |installer|
+
+#https://github.com/CocoaPods/CocoaPods/issues/7606
+#      installer.pods_project.build_configurations.each do |config|
+#          config.build_settings.delete('CODE_SIGNING_ALLOWED')
+#          config.build_settings.delete('CODE_SIGNING_REQUIRED')
+#      end
+
       installer.pods_project.targets.each do |target|
-          if target.name == 'QRCodeReader.swift'
-              target.build_configurations.each do |config|
-                  config.build_settings['SWIFT_VERSION'] = '4.1'
-              end
-          end
-          
           if target.name == 'Charts'
               target.build_configurations.each do |config|
                   config.build_settings['SWIFT_VERSION'] = '4.1'
@@ -48,6 +49,7 @@ target 'WavesWallet-iOS' do
           end
       end
   end
+  
   
 end
 

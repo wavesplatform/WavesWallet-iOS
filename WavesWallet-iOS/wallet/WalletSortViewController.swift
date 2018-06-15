@@ -24,6 +24,7 @@ class WalletSortCell: UITableViewCell {
     @IBOutlet weak var iconMenu: UIImageView!
     @IBOutlet weak var switchControl: UISwitch!
     @IBOutlet weak var viewContent: UIView!
+    @IBOutlet weak var labelCryptoName: UILabel!
     
     
     override func awakeFromNib() {
@@ -51,6 +52,7 @@ class WalletSortFavCell: UITableViewCell {
     @IBOutlet weak var iconLock: UIImageView!
     @IBOutlet weak var arrowGreen: UIImageView!
     @IBOutlet weak var switchControl: UISwitch!
+    @IBOutlet weak var labelCryptoName: UILabel!
     
     class func cellHeight() -> CGFloat {
         return 48
@@ -238,9 +240,21 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.buttonFav.tag = indexPath.row
             cell.buttonFav.addTarget(self, action: #selector(removeFromFavourite(_:)), for: .touchUpInside)
             
-            cell.labelTitle.text = favItems[indexPath.row]
+            let cryptoName = favItems[indexPath.row]
+            cell.labelTitle.text = cryptoName
             cell.setupCellState(isVisibility: isVisibilityMode)
 
+            let iconName = DataManager.logoForCryptoCurrency(cryptoName)
+            if iconName.count == 0 {
+                cell.labelCryptoName.text = String(cryptoName.first!).uppercased()
+                cell.imageIcon.image = nil
+                cell.imageIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(cryptoName)
+            }
+            else {
+                cell.labelCryptoName.text = nil
+                cell.imageIcon.image = UIImage(named: iconName)
+            }
+            
             cell.iconLock.isHidden = true            
             if indexPath.row == 0 {
                 cell.switchControl.alpha = 0
@@ -254,9 +268,21 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.buttonFav.tag = indexPath.row
             cell.buttonFav.addTarget(self, action: #selector(addToFavourite(_:)), for: .touchUpInside)
             
-            cell.labelTitle.text = sortItems[indexPath.row]
-
             cell.setupCellState(isVisibility: isVisibilityMode)
+            
+            let cryptoName = sortItems[indexPath.row]
+            cell.labelTitle.text = cryptoName
+            
+            let iconName = DataManager.logoForCryptoCurrency(cryptoName)
+            if iconName.count == 0 {
+                cell.labelCryptoName.text = String(cryptoName.first!).uppercased()
+                cell.imageIcon.image = nil
+                cell.imageIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(cryptoName)
+            }
+            else {
+                cell.labelCryptoName.text = nil
+                cell.imageIcon.image = UIImage(named: iconName)
+            }
             return cell
         }
         

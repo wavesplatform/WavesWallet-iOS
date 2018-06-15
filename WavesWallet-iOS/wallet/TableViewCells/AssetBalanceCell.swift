@@ -23,6 +23,9 @@ class AssetBalanceCell: UITableViewCell {
     
     @IBOutlet weak var labelBalance: UILabel!
     
+    @IBOutlet weak var buttonSend: UIButton!
+    @IBOutlet weak var buttonReceive: UIButton!
+    @IBOutlet weak var buttonExchange: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

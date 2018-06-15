@@ -148,10 +148,16 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
     
     func addresesTapped(_ sender: UIButton) {
         
-        let value = addresses[sender.tag]
+        let index = sender.tag
         
-        textFieldAddress.text = value
-        updateAddressState()
+        if index == 0 {
+            
+        }
+        else {
+            let value = addresses[index]
+            textFieldAddress.text = value
+            updateAddressState()
+        }
     }
     
     override func keyboardWillHide() {

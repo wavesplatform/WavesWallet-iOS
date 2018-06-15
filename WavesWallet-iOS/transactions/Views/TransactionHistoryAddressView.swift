@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol TransactionHistoryAddressViewDelegate: class {
+    
+    func transactionHistoryAddressViewChangeName(_ item: NSDictionary, isAddMode: Bool)
+}
+
 class TransactionHistoryAddressView: UIView {
   
+    var delegate: TransactionHistoryAddressViewDelegate?
+    
     @IBOutlet weak var buttonAddAddress: UIButton!
     @IBOutlet weak var buttonTopOffset: NSLayoutConstraint!
     @IBOutlet weak var viewSeparator: DottedLineView!
@@ -44,7 +51,11 @@ class TransactionHistoryAddressView: UIView {
         return 62
     }
     
-  
+    @IBAction func buttonTapped(_ sender: Any) {
+    
+        delegate?.transactionHistoryAddressViewChangeName(item, isAddMode: !hasAddedAddress)
+    }
+    
     func setupInfo(_ item: NSDictionary, showComment: Bool) {
         
         self.item = item

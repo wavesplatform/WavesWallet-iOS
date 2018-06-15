@@ -9,14 +9,16 @@
 import UIKit
 import QRCode
 
-class MyAddressViewController: UIViewController {
+class MyAddressViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var buttonCopy: UIButton!
     @IBOutlet weak var buttonShare: UIButton!
     @IBOutlet weak var qrCodeImageView: UIImageView!
 
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+    var lastScrollCorrectOffset: CGPoint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,23 @@ class MyAddressViewController: UIViewController {
         let qr = QRCode.init(WalletManager.getAddress())
         qrCodeImageView.image = qr?.image
         labelAddress.text = WalletManager.getAddress()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        lastScrollCorrectOffset = nil
+    }
+  
+    func setupLastScrollCorrectOffset() {
+        lastScrollCorrectOffset = scrollView.contentOffset
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if let offset = lastScrollCorrectOffset, Platform.isIphoneX {
+            scrollView.contentOffset = offset // to fix top bar offset in iPhoneX when tabBarHidden = true
+        }
+        
+        setupTopBarLine()
     }
     
     @IBAction func copyTapped(_ sender: Any) {

@@ -59,10 +59,6 @@ class MainTabBarController: RDVTabBarController {
         let line = UIView(frame: CGRect(x: 0, y: 0, width: Platform.ScreenWidth, height: 0.5))
         line.backgroundColor = UIColor(188, 188, 188)
         tabBar.addSubview(line)
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(checkOpenUrl), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-//        checkOpenUrl()
-//        updateBadges()
     }
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
@@ -78,24 +74,28 @@ class MainTabBarController: RDVTabBarController {
     
     override func tabBar(_ tabBar: RDVTabBar!, shouldSelectItemAt index: Int) -> Bool {
         if index == 2 {
+            
+            let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesPopupViewController")
+            let popup = PopupViewController()
+            popup.contentHeight = 300
+            popup.present(contentViewController: controller)
             return false
         }
         return super.tabBar(tabBar, shouldSelectItemAt: index)
     }
 
-//    func checkOpenUrl() {
-//        if OpenUrlManager.openUrl != nil {
-//            selectedIndex = 2
-//        }
-//    }
-    
     func updateBadges() {
         let profileItem = tabBar.items[4] as! RDVTabBarItem
         profileItem.badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
     }
 
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
-
+    func setupLastScrollCorrectOffset() {
+        let nav = selectedViewController as! UINavigationController
+        for controller in nav.viewControllers {
+            let selector = #selector(WalletViewController.setupLastScrollCorrectOffset)
+            if controller.responds(to: selector) {
+                controller.perform(selector)
+            }
+        }
+    }
 }

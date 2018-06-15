@@ -31,7 +31,7 @@ public class DottedLineView: UIView {
     public override func draw(_ rect: CGRect) {
         
         let path = UIBezierPath()
-        path.lineWidth = 0.7
+        path.lineWidth = 0.5
         configurePath(path: path, rect: rect)
         lineColor.setStroke()
         path.stroke()

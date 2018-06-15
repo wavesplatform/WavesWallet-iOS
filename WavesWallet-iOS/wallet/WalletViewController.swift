@@ -17,6 +17,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     enum SectionAssets: Int {
         case main = 1
         case hidden
+        case spam
     }
     
     enum SectionLeasing: Int {
@@ -33,7 +34,8 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     var selectedSegmentIndex = WalletSelectedIndex.assets
-    
+
+    var isOpenSpamAssets = false
     var isOpenHiddenAssets = false
     var isOpenActiveLeasing = true
     var isOpenQuickNote = false
@@ -43,8 +45,10 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var lastScrollCorrectOffset: CGPoint?
 
-    var assetsMainItems = ["Waves", "Bitcoin", "ETH"]
+    var assetsMainItems = ["Waves", "Bitcoin", "ETH", "Dash", "USD", "EUR", "Lira"]
     var assetsHiddenItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
+    var assetsSpamItems = ["ETH", "Monero"]
+    
     var leasingActiveItems = ["10", "0000.0000", "123.31", "3141.43141", "000.314314", "314.3414", "231", "31414.4314", "0", "00.4314"]
     
     override func viewDidLoad() {
@@ -138,8 +142,12 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func startLeasing() {
+    func setupLastScrollCorrectOffset() {
         lastScrollCorrectOffset = tableView.contentOffset
+    }
+    
+    func startLeasing() {
+        setupLastScrollCorrectOffset()
         let sort = storyboard?.instantiateViewController(withIdentifier: "StartLeasingViewController") as! StartLeasingViewController
         navigationController?.pushViewController(sort, animated: true)
         
@@ -154,7 +162,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func sortTapped() {
 
-        lastScrollCorrectOffset = tableView.contentOffset
+        setupLastScrollCorrectOffset()
         let sort = storyboard?.instantiateViewController(withIdentifier: "WalletSortViewController") as! WalletSortViewController
         navigationController?.pushViewController(sort, animated: true)
     
@@ -166,23 +174,46 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let section = sender.tag
         
         if selectedSegmentIndex == .assets {
-            if assetsHiddenItems.count == 0 {
-                return
-            }
             
-            isOpenHiddenAssets = !isOpenHiddenAssets
-
-            tableView.beginUpdates()
-            tableView.reloadSections([section], animationStyle: .fade)
-            tableView.endUpdates()
-
-            if isOpenHiddenAssets {
-                tableView.scrollToRow(at: IndexPath(row: 0, section:  section), at: .top, animated: true)
+            if section == SectionAssets.hidden.rawValue {
+                if assetsHiddenItems.count == 0 {
+                    return
+                }
+                
+                isOpenHiddenAssets = !isOpenHiddenAssets
+                
+                tableView.beginUpdates()
+                tableView.reloadSections([section], animationStyle: .fade)
+                tableView.endUpdates()
+                
+                if isOpenHiddenAssets {
+                    tableView.scrollToRow(at: IndexPath(row: 0, section:  section), at: .top, animated: true)
+                }
+                
+                if let view = tableView.headerView(forSection: section) as? WalletHeaderView {
+                    view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: true)
+                }
+            }
+            else if section == SectionAssets.spam.rawValue {
+                if assetsSpamItems.count == 0 {
+                    return
+                }
+                
+                isOpenSpamAssets = !isOpenSpamAssets
+                
+                tableView.beginUpdates()
+                tableView.reloadSections([section], animationStyle: .fade)
+                tableView.endUpdates()
+                
+                if isOpenSpamAssets {
+                    tableView.scrollToRow(at: IndexPath(row: 0, section:  section), at: .top, animated: true)
+                }
+                
+                if let view = tableView.headerView(forSection: section) as? WalletHeaderView {
+                    view.setupArrow(isOpenHideenAsset: isOpenSpamAssets, animation: true)
+                }
             }
 
-            if let view = tableView.headerView(forSection: section) as? WalletHeaderView {
-                view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: true)
-            }
         }
         else {
             if section == SectionLeasing.active.rawValue {
@@ -233,13 +264,11 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.beginUpdates()
         if selectedSegmentIndex == .leasing {
             tableView.reloadSections([1], animationStyle: .left)
-            tableView.reloadSections([2], animationStyle: .left)
-            tableView.insertSections([3], animationStyle: .left)
+            tableView.reloadSections([2, 3], animationStyle: .left)
         }
         else {
             tableView.reloadSections([1], animationStyle: .right)
-            tableView.reloadSections([2], animationStyle: .right)
-            tableView.deleteSections([3], animationStyle: .right)
+            tableView.reloadSections([2, 3], animationStyle: .right)
             
         }
         tableView.endUpdates()
@@ -257,7 +286,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         if selectedSegmentIndex == .assets {
             
-            lastScrollCorrectOffset = tableView.contentOffset
+            setupLastScrollCorrectOffset()
             let assetController = storyboard?.instantiateViewController(withIdentifier: "AssetViewController") as! AssetViewController
             navigationController?.pushViewController(assetController, animated: true)
             rdv_tabBarController.setTabBarHidden(true, animated: true)
@@ -266,7 +295,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if indexPath.section == SectionLeasing.balance.rawValue {
                 if indexPath.row == 1 {
                     
-                    lastScrollCorrectOffset = tableView.contentOffset
+                    setupLastScrollCorrectOffset()
                     let history = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
                     history.isLeasingMode = true
                     navigationController?.pushViewController(history, animated: true)
@@ -290,14 +319,17 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if selectedSegmentIndex == .leasing {
             return 4
         }
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        
         if selectedSegmentIndex == .assets {
             if section == SectionAssets.hidden.rawValue {
-                return WalletHeaderView.viewHeight()
+                return assetsHiddenItems.count > 0 ? WalletHeaderView.viewHeight() : 0
+            }
+            else if section == SectionAssets.spam.rawValue {
+                return assetsSpamItems.count > 0 ? WalletHeaderView.viewHeight() : 0
             }
         }
         else {
@@ -314,8 +346,14 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         view.buttonTap.tag = section
         
         if selectedSegmentIndex == .assets {
-            view.labelTitle.text = "Hidden assets (\(assetsHiddenItems.count))"
-            view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: false)
+            if section == SectionAssets.hidden.rawValue {
+                view.labelTitle.text = "Hidden assets (\(assetsHiddenItems.count))"
+                view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: false)
+            }
+            else if section == SectionAssets.spam.rawValue {
+                view.labelTitle.text = "Spam assets (\(assetsSpamItems.count))"
+                view.setupArrow(isOpenHideenAsset: isOpenSpamAssets, animation: false)
+            }
         }
         else {
             if section == SectionLeasing.active.rawValue {
@@ -337,6 +375,9 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if section == SectionAssets.hidden.rawValue {
                 return getHeader(section)
             }
+            else if section == SectionAssets.spam.rawValue {
+                return getHeader(section)
+            }
         }
         
         if section == SectionLeasing.active.rawValue || section == SectionLeasing.quickNote.rawValue {
@@ -355,7 +396,11 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if indexPath.row == assetsMainItems.count - 1 {
                     return WalletTableAssetsCell.cellHeight() + 10
                 }
-                return WalletTableAssetsCell.cellHeight()
+            }
+            else if indexPath.section == SectionAssets.hidden.rawValue {
+                if indexPath.row == assetsHiddenItems.count - 1 {
+                    return WalletTableAssetsCell.cellHeight() + 10
+                }
             }
             return WalletTableAssetsCell.cellHeight()
         }
@@ -396,12 +441,14 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         if selectedSegmentIndex == .assets {
-            
             if section == SectionAssets.main.rawValue {
                 return assetsMainItems.count
             }
             else if section == SectionAssets.hidden.rawValue {
                 return isOpenHiddenAssets ? assetsHiddenItems.count : 0
+            }
+            else if section == SectionAssets.spam.rawValue {
+                return isOpenSpamAssets ? assetsSpamItems.count : 0
             }
         }
         
@@ -458,13 +505,18 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalletTableAssetsCell") as! WalletTableAssetsCell
-        cell.setupCell()
-        
+        cell.viewAssetType.isHidden = false
+        cell.viewSpam.isHidden = true
         if indexPath.section == SectionAssets.main.rawValue {
-            cell.labelTitle.text = assetsMainItems[indexPath.row]
+            cell.setupCell(value: assetsMainItems[indexPath.row])
         }
-        else {
-            cell.labelTitle.text = assetsHiddenItems[indexPath.row]
+        else if indexPath.section == SectionAssets.hidden.rawValue {
+            cell.setupCell(value: assetsHiddenItems[indexPath.row])
+        }
+        else if indexPath.section == SectionAssets.spam.rawValue {
+            cell.viewSpam.isHidden = false
+            cell.viewAssetType.isHidden = true
+            cell.setupCell(value: assetsSpamItems[indexPath.row])
         }
         
         return cell

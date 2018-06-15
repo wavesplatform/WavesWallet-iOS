@@ -40,7 +40,7 @@ class TransactionHistoryViewController: UIViewController, SwipeViewDelegate, Swi
         
         swipeView.currentPage = currentPage
     }
-
+    
     @IBAction func leftTapped(_ sender: Any) {
         swipeView.scroll(toPage: swipeView.currentPage - 1, duration: 0.5)
     }

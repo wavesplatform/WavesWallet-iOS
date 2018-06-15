@@ -13,6 +13,10 @@ import RESideMenu
 
 class StoryboardManager {
     
+    class func WavesStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Waves", bundle: nil)
+    }
+    
     class func TransferStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Transfer", bundle: nil)
     }
@@ -70,10 +74,7 @@ class StoryboardManager {
 
     
     class func didEndLogin() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        appDelegate.window!.rootViewController = MainTabBarController()
-
-
+        
         let menuController = MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
         let sideMenuViewController = RESideMenu(contentViewController: MainTabBarController(), leftMenuViewController: menuController, rightMenuViewController: nil)!
         sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
@@ -82,10 +83,7 @@ class StoryboardManager {
         sideMenuViewController.contentViewShadowRadius = 15
         sideMenuViewController.contentViewShadowEnabled = true
         sideMenuViewController.panGestureEnabled = false
-        
-
-        appDelegate.window?.rootViewController = sideMenuViewController;
-        
+        AppDelegate.shared().window?.rootViewController = sideMenuViewController
     }
     
     class func didLogout() {

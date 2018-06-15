@@ -33,4 +33,19 @@ extension UIView {
         anim.duration = 0.07
         layer.add(anim, forKey: nil)
     }
+    
+
+    func firstAvailableViewController() -> UIViewController {
+        
+        if let nextResponder = next {
+            if let controller = nextResponder as? UIViewController {
+                return controller
+            }
+            else if let view = nextResponder as? UIView {
+                return view.firstAvailableViewController()
+            }
+        }
+        return UIViewController()
+    }
+
 }

@@ -12,6 +12,7 @@ import UPCarouselFlowLayout
 
 class AssetCollectionHeaderCell: UICollectionViewCell {
     
+    @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var imageViewIcon: UIImageView!
     @IBOutlet weak var imageArrow: UIImageView!
 }
@@ -28,6 +29,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var viewSeparator: UIView!
     @IBOutlet weak var viewTop: UIView!
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var viewSpam: UIView!
     
     var currentPage: Int = 0
     
@@ -75,6 +77,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
         labelTitle.text = headerItems[currentPage]
         labelToken.text = headerItems[currentPage] + " token"
+        viewSpam.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +85,20 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
+    }
+    
+    func sendTapped() {
+        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
+        controller.hideTabBarOnBack = true
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func receiveTapped() {
+        
+    }
+    
+    func exchangeTapped() {
+        
     }
     
     func beginRefresh() {
@@ -164,6 +181,15 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         labelTitle.text = headerItems[currentPage]
         labelToken.text = headerItems[currentPage] + " token"
+        
+        if currentPage == 2 {
+            viewSpam.isHidden = false
+            labelToken.isHidden = true
+        }
+        else {
+            viewSpam.isHidden = true
+            labelToken.isHidden = false
+        }
     }
     
     //MARK: - UICollectionView
@@ -189,6 +215,19 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssetCollectionHeaderCell", for: indexPath) as! AssetCollectionHeaderCell
+        
+        let value = headerItems[indexPath.row]
+        
+        let iconName = DataManager.logoForCryptoCurrency(value)
+        if iconName.count == 0 {
+            cell.imageViewIcon.image = nil
+            cell.imageViewIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(value)
+            cell.labelTitle.text = String(value.uppercased().first!)
+        }
+        else {
+            cell.labelTitle.text = nil
+            cell.imageViewIcon.image = UIImage(named: iconName)
+        }
         return cell
     }
 
@@ -283,6 +322,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let alpha = 1 - (abs(topViewOffset.constant) / maxScrollOffset)
             collectionView.alpha = alpha < 0 ? 0 : alpha
             labelToken.alpha = alpha < 0 ? 0 : alpha
+            viewSpam.alpha = alpha < 0 ? 0 : alpha
         }
     }
     
@@ -366,6 +406,9 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if indexPath.section == Section.balance.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AssetBalanceCell") as! AssetBalanceCell
+            cell.buttonSend.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
+            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
+            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
             cell.setupCell(isLeased: true, inOrder: true)
             return cell
         }

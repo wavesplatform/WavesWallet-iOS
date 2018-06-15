@@ -210,6 +210,10 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         if timer == nil {
             loadInfo()
         }
+                
+        if rdv_tabBarController.isTabBarHidden {
+            rdv_tabBarController.setTabBarHidden(false, animated: true)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

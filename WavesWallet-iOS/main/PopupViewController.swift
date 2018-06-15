@@ -16,7 +16,14 @@ class PopupViewController: UIViewController {
     let bgAlpha : CGFloat = 0.4
     var dragImage : UIImageView!
     var isDragMode = false
-  
+    var contentHeight: CGFloat = 0 {
+        didSet {
+            if Platform.isIphoneX {
+                contentHeight += 30
+            }
+            topContainerOffset = UIScreen.main.bounds.size.height - contentHeight
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +60,6 @@ class PopupViewController: UIViewController {
         let gesturePan = UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:)))
         view.addGestureRecognizer(gesturePan)
     }
-
     
     func dismissPopup() {
         
@@ -69,6 +75,19 @@ class PopupViewController: UIViewController {
         }
     }
 
+    func showView() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = 0
+            self.bgView?.alpha = self.bgAlpha
+        }
+    }
+    
+    func hideView() {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = self.view.frame.size.height
+            self.bgView?.alpha = 0
+        }
+    }
     
     func getTopController() -> UIViewController {
         return AppDelegate.shared().window!.rootViewController!

@@ -8,13 +8,18 @@
 
 import UIKit
 
+
 class TransactionHistoryMassSendView: UIView {
 
+    var delegate: TransactionHistoryAddressViewDelegate?
+    
     @IBOutlet weak var buttonAdd: UIButton!
     @IBOutlet weak var viewSeparator: DottedLineView!
     @IBOutlet weak var labelTitle: UILabel!
     
     var hasAddedAddress = false
+    
+    var item: NSDictionary!
     
     var commentOffset: CGFloat {
         return 56
@@ -25,8 +30,15 @@ class TransactionHistoryMassSendView: UIView {
         frame.size.width = Platform.ScreenWidth
     }
     
+    @IBAction func buttonTapped(_ sender: Any) {
+    
+        delegate?.transactionHistoryAddressViewChangeName(item, isAddMode: !hasAddedAddress)
+    }
+    
     func setupInfo(_ item: NSDictionary, showComment: Bool) {
     
+        self.item = item
+        
         hasAddedAddress = item["hasAddedAddress"] as? Bool ?? false
         
         if hasAddedAddress {

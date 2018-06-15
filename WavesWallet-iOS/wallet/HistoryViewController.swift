@@ -40,6 +40,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
   
     var isLeasingMode = false
     
+    var lastScrollCorrectOffset: CGPoint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -93,6 +95,20 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if navigationController?.isNavigationBarHidden == true {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        lastScrollCorrectOffset = nil
+    }
+    
+    func setupLastScrollCorrectOffset() {
+        lastScrollCorrectOffset = tableView.contentOffset
+    }
+   
     func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         
         if tableView.contentOffset.y > -20 {
@@ -342,6 +358,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let offset = lastScrollCorrectOffset, Platform.isIphoneX {
+            scrollView.contentOffset = offset // to fix top bar offset in iPhoneX when tabBarHidden = true
+        }
+        
         setupTopBarLine()
     }
     
@@ -441,7 +461,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryAssetCell") as! HistoryAssetCell
+        cell.viewAssetType.isHidden = false
+        cell.viewSpam.isHidden = true
         
+        if indexPath.row % 4 == 0 {
+            cell.viewAssetType.isHidden = true
+            cell.viewSpam.isHidden = false
+        }
         let item = itemForSection(indexPath.section)
         let items = item["items"] as! [Any]
         let dict: NSDictionary = items[indexPath.row] as! NSDictionary

@@ -21,7 +21,7 @@ class TransactionCommentView: UIView {
     
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(roundedRect: rect, cornerRadius: 5.0)
-        path.lineWidth = 1
+        path.lineWidth = 0.5
         let dashes: [CGFloat] = [4, 3]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
         path.lineCapStyle = CGLineCap.butt
