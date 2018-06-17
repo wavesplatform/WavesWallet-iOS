@@ -35,6 +35,9 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
     }
 
     func setupScrollAmount() {
+        
+        guard scrollViewAmount != nil else { return }
+        
         let offset : CGFloat = 8
         var scrollWidth: CGFloat = 0
         
@@ -75,6 +78,8 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         }
         else {
             textFieldAmount.attributedText = nil
+            
+            guard heightScrollAmount != nil else { return }
             
             if heightScrollAmount.constant == 0 {
                 heightScrollAmount.constant = 30
@@ -149,8 +154,16 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        if string == "" {
+            return true
+        }
+        
         if (textField.text! as NSString).range(of: ".").location == NSNotFound {
-            if textField.text?.last == "0" && string == "0" {
+            if textField.text?.last == "0" && string == "0" && textField.text?.count == 1 {
+                viewAmount.shakeView()
+                return false
+            }
+            else if textField.text?.last == "0" && string != "." && textField.text?.count == 1 {
                 viewAmount.shakeView()
                 return false
             }

@@ -54,4 +54,8 @@ struct Platform {
     static let isIphone5 : Bool = {
         return UIScreen.main.bounds.size.width == 320 && UIScreen.main.bounds.size.height == 568 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }()
+    
+    static let isIphonePlus : Bool = {
+        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 736 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+    }()
 }

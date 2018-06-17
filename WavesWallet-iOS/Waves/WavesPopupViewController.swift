@@ -32,6 +32,16 @@ class WavesPopupViewController: UIViewController {
     
     @IBAction func receiveTapped(_ sender: Any) {
         
+        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesReceiveViewController") as! WavesReceiveViewController
+        
+        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let mainTabBar = menu.contentViewController as! MainTabBarController
+        mainTabBar.setupLastScrollCorrectOffset()
+        let nav = mainTabBar.selectedViewController as! UINavigationController
+        nav.pushViewController(controller, animated: true)
+        mainTabBar.setTabBarHidden(true, animated: true)
+        
+        dismissTapped(sender)
     }
     
     

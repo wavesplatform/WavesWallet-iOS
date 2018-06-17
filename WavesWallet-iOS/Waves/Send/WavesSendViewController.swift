@@ -159,9 +159,8 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
     }
     
     func clearRecipientText() {
-        
-        labelAddressInvaliedError.isHidden = true
-        isValidAddress = true
+
+        setupValidAddressState()
         
         textFieldReceipt.text = nil
         heightScrollViewReceipt.constant = 30
@@ -195,8 +194,6 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         
         clearRecipientText()
     }
-    
-    
     
     override func amountTapped(_ sender: UIButton) {
         super.amountTapped(sender)
@@ -413,6 +410,12 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         labelAddressInvaliedError.isHidden = false
     }
     
+    func setupValidAddressState() {
+        isValidAddress = true
+        labelAddressInvaliedError.isHidden = true
+    }
+    
+    
     func chooseAssetViewControllerDidSelectAsset(_ asset: String) {
         selectedAsset = asset
         setupAssetState()
@@ -421,7 +424,7 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         viewFiatInfo.alpha = 0
         isUseFiatAsset = false
         isUseFiatBank = false
-        
+
         if selectedAsset.lowercased() == "usd" || selectedAsset.lowercased() == "eur" {
             isUseFiatAsset = true
             setupDefaultPriority()
@@ -435,6 +438,9 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
             
             if selectedAsset.lowercased() == "eth" {
                 setupInvalidAddressState()
+            }
+            else {
+                setupValidAddressState()
             }
             
             textFieldReceipt.text = "&some \(asset) address&"

@@ -94,7 +94,10 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func receiveTapped() {
-        
+        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesReceiveViewController") as! WavesReceiveViewController
+        controller.hideTabBarOnBack = true
+        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     func exchangeTapped() {

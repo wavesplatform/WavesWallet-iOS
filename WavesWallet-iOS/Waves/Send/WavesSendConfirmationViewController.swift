@@ -28,6 +28,9 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
     
     let maxDescriptionLength = 50
     
+    @IBOutlet weak var imageBg: UIImageView!
+    @IBOutlet weak var imageBgTop: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
@@ -44,6 +47,19 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
         viewAnimation.alpha = 0
         viewFinish.alpha = 0
         labelDescriptionError.isHidden = true
+        
+        if Platform.isIphone5 {
+            imageBg.image = UIImage(named: "bg-iphone5")
+            imageBgTop.image = UIImage(named: "bg-iphone5-top")
+        }
+        else if Platform.isIphoneX {
+            imageBg.image = UIImage(named: "bg-iphonex")
+            imageBgTop.image = UIImage(named: "bg-iphonex-top")
+        }
+        else if Platform.isIphonePlus {
+            imageBg.image = UIImage(named: "bg-iphone8plus")
+            imageBgTop.image = UIImage(named: "bg-iphone8plus-top")
+        }
     }
     
     func setupButtonConfirm() {
