@@ -13,6 +13,7 @@
 		E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E6720981F0300AA311B /* AssetViewController.swift */; };
 		E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E692098200500AA311B /* AssetBalanceCell.swift */; };
 		E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E25F92093506600CDCE56 /* MyAddressViewController.swift */; };
+		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F4EE420D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift */; };
 		E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F4EE620D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift */; };
 		E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929B46A1F36EC4500A335F7 /* LastTraderHeaderView.swift */; };
@@ -181,6 +182,7 @@
 		E90C6E6720981F0300AA311B /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		E90C6E692098200500AA311B /* AssetBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceCell.swift; sourceTree = "<group>"; };
 		E90E25F92093506600CDCE56 /* MyAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewController.swift; sourceTree = "<group>"; };
+		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E91F4EE420D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveLoadingViewController.swift; sourceTree = "<group>"; };
 		E91F4EE620D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveRedirectViewController.swift; sourceTree = "<group>"; };
 		E929B46A1F36EC4500A335F7 /* LastTraderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTraderHeaderView.swift; sourceTree = "<group>"; };
@@ -391,6 +393,14 @@
 				3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E9193B8120D7E26500F5D983 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		E929B4691F36EC1B00A335F7 /* Dex */ = {
@@ -741,6 +751,7 @@
 				F7F97E861EAA0CF800BE2F6F /* customviews */,
 				F7F97E881EAA0CF800BE2F6F /* extensions */,
 				F755C0FD1EAA8319008A938F /* util */,
+				E9193B8120D7E26500F5D983 /* Profile */,
 				F7E954E71EA8FE0700A804DE /* AppDelegate.swift */,
 				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
 				F7E954F21EA8FE0700A804DE /* LaunchScreen.storyboard */,
@@ -874,6 +885,7 @@
 				E9628845209F792F00DE3B5A /* AssetLastTransactionView.xib in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E93CEDEC20A1A8AE00756CA8 /* AssetChartHeaderView.xib in Resources */,
+				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */,
 				E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,

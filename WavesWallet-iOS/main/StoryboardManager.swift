@@ -33,6 +33,10 @@ class StoryboardManager {
         return UIStoryboard(name: "Transactions", bundle: nil)
     }
     
+    class func ProfileStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Profile", bundle: nil)
+    }
+    
     class func launchViewController() -> UIViewController {
         return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
     }
