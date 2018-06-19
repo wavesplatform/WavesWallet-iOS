@@ -48,6 +48,8 @@ class NodeManager {
                 return TransferTransaction(json: jTx)
             case 7:
                 return ExchangeTransaction(json: jTx)
+            case 11:
+                return MasspayTransaction(json: jTx)
             default:
                 return Transaction(json: jTx)
             }
@@ -153,6 +155,24 @@ class NodeManager {
                     return Observable.error(ApiError.IncorrectResponseFormat)
                 }
         }
+    }
+    
+    class func csv(data: String) -> [[String]] {
+        var result: [[String]] = []
+        let rows = data.components(separatedBy: "\n")
+        for row in rows {
+            let columns = row.components(separatedBy: ",")
+            result.append(columns)
+        }
+        return result
+    }
+    
+    class func loadSpamAssets() -> Observable<Set<String>> {
+        let u = Environments.current.spamUrl
+        return RxAlamofire.requestString(.get, u)
+            .map({ (resp, str) -> Set<String> in
+                return Set(csv(data: str).map{$0[0].removeCharacters(from: " ")}.filter{!$0.isEmpty})
+            })
     }
     
     class func broadcastTransfer(transferRequest: TransferRequest) -> Observable<TransferTransaction> {

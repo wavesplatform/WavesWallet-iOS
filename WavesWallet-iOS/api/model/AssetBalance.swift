@@ -18,6 +18,7 @@ class AssetBalance
     dynamic var issueTransaction: IssueTransaction?
     dynamic var isGeneral = false
     dynamic var isHidden = false
+    dynamic var isSpam = false
     
     var identity: String {
         return assetId

@@ -40,9 +40,9 @@ class AccountsViewController: UIViewController {
     var realm: Realm!
     
     let dataSource = RxTableViewSectionedReloadDataSource<AccountSection>()
-    let sectionTitles = ["", "My Assets", "Other"]
+    let sectionTitles = ["", "My Assets", "Other", "Spam"]
     var objectsBySection = [Results<AssetBalance>]()
-    var hiddenExpanded = [false, false, false]
+    var hiddenExpanded = [false, false, false, false]
     var hiddenAssetIds = [String]()
     
     override func viewDidLoad() {
@@ -118,7 +118,13 @@ class AccountsViewController: UIViewController {
         
         objectsBySection.append(
             realm.objects(AssetBalance.self)
-                .filter("isGeneral == false && issueTransaction.sender != %@", WalletManager.getAddress())
+                .filter("isGeneral == false && isSpam == false && issueTransaction.sender != %@", WalletManager.getAddress())
+                .sorted(byKeyPath: "isHidden", ascending: true)
+        )
+        
+        objectsBySection.append(
+            realm.objects(AssetBalance.self)
+                .filter("isSpam == true && issueTransaction.sender != %@", WalletManager.getAddress())
                 .sorted(byKeyPath: "isHidden", ascending: true)
         )
         

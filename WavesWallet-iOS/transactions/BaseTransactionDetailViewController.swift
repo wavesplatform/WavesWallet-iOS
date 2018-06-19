@@ -61,6 +61,8 @@ class BaseTransactionDetailViewController: UITableViewController, HalfModalPrese
             transactionTypeLabel.text = "Lease"
         case 9 :
             transactionTypeLabel.text = "Cancel Lease"
+        case 11 :
+            transactionTypeLabel.text = "Mass Transfer"
         default:
             transactionTypeLabel.text = "Transaction"
         }

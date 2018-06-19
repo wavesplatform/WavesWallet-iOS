@@ -29,8 +29,8 @@ class DataManager: NSObject {
         return verifiedAssets != nil && verifiedAssets[asset] != nil
     }
     
-    func getTicker(asset: Any?) -> String? {
-        if verifiedAssets != nil, let key = asset, let tck = verifiedAssets[key] {
+    func getTicker(_ asset: Any?) -> String? {
+        if verifiedAssets != nil, let key = asset, let tck = verifiedAssets[safe: key] {
             return tck as? String
         } else {
             return nil

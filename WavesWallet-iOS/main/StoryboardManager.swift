@@ -24,6 +24,8 @@ class StoryboardManager {
            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "TransferTransactionViewController")
         case 7:
             return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "ExchangeTransactionViewController")
+        case 11:
+            return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "MasspayTransactionViewController")
         default:
             return UIStoryboard(name: "Transactions", bundle: nil).instantiateViewController(withIdentifier: "GenericTransactionViewController")
         }

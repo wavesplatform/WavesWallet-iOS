@@ -32,14 +32,13 @@ class TransactionsViewController: UIViewController {
     
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     private var transactions: Results<BasicTransaction>?
-    var realm: Realm!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     func getStartOfDay(ts: Int64) -> Int64 {
-        let s = Calendar.current.startOfDay(for: Date(milliseconds: Int(ts)))
+        let s = Calendar.current.startOfDay(for: Date(milliseconds: ts))
         return Int64(s.millisecondsSince1970)
     }
     
@@ -69,8 +68,6 @@ class TransactionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        realm = try! Realm()
         
         setupNavigationBar()
         setupTableView()
@@ -135,11 +132,14 @@ class TransactionsViewController: UIViewController {
     let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int64, BasicTransaction>>()
     
     func findFullTransaction(basicTx: BasicTransaction) -> Transaction? {
+        let realm = try! Realm()
         switch basicTx.type {
         case 4:
             return realm.object(ofType: TransferTransaction.self, forPrimaryKey: basicTx.id)
         case 7:
             return realm.object(ofType: ExchangeTransaction.self, forPrimaryKey: basicTx.id)
+        case 11:
+            return realm.object(ofType: MasspayTransaction.self, forPrimaryKey: basicTx.id)
         default:
             return realm.object(ofType: Transaction.self, forPrimaryKey: basicTx.id)
         }
@@ -219,22 +219,28 @@ class TransactionsViewController: UIViewController {
     }
     
     func setupTableBinding() {
-        selectedAsset.asObservable().subscribe(onNext: { self.bindTableView(asset: $0) })
+        Observable.combineLatest(selectedAsset.asObservable(), WalletManager.getSpamAssets())
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {(asset, spam) in self.bindTableView(asset: asset, spam: spam) })
             .addDisposableTo(disposeBag)
     }
 
     fileprivate var resultsBag = DisposeBag()
     
-    func bindTableView(asset: AssetBalance?) {
+    func bindTableView(asset: AssetBalance?, spam: Array<String>) {
         resultsBag = DisposeBag()
         
         let realm = try! Realm()
         transactions = realm.objects(BasicTransaction.self).sorted(byKeyPath: "timestamp", ascending: false)
         if let ab = asset {
             transactions = transactions?.filter("assetId == %@", ab.assetId)
+        } else if !spam.isEmpty {
+            let predicate = NSPredicate(format: "not assetId in %@", spam)
+            transactions = transactions?.filter(predicate)
         }
         
         if let transactions = transactions {
+            
             let o = Observable.collection(from: transactions)
                 .map({txs in
                     return self.groupedByDay(txs: txs)

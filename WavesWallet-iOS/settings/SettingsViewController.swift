@@ -15,6 +15,7 @@ class SettingsViewController: UITableViewController {
 
     @IBOutlet weak var myAddressLabel: UILabel!
     @IBOutlet weak var backupAttentionLabel: UILabel!
+    @IBOutlet weak var spamSwitch: UISwitch!
     
     let bag = DisposeBag()
     
@@ -24,6 +25,23 @@ class SettingsViewController: UITableViewController {
         myAddressLabel.text = WalletManager.getAddress()
         myAddressLabel.copyingEnabled = true
         backupAttentionLabel.isHidden = WalletManager.currentWallet?.isBackedUp ?? false
+        
+        WalletManager.currentWalletItem?
+            .map { $0.isSwitchOffSpam }
+            .bind(to: spamSwitch.rx.isOn)
+            .disposed(by: bag)
+        
+        spamSwitch.rx.isOn
+            .subscribe(onNext: { enabled in
+                let realm = WalletManager.getWalletsRealm()
+                try! realm.write {
+                    let pub = WalletManager.currentWallet!.publicKeyStr
+                    WalletManager.currentWallet?.isSwitchOffSpam.value = enabled
+                    realm.create(WalletItem.self, value: ["publicKey": pub, "isSwitchOffSpam": enabled], update: true)
+                }
+                
+            })
+            .disposed(by: bag)
     }
 
     override func viewWillAppear(_ animated: Bool) {

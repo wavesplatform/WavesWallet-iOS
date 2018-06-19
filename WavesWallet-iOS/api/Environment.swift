@@ -28,6 +28,7 @@ struct Environment {
     let nodeUrl: URL
     let scheme: String
     let generalAssetIds: [AssetInfo]
+    let spamUrl: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/WavesGUI/client-907-fix-portfolio/scam.csv")!
     
     init(_ name: String, _ nodeUrl: String, _ scheme: String, _ generalAssetIds: [AssetInfo]) {
         self.name = name
@@ -53,10 +54,15 @@ class Environments {
     static let Mainnet = Environment("Mainnet", "https://nodes.wavesnodes.com", "W",
         [AssetInfo("", "WAVES", 10000000000000000, 8),
          AssetInfo("8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 2100000000000000, 8),
+         AssetInfo("474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 10000000000000000, 8),
          AssetInfo("Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 100000000000, 2),
          AssetInfo("Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU", "EUR", 100000000000, 2),
-         AssetInfo("DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J", "WCT", 1000000000, 2),
-         AssetInfo("4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC", "MRT", 1000000000, 2)
+         AssetInfo("HZk1mbfuJpmxU1Fs4AX5MWLVYtctsNcg6e2C6VKqK8zk", "LTC", 8400000000000000, 8),
+         AssetInfo("BrjUWjndUanm5VsJkbUip8VRYy6LWJePtxya3FNv4TQa", "ZEC", 2100000000000000, 8),
+         AssetInfo("zMFqXuoyrn5w17PFurTqxB7GsS71fp9dfk6XFwxbPCy", "BCH", 2100000000000000, 8),
+         AssetInfo("2mX5DzVKWrAJw8iwdJnV2qtoeVG9h5nTDpTqC1wb1WEN", "TRY", 100000000, 2),
+         AssetInfo("B3uGHFRpSUuGEDWjqB9LWWxafQj8VTvpMucEyoxzws5H", "DASH", 1890000000000000, 8),
+         AssetInfo("5WvPKSJXzVE2orvbkJ8wsQmmQKqTv9sGBPksV4adViw3", "XMR", 1603984700000000, 8)
         ])
     
     private static var _current: Environment?

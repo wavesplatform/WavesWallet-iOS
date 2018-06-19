@@ -11,6 +11,7 @@ class WalletItem: Object {
     dynamic var name = ""
     dynamic var isLoggedIn = false
     dynamic var isBackedUp = false
+    dynamic var isSwitchOffSpam = false
     
     public var identity: String {
         return "\(publicKey)"
@@ -28,7 +29,7 @@ class WalletItem: Object {
     }
     
     var toWallet: Wallet {
-        return Wallet(name: name, publicKeyAccount: publicKeyAccount, isBackedUp: isBackedUp)
+        return Wallet(name: name, publicKeyAccount: publicKeyAccount, isBackedUp: isBackedUp, isSwitchOffSpam: isSwitchOffSpam)
     }
 }
 
@@ -58,6 +59,7 @@ struct Wallet {
     var matcherKeyAccount: PublicKeyAccount?
     var privateKey: PrivateKeyAccount?
     var isBackedUp = false
+    var isSwitchOffSpam: Variable<Bool> = Variable(false)
     
     var address: String {
         return publicKeyAccount.address
@@ -73,10 +75,12 @@ struct Wallet {
     
     init(name: String,
          publicKeyAccount: PublicKeyAccount,
-         isBackedUp: Bool) {
+         isBackedUp: Bool,
+         isSwitchOffSpam: Bool) {
         self.name = name
         self.publicKeyAccount = publicKeyAccount
         self.isBackedUp = isBackedUp
+        self.isSwitchOffSpam.value = isSwitchOffSpam
     }
 }
 
@@ -88,14 +92,34 @@ public enum WalletError : Error {
     case Generic(String)
 }
 
+extension WalletError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+            case .Generic(let msg): return msg
+        }
+    }
+}
+
 class WalletManager {
     
     static var bag = DisposeBag()
     
     static var currentWallet: Wallet?
     
+    static var currentWalletItem: Observable<WalletItem>?
+    
     class func getWalletRealmConfig(waletItem: WalletItem) -> Realm.Configuration {
-        var config = Realm.Configuration()
+        var config = Realm.Configuration(
+            schemaVersion: 1,
+        
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(waletItem.address).realm")
         return config
@@ -108,7 +132,8 @@ class WalletManager {
         let wallets = realm.objects(WalletItem.self)
         try! realm.write {
             wallets.setValue(false, forKeyPath: "isLoggedIn")
-            realm.create(WalletItem.self, value: ["publicKey": toWallet.publicKey, "isLoggedIn": true], update: true)
+            let wi = realm.create(WalletItem.self, value: ["publicKey": toWallet.publicKey, "isLoggedIn": true], update: true)
+            currentWalletItem =  Observable.from(object: wi)
         }
 
         currentWallet = toWallet.toWallet
@@ -146,12 +171,13 @@ class WalletManager {
 
     class func autoUpdateFromNode() {
         _ = Observable<Int>
-            .timer(30, period: 30, scheduler: MainScheduler.instance)
+            .timer(30, period: 20, scheduler: MainScheduler.instance)
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .subscribe(onNext: {_ in
-                print(Date())
-                updateBalances(onComplete: nil)
-                updateTransactions(onComplete: nil)
+                autoreleasepool {
+                    updateBalances(onComplete: nil)
+                    updateTransactions(onComplete: nil)
+                }
             })
             .addDisposableTo(bag)
     }
@@ -161,20 +187,29 @@ class WalletManager {
                 .merge().toArray()
                 .map { Array($0.joined()) }
       
-        load
+        Observable.combineLatest(load, NodeManager.loadSpamAssets())
             .catchError { err in
                 print(err)
                 return Observable.empty()
             }
-            .subscribe(onNext: {abs in
+            .subscribe(onNext: {(abs, spam) in
                 let realm = try! Realm()
                 try! realm.write {
-                    let oldHiddenIds = Array(realm.objects(AssetBalance.self).filter("isHidden = true").map{ $0.assetId })
+                    let oldSpamUnhidden = Set(realm.objects(AssetBalance.self).filter("isHidden = false && isSpam = true").map{ $0.assetId })
+                    let isSpamOff = WalletManager.currentWallet?.isSwitchOffSpam.value ?? false
+                    abs.forEach{
+                        $0.isSpam = !isSpamOff && spam.contains($0.assetId)
+                        $0.isHidden = $0.isSpam && !oldSpamUnhidden.contains($0.assetId) && !isSpamOff
+                    }
+                
+                    let oldHiddenIds = Array(realm.objects(AssetBalance.self).filter("isHidden = true && isSpam = false").map{ $0.assetId })
                     realm.add(abs, update: true)
+                    
                     
                     let generalAssetsIds = Environments.current.generalAssetIds.map{ $0.assetId }
                     realm.objects(AssetBalance.self).filter("assetId in %@", generalAssetsIds)
                         .setValue(true, forKeyPath: "isGeneral")
+                    
                     
                     realm.objects(AssetBalance.self).filter("assetId in %@", oldHiddenIds)
                         .setValue(true, forKeyPath: "isHidden")
@@ -197,6 +232,7 @@ class WalletManager {
             wallets.setValue(false, forKeyPath: "isLoggedIn")
         }
         currentWallet = nil
+        currentWalletItem = nil
         bag = DisposeBag()
         StoryboardManager.didLogout()
     }
@@ -223,7 +259,17 @@ class WalletManager {
     }
     
     class func getWalletsConfig() -> Realm.Configuration {
-        var config = Realm.Configuration()
+        var config = Realm.Configuration(
+            schemaVersion: 1,
+            
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("wallets_\(Environments.current.scheme).realm")
         return config
@@ -268,17 +314,20 @@ class WalletManager {
                 } else {
                     return Observable.error(WalletError.Generic("Private key is not found in Realm"))
                 }
+            }  else {
+                return Observable.error(WalletError.Generic("Incorrect password. Try again."))
             }
-            
-            return Observable.error(WalletError.Generic("Cannot decrypt storage with seed"))
         }
     }
     
     class func restorePrivateKey() -> Observable<PrivateKeyAccount> {
         return restorePrivateKeyFromKeychain()
             .catchError { err in
-                print(err)
-                return restorePrivateKeyFromRealm()
+                if isSeedRealmExist() {
+                    return restorePrivateKeyFromRealm()
+                } else {
+                    return Observable<PrivateKeyAccount>.error(err)
+                }
             }.observeOn(MainScheduler.instance)
     }
     
@@ -303,14 +352,15 @@ class WalletManager {
             complete(key)
         }
         else {
-            
-            WalletManager.restorePrivateKey().subscribe(onNext: { (key) in
-                WalletManager.currentWallet?.privateKey = key
-                complete(key)
-            }, onError: { (error) in
-                fail("Private key is not found")
-
-            }, onCompleted: nil, onDisposed: nil)
+            WalletManager.restorePrivateKey()
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { pk in
+                    WalletManager.currentWallet?.privateKey = pk
+                    complete(pk)
+                }, onError: { err in
+                    fail(err.localizedDescription)
+                })
+                .addDisposableTo(bag)
         }
     }
     
@@ -453,6 +503,12 @@ class WalletManager {
         try! realm.write {
             realm.delete(walletItem)
         }
+    }
+    
+    class func getSpamAssets() -> Observable<Array<String>> {
+        let realm = try! Realm()
+        let spams = realm.objects(AssetBalance.self).filter("isSpam = true")
+        return Observable.collection(from: spams).map{$0.map{$0.assetId}}.observeOn(MainScheduler.instance).distinctUntilChanged()
     }
     
 }

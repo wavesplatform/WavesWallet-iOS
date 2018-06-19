@@ -82,3 +82,9 @@ extension ObservableConvertibleType {
         return activityIndicator.trackActivityOfObservable(self)
     }
 }
+
+extension Thread {
+    class func printCurrent(_ prefix: String) {
+        print("\(prefix): \(Thread.current)" + "🏭: \(OperationQueue.current?.underlyingQueue?.label ?? "None")\n")
+    }
+}

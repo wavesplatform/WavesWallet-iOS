@@ -295,3 +295,71 @@ public class ExchangeTransaction: Transaction {
         return sellerAddress == WalletManager.getAddress() || buyerAddress == WalletManager.getAddress()
     }
 }
+
+struct Transfer: Decodable {
+    
+    let recipient: String
+    let amount: Int64
+    
+    init?(json: JSON) {
+        guard let recipient: String = "recipient" <~~ json,
+            let amount: Int64  = "amount" <~~ json
+            else { return nil }
+        
+        self.recipient = recipient
+        self.amount = amount
+    }
+}
+
+public class MasspayTransaction: Transaction {
+    dynamic var assetId: String?
+    dynamic var attachment: String?
+    dynamic var transferCount: Int = 0
+    dynamic var totalAmount: Int64 = 0
+    dynamic var amount: Int64 = 0
+    dynamic var recipient: String = ""
+    
+    public required init?(json: JSON) {
+        let transfers1: Array<Transfer> = ("transfers" <~~ json)!
+        guard let transferCount: Int = "transferCount" <~~ json,
+            let totalAmount: Int64 = "totalAmount" <~~ json,
+            let transfers: Array<Transfer> = "transfers" <~~ json else {
+                return nil
+        }
+        
+        self.recipient = WalletManager.getAddress()
+        self.amount = transfers.filter{ $0.recipient == WalletManager.getAddress() }.reduce(0) { $0 + $1.amount }
+        self.recipient = WalletManager.getAddress()
+        self.transferCount = transferCount
+        self.totalAmount = totalAmount
+        self.assetId = "assetId" <~~ json
+        self.attachment = "attachment" <~~ json
+        
+        super.init(json: json)
+    }
+    
+    required public init() {
+        super.init()
+    }
+    
+    /**
+     WARNING: This is an internal initializer not intended for public use.
+     :nodoc:
+     */
+    public required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    public required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
+    public override func getAssetId() -> String {
+        return assetId ?? ""
+    }
+    
+    public override func getAmount() -> Int64 {
+        return amount
+    }
+    
+}

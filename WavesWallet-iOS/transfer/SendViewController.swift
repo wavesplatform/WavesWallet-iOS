@@ -259,6 +259,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
     
     func setupSubmit() {
         submitButton.rx.tap.asObservable()
+            .throttle(0.5, scheduler: MainScheduler.instance)
             .do(onNext: { self.submitButton.isEnabled = false })
             .subscribe(onNext: { _ in
                 self.onSubmit()
@@ -277,12 +278,14 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         addressField.text = Address.isValidAddress(address: address) ? address : ""
         addressField.sendActions(for: .editingChanged)
         let ab = selectAccountController.selectAccount(assetId: assetId ?? "")
-        if let amount = amount, let ab = ab, let a = Int64(amount) {
-             amountField.text = MoneyUtil.getScaledTextTrimZeros(a, decimals: ab.getDecimals())
-        } else {
-            amountField.text = ""
+        DispatchQueue.main.async {
+            if let amount = amount, let ab = ab, let a = Int64(amount) {
+                self.amountField.text = MoneyUtil.getScaledTextTrimZeros(a, decimals: ab.getDecimals())
+            } else {
+                self.amountField.text = ""
+            }
+            self.amountField.sendActions(for: .editingDidEnd)
         }
-        amountField.sendActions(for: .editingChanged)
          
         attachmentField.text = attachment
         setupFeeField()
