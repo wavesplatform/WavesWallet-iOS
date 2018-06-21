@@ -631,13 +631,13 @@
                                                 <rect key="frame" x="0.0" y="101" width="375" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FDp-xg-Uwm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="416" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="421" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlv-xR-S7N" userLabel="bgView">
-                                                                <rect key="frame" x="16" y="10" width="133" height="30"/>
+                                                                <rect key="frame" x="16" y="10" width="138" height="30"/>
                                                                 <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="133" id="DLS-pO-yqz"/>
+                                                                    <constraint firstAttribute="width" constant="138" id="DLS-pO-yqz"/>
                                                                     <constraint firstAttribute="height" constant="30" id="Uxk-ss-5sT"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
@@ -647,10 +647,10 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85x-jZ-7iY">
-                                                                <rect key="frame" x="16" y="10" width="133" height="30"/>
+                                                                <rect key="frame" x="16" y="10" width="138" height="30"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQ4-OC-7NE">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="133" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="138" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                         <inset key="imageEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -672,13 +672,13 @@
                                                                     <constraint firstItem="KQ4-OC-7NE" firstAttribute="top" secondItem="85x-jZ-7iY" secondAttribute="top" id="CP9-iM-ct2"/>
                                                                     <constraint firstAttribute="trailing" secondItem="KQ4-OC-7NE" secondAttribute="trailing" id="D6o-nn-5Nc"/>
                                                                     <constraint firstItem="KQ4-OC-7NE" firstAttribute="leading" secondItem="85x-jZ-7iY" secondAttribute="leading" id="DmY-ko-ZTG"/>
-                                                                    <constraint firstAttribute="width" constant="133" id="Il7-1N-1sc"/>
+                                                                    <constraint firstAttribute="width" constant="138" id="Il7-1N-1sc"/>
                                                                     <constraint firstAttribute="bottom" secondItem="KQ4-OC-7NE" secondAttribute="bottom" id="YxL-rK-1LR"/>
                                                                     <constraint firstAttribute="height" constant="30" id="vNe-fF-OsP"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-gc-eUK">
-                                                                <rect key="frame" x="159" y="10" width="81" height="30"/>
+                                                                <rect key="frame" x="164" y="10" width="81" height="30"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loK-hd-OXw">
                                                                         <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
@@ -709,7 +709,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqh-ft-WBB">
-                                                                <rect key="frame" x="250" y="10" width="70" height="30"/>
+                                                                <rect key="frame" x="255" y="10" width="70" height="30"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7It-Nf-zqQ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
@@ -740,7 +740,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Zg-sT-PIK">
-                                                                <rect key="frame" x="330" y="10" width="70" height="30"/>
+                                                                <rect key="frame" x="335" y="10" width="70" height="30"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-jD-04d">
                                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
@@ -2154,17 +2154,28 @@ will be updated</string>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="off" translatesAutoresizingMaskIntoConstraints="NO" id="Ibt-fm-8Gw">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                 </imageView>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhs-rN-wOV">
+                                                    <rect key="frame" x="328" y="8" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="Ksb-VG-rfY"/>
+                                                        <constraint firstAttribute="height" constant="40" id="yMz-8N-YWv"/>
+                                                    </constraints>
+                                                    <state key="normal" image="editaddress24Submit300"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="GyH-zA-oWe" firstAttribute="leading" secondItem="1Dp-Ji-GZX" secondAttribute="leading" id="0ih-8K-VQv"/>
                                                 <constraint firstItem="Ibt-fm-8Gw" firstAttribute="centerY" secondItem="cbg-IP-Vzj" secondAttribute="centerY" id="1LG-El-Fsg"/>
                                                 <constraint firstItem="1Dp-Ji-GZX" firstAttribute="top" secondItem="cbg-IP-Vzj" secondAttribute="top" constant="10" id="D9Y-eO-t2P"/>
+                                                <constraint firstAttribute="trailing" secondItem="fhs-rN-wOV" secondAttribute="trailing" constant="7" id="Rs1-uZ-AKb"/>
                                                 <constraint firstItem="GyH-zA-oWe" firstAttribute="top" secondItem="1Dp-Ji-GZX" secondAttribute="bottom" constant="2" id="b8b-ff-RgK"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ibt-fm-8Gw" secondAttribute="trailing" constant="16" id="lxA-1a-1tq"/>
+                                                <constraint firstItem="fhs-rN-wOV" firstAttribute="centerY" secondItem="cbg-IP-Vzj" secondAttribute="centerY" id="ssL-5U-icV"/>
                                                 <constraint firstItem="1Dp-Ji-GZX" firstAttribute="leading" secondItem="cbg-IP-Vzj" secondAttribute="leading" constant="16" id="y2K-xM-rlG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="buttonEdit" destination="fhs-rN-wOV" id="5Hf-Kd-8Yt"/>
                                             <outlet property="iconCheckmark" destination="Ibt-fm-8Gw" id="rO2-jb-Haj"/>
                                             <outlet property="labelAddress" destination="GyH-zA-oWe" id="AI4-9b-ffR"/>
                                             <outlet property="labelTitle" destination="1Dp-Ji-GZX" id="cuY-ur-lH5"/>
@@ -3175,6 +3186,7 @@ If you don’t we can’t credit your account.</string>
         <image name="btn_back" width="22" height="22"/>
         <image name="copy_address" width="18" height="18"/>
         <image name="deladdress24Error400" width="24" height="24"/>
+        <image name="editaddress24Submit300" width="24" height="24"/>
         <image name="favoriteMini14Submit300" width="14" height="14"/>
         <image name="info18Basic300" width="18" height="18"/>
         <image name="info18Warning600" width="18" height="18"/>
@@ -3187,7 +3199,7 @@ If you don’t we can’t credit your account.</string>
         <image name="qrcode24Basic500" width="24" height="24"/>
         <image name="rBank14White" width="14" height="14"/>
         <image name="rCard14White" width="14" height="14"/>
-        <image name="rGateway14White" width="8" height="8"/>
+        <image name="rGateway14White" width="14" height="14"/>
         <image name="rInwaves14White" width="14" height="14"/>
         <image name="search24Basic500" width="24" height="24"/>
         <image name="share_address" width="18" height="18"/>

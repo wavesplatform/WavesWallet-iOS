@@ -32,7 +32,8 @@ target 'WavesWallet-iOS' do
   pod 'UPCarouselFlowLayout'
   pod 'SwipeView'
   pod 'TTTAttributedLabel'
-  
+  pod 'Koloda'
+
   post_install do |installer|
 
 #https://github.com/CocoaPods/CocoaPods/issues/7606

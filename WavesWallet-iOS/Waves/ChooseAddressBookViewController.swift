@@ -13,6 +13,7 @@ class ChooseAddressBookCell: UITableViewCell {
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var iconCheckmark: UIImageView!
+    @IBOutlet weak var buttonEdit: UIButton!
 }
 
 protocol ChooseAddressBookViewControllerDelegate: class {
@@ -31,6 +32,8 @@ class ChooseAddressBookViewController: UIViewController, UITableViewDelegate, UI
     
     var addresses = ["Alex Jeff", "Bob", "Big Boobs", "Bork Adam", "MaksTorch", "Mr. Big Mike", "Ms. Jane"]
     var searchAddreses : [String] = []
+    
+    var isEditMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +73,20 @@ class ChooseAddressBookViewController: UIViewController, UITableViewDelegate, UI
         tableView.reloadData()
     }
     
+    func editTapped(_ sender: UIButton) {
+        
+        let index = sender.tag
+        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     //MARK: - UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if isEditMode {
+            return
+        }
         
         let title = isSearchMode ? searchAddreses[indexPath.row] : addresses[indexPath.row]
         delegate?.chooseAddressBookViewControllerDidChooseAddress(title)
@@ -86,10 +100,15 @@ class ChooseAddressBookViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseAddressBookCell") as! ChooseAddressBookCell
-        
+        cell.buttonEdit.addTarget(self, action: #selector(editTapped(_:)), for: .touchUpInside)
         let title = isSearchMode ? searchAddreses[indexPath.row] : addresses[indexPath.row]
         cell.labelTitle.text = title
+        cell.buttonEdit.tag = indexPath.row
         
+        if isEditMode {
+            cell.iconCheckmark.isHidden = true
+            cell.buttonEdit.isHidden = false
+        }
         return cell
     }
 }

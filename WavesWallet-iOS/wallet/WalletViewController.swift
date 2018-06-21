@@ -59,7 +59,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         createMenuButton()
         setupRightButons()
-        
+
         if #available(iOS 10.0, *) {
             refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)

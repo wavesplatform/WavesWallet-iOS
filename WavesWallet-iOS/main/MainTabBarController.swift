@@ -50,8 +50,9 @@ class MainTabBarController: RDVTabBarController {
         history.isMenuButton = true
         let navHistory = UINavigationController(rootViewController: history)
         
-        let navProfile = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "navigationProfile")
-
+        let profile = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "ProfileViewController")
+        let navProfile = UINavigationController(rootViewController: profile)
+        
         viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
 
         tabBar.backgroundView.backgroundColor = UIColor.white
@@ -59,6 +60,8 @@ class MainTabBarController: RDVTabBarController {
         let line = UIView(frame: CGRect(x: 0, y: 0, width: Platform.ScreenWidth, height: 0.5))
         line.backgroundColor = UIColor(188, 188, 188)
         tabBar.addSubview(line)
+        
+        selectedIndex = 4
     }
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
