@@ -48,6 +48,7 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         setupUI()
         setupConstraints()
     }
@@ -75,7 +76,6 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
         kolodaView.delegate = self
         kolodaView.dataSource = self
         kolodaView.countOfVisibleCards = 4
-        kolodaView.resetCurrentCardIndex()
         pageControl.numberOfPages = kolodaView.countOfCards
         pageControl.currentPage = kolodaView.currentCardIndex
     }

@@ -31,9 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIBarButtonItem.appearance().tintColor = UIColor.black
         
+        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
+        let nav = UINavigationController(rootViewController: hello)
+        window?.rootViewController = nav
         return true
     }
 
+    
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
         let realm = WalletManager.getWalletsRealm()

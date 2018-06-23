@@ -16,53 +16,79 @@
             <rect key="frame" x="0.0" y="0.0" width="343" height="545"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-rW-y8g">
-                    <rect key="frame" x="16" y="44" width="311" height="81.5"/>
-                    <string key="text">Welcome to the
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7j1-iw-e5a">
+                    <rect key="frame" x="0.0" y="0.0" width="343" height="545"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-Gf-dXd">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="545"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-rW-y8g">
+                                    <rect key="frame" x="16" y="44" width="311" height="81.5"/>
+                                    <string key="text">Welcome to the
 Waves Platform!</string>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="act-ti-Wcz">
-                    <rect key="frame" x="16" y="169.5" width="311" height="217.5"/>
-                    <string key="text">Please take some time to understand some important things for your own safety. 🙏
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="act-ti-Wcz">
+                                    <rect key="frame" x="16" y="169" width="311" height="217.5"/>
+                                    <mutableString key="text">Please take some time to understand some important things for your own safety. 🙏
 
 We cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).
 
-By continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RI9-5o-FgF">
-                    <rect key="frame" x="16" y="473" width="311" height="48"/>
-                    <color key="backgroundColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+By continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.</mutableString>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RI9-5o-FgF">
+                                    <rect key="frame" x="16" y="473" width="311" height="48"/>
+                                    <color key="backgroundColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="9Jq-fG-n1f"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                    <state key="normal" title="Next">
+                                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="RI9-5o-FgF" secondAttribute="trailing" constant="16" id="34E-ua-Af8"/>
+                                <constraint firstItem="act-ti-Wcz" firstAttribute="leading" secondItem="6EB-Gf-dXd" secondAttribute="leading" constant="16" id="CDO-XO-Irx"/>
+                                <constraint firstItem="TMJ-rW-y8g" firstAttribute="top" secondItem="6EB-Gf-dXd" secondAttribute="top" constant="44" id="FTh-ag-zMB"/>
+                                <constraint firstAttribute="bottom" secondItem="RI9-5o-FgF" secondAttribute="bottom" constant="24" id="Kzy-WM-vtc"/>
+                                <constraint firstAttribute="trailing" secondItem="TMJ-rW-y8g" secondAttribute="trailing" constant="16" id="UvK-t2-UwA"/>
+                                <constraint firstItem="TMJ-rW-y8g" firstAttribute="leading" secondItem="6EB-Gf-dXd" secondAttribute="leading" constant="16" id="dM1-O6-ays"/>
+                                <constraint firstItem="RI9-5o-FgF" firstAttribute="leading" secondItem="6EB-Gf-dXd" secondAttribute="leading" constant="16" id="gnx-Wb-P8M"/>
+                                <constraint firstItem="act-ti-Wcz" firstAttribute="top" secondItem="TMJ-rW-y8g" secondAttribute="bottom" constant="44" id="hxC-Ua-wXh"/>
+                                <constraint firstAttribute="trailing" secondItem="act-ti-Wcz" secondAttribute="trailing" constant="16" id="uOJ-KS-9eF"/>
+                                <constraint firstItem="RI9-5o-FgF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="act-ti-Wcz" secondAttribute="bottom" constant="5" id="wJI-SM-8Db"/>
+                            </constraints>
+                        </view>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="48" id="9Jq-fG-n1f"/>
+                        <constraint firstAttribute="bottom" secondItem="6EB-Gf-dXd" secondAttribute="bottom" id="7Ro-PR-vtI"/>
+                        <constraint firstAttribute="trailing" secondItem="6EB-Gf-dXd" secondAttribute="trailing" id="8Kf-jz-QgN"/>
+                        <constraint firstItem="6EB-Gf-dXd" firstAttribute="top" secondItem="7j1-iw-e5a" secondAttribute="top" id="Aam-0p-gGq"/>
+                        <constraint firstItem="6EB-Gf-dXd" firstAttribute="height" secondItem="7j1-iw-e5a" secondAttribute="height" priority="250" id="YZv-tU-ZwU"/>
+                        <constraint firstItem="6EB-Gf-dXd" firstAttribute="width" secondItem="7j1-iw-e5a" secondAttribute="width" id="kc6-4q-uXv"/>
+                        <constraint firstItem="6EB-Gf-dXd" firstAttribute="leading" secondItem="7j1-iw-e5a" secondAttribute="leading" id="t8L-nq-m5o"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                    <state key="normal" title="Next">
-                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="3"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </button>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="TMJ-rW-y8g" secondAttribute="trailing" constant="16" id="7y7-3P-ZCA"/>
-                <constraint firstItem="act-ti-Wcz" firstAttribute="top" secondItem="TMJ-rW-y8g" secondAttribute="bottom" constant="44" id="88h-AR-I73"/>
-                <constraint firstItem="TMJ-rW-y8g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Uex-jj-KvO"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="act-ti-Wcz" secondAttribute="trailing" constant="16" id="Wda-Cd-yHh"/>
-                <constraint firstItem="TMJ-rW-y8g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="Xov-eb-7wS"/>
-                <constraint firstItem="act-ti-Wcz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="aji-OC-EHB"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RI9-5o-FgF" secondAttribute="trailing" constant="16" id="tL4-fz-eS8"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RI9-5o-FgF" secondAttribute="bottom" constant="24" id="tw9-HN-gNC"/>
-                <constraint firstItem="RI9-5o-FgF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="yP6-6R-58f"/>
+                <constraint firstItem="7j1-iw-e5a" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="98b-UV-UkU"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7j1-iw-e5a" secondAttribute="trailing" id="H3z-nl-Jn6"/>
+                <constraint firstItem="7j1-iw-e5a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QAr-lW-01v"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="7j1-iw-e5a" secondAttribute="bottom" id="rmu-Mz-amj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -72,18 +98,9 @@ By continuing to use our platform, you agree to accept all risks associated with
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="btnBotConstraint" destination="tw9-HN-gNC" id="070-gY-EsT"/>
-                <outlet property="btnLeadingConstraint" destination="yP6-6R-58f" id="Oyb-k1-ADi"/>
-                <outlet property="btnTrailingConstraint" destination="tL4-fz-eS8" id="CKF-KJ-O7E"/>
                 <outlet property="nextBtn" destination="RI9-5o-FgF" id="FKl-Im-rdM"/>
-                <outlet property="textLeadingConstraint" destination="aji-OC-EHB" id="Efv-ws-JqH"/>
-                <outlet property="textTopConstraint" destination="88h-AR-I73" id="VaC-Nu-xsf"/>
-                <outlet property="textTrailingConstraint" destination="Wda-Cd-yHh" id="FRN-i1-P0O"/>
-                <outlet property="titleLeadingConstraint" destination="Uex-jj-KvO" id="xxh-VG-wbg"/>
-                <outlet property="titleTopConstraint" destination="Xov-eb-7wS" id="ZYJ-m4-jdA"/>
-                <outlet property="titleTrailingConstraint" destination="7y7-3P-ZCA" id="6K3-P5-Lug"/>
             </connections>
-            <point key="canvasLocation" x="-113" y="45"/>
+            <point key="canvasLocation" x="-113.5" y="44.5"/>
         </view>
     </objects>
 </document>

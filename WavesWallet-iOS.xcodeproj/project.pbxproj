@@ -48,6 +48,7 @@
 		E963CF871F1E3602001494FD /* CandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF861F1E3602001494FD /* CandleModel.swift */; };
 		E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96AFE701F5799A70046B1CA /* MyOrderHeaderView.swift */; };
 		E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96AFE721F5799AF0046B1CA /* MyOrderHeaderView.xib */; };
+		E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D1F7120DE5BA40061AD75 /* HelloLanguagesViewController.swift */; };
 		E97033ED2095BDE7007E728C /* WalletTopTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033EC2095BDE7007E728C /* WalletTopTableCell.swift */; };
 		E97033EF2095BE34007E728C /* WalletTableAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033EE2095BE34007E728C /* WalletTableAssetsCell.swift */; };
 		E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */; };
@@ -191,7 +192,6 @@
 		F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFE720DD137F0056BB52 /* SixthInfoPageView.xib */; };
 		F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFE920DD15A80056BB52 /* SeventhInfoPageView.swift */; };
 		F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFEB20DD15B70056BB52 /* SeventhInfoPageView.xib */; };
-		F96DFFEE20DD470C0056BB52 /* LanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -238,6 +238,7 @@
 		E963CF861F1E3602001494FD /* CandleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleModel.swift; sourceTree = "<group>"; };
 		E96AFE701F5799A70046B1CA /* MyOrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderHeaderView.swift; sourceTree = "<group>"; };
 		E96AFE721F5799AF0046B1CA /* MyOrderHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderHeaderView.xib; sourceTree = "<group>"; };
+		E96D1F7120DE5BA40061AD75 /* HelloLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloLanguagesViewController.swift; sourceTree = "<group>"; };
 		E97033EC2095BDE7007E728C /* WalletTopTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTopTableCell.swift; sourceTree = "<group>"; };
 		E97033EE2095BE34007E728C /* WalletTableAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTableAssetsCell.swift; sourceTree = "<group>"; };
 		E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingBalanceCell.swift; sourceTree = "<group>"; };
@@ -401,7 +402,6 @@
 		F96DFFE720DD137F0056BB52 /* SixthInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SixthInfoPageView.xib; sourceTree = "<group>"; };
 		F96DFFE920DD15A80056BB52 /* SeventhInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeventhInfoPageView.swift; sourceTree = "<group>"; };
 		F96DFFEB20DD15B70056BB52 /* SeventhInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeventhInfoPageView.xib; sourceTree = "<group>"; };
-		F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,7 +545,7 @@
 				F96DFFD020DCEBC80056BB52 /* View */,
 				E9E7129C20DC05A900B95669 /* Hello.storyboard */,
 				F96DFFCE20DCE7DA0056BB52 /* InfoPagesViewController.swift */,
-				F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */,
+				E96D1F7120DE5BA40061AD75 /* HelloLanguagesViewController.swift */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -897,6 +897,7 @@
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
 				B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */,
+				15DCB0CADD3D68C92E0CECA6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -986,6 +987,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		15DCB0CADD3D68C92E0CECA6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1156,7 +1172,6 @@
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				F7C683B31EA93AEB00C87DAF /* utils.c in Sources */,
-				F96DFFEE20DD470C0056BB52 /* LanguagesViewController.swift in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */,
@@ -1191,6 +1206,7 @@
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
 				E97033EF2095BE34007E728C /* WalletTableAssetsCell.swift in Sources */,
 				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
+				E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */,
 				F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */,
 				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColorExtension.swift in Sources */,

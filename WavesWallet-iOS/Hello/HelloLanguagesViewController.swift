@@ -7,13 +7,11 @@
 
 import UIKit
 
-class LanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var continueBtn: UIButton!
-    @IBOutlet weak var logoTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var continueBtnBotConstraint: NSLayoutConstraint!
     
     let icons = ["flag18Britain", "flag18Rus", "flag18China", "flag18Korea", "flag18Turkey", "flag18Hindi", "flag18Danish", "flag18Nederland"]
     let languages = ["English", "Русский", "中文(简体)", "한국어", "Türkçe", "हिन्दी", "Dansk", "Nederlands"]
@@ -23,22 +21,9 @@ class LanguagesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupConstraints()
-    }
-    
-    func setupConstraints() {
-        if Platform.isIphoneX || Platform.isIphonePlus  {
-            logoTopConstraint.constant = 68
-            continueBtnBotConstraint.constant = 24
-        }
-        else if Platform.isIphone5{
-            continueBtnBotConstraint.constant = 12
-            logoTopConstraint.constant = 68
-        }
-        else {
-            logoTopConstraint.constant = 44
-            continueBtnBotConstraint.constant = 24
-        }
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
+        continueBtn.alpha = 0
     }
     
     @IBAction func continueWasPressed(_ sender: Any) {
@@ -58,7 +43,7 @@ class LanguagesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.labelTitle.text = languages[indexPath.row]
         cell.iconLanguage.image = UIImage(named: icons[indexPath.row])
         
-        if let index = chosenIndexPath,  index == indexPath{
+        if let index = chosenIndexPath, index == indexPath {
             cell.iconCheckmark.image = UIImage(named: "on")
         }
         else {
@@ -70,11 +55,11 @@ class LanguagesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         chosenIndexPath = indexPath
+        tableView.reloadData()
+
         tableViewBottomConstraint.constant = 62
-        continueBtn.isHidden = false
         UIView.animate(withDuration: 0.3) {
             self.continueBtn.alpha = 1.0
         }
-        tableView.reloadData()
     }
 }
