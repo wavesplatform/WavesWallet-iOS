@@ -18,13 +18,13 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
     
     var pageViews: [UIView] {
         
-        let firstView = Bundle.main.loadNibNamed("FirstInfoPageView", owner: nil, options: nil)?.first as! FirstInfoPageView
-        let secondView = Bundle.main.loadNibNamed("SecondInfoPageView", owner: nil, options: nil)?.first as! SecondInfoPageView
-        let thirdView = Bundle.main.loadNibNamed("ThirdIndoPageView", owner: nil, options: nil)?.first as! ThirdIndoPageView
-        let fourthView = Bundle.main.loadNibNamed("FourthInfoPageView", owner: nil, options: nil)?.first as! FourthInfoPageView
-        let fifthView = Bundle.main.loadNibNamed("FifthInfoPageView", owner: nil, options: nil)?.first as! FifthInfoPageView
-        let sixthView = Bundle.main.loadNibNamed("SixthInfoPageView", owner: nil, options: nil)?.first as! SixthInfoPageView
-        let seventhView = Bundle.main.loadNibNamed("SeventhInfoPageView", owner: nil, options: nil)?.first as! SeventhInfoPageView
+        let firstView = FirstInfoPageView.loadView() as! FirstInfoPageView
+        let secondView = SecondInfoPageView.loadView() as! SecondInfoPageView
+        let thirdView = ThirdIndoPageView.loadView() as! ThirdIndoPageView
+        let fourthView = FourthInfoPageView.loadView() as! FourthInfoPageView
+        let fifthView = FifthInfoPageView.loadView() as! FifthInfoPageView
+        let sixthView = SixthInfoPageView.loadView() as! SixthInfoPageView
+        let seventhView = SeventhInfoPageView.loadView() as! SeventhInfoPageView
         
         firstView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
         secondView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
