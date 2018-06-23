@@ -77,13 +77,15 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
         kolodaView.dataSource = self
         kolodaView.countOfVisibleCards = 4
         pageControl.numberOfPages = kolodaView.countOfCards
-        pageControl.currentPage = kolodaView.currentCardIndex
+        pageControl.currentPage = 0
+        kolodaView.resetCurrentCardIndex()
     }
     
     @objc func changePage() {
         kolodaView.swipe(.left)
         pageControl.currentPage = kolodaView.currentCardIndex
     }
+    
     
     //MARK: - KolodaViewDelegate, KolodaViewDataSource
     

@@ -12,106 +12,132 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="A1j-E8-sNe" customClass="FourthInfoPageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="34f-zm-mxB" customClass="FourthInfoPageView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What you need to know about your SEED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRj-Rw-gwg">
-                    <rect key="frame" x="16" y="44" width="256.5" height="16"/>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdE-Yp-JgG" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                    <rect key="frame" x="16" y="74" width="343" height="1"/>
-                    <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CLB-cR-aXp">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1j-E8-sNe">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What you need to know about your SEED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRj-Rw-gwg">
+                                    <rect key="frame" x="16" y="44" width="256.5" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdE-Yp-JgG" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="74" width="343" height="1"/>
+                                    <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="DNd-ku-AOJ"/>
+                                    </constraints>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iBackup42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="cGa-lX-gur">
+                                    <rect key="frame" x="16" y="118" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="433-ps-Ikj"/>
+                                        <constraint firstAttribute="height" constant="28" id="ISO-Em-oBv"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drA-rF-6R4">
+                                    <rect key="frame" x="16" y="160" width="343" height="62.5"/>
+                                    <string key="text">If you forget your password, you can easily create a new one by using the account recovery form via your secret phrase. If you lose your secret phrase, however, you will have no way to access your account.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iShredder42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="o9K-y9-Lic">
+                                    <rect key="frame" x="16" y="266.5" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="r57-XT-yhy"/>
+                                        <constraint firstAttribute="height" constant="28" id="wUq-yB-bT4"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mn6-YI-8Tc">
+                                    <rect key="frame" x="16" y="308.5" width="343" height="62.5"/>
+                                    <string key="text">You cannot change your secret phrase. If you accidentally sent it to someone or suspect that scammers have taken it over, then create a new Waves wallet immediately and transfer your funds to it.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr6-Vu-uZe">
+                                    <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="mjZ-2z-imO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                    <state key="normal" title="I Understand">
+                                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="sJc-fe-Bmh" firstAttribute="bottom" secondItem="zr6-Vu-uZe" secondAttribute="bottom" constant="24" id="0GT-ac-jSh"/>
+                                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="5b6-RN-qXv"/>
+                                <constraint firstItem="cGa-lX-gur" firstAttribute="top" secondItem="zdE-Yp-JgG" secondAttribute="bottom" constant="43" id="Csn-J4-Wfx"/>
+                                <constraint firstItem="cGa-lX-gur" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="Cuu-WI-jzn"/>
+                                <constraint firstItem="o9K-y9-Lic" firstAttribute="leading" secondItem="cGa-lX-gur" secondAttribute="leading" id="F3s-za-aN5"/>
+                                <constraint firstItem="drA-rF-6R4" firstAttribute="top" secondItem="cGa-lX-gur" secondAttribute="bottom" constant="14" id="OSq-pF-6i8"/>
+                                <constraint firstItem="zdE-Yp-JgG" firstAttribute="top" secondItem="WRj-Rw-gwg" secondAttribute="bottom" constant="14" id="UAJ-7r-cLT"/>
+                                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="top" secondItem="o9K-y9-Lic" secondAttribute="bottom" constant="14" id="UJj-gD-XEW"/>
+                                <constraint firstItem="zdE-Yp-JgG" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" id="XHD-6r-OHs"/>
+                                <constraint firstItem="zdE-Yp-JgG" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="ZBY-pv-LoS"/>
+                                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" id="eDe-vP-UKE"/>
+                                <constraint firstItem="drA-rF-6R4" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="gmX-YB-K9V"/>
+                                <constraint firstItem="sJc-fe-Bmh" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" constant="16" id="hm1-VW-uDH"/>
+                                <constraint firstItem="o9K-y9-Lic" firstAttribute="top" secondItem="drA-rF-6R4" secondAttribute="bottom" constant="44" id="lUN-mU-LLq"/>
+                                <constraint firstItem="zr6-Vu-uZe" firstAttribute="trailing" secondItem="Mn6-YI-8Tc" secondAttribute="trailing" id="pAk-w8-RgY"/>
+                                <constraint firstItem="zr6-Vu-uZe" firstAttribute="leading" secondItem="Mn6-YI-8Tc" secondAttribute="leading" id="tVy-mR-kez"/>
+                                <constraint firstItem="WRj-Rw-gwg" firstAttribute="leading" secondItem="sJc-fe-Bmh" secondAttribute="leading" constant="16" id="uhs-hk-m3l"/>
+                                <constraint firstItem="WRj-Rw-gwg" firstAttribute="top" secondItem="A1j-E8-sNe" secondAttribute="top" constant="44" id="zJ4-NV-6af"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="sJc-fe-Bmh"/>
+                        </view>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="DNd-ku-AOJ"/>
+                        <constraint firstItem="A1j-E8-sNe" firstAttribute="leading" secondItem="CLB-cR-aXp" secondAttribute="leading" id="Bhp-lg-66M"/>
+                        <constraint firstItem="A1j-E8-sNe" firstAttribute="top" secondItem="CLB-cR-aXp" secondAttribute="top" id="Mh2-fb-UTW"/>
+                        <constraint firstAttribute="trailing" secondItem="A1j-E8-sNe" secondAttribute="trailing" id="XTG-5E-8a7"/>
+                        <constraint firstAttribute="bottom" secondItem="A1j-E8-sNe" secondAttribute="bottom" id="vja-gA-KIU"/>
+                        <constraint firstItem="A1j-E8-sNe" firstAttribute="width" secondItem="CLB-cR-aXp" secondAttribute="width" id="wG6-ot-rZa"/>
+                        <constraint firstItem="A1j-E8-sNe" firstAttribute="height" secondItem="CLB-cR-aXp" secondAttribute="height" priority="250" id="wkt-AP-i6R"/>
                     </constraints>
-                </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iBackup42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="cGa-lX-gur">
-                    <rect key="frame" x="16" y="118" width="28" height="28"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="28" id="433-ps-Ikj"/>
-                        <constraint firstAttribute="height" constant="28" id="ISO-Em-oBv"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drA-rF-6R4">
-                    <rect key="frame" x="16" y="160" width="343" height="62.5"/>
-                    <string key="text">If you forget your password, you can easily create a new one by using the account recovery form via your secret phrase. If you lose your secret phrase, however, you will have no way to access your account.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iShredder42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="o9K-y9-Lic">
-                    <rect key="frame" x="16" y="266.5" width="28" height="28"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="28" id="r57-XT-yhy"/>
-                        <constraint firstAttribute="height" constant="28" id="wUq-yB-bT4"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mn6-YI-8Tc">
-                    <rect key="frame" x="16" y="308.5" width="343" height="62.5"/>
-                    <string key="text">You cannot change your secret phrase. If you accidentally sent it to someone or suspect that scammers have taken it over, then create a new Waves wallet immediately and transfer your funds to it.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr6-Vu-uZe">
-                    <rect key="frame" x="16" y="595" width="343" height="48"/>
-                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="mjZ-2z-imO"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                    <state key="normal" title="I Understand">
-                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="3"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </button>
+                </scrollView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="sJc-fe-Bmh" firstAttribute="bottom" secondItem="zr6-Vu-uZe" secondAttribute="bottom" constant="24" id="0GT-ac-jSh"/>
-                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="5b6-RN-qXv"/>
-                <constraint firstItem="sJc-fe-Bmh" firstAttribute="trailing" secondItem="zr6-Vu-uZe" secondAttribute="trailing" constant="16" id="Bmk-i1-2Pf"/>
-                <constraint firstItem="cGa-lX-gur" firstAttribute="top" secondItem="zdE-Yp-JgG" secondAttribute="bottom" constant="43" id="Csn-J4-Wfx"/>
-                <constraint firstItem="cGa-lX-gur" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="Cuu-WI-jzn"/>
-                <constraint firstItem="zr6-Vu-uZe" firstAttribute="leading" secondItem="sJc-fe-Bmh" secondAttribute="leading" constant="16" id="DXp-Rg-c4R"/>
-                <constraint firstItem="o9K-y9-Lic" firstAttribute="leading" secondItem="cGa-lX-gur" secondAttribute="leading" id="F3s-za-aN5"/>
-                <constraint firstItem="drA-rF-6R4" firstAttribute="top" secondItem="cGa-lX-gur" secondAttribute="bottom" constant="14" id="OSq-pF-6i8"/>
-                <constraint firstItem="zdE-Yp-JgG" firstAttribute="top" secondItem="WRj-Rw-gwg" secondAttribute="bottom" constant="14" id="UAJ-7r-cLT"/>
-                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="top" secondItem="o9K-y9-Lic" secondAttribute="bottom" constant="14" id="UJj-gD-XEW"/>
-                <constraint firstItem="zdE-Yp-JgG" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" id="XHD-6r-OHs"/>
-                <constraint firstItem="zdE-Yp-JgG" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="ZBY-pv-LoS"/>
-                <constraint firstItem="Mn6-YI-8Tc" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" id="eDe-vP-UKE"/>
-                <constraint firstItem="drA-rF-6R4" firstAttribute="leading" secondItem="WRj-Rw-gwg" secondAttribute="leading" id="gmX-YB-K9V"/>
-                <constraint firstItem="sJc-fe-Bmh" firstAttribute="trailing" secondItem="drA-rF-6R4" secondAttribute="trailing" constant="16" id="hm1-VW-uDH"/>
-                <constraint firstItem="o9K-y9-Lic" firstAttribute="top" secondItem="drA-rF-6R4" secondAttribute="bottom" constant="44" id="lUN-mU-LLq"/>
-                <constraint firstItem="WRj-Rw-gwg" firstAttribute="leading" secondItem="sJc-fe-Bmh" secondAttribute="leading" constant="16" id="uhs-hk-m3l"/>
-                <constraint firstItem="WRj-Rw-gwg" firstAttribute="top" secondItem="A1j-E8-sNe" secondAttribute="top" constant="44" id="zJ4-NV-6af"/>
+                <constraint firstItem="pEh-EB-Ic8" firstAttribute="trailing" secondItem="CLB-cR-aXp" secondAttribute="trailing" id="5rB-44-rxm"/>
+                <constraint firstItem="pEh-EB-Ic8" firstAttribute="bottom" secondItem="CLB-cR-aXp" secondAttribute="bottom" id="OCl-4i-cjl"/>
+                <constraint firstItem="CLB-cR-aXp" firstAttribute="width" secondItem="34f-zm-mxB" secondAttribute="width" id="XE5-Xe-Ne4"/>
+                <constraint firstItem="CLB-cR-aXp" firstAttribute="leading" secondItem="pEh-EB-Ic8" secondAttribute="leading" id="cXp-4o-SqQ"/>
+                <constraint firstItem="CLB-cR-aXp" firstAttribute="top" secondItem="34f-zm-mxB" secondAttribute="top" id="mnV-NV-S5x"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="sJc-fe-Bmh"/>
+            <viewLayoutGuide key="safeArea" id="pEh-EB-Ic8"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                     <real key="value" value="3"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="btnBotConstraint" destination="0GT-ac-jSh" id="EsF-dN-FyM"/>
-                <outlet property="btnLeadingConstraint" destination="DXp-Rg-c4R" id="KF4-du-RzZ"/>
-                <outlet property="btnTrailingConstraint" destination="Bmk-i1-2Pf" id="uqe-pO-fpX"/>
-                <outlet property="nextBtn" destination="zr6-Vu-uZe" id="q8l-8b-cta"/>
-                <outlet property="secondSectionTopConstraint" destination="lUN-mU-LLq" id="G5o-Hu-uaI"/>
-                <outlet property="textTrailingConstraint" destination="hm1-VW-uDH" id="CSw-oh-OUf"/>
-                <outlet property="titleLeadingConstraint" destination="uhs-hk-m3l" id="9Ea-By-8xS"/>
-                <outlet property="titleTopConstraint" destination="zJ4-NV-6af" id="YVz-Wu-T95"/>
+                <outlet property="btnBotConstraint" destination="0GT-ac-jSh" id="Cup-1Q-UdT"/>
+                <outlet property="nextBtn" destination="zr6-Vu-uZe" id="vXw-b0-8qB"/>
+                <outlet property="secondSectionTopConstraint" destination="lUN-mU-LLq" id="I2x-dn-DBp"/>
+                <outlet property="textTrailingConstraint" destination="hm1-VW-uDH" id="tHF-ra-oDj"/>
+                <outlet property="titleLeadingConstraint" destination="uhs-hk-m3l" id="Lxk-ga-rIE"/>
+                <outlet property="titleTopConstraint" destination="zJ4-NV-6af" id="q31-fm-KRK"/>
             </connections>
+            <point key="canvasLocation" x="570" y="49"/>
         </view>
     </objects>
     <resources>
