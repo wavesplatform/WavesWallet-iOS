@@ -176,6 +176,22 @@
 		F7F97E941EAA0CF800BE2F6F /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F97E8D1EAA0CF800BE2F6F /* UIView+Borders.swift */; };
 		F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F97E8E1EAA0CF800BE2F6F /* UIView+Layer.swift */; };
 		F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F97E961EAA0D2000BE2F6F /* ActivityIndicator.swift */; };
+		F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFCE20DCE7DA0056BB52 /* InfoPagesViewController.swift */; };
+		F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFD120DCECD90056BB52 /* FirstInfoPageView.swift */; };
+		F96DFFD420DCED080056BB52 /* FirstInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFD320DCED080056BB52 /* FirstInfoPageView.xib */; };
+		F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFD520DD06350056BB52 /* SecondInfoPageView.swift */; };
+		F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFD720DD06470056BB52 /* SecondInfoPageView.xib */; };
+		F96DFFDA20DD092D0056BB52 /* ThirdIndoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFD920DD092D0056BB52 /* ThirdIndoPageView.swift */; };
+		F96DFFDC20DD09340056BB52 /* ThirdIndoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFDB20DD09340056BB52 /* ThirdIndoPageView.xib */; };
+		F96DFFDE20DD0F4F0056BB52 /* FourthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFDD20DD0F4F0056BB52 /* FourthInfoPageView.swift */; };
+		F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFDF20DD0F630056BB52 /* FourthInfoPageView.xib */; };
+		F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFE120DD11560056BB52 /* FifthInfoPageView.swift */; };
+		F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFE320DD11640056BB52 /* FifthInfoPageView.xib */; };
+		F96DFFE620DD136F0056BB52 /* SixthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFE520DD136F0056BB52 /* SixthInfoPageView.swift */; };
+		F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFE720DD137F0056BB52 /* SixthInfoPageView.xib */; };
+		F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFE920DD15A80056BB52 /* SeventhInfoPageView.swift */; };
+		F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F96DFFEB20DD15B70056BB52 /* SeventhInfoPageView.xib */; };
+		F96DFFEE20DD470C0056BB52 /* LanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -370,6 +386,22 @@
 		F7F97E8D1EAA0CF800BE2F6F /* UIView+Borders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		F7F97E8E1EAA0CF800BE2F6F /* UIView+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layer.swift"; sourceTree = "<group>"; };
 		F7F97E961EAA0D2000BE2F6F /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		F96DFFCE20DCE7DA0056BB52 /* InfoPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPagesViewController.swift; sourceTree = "<group>"; };
+		F96DFFD120DCECD90056BB52 /* FirstInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFD320DCED080056BB52 /* FirstInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFD520DD06350056BB52 /* SecondInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFD720DD06470056BB52 /* SecondInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFD920DD092D0056BB52 /* ThirdIndoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdIndoPageView.swift; sourceTree = "<group>"; };
+		F96DFFDB20DD09340056BB52 /* ThirdIndoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdIndoPageView.xib; sourceTree = "<group>"; };
+		F96DFFDD20DD0F4F0056BB52 /* FourthInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFDF20DD0F630056BB52 /* FourthInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FourthInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFE120DD11560056BB52 /* FifthInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFE320DD11640056BB52 /* FifthInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FifthInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFE520DD136F0056BB52 /* SixthInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFE720DD137F0056BB52 /* SixthInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SixthInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFE920DD15A80056BB52 /* SeventhInfoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeventhInfoPageView.swift; sourceTree = "<group>"; };
+		F96DFFEB20DD15B70056BB52 /* SeventhInfoPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeventhInfoPageView.xib; sourceTree = "<group>"; };
+		F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,7 +542,10 @@
 		E9E7129B20DC058F00B95669 /* Hello */ = {
 			isa = PBXGroup;
 			children = (
+				F96DFFD020DCEBC80056BB52 /* View */,
 				E9E7129C20DC05A900B95669 /* Hello.storyboard */,
+				F96DFFCE20DCE7DA0056BB52 /* InfoPagesViewController.swift */,
+				F96DFFED20DD470C0056BB52 /* LanguagesViewController.swift */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -829,6 +864,27 @@
 			path = extensions;
 			sourceTree = "<group>";
 		};
+		F96DFFD020DCEBC80056BB52 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F96DFFD120DCECD90056BB52 /* FirstInfoPageView.swift */,
+				F96DFFD320DCED080056BB52 /* FirstInfoPageView.xib */,
+				F96DFFD520DD06350056BB52 /* SecondInfoPageView.swift */,
+				F96DFFD720DD06470056BB52 /* SecondInfoPageView.xib */,
+				F96DFFD920DD092D0056BB52 /* ThirdIndoPageView.swift */,
+				F96DFFDB20DD09340056BB52 /* ThirdIndoPageView.xib */,
+				F96DFFDD20DD0F4F0056BB52 /* FourthInfoPageView.swift */,
+				F96DFFDF20DD0F630056BB52 /* FourthInfoPageView.xib */,
+				F96DFFE120DD11560056BB52 /* FifthInfoPageView.swift */,
+				F96DFFE320DD11640056BB52 /* FifthInfoPageView.xib */,
+				F96DFFE520DD136F0056BB52 /* SixthInfoPageView.swift */,
+				F96DFFE720DD137F0056BB52 /* SixthInfoPageView.xib */,
+				F96DFFE920DD15A80056BB52 /* SeventhInfoPageView.swift */,
+				F96DFFEB20DD15B70056BB52 /* SeventhInfoPageView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -841,7 +897,6 @@
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
 				B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */,
-				6F962E7B42E5FBC16A9D9132 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -864,8 +919,8 @@
 				TargetAttributes = {
 					F7E954E31EA8FE0700A804DE = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 6ZRLYS4AGU;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 6E9N8D5GG3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -896,13 +951,18 @@
 				F7E954FF1EA90CA600A804DE /* Login.storyboard in Resources */,
 				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
+				F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */,
 				F7E954F41EA8FE0700A804DE /* LaunchScreen.storyboard in Resources */,
+				F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */,
 				E959B5FD20BEE80F00101A75 /* TransactionHistoryShowAllView.xib in Resources */,
 				E929B46D1F36EC4E00A335F7 /* LastTraderHeaderView.xib in Resources */,
+				F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */,
 				E999502F2091FE1400A11E37 /* WalletHeaderView.xib in Resources */,
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */,
+				F96DFFDC20DD09340056BB52 /* ThirdIndoPageView.xib in Resources */,
 				E9794F8D20A4614C007097BE /* HistoryTopHeaderCell.xib in Resources */,
+				F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				E96038B720B599A800D303E8 /* TransactionHistoryAddressView.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
@@ -914,9 +974,11 @@
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
 				E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
+				F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */,
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
+				F96DFFD420DCED080056BB52 /* FirstInfoPageView.xib in Resources */,
 				E95FEF5420A607E200C327A0 /* HistoryLeasedTopHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -924,21 +986,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F962E7B42E5FBC16A9D9132 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -952,6 +999,7 @@
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
@@ -974,6 +1022,7 @@
 				"${BUILT_PRODUCTS_DIR}/UILabel+Copyable/UILabel_Copyable.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/UPCarouselFlowLayout/UPCarouselFlowLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -983,6 +1032,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
@@ -1005,6 +1055,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UILabel_Copyable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPCarouselFlowLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1047,6 +1098,7 @@
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
+				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
 				E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */,
 				F762B3A51EABB6C000EAD7FF /* TransferSuccessViewController.swift in Sources */,
 				E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */,
@@ -1061,12 +1113,14 @@
 				F77A92071EB09D3700C77439 /* BackupVerifyViewController.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryAssetCell.swift in Sources */,
+				F96DFFDA20DD092D0056BB52 /* ThirdIndoPageView.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				F7F97E8F1EAA0CF800BE2F6F /* CustomSectionHeader.swift in Sources */,
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				F74240CF1EAB8EFF00C3B84D /* AccountCell.swift in Sources */,
 				E93CEDEA20A1A8A300756CA8 /* AssetChartHeaderView.swift in Sources */,
+				F96DFFE620DD136F0056BB52 /* SixthInfoPageView.swift in Sources */,
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				E96038B520B5999D00D303E8 /* TransactionHistoryAddressView.swift in Sources */,
 				E97033F52095D70D007E728C /* WalletQuickNoteCell.swift in Sources */,
@@ -1102,6 +1156,7 @@
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				F7C683B31EA93AEB00C87DAF /* utils.c in Sources */,
+				F96DFFEE20DD470C0056BB52 /* LanguagesViewController.swift in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */,
@@ -1114,6 +1169,8 @@
 				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
 				E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */,
 				F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */,
+				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
+				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				F7C683B01EA93AEB00C87DAF /* crypto_generichash.c in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
@@ -1125,6 +1182,7 @@
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
 				F77A92091EB0A9D500C77439 /* ArrayExtension.swift in Sources */,
 				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,
+				F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */,
 				E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
@@ -1177,6 +1235,8 @@
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
+				F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */,
+				F96DFFDE20DD0F4F0056BB52 /* FourthInfoPageView.swift in Sources */,
 				F79C43D91EAEB101006057B0 /* HalfModalTransitionAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1295,17 +1355,18 @@
 			baseConfigurationReference = 965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6ZRLYS4AGU;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6E9N8D5GG3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
-				PROVISIONING_PROFILE_SPECIFIER = "profile all";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1316,17 +1377,18 @@
 			baseConfigurationReference = 3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6ZRLYS4AGU;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6E9N8D5GG3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
-				PROVISIONING_PROFILE_SPECIFIER = "profile all";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 			};

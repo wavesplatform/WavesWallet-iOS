@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="AnL-EZ-rbl" customClass="SeventhInfoPageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How To Protect Yourself from Phishers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2f-Tx-nEB">
+                    <rect key="frame" x="16" y="44" width="243.5" height="16"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JBM-9b-fHL" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="16" y="74" width="343" height="1"/>
+                    <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="uVB-av-oig"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iOs42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="2bZ-1R-v7i">
+                    <rect key="frame" x="16" y="118" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="CHj-x4-S5n"/>
+                        <constraint firstAttribute="height" constant="28" id="fCz-oi-tNb"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use official security software. Do not install unknown software which could be hacked." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4H-j5-8AH">
+                    <rect key="frame" x="16" y="160" width="343" height="31.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iWifi42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="gJZ-nj-Y80">
+                    <rect key="frame" x="16" y="235.5" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="Msq-aX-j2L"/>
+                        <constraint firstAttribute="height" constant="28" id="rj4-ya-UiN"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not access your wallet when using public Wi-Fi or someone else’s device." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNY-rJ-Typ">
+                    <rect key="frame" x="16" y="277.5" width="343" height="31.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhP-mt-GXs">
+                    <rect key="frame" x="16" y="595" width="343" height="48"/>
+                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="a8c-tA-k1l"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                    <state key="normal" title="I Understand">
+                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="8JS-Fc-mjP" firstAttribute="bottom" secondItem="jhP-mt-GXs" secondAttribute="bottom" constant="24" id="3cD-DX-38k"/>
+                <constraint firstItem="jhP-mt-GXs" firstAttribute="leading" secondItem="8JS-Fc-mjP" secondAttribute="leading" constant="16" id="8ko-yu-85K"/>
+                <constraint firstItem="Y2f-Tx-nEB" firstAttribute="top" secondItem="AnL-EZ-rbl" secondAttribute="top" constant="44" id="CQB-oZ-CL0"/>
+                <constraint firstItem="j4H-j5-8AH" firstAttribute="top" secondItem="2bZ-1R-v7i" secondAttribute="bottom" constant="14" id="GZQ-dq-g4a"/>
+                <constraint firstItem="hNY-rJ-Typ" firstAttribute="trailing" secondItem="j4H-j5-8AH" secondAttribute="trailing" id="HPl-y6-2Oq"/>
+                <constraint firstItem="Y2f-Tx-nEB" firstAttribute="leading" secondItem="8JS-Fc-mjP" secondAttribute="leading" constant="16" id="MCa-On-vpx"/>
+                <constraint firstItem="hNY-rJ-Typ" firstAttribute="leading" secondItem="j4H-j5-8AH" secondAttribute="leading" id="Uyy-Uv-1cU"/>
+                <constraint firstItem="j4H-j5-8AH" firstAttribute="leading" secondItem="Y2f-Tx-nEB" secondAttribute="leading" id="dgh-D6-1Le"/>
+                <constraint firstItem="gJZ-nj-Y80" firstAttribute="leading" secondItem="2bZ-1R-v7i" secondAttribute="leading" id="eZU-BV-o4r"/>
+                <constraint firstItem="2bZ-1R-v7i" firstAttribute="leading" secondItem="Y2f-Tx-nEB" secondAttribute="leading" id="eot-S3-eic"/>
+                <constraint firstItem="JBM-9b-fHL" firstAttribute="trailing" secondItem="j4H-j5-8AH" secondAttribute="trailing" id="g8h-ov-LwM"/>
+                <constraint firstItem="JBM-9b-fHL" firstAttribute="top" secondItem="Y2f-Tx-nEB" secondAttribute="bottom" constant="14" id="gMd-Xv-sJF"/>
+                <constraint firstItem="8JS-Fc-mjP" firstAttribute="trailing" secondItem="jhP-mt-GXs" secondAttribute="trailing" constant="16" id="i8V-zo-AE1"/>
+                <constraint firstItem="8JS-Fc-mjP" firstAttribute="trailing" secondItem="j4H-j5-8AH" secondAttribute="trailing" constant="16" id="mNc-vP-hPv"/>
+                <constraint firstItem="JBM-9b-fHL" firstAttribute="leading" secondItem="Y2f-Tx-nEB" secondAttribute="leading" id="qUv-yW-n9a"/>
+                <constraint firstItem="2bZ-1R-v7i" firstAttribute="top" secondItem="JBM-9b-fHL" secondAttribute="bottom" constant="43" id="r3u-kH-UyB"/>
+                <constraint firstItem="hNY-rJ-Typ" firstAttribute="top" secondItem="gJZ-nj-Y80" secondAttribute="bottom" constant="14" id="z77-G9-K1q"/>
+                <constraint firstItem="gJZ-nj-Y80" firstAttribute="top" secondItem="j4H-j5-8AH" secondAttribute="bottom" constant="44" id="zHa-Yk-ZJp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="8JS-Fc-mjP"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="3"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="btnBotConstraint" destination="3cD-DX-38k" id="W66-cG-32C"/>
+                <outlet property="btnLeadingConstraint" destination="8ko-yu-85K" id="h1b-nx-2Ua"/>
+                <outlet property="btnTrailingConstraint" destination="i8V-zo-AE1" id="YzD-NW-UtW"/>
+                <outlet property="nextBtn" destination="jhP-mt-GXs" id="gNU-rd-uaI"/>
+                <outlet property="secondSectionTopConstraint" destination="zHa-Yk-ZJp" id="UfR-Cr-jGl"/>
+                <outlet property="textTrailingConstraint" destination="mNc-vP-hPv" id="QQI-JD-3HN"/>
+                <outlet property="titleLeadingConstraint" destination="MCa-On-vpx" id="bC6-NE-B9O"/>
+                <outlet property="titleTopConstraint" destination="CQB-oZ-CL0" id="i37-fR-H5w"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="iOs42Submit400" width="28" height="28"/>
+        <image name="iWifi42Submit400" width="28" height="28"/>
+    </resources>
+</document>
