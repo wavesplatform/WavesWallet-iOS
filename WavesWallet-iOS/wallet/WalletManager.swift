@@ -368,7 +368,16 @@ class WalletManager {
         return FileManager().fileExists(atPath: getWalletSeedRealmConfig(address: getAddress(), password: "").fileURL!.path)
     }
     class func getWalletSeedRealmConfig(address: String, password: String) -> Realm.Configuration {
-        var config = Realm.Configuration(encryptionKey: Data(bytes: Hash.sha512(Array(password.utf8))))
+        var config = Realm.Configuration(encryptionKey: Data(bytes: Hash.sha512(Array(password.utf8))),
+         schemaVersion: 1,
+         migrationBlock: {migration, oldSchemaVersion in
+            // We haven’t migrated anything yet, so oldSchemaVersion == 0
+            if (oldSchemaVersion < 1) {
+                // Nothing to do!
+                // Realm will automatically detect new properties and removed properties
+                // And will update the schema on disk automatically
+            }
+        })
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(address)_seed.realm")
         return config
