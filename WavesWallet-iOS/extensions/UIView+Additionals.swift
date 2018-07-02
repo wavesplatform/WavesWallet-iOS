@@ -34,6 +34,34 @@ extension UIView {
         layer.add(anim, forKey: nil)
     }
     
+    
+    func addBounceStartAnimation() {
+    
+        alpha = 0;
+        UIView.animate(withDuration: 0.1) {
+            self.alpha = 1
+        }
+        
+        layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
+    
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [0.5, 1.2, 0.9, 1.0]
+        bounceAnimation.duration = 0.4
+        bounceAnimation.isRemovedOnCompletion = false
+        layer.add(bounceAnimation, forKey: "bounce")
+        layer.transform = CATransform3DIdentity
+    }
+    
+    func addBounceEndAnimation() {
+        layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
+    
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [1.0, 1.1, 0.5, 0.0]
+        bounceAnimation.duration = 0.3
+        bounceAnimation.isRemovedOnCompletion = false
+        layer.add(bounceAnimation, forKey: "bounce")
+        layer.transform = CATransform3DIdentity
+    }
 
     func firstAvailableViewController() -> UIViewController {
         
@@ -48,4 +76,13 @@ extension UIView {
         return UIViewController()
     }
 
+    func setupButtonActiveState() {
+        backgroundColor = .submit400
+        isUserInteractionEnabled = true
+    }
+   
+    func setupButtonDeactivateState() {
+        isUserInteractionEnabled = false
+        backgroundColor = .submit200
+    }
 }

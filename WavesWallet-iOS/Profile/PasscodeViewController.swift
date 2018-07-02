@@ -164,7 +164,12 @@ class PasscodeViewController: UIViewController {
     
         AudioServicesPlaySystemSound(1105)
 
-        if isCreateSecondPassword {
+        if isInputPassword {
+            if inputPassword.count > 0 {
+                inputPassword.removeLast()
+            }
+        }
+        else if isCreateSecondPassword {
             if secondPassword.count > 0 {
                 secondPassword.removeLast()
             }
@@ -255,6 +260,8 @@ class PasscodeViewController: UIViewController {
     
     @IBAction func useAccountPassword(_ sender: Any) {
     
+        let controller = storyboard?.instantiateViewController(withIdentifier: "AccountPasswordViewController") as! AccountPasswordViewController
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     deinit {

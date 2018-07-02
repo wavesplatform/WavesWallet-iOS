@@ -24,7 +24,6 @@ class WavesReceiveLoadingViewController: UIViewController {
     @IBOutlet weak var butonCopy: UIButton!
     @IBOutlet weak var labelAddress: UILabel!
     
-    @IBOutlet weak var imageBg: UIImageView!
     @IBOutlet weak var imageQrCode: UIImageView!
 
     @IBOutlet weak var viewLink: UIView!
@@ -50,15 +49,7 @@ class WavesReceiveLoadingViewController: UIViewController {
         scrollViewContent.alpha = 0
         buttonClose.alpha = 0
 
-        if Platform.isIphone5 {
-            imageBg.image = UIImage(named: "bg-iphone5")
-        }
-        else if Platform.isIphoneX {
-            imageBg.image = UIImage(named: "bg-iphonex")
-        }
-        else if Platform.isIphonePlus {
-            imageBg.image = UIImage(named: "bg-iphone8plus")
-        }
+        addBgBlueImage()
         
         let qr = QRCode(WalletManager.getAddress())
         imageQrCode.image = qr?.image

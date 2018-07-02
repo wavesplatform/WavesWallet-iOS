@@ -74,12 +74,10 @@ class WavesReceiveCryptocurrencyViewController: UIViewController, ChooseAssetVie
     
     func setupButtonContinue() {
         if selectedAsset.count > 0 {
-            buttonContinue.isUserInteractionEnabled = true
-            buttonContinue.backgroundColor = .submit400
+            buttonContinue.setupButtonActiveState()
         }
         else {
-            buttonContinue.isUserInteractionEnabled = false
-            buttonContinue.backgroundColor = .submit200
+            buttonContinue.setupButtonDeactivateState()
         }
     }
     

@@ -96,6 +96,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.barTintColor = nil
+
         if navigationController?.isNavigationBarHidden == true {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }

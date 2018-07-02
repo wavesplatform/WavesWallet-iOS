@@ -47,12 +47,10 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
     
     func setupButtonStartLease() {
         if isValidAmount && textFieldAddress.text!.count > 0 {
-            buttonStartLease.isUserInteractionEnabled = true
-            buttonStartLease.backgroundColor = .submit400
+            buttonStartLease.setupButtonActiveState()
         }
         else {
-            buttonStartLease.isUserInteractionEnabled = false
-            buttonStartLease.backgroundColor = .submit200
+            buttonStartLease.setupButtonDeactivateState()
         }
     }
     

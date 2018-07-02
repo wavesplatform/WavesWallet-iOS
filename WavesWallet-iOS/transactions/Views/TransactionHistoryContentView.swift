@@ -195,7 +195,6 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         changeNameController.isAddMode = isAddMode
         changeNameController.delegate = self
         changeNameController.showTabBarOnBack = true
-        changeNameController.showNavBarOnBack = true
         
         let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
         let mainTabBar = menu.contentViewController as! MainTabBarController

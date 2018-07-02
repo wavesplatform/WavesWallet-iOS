@@ -223,12 +223,10 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
     
     func setupButtonContinue() {
         if isValidAmount && isValidAddress && textFieldReceipt.text!.count > 0 {
-            buttonContinue.isUserInteractionEnabled = true
-            buttonContinue.backgroundColor = .submit400
+            buttonContinue.setupButtonActiveState()
         }
         else {
-            buttonContinue.isUserInteractionEnabled = false
-            buttonContinue.backgroundColor = .submit200
+            buttonContinue.setupButtonDeactivateState()
         }
     }
     

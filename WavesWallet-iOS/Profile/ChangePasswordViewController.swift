@@ -17,6 +17,11 @@ class ChangePasswordViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var textFieldConfirmNewPassword: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var labelOldPassword: UILabel!
+    @IBOutlet weak var labelNewPassword: UILabel!
+    @IBOutlet weak var labelConfirmPassword: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +37,10 @@ class ChangePasswordViewController: UIViewController, UIScrollViewDelegate {
         hideTopBarLine()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        labelOldPassword.alpha = 0
+        labelNewPassword.alpha = 0
+        labelConfirmPassword.alpha = 0
     }
 
     func keyboardWillHide() {
@@ -40,14 +49,18 @@ class ChangePasswordViewController: UIViewController, UIScrollViewDelegate {
     
     func oldPasswordDidChange() {
         setupButtonConfirm()
+        
+        DataManager.setupTextFieldLabel(textField: textFieldOldPassword, placeHolderLabel: labelOldPassword)
     }
     
     func newPasswordDidChange() {
         setupButtonConfirm()
+        DataManager.setupTextFieldLabel(textField: textFieldNewPassword, placeHolderLabel: labelNewPassword)
     }
     
     func confirmPasswordDidChange() {
         setupButtonConfirm()
+        DataManager.setupTextFieldLabel(textField: textFieldConfirmNewPassword, placeHolderLabel: labelConfirmPassword)
     }
     
     @IBAction func confirmTapped(_ sender: Any) {
@@ -62,12 +75,10 @@ class ChangePasswordViewController: UIViewController, UIScrollViewDelegate {
         
         if textFieldOldPassword.text!.count > 0 && textFieldNewPassword.text!.count > 0 &&
             textFieldNewPassword.text == textFieldConfirmNewPassword.text {
-            buttonConfirm.isUserInteractionEnabled = true
-            buttonConfirm.backgroundColor = .submit400
+            buttonConfirm.setupButtonActiveState()
         }
         else {
-            buttonConfirm.isUserInteractionEnabled = false
-            buttonConfirm.backgroundColor = .submit200
+            buttonConfirm.setupButtonDeactivateState()
         }
     }
     

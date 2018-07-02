@@ -41,6 +41,10 @@ class StoryboardManager {
         return UIStoryboard(name: "Hello", bundle: nil)
     }
     
+    class func EnterStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Enter", bundle: nil)
+    }
+    
     class func launchViewController() -> UIViewController {
         return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
     }

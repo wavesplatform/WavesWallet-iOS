@@ -128,7 +128,24 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func deleteAccountTapped() {
+
+        let hasSeed = false
         
+        if hasSeed {
+            let controller = storyboard?.instantiateViewController(withIdentifier: "DeleteAccountViewController") as! DeleteAccountViewController
+            
+            controller.showInController(rdv_tabBarController)
+        }
+        else {
+            let controller = UIAlertController(title: "Delete account", message: "Are you sure you want to delete this account from device?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let delete = UIAlertAction(title: "Delete", style: .default) { (action) in
+                
+            }
+            controller.addAction(cancel)
+            controller.addAction(delete)
+            present(controller, animated: true, completion: nil)
+        }
     }
     
     //MARK: - UITableView
@@ -137,7 +154,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if indexPath.section == ProfileSection.general.rawValue {
 
-            if indexPath.row == GeneralSection.addressBook.rawValue {
+            if indexPath.row == GeneralSection.addressesAndKeys.rawValue {
+                
+                setupLastScrollCorrectOffset()
+                let controller = storyboard?.instantiateViewController(withIdentifier: "ProfileAddressKeyViewController") as! ProfileAddressKeyViewController
+                navigationController?.pushViewController(controller, animated: true)
+                rdv_tabBarController.setTabBarHidden(true, animated: true)
+            }
+            else if indexPath.row == GeneralSection.addressBook.rawValue {
 
                 setupLastScrollCorrectOffset()
                 let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "ChooseAddressBookViewController") as! ChooseAddressBookViewController
@@ -166,6 +190,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 setupLastScrollCorrectOffset()
                 let controller = storyboard?.instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+                navigationController?.pushViewController(controller, animated: true)
+                rdv_tabBarController.setTabBarHidden(true, animated: true)
+            }
+            else if indexPath.row == SecuritySection.network.rawValue {
+                
+                setupLastScrollCorrectOffset()
+                let controller = storyboard?.instantiateViewController(withIdentifier: "NetworkViewController") as! NetworkViewController
                 navigationController?.pushViewController(controller, animated: true)
                 rdv_tabBarController.setTabBarHidden(true, animated: true)
             }

@@ -63,4 +63,22 @@ extension UIViewController {
             navigationController?.navigationItem.largeTitleDisplayMode = .never
         }
     }
+    
+    func addBgBlueImage() {
+        let imageView = UIImageView(frame: UIScreen.main.bounds)
+        if Platform.isIphone5 {
+            imageView.image = UIImage(named: "bg-iphone5")
+        }
+        else if Platform.isIphoneX {
+            imageView.image = UIImage(named: "bg-iphonex")
+        }
+        else if Platform.isIphonePlus {
+            imageView.image = UIImage(named: "bg-iphone8plus")
+        }
+        else {
+            imageView.image = UIImage(named: "bg-iphone8")
+        }
+        
+        view.insertSubview(imageView, at: 0)
+    }
 }

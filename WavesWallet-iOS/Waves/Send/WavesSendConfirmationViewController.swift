@@ -28,7 +28,6 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
     
     let maxDescriptionLength = 50
     
-    @IBOutlet weak var imageBg: UIImageView!
     @IBOutlet weak var imageBgTop: UIImageView!
     
     override func viewDidLoad() {
@@ -48,28 +47,15 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
         viewFinish.alpha = 0
         labelDescriptionError.isHidden = true
         
-        if Platform.isIphone5 {
-            imageBg.image = UIImage(named: "bg-iphone5")
-            imageBgTop.image = UIImage(named: "bg-iphone5-top")
-        }
-        else if Platform.isIphoneX {
-            imageBg.image = UIImage(named: "bg-iphonex")
-            imageBgTop.image = UIImage(named: "bg-iphonex-top")
-        }
-        else if Platform.isIphonePlus {
-            imageBg.image = UIImage(named: "bg-iphone8plus")
-            imageBgTop.image = UIImage(named: "bg-iphone8plus-top")
-        }
+        addBgBlueImage()
     }
     
     func setupButtonConfirm() {
         if textFieldDescription.text!.count > 0 && textFieldDescription.text!.count <= maxDescriptionLength {
-            buttonConfirm.isUserInteractionEnabled = true
-            buttonConfirm.backgroundColor = .submit400
+            buttonConfirm.setupButtonActiveState()
         }
         else {
-            buttonConfirm.isUserInteractionEnabled = false
-            buttonConfirm.backgroundColor = .submit200
+            buttonConfirm.setupButtonDeactivateState()
         }
     }
     

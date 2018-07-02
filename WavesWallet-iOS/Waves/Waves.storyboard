@@ -56,8 +56,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Exchange" image="tExchange48">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Exchange" image="tSoonExchange48">
+                                    <color key="titleColor" red="0.73725490196078436" green="0.73725490196078436" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="exchangeTapped:" destination="nGg-aa-PAK" eventType="touchUpInside" id="PjK-Ku-Eqc"/>
@@ -70,10 +70,17 @@
                                     <action selector="dismissTapped:" destination="nGg-aa-PAK" eventType="touchUpInside" id="nXS-Rd-bKl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArL-Xa-Zsh">
+                                <rect key="frame" x="271" y="183.5" width="80" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="mb6-VY-d6e" firstAttribute="top" secondItem="RO3-Mk-ap9" secondAttribute="top" constant="15" id="1n3-cp-Nxo"/>
                             <constraint firstItem="dod-yi-h5k" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="9Z0-IP-YUd"/>
+                            <constraint firstItem="ArL-Xa-Zsh" firstAttribute="centerY" secondItem="dod-yi-h5k" secondAttribute="centerY" id="CAd-WD-eC4"/>
                             <constraint firstItem="VDN-mL-BQi" firstAttribute="top" secondItem="mb6-VY-d6e" secondAttribute="bottom" constant="8" id="DBH-uL-KQK"/>
                             <constraint firstItem="RO3-Mk-ap9" firstAttribute="trailing" secondItem="mb6-VY-d6e" secondAttribute="trailing" id="E2N-Xc-c32"/>
                             <constraint firstItem="VDN-mL-BQi" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="FAz-4x-7G2"/>
@@ -81,6 +88,7 @@
                             <constraint firstItem="mb6-VY-d6e" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="XQn-ZQ-DIZ"/>
                             <constraint firstItem="BZD-vQ-9xi" firstAttribute="centerX" secondItem="dzL-4s-Eaz" secondAttribute="centerX" id="dny-xD-PNB"/>
                             <constraint firstItem="dod-yi-h5k" firstAttribute="top" secondItem="VDN-mL-BQi" secondAttribute="bottom" constant="8" id="eik-uN-d2C"/>
+                            <constraint firstAttribute="trailing" secondItem="ArL-Xa-Zsh" secondAttribute="trailing" constant="24" id="gv6-Dp-vre"/>
                             <constraint firstItem="BZD-vQ-9xi" firstAttribute="top" secondItem="dod-yi-h5k" secondAttribute="bottom" constant="10" id="jMD-yv-DEe"/>
                             <constraint firstAttribute="trailing" secondItem="dod-yi-h5k" secondAttribute="trailing" id="ql9-cV-5tO"/>
                         </constraints>
@@ -919,9 +927,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-iphone8" translatesAutoresizingMaskIntoConstraints="NO" id="wmG-Sf-0OF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Bitcoin address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-ev-wew">
                                 <rect key="frame" x="105" y="32" width="165" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -1190,11 +1195,10 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="mdh-ev-wew" firstAttribute="centerX" secondItem="Khs-DS-ZVP" secondAttribute="centerX" id="4Ec-eL-c0m"/>
-                            <constraint firstItem="A3W-Ax-jUE" firstAttribute="trailing" secondItem="wmG-Sf-0OF" secondAttribute="trailing" id="A0G-cH-gJz"/>
                             <constraint firstAttribute="bottom" secondItem="dvj-OO-amI" secondAttribute="bottom" id="Cjd-2r-SMK"/>
-                            <constraint firstItem="wmG-Sf-0OF" firstAttribute="top" secondItem="Khs-DS-ZVP" secondAttribute="top" id="D7t-Ba-XIt"/>
                             <constraint firstItem="qY9-Us-c8A" firstAttribute="leading" secondItem="A3W-Ax-jUE" secondAttribute="leading" constant="16" id="MaT-WI-lj3"/>
                             <constraint firstItem="A3W-Ax-jUE" firstAttribute="trailing" secondItem="qY9-Us-c8A" secondAttribute="trailing" constant="16" id="P6h-gh-W9t"/>
                             <constraint firstItem="mdh-ev-wew" firstAttribute="top" secondItem="A3W-Ax-jUE" secondAttribute="top" constant="12" id="S7e-Y9-s1t"/>
@@ -1202,10 +1206,8 @@
                             <constraint firstItem="qY9-Us-c8A" firstAttribute="top" secondItem="mdh-ev-wew" secondAttribute="bottom" constant="28" id="ZLF-Hi-SO7"/>
                             <constraint firstItem="A3W-Ax-jUE" firstAttribute="trailing" secondItem="dvj-OO-amI" secondAttribute="trailing" id="aNX-96-mCO"/>
                             <constraint firstItem="dvj-OO-amI" firstAttribute="leading" secondItem="A3W-Ax-jUE" secondAttribute="leading" id="bzN-uP-Rcr"/>
-                            <constraint firstAttribute="bottom" secondItem="wmG-Sf-0OF" secondAttribute="bottom" id="dI4-Nk-ANx"/>
                             <constraint firstItem="A3W-Ax-jUE" firstAttribute="trailing" secondItem="HXt-wu-9gc" secondAttribute="trailing" constant="5" id="dPa-Lv-lQV"/>
                             <constraint firstItem="dvj-OO-amI" firstAttribute="top" secondItem="mdh-ev-wew" secondAttribute="bottom" constant="11" id="nMr-lx-Ma0"/>
-                            <constraint firstItem="wmG-Sf-0OF" firstAttribute="leading" secondItem="A3W-Ax-jUE" secondAttribute="leading" id="y1Q-Xk-tgG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A3W-Ax-jUE"/>
                     </view>
@@ -1217,7 +1219,6 @@
                         <outlet property="buttonShare" destination="Xkm-sK-dZt" id="RYS-wj-NC1"/>
                         <outlet property="iconArrowLogo" destination="Zr2-ah-AQx" id="id3-UY-hQT"/>
                         <outlet property="iconLogo" destination="1ux-2C-L5o" id="vJT-CV-3ye"/>
-                        <outlet property="imageBg" destination="wmG-Sf-0OF" id="un2-VA-eRW"/>
                         <outlet property="imageQrCode" destination="nEr-ac-ZR6" id="mzE-BK-PKN"/>
                         <outlet property="labelAddress" destination="BIu-3O-Wwp" id="99q-ra-eSc"/>
                         <outlet property="labelLink" destination="h4H-qB-R1d" id="vF6-L2-vV9"/>
@@ -1239,9 +1240,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-iphone8" translatesAutoresizingMaskIntoConstraints="NO" id="EKW-UF-gkb">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGU-Pn-6hn">
                                 <rect key="frame" x="16" y="108" width="343" height="344.5"/>
                                 <subviews>
@@ -1306,20 +1304,15 @@ will be updated</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="EKW-UF-gkb" firstAttribute="leading" secondItem="Z2E-e7-QmG" secondAttribute="leading" id="2Ti-os-d9O"/>
-                            <constraint firstItem="EKW-UF-gkb" firstAttribute="bottom" secondItem="7bl-Zv-jmN" secondAttribute="bottom" id="6V8-xY-w0F"/>
-                            <constraint firstItem="EKW-UF-gkb" firstAttribute="trailing" secondItem="Z2E-e7-QmG" secondAttribute="trailing" id="6eW-gg-hR3"/>
                             <constraint firstItem="OGU-Pn-6hn" firstAttribute="leading" secondItem="Z2E-e7-QmG" secondAttribute="leading" constant="16" id="A6t-Xb-8nb"/>
-                            <constraint firstItem="EKW-UF-gkb" firstAttribute="top" secondItem="7bl-Zv-jmN" secondAttribute="top" id="LLj-kV-ayT"/>
                             <constraint firstItem="Z2E-e7-QmG" firstAttribute="trailing" secondItem="OGU-Pn-6hn" secondAttribute="trailing" constant="16" id="VHF-Aj-ZL1"/>
                             <constraint firstItem="OGU-Pn-6hn" firstAttribute="top" secondItem="Z2E-e7-QmG" secondAttribute="top" constant="88" id="yHa-oQ-43L"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Z2E-e7-QmG"/>
                     </view>
                     <connections>
-                        <outlet property="imageBg" destination="EKW-UF-gkb" id="GfA-vX-DAi"/>
                         <outlet property="labelSubtitle" destination="qGk-4u-2ym" id="BXB-2D-LPP"/>
                         <outlet property="labelTitle" destination="96a-zc-HX9" id="xJc-yz-qA8"/>
                     </connections>
@@ -1336,9 +1329,6 @@ will be updated</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-iphone8" translatesAutoresizingMaskIntoConstraints="NO" id="xX2-ea-Aom">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bs-A9-3AZ">
                                 <rect key="frame" x="16" y="108" width="343" height="212"/>
                                 <subviews>
@@ -1796,23 +1786,20 @@ will be updated</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xX2-ea-Aom" firstAttribute="top" secondItem="1Cd-Ii-0m3" secondAttribute="top" id="1go-kJ-UGz"/>
                             <constraint firstItem="wH2-VI-IZ4" firstAttribute="leading" secondItem="R8a-Sl-AO3" secondAttribute="leading" constant="16" id="3Yw-Gt-uXO"/>
                             <constraint firstItem="0bs-A9-3AZ" firstAttribute="leading" secondItem="R8a-Sl-AO3" secondAttribute="leading" constant="16" id="4a7-rE-hf6"/>
-                            <constraint firstItem="xX2-ea-Aom" firstAttribute="trailing" secondItem="R8a-Sl-AO3" secondAttribute="trailing" id="6kn-KN-B3R"/>
                             <constraint firstItem="R8a-Sl-AO3" firstAttribute="trailing" secondItem="g2p-KL-vu9" secondAttribute="trailing" id="7DN-Ic-e8m"/>
-                            <constraint firstItem="tqP-qB-yBW" firstAttribute="top" secondItem="1Cd-Ii-0m3" secondAttribute="top" id="Idk-0l-SIu"/>
+                            <constraint firstItem="tqP-qB-yBW" firstAttribute="top" secondItem="R8a-Sl-AO3" secondAttribute="top" constant="-20" id="Idk-0l-SIu"/>
                             <constraint firstAttribute="bottom" secondItem="g2p-KL-vu9" secondAttribute="bottom" id="JkC-7k-vMU"/>
                             <constraint firstItem="R8a-Sl-AO3" firstAttribute="trailing" secondItem="wH2-VI-IZ4" secondAttribute="trailing" constant="16" id="Thb-pQ-a2J"/>
                             <constraint firstItem="g2p-KL-vu9" firstAttribute="top" secondItem="R8a-Sl-AO3" secondAttribute="top" id="UU0-ZT-SyR"/>
                             <constraint firstItem="R8a-Sl-AO3" firstAttribute="trailing" secondItem="0bs-A9-3AZ" secondAttribute="trailing" constant="16" id="dFV-4Z-9AH"/>
                             <constraint firstItem="wH2-VI-IZ4" firstAttribute="top" secondItem="tqP-qB-yBW" secondAttribute="bottom" constant="44" id="eNI-kK-6EO"/>
                             <constraint firstItem="g2p-KL-vu9" firstAttribute="leading" secondItem="R8a-Sl-AO3" secondAttribute="leading" id="qNR-Hc-6FM"/>
-                            <constraint firstAttribute="bottom" secondItem="xX2-ea-Aom" secondAttribute="bottom" id="tji-Ed-69h"/>
                             <constraint firstItem="tqP-qB-yBW" firstAttribute="leading" secondItem="R8a-Sl-AO3" secondAttribute="leading" id="ujs-jo-gQA"/>
                             <constraint firstItem="R8a-Sl-AO3" firstAttribute="trailing" secondItem="tqP-qB-yBW" secondAttribute="trailing" id="unY-El-eLd"/>
-                            <constraint firstItem="xX2-ea-Aom" firstAttribute="leading" secondItem="R8a-Sl-AO3" secondAttribute="leading" id="wH0-06-QFr"/>
                             <constraint firstItem="0bs-A9-3AZ" firstAttribute="top" secondItem="tqP-qB-yBW" secondAttribute="bottom" constant="44" id="xiR-dz-tdZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R8a-Sl-AO3"/>
@@ -1820,7 +1807,6 @@ will be updated</string>
                     <connections>
                         <outlet property="buttonConfirm" destination="b7h-TO-Y5h" id="LBX-uG-rN9"/>
                         <outlet property="iconState" destination="HCB-N7-Nk1" id="efZ-vG-0nm"/>
-                        <outlet property="imageBg" destination="xX2-ea-Aom" id="eab-mv-EO4"/>
                         <outlet property="imageBgTop" destination="Ea7-5o-xe2" id="N93-rF-b0J"/>
                         <outlet property="labelDescriptionError" destination="zCO-4b-NdA" id="7i5-Sy-dMX"/>
                         <outlet property="labelTitleBig" destination="GUW-3h-Uru" id="FKz-3X-UWM"/>
@@ -3181,7 +3167,6 @@ If you don’t we can’t credit your account.</string>
         <image name="addaddress24Submit300" width="24" height="24"/>
         <image name="asset_change_arrows" width="14" height="14"/>
         <image name="asset_receive" width="48" height="48"/>
-        <image name="bg-iphone8" width="375" height="667"/>
         <image name="bg-iphone8-top" width="375" height="64"/>
         <image name="btn_back" width="22" height="22"/>
         <image name="copy_address" width="18" height="18"/>
@@ -3203,8 +3188,8 @@ If you don’t we can’t credit your account.</string>
         <image name="rInwaves14White" width="14" height="14"/>
         <image name="search24Basic500" width="24" height="24"/>
         <image name="share_address" width="18" height="18"/>
-        <image name="tExchange48" width="48" height="48"/>
         <image name="tSend48" width="48" height="48"/>
+        <image name="tSoonExchange48" width="48" height="48"/>
         <image name="tabbarWavesActive" width="38" height="38"/>
         <image name="topbarAddaddress" width="22" height="22"/>
         <image name="topbarBackwhite" width="22" height="22"/>

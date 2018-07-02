@@ -48,6 +48,7 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addBgBlueImage()
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         setupUI()
         setupConstraints()

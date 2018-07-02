@@ -17,8 +17,6 @@ class WavesReceiveRedirectViewController: UIViewController {
 
     var delegate: WavesReceiveRedirectViewControllerDelegate?
     
-    @IBOutlet weak var imageBg: UIImageView!
-   
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelSubtitle: UILabel!
     
@@ -35,16 +33,7 @@ class WavesReceiveRedirectViewController: UIViewController {
         }
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
 
-        
-        if Platform.isIphone5 {
-            imageBg.image = UIImage(named: "bg-iphone5")
-        }
-        else if Platform.isIphoneX {
-            imageBg.image = UIImage(named: "bg-iphonex")
-        }
-        else if Platform.isIphonePlus {
-            imageBg.image = UIImage(named: "bg-iphone8plus")
-        }
+        addBgBlueImage()
         
         if isCardMode {
             labelTitle.text = "You have been redirected to «Indacoin»"

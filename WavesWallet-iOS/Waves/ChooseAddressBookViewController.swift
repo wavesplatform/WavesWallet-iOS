@@ -37,9 +37,13 @@ class ChooseAddressBookViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }

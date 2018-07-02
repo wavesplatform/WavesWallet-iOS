@@ -33,8 +33,10 @@ target 'WavesWallet-iOS' do
   pod 'SwipeView'
   pod 'TTTAttributedLabel'
   pod 'Koloda'
-
+  
+  
   post_install do |installer|
+
 
 #https://github.com/CocoaPods/CocoaPods/issues/7606
 #      installer.pods_project.build_configurations.each do |config|
@@ -43,11 +45,17 @@ target 'WavesWallet-iOS' do
 #      end
 
       installer.pods_project.targets.each do |target|
-          if target.name == 'Charts'
+          if target.name == 'Charts' || target.name == 'SwipeCellKit'
               target.build_configurations.each do |config|
                   config.build_settings['SWIFT_VERSION'] = '4.1'
               end
           end
+          
+#          if target.name == 'SwipeCellKit'
+#              target.build_configurations.each do |config|
+#                  config.build_settings['SWIFT_VERSION'] = '4.1'
+#              end
+#          end
       end
   end
   

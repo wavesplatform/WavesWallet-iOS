@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EnterStartView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGq-Kx-sfk">
+                    <rect key="frame" x="24" y="0.0" width="327" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QZu-Cf-iMp">
+                    <rect key="frame" x="24" y="28.5" width="327" height="166.5"/>
+                    <mutableString key="text">Label akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l else Label akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l elseLabel akdsj kdafjklsa jklfsdjl kdfjalkf jskldfjklsdfj kldsjkf l else</mutableString>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QZu-Cf-iMp" secondAttribute="trailing" constant="24" id="DaT-sA-RWL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mGq-Kx-sfk" secondAttribute="trailing" constant="24" id="HFt-UG-4qe"/>
+                <constraint firstItem="QZu-Cf-iMp" firstAttribute="top" secondItem="mGq-Kx-sfk" secondAttribute="bottom" constant="8" id="Xmk-GO-UVS"/>
+                <constraint firstItem="QZu-Cf-iMp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="iao-7e-Qmu"/>
+                <constraint firstItem="mGq-Kx-sfk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="kpg-lV-2HZ"/>
+                <constraint firstItem="mGq-Kx-sfk" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ng9-pj-3fV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QZu-Cf-iMp" secondAttribute="bottom" constant="5" id="pEg-aV-Yzy"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="labelDescription" destination="QZu-Cf-iMp" id="RzD-kg-o5A"/>
+                <outlet property="labelTitle" destination="mGq-Kx-sfk" id="TNI-Hs-RND"/>
+            </connections>
+            <point key="canvasLocation" x="31.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

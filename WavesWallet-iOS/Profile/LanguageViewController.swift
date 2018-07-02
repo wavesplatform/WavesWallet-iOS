@@ -20,8 +20,7 @@ class LanguageViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     
-    let icons = ["flag18Britain", "flag18Rus", "flag18China", "flag18Korea", "flag18Turkey", "flag18Hindi", "flag18Danish", "flag18Nederland"]
-    let languages = ["English", "Русский", "中文(简体)", "한국어", "Türkçe", "हिन्दी", "Dansk", "Nederlands"]
+    let languages = DataManager.getLanguages()
     
     
     override func viewDidLoad() {
@@ -50,8 +49,9 @@ class LanguageViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCell") as! LanguageTableCell
         
-        cell.labelTitle.text = languages[indexPath.row]
-        cell.iconLanguage.image = UIImage(named: icons[indexPath.row])
+        let item = languages[indexPath.row]
+        cell.labelTitle.text = item["title"]
+        cell.iconLanguage.image = UIImage(named: item["icon"]!)
         if indexPath.row == 0 {
             cell.iconCheckmark.image = UIImage(named: "on")
         }
