@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */; };
+		9C1F9C6C866C0BBB08683E01 /* libPods-WavesWallet-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
 		E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */; };
@@ -150,7 +150,6 @@
 		F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763B9A91EABD52A00FA3701 /* TransferConfirmViewController.swift */; };
 		F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763B9AC1EAC0ECF00FA3701 /* UIViewController+Alert.swift */; };
 		F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76AF1F71EBB5F650081A8BD /* Base58.swift */; };
-		F76AF2021EBB6CAE0081A8BD /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = F76AF1FF1EBB6CAE0081A8BD /* base58.c */; };
 		F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76CBAD81EB3558600AD713A /* AddressBookManager.swift */; };
 		F770753D1EAA3DD000FE6995 /* NavigationAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770753C1EAA3DD000FE6995 /* NavigationAccessoryView.swift */; };
 		F77A92071EB09D3700C77439 /* BackupVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A92061EB09D3700C77439 /* BackupVerifyViewController.swift */; };
@@ -171,12 +170,6 @@
 		F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B713AC1EABA3EC00331E1B /* AddressBookViewController.swift */; };
 		F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683981EA93A4000C87DAF /* Hash.swift */; };
 		F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683991EA93A4000C87DAF /* PrivateKeyAccount.swift */; };
-		F7C683AF1EA93AEB00C87DAF /* blake2b-ref.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683A01EA93AEB00C87DAF /* blake2b-ref.c */; };
-		F7C683B01EA93AEB00C87DAF /* crypto_generichash.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683A11EA93AEB00C87DAF /* crypto_generichash.c */; };
-		F7C683B11EA93AEB00C87DAF /* generichash_blake2_api.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683A51EA93AEB00C87DAF /* generichash_blake2_api.c */; };
-		F7C683B21EA93AEB00C87DAF /* generichash_blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683A61EA93AEB00C87DAF /* generichash_blake2b.c */; };
-		F7C683B31EA93AEB00C87DAF /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683A91EA93AEB00C87DAF /* utils.c */; };
-		F7C683B41EA93AEB00C87DAF /* keccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F7C683AC1EA93AEB00C87DAF /* keccak.c */; };
 		F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683B91EA93C5800C87DAF /* AppSettings.swift */; };
 		F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */; };
 		F7C683BF1EA93C5800C87DAF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BB1EA93C5800C87DAF /* MainTabBarController.swift */; };
@@ -217,8 +210,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WavesWallet-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSelectAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -364,9 +357,6 @@
 		F76AF1E81EBB43E00081A8BD /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/iOS/SwiftBase58.framework; sourceTree = "<group>"; };
 		F76AF1E91EBB43E00081A8BD /* SwiftBase58.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftBase58.framework.dSYM; path = Carthage/Build/iOS/SwiftBase58.framework.dSYM; sourceTree = "<group>"; };
 		F76AF1F71EBB5F650081A8BD /* Base58.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
-		F76AF1FF1EBB6CAE0081A8BD /* base58.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base58.c; sourceTree = "<group>"; };
-		F76AF2001EBB6CAE0081A8BD /* base58.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base58.h; sourceTree = "<group>"; };
-		F76AF2011EBB6CAE0081A8BD /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		F76CBAD81EB3558600AD713A /* AddressBookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookManager.swift; sourceTree = "<group>"; };
 		F770753C1EAA3DD000FE6995 /* NavigationAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAccessoryView.swift; sourceTree = "<group>"; };
 		F77A92061EB09D3700C77439 /* BackupVerifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyViewController.swift; sourceTree = "<group>"; };
@@ -387,23 +377,6 @@
 		F7B713AC1EABA3EC00331E1B /* AddressBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		F7C683981EA93A4000C87DAF /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		F7C683991EA93A4000C87DAF /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
-		F7C6839D1EA93AEB00C87DAF /* api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api.h; sourceTree = "<group>"; };
-		F7C6839E1EA93AEB00C87DAF /* blake2-impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "blake2-impl.h"; sourceTree = "<group>"; };
-		F7C6839F1EA93AEB00C87DAF /* blake2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blake2.h; sourceTree = "<group>"; };
-		F7C683A01EA93AEB00C87DAF /* blake2b-ref.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "blake2b-ref.c"; sourceTree = "<group>"; };
-		F7C683A11EA93AEB00C87DAF /* crypto_generichash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypto_generichash.c; sourceTree = "<group>"; };
-		F7C683A21EA93AEB00C87DAF /* crypto_generichash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_generichash.h; sourceTree = "<group>"; };
-		F7C683A31EA93AEB00C87DAF /* crypto_generichash_blake2b.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_generichash_blake2b.h; sourceTree = "<group>"; };
-		F7C683A41EA93AEB00C87DAF /* export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = export.h; sourceTree = "<group>"; };
-		F7C683A51EA93AEB00C87DAF /* generichash_blake2_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = generichash_blake2_api.c; sourceTree = "<group>"; };
-		F7C683A61EA93AEB00C87DAF /* generichash_blake2b.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = generichash_blake2b.c; sourceTree = "<group>"; };
-		F7C683A71EA93AEB00C87DAF /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		F7C683A81EA93AEB00C87DAF /* randombytes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randombytes.h; sourceTree = "<group>"; };
-		F7C683A91EA93AEB00C87DAF /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
-		F7C683AA1EA93AEB00C87DAF /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		F7C683AC1EA93AEB00C87DAF /* keccak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = keccak.c; sourceTree = "<group>"; };
-		F7C683AD1EA93AEB00C87DAF /* keccak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keccak.h; sourceTree = "<group>"; };
-		F7C683AE1EA93AEB00C87DAF /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		F7C683B91EA93C5800C87DAF /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		F7C683BB1EA93C5800C87DAF /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -453,7 +426,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7169EF767CEFF22024EA1FFF /* Pods_WavesWallet_iOS.framework in Frameworks */,
+				9C1F9C6C866C0BBB08683E01 /* libPods-WavesWallet-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,7 +440,7 @@
 				F76AF1E91EBB43E00081A8BD /* SwiftBase58.framework.dSYM */,
 				F7C683DC1EA94ECA00C87DAF /* SwiftGMP.framework */,
 				F7C683DD1EA94ECA00C87DAF /* SwiftGMP.framework.dSYM */,
-				6C88D008B4FD6EE73A1E8958 /* Pods_WavesWallet_iOS.framework */,
+				346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -744,16 +717,6 @@
 			path = transactions;
 			sourceTree = "<group>";
 		};
-		F76AF1EE1EBB5A540081A8BD /* base58 */ = {
-			isa = PBXGroup;
-			children = (
-				F76AF1FF1EBB6CAE0081A8BD /* base58.c */,
-				F76AF2001EBB6CAE0081A8BD /* base58.h */,
-				F76AF2011EBB6CAE0081A8BD /* module.modulemap */,
-			);
-			path = base58;
-			sourceTree = "<group>";
-		};
 		F79C43D11EAEB0D9006057B0 /* HalfModalPresentationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,45 +766,11 @@
 		F7C683971EA93A4000C87DAF /* crypto */ = {
 			isa = PBXGroup;
 			children = (
-				F76AF1EE1EBB5A540081A8BD /* base58 */,
-				F7C6839C1EA93AEB00C87DAF /* blake2 */,
-				F7C683AB1EA93AEB00C87DAF /* keccak */,
 				F7C683981EA93A4000C87DAF /* Hash.swift */,
 				F7C683991EA93A4000C87DAF /* PrivateKeyAccount.swift */,
 				F76AF1F71EBB5F650081A8BD /* Base58.swift */,
 			);
 			path = crypto;
-			sourceTree = "<group>";
-		};
-		F7C6839C1EA93AEB00C87DAF /* blake2 */ = {
-			isa = PBXGroup;
-			children = (
-				F7C6839D1EA93AEB00C87DAF /* api.h */,
-				F7C6839E1EA93AEB00C87DAF /* blake2-impl.h */,
-				F7C6839F1EA93AEB00C87DAF /* blake2.h */,
-				F7C683A01EA93AEB00C87DAF /* blake2b-ref.c */,
-				F7C683A11EA93AEB00C87DAF /* crypto_generichash.c */,
-				F7C683A21EA93AEB00C87DAF /* crypto_generichash.h */,
-				F7C683A31EA93AEB00C87DAF /* crypto_generichash_blake2b.h */,
-				F7C683A41EA93AEB00C87DAF /* export.h */,
-				F7C683A51EA93AEB00C87DAF /* generichash_blake2_api.c */,
-				F7C683A61EA93AEB00C87DAF /* generichash_blake2b.c */,
-				F7C683A71EA93AEB00C87DAF /* module.modulemap */,
-				F7C683A81EA93AEB00C87DAF /* randombytes.h */,
-				F7C683A91EA93AEB00C87DAF /* utils.c */,
-				F7C683AA1EA93AEB00C87DAF /* utils.h */,
-			);
-			path = blake2;
-			sourceTree = "<group>";
-		};
-		F7C683AB1EA93AEB00C87DAF /* keccak */ = {
-			isa = PBXGroup;
-			children = (
-				F7C683AC1EA93AEB00C87DAF /* keccak.c */,
-				F7C683AD1EA93AEB00C87DAF /* keccak.h */,
-				F7C683AE1EA93AEB00C87DAF /* module.modulemap */,
-			);
-			path = keccak;
 			sourceTree = "<group>";
 		};
 		F7C683B81EA93C5800C87DAF /* main */ = {
@@ -986,7 +915,6 @@
 				F7E954E01EA8FE0700A804DE /* Sources */,
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
-				B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */,
 				15DCB0CADD3D68C92E0CECA6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1005,17 +933,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Waves Platform";
 				TargetAttributes = {
 					F7E954E31EA8FE0700A804DE = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 6ZRLYS4AGU;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 96SW78M3KJ;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */;
+			buildConfigurationList = F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "use" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1086,91 +1014,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManagerSwift/IQKeyboardManagerSwift/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0A743156D990FD9C98BE7C9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/25519/_25519.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
-				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
-				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
-				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
-				"${BUILT_PRODUCTS_DIR}/RDVTabBarController/RDVTabBarController.framework",
-				"${BUILT_PRODUCTS_DIR}/RESideMenu/RESideMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
-				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
-				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/UILabel+Copyable/UILabel_Copyable.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/UPCarouselFlowLayout/UPCarouselFlowLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/_25519.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RDVTabBarController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RESideMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UILabel_Copyable.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPCarouselFlowLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D0B2E799FD762C3AFCE7C323 /* [CP] Check Pods Manifest.lock */ = {
@@ -1252,7 +1107,6 @@
 				E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */,
 				E9D60AD720973A730042464A /* WalletHistoryCell.swift in Sources */,
 				F761428E1EAFD6C500F4C749 /* OpenUrlManager.swift in Sources */,
-				F76AF2021EBB6CAE0081A8BD /* base58.c in Sources */,
 				E96038BD20B5A16700D303E8 /* TransactionHistoryContentView.swift in Sources */,
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
 				E980EAC820A9A698001834DB /* ScrollButton.swift in Sources */,
@@ -1260,7 +1114,6 @@
 				E9628841209F729100DE3B5A /* AssetLastTransactionCell.swift in Sources */,
 				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
-				F7C683B41EA93AEB00C87DAF /* keccak.c in Sources */,
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
@@ -1276,11 +1129,9 @@
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
-				F7C683B31EA93AEB00C87DAF /* utils.c in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */,
-				F7C683B11EA93AEB00C87DAF /* generichash_blake2_api.c in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */,
 				F7179BD51F726CE400FAE8F5 /* CustomUITextField.swift in Sources */,
@@ -1294,7 +1145,6 @@
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
-				F7C683B01EA93AEB00C87DAF /* crypto_generichash.c in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
 				F761428C1EAFC09300F4C749 /* ReceiveViewController.swift in Sources */,
 				E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */,
@@ -1342,7 +1192,6 @@
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
-				F7C683B21EA93AEB00C87DAF /* generichash_blake2b.c in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
 				F79C43D81EAEB101006057B0 /* HalfModalInteractiveTransition.swift in Sources */,
@@ -1358,7 +1207,6 @@
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
-				F7C683AF1EA93AEB00C87DAF /* blake2b-ref.c in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
@@ -1431,7 +1279,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/WavesWallet-iOS/crypto/keccak ${SRCROOT}/WavesWallet-iOS/crypto/blake2 ${SRCROOT}/WavesWallet-iOS/crypto/base58";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1474,7 +1322,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/WavesWallet-iOS/crypto/keccak ${SRCROOT}/WavesWallet-iOS/crypto/blake2 ${SRCROOT}/WavesWallet-iOS/crypto/base58";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1485,32 +1333,10 @@
 			baseConfigurationReference = 965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6ZRLYS4AGU;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
-				PROVISIONING_PROFILE_SPECIFIER = "profile all";
-				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		F7E954FA1EA8FE0700A804DE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1520,14 +1346,37 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		F7E954FA1EA8FE0700A804DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */ = {
+		F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "use" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F7E954F61EA8FE0700A804DE /* Debug */,

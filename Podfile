@@ -1,64 +1,74 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 
+# Ignore all warnings from all pods
+inhibit_all_warnings!
+
+# Enable the stricter search paths and module map generation for all pods
+use_modular_headers!
+
+# Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+    
+    # UI
+    pod 'RxCocoa'
+    pod 'RxDataSources'
 
-  # Pods for WavesWallet-iOS
-  pod 'RxSwift', '~> 3.4'
-  pod 'RxCocoa', '~> 3.4'
-  pod 'RxDataSources', '~> 1.0'
-  pod 'RxAlamofire'
-  pod 'SwiftyJSON'
-  pod 'Gloss', '2.0.0-beta.1'
-  pod 'RealmSwift', '~> 2.10.0'
-  pod 'RxRealm', '~> 0.6'
-  pod 'MGSwipeTableCell'
-  pod '25519', '~> 2.0.2'
-  pod 'KeychainAccess'
-  pod 'MBProgressHUD', '~> 1.0.0'
-  pod 'IQKeyboardManagerSwift'
-  pod 'RxGesture'
-  pod 'UITextView+Placeholder'
-  pod 'QRCode'
-  pod 'UILabel+Copyable', '~> 1.0.0'
-  pod 'QRCodeReader.swift', '~> 7.5.1'
-  pod 'TPKeyboardAvoiding'
-  pod 'SVProgressHUD'
-  pod 'RDVTabBarController'
-  pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
-  pod 'Charts'
-  pod 'UPCarouselFlowLayout'
-  pod 'SwipeView'
-  pod 'TTTAttributedLabel'
-  pod 'Koloda'
-  
-  
-  post_install do |installer|
+    pod 'TTTAttributedLabel'
+    pod 'UILabel+Copyable', '~> 1.0.0'
+    pod 'UITextView+Placeholder'
 
+    pod 'SwipeView'
+    pod 'MGSwipeTableCell'
 
-#https://github.com/CocoaPods/CocoaPods/issues/7606
-#      installer.pods_project.build_configurations.each do |config|
-#          config.build_settings.delete('CODE_SIGNING_ALLOWED')
-#          config.build_settings.delete('CODE_SIGNING_REQUIRED')
-#      end
+    pod 'MBProgressHUD', '~> 1.0.0'
+    pod 'SVProgressHUD'
 
-      installer.pods_project.targets.each do |target|
-          if target.name == 'Charts' || target.name == 'SwipeCellKit'
-              target.build_configurations.each do |config|
-                  config.build_settings['SWIFT_VERSION'] = '4.1'
-              end
-          end
-          
-#          if target.name == 'SwipeCellKit'
-#              target.build_configurations.each do |config|
-#                  config.build_settings['SWIFT_VERSION'] = '4.1'
-#              end
-#          end
-      end
-  end
+    pod 'RDVTabBarController'
+    pod 'UPCarouselFlowLayout'
+    pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
+
+    pod 'Charts'
+    pod 'Koloda'
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxGesture'
+
+    pod 'IQKeyboardManagerSwift'
+    pod 'TPKeyboardAvoiding'
+
+    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'    
+    pod 'base58', :path => 'Vendors/Base58'
+    pod 'keccak', :path => 'Vendors/Keccak'
+    pod 'blake2', :path => 'Vendors/Blake2'
+
+    pod 'KeychainAccess'
+    
+    pod 'QRCode'
+    pod 'QRCodeReader.swift'
+
+    # DB
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    # Network
+    pod 'RxAlamofire'
   
-  
+    # Parser 
+    pod 'SwiftyJSON'
+    pod 'Gloss', '2.0.0-beta.1'    
 end
 
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if config.name == 'Debug'
+          config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
+          config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
+          config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+          
+        end
+      end
+    end
+  end
