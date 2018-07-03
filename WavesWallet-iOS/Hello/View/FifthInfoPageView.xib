@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="h0x-1w-vbV" customClass="FifthInfoPageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V00-dv-0Z6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How To Protect Yourself from Phishers" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2q-pA-5PF">
+                                    <rect key="frame" x="16" y="44" width="343" height="122"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faU-dc-Ae4">
+                                    <rect key="frame" x="16" y="190" width="343" height="62.5"/>
+                                    <string key="text">One of the most common forms of scamming is phishing, which is when scammers create fake communities on Facebook or other websites that look similar to the authentic ones.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iMailopen42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="hOX-Gi-smP">
+                                    <rect key="frame" x="16" y="276.5" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="0cp-cZ-27y"/>
+                                        <constraint firstAttribute="height" constant="28" id="PPF-1b-vFy"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iRefreshbrowser42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="omk-WZ-Bv2">
+                                    <rect key="frame" x="68" y="276" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="fFy-as-00x"/>
+                                        <constraint firstAttribute="width" constant="28" id="pTu-lL-n0i"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iOs42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="MVi-hS-kbU">
+                                    <rect key="frame" x="120" y="276" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="0NA-qG-D4g"/>
+                                        <constraint firstAttribute="height" constant="28" id="ZbL-7m-nmO"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iWifi42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="6hl-NB-nsu">
+                                    <rect key="frame" x="172" y="276" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="Aij-UE-LX8"/>
+                                        <constraint firstAttribute="width" constant="28" id="pmz-bC-dHI"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DL3-Zy-AFA">
+                                    <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="FC1-xA-FC1"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                    <state key="normal" title="Next">
+                                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="X2q-pA-5PF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="0Ti-ct-eEc"/>
+                                <constraint firstItem="faU-dc-Ae4" firstAttribute="leading" secondItem="X2q-pA-5PF" secondAttribute="leading" id="65S-vh-0L4"/>
+                                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DL3-Zy-AFA" secondAttribute="bottom" constant="24" id="7WK-BH-8EZ"/>
+                                <constraint firstItem="6hl-NB-nsu" firstAttribute="leading" secondItem="MVi-hS-kbU" secondAttribute="trailing" constant="24" id="Fdo-mb-MbR"/>
+                                <constraint firstItem="6hl-NB-nsu" firstAttribute="centerY" secondItem="MVi-hS-kbU" secondAttribute="centerY" id="Ppb-2k-5Oe"/>
+                                <constraint firstAttribute="trailing" secondItem="X2q-pA-5PF" secondAttribute="trailing" constant="16" id="Qtq-Pg-9Ep"/>
+                                <constraint firstItem="DL3-Zy-AFA" firstAttribute="trailing" secondItem="faU-dc-Ae4" secondAttribute="trailing" id="WGE-jO-mB9"/>
+                                <constraint firstItem="omk-WZ-Bv2" firstAttribute="centerY" secondItem="hOX-Gi-smP" secondAttribute="centerY" id="e6V-YX-7Gb"/>
+                                <constraint firstItem="faU-dc-Ae4" firstAttribute="top" secondItem="X2q-pA-5PF" secondAttribute="bottom" constant="24" id="e8R-ea-0An"/>
+                                <constraint firstItem="MVi-hS-kbU" firstAttribute="centerY" secondItem="omk-WZ-Bv2" secondAttribute="centerY" id="ezy-vN-tvL"/>
+                                <constraint firstItem="X2q-pA-5PF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="hxF-QK-AGa"/>
+                                <constraint firstItem="faU-dc-Ae4" firstAttribute="trailing" secondItem="X2q-pA-5PF" secondAttribute="trailing" id="jMd-yJ-wOD"/>
+                                <constraint firstItem="DL3-Zy-AFA" firstAttribute="leading" secondItem="faU-dc-Ae4" secondAttribute="leading" id="jaT-yY-BnX"/>
+                                <constraint firstItem="MVi-hS-kbU" firstAttribute="leading" secondItem="omk-WZ-Bv2" secondAttribute="trailing" constant="24" id="nzd-vu-Q3b"/>
+                                <constraint firstItem="hOX-Gi-smP" firstAttribute="top" secondItem="faU-dc-Ae4" secondAttribute="bottom" constant="24" id="okS-60-Rgz"/>
+                                <constraint firstItem="omk-WZ-Bv2" firstAttribute="leading" secondItem="hOX-Gi-smP" secondAttribute="trailing" constant="24" id="qu0-IZ-GSy"/>
+                                <constraint firstItem="hOX-Gi-smP" firstAttribute="leading" secondItem="faU-dc-Ae4" secondAttribute="leading" id="wUH-Gz-T81"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="TQ5-8V-EGz"/>
+                        <constraint firstItem="iN0-l3-epB" firstAttribute="leading" secondItem="V00-dv-0Z6" secondAttribute="leading" id="ThZ-zE-QEA"/>
+                        <constraint firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="Vdh-Ud-ZJs"/>
+                        <constraint firstItem="iN0-l3-epB" firstAttribute="top" secondItem="V00-dv-0Z6" secondAttribute="top" id="Wfg-0E-mBY"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="V00-dv-0Z6" firstAttribute="top" secondItem="h0x-1w-vbV" secondAttribute="top" id="GKP-FP-pI3"/>
+                <constraint firstItem="quB-kQ-hfd" firstAttribute="trailing" secondItem="V00-dv-0Z6" secondAttribute="trailing" id="Myi-5j-dwR"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="width" secondItem="h0x-1w-vbV" secondAttribute="width" id="YLt-Te-fdf"/>
+                <constraint firstItem="V00-dv-0Z6" firstAttribute="leading" secondItem="quB-kQ-hfd" secondAttribute="leading" id="eai-Dq-faX"/>
+                <constraint firstItem="V00-dv-0Z6" firstAttribute="width" secondItem="h0x-1w-vbV" secondAttribute="width" id="jGN-uw-ZU0"/>
+                <constraint firstItem="quB-kQ-hfd" firstAttribute="bottom" secondItem="V00-dv-0Z6" secondAttribute="bottom" id="jPn-aG-y29"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="height" secondItem="h0x-1w-vbV" secondAttribute="height" priority="250" id="lrk-sc-528"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="quB-kQ-hfd"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="3"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="btnBotConstraint" destination="7WK-BH-8EZ" id="fgN-S2-BT5"/>
+                <outlet property="nextBtn" destination="DL3-Zy-AFA" id="xgS-Lo-yUF"/>
+                <outlet property="textTrailingConstraint" destination="Qtq-Pg-9Ep" id="tkf-4b-0ec"/>
+                <outlet property="titleLeadingConstraint" destination="0Ti-ct-eEc" id="7Vh-Vg-5fq"/>
+                <outlet property="titleTopConstraint" destination="hxF-QK-AGa" id="zzK-xf-KNW"/>
+            </connections>
+            <point key="canvasLocation" x="523" y="66"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iMailopen42Submit400" width="28" height="28"/>
+        <image name="iOs42Submit400" width="28" height="28"/>
+        <image name="iRefreshbrowser42Submit400" width="28" height="28"/>
+        <image name="iWifi42Submit400" width="28" height="28"/>
+    </resources>
+</document>

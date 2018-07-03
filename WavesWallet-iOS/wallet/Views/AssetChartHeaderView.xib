@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AssetChartHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hoi-Zk-oxg">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Week status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Os5-pZ-Fja">
+                            <rect key="frame" x="16" y="12" width="74.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfX-Rz-RAv">
+                            <rect key="frame" x="245" y="0.0" width="130" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="130" id="YLx-yn-p06"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Change period">
+                                <color key="titleColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="asset_change_arrows" translatesAutoresizingMaskIntoConstraints="NO" id="Lrk-4V-BUy">
+                            <rect key="frame" x="347" y="13" width="14" height="14"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Lrk-4V-BUy" secondAttribute="trailing" constant="14" id="4Gc-Uc-X4p"/>
+                        <constraint firstItem="Lrk-4V-BUy" firstAttribute="centerY" secondItem="Hoi-Zk-oxg" secondAttribute="centerY" id="6F8-SH-WYH"/>
+                        <constraint firstItem="jfX-Rz-RAv" firstAttribute="top" secondItem="Hoi-Zk-oxg" secondAttribute="top" id="AO8-4S-Esl"/>
+                        <constraint firstAttribute="bottom" secondItem="jfX-Rz-RAv" secondAttribute="bottom" id="KgH-Kz-kfH"/>
+                        <constraint firstItem="Os5-pZ-Fja" firstAttribute="centerY" secondItem="Hoi-Zk-oxg" secondAttribute="centerY" id="NJD-WW-ahT"/>
+                        <constraint firstItem="Os5-pZ-Fja" firstAttribute="leading" secondItem="Hoi-Zk-oxg" secondAttribute="leading" constant="16" id="SRm-NE-9ar"/>
+                        <constraint firstAttribute="trailing" secondItem="jfX-Rz-RAv" secondAttribute="trailing" id="ygO-qp-X6H"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Hoi-Zk-oxg" secondAttribute="trailing" id="9i4-kV-xHS"/>
+                <constraint firstItem="Hoi-Zk-oxg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Yj2-1f-fmG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Hoi-Zk-oxg" secondAttribute="bottom" id="rY9-ZT-7Jk"/>
+                <constraint firstItem="Hoi-Zk-oxg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="zUV-9z-5wi"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="buttonChangePeriod" destination="jfX-Rz-RAv" id="jGf-5B-fL0"/>
+                <outlet property="labelTitle" destination="Os5-pZ-Fja" id="ga5-rG-mtE"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="asset_change_arrows" width="14" height="14"/>
+    </resources>
+</document>

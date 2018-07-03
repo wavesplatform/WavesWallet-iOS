@@ -8,14 +8,45 @@
 //
 
 import UIKit
+import RESideMenu
+
 
 class StoryboardManager {
-    class func launchViewController() -> UIViewController {
-        return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
+    
+    class func WavesStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Waves", bundle: nil)
     }
     
-    class func mainTabBarViewController() -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBarController")
+    class func TransferStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Transfer", bundle: nil)
+    }
+    
+    class func MainStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Main", bundle: nil)
+    }
+    
+    class func DexStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Dex", bundle: nil)
+    }
+    
+    class func TransactionsStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Transactions", bundle: nil)
+    }
+    
+    class func ProfileStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Profile", bundle: nil)
+    }
+    
+    class func HelloStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Hello", bundle: nil)
+    }
+    
+    class func EnterStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Enter", bundle: nil)
+    }
+    
+    class func launchViewController() -> UIViewController {
+        return UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "NavLaunchViewController")
     }
     
     class func transactionDetailViewController(tx: Transaction) -> UIViewController {
@@ -55,8 +86,16 @@ class StoryboardManager {
 
     
     class func didEndLogin() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = mainTabBarViewController()
+        
+        let menuController = MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
+        let sideMenuViewController = RESideMenu(contentViewController: MainTabBarController(), leftMenuViewController: menuController, rightMenuViewController: nil)!
+        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
+        sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
+        sideMenuViewController.contentViewShadowOpacity = 0.2
+        sideMenuViewController.contentViewShadowRadius = 15
+        sideMenuViewController.contentViewShadowEnabled = true
+        sideMenuViewController.panGestureEnabled = false
+        AppDelegate.shared().window?.rootViewController = sideMenuViewController
     }
     
     class func didLogout() {

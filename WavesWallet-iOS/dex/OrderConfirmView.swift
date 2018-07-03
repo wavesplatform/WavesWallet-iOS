@@ -32,7 +32,7 @@ class OrderConfirmView: UIView {
             self.alpha = 1
         }
         
-        addBounceStartAnimation(viewBg)
+        viewBg.addBounceStartAnimation()
     }
     
     class func needShow() -> Bool {
@@ -41,12 +41,12 @@ class OrderConfirmView: UIView {
     }
     
     @IBAction func cancelTapped(_ sender: Any) {
-        addBounceEndAnimation(viewBg)
+        viewBg.addBounceEndAnimation()
         dismissView()
     }
     
     @IBAction func confirmTapped(_ sender: Any) {
-        addBounceEndAnimation(viewBg)
+        viewBg.addBounceEndAnimation()
         dismissView()
         delegate?.orderConfirmViewDidConfirm()
         
@@ -83,36 +83,6 @@ class OrderConfirmView: UIView {
         }) { (complete) in
             self.removeFromSuperview()
         }
-    }
-    
-    func addBounceStartAnimation (_ view: UIView) {
-        
-        view.alpha = 0
-        
-        UIView.animate(withDuration: 0.1) {
-            view.alpha = 1
-        }
-        
-        view.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
-        
-        let bounceAnimation = CAKeyframeAnimation.init(keyPath: "transform.scale")
-        bounceAnimation.values = [0.5, 1.2, 0.9, 1.0]
-        bounceAnimation.duration = 0.4
-        bounceAnimation.isRemovedOnCompletion = false
-        view.layer.add(bounceAnimation, forKey: "bounce")
-        view.layer.transform = CATransform3DIdentity
-    }
-    
-    func addBounceEndAnimation(_ view: UIView) {
-        
-        view.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
-        
-        let bounceAnimation = CAKeyframeAnimation.init(keyPath: "transform.scale")
-        bounceAnimation.values = [1.0, 1.1, 0.5, 0.0]
-        bounceAnimation.duration = 0.3
-        bounceAnimation.isRemovedOnCompletion = false
-        view.layer.add(bounceAnimation, forKey: "bounce")
-        view.layer.transform = CATransform3DIdentity
     }
 
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TransactionHistoryMassSendView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w10-hi-axS" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="16" y="55" width="343" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="oSM-b6-Gmv"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mr. Big Mike" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dhs-l6-koB">
+                    <rect key="frame" x="16" y="13" width="312" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.01000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMf-2O-hQR">
+                    <rect key="frame" x="16" y="31" width="58.5" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.30588235289999999" green="0.36078431370000003" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qWv-xw-a7J">
+                    <rect key="frame" x="328" y="8" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="gqu-3j-9OS"/>
+                        <constraint firstAttribute="height" constant="40" id="hcN-Hd-vge"/>
+                    </constraints>
+                    <state key="normal" image="addaddress24Submit300"/>
+                    <connections>
+                        <action selector="buttonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="cgK-Cp-pa6"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VMf-2O-hQR" firstAttribute="top" secondItem="Dhs-l6-koB" secondAttribute="bottom" constant="2" id="02q-tH-Kvu"/>
+                <constraint firstAttribute="trailing" secondItem="w10-hi-axS" secondAttribute="trailing" constant="16" id="25W-9a-vup"/>
+                <constraint firstItem="qWv-xw-a7J" firstAttribute="leading" secondItem="Dhs-l6-koB" secondAttribute="trailing" id="6zQ-rM-4ce"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qWv-xw-a7J" secondAttribute="trailing" constant="7" id="8EK-xF-0rD"/>
+                <constraint firstItem="w10-hi-axS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="CzJ-Zw-RHU"/>
+                <constraint firstItem="VMf-2O-hQR" firstAttribute="leading" secondItem="Dhs-l6-koB" secondAttribute="leading" id="Hd2-ps-1rM"/>
+                <constraint firstItem="Dhs-l6-koB" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="13" id="Xiy-L4-BYJ"/>
+                <constraint firstItem="qWv-xw-a7J" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="b6J-4G-q25"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="w10-hi-axS" secondAttribute="bottom" id="sV6-rM-p8h"/>
+                <constraint firstItem="Dhs-l6-koB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="tfo-GR-Ow2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="buttonAdd" destination="qWv-xw-a7J" id="PMa-ds-Pk3"/>
+                <outlet property="labelTitle" destination="Dhs-l6-koB" id="AcK-Cc-3n1"/>
+                <outlet property="viewSeparator" destination="w10-hi-axS" id="pgG-lv-kru"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="addaddress24Submit300" width="24" height="24"/>
+    </resources>
+</document>

@@ -19,13 +19,46 @@ target 'WavesWallet-iOS' do
   pod 'KeychainAccess'
   pod 'MBProgressHUD', '~> 1.0.0'
   pod 'IQKeyboardManagerSwift'
-  pod "RxGesture"
+  pod 'RxGesture'
   pod 'UITextView+Placeholder'
-  pod "QRCode"
+  pod 'QRCode'
   pod 'UILabel+Copyable', '~> 1.0.0'
-  pod 'QRCodeReader.swift', '~> 7.4.1'
-  pod 'Charts', '3.0.3'
+  pod 'QRCodeReader.swift', '~> 7.5.1'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
+  pod 'RDVTabBarController'
+  pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
+  pod 'Charts'
+  pod 'UPCarouselFlowLayout'
+  pod 'SwipeView'
+  pod 'TTTAttributedLabel'
+  pod 'Koloda'
+  
+  
+  post_install do |installer|
+
+
+#https://github.com/CocoaPods/CocoaPods/issues/7606
+#      installer.pods_project.build_configurations.each do |config|
+#          config.build_settings.delete('CODE_SIGNING_ALLOWED')
+#          config.build_settings.delete('CODE_SIGNING_REQUIRED')
+#      end
+
+      installer.pods_project.targets.each do |target|
+          if target.name == 'Charts' || target.name == 'SwipeCellKit'
+              target.build_configurations.each do |config|
+                  config.build_settings['SWIFT_VERSION'] = '4.1'
+              end
+          end
+          
+#          if target.name == 'SwipeCellKit'
+#              target.build_configurations.each do |config|
+#                  config.build_settings['SWIFT_VERSION'] = '4.1'
+#              end
+#          end
+      end
+  end
+  
+  
 end
 
