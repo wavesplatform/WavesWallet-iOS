@@ -30,7 +30,7 @@ class DataManager: NSObject {
     }
     
     func getTicker(_ asset: Any?) -> String? {
-        if verifiedAssets != nil, let key = asset, let tck = verifiedAssets[safe: key] {
+        if verifiedAssets != nil, let key = asset, let tck = verifiedAssets[key] {
             return tck as? String
         } else {
             return nil
@@ -267,11 +267,11 @@ class DataManager: NSObject {
     class func attributedBalanceText(text: String, font: UIFont) -> NSAttributedString {
         
         let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: font.pointSize, weight: UIFontWeightSemibold)])
+        let attrString = NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)])
         
         if range.location != NSNotFound {
             let length = text.count - range.location
-            attrString.addAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: font.pointSize, weight: UIFontWeightRegular)], range: NSRange(location: range.location, length: length))
+            attrString.addAttributes([NSAttributedStringKey.font : UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)], range: NSRange(location: range.location, length: length))
         }
         return attrString
     }

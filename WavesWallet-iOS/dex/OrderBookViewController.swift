@@ -85,7 +85,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func controllerWillAppear() {
+    @objc func controllerWillAppear() {
         //called when top tabs changed
         
         if timer == nil {
@@ -101,7 +101,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         clearTimer()
     }
     
-    func updateInfo() {
+    @objc func updateInfo() {
         loadInfo {
             
         }
@@ -114,7 +114,7 @@ class OrderBookViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func loadInfo(complete: @escaping (Void) -> Void)  {
+    func loadInfo(complete: @escaping () -> Void)  {
         
         clearTimer()
         orderRequest = NetworkManager.getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset) { (info, errorMessage) in

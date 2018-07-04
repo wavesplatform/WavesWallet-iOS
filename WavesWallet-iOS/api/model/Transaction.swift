@@ -7,12 +7,12 @@ import RxDataSources
 public class Transaction: Object, IdentifiableType, Gloss.Decodable {
     public typealias Identity = String
 
-    dynamic var id = ""
-    dynamic var type: Int = 0
-    dynamic var sender = ""
-    dynamic var timestamp: Int64 = 0
-    dynamic var fee: Int64 = 0
-    dynamic var isPending: Bool = false
+    @objc dynamic var id = ""
+    @objc dynamic var type: Int = 0
+    @objc dynamic var sender = ""
+    @objc dynamic var timestamp: Int64 = 0
+    @objc dynamic var fee: Int64 = 0
+    @objc dynamic var isPending: Bool = false
     
     public required init?(json: JSON) {
         guard let id: String = "id" <~~ json
@@ -87,18 +87,18 @@ func == (lhs: Transaction, rhs: Transaction) -> Bool {
 }
 
 public class BasicTransaction: Object, IdentifiableType {
-    dynamic var id = ""
-    dynamic var type: Int = 0
-    dynamic var sender = ""
-    dynamic var timestamp: Int64 = 0
-    dynamic var fee: Int64 = 0
-    dynamic var assetId: String = ""
-    dynamic var asset: IssueTransaction?
-    dynamic var amount: Int64 = 0
-    dynamic var isInput = false
-    dynamic var addressBook: AddressBook?
-    dynamic var counterParty = ""
-    dynamic var isPending: Bool = false
+    @objc dynamic var id = ""
+    @objc dynamic var type: Int = 0
+    @objc dynamic var sender = ""
+    @objc dynamic var timestamp: Int64 = 0
+    @objc dynamic var fee: Int64 = 0
+    @objc dynamic var assetId: String = ""
+    @objc dynamic var asset: IssueTransaction?
+    @objc dynamic var amount: Int64 = 0
+    @objc dynamic var isInput = false
+    @objc dynamic var addressBook: AddressBook?
+    @objc dynamic var counterParty = ""
+    @objc dynamic var isPending: Bool = false
     
     convenience init(tx: Transaction) {
         self.init()
@@ -130,10 +130,10 @@ func == (lhs: BasicTransaction, rhs: BasicTransaction) -> Bool {
 }
 
 public class TransferTransaction: Transaction {
-    dynamic var amount: Int64 = 0
-    dynamic var assetId: String?
-    dynamic var recipient: String = ""
-    dynamic var attachment: String?
+    @objc dynamic var amount: Int64 = 0
+    @objc dynamic var assetId: String?
+    @objc dynamic var recipient: String = ""
+    @objc dynamic var attachment: String?
     
     public required init?(json: JSON) {
         guard let amount: Int64 = "amount" <~~ json,
@@ -179,11 +179,11 @@ public class TransferTransaction: Transaction {
 }
 
 public class IssueTransaction: Transaction {
-    dynamic var name = ""
-    dynamic var assetDescription: String?
-    dynamic var quantity: Int64 = 0
-    dynamic var decimals: Int16 = 0
-    dynamic var reissuable = false
+    @objc dynamic var name = ""
+    @objc dynamic var assetDescription: String?
+    @objc dynamic var quantity: Int64 = 0
+    @objc dynamic var decimals: Int16 = 0
+    @objc dynamic var reissuable = false
     
     public required init?(json: JSON) {
         guard let name: String = "name" <~~ json
@@ -229,12 +229,12 @@ public class IssueTransaction: Transaction {
 
 
 public class ExchangeTransaction: Transaction {
-    dynamic var sellSender = ""
-    dynamic var buySender = ""
-    dynamic var amount: Int64 = 0
-    dynamic var price: Int64 = 0
-    dynamic var amountAsset = ""
-    dynamic var priceAsset = ""
+    @objc dynamic var sellSender = ""
+    @objc dynamic var buySender = ""
+    @objc dynamic var amount: Int64 = 0
+    @objc dynamic var price: Int64 = 0
+    @objc dynamic var amountAsset = ""
+    @objc dynamic var priceAsset = ""
     
     
     public required init?(json: JSON) {

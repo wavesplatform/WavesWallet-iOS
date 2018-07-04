@@ -267,7 +267,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
             .addDisposableTo(bag)
     }
     
-    func handleOpenUrl() {
+    @objc func handleOpenUrl() {
         if let p = OpenUrlManager.getOpenUrlParams() {
             setValues(address: p.0, assetId: p.1, amount: p.2, attachment: p.3)
         }

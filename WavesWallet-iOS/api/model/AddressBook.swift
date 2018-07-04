@@ -4,8 +4,8 @@ import Realm
 import RxDataSources
 
 class AddressBook: Object, IdentifiableType {
-    dynamic var address = ""
-    dynamic var name: String? = nil
+    @objc dynamic var address = ""
+    @objc dynamic var name: String? = nil
     
     public var identity: String {
         return "\(address)"

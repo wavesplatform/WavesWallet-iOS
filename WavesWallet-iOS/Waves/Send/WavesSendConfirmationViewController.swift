@@ -59,7 +59,7 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
         }
     }
     
-    func textFieldDidChange() {
+    @objc func textFieldDidChange() {
         setupButtonConfirm()
         
         labelDescriptionError.isHidden = true

@@ -7,10 +7,10 @@ import KeychainAccess
 import LocalAuthentication
 
 class WalletItem: Object {
-    dynamic var publicKey = ""
-    dynamic var name = ""
-    dynamic var isLoggedIn = false
-    dynamic var isBackedUp = false
+    @objc dynamic var publicKey = ""
+    @objc dynamic var name = ""
+    @objc dynamic var isLoggedIn = false
+    @objc dynamic var isBackedUp = false
     
     public var identity: String {
         return "\(publicKey)"
@@ -33,8 +33,8 @@ class WalletItem: Object {
 }
 
 class SeedItem: Object {
-    dynamic var publicKey = ""
-    dynamic var seed = ""
+    @objc dynamic var publicKey = ""
+    @objc dynamic var seed = ""
     
     public var identity: String {
         return "\(publicKey)"
@@ -352,7 +352,7 @@ class WalletManager {
             try realm.write {
                 realm.create(SeedItem.self, value: ["publicKey": publicKeyStr, "seed": String(data: Data(seedBytes), encoding: .utf8)], update: true)
             }
-            return Observable<Void>.just()
+            return Observable<Void>.just(())
         } catch let err {
             return Observable.error(WalletError.Generic("Failed to save seed in Realm: " + err.localizedDescription))
         }
@@ -426,7 +426,7 @@ class WalletManager {
                 if isTouchIdAvailable() {
                     return createWalletInKeychain(wallet: wallet, seedBytes: seedBytes)
                 } else {
-                    return Observable<Void>.just()
+                    return Observable<Void>.just(())
                 }
             }.observeOn(MainScheduler.instance)
             .subscribe(onNext: { tx in

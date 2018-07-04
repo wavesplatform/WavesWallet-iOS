@@ -943,7 +943,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "use" */;
+			buildConfigurationList = F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1376,7 +1376,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "use" */ = {
+		F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F7E954F61EA8FE0700A804DE /* Debug */,

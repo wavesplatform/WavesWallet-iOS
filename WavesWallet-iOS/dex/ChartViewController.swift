@@ -129,7 +129,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         }
     }
     
-    func updateCandleLimitLine() {
+    @objc func updateCandleLimitLine() {
         
         NetworkManager.getLastTraderPairPrice(amountAsset: amountAsset, priceAsset: priceAsset) { (price, timestamp, errorMessage) in
             

@@ -159,7 +159,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
                 })
                 
                 DataManager.shared.orderBooks = markets
-                self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSForegroundColorAttributeName : UIColor(netHex: 0x8c8c8c)])
+                self.textFieldSearch.attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [.foregroundColor : UIColor(netHex: 0x8c8c8c)])
                         
                 self.setupVerifiedItems()
                 self.tableView.reloadData()
@@ -179,7 +179,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         }
     }
     
-    func actionTapped() {
+    @objc func actionTapped() {
         
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -232,7 +232,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         return isNameCountains || (tckLocation != nil && tckLocation != NSNotFound)
     }
     
-    func textFieldDidChange() {
+    @objc func textFieldDidChange() {
         
         searchItems = []
         

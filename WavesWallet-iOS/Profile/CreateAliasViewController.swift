@@ -34,7 +34,7 @@ class CreateAliasViewController: UIViewController, UITextFieldDelegate, UIScroll
         navigationController?.popViewController(animated: true)
     }
     
-    func nameDidChange() {
+    @objc func nameDidChange() {
         DataManager.setupTextFieldLabel(textField: textField, placeHolderLabel: labelName)
         
         if textField.text!.count > 0 {
@@ -54,7 +54,7 @@ class CreateAliasViewController: UIViewController, UITextFieldDelegate, UIScroll
         setupTopBarLine()
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
     

@@ -68,14 +68,14 @@ class WavesReceiveBankViewController: UIViewController, TTTAttributedLabelDelega
         if isVerified {
             viewVerified.isHidden = false
             viewNotVerified.isHidden = true
-            verifiedHeightConstraint.priority = 750
-            notVerifiedHeightConstraint.priority = 749
+            verifiedHeightConstraint.priority = UILayoutPriority(rawValue: 750)
+            notVerifiedHeightConstraint.priority = UILayoutPriority(rawValue: 749)
         }
         else {
             viewVerified.isHidden = true
             viewNotVerified.isHidden = false
-            verifiedHeightConstraint.priority = 749
-            notVerifiedHeightConstraint.priority = 750
+            verifiedHeightConstraint.priority = UILayoutPriority(rawValue: 749)
+            notVerifiedHeightConstraint.priority = UILayoutPriority(rawValue: 750)
         }
         
     }
@@ -105,15 +105,17 @@ class WavesReceiveBankViewController: UIViewController, TTTAttributedLabelDelega
         labelSupportVerified.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
         labelSupportVerified.delegate = self
         
-        var attr = NSMutableAttributedString(string: "In order to deposit Euro directly from your bank account through SEPA transfer you must get verified by our partner IDNow.eu", attributes: [NSFontAttributeName : labelStep1.font])
+        var attr = NSMutableAttributedString(string: "In order to deposit Euro directly from your bank account through SEPA transfer you must get verified by our partner IDNow.eu",
+                                             attributes: [.font : labelStep1.font])
         labelStep1.setText(attr)
         
         
         let text = "In case of problems with verification or payment processing, please contact the Coinomat support team — support@coinomat.com"
-        attr = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName : labelSupportNotVerified.font, NSForegroundColorAttributeName : UIColor.basic500])
+        attr = NSMutableAttributedString(string: text, attributes: [.font : labelSupportNotVerified.font,
+                                                                    .foregroundColor : UIColor.basic500])
         
         let range = (text as NSString).range(of: "support@coinomat.com")
-        attr.addAttributes([kCTForegroundColorAttributeName as String : UIColor.black], range: range)
+        attr.addAttributes([.foregroundColor : UIColor.black], range: range)
         labelSupportNotVerified.setText(attr)
         labelSupportVerified.setText(attr)
     }

@@ -52,7 +52,7 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         scrollViewAmount.contentSize.width = scrollWidth + offset
     }
     
-    func amountTapped(_ sender: UIButton) {
+    @objc func amountTapped(_ sender: UIButton) {
         
         let index = sender.tag
         if index == 0 {
@@ -70,7 +70,7 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func amountChange() {
+    @objc func amountChange() {
         
         let text = textFieldAmount.text!
         if text.count > 0 {
@@ -91,11 +91,11 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func keyboardDotTouchDown() {
+    @objc func keyboardDotTouchDown() {
         AudioServicesPlaySystemSound(1103)
     }
     
-    func keyboardDotUpInside() {
+    @objc func keyboardDotUpInside() {
         
         if (textFieldAmount.text! as NSString).range(of: ".").location != NSNotFound {
             viewAmount.shakeView()
@@ -114,11 +114,11 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         buttonDot?.removeFromSuperview()
     }
     
-    func keyboardWillShow(_ notif: Notification) {
+    @objc func keyboardWillShow(_ notif: Notification) {
         
         if buttonDot == nil {
             let buttonWidth = Platform.ScreenWidth / 3 - 8

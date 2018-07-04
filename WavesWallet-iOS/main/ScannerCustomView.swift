@@ -67,7 +67,7 @@ class ScannerCustomView: UIView, QRCodeReaderDisplayable {
             let buttonWidth : CGFloat = 100
             let buttonHeight : CGFloat = 48
             let offset : CGFloat = Platform.isIphoneX ? 36 : 16
-            cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightSemibold)
+            cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
             cancelButton?.frame = CGRect(x: (Platform.ScreenWidth - buttonWidth) / 2, y: UIScreen.main.bounds.size.height - buttonHeight - offset, width: buttonWidth, height: buttonHeight)
             addSubview(cancelButton!)
         }
@@ -80,14 +80,14 @@ class ScannerCustomView: UIView, QRCodeReaderDisplayable {
         }
         
         let labelTitle = UILabel(frame: CGRect(x: 0, y: Platform.isIphoneX ? 50 : 30, width: Platform.ScreenWidth, height: 20))
-        labelTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
+        labelTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         labelTitle.textAlignment = .center
         labelTitle.textColor = UIColor.white
         labelTitle.text = "Scan QR"
         addSubview(labelTitle)
     }
     
-    func changeStateToogle() {
+    @objc func changeStateToogle() {
         isTorchOn = !isTorchOn
         
         if isTorchOn {
@@ -98,6 +98,5 @@ class ScannerCustomView: UIView, QRCodeReaderDisplayable {
         }
     }
 
-    
-
+    func setNeedsUpdateOrientation() { }
 }

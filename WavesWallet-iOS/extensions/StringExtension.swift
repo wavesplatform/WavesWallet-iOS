@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     
@@ -21,11 +22,11 @@ extension String {
     
     func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let text = self as NSString
-        return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil).size.height)
+        return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font : font], context: nil).size.height)
     }
     
     func maxWidth(font: UIFont) -> CGFloat {
         let text = self as NSString
-        return ceil(text.boundingRect(with: CGSize(width:CGFloat.greatestFiniteMagnitude, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context: nil).size.width)
+        return ceil(text.boundingRect(with: CGSize(width:CGFloat.greatestFiniteMagnitude, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font : font], context: nil).size.width)
     }
 }

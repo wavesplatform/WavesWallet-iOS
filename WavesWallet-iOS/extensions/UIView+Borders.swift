@@ -181,7 +181,7 @@ public extension UIView {
         return border
     }
     
-    func addBorder(edges: UIRectEdge, colour: UIColor = UIColor.white, thickness: CGFloat = 1) {
+    func addBorder(edges: UIRectEdge, colour: UIColor, thickness: CGFloat = 1) {
         
         var borders = [UIView]()
         

@@ -24,7 +24,7 @@ class EditAccountNameViewController: UIViewController {
         buttonSave.setupButtonDeactivateState()
     }
    
-    func nameDidChange() {
+    @objc func nameDidChange() {
         
         DataManager.setupTextFieldLabel(textField: textField, placeHolderLabel: labelAccountName)
         

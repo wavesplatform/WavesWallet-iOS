@@ -114,7 +114,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.addSubview(refreshControl)
     }
     
-    func refresh() {
+    @objc func refresh() {
         controllerWillAppear()
     }
     
@@ -122,14 +122,14 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         NotificationCenter.default.removeObserver(self)
     }
     
-    func loadInfo () {
+    @objc func loadInfo () {
         
         isLoading = true
         NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
             self.isLoading = false
             self.activityIndicatorView.stopAnimating()
             if items != nil {
-                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as! NSArray
+                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as NSArray
                 self.tableView.reloadData()
             } else if let msg = erorMessage {
                 self.presentBasicAlertWithTitle(title: msg)
@@ -149,7 +149,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         loadInfo()
     }
     
-    func deleteCancelTapped(sender: UIButton) {
+    @objc func deleteCancelTapped(sender: UIButton) {
         SVProgressHUD.show()
         
         WalletManager.getPrivateKey(complete: { (privateKey) in

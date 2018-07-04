@@ -11,13 +11,13 @@ class AssetBalance
     
     typealias Identity = String
     
-    dynamic var assetId = ""
-    dynamic var balance: Int64 = 0
-    dynamic var quantity: Int64 = 0
-    dynamic var reissuable = false
-    dynamic var issueTransaction: IssueTransaction?
-    dynamic var isGeneral = false
-    dynamic var isHidden = false
+    @objc dynamic var assetId = ""
+    @objc dynamic var balance: Int64 = 0
+    @objc dynamic var quantity: Int64 = 0
+    @objc dynamic var reissuable = false
+    @objc dynamic var issueTransaction: IssueTransaction?
+    @objc dynamic var isGeneral = false
+    @objc dynamic var isHidden = false
     
     var identity: String {
         return assetId

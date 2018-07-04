@@ -17,6 +17,10 @@ import RealmSwift
 import RxRealm
 
 class TransactionsViewController: UIViewController {
+
+    typealias ConfigureCell<S: SectionModelType> = (TableViewSectionedDataSource<S>, UITableView, IndexPath, S.Item) -> UITableViewCell
+    typealias TitleForHeaderInSection<S: SectionModelType> = (TableViewSectionedDataSource<S>, Int) -> String?
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
@@ -57,7 +61,8 @@ class TransactionsViewController: UIViewController {
         for g in groups.enumerated() {
             sections.append(SectionModel(model: g.element.key, items: g.element.value))
         }
-        return sections.sorted(by: { $0.0.model > $0.1.model })
+        
+        return sections.sorted { $0.model > $1.model }
     }
     
     var selectAccountController: SelectAccountViewController {
@@ -96,7 +101,7 @@ class TransactionsViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
 
-    func refresh(sender: AnyObject) {
+    @objc func refresh(sender: AnyObject) {
         WalletManager.updateTransactions{
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.refreshControl.endRefreshing()
@@ -131,9 +136,22 @@ class TransactionsViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     }*/
-    
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int64, BasicTransaction>>()
-    
+
+    lazy var configureCell: ConfigureCell<SectionModel<Int64, BasicTransaction>> = { (_, tv, indexPath, tx) in
+        if let cell = tv.dequeueReusableCell(withIdentifier: "Cell") as? TransactionCell {
+            cell.bindItem(tx, parentController: self)
+            return cell
+        }
+        return UITableViewCell()
+    }
+
+    lazy var titleForHeaderInSection: TitleForHeaderInSection<SectionModel<Int64, BasicTransaction>> = { dataSource, sectionIndex in
+        return DateUtil.formatStartOfDay(dataSource[sectionIndex].model)
+    }
+
+    lazy var dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int64, BasicTransaction>>(configureCell: configureCell,
+                                                                                                      titleForHeaderInSection: titleForHeaderInSection)
+
     func findFullTransaction(basicTx: BasicTransaction) -> Transaction? {
         switch basicTx.type {
         case 4:
@@ -179,19 +197,7 @@ class TransactionsViewController: UIViewController {
         updateHeaderView()
 
         setupRefreshControl()
-        
-        dataSource.configureCell = { (_, tv, indexPath, tx) in
-            if let cell = tv.dequeueReusableCell(withIdentifier: "Cell") as? TransactionCell {
-                cell.bindItem(tx, parentController: self)
-                return cell
-            }
-            return UITableViewCell()
-        }
-
-        dataSource.titleForHeaderInSection = { dataSource, sectionIndex in
-            return DateUtil.formatStartOfDay(dataSource[sectionIndex].model)
-        }
-        
+    
         tableView.rx
             .modelSelected(BasicTransaction.self)
             .subscribe(onNext:  { basicTx in
@@ -271,7 +277,7 @@ extension TransactionsViewController : UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         //header.contentView.backgroundColor = AppColors.lightSectionColor
         header.textLabel?.textColor = AppColors.greyText
-        header.textLabel?.font = UIFont.systemFont(ofSize: 11, weight: UIFontWeightLight)
+        header.textLabel?.font = UIFont.systemFont(ofSize: 11, weight: .light)
         //header.addBorder(edges: [.top, .bottom], colour: AppColors.greyBorderColor)
         
     }

@@ -21,12 +21,12 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
     }
     
-    func menuTapped() {
+    @objc func menuTapped() {
         let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
         menu.presentLeftMenuViewController()
     }
     
-    func backTapped() {
+    @objc func backTapped() {
         navigationController?.popViewController(animated: true)
     }
 

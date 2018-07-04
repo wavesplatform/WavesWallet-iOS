@@ -33,18 +33,36 @@ extension AccountSection : AnimatableSectionModelType {
 }
 
 class AccountsViewController: UIViewController {
+    
+    typealias ConfigureCell<S: SectionModelType> = (TableViewSectionedDataSource<S>, UITableView, IndexPath, S.Item) -> UITableViewCell
+    typealias TitleForHeaderInSection<S: SectionModelType> = (TableViewSectionedDataSource<S>, Int) -> String?
+
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
     
     let bag = DisposeBag()
     var realm: Realm!
     
-    let dataSource = RxTableViewSectionedReloadDataSource<AccountSection>()
+    lazy var dataSource = RxTableViewSectionedReloadDataSource<AccountSection>(configureCell: configureCell,
+                                                                               titleForHeaderInSection:titleForHeaderInSection)
     let sectionTitles = ["", "My Assets", "Other"]
     var objectsBySection = [Results<AssetBalance>]()
     var hiddenExpanded = [false, false, false]
     var hiddenAssetIds = [String]()
-    
+
+    lazy var configureCell: ConfigureCell<AccountSection> = { (_, tv, indexPath, ab) in
+        if let cell = tv.dequeueReusableCell(withIdentifier: "cell") as? AccountCell {
+            cell.delegate = self
+            cell.bindItem(ab)
+            return cell
+        }
+        return UITableViewCell()
+    }
+
+    lazy var titleForHeaderInSection: TitleForHeaderInSection<AccountSection> = { ds, index in
+        return ds.sectionModels[index].header
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,19 +81,6 @@ class AccountsViewController: UIViewController {
     }
     
     func setupTableView() {
-        dataSource.configureCell = { (_, tv, indexPath, ab) in
-            if let cell = tv.dequeueReusableCell(withIdentifier: "cell") as? AccountCell {
-                cell.delegate = self
-                cell.bindItem(ab)
-                return cell
-            }
-            return UITableViewCell()
-        }
-        
-        dataSource.titleForHeaderInSection = { ds, index in
-            return ds.sectionModels[index].header
-        }
-        
         bindTableView()
     }
     
@@ -90,7 +95,7 @@ class AccountsViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
     
-    func refresh(sender: AnyObject) {
+    @objc func refresh(sender: AnyObject) {
         WalletManager.updateBalances{
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.refreshControl.endRefreshing()

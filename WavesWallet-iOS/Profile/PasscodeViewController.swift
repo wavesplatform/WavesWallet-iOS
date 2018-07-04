@@ -59,7 +59,7 @@ class PasscodeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(setupButtonBiometrics), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
-    func setupButtonBiometrics() {
+    @objc func setupButtonBiometrics() {
         buttonTouchId.isHidden = biometricType == .none
     }
     

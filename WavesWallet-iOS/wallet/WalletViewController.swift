@@ -92,7 +92,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func handleGesture(_ gesture: UISwipeGestureRecognizer) {
+    @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
        
         if gesture.direction == .left {
             if selectedSegmentIndex == .assets {
@@ -136,17 +136,17 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         lastScrollCorrectOffset = nil
     }
 
-    func beginRefresh() {
+    @objc func beginRefresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refreshControl.endRefreshing()
         }
     }
     
-    func setupLastScrollCorrectOffset() {
+    @objc func setupLastScrollCorrectOffset() {
         lastScrollCorrectOffset = tableView.contentOffset
     }
     
-    func startLeasing() {
+    @objc func startLeasing() {
         setupLastScrollCorrectOffset()
         let sort = storyboard?.instantiateViewController(withIdentifier: "StartLeasingViewController") as! StartLeasingViewController
         navigationController?.pushViewController(sort, animated: true)
@@ -154,13 +154,13 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         rdv_tabBarController.setTabBarHidden(true, animated: true)
     }
     
-    func scanTapped() {
+    @objc func scanTapped() {
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "MyAddressViewController") as! MyAddressViewController
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func sortTapped() {
+    @objc func sortTapped() {
 
         setupLastScrollCorrectOffset()
         let sort = storyboard?.instantiateViewController(withIdentifier: "WalletSortViewController") as! WalletSortViewController
@@ -169,7 +169,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         rdv_tabBarController.setTabBarHidden(true, animated: true)
     }
   
-    func headerTapped(_ sender: UIButton) {
+    @objc func headerTapped(_ sender: UIButton) {
         
         let section = sender.tag
         

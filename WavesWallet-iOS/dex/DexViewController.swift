@@ -171,7 +171,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.addSubview(refreshControl)
     }
     
-    func refresh() {
+    @objc func refresh() {
         updateInfo()
     }
     
@@ -230,7 +230,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         request?.cancel()
     }
     
-    func updateInfo() {
+    @objc func updateInfo() {
         
         for item in dataItems as! [NSMutableDictionary] {
             item["hasLoadInfo"] = false
@@ -322,7 +322,7 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         NotificationCenter.default.removeObserver(self)
     }
     
-    func addTapped() {
+    @objc func addTapped() {
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "DexSearchViewController") as! DexSearchViewController
         navigationController?.pushViewController(controller, animated: true)

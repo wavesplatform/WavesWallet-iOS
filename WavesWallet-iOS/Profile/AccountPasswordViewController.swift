@@ -24,7 +24,7 @@ class AccountPasswordViewController: UIViewController {
         buttonSignIn.setupButtonDeactivateState()
     }
 
-    func textFieldPasswordDidChange() {
+    @objc func textFieldPasswordDidChange() {
         DataManager.setupTextFieldLabel(textField: textField, placeHolderLabel: labelPassword)
         if textField.text!.count > 0 {
             buttonSignIn.setupButtonActiveState()

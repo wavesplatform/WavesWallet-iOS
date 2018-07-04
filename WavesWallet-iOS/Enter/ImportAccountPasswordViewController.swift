@@ -64,17 +64,17 @@ class ImportAccountPasswordViewController: UIViewController, UIScrollViewDelegat
         }
     }
     
-    func nameDidChange() {
+    @objc func nameDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldAccountName, placeHolderLabel: labelAccountName)
     }
     
-    func passwordDidChange() {
+    @objc func passwordDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldPassword, placeHolderLabel: labelCreatePassword)
     }
     
-    func confirmPasswordDidChange() {
+    @objc func confirmPasswordDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldConfirmPassword, placeHolderLabel: labelConfirmPassword)
     }
