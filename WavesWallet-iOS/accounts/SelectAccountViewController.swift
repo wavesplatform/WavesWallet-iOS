@@ -111,7 +111,7 @@ class SelectAccountViewController: UIViewController, UICollectionViewDataSource 
                     }
                 }
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
     }
     

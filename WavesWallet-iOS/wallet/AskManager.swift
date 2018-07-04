@@ -40,7 +40,7 @@ class AskManager {
             pwdValid
                 .asDriver(onErrorJustReturn: false)
                 .drive(okAction.rx.isEnabled)
-                .addDisposableTo(askPasswordBag!)
+                .disposed(by: askPasswordBag!)
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 askPasswordBag = nil
@@ -77,7 +77,7 @@ class AskManager {
                 textField.placeholder = "Password"
                 textField.isSecureTextEntry = true
                 pwdText = textField.rx.text.orEmpty.asObservable()
-                pwdValid = pwdText?.map { $0.characters.count >= minimalPasswordLength }
+                pwdValid = pwdText?.map { $0.count >= minimalPasswordLength }
             }
             
             alert.addTextField { (textField) in
@@ -89,7 +89,7 @@ class AskManager {
             Observable.combineLatest(pwdValid, repeatValid) { $0 && $1 }
                 .asDriver(onErrorJustReturn: false)
                 .drive(okAction.rx.isEnabled)
-                .addDisposableTo(askPasswordBag!)
+                .disposed(by: askPasswordBag!)
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 askPasswordBag = nil

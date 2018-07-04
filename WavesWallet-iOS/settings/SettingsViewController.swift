@@ -61,7 +61,7 @@ class SettingsViewController: UITableViewController {
                     }, onError: { err in
                         self.presentBasicAlertWithTitle(title: err.localizedDescription)
                     })
-                    .addDisposableTo(bag)
+                    .disposed(by: bag)
             } else {
                 performSegue(withIdentifier: "BackupSeed", sender: nil)
             }

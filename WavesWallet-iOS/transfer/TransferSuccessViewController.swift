@@ -55,7 +55,7 @@ class TransferSuccessViewController: UIViewController {
                 .map { $0.name != nil ? .favourited : .notFavourited }
                 .observeOn(MainScheduler.instance)
                 .subscribe(onNext: { self.favoriteState = $0 })
-                .addDisposableTo(bag)
+                .disposed(by: bag)
         }
     }
     

@@ -226,7 +226,7 @@ class TransactionsViewController: UIViewController {
     
     func setupTableBinding() {
         selectedAsset.asObservable().subscribe(onNext: { self.bindTableView(asset: $0) })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     fileprivate var resultsBag = DisposeBag()

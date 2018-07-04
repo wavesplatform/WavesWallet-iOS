@@ -114,7 +114,7 @@ class CreateNewWalletViewController: UIViewController {
         Driver
             .combineLatest(needValidate, value) { $0 && $1.exists}
             .drive(errorLabel.rx.isHidden)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func validationResultTextView<A>(field: UITextView, errorLabel: UILabel, value: Driver<Try<A>>) {
@@ -123,10 +123,10 @@ class CreateNewWalletViewController: UIViewController {
         Driver
             .combineLatest(needValidate, value) { $0 && $1.exists}
             .drive(errorLabel.rx.isHidden)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         value.map{ $0.error }
             .drive(errorLabel.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
 
     
@@ -136,7 +136,7 @@ class CreateNewWalletViewController: UIViewController {
         
         walletName.map { $0.exists }
             .drive(submitButton.rx.isEnabled)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func setupSubmit() {
@@ -149,7 +149,7 @@ class CreateNewWalletViewController: UIViewController {
                     WalletManager.createWallet(wallet: w, seedBytes: s)
                 }
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     lazy var readerVC: QRCodeReaderViewController = {

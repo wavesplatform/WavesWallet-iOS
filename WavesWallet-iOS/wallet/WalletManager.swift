@@ -149,7 +149,7 @@ class WalletManager {
                     onComplete()
                 }
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
 
     class func autoUpdateFromNode() {
@@ -161,7 +161,7 @@ class WalletManager {
                 updateBalances(onComplete: nil)
                 updateTransactions(onComplete: nil)
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
 
     class func updateBalances(onComplete: (() -> ())?) {
@@ -195,7 +195,7 @@ class WalletManager {
                     onComplete()
                 }
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     class func didLogout() {
@@ -322,7 +322,7 @@ class WalletManager {
                 }, onError: { err in
                    fail(err.localizedDescription)
                 })
-                .addDisposableTo(bag)
+                .disposed(by: bag)
         }
     }
     
@@ -435,7 +435,7 @@ class WalletManager {
                 }, onError: { err in
                     AskManager.presentBasicAlertWithTitle(title: "Failed to store your seed", message: err.localizedDescription)
                 })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     class func deleteWallet(walletItem: WalletItem) {

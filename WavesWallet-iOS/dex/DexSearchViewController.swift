@@ -236,7 +236,7 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         
         searchItems = []
         
-        isSearchMode = textFieldSearch.text!.characters.count > 0
+        isSearchMode = textFieldSearch.text!.count > 0
         
         if isSearchMode {
             

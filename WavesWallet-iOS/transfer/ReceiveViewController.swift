@@ -65,7 +65,7 @@ class ReceiveViewController: UITableViewController, UITextFieldDelegate {
         shareUrl
             .map{ QRCode($0)?.image }
             .drive(qrCodeImageView.rx.image)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         submitButton.rx.tap.asObservable()
             .withLatestFrom(shareUrl.asObservable())
@@ -73,10 +73,10 @@ class ReceiveViewController: UITableViewController, UITextFieldDelegate {
                 let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
                 self.present(vc, animated: true)
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         addressDriver.drive(addressLabel.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         let tap = UITapGestureRecognizer()
         tap.rx.event.withLatestFrom(addressDriver.asObservable())
@@ -98,7 +98,7 @@ class ReceiveViewController: UITableViewController, UITextFieldDelegate {
             .filter{ !$0.1.isEmpty }
             .map{ MoneyUtil.formatDecimals(MoneyUtil.parseDecimal($0.1) ?? 0, decimals: $0.0) }
             .drive(amountField.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
