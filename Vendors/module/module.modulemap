@@ -1,6 +1,0 @@
-module base58 {
-  umbrella header "base58.h"
-
-  export *
-  module * { export * }
-}
