@@ -35,9 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
         
-        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController
+        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "ConfirmBackupViewController") as! ConfirmBackupViewController
         let nav = UINavigationController(rootViewController: enter)
-      
+
         let menuController = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
         let sideMenuViewController = RESideMenu(contentViewController: nav, leftMenuViewController: menuController, rightMenuViewController: nil)!
         sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sideMenuViewController.contentViewShadowRadius = 15
         sideMenuViewController.contentViewShadowEnabled = true
         sideMenuViewController.panGestureEnabled = false
-//        window?.rootViewController = sideMenuViewController
+        window?.rootViewController = sideMenuViewController
         
         return true
     }
