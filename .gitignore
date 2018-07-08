@@ -39,3 +39,6 @@ playground.xcworkspace
 # CocoaPods
 Pods/
 *.xcworkspace
+
+# Temp
+Temp/

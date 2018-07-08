@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C1F9C6C866C0BBB08683E01 /* libPods-WavesWallet-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */; };
+		0A4C9A2820ED443C0095A417 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A2720ED443C0095A417 /* WalletViewModel.swift */; };
+		0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */; };
+		0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA020EE65800095A417 /* WalletItem.swift */; };
+		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
+		0A4C9AAB20EF6BFF0095A417 /* AssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AAA20EF6BFF0095A417 /* AssetsService.swift */; };
+		0A7E0CCF20F2AD760010CA6C /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */; };
+		0A7E0CD120F2AF6C0010CA6C /* ApiType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD020F2AF6C0010CA6C /* ApiType.swift */; };
+		0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD420F2B9190010CA6C /* Environment-Test.json */; };
+		0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD520F2B9190010CA6C /* Environment-Main.json */; };
+		0A7E0CD920F2BCFF0010CA6C /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsService.swift */; };
+		0A7E0CDB20F2BD0B0010CA6C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CDA20F2BD0B0010CA6C /* DataService.swift */; };
+		6EF8506A95BC716C427988CD /* libPods-WavesWallet-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C6E7C856A5892E7DF3C047 /* libPods-WavesWallet-iOS.a */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
 		E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */; };
@@ -210,7 +221,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WavesWallet-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A4C9A2720ED443C0095A417 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; usesTabs = 0; };
+		0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTypes.swift; sourceTree = "<group>"; };
+		0A4C9AA020EE65800095A417 /* WalletItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletItem.swift; sourceTree = "<group>"; };
+		0A4C9AA220EE65910095A417 /* SeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
+		0A4C9AAA20EF6BFF0095A417 /* AssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsService.swift; sourceTree = "<group>"; };
+		0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
+		0A7E0CD020F2AF6C0010CA6C /* ApiType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiType.swift; sourceTree = "<group>"; };
+		0A7E0CD420F2B9190010CA6C /* Environment-Test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Test.json"; sourceTree = "<group>"; };
+		0A7E0CD520F2B9190010CA6C /* Environment-Main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Main.json"; sourceTree = "<group>"; };
+		0A7E0CD820F2BCFF0010CA6C /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
+		0A7E0CDA20F2BD0B0010CA6C /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		36C6E7C856A5892E7DF3C047 /* libPods-WavesWallet-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WavesWallet-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSelectAccountViewController.swift; sourceTree = "<group>"; };
@@ -426,13 +448,61 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C1F9C6C866C0BBB08683E01 /* libPods-WavesWallet-iOS.a in Frameworks */,
+				6EF8506A95BC716C427988CD /* libPods-WavesWallet-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A4C9A2620ED3A180095A417 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				0A4C9A9D20EE40730095A417 /* View */,
+				E945F4C3208B88DD00545776 /* WalletViewController.swift */,
+				0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */,
+				0A4C9A2720ED443C0095A417 /* WalletViewModel.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		0A4C9A9D20EE40730095A417 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E97033EC2095BDE7007E728C /* WalletTopTableCell.swift */,
+				E97033EE2095BE34007E728C /* WalletTableAssetsCell.swift */,
+				E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */,
+				E9D60AD620973A730042464A /* WalletHistoryCell.swift */,
+				E94E9C7020983239007E0705 /* WalletHistoryCell.xib */,
+				E97033F22095C1FF007E728C /* WalletLeasingCell.swift */,
+				E94E9C7220983522007E0705 /* WalletLeasingCell.xib */,
+				E97033F42095D70D007E728C /* WalletQuickNoteCell.swift */,
+				E90C6E692098200500AA311B /* AssetBalanceCell.swift */,
+				E9628840209F729100DE3B5A /* AssetLastTransactionCell.swift */,
+				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
+				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
+				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0A4C9AA820EF6B190095A417 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				0A7E0CDA20F2BD0B0010CA6C /* DataService.swift */,
+				0A4C9AAA20EF6BFF0095A417 /* AssetsService.swift */,
+				0A7E0CD820F2BCFF0010CA6C /* TransactionsService.swift */,
+			);
+			path = DataService;
+			sourceTree = "<group>";
+		};
+		0A4C9AA920EF6B270095A417 /* NodeService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NodeService;
+			sourceTree = "<group>";
+		};
 		18CFECE732E67CAF8666D2C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +510,7 @@
 				F76AF1E91EBB43E00081A8BD /* SwiftBase58.framework.dSYM */,
 				F7C683DC1EA94ECA00C87DAF /* SwiftGMP.framework */,
 				F7C683DD1EA94ECA00C87DAF /* SwiftGMP.framework.dSYM */,
-				346B4AFE329FBF090684498E /* libPods-WavesWallet-iOS.a */,
+				36C6E7C856A5892E7DF3C047 /* libPods-WavesWallet-iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -512,19 +582,6 @@
 		E97033EB2095BDD1007E728C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				E97033EC2095BDE7007E728C /* WalletTopTableCell.swift */,
-				E97033EE2095BE34007E728C /* WalletTableAssetsCell.swift */,
-				E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */,
-				E9D60AD620973A730042464A /* WalletHistoryCell.swift */,
-				E94E9C7020983239007E0705 /* WalletHistoryCell.xib */,
-				E97033F22095C1FF007E728C /* WalletLeasingCell.swift */,
-				E94E9C7220983522007E0705 /* WalletLeasingCell.xib */,
-				E97033F42095D70D007E728C /* WalletQuickNoteCell.swift */,
-				E90C6E692098200500AA311B /* AssetBalanceCell.swift */,
-				E9628840209F729100DE3B5A /* AssetLastTransactionCell.swift */,
-				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
-				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
-				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				E9794F8A20A460A5007097BE /* HistoryTopHeaderCell.swift */,
 				E9794F8C20A4614C007097BE /* HistoryTopHeaderCell.xib */,
 				E938356E20A472B4001A2509 /* HistoryAssetCell.swift */,
@@ -660,11 +717,17 @@
 		F74240AF1EAB8D1600C3B84D /* api */ = {
 			isa = PBXGroup;
 			children = (
+				0A7E0CD020F2AF6C0010CA6C /* ApiType.swift */,
+				0A4C9AA920EF6B270095A417 /* NodeService */,
+				0A4C9AA820EF6B190095A417 /* DataService */,
 				F74240B01EAB8D1600C3B84D /* model */,
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				F78E33141EB329DF00132A8B /* Environment.swift */,
+				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
+				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
 				E93827DE1F20E38900E37599 /* DataManager.swift */,
+				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -676,6 +739,8 @@
 				F74240B21EAB8D1600C3B84D /* AssetBalance.swift */,
 				F74240B31EAB8D1600C3B84D /* Transaction.swift */,
 				E963CF861F1E3602001494FD /* CandleModel.swift */,
+				0A4C9AA020EE65800095A417 /* WalletItem.swift */,
+				0A4C9AA220EE65910095A417 /* SeedItem.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -728,12 +793,11 @@
 			path = HalfModalPresentationController;
 			sourceTree = "<group>";
 		};
-		F7A86B631EA9DE4A004DBE81 /* wallet */ = {
+		F7A86B631EA9DE4A004DBE81 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
+				0A4C9A2620ED3A180095A417 /* Wallet */,
 				F79316351F856C54002D8636 /* AskManager.swift */,
-				E945F4C3208B88DD00545776 /* WalletViewController.swift */,
 				E99950302092128B00A11E37 /* WalletSortViewController.swift */,
 				E90E25F92093506600CDCE56 /* MyAddressViewController.swift */,
 				E90C6E6720981F0300AA311B /* AssetViewController.swift */,
@@ -743,7 +807,7 @@
 				E97033EB2095BDD1007E728C /* TableViewCells */,
 				E999502B2091FDF300A11E37 /* Views */,
 			);
-			path = wallet;
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		F7B713A31EABA0C300331E1B /* transfer */ = {
@@ -816,7 +880,7 @@
 				F7C683B81EA93C5800C87DAF /* main */,
 				F7C683971EA93A4000C87DAF /* crypto */,
 				F7E954FD1EA90C4B00A804DE /* login */,
-				F7A86B631EA9DE4A004DBE81 /* wallet */,
+				F7A86B631EA9DE4A004DBE81 /* Wallet */,
 				E9DEECE620BEF90300F28C67 /* Waves */,
 				F74240CA1EAB8EFF00C3B84D /* accounts */,
 				F763B9A01EABBFBE00FA3701 /* transactions */,
@@ -879,6 +943,7 @@
 				E99950342092188D00A11E37 /* UIView+Additionals.swift */,
 				F77A92081EB0A9D500C77439 /* ArrayExtension.swift */,
 				F7CBD8621EBA592B00B0D4CE /* StringExtension.swift */,
+				0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -915,7 +980,7 @@
 				F7E954E01EA8FE0700A804DE /* Sources */,
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
-				15DCB0CADD3D68C92E0CECA6 /* [CP] Copy Pods Resources */,
+				EB5CC80977DA39BFEA7EC352 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -982,6 +1047,7 @@
 				E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */,
 				F96DFFDC20DD09340056BB52 /* ThirdIndoPageView.xib in Resources */,
 				E9794F8D20A4614C007097BE /* HistoryTopHeaderCell.xib in Resources */,
+				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */,
@@ -994,6 +1060,7 @@
 				E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */,
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
 				E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */,
+				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */,
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
@@ -1008,7 +1075,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		15DCB0CADD3D68C92E0CECA6 /* [CP] Copy Pods Resources */ = {
+		D0B2E799FD762C3AFCE7C323 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WavesWallet-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB5CC80977DA39BFEA7EC352 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1028,24 +1113,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D0B2E799FD762C3AFCE7C323 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WavesWallet-iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1053,9 +1120,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
 				E9CB908320D1DE24000E54AA /* ChooseAddressBookViewController.swift in Sources */,
 				F762B3A41EABB6C000EAD7FF /* SendViewModel.swift in Sources */,
 				E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */,
+				0A7E0CD920F2BCFF0010CA6C /* TransactionsService.swift in Sources */,
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
@@ -1066,6 +1135,7 @@
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
+				0A7E0CD120F2AF6C0010CA6C /* ApiType.swift in Sources */,
 				E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */,
 				F762B3A51EABB6C000EAD7FF /* TransferSuccessViewController.swift in Sources */,
 				E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */,
@@ -1093,6 +1163,7 @@
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				E96038B520B5999D00D303E8 /* TransactionHistoryAddressView.swift in Sources */,
 				E97033F52095D70D007E728C /* WalletQuickNoteCell.swift in Sources */,
+				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
 				E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */,
 				E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */,
 				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
@@ -1121,6 +1192,7 @@
 				E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */,
 				E9A0ADA220A1C65A00693160 /* AssetDetailCell.swift in Sources */,
 				E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */,
+				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
@@ -1155,6 +1227,7 @@
 				F77A92091EB0A9D500C77439 /* ArrayExtension.swift in Sources */,
 				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,
 				F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */,
+				0A7E0CDB20F2BD0B0010CA6C /* DataService.swift in Sources */,
 				E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
@@ -1188,6 +1261,7 @@
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
 				E97033F32095C1FF007E728C /* WalletLeasingCell.swift in Sources */,
 				F763B9A41EABBFBE00FA3701 /* TransactionsViewController.swift in Sources */,
+				0A4C9AAB20EF6BFF0095A417 /* AssetsService.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
@@ -1207,9 +1281,11 @@
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
+				0A7E0CCF20F2AD760010CA6C /* String+Escaped.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
+				0A4C9A2820ED443C0095A417 /* WalletViewModel.swift in Sources */,
 				F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */,
 				E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */,
 				F96DFFDE20DD0F4F0056BB52 /* FourthInfoPageView.swift in Sources */,
@@ -1341,11 +1417,12 @@
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1369,6 +1446,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;

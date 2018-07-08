@@ -12,9 +12,6 @@ import SVProgressHUD
 import Gloss
 import RESideMenu
 
-
-typealias Decodable = Gloss.Decodable
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

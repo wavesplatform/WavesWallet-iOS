@@ -1,4 +1,4 @@
 module base58 [system][extern_c] {
-    header "base58.h"
+    header "/Users/mefilt/Works/Waves/waveswallet-ios_dex/Vendors/Base58/Source/base58.h"
     export *
 }

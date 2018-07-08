@@ -23,7 +23,7 @@ extension ApiError: LocalizedError {
 class NodeManager {
     class func loadTransaction() -> Observable<[Transaction]> {
         let address = WalletManager.getAddress()
-        let u = Environments.current.nodeUrl.appendingPathComponent("/transactions/address/\(address)/limit/50")
+        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/transactions/address/\(address)/limit/50")
         return RxAlamofire.requestJSON(.get, u)
             .flatMap { (resp, json) -> Observable<[Transaction]> in
                 if let arr = json as? [Any],
@@ -56,7 +56,7 @@ class NodeManager {
     }
     
     class func loadPendingTransaction() -> Observable<[Transaction]> {
-        let u = Environments.current.nodeUrl.appendingPathComponent("/transactions/unconfirmed")
+        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/transactions/unconfirmed")
         return RxAlamofire.requestJSON(.get, u)
             .flatMap { (resp, json) -> Observable<[Transaction]> in
                 if let jTxs = json as? [JSON] {
@@ -74,9 +74,21 @@ class NodeManager {
         }
     }
 
+    class func loadWavesBalance() -> Observable<[AssetBalance]> {
+        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/addresses/balance/\(WalletManager.getAddress())")
+        return RxAlamofire.requestJSON(.get, u)
+            .flatMap { (resp, json) -> Observable<[AssetBalance]> in
+                if let res = json as? JSON
+                    , let bal = res["balance"] as? Int64 {
+                    return Observable.just([createWavesBalance(bal)])
+                } else {
+                    return Observable.error(ApiError.IncorrectResponseFormat)
+                }
+        }
+    }
     
     class func loadBalances() -> Observable<[AssetBalance]> {
-        let u = Environments.current.nodeUrl.appendingPathComponent("/assets/balance/\(WalletManager.getAddress())")
+        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/assets/balance/\(WalletManager.getAddress())")
         return RxAlamofire.requestJSON(.get, u)
             .flatMap { (resp, json) -> Observable<[AssetBalance]> in
                 if let all = json as? JSON
@@ -142,21 +154,10 @@ class NodeManager {
         return generalAssets
     }*/
     
-    class func loadWavesBalance() -> Observable<[AssetBalance]> {
-        let u = Environments.current.nodeUrl.appendingPathComponent("/addresses/balance/\(WalletManager.getAddress())")
-        return RxAlamofire.requestJSON(.get, u)
-            .flatMap { (resp, json) -> Observable<[AssetBalance]> in
-                if let res = json as? JSON
-                    , let bal = res["balance"] as? Int64 {
-                    return Observable.just([createWavesBalance(bal)])
-                } else {
-                    return Observable.error(ApiError.IncorrectResponseFormat)
-                }
-        }
-    }
+
     
     class func broadcastTransfer(transferRequest: TransferRequest) -> Observable<TransferTransaction> {
-        let u = Environments.current.nodeUrl.appendingPathComponent("/assets/broadcast/transfer")
+        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/assets/broadcast/transfer")
         return RxAlamofire.requestJSON(.post, u,
                                        parameters: transferRequest.toJSON(), encoding: JSONEncoding.default)
             .flatMap { (resp, json) -> Observable<TransferTransaction> in

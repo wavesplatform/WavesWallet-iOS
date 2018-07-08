@@ -88,7 +88,7 @@ class CreateNewWalletViewController: UIViewController {
     lazy var wallet: Driver<Try<WalletItem>> = {
         return Driver.combineLatest(self.walletName, self.walletSeed) {(name, seed) -> Try<WalletItem> in
             if let name = name.toOpt, let seed = seed.toOpt {
-                let pk = PrivateKeyAccount(seed: seed)
+                let pk = PrivateKeyAccount(seed: seed)                
                 let wallet = WalletItem(value: [pk.getPublicKeyStr(), name])
                 wallet.publicKey = pk.getPublicKeyStr()
                 return Try.Val(wallet)

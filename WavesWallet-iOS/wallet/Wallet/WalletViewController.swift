@@ -123,6 +123,7 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         setupTopBarLine()
+
         
         setupBigNavigationBar()
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -263,12 +264,12 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.beginUpdates()
         if selectedSegmentIndex == .leasing {
-            tableView.reloadSections([1], animationStyle: .left)
-            tableView.reloadSections([2, 3], animationStyle: .left)
+            tableView.reloadSections([1], animationStyle: .fade)
+            tableView.reloadSections([2, 3], animationStyle: .fade)
         }
         else {
-            tableView.reloadSections([1], animationStyle: .right)
-            tableView.reloadSections([2, 3], animationStyle: .right)
+            tableView.reloadSections([1], animationStyle: .fade)
+            tableView.reloadSections([2, 3], animationStyle: .fade)
             
         }
         tableView.endUpdates()

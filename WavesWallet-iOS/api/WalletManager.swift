@@ -6,52 +6,6 @@ import RxCocoa
 import KeychainAccess
 import LocalAuthentication
 
-class WalletItem: Object {
-    @objc dynamic var publicKey = ""
-    @objc dynamic var name = ""
-    @objc dynamic var isLoggedIn = false
-    @objc dynamic var isBackedUp = false
-    
-    public var identity: String {
-        return "\(publicKey)"
-    }
-    override static func primaryKey() -> String? {
-        return "publicKey"
-    }
-    
-    var address: String {
-        return publicKeyAccount.address
-    }
-    
-    var publicKeyAccount: PublicKeyAccount {
-        return PublicKeyAccount(publicKey: Base58.decode(publicKey))
-    }
-    
-    var toWallet: Wallet {
-        return Wallet(name: name, publicKeyAccount: publicKeyAccount, isBackedUp: isBackedUp)
-    }
-}
-
-class SeedItem: Object {
-    @objc dynamic var publicKey = ""
-    @objc dynamic var seed = ""
-    
-    public var identity: String {
-        return "\(publicKey)"
-    }
-    override static func primaryKey() -> String? {
-        return "publicKey"
-    }
-    
-    var address: String {
-        return publicKeyAccount.address
-    }
-    
-    var publicKeyAccount: PublicKeyAccount {
-        return PublicKeyAccount(publicKey: Base58.decode(publicKey))
-    }
-}
-
 struct Wallet {
     let name: String
     let publicKeyAccount: PublicKeyAccount
@@ -111,7 +65,7 @@ class WalletManager {
     
     class func didLogin(toWallet: WalletItem) {
         Realm.Configuration.defaultConfiguration = getWalletRealmConfig(waletItem: toWallet)
-       
+
         let realm = WalletManager.getWalletsRealm()
         let wallets = realm.objects(WalletItem.self)
         try! realm.write {
@@ -122,7 +76,7 @@ class WalletManager {
         currentWallet = toWallet.toWallet
         bag = DisposeBag()
         StoryboardManager.didEndLogin()
-        autoUpdateFromNode()
+//        autoUpdateFromNode()
     }
     
     class func updateTransactions(onComplete: (() -> ())?) {
@@ -165,7 +119,8 @@ class WalletManager {
     }
 
     class func updateBalances(onComplete: (() -> ())?) {
-        let load = Observable.from([NodeManager.loadWavesBalance(), NodeManager.loadBalances()])
+        let load = Observable.from([NodeManager.loadWavesBalance(),
+                                    NodeManager.loadBalances()])
                 .merge().toArray()
                 .map { Array($0.joined()) }
       
@@ -177,18 +132,30 @@ class WalletManager {
             .subscribe(onNext: {abs in
                 let realm = try! Realm()
                 try! realm.write {
-                    let oldHiddenIds = Array(realm.objects(AssetBalance.self).filter("isHidden = true").map{ $0.assetId })
+                    let oldHiddenIds = Array(realm
+                        .objects(AssetBalance.self)
+                        .filter("isHidden = true")
+                        .map{ $0.assetId })
                     realm.add(abs, update: true)
                     
-                    let generalAssetsIds = Environments.current.generalAssetIds.map{ $0.assetId }
-                    realm.objects(AssetBalance.self).filter("assetId in %@", generalAssetsIds)
+                    let generalAssetsIds = Environments
+                        .current
+                        .generalAssetIds
+                        .map{ $0.assetId }
+                    realm
+                        .objects(AssetBalance.self)
+                        .filter("assetId in %@", generalAssetsIds)
                         .setValue(true, forKeyPath: "isGeneral")
                     
-                    realm.objects(AssetBalance.self).filter("assetId in %@", oldHiddenIds)
+                    realm
+                        .objects(AssetBalance.self)
+                        .filter("assetId in %@", oldHiddenIds)
                         .setValue(true, forKeyPath: "isHidden")
                     
                     let ids = abs.map{ $0.assetId}
-                    let deleted = realm.objects(AssetBalance.self).filter("isGeneral = false AND NOT (assetId in %@)", ids)
+                    let deleted = realm
+                        .objects(AssetBalance.self)
+                        .filter("isGeneral = false AND NOT (assetId in %@)", ids)
                     realm.delete(deleted)
                 }
                 if let onComplete = onComplete {
@@ -329,6 +296,7 @@ class WalletManager {
     class func isSeedRealmExist() -> Bool {
         return FileManager().fileExists(atPath: getWalletSeedRealmConfig(address: getAddress(), password: "").fileURL!.path)
     }
+
     class func getWalletSeedRealmConfig(address: String, password: String) -> Realm.Configuration {
         var config = Realm.Configuration(encryptionKey: Data(bytes: Hash.sha512(Array(password.utf8))))
         config.fileURL = config.fileURL!.deletingLastPathComponent()
@@ -418,17 +386,20 @@ class WalletManager {
             
             observer.onNext(())
             return Disposables.create()
-            }.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+        }.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
     
     class func createWallet(wallet: WalletItem, seedBytes: [UInt8]) {
-        createWalletInRealm(wallet: wallet, seedBytes: seedBytes).flatMap { Void -> Observable<Void> in
+        createWalletInRealm(wallet: wallet,
+                            seedBytes: seedBytes)
+            .flatMap { Void -> Observable<Void> in
                 if isTouchIdAvailable() {
                     return createWalletInKeychain(wallet: wallet, seedBytes: seedBytes)
                 } else {
                     return Observable<Void>.just(())
                 }
-            }.observeOn(MainScheduler.instance)
+            }
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { tx in
                     saveToRealm(wallet: wallet)
                     didLogin(toWallet: wallet)

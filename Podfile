@@ -4,12 +4,15 @@ platform :ios, '9.0'
 # Ignore all warnings from all pods
 inhibit_all_warnings!
 
+use_frameworks!(false)
+
 # Enable the stricter search paths and module map generation for all pods
 use_modular_headers!
 
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
     
+    inherit! :search_paths
     # UI
     pod 'RxCocoa'
     pod 'RxDataSources'
@@ -54,6 +57,7 @@ target 'WavesWallet-iOS' do
 
     # Network
     pod 'RxAlamofire'
+    pod 'Moya/RxSwift'
   
     # Parser 
     pod 'SwiftyJSON'

@@ -15,6 +15,12 @@ PODS:
     - pop (~> 1.0)
   - MBProgressHUD (1.0.0)
   - MGSwipeTableCell (1.6.7)
+  - Moya/Core (11.0.2):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - Moya/RxSwift (11.0.2):
+    - Moya/Core
+    - RxSwift (~> 4.0)
   - pop (1.0.10)
   - QRCode (2.0)
   - QRCodeReader.swift (8.2.0)
@@ -25,6 +31,7 @@ PODS:
   - RealmSwift (3.7.4):
     - Realm (= 3.7.4)
   - RESideMenu (4.0.7)
+  - Result (3.2.4)
   - RxAlamofire (4.2.0):
     - RxAlamofire/Core (= 4.2.0)
   - RxAlamofire/Core (4.2.0):
@@ -64,6 +71,7 @@ DEPENDENCIES:
   - Koloda
   - MBProgressHUD (~> 1.0.0)
   - MGSwipeTableCell
+  - Moya/RxSwift
   - QRCode
   - QRCodeReader.swift
   - RDVTabBarController
@@ -95,12 +103,14 @@ SPEC REPOS:
     - Koloda
     - MBProgressHUD
     - MGSwipeTableCell
+    - Moya
     - pop
     - QRCode
     - QRCodeReader.swift
     - RDVTabBarController
     - Realm
     - RealmSwift
+    - Result
     - RxAlamofire
     - RxCocoa
     - RxDataSources
@@ -139,17 +149,18 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  base58: 0b47007702d39133263e95935ed2a23c6a88bf0c
-  blake2: d0526ed67e22a5c097be6039c84a836e263d7eda
+  base58: d23ded28dad3a430243684919e4487c16a7455ac
+  blake2: 15b99866bfb05512e4aec130036d4071500eda85
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
-  keccak: 259adecd1a0af682f07c62dafcf6f6cdd4405a3b
+  keccak: 3268774154da00add38c2ee45a552f48e6b2cbf5
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 003eb32f18a5a675b936ec82ba0ff368cddbff45
@@ -157,6 +168,7 @@ SPEC CHECKSUMS:
   Realm: a469bb59e33f9926102ccaea4349822c53b9117e
   RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
@@ -172,6 +184,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 07b0c37307912a6486124dccbe5cccf763269161
+PODFILE CHECKSUM: 3ad51f97cab67e9fb35099844b489b289d2c5b22
 
 COCOAPODS: 1.5.3
