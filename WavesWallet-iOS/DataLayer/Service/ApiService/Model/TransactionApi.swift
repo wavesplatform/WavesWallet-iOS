@@ -8,22 +8,23 @@
 
 import Foundation
 
-extension DataService.Model {
+extension API.Model {
 
+    // TODO: Not test
     struct ExchangeTransaction: Codable {
         let ticker: String?
         let id: String
         let name: String
-        let precision: Int
-        let height: Int
+        let precision: Int64
+        let height: Int64
         let description: String
         let timestamp: String
         let sender: String
-        let quantity: Int
+        let quantity: Int64
         let reissuable: Bool
-        let firstPrice: Int
-        let lastPrice: Int
-        let volume: Int
-        let volumeWaves: Int
+        let firstPrice: Int64
+        let lastPrice: Int64
+        let volume: Int64
+        let volumeWaves: Int64
     }
 }

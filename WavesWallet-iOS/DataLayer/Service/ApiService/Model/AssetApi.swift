@@ -8,17 +8,17 @@
 
 import Foundation
 
-extension DataService.Model {
+extension API.Model {
     struct Asset: Decodable {
         let ticker: String?
         let id: String
         let name: String
-        let precision: Int
+        let precision: Int64
         let description: String
-        let height: Int
+        let height: Int64
         let timestamp: String
         let sender: String
-        let quantity: Int
+        let quantity: Int64
         let reissuable: Bool
     }
 }

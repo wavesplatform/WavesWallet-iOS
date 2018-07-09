@@ -8,20 +8,15 @@
 
 import Foundation
 
-enum NodeService {}
+enum Node {}
 
-extension NodeService {
+extension Node {
     enum Model {}
+    enum Service {}
 }
 
 protocol NodeTargetType: BaseTargetType {}
 
 extension NodeTargetType {
-    var apiVersion: String {
-        return "/v0"
-    }
-
-    var apiUrl: String {
-        return Environments.current.servers.nodeUrl.relativeString
-    }
+    var baseURL: URL { return Environments.current.servers.nodeUrl }
 }

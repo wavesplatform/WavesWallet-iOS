@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension DataService {
+extension API {
     struct Response<T: Decodable>: Decodable {
         let type: String
         let data: T

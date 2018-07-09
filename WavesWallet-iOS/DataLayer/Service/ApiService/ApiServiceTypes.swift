@@ -8,21 +8,24 @@
 
 import Foundation
 
-enum DataService {}
+enum API {}
 
-extension DataService {
+extension API {
+    enum Service {}
     enum Model {}
     enum Query {}
 }
 
-protocol DataTargetType: BaseTargetType {}
+protocol ApiTargetType: BaseTargetType {}
 
-extension DataTargetType {
-    var apiVersion: String {
+extension ApiTargetType {
+    private var apiVersion: String {
         return "/v0"
     }
 
-    var apiUrl: String {
+    private var apiUrl: String {
         return Environments.current.servers.dataUrl.relativeString
     }
+
+    var baseURL: URL { return URL(string: "\(apiUrl)\(apiVersion)")! }
 }

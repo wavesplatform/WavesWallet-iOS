@@ -9,36 +9,19 @@
 import Foundation
 import Moya
 
-extension DataService {
-    private enum Constants {
-        static let matcher = "matcher"
-        static let sender = "sender"
-        static let timeStart = "timeStart"
-        static let timeEnd = "timeEnd"
-        static let amountAsset = "amountAsset"
-        static let priceAsset = "priceAsset"
-        static let after = "after"
-        static let sort = "sort"
-        static let limit = "limit"
-    }
-
+extension API.Service {
     enum Transactions {
+        // TODO: Need response
         case getExchange(id: String)
-        case getExchangeWithFilters(Query.ExchangeFilters)
+        // TODO: Need response
+        case getExchangeWithFilters(API.Query.ExchangeFilters)
     }
 }
 
-extension DataService.Transactions: DataTargetType {
+extension API.Service.Transactions: ApiTargetType {
+
     private enum Constants {
         static let assets = "asset"
-    }
-
-    var apiVersion: String {
-        return "/v0"
-    }
-
-    var apiUrl: String {
-        return Environments.current.servers.dataUrl.relativeString
     }
 
     var path: String {

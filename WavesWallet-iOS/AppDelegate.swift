@@ -6,34 +6,36 @@
 //  Copyright © 2017 Waves Platform. All rights reserved.
 //
 
-import UIKit
-import IQKeyboardManagerSwift
-import SVProgressHUD
 import Gloss
-import RESideMenu
+import IQKeyboardManagerSwift
 import Moya
+import RESideMenu
+import SVProgressHUD
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
-    let appservice = MoyaProvider<DataService.Assets>()
+    let appservice = MoyaProvider<API.Service.Assets>()
+
+    let nodeService = MoyaProvider<Node.Service.Addresses>()
+
+    let nodeAssetsService = MoyaProvider<Node.Service.Assets>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
         IQKeyboardManager.shared.enable = true
-        
-        showStartController()
-        
+
+        self.showStartController()
+
         SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setDefaultMaskType(.clear)
-        
+
         UIBarButtonItem.appearance().tintColor = UIColor.black
-        
+
 //        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
-        
+
 //        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController
 //        let nav = UINavigationController(rootViewController: enter)
 //
@@ -48,21 +50,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = sideMenuViewController
 
 //        .map(DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self)
-//        let appservice = self.appservice
-//            .rx
-//            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
-//            .map(DataService.Response<DataService.Model.Asset>.self)
-//
-//        appservice.subscribe(onSuccess: { (model) in
-//            print("model: \(model)")
-//        }) { (error) in
-//            print("error: \(error)")
-//        }
+        let appservice = self.appservice
+            .rx
+            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
+            .map(API.Response<API.Model.Asset>.self)
+
+        appservice.subscribe(onSuccess: { model in
+            print("model: \(model)")
+        }) { error in
+            print("error: \(error)")
+        }
+
+        let addreses = self.nodeService
+            .rx
+            .request(.getAccountBalance(id: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
+            .map(Node.Model.AccountBalance.self).subscribe(onSuccess: { (account) in
+                print("model: \(account)")
+            }) { (error) in
+                print("error: \(error)")
+            }
+
+
+        let assets = self.nodeAssetsService
+            .rx
+            .request(.getBalanceForAssets(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
+            .map([Node.Model.AssetBalance].self).subscribe(onSuccess: { (account) in
+                print("model: \(account)")
+            }) { (error) in
+                print("error: \(error)")
+        }
 
         return true
     }
 
-    
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
         let realm = WalletManager.getWalletsRealm()
@@ -73,28 +93,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.rootViewController = StoryboardManager.launchViewController()
         }
     }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
 
+    func applicationWillResignActive(_ application: UIApplication) {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-
         WalletManager.clearPrivateMemoryKey()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-
     }
-    
+
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if let urlScheme = url.scheme, urlScheme == "waves" {
             OpenUrlManager.openUrl = url
@@ -107,6 +122,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-
 }
-

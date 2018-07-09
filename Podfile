@@ -4,10 +4,10 @@ platform :ios, '9.0'
 # Ignore all warnings from all pods
 inhibit_all_warnings!
 
-use_frameworks!(false)
+use_frameworks!(true)
 
 # Enable the stricter search paths and module map generation for all pods
-use_modular_headers!
+# use_modular_headers!
 
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do

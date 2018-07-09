@@ -8,8 +8,7 @@
 
 import Foundation
 
-extension DataService.Query {
-
+extension API.Query {
     struct ExchangeFilters: Codable {
         // Address of a matcher which sent the transaction
         let matcher: String?

@@ -9,6 +9,5 @@ Pod::Spec.new do |spec|
   spec.source_files = 'Source/*.{h,c}'
   spec.public_header_files = 'Source/*.{h}'
   spec.preserve_path = 'module.modulemap'
-  spec.module_map = 'module.modulemap'
-
+  
 end

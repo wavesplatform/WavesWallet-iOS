@@ -6,22 +6,25 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Alamofire
 import Foundation
-import MBProgressHUD
 import Moya
-import RxDataSources
-import RxRealm
-import RxSwift
 
-extension DataService {
+extension API.Service {
     enum Assets {
+        /**
+         Response:
+         - DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self
+         */
         case getAssets(ids: [String])
+        /**
+         Response:
+         - API.Response<API.Model.Asset>.self
+         */
         case getAsset(id: String)
     }
 }
 
-extension DataService.Assets: DataTargetType {
+extension API.Service.Assets: ApiTargetType {
     private enum Constants {
         static let assets = "assets"
     }

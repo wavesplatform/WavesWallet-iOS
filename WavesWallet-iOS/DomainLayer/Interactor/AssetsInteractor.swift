@@ -1,5 +1,5 @@
 //
-//  AssetsUseCase.swift
+//  AssetsInteractor.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 09.07.2018.
@@ -9,6 +9,6 @@
 import Foundation
 import RxSwift
 
-protocol AssetsUseCaseProtocol {
-
+protocol AssetsInteractorProtocol {
+    func assets(ids: [String]) -> Observable<[Asset]>
 }
