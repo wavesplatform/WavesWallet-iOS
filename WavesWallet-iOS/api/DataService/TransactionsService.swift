@@ -124,7 +124,7 @@ extension DataService.Transactions: ApiType {
         switch self {
         case .getExchange:
             return .requestPlain
-        case .getExchangeWithFilters(let filter)
+        case .getExchangeWithFilters(let filter):
             return .requestParameters(parameters: filter.parameters, encoding: URLEncoding.default)
         }
     }
