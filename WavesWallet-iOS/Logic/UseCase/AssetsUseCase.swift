@@ -1,5 +1,5 @@
 //
-//  DataService.swift
+//  AssetsUseCase.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 09.07.2018.
@@ -7,5 +7,8 @@
 //
 
 import Foundation
+import RxSwift
 
-enum DataService {}
+protocol AssetsUseCaseProtocol {
+
+}

@@ -11,11 +11,14 @@ import IQKeyboardManagerSwift
 import SVProgressHUD
 import Gloss
 import RESideMenu
+import Moya
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+
+    let appservice = MoyaProvider<DataService.Assets>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -43,7 +46,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        sideMenuViewController.contentViewShadowEnabled = true
 //        sideMenuViewController.panGestureEnabled = false
 //        window?.rootViewController = sideMenuViewController
-        
+
+//        .map(DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self)
+        let appservice = self.appservice
+            .rx
+            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
+            .map(DataService.Response<DataService.Model.Asset>.self)
+
+        appservice.subscribe(onSuccess: { (model) in
+            print("model: \(model)")
+        }) { (error) in
+            print("error: \(error)")
+        }
+
         return true
     }
 

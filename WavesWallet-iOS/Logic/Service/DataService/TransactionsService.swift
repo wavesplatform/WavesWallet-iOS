@@ -89,13 +89,13 @@ extension DataService {
     }
 }
 
-extension DataService.Transactions: ApiType {
+extension DataService.Transactions: DataTargetType {
     private enum Constants {
         static let assets = "asset"
     }
 
     var apiVersion: String {
-        return "v0"
+        return "/v0"
     }
 
     var apiUrl: String {

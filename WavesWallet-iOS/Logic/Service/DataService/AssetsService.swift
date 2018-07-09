@@ -21,26 +21,18 @@ extension DataService {
     }
 }
 
-extension DataService.Assets: ApiType {
+extension DataService.Assets: DataTargetType {
     private enum Constants {
-        static let assets = "asset"
-    }
-
-    var apiVersion: String {
-        return "v0"
-    }
-
-    var apiUrl: String {
-        return Environments.current.servers.dataUrl.relativeString
+        static let assets = "assets"
     }
 
     var path: String {
         switch self {
         case .getAsset(let id):
-            return Constants.assets + "/\(id)".urlEscaped
+            return Constants.assets + "/" + "\(id)".urlEscaped
         case .getAssets(let ids):
             let params = ids.reduce("") { $0 + "=" + $1 }
-            return Constants.assets + "/\(params)".urlEscaped
+            return Constants.assets + "/" + "\(params)".urlEscaped
         }
     }
 

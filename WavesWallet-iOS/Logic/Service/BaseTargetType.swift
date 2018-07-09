@@ -9,15 +9,12 @@
 import Foundation
 import Moya
 
-
-protocol ApiType: TargetType {
-
+protocol BaseTargetType: TargetType {
     var apiVersion: String { get }
     var apiUrl: String { get }
 }
 
-extension ApiType {
-
+extension BaseTargetType {
     var baseURL: URL { return URL(string: "\(apiUrl)\(apiVersion)")! }
 
     var sampleData: Data {

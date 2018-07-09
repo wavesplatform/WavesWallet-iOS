@@ -2,7 +2,7 @@
   "name": "Testnet",
   "servers": {
     "nodeUrl": "http://52.30.47.67:6869",
-    "dataUrl": "String"
+    "dataUrl": "https://api.wavesplatform.com"
   },
   "scheme": "T",
   "generalAssetIds": [

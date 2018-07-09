@@ -2,7 +2,7 @@
   "name": "Mainnet",
   "servers": {
     "nodeUrl": "https://nodes.wavesnodes.com",
-    "dataUrl": "String"
+    "dataUrl": "https://api.wavesplatform.com"
   },
   "scheme": "W",
   "generalAssetIds": [
