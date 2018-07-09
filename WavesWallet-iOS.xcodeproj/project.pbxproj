@@ -503,6 +503,16 @@
 			path = NodeService;
 			sourceTree = "<group>";
 		};
+		0A7E0CDC20F369E20010CA6C /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				F78E33141EB329DF00132A8B /* Environment.swift */,
+				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
+				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 		18CFECE732E67CAF8666D2C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -717,14 +727,12 @@
 		F74240AF1EAB8D1600C3B84D /* api */ = {
 			isa = PBXGroup;
 			children = (
+				0A7E0CDC20F369E20010CA6C /* Environment */,
 				0A7E0CD020F2AF6C0010CA6C /* ApiType.swift */,
 				0A4C9AA920EF6B270095A417 /* NodeService */,
 				0A4C9AA820EF6B190095A417 /* DataService */,
-				F74240B01EAB8D1600C3B84D /* model */,
+				F74240B01EAB8D1600C3B84D /* Model */,
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
-				F78E33141EB329DF00132A8B /* Environment.swift */,
-				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
-				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
 				E93827DE1F20E38900E37599 /* DataManager.swift */,
 				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
@@ -732,7 +740,7 @@
 			path = api;
 			sourceTree = "<group>";
 		};
-		F74240B01EAB8D1600C3B84D /* model */ = {
+		F74240B01EAB8D1600C3B84D /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				F74240B11EAB8D1600C3B84D /* AddressBook.swift */,
@@ -742,7 +750,7 @@
 				0A4C9AA020EE65800095A417 /* WalletItem.swift */,
 				0A4C9AA220EE65910095A417 /* SeedItem.swift */,
 			);
-			path = model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F74240CA1EAB8EFF00C3B84D /* accounts */ = {

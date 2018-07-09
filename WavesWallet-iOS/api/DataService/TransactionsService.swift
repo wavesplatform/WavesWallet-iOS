@@ -10,7 +10,6 @@ import Foundation
 import Moya
 
 extension DataService {
-
     private enum Constants {
         static let matcher = "matcher"
         static let sender = "sender"
@@ -91,7 +90,6 @@ extension DataService {
 }
 
 extension DataService.Transactions: ApiType {
-
     private enum Constants {
         static let assets = "asset"
     }
@@ -108,6 +106,7 @@ extension DataService.Transactions: ApiType {
         switch self {
         case .getExchange(let id):
             return Constants.assets + "/\(id)".urlEscaped
+
         case .getExchangeWithFilters:
             return Constants.assets
         }
@@ -124,6 +123,7 @@ extension DataService.Transactions: ApiType {
         switch self {
         case .getExchange:
             return .requestPlain
+
         case .getExchangeWithFilters(let filter):
             return .requestParameters(parameters: filter.parameters, encoding: URLEncoding.default)
         }

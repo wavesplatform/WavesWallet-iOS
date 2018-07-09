@@ -6,16 +6,15 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Foundation
-import Moya
-import MBProgressHUD
-import RxSwift
-import RxRealm
-import RxDataSources
 import Alamofire
+import Foundation
+import MBProgressHUD
+import Moya
+import RxDataSources
+import RxRealm
+import RxSwift
 
 extension DataService {
-
     enum Assets {
         case getAssets(ids: [String])
         case getAsset(id: String)
@@ -23,7 +22,6 @@ extension DataService {
 }
 
 extension DataService.Assets: ApiType {
-
     private enum Constants {
         static let assets = "asset"
     }
@@ -41,7 +39,7 @@ extension DataService.Assets: ApiType {
         case .getAsset(let id):
             return Constants.assets + "/\(id)".urlEscaped
         case .getAssets(let ids):
-            let params = ids.reduce("", { $0 + "=" + $1 })
+            let params = ids.reduce("") { $0 + "=" + $1 }
             return Constants.assets + "/\(params)".urlEscaped
         }
     }
@@ -58,5 +56,5 @@ extension DataService.Assets: ApiType {
         case .getAssets, .getAsset:
             return .requestPlain
         }
-    }    
+    }
 }
