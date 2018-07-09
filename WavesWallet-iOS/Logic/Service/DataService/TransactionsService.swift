@@ -22,70 +22,9 @@ extension DataService {
         static let limit = "limit"
     }
 
-    struct ExchangeFilters {
-        // Address of a matcher which sent the transaction
-        let matcher: String?
-        // Address of a trader-participant in a transaction — an ORDER sender
-        let sender: String?
-        // Time range filter, start. Defaults to first transaction's time_stamp in db.
-        let timeStart: String?
-        // Time range filter, end. Defaults to now.
-        let timeEnd: String?
-        // Asset ID of the amount asset.
-        let amountAsset: String?
-        // Asset ID of the price asset.
-        let priceAsset: String?
-        // Cursor in base64 encoding. Holds information about timestamp, id, sort.
-        let after: String?
-        // Sort order. Gonna be rewritten by cursor's sort if present.
-        let sort: String?
-        // How many transactions to await in response.
-        let limit: Int
-
-        fileprivate var parameters: [String: Any] {
-            var parameters = [String: Any]()
-
-            if let matcher = matcher {
-                parameters[Constants.matcher] = matcher
-            }
-
-            if let sender = sender {
-                parameters[Constants.sender] = sender
-            }
-
-            if let timeStart = timeStart {
-                parameters[Constants.timeStart] = timeStart
-            }
-
-            if let timeEnd = timeEnd {
-                parameters[Constants.timeEnd] = timeEnd
-            }
-
-            if let amountAsset = amountAsset {
-                parameters[Constants.amountAsset] = amountAsset
-            }
-
-            if let priceAsset = priceAsset {
-                parameters[Constants.priceAsset] = priceAsset
-            }
-
-            if let after = after {
-                parameters[Constants.after] = after
-            }
-
-            if let sort = sort {
-                parameters[Constants.after] = sort
-            }
-
-            parameters[Constants.limit] = limit
-
-            return parameters
-        }
-    }
-
     enum Transactions {
         case getExchange(id: String)
-        case getExchangeWithFilters(ExchangeFilters)
+        case getExchangeWithFilters(Query.ExchangeFilters)
     }
 }
 
@@ -125,7 +64,7 @@ extension DataService.Transactions: DataTargetType {
             return .requestPlain
 
         case .getExchangeWithFilters(let filter):
-            return .requestParameters(parameters: filter.parameters, encoding: URLEncoding.default)
+            return .requestParameters(parameters: filter.dictionary, encoding: URLEncoding.default)
         }
     }
 }

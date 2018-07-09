@@ -25,3 +25,25 @@ extension BaseTargetType {
         return ["Content-type": "application/json"]
     }
 }
+
+protocol DecodableTargetType: Moya.TargetType {
+    var modelType: Encodable.Type { get }
+}
+
+
+extension MoyaProvider {
+
+//    @discardableResult
+//    open func request(_ target: Target,
+//                      callbackQueue: DispatchQueue? = .none,
+//                      progress: ProgressBlock? = .none,
+//                      completion: @escaping Completion) -> Cancellable {
+//
+////        let callbackQueue = callbackQueue ?? self.callbackQueue
+////        return requestNormal(target, callbackQueue: callbackQueue, progress: progress, completion: completion)
+//    }
+
+}
+
+//request<T: ModelProtocol>(_ token: TargetType, object: T.Type) -> Obeservable<T>
+//request<T: ModelProtocol>(_ token: TargetType, array: T.Type) -> Obeservable<[T]>

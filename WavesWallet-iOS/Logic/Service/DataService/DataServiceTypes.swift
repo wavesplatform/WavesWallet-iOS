@@ -12,4 +12,17 @@ enum DataService {}
 
 extension DataService {
     enum Model {}
+    enum Query {}
+}
+
+protocol DataTargetType: BaseTargetType {}
+
+extension DataTargetType {
+    var apiVersion: String {
+        return "/v0"
+    }
+
+    var apiUrl: String {
+        return Environments.current.servers.dataUrl.relativeString
+    }
 }

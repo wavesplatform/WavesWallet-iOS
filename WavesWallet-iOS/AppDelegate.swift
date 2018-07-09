@@ -48,16 +48,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = sideMenuViewController
 
 //        .map(DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self)
-        let appservice = self.appservice
-            .rx
-            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
-            .map(DataService.Response<DataService.Model.Asset>.self)
-
-        appservice.subscribe(onSuccess: { (model) in
-            print("model: \(model)")
-        }) { (error) in
-            print("error: \(error)")
-        }
+//        let appservice = self.appservice
+//            .rx
+//            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
+//            .map(DataService.Response<DataService.Model.Asset>.self)
+//
+//        appservice.subscribe(onSuccess: { (model) in
+//            print("model: \(model)")
+//        }) { (error) in
+//            print("error: \(error)")
+//        }
 
         return true
     }

@@ -1,5 +1,5 @@
 //
-//  DataTargetType.swift
+//  NodeTargetType.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 09.07.2018.
@@ -8,14 +8,20 @@
 
 import Foundation
 
-protocol DataTargetType: BaseTargetType {}
+enum NodeService {}
 
-extension DataTargetType {
+extension NodeService {
+    enum Model {}
+}
+
+protocol NodeTargetType: BaseTargetType {}
+
+extension NodeTargetType {
     var apiVersion: String {
         return "/v0"
     }
 
     var apiUrl: String {
-        return Environments.current.servers.dataUrl.relativeString
+        return Environments.current.servers.nodeUrl.relativeString
     }
 }

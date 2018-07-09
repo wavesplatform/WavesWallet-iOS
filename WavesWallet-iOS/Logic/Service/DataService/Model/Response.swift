@@ -12,10 +12,12 @@ extension DataService {
     struct Response<T: Decodable>: Decodable {
         let type: String
         let data: T
+        let lastCursor: String?
 
         enum CodingKeys: String, CodingKey {
             case type = "__type"
             case data
+            case lastCursor
         }
     }
 }
