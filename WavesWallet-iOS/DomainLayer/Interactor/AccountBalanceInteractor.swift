@@ -13,14 +13,16 @@ import RxSwift
 import RxSwiftExt
 
 protocol AccountBalanceInteractorProtocol {
+
     func balanceBy(accountId: String) -> Observable<[AssetBalance]>
+    func update(balance: AssetBalance) -> Observable<Void>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = MoyaProvider<Node.Service.Assets>()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = MoyaProvider<Node.Service.Addresses>()
-    private let realm = try? Realm()
+    private let realm = try! Realm()
 
     func balanceBy(accountId: String) -> Observable<[AssetBalance]> {
         let assetsBalance = assetsProvider
@@ -66,13 +68,22 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                         return balances
                     }
             })
-            .do(weak: self, onNext: {weak, balances in
-                try? weak.realm?.write {
-                    weak.realm?.add(balances, update: true)
+            .do(weak: self, onNext: { weak, balances in
+                try? weak.realm.write {
+                    weak.realm.add(balances, update: true)
                 }
             })
 
         return list
+    }
+
+    func update(balance: AssetBalance) -> Observable<Void> {
+
+        try? realm.write {
+            realm.add(balance, update: true)
+        }
+        
+        return Observable.just(())
     }
 }
 

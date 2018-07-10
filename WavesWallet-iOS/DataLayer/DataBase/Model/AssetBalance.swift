@@ -20,6 +20,7 @@ class AssetBalance
     @objc dynamic var issueTransaction: IssueTransaction?
 
     @objc dynamic var assetId = ""
+    @objc dynamic var level: Float = 0
     @objc dynamic var balance: Int64 = 0
     @objc dynamic var isGeneral = false
     @objc dynamic var isHidden = false
