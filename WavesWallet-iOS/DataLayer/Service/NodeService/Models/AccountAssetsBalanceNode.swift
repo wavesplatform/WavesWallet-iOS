@@ -9,13 +9,13 @@
 import Foundation
 
 extension Node.Model {
-    struct AssetBalance: Decodable {
+    struct AccountAssetsBalance: Decodable {
         let address: String
-        let balances: [Balance]
+        let balances: [AssetBalance]
     }
 
-    struct Balance: Decodable {
-        let assetID: String
+    struct AssetBalance: Decodable {
+        let assetId: String
         let balance: Int64
         let reissuable: Bool
         let minSponsoredAssetFee: Int64?
@@ -33,7 +33,7 @@ extension Node.Model {
         let timestamp: Int64
         let signature: String
         let version: Int64
-        let assetID: String
+        let assetId: String
         let name: String
         let quantity: Int64
         let reissuable: Bool

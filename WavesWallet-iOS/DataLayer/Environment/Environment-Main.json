@@ -7,7 +7,7 @@
   "scheme": "W",
   "generalAssetIds": [
     {
-      "assetId": "",
+      "assetId": "WAVES",
       "name": "WAVES",
       "quantity": 10000000000000000,
       "decimals": 8

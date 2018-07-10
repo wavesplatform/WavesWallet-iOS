@@ -199,8 +199,13 @@ class WalletManager {
     
     class func getWalletsConfig() -> Realm.Configuration {
         var config = Realm.Configuration()
+        config.schemaVersion = 2
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("wallets_\(Environments.current.scheme).realm")
+        config.migrationBlock = { migration, oldSchemaVersion in
+            print("Migration!!! \(oldSchemaVersion)")
+        }
+
         return config
     }
     

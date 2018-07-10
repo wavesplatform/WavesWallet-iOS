@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct AssetInfo: Decodable {
-    let assetId: String
-    let name: String
-    let quantity: Int64
-    let decimals: Int
-}
-
 struct Environment: Decodable {
+
+    struct AssetInfo: Decodable {
+        let assetId: String
+        let name: String
+        let quantity: Int64
+        let decimals: Int
+    }
 
     struct Servers: Decodable {
         let nodeUrl: URL
@@ -32,11 +32,12 @@ struct Environment: Decodable {
     }()
 }
 
-class Environments {
+final class Environments {
 
-    private enum Constants {
-        static let main = "Environment-Main"
-        static let test = "Environment-Test"
+    enum Constants {
+        static let wavesAssetId = "WAVES"
+        fileprivate static let main = "Environment-Main"
+        fileprivate static let test = "Environment-Test"
     }
 
     private static var _current: Environment?

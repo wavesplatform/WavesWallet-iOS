@@ -13,9 +13,9 @@ extension Node.Service {
     enum Assets {
         /**
          Response:
-         - [Node.Model.AssetBalance].self
+         - [Node.Model.AccountAssetsBalance].self
          */
-        case getBalanceForAssets(accountId: String)
+        case getAssetsBalance(accountId: String)
     }
 }
 
@@ -31,21 +31,21 @@ extension Node.Service.Assets: NodeTargetType {
 
     var path: String {
         switch self {
-        case .getBalanceForAssets(let id):
+        case .getAssetsBalance(let id):
             return Constants.assets + "/" + Constants.balance + "/" + "\(id)".urlEscaped
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .getBalanceForAssets:
+        case .getAssetsBalance:
             return .get
         }
     }
 
     var task: Task {
         switch self {
-        case .getBalanceForAssets:
+        case .getAssetsBalance:
             return .requestPlain
         }
     }

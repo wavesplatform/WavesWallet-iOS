@@ -13,7 +13,7 @@ extension API.Service {
     enum Assets {
         /**
          Response:
-         - DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self
+         - API.Response<[API.Response<API.Model.Asset>]>.self
          */
         case getAssets(ids: [String])
         /**
@@ -27,15 +27,15 @@ extension API.Service {
 extension API.Service.Assets: ApiTargetType {
     private enum Constants {
         static let assets = "assets"
+        static let ids = "ids"
     }
 
     var path: String {
         switch self {
         case .getAsset(let id):
             return Constants.assets + "/" + "\(id)".urlEscaped
-        case .getAssets(let ids):
-            let params = ids.reduce("") { $0 + "=" + $1 }
-            return Constants.assets + "/" + "\(params)".urlEscaped
+        case .getAssets:
+            return Constants.assets
         }
     }
 
@@ -48,7 +48,9 @@ extension API.Service.Assets: ApiTargetType {
 
     var task: Task {
         switch self {
-        case .getAssets, .getAsset:
+        case .getAssets(let ids):
+            return Task.requestParameters(parameters: [Constants.ids: ids], encoding: URLEncoding.default)
+        case .getAsset:
             return .requestPlain
         }
     }

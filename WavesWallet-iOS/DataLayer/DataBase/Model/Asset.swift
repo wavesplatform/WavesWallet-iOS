@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 
 class Asset: Object {
-
-    @objc dynamic var ticker: String? = nil
+    @objc dynamic var ticker: String?
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var precision: Int64 = 0
@@ -23,6 +22,6 @@ class Asset: Object {
     @objc dynamic var reissuable: Bool = false
 
     override class func primaryKey() -> String? {
-        return "assetId"
+        return "id"
     }
 }

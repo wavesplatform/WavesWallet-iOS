@@ -17,11 +17,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    let appservice = MoyaProvider<API.Service.Assets>()
-
-    let nodeService = MoyaProvider<Node.Service.Addresses>()
-
-    let nodeAssetsService = MoyaProvider<Node.Service.Assets>()
+    let accountBalanceInteractor = AccountBalanceInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
@@ -50,35 +46,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = sideMenuViewController
 
 //        .map(DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self)
-        let appservice = self.appservice
-            .rx
-            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
-            .map(API.Response<API.Model.Asset>.self)
+//        let appservice = self.appservice
+//            .rx
+//            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
+//            .map(API.Response<API.Model.Asset>.self)
+//
+//        appservice.subscribe(onSuccess: { model in
+//            print("model: \(model)")
+//        }) { error in
+//            print("error: \(error)")
+//        }
 
-        appservice.subscribe(onSuccess: { model in
-            print("model: \(model)")
-        }) { error in
-            print("error: \(error)")
-        }
-
-        let addreses = self.nodeService
-            .rx
-            .request(.getAccountBalance(id: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
-            .map(Node.Model.AccountBalance.self).subscribe(onSuccess: { (account) in
-                print("model: \(account)")
-            }) { (error) in
+        accountBalanceInteractor
+            .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+            .subscribe(onNext: { model in
+                print("model: \(model)")
+            }, onError: { error in
                 print("error: \(error)")
-            }
+            })
 
-
-        let assets = self.nodeAssetsService
-            .rx
-            .request(.getBalanceForAssets(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
-            .map([Node.Model.AssetBalance].self).subscribe(onSuccess: { (account) in
-                print("model: \(account)")
-            }) { (error) in
-                print("error: \(error)")
-        }
+//        let addreses = self.nodeService
+//            .rx
+//            .request(.getAccountBalance(id: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
+//            .map(Node.Model.AccountBalance.self).subscribe(onSuccess: { (account) in
+//                print("model: \(account)")
+//            }) { (error) in
+//                print("error: \(error)")
+//            }
+//
+//
+//        let assets = self.nodeAssetsService
+//            .rx
+//            .request(.getBalanceForAssets(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
+//            .map([Node.Model.AssetBalance].self).subscribe(onSuccess: { (account) in
+//                print("model: \(account)")
+//            }) { (error) in
+//                print("error: \(error)")
+//        }
 
         return true
     }

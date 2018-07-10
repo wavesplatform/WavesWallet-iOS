@@ -24,8 +24,11 @@
 		0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
-		0A5C919A20F3DB4C00443CE6 /* AssetBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AssetBalanceNode.swift */; };
+		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
 		0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919B20F3E7DD00443CE6 /* Asset.swift */; };
+		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
+		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
+		0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */; };
 		0A7E0CCF20F2AD760010CA6C /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */; };
 		0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */; };
 		0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD420F2B9190010CA6C /* Environment-Test.json */; };
@@ -248,10 +251,12 @@
 		0A4C9AA220EE65910095A417 /* SeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsApiService.swift; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
-		0A5C918C20F3CDA000443CE6 /* WavesDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesDataService.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
-		0A5C919920F3DB4C00443CE6 /* AssetBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceNode.swift; sourceTree = "<group>"; };
+		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919B20F3E7DD00443CE6 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
+		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
+		0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+Weak.swift"; sourceTree = "<group>"; };
 		0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
 		0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		0A7E0CD420F2B9190010CA6C /* Environment-Test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Test.json"; sourceTree = "<group>"; };
@@ -480,20 +485,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A1DAD6020F37BA2004DA625 /* Model */ = {
+		0A1DAD6020F37BA2004DA625 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				0A1DAD6120F3876C004DA625 /* AssetApi.swift */,
 				0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */,
 				0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		0A1DAD6320F395E7004DA625 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */,
+				0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -558,10 +564,9 @@
 			isa = PBXGroup;
 			children = (
 				0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */,
-				0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */,
-				0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */,
+				0A5C919D20F4B0B700443CE6 /* Services */,
 				0A1DAD7420F3A696004DA625 /* Queries */,
-				0A1DAD6020F37BA2004DA625 /* Model */,
+				0A1DAD6020F37BA2004DA625 /* Models */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -570,19 +575,10 @@
 			isa = PBXGroup;
 			children = (
 				0A1DAD6C20F39F94004DA625 /* NodeServiceTypes.swift */,
-				0A5C919620F3DAEC00443CE6 /* Model */,
-				0A1DAD7020F3A112004DA625 /* AddressesNodeService.swift */,
-				0A1DAD7220F3A12B004DA625 /* AssetsNodeService.swift */,
+				0A5C919E20F4B0D000443CE6 /* Services */,
+				0A5C919620F3DAEC00443CE6 /* Models */,
 			);
 			path = NodeService;
-			sourceTree = "<group>";
-		};
-		0A5C918B20F3CDA000443CE6 /* WavesDataService */ = {
-			isa = PBXGroup;
-			children = (
-				0A5C918C20F3CDA000443CE6 /* WavesDataService.swift */,
-			);
-			path = WavesDataService;
 			sourceTree = "<group>";
 		};
 		0A5C919120F3D00D00443CE6 /* Assisstants */ = {
@@ -611,13 +607,39 @@
 			path = DomainLayer;
 			sourceTree = "<group>";
 		};
-		0A5C919620F3DAEC00443CE6 /* Model */ = {
+		0A5C919620F3DAEC00443CE6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */,
-				0A5C919920F3DB4C00443CE6 /* AssetBalanceNode.swift */,
+				0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */,
 			);
-			path = Model;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0A5C919D20F4B0B700443CE6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */,
+				0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0A5C919E20F4B0D000443CE6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0A1DAD7020F3A112004DA625 /* AddressesNodeService.swift */,
+				0A1DAD7220F3A12B004DA625 /* AssetsNodeService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0A6CCD3920F4BC730023E36E /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */,
+			);
+			path = Mapper;
 			sourceTree = "<group>";
 		};
 		0A7E0CDC20F369E20010CA6C /* Environment */ = {
@@ -844,6 +866,7 @@
 		F74240AF1EAB8D1600C3B84D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A6CCD3920F4BC730023E36E /* Mapper */,
 				0A5C919120F3D00D00443CE6 /* Assisstants */,
 				0A1DAD6720F3971B004DA625 /* DataBase */,
 				0A1DAD6620F396F4004DA625 /* Service */,
@@ -984,7 +1007,6 @@
 			isa = PBXGroup;
 			children = (
 				F7E954E61EA8FE0700A804DE /* WavesWallet-iOS */,
-				0A5C918B20F3CDA000443CE6 /* WavesDataService */,
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
@@ -1070,6 +1092,7 @@
 				E99950342092188D00A11E37 /* UIView+Additionals.swift */,
 				F77A92081EB0A9D500C77439 /* ArrayExtension.swift */,
 				F7CBD8621EBA592B00B0D4CE /* StringExtension.swift */,
+				0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1232,6 +1255,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
@@ -1271,6 +1295,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
@@ -1314,9 +1339,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
-				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
+				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
+				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
+				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
 				E9CB908320D1DE24000E54AA /* ChooseAddressBookViewController.swift in Sources */,
 				F762B3A41EABB6C000EAD7FF /* SendViewModel.swift in Sources */,
 				E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */,
@@ -1325,14 +1351,13 @@
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
-				0A5C919A20F3DB4C00443CE6 /* AssetBalanceNode.swift in Sources */,
+				0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */,
 				E9EE18D920D475E7001913C6 /* WavesReceiveViewController.swift in Sources */,
 				E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */,
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
-				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */,
 				F762B3A51EABB6C000EAD7FF /* TransferSuccessViewController.swift in Sources */,
 				E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */,
@@ -1352,6 +1377,7 @@
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				F7F97E8F1EAA0CF800BE2F6F /* CustomSectionHeader.swift in Sources */,
+				0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */,
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				F74240CF1EAB8EFF00C3B84D /* AccountCell.swift in Sources */,
@@ -1399,6 +1425,7 @@
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */,
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
+				0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */,
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
@@ -1430,6 +1457,7 @@
 				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,
 				F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */,
 				E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */,
+				0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
@@ -1614,7 +1642,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = DevIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
