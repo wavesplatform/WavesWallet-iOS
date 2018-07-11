@@ -116,8 +116,7 @@ class ConfirmBackupViewController: UIViewController {
     func zoomOut(view: UIView, completion: (() -> Swift.Void)? = nil) {
 
         UIView.animate(withDuration: 0.2, animations: {
-//            view.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-            view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            view.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
 
         }) { (complete) in
             if let completion = completion {
