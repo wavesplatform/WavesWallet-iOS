@@ -8,17 +8,26 @@
 
 import UIKit
 
+
 class ConfirmBackupViewController: UIViewController {
 
-    @IBOutlet weak var viewTapButtons: UIView!
-    @IBOutlet weak var viewInputButtons: BorderButtView!
+    @IBOutlet weak var viewBottomButtons: UIView!
+    @IBOutlet weak var viewTopButtons: BorderButtView!
+    
+    @IBOutlet weak var labelTapWord: UILabel!
     
     let words = ["nigga", "wanna", "too", "get", "tothe", "close", "utmost", "but", "igot", "stacks", "that'll", "attack", "any", "wack", "host"]
     
     var inputWords : [String] = []
     
-    @IBOutlet weak var viewTapButtonsHeight: NSLayoutConstraint!
-    @IBOutlet weak var viewInputButtonsHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewBottomButtonsHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewTopButtonsHeight: NSLayoutConstraint!
+    
+    var hasInit = false
+    
+    var bottomButtons : [UIButton] = []
+    @IBOutlet weak var buttonConfirm: UIButton!
+    @IBOutlet weak var labelError: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,136 +37,224 @@ class ConfirmBackupViewController: UIViewController {
         setupBigNavigationBar()
         hideTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
+        buttonConfirm.alpha = 0
+        labelError.alpha = 0
     }
+    
+    @IBAction func confirmTapped(_ sender: Any) {
+    
+    }
+    
+    override func viewWillLayoutSubviews() {
+        initBottomWords()
+    }
+    
     
     func wordTapped(_ sender: UIButton) {
         
         let index = sender.tag
+        
         inputWords.append(words[index])
-        setupWords()
+
+        if labelTapWord.alpha == 1 {
+            UIView.animate(withDuration: 0.3) {
+                self.labelTapWord.alpha = 0
+            }
+        }
+        
+        zoomOut(view: sender, completion: nil)
+        setupTopWords(zoomLastButton: true)
+        
+        if words.count == inputWords.count {
+            if words == inputWords {
+                viewTopButtons.isUserInteractionEnabled = false
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.viewBottomButtons.alpha = 0
+                    self.buttonConfirm.alpha = 1
+                }
+            }
+            else {
+                UIView.animate(withDuration: 0.3) {
+                    self.labelError.alpha = 1
+                    self.viewBottomButtons.alpha = 0
+                }
+            }
+        }
     }
     
     func removeWord(_ sender: UIButton) {
         
         let index = sender.tag
+        let word = inputWords[index]
         inputWords.remove(at: index)
-        setupWords()
-    }
-    
-    func setupWords() {
         
-        for view in viewTapButtons.subviews {
-            view.removeFromSuperview()
+        let buttonIndex = words.index(of: word)!
+        self.zoomOut(view: sender) {
+            self.setupTopWords(zoomLastButton: false)
+        }
+
+        if let button = bottomButtons.first(where: {$0.tag == buttonIndex}) {
+            self.zoomIn(view: button)
         }
         
-        for view in viewInputButtons.subviews {
-            view.removeFromSuperview()
+        if labelError.alpha == 1 {
+            UIView.animate(withDuration: 0.3) {
+                self.labelError.alpha = 0
+                self.viewBottomButtons.alpha = 1
+            }
+        }
+    }
+    
+    func zoomIn(view: UIView) {
+        
+        UIView.animate(withDuration: 0.2) {
+            view.transform = .identity
+        }
+    }
+    
+    func zoomOut(view: UIView, completion: (() -> Swift.Void)? = nil) {
+
+        UIView.animate(withDuration: 0.2, animations: {
+//            view.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+            view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+
+        }) { (complete) in
+            if let completion = completion {
+                completion()
+            }
+        }
+    }
+
+ 
+    func initBottomWords() {
+        
+        if hasInit {
+            return
+        }
+        else if viewBottomButtons.frame.size.width == Platform.ScreenWidth - 32 {
+            hasInit = true
         }
         
         var offsetX : CGFloat = 0
         var offsetY : CGFloat = 0
         let deltaX  : CGFloat = 8
 
+        
+        for view in viewBottomButtons.subviews {
+            view.removeFromSuperview()
+        }
+        
         let view = UIView(frame: CGRect(x: 0, y: offsetY, width: 0, height: buttonHeight))
-        viewTapButtons.addSubview(view)
-
+        viewBottomButtons.addSubview(view)
+        
         for (index, word) in words.enumerated() {
             
-            let button = createButton(word, isTapMode: false)
+            let button = createButton(word, isTopWords: false)
             button.frame.origin.x = offsetX
             button.addTarget(self, action: #selector(wordTapped(_:)), for: .touchUpInside)
             button.tag = index
+            bottomButtons.append(button)
             
-            if button.frame.origin.x + button.frame.size.width + deltaX * 2 > viewTapButtons.frame.size.width {
+            let viewBg = BorderButtView(frame: button.frame)
+            viewBg.backgroundColor = .white
+            
+            if button.frame.origin.x + button.frame.size.width > viewBottomButtons.frame.size.width {
                 offsetY += button.frame.size.height + 14
                 button.frame.origin.x = 0
+                viewBg.frame.origin.x = 0
                 let view = UIView(frame: CGRect(x: 0, y: offsetY, width: 0, height: buttonHeight))
-                viewTapButtons.addSubview(view)
+                viewBottomButtons.addSubview(view)
             }
-
+            
             offsetX = button.frame.origin.x + button.frame.size.width + deltaX
-            lastButtonSuperView.addSubview(button)
-            lastButtonSuperView.frame.size.width = button.frame.origin.x + button.frame.size.width
+            lastBottomButtonSuperView.addSubview(viewBg)
+            
+            lastBottomButtonSuperView.addSubview(button)
+            lastBottomButtonSuperView.frame.size.width = button.frame.origin.x + button.frame.size.width
         }
         
-        for view in viewTapButtons.subviews {
-            view.frame.origin.x = (viewTapButtons.frame.size.width - view.frame.size.width) / 2
+        for view in viewBottomButtons.subviews {
+            view.frame.origin.x = (viewBottomButtons.frame.size.width - view.frame.size.width) / 2
         }
         if words.count == inputWords.count {
-            viewTapButtonsHeight.constant = 0
+            viewBottomButtonsHeight.constant = 0
         }
         else {
-            viewTapButtonsHeight.constant = lastButtonSuperView.frame.origin.y + lastButtonSuperView.frame.size.height
+            viewBottomButtonsHeight.constant = lastBottomButtonSuperView.frame.origin.y + lastBottomButtonSuperView.frame.size.height
+        }
+    }
+    
+    func setupTopWords(zoomLastButton: Bool) {
+        
+        for view in viewTopButtons.subviews {
+            view.removeFromSuperview()
         }
         
+        var offsetX : CGFloat = 0
+        var offsetY : CGFloat = 14
+        let deltaX  : CGFloat = 8
         
-        offsetY = 14
-        offsetX = 0
-        viewInputButtons.addSubview(UIView(frame: CGRect(x: 0, y: offsetY, width: 0, height: buttonHeight)))
+        viewTopButtons.addSubview(UIView(frame: CGRect(x: 0, y: offsetY, width: 0, height: buttonHeight)))
 
         for (index, word) in inputWords.enumerated() {
             
-            let button = createButton(word, isTapMode: true)
+            let button = createButton(word, isTopWords: true)
             button.frame.origin.x = offsetX
             button.addTarget(self, action: #selector(removeWord(_:)), for: .touchUpInside)
             button.tag = index
             
-            if button.frame.origin.x + button.frame.size.width + deltaX * 2 > viewInputButtons.frame.size.width {
+            if index == inputWords.count - 1 && zoomLastButton {
+                button.transform = CGAffineTransform(scaleX: 0, y: 0)
+                zoomIn(view: button)
+            }
+            
+            if button.frame.origin.x + button.frame.size.width + deltaX * 2 > viewTopButtons.frame.size.width {
                 offsetY += button.frame.size.height + 14
                 button.frame.origin.x = 0
                 let view = UIView(frame: CGRect(x: 0, y: offsetY, width: 0, height: buttonHeight))
-                viewInputButtons.addSubview(view)
+                viewTopButtons.addSubview(view)
             }
             
             offsetX = button.frame.origin.x + button.frame.size.width + deltaX
-            lastInputButtonSuperView.addSubview(button)
-            lastInputButtonSuperView.frame.size.width = button.frame.origin.x + button.frame.size.width
+            lastTopButtonSuperView.addSubview(button)
+            lastTopButtonSuperView.frame.size.width = button.frame.origin.x + button.frame.size.width
         }
         
-        for view in viewInputButtons.subviews {
-            view.frame.origin.x = (viewInputButtons.frame.size.width - view.frame.size.width) / 2
+        for view in viewTopButtons.subviews {
+            view.frame.origin.x = (viewTopButtons.frame.size.width - view.frame.size.width) / 2
         }
         
-        viewInputButtonsHeight.constant = lastInputButtonSuperView.frame.origin.y + lastInputButtonSuperView.frame.size.height + 14
-        viewInputButtons.setNeedsDisplay()
-        
+        viewTopButtonsHeight.constant = lastTopButtonSuperView.frame.origin.y + lastTopButtonSuperView.frame.size.height + 14
+        viewTopButtons.setNeedsDisplay()
     }
     
-    var lastInputButtonSuperView: UIView {
-        return viewInputButtons.subviews.last!
+    var lastTopButtonSuperView: UIView {
+        return viewTopButtons.subviews.last!
     }
     
-    var lastButtonSuperView: UIView {
-        return viewTapButtons.subviews.last!
+    var lastBottomButtonSuperView: UIView {
+        return viewBottomButtons.subviews.last!
     }
     
-    override func viewWillLayoutSubviews() {
-        setupWords()
-    }
-    
+   
     var buttonHeight: CGFloat {
         return 36
     }
     
-    func createButton(_ title: String, isTapMode: Bool) -> UIButton {
+    func createButton(_ title: String, isTopWords: Bool) -> UIButton {
         
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
       
-        if isTapMode {
+        if isTopWords {
             button.backgroundColor = .white
             button.setTitleColor(.black, for: .normal)
             button.addTableCellShadowStyle()
         }
         else {
-            if inputWords.contains(title) {
-                button.backgroundColor = .white
-                button.setTitleColor(.white, for: .normal)
-            }
-            else {
-                button.backgroundColor = .submit400
-                button.setTitleColor(.white, for: .normal)
-            }
+            button.backgroundColor = .submit400
+            button.setTitleColor(.white, for: .normal)
         }
         
         button.layer.cornerRadius = 3

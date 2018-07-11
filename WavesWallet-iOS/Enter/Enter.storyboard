@@ -1042,26 +1042,59 @@
                                     <constraint firstAttribute="height" constant="64" id="qnJ-yp-qfF"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cX-k1-8tH">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="2ba-aX-yeA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="confirmTapped:" destination="A7w-EQ-qqp" eventType="touchUpInside" id="7BN-dx-mPS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong order, try again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyc-Ih-btL">
+                                <rect key="frame" x="119.5" y="180" width="136" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.93725490196078431" green="0.28235294117647058" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2cX-k1-8tH" firstAttribute="leading" secondItem="KJB-t9-yIc" secondAttribute="leading" constant="16" id="7D2-Kr-sh5"/>
                             <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="cQx-vO-PTe" secondAttribute="trailing" constant="16" id="HIp-oV-b70"/>
+                            <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="2cX-k1-8tH" secondAttribute="trailing" constant="16" id="HPH-rP-Ewj"/>
+                            <constraint firstItem="pyc-Ih-btL" firstAttribute="top" secondItem="cQx-vO-PTe" secondAttribute="bottom" constant="72" id="VBT-O8-xto"/>
                             <constraint firstAttribute="trailing" secondItem="2fK-me-lcH" secondAttribute="trailing" constant="16" id="VRd-oz-ghG"/>
                             <constraint firstItem="cQx-vO-PTe" firstAttribute="top" secondItem="tP9-hi-HSX" secondAttribute="top" constant="24" id="bun-MX-Q52"/>
                             <constraint firstItem="5RM-1v-WQu" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="eOx-bK-5ct"/>
                             <constraint firstItem="tP9-hi-HSX" firstAttribute="bottom" secondItem="5RM-1v-WQu" secondAttribute="bottom" constant="24" id="gh4-Li-k8E"/>
                             <constraint firstItem="5RM-1v-WQu" firstAttribute="top" secondItem="2fK-me-lcH" secondAttribute="bottom" constant="24" id="iIx-iq-351"/>
+                            <constraint firstAttribute="bottom" secondItem="2cX-k1-8tH" secondAttribute="bottom" constant="24" id="j1x-fO-Zu3"/>
                             <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="5RM-1v-WQu" secondAttribute="trailing" constant="16" id="kem-Se-oHq"/>
                             <constraint firstItem="2fK-me-lcH" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="mgY-DT-icK"/>
+                            <constraint firstItem="pyc-Ih-btL" firstAttribute="centerX" secondItem="KJB-t9-yIc" secondAttribute="centerX" id="wcf-gy-EOy"/>
                             <constraint firstItem="cQx-vO-PTe" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="zbd-4Y-MI5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tP9-hi-HSX"/>
                     </view>
                     <connections>
-                        <outlet property="viewInputButtons" destination="cQx-vO-PTe" id="Fwb-c3-pkw"/>
-                        <outlet property="viewInputButtonsHeight" destination="qnJ-yp-qfF" id="kr1-xh-XNz"/>
-                        <outlet property="viewTapButtons" destination="5RM-1v-WQu" id="Yt7-gf-wYO"/>
-                        <outlet property="viewTapButtonsHeight" destination="csg-wQ-8f8" id="NMt-vM-5aL"/>
+                        <outlet property="buttonConfirm" destination="2cX-k1-8tH" id="Pjg-zO-4im"/>
+                        <outlet property="labelError" destination="pyc-Ih-btL" id="lXc-5G-FYy"/>
+                        <outlet property="labelTapWord" destination="2fK-me-lcH" id="xFz-C6-ebG"/>
+                        <outlet property="viewBottomButtons" destination="5RM-1v-WQu" id="5PX-bC-PjN"/>
+                        <outlet property="viewBottomButtonsHeight" destination="csg-wQ-8f8" id="5QO-k7-H4B"/>
+                        <outlet property="viewTopButtons" destination="cQx-vO-PTe" id="Z5C-KW-Wbs"/>
+                        <outlet property="viewTopButtonsHeight" destination="qnJ-yp-qfF" id="IYM-MW-6XM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5I2-SR-z0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
