@@ -17,7 +17,7 @@ fileprivate enum Constants {
     static let height: CGFloat = 30
 }
 
-final class WWSegmentedControl: UIControl, NibOwnerLoadable {
+final class SegmentedControl: UIControl, NibOwnerLoadable {
     struct Button {
         struct Icon {
             let normal: UIImage
@@ -40,6 +40,7 @@ final class WWSegmentedControl: UIControl, NibOwnerLoadable {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        loadNibContent()
     }
 
     @IBOutlet var scrollView: SegmentedControlScrollView!
@@ -52,7 +53,6 @@ final class WWSegmentedControl: UIControl, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        loadNibContent()
 
         scrollView.backgroundColor = .basic50
         scrollView.changedValue = { _ in self.sendActions(for: .valueChanged) }
@@ -65,10 +65,10 @@ final class WWSegmentedControl: UIControl, NibOwnerLoadable {
 
 // MARK: - ViewAnimatableConfiguration
 
-extension WWSegmentedControl: ViewAnimatableConfiguration {
-    typealias Model = [WWSegmentedControl.Button]
+extension SegmentedControl: ViewAnimatableConfiguration {
+    typealias Model = [SegmentedControl.Button]
 
-    func update(with model: [WWSegmentedControl.Button], animated: Bool) {
+    func update(with model: [SegmentedControl.Button], animated: Bool) {
         self.model = model
 
         scrollView.removeAllButtons()
@@ -86,9 +86,9 @@ extension WWSegmentedControl: ViewAnimatableConfiguration {
 // MARK: - Private Button
 
 fileprivate final class SegmentedControlButton: UIButton, ViewConfiguration {
-    private var model: WWSegmentedControl.Button?
+    private var model: SegmentedControl.Button?
 
-    func update(with model: WWSegmentedControl.Button) {
+    func update(with model: SegmentedControl.Button) {
         self.model = model
         setTitle(model.name, for: .normal)
         setBackgroundImage(UIColor.clear.image, for: .normal)

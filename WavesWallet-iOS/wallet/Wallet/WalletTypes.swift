@@ -55,6 +55,10 @@ extension WalletTypes.ViewModel {
         var header: String?
         var items: [Row]
         var isExpanded: Bool
+
+        mutating func setExpanded(isExpanded: Bool) {
+            self.isExpanded = isExpanded
+        }
     }
 }
 

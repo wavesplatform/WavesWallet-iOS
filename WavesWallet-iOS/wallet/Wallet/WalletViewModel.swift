@@ -10,79 +10,59 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol ViewModelProtocol {
-    associatedtype Input
-    associatedtype Output
-
-    func bindViewModel(input: Input) -> Output
-}
-
-extension WalletTypes {
-    enum Event {
-        case loadedView
-        case tappedAtSection(Int)
-    }
-}
-
-final class WalletViewModel: ViewModelProtocol {
+final class WalletViewModel {
     fileprivate typealias Section = WalletTypes.ViewModel.Section
 
-    struct Input {
-        var trigger: Driver<Void>
-        let tapAtSection: Driver<Int>
-    }
+    // MARK: Input
 
-    struct Output {
-        var assets: Driver<[WalletTypes.ViewModel.Section]>
-    }
+    var trigger: PublishRelay<Void> = PublishRelay<Void>()
+    let tapAtSection: PublishRelay<Int> = PublishRelay<Int>()
 
-    private var assets: Variable<[Section]> = Variable<[Section]>([])
-    private var sections: [String: Bool] = [String: Bool]()
+    // MARK: Output
+
+    var updateModels: Driver<[WalletTypes.ViewModel.Section]>
 
     private let disposeBug: DisposeBag = DisposeBag()
-
     private let interactor: WalletInteractorProtocol = WalletInteractor()
+    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
 
-    func bindViewModel(input: Input) -> Output {
+    private var hiddenSections: [Bool] = [Bool]()
+    private var sections: Variable<[Section]> = Variable<[Section]>([])
 
-//        input
-//            .event
-//            .flatMap { event -> Observable<[Section]> in
-//
-//                switch event {
-//                case .tappedAtSection, .loadedView:
-//                    return self.assets(event: event)
-//                }    
-//            }
-//            .bind(to: assets)
-//            .disposed(by: disposeBug)
+    init() {
+        let asset = WalletTypes.ViewModel.Row.asset(WalletTypes.ViewModel.Asset(id: "",
+                                                                                name: "test"))
 
+        let section = WalletTypes.ViewModel.Section(id: "Test",
+                                                    header: "Testing",
+                                                    items: [asset, asset, asset, asset, asset],
+                                                    isExpanded: true)
 
-        return Output(assets: assets.asDriver())
+        let newSection = Observable<[Section]>.just([section])
+
+        updateModels = accountBalanceInteractor
+            .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+            .map { balanses -> [Section] in
+
+                var rows = [WalletTypes.ViewModel.Row]()
+
+                balanses.forEach { balance in
+                    rows.append(.asset(.init(id: balance.assetId,
+                                             name: balance.asset!.name)))
+                }
+
+                let section = WalletTypes.ViewModel.Section(id: "Test",
+                                                            header: "Testing",
+                                                            items: rows,
+                                                            isExpanded: true)
+                return [section]
+            }
+            .asDriver(onErrorJustReturn: [])
+
+//        updateModels = newSection.asDriver(onErrorJustReturn: [])
     }
 
-    private func assets(event: WalletTypes.Event) -> Observable<[Section]> {
-        switch event {
-        case .loadedView:
-
-            let asset = WalletTypes.ViewModel.Row.asset(WalletTypes.ViewModel.Asset(id: "",
-                                                                                    name: "test"))
-
-            let section = WalletTypes.ViewModel.Section(id: "Test",
-                                                        header: "Testing",
-                                                        items: [asset, asset, asset, asset, asset],
-                                                        isExpanded: true)
-
-
-            return Observable<[Section]>.just([section])
-        case .tappedAtSection(let section):
-            var sections = assets.value
-            var updateSection = sections[section]
-            updateSection.isExpanded = !updateSection.isExpanded
-            sections[section] = updateSection
-            return Observable<[Section]>.just(sections)
-        }
-    }
+    func bindViewModel() {}
 }
 
 protocol WalletInteractorProtocol {
@@ -94,5 +74,3 @@ final class WalletInteractor: WalletInteractorProtocol {
         return Observable<Void>.never()
     }
 }
-
-let vm = WalletViewModel()
