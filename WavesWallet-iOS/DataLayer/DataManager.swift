@@ -225,7 +225,8 @@ class DataManager: NSObject {
 
         return UIColor(150, 188, 160)
     }
-    
+
+    //TODO: Move from DataManager
     class func logoForCryptoCurrency(_ currency: String) -> String {
         if currency.lowercased() == "waves" {
             return "logoWaves48"

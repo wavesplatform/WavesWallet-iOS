@@ -7,29 +7,71 @@
 //
 
 import Foundation
+import RxDataSources
 import UIKit
 
 enum WalletTypes {}
 
-// MARK: Models
-struct AssetViewModel {
+extension WalletTypes {
+    enum ViewModel {}
+}
 
-    enum Kind {
-        case gateway
-        case fiatMoney
-        case wavesToken
+// MARK: ViewModels
+
+extension WalletTypes.ViewModel {
+    struct Asset: Hashable {
+        enum Kind: Hashable {
+            case gateway
+            case fiatMoney
+            case wavesToken
+        }
+
+        enum State: Hashable {
+            case none
+            case favorite
+            case hidden
+            case spam
+        }
+
+        let id: String
+        let name: String
+//        let icon: UIImage
+//        let balance: Money
+//        let king: Kind
+//        let state: State
+    }
+}
+
+// MARK: ViewModel for UITableView
+
+extension WalletTypes.ViewModel {
+    enum Row: Hashable {        
+        case asset(Asset)
+//        case leasing()
     }
 
-    enum State {
-        case none
-        case favorite
-        case hidden
-        case spam
+    struct Section: Hashable {
+        var id: String
+        var header: String?
+        var items: [Row]
+        var isExpanded: Bool
     }
+}
 
-    let name: String
-    let icon: UIImage
-    let balance: Money
-    let king: Kind
-    let state: State
+extension WalletTypes.ViewModel.Row: IdentifiableType {
+    var identity: String {
+        switch self {
+        case .asset(let asset):
+            return asset.id
+        }
+    }
+}
+
+extension WalletTypes.ViewModel.Section: AnimatableSectionModelType {
+    var identity: String { return id }
+
+    init(original: WalletTypes.ViewModel.Section, items: [WalletTypes.ViewModel.Row]) {
+        self = original
+        self.items = items
+    }
 }

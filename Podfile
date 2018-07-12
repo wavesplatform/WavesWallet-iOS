@@ -31,6 +31,8 @@ target 'WavesWallet-iOS' do
     pod 'UPCarouselFlowLayout'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
 
+    pod 'Segmentio'
+
     pod 'Charts'
     pod 'Koloda'
 

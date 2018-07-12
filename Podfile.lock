@@ -54,6 +54,7 @@ PODS:
     - RxSwiftExt/Core (= 3.2.0)
   - RxSwiftExt/Core (3.2.0):
     - RxSwift (~> 4.0)
+  - Segmentio (3.0)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (4.1.0)
   - SwipeView (1.3.2)
@@ -88,6 +89,7 @@ DEPENDENCIES:
   - RxRealm
   - RxSwift
   - RxSwiftExt
+  - Segmentio
   - SVProgressHUD
   - SwiftyJSON
   - SwipeView
@@ -123,6 +125,7 @@ SPEC REPOS:
     - RxRealm
     - RxSwift
     - RxSwiftExt
+    - Segmentio
     - SVProgressHUD
     - SwiftyJSON
     - SwipeView
@@ -182,6 +185,7 @@ SPEC CHECKSUMS:
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
+  Segmentio: 1607fba3b42230f5f91e997d1a3f337f1176674c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
@@ -191,6 +195,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 07f7d3fb94588d244fbc221b6ce86f0d83f33efe
+PODFILE CHECKSUM: ff516abd1833f51d7d30d8f7fa83d811d23cae08
 
 COCOAPODS: 1.5.3
