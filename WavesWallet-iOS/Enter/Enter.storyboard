@@ -1022,20 +1022,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5RM-1v-WQu">
-                                <rect key="frame" x="16" y="443" width="343" height="200"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5RM-1v-WQu" customClass="ConfirmBackupStackListView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="543" width="343" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="csg-wQ-8f8"/>
+                                    <constraint firstAttribute="height" constant="100" id="csg-wQ-8f8"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please, tap each word in the correct order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fK-me-lcH">
-                                <rect key="frame" x="16" y="403" width="343" height="16"/>
+                                <rect key="frame" x="16" y="503" width="343" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQx-vO-PTe" customClass="BorderButtView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQx-vO-PTe" customClass="ConfirmBackupStackInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="16" y="44" width="343" height="64"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1091,10 +1091,8 @@
                         <outlet property="buttonConfirm" destination="2cX-k1-8tH" id="Pjg-zO-4im"/>
                         <outlet property="labelError" destination="pyc-Ih-btL" id="lXc-5G-FYy"/>
                         <outlet property="labelTapWord" destination="2fK-me-lcH" id="xFz-C6-ebG"/>
-                        <outlet property="viewBottomButtons" destination="5RM-1v-WQu" id="5PX-bC-PjN"/>
-                        <outlet property="viewBottomButtonsHeight" destination="csg-wQ-8f8" id="5QO-k7-H4B"/>
-                        <outlet property="viewTopButtons" destination="cQx-vO-PTe" id="Z5C-KW-Wbs"/>
-                        <outlet property="viewTopButtonsHeight" destination="qnJ-yp-qfF" id="IYM-MW-6XM"/>
+                        <outlet property="stackListView" destination="5RM-1v-WQu" id="IHH-jy-nYu"/>
+                        <outlet property="stackTopView" destination="cQx-vO-PTe" id="dmW-8V-XiM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5I2-SR-z0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
