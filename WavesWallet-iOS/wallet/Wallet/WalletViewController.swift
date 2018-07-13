@@ -18,48 +18,12 @@ class WalletViewController: UIViewController {
     @IBOutlet var segmentedControl: WalletSegmentedControl!
     var refreshControl: UIRefreshControl!
 
-    enum SectionAssets: Int {
-        case main = 1
-        case hidden
-        case spam
-    }
-
-    enum SectionLeasing: Int {
-        case balance = 1
-        case active
-        case quickNote
-    }
-
-    var SectionTop = 0
-
-    enum WalletSelectedIndex {
-        case assets
-        case leasing
-    }
-
-    var selectedSegmentIndex = WalletSelectedIndex.assets
-
-    var isOpenSpamAssets = false
-    var isOpenHiddenAssets = false
-    var isOpenActiveLeasing = true
-    var isOpenQuickNote = false
-    var isAvailableLeasingHistory = true
-
-    var hasFirstChangeSegment = false
-
-    var lastScrollCorrectOffset: CGPoint?
-
-    var assetsMainItems = ["Waves", "Bitcoin", "ETH", "Dash", "USD", "EUR", "Lira"]
-    var assetsHiddenItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
-    var assetsSpamItems = ["ETH", "Monero"]
-
-    var leasingActiveItems = ["10", "0000.0000", "123.31", "3141.43141", "000.314314", "314.3414", "231", "31414.4314", "0", "00.4314"]
-
     private var viewModel: WalletViewModel = WalletViewModel()
     private let assetsDataSource: AssetsDataSource = AssetsDataSource()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let tapSection: PublishSubject<Int> = PublishSubject<Int>()
+    private let tapSection: PublishRelay<Int> = PublishRelay<Int>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,45 +35,34 @@ class WalletViewController: UIViewController {
 
         if #available(iOS 10.0, *) {
             refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//            refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
             tableView.refreshControl = refreshControl
-        }
-        else {
+        } else {
             tableView.addSubview(refreshControl)
         }
-
-        let asset = WalletTypes.ViewModel.Row.asset(WalletTypes.ViewModel.Asset(id: "",
-                                                                                name: "test"))
-
-        let section = WalletTypes.ViewModel.Section(id: "Test",
-                                                    header: "Testing",
-                                                    items: [asset, asset, asset, asset, asset],
-                                                    isExpanded: true)
-
-        let data = Observable<[WalletTypes.ViewModel.Section]>.just([section])
-
-        assetsDataSource.bind(tableView: tableView,
-                              data: data)
 
         let viewWillAppear = rx
             .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
             .mapTo(())
-            .take(1).asDriver(onErrorJustReturn: ())
+            .take(1)
+            .asObservable()
 
         let pull = refreshControl
             .rx
             .controlEvent(.valueChanged)
-            .asDriver(onErrorJustReturn: ())
+            .asObservable()
 
-        let trigger = Driver.merge(viewWillAppear, pull)
+        Observable.merge(viewWillAppear, pull)
+            .bind(to: viewModel.trigger)
+            .disposed(by: disposeBag)
 
+        tapSection
+            .bind(to: viewModel.tapAtSection)
+            .disposed(by: disposeBag)
 
-        let input = WalletViewModel.Input(trigger: trigger,
-                                          tapAtSection: tapSection.asDriver(onErrorJustReturn: 0))
+        viewModel.bindViewModel()
 
-
-
-
+        assetsDataSource.bind(tableView: tableView,
+                              data: viewModel.updateModels.asObservable())
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -146,9 +99,45 @@ class WalletViewController: UIViewController {
 extension WalletViewController: WalletDisplayDataDelegate {
 
     func sectionDidSelect(section: Int, model: WalletTypes.ViewModel.Section) {
-
+        tapSection.accept(section)
     }
 }
+
+//    enum SectionAssets: Int {
+//        case main = 1
+//        case hidden
+//        case spam
+//    }
+//
+//    enum SectionLeasing: Int {
+//        case balance = 1
+//        case active
+//        case quickNote
+//    }
+//
+//    var SectionTop = 0
+//
+//    enum WalletSelectedIndex {
+//        case assets
+//        case leasing
+//    }
+
+//    var selectedSegmentIndex = WalletSelectedIndex.assets
+
+//    var isOpenSpamAssets = false
+//    var isOpenHiddenAssets = false
+//    var isOpenActiveLeasing = true
+//    var isOpenQuickNote = false
+//    var isAvailableLeasingHistory = true
+//
+//    var hasFirstChangeSegment = false
+//
+//    var lastScrollCorrectOffset: CGPoint?
+//    var assetsMainItems = ["Waves", "Bitcoin", "ETH", "Dash", "USD", "EUR", "Lira"]
+//    var assetsHiddenItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
+//    var assetsSpamItems = ["ETH", "Monero"]
+//
+//    var leasingActiveItems = ["10", "0000.0000", "123.31", "3141.43141", "000.314314", "314.3414", "231", "31414.4314", "0", "00.4314"]
 
 
 //        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))

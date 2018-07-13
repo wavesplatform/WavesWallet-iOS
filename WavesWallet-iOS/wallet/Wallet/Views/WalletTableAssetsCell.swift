@@ -29,19 +29,16 @@ class WalletTableAssetsCell: UITableViewCell, Reusable {
     }
 
     func setupCell(value: String) {
-        let text = "000.0000000"
-        labelSubtitle.attributedText = DataManager.attributedBalanceText(text: text, font: labelSubtitle.font)
         labelTitle.text = value
-
     }
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
-
     func update(with model: WalletTypes.ViewModel.Asset) {
-
         let name = model.name
-
+        labelTitle.text = name
+        let text = "000.0000000"
+        labelSubtitle.attributedText = DataManager.attributedBalanceText(text: text, font: labelSubtitle.font)
         let iconName = DataManager.logoForCryptoCurrency(name)
         if iconName.count == 0 {
             imageIcon.image = nil
