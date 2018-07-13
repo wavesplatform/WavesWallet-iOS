@@ -57,13 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("error: \(error)")
 //        }
 
-        accountBalanceInteractor
-            .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
-            .subscribe(onNext: { model in
-//                print("model: \(model)")
-            }, onError: { error in
-                print("error: \(error)")
-            })
+//        accountBalanceInteractor
+//            .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+//            .subscribe(onNext: { model in
+////                print("model: \(model)")
+//            }, onError: { error in
+//                print("error: \(error)")
+//            })
 
 //        let addreses = self.nodeService
 //            .rx
