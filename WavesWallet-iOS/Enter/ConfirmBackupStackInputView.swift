@@ -45,7 +45,7 @@ class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
         setupWords(zoomLastButton: true)
     }
 
-    func removeWord(_ sender: UIButton) {
+    @objc func removeWord(_ sender: UIButton) {
         
         let word = words[sender.tag]
         self.words.remove(at: sender.tag)

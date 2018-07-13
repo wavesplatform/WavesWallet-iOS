@@ -66,7 +66,7 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
         })
     }
     
-    func wordTapped(_ sender: UIButton) {
+    @objc func wordTapped(_ sender: UIButton) {
         
         let word = words[sender.tag]
        
