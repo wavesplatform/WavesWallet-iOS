@@ -52,11 +52,11 @@ class BackupSeedWordsViewController: UIViewController, UICollectionViewDataSourc
         
         currentWordIdx.asDriver().map{ "Word \($0 + 1) of \(self.words.count)" }
             .drive(wordsCountLabel.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         currentWordIdx.asDriver().map { $0 == (self.words.count - 1) && self.words.count >= 3 }
             .drive(submitButton.rx.isEnabled)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
     }
 
@@ -70,7 +70,7 @@ class BackupSeedWordsViewController: UIViewController, UICollectionViewDataSourc
             }, onError: { err in
                 self.presentBasicAlertWithTitle(title: err.localizedDescription)
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

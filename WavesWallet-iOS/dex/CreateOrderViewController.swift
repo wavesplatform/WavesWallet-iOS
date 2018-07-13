@@ -151,10 +151,9 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         
         buyButton.borderWidth = orderType == .buy ? 0.0 : 1.0
         let buyTxt = NSAttributedString(string: buyButton.attributedTitle(for: .normal)!.string,
-                                        attributes: [
-                                            NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
-                                            NSForegroundColorAttributeName: orderType == .buy ? UIColor.white : GreyColor,
-                                            NSParagraphStyleAttributeName: paragraph])
+                                        attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .medium),
+                                                     .foregroundColor: orderType == .buy ? UIColor.white : GreyColor,
+                                                     .paragraphStyle: paragraph])
         buyButton.setAttributedTitle(buyTxt, for: .normal)
         buyButton.backgroundColor = orderType == .buy ? BuyColor : .white
         
@@ -163,9 +162,9 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         buyButton.borderWidth = orderType == .buy ? 0.0 : 1.0
         let sellTxt = NSAttributedString(string: sellButton.attributedTitle(for: .normal)!.string,
                                         attributes: [
-                                            NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
-                                            NSForegroundColorAttributeName: orderType == .sell ? UIColor.white : GreyColor,
-                                            NSParagraphStyleAttributeName: paragraph])
+                                            .font: UIFont.systemFont(ofSize: 15, weight: .medium),
+                                            .foregroundColor: orderType == .sell ? UIColor.white : GreyColor,
+                                            .paragraphStyle: paragraph])
         sellButton.setAttributedTitle(sellTxt, for: .normal)
         
         if !priceChanged {
@@ -184,19 +183,18 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         let buyStr = NSAttributedString(string: "BUY",
-            attributes: [
-                NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
-                NSForegroundColorAttributeName: UIColor.white,
-                NSParagraphStyleAttributeName: paragraph])
+            attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .medium),
+                         .foregroundColor: UIColor.white,
+                         .paragraphStyle: paragraph])
         buyButton.setAttributedTitle(buyStr, for: .normal)
         buyButton.borderColor = GreyColor
         
         sellPrice = MoneyUtil.getScaledText(DataManager.shared.bestBid[assetPair.key] ?? 0, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
         let sellStr = NSAttributedString(string: "SELL",
             attributes: [
-                NSFontAttributeName: UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium),
-                NSForegroundColorAttributeName: UIColor.white,
-                NSParagraphStyleAttributeName: paragraph])
+                .font: UIFont.systemFont(ofSize: 15, weight: .medium),
+                .foregroundColor: UIColor.white,
+                .paragraphStyle: paragraph])
         sellButton.setAttributedTitle(sellStr, for: .normal)
         sellButton.borderColor = GreyColor
         
@@ -339,7 +337,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         }
    }
     
-    func calculateTotalPrice() {
+    @objc func calculateTotalPrice() {
         
         if let price = MoneyUtil.parseDecimal(textFieldPrice.text!),
             let amount = MoneyUtil.parseDecimal(textFieldAmount.text!) {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Class for the navigation accessory view used in FormViewController
 open class NavigationAccessoryView: UIToolbar {

@@ -85,24 +85,24 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         setupSmallNavigationBar()
     }
     
-    func sendTapped() {
+    @objc func sendTapped() {
         let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
         controller.hideTabBarOnBack = true
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func receiveTapped() {
+    @objc func receiveTapped() {
         let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesReceiveViewController") as! WavesReceiveViewController
         controller.hideTabBarOnBack = true
         navigationController?.pushViewController(controller, animated: true)
 
     }
     
-    func exchangeTapped() {
+    @objc func exchangeTapped() {
         
     }
     
-    func beginRefresh() {
+    @objc func beginRefresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refreshControl.endRefreshing()
         }
@@ -118,7 +118,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.popViewController(animated: true)
     }
     
-    func changeChartPeriod() {
+    @objc func changeChartPeriod() {
         
         let controller = UIAlertController(title: "Choose period", message: nil, preferredStyle: .actionSheet)
         let day = UIAlertAction(title: "Day", style: .default) { (action) in

@@ -65,8 +65,10 @@ class MainTabBarController: RDVTabBarController {
     }
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
-        tabBarItem.selectedTitleAttributes = [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName : UIFont.systemFont(ofSize: 10)]
-        tabBarItem.unselectedTitleAttributes = [NSForegroundColorAttributeName : UIColor(153, 153, 153), NSFontAttributeName : UIFont.systemFont(ofSize: 10)]
+        tabBarItem.selectedTitleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black,
+                                              NSAttributedStringKey.font : UIFont.systemFont(ofSize: 10)]
+        tabBarItem.unselectedTitleAttributes = [NSAttributedStringKey.foregroundColor : UIColor(153, 153, 153),
+                                                NSAttributedStringKey.font : UIFont.systemFont(ofSize: 10)]
         tabBarItem.titlePositionAdjustment = UIOffsetMake(0, 3)
         
         if Platform.isIphoneX {

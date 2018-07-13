@@ -41,7 +41,7 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         setupButtonStartLease()
     }
   
-    func addressDidChange() {
+    @objc func addressDidChange() {
         setupButtonStartLease()
     }
     
@@ -144,7 +144,7 @@ class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate
         setupButtonStartLease()
     }
     
-    func addresesTapped(_ sender: UIButton) {
+    @objc func addresesTapped(_ sender: UIButton) {
         
         let index = sender.tag
         

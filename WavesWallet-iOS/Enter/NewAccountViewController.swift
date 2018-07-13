@@ -76,7 +76,7 @@ class NewAccountViewController: UIViewController {
         setupButtonContinue()
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
     
@@ -84,18 +84,18 @@ class NewAccountViewController: UIViewController {
         setupTopBarLine()
     }
     
-    func nameDidChange() {
+    @objc func nameDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldAccountName, placeHolderLabel: labelAccountName)
     }
     
-    func confirmPasswordDidChange() {
+    @objc func confirmPasswordDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldConfirmPassword, placeHolderLabel: labelConfirmPassword)
 
     }
     
-    func createPasswordDidChange() {
+    @objc func createPasswordDidChange() {
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldCreatePassword, placeHolderLabel: labelCreatePassword)
     }

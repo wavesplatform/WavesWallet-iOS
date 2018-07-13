@@ -51,7 +51,7 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         }
     }
    
-    func showAllAddresses() {
+    @objc func showAllAddresses() {
         
         let showAllView = addressContainer.subviews.first(where: {$0.isKind(of: TransactionHistoryShowAllView.classForCoder())})
         

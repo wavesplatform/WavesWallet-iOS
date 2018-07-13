@@ -36,7 +36,7 @@ class BackupVerifyViewController: UITableViewController, UITextFieldDelegate {
         
         inputValue.map{ !$0.0.isEmpty && !$0.1.isEmpty && !$0.2.isEmpty }
             .drive(sumbitButton.rx.isEnabled)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         sumbitButton.rx.tap.asObservable()
             .withLatestFrom(inputValue.asObservable())
@@ -54,7 +54,7 @@ class BackupVerifyViewController: UITableViewController, UITextFieldDelegate {
                     self.presentBasicAlertWithTitle(title: "Incorrect input")
                 }
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func verifyCompleted() {

@@ -137,7 +137,7 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         myOrdersTapped(buttonMyOrders)
     }
     
-    func orderTapped() {
+    @objc func orderTapped() {
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "CreateOrderViewController") as! CreateOrderViewController
         controller.delegate = self
@@ -150,11 +150,11 @@ class DexContainerViewController: UIViewController, UIScrollViewDelegate, ChartV
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func changeChartTimeFrame() {
+    @objc func changeChartTimeFrame() {
         chartController.timeFrameTapped()
     }
     
-    func bottomChartTapped() {
+    @objc func bottomChartTapped() {
         chartController.showHideBarChart()
     }
     

@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 extension UIViewController {
     public func presentBasicAlertWithTitle(title: String, message: String? = nil,

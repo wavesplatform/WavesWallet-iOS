@@ -89,7 +89,7 @@ class WavesReceiveViewController: UIViewController, UIScrollViewDelegate {
         return UIButton()
     }
     
-    func handleGesture(_ gesture: UISwipeGestureRecognizer) {
+    @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         
         if gesture.direction == .left {
             

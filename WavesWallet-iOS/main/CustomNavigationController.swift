@@ -27,7 +27,7 @@ class CustomNavigationController: UINavigationController {
             navigationBar.tintColor = AppColors.activeColor
             navigationBar.isTranslucent = true
             
-            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: AppColors.activeColor]
+            navigationBar.titleTextAttributes = [.foregroundColor: AppColors.activeColor]
             
             //navigationBar.setBackgroundImage(UIImage(), for: .default)
             //navigationBar.shadowImage = UIImage()

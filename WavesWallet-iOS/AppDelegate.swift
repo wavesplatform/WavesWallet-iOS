@@ -12,14 +12,10 @@ import SVProgressHUD
 import Gloss
 import RESideMenu
 
-
-typealias Decodable = Gloss.Decodable
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 

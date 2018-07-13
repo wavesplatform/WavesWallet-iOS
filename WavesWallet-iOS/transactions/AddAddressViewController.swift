@@ -80,7 +80,7 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIScrollV
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
     
@@ -157,7 +157,7 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIScrollV
         return true
     }
     
-    func textFieldAddressDidChange() {
+    @objc func textFieldAddressDidChange() {
         
         if textFieldAddress.text!.count > 0 {
             if buttonDeleteAddress.alpha == 0 {
@@ -180,13 +180,13 @@ class AddAddressViewController: UIViewController, UITextFieldDelegate, UIScrollV
         setupButtonSave()
     }
     
-    func textFieldNameDidChange() {
+    @objc func textFieldNameDidChange() {
         
         DataManager.setupTextFieldLabel(textField: textFieldName, placeHolderLabel: labelTextFieldName)
         setupButtonSave()
     }
     
-    override func backTapped() {
+    @objc override func backTapped() {
         delegate?.addAddressViewControllerDidBack()
         
         if showTabBarOnBack {

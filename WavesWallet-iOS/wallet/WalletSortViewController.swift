@@ -95,7 +95,7 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.isEditing = true
     }
     
-    func changeStyle() {
+    @objc func changeStyle() {
         
         isVisibilityMode = !isVisibilityMode
         navigationItem.rightBarButtonItem?.title = isVisibilityMode ? "Position" : "Visibility"
@@ -118,7 +118,7 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     
-    func addToFavourite(_ sender: UIButton) {
+    @objc func addToFavourite(_ sender: UIButton) {
      
         let index = sender.tag
         let string = sortItems[index]
@@ -136,7 +136,7 @@ class WalletSortViewController: UIViewController, UITableViewDelegate, UITableVi
         CATransaction.commit()
     }
     
-    func removeFromFavourite( _ sender: UIButton) {
+    @objc func removeFromFavourite( _ sender: UIButton) {
         let index = sender.tag
         
         if index == 0 {

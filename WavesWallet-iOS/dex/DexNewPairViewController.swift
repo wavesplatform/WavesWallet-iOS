@@ -26,7 +26,7 @@ class DexNewPairViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func textFieldDidChange(_ sender: Any) {
     
-        buttonAdd.isEnabled = textFieldAmount.text!.characters.count > 0 && textFieldPrice.text!.characters.count > 0
+        buttonAdd.isEnabled = textFieldAmount.text!.count > 0 && textFieldPrice.text!.characters.count > 0
     }
     
     @IBAction func addTapped(_ sender: Any) {

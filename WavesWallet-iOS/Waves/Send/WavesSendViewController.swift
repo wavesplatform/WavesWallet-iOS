@@ -102,10 +102,10 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         labelFiatInfoAmount.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
         labelFiatInfoAmount.delegate = self
 
-        var attr = NSMutableAttributedString(string: "If you have been verified and have deposited US dollars, you can withdraw these dollars back to your bank account. Otherwise, get verified by our partner IDNow.eu", attributes: [NSFontAttributeName : labelFiatInfoWarning.font])
+        var attr = NSMutableAttributedString(string: "If you have been verified and have deposited US dollars, you can withdraw these dollars back to your bank account. Otherwise, get verified by our partner IDNow.eu", attributes: [NSAttributedStringKey.font : labelFiatInfoWarning.font])
         labelFiatInfoWarning.setText(attr)
         
-        attr = NSMutableAttributedString(string: "The minimum amount is 500 US Dollar. If you have any questions, please just send an email to support@coinomat.com", attributes: [NSFontAttributeName : labelFiatInfoAmount.font])
+        attr = NSMutableAttributedString(string: "The minimum amount is 500 US Dollar. If you have any questions, please just send an email to support@coinomat.com", attributes: [NSAttributedStringKey.font : labelFiatInfoAmount.font])
         labelFiatInfoAmount.setText(attr)
     }
     
@@ -294,7 +294,7 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         setupButtonContinue()
     }
     
-    func addresesTapped(_ sender: UIButton) {
+    @objc func addresesTapped(_ sender: UIButton) {
         
         let index = sender.tag
         
@@ -379,21 +379,21 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
     //MARK: - ChooseAssetViewControllerDelegate
     
     func setupDefaultPriority() {
-        viewInfoAssetConstraint.priority = 749
-        scrollViewAddressConstraint.priority = 750
-        viewFiatInfoConstraint.priority = 748
+        viewInfoAssetConstraint.priority = UILayoutPriority(rawValue: 749)
+        scrollViewAddressConstraint.priority = UILayoutPriority(rawValue: 750)
+        viewFiatInfoConstraint.priority = UILayoutPriority(rawValue: 748)
     }
     
     func setupAssetInfoPriority() {
-        viewInfoAssetConstraint.priority = 750
-        scrollViewAddressConstraint.priority = 749
-        viewFiatInfoConstraint.priority = 748
+        viewInfoAssetConstraint.priority = UILayoutPriority(rawValue: 750)
+        scrollViewAddressConstraint.priority = UILayoutPriority(rawValue: 749)
+        viewFiatInfoConstraint.priority = UILayoutPriority(rawValue: 748)
     }
     
     func setupFiatInfoPriority() {
-        viewInfoAssetConstraint.priority = 749
-        scrollViewAddressConstraint.priority = 748
-        viewFiatInfoConstraint.priority = 750
+        viewInfoAssetConstraint.priority = UILayoutPriority(rawValue: 749)
+        scrollViewAddressConstraint.priority = UILayoutPriority(rawValue: 748)
+        viewFiatInfoConstraint.priority = UILayoutPriority(rawValue: 750)
     }
     
     var isCoinAsset: Bool {

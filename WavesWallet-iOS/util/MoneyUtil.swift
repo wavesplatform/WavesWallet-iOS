@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 struct Money {
     let amount: Int64
@@ -68,10 +69,10 @@ class MoneyUtil {
     
     class func getScaledPair(_ amount: Int64, _ decimals: Int) -> (String, String) {
         let s = getScaledText(amount, decimals: decimals)
-        let len = s.characters.count
+        let len = s.count
         let dWSep = decimals > 0 ? decimals + 1: 0
-        let s1 = String(s.characters.suffix(dWSep))
-        let s2 = String(s.characters.prefix(max(0, len - dWSep)))
+        let s1 = String(s.suffix(dWSep))
+        let s2 = String(s.prefix(max(0, len - dWSep)))
         return (s2, s1)
     }
     
@@ -136,7 +137,7 @@ class MoneyUtil {
         let newString = nsString.replacingCharacters(in: range, with: string)
         guard !newString.isEmpty else { return true }
         
-        if newString.characters.count <= kAmountLength {
+        if newString.count <= kAmountLength {
             if let d = parseDecimal(newString) {
                 return d >= 0 && -d.exponent <= decimals
             }

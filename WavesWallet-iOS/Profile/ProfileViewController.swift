@@ -123,11 +123,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func logoutTapped() {
+    @objc func logoutTapped() {
         
     }
     
-    func deleteAccountTapped() {
+    @objc func deleteAccountTapped() {
 
         let hasSeed = false
         

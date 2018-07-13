@@ -105,7 +105,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         viewModel.selectedAsset
             .map{ MoneyUtil.getScaledTextTrimZeros(0, decimals: $0.getDecimals()) }
             .subscribe(onNext: { self.amountField.placeholder = $0 })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         viewModel.selectedAsset.skip(1)
             .withLatestFrom(viewModel.amountText, resultSelector: { ($0.getDecimals(), $1) })
@@ -113,7 +113,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
             .map{ MoneyUtil.formatDecimals(MoneyUtil.parseDecimal($0.1) ?? 0, decimals: $0.0) }
             .asDriver(onErrorJustReturn: "")
             .drive(amountField.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func setupFeeField() {
@@ -143,7 +143,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         totalMinusFeeDriver
             .map{ "Use total balance \($0.displayText) minus fee" }
             .drive(useTotalButton.rx.title())
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         useTotalButton.rx.tap.asObservable()
             .withLatestFrom(totalMinusFeeDriver.asObservable().map{ $0.displayText })
@@ -151,25 +151,25 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
                 self.amountField.text = t
                 self.amountField.sendActions(for: .editingChanged)
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     func validationResult<A>(field: UITextField, errorLabel: UILabel, value: Driver<Try<A>>) {
         value.map{ $0.error }
             .drive(errorLabel.rx.text)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         let fieldDidEnd = field.rx.controlEvent(.editingDidEnd).asDriver().map { true }
         Driver
             .combineLatest(fieldDidEnd, value) { $0 && $1.exists}
             .drive(errorLabel.rx.isHidden)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
     private func setupValidations() {
         viewModel.transferRequest.map { $0.exists }
             .drive(submitButton.rx.isEnabled)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
         
         validationResult(field: addressField, errorLabel: addressError, value: viewModel.address)
         validationResult(field: amountField, errorLabel: amountErrorLabel, value: viewModel.amount)
@@ -183,7 +183,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
                 self.addressField.text = addr?.address
                 self.addressField.becomeFirstResponder()
                 self.addressField.setNeedsLayout()
-            }).addDisposableTo(bag)
+            }).disposed(by: bag)
         } else if let successVc = segue.destination as? TransferSuccessViewController
             , let tx = sender as? BasicTransaction {
             successVc.tx = tx
@@ -241,7 +241,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
                 self.submitBag = DisposeBag()
                 self.presentBasicAlertWithTitle(title: err.localizedDescription)
             })
-            .addDisposableTo(submitBag)
+            .disposed(by: submitBag)
         
     }
     
@@ -264,10 +264,10 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
             .subscribe(onNext: { _ in
                 self.onSubmit()
             })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
     
-    func handleOpenUrl() {
+    @objc func handleOpenUrl() {
         if let p = OpenUrlManager.getOpenUrlParams() {
             setValues(address: p.0, assetId: p.1, amount: p.2, attachment: p.3)
         }

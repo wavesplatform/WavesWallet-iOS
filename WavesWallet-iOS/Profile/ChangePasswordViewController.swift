@@ -43,22 +43,22 @@ class ChangePasswordViewController: UIViewController, UIScrollViewDelegate {
         labelConfirmPassword.alpha = 0
     }
 
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
     
-    func oldPasswordDidChange() {
+    @objc func oldPasswordDidChange() {
         setupButtonConfirm()
         
         DataManager.setupTextFieldLabel(textField: textFieldOldPassword, placeHolderLabel: labelOldPassword)
     }
     
-    func newPasswordDidChange() {
+    @objc func newPasswordDidChange() {
         setupButtonConfirm()
         DataManager.setupTextFieldLabel(textField: textFieldNewPassword, placeHolderLabel: labelNewPassword)
     }
     
-    func confirmPasswordDidChange() {
+    @objc func confirmPasswordDidChange() {
         setupButtonConfirm()
         DataManager.setupTextFieldLabel(textField: textFieldConfirmNewPassword, placeHolderLabel: labelConfirmPassword)
     }

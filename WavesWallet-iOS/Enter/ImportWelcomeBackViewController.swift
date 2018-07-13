@@ -43,7 +43,7 @@ class ImportWelcomeBackViewController: UIViewController, UIScrollViewDelegate {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func textFieldDidChange() {
+    @objc func textFieldDidChange() {
         if textField.text!.count > 0 {
             buttonContinue.setupButtonActiveState()
             
@@ -90,7 +90,7 @@ class ImportWelcomeBackViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint.zero, animated: true)
     }
     

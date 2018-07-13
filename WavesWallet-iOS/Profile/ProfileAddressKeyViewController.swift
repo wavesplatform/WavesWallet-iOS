@@ -44,9 +44,7 @@ class ProfileAddressKeyViewController: UIViewController {
         hideTopBarLine()
     }
     
-    func copyTapped(_ sender: UIButton) {
-        
-        let value = aliases[sender.tag]
+    @objc func copyTapped(_ sender: UIButton) {
         
         setupButtonCopyState(sender)
     }

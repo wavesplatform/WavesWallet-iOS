@@ -44,19 +44,19 @@ class NetworkViewController: UIViewController, UITextFieldDelegate, UIScrollView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func nodeDidChange() {
+    @objc func nodeDidChange() {
         DataManager.setupTextFieldLabel(textField: textFieldNodeAddress, placeHolderLabel: labelNodeAddress)
     }
     
-    func matcherDidChange() {
+    @objc func matcherDidChange() {
         DataManager.setupTextFieldLabel(textField: textFieldMatcherAddress, placeHolderLabel: labelMatcherAddress)
     }
     
-    func spamDidChange() {
+    @objc func spamDidChange() {
         DataManager.setupTextFieldLabel(textField: textFieldSpam, placeHolderLabel: labelSpam)
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
     

@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class CustomUITextField: UITextField {
     
     // Provides left padding for images
@@ -38,6 +38,7 @@ class CustomUITextField: UITextField {
         }
         
         // Placeholder text color
-        attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSForegroundColorAttributeName: color])
+        attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "",
+                                                   attributes:[.foregroundColor: color])
     }
 }

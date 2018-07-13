@@ -36,7 +36,7 @@ class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate 
         labelLog.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
         labelLog.delegate = self
         
-        let attr = NSAttributedString(string: "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com", attributes: [NSFontAttributeName : labelLog.font])
+        let attr = NSAttributedString(string: "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com", attributes: [NSAttributedStringKey.font : labelLog.font])
         labelLog.setText(attr)
     }
 

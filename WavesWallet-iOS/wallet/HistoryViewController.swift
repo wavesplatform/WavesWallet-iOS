@@ -89,7 +89,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         canceledItems.append(contentsOf: jsonResult["canceledItems"] as! [NSDictionary])
     }
 
-    func beginRefresh() {
+    @objc func beginRefresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refreshControl.endRefreshing()
         }
@@ -111,7 +111,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         lastScrollCorrectOffset = tableView.contentOffset
     }
    
-    func handleGesture(_ gesture: UISwipeGestureRecognizer) {
+    @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         
         if tableView.contentOffset.y > -20 {
             return

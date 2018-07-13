@@ -77,9 +77,8 @@ class ChooseAddressBookViewController: UIViewController, UITableViewDelegate, UI
         tableView.reloadData()
     }
     
-    func editTapped(_ sender: UIButton) {
-        
-        let index = sender.tag
+    @objc func editTapped(_ sender: UIButton) {
+                
         let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
         navigationController?.pushViewController(controller, animated: true)
     }
