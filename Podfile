@@ -31,8 +31,6 @@ target 'WavesWallet-iOS' do
     pod 'UPCarouselFlowLayout'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
 
-    pod 'Segmentio'
-
     pod 'Charts'
     pod 'Koloda'
 
@@ -40,6 +38,7 @@ target 'WavesWallet-iOS' do
     pod 'RxSwift'
     pod "RxSwiftExt"
     pod 'RxGesture'
+    pod 'RxFeedback'
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
