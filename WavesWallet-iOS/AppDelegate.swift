@@ -20,69 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let accountBalanceInteractor = AccountBalanceInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
-
-        self.showStartController()
-
         SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setDefaultMaskType(.clear)
-
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-//        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
 
-//        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController
-//        let nav = UINavigationController(rootViewController: enter)
-//
-//        let menuController = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
-//        let sideMenuViewController = RESideMenu(contentViewController: nav, leftMenuViewController: menuController, rightMenuViewController: nil)!
-//        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
-//        sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
-//        sideMenuViewController.contentViewShadowOpacity = 0.2
-//        sideMenuViewController.contentViewShadowRadius = 15
-//        sideMenuViewController.contentViewShadowEnabled = true
-//        sideMenuViewController.panGestureEnabled = false
-//        window?.rootViewController = sideMenuViewController
-
-//        .map(DataService.Response<[DataService.Response<DataService.Model.Asset>]>.self)
-//        let appservice = self.appservice
-//            .rx
-//            .request(.getAsset(id: "EvN8cvuGKC2t1PA8ZEsgJth3paenSP4UAd8Z6K14z2P4"))
-//            .map(API.Response<API.Model.Asset>.self)
-//
-//        appservice.subscribe(onSuccess: { model in
-//            print("model: \(model)")
-//        }) { error in
-//            print("error: \(error)")
-//        }
-
-//        accountBalanceInteractor
-//            .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
-//            .subscribe(onNext: { model in
-////                print("model: \(model)")
-//            }, onError: { error in
-//                print("error: \(error)")
-//            })
-
-//        let addreses = self.nodeService
-//            .rx
-//            .request(.getAccountBalance(id: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
-//            .map(Node.Model.AccountBalance.self).subscribe(onSuccess: { (account) in
-//                print("model: \(account)")
-//            }) { (error) in
-//                print("error: \(error)")
-//            }
-//
-//
-//        let assets = self.nodeAssetsService
-//            .rx
-//            .request(.getBalanceForAssets(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"))
-//            .map([Node.Model.AssetBalance].self).subscribe(onSuccess: { (account) in
-//                print("model: \(account)")
-//            }) { (error) in
-//                print("error: \(error)")
-//        }
+        showStartController()
 
         return true
     }
