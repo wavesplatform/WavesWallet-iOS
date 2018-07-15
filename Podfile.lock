@@ -43,6 +43,9 @@ PODS:
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
+  - RxFeedback (1.0.3):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxGesture (1.2.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
@@ -50,6 +53,10 @@ PODS:
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.2.0)
+  - RxSwiftExt (3.2.0):
+    - RxSwiftExt/Core (= 3.2.0)
+  - RxSwiftExt/Core (3.2.0):
+    - RxSwift (~> 4.0)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (4.1.0)
   - SwipeView (1.3.2)
@@ -80,9 +87,11 @@ DEPENDENCIES:
   - RxAlamofire
   - RxCocoa
   - RxDataSources
+  - RxFeedback
   - RxGesture
   - RxRealm
   - RxSwift
+  - RxSwiftExt
   - SVProgressHUD
   - SwiftyJSON
   - SwipeView
@@ -114,9 +123,11 @@ SPEC REPOS:
     - RxAlamofire
     - RxCocoa
     - RxDataSources
+    - RxFeedback
     - RxGesture
     - RxRealm
     - RxSwift
+    - RxSwiftExt
     - SVProgressHUD
     - SwiftyJSON
     - SwipeView
@@ -172,9 +183,11 @@ SPEC CHECKSUMS:
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
+  RxFeedback: 0b032eb82a4cf858b3b97fb8eb30a895f837fbda
   RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
@@ -184,6 +197,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 6fa9a3f760f3d0110bdcfe260e0d726eabb25ae7
+PODFILE CHECKSUM: 865ab972c0051e53282606847deda0d3d243aee8
 
 COCOAPODS: 1.5.3

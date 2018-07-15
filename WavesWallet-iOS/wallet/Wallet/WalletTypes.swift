@@ -7,29 +7,41 @@
 //
 
 import Foundation
+import RxDataSources
 import UIKit
 
 enum WalletTypes {}
 
-// MARK: Models
-struct AssetViewModel {
+extension WalletTypes {
+    enum ViewModel {}
+}
 
-    enum Kind {
-        case gateway
-        case fiatMoney
-        case wavesToken
+extension WalletTypes {
+
+    enum Display {
+        case assets
+        case leasing
     }
 
-    enum State {
+    struct State {
+
+        struct DisplayState {
+            var sections: [ViewModel.Section]
+            var collapsedSections: [Int: Bool]
+            var isRefreshing: Bool
+        }
+
+        var display: Display = .assets
+        var assets: DisplayState
+        var leasing: DisplayState
+    }
+
+    enum Event {
         case none
-        case favorite
-        case hidden
-        case spam
+        case responseAssets([AssetBalance])
+        case refresh
+        case readyView
+        case tapSection(Int)
+        case changeDisplay(Display)
     }
-
-    let name: String
-    let icon: UIImage
-    let balance: Money
-    let king: Kind
-    let state: State
 }

@@ -36,7 +36,9 @@ target 'WavesWallet-iOS' do
 
     # Assisstant
     pod 'RxSwift'
+    pod "RxSwiftExt"
     pod 'RxGesture'
+    pod 'RxFeedback'
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'

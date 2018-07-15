@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="WalletHeaderView" customClass="WalletHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7h-Cf-DnU">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden assets (2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vf-bP-bKo">
+                            <rect key="frame" x="16" y="12" width="108" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_header" translatesAutoresizingMaskIntoConstraints="NO" id="a3n-gI-Bfx">
+                            <rect key="frame" x="345" y="13" width="14" height="14"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-h3-8pu">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Jto-h3-8pu" firstAttribute="top" secondItem="h7h-Cf-DnU" secondAttribute="top" id="8m1-D5-BCe"/>
+                        <constraint firstAttribute="bottom" secondItem="Jto-h3-8pu" secondAttribute="bottom" id="APE-JK-baw"/>
+                        <constraint firstAttribute="trailing" secondItem="a3n-gI-Bfx" secondAttribute="trailing" constant="16" id="BOk-7L-N1d"/>
+                        <constraint firstItem="Jto-h3-8pu" firstAttribute="leading" secondItem="h7h-Cf-DnU" secondAttribute="leading" id="Jth-vy-8Ov"/>
+                        <constraint firstItem="6vf-bP-bKo" firstAttribute="centerY" secondItem="h7h-Cf-DnU" secondAttribute="centerY" id="NMz-tU-XCm"/>
+                        <constraint firstItem="6vf-bP-bKo" firstAttribute="leading" secondItem="h7h-Cf-DnU" secondAttribute="leading" constant="16" id="b8a-mo-fpt"/>
+                        <constraint firstAttribute="trailing" secondItem="Jto-h3-8pu" secondAttribute="trailing" id="gHe-aD-vBZ"/>
+                        <constraint firstItem="a3n-gI-Bfx" firstAttribute="centerY" secondItem="6vf-bP-bKo" secondAttribute="centerY" id="sa4-cY-2Mf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="h7h-Cf-DnU" secondAttribute="trailing" id="KY8-1E-McA"/>
+                <constraint firstAttribute="bottom" secondItem="h7h-Cf-DnU" secondAttribute="bottom" id="eMG-ee-Ewe"/>
+                <constraint firstItem="h7h-Cf-DnU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hQI-Uc-LLY"/>
+                <constraint firstItem="h7h-Cf-DnU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pHm-Xr-rra"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="buttonTap" destination="Jto-h3-8pu" id="bDF-tp-wtD"/>
+                <outlet property="iconArrow" destination="a3n-gI-Bfx" id="9bz-Z8-GtG"/>
+                <outlet property="labelTitle" destination="6vf-bP-bKo" id="oL1-d3-nks"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="wallet_arrow_header" width="14" height="14"/>
+    </resources>
+</document>

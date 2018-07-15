@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct Money {
+struct Money: Hashable {
     let amount: Int64
     let decimals: Int
     
