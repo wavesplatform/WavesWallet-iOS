@@ -963,6 +963,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="7VC-ir-FC1" id="EeI-bh-O3c"/>
                         <outlet property="tableView" destination="FIb-TU-Swn" id="bz2-vK-aXn"/>
                     </connections>
                 </viewController>

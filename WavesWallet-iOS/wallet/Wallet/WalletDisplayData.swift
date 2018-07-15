@@ -12,64 +12,46 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-protocol WalletDisplayDataDelegate: AnyObject {
+final class WalletDisplayData: NSObject {
 
-    func sectionDidSelect(section: Int, model: WalletTypes.ViewModel.Section)
-}
-
-final class AssetsDataSource: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
-
-    weak var delegate: WalletDisplayDataDelegate?
+    let tapSection: PublishRelay<Int> = PublishRelay<Int>()
 
     private lazy var configureCell: ConfigureCell<Section> = { _, tableView, _, item in
 
-        let cell: WalletTableAssetsCell = tableView.dequeueCell()
-
         switch item {
+        case .hidden:
+            return UITableViewCell()
         case .asset(let model):
             let cell: WalletTableAssetsCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
         }
-
-        //        cell.viewAssetType.isHidden = false
-        //        cell.viewSpam.isHidden = true
-        //        if indexPath.section == SectionAssets.main.rawValue {
-        //            cell.setupCell(value: assetsMainItems[indexPath.row])
-        //        }
-        //        else if indexPath.section == SectionAssets.hidden.rawValue {
-        //            cell.setupCell(value: assetsHiddenItems[indexPath.row])
-        //        }
-        //        else if indexPath.section == SectionAssets.spam.rawValue {
-        //            cell.viewSpam.isHidden = false
-        //            cell.viewAssetType.isHidden = true
-        //            cell.setupCell(value: assetsSpamItems[indexPath.row])
-        //        }
-
-        return cell
     }
 
-    private lazy var dataSource = RxTableViewSectionedReloadDataSource<Section>(configureCell: configureCell)
+    private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<Section>(configureCell: configureCell)
 
     private var disposeBag: DisposeBag = DisposeBag()
 
     func bind(tableView: UITableView,
-              data: Observable<[WalletTypes.ViewModel.Section]>) {
+              data: Driver<[WalletTypes.ViewModel.Section]>) {
+
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
+                                                                   reloadAnimation: .fade,
+                                                                   deleteAnimation: .fade)
         tableView
             .rx
             .setDelegate(self)
             .disposed(by: disposeBag)
-
         data
-            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
 }
 
 // MARK: UITableViewDelegate
 
-extension AssetsDataSource: UITableViewDelegate {
+extension WalletDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let model = dataSource[section]
 
@@ -79,7 +61,7 @@ extension AssetsDataSource: UITableViewDelegate {
             view.setupArrow(isExpanded: model.isExpanded, animation: false)
 
             view.arrowDidTap = { [weak self] in
-                self?.delegate?.sectionDidSelect(section: section, model: model)
+                self?.tapSection.accept(section)
             }
             return view
         }
@@ -97,10 +79,31 @@ extension AssetsDataSource: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return WalletTableAssetsCell.cellHeight()
+
+        let row = dataSource[indexPath]
+
+        switch row {
+        case .asset:
+            return WalletTableAssetsCell.cellHeight()
+        case .hidden:
+            return CGFloat.minValue
+        }
     }
 }
 
+//        cell.viewAssetType.isHidden = false
+//        cell.viewSpam.isHidden = true
+//        if indexPath.section == SectionAssets.main.rawValue {
+//            cell.setupCell(value: assetsMainItems[indexPath.row])
+//        }
+//        else if indexPath.section == SectionAssets.hidden.rawValue {
+//            cell.setupCell(value: assetsHiddenItems[indexPath.row])
+//        }
+//        else if indexPath.section == SectionAssets.spam.rawValue {
+//            cell.viewSpam.isHidden = false
+//            cell.viewAssetType.isHidden = true
+//            cell.setupCell(value: assetsSpamItems[indexPath.row])
+//        }
 //
 //    func cellHeight(_ indexPath: IndexPath) -> CGFloat {
 //        if indexPath.section == SectionTop {

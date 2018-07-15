@@ -9,20 +9,20 @@
 import RESideMenu
 import RxCocoa
 import RxDataSources
+import RxFeedback
 import RxSwift
 import UIKit
 
-// , UITableViewDelegate, UITableViewDataSource, WalletTopTableCellDelegate {
 class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: WalletSegmentedControl!
     var refreshControl: UIRefreshControl!
 
-    private var viewModel: WalletViewModel = WalletViewModel()
-    private let assetsDataSource: AssetsDataSource = AssetsDataSource()
+    private var presenter: WalletPresenterProtocol = WalletPresenter()
+    private let displayData: WalletDisplayData = WalletDisplayData()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let tapSection: PublishRelay<Int> = PublishRelay<Int>()
+    private let displays: [WalletTypes.Display] = [.assets, .leasing]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,7 @@ class WalletViewController: UIViewController {
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
 
+        setupSegmetedControl()
         createMenuButton()
         setupRightButons()
 
@@ -40,29 +41,50 @@ class WalletViewController: UIViewController {
             tableView.addSubview(refreshControl)
         }
 
-        let viewWillAppear = rx
+        let readyViewEvent = rx
             .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
             .mapTo(())
             .take(1)
-            .asObservable()
+            .map { WalletTypes.Event.readyView }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
-        let pull = refreshControl
+        let refreshEvent = refreshControl
             .rx
             .controlEvent(.valueChanged)
-            .asObservable()
+            .map { WalletTypes.Event.refresh }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
-        Observable.merge(viewWillAppear, pull)
-            .bind(to: viewModel.trigger)
-            .disposed(by: disposeBag)
+        let tapEvent = displayData
+            .tapSection
+            .map { WalletTypes.Event.tapSection($0) }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
-        tapSection
-            .bind(to: viewModel.tapAtSection)
-            .disposed(by: disposeBag)
+        let changedDisplayEvent = segmentedControl.changedValue()
+            .map { [weak self] selectedIndex -> WalletTypes.Event in
 
-        viewModel.bindViewModel()
+                let display = self?.displays[selectedIndex] ?? .assets
+                return .changeDisplay(display)
+            }
 
-        assetsDataSource.bind(tableView: tableView,
-                              data: viewModel.updateModels.asObservable())
+        let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
+
+            owner.displayData.bind(tableView: owner.tableView,
+                                   data: state.map { $0.visibleSections })
+            let subscriptionRefreshControl = state.map { $0.currentDisplayState.isRefreshing }
+                .drive(owner.refreshControl.rx.isRefreshing)
+
+            let subscriptions: [Disposable] = [subscriptionRefreshControl]
+
+            let events: [Signal<WalletTypes.Event>] = [readyViewEvent,
+                                                       refreshEvent,
+                                                       tapEvent,
+                                                       changedDisplayEvent]
+
+            return Bindings(subscriptions: subscriptions,
+                            events: events)
+        }
+
+        presenter.bindUI(feedback: feedback)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -92,17 +114,17 @@ class WalletViewController: UIViewController {
 //            navigationItem.rightBarButtonItems = [btnScan]
 //        }
     }
-}
 
-// MARK: UITableViewDelegate
-
-extension WalletViewController: WalletDisplayDataDelegate {
-
-    func sectionDidSelect(section: Int, model: WalletTypes.ViewModel.Section) {
-        tapSection.accept(section)
+    func setupSegmetedControl() {
+        segmentedControl
+            .segmentedControl
+            .update(with: [SegmentedControl.Button(name: "Assets"),
+                           SegmentedControl.Button(name: "Leasing")],
+                    animated: true)
     }
 }
 
+// , UITableViewDelegate, UITableViewDataSource, WalletTopTableCellDelegate {
 //    enum SectionAssets: Int {
 //        case main = 1
 //        case hidden
@@ -139,7 +161,6 @@ extension WalletViewController: WalletDisplayDataDelegate {
 //
 //    var leasingActiveItems = ["10", "0000.0000", "123.31", "3141.43141", "000.314314", "314.3414", "231", "31414.4314", "0", "00.4314"]
 
-
 //        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
 //        tableView.addGestureRecognizer(swipeRight)
 //
@@ -156,7 +177,6 @@ extension WalletViewController: WalletDisplayDataDelegate {
 //        var header: String?
 //        var items: [Row]
 //        var isExpanded: Bool
-
 
 // extension WalletViewController {
 //
