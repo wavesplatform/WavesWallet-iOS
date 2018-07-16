@@ -19,6 +19,6 @@ extension Asset {
         timestamp = model.timestamp
         sender = model.sender
         quantity = model.quantity
-        reissuable = model.reissuable
+        isReissuable = model.reissuable
     }
 }

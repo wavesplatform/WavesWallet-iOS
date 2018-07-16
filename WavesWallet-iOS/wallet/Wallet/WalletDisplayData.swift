@@ -8,12 +8,10 @@
 
 import Foundation
 import RxCocoa
-import RxDataSources
 import RxSwift
 import UIKit
 
 final class WalletDisplayData: NSObject {
-
     private typealias Section = WalletTypes.ViewModel.Section
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
 
@@ -29,27 +27,43 @@ final class WalletDisplayData: NSObject {
         }
     }
 
-    private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<Section>(configureCell: configureCell)
+    private lazy var dataSource = RxTableViewAnimatedDataSource(configureCell: configureCell)
 
     private var disposeBag: DisposeBag = DisposeBag()
 
     func bind(tableView: UITableView,
-              data: Driver<[WalletTypes.ViewModel.Section]>) {
-
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
-                                                                   reloadAnimation: .fade,
-                                                                   deleteAnimation: .fade)
+              event: Driver<[WalletTypes.ViewModel.Section]>) {
         tableView
             .rx
             .setDelegate(self)
             .disposed(by: disposeBag)
-        data
+
+        event            
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+    }
+
+    func collapsed(tableView: UITableView, event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
+        dataSource.tableView(tableView, collapsedSectionEvent: event)
+    }
+
+    func expanded(tableView: UITableView, event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
+        dataSource.tableView(tableView, expandedSectionEvent: event)
     }
 }
 
 // MARK: UITableViewDelegate
+
+//extension WalletDisplayData: UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 0
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 0
+//    }
+//}
 
 extension WalletDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -79,7 +93,6 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         let row = dataSource[indexPath]
 
         switch row {

@@ -44,39 +44,39 @@ public extension ObservableType {
         })
     }
 
-    public func `do`<WeakObject: AnyObject>(weak obj: WeakObject,
-                                            onNext: ((WeakObject) -> (E) throws -> Void)? = nil,
-                                            onError: ((WeakObject) -> (Error) throws -> Void)? = nil,
-                                            onCompleted: ((WeakObject) -> () throws -> Void)? = nil,
-                                            onSubscribe: ((WeakObject) -> () -> Void)? = nil,
-                                            onSubscribed: ((WeakObject) -> () -> Void)? = nil,
-                                            onDispose: ((WeakObject) -> () -> Void)? = nil) -> RxSwift.Observable<Self.E> {
-        return `do`(onNext: { [weak obj] element in
-
-            guard let obj = obj else { return }
-            try onNext?(obj)(element)
-        }, onError: { [weak obj] error in
-
-            guard let obj = obj else { return }
-            try onError?(obj)(error)
-        }, onCompleted: { [weak obj] () in
-
-            guard let obj = obj else { return }
-            try onCompleted?(obj)()
-        }, onSubscribe: { [weak obj] () in
-
-            guard let obj = obj else { return }
-            onSubscribe?(obj)()
-        }, onSubscribed: { [weak obj] () in
-
-            guard let obj = obj else { return }
-            onSubscribed?(obj)()
-        }, onDispose: { [weak obj] () in
-
-            guard let obj = obj else { return }
-            onDispose?(obj)()
-        })
-    }
+//    public func `do`<WeakObject: AnyObject>(weak obj: WeakObject,
+//                                            onNext: ((WeakObject) -> (E) throws -> Void)? = nil,
+//                                            onError: ((WeakObject) -> (Error) throws -> Void)? = nil,
+//                                            onCompleted: ((WeakObject) -> () throws -> Void)? = nil,
+//                                            onSubscribe: ((WeakObject) -> () -> Void)? = nil,
+//                                            onSubscribed: ((WeakObject) -> () -> Void)? = nil,
+//                                            onDispose: ((WeakObject) -> () -> Void)? = nil) -> RxSwift.Observable<Self.E> {
+//        return `do`(onNext: { [weak obj] element in
+//
+//            guard let obj = obj else { return }
+//            try onNext?(obj)(element)
+//        }, onError: { [weak obj] error in
+//
+//            guard let obj = obj else { return }
+//            try onError?(obj)(error)
+//        }, onCompleted: { [weak obj] () in
+//
+//            guard let obj = obj else { return }
+//            try onCompleted?(obj)()
+//        }, onSubscribe: { [weak obj] () in
+//
+//            guard let obj = obj else { return }
+//            onSubscribe?(obj)()
+//        }, onSubscribed: { [weak obj] () in
+//
+//            guard let obj = obj else { return }
+//            onSubscribed?(obj)()
+//        }, onDispose: { [weak obj] () in
+//
+//            guard let obj = obj else { return }
+//            onDispose?(obj)()
+//        })
+//    }
 
     public func catchError<WeakObject: AnyObject>(weak obj: WeakObject, handler: @escaping (WeakObject, Error) throws -> RxSwift.Observable<Self.E>) -> RxSwift.Observable<Self.E> {
         return catchError { [weak obj] (error) -> Observable<E> in

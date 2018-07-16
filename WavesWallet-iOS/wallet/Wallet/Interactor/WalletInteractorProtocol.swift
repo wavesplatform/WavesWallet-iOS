@@ -10,11 +10,14 @@ import Foundation
 import RxSwift
 
 protocol WalletInteractorProtocol {
-    func assets() -> Observable<Void>
+    func assets() -> AsyncObservable<WalletTypes.DTO.Asset>
 }
 
 final class WalletInteractor: WalletInteractorProtocol {
-    func assets() -> Observable<Void> {
-        return Observable<Void>.never()
+
+    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
+
+    func assets() -> AsyncObservable<WalletTypes.DTO.Asset> {
+        return Observable.never()
     }
 }

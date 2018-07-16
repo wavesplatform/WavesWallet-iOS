@@ -9,7 +9,6 @@
 import Foundation
 
 struct Environment: Decodable {
-
     struct AssetInfo: Decodable {
         let assetId: String
         let name: String
@@ -20,6 +19,7 @@ struct Environment: Decodable {
     struct Servers: Decodable {
         let nodeUrl: URL
         let dataUrl: URL
+        let spamUrl: URL
     }
 
     let name: String
@@ -28,12 +28,11 @@ struct Environment: Decodable {
     let generalAssetIds: [AssetInfo]
 
     let isTestNet: Bool = {
-        return UserDefaults.standard.bool(forKey: "isTestEnvironment")
+        UserDefaults.standard.bool(forKey: "isTestEnvironment")
     }()
 }
 
 final class Environments {
-
     enum Constants {
         static let wavesAssetId = "WAVES"
         fileprivate static let main = "Environment-Main"
@@ -68,7 +67,6 @@ final class Environments {
     }
 
     private static func parseJSON(json fileName: String) -> Environment? {
-
         let decoder = JSONDecoder()
         guard let path = Bundle.main.url(forResource: fileName, withExtension: "json") else {
             return nil

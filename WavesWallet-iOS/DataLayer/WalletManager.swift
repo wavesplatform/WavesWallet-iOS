@@ -173,7 +173,7 @@ class WalletManager {
         }
         currentWallet = nil
         bag = DisposeBag()
-        StoryboardManager.didLogout()
+        StoryboardManager.didLogout()        
     }
     
     class func getAddress() -> String {

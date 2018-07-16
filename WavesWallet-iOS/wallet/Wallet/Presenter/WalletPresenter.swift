@@ -11,7 +11,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-enum ReactQuery {
+private enum ReactQuery {
     case new
     case refresh
 }
@@ -63,27 +63,36 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .tapSection(let section):
             return state.toggleCollapse(index: section)
         case .changeDisplay(let display):
-
             var newState = state
             newState.display = display
             return newState
         case .responseAssets(let response):
-            print("new \(response.count)")
+
             var rows = [WalletTypes.ViewModel.Row]()
+            var rowsSpam = [WalletTypes.ViewModel.Row]()
 
             response.forEach { balance in
-                rows.append(.asset(.init(id: balance.assetId,
-                                         name: balance.asset!.name)))
+                if balance.asset!.isSpam {
+                    rowsSpam.append(.asset(.init(id: balance.assetId,
+                                                 name: balance.asset!.name)))
+                } else {
+                    rows.append(.asset(.init(id: balance.assetId,
+                                             name: balance.asset!.name)))
+                }
             }
 
-            let section = WalletTypes.ViewModel.Section(id: "Test",
-                                                        header: "Testing",
+            let sectionSpam = WalletTypes.ViewModel.Section(header: "Spam",
+                                                            items: rowsSpam,
+                                                            isExpanded: true)
+
+            let section = WalletTypes.ViewModel.Section(header: "Testing",
                                                         items: rows,
                                                         isExpanded: true)
 
-            let newState = state.setAssets(assets: .init(sections: [section],
+            let newState = state.setAssets(assets: .init(sections: [section, sectionSpam],
                                                          collapsedSections: state.assets.collapsedSections,
-                                                         isRefreshing: false))
+                                                         isRefreshing: false,
+                                                         animateType: .refresh))
 
             return newState
         }

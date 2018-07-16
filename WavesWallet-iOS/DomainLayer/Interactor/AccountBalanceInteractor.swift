@@ -13,7 +13,6 @@ import RxSwift
 import RxSwiftExt
 
 protocol AccountBalanceInteractorProtocol {
-
     func balanceBy(accountId: String) -> Observable<[AssetBalance]>
     func update(balance: AssetBalance) -> Observable<Void>
 }
@@ -28,12 +27,14 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
         let assetsBalance = assetsProvider
             .rx
             .request(.getAssetsBalance(accountId: accountId))
-            .map(Node.Model.AccountAssetsBalance.self).asObservable()
+            .map(Node.Model.AccountAssetsBalance.self)
+            .asObservable()
 
         let accountBalance = addressesProvider
             .rx
             .request(.getAccountBalance(id: accountId))
-            .map(Node.Model.AccountBalance.self).asObservable()
+            .map(Node.Model.AccountBalance.self)
+            .asObservable()
 
         let list = Observable
             .zip(assetsBalance, accountBalance)
@@ -69,20 +70,20 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                     }
             })
             .do(weak: self, onNext: { weak, balances in
+
                 try? weak.realm.write {
                     weak.realm.add(balances, update: true)
                 }
             })
 
-        return list.delay(10, scheduler: MainScheduler.asyncInstance)
+        return list.delay(2, scheduler: MainScheduler.asyncInstance)
     }
 
     func update(balance: AssetBalance) -> Observable<Void> {
-
-        try? realm.write {
+        try? self.realm.write {
             realm.add(balance, update: true)
         }
-        
+
         return Observable.just(())
     }
 }

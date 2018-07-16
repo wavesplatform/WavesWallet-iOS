@@ -6,7 +6,10 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
+  - CSV.swift (2.2.1)
+  - DeepDiff (1.2.0)
   - Differentiator (3.0.2)
+  - Dwifft (0.8)
   - Gloss (2.0.0-beta.1)
   - IQKeyboardManagerSwift (6.0.4)
   - keccak (0.1)
@@ -32,6 +35,7 @@ PODS:
     - Realm (= 3.7.4)
   - RESideMenu (4.0.7)
   - Result (3.2.4)
+  - Reveal-SDK (16)
   - RxAlamofire (4.2.0):
     - RxAlamofire/Core (= 4.2.0)
   - RxAlamofire/Core (4.2.0):
@@ -71,6 +75,9 @@ DEPENDENCIES:
   - base58 (from `Vendors/Base58`)
   - blake2 (from `Vendors/Blake2`)
   - Charts
+  - CSV.swift
+  - DeepDiff
+  - Dwifft
   - Gloss (= 2.0.0-beta.1)
   - IQKeyboardManagerSwift
   - keccak (from `Vendors/Keccak`)
@@ -84,6 +91,7 @@ DEPENDENCIES:
   - RDVTabBarController
   - RealmSwift
   - RESideMenu (from `https://github.com/florianbuerger/RESideMenu.git`)
+  - Reveal-SDK
   - RxAlamofire
   - RxCocoa
   - RxDataSources
@@ -105,7 +113,10 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Charts
+    - CSV.swift
+    - DeepDiff
     - Differentiator
+    - Dwifft
     - Gloss
     - IQKeyboardManagerSwift
     - KeychainAccess
@@ -120,6 +131,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - Result
+    - Reveal-SDK
     - RxAlamofire
     - RxCocoa
     - RxDataSources
@@ -163,7 +175,10 @@ SPEC CHECKSUMS:
   base58: b3862511216d07dbb10ec85f08902f51b674462f
   blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  CSV.swift: 5bf3338aff82371cb51cc6dc559d7b45a74bab14
+  DeepDiff: 0ee83ac6942d441f677c22e981548c6e0937f2b6
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
+  Dwifft: 463e61d07322fdf83b32ee6975ca1b20708db746
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
   keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
@@ -180,6 +195,7 @@ SPEC CHECKSUMS:
   RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  Reveal-SDK: ed36bdbb3cbf90b94ae5da0dbcb3c7ae6738c51f
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
@@ -197,6 +213,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 865ab972c0051e53282606847deda0d3d243aee8
+PODFILE CHECKSUM: 8a66c91f777da1fdd4bc6c086cdda06aebd9fd75
 
 COCOAPODS: 1.5.3

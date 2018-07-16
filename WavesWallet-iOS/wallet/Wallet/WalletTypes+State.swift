@@ -20,16 +20,6 @@ extension WalletTypes.State {
         }
     }
 
-    var visibleSections: [WalletTypes.ViewModel.Section] {
-        return currentDisplayState.visibleSections
-    }
-
-    static func initialState() -> WalletTypes.State {
-        return WalletTypes.State(display: .assets,
-                                 assets: WalletTypes.State.DisplayState.initialState(),
-                                 leasing: WalletTypes.State.DisplayState.initialState())
-    }
-
     func updateCurrentDisplay(state: DisplayState) -> WalletTypes.State {
 
         var newState = self
@@ -44,9 +34,17 @@ extension WalletTypes.State {
         return newState
     }
 
+    var visibleSections: [WalletTypes.ViewModel.Section] {
+        return currentDisplayState.visibleSections
+    }
+
+    var animateType: WalletTypes.AnimateType {
+        return currentDisplayState.animateType
+    }
+
     func toggleCollapse(index: Int) -> WalletTypes.State {
 
-        var displayState = currentDisplayState.toggleCollapse(index: index)
+        let displayState = currentDisplayState.toggleCollapse(index: index)
         return updateCurrentDisplay(state: displayState)
     }
 
@@ -62,9 +60,16 @@ extension WalletTypes.State {
         newState.assets = assets
         return newState
     }
+
+    static func initialState() -> WalletTypes.State {
+        return WalletTypes.State(display: .assets,
+                                 assets: WalletTypes.State.DisplayState.initialState(),
+                                 leasing: WalletTypes.State.DisplayState.initialState())
+    }
 }
 
 extension WalletTypes.State.DisplayState {
+
     var visibleSections: [WalletTypes.ViewModel.Section] {
         return sections.enumerated().map { element -> WalletTypes.ViewModel.Section in
             var newSection = element.element
@@ -79,13 +84,19 @@ extension WalletTypes.State.DisplayState {
     }
 
     static func initialState() -> WalletTypes.State.DisplayState {
-        return .init(sections: [], collapsedSections: [:], isRefreshing: false)
+        return .init(sections: [], collapsedSections: [:], isRefreshing: false, animateType: .refresh)
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.State.DisplayState {
         var newState = self
-        let collapse = newState.collapsedSections[index] ?? false
-        newState.collapsedSections[index] = !collapse
+        let isCollapsed = newState.collapsedSections[index] ?? false
+        let newIsCollapsed = !isCollapsed
+        newState.collapsedSections[index] = newIsCollapsed
+        if newIsCollapsed {
+            newState.animateType = .collapsed(index)
+        } else {
+            newState.animateType = .expanded(index)
+        }
         return newState
     }
 }

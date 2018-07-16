@@ -39,6 +39,8 @@ target 'WavesWallet-iOS' do
     pod "RxSwiftExt"
     pod 'RxGesture'
     pod 'RxFeedback'
+    pod 'DeepDiff'
+    pod 'Dwifft'
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
@@ -64,6 +66,10 @@ target 'WavesWallet-iOS' do
     # Parser 
     pod 'SwiftyJSON'
     pod 'Gloss', '2.0.0-beta.1'    
+    pod 'CSV.swift'
+
+    # Debug
+    pod 'Reveal-SDK', :configurations => ['Debug']
 end
 
 post_install do |installer|

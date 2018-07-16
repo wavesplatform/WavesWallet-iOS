@@ -19,7 +19,8 @@ class Asset: Object {
     @objc dynamic var timestamp: String = ""
     @objc dynamic var sender: String = ""
     @objc dynamic var quantity: Int64 = 0
-    @objc dynamic var reissuable: Bool = false
+    @objc dynamic var isReissuable: Bool = false
+    @objc dynamic var isSpam: Bool = false
 
     override class func primaryKey() -> String? {
         return "id"

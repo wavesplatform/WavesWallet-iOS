@@ -68,8 +68,24 @@ class WalletViewController: UIViewController {
 
         let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
 
-            owner.displayData.bind(tableView: owner.tableView,
-                                   data: state.map { $0.visibleSections })
+            let refreshState = state
+                .filter { $0.animateType.isRefresh }
+                .map { $0.visibleSections }
+
+            let collapsedSection = state
+                .filter { $0.animateType.isCollapsed }
+                .map { (sections: $0.visibleSections,
+                        index: $0.animateType.sectionIndex ?? 0) }
+
+            let expandedSection = state
+                .filter { $0.animateType.isExpanded }
+                .map { (sections: $0.visibleSections,
+                        index: $0.animateType.sectionIndex ?? 0) } 
+            
+            owner.displayData.bind(tableView: owner.tableView, event: refreshState)
+            owner.displayData.collapsed(tableView: owner.tableView, event: collapsedSection)
+            owner.displayData.expanded(tableView: owner.tableView, event: expandedSection)
+
             let subscriptionRefreshControl = state.map { $0.currentDisplayState.isRefreshing }
                 .drive(owner.refreshControl.rx.isRefreshing)
 

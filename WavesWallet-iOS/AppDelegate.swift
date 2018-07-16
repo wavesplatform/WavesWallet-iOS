@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         showStartController()
 
+        self.window?.makeKeyAndVisible()
         return true
     }
 

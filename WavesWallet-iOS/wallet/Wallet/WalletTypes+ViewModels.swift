@@ -36,28 +36,23 @@ extension WalletTypes.ViewModel {
 // MARK: ViewModel for UITableView
 
 extension WalletTypes.ViewModel {
-    enum Row: Hashable, IdentifiableType {
+    enum Row: Hashable {
         case hidden
         case asset(Asset)
         //        case leasing()
     }
 
-    struct Section: Hashable {
-        var id: String
+    struct Section: Hashable {        
         var header: String?
         var items: [Row]
         var isExpanded: Bool
-
-        mutating func setExpanded(isExpanded: Bool) {
-            self.isExpanded = isExpanded
-        }
     }
 }
 
-extension WalletTypes.ViewModel.Section: AnimatableSectionModelType {
+extension WalletTypes.ViewModel.Section: SectionModelType {
 
     init(original: WalletTypes.ViewModel.Section, items: [WalletTypes.ViewModel.Row]) {
         self = original
         self.items = items
-    }
+    }    
 }
