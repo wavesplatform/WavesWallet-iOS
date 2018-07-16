@@ -76,7 +76,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 }
             })
 
-        return list.delay(2, scheduler: MainScheduler.asyncInstance)
+        return list.delay(100, scheduler: MainScheduler.asyncInstance)
     }
 
     func update(balance: AssetBalance) -> Observable<Void> {

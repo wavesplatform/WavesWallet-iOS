@@ -429,12 +429,15 @@
                                         <constraint firstItem="TI9-k5-rEu" firstAttribute="top" secondItem="7VC-ir-FC1" secondAttribute="top" constant="18" id="shi-9I-8jf"/>
                                         <constraint firstAttribute="bottom" secondItem="TI9-k5-rEu" secondAttribute="bottom" constant="18" id="wBf-kH-6nO"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <outlet property="segmentedControl" destination="TI9-k5-rEu" id="IlL-f2-UKr"/>
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="8JU-8B-XiO" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="8JU-8B-XiO" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="94" width="320" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8JU-8B-XiO" id="trh-So-IgV">
@@ -576,8 +579,59 @@
                                             <outlet property="viewSpam" destination="H0d-ql-uJg" id="IDn-o5-uOd"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AssetSkeletonCell" id="m7f-UJ-Pfm" customClass="AssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="170" width="320" height="76"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m7f-UJ-Pfm" id="HLL-sz-AN7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyN-x8-3O0" customClass="GradientContainerView" customModule="Skeleton">
+                                                    <rect key="frame" x="14" y="10" width="48" height="48"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="GBZ-Vp-obS"/>
+                                                        <constraint firstAttribute="height" constant="48" id="HXO-Le-y7U"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="24"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWc-rK-kpZ" customClass="GradientContainerView" customModule="Skeleton">
+                                                    <rect key="frame" x="70" y="10" width="64" height="10"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="1Pa-f8-HaK"/>
+                                                        <constraint firstAttribute="height" constant="10" id="M0w-R7-xCC"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="7"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="oyN-x8-3O0" firstAttribute="leading" secondItem="HLL-sz-AN7" secondAttribute="leading" constant="14" id="TYC-E2-e5e"/>
+                                                <constraint firstItem="zWc-rK-kpZ" firstAttribute="top" secondItem="HLL-sz-AN7" secondAttribute="top" constant="10" id="cfj-cO-THy"/>
+                                                <constraint firstItem="zWc-rK-kpZ" firstAttribute="leading" secondItem="oyN-x8-3O0" secondAttribute="trailing" constant="8" id="hZK-99-HVo"/>
+                                                <constraint firstItem="oyN-x8-3O0" firstAttribute="top" secondItem="HLL-sz-AN7" secondAttribute="top" constant="10" id="rTx-JP-qXy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="iconView" destination="oyN-x8-3O0" id="Rb2-bI-A6x"/>
+                                            <outlet property="viewTitle" destination="zWc-rK-kpZ" id="U3B-ad-SQk"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceCell" rowHeight="330" id="Csy-1q-XtN" customClass="WalletLeasingBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="170" width="320" height="330"/>
+                                        <rect key="frame" x="0.0" y="246" width="320" height="330"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Csy-1q-XtN" id="u3v-p3-7Fi">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="330"/>
@@ -883,10 +937,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="200" id="2lU-HN-e9I" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="500" width="320" height="200"/>
+                                        <rect key="frame" x="0.0" y="576" width="320" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2lU-HN-e9I" id="HbV-Cs-4TX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn7-Xh-3cv">
@@ -969,7 +1023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="een-4A-fC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="-125"/>
+            <point key="canvasLocation" x="300" y="-125.70422535211267"/>
         </scene>
         <!--Start Leasing View Controller-->
         <scene sceneID="SrY-Hh-GL7">

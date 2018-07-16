@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
+		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
+		0A16784A20FD4FBC00AA5980 /* AssetSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
 		0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */; };
@@ -261,6 +263,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
+		0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AssetSkeletonCell.swift; path = "WavesWallet-iOS/wallet/Wallet/Views/AssetSkeletonCell.swift"; sourceTree = SOURCE_ROOT; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
 		0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseApi.swift; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 				0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */,
 				0A4B176520FC048000F996F2 /* WalletTypes+ViewModels.swift */,
 				0A50A45720FBEAF1009DC253 /* WalletTypes+State.swift */,
+				0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */,
 				E945F4C3208B88DD00545776 /* WalletViewController.swift */,
 			);
 			path = Wallet;
@@ -641,6 +646,7 @@
 				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
 				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				0AD8543D20F7BC4400D23E48 /* WalletSegmentedControl.swift */,
+				0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1367,9 +1373,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/DeepDiff/DeepDiff.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/Dwifft/Dwifft.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
@@ -1394,6 +1398,8 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
+				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
@@ -1412,9 +1418,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeepDiff.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dwifft.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
@@ -1439,6 +1443,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
@@ -1514,6 +1520,7 @@
 				E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */,
 				E9628843209F792300DE3B5A /* AssetLastTransactionView.swift in Sources */,
 				E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */,
+				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,
 				F77A92071EB09D3700C77439 /* BackupVerifyViewController.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryAssetCell.swift in Sources */,
@@ -1535,6 +1542,7 @@
 				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
 				E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */,
 				0AD2B58820F65931007EE076 /* Reusable.swift in Sources */,
+				0A16784A20FD4FBC00AA5980 /* AssetSkeletonCell.swift in Sources */,
 				E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */,
 				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
 				0A6F3E0B20F749BA00E2AF40 /* NibOwnerLoadable.swift in Sources */,

@@ -38,6 +38,7 @@ extension WalletTypes.ViewModel {
 extension WalletTypes.ViewModel {
     enum Row: Hashable {
         case hidden
+        case skeletonAsset
         case asset(Asset)
         //        case leasing()
     }

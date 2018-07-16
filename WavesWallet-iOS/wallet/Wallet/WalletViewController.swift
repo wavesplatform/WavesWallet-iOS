@@ -12,6 +12,7 @@ import RxDataSources
 import RxFeedback
 import RxSwift
 import UIKit
+import SkeletonView
 
 class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -26,6 +27,7 @@ class WalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
@@ -84,9 +86,8 @@ class WalletViewController: UIViewController {
             
             owner.displayData.bind(tableView: owner.tableView, event: refreshState)
             owner.displayData.collapsed(tableView: owner.tableView, event: collapsedSection)
-            owner.displayData.expanded(tableView: owner.tableView, event: expandedSection)
-
-            let subscriptionRefreshControl = state.map { $0.currentDisplayState.isRefreshing }
+            owner.displayData.expanded(tableView: owner.tableView, event: expandedSection)            
+            let subscriptionRefreshControl = state.map { $0.isRefreshing }
                 .drive(owner.refreshControl.rx.isRefreshing)
 
             let subscriptions: [Disposable] = [subscriptionRefreshControl]

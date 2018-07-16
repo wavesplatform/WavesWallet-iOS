@@ -63,9 +63,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .tapSection(let section):
             return state.toggleCollapse(index: section)
         case .changeDisplay(let display):
-            var newState = state
-            newState.display = display
-            return newState
+            return state.setDisplay(display: display)
         case .responseAssets(let response):
 
             var rows = [WalletTypes.ViewModel.Row]()

@@ -18,6 +18,8 @@ final class WalletDisplayData: NSObject {
     private lazy var configureCell: ConfigureCell<Section> = { _, tableView, _, item in
 
         switch item {
+        case .skeletonAsset:
+            return tableView.dequeueCell() as AssetSkeletonCell
         case .hidden:
             return UITableViewCell()
         case .asset(let model):
@@ -38,32 +40,21 @@ final class WalletDisplayData: NSObject {
             .setDelegate(self)
             .disposed(by: disposeBag)
 
-        event            
+        event
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
 
-    func collapsed(tableView: UITableView, event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
-        dataSource.tableView(tableView, collapsedSectionEvent: event)
+    func collapsed(tableView: UITableView,
+                   event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
+        dataSource.tableView(tableView, reloadSection: event.map { .init(sections: $0, index: $1) })
     }
 
-    func expanded(tableView: UITableView, event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
-        dataSource.tableView(tableView, expandedSectionEvent: event)
+    func expanded(tableView: UITableView,
+                  event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
+        dataSource.tableView(tableView, reloadSection: event.map { .init(sections: $0, index: $1) })
     }
 }
-
-// MARK: UITableViewDelegate
-
-//extension WalletDisplayData: UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 0
-//    }
-//}
 
 extension WalletDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -98,6 +89,8 @@ extension WalletDisplayData: UITableViewDelegate {
         switch row {
         case .asset:
             return WalletTableAssetsCell.cellHeight()
+        case .skeletonAsset:
+            return AssetSkeletonCell.cellHeight()
         case .hidden:
             return CGFloat.minValue
         }

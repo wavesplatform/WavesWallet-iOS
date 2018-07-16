@@ -23,51 +23,13 @@ extension WalletTypes {
         case leasing
     }
 
-    enum AnimateType {
-        case refresh
-        case collapsed(Int)
-        case expanded(Int)
-
-        var isRefresh: Bool {
-            switch self {
-            case .refresh:
-                return true
-            default:
-                return false
-            }
-        }
-
-        var isCollapsed: Bool {
-            switch self {
-            case .collapsed:
-                return true
-            default:
-                return false
-            }
-        }
-
-        var isExpanded: Bool {
-            switch self {
-            case .expanded:
-                return true
-            default:
-                return false
-            }
-        }
-
-        var sectionIndex: Int? {
-            switch self {
-            case .expanded(let section):
-                return section
-            case .collapsed(let section):
-                return section
-            default:
-                return nil
-            }
-        }
-    }
-
     struct State {
+        enum AnimateType  {
+            case refresh
+            case collapsed(Int)
+            case expanded(Int)
+        }
+
         struct DisplayState {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
@@ -89,3 +51,4 @@ extension WalletTypes {
         case changeDisplay(Display)
     }
 }
+

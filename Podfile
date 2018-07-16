@@ -11,7 +11,7 @@ use_frameworks!(true)
 
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
-    
+
     inherit! :search_paths
     # UI
     pod 'RxCocoa'
@@ -31,6 +31,9 @@ target 'WavesWallet-iOS' do
     pod 'UPCarouselFlowLayout'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
 
+    pod "SkeletonView"
+    pod "Skeleton"
+
     pod 'Charts'
     pod 'Koloda'
 
@@ -39,19 +42,17 @@ target 'WavesWallet-iOS' do
     pod "RxSwiftExt"
     pod 'RxGesture'
     pod 'RxFeedback'
-    pod 'DeepDiff'
-    pod 'Dwifft'
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
 
-    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'    
+    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
     pod 'base58', :path => 'Vendors/Base58'
     pod 'keccak', :path => 'Vendors/Keccak'
     pod 'blake2', :path => 'Vendors/Blake2'
 
     pod 'KeychainAccess'
-    
+
     pod 'QRCode'
     pod 'QRCodeReader.swift'
 
@@ -62,10 +63,10 @@ target 'WavesWallet-iOS' do
     # Network
     pod 'RxAlamofire'
     pod 'Moya/RxSwift'
-  
-    # Parser 
+
+    # Parser
     pod 'SwiftyJSON'
-    pod 'Gloss', '2.0.0-beta.1'    
+    pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
 
     # Debug
@@ -79,7 +80,7 @@ post_install do |installer|
           config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
           config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
           config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
-          
+
         end
       end
     end
