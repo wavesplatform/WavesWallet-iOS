@@ -3,6 +3,7 @@ import Gloss
 import RealmSwift
 import Realm
 import RxDataSources
+import RxSwift
 
 public class Transaction: Object, IdentifiableType, Gloss.Decodable {
     public typealias Identity = String
@@ -100,7 +101,7 @@ public class BasicTransaction: Object, IdentifiableType {
     dynamic var counterParty = ""
     dynamic var isPending: Bool = false
     
-    convenience init(tx: Transaction) {
+    convenience init(tx: Transaction, asset: IssueTransaction?) {
         self.init()
         id = tx.id
         type = tx.type
@@ -108,8 +109,7 @@ public class BasicTransaction: Object, IdentifiableType {
         timestamp = tx.timestamp
         fee = tx.fee
         assetId = tx.getAssetId()
-        let realm = try! Realm()
-        asset = realm.object(ofType: IssueTransaction.self, forPrimaryKey: assetId)
+        self.asset = asset
         amount = tx.getAmount()
         isInput = tx.isInput()
         counterParty = tx.getCounterParty()
@@ -224,6 +224,15 @@ public class IssueTransaction: Transaction {
     
     public override func getAmount() -> Int64 {
         return quantity
+    }
+    
+    public class func load(id: String) -> Observable<IssueTransaction?> {
+        let realm = try! Realm()
+        if let tx = realm.object(ofType: IssueTransaction.self, forPrimaryKey: id) {
+            return Observable.just(tx)
+        } else {
+            return NodeManager.loadTransaction(id: id).map { return $0 as? IssueTransaction }
+        }
     }
 }
 

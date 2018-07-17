@@ -75,6 +75,22 @@ class NodeManager {
                 }
         }
     }
+    
+    class func loadTransaction(id: String) -> Observable<Transaction> {
+        let u = Environments.current.nodeUrl.appendingPathComponent("/transactions/info/\(id)")
+        return RxAlamofire.requestJSON(.get, u)
+            .flatMap { (resp, json) -> Observable<Transaction> in
+                if let jTx = json as? JSON {
+                    if let tx = parseTransaction(jTx) {
+                        return Observable.just(tx)
+                    } else {
+                        return Observable.error(ApiError.IncorrectResponseFormat)
+                    }
+                } else {
+                    return Observable.error(ApiError.IncorrectResponseFormat)
+                }
+        }
+    }
 
     
     class func loadBalances() -> Observable<[AssetBalance]> {

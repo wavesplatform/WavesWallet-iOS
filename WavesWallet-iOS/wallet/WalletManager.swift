@@ -147,7 +147,14 @@ class WalletManager {
             .merge().toArray()
             .map { Array($0.joined()) }
         
-        load
+        let txWithAsset = load.flatMap { txs -> Observable<[(Transaction, IssueTransaction?)]> in
+            let ti = txs.map { t in
+                return IssueTransaction.load(id: t.getAssetId()).map {return (t, $0)}
+            }
+            return Observable.from(ti).merge().toArray()
+        }
+        
+        txWithAsset
             .catchError { err in
                 print(err)
                 return Observable.empty()
@@ -155,9 +162,9 @@ class WalletManager {
             .subscribe(onNext: {txs in
                 let realm = try! Realm()
                 try! realm.write {
-                    realm.add(txs, update: true)
-                    realm.add(txs.map { tx in
-                        let bt = BasicTransaction(tx: tx)
+                    realm.add(txs.map {$0.0}, update: true)
+                    realm.add(txs.map { (tx, asset) in
+                        let bt = BasicTransaction(tx: tx, asset: asset)
                         bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
                         return bt
                     }, update: true)
@@ -214,9 +221,6 @@ class WalletManager {
                     realm.objects(AssetBalance.self).filter("assetId in %@", oldHiddenIds)
                         .setValue(true, forKeyPath: "isHidden")
                     
-                    let ids = abs.map{ $0.assetId}
-                    let deleted = realm.objects(AssetBalance.self).filter("isGeneral = false AND NOT (assetId in %@)", ids)
-                    realm.delete(deleted)
                 }
                 if let onComplete = onComplete {
                     onComplete()

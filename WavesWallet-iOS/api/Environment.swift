@@ -28,7 +28,7 @@ struct Environment {
     let nodeUrl: URL
     let scheme: String
     let generalAssetIds: [AssetInfo]
-    let spamUrl: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/WavesGUI/client-907-fix-portfolio/scam.csv")!
+    let spamUrl: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
     
     init(_ name: String, _ nodeUrl: String, _ scheme: String, _ generalAssetIds: [AssetInfo]) {
         self.name = name
