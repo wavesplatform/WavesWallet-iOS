@@ -18,7 +18,7 @@ extension WalletTypes.DTO {
         }
 
         enum State: Hashable {
-            case none
+      
             case general
             case favorite
             case hidden
@@ -29,7 +29,7 @@ extension WalletTypes.DTO {
         let name: String
         let balance: Money
         let fiatBalance: Money
-        let king: Kind
+//        let king: Kind
         let state: State
         let level: Float
     }

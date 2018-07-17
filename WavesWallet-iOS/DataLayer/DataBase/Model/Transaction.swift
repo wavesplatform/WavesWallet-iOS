@@ -182,13 +182,13 @@ public class IssueTransaction: Transaction {
     @objc dynamic var name = ""
     @objc dynamic var assetDescription: String?
     @objc dynamic var quantity: Int64 = 0
-    @objc dynamic var decimals: Int16 = 0
+    @objc dynamic var decimals: Int = 0
     @objc dynamic var reissuable = false
     
     public required init?(json: JSON) {
         guard let name: String = "name" <~~ json
             , let quantity: Int64 = "quantity" <~~ json
-            , let decimals: Int16 = "decimals" <~~ json
+            , let decimals: Int = "decimals" <~~ json
             , let reissuable: Bool = "reissuable" <~~ json else {
                 return nil
         }

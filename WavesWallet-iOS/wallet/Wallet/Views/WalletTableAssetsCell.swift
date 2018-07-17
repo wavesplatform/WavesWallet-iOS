@@ -34,7 +34,7 @@ class WalletTableAssetsCell: UITableViewCell, Reusable {
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
-    func update(with model: WalletTypes.ViewModel.Asset) {
+    func update(with model: WalletTypes.DTO.Asset) {
         let name = model.name
         labelTitle.text = name
         let text = "000.0000000"

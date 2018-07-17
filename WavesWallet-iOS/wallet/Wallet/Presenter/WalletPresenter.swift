@@ -17,7 +17,7 @@ private enum ReactQuery {
 }
 
 final class WalletPresenter: WalletPresenterProtocol {
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
+    private let interactor: WalletInteractorProtocol = WalletInteractor()
     private let disposeBag: DisposeBag = DisposeBag()
 
     func bindUI(feedback: @escaping Feedback) {
@@ -43,10 +43,11 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-
+            //TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.accountBalanceInteractor
-                .balanceBy(accountId: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+            return strongSelf
+                .interactor
+                .assets()
                 .map { .responseAssets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -66,28 +67,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state.setDisplay(display: display)
         case .responseAssets(let response):
 
-            var rows = [WalletTypes.ViewModel.Row]()
-            var rowsSpam = [WalletTypes.ViewModel.Row]()
-
-            response.forEach { balance in
-                if balance.asset!.isSpam {
-                    rowsSpam.append(.asset(.init(id: balance.assetId,
-                                                 name: balance.asset!.name)))
-                } else {
-                    rows.append(.asset(.init(id: balance.assetId,
-                                             name: balance.asset!.name)))
-                }
-            }
-
-            let sectionSpam = WalletTypes.ViewModel.Section(header: "Spam",
-                                                            items: rowsSpam,
-                                                            isExpanded: true)
-
-            let section = WalletTypes.ViewModel.Section(header: "Testing",
-                                                        items: rows,
-                                                        isExpanded: true)
-
-            let newState = state.setAssets(assets: .init(sections: [section, sectionSpam],
+            let secions = WalletTypes.ViewModel.Section.mapFrom(assets: response)
+            let newState = state.setAssets(assets: .init(sections: secions,
                                                          collapsedSections: state.assets.collapsedSections,
                                                          isRefreshing: false,
                                                          animateType: .refresh))

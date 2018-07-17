@@ -13,7 +13,7 @@ extension API.Model {
         let ticker: String?
         let id: String
         let name: String
-        let precision: Int64
+        let precision: Int
         let description: String
         let height: Int64
         let timestamp: String

@@ -13,7 +13,7 @@ class Asset: Object {
     @objc dynamic var ticker: String?
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
-    @objc dynamic var precision: Int64 = 0
+    @objc dynamic var precision: Int = 0
     @objc dynamic var descriptionAsset: String = ""
     @objc dynamic var height: Int64 = 0
     @objc dynamic var timestamp: String = ""

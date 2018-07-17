@@ -54,8 +54,11 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 let generalBalances = Environments.current.generalAssetIds.map { AssetBalance(model: $0) }
                 var newList = balances
                 for generalBalance in generalBalances {
-                    guard balances.contains(where: { $0.assetId == generalBalance.assetId }) == false else { continue }
-                    newList.append(generalBalance)
+                    if let balance = balances.first(where: { $0.assetId == generalBalance.assetId }) {
+                        balance.isGeneral = true
+                    } else {
+                        newList.append(generalBalance)
+                    }
                 }
                 return newList
             }
@@ -95,15 +98,18 @@ fileprivate extension AssetBalance {
 }
 
 fileprivate extension AssetBalance {
+    
     convenience init(model: Environment.AssetInfo) {
         self.init()
         self.assetId = model.assetId
+        isGeneral = true
     }
 
     convenience init(model: Node.Model.AccountBalance) {
         self.init()
         self.balance = model.balance
         self.assetId = Environments.Constants.wavesAssetId
+        isGeneral = true
     }
 
     convenience init(model: Node.Model.AssetBalance) {

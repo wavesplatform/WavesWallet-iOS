@@ -110,7 +110,7 @@ class NodeManager {
         try! Realm()
     }()
     
-    class func createGeneralBalance(_ id: String, bal: Int64, name: String, quantity: Int64, decimals: Int16) -> AssetBalance {
+    class func createGeneralBalance(_ id: String, bal: Int64, name: String, quantity: Int64, decimals: Int) -> AssetBalance {
         let ab = AssetBalance()
         ab.balance = bal
         ab.quantity = quantity
@@ -135,7 +135,7 @@ class NodeManager {
         let existing = realm.object(ofType: AssetBalance.self, forPrimaryKey: id)
         
         if existing == nil {
-            let ab = createGeneralBalance(id, bal: 0, name: name, quantity: quantity, decimals: Int16(decimals))
+            let ab = createGeneralBalance(id, bal: 0, name: name, quantity: quantity, decimals: decimals)
             try! realm.write {
                 realm.add(ab, update: true)
             }
