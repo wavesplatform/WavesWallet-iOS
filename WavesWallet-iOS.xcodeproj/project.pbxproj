@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
-		0A16784A20FD4FBC00AA5980 /* AssetSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */; };
+		0A16784A20FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784920FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
 		0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */; };
@@ -23,6 +23,9 @@
 		0A1E8AD720F75F860054FA70 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E8AD620F75F860054FA70 /* UIImage+Color.swift */; };
 		0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */; };
 		0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */; };
+		0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */; };
+		0A485E8120FDFF8400079B49 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8020FDFF8400079B49 /* SeparatorView.swift */; };
+		0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */; };
 		0A4B176120FC028B00F996F2 /* WalletPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4B176020FC028B00F996F2 /* WalletPresenterProtocol.swift */; };
 		0A4B176420FC032700F996F2 /* WalletInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4B176320FC032700F996F2 /* WalletInteractorProtocol.swift */; };
 		0A4B176620FC048000F996F2 /* WalletTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4B176520FC048000F996F2 /* WalletTypes+ViewModels.swift */; };
@@ -264,7 +267,7 @@
 
 /* Begin PBXFileReference section */
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
-		0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AssetSkeletonCell.swift; path = "WavesWallet-iOS/wallet/Wallet/Views/AssetSkeletonCell.swift"; sourceTree = SOURCE_ROOT; };
+		0A16784920FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WalletAssetSkeletonCell.swift; path = "WavesWallet-iOS/wallet/Wallet/Views/WalletAssetSkeletonCell.swift"; sourceTree = SOURCE_ROOT; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
 		0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseApi.swift; sourceTree = "<group>"; };
@@ -278,6 +281,9 @@
 		0A1E8AD620F75F860054FA70 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlScrollView.swift; sourceTree = "<group>"; };
 		0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
+		0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingBalanceSkeletonCell.swift; sourceTree = "<group>"; };
+		0A485E8020FDFF8400079B49 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistorySkeletonCell.swift; sourceTree = "<group>"; };
 		0A4B176020FC028B00F996F2 /* WalletPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WalletPresenterProtocol.swift; path = "WavesWallet-iOS/wallet/Wallet/Presenter/WalletPresenterProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		0A4B176320FC032700F996F2 /* WalletInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WalletInteractorProtocol.swift; path = "WavesWallet-iOS/wallet/Wallet/Interactor/WalletInteractorProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		0A4B176520FC048000F996F2 /* WalletTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WalletTypes+ViewModels.swift"; path = "WavesWallet-iOS/wallet/Wallet/WalletTypes+ViewModels.swift"; sourceTree = SOURCE_ROOT; };
@@ -594,6 +600,13 @@
 			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
+		0A485E7F20FDFF6E00079B49 /* Type */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Type;
+			sourceTree = "<group>";
+		};
 		0A4B175F20FC028500F996F2 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,7 +659,9 @@
 				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
 				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				0AD8543D20F7BC4400D23E48 /* WalletSegmentedControl.swift */,
-				0A16784920FD4FBC00AA5980 /* AssetSkeletonCell.swift */,
+				0A16784920FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift */,
+				0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */,
+				0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1200,6 +1215,7 @@
 				F770753C1EAA3DD000FE6995 /* NavigationAccessoryView.swift */,
 				F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */,
 				E980EAC720A9A698001834DB /* ScrollButton.swift */,
+				0A485E8020FDFF8400079B49 /* SeparatorView.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -1207,6 +1223,7 @@
 		F7F97E881EAA0CF800BE2F6F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0A485E7F20FDFF6E00079B49 /* Type */,
 				0A1E8AD420F75E8A0054FA70 /* UIFont+Additions.swift */,
 				0AF2F2C020F757BD00AA39FB /* Protocols */,
 				0AD2B58420F658E0007EE076 /* Reusable */,
@@ -1399,7 +1416,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
-				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
@@ -1444,7 +1460,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
@@ -1505,6 +1520,7 @@
 				E9EE18D920D475E7001913C6 /* WavesReceiveViewController.swift in Sources */,
 				E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */,
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
+				0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
@@ -1513,6 +1529,7 @@
 				E929B46B1F36EC4500A335F7 /* LastTraderHeaderView.swift in Sources */,
 				F7C683BF1EA93C5800C87DAF /* MainTabBarController.swift in Sources */,
 				E9FBFC9D20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift in Sources */,
+				0A485E8120FDFF8400079B49 /* SeparatorView.swift in Sources */,
 				E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */,
 				F7F97E931EAA0CF800BE2F6F /* UIResponder+Rx.swift in Sources */,
 				F755C1011EAA8319008A938F /* DateUtil.swift in Sources */,
@@ -1542,7 +1559,7 @@
 				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
 				E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */,
 				0AD2B58820F65931007EE076 /* Reusable.swift in Sources */,
-				0A16784A20FD4FBC00AA5980 /* AssetSkeletonCell.swift in Sources */,
+				0A16784A20FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift in Sources */,
 				E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */,
 				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
 				0A6F3E0B20F749BA00E2AF40 /* NibOwnerLoadable.swift in Sources */,
@@ -1655,6 +1672,7 @@
 				E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */,
 				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
+				0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
 				F74240D01EAB8EFF00C3B84D /* AccountsViewController.swift in Sources */,
 				E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */,

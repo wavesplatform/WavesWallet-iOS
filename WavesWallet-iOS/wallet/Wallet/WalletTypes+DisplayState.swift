@@ -22,12 +22,27 @@ extension WalletTypes.State.DisplayState {
         }
     }
 
-    static func initialState() -> WalletTypes.State.DisplayState {
+    static func initialState(display: WalletTypes.Display) -> WalletTypes.State.DisplayState {
+        var section: WalletTypes.ViewModel.Section!
+        if display == .assets {
+            section = WalletTypes.ViewModel.Section(header: nil,
+                                                    items: [.assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton],
+                                                    isExpanded: true)
+        } else {
+            section = WalletTypes.ViewModel.Section(header: nil,
+                                                    items: [.balanceSkeleton,
+                                                            .historySkeleton],
+                                                    isExpanded: true)
+        }
 
-        let section = WalletTypes.ViewModel.Section.init(header: nil, items:  [.skeletonAsset, .skeletonAsset, .skeletonAsset, .skeletonAsset],
-                                           isExpanded: true)
-
-        return .init(sections: [section], collapsedSections: [:], isRefreshing: false, animateType: .refresh)
+        return .init(sections: [section],
+                     collapsedSections: [:],
+                     isRefreshing: false,
+                     animateType: .refresh)
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.State.DisplayState {

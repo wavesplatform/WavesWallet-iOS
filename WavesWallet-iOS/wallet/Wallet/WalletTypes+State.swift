@@ -76,11 +76,11 @@ extension WalletTypes.State {
     }
 }
 
-extension  WalletTypes.State {
+extension WalletTypes.State {
     static func initialState() -> WalletTypes.State {
         return WalletTypes.State(display: .assets,
-                                 assets: WalletTypes.State.DisplayState.initialState(),
-                                 leasing: WalletTypes.State.DisplayState.initialState())
+                                 assets: .initialState(display: .assets),
+                                 leasing: .initialState(display: .leasing))
     }
 }
 

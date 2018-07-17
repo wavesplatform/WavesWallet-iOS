@@ -18,8 +18,12 @@ final class WalletDisplayData: NSObject {
     private lazy var configureCell: ConfigureCell<Section> = { _, tableView, _, item in
 
         switch item {
-        case .skeletonAsset:
-            return tableView.dequeueCell() as AssetSkeletonCell
+        case .historySkeleton:
+            return tableView.dequeueCell() as WalletHistorySkeletonCell
+        case .balanceSkeleton:
+            return tableView.dequeueCell() as WalletLeasingBalanceSkeletonCell
+        case .assetSkeleton:
+            return tableView.dequeueCell() as WalletAssetSkeletonCell
         case .hidden:
             return UITableViewCell()
         case .asset(let model):
@@ -57,6 +61,25 @@ final class WalletDisplayData: NSObject {
 }
 
 extension WalletDisplayData: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        let item = dataSource[indexPath]
+        switch item {
+        case .historySkeleton:
+            let skeletonCell: WalletHistorySkeletonCell = cell as! WalletHistorySkeletonCell
+            skeletonCell.slide(to: .right)
+        case .assetSkeleton:
+            let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
+            skeletonCell.slide(to: .right)
+        case .balanceSkeleton:
+            let skeletonCell: WalletLeasingBalanceSkeletonCell = cell as! WalletLeasingBalanceSkeletonCell
+            skeletonCell.slide(to: .right)
+        default:
+            break
+        }
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let model = dataSource[section]
 
@@ -87,14 +110,31 @@ extension WalletDisplayData: UITableViewDelegate {
         let row = dataSource[indexPath]
 
         switch row {
+        case .historySkeleton:
+            return WalletHistorySkeletonCell.cellHeight()
+        case .balanceSkeleton:
+            return WalletLeasingBalanceSkeletonCell.cellHeight()
         case .asset:
             return WalletTableAssetsCell.cellHeight()
-        case .skeletonAsset:
-            return AssetSkeletonCell.cellHeight()
+        case .assetSkeleton:
+            return WalletAssetSkeletonCell.cellHeight()
         case .hidden:
             return CGFloat.minValue
         }
     }
+
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let row = dataSource[indexPath]
+//
+//        switch row {
+//        case .asset:
+//            return WalletTableAssetsCell.cellHeight()
+//        case .assetSkeleton:
+//            return WalletAssetSkeletonCell.cellHeight()
+//        case .hidden:
+//            return CGFloat.minValue
+//        }
+//    }
 }
 
 //        cell.viewAssetType.isHidden = false

@@ -12,7 +12,6 @@ import RxDataSources
 import RxFeedback
 import RxSwift
 import UIKit
-import SkeletonView
 
 class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -27,8 +26,7 @@ class WalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
 

@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import SkeletonView
 import Foundation
 import RxCocoa
 import RxDataSources
@@ -31,15 +30,8 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
                 self.dataSet = true
                 dataSource.setSections(newSections)
                 tableView.reloadData()
-                tableView.showAnimatedSkeleton()
             } else if self.dataSet {
                 DispatchQueue.main.async {
-                    // if view is not in view hierarchy, performing batch updates will crash the app
-                    if tableView.window == nil {
-                        dataSource.setSections(newSections)
-                        tableView.reloadData()
-                        return
-                    }
 
                     dataSource.setSections(newSections)
                     UIView.transition(with: tableView,
@@ -61,20 +53,5 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
             tableView.reloadSections(IndexSet(integer: update.index), with: .fade)
         })
             .disposed(by: disposeBag)
-    }
-}
-
-extension RxTableViewAnimatedDataSource: SkeletonTableViewDataSource {
-
-    func numSections(in collectionSkeletonView: UITableView) -> Int {
-        return sectionModels.count
-    }
-
-    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionModels[section].items.count
-    }
-
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        return "AssetSkeletonView"
     }
 }

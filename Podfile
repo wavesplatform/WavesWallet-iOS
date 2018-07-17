@@ -30,8 +30,7 @@ target 'WavesWallet-iOS' do
     pod 'RDVTabBarController'
     pod 'UPCarouselFlowLayout'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
-
-    pod "SkeletonView"
+    
     pod "Skeleton"
 
     pod 'Charts'
