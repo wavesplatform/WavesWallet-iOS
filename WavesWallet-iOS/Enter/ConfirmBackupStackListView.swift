@@ -22,24 +22,25 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
     var buttons: [UIButton] = []
     
     var leftStackListOffset : CGFloat = 16
-   
+
+    private func isNotEmptyContainer(_ container: UIView) -> Bool {
+        return container.subviews.filter({$0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder())}).count > 0
+    }
     
     func updateContainerFrame() {
 
         var height: CGFloat = 0
         for (index, container) in self.subviews.enumerated() {
-            let isNotEmptyContainer = container.subviews.filter({$0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder())}).count > 0
             
-            if isNotEmptyContainer {
+            if isNotEmptyContainer(container) {
                 height += self.buttonHeight
                 
                 if index + 1 < self.subviews.count {
                     
-                    var isNotEmptyNextContainer = false
                     for i in index + 1..<self.subviews.count {
                         let nextContainer = self.subviews[i]
-                        isNotEmptyNextContainer = nextContainer.subviews.filter({$0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder())}).count > 0
-                        if isNotEmptyNextContainer {
+                        
+                        if isNotEmptyContainer(nextContainer) {
                             height += self.buttonContainerOffset
                             break
                         }
@@ -54,11 +55,11 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
             var offsetY : CGFloat = 0
             for container in self.subviews {
 
-                let count = container.subviews.filter({$0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder())}).count
-                container.frame.size.height = count > 0 ? self.buttonHeight : 0
+                let isNotEmptyContainer = self.isNotEmptyContainer(container)
+                container.frame.size.height = isNotEmptyContainer ? self.buttonHeight : 0
                 container.frame.origin.y = offsetY
 
-                if count > 0 {
+                if isNotEmptyContainer {
                     offsetY = container.frame.origin.y + container.frame.size.height + self.buttonContainerOffset
                 }
             }
