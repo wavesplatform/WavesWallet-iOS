@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RESideMenu
+
 
 class ProfileBottomCell: UITableViewCell {
 
@@ -36,7 +38,7 @@ class ProfileBackupPhraseCell: UITableViewCell {
 
 
 class ProfilePushTableCell: UITableViewCell {
-       
+ 
 }
 
 class ProfileTableCell: UITableViewCell {
@@ -54,6 +56,21 @@ class ProfileTableCell: UITableViewCell {
     
     class func cellHeight() -> CGFloat {
         return 56
+    }
+    
+    @IBAction func switchChanged(_ sender: Any) {
+    
+        if BiometricManager.type == .none {
+
+            firstAvailableViewController().presentBasicAlertWithTitle(title: "Please setup your \(BiometricManager.touchIDTypeText)")
+            DataManager.setUseTouchID(false)
+            DispatchQueue.main.async {
+                self.switchControl.isOn = false
+            }
+        }
+        else {
+            DataManager.setUseTouchID(switchControl.isOn)
+        }
     }
 }
 
@@ -101,7 +118,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         createMenuButton()
         title = "Profile"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "topbarLogout"), style: .plain, target: self, action: #selector(logoutTapped))
         tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
     }
 
@@ -125,6 +142,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func logoutTapped() {
         
+        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController
+        let nav = UINavigationController(rootViewController: enter)
+        AppDelegate.shared().menuController.setContentViewController(nav, animated: true)
     }
     
     @objc func deleteAccountTapped() {
@@ -320,6 +340,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             if indexPath.row == SecuritySection.touchID.rawValue {
                 cell.switchControl.isHidden = false
                 cell.iconArrow.isHidden = true
+                cell.switchControl.isOn = DataManager.isUseTouchID()
             }
         }
         else if indexPath.section == ProfileSection.other.rawValue {

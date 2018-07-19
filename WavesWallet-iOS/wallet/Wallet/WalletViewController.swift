@@ -128,8 +128,10 @@ class WalletViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setupBigNavigationBar()
         navigationController?.setNavigationBarHidden(false, animated: true)
 
-        if rdv_tabBarController.isTabBarHidden {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
+        if rdv_tabBarController != nil {
+            if rdv_tabBarController.isTabBarHidden {
+                rdv_tabBarController.setTabBarHidden(false, animated: true)
+            }
         }
     }
     

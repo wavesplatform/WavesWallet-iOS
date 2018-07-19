@@ -29,20 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIBarButtonItem.appearance().tintColor = UIColor.black
         
-//        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
-        
-//        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController
-//        let nav = UINavigationController(rootViewController: enter)
-//
-//        let menuController = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
-//        let sideMenuViewController = RESideMenu(contentViewController: nav, leftMenuViewController: menuController, rightMenuViewController: nil)!
-//        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
-//        sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
-//        sideMenuViewController.contentViewShadowOpacity = 0.2
-//        sideMenuViewController.contentViewShadowRadius = 15
-//        sideMenuViewController.contentViewShadowEnabled = true
-//        sideMenuViewController.panGestureEnabled = false
-//        window?.rootViewController = sideMenuViewController
+        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
+        let nav = UINavigationController(rootViewController: hello)
+
+        let menuController = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
+        let sideMenuViewController = RESideMenu(contentViewController: nav, leftMenuViewController: menuController, rightMenuViewController: nil)!
+        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
+        sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
+        sideMenuViewController.contentViewShadowOpacity = 0.2
+        sideMenuViewController.contentViewShadowRadius = 15
+        sideMenuViewController.contentViewShadowEnabled = true
+        sideMenuViewController.panGestureEnabled = false
+        window?.rootViewController = sideMenuViewController
         
         return true
     }
@@ -93,5 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
 
+    var menuController: RESideMenu {
+        return window?.rootViewController as! RESideMenu
+    }
 }
 

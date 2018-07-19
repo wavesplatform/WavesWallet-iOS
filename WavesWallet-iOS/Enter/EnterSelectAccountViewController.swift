@@ -45,6 +45,11 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
         tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -110,6 +115,15 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
     }
    
     //MARK: - UITableView
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+        
+        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+        controller.isLoginMode = true
+        navigationController?.pushViewController(controller, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accounts.count

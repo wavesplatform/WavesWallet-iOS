@@ -9,8 +9,10 @@
 import UIKit
 import AudioToolbox
 import LocalAuthentication
+import RESideMenu
 
-class PasscodeViewController: UIViewController {
+
+class PasscodeViewController: UIViewController, AccountPasswordViewControllerDelegate {
 
     
     @IBOutlet var dots: [UIView]!
@@ -32,14 +34,31 @@ class PasscodeViewController: UIViewController {
     
     @IBOutlet weak var viewLeftOffset: NSLayoutConstraint!
     @IBOutlet weak var buttonTouchId: UIButton!
-
+  
+    var needBackButton = false
+    var isCreatePasswordMode = false // when install app and need to set password
+    
+    @IBOutlet weak var buttonAccountPassword: UIButton!
+    @IBOutlet weak var labelForgotPassword: UILabel!
+    
+    var isLoginMode = false // when login via account
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.barTintColor = .white
         setupSmallNavigationBar()
-        createBackButton()
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        if isCreatePasswordMode {
+            navigationItem.hidesBackButton = true
+        }
+        else {
+            createBackButton()
+        }
+        
         hideTopBarLine()
         setupDots()
         setupConfirmDots()
@@ -48,19 +67,73 @@ class PasscodeViewController: UIViewController {
             buttonTouchId.setImage(UIImage(named: "faceid48Submit300"), for: .normal)
         }
         
-        setupButtonBiometrics()
-        if biometricType == .touchID {
-            authWithBiometrics(reason: "Authenticate with Touch ID")
+        if isCreatePasswordMode {
+            isInputPassword = false
+            isCreateFirstPassword = true
+            buttonAccountPassword.isHidden = true
+            labelForgotPassword.isHidden = true
+            buttonTouchId.isHidden = true
+            labelEnterPassword.text = "Create a passcode"
         }
-        else if biometricType == .faceID {
-            authWithBiometrics(reason: "Authenticate with Face ID")
+        else {
+            if DataManager.isUseTouchID() {
+                setupButtonBiometrics()
+                if BiometricManager.type == .touchID {
+                    authWithBiometrics(reason: "Authenticate with Touch ID")
+                }
+                else if BiometricManager.type == .faceID {
+                    authWithBiometrics(reason: "Authenticate with Face ID")
+                }
+            }
+            else {
+                buttonTouchId.isHidden = true
+            }
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(setupButtonBiometrics), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
+    func setupPasswordCreateMode(animation: Bool) {
+        
+        if animation {
+            UIView.animate(withDuration: 0.3) {
+                self.buttonTouchId.alpha = 0
+            }
+        }
+        else {
+            self.buttonTouchId.alpha = 0
+        }
+        isInputPassword = false
+        isCreateFirstPassword = true
+        labelEnterPassword.text = "Create a passcode"
+        setupDots()
+    }
+    
+    override func backTapped() {
+        if isCreatePasswordMode {
+
+            firstPassword = ""
+            secondPassword = ""
+            isCreateSecondPassword = false
+            isCreateFirstPassword = true
+            setupDots()
+            setupConfirmDots()
+            
+            self.viewPassword1.isHidden = false
+            self.viewLeftOffset.constant = 0
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (complete) in
+                self.navigationItem.leftBarButtonItem = nil
+            })
+        }
+        else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
     @objc func setupButtonBiometrics() {
-        buttonTouchId.isHidden = biometricType == .none
+        buttonTouchId.isHidden = BiometricManager.type == .none
     }
     
     func authWithBiometrics(reason: String) {
@@ -68,42 +141,8 @@ class PasscodeViewController: UIViewController {
             
             if success {
                 DispatchQueue.main.async {
-                    self.buttonTouchId.alpha = 0
-                    self.isInputPassword = false
-                    self.isCreateFirstPassword = true
-                    self.labelEnterPassword.text = "Set passcode"
-                    self.setupDots()
+                    self.setupPasswordCreateMode(animation: false)
                 }
-            }
-        }
-    }
-    
-    enum BiometricType {
-        case none
-        case touchID
-        case faceID
-    }
-    
-    var biometricType: BiometricType {
-        get {
-            let context = LAContext()
-            var error: NSError?
-            
-            guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
-                return .none
-            }
-            
-            if #available(iOS 11.0, *) {
-                switch context.biometryType {
-                case .none:
-                    return .none
-                case .touchID:
-                    return .touchID
-                case .faceID:
-                    return .faceID
-                }
-            } else {
-                return  .touchID
             }
         }
     }
@@ -136,6 +175,8 @@ class PasscodeViewController: UIViewController {
     }
     
     func showErrorDots() {
+        createBackButton()
+
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
 
         let _dots = (isInputPassword || isCreateFirstPassword) ? dots : confirmDots
@@ -152,10 +193,10 @@ class PasscodeViewController: UIViewController {
     }
     
     @IBAction func touchIdTapped(_ sender: Any) {
-        if biometricType == .touchID {
+        if BiometricManager.type == .touchID {
             authWithBiometrics(reason: "Authenticate with Touch ID")
         }
-        else if biometricType == .faceID {
+        else if BiometricManager.type == .faceID {
             authWithBiometrics(reason: "Authenticate with Face ID")
         }
     }
@@ -195,13 +236,14 @@ class PasscodeViewController: UIViewController {
 
             if inputPassword.count >= 4 {
                 if inputPassword == password {
-                    UIView.animate(withDuration: 0.3) {
-                        self.buttonTouchId.alpha = 0
+                    
+                    if isLoginMode {
+                        setupDots()
+                        AppDelegate.shared().menuController.setContentViewController(MainTabBarController(), animated: true)
                     }
-                    isInputPassword = false
-                    isCreateFirstPassword = true
-                    labelEnterPassword.text = "Set passcode"
-                    setupDots()
+                    else {
+                        self.setupPasswordCreateMode(animation: true)
+                    }
                 }
                 else {
                     inputPassword = ""
@@ -244,7 +286,15 @@ class PasscodeViewController: UIViewController {
                     self.setupConfirmDots()
                     self.view.isUserInteractionEnabled = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        self.navigationController?.popViewController(animated: true)
+                        
+                        if self.isCreatePasswordMode {
+                            
+                            let controller = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "UseTouchIDViewController") as! UseTouchIDViewController
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        }
+                        else {
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                 }
                 else {
@@ -261,10 +311,18 @@ class PasscodeViewController: UIViewController {
     @IBAction func useAccountPassword(_ sender: Any) {
     
         let controller = storyboard?.instantiateViewController(withIdentifier: "AccountPasswordViewController") as! AccountPasswordViewController
+        controller.isLoginMode = isLoginMode
+        controller.delegate = self
         navigationController?.pushViewController(controller, animated: true)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK: - AccountPasswordViewControllerDelegate
+    
+    func accountPasswordViewControllerDidSuccessEnter() {
+        self.setupPasswordCreateMode(animation: false)
     }
 }

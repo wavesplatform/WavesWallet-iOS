@@ -307,4 +307,13 @@ class DataManager: NSObject {
                 ["title" : "Dansk", "icon" : "flag18Danish", "id" : ""],
                 ["title" : "Nederlands", "icon" : "flag18Nederland", "id" : ""]]
     }
+    
+    class func isUseTouchID() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isUseTouchID")
+    }
+    
+    class func setUseTouchID(_ isUse: Bool) {
+        UserDefaults.standard.set(isUse, forKey: "isUseTouchID")
+        UserDefaults.standard.synchronize()
+    }
 }

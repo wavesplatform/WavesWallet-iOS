@@ -15,20 +15,27 @@ class NewAccountSecretPhraseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.setNavigationBarHidden(true, animated: true)
         if Platform.isIphone5 {
             topLogoOffset.constant = 118
         }
     }
-
-    @IBAction func closeTapped(_ sender: Any) {
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    func showPassCode() {
+        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+        controller.isCreatePasswordMode = true
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func closeTapped(_ sender: Any) {
+        showPassCode()
     }
     
     @IBAction func laterTapped(_ sender: Any) {
-    
-        let controller = storyboard?.instantiateViewController(withIdentifier: "UseTouchIDViewController") as! UseTouchIDViewController
-        navigationController?.pushViewController(controller, animated: true)
+        showPassCode()
     }
     
     @IBAction func backupNowTapped(_ sender: Any) {
