@@ -24,6 +24,14 @@ final class WalletDisplayData: NSObject {
             return tableView.dequeueCell() as WalletLeasingBalanceSkeletonCell
         case .assetSkeleton:
             return tableView.dequeueCell() as WalletAssetSkeletonCell
+        case .balance(let balance):
+            let cell: WalletLeasingBalanceCell =  tableView.dequeueCell()
+            cell.update(with: balance)
+            return cell
+        case .leasingTransaction(let transaction):
+            return UITableViewCell()
+        case .allHistory:
+            return UITableViewCell()
         case .hidden:
             return UITableViewCell()
         case .asset(let model):
@@ -118,39 +126,17 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletTableAssetsCell.cellHeight()
         case .assetSkeleton:
             return WalletAssetSkeletonCell.cellHeight()
+        case .balance:
+            return WalletLeasingBalanceCell.cellHeight()
+        case .leasingTransaction(let transaction):
+            return CGFloat.minValue
+        case .allHistory:
+            return CGFloat.minValue
         case .hidden:
             return CGFloat.minValue
         }
     }
-
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let row = dataSource[indexPath]
-//
-//        switch row {
-//        case .asset:
-//            return WalletTableAssetsCell.cellHeight()
-//        case .assetSkeleton:
-//            return WalletAssetSkeletonCell.cellHeight()
-//        case .hidden:
-//            return CGFloat.minValue
-//        }
-//    }
 }
-
-//        cell.viewAssetType.isHidden = false
-//        cell.viewSpam.isHidden = true
-//        if indexPath.section == SectionAssets.main.rawValue {
-//            cell.setupCell(value: assetsMainItems[indexPath.row])
-//        }
-//        else if indexPath.section == SectionAssets.hidden.rawValue {
-//            cell.setupCell(value: assetsHiddenItems[indexPath.row])
-//        }
-//        else if indexPath.section == SectionAssets.spam.rawValue {
-//            cell.viewSpam.isHidden = false
-//            cell.viewAssetType.isHidden = true
-//            cell.setupCell(value: assetsSpamItems[indexPath.row])
-//        }
-//
 //    func cellHeight(_ indexPath: IndexPath) -> CGFloat {
 //        if indexPath.section == SectionTop {
 //            return WalletTopTableCell.cellHeight()
@@ -254,3 +240,4 @@ extension WalletDisplayData: UITableViewDelegate {
 //        return cell
 //    }
 // }
+

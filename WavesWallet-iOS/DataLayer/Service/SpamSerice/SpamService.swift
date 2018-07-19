@@ -11,7 +11,6 @@ import Foundation
 enum Spam {}
 
 extension Spam {
-    enum Model {}
     enum Service {}
 }
 

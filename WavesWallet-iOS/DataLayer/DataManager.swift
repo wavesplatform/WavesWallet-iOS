@@ -265,18 +265,7 @@ class DataManager: NSObject {
     //UI
     
     
-    class func attributedBalanceText(text: String, font: UIFont) -> NSAttributedString {
-        
-        let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)])
-        
-        if range.location != NSNotFound {
-            let length = text.count - range.location
-            attrString.addAttributes([NSAttributedStringKey.font : UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)], range: NSRange(location: range.location, length: length))
-        }
-        return attrString
-    }
-    
+
     
     class func setupTextFieldLabel(textField: UITextField, placeHolderLabel: UILabel) {
         let isShow = textField.text!.count > 0

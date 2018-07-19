@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import Skeleton
+import UIKit
 
 final class WalletHistorySkeletonCell: SkeletonCell, Reusable {
     @IBOutlet var viewContent: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContent.addTableCellShadowStyle()

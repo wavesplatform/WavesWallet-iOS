@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Node.Model {
+extension Node.DTO {
     struct AccountAssetsBalance: Decodable {
         let address: String
         let balances: [AssetBalance]

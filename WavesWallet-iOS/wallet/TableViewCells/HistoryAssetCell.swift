@@ -36,7 +36,7 @@ class HistoryAssetCell: UITableViewCell {
     
     func setupCell(value: String, state: HistoryTransactionState) {
         
-        labelValue.attributedText = DataManager.attributedBalanceText(text: value, font: labelValue.font)
+        labelValue.attributedText = NSAttributedString.styleForBalance(text: value, font: labelValue.font)
         imageViewIcon.image = UIImage(named: HistoryTransactionImages[state.rawValue])
         
         if state == .viewReceived {

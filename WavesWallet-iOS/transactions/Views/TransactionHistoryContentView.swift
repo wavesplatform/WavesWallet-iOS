@@ -77,7 +77,7 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         let state = HistoryTransactionState(rawValue: item["state"] as! Int)!
         
         imageViewIcon.image = UIImage(named: HistoryTransactionImages[state.rawValue])
-        labelValue.attributedText = DataManager.attributedBalanceText(text: value, font: labelValue.font)
+        labelValue.attributedText = NSAttributedString.styleForBalance(text: value, font: labelValue.font)
         
         for view in addressContainer.subviews {
             view.removeFromSuperview()

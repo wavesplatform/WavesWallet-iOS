@@ -10,16 +10,36 @@ import Foundation
 import RxDataSources
 
 // MARK: ViewModel for UITableView
+
 extension WalletTypes.ViewModel {
     enum Row: Hashable {
         case hidden
+        case asset(WalletTypes.DTO.Asset)
         case assetSkeleton
         case balanceSkeleton
         case historySkeleton
-        case asset(WalletTypes.DTO.Asset)
+        case balance(WalletTypes.DTO.Leasing.Balance)
+        case leasingTransaction(WalletTypes.DTO.Leasing.Transaction)
+        case allHistory
     }
 
     struct Section: Hashable {
+
+        enum Kind {
+            case mainAssets
+            case spamAssets
+            case hiddenAssets
+            case mainLeasing
+            case activeTransaction
+            case quickNote
+        }
+
+        struct Data {
+
+            var type: Kind
+            var isExpanded: Bool
+        }
+
         var header: String?
         var items: [Row]
         var isExpanded: Bool
@@ -34,44 +54,55 @@ extension WalletTypes.ViewModel.Section: SectionModelType {
 }
 
 extension WalletTypes.ViewModel.Section {
-//    var header: String?
-//    var items: [Row]
-//    var isExpanded: Bool
-    static func mapFrom(assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
 
-        var generalItems = assets
-            .filter { $0.state == .general || $0.state == .favorite }
+    static func map(from assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
+        let generalItems = assets
+            .filter { $0.kind == .general }
+            .sorted(by: { (asset1, asset2) -> Bool in
+                asset1.sortLevel < asset2.sortLevel
+            })
             .map { WalletTypes.ViewModel.Row.asset($0) }
-        var generalSection: WalletTypes.ViewModel.Section = .init(header: nil,
+        let generalSection: WalletTypes.ViewModel.Section = .init(header: nil,
                                                                   items: generalItems,
                                                                   isExpanded: true)
+        let hiddenItems = assets
+            .filter { $0.kind == .hidden }
+            .sorted(by: { (asset1, asset2) -> Bool in
+                asset1.sortLevel < asset2.sortLevel
+            })
+            .map { WalletTypes.ViewModel.Row.asset($0) }
 
-//        var spam
+        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: "Hidden",
+                                                                 items: hiddenItems,
+                                                                 isExpanded: true)
+        let spamItems = assets
+            .filter { $0.kind == .spam }
+            .sorted(by: { (asset1, asset2) -> Bool in
+                asset1.sortLevel < asset2.sortLevel
+            })
+            .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        return [generalSection]
+        let spamSection: WalletTypes.ViewModel.Section = .init(header: "Spam",
+                                                                 items: spamItems,
+                                                                 isExpanded: true)
+        return [generalSection,
+                hiddenSection,
+                spamSection]
     }
 
-//    struct Asset: Hashable {
-//        enum Kind: Hashable {
-//            case gateway
-//            case fiatMoney
-//            case wavesToken
-//        }
-//
-//        enum State: Hashable {
-//
-//            case general
-//            case favorite
-//            case hidden
-//            case spam
-//        }
-//
-//        let id: String
-//        let name: String
-//        let balance: Money
-//        let fiatBalance: Money
-//        //        let king: Kind
-//        let state: State
-//        let level: Float
-//    }
+    static func map(from leasing: WalletTypes.DTO.Leasing) -> [WalletTypes.ViewModel.Section] {
+
+        let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
+
+        var sections: [WalletTypes.ViewModel.Section] = []
+
+        let historyRow = WalletTypes.ViewModel.Row.allHistory
+
+        let spamSection: WalletTypes.ViewModel.Section = .init(header: nil,
+                                                               items: [balanceRow, historyRow],
+                                                               isExpanded: true)
+
+
+        return [spamSection]
+    }
 }

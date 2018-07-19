@@ -21,6 +21,9 @@ class Asset: Object {
     @objc dynamic var quantity: Int64 = 0
     @objc dynamic var isReissuable: Bool = false
     @objc dynamic var isSpam: Bool = false
+    @objc dynamic var isFiat: Bool = false
+    @objc dynamic var isGeneral: Bool = false
+    @objc dynamic var isMyAsset: Bool = false
 
     override class func primaryKey() -> String? {
         return "id"

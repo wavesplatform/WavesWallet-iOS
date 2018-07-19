@@ -9,7 +9,7 @@
 import Foundation
 
 extension Asset {
-    convenience init(model: API.Model.Asset) {
+    convenience init(model: API.DTO.Asset) {
         self.init()
         id = model.id
         name = model.name

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension API.Model {
+extension API.DTO {
 
     // TODO: Not test
     struct ExchangeTransaction: Codable {

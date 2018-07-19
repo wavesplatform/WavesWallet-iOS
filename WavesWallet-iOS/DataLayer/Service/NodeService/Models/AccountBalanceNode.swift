@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Node.Model {
+extension Node.DTO {
     struct AccountBalance: Decodable {
         let address: String
         let confirmations: Int64

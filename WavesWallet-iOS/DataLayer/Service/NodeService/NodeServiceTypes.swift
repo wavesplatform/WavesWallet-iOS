@@ -11,7 +11,7 @@ import Foundation
 enum Node {}
 
 extension Node {
-    enum Model {}
+    enum DTO {}
     enum Service {}
 }
 

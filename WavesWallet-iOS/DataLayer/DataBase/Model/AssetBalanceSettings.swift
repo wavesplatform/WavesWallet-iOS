@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import RealmSwift
+
+class AssetBalanceSettings: Object {
+
+    @objc dynamic var assetId: String = ""
+    @objc dynamic var sortLevel: Float = 0
+    @objc dynamic var isHidden = false
+    @objc dynamic var isFavorite = false
+
+    override class func primaryKey() -> String? {
+        return "assetId"
+    }
+}

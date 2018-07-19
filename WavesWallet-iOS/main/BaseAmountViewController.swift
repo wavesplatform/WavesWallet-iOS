@@ -56,11 +56,11 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         
         let index = sender.tag
         if index == 0 {
-            textFieldAmount.attributedText = DataManager.attributedBalanceText(text: "0.100", font: textFieldAmount.font!)
+            textFieldAmount.attributedText = NSAttributedString.styleForBalance(text: "0.100", font: textFieldAmount.font!)
         }
         else {
             let value = amounts[index]
-            textFieldAmount.attributedText = DataManager.attributedBalanceText(text: value, font: textFieldAmount.font!)
+            textFieldAmount.attributedText = NSAttributedString.styleForBalance(text: value, font: textFieldAmount.font!)
         }
         
         heightScrollAmount.constant = 0
@@ -74,7 +74,7 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
         
         let text = textFieldAmount.text!
         if text.count > 0 {
-            textFieldAmount.attributedText = DataManager.attributedBalanceText(text: text, font: textFieldAmount.font!)
+            textFieldAmount.attributedText = NSAttributedString.styleForBalance(text: text, font: textFieldAmount.font!)
         }
         else {
             textFieldAmount.attributedText = nil
@@ -109,7 +109,7 @@ class BaseAmountViewController: UIViewController, UITextFieldDelegate {
                 text += "."
             }
             
-            textFieldAmount.attributedText = DataManager.attributedBalanceText(text: text, font: textFieldAmount.font!)
+            textFieldAmount.attributedText = NSAttributedString.styleForBalance(text: text, font: textFieldAmount.font!)
         }
     }
     

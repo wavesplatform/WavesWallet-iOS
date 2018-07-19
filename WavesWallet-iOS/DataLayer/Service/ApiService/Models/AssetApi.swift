@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension API.Model {
+extension API.DTO {
     struct Asset: Decodable {
         let ticker: String?
         let id: String

@@ -25,19 +25,18 @@ final class WalletPresenter: WalletPresenterProtocol {
             .system(initialState: WalletPresenter.initialState(),
                     reduce: WalletPresenter.reduce,
                     feedback: feedback,
-                    query())
+                    queryAssets(),
+                    queryLeasing())
 
             .drive()
             .disposed(by: disposeBag)
     }
 
-    private func query() -> (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event> {
+    private func queryAssets() -> (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event> {
         return react(query: { (state) -> ReactQuery? in
 
-            if state.assets.isRefreshing == true {
-                return .refresh
-            } else if state.display == .assets {
-                return .new
+            if state.display == .assets {
+                return state.assets.isRefreshing ? .new : .refresh
             } else {
                 return nil
             }
@@ -49,6 +48,26 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .assets()
                 .map { .responseAssets($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+
+    private func queryLeasing() -> (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event> {
+        return react(query: { (state) -> ReactQuery? in
+
+            if state.display == .leasing {
+                return state.leasing.isRefreshing ? .new : .refresh
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+            //TODO: Error
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .interactor
+                .leasing()
+                .map { .responseLeasing($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -67,8 +86,16 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state.setDisplay(display: display)
         case .responseAssets(let response):
 
-            let secions = WalletTypes.ViewModel.Section.mapFrom(assets: response)
+            let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setAssets(assets: .init(sections: secions,
+                                                         collapsedSections: state.assets.collapsedSections,
+                                                         isRefreshing: false,
+                                                         animateType: .refresh))
+
+            return newState
+        case .responseLeasing(let response):
+            let secions = WalletTypes.ViewModel.Section.map(from: response)
+            let newState = state.setLeasing(leasing: .init(sections: secions,
                                                          collapsedSections: state.assets.collapsedSections,
                                                          isRefreshing: false,
                                                          animateType: .refresh))

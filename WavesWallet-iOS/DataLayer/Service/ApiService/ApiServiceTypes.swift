@@ -12,7 +12,7 @@ enum API {}
 
 extension API {
     enum Service {}
-    enum Model {}
+    enum DTO {}
     enum Query {}
 }
 

@@ -76,7 +76,7 @@ class AssetBalanceCell: UITableViewCell {
         
         let text = "000.0000000"
         
-        labelBalance.attributedText = DataManager.attributedBalanceText(text: text, font: labelBalance.font)
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: text, font: labelBalance.font)
 
         
         if isLeased {

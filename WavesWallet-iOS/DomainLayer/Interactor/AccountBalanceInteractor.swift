@@ -13,7 +13,7 @@ import RxSwift
 import RxSwiftExt
 
 protocol AccountBalanceInteractorProtocol {
-    func balanceBy(accountId: String) -> Observable<[AssetBalance]>
+    func balances(by accountId: String) -> Observable<[AssetBalance]>    
     func update(balance: AssetBalance) -> Observable<Void>
 }
 
@@ -23,17 +23,17 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = MoyaProvider<Node.Service.Addresses>()
     private let realm = try! Realm()
 
-    func balanceBy(accountId: String) -> Observable<[AssetBalance]> {
+    func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
         let assetsBalance = assetsProvider
             .rx
-            .request(.getAssetsBalance(accountId: accountId))
-            .map(Node.Model.AccountAssetsBalance.self)
+            .request(.getAssetsBalance(accountId: accountAddress))
+            .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
 
         let accountBalance = addressesProvider
             .rx
-            .request(.getAccountBalance(id: accountId))
-            .map(Node.Model.AccountBalance.self)
+            .request(.getAccountBalance(id: accountAddress))
+            .map(Node.DTO.AccountBalance.self)
             .asObservable()
 
         let list = Observable
@@ -54,9 +54,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 let generalBalances = Environments.current.generalAssetIds.map { AssetBalance(model: $0) }
                 var newList = balances
                 for generalBalance in generalBalances {
-                    if let balance = balances.first(where: { $0.assetId == generalBalance.assetId }) {
-                        balance.isGeneral = true
-                    } else {
+                    if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
                         newList.append(generalBalance)
                     }
                 }
@@ -66,20 +64,34 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 let ids = balances.map { $0.assetId }
 
                 return weak.assetsInteractor
-                    .assetsBy(ids: ids)
+                    .assetsBy(ids: ids, accountAddress: accountAddress)
                     .map { (assets) -> [AssetBalance] in
                         balances.forEach { $0.setAssetFrom(list: assets) }
                         return balances
                     }
             })
-            .do(weak: self, onNext: { weak, balances in
+            .do(weak: self, onNext: { (weak, balances) in
+
+                let ids = balances.map { $0.assetId }
 
                 try? weak.realm.write {
+                    let removeBalances = weak.realm
+                        .objects(AssetBalance.self)
+                        .filter(NSPredicate(format: "NOT (assetId IN %@)", ids))
+
+                    let removeSettings = removeBalances
+                        .toArray()
+                        .map { $0.settings }
+                        .compactMap { $0 }
+
+                    weak.realm.delete(removeBalances)
+                    weak.realm.delete(removeSettings)
+                    weak.sort(balances: balances)
                     weak.realm.add(balances, update: true)
                 }
             })
 
-        return list.delay(10, scheduler: MainScheduler.asyncInstance)
+        return list
     }
 
     func update(balance: AssetBalance) -> Observable<Void> {
@@ -91,6 +103,62 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     }
 }
 
+extension AccountBalanceInteractor {
+
+    func sort(balances: [AssetBalance]) {
+//        var settings = try? realm
+//            .objects(AssetBalanceSettings.self)
+//            .elements
+//            .toArray()
+////            .sorted(by: $0.sortLevel > $1.sortLevel)
+
+        let generalBalances = Environments
+            .current
+            .generalAssetIds
+
+        let sort = balances.sorted { assetOne, assetTwo -> Bool in
+
+            let isGeneralOne = assetOne.asset?.isGeneral ?? false
+            let isGeneralTwo = assetTwo.asset?.isGeneral ?? false
+
+            if isGeneralOne == true && isGeneralTwo == true {
+                let indexOne = generalBalances
+                    .enumerated()
+                    .first(where: { $0.element.assetId == assetOne.assetId })
+                    .map { $0.offset }
+
+                let indexTwo = generalBalances
+                    .enumerated()
+                    .first(where: { $0.element.assetId == assetTwo.assetId })
+                    .map { $0.offset }
+
+                if let indexOne = indexOne, let indexTwo = indexTwo {
+                    return indexOne < indexTwo
+                }
+                return false
+            }
+
+            if isGeneralOne {
+                return true
+            }
+
+            return false
+        }
+
+        sort.enumerated().forEach { balance in
+            print("sort name \(balance.element.asset!.name) \(balance.element.asset!.isGeneral) \(balance.element.asset!.id)")
+            let settings = AssetBalanceSettings()
+            settings.assetId = balance.element.assetId
+            settings.sortLevel = Float(balance.offset)
+
+            if balance.element.assetId == Environments.Constants.wavesAssetId {
+                settings.isFavorite = true
+            }
+            balance.element.settings = settings
+        }
+    }
+}
+
 fileprivate extension AssetBalance {
     fileprivate func setAssetFrom(list: [Asset]) {
         self.asset = list.first { $0.id == self.assetId }
@@ -98,21 +166,18 @@ fileprivate extension AssetBalance {
 }
 
 fileprivate extension AssetBalance {
-    
     convenience init(model: Environment.AssetInfo) {
         self.init()
         self.assetId = model.assetId
-        isGeneral = true
     }
 
-    convenience init(model: Node.Model.AccountBalance) {
+    convenience init(model: Node.DTO.AccountBalance) {
         self.init()
         self.balance = model.balance
         self.assetId = Environments.Constants.wavesAssetId
-        isGeneral = true
     }
 
-    convenience init(model: Node.Model.AssetBalance) {
+    convenience init(model: Node.DTO.AssetBalance) {
         self.init()
         self.assetId = model.assetId
         self.balance = model.balance

@@ -33,6 +33,7 @@ fileprivate extension WalletTypes.State {
 }
 
 // TODO: Get Methods
+
 extension WalletTypes.State {
     var visibleSections: [WalletTypes.ViewModel.Section] {
         return currentDisplayState.visibleSections
@@ -64,6 +65,12 @@ extension WalletTypes.State {
     func setAssets(assets: DisplayState) -> WalletTypes.State {
         var newState = self
         newState.assets = assets
+        return newState
+    }
+
+    func setLeasing(leasing: DisplayState) -> WalletTypes.State {
+        var newState = self
+        newState.leasing = leasing
         return newState
     }
 

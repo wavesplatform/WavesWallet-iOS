@@ -14,6 +14,7 @@ struct Environment: Decodable {
         let name: String
         let quantity: Int64
         let decimals: Int
+        let isFiat: Bool
     }
 
     struct Servers: Decodable {

@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Skeleton
 
 final class WalletLeasingBalanceSkeletonCell: SkeletonCell, Reusable {
     @IBOutlet var viewContent: UIView!    

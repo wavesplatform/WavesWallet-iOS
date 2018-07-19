@@ -19,12 +19,14 @@ class AssetBalance
     @available(*, deprecated, message: "need remove")
     @objc dynamic var issueTransaction: IssueTransaction?
 
-    @objc dynamic var assetId = ""
-    @objc dynamic var level: Float = 0
-    @objc dynamic var balance: Int64 = 0
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var isGeneral = false
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var isHidden = false
-    @objc dynamic var isFavorite = false
+
+    @objc dynamic var assetId = ""
+    @objc dynamic var balance: Int64 = 0
+    @objc dynamic var settings: AssetBalanceSettings?
     @objc dynamic var asset: Asset?
 
     var identity: String {

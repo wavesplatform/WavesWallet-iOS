@@ -12,6 +12,7 @@ class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet var imageIcon: UIImageView!
     @IBOutlet var viewContent: UIView!
     @IBOutlet var iconArrow: UIImageView!
+    @IBOutlet var iconStar: UIImageView!
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var labelSubtitle: UILabel!
     @IBOutlet var labelCryptoName: UILabel!
@@ -24,12 +25,7 @@ class WalletTableAssetsCell: UITableViewCell, Reusable {
     }
 
     class func cellHeight() -> CGFloat {
-        // cell height 68 and 8 bottom pading
         return 76
-    }
-
-    func setupCell(value: String) {
-        labelTitle.text = value
     }
 }
 
@@ -37,8 +33,14 @@ extension WalletTableAssetsCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Asset) {
         let name = model.name
         labelTitle.text = name
-        let text = "000.0000000"
-        labelSubtitle.attributedText = DataManager.attributedBalanceText(text: text, font: labelSubtitle.font)
+
+        viewSpam.isHidden = true
+        iconStar.isHidden = !model.isFavorite
+        iconArrow.isHidden = !model.isFiat
+        viewSpam.isHidden = model.kind != .spam
+        let text = model.balance.displayTextFull
+
+        labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
         let iconName = DataManager.logoForCryptoCurrency(name)
         if iconName.count == 0 {
             imageIcon.image = nil
@@ -48,7 +50,8 @@ extension WalletTableAssetsCell: ViewConfiguration {
             }
         } else {
             labelCryptoName.text = nil
-            imageIcon.image = UIImage(named: name)
+            imageIcon.backgroundColor = .clear
+            imageIcon.image = UIImage(imageLiteralResourceName: iconName)
         }
     }
 }

@@ -29,6 +29,6 @@ class WalletLeasingCell: UITableViewCell {
     }
     
     func setupCell(_ title: String) {
-        labelTitle.attributedText = DataManager.attributedBalanceText(text: title, font: labelTitle.font)
+        labelTitle.attributedText = NSAttributedString.styleForBalance(text: title, font: labelTitle.font)
     }
 }

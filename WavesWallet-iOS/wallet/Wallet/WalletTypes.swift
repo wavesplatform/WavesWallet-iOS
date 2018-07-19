@@ -45,6 +45,7 @@ extension WalletTypes {
     enum Event {
         case none
         case responseAssets([DTO.Asset])
+        case responseLeasing(DTO.Leasing)
         case refresh
         case readyView
         case tapSection(Int)

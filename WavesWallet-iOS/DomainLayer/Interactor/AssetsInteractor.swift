@@ -14,7 +14,7 @@ import RxRealm
 import RxSwift
 
 protocol AssetsInteractorProtocol {
-    func assetsBy(ids: [String]) -> Observable<[Asset]>
+    func assetsBy(ids: [String], accountAddress: String) -> Observable<[Asset]>
 }
 
 final class AssetsInteractor: AssetsInteractorProtocol {
@@ -22,7 +22,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
     private let realm = try? Realm()
 
-    func assetsBy(ids: [String]) -> Observable<[Asset]> {
+    func assetsBy(ids: [String], accountAddress: String) -> Observable<[Asset]> {
         let assets = realm?
             .objects(Asset.self)
 
@@ -49,11 +49,25 @@ final class AssetsInteractor: AssetsInteractorProtocol {
         let assetsList = apiProvider
             .rx
             .request(.getAssets(ids: ids))
-            .map(API.Response<[API.Response<API.Model.Asset>]>.self)
+            .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
             .map { $0.data.map { $0.data } }
             .map({ assets -> [Asset] in
                 assets.map { Asset(model: $0) }
             })
+            .map { assets -> [Asset] in
+
+                let generalAssets = Environments.current.generalAssetIds
+
+                for generalAsset in generalAssets {
+                    if let asset = assets.first(where: { $0.id == generalAsset.assetId }) {
+                        asset.isGeneral = true
+                        asset.name = generalAsset.name
+                        asset.isFiat = generalAsset.isFiat
+                        asset.isMyAsset = asset.sender == accountAddress
+                    }
+                }
+                return assets
+            }
             .asObservable()
 
         return Observable
