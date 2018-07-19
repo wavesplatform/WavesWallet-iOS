@@ -56,7 +56,6 @@ class DexNewPairViewController: UIViewController, UITextFieldDelegate {
                                               "amountAssetName" : info?["name"],
                                               "amountAssetInfo" : ["decimals" : info?["decimals"]]]
                             
-                            
                             NetworkManager.getTransactionInfo(asset: priceAsset, complete: { (info, errorMessage) in
 
                                 SVProgressHUD.dismiss()
@@ -65,9 +64,12 @@ class DexNewPairViewController: UIViewController, UITextFieldDelegate {
                                 }
                                 else {
                                     
-                                    let priceInfo = ["priceAsset" : info?["assetId"],
+                                    let priceInfo = priceAsset != "WAVES" ? ["priceAsset" : info?["assetId"],
                                                       "priceAssetName" : info?["name"],
                                                       "priceAssetInfo" : ["decimals" : info?["decimals"]]]
+                                        : ["priceAsset" : "WAVES",
+                                           "priceAssetName" : "WAVES",
+                                           "priceAssetInfo" : ["decimals" : 8]]
                                     
                                     let dict = NSMutableDictionary(dictionary: amountInfo)
                                     dict.addEntries(from: priceInfo)

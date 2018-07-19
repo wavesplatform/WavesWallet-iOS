@@ -225,7 +225,9 @@ public class IssueTransaction: Transaction {
     public override func getAmount() -> Int64 {
         return quantity
     }
-    
+}
+
+extension IssueTransaction {
     public class func load(id: String) -> Observable<IssueTransaction?> {
         let realm = try! Realm()
         if let tx = realm.object(ofType: IssueTransaction.self, forPrimaryKey: id) {
