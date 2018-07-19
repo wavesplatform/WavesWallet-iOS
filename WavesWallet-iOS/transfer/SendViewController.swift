@@ -248,7 +248,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
     func savePending(tx: TransferTransaction) -> BasicTransaction {
         let realm = try! Realm()
         tx.isPending = true
-        let bt = BasicTransaction(tx: tx)
+        let bt = BasicTransaction(tx: tx, asset: self.selectedAccount?.issueTransaction)
         try! realm.write {
             realm.add(tx, update: true)
             bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
