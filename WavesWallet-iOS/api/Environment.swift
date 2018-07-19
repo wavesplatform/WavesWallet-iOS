@@ -29,10 +29,12 @@ struct Environment {
     let scheme: String
     let generalAssetIds: [AssetInfo]
     let spamUrl: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
+    let matcherUrl: URL
     
-    init(_ name: String, _ nodeUrl: String, _ scheme: String, _ generalAssetIds: [AssetInfo]) {
+    init(_ name: String, _ nodeUrl: String, _ matcherUrl: String, _ scheme: String, _ generalAssetIds: [AssetInfo]) {
         self.name = name
         self.nodeUrl = URL(string: nodeUrl)!
+        self.matcherUrl = URL(string: matcherUrl)!
         self.scheme = scheme
         self.generalAssetIds = generalAssetIds
     }
@@ -44,14 +46,14 @@ struct Environment {
 }
 
 class Environments {
-    static let Testnet = Environment("Testnet", "http://52.30.47.67:6869", "T",
+    static let Testnet = Environment("Testnet", "http://52.30.47.67:6869", "https://matcher.wavesplatform.com", "T",
         [AssetInfo("", "WAVES", 10000000000000000, 8),
          AssetInfo("Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe", "BTC", 2100000000000000, 8),
          AssetInfo("HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj", "USD", 100000000000, 2),
          AssetInfo("2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux", "EUR", 100000000000, 2)
         ])
 
-    static let Mainnet = Environment("Mainnet", "https://nodes.wavesnodes.com", "W",
+    static let Mainnet = Environment("Mainnet", "https://nodes.wavesnodes.com", "https://matcher.wavesplatform.com", "W",
         [AssetInfo("", "WAVES", 10000000000000000, 8),
          AssetInfo("8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 2100000000000000, 8),
          AssetInfo("474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 10000000000000000, 8),
