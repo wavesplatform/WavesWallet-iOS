@@ -95,12 +95,9 @@ class PasscodeViewController: UIViewController, AccountPasswordViewControllerDel
     
     func setupPasswordCreateMode(animation: Bool) {
         
-        if animation {
-            UIView.animate(withDuration: 0.3) {
-                self.buttonTouchId.alpha = 0
-            }
-        }
-        else {
+        UIView.animate(withDuration: animation ? 0.3 : 0) {
+            self.buttonAccountPassword.alpha = 0
+            self.labelForgotPassword.alpha = 0
             self.buttonTouchId.alpha = 0
         }
         isInputPassword = false
