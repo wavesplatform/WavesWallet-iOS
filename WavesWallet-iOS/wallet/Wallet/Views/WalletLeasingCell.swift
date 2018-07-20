@@ -8,27 +8,23 @@
 
 import UIKit
 
-class WalletLeasingCell: UITableViewCell {
+final class WalletLeasingCell: UITableViewCell, Reusable {
+    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var viewContainer: UIView!
 
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var viewContainer: UIView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
     class func cellHeight() -> CGFloat {
         return 76
     }
-    
-    func setupCell(_ title: String) {
-        labelTitle.attributedText = NSAttributedString.styleForBalance(text: title, font: labelTitle.font)
+}
+
+extension WalletLeasingCell: ViewConfiguration {
+    func update(with model: WalletTypes.DTO.Leasing.Transaction) {
+        labelTitle.attributedText = .styleForBalance(text: model.balance.displayTextFull,
+                                                     font: labelTitle.font)
     }
 }

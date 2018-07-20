@@ -21,10 +21,10 @@ extension WalletTypes.ViewModel {
         case balance(WalletTypes.DTO.Leasing.Balance)
         case leasingTransaction(WalletTypes.DTO.Leasing.Transaction)
         case allHistory
+        case quickNote
     }
 
     struct Section: Hashable {
-
         enum Kind {
             case mainAssets
             case spamAssets
@@ -35,7 +35,6 @@ extension WalletTypes.ViewModel {
         }
 
         struct Data {
-
             var type: Kind
             var isExpanded: Bool
         }
@@ -54,7 +53,6 @@ extension WalletTypes.ViewModel.Section: SectionModelType {
 }
 
 extension WalletTypes.ViewModel.Section {
-
     static func map(from assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
             .filter { $0.kind == .general }
@@ -83,26 +81,34 @@ extension WalletTypes.ViewModel.Section {
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         let spamSection: WalletTypes.ViewModel.Section = .init(header: "Spam",
-                                                                 items: spamItems,
-                                                                 isExpanded: true)
+                                                               items: spamItems,
+                                                               isExpanded: true)
         return [generalSection,
                 hiddenSection,
                 spamSection]
     }
 
     static func map(from leasing: WalletTypes.DTO.Leasing) -> [WalletTypes.ViewModel.Section] {
-
-        let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
-
         var sections: [WalletTypes.ViewModel.Section] = []
 
+        let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
         let historyRow = WalletTypes.ViewModel.Row.allHistory
-
-        let spamSection: WalletTypes.ViewModel.Section = .init(header: nil,
+        let mainSection: WalletTypes.ViewModel.Section = .init(header: nil,
                                                                items: [balanceRow, historyRow],
                                                                isExpanded: true)
+        sections.append(mainSection)
+        if leasing.transactions.count > 0 {
+            let rows = leasing.transactions.map { WalletTypes.ViewModel.Row.leasingTransaction($0) }
+            let activeTransactionSection: WalletTypes.ViewModel.Section = .init(header: "Active",
+                                                                                items: rows,
+                                                                                isExpanded: true)
+            sections.append(activeTransactionSection)
+        }
 
-
-        return [spamSection]
+        let noteSection: WalletTypes.ViewModel.Section = .init(header: "Note",
+                                                               items: [.quickNote],
+                                                               isExpanded: true)
+        sections.append(noteSection)
+        return sections
     }
 }

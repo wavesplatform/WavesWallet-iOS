@@ -8,19 +8,7 @@
 
 import UIKit
 
-class WalletHistoryCell: UITableViewCell {
-    @IBOutlet var viewContainer: UIView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        viewContainer.addTableCellShadowStyle()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
+final class WalletHistoryCell: UITableViewCell, Reusable {
     class func cellHeight() -> CGFloat {
         return 66
     }

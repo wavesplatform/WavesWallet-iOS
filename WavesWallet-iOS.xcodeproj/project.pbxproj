@@ -63,6 +63,8 @@
 		0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD520F2B9190010CA6C /* Environment-Main.json */; };
 		0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */; };
 		0A8AFF2321010CDC00D0582B /* NSAttributedString+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF2221010CDC00D0582B /* NSAttributedString+Styles.swift */; };
+		0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */; };
+		0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */; };
 		0A93FECE20FCA82F0058179E /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECD20FCA82F0058179E /* SpamService.swift */; };
 		0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECF20FCA8610058179E /* AssetsSpamService.swift */; };
 		0A93FED320FCAADC0058179E /* WalletTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */; };
@@ -335,6 +337,8 @@
 		0A7E0CD520F2B9190010CA6C /* Environment-Main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Main.json"; sourceTree = "<group>"; };
 		0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsApiService.swift; sourceTree = "<group>"; };
 		0A8AFF2221010CDC00D0582B /* NSAttributedString+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Styles.swift"; sourceTree = "<group>"; };
+		0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherServiceTypes.swift; sourceTree = "<group>"; };
+		0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcherService.swift; sourceTree = "<group>"; };
 		0A93FECD20FCA82F0058179E /* SpamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamService.swift; sourceTree = "<group>"; };
 		0A93FECF20FCA8610058179E /* AssetsSpamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
@@ -598,6 +602,7 @@
 		0A1DAD6620F396F4004DA625 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				0A8AFF262101EEEB00D0582B /* MatcherService */,
 				0A4C9AA920EF6B270095A417 /* NodeService */,
 				0A93FECC20FCA7B80058179E /* SpamSerice */,
 				0A4C9AA820EF6B190095A417 /* ApiService */,
@@ -822,6 +827,15 @@
 				0A8AFF2221010CDC00D0582B /* NSAttributedString+Styles.swift */,
 			);
 			path = "NSAttributedString+Styles";
+			sourceTree = "<group>";
+		};
+		0A8AFF262101EEEB00D0582B /* MatcherService */ = {
+			isa = PBXGroup;
+			children = (
+				0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */,
+				0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */,
+			);
+			path = MatcherService;
 			sourceTree = "<group>";
 		};
 		0A93FECC20FCA7B80058179E /* SpamSerice */ = {
@@ -1721,6 +1735,7 @@
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
+				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				0A8AFF2321010CDC00D0582B /* NSAttributedString+Styles.swift in Sources */,
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
 				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
@@ -1781,6 +1796,7 @@
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
+				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,

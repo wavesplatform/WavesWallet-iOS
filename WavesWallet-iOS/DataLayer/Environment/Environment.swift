@@ -21,6 +21,7 @@ struct Environment: Decodable {
         let nodeUrl: URL
         let dataUrl: URL
         let spamUrl: URL
+        let matcherUrl: URL
     }
 
     let name: String

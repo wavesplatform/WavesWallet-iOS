@@ -20,24 +20,36 @@ final class WalletDisplayData: NSObject {
         switch item {
         case .historySkeleton:
             return tableView.dequeueCell() as WalletHistorySkeletonCell
+
         case .balanceSkeleton:
             return tableView.dequeueCell() as WalletLeasingBalanceSkeletonCell
+
         case .assetSkeleton:
             return tableView.dequeueCell() as WalletAssetSkeletonCell
+
         case .balance(let balance):
-            let cell: WalletLeasingBalanceCell =  tableView.dequeueCell()
+            let cell: WalletLeasingBalanceCell = tableView.dequeueCell()
             cell.update(with: balance)
             return cell
+
         case .leasingTransaction(let transaction):
-            return UITableViewCell()
+            let cell: WalletLeasingCell = tableView.dequeueCell()
+            cell.update(with: transaction)
+            return cell
+
         case .allHistory:
-            return UITableViewCell()
+            return tableView.dequeueCell() as WalletHistoryCell
+
         case .hidden:
             return UITableViewCell()
+
         case .asset(let model):
             let cell: WalletTableAssetsCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
+            
+        case .quickNote:
+            return tableView.dequeueCell() as WalletQuickNoteCell
         }
     }
 
@@ -128,12 +140,14 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletAssetSkeletonCell.cellHeight()
         case .balance:
             return WalletLeasingBalanceCell.cellHeight()
-        case .leasingTransaction(let transaction):
-            return CGFloat.minValue
+        case .leasingTransaction:
+            return WalletLeasingCell.cellHeight()
         case .allHistory:
-            return CGFloat.minValue
+            return WalletHistoryCell.cellHeight()
         case .hidden:
             return CGFloat.minValue
+        case .quickNote:
+            return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
         }
     }
 }
