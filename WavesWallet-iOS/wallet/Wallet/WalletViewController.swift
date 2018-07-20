@@ -13,7 +13,7 @@ import RxFeedback
 import RxSwift
 import UIKit
 
-class WalletViewController: UIViewController {
+final class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: WalletSegmentedControl!
     var refreshControl: UIRefreshControl!
@@ -30,9 +30,11 @@ class WalletViewController: UIViewController {
         title = "Wallet"
         navigationController?.navigationBar.barTintColor = UIColor.basic50
 
+        displayData.delegate = self
         setupSegmetedControl()
         createMenuButton()
         setupRightButons()
+        setupTopBarLine()
 
         if #available(iOS 10.0, *) {
             refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -116,6 +118,7 @@ class WalletViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setupTopBarLine()
     }
 
     func setupRightButons() {
@@ -139,92 +142,14 @@ class WalletViewController: UIViewController {
     }
 }
 
-// , UITableViewDelegate, UITableViewDataSource, WalletTopTableCellDelegate {
-//    enum SectionAssets: Int {
-//        case main = 1
-//        case hidden
-//        case spam
-//    }
-//
-//    enum SectionLeasing: Int {
-//        case balance = 1
-//        case active
-//        case quickNote
-//    }
-//
-//    var SectionTop = 0
-//
-//    enum WalletSelectedIndex {
-//        case assets
-//        case leasing
-//    }
+// MARK: WalletDisplayDataDelegate
+extension WalletViewController: WalletDisplayDataDelegate {
 
-//    var selectedSegmentIndex = WalletSelectedIndex.assets
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
+    }
+}
 
-//    var isOpenSpamAssets = false
-//    var isOpenHiddenAssets = false
-//    var isOpenActiveLeasing = true
-//    var isOpenQuickNote = false
-//    var isAvailableLeasingHistory = true
-//
-//    var hasFirstChangeSegment = false
-//
-//    var lastScrollCorrectOffset: CGPoint?
-//    var assetsMainItems = ["Waves", "Bitcoin", "ETH", "Dash", "USD", "EUR", "Lira"]
-//    var assetsHiddenItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
-//    var assetsSpamItems = ["ETH", "Monero"]
-//
-//    var leasingActiveItems = ["10", "0000.0000", "123.31", "3141.43141", "000.314314", "314.3414", "231", "31414.4314", "0", "00.4314"]
-
-//        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
-//        tableView.addGestureRecognizer(swipeRight)
-//
-//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
-//        swipeLeft.direction = .left
-//        tableView.addGestureRecognizer(swipeLeft)
-
-//        let sections = [
-//            SectionOfCustomData(header: "First section", items: [CustomData(anInt: 0, aString: "zero", aCGPoint: CGPoint.zero), CustomData(anInt: 1, aString: "one", aCGPoint: CGPoint(x: 1, y: 1)) ]),
-//            SectionOfCustomData(header: "Second section", items: [CustomData(anInt: 2, aString: "two", aCGPoint: CGPoint(x: 2, y: 2)), CustomData(anInt: 3, aString: "three", aCGPoint: CGPoint(x: 3, y: 3)) ])
-//        ]
-
-//        var id: String
-//        var header: String?
-//        var items: [Row]
-//        var isExpanded: Bool
-
-// extension WalletViewController {
-//
-//
-//    @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
-//
-//        if gesture.direction == .left {
-//            if selectedSegmentIndex == .assets {
-//
-//                setupTableSections(.leasing)
-//
-//                if !hasFirstChangeSegment {
-//                    hasFirstChangeSegment = true
-//                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-//                }
-//
-//                if let topHeaderCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WalletTopTableCell {
-//                    topHeaderCell.setupState(.leasing, animation: true)
-//                }
-//            }
-//        }
-//        else if gesture.direction == .right {
-//            if selectedSegmentIndex == .leasing {
-//                setupTableSections(.assets)
-//
-//                if let topHeaderCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WalletTopTableCell {
-//                    topHeaderCell.setupState(.assets, animation: true)
-//                }
-//            }
-//        }
-//
-//    }
-//
 //    @objc func beginRefresh() {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 //            self.refreshControl.endRefreshing()
@@ -343,25 +268,7 @@ class WalletViewController: UIViewController {
 //        }
 //    }
 //
-//    //MARK: - WalletTopTableCellDelegate
-//
-//    func setupTableSections(_ segmentIndex: WalletSelectedIndex) {
-//
-//        selectedSegmentIndex = segmentIndex
-//        setupRightButons()
-//
-//        tableView.beginUpdates()
-//        if selectedSegmentIndex == .leasing {
-//            tableView.reloadSections([1], animationStyle: .fade)
-//            tableView.reloadSections([2, 3], animationStyle: .fade)
-//        }
-//        else {
-//            tableView.reloadSections([1], animationStyle: .fade)
-//            tableView.reloadSections([2, 3], animationStyle: .fade)
-//
-//        }
-//        tableView.endUpdates()
-//    }
+
 //
 //    func walletTopTableCellDidChangeIndex(_ index: WalletSelectedIndex) {
 //
@@ -369,188 +276,6 @@ class WalletViewController: UIViewController {
 //        setupTableSections(index)
 //    }
 //
-//    //MARK: - UITableView
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        if selectedSegmentIndex == .assets {
-//
-//            setupLastScrollCorrectOffset()
-//            let assetController = storyboard?.instantiateViewController(withIdentifier: "AssetViewController") as! AssetViewController
-//            navigationController?.pushViewController(assetController, animated: true)
-//            rdv_tabBarController.setTabBarHidden(true, animated: true)
-//        } else {
-//            if indexPath.section == SectionLeasing.balance.rawValue {
-//                if indexPath.row == 1 {
-//
-//                    setupLastScrollCorrectOffset()
-//                    let history = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
-//                    history.isLeasingMode = true
-//                    navigationController?.pushViewController(history, animated: true)
-//                    rdv_tabBarController.setTabBarHidden(true, animated: true)
-//                }
-//            }
-//        }
-//    }
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//
-////        if let offset = lastScrollCorrectOffset, Platform.isIphoneX {
-////            scrollView.contentOffset = offset // to fix top bar offset in iPhoneX when tabBarHidden = true
-////        }
-////
-//        setupTopBarLine()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//
-//        if selectedSegmentIndex == .leasing {
-//            return 4
-//        }
-//        return 4
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//
-//        if selectedSegmentIndex == .assets {
-//            if section == SectionAssets.hidden.rawValue {
-//                return assetsHiddenItems.count > 0 ? WalletHeaderView.viewHeight() : 0
-//            }
-//            else if section == SectionAssets.spam.rawValue {
-//                return assetsSpamItems.count > 0 ? WalletHeaderView.viewHeight() : 0
-//            }
-//        }
-//        else {
-//            if section == SectionLeasing.active.rawValue || section == SectionLeasing.quickNote.rawValue {
-//                return WalletHeaderView.viewHeight()
-//            }
-//        }
-//        return 0
-//    }
-//
-//    func getHeader(_ section: Int) -> WalletHeaderView {
-//        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: WalletHeaderView.identifier()) as! WalletHeaderView
-//        view.buttonTap.addTarget(self, action: #selector(headerTapped(_:)), for: .touchUpInside)
-//        view.buttonTap.tag = section
-//
-//        if selectedSegmentIndex == .assets {
-//            if section == SectionAssets.hidden.rawValue {
-//                view.labelTitle.text = "Hidden assets (\(assetsHiddenItems.count))"
-//                view.setupArrow(isOpenHideenAsset: isOpenHiddenAssets, animation: false)
-//            }
-//            else if section == SectionAssets.spam.rawValue {
-//                view.labelTitle.text = "Spam assets (\(assetsSpamItems.count))"
-//                view.setupArrow(isOpenHideenAsset: isOpenSpamAssets, animation: false)
-//            }
-//        }
-//        else {
-//            if section == SectionLeasing.active.rawValue {
-//                view.labelTitle.text = "Active now (\(leasingActiveItems.count))"
-//                view.setupArrow(isOpenHideenAsset: isOpenActiveLeasing, animation: false)
-//            }
-//            else if section == SectionLeasing.quickNote.rawValue {
-//                view.labelTitle.text = "Quick note"
-//                view.setupArrow(isOpenHideenAsset: isOpenQuickNote, animation: false)
-//            }
-//        }
-//        return view
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        if selectedSegmentIndex == .assets {
-//            if section == SectionAssets.hidden.rawValue {
-//                return getHeader(section)
-//            }
-//            else if section == SectionAssets.spam.rawValue {
-//                return getHeader(section)
-//            }
-//        }
-//
-//        if section == SectionLeasing.active.rawValue || section == SectionLeasing.quickNote.rawValue {
-//            return getHeader(section)
-//        }
-//        return nil
-//    }
-//
-//    func cellHeight(_ indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == SectionTop {
-//            return WalletTopTableCell.cellHeight()
-//        }
-//
-//        if selectedSegmentIndex == .assets {
-//            if indexPath.section == SectionAssets.main.rawValue {
-//                if indexPath.row == assetsMainItems.count - 1 {
-//                    return WalletTableAssetsCell.cellHeight() + 10
-//                }
-//            }
-//            else if indexPath.section == SectionAssets.hidden.rawValue {
-//                if indexPath.row == assetsHiddenItems.count - 1 {
-//                    return WalletTableAssetsCell.cellHeight() + 10
-//                }
-//            }
-//            return WalletTableAssetsCell.cellHeight()
-//        }
-//
-//        if indexPath.section == SectionLeasing.balance.rawValue {
-//            if indexPath.row == 0 {
-//                return WalletLeasingBalanceCell.cellHeight(isAvailableLeasingHistory: isAvailableLeasingHistory)
-//            }
-//            else if indexPath.row == 1 {
-//                return WalletHistoryCell.cellHeight()
-//            }
-//        }
-//        else if indexPath.section == SectionLeasing.active.rawValue {
-//            if indexPath.row == leasingActiveItems.count - 1 {
-//                return WalletLeasingCell.cellHeight() + 10
-//            }
-//            return WalletLeasingCell.cellHeight()
-//        }
-//        else if indexPath.section == SectionLeasing.quickNote.rawValue {
-//            return WalletQuickNoteCell.cellHeight()
-//        }
-//
-//        return 0
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return cellHeight(indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return cellHeight(indexPath)
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//        if section == SectionTop {
-//            return 1
-//        }
-//
-//        if selectedSegmentIndex == .assets {
-//            if section == SectionAssets.main.rawValue {
-//                return assetsMainItems.count
-//            }
-//            else if section == SectionAssets.hidden.rawValue {
-//                return isOpenHiddenAssets ? assetsHiddenItems.count : 0
-//            }
-//            else if section == SectionAssets.spam.rawValue {
-//                return isOpenSpamAssets ? assetsSpamItems.count : 0
-//            }
-//        }
-//
-//        if section == SectionLeasing.balance.rawValue {
-//            return isAvailableLeasingHistory ? 2 : 1
-//        }
-//        else if section == SectionLeasing.active.rawValue {
-//            return isOpenActiveLeasing ? leasingActiveItems.count : 0
-//        }
-//        else if section == SectionLeasing.quickNote.rawValue {
-//            return isOpenQuickNote ? 1 : 0
-//        }
-//        return 0
-//    }
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //

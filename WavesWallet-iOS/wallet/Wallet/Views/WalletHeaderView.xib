@@ -20,13 +20,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden assets (2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vf-bP-bKo">
-                            <rect key="frame" x="16" y="12" width="108" height="16"/>
+                            <rect key="frame" x="16" y="18" width="108" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_header" translatesAutoresizingMaskIntoConstraints="NO" id="a3n-gI-Bfx">
-                            <rect key="frame" x="345" y="13" width="14" height="14"/>
+                            <rect key="frame" x="345" y="19" width="14" height="14"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-h3-8pu">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
@@ -38,8 +38,8 @@
                         <constraint firstAttribute="bottom" secondItem="Jto-h3-8pu" secondAttribute="bottom" id="APE-JK-baw"/>
                         <constraint firstAttribute="trailing" secondItem="a3n-gI-Bfx" secondAttribute="trailing" constant="16" id="BOk-7L-N1d"/>
                         <constraint firstItem="Jto-h3-8pu" firstAttribute="leading" secondItem="h7h-Cf-DnU" secondAttribute="leading" id="Jth-vy-8Ov"/>
-                        <constraint firstItem="6vf-bP-bKo" firstAttribute="centerY" secondItem="h7h-Cf-DnU" secondAttribute="centerY" id="NMz-tU-XCm"/>
                         <constraint firstItem="6vf-bP-bKo" firstAttribute="leading" secondItem="h7h-Cf-DnU" secondAttribute="leading" constant="16" id="b8a-mo-fpt"/>
+                        <constraint firstItem="6vf-bP-bKo" firstAttribute="top" secondItem="h7h-Cf-DnU" secondAttribute="top" constant="18" id="fFB-iq-aLm"/>
                         <constraint firstAttribute="trailing" secondItem="Jto-h3-8pu" secondAttribute="trailing" id="gHe-aD-vBZ"/>
                         <constraint firstItem="a3n-gI-Bfx" firstAttribute="centerY" secondItem="6vf-bP-bKo" secondAttribute="centerY" id="sa4-cY-2Mf"/>
                     </constraints>

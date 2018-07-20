@@ -8,8 +8,15 @@
 
 import UIKit
 
-final class WalletHistoryCell: UITableViewCell, Reusable {
+final class WalletHistoryCell: UITableViewCell, NibReusable {
+    @IBOutlet var viewContainer: UIView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        viewContainer.addTableCellShadowStyle()
+    }
+
     class func cellHeight() -> CGFloat {
-        return 66
+        return 56
     }
 }

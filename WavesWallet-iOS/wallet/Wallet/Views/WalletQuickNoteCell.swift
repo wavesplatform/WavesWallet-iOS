@@ -10,6 +10,17 @@ import UIKit
 
 final class WalletQuickNoteCell: UITableViewCell, Reusable {
 
+    @IBOutlet var viewContent: UIView!
+    @IBOutlet var firstTitle: UILabel!
+    @IBOutlet var secondTitle: UILabel!
+    @IBOutlet var thirdTitle: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        viewContent.backgroundColor = UIColor.basic50
+        backgroundColor = UIColor.basic50
+    }
+
     class func cellHeight(with width: CGFloat) -> CGFloat {
         
         let font = UIFont.systemFont(ofSize: 13)

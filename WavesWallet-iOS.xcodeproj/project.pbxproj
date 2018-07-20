@@ -711,11 +711,6 @@
 				E97033F22095C1FF007E728C /* WalletLeasingCell.swift */,
 				E94E9C7220983522007E0705 /* WalletLeasingCell.xib */,
 				E97033F42095D70D007E728C /* WalletQuickNoteCell.swift */,
-				E90C6E692098200500AA311B /* AssetBalanceCell.swift */,
-				E9628840209F729100DE3B5A /* AssetLastTransactionCell.swift */,
-				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
-				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
-				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				0AD8543D20F7BC4400D23E48 /* WalletSegmentedControl.swift */,
 				0A16784920FD4FBC00AA5980 /* WalletAssetSkeletonCell.swift */,
 				0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */,
@@ -964,6 +959,11 @@
 		E999502B2091FDF300A11E37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E90C6E692098200500AA311B /* AssetBalanceCell.swift */,
+				E9628840209F729100DE3B5A /* AssetLastTransactionCell.swift */,
+				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
+				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
+				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				E9FBFC9E20A0AE8300EBF3AD /* BorderButtView.swift */,
 				E9D385C82094ED1A00213E2C /* DottedLineView.swift */,
 				E93CEDE920A1A8A300756CA8 /* AssetChartHeaderView.swift */,

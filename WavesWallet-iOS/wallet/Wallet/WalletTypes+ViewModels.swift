@@ -98,7 +98,8 @@ extension WalletTypes.ViewModel.Section {
                                                                isExpanded: true)
         sections.append(mainSection)
         if leasing.transactions.count > 0 {
-            let rows = leasing.transactions.map { WalletTypes.ViewModel.Row.leasingTransaction($0) }
+            let rows = leasing.transactions.suffix(2).map { WalletTypes.ViewModel.Row.leasingTransaction($0) }
+
             let activeTransactionSection: WalletTypes.ViewModel.Section = .init(header: "Active",
                                                                                 items: rows,
                                                                                 isExpanded: true)

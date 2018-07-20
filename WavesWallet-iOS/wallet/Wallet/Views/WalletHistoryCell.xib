@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6w-Za-8Ck">
-                        <rect key="frame" x="16" y="4" width="343" height="48"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="57.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View history" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7u-Ud-PYx">
-                                <rect key="frame" x="14" y="13.5" width="94" height="21"/>
+                                <rect key="frame" x="14" y="18.5" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="XzN-Ih-PFc">
-                                <rect key="frame" x="315" y="17" width="14" height="14"/>
+                                <rect key="frame" x="315" y="22" width="14" height="14"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,14 +37,14 @@
                             <constraint firstItem="XzN-Ih-PFc" firstAttribute="centerY" secondItem="D6w-Za-8Ck" secondAttribute="centerY" id="9X7-HQ-RMg"/>
                             <constraint firstItem="U7u-Ud-PYx" firstAttribute="leading" secondItem="D6w-Za-8Ck" secondAttribute="leading" constant="14" id="Fv4-fP-Cek"/>
                             <constraint firstItem="U7u-Ud-PYx" firstAttribute="centerY" secondItem="D6w-Za-8Ck" secondAttribute="centerY" id="nHs-WO-7Fl"/>
-                            <constraint firstAttribute="height" constant="48" id="qG5-JG-fVR"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="D6w-Za-8Ck" secondAttribute="trailing" constant="16" id="1AZ-xf-GRo"/>
                     <constraint firstItem="D6w-Za-8Ck" firstAttribute="leading" secondItem="mU4-Bl-McI" secondAttribute="leading" constant="16" id="77Y-IL-FIf"/>
-                    <constraint firstItem="D6w-Za-8Ck" firstAttribute="top" secondItem="mU4-Bl-McI" secondAttribute="top" constant="4" id="zZS-NV-INe"/>
+                    <constraint firstAttribute="bottom" secondItem="D6w-Za-8Ck" secondAttribute="bottom" constant="8" id="W6Y-5c-ygv"/>
+                    <constraint firstItem="D6w-Za-8Ck" firstAttribute="top" secondItem="mU4-Bl-McI" secondAttribute="top" id="zZS-NV-INe"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

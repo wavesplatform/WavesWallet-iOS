@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class WalletLeasingCell: UITableViewCell, Reusable {
+final class WalletLeasingCell: UITableViewCell, NibReusable {
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var viewContainer: UIView!
 

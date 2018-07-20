@@ -24,6 +24,10 @@ extension String {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font : font], context: nil).size.height)
     }
+
+    func maxHeightMultiline(font: UIFont, forWidth: CGFloat) -> CGFloat {        
+        return ceil(text.boundingRect(with: CGSize(width:forWidth, height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font : font], context: nil).size.height)
+    }
     
     func maxWidth(font: UIFont) -> CGFloat {
         let text = self as NSString

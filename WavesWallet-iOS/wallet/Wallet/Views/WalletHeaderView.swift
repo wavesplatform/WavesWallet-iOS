@@ -37,7 +37,7 @@ final class WalletHeaderView: UITableViewHeaderFooterView, NibReusable {
     }
 
     class func viewHeight() -> CGFloat {
-        return 34
+        return 48
     }
 }
 
