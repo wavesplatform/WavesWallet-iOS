@@ -52,7 +52,7 @@ final class WalletDisplayData: NSObject {
             let cell: WalletTableAssetsCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
-            
+
         case .quickNote:
             return tableView.dequeueCell() as WalletQuickNoteCell
         }
@@ -88,9 +88,7 @@ final class WalletDisplayData: NSObject {
 // MARK: UITableViewDelegate
 
 extension WalletDisplayData: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
         let item = dataSource[indexPath]
         switch item {
         case .historySkeleton:
@@ -157,10 +155,13 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
         }
     }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
+    }
 }
 
 extension WalletDisplayData: UIScrollViewDelegate {
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidScroll(scrollView)
     }

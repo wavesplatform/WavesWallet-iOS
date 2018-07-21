@@ -410,7 +410,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7VC-ir-FC1" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -434,48 +434,52 @@
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="200" id="2lU-HN-e9I" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="94" width="320" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="202" id="2lU-HN-e9I" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="94" width="320" height="202"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2lU-HN-e9I" id="HbV-Cs-4TX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="202"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-uA-Xjm">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="192"/>
+                                                    <rect key="frame" x="16" y="0.0" width="288" height="194"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn7-Xh-3cv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="288" height="34"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn7-Xh-3cv">
+                                                            <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
                                                             <string key="text">You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBf-6Q-9YY" userLabel="Top Dotted Line View" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="48" width="288" height="0.5"/>
+                                                            <rect key="frame" x="0.0" y="74" width="288" height="0.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="0.5" id="Oam-d5-Lvs"/>
+                                                                <constraint firstAttribute="height" constant="1" id="Oam-d5-Lvs"/>
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_quick_note" translatesAutoresizingMaskIntoConstraints="NO" id="ac2-uE-gxb">
-                                                            <rect key="frame" x="0.0" y="71" width="28" height="28"/>
+                                                            <rect key="frame" x="0.0" y="97" width="28" height="28"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="28" id="Iat-z3-hqe"/>
+                                                                <constraint firstAttribute="height" constant="28" id="qKC-I2-vNP"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlL-S0-oMf">
-                                                            <rect key="frame" x="42" y="61.5" width="246" height="47"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlL-S0-oMf">
+                                                            <rect key="frame" x="42" y="87.5" width="246" height="47"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPT-sp-mre" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="122.5" width="288" height="1"/>
+                                                            <rect key="frame" x="0.0" y="148.5" width="288" height="1"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="0.5" id="41G-Dg-GHp"/>
+                                                                <constraint firstAttribute="height" constant="1" id="41G-Dg-GHp"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="The generating balance will be updated after 1000 blocks." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSe-yd-LKG">
-                                                            <rect key="frame" x="0.0" y="136.5" width="288" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="162.5" width="288" height="31.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -493,7 +497,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="bBf-6Q-9YY" secondAttribute="trailing" id="Fwy-mu-WEP"/>
                                                         <constraint firstItem="PlL-S0-oMf" firstAttribute="top" secondItem="bBf-6Q-9YY" secondAttribute="bottom" constant="13" id="TR5-hx-C1V"/>
                                                         <constraint firstItem="qn7-Xh-3cv" firstAttribute="leading" secondItem="eM1-uA-Xjm" secondAttribute="leading" id="bCO-W1-KzP"/>
-                                                        <constraint firstAttribute="bottom" secondItem="TSe-yd-LKG" secondAttribute="bottom" constant="24" id="frY-ni-BcL"/>
+                                                        <constraint firstAttribute="bottom" secondItem="TSe-yd-LKG" secondAttribute="bottom" id="frY-ni-BcL"/>
                                                         <constraint firstItem="TSe-yd-LKG" firstAttribute="top" secondItem="sPT-sp-mre" secondAttribute="bottom" constant="13" id="had-tK-KO1"/>
                                                         <constraint firstItem="PlL-S0-oMf" firstAttribute="leading" secondItem="ac2-uE-gxb" secondAttribute="trailing" constant="14" id="kxf-j6-jVL"/>
                                                         <constraint firstItem="sPT-sp-mre" firstAttribute="leading" secondItem="eM1-uA-Xjm" secondAttribute="leading" id="nPj-Ol-W7s"/>
@@ -520,7 +524,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="8JU-8B-XiO" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="294" width="320" height="76"/>
+                                        <rect key="frame" x="0.0" y="296" width="320" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8JU-8B-XiO" id="trh-So-IgV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
@@ -669,10 +673,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" id="m7f-UJ-Pfm" userLabel="WalletAssetSkeletonCell" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="370" width="320" height="76"/>
+                                        <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m7f-UJ-Pfm" id="HLL-sz-AN7">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJ2-3h-QJP">
@@ -766,7 +770,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceSkeletonCell" rowHeight="332" id="NTp-gX-Y7T" userLabel="WalletLeasingBalanceSkeletonCell" customClass="WalletLeasingBalanceSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="446" width="320" height="332"/>
+                                        <rect key="frame" x="0.0" y="416" width="320" height="332"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NTp-gX-Y7T" id="uEz-aN-3t2">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="332"/>
@@ -1047,7 +1051,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletHistorySkeletonCell" rowHeight="44" id="weF-g6-sbP" customClass="WalletHistorySkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="778" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="748" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="weF-g6-sbP" id="xm0-SL-3cg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1096,7 +1100,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceCell" rowHeight="326" id="Csy-1q-XtN" customClass="WalletLeasingBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="822" width="320" height="326"/>
+                                        <rect key="frame" x="0.0" y="792" width="320" height="326"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Csy-1q-XtN" id="u3v-p3-7Fi">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>

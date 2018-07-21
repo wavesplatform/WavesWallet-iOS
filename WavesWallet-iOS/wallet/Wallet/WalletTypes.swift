@@ -37,7 +37,7 @@ extension WalletTypes {
             var animateType: AnimateType = .refresh
         }
 
-        var display: Display = .assets
+        var display: Display
         var assets: DisplayState
         var leasing: DisplayState
     }
