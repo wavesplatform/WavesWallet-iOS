@@ -28,6 +28,12 @@ final class WalletViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Wallet"
+
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 16, 0)
         navigationController?.navigationBar.barTintColor = UIColor.basic50

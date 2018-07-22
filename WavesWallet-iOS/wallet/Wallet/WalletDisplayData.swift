@@ -131,6 +131,10 @@ extension WalletDisplayData: UITableViewDelegate {
         return CGFloat.minValue
     }
 
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, heightForHeaderInSection: section)
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let row = dataSource[indexPath]
 

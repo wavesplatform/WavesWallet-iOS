@@ -85,7 +85,7 @@ extension WalletTypes.State {
 
 extension WalletTypes.State {
     static func initialState() -> WalletTypes.State {
-        return WalletTypes.State(display: .leasing,
+        return WalletTypes.State(display: .assets,
                                  assets: .initialState(display: .assets),
                                  leasing: .initialState(display: .leasing))
     }

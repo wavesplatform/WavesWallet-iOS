@@ -50,10 +50,13 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
     func tableView(_ tableView: UITableView, reloadSection: Driver<UpdateSection>) {
         reloadSection.drive(onNext: { [weak self] update in
              DispatchQueue.main.async {
-//                let contentOffset = tableView.contentInset
+                let contentOffset = tableView.contentOffset
                 self?.setSections(update.sections)
+                tableView.beginUpdates()
                 tableView.reloadSections(IndexSet(integer: update.index), with: .fade)
-//                tableView.contentInset = contentOffset
+                tableView.endUpdates()
+//                tableView.layer.removeAllAnimations()
+//                tableView.setContentOffset(contentOffset, animated: false)
             }
         })
             .disposed(by: disposeBag)

@@ -410,8 +410,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
+                                <rect key="frame" x="0.0" y="64" width="320" height="936"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7VC-ir-FC1" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -669,6 +669,7 @@
                                             <outlet property="labelTitle" destination="b7t-r5-e4F" id="gez-Gu-D3e"/>
                                             <outlet property="viewAssetType" destination="DWc-G9-W1Q" id="dHW-vJ-6nj"/>
                                             <outlet property="viewContent" destination="CDm-dP-dOP" id="Mru-eu-iY7"/>
+                                            <outlet property="viewFiatBalance" destination="yDQ-ds-e0V" id="LC4-Ae-psU"/>
                                             <outlet property="viewSpam" destination="H0d-ql-uJg" id="IDn-o5-uOd"/>
                                         </connections>
                                     </tableViewCell>
@@ -680,7 +681,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJ2-3h-QJP">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="68"/>
+                                                    <rect key="frame" x="16" y="0.0" width="288" height="36"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNi-Jo-hTB" userLabel="Top" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="70" y="18" width="64" height="10"/>
@@ -1416,7 +1417,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FIb-TU-Swn" secondAttribute="trailing" id="3eR-h6-E6b"/>
                             <constraint firstItem="enW-Ql-DmX" firstAttribute="top" secondItem="FIb-TU-Swn" secondAttribute="bottom" id="lSs-6o-Eax"/>
-                            <constraint firstItem="FIb-TU-Swn" firstAttribute="top" secondItem="3xq-SF-Raa" secondAttribute="top" id="uks-Nr-yOc"/>
+                            <constraint firstItem="FIb-TU-Swn" firstAttribute="top" secondItem="B3N-OX-1jg" secondAttribute="bottom" id="uks-Nr-yOc"/>
                             <constraint firstItem="FIb-TU-Swn" firstAttribute="leading" secondItem="3xq-SF-Raa" secondAttribute="leading" id="vAl-wp-UOd"/>
                         </constraints>
                     </view>

@@ -16,6 +16,7 @@ class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var labelSubtitle: UILabel!
     @IBOutlet var labelCryptoName: UILabel!
+    @IBOutlet var viewFiatBalance: UIView!
     @IBOutlet var viewSpam: UIView!
     @IBOutlet var viewAssetType: UIView!
 
@@ -36,6 +37,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
 
         viewSpam.isHidden = true
         iconStar.isHidden = !model.isFavorite
+        viewFiatBalance.isHidden = true
         iconArrow.isHidden = !model.isFiat
         viewSpam.isHidden = model.kind != .spam
         let text = model.balance.displayTextFull
