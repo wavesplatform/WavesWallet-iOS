@@ -11,6 +11,23 @@ import Moya
 
 protocol BaseTargetType: TargetType {}
 
+enum ContentType {
+    case applicationJson
+    case applicationCsv
+}
+
+extension ContentType {
+    var headers: [String: String] {
+        switch self {
+        case .applicationCsv:
+            return ["Content-type": "application/csv"]
+        case .applicationJson:
+            return ["Content-type": "application/json"]
+        }
+    }
+}
+
+
 extension BaseTargetType {
 
     var sampleData: Data {
@@ -18,6 +35,6 @@ extension BaseTargetType {
     }
 
     var headers: [String: String]? {
-        return ["Content-type": "application/json"]
+        return ContentType.applicationJson.headers
     }
 }

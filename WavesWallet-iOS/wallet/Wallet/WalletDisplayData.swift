@@ -46,7 +46,7 @@ final class WalletDisplayData: NSObject {
             return tableView.dequeueAndRegisterCell() as WalletHistoryCell
 
         case .hidden:
-            return UITableViewCell()
+            return tableView.dequeueAndRegisterCell() as EmptyCell
 
         case .asset(let model):
             let cell: WalletTableAssetsCell = tableView.dequeueCell()
@@ -133,6 +133,14 @@ extension WalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return self.tableView(tableView, heightForHeaderInSection: section)
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.minValue
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

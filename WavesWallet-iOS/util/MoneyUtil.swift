@@ -146,11 +146,6 @@ class MoneyUtil {
     }
 }
 
-func toByteArray<T>(_ value: T) -> [UInt8] {
-    var value = value
-    return (withUnsafeBytes(of: &value) { Array($0) }).reversed()
-}
-
 precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
 infix operator ^^ : PowerPrecedence
 func ^^ (radix: Int, power: Int) -> Int64 {

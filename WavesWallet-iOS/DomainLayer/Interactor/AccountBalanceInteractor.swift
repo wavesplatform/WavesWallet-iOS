@@ -13,17 +13,20 @@ import RxSwift
 import RxSwiftExt
 
 protocol AccountBalanceInteractorProtocol {
-    func balances(by accountId: String) -> Observable<[AssetBalance]>    
+    func balances(by accountId: String) -> Observable<[AssetBalance]>
     func update(balance: AssetBalance) -> Observable<Void>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
-    private let assetsProvider: MoyaProvider<Node.Service.Assets> = MoyaProvider<Node.Service.Assets>()
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = MoyaProvider<Node.Service.Addresses>()
+    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
+    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
+    private let orderBookProvider: MoyaProvider<Matcher.Service.OrderBook> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
     private let realm = try! Realm()
 
     func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
+        guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
+
         let assetsBalance = assetsProvider
             .rx
             .request(.getAssetsBalance(accountId: accountAddress))
@@ -35,6 +38,28 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
             .request(.getAccountBalance(id: accountAddress))
             .map(Node.DTO.AccountBalance.self)
             .asObservable()
+
+        WalletManager.getPrivateKey()
+            .flatMap { self.orderBookProvider
+                .rx
+                .request(.getOrderHistory($0, isActiveOnly: true)) }
+            .subscribe(onNext: { response in
+
+                let res = String(data: response.data, encoding: .utf8)
+                print("response \(res)")
+            }, onError: { error in
+                print("error \(error)")
+            })
+//
+//            .subscribe(onNext: { response in
+//
+//                print("response \(response)")
+//
+//                let res = String(data: response.data, encoding: .utf8)
+//                print("response \(res)")
+//            }) { error in
+//                print("error \(error)")
+//            }
 
         let list = Observable
             .zip(assetsBalance, accountBalance)
@@ -104,13 +129,12 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 }
 
 extension AccountBalanceInteractor {
-
     func sort(balances: [AssetBalance]) {
 //        var settings = try? realm
 //            .objects(AssetBalanceSettings.self)
 //            .elements
 //            .toArray()
-////            .sorted(by: $0.sortLevel > $1.sortLevel)
+        ////            .sorted(by: $0.sortLevel > $1.sortLevel)
 
         let generalBalances = Environments
             .current

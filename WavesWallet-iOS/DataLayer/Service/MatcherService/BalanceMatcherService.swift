@@ -1,37 +1,39 @@
 //
-//  MatcherNodeService.swift
+//  BalanceMatcherService.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 20.07.2018.
+//  Created by mefilt on 23.07.2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
+
+import Foundation
 
 import Foundation
 import Moya
 
 extension Matcher.Service {
-    enum OrderBook {
+    enum Balance {
         /**
          Response:
-         - Not implementation
+         - [AssetId: Balance] as [String: Int64]
          */
-        case getOrderHistory(PrivateKeyAccount, isActiveOnly: Bool)
+        case getReservedBalances(PrivateKeyAccount)
     }
 }
 
-extension Matcher.Service.OrderBook: MatcherTargetType {
+extension Matcher.Service.Balance: MatcherTargetType {
     private enum Constants {
         static let matcher = "matcher"
-        static let orderbook = "orderbook"
-        static let activeOnly = "activeOnly"
+        static let balance = "balance"
+        static let timestamp = "timestamp"
     }
 
     var path: String {
         switch self {
-        case .getOrderHistory(let privateKey, _):
+        case .getReservedBalances(let privateKey):
             return Constants.matcher
                 + "/"
-                + Constants.orderbook
+                + Constants.balance
                 + "/"
                 + "\(privateKey.getPublicKeyStr())".urlEscaped
         }
@@ -39,18 +41,15 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
 
     var method: Moya.Method {
         switch self {
-        case .getOrderHistory:
+        case .getReservedBalances:
             return .get
         }
     }
 
     var task: Task {
         switch self {
-        case .getOrderHistory(_, let isActiveOnly):
-
-            return .requestCompositeParameters(bodyParameters: [:],
-                                               bodyEncoding: URLEncoding.httpBody,
-                                               urlParameters: [Constants.activeOnly: isActiveOnly])
+        case .getReservedBalances:
+            return .requestPlain
         }
     }
 
@@ -58,7 +57,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch self {
-        case .getOrderHistory(let privateKey, _):
+        case .getReservedBalances(let privateKey):
             let signature = TimestampSignature(privateKey: privateKey)
             headers.merge(signature.parameters) { a, _ in a }
         }

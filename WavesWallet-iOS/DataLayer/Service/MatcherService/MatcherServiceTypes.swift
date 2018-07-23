@@ -19,5 +19,5 @@ extension Matcher {
 protocol MatcherTargetType: BaseTargetType {}
 
 extension MatcherTargetType {
-    var baseURL: URL { return Environments.current.servers.nodeUrl }
+    var baseURL: URL { return Environments.current.servers.matcherUrl }
 }

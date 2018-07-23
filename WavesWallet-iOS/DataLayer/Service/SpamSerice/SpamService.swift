@@ -20,6 +20,6 @@ extension SpamTargetType {
     var baseURL: URL { return Environments.current.servers.spamUrl }
 
     var headers: [String: String]? {
-        return ["Content-type": "application/csv"]
+        return ContentType.applicationCsv.headers
     }
 }

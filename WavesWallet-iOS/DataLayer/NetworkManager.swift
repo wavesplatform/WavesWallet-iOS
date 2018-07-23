@@ -238,9 +238,8 @@ class NetworkManager: NSObject
         
         WalletManager.getPrivateKey(complete: { (privateKey) in
       
-            let req = MyOrdersRequest(senderPublicKey: WalletManager.currentWallet!.publicKeyAccount)
-            req.senderPrivateKey = privateKey
-            
+            let req = MyOrdersRequest(senderPrivateKey: privateKey)
+
             let headers : HTTPHeaders = ["timestamp" : "\(req.toJSON()!["timestamp"]!)",
                 "signature" : req.toJSON()!["signature"] as! String]
             

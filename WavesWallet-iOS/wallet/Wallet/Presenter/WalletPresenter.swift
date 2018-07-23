@@ -42,7 +42,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            //TODO: Error
+            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
@@ -62,7 +62,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            //TODO: Error
+            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
@@ -96,9 +96,9 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .responseLeasing(let response):
             let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setLeasing(leasing: .init(sections: secions,
-                                                         collapsedSections: state.assets.collapsedSections,
-                                                         isRefreshing: false,
-                                                         animateType: .refresh))
+                                                           collapsedSections: state.leasing.collapsedSections,
+                                                           isRefreshing: false,
+                                                           animateType: .refresh))
 
             return newState
         }

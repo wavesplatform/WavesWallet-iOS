@@ -34,6 +34,9 @@ final class WalletViewController: UIViewController {
             tableView.contentInsetAdjustmentBehavior = .never
         }
 
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 16, 0)
         navigationController?.navigationBar.barTintColor = UIColor.basic50

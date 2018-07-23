@@ -17,12 +17,12 @@ protocol LeasingInteractorProtocol {
 }
 
 final class LeasingInteractor: LeasingInteractorProtocol {
-    private let assetsProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
     private let assetBalance: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
     private let realm = try! Realm()
 
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<DomainLayer.DTO.Leasing> {
-        let transactions = assetsProvider
+        let transactions = leasingProvider
             .rx
             .request(.getActive(accountAddress: accountAddress))
             .map([Node.DTO.LeasingTransaction].self)

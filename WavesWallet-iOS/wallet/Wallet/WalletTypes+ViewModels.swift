@@ -25,20 +25,6 @@ extension WalletTypes.ViewModel {
     }
 
     struct Section: Hashable {
-        enum Kind {
-            case mainAssets
-            case spamAssets
-            case hiddenAssets
-            case mainLeasing
-            case activeTransaction
-            case quickNote
-        }
-
-        struct Data {
-            var type: Kind
-            var isExpanded: Bool
-        }
-
         var header: String?
         var items: [Row]
         var isExpanded: Bool
@@ -70,7 +56,7 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: "Hidden",
+        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: "Hidden assets (\(hiddenItems.count))",
                                                                  items: hiddenItems,
                                                                  isExpanded: true)
         let spamItems = assets
@@ -80,7 +66,7 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let spamSection: WalletTypes.ViewModel.Section = .init(header: "Spam",
+        let spamSection: WalletTypes.ViewModel.Section = .init(header: "Spam assets (\(spamItems.count))",
                                                                items: spamItems,
                                                                isExpanded: true)
         return [generalSection,
@@ -98,18 +84,40 @@ extension WalletTypes.ViewModel.Section {
                                                                isExpanded: true)
         sections.append(mainSection)
         if leasing.transactions.count > 0 {
-            let rows = leasing.transactions.suffix(2).map { WalletTypes.ViewModel.Row.leasingTransaction($0) }
+            let rows = leasing
+                .transactions
+                .map { WalletTypes.ViewModel.Row.leasingTransaction($0) }
 
-            let activeTransactionSection: WalletTypes.ViewModel.Section = .init(header: "Active",
-                                                                                items: rows,
-                                                                                isExpanded: true)
+            let activeTransactionSection: WalletTypes
+                .ViewModel
+                .Section = .init(header: "Active now (\(rows.count))",
+                                 items: rows,
+                                 isExpanded: true)
             sections.append(activeTransactionSection)
         }
 
-        let noteSection: WalletTypes.ViewModel.Section = .init(header: "Note",
+        let noteSection: WalletTypes.ViewModel.Section = .init(header: "Quick note",
                                                                items: [.quickNote],
                                                                isExpanded: true)
         sections.append(noteSection)
         return sections
     }
+}
+
+extension WalletTypes.ViewModel.Section {
+//    var header: String? {
+//        let count = items.filter { $0 != .hidden }.count
+//        switch kind {
+//        case .mainAssets, .mainLeasing:
+//            return nil
+//        case .spamAssets:
+//            return "Spam assets (\(count))"
+//        case .hiddenAssets:
+//            return "Hidden assets (\(count))"
+//        case .activeTransaction:
+//            return "Active now (\(count))"
+//        case .quickNote:
+//            return "Quick note"
+//        }
+//    }
 }
