@@ -34,44 +34,64 @@ final class WalletInteractor: WalletInteractorProtocol {
     func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {
         guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
 
-        return leasingInteractor
-            .activeLeasingTransactions(by: wallet.address)
+        return activeLeasingTransactions(by: wallet.address)
             .map { leasing -> WalletTypes.DTO.Leasing in
 
                 let precision = leasing.balance.asset!.precision
-                var transactions: [WalletTypes.DTO.Leasing.Transaction] = [WalletTypes.DTO.Leasing.Transaction]()
-                var leasedAmount: Int64 = 0
-                var leasedInAmount: Int64 = 0
-                leasing
-                    .transaction
-                    .forEach { transaction in
-                        let money = Money(transaction.amount,
-                                          precision)
-                        transactions.append(.init(id: transaction.id, balance: money))
-                        let isMyTransaction = transaction.sender == wallet.address
+                let inTransactions = leasing.transaction.filter { $0.sender != wallet.address }
+                let myTransactions = leasing.transaction.filter { $0.sender == wallet.address }
 
-                        if isMyTransaction {
-                            leasedAmount += transaction.amount
-                        } else {
-                            leasedInAmount += transaction.amount
-                        }
-                    }
+                let leaseAmount: Int64 = myTransactions
+                    .reduce(0) { $0 + $1.amount }
+                let leaseInAmount: Int64 = inTransactions
+                    .reduce(0) { $0 + $1.amount }
 
-                let totalMoney = Money(leasing.balance.balance,
-                                       precision)
-                let avaliableMoney = Money(leasing.balance.balance,
-                                           precision)
-                let leasedMoney = Money(leasedAmount,
-                                        precision)
-                let leasedInMoney = Money(leasedInAmount,
-                                          precision)
+                let transaction: [WalletTypes.DTO.Leasing.Transaction] = myTransactions
+                    .map { .init(id: $0.id,
+                                 balance: .init($0.amount,
+                                                precision)) }
 
-                let balance: WalletTypes.DTO.Leasing.Balance = .init(totalMoney: totalMoney,
-                                                                     avaliableMoney: avaliableMoney,
-                                                                     leasedMoney: leasedMoney,
-                                                                     leasedInMoney: leasedInMoney)
-                return WalletTypes.DTO.Leasing(balance: balance,
-                                               transactions: transactions)
+                let balance = leasing.balance
+                let totalMoney: Money = .init(balance.balance - balance.reserveBalance,
+                                              precision)
+                let avaliableMoney: Money = .init(balance.avaliableBalance,
+                                                  precision)
+                let leasedMoney: Money = .init(leaseAmount,
+                                               precision)
+                let leasedInMoney: Money = .init(leaseInAmount,
+                                                 precision)
+
+                let leasingBalance: WalletTypes
+                    .DTO
+                    .Leasing
+                    .Balance = .init(totalMoney: totalMoney,
+                                     avaliableMoney: avaliableMoney,
+                                     leasedMoney: leasedMoney,
+                                     leasedInMoney: leasedInMoney)
+
+                return WalletTypes.DTO.Leasing(balance: leasingBalance,
+                                               transactions: transaction)
+            }
+    }
+}
+
+fileprivate extension WalletInteractor {
+    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<DomainLayer.DTO.Leasing> {
+        let transactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
+
+        let balance = accountBalanceInteractor
+            .balances(by: accountAddress)
+            .map { $0.first { $0.assetId == Environments.Constants.wavesAssetId } }
+            .flatMap { balance -> Observable<AssetBalance> in
+                guard let balance = balance else { return Observable.empty() }
+                return Observable.just(balance)
+            }
+
+        return Observable
+            .zip(transactions, balance)
+            .map { transactions, balance -> DomainLayer.DTO.Leasing in
+                DomainLayer.DTO.Leasing(balance: balance,
+                                        transaction: transactions)
             }
     }
 }
@@ -84,7 +104,7 @@ fileprivate extension WalletTypes.DTO.Asset {
 
         let id = balance.assetId
         let name = asset.name
-        let balanceToken = Money(balance.balance, Int(asset.precision))
+        let balanceToken = Money(balance.avaliableBalance, Int(asset.precision))
         let level = settings.sortLevel
         // TODO: Fiat money
         let fiatBalance = Money(100, 1)

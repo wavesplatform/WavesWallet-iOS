@@ -25,6 +25,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
     private enum Constants {
         static let matcher = "matcher"
         static let balance = "balance"
+        static let reserved = "reserved"
         static let timestamp = "timestamp"
     }
 
@@ -34,6 +35,8 @@ extension Matcher.Service.Balance: MatcherTargetType {
             return Constants.matcher
                 + "/"
                 + Constants.balance
+                + "/"
+                + Constants.reserved
                 + "/"
                 + "\(privateKey.getPublicKeyStr())".urlEscaped
         }

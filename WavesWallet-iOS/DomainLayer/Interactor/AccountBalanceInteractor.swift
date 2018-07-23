@@ -21,59 +21,22 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
-    private let orderBookProvider: MoyaProvider<Matcher.Service.OrderBook> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
     private let realm = try! Realm()
 
     func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
-        guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
-
-        let assetsBalance = assetsProvider
-            .rx
-            .request(.getAssetsBalance(accountId: accountAddress))
-            .map(Node.DTO.AccountAssetsBalance.self)
-            .asObservable()
-
-        let accountBalance = addressesProvider
-            .rx
-            .request(.getAccountBalance(id: accountAddress))
-            .map(Node.DTO.AccountBalance.self)
-            .asObservable()
-
-        WalletManager.getPrivateKey()
-            .flatMap { self.orderBookProvider
-                .rx
-                .request(.getOrderHistory($0, isActiveOnly: true)) }
-            .subscribe(onNext: { response in
-
-                let res = String(data: response.data, encoding: .utf8)
-                print("response \(res)")
-            }, onError: { error in
-                print("error \(error)")
-            })
-//
-//            .subscribe(onNext: { response in
-//
-//                print("response \(response)")
-//
-//                let res = String(data: response.data, encoding: .utf8)
-//                print("response \(res)")
-//            }) { error in
-//                print("error \(error)")
-//            }
+        let assetsBalance = self.assetsBalance(by: accountAddress)
+        let accountBalance = self.accountBalance(by: accountAddress)
+        let leasingTransactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
+        let matcherBalances = self.matcherBalances(by: accountAddress)
 
         let list = Observable
-            .zip(assetsBalance, accountBalance)
-            .map { assets, account -> [AssetBalance] in
-
-                let assetsBalance = assets.balances.map { AssetBalance(model: $0) }
-                let accountBalance = AssetBalance(model: account)
-
-                var list = [AssetBalance]()
-                list.append(contentsOf: assetsBalance)
-                list.append(accountBalance)
-
-                return list
-            }
+            .zip(assetsBalance, accountBalance, leasingTransactions, matcherBalances)
+            .map { AssetBalance.mapToAssetBalances(from: $0.0,
+                                                   account: $0.1,
+                                                   leasingTransactions: $0.2,
+                                                   matcherBalances: $0.3) }
             .map { balances -> [AssetBalance] in
 
                 let generalBalances = Environments.current.generalAssetIds.map { AssetBalance(model: $0) }
@@ -95,8 +58,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                         return balances
                     }
             })
-            .do(weak: self, onNext: { (weak, balances) in
-
+            .do(weak: self, onNext: { weak, balances in
                 let ids = balances.map { $0.assetId }
 
                 try? weak.realm.write {
@@ -125,6 +87,60 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
         }
 
         return Observable.just(())
+    }
+}
+
+fileprivate extension AssetBalance {
+    class func mapToAssetBalances(from assets: Node.DTO.AccountAssetsBalance,
+                                  account: Node.DTO.AccountBalance,
+                                  leasingTransactions: [LeasingTransaction],
+                                  matcherBalances: [String: Int64]) -> [AssetBalance] {
+        let assetsBalance = assets.balances.map { AssetBalance(model: $0) }
+        let accountBalance = AssetBalance(accountBalance: account,
+                                          transactions: leasingTransactions)
+
+        var list = [AssetBalance]()
+        list.append(contentsOf: assetsBalance)
+        list.append(accountBalance)
+
+        list.forEach { asset in
+            guard let balance = matcherBalances[asset.assetId] else { return }
+            asset.reserveBalance = balance
+        }
+        
+        return list
+    }
+}
+
+fileprivate extension AccountBalanceInteractor {
+    func matcherBalances(by accountAddress: String) -> Observable<[String: Int64]> {
+        return WalletManager
+            .getPrivateKey()
+            .flatMap(weak: self, selector: { (owner, privateKey) -> Observable<[String: Int64]> in
+                owner.matcherBalanceProvider
+                    .rx
+                    .request(.getReservedBalances(privateKey))                       
+                    .map([String: Int64].self)
+                    .asObservable()
+                    .catchErrorJustReturn([String: Int64]())
+            })
+            .catchErrorJustReturn([String: Int64]())
+    }
+
+    func assetsBalance(by accountAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
+        return self.assetsProvider
+            .rx
+            .request(.getAssetsBalance(accountId: accountAddress))
+            .map(Node.DTO.AccountAssetsBalance.self)
+            .asObservable()
+    }
+
+    func accountBalance(by accountAddress: String) -> Observable<Node.DTO.AccountBalance> {
+        return self.addressesProvider
+            .rx
+            .request(.getAccountBalance(id: accountAddress))
+            .map(Node.DTO.AccountBalance.self)
+            .asObservable()
     }
 }
 
@@ -195,9 +211,12 @@ fileprivate extension AssetBalance {
         self.assetId = model.assetId
     }
 
-    convenience init(model: Node.DTO.AccountBalance) {
+    convenience init(accountBalance: Node.DTO.AccountBalance, transactions: [LeasingTransaction]) {
         self.init()
-        self.balance = model.balance
+        self.balance = accountBalance.balance
+        self.leasedBalance = transactions
+            .filter { $0.sender == accountBalance.address }
+            .reduce(0) { $0 + $1.amount }
         self.assetId = Environments.Constants.wavesAssetId
     }
 
