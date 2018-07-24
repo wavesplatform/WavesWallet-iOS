@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+protocol WalletModuleOutput {
+//    func showWalletSort() -> Single<String>()
+}
+
 protocol WalletPresenterProtocol {
     typealias Feedback = (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event>
 

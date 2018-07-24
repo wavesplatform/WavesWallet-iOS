@@ -28,8 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
+        let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WalletSortViewController") as! WalletSortViewController
 
-        showStartController()
+
+        self.window?.rootViewController = main
+//        showStartController()
 
         self.window?.makeKeyAndVisible()
         return true
