@@ -12,11 +12,12 @@ import UIKit
 extension UIView {
     
     func addTableCellShadowStyle() {
+        layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 1
-        layer.shadowOpacity = 0.15
-        layer.cornerRadius = 3
+        layer.shadowOpacity = 0.18
+        layer.cornerRadius = 2
     }
     
     class func loadView() -> UIView {

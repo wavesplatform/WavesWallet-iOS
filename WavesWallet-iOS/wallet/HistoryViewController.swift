@@ -57,7 +57,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             createBackButton()
         }
         
-        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
+//        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
         tableView.addGestureRecognizer(swipeRight)
@@ -397,7 +397,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section > 0 {
-            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: WalletHeaderView.identifier()) as! WalletHeaderView
+            let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             view.iconArrow.isHidden = true
             let item = itemForSection(section)
             view.labelTitle.text = item["title"] as? String

@@ -68,7 +68,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.addSubview(refreshControl)
         }
         
-        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
+//        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
         tableView.register(UINib(nibName: AssetChartHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: AssetChartHeaderView.identifier())
 
         buttonFavourite.setImage(UIImage(named: inFavourite ? "topbarFavoriteOn" : "topbarFavoriteOff"), for: .normal)
@@ -340,7 +340,7 @@ class AssetViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == Section.lastTransactions.rawValue {
-            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: WalletHeaderView.identifier()) as! WalletHeaderView
+            let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             view.iconArrow.isHidden = true
             
             if lastTransctions.count > 0 {

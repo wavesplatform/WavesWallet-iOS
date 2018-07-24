@@ -34,7 +34,6 @@ extension AccountSection : AnimatableSectionModelType {
 
 class AccountsViewController: UIViewController {
     
-    typealias ConfigureCell<S: SectionModelType> = (TableViewSectionedDataSource<S>, UITableView, IndexPath, S.Item) -> UITableViewCell
     typealias TitleForHeaderInSection<S: SectionModelType> = (TableViewSectionedDataSource<S>, Int) -> String?
 
     @IBOutlet weak var tableView: UITableView!
