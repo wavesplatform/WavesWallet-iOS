@@ -102,7 +102,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         createMenuButton()
         title = "Profile"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
-//        tableView.register(UINib(nibName: WalletHeaderView.identifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: WalletHeaderView.identifier())
     }
 
     override func viewDidAppear(_ animated: Bool) {
