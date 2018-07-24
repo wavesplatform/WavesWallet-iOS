@@ -50,8 +50,12 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
 
         addBgBlueImage()
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        setupUI()
         setupConstraints()
+
+        kolodaView.countOfVisibleCards = 4
+        kolodaView.delegate = self
+        kolodaView.dataSource = self
+        pageControl.numberOfPages = kolodaView.countOfCards
     }
     
     private func setupConstraints() {
@@ -70,16 +74,6 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
             kolodaBotConstraint.constant = 54
             pageControlBotConstraint.constant = 24
         }
-    }
-    
-    private func setupUI() {
-        
-        kolodaView.delegate = self
-        kolodaView.dataSource = self
-        kolodaView.countOfVisibleCards = 4
-        pageControl.numberOfPages = kolodaView.countOfCards
-        pageControl.currentPage = 0
-        kolodaView.resetCurrentCardIndex()
     }
     
     @objc func changePage() {
