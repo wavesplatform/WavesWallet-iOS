@@ -146,11 +146,6 @@ fileprivate extension AccountBalanceInteractor {
 
 extension AccountBalanceInteractor {
     func sort(balances: [AssetBalance]) {
-//        var settings = try? realm
-//            .objects(AssetBalanceSettings.self)
-//            .elements
-//            .toArray()
-        ////            .sorted(by: $0.sortLevel > $1.sortLevel)
 
         let generalBalances = Environments
             .current
@@ -186,7 +181,7 @@ extension AccountBalanceInteractor {
         }
 
         sort.enumerated().forEach { balance in
-//            print("sort name \(balance.element.asset!.name) \(balance.element.asset!.isGeneral) \(balance.element.asset!.id)")
+            
             let settings = AssetBalanceSettings()
             settings.assetId = balance.element.assetId
             settings.sortLevel = Float(balance.offset)
