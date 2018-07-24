@@ -9,11 +9,6 @@
 import Foundation
 import RxSwift
 
-protocol WalletInteractorProtocol {
-    func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]>
-    func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing>
-}
-
 final class WalletInteractor: WalletInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
     private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
@@ -52,9 +47,9 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                 precision)) }
 
                 let balance = leasing.balance
-                let totalMoney: Money = .init(balance.balance - balance.reserveBalance,
+                let totalMoney: Money = .init(balance.balance,
                                               precision)
-                let avaliableMoney: Money = .init(balance.avaliableBalance,
+                let avaliableMoney: Money = .init(balance.balance - balance.reserveBalance,
                                                   precision)
                 let leasedMoney: Money = .init(leaseAmount,
                                                precision)

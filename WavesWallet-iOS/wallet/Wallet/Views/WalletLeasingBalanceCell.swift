@@ -8,6 +8,12 @@
 
 import UIKit
 
+private enum Constants {
+    static let statusBarPadding: CGFloat = 32
+    static let statusBarMinMediumPercent: CGFloat = 3.5
+    static let statusBarMinSmallPercent: CGFloat = 2
+}
+
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var labelBalance: UILabel!
@@ -20,25 +26,26 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     @IBOutlet var leasedInWidth: NSLayoutConstraint!
     @IBOutlet var viewLeasedInHeight: NSLayoutConstraint!
 
+    private var leasedPercent: CGFloat = 0
+    private var leasedInPercent: CGFloat = 0
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
     }
 
+    override func updateConstraints() {
+
+        let viewWidth = frame.width - Constants.statusBarPadding * 2
+        leasedWidth.constant = leasedPercent * viewWidth / 100
+        leasedInWidth.constant =  leasedInPercent * viewWidth / 100
+
+        super.updateConstraints()
+    }
+
     class func cellHeight() -> CGFloat {
         return 326
     }
-
-//    func setupCell(isAvailableLeasingHistory: Bool) {
-//        let text = "000.0000000"
-//        labelBalance.attributedText = NSAttributedString.styleForBalance(text: text, font: labelBalance.font)
-//        let viewWidth = Platform.ScreenWidth - 32 - 32
-//        let leasedPercent: CGFloat = 40
-//        let leasedInPercent: CGFloat = 50
-//        leasedWidth.constant = leasedPercent * viewWidth / 100
-//        leasedInWidth.constant = isAvailableLeasingHistory ? leasedInPercent * viewWidth / 100 : 0
-//        viewLeasedInHeight.constant = isAvailableLeasingHistory ? 40 : 0
-//    }
 }
 
 extension WalletLeasingBalanceCell: ViewConfiguration {
@@ -51,5 +58,22 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
                                                                font: leasedInBalanceLabel.font)
         leasedBalanceLabel.attributedText = .styleForBalance(text: model.leasedMoney.displayTextFull,
                                                              font: leasedBalanceLabel.font)
+
+        leasedPercent = CGFloat(model.leasedMoney.amount) / CGFloat(model.avaliableMoney.amount) * 100
+        leasedInPercent = CGFloat(model.leasedInMoney.amount + model.leasedMoney.amount) / CGFloat(model.avaliableMoney.amount) * 100
+
+        if leasedPercent < Constants.statusBarMinSmallPercent {
+            leasedPercent = leasedPercent > leasedInPercent ? Constants.statusBarMinMediumPercent : Constants.statusBarMinSmallPercent
+        }
+
+        if leasedInPercent < Constants.statusBarMinSmallPercent {
+            let offSet = leasedPercent > leasedInPercent ? Constants.statusBarMinMediumPercent : Constants.statusBarMinSmallPercent
+            leasedInPercent = leasedPercent + offSet
+        }
+
+        leasedPercent = min(leasedPercent, 100)
+        leasedInPercent = min(leasedInPercent, 100)
+
+        setNeedsUpdateConstraints()
     }
 }

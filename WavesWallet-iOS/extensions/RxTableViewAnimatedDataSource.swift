@@ -31,17 +31,14 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
                 dataSource.setSections(newSections)
                 tableView.reloadData()
             } else if self.dataSet {
-                DispatchQueue.main.async {
-
-                    dataSource.setSections(newSections)
-                    UIView.transition(with: tableView,
-                                      duration: 0.24,
-                                      options: [.transitionCrossDissolve,
-                                                .curveEaseInOut],
-                                      animations: {
-                                          tableView.reloadData()
-                    }, completion: { _ in })
-                }
+                dataSource.setSections(newSections)
+                UIView.transition(with: tableView,
+                                  duration: 0.24,
+                                  options: [.transitionCrossDissolve,
+                                            .curveEaseInOut],
+                                  animations: {
+                                      tableView.reloadData()
+                }, completion: { _ in })
             }
         }
         .on(observedEvent)
@@ -49,16 +46,10 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
 
     func tableView(_ tableView: UITableView, reloadSection: Driver<UpdateSection>) {
         reloadSection.drive(onNext: { [weak self] update in
-             DispatchQueue.main.async {
-//                let contentOffset = tableView.contentOffset
-                self?.setSections(update.sections)
-//                tableView.beginUpdates()
-                tableView.reloadSections(IndexSet(integer: update.index), with: .fade)
-//                tableView.endUpdates()
-//                tableView.layer.removeAllAnimations()
-//                tableView.setContentOffset(contentOffset, animated: false)
-            }
+
+            self?.setSections(update.sections)
+            tableView.reloadSections(IndexSet(integer: update.index), with: .fade)
         })
-            .disposed(by: disposeBag)
+        .disposed(by: disposeBag)
     }
 }

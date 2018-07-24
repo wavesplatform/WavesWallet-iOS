@@ -407,11 +407,11 @@
                         <viewControllerLayoutGuide type="bottom" id="enW-Ql-DmX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3xq-SF-Raa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
-                                <rect key="frame" x="0.0" y="64" width="320" height="936"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-TU-Swn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7VC-ir-FC1" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -1054,7 +1054,7 @@
                                         <rect key="frame" x="0.0" y="748" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="weF-g6-sbP" id="xm0-SL-3cg">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKe-vw-kiB">
@@ -1103,7 +1103,7 @@
                                         <rect key="frame" x="0.0" y="792" width="320" height="326"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Csy-1q-XtN" id="u3v-p3-7Fi">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="325.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvi-bf-2lA">
@@ -1403,8 +1403,8 @@
                                             <outlet property="labelBalance" destination="8E5-qh-7YO" id="i3h-S9-rA0"/>
                                             <outlet property="leasedBalanceLabel" destination="YGR-Hr-n1K" id="78P-H3-XvN"/>
                                             <outlet property="leasedInBalanceLabel" destination="XoD-Jh-iN5" id="02D-sc-05p"/>
-                                            <outlet property="leasedInWidth" destination="XoD-Jh-iN5" id="b1l-Kb-Und"/>
-                                            <outlet property="leasedWidth" destination="uLH-cV-iU3" id="yLr-70-igA"/>
+                                            <outlet property="leasedInWidth" destination="ihg-Sd-khc" id="vD0-M5-zbS"/>
+                                            <outlet property="leasedWidth" destination="uLH-cV-iU3" id="96A-N9-ff9"/>
                                             <outlet property="viewContainer" destination="Xvi-bf-2lA" id="kSg-2o-d2G"/>
                                             <outlet property="viewLeasedInHeight" destination="CyH-5j-2Ol" id="nw4-LQ-FP6"/>
                                         </connections>
@@ -1415,14 +1415,12 @@
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FIb-TU-Swn" secondAttribute="trailing" id="3eR-h6-E6b"/>
-                            <constraint firstItem="enW-Ql-DmX" firstAttribute="top" secondItem="FIb-TU-Swn" secondAttribute="bottom" id="lSs-6o-Eax"/>
-                            <constraint firstItem="FIb-TU-Swn" firstAttribute="top" secondItem="B3N-OX-1jg" secondAttribute="bottom" id="uks-Nr-yOc"/>
+                            <constraint firstAttribute="bottom" secondItem="FIb-TU-Swn" secondAttribute="bottom" id="lSs-6o-Eax"/>
+                            <constraint firstItem="FIb-TU-Swn" firstAttribute="top" secondItem="3xq-SF-Raa" secondAttribute="top" id="uks-Nr-yOc"/>
                             <constraint firstItem="FIb-TU-Swn" firstAttribute="leading" secondItem="3xq-SF-Raa" secondAttribute="leading" id="vAl-wp-UOd"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="segmentedControl" destination="7VC-ir-FC1" id="EeI-bh-O3c"/>
                         <outlet property="tableView" destination="FIb-TU-Swn" id="bz2-vK-aXn"/>

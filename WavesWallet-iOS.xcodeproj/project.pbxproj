@@ -88,6 +88,7 @@
 		0AE6572F2106340A003D2DB8 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6572E2106340A003D2DB8 /* Signature.swift */; };
 		0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */; };
 		0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE657332106375D003D2DB8 /* TimestampSignature.swift */; };
+		0AE6573621073B44003D2DB8 /* WalletInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6573521073B44003D2DB8 /* WalletInteractorProtocol.swift */; };
 		0AF2F2BF20F757BA00AA39FB /* ViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2F2BE20F757BA00AA39FB /* ViewConfiguration.swift */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
@@ -370,6 +371,7 @@
 		0AE6572E2106340A003D2DB8 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceMatcherService.swift; sourceTree = "<group>"; };
 		0AE657332106375D003D2DB8 /* TimestampSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampSignature.swift; sourceTree = "<group>"; };
+		0AE6573521073B44003D2DB8 /* WalletInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInteractorProtocol.swift; sourceTree = "<group>"; };
 		0AF2F2BE20F757BA00AA39FB /* ViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfiguration.swift; sourceTree = "<group>"; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 		0A4B176220FC031E00F996F2 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				0AE6573521073B44003D2DB8 /* WalletInteractorProtocol.swift */,
 				0A4B176320FC032700F996F2 /* WalletInteractor.swift */,
 			);
 			path = Interactor;
@@ -1718,6 +1721,7 @@
 				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
 				0A4B176620FC048000F996F2 /* WalletTypes+ViewModels.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
+				0AE6573621073B44003D2DB8 /* WalletInteractorProtocol.swift in Sources */,
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,

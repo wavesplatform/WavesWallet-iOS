@@ -33,20 +33,19 @@ final class WalletViewController: UIViewController {
 
         title = "Wallet"
         createMenuButton()
-        setupRefreshControl()
         setupSegmetedControl()
         setupTableView()
+        setupRefreshControl()
         setupSystem()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        setupTopBarLine()
-        setupBigNavigationBar()
-
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barTintColor = UIColor.basic50
+        setupTopBarLine()
+        setupBigNavigationBar()
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
@@ -71,11 +70,19 @@ private extension WalletViewController {
             .map { WalletTypes.Event.readyView }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let refreshEvent = refreshControl
+        let scrollViewDidEndDecelerating = tableView
+            .rx
+            .didEndDecelerating            
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        let refreshControlValueChanged = refreshControl
             .rx
             .controlEvent(.valueChanged)
-            .map { WalletTypes.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
+
+        let refreshEvent = refreshControlValueChanged
+            .flatMapLatest { scrollViewDidEndDecelerating }                                                
+            .map { _ in WalletTypes.Event.refresh }
 
         let tapEvent = displayData
             .tapSection
@@ -134,8 +141,7 @@ private extension WalletViewController {
                 self?.setupRightButons(display: display)
             })
 
-        return [refreshControl,
-                segmentedControl]
+        return [segmentedControl, refreshControl]
     }
 }
 
@@ -173,23 +179,26 @@ private extension WalletViewController {
     }
 
     func setupTableView() {
-        tableView.estimatedRowHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.contentInset = Constants.contentInset
-        tableView.scrollIndicatorInsets = Constants.contentInset
+//        tableView.estimatedRowHeight = 0
+//        tableView.estimatedSectionFooterHeight = 0
+//        tableView.estimatedSectionHeaderHeight = 0
+//        tableView.contentInset = Constants.contentInset
+//        tableView.scrollIndicatorInsets = Constants.contentInset
         displayData.delegate = self
 
-        automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }
+//        navigationController?.navigationBar.isTranslucent = true
+//        edgesForExtendedLayout = .all
+
+//        extendedLayoutIncludesOpaqueBars = true
+//        if #available(iOS 11.0, *) {
+//            tableView.contentInsetAdjustmentBehavior = .always
+//        }
+//        automaticallyAdjustsScrollViewInsets = true
     }
 
     func setupSegmetedControl() {
 
         let buttons = displays.map { SegmentedControl.Button(name: $0.name) }
-
         segmentedControl
             .segmentedControl
             .update(with: buttons, animated: true)

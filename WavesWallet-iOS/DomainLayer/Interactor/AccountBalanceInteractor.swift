@@ -21,7 +21,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [NetworkLoggerPlugin(verbose: false)])
     private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
     private let realm = try! Realm()
 
