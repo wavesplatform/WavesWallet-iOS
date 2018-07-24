@@ -186,7 +186,7 @@ extension AccountBalanceInteractor {
         }
 
         sort.enumerated().forEach { balance in
-            print("sort name \(balance.element.asset!.name) \(balance.element.asset!.isGeneral) \(balance.element.asset!.id)")
+//            print("sort name \(balance.element.asset!.name) \(balance.element.asset!.isGeneral) \(balance.element.asset!.id)")
             let settings = AssetBalanceSettings()
             settings.assetId = balance.element.assetId
             settings.sortLevel = Float(balance.offset)

@@ -20,11 +20,11 @@ final class WalletPresenter: WalletPresenterProtocol {
     private let interactor: WalletInteractorProtocol = WalletInteractor()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func bindUI(feedback: @escaping Feedback) {
+    func system(bindings: @escaping Feedback) {
         Driver
             .system(initialState: WalletPresenter.initialState(),
                     reduce: WalletPresenter.reduce,
-                    feedback: feedback,
+                    feedback: bindings,
                     queryAssets(),
                     queryLeasing())
 

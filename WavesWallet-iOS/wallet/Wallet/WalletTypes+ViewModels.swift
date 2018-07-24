@@ -103,21 +103,3 @@ extension WalletTypes.ViewModel.Section {
         return sections
     }
 }
-
-extension WalletTypes.ViewModel.Section {
-//    var header: String? {
-//        let count = items.filter { $0 != .hidden }.count
-//        switch kind {
-//        case .mainAssets, .mainLeasing:
-//            return nil
-//        case .spamAssets:
-//            return "Spam assets (\(count))"
-//        case .hiddenAssets:
-//            return "Hidden assets (\(count))"
-//        case .activeTransaction:
-//            return "Active now (\(count))"
-//        case .quickNote:
-//            return "Quick note"
-//        }
-//    }
-}

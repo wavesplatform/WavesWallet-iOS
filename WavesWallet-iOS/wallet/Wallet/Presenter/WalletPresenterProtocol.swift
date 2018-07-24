@@ -14,5 +14,5 @@ import RxFeedback
 protocol WalletPresenterProtocol {
     typealias Feedback = (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event>
 
-    func bindUI(feedback: @escaping Feedback)
+    func system(bindings: @escaping Feedback)
 }

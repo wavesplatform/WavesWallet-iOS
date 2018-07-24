@@ -53,3 +53,14 @@ extension WalletTypes {
     }
 }
 
+extension WalletTypes.Display {
+
+    var name: String {
+        switch self {
+        case .assets:
+            return "Assets"
+        case .leasing:
+            return "Leasing"
+        }
+    }
+}
