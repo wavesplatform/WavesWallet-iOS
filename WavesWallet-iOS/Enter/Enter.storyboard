@@ -908,6 +908,197 @@
             </objects>
             <point key="canvasLocation" x="-15.199999999999999" y="1448.7256371814094"/>
         </scene>
+        <!--Save Backup Phrase View Controller-->
+        <scene sceneID="Z0e-Ac-rMT">
+            <objects>
+                <viewController storyboardIdentifier="SaveBackupPhraseViewController" id="rkI-zh-soD" customClass="SaveBackupPhraseViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tTy-6D-V5p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Since only you control your money, you’ll need to save your backup phrase in case this app is deleted or go back" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4EP-Qi-Fvx">
+                                <rect key="frame" x="16" y="44" width="343" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qk4-Mg-JuE" customClass="BorderButtView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="115" width="343" height="52.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTh-V2-3Nz">
+                                        <rect key="frame" x="16" y="16" width="311" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iTh-V2-3Nz" secondAttribute="trailing" constant="16" id="D00-bc-ytc"/>
+                                    <constraint firstItem="iTh-V2-3Nz" firstAttribute="top" secondItem="qk4-Mg-JuE" secondAttribute="top" constant="16" id="ehc-0T-wxe"/>
+                                    <constraint firstAttribute="bottom" secondItem="iTh-V2-3Nz" secondAttribute="bottom" constant="16" id="guQ-9k-Or9"/>
+                                    <constraint firstItem="iTh-V2-3Nz" firstAttribute="leading" secondItem="qk4-Mg-JuE" secondAttribute="leading" constant="16" id="uWJ-Ie-vPg"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please carefully write down these 15 words or copy them" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AY7-aF-U7U">
+                                <rect key="frame" x="16" y="191.5" width="301" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37Y-L6-12b">
+                                <rect key="frame" x="330" y="187.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="2rM-4E-i7L"/>
+                                    <constraint firstAttribute="width" constant="40" id="ieZ-8J-bRM"/>
+                                </constraints>
+                                <state key="normal" image="copy_address"/>
+                                <connections>
+                                    <action selector="copyTapped:" destination="rkI-zh-soD" eventType="touchUpInside" id="LXI-9e-6g8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjC-Mf-N8A">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="9cH-WY-6FZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="I've written it down">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextTapped:" destination="rkI-zh-soD" eventType="touchUpInside" id="a2q-fR-mRa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will confirm this phrase on the next screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFb-7V-SWi">
+                                <rect key="frame" x="16" y="555" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cGl-3D-UTp" firstAttribute="bottom" secondItem="CjC-Mf-N8A" secondAttribute="bottom" constant="24" id="0cb-CQ-7gV"/>
+                            <constraint firstItem="4EP-Qi-Fvx" firstAttribute="leading" secondItem="cGl-3D-UTp" secondAttribute="leading" constant="16" id="31W-hE-l7u"/>
+                            <constraint firstItem="cGl-3D-UTp" firstAttribute="trailing" secondItem="qk4-Mg-JuE" secondAttribute="trailing" constant="16" id="7H1-bc-nBg"/>
+                            <constraint firstItem="qk4-Mg-JuE" firstAttribute="leading" secondItem="cGl-3D-UTp" secondAttribute="leading" constant="16" id="Czu-MO-gye"/>
+                            <constraint firstItem="cGl-3D-UTp" firstAttribute="trailing" secondItem="37Y-L6-12b" secondAttribute="trailing" constant="5" id="FXb-hh-sXu"/>
+                            <constraint firstItem="AY7-aF-U7U" firstAttribute="top" secondItem="qk4-Mg-JuE" secondAttribute="bottom" constant="24" id="M2a-Qf-OJJ"/>
+                            <constraint firstAttribute="trailing" secondItem="4EP-Qi-Fvx" secondAttribute="trailing" constant="16" id="NfO-bM-m7E"/>
+                            <constraint firstAttribute="trailing" secondItem="CjC-Mf-N8A" secondAttribute="trailing" constant="16" id="QlF-e2-hMx"/>
+                            <constraint firstItem="qk4-Mg-JuE" firstAttribute="top" secondItem="4EP-Qi-Fvx" secondAttribute="bottom" constant="24" id="Qxh-jj-hxs"/>
+                            <constraint firstItem="cGl-3D-UTp" firstAttribute="trailing" secondItem="AY7-aF-U7U" secondAttribute="trailing" constant="58" id="VXz-nw-UCJ"/>
+                            <constraint firstItem="CjC-Mf-N8A" firstAttribute="leading" secondItem="cGl-3D-UTp" secondAttribute="leading" constant="16" id="YYg-By-xTG"/>
+                            <constraint firstItem="cGl-3D-UTp" firstAttribute="trailing" secondItem="OFb-7V-SWi" secondAttribute="trailing" constant="16" id="d3u-4k-Sfi"/>
+                            <constraint firstItem="37Y-L6-12b" firstAttribute="centerY" secondItem="AY7-aF-U7U" secondAttribute="centerY" id="dot-cW-gxf"/>
+                            <constraint firstItem="OFb-7V-SWi" firstAttribute="leading" secondItem="cGl-3D-UTp" secondAttribute="leading" constant="16" id="e0R-4I-2OG"/>
+                            <constraint firstItem="CjC-Mf-N8A" firstAttribute="top" secondItem="OFb-7V-SWi" secondAttribute="bottom" constant="24" id="g6Y-SZ-wya"/>
+                            <constraint firstItem="AY7-aF-U7U" firstAttribute="leading" secondItem="cGl-3D-UTp" secondAttribute="leading" constant="16" id="uOG-fB-H32"/>
+                            <constraint firstItem="4EP-Qi-Fvx" firstAttribute="top" secondItem="cGl-3D-UTp" secondAttribute="top" constant="24" id="ytA-mY-Xnz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cGl-3D-UTp"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCopy" destination="37Y-L6-12b" id="ZgJ-hq-Xr0"/>
+                        <outlet property="labelWords" destination="iTh-V2-3Nz" id="Lk0-a5-glr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AQ5-Na-JzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-15" y="2132"/>
+        </scene>
+        <!--Confirm Backup View Controller-->
+        <scene sceneID="3b5-ec-xDM">
+            <objects>
+                <viewController storyboardIdentifier="ConfirmBackupViewController" id="A7w-EQ-qqp" customClass="ConfirmBackupViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KJB-t9-yIc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5RM-1v-WQu" customClass="ConfirmBackupStackListView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="543" width="343" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="csg-wQ-8f8"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please, tap each word in the correct order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fK-me-lcH">
+                                <rect key="frame" x="16" y="503" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQx-vO-PTe" customClass="ConfirmBackupStackInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="44" width="343" height="64"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="qnJ-yp-qfF"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cX-k1-8tH">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="2ba-aX-yeA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="confirmTapped:" destination="A7w-EQ-qqp" eventType="touchUpInside" id="7BN-dx-mPS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong order, try again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyc-Ih-btL">
+                                <rect key="frame" x="119.5" y="180" width="136" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.93725490196078431" green="0.28235294117647058" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2cX-k1-8tH" firstAttribute="leading" secondItem="KJB-t9-yIc" secondAttribute="leading" constant="16" id="7D2-Kr-sh5"/>
+                            <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="cQx-vO-PTe" secondAttribute="trailing" constant="16" id="HIp-oV-b70"/>
+                            <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="2cX-k1-8tH" secondAttribute="trailing" constant="16" id="HPH-rP-Ewj"/>
+                            <constraint firstItem="pyc-Ih-btL" firstAttribute="top" secondItem="cQx-vO-PTe" secondAttribute="bottom" constant="72" id="VBT-O8-xto"/>
+                            <constraint firstAttribute="trailing" secondItem="2fK-me-lcH" secondAttribute="trailing" constant="16" id="VRd-oz-ghG"/>
+                            <constraint firstItem="cQx-vO-PTe" firstAttribute="top" secondItem="tP9-hi-HSX" secondAttribute="top" constant="24" id="bun-MX-Q52"/>
+                            <constraint firstItem="5RM-1v-WQu" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="eOx-bK-5ct"/>
+                            <constraint firstItem="tP9-hi-HSX" firstAttribute="bottom" secondItem="5RM-1v-WQu" secondAttribute="bottom" constant="24" id="gh4-Li-k8E"/>
+                            <constraint firstItem="5RM-1v-WQu" firstAttribute="top" secondItem="2fK-me-lcH" secondAttribute="bottom" constant="24" id="iIx-iq-351"/>
+                            <constraint firstAttribute="bottom" secondItem="2cX-k1-8tH" secondAttribute="bottom" constant="24" id="j1x-fO-Zu3"/>
+                            <constraint firstItem="tP9-hi-HSX" firstAttribute="trailing" secondItem="5RM-1v-WQu" secondAttribute="trailing" constant="16" id="kem-Se-oHq"/>
+                            <constraint firstItem="2fK-me-lcH" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="mgY-DT-icK"/>
+                            <constraint firstItem="pyc-Ih-btL" firstAttribute="centerX" secondItem="KJB-t9-yIc" secondAttribute="centerX" id="wcf-gy-EOy"/>
+                            <constraint firstItem="cQx-vO-PTe" firstAttribute="leading" secondItem="tP9-hi-HSX" secondAttribute="leading" constant="16" id="zbd-4Y-MI5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tP9-hi-HSX"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonConfirm" destination="2cX-k1-8tH" id="Pjg-zO-4im"/>
+                        <outlet property="labelError" destination="pyc-Ih-btL" id="lXc-5G-FYy"/>
+                        <outlet property="labelTapWord" destination="2fK-me-lcH" id="xFz-C6-ebG"/>
+                        <outlet property="stackListView" destination="5RM-1v-WQu" id="IHH-jy-nYu"/>
+                        <outlet property="stackTopView" destination="cQx-vO-PTe" id="dmW-8V-XiM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5I2-SR-z0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="676" y="2132"/>
+        </scene>
         <!--New Account Secret Phrase View Controller-->
         <scene sceneID="HE7-kQ-XmB">
             <objects>
@@ -1057,6 +1248,9 @@ You should ONLY use the official Waves client.</string>
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="understandTapped:" destination="jrn-Jm-Tch" eventType="touchUpInside" id="nTc-vv-yIY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2087,6 +2281,7 @@ You do not have saved accounts</string>
     <resources>
         <image name="arrowright14Basic200" width="14" height="14"/>
         <image name="btn_back" width="22" height="22"/>
+        <image name="copy_address" width="18" height="18"/>
         <image name="flag18Britain" width="18" height="18"/>
         <image name="on" width="24" height="24"/>
         <image name="topbarBackwhite" width="22" height="22"/>

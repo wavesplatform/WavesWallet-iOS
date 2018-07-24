@@ -20,6 +20,11 @@ class NewAccountBackupInfoViewController: UIViewController {
         }
     }
 
-   
+    
+    @IBAction func understandTapped(_ sender: Any) {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "SaveBackupPhraseViewController") as! SaveBackupPhraseViewController
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 
 }
