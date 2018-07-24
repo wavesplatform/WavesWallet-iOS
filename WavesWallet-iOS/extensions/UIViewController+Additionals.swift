@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import RESideMenu
 
-
 extension UIViewController {
     
     func createBackButton() {
@@ -33,7 +32,8 @@ extension UIViewController {
     func hideTopBarLine() {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
+
+    // TODO: Меня смущает проверка (<= 44) в showImage.
     func setupTopBarLine() {
         
         if let nav = navigationController {
@@ -60,7 +60,7 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     

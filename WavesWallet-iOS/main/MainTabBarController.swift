@@ -61,7 +61,7 @@ class MainTabBarController: RDVTabBarController {
         line.backgroundColor = UIColor(188, 188, 188)
         tabBar.addSubview(line)
         
-        selectedIndex = 4
+        selectedIndex = 0
     }
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
@@ -95,12 +95,12 @@ class MainTabBarController: RDVTabBarController {
     }
 
     func setupLastScrollCorrectOffset() {
-        let nav = selectedViewController as! UINavigationController
-        for controller in nav.viewControllers {
-            let selector = #selector(WalletViewController.setupLastScrollCorrectOffset)
-            if controller.responds(to: selector) {
-                controller.perform(selector)
-            }
-        }
+//        let nav = selectedViewController as! UINavigationController
+//        for controller in nav.viewControllers {
+//            let selector = #selector(WalletViewController.setupLastScrollCorrectOffset)
+//            if controller.responds(to: selector) {
+//                controller.perform(selector)
+//            }
+//        }
     }
 }

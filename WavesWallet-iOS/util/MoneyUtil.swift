@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct Money {
+struct Money: Hashable {
     let amount: Int64
     let decimals: Int
     
@@ -144,11 +144,6 @@ class MoneyUtil {
         }
         return false
     }
-}
-
-func toByteArray<T>(_ value: T) -> [UInt8] {
-    var value = value
-    return (withUnsafeBytes(of: &value) { Array($0) }).reversed()
 }
 
 precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
