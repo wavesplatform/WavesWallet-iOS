@@ -34,12 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func testUI() {
         
-        //        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
-    
-        let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "ConfirmBackupViewController") as! ConfirmBackupViewController
-        
-        let save = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "SaveBackupPhraseViewController") as! SaveBackupPhraseViewController
-        let nav = UINavigationController(rootViewController: save)
+        let hello = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "HelloLanguagesViewController") as! HelloLanguagesViewController
+        let nav = UINavigationController(rootViewController: hello)
     
         let menuController = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
         let sideMenuViewController = RESideMenu(contentViewController: nav, leftMenuViewController: menuController, rightMenuViewController: nil)!

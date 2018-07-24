@@ -50,8 +50,6 @@ class PasscodeViewController: UIViewController, AccountPasswordViewControllerDel
         navigationController?.navigationBar.barTintColor = .white
         setupSmallNavigationBar()
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         if isCreatePasswordMode {
             navigationItem.hidesBackButton = true
         }
@@ -91,6 +89,11 @@ class PasscodeViewController: UIViewController, AccountPasswordViewControllerDel
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(setupButtonBiometrics), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func setupPasswordCreateMode(animation: Bool) {
