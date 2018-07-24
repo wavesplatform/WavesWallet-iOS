@@ -90,13 +90,3 @@ extension WalletTypes.State {
                                  leasing: .initialState(display: .leasing))
     }
 }
-
-extension WalletTypes.State {
-    static func mutate(_ mutation: @escaping (inout WalletTypes.State) -> ()) -> (WalletTypes.State) -> WalletTypes.State {
-        return { state in
-            var newState = state
-            mutation(&newState)
-            return newState
-        }
-    }
-}

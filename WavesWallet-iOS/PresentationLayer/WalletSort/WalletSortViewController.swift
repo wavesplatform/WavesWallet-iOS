@@ -8,65 +8,8 @@
 
 import UIKit
 
-class WalletSortSeparatorCell: UITableViewCell {
-    
-    class func cellHeight() -> CGFloat {
-        return 26
-    }
-}
+final class WalletSortViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-class WalletSortCell: UITableViewCell {
- 
-    @IBOutlet weak var buttonFav: UIButton!
-    @IBOutlet weak var imageIcon: UIImageView!
-    @IBOutlet weak var arrowGreen: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var iconMenu: UIImageView!
-    @IBOutlet weak var switchControl: UISwitch!
-    @IBOutlet weak var viewContent: UIView!
-    @IBOutlet weak var labelCryptoName: UILabel!
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        viewContent.addTableCellShadowStyle()
-    }
-    
-    class func cellHeight() -> CGFloat {
-        return 56
-    }
-    
-    func setupCellState(isVisibility: Bool) {
-        switchControl.alpha = isVisibility ? 1 : 0
-        iconMenu.alpha = isVisibility ? 0 : 1
-        
-        iconMenu.alpha = 0
-    }
-}
-
-class WalletSortFavCell: UITableViewCell {
-    
-    @IBOutlet weak var imageIcon: UIImageView!
-    @IBOutlet weak var buttonFav: UIButton!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var iconLock: UIImageView!
-    @IBOutlet weak var arrowGreen: UIImageView!
-    @IBOutlet weak var switchControl: UISwitch!
-    @IBOutlet weak var labelCryptoName: UILabel!
-    
-    class func cellHeight() -> CGFloat {
-        return 48
-    }
-    
-    func setupCellState(isVisibility: Bool) {
-        switchControl.alpha = isVisibility ? 1 : 0
-    }
-}
-
-
-class WalletSortViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    
     enum Section: Int {
         case fav = 0
         case separator
