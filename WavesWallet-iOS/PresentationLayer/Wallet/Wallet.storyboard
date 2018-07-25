@@ -30,7 +30,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8R-9z-bG6" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="18" width="288" height="30"/>
+                                            <rect key="frame" x="16" y="18" width="343" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
@@ -54,17 +54,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEI-oP-PRf">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="194"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="194"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwN-3E-FsS">
-                                                            <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                                             <string key="text">You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43D-Yx-XaZ" userLabel="Top Dotted Line View" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="74" width="288" height="0.5"/>
+                                                            <rect key="frame" x="0.0" y="74" width="343" height="0.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="eEc-qf-SVa"/>
@@ -78,20 +78,20 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edY-Eb-7PH">
-                                                            <rect key="frame" x="42" y="87.5" width="246" height="47"/>
+                                                            <rect key="frame" x="42" y="87.5" width="301" height="47"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aC7-5o-44E" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="148.5" width="288" height="1"/>
+                                                            <rect key="frame" x="0.0" y="148.5" width="343" height="1"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="rjp-XI-hTm"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="The generating balance will be updated after 1000 blocks." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03s-uV-mcu">
-                                                            <rect key="frame" x="0.0" y="162.5" width="288" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="162.5" width="343" height="31.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -143,7 +143,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-o8-ieU">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="67.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="67.5"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13A-1j-MxJ">
                                                             <rect key="frame" x="14" y="10" width="48" height="47.5"/>
@@ -292,7 +292,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A32-81-Gvp">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="36"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="36"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jR-d4-Csv" userLabel="Top" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="70" y="18" width="64" height="10"/>
@@ -389,7 +389,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XK-X6-6E0">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="324"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="324"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvh-m9-vUL" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="28" width="64" height="10"/>
@@ -418,7 +418,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHe-Kt-Vaq" userLabel="3" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="16" y="84" width="256" height="8"/>
+                                                            <rect key="frame" x="16" y="84" width="311" height="8"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="BsD-4h-S13"/>
@@ -456,7 +456,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5r-hV-XhO" userLabel="5" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="208" y="118" width="64" height="10"/>
+                                                            <rect key="frame" x="263" y="118" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="64" id="Xb0-ZE-ECx"/>
@@ -482,7 +482,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-gj-taL" userLabel="7" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="208" y="161" width="64" height="10"/>
+                                                            <rect key="frame" x="263" y="161" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="10" id="FeH-nk-Qgk"/>
@@ -508,7 +508,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x61-4Z-etA" userLabel="10" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="208" y="204" width="64" height="10"/>
+                                                            <rect key="frame" x="263" y="204" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="10" id="Afr-cT-no8"/>
@@ -521,7 +521,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a60-48-dY2" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="144" width="256" height="1"/>
+                                                            <rect key="frame" x="16" y="144" width="311" height="1"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="FjT-jb-vZV"/>
@@ -541,7 +541,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4h-Ms-rwU" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="230" width="256" height="1"/>
+                                                            <rect key="frame" x="16" y="230" width="311" height="1"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="D9u-45-4H4"/>
@@ -561,7 +561,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nG8-nN-H4s" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="187" width="256" height="1"/>
+                                                            <rect key="frame" x="16" y="187" width="311" height="1"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="GEi-1x-2nX"/>
@@ -581,7 +581,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEl-nj-jke" userLabel="11" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="16" y="255" width="256" height="48"/>
+                                                            <rect key="frame" x="16" y="255" width="311" height="48"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="48" id="aWw-k4-crA"/>
@@ -670,7 +670,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="36"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="36"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>
@@ -719,7 +719,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="318"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="318"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-tF-ic6">
                                                             <rect key="frame" x="16" y="24" width="80.5" height="16"/>
@@ -763,10 +763,10 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJF-Ow-2yD" userLabel="ProgressBar">
-                                                            <rect key="frame" x="16" y="84" width="256" height="8"/>
+                                                            <rect key="frame" x="16" y="84" width="311" height="8"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQf-y0-2gm" userLabel="avaialble">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="8"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="311" height="8"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.91764705879999997" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </view>
                                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFi-Z6-tW3" userLabel="leased in">
@@ -804,7 +804,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcL-6r-9ca">
-                                                            <rect key="frame" x="16" y="102" width="256" height="40"/>
+                                                            <rect key="frame" x="16" y="102" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KAJ-RA-5nt">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -813,7 +813,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Fi-Wdy">
-                                                                    <rect key="frame" x="248" y="16" width="8" height="8"/>
+                                                                    <rect key="frame" x="303" y="16" width="8" height="8"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.91764705879999997" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="8" id="ecf-26-MTE"/>
@@ -826,13 +826,13 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYs-lG-ZmG">
-                                                                    <rect key="frame" x="186.5" y="12" width="53.5" height="16"/>
+                                                                    <rect key="frame" x="241.5" y="12" width="53.5" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tN0-MM-xVi" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="39" width="256" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="39" width="311" height="1"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="0.5" id="t1j-Ug-sNm"/>
@@ -855,7 +855,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBL-v1-B05">
-                                                            <rect key="frame" x="16" y="142" width="256" height="40"/>
+                                                            <rect key="frame" x="16" y="142" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-cn-jBD">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -864,7 +864,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgZ-OB-1Ep">
-                                                                    <rect key="frame" x="248" y="16" width="8" height="8"/>
+                                                                    <rect key="frame" x="303" y="16" width="8" height="8"/>
                                                                     <color key="backgroundColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="8" id="kyD-Qv-rNC"/>
@@ -877,13 +877,13 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leased" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NI-iz-m8A">
-                                                                    <rect key="frame" x="196.5" y="12" width="43.5" height="16"/>
+                                                                    <rect key="frame" x="251.5" y="12" width="43.5" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31X-TH-Hms" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="39" width="256" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="39" width="311" height="1"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="0.5" id="Td6-pK-bW1"/>
@@ -906,7 +906,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVF-Fg-Q9g">
-                                                            <rect key="frame" x="16" y="182" width="256" height="40"/>
+                                                            <rect key="frame" x="16" y="182" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wnP-Mc-VoY">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -915,7 +915,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIj-Wo-H81">
-                                                                    <rect key="frame" x="248" y="16" width="8" height="8"/>
+                                                                    <rect key="frame" x="303" y="16" width="8" height="8"/>
                                                                     <color key="backgroundColor" red="0.72941176470000002" green="0.79215686269999996" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="8" id="FXn-pb-URK"/>
@@ -928,13 +928,13 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leased in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-Bd-O4g">
-                                                                    <rect key="frame" x="182" y="12" width="58" height="16"/>
+                                                                    <rect key="frame" x="237" y="12" width="58" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVS-5i-SR5" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="39" width="256" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="39" width="311" height="1"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="0.5" id="W4T-mH-Jh8"/>
@@ -957,7 +957,7 @@
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBm-vS-D94">
-                                                            <rect key="frame" x="16" y="246" width="256" height="48"/>
+                                                            <rect key="frame" x="16" y="246" width="311" height="48"/>
                                                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="48" id="DEU-g9-8JI"/>
@@ -1067,7 +1067,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m6W-Pe-j0q">
-                                                    <rect key="frame" x="16" y="0.0" width="288" height="48"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="48"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f5-ZL-KWJ">
                                                             <rect key="frame" x="0.0" y="4" width="40" height="40"/>
@@ -1102,13 +1102,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lock" translatesAutoresizingMaskIntoConstraints="NO" id="cw0-cE-pE7">
-                                                            <rect key="frame" x="252" y="13" width="22" height="22"/>
+                                                            <rect key="frame" x="307" y="13" width="22" height="22"/>
                                                         </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="nRV-1G-MmI">
                                                             <rect key="frame" x="37" y="27" width="14" height="14"/>
                                                         </imageView>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfS-NT-h16">
-                                                            <rect key="frame" x="225" y="8.5" width="51" height="31"/>
+                                                            <rect key="frame" x="280" y="8.5" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </switch>
                                                     </subviews>
@@ -1158,7 +1158,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sOG-r7-BYD">
-                                                    <rect key="frame" x="16" y="4" width="288" height="48"/>
+                                                    <rect key="frame" x="16" y="4" width="343" height="48"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5T-2M-SpC">
                                                             <rect key="frame" x="0.0" y="4" width="40" height="40"/>
@@ -1200,10 +1200,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_menu_sort" translatesAutoresizingMaskIntoConstraints="NO" id="dI8-Gx-jbV">
-                                                            <rect key="frame" x="252" y="13" width="22" height="22"/>
+                                                            <rect key="frame" x="307" y="13" width="22" height="22"/>
                                                         </imageView>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Mq-H6-Lkt">
-                                                            <rect key="frame" x="225" y="9" width="51" height="31"/>
+                                                            <rect key="frame" x="280" y="9" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </switch>
                                                     </subviews>
@@ -1256,7 +1256,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fdd-Cd-jfk">
-                                                    <rect key="frame" x="15" y="15" width="289" height="0.5"/>
+                                                    <rect key="frame" x="15" y="15" width="344" height="0.5"/>
                                                     <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="Hdx-nR-Wku"/>

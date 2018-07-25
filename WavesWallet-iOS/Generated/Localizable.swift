@@ -21,6 +21,14 @@ internal enum L10n {
       }
     }
   }
+
+  internal enum General {
+
+    internal enum Name {
+      /// / My Asset
+      internal static let myasset = L10n.tr("Localizable", "general.name.myasset")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 
