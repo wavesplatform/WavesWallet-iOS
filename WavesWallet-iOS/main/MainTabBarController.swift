@@ -44,7 +44,8 @@ class MainTabBarController: RDVTabBarController {
         let wallet = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "WalletViewController")
         let navWallet = UINavigationController(rootViewController: wallet)
 
-        let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
+        let dex = StoryboardManager.DexStoryboard().instantiateViewController(withIdentifier: "DexListViewController")
+        let navDex = UINavigationController(rootViewController: dex)
 
         let history = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
         history.isMenuButton = true
