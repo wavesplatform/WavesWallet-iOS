@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class WalletSortCell: UITableViewCell {
+final class WalletSortCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var buttonFav: UIButton!
     @IBOutlet weak var imageIcon: UIImageView!
@@ -19,14 +19,9 @@ final class WalletSortCell: UITableViewCell {
     @IBOutlet weak var viewContent: UIView!
     @IBOutlet weak var labelCryptoName: UILabel!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContent.addTableCellShadowStyle()
-    }
-
-    class func cellHeight() -> CGFloat {
-        return 56
     }
 
     func setupCellState(isVisibility: Bool) {
@@ -34,5 +29,9 @@ final class WalletSortCell: UITableViewCell {
         iconMenu.alpha = isVisibility ? 0 : 1
 
         iconMenu.alpha = 0
+    }
+
+    class func cellHeight() -> CGFloat {
+        return 56
     }
 }

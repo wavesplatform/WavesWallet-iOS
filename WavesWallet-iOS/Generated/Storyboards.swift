@@ -135,11 +135,6 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
-    internal static let initialScene = InitialSceneType<UITabBarController>(storyboard: Main.self)
-  }
-  internal enum Main: StoryboardType {
-    internal static let storyboardName = "Main"
-
     internal static let assetChartViewController = SceneType<WavesWallet_iOS.AssetChartViewController>(storyboard: Main.self, identifier: "AssetChartViewController")
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Main.self, identifier: "AssetViewController")
@@ -151,10 +146,6 @@ internal enum StoryboardScene {
     internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: Main.self, identifier: "MyAddressViewController")
 
     internal static let startLeasingViewController = SceneType<WavesWallet_iOS.StartLeasingViewController>(storyboard: Main.self, identifier: "StartLeasingViewController")
-
-    internal static let walletSortViewController = SceneType<WavesWallet_iOS.WalletSortViewController>(storyboard: Main.self, identifier: "WalletSortViewController")
-
-    internal static let walletViewController = SceneType<WavesWallet_iOS.WalletViewController>(storyboard: Main.self, identifier: "WalletViewController")
   }
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
@@ -196,6 +187,13 @@ internal enum StoryboardScene {
     internal static let selectAccountViewController = SceneType<WavesWallet_iOS.SelectAccountViewController>(storyboard: Transfer.self, identifier: "SelectAccountViewController")
 
     internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Transfer.self, identifier: "SendViewController")
+  }
+  internal enum Wallet: StoryboardType {
+    internal static let storyboardName = "Wallet"
+
+    internal static let walletSortViewController = SceneType<WavesWallet_iOS.WalletSortViewController>(storyboard: Wallet.self, identifier: "WalletSortViewController")
+
+    internal static let walletViewController = SceneType<WavesWallet_iOS.WalletViewController>(storyboard: Wallet.self, identifier: "WalletViewController")
   }
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"

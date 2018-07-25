@@ -20,10 +20,12 @@ final class WalletPresenter: WalletPresenterProtocol {
     private let interactor: WalletInteractorProtocol = WalletInteractor()
     private let disposeBag: DisposeBag = DisposeBag()
 
+    var moduleOutput: WalletModuleOutput?
+
     func system(bindings: @escaping Feedback) {
         Driver
             .system(initialState: WalletPresenter.initialState(),
-                    reduce: WalletPresenter.reduce,
+                    reduce: reduce,
                     feedback: bindings,
                     queryAssets(),
                     queryLeasing())
@@ -72,18 +74,28 @@ final class WalletPresenter: WalletPresenterProtocol {
         })
     }
 
-    private static func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
+    private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
-        case .none:
-            return state
         case .readyView:
+
             return state
+        case .tapSortButton:
+            moduleOutput?.showWalletSort()
+
+            return state
+        case .tapAddressButton:
+            moduleOutput?.showMyAddress()
+            return state
+
         case .refresh:
             return state.setIsRefreshing(isRefreshing: true)
+
         case .tapSection(let section):
             return state.toggleCollapse(index: section)
+
         case .changeDisplay(let display):
             return state.setDisplay(display: display)
+
         case .responseAssets(let response):
 
             let secions = WalletTypes.ViewModel.Section.map(from: response)
@@ -93,6 +105,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                                                          animateType: .refresh))
 
             return newState
+            
         case .responseLeasing(let response):
             let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setLeasing(leasing: .init(sections: secions,

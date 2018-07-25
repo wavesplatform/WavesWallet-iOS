@@ -20,13 +20,22 @@ private enum Constants {
 final class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: WalletSegmentedControl!
-    var refreshControl: UIRefreshControl!
+    private var refreshControl: UIRefreshControl!
 
-    private var presenter: WalletPresenterProtocol = WalletPresenter()
-    private let displayData: WalletDisplayData = WalletDisplayData()
     private let disposeBag: DisposeBag = DisposeBag()
-
+    private let displayData: WalletDisplayData = WalletDisplayData()
     private let displays: [WalletTypes.Display] = [.assets, .leasing]
+
+    private let buttonAddress = UIBarButtonItem(image: Images.Wallet.walletScanner.image,
+                                                style: .plain,
+                                                target: nil,
+                                                action: nil)
+    private let buttonSort = UIBarButtonItem(image: Images.Wallet.walletSort.image,
+                                             style: .plain,
+                                             target: nil,
+                                             action: nil)
+
+    var presenter: WalletPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +69,33 @@ final class WalletViewController: UIViewController {
 // MARK: Bind UI
 
 private extension WalletViewController {
-
     func setupSystem() {
+
+        let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
+
+            let subscriptions = owner.uiSubscriptions(state: state)
+            let events = owner.events()
+
+            return Bindings(subscriptions: subscriptions,
+                            events: events)
+        }
+
+        presenter.system(bindings: feedback)
+    }
+
+    func events() -> [Signal<WalletTypes.Event>] {
+
+        let sortTapEvent = buttonSort
+            .rx
+            .tap
+            .map { WalletTypes.Event.tapSortButton }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        let addressTapEvent = buttonAddress
+            .rx
+            .tap
+            .map { WalletTypes.Event.tapAddressButton }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
         let readyViewEvent = rx
             .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
@@ -72,7 +106,7 @@ private extension WalletViewController {
 
         let scrollViewDidEndDecelerating = tableView
             .rx
-            .didEndDecelerating            
+            .didEndDecelerating
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let refreshControlValueChanged = refreshControl
@@ -81,7 +115,7 @@ private extension WalletViewController {
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let refreshEvent = refreshControlValueChanged
-            .flatMapLatest { scrollViewDidEndDecelerating }                                                
+            .flatMapLatest { scrollViewDidEndDecelerating }
             .map { _ in WalletTypes.Event.refresh }
 
         let tapEvent = displayData
@@ -96,20 +130,12 @@ private extension WalletViewController {
                 return .changeDisplay(display)
         }
 
-        let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
-
-            let subscriptions: [Disposable] = owner.uiSubscriptions(state: state)
-
-            let events: [Signal<WalletTypes.Event>] = [readyViewEvent,
-                                                       refreshEvent,
-                                                       tapEvent,
-                                                       changedDisplayEvent]
-
-            return Bindings(subscriptions: subscriptions,
-                            events: events)
-        }
-
-        presenter.system(bindings: feedback)
+        return [readyViewEvent,
+                refreshEvent,
+                tapEvent,
+                changedDisplayEvent,
+                sortTapEvent,
+                addressTapEvent]
     }
 
     func uiSubscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
@@ -148,24 +174,15 @@ private extension WalletViewController {
 // MARK: Setup Methods
 
 private extension WalletViewController {
-
     func setupRightButons(display: WalletTypes.Display) {
 
         switch display {
         case .assets:
-            let btnScan = UIBarButtonItem(image: UIImage(named: "wallet_scanner"),
-                                          style: .plain,
-                                          target: nil, action: nil)
-            let btnSort = UIBarButtonItem(image: UIImage(named: "wallet_sort"),
-                                          style: .plain,
-                                          target: nil, action: nil)
-            navigationItem.rightBarButtonItems = [btnScan,
-                                                  btnSort]
+            navigationItem.rightBarButtonItems = [buttonAddress,
+                                                  buttonSort]
+
         case .leasing:
-            let btnScan = UIBarButtonItem(image: UIImage(named: "wallet_scanner"),
-                                          style: .plain,
-                                          target: nil, action: nil)
-            navigationItem.rightBarButtonItems = [btnScan]
+            navigationItem.rightBarButtonItems = [buttonAddress]
         }
     }
 
@@ -197,7 +214,6 @@ private extension WalletViewController {
     }
 
     func setupSegmetedControl() {
-
         let buttons = displays.map { SegmentedControl.Button(name: $0.name) }
         segmentedControl
             .segmentedControl

@@ -8,9 +8,18 @@ import Foundation
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum L10n {
 
-  internal enum Time {
-    /// 10:20
-    internal static let clock = L10n.tr("Localizable", "time.clock")
+  internal enum Controller {
+
+    internal enum Wallet {
+
+      internal enum Navigation {
+
+        internal enum Bar {
+          /// Wallet
+          internal static let title = L10n.tr("Localizable", "controller.wallet.navigation.bar.title")
+        }
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

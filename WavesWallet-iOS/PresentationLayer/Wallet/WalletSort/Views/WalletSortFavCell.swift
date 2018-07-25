@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class WalletSortFavCell: UITableViewCell {
+final class WalletSortFavCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var buttonFav: UIButton!
@@ -18,11 +18,12 @@ final class WalletSortFavCell: UITableViewCell {
     @IBOutlet weak var switchControl: UISwitch!
     @IBOutlet weak var labelCryptoName: UILabel!
 
+    func setupCellState(isVisibility: Bool) {
+        switchControl.alpha = isVisibility ? 1 : 0
+    }
+
     class func cellHeight() -> CGFloat {
         return 48
     }
 
-    func setupCellState(isVisibility: Bool) {
-        switchControl.alpha = isVisibility ? 1 : 0
-    }
 }

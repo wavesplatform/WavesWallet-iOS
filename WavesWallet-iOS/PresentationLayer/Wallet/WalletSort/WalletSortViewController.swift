@@ -7,44 +7,79 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxFeedback
 
 final class WalletSortViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var tableView: UITableView!
+
+    private let presenter: WalletSortPresenterProtocol = WalletSortPresenter()
 
     enum Section: Int {
         case fav = 0
         case separator
         case sort
     }
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+
     var isVisibilityMode = false
-
-
     var favItems = ["Waves", "Bitcoin", "ETH", "ETH Classic", "Ripple"]
     var sortItems = ["Bitcoin Cash", "EOS", "Cardano", "Stellar", "Litecoin", "NEO", "TRON", "Monero", "ZCash"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Sorting"
-        
         createBackButton()
-    
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Visibility", style: .plain, target: self, action: #selector(changeStyle))
+
+        title = "Sorting"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Visibility",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(changeStyle))
 
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
-        hideTopBarLine()
         tableView.isEditing = true
+
+        let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
+
+
+            return Bindings(subscriptions: owner.subscriptions(state: state),
+                            events: owner.events())
+        }
+        presenter.system(bindings: feedback)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupTopBarLine()
+    }
+}
+
+// MARK: System
+
+fileprivate extension WalletSortViewController {
+
+    func events() -> [Signal<WalletSort.Event>] {
+        return []
+    }
+
+    func subscriptions(state: Driver<WalletSort.State>) -> [Disposable] {
+        return []
+    }
+}
+
+// MARK: Actions
+
+extension WalletSortViewController {
+
     @objc func changeStyle() {
-        
+
         isVisibilityMode = !isVisibilityMode
         navigationItem.rightBarButtonItem?.title = isVisibilityMode ? "Position" : "Visibility"
-    
+
         UIView.animate(withDuration: 0.3) {
-            
+
             for tableCell in self.tableView.visibleCells {
                 if let cell = tableCell as? WalletSortCell {
                     cell.setupCellState(isVisibility: self.isVisibilityMode)
@@ -60,14 +95,13 @@ final class WalletSortViewController: UIViewController, UITableViewDelegate, UIT
         tableView.setEditing(!isVisibilityMode, animated: true)
     }
 
-    
     @objc func addToFavourite(_ sender: UIButton) {
-     
+
         let index = sender.tag
         let string = sortItems[index]
         sortItems.remove(at: index)
         favItems.append(string)
-        
+
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             self.tableView.reloadData()
@@ -78,18 +112,18 @@ final class WalletSortViewController: UIViewController, UITableViewDelegate, UIT
         tableView.endUpdates()
         CATransaction.commit()
     }
-    
+
     @objc func removeFromFavourite( _ sender: UIButton) {
         let index = sender.tag
-        
+
         if index == 0 {
             return
         }
-        
+
         let string = favItems[index]
         favItems.remove(at: index)
         sortItems.insert(string, at: 0)
-        
+
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             self.tableView.reloadData()
@@ -100,7 +134,10 @@ final class WalletSortViewController: UIViewController, UITableViewDelegate, UIT
         tableView.endUpdates()
         CATransaction.commit()
     }
-    
+}
+
+extension WalletSortViewController {
+
     //MARK: - UITableView
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
