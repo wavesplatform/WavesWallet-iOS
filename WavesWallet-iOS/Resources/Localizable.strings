@@ -6,4 +6,8 @@
   Copyright © 2018 Waves Platform. All rights reserved.
 */
 
-"time.clock" = "10:20";
+/*
+ controller.name.view.label
+*/
+
+"controller.wallet.navigation.bar.title" = "Wallet";

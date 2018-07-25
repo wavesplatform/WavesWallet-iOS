@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension WalletSortTypes.DTO {
+extension WalletSort.DTO {
 
     struct Asset: Hashable {
         let id: String

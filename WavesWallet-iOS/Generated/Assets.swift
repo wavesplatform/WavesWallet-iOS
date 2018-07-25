@@ -14,7 +14,7 @@
 // swiftlint:disable file_length
 
 @available(*, deprecated, renamed: "ImageAsset")
-internal typealias AssetType = ImageAsset
+internal typealias ImagesType = ImageAsset
 
 internal struct ImageAsset {
   internal fileprivate(set) var name: String
@@ -43,7 +43,7 @@ internal struct ColorAsset {
 }
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
-internal enum Asset {
+internal enum Images {
   internal enum TabBar {
     internal static let tabBarDexBlack = ImageAsset(name: "tab_bar_dex_black")
     internal static let tabBarDexGray = ImageAsset(name: "tab_bar_dex_gray")
@@ -436,7 +436,7 @@ internal enum Asset {
   ]
   // swiftlint:enable trailing_comma
   @available(*, deprecated, renamed: "allImages")
-  internal static let allValues: [AssetType] = allImages
+  internal static let allValues: [ImagesType] = allImages
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

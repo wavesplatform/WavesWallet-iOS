@@ -24,6 +24,7 @@ extension WalletTypes {
     }
 
     struct State {
+
         enum AnimateType  {
             case refresh
             case collapsed(Int)
@@ -42,13 +43,14 @@ extension WalletTypes {
         var leasing: DisplayState
     }
 
-    enum Event {
-        case none
+    enum Event {        
         case responseAssets([DTO.Asset])
         case responseLeasing(DTO.Leasing)
         case refresh
         case readyView
         case tapSection(Int)
+        case tapSortButton
+        case tapAddressButton
         case changeDisplay(Display)
     }
 }

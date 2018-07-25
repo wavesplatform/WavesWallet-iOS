@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class WalletSortSeparatorCell: UITableViewCell {
+final class WalletSortSeparatorCell: UITableViewCell, Reusable {
 
     class func cellHeight() -> CGFloat {
         return 26
