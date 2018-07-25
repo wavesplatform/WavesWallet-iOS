@@ -8,4 +8,7 @@
 
 import Foundation
 
+final class WalletCoordinator {
 
+//    func start() 
+}
