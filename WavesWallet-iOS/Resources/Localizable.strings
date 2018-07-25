@@ -11,3 +11,5 @@
 */
 
 "controller.wallet.navigation.bar.title" = "Wallet";
+
+"general.name.myasset" = "/ My Asset";

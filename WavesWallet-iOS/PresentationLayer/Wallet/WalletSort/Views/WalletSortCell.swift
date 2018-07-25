@@ -9,29 +9,48 @@
 import UIKit
 
 final class WalletSortCell: UITableViewCell, Reusable {
-
-    @IBOutlet weak var buttonFav: UIButton!
-    @IBOutlet weak var imageIcon: UIImageView!
-    @IBOutlet weak var arrowGreen: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var iconMenu: UIImageView!
-    @IBOutlet weak var switchControl: UISwitch!
-    @IBOutlet weak var viewContent: UIView!
-    @IBOutlet weak var labelCryptoName: UILabel!
+    @IBOutlet var buttonFav: UIButton!
+    @IBOutlet var imageIcon: UIImageView!
+    @IBOutlet var arrowGreen: UIImageView!
+    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var iconMenu: UIImageView!
+    @IBOutlet var switchControl: UISwitch!
+    @IBOutlet var viewContent: UIView!
+    @IBOutlet var labelCryptoName: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        iconMenu.isHidden = true
         viewContent.addTableCellShadowStyle()
-    }
-
-    func setupCellState(isVisibility: Bool) {
-        switchControl.alpha = isVisibility ? 1 : 0
-        iconMenu.alpha = isVisibility ? 0 : 1
-
-        iconMenu.alpha = 0
     }
 
     class func cellHeight() -> CGFloat {
         return 56
+    }
+}
+
+extension WalletSortCell: ViewConfiguration {
+    struct Model {
+        let name: String
+        let isMyAsset: Bool
+        let isVisibility: Bool
+    }
+
+    func update(with model: Model) {
+
+        //TODO: My asset
+        let cryptoName = model.name
+        labelTitle.text = cryptoName
+        switchControl.isHidden = !model.isVisibility
+
+        let iconName = DataManager.logoForCryptoCurrency(cryptoName)
+        if iconName.count == 0 {
+            labelCryptoName.text = String(cryptoName.first!).uppercased()
+            imageIcon.image = nil
+            imageIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(cryptoName)
+        } else {
+            labelCryptoName.text = nil
+            imageIcon.image = UIImage(named: iconName)
+        }
     }
 }
