@@ -68,6 +68,9 @@ target 'WavesWallet-iOS' do
     pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
 
+    # Gen
+    pod 'SwiftGen'
+
     # Debug
     pod 'Reveal-SDK', :configurations => ['Debug']
 end
