@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class DexTableListCell : UITableViewCell {
+final class DexTableListCell : UITableViewCell {
     
     @IBOutlet weak var labelTitleLong: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
@@ -82,7 +82,6 @@ class DexTableListCell : UITableViewCell {
             }
             
             if lastPrice - lastPriceOpen24 >= 0 {
-
                 imageViewArrow.image = UIImage(named: "arrow_green")
                 labelPercent.textColor = AppColors.dexBuyColor
             }
@@ -105,7 +104,7 @@ class DexTableListCell : UITableViewCell {
 
 
 
-class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -124,7 +123,12 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationBar()
+        title = "Dex"
+        createMenuButton()
+        setupBigNavigationBar()
+        let btnAdd = UIBarButtonItem(image: UIImage(named: "topbarAddmarkets"), style: .plain, target: self, action: #selector(addTapped))
+        let buttonSort = UIBarButtonItem(image: UIImage(named: "topbarSort"), style: .plain, target: self, action: #selector(sortTapped))
+        navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
 
         setupTableView()
         
@@ -155,12 +159,6 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
-    func setupNavigationBar() {
-        view.backgroundColor = UIColor.white
-        title = "Dex"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-    }
-    
     func setupTableView() {
         tableView.isHidden = true
         tableView.tableFooterView = UIView()
@@ -169,6 +167,10 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
 
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
+    }
+    
+    @objc func sortTapped() {
+        
     }
     
     @objc func refresh() {
@@ -217,7 +219,6 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-
         clearTimer()
     }
     
@@ -416,11 +417,10 @@ class DexViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             dexContainerViewController.title = cell?.labelTitle.text ?? ""
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+}
 
+
+private extension DexViewController {
+    
+    
 }
