@@ -61,6 +61,9 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 for generalAsset in generalAssets {
                     if let asset = assets.first(where: { $0.id == generalAsset.assetId }) {
                         asset.isGeneral = true
+                        if asset.id != Environments.Constants.wavesAssetId {
+                            asset.isGateway = true
+                        }
                         asset.name = generalAsset.name
                         asset.isFiat = generalAsset.isFiat
                         asset.isMyAsset = asset.sender == accountAddress

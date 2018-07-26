@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 26
+}
+
 final class WalletSortSeparatorFooter: UITableViewHeaderFooterView, NibReusable {
 
     @IBOutlet var separatorView: SeparatorView!
@@ -18,6 +22,6 @@ final class WalletSortSeparatorFooter: UITableViewHeaderFooterView, NibReusable 
     }
 
     class func cellHeight() -> CGFloat {
-        return 26
+        return Constants.height
     }
 }

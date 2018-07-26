@@ -14,10 +14,19 @@ import UIKit
 final class WalletSortViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
+    let visibilityButton = UIBarButtonItem(title: "Visibility",
+                                           style: .plain,
+                                           target: nil,
+                                           action: nil)
+    let positionButton = UIBarButtonItem(title: "Position",
+                                           style: .plain,
+                                           target: nil,
+                                           action: nil)
+
     private let presenter: WalletSortPresenterProtocol = WalletSortPresenter()
 
     private var sections: [WalletSort.ViewModel.Section] = []
-    private var status: WalletSort.State.Status = .visibility
+    private var status: WalletSort.State.Status = .visibility    
     private let sendEvent: PublishRelay<WalletSort.Event> = PublishRelay<WalletSort.Event>()
 
     override func viewDidLoad() {
@@ -26,11 +35,6 @@ final class WalletSortViewController: UIViewController {
         createBackButton()
 
         title = "Sorting"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Visibility",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(changeStyle))
-
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
@@ -57,18 +61,33 @@ fileprivate extension WalletSortViewController {
             .map { WalletSort.Event.readyView }
             .asSignal(onErrorSignalWith: Signal.empty())
 
+        let tapVisibilityButtonEvent =
+            visibilityButton
+                .rx
+                .tap
+                .asSignal()
+                .map { WalletSort.Event.setStatus(.visibility)}
+
+        let tapPositionButtonEvent =
+            positionButton
+                .rx
+                .tap
+                .asSignal()
+                .map { WalletSort.Event.setStatus(.position)}
+
         return [readyViewEvent,
-                sendEvent.asSignal()]
+                sendEvent.asSignal(),
+                tapPositionButtonEvent,
+                tapVisibilityButtonEvent]
     }
 
     func subscriptions(state: Driver<WalletSort.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
 
-                self?.status = state.status
+                self?.changeStatus(state.status)
                 self?.sections = state.sections
                 self?.tableView.reloadData()
-                self?.tableView.isEditing = state.status != .visibility
             })
 
         return [subscriptionSections]
@@ -78,23 +97,11 @@ fileprivate extension WalletSortViewController {
 // MARK: Actions
 
 extension WalletSortViewController {
-    @objc func changeStyle() {
-//        isVisibilityMode = !isVisibilityMode
-//        navigationItem.rightBarButtonItem?.title = isVisibilityMode ? "Position" : "Visibility"
-//
-//        UIView.animate(withDuration: 0.3) {
-//            for tableCell in self.tableView.visibleCells {
-//                if let cell = tableCell as? WalletSortCell {
-//                    cell.setupCellState(isVisibility: self.isVisibilityMode)
-//                } else if let cell = tableCell as? WalletSortFavCell {
-//                    let indexPath = self.tableView.indexPath(for: cell)
-//                    if indexPath?.row != 0 {
-//                        cell.setupCellState(isVisibility: self.isVisibilityMode)
-//                    }
-//                }
-//            }
-//        }
-//        tableView.setEditing(!isVisibilityMode, animated: true)
+    func changeStatus(_ status: WalletSort.State.Status) {
+
+        self.status = status
+        tableView.isEditing = status == .visibility
+        navigationItem.rightBarButtonItem = status == .visibility ? positionButton : visibilityButton
     }
 
     @objc func addToFavourite(_ sender: UIButton) {
@@ -190,10 +197,17 @@ extension WalletSortViewController: UITableViewDelegate {
             let cell: WalletSortCell = tableView.dequeueCell()
             let model: WalletSortCell.Model = .init(name: asset.name,
                                                     isMyAsset: asset.isMyAsset,
-                                                    isVisibility: status == .visibility)
+                                                    isVisibility: status == .visibility,
+                                                    isHidden: asset.isHidden,
+                                                    isGateway: asset.isGateway)
             cell.update(with: model)
-//            cell.buttonFav.tag = indexPath.row
-//            cell.buttonFav.addTarget(self, action: #selector(addToFavourite(_:)), for: .touchUpInside)
+            cell.buttonFav
+                .rx
+                .tap
+                .map { WalletSort.Event.tapFavoriteButton(indexPath) }
+                .bind(to: sendEvent)
+                .disposed(by: cell.disposeBag)
+
             return cell
 
         case .favorityAsset(let asset):
@@ -201,10 +215,15 @@ extension WalletSortViewController: UITableViewDelegate {
             let model: WalletSortFavCell.Model = .init(name: asset.name,
                                                        isMyAsset: asset.isMyAsset,
                                                        isLock: asset.isLock,
-                                                       isVisibility: status == .visibility)
+                                                       isGateway: asset.isGateway)
             cell.update(with: model)
-            //            cell.buttonFav.tag = indexPath.row
-            //            cell.buttonFav.addTarget(self, action: #selector(removeFromFavourite(_:)), for: .touchUpInside)
+            cell.buttonFav
+                .rx
+                .tap
+                .map { WalletSort.Event.tapFavoriteButton(indexPath) }
+                .bind(to: sendEvent)
+                .disposed(by: cell.disposeBag)
+            
             return cell
         }
     }

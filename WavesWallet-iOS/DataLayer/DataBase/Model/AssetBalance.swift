@@ -5,10 +5,12 @@ import RealmSwift
 import RxDataSources
 
 //TODO: Need remove Gloss.Decodable and IdentifiableType
-class AssetBalance
-    : Object
-    , IdentifiableType
-    , Gloss.Decodable {
+final class AssetBalance:
+    Object,
+    IdentifiableType,
+    Gloss.Decodable,
+    AssetBalanceProtocol {
+
     typealias Identity = String
 
 

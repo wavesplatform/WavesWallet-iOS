@@ -14,24 +14,25 @@ enum WalletSort {
 
     enum Event {
         case readyView
+        case setStatus(State.Status)
         case tapFavoriteButton(IndexPath)
         case dragAsset(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath)
         case setAssets([DTO.Asset])
     }
 
-    struct State {
+    struct State: Mutating {
         enum Status {
             case position
             case visibility
         }
-
+        
         var status: Status
         var sections: [WalletSort.ViewModel.Section]
     }
 }
 
 extension WalletSort.ViewModel {
-    struct Section {
+    struct Section: Mutating {
         enum Kind {
             case favorities
             case all
@@ -48,13 +49,13 @@ extension WalletSort.ViewModel {
 }
 
 extension WalletSort.DTO {
-    struct Asset: Hashable {
+    struct Asset: Hashable, Mutating {
         let id: String
         let name: String
         let isLock: Bool
         let isMyAsset: Bool
-        let isFavorite: Bool
-        let isFiat: Bool
-        let sortLevel: Float
+        var isFavorite: Bool
+        let isGateway: Bool
+        var isHidden: Bool        
     }
 }

@@ -13,7 +13,7 @@ import RESideMenu
 extension UIViewController {
     
     func createBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createMenuButton() {
