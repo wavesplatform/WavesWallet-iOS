@@ -1107,22 +1107,16 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="nRV-1G-MmI">
                                                             <rect key="frame" x="37" y="27" width="14" height="14"/>
                                                         </imageView>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfS-NT-h16">
-                                                            <rect key="frame" x="280" y="8.5" width="51" height="31"/>
-                                                            <color key="onTintColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </switch>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="2Sa-S2-k6v"/>
                                                         <constraint firstItem="cw0-cE-pE7" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="4c1-VO-RV1"/>
                                                         <constraint firstAttribute="height" constant="48" id="CIL-dm-g0p"/>
-                                                        <constraint firstAttribute="trailing" secondItem="IfS-NT-h16" secondAttribute="trailing" constant="14" id="FdE-nx-gMI"/>
                                                         <constraint firstItem="nRV-1G-MmI" firstAttribute="bottom" secondItem="eSb-dq-41o" secondAttribute="bottom" constant="3" id="JXR-lB-H42"/>
                                                         <constraint firstItem="IsG-xn-pv4" firstAttribute="centerY" secondItem="eSb-dq-41o" secondAttribute="centerY" id="M4O-h4-HpE"/>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="leading" secondItem="m6W-Pe-j0q" secondAttribute="leading" id="OcH-gG-B8U"/>
                                                         <constraint firstItem="IsG-xn-pv4" firstAttribute="trailing" secondItem="eSb-dq-41o" secondAttribute="trailing" id="PPY-dg-Dlh"/>
-                                                        <constraint firstItem="IfS-NT-h16" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="S8S-d2-MmK"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="Sw8-Kk-nbf"/>
                                                         <constraint firstItem="IsG-xn-pv4" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="leading" id="Vgw-QI-P3a"/>
                                                         <constraint firstAttribute="trailing" secondItem="cw0-cE-pE7" secondAttribute="trailing" constant="14" id="XTP-x2-DUc"/>
@@ -1147,7 +1141,6 @@
                                             <outlet property="imageIcon" destination="eSb-dq-41o" id="nDQ-VY-FHn"/>
                                             <outlet property="labelCryptoName" destination="IsG-xn-pv4" id="1yI-kQ-DKH"/>
                                             <outlet property="labelTitle" destination="1TU-gA-bnh" id="Tsd-JT-lGz"/>
-                                            <outlet property="switchControl" destination="IfS-NT-h16" id="Gh9-e4-oBX"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">

@@ -77,6 +77,12 @@
 		0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797642108B18C00407F67 /* WalletModuleOutput.swift */; };
 		0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */; };
 		0A97976A2108CCFC00407F67 /* ViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797692108CCFC00407F67 /* ViewCalculate.swift */; };
+		0A97976C2109F03000407F67 /* Mutating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97976B2109F03000407F67 /* Mutating.swift */; };
+		0A97976F210A130700407F67 /* AssetBalanceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */; };
+		0A979771210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */; };
+		0A979774210A143700407F67 /* AssetBalanceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979773210A143700407F67 /* AssetBalanceProtocol.swift */; };
+		0A979777210A19D800407F67 /* AssetBalanceRepositoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979776210A19D800407F67 /* AssetBalanceRepositoryRealm.swift */; };
+		0A979779210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979778210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift */; };
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
 		0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57E20F64738007EE076 /* Array+Hashable.swift */; };
 		0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B58020F64760007EE076 /* Optional+Hashable.swift */; };
@@ -382,6 +388,12 @@
 		0A9797642108B18C00407F67 /* WalletModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleOutput.swift; sourceTree = "<group>"; };
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
 		0A9797692108CCFC00407F67 /* ViewCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalculate.swift; sourceTree = "<group>"; };
+		0A97976B2109F03000407F67 /* Mutating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutating.swift; sourceTree = "<group>"; };
+		0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceMutableRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A979773210A143700407F67 /* AssetBalanceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceProtocol.swift; sourceTree = "<group>"; };
+		0A979776210A19D800407F67 /* AssetBalanceRepositoryRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryRealm.swift; sourceTree = "<group>"; };
+		0A979778210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryCloud.swift; sourceTree = "<group>"; };
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
 		0AD2B57E20F64738007EE076 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 		0AD2B58020F64760007EE076 /* Optional+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Hashable.swift"; sourceTree = "<group>"; };
@@ -836,6 +848,7 @@
 		0A5C919520F3D7D700443CE6 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A97976D210A12ED00407F67 /* Repositories */,
 				0A381EEF2106892700D250F1 /* Assisstants */,
 				0A1DAD6320F395E7004DA625 /* Interactor */,
 			);
@@ -968,6 +981,33 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0A97976D210A12ED00407F67 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				0A979772210A134100407F67 /* Model */,
+				0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */,
+				0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		0A979772210A134100407F67 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0A979773210A143700407F67 /* AssetBalanceProtocol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0A979775210A19B400407F67 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				0A979776210A19D800407F67 /* AssetBalanceRepositoryRealm.swift */,
+				0A979778210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		0AD2B58420F658E0007EE076 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1043,7 @@
 		0AF2F2C020F757BD00AA39FB /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				0A97976B2109F03000407F67 /* Mutating.swift */,
 				0AF2F2BE20F757BA00AA39FB /* ViewConfiguration.swift */,
 				0A9797692108CCFC00407F67 /* ViewCalculate.swift */,
 			);
@@ -1231,6 +1272,7 @@
 		F74240AF1EAB8D1600C3B84D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A979775210A19B400407F67 /* Repositories */,
 				0A6CCD3920F4BC730023E36E /* Mapper */,
 				0A5C919120F3D00D00443CE6 /* Assisstants */,
 				0A1DAD6720F3971B004DA625 /* DataBase */,
@@ -1779,6 +1821,7 @@
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AE657292105E49F003D2DB8 /* EmptyCell.swift in Sources */,
 				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
+				0A979771210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift in Sources */,
 				E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */,
 				F762B3A51EABB6C000EAD7FF /* TransferSuccessViewController.swift in Sources */,
 				0A485E9E2100AE9B00079B49 /* IssueTransaction.swift in Sources */,
@@ -1827,6 +1870,7 @@
 				F79C43D31EAEB0F6006057B0 /* HalfModalPresentationController.swift in Sources */,
 				0AD8543E20F7BC4400D23E48 /* WalletSegmentedControl.swift in Sources */,
 				0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */,
+				0A979777210A19D800407F67 /* AssetBalanceRepositoryRealm.swift in Sources */,
 				0A1DAD7320F3A12B004DA625 /* AssetsNodeService.swift in Sources */,
 				F7E955071EA9120300A804DE /* CreateNewWalletViewController.swift in Sources */,
 				E9995033209213AC00A11E37 /* UIViewController+Additionals.swift in Sources */,
@@ -1882,10 +1926,12 @@
 				E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */,
 				0A93FED320FCAADC0058179E /* WalletTypes+DTO.swift in Sources */,
 				F7179BD51F726CE400FAE8F5 /* CustomUITextField.swift in Sources */,
+				0A97976C2109F03000407F67 /* Mutating.swift in Sources */,
 				E9D385C92094ED1A00213E2C /* DottedLineView.swift in Sources */,
 				E999502D2091FE0D00A11E37 /* WalletHeaderView.swift in Sources */,
 				E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */,
 				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
+				0A979779210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeasingTransaction+Mapper.swift in Sources */,
 				E9283A7620E1AD5000BAD3B8 /* ProfileAliasView.swift in Sources */,
 				0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */,
@@ -1926,6 +1972,7 @@
 				0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */,
 				0A50A45A20FBF756009DC253 /* ControlEvent+Signal.swift in Sources */,
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
+				0A979774210A143700407F67 /* AssetBalanceProtocol.swift in Sources */,
 				E97033EF2095BE34007E728C /* WalletTableAssetsCell.swift in Sources */,
 				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
 				E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */,
@@ -1966,6 +2013,7 @@
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
+				0A97976F210A130700407F67 /* AssetBalanceRepositoryProtocol.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,

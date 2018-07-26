@@ -16,6 +16,7 @@ protocol WalletSortInteractorProtocol {
 
 final class WalletSortInteractorMock: WalletSortInteractorProtocol {
 
+    
     func assets() -> Observable<[WalletSort.DTO.Asset]> {
 
         let waves = WalletSort.DTO.Asset.init(id: "WAVES",
@@ -23,36 +24,40 @@ final class WalletSortInteractorMock: WalletSortInteractorProtocol {
                                               isLock: true,
                                               isMyAsset: true,
                                               isFavorite: true,
-                                              isFiat: false,
-                                              sortLevel: 1)
+                                              isGateway: false,
+                                              isHidden: false)
 
         let favorite = WalletSort.DTO.Asset.init(id: "Favorite",
                                               name: "Favorite",
                                               isLock: false,
                                               isMyAsset: false,
                                               isFavorite: true,
-                                              isFiat: false,
-                                              sortLevel: 2)
+                                              isGateway: true,
+                                              isHidden: false)
 
         let asset1 = WalletSort.DTO.Asset.init(id: "Asset1",
                                                  name: "Asset1",
                                                  isLock: false,
                                                  isMyAsset: false,
                                                  isFavorite: false,
-                                                 isFiat: false,
-                                                 sortLevel: 3)
+                                                 isGateway: false,
+                                                 isHidden: false)
 
         let asset2 = WalletSort.DTO.Asset.init(id: "Asset2",
                                                name: "Asset2",
                                                isLock: false,
                                                isMyAsset: false,
                                                isFavorite: false,
-                                               isFiat: false,
-                                               sortLevel: 3)
+                                               isGateway: false,
+                                               isHidden: true)
 
         return Observable.just([waves,
                                 favorite,
                                 asset1,
+                                asset2,
+                                asset2,
+                                asset2,
+                                asset2,
                                 asset2])
     }
 }
