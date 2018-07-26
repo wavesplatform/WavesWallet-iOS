@@ -446,6 +446,95 @@
             </objects>
             <point key="canvasLocation" x="578" y="946"/>
         </scene>
+        <!--Dex Sort View Controller-->
+        <scene sceneID="xjc-Gf-lT3">
+            <objects>
+                <viewController storyboardIdentifier="DexSortViewController" id="h4N-8v-tb4" customClass="DexSortViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ENc-k5-z9L"/>
+                        <viewControllerLayoutGuide type="bottom" id="kbh-Ga-Vic"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="br7-HO-fHJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oxb-kP-YKl">
+                                <rect key="frame" x="0.0" y="0.0" width="360" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexSortingCell" id="EHU-PC-oee" customClass="DexSortingCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="360" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EHU-PC-oee" id="O5C-x7-Yah">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcp-wN-ODD">
+                                                    <rect key="frame" x="16" y="4" width="343" height="48"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-85-qmI">
+                                                            <rect key="frame" x="5" y="4" width="40" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="Gej-Ol-Ivf"/>
+                                                                <constraint firstAttribute="width" constant="40" id="lT0-my-qgk"/>
+                                                            </constraints>
+                                                            <state key="normal" image="delete22Error500"/>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH / WAVES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcA-Q4-RiV">
+                                                            <rect key="frame" x="50" y="16" width="288" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="u5g-85-qmI" firstAttribute="centerY" secondItem="Qcp-wN-ODD" secondAttribute="centerY" id="EcH-QB-lKV"/>
+                                                        <constraint firstItem="u5g-85-qmI" firstAttribute="leading" secondItem="Qcp-wN-ODD" secondAttribute="leading" constant="5" id="IjV-aQ-yf1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="EcA-Q4-RiV" secondAttribute="trailing" constant="5" id="SHN-QR-kaX"/>
+                                                        <constraint firstAttribute="height" constant="48" id="iQu-8O-v3N"/>
+                                                        <constraint firstItem="EcA-Q4-RiV" firstAttribute="leading" secondItem="u5g-85-qmI" secondAttribute="trailing" constant="5" id="kMu-cP-G4t"/>
+                                                        <constraint firstItem="EcA-Q4-RiV" firstAttribute="centerY" secondItem="Qcp-wN-ODD" secondAttribute="centerY" id="lCW-xS-hbN"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Qcp-wN-ODD" firstAttribute="leading" secondItem="O5C-x7-Yah" secondAttribute="leading" constant="16" id="4R4-vw-Z4p"/>
+                                                <constraint firstItem="Qcp-wN-ODD" firstAttribute="centerY" secondItem="O5C-x7-Yah" secondAttribute="centerY" id="c1r-U9-p9O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Qcp-wN-ODD" secondAttribute="trailing" constant="1" id="LEP-ef-YMl"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="viewContainer" destination="Qcp-wN-ODD" id="4Tw-Pf-ORx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="h4N-8v-tb4" id="fHk-ky-cBR"/>
+                                    <outlet property="delegate" destination="h4N-8v-tb4" id="ujn-td-aZg"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Oxb-kP-YKl" firstAttribute="top" secondItem="br7-HO-fHJ" secondAttribute="top" id="ENs-9K-ZbB"/>
+                            <constraint firstItem="Oxb-kP-YKl" firstAttribute="leading" secondItem="br7-HO-fHJ" secondAttribute="leading" id="EqN-OR-IHq"/>
+                            <constraint firstAttribute="trailing" secondItem="Oxb-kP-YKl" secondAttribute="trailing" constant="15" id="Xe1-qo-UyS"/>
+                            <constraint firstItem="kbh-Ga-Vic" firstAttribute="top" secondItem="Oxb-kP-YKl" secondAttribute="bottom" id="Yfq-OA-bi6"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="tableView" destination="Oxb-kP-YKl" id="KT9-Cg-ADw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Uk-sc-Ujp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1312" y="947"/>
+        </scene>
         <!--Dex Search View Controller-->
         <scene sceneID="R9O-T1-0aV">
             <objects>
@@ -2190,6 +2279,7 @@
         <image name="chartarrow22Success400" width="22" height="22"/>
         <image name="close" width="17" height="17"/>
         <image name="delete" width="14" height="18"/>
+        <image name="delete22Error500" width="22" height="22"/>
         <image name="dex" width="25" height="23"/>
         <image name="icon-btc" width="30" height="30"/>
         <image name="icon_waves" width="30" height="30"/>

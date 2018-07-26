@@ -98,6 +98,8 @@
 		E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E6720981F0300AA311B /* AssetViewController.swift */; };
 		E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E692098200500AA311B /* AssetBalanceCell.swift */; };
 		E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E25F92093506600CDCE56 /* MyAddressViewController.swift */; };
+		E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4C2109A806001222B8 /* DexSortViewController.swift */; };
+		E9104D4F2109A900001222B8 /* DexSortingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4E2109A900001222B8 /* DexSortingCell.swift */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
 		E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */; };
@@ -106,7 +108,7 @@
 		E92611792107C5F400A9E793 /* DexListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92611782107C5F400A9E793 /* DexListViewController.swift */; };
 		E926117B2107C71100A9E793 /* DexListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E926117A2107C71100A9E793 /* DexListCell.swift */; };
 		E926117E2107E7B300A9E793 /* DexListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E926117D2107E7B300A9E793 /* DexListModel.swift */; };
-		E92611812107F4E600A9E793 /* DexDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92611802107F4E600A9E793 /* DexDataContainer.swift */; };
+		E92611812107F4E600A9E793 /* DexListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92611802107F4E600A9E793 /* DexListPresenter.swift */; };
 		E92611832107FDB900A9E793 /* DexListSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */; };
 		E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */; };
 		E9283A7620E1AD5000BAD3B8 /* ProfileAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9283A7520E1AD5000BAD3B8 /* ProfileAliasView.swift */; };
@@ -179,6 +181,8 @@
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
 		E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */; };
 		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
+		E9B2A6AD2108A26100F9DBF8 /* DexInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2A6AC2108A26100F9DBF8 /* DexInteractorProtocol.swift */; };
+		E9B2A6AF2108A2A400F9DBF8 /* DexInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2A6AE2108A2A400F9DBF8 /* DexInteractor.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
@@ -393,6 +397,8 @@
 		E90C6E6720981F0300AA311B /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		E90C6E692098200500AA311B /* AssetBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceCell.swift; sourceTree = "<group>"; };
 		E90E25F92093506600CDCE56 /* MyAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewController.swift; sourceTree = "<group>"; };
+		E9104D4C2109A806001222B8 /* DexSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortViewController.swift; sourceTree = "<group>"; };
+		E9104D4E2109A900001222B8 /* DexSortingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortingCell.swift; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
@@ -401,7 +407,7 @@
 		E92611782107C5F400A9E793 /* DexListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListViewController.swift; sourceTree = "<group>"; };
 		E926117A2107C71100A9E793 /* DexListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListCell.swift; sourceTree = "<group>"; };
 		E926117D2107E7B300A9E793 /* DexListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListModel.swift; sourceTree = "<group>"; };
-		E92611802107F4E600A9E793 /* DexDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexDataContainer.swift; sourceTree = "<group>"; };
+		E92611802107F4E600A9E793 /* DexListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListPresenter.swift; sourceTree = "<group>"; };
 		E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListSkeletonCell.swift; sourceTree = "<group>"; };
 		E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddressKeyViewController.swift; sourceTree = "<group>"; };
 		E9283A7520E1AD5000BAD3B8 /* ProfileAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAliasView.swift; sourceTree = "<group>"; };
@@ -475,6 +481,8 @@
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
+		E9B2A6AC2108A26100F9DBF8 /* DexInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexInteractorProtocol.swift; sourceTree = "<group>"; };
+		E9B2A6AE2108A2A400F9DBF8 /* DexInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexInteractor.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
@@ -974,6 +982,7 @@
 			children = (
 				E926117A2107C71100A9E793 /* DexListCell.swift */,
 				E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */,
+				E9104D4E2109A900001222B8 /* DexSortingCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -996,7 +1005,9 @@
 		E926117F2107F33600A9E793 /* DexDataHelper */ = {
 			isa = PBXGroup;
 			children = (
-				E92611802107F4E600A9E793 /* DexDataContainer.swift */,
+				E9B2A6AC2108A26100F9DBF8 /* DexInteractorProtocol.swift */,
+				E9B2A6AE2108A2A400F9DBF8 /* DexInteractor.swift */,
+				E92611802107F4E600A9E793 /* DexListPresenter.swift */,
 			);
 			path = DexDataHelper;
 			sourceTree = "<group>";
@@ -1182,6 +1193,7 @@
 				E988E8B21F0C00DB0013EAF6 /* DexViewController.swift */,
 				E988E8B41F0C03170013EAF6 /* Dex.storyboard */,
 				E92611782107C5F400A9E793 /* DexListViewController.swift */,
+				E9104D4C2109A806001222B8 /* DexSortViewController.swift */,
 			);
 			path = Dex;
 			sourceTree = "<group>";
@@ -1491,8 +1503,8 @@
 				TargetAttributes = {
 					F7E954E31EA8FE0700A804DE = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 96SW78M3KJ;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 6ZRLYS4AGU;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1801,12 +1813,14 @@
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				E926117B2107C71100A9E793 /* DexListCell.swift in Sources */,
-				E92611812107F4E600A9E793 /* DexDataContainer.swift in Sources */,
+				E92611812107F4E600A9E793 /* DexListPresenter.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */,
 				0A485E8D20FFB02100079B49 /* TransactionLeasingNode.swift in Sources */,
 				0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */,
+				E9B2A6AD2108A26100F9DBF8 /* DexInteractorProtocol.swift in Sources */,
+				E9104D4F2109A900001222B8 /* DexSortingCell.swift in Sources */,
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
 				0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */,
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
@@ -1849,11 +1863,13 @@
 				0A485E952100A0D400079B49 /* DomainLayerTypes.swift in Sources */,
 				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,
 				F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */,
+				E9B2A6AF2108A2A400F9DBF8 /* DexInteractor.swift in Sources */,
 				E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */,
 				0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				E926117E2107E7B300A9E793 /* DexListModel.swift in Sources */,
+				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
@@ -2057,9 +2073,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = DevIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				DEVELOPMENT_TEAM = 6ZRLYS4AGU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
@@ -2068,8 +2084,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
+				PROVISIONING_PROFILE_SPECIFIER = "profile all";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
@@ -2085,9 +2101,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";

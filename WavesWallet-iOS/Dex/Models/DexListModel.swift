@@ -9,15 +9,15 @@
 import Foundation
 import SwiftyJSON
 
-final class DexListModel {
+struct DexListModel {
     
-    var percent: Float
-    var amountAsset: String
-    var amountAssetName: String
-    var priceAsset: String
-    var priceAssetName: String
-    var amountDecimals: Int
-    var priceDecimals: Int
+    let percent: Float
+    let amountAsset: String
+    let amountAssetName: String
+    let priceAsset: String
+    let priceAssetName: String
+    let amountDecimals: Int
+    let priceDecimals: Int
     
     
     init(json: JSON) {
