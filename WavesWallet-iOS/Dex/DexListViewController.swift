@@ -17,7 +17,7 @@ final class DexListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
     
-    private let dataContainer = DexDataContainer()
+    private let presenter = DexListPresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +26,9 @@ final class DexListViewController: UIViewController {
         title = "Dex"
         tableView.contentInset = Constants.contentInset
         
-        dataContainer.delegate = self
-        dataContainer.simulateDataFromServer()
-
+        presenter.delegate = self
+        presenter.setupTable(tableView)
+        presenter.simulateDataFromServer()
         setupViews()
         setupButtons()
     }
@@ -38,10 +38,15 @@ final class DexListViewController: UIViewController {
         setupBigNavigationBar()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTopBarLine()
+    }
    
     //MARK: - Actions
     @objc func sortTapped() {
-    
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DexSortViewController") as! DexSortViewController
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     @IBAction func addTapped(_ sender: Any) {
@@ -51,23 +56,22 @@ final class DexListViewController: UIViewController {
 }
 
 //MARK: SetupUI
-extension DexListViewController {
+private extension DexListViewController {
 
     func setupViews() {
-        viewNoItems.isHidden = dataContainer.models.count > 0 || dataContainer.state == .isLoading
+        viewNoItems.isHidden = presenter.models.count > 0 || presenter.state == .isLoading
     }
     
     func setupButtons() {
-        
         let btnAdd = UIBarButtonItem(image: UIImage(named: "topbarAddmarkets"), style: .plain, target: self, action: #selector(addTapped(_:)))
         let buttonSort = UIBarButtonItem(image: UIImage(named: "topbarSort"), style: .plain, target: self, action: #selector(sortTapped))
         
-        if dataContainer.state == .isLoading {
+        if presenter.state == .isLoading {
             btnAdd.isEnabled = false
             buttonSort.isEnabled = false
             navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
         }
-        else if dataContainer.models.count > 0{
+        else if presenter.models.count > 0{
             navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
         }
         else {
@@ -76,11 +80,10 @@ extension DexListViewController {
     }    
 }
 
-//MARK: DexDataContainerDelegate
-extension DexListViewController: DexDataContainerDelegate {
+//MARK: DexListPresenterDelegate
+extension DexListViewController: DexListPresenterDelegate {
     
-    func dexDataContainerDidUpdateModels(_ dataContainer: DexDataContainer, models: [DexListModel]) {
-        tableView.reloadData()
+    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexListModel]) {
         setupViews()
         setupButtons()
     }
@@ -94,41 +97,9 @@ extension DexListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if dataContainer.state == .isLoading {
+        if presenter.state == .isLoading {
             return
         }
         
     }
-}
-
-//MARK: - UITableViewDataSource
-extension DexListViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return dataContainer.countSections
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataContainer.numberOfRows
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if dataContainer.state == .isLoading {
-            return tableView.dequeueCell() as DexListSkeletonCell
-        }
-        
-        let cell: DexListCell = tableView.dequeueCell()
-        cell.setupCell(dataContainer.modelForIndexPath(indexPath))
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        if dataContainer.state == .isLoading {
-            let skeletonCell: DexListSkeletonCell = cell as! DexListSkeletonCell
-            skeletonCell.slide(to: .right)
-        }
-    }
-   
 }
