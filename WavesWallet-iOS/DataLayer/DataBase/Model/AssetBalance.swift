@@ -8,8 +8,7 @@ import RxDataSources
 final class AssetBalance:
     Object,
     IdentifiableType,
-    Gloss.Decodable,
-    AssetBalanceProtocol {
+    Gloss.Decodable {
 
     typealias Identity = String
 

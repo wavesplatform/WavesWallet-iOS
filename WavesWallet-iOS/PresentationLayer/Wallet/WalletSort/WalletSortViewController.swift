@@ -94,53 +94,14 @@ fileprivate extension WalletSortViewController {
     }
 }
 
-// MARK: Actions
+// MARK: Change Status
 
-extension WalletSortViewController {
+private extension WalletSortViewController {
     func changeStatus(_ status: WalletSort.State.Status) {
 
         self.status = status
         tableView.isEditing = status == .visibility
         navigationItem.rightBarButtonItem = status == .visibility ? positionButton : visibilityButton
-    }
-
-    @objc func addToFavourite(_ sender: UIButton) {
-//        let index = sender.tag
-//        let string = sortItems[index]
-//        sortItems.remove(at: index)
-//        favItems.append(string)
-//
-//        CATransaction.begin()
-//        CATransaction.setCompletionBlock {
-//            self.tableView.reloadData()
-//        }
-//        tableView.beginUpdates()
-//        tableView.deleteRows(at: [IndexPath(row: index, section: Section.sort.rawValue)], with: .fade)
-//        tableView.insertRows(at: [IndexPath(row: favItems.count - 1, section: Section.fav.rawValue)], with: .fade)
-//        tableView.endUpdates()
-//        CATransaction.commit()
-    }
-
-    @objc func removeFromFavourite(_ sender: UIButton) {
-        let index = sender.tag
-
-        if index == 0 {
-            return
-        }
-
-//        let string = favItems[index]
-//        favItems.remove(at: index)
-//        sortItems.insert(string, at: 0)
-//
-//        CATransaction.begin()
-//        CATransaction.setCompletionBlock {
-//            self.tableView.reloadData()
-//        }
-//        tableView.beginUpdates()
-//        tableView.deleteRows(at: [IndexPath(row: index, section: Section.fav.rawValue)], with: .fade)
-//        tableView.insertRows(at: [IndexPath(row: 0, section: Section.sort.rawValue)], with: .fade)
-//        tableView.endUpdates()
-//        CATransaction.commit()
     }
 }
 
