@@ -8,16 +8,49 @@
 
 import Foundation
 import RxSwift
+import RealmSwift
+import RxRealm
 
 protocol WalletSortInteractorProtocol {
 
     func assets() -> Observable<[WalletSort.DTO.Asset]>
+    
+}
+
+private extension WalletSort.DTO.Asset {
+
+    static func map(from balance: AssetBalance) -> WalletSort.DTO.Asset {
+
+        let isLock = balance.asset?.isWaves == true
+        let isMyAsset = balance.asset?.isMyAsset ?? false
+        let isFavorite = balance.settings?.isFavorite ?? false
+        let isGateway = balance.asset?.isGateway ?? false
+        let isHidden = balance.settings?.isHidden ?? false
+
+        return WalletSort.DTO.Asset(id: balance.assetId,
+                                    name: balance.asset?.name ?? "",
+                                    isLock: isLock,
+                                    isMyAsset: isMyAsset,
+                                    isFavorite: isFavorite,
+                                    isGateway: isGateway,
+                                    isHidden: isHidden)
+    }
+}
+
+final class WalletSortInteractor: WalletSortInteractorProtocol {
+
+    private let realm = try! Realm()
+
+    func assets() -> Observable<[WalletSort.DTO.Asset]> {
+        return Observable.collection(from: realm.objects(AssetBalance.self))
+            .map { $0.toArray() }
+            .map { $0.map { WalletSort.DTO.Asset.map(from: $0) } }
+    }
 }
 
 final class WalletSortInteractorMock: WalletSortInteractorProtocol {
 
-    
-    func assets() -> Observable<[WalletSort.DTO.Asset]> {
+    func assets() -> Observable<[WalletSort.DTO.Asset]> { 
 
         let waves = WalletSort.DTO.Asset.init(id: "WAVES",
                                               name: "Waves",

@@ -18,6 +18,11 @@ final class WalletSortSeparatorFooter: UITableViewHeaderFooterView, NibReusable 
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundView = {
+            let view = UIView()
+            view.backgroundColor = UIColor.basic50
+            return view
+        }()
         separatorView.lineColor = UIColor.accent100
     }
 

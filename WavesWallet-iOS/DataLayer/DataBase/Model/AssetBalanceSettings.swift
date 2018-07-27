@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class AssetBalanceSettings: Object, AssetBalanceSettingsProtocol {
+class AssetBalanceSettings: Object {
 
     @objc dynamic var assetId: String = ""
     @objc dynamic var sortLevel: Float = 0

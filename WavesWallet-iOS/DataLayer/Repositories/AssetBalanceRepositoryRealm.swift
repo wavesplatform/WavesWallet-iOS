@@ -8,14 +8,14 @@
 
 import Foundation
 import  RxSwift
-
-final class AssetBalanceRepositoryRealm: AssetBalanceMutableRepositoryProtocol {
-
-    func balances() -> Observable<[AssetBalanceProtocol]> {
-        return Observable.never()
-    }
-
-    func update(balance: AssetBalanceProtocol) -> Observable<AssetBalanceProtocol> {
-        return Observable.never()
-    }
-}
+//
+//final class AssetBalanceRepositoryRealm: AssetBalanceMutableRepositoryProtocol {
+//
+//    func balances() -> Observable<[AssetBalanceProtocol]> {
+//        return Observable.never()
+//    }
+//
+//    func update(balance: AssetBalanceProtocol) -> Observable<AssetBalanceProtocol> {
+//        return Observable.never()
+//    }
+//}

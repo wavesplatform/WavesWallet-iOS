@@ -9,6 +9,6 @@
 import Foundation
 import RxSwift
 
-public protocol AssetBalanceRepositoryProtocol {
-    func balances() -> Observable<[AssetBalanceProtocol]>    
-}
+//public protocol AssetBalanceRepositoryProtocol {
+//    func balances() -> Observable<[AssetBalanceProtocol]>    
+//}
