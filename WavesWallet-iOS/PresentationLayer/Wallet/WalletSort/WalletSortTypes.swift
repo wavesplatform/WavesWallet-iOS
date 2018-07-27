@@ -12,10 +12,16 @@ enum WalletSort {
     enum DTO {}
     enum ViewModel {}
 
+    enum Direction {
+        case top
+        case down
+    }
+
     enum Event {
         case readyView
         case setStatus(State.Status)
         case tapFavoriteButton(IndexPath)
+        case tapHidden(IndexPath)
         case dragAsset(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath)
         case setAssets([DTO.Asset])
     }
@@ -56,6 +62,7 @@ extension WalletSort.DTO {
         let isMyAsset: Bool
         var isFavorite: Bool
         let isGateway: Bool
-        var isHidden: Bool        
+        var isHidden: Bool
+        var sortLevel: Float
     }
 }

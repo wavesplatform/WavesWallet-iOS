@@ -169,6 +169,15 @@ extension WalletSortViewController: UITableViewDelegate {
                 .bind(to: sendEvent)
                 .disposed(by: cell.disposeBag)
 
+//            cell
+//                .switchControl
+//                .rx
+//                .isOn
+//                .map { _ in WalletSort.Event.tapHidden(indexPath) }
+//                .bind(to: sendEvent)
+//                .disposed(by: cell.disposeBag)
+
+
             return cell
 
         case .favorityAsset(let asset):

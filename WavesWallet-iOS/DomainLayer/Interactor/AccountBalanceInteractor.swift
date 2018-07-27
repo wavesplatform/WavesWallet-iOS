@@ -96,7 +96,7 @@ private extension AccountBalanceInteractor {
 
             realm.delete(removeBalances)
             realm.delete(removeSettings)
-            sort(balances: balances)
+            setupSettings(balances: balances)
             realm.add(balances, update: true)
         }
     }
@@ -138,13 +138,15 @@ private extension AccountBalanceInteractor {
         return list
     }
 
-    func sort(balances: [AssetBalance]) {
+    func setupSettings(balances: [AssetBalance]) {
 
         let generalBalances = Environments
             .current
             .generalAssetIds
 
-        let sort = balances.sorted { assetOne, assetTwo -> Bool in
+        let newBalances = balances.filter { $0.settings == nil }
+
+        let sort = newBalances.sorted { assetOne, assetTwo -> Bool in
 
             let isGeneralOne = assetOne.asset?.isGeneral ?? false
             let isGeneralTwo = assetTwo.asset?.isGeneral ?? false
@@ -173,11 +175,17 @@ private extension AccountBalanceInteractor {
             return false
         }
 
+        let oldBalances = balances
+            .filter { $0.settings != nil }
+            .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
+
+        let lastSortLevel = oldBalances.last?.settings.sortLevel ?? 0
+
         sort.enumerated().forEach { balance in
             
             let settings = AssetBalanceSettings()
             settings.assetId = balance.element.assetId
-            settings.sortLevel = Float(balance.offset)
+            settings.sortLevel = lastSortLevel + Float(balance.offset)
 
             if balance.element.assetId == Environments.Constants.wavesAssetId {
                 settings.isFavorite = true

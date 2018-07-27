@@ -27,7 +27,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
             .objects(Asset.self)
 
         // TODO: Нужно решить в какой момент обновлять ассеты в базе
-        guard assets?.count != ids.count else { return Observable.just(assets?.toArray() ?? []) }
+//        guard assets?.count != ids.count else { return Observable.just(assets?.toArray() ?? []) }
 
         let spamAssets = spamProvider
             .rx
@@ -61,7 +61,9 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 for generalAsset in generalAssets {
                     if let asset = assets.first(where: { $0.id == generalAsset.assetId }) {
                         asset.isGeneral = true
-                        if asset.id != Environments.Constants.wavesAssetId {
+                        if asset.id == Environments.Constants.wavesAssetId {
+                            asset.isWaves = true
+                        } else {
                             asset.isGateway = true
                         }
                         asset.name = generalAsset.name
