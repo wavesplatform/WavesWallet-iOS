@@ -14,7 +14,11 @@ import RxRealm
 protocol WalletSortInteractorProtocol {
 
     func assets() -> Observable<[WalletSort.DTO.Asset]>
-    
+
+    func move(asset: WalletSort.DTO.Asset, underAsset: WalletSort.DTO.Asset)
+    func move(asset: WalletSort.DTO.Asset, overAsset: WalletSort.DTO.Asset)
+
+    func update(asset: WalletSort.DTO.Asset)
 }
 
 private extension WalletSort.DTO.Asset {
@@ -26,71 +30,90 @@ private extension WalletSort.DTO.Asset {
         let isFavorite = balance.settings?.isFavorite ?? false
         let isGateway = balance.asset?.isGateway ?? false
         let isHidden = balance.settings?.isHidden ?? false
-
+        let sortLevel = balance.settings?.sortLevel ?? Float.greatestFiniteMagnitude
         return WalletSort.DTO.Asset(id: balance.assetId,
                                     name: balance.asset?.name ?? "",
                                     isLock: isLock,
                                     isMyAsset: isMyAsset,
                                     isFavorite: isFavorite,
                                     isGateway: isGateway,
-                                    isHidden: isHidden)
+                                    isHidden: isHidden,
+                                    sortLevel: sortLevel)
     }
 }
 
 final class WalletSortInteractor: WalletSortInteractorProtocol {
 
-    private let realm = try! Realm()
-
     func assets() -> Observable<[WalletSort.DTO.Asset]> {
+        let realm = try! Realm()
         return Observable.collection(from: realm.objects(AssetBalance.self))
             .map { $0.toArray() }
             .map { $0.map { WalletSort.DTO.Asset.map(from: $0) } }
     }
-}
 
-final class WalletSortInteractorMock: WalletSortInteractorProtocol {
+    func move(asset: WalletSort.DTO.Asset, underAsset: WalletSort.DTO.Asset) {
 
-    func assets() -> Observable<[WalletSort.DTO.Asset]> { 
+        print("aaaa \(Float.greatestFiniteMagnitude)")
+        move(asset: asset, toAsset: underAsset, shiftSortLevel: 0.1)
+    }
+    
+    func move(asset: WalletSort.DTO.Asset, overAsset: WalletSort.DTO.Asset) {
+        move(asset: asset, toAsset: overAsset, shiftSortLevel: -0.1)
+    }
 
-        let waves = WalletSort.DTO.Asset.init(id: "WAVES",
-                                              name: "Waves",
-                                              isLock: true,
-                                              isMyAsset: true,
-                                              isFavorite: true,
-                                              isGateway: false,
-                                              isHidden: false)
+    func update(asset: WalletSort.DTO.Asset) {
 
-        let favorite = WalletSort.DTO.Asset.init(id: "Favorite",
-                                              name: "Favorite",
-                                              isLock: false,
-                                              isMyAsset: false,
-                                              isFavorite: true,
-                                              isGateway: true,
-                                              isHidden: false)
+        DispatchQueue.global(qos: .background).async {
+            let realm = try! Realm()
+            guard let object = realm
+                .object(ofType: AssetBalance.self,
+                        forPrimaryKey: asset.id) else { return }
+            var sortLevel = object.settings.sortLevel
 
-        let asset1 = WalletSort.DTO.Asset.init(id: "Asset1",
-                                                 name: "Asset1",
-                                                 isLock: false,
-                                                 isMyAsset: false,
-                                                 isFavorite: false,
-                                                 isGateway: false,
-                                                 isHidden: false)
+            if object.settings.isFavorite != asset.isFavorite {
 
-        let asset2 = WalletSort.DTO.Asset.init(id: "Asset2",
-                                               name: "Asset2",
-                                               isLock: false,
-                                               isMyAsset: false,
-                                               isFavorite: false,
-                                               isGateway: false,
-                                               isHidden: true)
+                let objects = realm
+                    .objects(AssetBalance.self)
+                    .filter("settings.isFavorite == \(asset.isFavorite)")
+                    .sorted(byKeyPath: "settings.sortLevel", ascending: true)
 
-        return Observable.just([waves,
-                                favorite,
-                                asset1,
-                                asset2,
-                                asset2,
-                                asset2,
-                                asset2,
-                                asset2])
+                if asset.isFavorite, let object = objects.last {
+                    sortLevel = object.settings.sortLevel + 0.1
+                } else if asset.isFavorite == false, let object = objects.first {
+                    sortLevel = object.settings.sortLevel - 0.1
+                }
+            }
+
+            try? realm.write {
+                if asset.isLock == false {
+                    object.settings.sortLevel = sortLevel
+                    object.settings.isFavorite = asset.isFavorite
+                }
+                object.settings.isHidden = asset.isHidden
+
+
+                realm.add(object, update: true)
+            }
+        }
+    }
+
+    private func move(asset: WalletSort.DTO.Asset,
+                      toAsset: WalletSort.DTO.Asset,
+                      shiftSortLevel: Float) {
+
+        DispatchQueue.global(qos: .background).async {
+            let realm = try! Realm()
+            guard let object = realm
+                .object(ofType: AssetBalance.self,
+                        forPrimaryKey: asset.id) else { return }
+            guard let toObject = realm
+                .object(ofType: AssetBalance.self,
+                        forPrimaryKey: toAsset.id) else { return }
+
+            try? realm.write {
+                object.settings.sortLevel = toObject.settings.sortLevel + shiftSortLevel
+                realm.add(object, update: true)
+            }
+        }
     }
 }

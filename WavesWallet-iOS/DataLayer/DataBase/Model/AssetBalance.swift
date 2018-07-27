@@ -29,8 +29,8 @@ final class AssetBalance:
     @objc dynamic var balance: Int64 = 0
     @objc dynamic var leasedBalance: Int64 = 0
     @objc dynamic var reserveBalance: Int64 = 0
-    @objc dynamic var settings: AssetBalanceSettings?
-    @objc dynamic var asset: Asset?
+    @objc dynamic var settings: AssetBalanceSettings!
+    @objc dynamic var asset: Asset!
 
     var identity: String {
         return assetId

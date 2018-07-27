@@ -49,14 +49,49 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
         switch event {
         case .dragAsset(let sourceIndexPath, let destinationIndexPath):
 
-            // TODO: Send interactor
+            let movableAsset = state
+                .sections[sourceIndexPath.section]
+                .items[sourceIndexPath.row].asset
+            let toAsset = state
+                .sections[destinationIndexPath.section]
+                .items[destinationIndexPath.row].asset
+
+            if let movableAsset = movableAsset, let toAsset = toAsset {
+                if sourceIndexPath.row > destinationIndexPath.row {
+                    interactor.move(asset: movableAsset, overAsset: toAsset)
+                } else {
+                    interactor.move(asset: movableAsset, underAsset: toAsset)
+                }
+            }
+
             return state.moveRow(sourceIndexPath: sourceIndexPath,
                                  destinationIndexPath: destinationIndexPath)
-
+            
         case .readyView:
             return state
 
+        case .tapHidden(let indexPath):
+
+            if var asset = state
+                .sections[indexPath.section]
+                .items[indexPath.row]
+                .asset {
+                asset.isHidden = !asset.isHidden
+                interactor.update(asset: asset)
+            }
+
+            return state
+
         case .tapFavoriteButton(let indexPath):
+
+            if var asset = state
+                .sections[indexPath.section]
+                .items[indexPath.row]
+                .asset {
+                asset.isFavorite = !asset.isFavorite
+                interactor.update(asset: asset)
+            }
+
             return state.toogleFavoriteAsset(indexPath: indexPath)
 
         case .setStatus(let status):
@@ -148,11 +183,13 @@ private extension WalletSort.ViewModel.Section {
 private extension WalletSort.ViewModel {
     static func map(from assets: [WalletSort.DTO.Asset]) -> [WalletSort.ViewModel.Section] {
         let favoritiesAsset = assets
-            .filter { $0.isFavorite }            
+            .filter { $0.isFavorite }
+            .sorted(by: { $0.sortLevel < $1.sortLevel})
             .map { WalletSort.ViewModel.Row.favorityAsset($0) }
 
         let sortedAssets = assets
             .filter { $0.isFavorite == false }
+            .sorted(by: { $0.sortLevel < $1.sortLevel})
             .map { WalletSort.ViewModel.Row.asset($0) }
 
         return [WalletSort.ViewModel.Section(kind: .favorities,
