@@ -80,7 +80,6 @@
 		0A97976C2109F03000407F67 /* Mutating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97976B2109F03000407F67 /* Mutating.swift */; };
 		0A97976F210A130700407F67 /* AssetBalanceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */; };
 		0A979771210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */; };
-		0A979774210A143700407F67 /* AssetBalanceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979773210A143700407F67 /* AssetBalanceProtocol.swift */; };
 		0A979777210A19D800407F67 /* AssetBalanceRepositoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979776210A19D800407F67 /* AssetBalanceRepositoryRealm.swift */; };
 		0A979779210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979778210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift */; };
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
@@ -391,7 +390,6 @@
 		0A97976B2109F03000407F67 /* Mutating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutating.swift; sourceTree = "<group>"; };
 		0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceMutableRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0A979773210A143700407F67 /* AssetBalanceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceProtocol.swift; sourceTree = "<group>"; };
 		0A979776210A19D800407F67 /* AssetBalanceRepositoryRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryRealm.swift; sourceTree = "<group>"; };
 		0A979778210A2E3100407F67 /* AssetBalanceRepositoryCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceRepositoryCloud.swift; sourceTree = "<group>"; };
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
@@ -984,19 +982,10 @@
 		0A97976D210A12ED00407F67 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0A979772210A134100407F67 /* Model */,
 				0A97976E210A130700407F67 /* AssetBalanceRepositoryProtocol.swift */,
 				0A979770210A131300407F67 /* AssetBalanceMutableRepositoryProtocol.swift */,
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		0A979772210A134100407F67 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0A979773210A143700407F67 /* AssetBalanceProtocol.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		0A979775210A19B400407F67 /* Repositories */ = {
@@ -1972,7 +1961,6 @@
 				0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */,
 				0A50A45A20FBF756009DC253 /* ControlEvent+Signal.swift in Sources */,
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
-				0A979774210A143700407F67 /* AssetBalanceProtocol.swift in Sources */,
 				E97033EF2095BE34007E728C /* WalletTableAssetsCell.swift in Sources */,
 				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
 				E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */,

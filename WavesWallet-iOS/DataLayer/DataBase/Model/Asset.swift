@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class Asset: Object, AssetProtocol {
+final class Asset: Object {
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var precision: Int = 0
@@ -25,6 +25,7 @@ final class Asset: Object, AssetProtocol {
     @objc dynamic var isGeneral: Bool = false
     @objc dynamic var isMyAsset: Bool = false
     @objc dynamic var isGateway: Bool = false
+    @objc dynamic var isWaves: Bool = false
 
     override class func primaryKey() -> String? {
         return "id"

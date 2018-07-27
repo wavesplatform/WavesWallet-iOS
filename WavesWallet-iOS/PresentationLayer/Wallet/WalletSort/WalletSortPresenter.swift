@@ -18,7 +18,7 @@ protocol WalletSortPresenterProtocol {
 }
 
 final class WalletSortPresenter: WalletSortPresenterProtocol {
-    private let interactor: WalletSortInteractorProtocol = WalletSortInteractorMock()
+    private let interactor: WalletSortInteractorProtocol = WalletSortInteractor()
     private let disposeBag = DisposeBag()
 
     func system(bindings: @escaping Feedback) {
