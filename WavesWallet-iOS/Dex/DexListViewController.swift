@@ -27,7 +27,6 @@ final class DexListViewController: UIViewController {
         tableView.contentInset = Constants.contentInset
         
         presenter.delegate = self
-        presenter.setupTable(tableView)
         presenter.simulateDataFromServer()
         setupViews()
         setupButtons()
@@ -83,7 +82,8 @@ private extension DexListViewController {
 //MARK: DexListPresenterDelegate
 extension DexListViewController: DexListPresenterDelegate {
     
-    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexListModel]) {
+    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexTypes.DTO.DexListModel]) {
+        tableView.reloadData()
         setupViews()
         setupButtons()
     }
@@ -102,4 +102,27 @@ extension DexListViewController: UITableViewDelegate {
         }
         
     }
+}
+
+//MARK: - UITableViewDataSource
+
+extension DexListViewController: UITableViewDataSource {
+  
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if presenter.state == .isLoading {
+            let cell = tableView.dequeueCell() as DexListSkeletonCell
+            cell.slide(to: .right)
+            return cell
+        }
+        
+        let cell: DexListCell = tableView.dequeueCell()
+        cell.setupCell(presenter.modelForIndexPath(indexPath))
+        return cell
+    }
+
 }
