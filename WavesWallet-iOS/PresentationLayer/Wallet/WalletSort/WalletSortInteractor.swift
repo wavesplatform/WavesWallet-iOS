@@ -11,6 +11,10 @@ import RxSwift
 import RealmSwift
 import RxRealm
 
+private enum Constants {
+    static let stepSize: Float = 0.000000001
+}
+
 protocol WalletSortInteractorProtocol {
 
     func assets() -> Observable<[WalletSort.DTO.Asset]>
@@ -45,20 +49,28 @@ private extension WalletSort.DTO.Asset {
 final class WalletSortInteractor: WalletSortInteractorProtocol {
 
     func assets() -> Observable<[WalletSort.DTO.Asset]> {
-        let realm = try! Realm()
-        return Observable.collection(from: realm.objects(AssetBalance.self))
-            .map { $0.toArray() }
-            .map { $0.map { WalletSort.DTO.Asset.map(from: $0) } }
+
+        return Observable.create({ subscribe -> Disposable in
+
+            DispatchQueue.global(qos: .background).async {
+                let realm = try! Realm()
+                let assets = realm
+                    .objects(AssetBalance.self)
+                    .filter("asset.isSpam == false")
+                    .toArray()
+                    .map { WalletSort.DTO.Asset.map(from: $0) }
+                subscribe.onNext(assets)
+            }
+            return Disposables.create()
+        })
     }
 
     func move(asset: WalletSort.DTO.Asset, underAsset: WalletSort.DTO.Asset) {
-
-        print("aaaa \(Float.greatestFiniteMagnitude)")
-        move(asset: asset, toAsset: underAsset, shiftSortLevel: 0.1)
+        move(asset: asset, toAsset: underAsset, shiftSortLevel: Constants.stepSize)
     }
     
     func move(asset: WalletSort.DTO.Asset, overAsset: WalletSort.DTO.Asset) {
-        move(asset: asset, toAsset: overAsset, shiftSortLevel: -0.1)
+        move(asset: asset, toAsset: overAsset, shiftSortLevel: -Constants.stepSize)
     }
 
     func update(asset: WalletSort.DTO.Asset) {
@@ -78,9 +90,9 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                     .sorted(byKeyPath: "settings.sortLevel", ascending: true)
 
                 if asset.isFavorite, let object = objects.last {
-                    sortLevel = object.settings.sortLevel + 0.1
+                    sortLevel = object.settings.sortLevel + Constants.stepSize
                 } else if asset.isFavorite == false, let object = objects.first {
-                    sortLevel = object.settings.sortLevel - 0.1
+                    sortLevel = object.settings.sortLevel - Constants.stepSize
                 }
             }
 
@@ -89,8 +101,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                     object.settings.sortLevel = sortLevel
                     object.settings.isFavorite = asset.isFavorite
                 }
-                object.settings.isHidden = asset.isHidden
 
+                object.settings.isHidden = asset.isHidden && asset.isFavorite == false
 
                 realm.add(object, update: true)
             }

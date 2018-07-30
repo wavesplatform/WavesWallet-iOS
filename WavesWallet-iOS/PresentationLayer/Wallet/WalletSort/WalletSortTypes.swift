@@ -27,6 +27,12 @@ enum WalletSort {
     }
 
     struct State: Mutating {
+
+        enum Action {
+            case none
+            case refresh
+        }
+
         enum Status {
             case position
             case visibility
@@ -34,6 +40,7 @@ enum WalletSort {
         
         var status: Status
         var sections: [WalletSort.ViewModel.Section]
+        var action: Action
     }
 }
 

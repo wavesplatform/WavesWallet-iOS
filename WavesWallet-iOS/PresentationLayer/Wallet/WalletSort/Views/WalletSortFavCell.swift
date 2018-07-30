@@ -8,9 +8,12 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 private enum Constants {
     static let height: CGFloat = 48
+    static let icon: CGSize = CGSize(width: 28,
+                                     height: 28)
 }
 
 final class WalletSortFavCell: UITableViewCell, Reusable {
@@ -20,14 +23,24 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet var iconLock: UIImageView!
     @IBOutlet var arrowGreen: UIImageView!    
     @IBOutlet var labelCryptoName: UILabel!
+    @IBOutlet var viewContent: UIView!
 
+    private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
 
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
     }
-    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        taskForAssetLogo?.cancel()
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
+        viewContent.backgroundColor = .basic50
+    }
+
     class func cellHeight() -> CGFloat {
         return Constants.height
     }
@@ -46,15 +59,12 @@ extension WalletSortFavCell: ViewConfiguration {
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
         arrowGreen.isHidden = !model.isGateway
-        
-        let iconName = DataManager.logoForCryptoCurrency(cryptoName)
-        if iconName.count == 0 {
-            labelCryptoName.text = String(cryptoName.first!).uppercased()
-            imageIcon.image = nil
-            imageIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(cryptoName)
-        } else {
-            labelCryptoName.text = nil
-            imageIcon.image = UIImage(named: iconName)
+        labelCryptoName.isHidden = true
+
+        taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
+                                                      size: Constants.icon,
+                                                      font: UIFont.systemFont(ofSize: 15)) { [weak self] image in
+                                                        self?.imageIcon.image = image
         }
     }
 }

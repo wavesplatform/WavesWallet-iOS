@@ -27,6 +27,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
         
         return remoteBalances(by: accountAddress)
+            .observeOn(MainScheduler.asyncInstance)
             .flatMap { [weak self] balances -> Observable<[AssetBalance]> in
             
             let realm = try! Realm()
@@ -96,6 +97,11 @@ private extension AccountBalanceInteractor {
 
             realm.delete(removeBalances)
             realm.delete(removeSettings)
+
+            balances.forEach({ balance in
+                balance.settings = realm.object(ofType: AssetBalanceSettings.self,
+                                                forPrimaryKey: balance.assetId)
+            })
             setupSettings(balances: balances)
             realm.add(balances, update: true)
         }
@@ -104,9 +110,13 @@ private extension AccountBalanceInteractor {
     func remoteBalances(by accountAddress: String) -> Observable<[AssetBalance]> {
 
         let assetsBalance = self.assetsBalance(by: accountAddress)
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
         let accountBalance = self.accountBalance(by: accountAddress)
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
         let leasingTransactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
         let matcherBalances = self.matcherBalances(by: accountAddress)
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
 
         let list = Observable
             .zip(assetsBalance, accountBalance, leasingTransactions, matcherBalances)

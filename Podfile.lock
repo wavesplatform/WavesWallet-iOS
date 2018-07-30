@@ -12,6 +12,7 @@ PODS:
   - IQKeyboardManagerSwift (6.0.4)
   - keccak (0.1)
   - KeychainAccess (3.1.1)
+  - Kingfisher (4.8.0)
   - Koloda (4.3.1):
     - pop (~> 1.0)
   - MBProgressHUD (1.0.0)
@@ -80,6 +81,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - keccak (from `Vendors/Keccak`)
   - KeychainAccess
+  - Kingfisher
   - Koloda
   - MBProgressHUD (~> 1.0.0)
   - MGSwipeTableCell
@@ -118,6 +120,7 @@ SPEC REPOS:
     - Gloss
     - IQKeyboardManagerSwift
     - KeychainAccess
+    - Kingfisher
     - Koloda
     - MBProgressHUD
     - MGSwipeTableCell
@@ -181,6 +184,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
   keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
@@ -213,6 +217,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 0b1bdcdde850503762ea416731c60837d5df290c
+PODFILE CHECKSUM: cf26df2148d680974d4332007e128c7e3d184155
 
 COCOAPODS: 1.5.3
