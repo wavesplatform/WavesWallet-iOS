@@ -47,6 +47,8 @@
 		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
 		0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */; };
 		0A50A45A20FBF756009DC253 /* ControlEvent+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A50A45920FBF756009DC253 /* ControlEvent+Signal.swift */; };
+		0A5495F2210F6F03009080BE /* UIImage+Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5495F1210F6F03009080BE /* UIImage+Asset.swift */; };
+		0A5495F4210F7242009080BE /* UIColor+Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5495F3210F7242009080BE /* UIColor+Asset.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -356,6 +358,8 @@
 		0A4C9AA220EE65910095A417 /* SeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsApiService.swift; sourceTree = "<group>"; };
 		0A50A45920FBF756009DC253 /* ControlEvent+Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ControlEvent+Signal.swift"; sourceTree = "<group>"; };
+		0A5495F1210F6F03009080BE /* UIImage+Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Asset.swift"; sourceTree = "<group>"; };
+		0A5495F3210F7242009080BE /* UIColor+Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Asset.swift"; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -1504,6 +1508,8 @@
 				F7F97E8E1EAA0CF800BE2F6F /* UIView+Layer.swift */,
 				E9995032209213AC00A11E37 /* UIViewController+Additionals.swift */,
 				F763B9AC1EAC0ECF00FA3701 /* UIViewController+Alert.swift */,
+				0A5495F1210F6F03009080BE /* UIImage+Asset.swift */,
+				0A5495F3210F7242009080BE /* UIColor+Asset.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1671,6 +1677,7 @@
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
@@ -1715,6 +1722,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
@@ -1958,6 +1966,7 @@
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
 				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
+				0A5495F2210F6F03009080BE /* UIImage+Asset.swift in Sources */,
 				0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */,
 				0A50A45A20FBF756009DC253 /* ControlEvent+Signal.swift in Sources */,
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
@@ -1983,6 +1992,7 @@
 				E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */,
 				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
+				0A5495F4210F7242009080BE /* UIColor+Asset.swift in Sources */,
 				0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
 				F74240D01EAB8EFF00C3B84D /* AccountsViewController.swift in Sources */,

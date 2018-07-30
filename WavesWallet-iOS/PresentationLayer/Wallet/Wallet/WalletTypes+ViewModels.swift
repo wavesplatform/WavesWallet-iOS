@@ -43,7 +43,18 @@ extension WalletTypes.ViewModel.Section {
         let generalItems = assets
             .filter { $0.kind == .general }
             .sorted(by: { (asset1, asset2) -> Bool in
-                asset1.sortLevel < asset2.sortLevel
+
+                if asset1.isWaves == true {
+                    return true
+                }
+
+                if asset1.isFavorite == true && asset2.isFavorite == false {
+                    return true
+                } else if asset1.isFavorite == false && asset2.isFavorite == true {
+                    return false
+                }
+
+                return asset1.sortLevel < asset2.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
         let generalSection: WalletTypes.ViewModel.Section = .init(header: nil,

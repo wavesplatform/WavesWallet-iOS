@@ -85,9 +85,19 @@ fileprivate extension WalletSortViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
 
-                self?.changeStatus(state.status)
-                self?.sections = state.sections
-                self?.tableView.reloadData()
+                guard let strongSelf = self else { return }
+                guard state.action != .none else { return }
+
+                strongSelf.changeStatus(state.status)
+                strongSelf.sections = state.sections
+
+                UIView.transition(with: strongSelf.tableView,
+                                  duration: 0.24,
+                                  options: [.transitionCrossDissolve,
+                                            .curveEaseInOut],
+                                  animations: {
+                                    strongSelf.tableView.reloadData()
+                }, completion: { _ in })
             })
 
         return [subscriptionSections]
@@ -169,15 +179,10 @@ extension WalletSortViewController: UITableViewDelegate {
                 .bind(to: sendEvent)
                 .disposed(by: cell.disposeBag)
 
-//            cell
-//                .switchControl
-//                .rx
-//                .isOn
-//                .map { _ in WalletSort.Event.tapHidden(indexPath) }
-//                .bind(to: sendEvent)
-//                .disposed(by: cell.disposeBag)
-
-
+            cell.changedValueSwitchControl = { [weak self] isOn in
+                self?.sendEvent.accept(.tapHidden(indexPath))
+            }
+            
             return cell
 
         case .favorityAsset(let asset):

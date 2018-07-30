@@ -114,8 +114,8 @@ private extension WalletViewController {
             .controlEvent(.valueChanged)
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let refreshEvent = refreshControlValueChanged
-            .flatMapLatest { scrollViewDidEndDecelerating }
+        let refreshEvent = Signal.zip(refreshControlValueChanged,
+                                      scrollViewDidEndDecelerating)
             .map { _ in WalletTypes.Event.refresh }
 
         let tapEvent = displayData

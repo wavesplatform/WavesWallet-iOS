@@ -25,6 +25,11 @@ extension WalletTypes {
 
     struct State {
 
+        enum ReactQuery {
+            case new
+            case refresh
+        }
+
         enum AnimateType  {
             case refresh
             case collapsed(Int)
@@ -34,7 +39,7 @@ extension WalletTypes {
         struct DisplayState {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
-            var isRefreshing: Bool
+            var isRefreshing: Bool            
             var animateType: AnimateType = .refresh
         }
 

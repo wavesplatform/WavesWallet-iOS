@@ -31,8 +31,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
     }
 
     private func assetsQuery() -> Feedback {
-        return react(query: { _ -> String? in
-            ""
+        return react(query: { state -> Bool? in
+            return state.sections.count == 0
         }, effects: { [weak self] _ -> Signal<WalletSort.Event> in
 
             // TODO: Error
@@ -66,7 +66,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
             return state.moveRow(sourceIndexPath: sourceIndexPath,
                                  destinationIndexPath: destinationIndexPath)
-            
+                .changeAction(.refresh)
+
         case .readyView:
             return state
 
@@ -80,7 +81,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
                 interactor.update(asset: asset)
             }
 
-            return state
+            return state.toogleHiddenAsset(indexPath: indexPath)
+                .changeAction(.none)
 
         case .tapFavoriteButton(let indexPath):
 
@@ -93,24 +95,34 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
             }
 
             return state.toogleFavoriteAsset(indexPath: indexPath)
+                .changeAction(.refresh)
 
         case .setStatus(let status):
             return state.mutate { state in
                 state.status = status
             }
+            .changeAction(.refresh)
 
         case .setAssets(let assets):
             return state.mutate { state in
                 state.sections = WalletSort.ViewModel.map(from: assets)
             }
-        }        
+            .changeAction(.refresh)
+        }
     }
 }
 
 fileprivate extension WalletSort.State {
     static var initialState: WalletSort.State {
         return WalletSort.State(status: .visibility,
-                                sections: [])
+                                sections: [],
+                                action: .refresh)
+    }
+
+    func changeAction(_ action: WalletSort.State.Action) -> WalletSort.State {
+        return mutate { state in
+            state.action = action
+        }
     }
 
     func moveRow(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) -> WalletSort.State {
@@ -124,8 +136,24 @@ fileprivate extension WalletSort.State {
         }
     }
 
+    func toogleHiddenAsset(indexPath: IndexPath) -> WalletSort.State {
+        guard let asset = sections[indexPath.section].items[indexPath.row].asset else { return self }
+        guard asset.isLock == false else { return self }
+
+        let section = sections[indexPath.section].mutate { section in
+            var newAsset = asset
+            newAsset.isHidden = !asset.isHidden
+            if section.kind == .all {
+                section.items[indexPath.row] = .asset(newAsset)
+            }
+        }
+
+        return self.mutate { state in
+            state.sections[indexPath.section] = section
+        }
+    }
+
     func toogleFavoriteAsset(indexPath: IndexPath) -> WalletSort.State {
-        
         guard let asset = sections[indexPath.section].items[indexPath.row].asset else { return self }
 
         guard asset.isLock == false else { return self }
@@ -184,12 +212,12 @@ private extension WalletSort.ViewModel {
     static func map(from assets: [WalletSort.DTO.Asset]) -> [WalletSort.ViewModel.Section] {
         let favoritiesAsset = assets
             .filter { $0.isFavorite }
-            .sorted(by: { $0.sortLevel < $1.sortLevel})
+            .sorted(by: { $0.sortLevel < $1.sortLevel })
             .map { WalletSort.ViewModel.Row.favorityAsset($0) }
 
         let sortedAssets = assets
             .filter { $0.isFavorite == false }
-            .sorted(by: { $0.sortLevel < $1.sortLevel})
+            .sorted(by: { $0.sortLevel < $1.sortLevel })
             .map { WalletSort.ViewModel.Row.asset($0) }
 
         return [WalletSort.ViewModel.Section(kind: .favorities,

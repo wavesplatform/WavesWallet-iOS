@@ -6,11 +6,14 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import RxSwift
+import UIKit
+import Kingfisher
 
 private enum Constants {
     static let height: CGFloat = 56
+    static let icon: CGSize = CGSize(width: 28,
+                                     height: 28)
 }
 
 final class WalletSortCell: UITableViewCell, Reusable {
@@ -23,21 +26,34 @@ final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var viewContent: UIView!
     @IBOutlet var labelCryptoName: UILabel!
 
+    private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
+
+    var changedValueSwitchControl: ((Bool) -> Void)?
 
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
+        taskForAssetLogo?.cancel()
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectedBackgroundView = UIView()
+        selectionStyle = .none
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
         iconMenu.isHidden = true
         viewContent.addTableCellShadowStyle()
+        switchControl.addTarget(self, action: #selector(changedValueSwitchAction), for: .valueChanged)
     }
 
     class func cellHeight() -> CGFloat {
         return Constants.height
+    }
+
+    @objc func changedValueSwitchAction() {
+        changedValueSwitchControl?(switchControl.isOn)
     }
 }
 
@@ -51,21 +67,18 @@ extension WalletSortCell: ViewConfiguration {
     }
 
     func update(with model: Model) {
-
-        //TODO: My asset
+        // TODO: My asset
         let cryptoName = model.name
         labelTitle.text = cryptoName
         switchControl.isHidden = model.isVisibility
         switchControl.isOn = model.isHidden
         arrowGreen.isHidden = !model.isGateway
-        let iconName = DataManager.logoForCryptoCurrency(cryptoName)
-        if iconName.count == 0 {
-            labelCryptoName.text = String(cryptoName.first!).uppercased()
-            imageIcon.image = nil
-            imageIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(cryptoName)
-        } else {
-            labelCryptoName.text = nil
-            imageIcon.image = UIImage(named: iconName)
+        labelCryptoName.isHidden = true
+
+        taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
+                                                      size: Constants.icon,
+                                                      font: UIFont.systemFont(ofSize: 15)) { [weak self] image in
+            self?.imageIcon.image = image
         }
     }
 }

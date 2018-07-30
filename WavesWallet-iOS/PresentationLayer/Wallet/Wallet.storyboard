@@ -1083,11 +1083,6 @@
                                                                 <constraint firstAttribute="width" constant="28" id="Bcu-b1-oxT"/>
                                                                 <constraint firstAttribute="height" constant="28" id="Hil-lC-93j"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="14"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsG-xn-pv4">
                                                             <rect key="frame" x="40" y="15" width="28" height="18"/>
@@ -1108,7 +1103,6 @@
                                                             <rect key="frame" x="37" y="27" width="14" height="14"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="2Sa-S2-k6v"/>
                                                         <constraint firstItem="cw0-cE-pE7" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="4c1-VO-RV1"/>
@@ -1133,7 +1127,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="m6W-Pe-j0q" secondAttribute="trailing" constant="1" id="Yee-Er-3DS"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="arrowGreen" destination="nRV-1G-MmI" id="8hH-tc-Wkh"/>
                                             <outlet property="buttonFav" destination="1f5-ZL-KWJ" id="a0f-4h-ACY"/>
@@ -1141,6 +1134,7 @@
                                             <outlet property="imageIcon" destination="eSb-dq-41o" id="nDQ-VY-FHn"/>
                                             <outlet property="labelCryptoName" destination="IsG-xn-pv4" id="1yI-kQ-DKH"/>
                                             <outlet property="labelTitle" destination="1TU-gA-bnh" id="Tsd-JT-lGz"/>
+                                            <outlet property="viewContent" destination="p5p-Nm-HJC" id="4MV-Kw-jtW"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -1161,21 +1155,12 @@
                                                             </constraints>
                                                             <state key="normal" image="icon_fav_empty"/>
                                                         </button>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-Wi-YlN">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-Wi-YlN" customClass="Jopa" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="40" y="10" width="28" height="28"/>
-                                                            <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="28" id="Igi-mN-OG1"/>
                                                                 <constraint firstAttribute="height" constant="28" id="uNZ-VZ-OhC"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="14"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                    <real key="value" value="0.0"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-md-SKw">
                                                             <rect key="frame" x="40" y="15.5" width="28" height="18"/>
