@@ -27,16 +27,19 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
         
         return remoteBalances(by: accountAddress)
+            .map({ [weak self] balances -> [AssetBalance] in
+                let realm = try! Realm()
+                self?.save(balances: balances, to: realm)
+                return balances
+            })
             .observeOn(MainScheduler.asyncInstance)
-            .flatMap { [weak self] balances -> Observable<[AssetBalance]> in
-            
-            let realm = try! Realm()
-            self?.save(balances: balances, to: realm)
+            .flatMap { balances -> Observable<[AssetBalance]> in
 
-            return Observable
-                .collection(from: realm.objects(AssetBalance.self))
-                .map { $0.toArray() }
-        }
+                let realm = try! Realm()
+                return Observable
+                    .collection(from: realm.objects(AssetBalance.self))
+                    .map { $0.toArray() }
+            }
     }
 
     func update(balance: AssetBalance) -> Observable<Void> {

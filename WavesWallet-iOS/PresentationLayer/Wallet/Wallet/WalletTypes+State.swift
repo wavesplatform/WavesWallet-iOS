@@ -56,6 +56,12 @@ extension WalletTypes.State {
         return updateCurrentDisplay(state: displayState)
     }
 
+    func setIsNeedRefreshing(_ isRefreshing: Bool) -> WalletTypes.State {
+        var displayState = currentDisplayState
+        displayState.isNeedRefreshing = isRefreshing
+        return updateCurrentDisplay(state: displayState)
+    }
+
     func setIsRefreshing(isRefreshing: Bool) -> WalletTypes.State {
         var displayState = currentDisplayState
         displayState.isRefreshing = isRefreshing

@@ -39,7 +39,7 @@ final class WalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "Wallet"
         createMenuButton()
         setupSegmetedControl()
@@ -68,7 +68,7 @@ final class WalletViewController: UIViewController {
 
 // MARK: Bind UI
 
-private extension WalletViewController {
+extension WalletViewController {
     func setupSystem() {
 
         let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
@@ -80,7 +80,18 @@ private extension WalletViewController {
                             events: events)
         }
 
-        presenter.system(bindings: feedback)
+        let readyViewFeedback: WalletPresenter.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in WalletTypes.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        presenter.system(feedbacks: [feedback,
+                                    readyViewFeedback])
     }
 
     func events() -> [Signal<WalletTypes.Event>] {
@@ -97,12 +108,6 @@ private extension WalletViewController {
             .map { WalletTypes.Event.tapAddressButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let readyViewEvent = rx
-            .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
-            .mapTo(())
-            .take(1)
-            .map { WalletTypes.Event.readyView }
-            .asSignal(onErrorSignalWith: Signal.empty())
 
         let scrollViewDidEndDecelerating = tableView
             .rx
@@ -130,8 +135,7 @@ private extension WalletViewController {
                 return .changeDisplay(display)
         }
 
-        return [readyViewEvent,
-                refreshEvent,
+        return [refreshEvent,
                 tapEvent,
                 changedDisplayEvent,
                 sortTapEvent,

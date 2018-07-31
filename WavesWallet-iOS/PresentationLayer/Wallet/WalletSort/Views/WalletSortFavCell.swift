@@ -21,8 +21,7 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet var buttonFav: UIButton!
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var iconLock: UIImageView!
-    @IBOutlet var arrowGreen: UIImageView!    
-    @IBOutlet var labelCryptoName: UILabel!
+    @IBOutlet var arrowGreen: UIImageView!        
     @IBOutlet var viewContent: UIView!
 
     private var taskForAssetLogo: RetrieveImageDiskTask?
@@ -59,7 +58,6 @@ extension WalletSortFavCell: ViewConfiguration {
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
         arrowGreen.isHidden = !model.isGateway
-        labelCryptoName.isHidden = true
 
         taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
                                                       size: Constants.icon,

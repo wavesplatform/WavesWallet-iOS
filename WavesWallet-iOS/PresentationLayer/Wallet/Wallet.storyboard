@@ -1084,12 +1084,6 @@
                                                                 <constraint firstAttribute="height" constant="28" id="Hil-lC-93j"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsG-xn-pv4">
-                                                            <rect key="frame" x="40" y="15" width="28" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TU-gA-bnh">
                                                             <rect key="frame" x="76" y="16" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1108,11 +1102,8 @@
                                                         <constraint firstItem="cw0-cE-pE7" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="4c1-VO-RV1"/>
                                                         <constraint firstAttribute="height" constant="48" id="CIL-dm-g0p"/>
                                                         <constraint firstItem="nRV-1G-MmI" firstAttribute="bottom" secondItem="eSb-dq-41o" secondAttribute="bottom" constant="3" id="JXR-lB-H42"/>
-                                                        <constraint firstItem="IsG-xn-pv4" firstAttribute="centerY" secondItem="eSb-dq-41o" secondAttribute="centerY" id="M4O-h4-HpE"/>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="leading" secondItem="m6W-Pe-j0q" secondAttribute="leading" id="OcH-gG-B8U"/>
-                                                        <constraint firstItem="IsG-xn-pv4" firstAttribute="trailing" secondItem="eSb-dq-41o" secondAttribute="trailing" id="PPY-dg-Dlh"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="Sw8-Kk-nbf"/>
-                                                        <constraint firstItem="IsG-xn-pv4" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="leading" id="Vgw-QI-P3a"/>
                                                         <constraint firstAttribute="trailing" secondItem="cw0-cE-pE7" secondAttribute="trailing" constant="14" id="XTP-x2-DUc"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="leading" secondItem="1f5-ZL-KWJ" secondAttribute="trailing" id="aK9-fc-bMP"/>
                                                         <constraint firstItem="1TU-gA-bnh" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="trailing" constant="8" id="k3N-9A-LMV"/>
@@ -1132,7 +1123,6 @@
                                             <outlet property="buttonFav" destination="1f5-ZL-KWJ" id="a0f-4h-ACY"/>
                                             <outlet property="iconLock" destination="cw0-cE-pE7" id="vVv-sX-YTl"/>
                                             <outlet property="imageIcon" destination="eSb-dq-41o" id="nDQ-VY-FHn"/>
-                                            <outlet property="labelCryptoName" destination="IsG-xn-pv4" id="1yI-kQ-DKH"/>
                                             <outlet property="labelTitle" destination="1TU-gA-bnh" id="Tsd-JT-lGz"/>
                                             <outlet property="viewContent" destination="p5p-Nm-HJC" id="4MV-Kw-jtW"/>
                                         </connections>
@@ -1155,19 +1145,13 @@
                                                             </constraints>
                                                             <state key="normal" image="icon_fav_empty"/>
                                                         </button>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-Wi-YlN" customClass="Jopa" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-Wi-YlN">
                                                             <rect key="frame" x="40" y="10" width="28" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="28" id="Igi-mN-OG1"/>
                                                                 <constraint firstAttribute="height" constant="28" id="uNZ-VZ-OhC"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUQ-md-SKw">
-                                                            <rect key="frame" x="40" y="15.5" width="28" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="YuA-dI-N9F">
                                                             <rect key="frame" x="37" y="27" width="14" height="14"/>
                                                         </imageView>
@@ -1190,15 +1174,12 @@
                                                         <constraint firstItem="4Mq-H6-Lkt" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="1RZ-yE-Kn0"/>
                                                         <constraint firstAttribute="trailing" secondItem="dI8-Gx-jbV" secondAttribute="trailing" constant="14" id="1ZY-eN-XqJ"/>
                                                         <constraint firstAttribute="height" constant="48" id="9pj-Hv-Srj"/>
-                                                        <constraint firstItem="FUQ-md-SKw" firstAttribute="centerY" secondItem="NwQ-Wi-YlN" secondAttribute="centerY" id="AAL-eg-uds"/>
                                                         <constraint firstAttribute="trailing" secondItem="4Mq-H6-Lkt" secondAttribute="trailing" constant="14" id="DVy-dh-M2c"/>
                                                         <constraint firstItem="e5T-2M-SpC" firstAttribute="leading" secondItem="sOG-r7-BYD" secondAttribute="leading" id="GSm-9I-CkO"/>
                                                         <constraint firstItem="BXr-CX-yoj" firstAttribute="leading" secondItem="NwQ-Wi-YlN" secondAttribute="trailing" constant="8" id="Kqw-hf-EWs"/>
                                                         <constraint firstItem="dI8-Gx-jbV" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="MU1-kL-D6F"/>
                                                         <constraint firstItem="e5T-2M-SpC" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="RKk-nV-rDn"/>
-                                                        <constraint firstItem="FUQ-md-SKw" firstAttribute="trailing" secondItem="NwQ-Wi-YlN" secondAttribute="trailing" id="UjI-ze-cCV"/>
                                                         <constraint firstItem="YuA-dI-N9F" firstAttribute="bottom" secondItem="NwQ-Wi-YlN" secondAttribute="bottom" constant="3" id="Xgg-fe-fhP"/>
-                                                        <constraint firstItem="FUQ-md-SKw" firstAttribute="leading" secondItem="NwQ-Wi-YlN" secondAttribute="leading" id="aE8-Of-nBn"/>
                                                         <constraint firstItem="YuA-dI-N9F" firstAttribute="leading" secondItem="NwQ-Wi-YlN" secondAttribute="leading" constant="-3" id="gs2-26-mlq"/>
                                                         <constraint firstItem="NwQ-Wi-YlN" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="iZS-yy-ea3"/>
                                                         <constraint firstItem="BXr-CX-yoj" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="jun-eR-XLq"/>
@@ -1220,7 +1201,6 @@
                                             <outlet property="buttonFav" destination="e5T-2M-SpC" id="95U-LS-fpn"/>
                                             <outlet property="iconMenu" destination="dI8-Gx-jbV" id="RXp-1d-5VI"/>
                                             <outlet property="imageIcon" destination="NwQ-Wi-YlN" id="6rc-yf-wWl"/>
-                                            <outlet property="labelCryptoName" destination="FUQ-md-SKw" id="fag-ym-1MS"/>
                                             <outlet property="labelTitle" destination="BXr-CX-yoj" id="2cd-6H-ux1"/>
                                             <outlet property="switchControl" destination="4Mq-H6-Lkt" id="agG-3M-lNb"/>
                                             <outlet property="viewContent" destination="sOG-r7-BYD" id="3zG-kT-W0z"/>

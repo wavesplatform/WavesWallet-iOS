@@ -41,7 +41,18 @@ final class WalletSortViewController: UIViewController {
             return Bindings(subscriptions: owner.subscriptions(state: state),
                             events: owner.events())
         }
-        presenter.system(bindings: feedback)
+
+        let readyViewFeedback: WalletSortPresenter.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in WalletSort.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,13 +65,7 @@ final class WalletSortViewController: UIViewController {
 
 fileprivate extension WalletSortViewController {
     func events() -> [Signal<WalletSort.Event>] {
-        let readyViewEvent = rx
-            .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
-            .mapTo(())
-            .take(1)
-            .map { WalletSort.Event.readyView }
-            .asSignal(onErrorSignalWith: Signal.empty())
-
+       
         let tapVisibilityButtonEvent =
             visibilityButton
                 .rx
@@ -75,8 +80,7 @@ fileprivate extension WalletSortViewController {
                 .asSignal()
                 .map { WalletSort.Event.setStatus(.position)}
 
-        return [readyViewEvent,
-                sendEvent.asSignal(),
+        return [sendEvent.asSignal(),
                 tapPositionButtonEvent,
                 tapVisibilityButtonEvent]
     }
@@ -91,13 +95,9 @@ fileprivate extension WalletSortViewController {
                 strongSelf.changeStatus(state.status)
                 strongSelf.sections = state.sections
 
-                UIView.transition(with: strongSelf.tableView,
-                                  duration: 0.24,
-                                  options: [.transitionCrossDissolve,
-                                            .curveEaseInOut],
-                                  animations: {
-                                    strongSelf.tableView.reloadData()
-                }, completion: { _ in })
+                DispatchQueue.main.async {
+                    strongSelf.tableView.reloadData()
+                }
             })
 
         return [subscriptionSections]
@@ -175,6 +175,9 @@ extension WalletSortViewController: UITableViewDelegate {
             cell.buttonFav
                 .rx
                 .tap
+                .do(onNext: { _ in
+                    ImpactFeedbackGenerator.impactOccurred()
+                })
                 .map { WalletSort.Event.tapFavoriteButton(indexPath) }
                 .bind(to: sendEvent)
                 .disposed(by: cell.disposeBag)
@@ -195,6 +198,9 @@ extension WalletSortViewController: UITableViewDelegate {
             cell.buttonFav
                 .rx
                 .tap
+                .do(onNext: { _ in
+                    ImpactFeedbackGenerator.impactOccurred()
+                })
                 .map { WalletSort.Event.tapFavoriteButton(indexPath) }
                 .bind(to: sendEvent)
                 .disposed(by: cell.disposeBag)

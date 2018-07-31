@@ -14,25 +14,28 @@ import RxSwift
 protocol WalletSortPresenterProtocol {
     typealias Feedback = (Driver<WalletSort.State>) -> Signal<WalletSort.Event>
 
-    func system(bindings: @escaping Feedback)
+    func system(feedbacks: [Feedback])
 }
 
 final class WalletSortPresenter: WalletSortPresenterProtocol {
     private let interactor: WalletSortInteractorProtocol = WalletSortInteractor()
     private let disposeBag = DisposeBag()
 
-    func system(bindings: @escaping Feedback) {
+    func system(feedbacks: [Feedback]) {
+
+        var newFeedbacks = feedbacks
+        newFeedbacks.append(assetsQuery())
+
         Driver.system(initialState: WalletSort.State.initialState,
                       reduce: reduce,
-                      feedback: bindings,
-                      assetsQuery())
+                      feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
 
     private func assetsQuery() -> Feedback {
         return react(query: { state -> Bool? in
-            return state.sections.count == 0
+            return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<WalletSort.Event> in
 
             // TODO: Error
@@ -69,7 +72,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
                 .changeAction(.refresh)
 
         case .readyView:
-            return state
+            return state.mutate {  $0.isNeedRefreshing = true }
 
         case .tapHidden(let indexPath):
 
@@ -105,6 +108,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         case .setAssets(let assets):
             return state.mutate { state in
+                state.isNeedRefreshing = false
                 state.sections = WalletSort.ViewModel.map(from: assets)
             }
             .changeAction(.refresh)
@@ -114,9 +118,10 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
 fileprivate extension WalletSort.State {
     static var initialState: WalletSort.State {
-        return WalletSort.State(status: .visibility,
+        return WalletSort.State(isNeedRefreshing: false,
+                                status: .visibility,
                                 sections: [],
-                                action: .refresh)
+                                action: .none)
     }
 
     func changeAction(_ action: WalletSort.State.Action) -> WalletSort.State {
