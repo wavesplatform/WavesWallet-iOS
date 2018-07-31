@@ -24,7 +24,6 @@ final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var iconMenu: UIImageView!
     @IBOutlet var switchControl: UISwitch!
     @IBOutlet var viewContent: UIView!
-    @IBOutlet var labelCryptoName: UILabel!
 
     private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
@@ -73,7 +72,6 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isHidden = model.isVisibility
         switchControl.isOn = model.isHidden
         arrowGreen.isHidden = !model.isGateway
-        labelCryptoName.isHidden = true
 
         taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
                                                       size: Constants.icon,

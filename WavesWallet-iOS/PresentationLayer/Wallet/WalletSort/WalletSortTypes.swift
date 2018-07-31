@@ -37,7 +37,8 @@ enum WalletSort {
             case position
             case visibility
         }
-        
+
+        var isNeedRefreshing: Bool
         var status: Status
         var sections: [WalletSort.ViewModel.Section]
         var action: Action
