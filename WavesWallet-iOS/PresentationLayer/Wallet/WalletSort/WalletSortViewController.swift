@@ -95,9 +95,13 @@ fileprivate extension WalletSortViewController {
                 strongSelf.changeStatus(state.status)
                 strongSelf.sections = state.sections
 
-                DispatchQueue.main.async {
-                    strongSelf.tableView.reloadData()
-                }
+                UIView.transition(with: strongSelf.tableView,
+                                  duration: 0.24,
+                                  options: [.transitionCrossDissolve,
+                                            .curveEaseInOut],
+                                  animations: {
+                                    strongSelf.tableView.reloadData()
+                }, completion: { _ in })
             })
 
         return [subscriptionSections]
