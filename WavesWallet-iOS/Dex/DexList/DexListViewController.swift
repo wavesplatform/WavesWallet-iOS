@@ -14,6 +14,11 @@ private enum Constants {
 
 final class DexListViewController: UIViewController {
     
+    enum Section: Int {
+        case header = 0
+        case list
+    }
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
     
@@ -103,7 +108,7 @@ extension DexListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if presenter.state == .isLoading {
+        if presenter.state == .isLoading || indexPath.section == Section.header.rawValue {
             return
         }
         
@@ -114,11 +119,27 @@ extension DexListViewController: UITableViewDelegate {
 
 extension DexListViewController: UITableViewDataSource {
   
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == Section.header.rawValue {
+            return DexListHeaderCell.cellHeight()
+        }
+        return DexListCell.cellHeight()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows
+        return presenter.numberOfRows(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == Section.header.rawValue {
+            let cell = tableView.dequeueCell() as DexListHeaderCell
+            return cell
+        }
         
         if presenter.state == .isLoading {
             let cell = tableView.dequeueCell() as DexListSkeletonCell

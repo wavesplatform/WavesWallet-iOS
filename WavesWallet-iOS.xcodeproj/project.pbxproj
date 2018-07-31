@@ -182,6 +182,7 @@
 		E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */; };
 		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
 		E9B2A6AF2108A2A400F9DBF8 /* DexListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */; };
+		E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3755321109141000BBF79 /* DexListHeaderCell.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
@@ -481,6 +482,7 @@
 		E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
 		E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListInteractor.swift; sourceTree = "<group>"; };
+		E9B3755321109141000BBF79 /* DexListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListHeaderCell.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 			children = (
 				E926117A2107C71100A9E793 /* DexListCell.swift */,
 				E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */,
+				E9B3755321109141000BBF79 /* DexListHeaderCell.swift */,
 				E9104D4E2109A900001222B8 /* DexSortingCell.swift */,
 			);
 			path = TableViewCells;
@@ -1881,6 +1884,7 @@
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				E926117E2107E7B300A9E793 /* DexTypes.swift in Sources */,
+				E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,

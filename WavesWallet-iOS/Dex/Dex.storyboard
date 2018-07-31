@@ -365,6 +365,30 @@
                                             <outletCollection property="views" destination="4Yy-u9-JNr" collectionClass="NSMutableArray" id="2zd-c2-me3"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexListHeaderCell" id="5RW-YV-cn4" customClass="DexListHeaderCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="168" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5RW-YV-cn4" id="iVD-fp-zte">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last update: today, 00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Gq-SL-5tI">
+                                                    <rect key="frame" x="16" y="0.0" width="155.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Gq-SL-5tI" firstAttribute="top" secondItem="iVD-fp-zte" secondAttribute="top" id="Faa-Ue-oOY"/>
+                                                <constraint firstItem="1Gq-SL-5tI" firstAttribute="leading" secondItem="iVD-fp-zte" secondAttribute="leading" constant="16" id="tJf-4g-C5W"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="labelTitle" destination="1Gq-SL-5tI" id="2a3-Xh-Lfi"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="29b-LK-W1a" id="k9j-67-QZC"/>
@@ -372,7 +396,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-pE-uI4">
-                                <rect key="frame" x="44" y="202.5" width="287" height="262"/>
+                                <rect key="frame" x="44" y="302.5" width="287" height="262"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDex80Multy" translatesAutoresizingMaskIntoConstraints="NO" id="1Mg-wp-mfY">
                                         <rect key="frame" x="103.5" y="0.0" width="80" height="80"/>
@@ -433,7 +457,7 @@
                             <constraint firstItem="rF0-nN-oMR" firstAttribute="top" secondItem="cMD-NK-h1O" secondAttribute="bottom" id="fzW-Kh-oeU"/>
                             <constraint firstItem="cMD-NK-h1O" firstAttribute="top" secondItem="TOo-jp-aQ1" secondAttribute="top" id="hRt-Lu-0vO"/>
                             <constraint firstAttribute="trailing" secondItem="cMD-NK-h1O" secondAttribute="trailing" id="q7W-8P-0y2"/>
-                            <constraint firstItem="Ofm-pE-uI4" firstAttribute="centerY" secondItem="TOo-jp-aQ1" secondAttribute="centerY" id="v6U-Hb-zUg"/>
+                            <constraint firstItem="Ofm-pE-uI4" firstAttribute="centerY" secondItem="TOo-jp-aQ1" secondAttribute="centerY" constant="100" id="v6U-Hb-zUg"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

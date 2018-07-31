@@ -40,4 +40,8 @@ final class DexListCell: UITableViewCell, Reusable {
             labelPercent.text = "- " + String(model.percent * -1) + "%"
         }
     }
+    
+    class func cellHeight() -> CGFloat {
+        return 70
+    }
 }
