@@ -15,7 +15,7 @@ protocol DexListPresenterDelegate: class {
 }
 
 final class DexListPresenter {
-    
+
     weak var delegate: DexListPresenterDelegate?
     
     private let interactor : DexListInteractorProtocol = DexListInteractorMock()
@@ -31,12 +31,20 @@ final class DexListPresenter {
         return models[indexPath.row]
     }
  
-    var numberOfRows: Int {
+    func numberOfRows(_ section: Int) -> Int {
         if state == .isLoading {
+            if section == DexListViewController.Section.header.rawValue {
+                return 0
+            }
             return 4
+        }
+        
+        if section == DexListViewController.Section.header.rawValue {
+            return 1
         }
         return models.count
     }
+ 
     
     func setupObservable() {
         if hasSetup {
