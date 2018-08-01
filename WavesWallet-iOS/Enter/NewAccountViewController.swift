@@ -113,8 +113,7 @@ class NewAccountViewController: UIViewController {
     @IBAction func continueTapped(_ sender: Any) {
     
         let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
-        navigationController?.pushViewController(controller, animated: true)
-        
+        navigationController?.pushViewControllerAndSetLast(controller)
     }
     
     deinit {
