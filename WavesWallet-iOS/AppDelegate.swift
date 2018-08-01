@@ -31,8 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         showStartController()
 
         self.window?.makeKeyAndVisible()
+
         return true
     }
+
+    
     
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor

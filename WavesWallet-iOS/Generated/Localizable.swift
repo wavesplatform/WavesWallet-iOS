@@ -7,26 +7,18 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum L10n {
+  internal enum Wallet {
 
-  internal enum Controller {
-
-    internal enum Wallet {
-
-      internal enum Navigation {
-
-        internal enum Bar {
-          /// Wallet
-          internal static let title = L10n.tr("Localizable", "controller.wallet.navigation.bar.title")
-        }
-      }
+    internal enum Navigationbar {
+      /// Wallet
+      internal static let title = L10n.tr("Wallet", "navigationbar.title")
     }
   }
+  internal enum WalletSort {
 
-  internal enum General {
-
-    internal enum Name {
-      /// / My Asset
-      internal static let myasset = L10n.tr("Localizable", "general.name.myasset")
+    internal enum Navigationbar {
+      /// Wallet Sort
+      internal static let title = L10n.tr("WalletSort", "navigationbar.title")
     }
   }
 }
