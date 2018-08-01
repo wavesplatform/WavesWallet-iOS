@@ -6,4 +6,4 @@
   Copyright © 2018 Waves Platform. All rights reserved.
 */
 
-"controller.wallet.title" = "Wallet";
+"navigationbar.title" = "Wallet";
