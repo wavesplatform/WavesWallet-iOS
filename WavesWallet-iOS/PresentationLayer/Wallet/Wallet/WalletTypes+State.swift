@@ -56,6 +56,12 @@ extension WalletTypes.State {
         return updateCurrentDisplay(state: displayState)
     }
 
+    func setIsNeedRefreshing(_ isRefreshing: Bool) -> WalletTypes.State {
+        var displayState = currentDisplayState
+        displayState.isNeedRefreshing = isRefreshing
+        return updateCurrentDisplay(state: displayState)
+    }
+
     func setIsRefreshing(isRefreshing: Bool) -> WalletTypes.State {
         var displayState = currentDisplayState
         displayState.isRefreshing = isRefreshing
@@ -88,15 +94,5 @@ extension WalletTypes.State {
         return WalletTypes.State(display: .assets,
                                  assets: .initialState(display: .assets),
                                  leasing: .initialState(display: .leasing))
-    }
-}
-
-extension WalletTypes.State {
-    static func mutate(_ mutation: @escaping (inout WalletTypes.State) -> ()) -> (WalletTypes.State) -> WalletTypes.State {
-        return { state in
-            var newState = state
-            mutation(&newState)
-            return newState
-        }
     }
 }

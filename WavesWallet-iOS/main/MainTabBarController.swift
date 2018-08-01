@@ -1,8 +1,9 @@
 import UIKit
 import RDVTabBarController
 
-class MainTabBarController: RDVTabBarController {
+final class MainTabBarController: RDVTabBarController {
 
+    let walletCoordinator: WalletCoordinator = WalletCoordinator()
     
     override var viewControllers: [Any]! {
         didSet {
@@ -41,8 +42,8 @@ class MainTabBarController: RDVTabBarController {
             tabBar.setHeight(50)
         }
 
-        let wallet = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "WalletViewController")
-        let navWallet = UINavigationController(rootViewController: wallet)
+        let navWallet = UINavigationController()
+        walletCoordinator.start(navigationController: navWallet)
 
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
 

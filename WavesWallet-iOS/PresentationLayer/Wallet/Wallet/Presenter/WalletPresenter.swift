@@ -20,23 +20,28 @@ final class WalletPresenter: WalletPresenterProtocol {
     private let interactor: WalletInteractorProtocol = WalletInteractor()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func system(bindings: @escaping Feedback) {
+    var moduleOutput: WalletModuleOutput?
+
+    func system(feedbacks: [Feedback]) {
+
+        var newFeedbacks = feedbacks
+        newFeedbacks.append(queryAssets())
+        newFeedbacks.append(queryLeasing())
+
         Driver
             .system(initialState: WalletPresenter.initialState(),
-                    reduce: WalletPresenter.reduce,
-                    feedback: bindings,
-                    queryAssets(),
-                    queryLeasing())
+                    reduce: reduce,
+                    feedback: newFeedbacks)
 
             .drive()
             .disposed(by: disposeBag)
     }
 
-    private func queryAssets() -> (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event> {
-        return react(query: { (state) -> ReactQuery? in
+    private func queryAssets() -> Feedback {
+        return react(query: { (state) -> Bool? in
 
-            if state.display == .assets {
-                return state.assets.isRefreshing ? .new : .refresh
+            if state.display == .assets && state.assets.isNeedRefreshing == true {
+                return true
             } else {
                 return nil
             }
@@ -52,11 +57,11 @@ final class WalletPresenter: WalletPresenterProtocol {
         })
     }
 
-    private func queryLeasing() -> (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event> {
-        return react(query: { (state) -> ReactQuery? in
+    private func queryLeasing() -> Feedback {
+        return react(query: { (state) -> Bool? in
 
-            if state.display == .leasing {
-                return state.leasing.isRefreshing ? .new : .refresh
+            if state.display == .leasing && state.leasing.isNeedRefreshing == true {
+                return true
             } else {
                 return nil
             }
@@ -72,32 +77,45 @@ final class WalletPresenter: WalletPresenterProtocol {
         })
     }
 
-    private static func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
+    private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
-        case .none:
-            return state
         case .readyView:
+            return state.setIsNeedRefreshing(true)
+
+        case .tapSortButton:
+            moduleOutput?.showWalletSort()
             return state
+
+        case .tapAddressButton:
+            moduleOutput?.showMyAddress()
+            return state
+
         case .refresh:
             return state.setIsRefreshing(isRefreshing: true)
+
         case .tapSection(let section):
             return state.toggleCollapse(index: section)
+
         case .changeDisplay(let display):
-            return state.setDisplay(display: display)
+            return state.setDisplay(display: display).setIsNeedRefreshing(true)
+
         case .responseAssets(let response):
 
             let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setAssets(assets: .init(sections: secions,
                                                          collapsedSections: state.assets.collapsedSections,
                                                          isRefreshing: false,
+                                                         isNeedRefreshing: false,
                                                          animateType: .refresh))
 
             return newState
+            
         case .responseLeasing(let response):
             let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setLeasing(leasing: .init(sections: secions,
                                                            collapsedSections: state.leasing.collapsedSections,
                                                            isRefreshing: false,
+                                                           isNeedRefreshing: false,
                                                            animateType: .refresh))
 
             return newState

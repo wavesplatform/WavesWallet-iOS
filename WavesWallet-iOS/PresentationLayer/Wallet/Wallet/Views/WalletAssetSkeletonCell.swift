@@ -21,4 +21,5 @@ final class WalletAssetSkeletonCell: SkeletonCell, Reusable {
     class func cellHeight() -> CGFloat {
         return 76
     }
+    
 }

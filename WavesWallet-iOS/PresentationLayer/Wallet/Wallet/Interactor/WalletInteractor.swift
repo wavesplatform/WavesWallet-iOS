@@ -124,6 +124,8 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      isMyAsset: asset.isMyAsset,
                                      isFavorite: settings.isFavorite,
                                      isFiat: asset.isFiat,
+                                     isGateway: asset.isGateway,
+                                     isWaves: asset.isWaves,
                                      kind: state,
                                      sortLevel: level)
     }

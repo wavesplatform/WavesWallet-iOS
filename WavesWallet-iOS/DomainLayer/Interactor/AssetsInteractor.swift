@@ -20,18 +20,14 @@ protocol AssetsInteractorProtocol {
 final class AssetsInteractor: AssetsInteractorProtocol {
     private let apiProvider: MoyaProvider<API.Service.Assets> = MoyaProvider<API.Service.Assets>()
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
-    private let realm = try? Realm()
 
     func assetsBy(ids: [String], accountAddress: String) -> Observable<[Asset]> {
-        let assets = realm?
-            .objects(Asset.self)
 
         // TODO: Нужно решить в какой момент обновлять ассеты в базе
-        guard assets?.count != ids.count else { return Observable.just(assets?.toArray() ?? []) }
 
         let spamAssets = spamProvider
             .rx
-            .request(.getSpamList)
+            .request(.getSpamList, callbackQueue: DispatchQueue.global())
             .map { response -> [String] in
 
                 guard let text = String(data: response.data, encoding: .utf8) else { return [] }
@@ -48,7 +44,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
 
         let assetsList = apiProvider
             .rx
-            .request(.getAssets(ids: ids))
+            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global())
             .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
             .map { $0.data.map { $0.data } }
             .map({ assets -> [Asset] in
@@ -61,6 +57,11 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 for generalAsset in generalAssets {
                     if let asset = assets.first(where: { $0.id == generalAsset.assetId }) {
                         asset.isGeneral = true
+                        if asset.id == Environments.Constants.wavesAssetId {
+                            asset.isWaves = true
+                        } else {
+                            asset.isGateway = true
+                        }
                         asset.name = generalAsset.name
                         asset.isFiat = generalAsset.isFiat
                         asset.isMyAsset = asset.sender == accountAddress
@@ -72,14 +73,16 @@ final class AssetsInteractor: AssetsInteractorProtocol {
 
         return Observable
             .zip(assetsList, spamAssets)
-            .do(onNext: { [weak self] assets, spamAssets in
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { assets, spamAssets in
 
                 assets.forEach { asset in
                     asset.isSpam = spamAssets.contains(asset.id)
                 }
+                let realm = try? Realm()
 
-                try? self?.realm?.write {
-                    self?.realm?.add(assets, update: true)
+                try? realm?.write {
+                    realm?.add(assets, update: true)
                 }
             })
             .map { $0.0 }
