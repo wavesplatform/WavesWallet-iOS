@@ -24,9 +24,8 @@ class BiometricManager {
     static var type: BiometricType {
         get {
             let context = LAContext()
-            var error: NSError?
 
-            let _ = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+            let _ = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
             if #available(iOS 11.0, *) {
                 switch context.biometryType {
                 case .none:
@@ -37,7 +36,7 @@ class BiometricManager {
                     return .faceID
                 }
             } else {
-                return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) ? .touchID : .none
+                return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? .touchID : .none
             }
         }
     }
