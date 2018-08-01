@@ -118,6 +118,11 @@ internal enum StoryboardScene {
 
     internal static let infoPagesViewController = SceneType<WavesWallet_iOS.InfoPagesViewController>(storyboard: Hello.self, identifier: "InfoPagesViewController")
   }
+  internal enum History: StoryboardType {
+    internal static let storyboardName = "History"
+
+    internal static let historyViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "HistoryViewController")
+  }
   internal enum LaunchScreen: StoryboardType {
     internal static let storyboardName = "LaunchScreen"
 
@@ -138,8 +143,6 @@ internal enum StoryboardScene {
     internal static let assetChartViewController = SceneType<WavesWallet_iOS.AssetChartViewController>(storyboard: Main.self, identifier: "AssetChartViewController")
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Main.self, identifier: "AssetViewController")
-
-    internal static let historyViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: Main.self, identifier: "HistoryViewController")
 
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
 
