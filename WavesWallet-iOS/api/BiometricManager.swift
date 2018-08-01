@@ -18,7 +18,7 @@ class BiometricManager {
     }
     
     static var touchIDTypeText: String {
-        return Platform.isIphoneX ? "Face ID" : "Touch ID"
+        return type == .faceID ? "Face ID" : "Touch ID"
     }
     
     static var type: BiometricType {
@@ -26,10 +26,7 @@ class BiometricManager {
             let context = LAContext()
             var error: NSError?
 
-            guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
-                return .none
-            }
-            
+            let _ = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
             if #available(iOS 11.0, *) {
                 switch context.biometryType {
                 case .none:
@@ -40,7 +37,7 @@ class BiometricManager {
                     return .faceID
                 }
             } else {
-                return  .touchID
+                return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) ? .touchID : .none
             }
         }
     }
