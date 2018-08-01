@@ -9,8 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Asset: Object {
-    @objc dynamic var ticker: String?
+final class Asset: Object {
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var precision: Int = 0
@@ -19,11 +18,14 @@ class Asset: Object {
     @objc dynamic var timestamp: String = ""
     @objc dynamic var sender: String = ""
     @objc dynamic var quantity: Int64 = 0
+    @objc dynamic var ticker: String?
     @objc dynamic var isReissuable: Bool = false
     @objc dynamic var isSpam: Bool = false
     @objc dynamic var isFiat: Bool = false
     @objc dynamic var isGeneral: Bool = false
     @objc dynamic var isMyAsset: Bool = false
+    @objc dynamic var isGateway: Bool = false
+    @objc dynamic var isWaves: Bool = false
 
     override class func primaryKey() -> String? {
         return "id"

@@ -55,6 +55,9 @@ target 'WavesWallet-iOS' do
     pod 'QRCode'
     pod 'QRCodeReader.swift'
 
+    # Cache
+    pod 'Kingfisher'
+
     # DB
     pod 'RealmSwift'
     pod 'RxRealm'
@@ -67,6 +70,9 @@ target 'WavesWallet-iOS' do
     pod 'SwiftyJSON'
     pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
+
+    # Gen
+    pod 'SwiftGen'
 
     # Debug
     pod 'Reveal-SDK', :configurations => ['Debug']

@@ -42,6 +42,7 @@ extension WalletTypes.State.DisplayState {
         return .init(sections: [section],
                      collapsedSections: [:],
                      isRefreshing: false,
+                     isNeedRefreshing: false,
                      animateType: .refresh)
     }
 

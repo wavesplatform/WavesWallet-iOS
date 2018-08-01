@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-
         showStartController()
 
         self.window?.makeKeyAndVisible()
