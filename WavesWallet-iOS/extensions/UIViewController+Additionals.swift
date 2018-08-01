@@ -21,7 +21,7 @@ extension UIViewController {
     }
     
     @objc func menuTapped() {
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()
     }
     
@@ -81,4 +81,6 @@ extension UIViewController {
         
         view.insertSubview(imageView, at: 0)
     }
+    
+    
 }

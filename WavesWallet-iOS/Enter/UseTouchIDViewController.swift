@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RESideMenu
+import LocalAuthentication
+
 
 class UseTouchIDViewController: UIViewController {
 
@@ -20,10 +23,11 @@ class UseTouchIDViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.hidesBackButton = true
         if Platform.isIphone5 {
             topLogoOffset.constant = 134
         }
-        else if Platform.isIphoneX {
+        else if BiometricManager.type == .faceID {
             iconTouch.image = UIImage(named: "faceid48Submit300")
             labelTouchId.text = "Use Face ID to sign in?"
             labelDescription.text = "Use your Face ID for faster, easier access to your account"
@@ -31,13 +35,24 @@ class UseTouchIDViewController: UIViewController {
         }
     }
 
-    @IBAction func useTouchIdTapped(_ sender: Any) {
+    func setupCenterController() {
+        AppDelegate.shared().menuController.setContentViewController(MainTabBarController(), animated: true)
+    }
     
+    @IBAction func useTouchIdTapped(_ sender: Any) {
+
+        if BiometricManager.type != .none {
+            DataManager.setUseTouchID(true)
+            setupCenterController()
+        }
+        else {
+            presentBasicAlertWithTitle(title: "Please setup your \(BiometricManager.touchIDTypeText)")
+        }
     }
     
     @IBAction func notNowTapped(_ sender: Any) {
-        
-        
+        DataManager.setUseTouchID(false)
+        setupCenterController()
     }
     
 }

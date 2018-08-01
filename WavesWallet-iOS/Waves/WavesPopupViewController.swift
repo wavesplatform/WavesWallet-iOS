@@ -19,7 +19,7 @@ class WavesPopupViewController: UIViewController {
 
         let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
 
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController
         mainTabBar.setupLastScrollCorrectOffset()
         let nav = mainTabBar.selectedViewController as! UINavigationController
@@ -34,7 +34,7 @@ class WavesPopupViewController: UIViewController {
         
         let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesReceiveViewController") as! WavesReceiveViewController
         
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController
         mainTabBar.setupLastScrollCorrectOffset()
         let nav = mainTabBar.selectedViewController as! UINavigationController

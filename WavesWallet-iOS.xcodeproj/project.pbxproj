@@ -59,7 +59,6 @@
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
 		0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */; };
 		0A6F3E0B20F749BA00E2AF40 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F3E0A20F749BA00E2AF40 /* NibOwnerLoadable.swift */; };
-		0A7E0CCF20F2AD760010CA6C /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */; };
 		0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */; };
 		0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD420F2B9190010CA6C /* Environment-Test.json */; };
 		0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD520F2B9190010CA6C /* Environment-Main.json */; };
@@ -143,6 +142,7 @@
 		E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */; };
 		E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94E9C7020983239007E0705 /* WalletHistoryCell.xib */; };
 		E94E9C7320983522007E0705 /* WalletLeasingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94E9C7220983522007E0705 /* WalletLeasingCell.xib */; };
+		E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950AA46211226A500BFE872 /* String+Escaped.swift */; };
 		E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B5FA20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift */; };
 		E959B5FD20BEE80F00101A75 /* TransactionHistoryShowAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E959B5FC20BEE80F00101A75 /* TransactionHistoryShowAllView.xib */; };
 		E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F602020A45D2F00D8D5B0 /* HistoryViewController.swift */; };
@@ -164,6 +164,9 @@
 		E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */; };
 		E97033F32095C1FF007E728C /* WalletLeasingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033F22095C1FF007E728C /* WalletLeasingCell.swift */; };
 		E97033F52095D70D007E728C /* WalletQuickNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97033F42095D70D007E728C /* WalletQuickNoteCell.swift */; };
+		E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA4D20FFB3A100616A03 /* Array+Sort.swift */; };
+		E971DA5020FFEE8700616A03 /* UINavigationController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */; };
+		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E9794F8B20A460A5007097BE /* HistoryTopHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9794F8A20A460A5007097BE /* HistoryTopHeaderCell.swift */; };
 		E9794F8D20A4614C007097BE /* HistoryTopHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9794F8C20A4614C007097BE /* HistoryTopHeaderCell.xib */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
@@ -370,7 +373,6 @@
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
 		0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+Weak.swift"; sourceTree = "<group>"; };
 		0A6F3E0A20F749BA00E2AF40 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
-		0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
 		0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		0A7E0CD420F2B9190010CA6C /* Environment-Test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Test.json"; sourceTree = "<group>"; };
 		0A7E0CD520F2B9190010CA6C /* Environment-Main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Main.json"; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 		E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
 		E94E9C7020983239007E0705 /* WalletHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHistoryCell.xib; sourceTree = "<group>"; };
 		E94E9C7220983522007E0705 /* WalletLeasingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletLeasingCell.xib; sourceTree = "<group>"; };
+		E950AA46211226A500BFE872 /* String+Escaped.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
 		E959B5FA20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryShowAllView.swift; sourceTree = "<group>"; };
 		E959B5FC20BEE80F00101A75 /* TransactionHistoryShowAllView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryShowAllView.xib; sourceTree = "<group>"; };
 		E95F602020A45D2F00D8D5B0 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -479,6 +482,9 @@
 		E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingBalanceCell.swift; sourceTree = "<group>"; };
 		E97033F22095C1FF007E728C /* WalletLeasingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingCell.swift; sourceTree = "<group>"; };
 		E97033F42095D70D007E728C /* WalletQuickNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletQuickNoteCell.swift; sourceTree = "<group>"; };
+		E971DA4D20FFB3A100616A03 /* Array+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Sort.swift"; sourceTree = "<group>"; };
+		E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Additionals.swift"; sourceTree = "<group>"; };
+		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E9794F8A20A460A5007097BE /* HistoryTopHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTopHeaderCell.swift; sourceTree = "<group>"; };
 		E9794F8C20A4614C007097BE /* HistoryTopHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTopHeaderCell.xib; sourceTree = "<group>"; };
 		E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
@@ -831,10 +837,10 @@
 			children = (
 				0AE657322106374E003D2DB8 /* Types */,
 				0A5C919220F3D01500443CE6 /* Protocols */,
-				0A7E0CCE20F2AD760010CA6C /* String+Escaped.swift */,
 				0A1DAD7720F3A85A004DA625 /* Encodable+Dictionary.swift */,
 				0AD2B57E20F64738007EE076 /* Array+Hashable.swift */,
 				0AD2B58020F64760007EE076 /* Optional+Hashable.swift */,
+				E950AA46211226A500BFE872 /* String+Escaped.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -1265,6 +1271,7 @@
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
 				E93827DE1F20E38900E37599 /* DataManager.swift */,
 				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
+				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -1477,7 +1484,6 @@
 				0AD2B58420F658E0007EE076 /* Reusable */,
 				0A485E7F20FDFF6E00079B49 /* Type */,
 				F7F97E961EAA0D2000BE2F6F /* ActivityIndicator.swift */,
-				F77A92081EB0A9D500C77439 /* ArrayExtension.swift */,
 				0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */,
 				0A50A45920FBF756009DC253 /* ControlEvent+Signal.swift */,
 				F7F97E891EAA0CF800BE2F6F /* DateExtension.swift */,
@@ -1485,7 +1491,6 @@
 				0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */,
 				0AD2B58220F64A8B007EE076 /* RxDataSource+TableView.swift */,
 				0A93FED620FCE4AA0058179E /* RxTableViewAnimatedDataSource.swift */,
-				F7CBD8621EBA592B00B0D4CE /* StringExtension.swift */,
 				F7F97E8A1EAA0CF800BE2F6F /* UIButtonExtension.swift */,
 				E99950292091F15100A11E37 /* UIColor+Colors.swift */,
 				F7F97E8B1EAA0CF800BE2F6F /* UIColor+Hex.swift */,
@@ -1493,7 +1498,6 @@
 				0A1E8AD620F75F860054FA70 /* UIImage+Color.swift */,
 				0AE6572A2105E88E003D2DB8 /* UInt8+Assisstants.swift */,
 				F7F97E8C1EAA0CF800BE2F6F /* UIResponder+Rx.swift */,
-				E99950342092188D00A11E37 /* UIView+Additionals.swift */,
 				F7F97E8D1EAA0CF800BE2F6F /* UIView+Borders.swift */,
 				F7F97E8E1EAA0CF800BE2F6F /* UIView+Layer.swift */,
 				E9995032209213AC00A11E37 /* UIViewController+Additionals.swift */,
@@ -1502,6 +1506,11 @@
 				0A5495F3210F7242009080BE /* UIColor+Asset.swift */,
 				0A5495F521105CCE009080BE /* UIFeedbackGenerator.swift */,
 				0A54960321109EA9009080BE /* UIViewController+Rx.swift */,
+				E99950342092188D00A11E37 /* UIView+Additionals.swift */,
+				F77A92081EB0A9D500C77439 /* ArrayExtension.swift */,
+				F7CBD8621EBA592B00B0D4CE /* StringExtension.swift */,
+				E971DA4D20FFB3A100616A03 /* Array+Sort.swift */,
+				E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1886,8 +1895,10 @@
 				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
+				E971DA5020FFEE8700616A03 /* UINavigationController+Additionals.swift in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
+				E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
 				E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */,
 				E9A0ADA220A1C65A00693160 /* AssetDetailCell.swift in Sources */,
@@ -1929,6 +1940,7 @@
 				E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				F7F97E971EAA0D2000BE2F6F /* ActivityIndicator.swift in Sources */,
+				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
@@ -2021,12 +2033,12 @@
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
+				E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */,
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
-				0A7E0CCF20F2AD760010CA6C /* String+Escaped.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
@@ -2173,8 +2185,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
+				PROVISIONING_PROFILE_SPECIFIER = "profile all";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";

@@ -47,6 +47,9 @@
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcQ-7q-fis">
                                                             <rect key="frame" x="280" y="9" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.3529411764705882" green="0.50588235294117645" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <connections>
+                                                                <action selector="switchChanged:" destination="Iz1-Ng-mg4" eventType="valueChanged" id="ooX-J1-Yuo"/>
+                                                            </connections>
                                                         </switch>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1461,8 +1464,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-lc-CFx" userLabel="view confirm">
                                 <rect key="frame" x="375" y="40" width="375" height="62.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your Passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3f-Xk-tBC">
-                                        <rect key="frame" x="77.5" y="0.0" width="220.5" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify your passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3f-Xk-tBC">
+                                        <rect key="frame" x="89" y="0.0" width="198" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1785,8 +1788,10 @@
                         <viewLayoutGuide key="safeArea" id="sSU-4i-lb8"/>
                     </view>
                     <connections>
+                        <outlet property="buttonAccountPassword" destination="kOY-Uu-lR7" id="2Zp-i2-I7L"/>
                         <outlet property="buttonTouchId" destination="hbZ-uK-lWC" id="U3m-p7-lUc"/>
                         <outlet property="labelEnterPassword" destination="mqK-cb-3KQ" id="XMN-GI-IIw"/>
+                        <outlet property="labelForgotPassword" destination="CmS-3X-JvV" id="pRp-OD-1it"/>
                         <outlet property="viewLeftOffset" destination="jI9-xK-WYn" id="2E6-se-AYD"/>
                         <outlet property="viewPassword1" destination="B9b-Iu-uq0" id="utw-rP-GeN"/>
                         <outlet property="viewPassword2" destination="i0a-lc-CFx" id="xpY-bI-lQo"/>
