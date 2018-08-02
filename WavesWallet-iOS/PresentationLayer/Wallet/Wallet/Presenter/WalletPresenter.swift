@@ -17,10 +17,11 @@ private enum ReactQuery {
 }
 
 final class WalletPresenter: WalletPresenterProtocol {
-    private let interactor: WalletInteractorProtocol = WalletInteractor()
-    private let disposeBag: DisposeBag = DisposeBag()
 
+    var interactor: WalletInteractorProtocol!
     var moduleOutput: WalletModuleOutput?
+
+    private let disposeBag: DisposeBag = DisposeBag()
 
     func system(feedbacks: [Feedback]) {
 
@@ -40,7 +41,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.display == .assets && state.assets.isNeedRefreshing == true {
+            if state.display == .assets {
                 return true
             } else {
                 return nil
@@ -60,7 +61,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.display == .leasing && state.leasing.isNeedRefreshing == true {
+            if state.display == .leasing {
                 return true
             } else {
                 return nil
@@ -91,6 +92,12 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state
 
         case .refresh:
+            switch state.display {
+            case .assets:
+                interactor.refreshAssets()
+            case .leasing:
+                interactor.refreshLeasing()
+            }
             return state.setIsRefreshing(isRefreshing: true)
 
         case .tapSection(let section):

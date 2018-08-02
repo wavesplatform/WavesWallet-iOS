@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="WavesWallet-iOS/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.4.1" build-num="9F2000"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName">
+        <source>Waves</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription">
+        <source>The camera is needed to scan QR codes</source>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSFaceIDUsageDescription">
+        <source>Authenticate with Face ID</source>
+        <note>Privacy - Face ID Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="WavesWallet-iOS/PresentationLayer/Wallet/Wallet/en.lproj/Wallet.strings" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.4.1" build-num="9F2000"/>
+    </header>
+    <body>
+      <trans-unit id="navigationbar.title">
+        <source>Wallet</source>
+        <target>Багажник</target>
+        <note>LocalizableWallet.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 25.07.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="WavesWallet-iOS/PresentationLayer/Wallet/WalletSort/en.lproj/WalletSort.strings" source-language="en" datatype="plaintext" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.4.1" build-num="9F2000"/>
+    </header>
+    <body>
+      <trans-unit id="button.shmutton">
+        <source>БЫры</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="navigationbar.title">
+        <source>Wallet Sort</source>
+        <target>Сортировка от Макса</target>
+        <note>WalletSort.strings
+  WavesWallet-iOS
+
+  Created by Prokofev Ruslan on 02/08/2018.
+  Copyright © 2018 Waves Platform. All rights reserved.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

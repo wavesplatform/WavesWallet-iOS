@@ -13,11 +13,19 @@ import RESideMenu
 import SVProgressHUD
 import UIKit
 
+extension Locale {
+
+    func log() {
+        let currencySymbol = self.currencySymbol ?? ""
+        let languageCode = self.languageCode ?? ""
+        let calendarIdentifier = self.calendar.identifier
+
+        print("currencySymbol \(currencySymbol) \(languageCode) \(calendarIdentifier)")
+    }
+}
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-
-    let accountBalanceInteractor = AccountBalanceInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -31,6 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         showStartController()
 
         self.window?.makeKeyAndVisible()
+
+        Locale.current.log()
+
+        Locale(identifier: "en-RU").log()
+
+        print(Locale.availableIdentifiers)
 
         return true
     }

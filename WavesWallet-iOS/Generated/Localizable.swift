@@ -6,25 +6,85 @@ import Foundation
 // swiftlint:disable file_length
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
-internal enum L10n {
+internal enum Localizable {
   internal enum Wallet {
+
+    internal enum Button {
+      /// Start Lease
+      internal static let startLease = Localizable.tr("Wallet", "button.startLease")
+    }
+
+    internal enum Label {
+      /// Available
+      internal static let available = Localizable.tr("Wallet", "label.available")
+      /// Leased
+      internal static let leased = Localizable.tr("Wallet", "label.leased")
+      /// Started Leasing
+      internal static let startedLeasing = Localizable.tr("Wallet", "label.startedLeasing")
+      /// Total balance
+      internal static let totalBalance = Localizable.tr("Wallet", "label.totalBalance")
+      /// View history
+      internal static let viewHistory = Localizable.tr("Wallet", "label.viewHistory")
+
+      internal enum Quicknote {
+
+        internal enum Description {
+          /// You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.
+          internal static let first = Localizable.tr("Wallet", "label.quickNote.description.first")
+          /// You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.
+          internal static let second = Localizable.tr("Wallet", "label.quickNote.description.second")
+          /// The generating balance will be updated after 1000 blocks.
+          internal static let third = Localizable.tr("Wallet", "label.quickNote.description.third")
+        }
+      }
+    }
 
     internal enum Navigationbar {
       /// Wallet
-      internal static let title = L10n.tr("Wallet", "navigationbar.title")
+      internal static let title = Localizable.tr("Wallet", "navigationBar.title")
     }
+
+    internal enum Section {
+      /// Active now (%d)
+      internal static func activeNow(_ p1: Int) -> String {
+        return Localizable.tr("Wallet", "section.activeNow", p1)
+      }
+      /// Hidden assets (%d)
+      internal static func hiddenAssets(_ p1: Int) -> String {
+        return Localizable.tr("Wallet", "section.hiddenAssets", p1)
+      }
+      /// Quick note
+      internal static let quickNote = Localizable.tr("Wallet", "section.quickNote")
+      /// Hidden assets (%d)
+      internal static func spamAssets(_ p1: Int) -> String {
+        return Localizable.tr("Wallet", "section.spamAssets", p1)
+      }
+    }
+
+    internal enum Segmentedcontrol {
+      /// Assets
+      internal static let assets = Localizable.tr("Wallet", "segmentedControl.assets")
+      /// Leasing
+      internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
+    }
+  }
+  internal enum InfoPlist {
+    /// The camera is needed to scan QR codes
+    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
+    /// Authenticate with Face ID
+    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
   internal enum WalletSort {
 
     internal enum Navigationbar {
       /// Wallet Sort
-      internal static let title = L10n.tr("WalletSort", "navigationbar.title")
+      internal static let title = Localizable.tr("WalletSort", "navigationbar.title")
     }
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 
-extension L10n {
+extension Localizable {
   private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
     let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
     return String(format: format, locale: Locale.current, arguments: args)
