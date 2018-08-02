@@ -56,10 +56,10 @@ extension WalletTypes.State {
         return updateCurrentDisplay(state: displayState)
     }
 
-    func setIsNeedRefreshing(_ isRefreshing: Bool) -> WalletTypes.State {
-        var displayState = currentDisplayState
-        displayState.isNeedRefreshing = isRefreshing
-        return updateCurrentDisplay(state: displayState)
+    func setIsAappeared(_ isAappeared: Bool) -> WalletTypes.State {
+        var newState = self
+        newState.isAappeared = isAappeared
+        return newState
     }
 
     func setIsRefreshing(isRefreshing: Bool) -> WalletTypes.State {
@@ -93,6 +93,7 @@ extension WalletTypes.State {
     static func initialState() -> WalletTypes.State {
         return WalletTypes.State(display: .assets,
                                  assets: .initialState(display: .assets),
-                                 leasing: .initialState(display: .leasing))
+                                 leasing: .initialState(display: .leasing),
+                                 isAappeared: false)
     }
 }

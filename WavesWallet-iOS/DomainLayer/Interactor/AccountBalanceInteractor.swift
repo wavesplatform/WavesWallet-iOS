@@ -40,8 +40,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 let realm = try! Realm()
                 return Observable
                     .collection(from: realm.objects(AssetBalance.self))
-                    .map { $0.toArray() }
-                    .debug("BD")
+                    .map { $0.toArray() }                    
             }
     }
 
@@ -55,7 +54,6 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 let realm = try! Realm()
                 self?.save(balances: balances, to: realm)
             })
-            .debug("Refresh")
             .subscribe()
             .disposed(by: disposeBag)
     }
@@ -157,9 +155,7 @@ private extension AccountBalanceInteractor {
                         return balances
                 }
             })
-        return list.do(onNext: { (_) in
-            print("Remote onNext")
-        })
+        return list
     }
 
     func setupSettings(balances: [AssetBalance]) {

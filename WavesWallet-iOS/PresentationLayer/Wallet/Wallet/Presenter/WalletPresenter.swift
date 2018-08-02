@@ -41,7 +41,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.display == .assets {
+            if state.isAappeared && state.display == .assets {
                 return true
             } else {
                 return nil
@@ -61,7 +61,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.display == .leasing {
+            if state.isAappeared && state.display == .leasing {
                 return true
             } else {
                 return nil
@@ -81,7 +81,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
         case .readyView:
-            return state.setIsNeedRefreshing(true)
+            return state.setIsAappeared(true)
 
         case .tapSortButton:
             moduleOutput?.showWalletSort()
@@ -104,15 +104,14 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state.toggleCollapse(index: section)
 
         case .changeDisplay(let display):
-            return state.setDisplay(display: display).setIsNeedRefreshing(true)
+            return state.setDisplay(display: display)
 
         case .responseAssets(let response):
 
             let secions = WalletTypes.ViewModel.Section.map(from: response)
             let newState = state.setAssets(assets: .init(sections: secions,
                                                          collapsedSections: state.assets.collapsedSections,
-                                                         isRefreshing: false,
-                                                         isNeedRefreshing: false,
+                                                         isRefreshing: false,                                                         
                                                          animateType: .refresh))
 
             return newState
@@ -122,7 +121,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             let newState = state.setLeasing(leasing: .init(sections: secions,
                                                            collapsedSections: state.leasing.collapsedSections,
                                                            isRefreshing: false,
-                                                           isNeedRefreshing: false,
                                                            animateType: .refresh))
 
             return newState
