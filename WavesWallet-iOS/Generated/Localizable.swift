@@ -76,9 +76,16 @@ internal enum Localizable {
   }
   internal enum WalletSort {
 
+    internal enum Button {
+      /// Position
+      internal static let position = Localizable.tr("WalletSort", "button.position")
+      /// Visibility
+      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
+    }
+
     internal enum Navigationbar {
-      /// Wallet Sort
-      internal static let title = Localizable.tr("WalletSort", "navigationbar.title")
+      /// Sorting
+      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
     }
   }
 }

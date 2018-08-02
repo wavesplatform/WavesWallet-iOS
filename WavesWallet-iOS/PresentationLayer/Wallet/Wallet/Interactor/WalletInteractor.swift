@@ -74,7 +74,8 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
 
     func refreshLeasing() {
-
+        accountBalanceInteractor.updateBalances()
+        leasingInteractor.updateActiveLeasingTransactions()
     }
 }
 

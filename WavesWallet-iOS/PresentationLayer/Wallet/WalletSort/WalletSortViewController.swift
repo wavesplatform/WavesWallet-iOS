@@ -11,14 +11,18 @@ import RxFeedback
 import RxSwift
 import UIKit
 
+private enum Constants {
+    static let heightForFooter: CGFloat = 23
+}
+
 final class WalletSortViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
-    let visibilityButton = UIBarButtonItem(title: "Visibility",
+    let visibilityButton = UIBarButtonItem(title: Localizable.WalletSort.Button.visibility,
                                            style: .plain,
                                            target: nil,
                                            action: nil)
-    let positionButton = UIBarButtonItem(title: "Position",
+    let positionButton = UIBarButtonItem(title: Localizable.WalletSort.Button.position,
                                            style: .plain,
                                            target: nil,
                                            action: nil)
@@ -34,7 +38,7 @@ final class WalletSortViewController: UIViewController {
 
         createBackButton()
 
-        title = "Sorting"
+        title = Localizable.WalletSort.Navigationbar.title
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
@@ -148,7 +152,7 @@ extension WalletSortViewController: UITableViewDelegate {
         let sectionModel = sections[section]
         guard sectionModel.kind == .favorities else { return CGFloat.minValue }
 
-        return 23
+        return Constants.heightForFooter
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -236,25 +240,13 @@ extension WalletSortViewController: UITableViewDelegate {
 
         sendEvent.accept(.dragAsset(sourceIndexPath: sourceIndexPath,
                                     destinationIndexPath: destinationIndexPath))
-//            let stringToMove = sortItems[sourceIndexPath.row]
-//            sortItems.remove(at: sourceIndexPath.row)
-//            sortItems.insert(stringToMove, at: destinationIndexPath.row)
-//
-//            CATransaction.begin()
-//            CATransaction.setCompletionBlock {
-//                self.tableView.reloadData()
-//            }
-//            tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-//            CATransaction.commit()
     }
-//
-        func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 
-            let sectionModel = sections[indexPath.section]
-            guard sectionModel.kind == .all else { return false }
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 
-            return true
-        }
+        let sectionModel = sections[indexPath.section]
+        return sectionModel.kind == .all
+    }
 }
 
 extension WalletSortViewController: UIScrollViewDelegate {
