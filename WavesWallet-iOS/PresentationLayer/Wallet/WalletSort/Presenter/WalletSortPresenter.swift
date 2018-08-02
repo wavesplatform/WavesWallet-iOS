@@ -13,7 +13,7 @@ import RxSwift
 
 final class WalletSortPresenter: WalletSortPresenterProtocol {
 
-    private let interactor: WalletSortInteractorProtocol = WalletSortInteractor()
+    var interactor: WalletSortInteractorProtocol!
     private let disposeBag = DisposeBag()
 
     func system(feedbacks: [Feedback]) {

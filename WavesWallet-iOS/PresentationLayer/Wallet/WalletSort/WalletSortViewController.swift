@@ -23,7 +23,7 @@ final class WalletSortViewController: UIViewController {
                                            target: nil,
                                            action: nil)
 
-    private let presenter: WalletSortPresenterProtocol = WalletSortPresenter()
+    var presenter: WalletSortPresenterProtocol!
 
     private var sections: [WalletSort.ViewModel.Section] = []
     private var status: WalletSort.State.Status = .visibility    

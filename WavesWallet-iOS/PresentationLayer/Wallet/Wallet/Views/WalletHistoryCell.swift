@@ -10,9 +10,11 @@ import UIKit
 
 final class WalletHistoryCell: UITableViewCell, NibReusable {
     @IBOutlet var viewContainer: UIView!
+    @IBOutlet var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        titleLabel.text = Localizable.Wallet.Label.viewHistory
         viewContainer.addTableCellShadowStyle()
     }
 

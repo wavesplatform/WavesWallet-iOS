@@ -11,4 +11,7 @@ import Foundation
 protocol WalletInteractorProtocol {
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]>
     func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing>
+
+    func refreshAssets()
+    func refreshLeasing()
 }
