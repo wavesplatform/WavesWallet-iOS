@@ -63,6 +63,12 @@ extension DexSortViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell() as DexSortingCell
+        cell.delegate = self
         return cell
     }
+}
+
+//MARK: - DexSortingCellDelegate
+extension DexSortViewController : DexSortingCellDelegate {
+    
 }
