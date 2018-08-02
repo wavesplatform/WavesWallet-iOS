@@ -32,7 +32,6 @@ extension DexTypes.DTO {
         let priceTicker: String
         let priceDecimals: Int
         
-        
         init(json: JSON) {
             percent = 30
             amountAsset = "amount Asset"

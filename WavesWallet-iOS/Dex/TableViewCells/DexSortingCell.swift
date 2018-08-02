@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol DexSortingCellDelegate: AnyObject {
+
+    
+}
+
 final class DexSortingCell: UITableViewCell, Reusable {
 
     
-    @IBOutlet weak var viewContainer: UIView!
+    weak var delegate : DexSortingCellDelegate?
     
+    @IBOutlet weak var viewContainer: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
