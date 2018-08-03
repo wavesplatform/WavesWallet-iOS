@@ -17,7 +17,7 @@ protocol LeasingInteractorProtocol {
 }
 
 final class LeasingInteractor: LeasingInteractorProtocol {
-    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [NetworkLoggerPlugin(verbose: false)])
+    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init()
     private let realm = try! Realm()
 
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[LeasingTransaction]> {

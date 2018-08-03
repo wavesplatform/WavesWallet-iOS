@@ -21,7 +21,7 @@ enum DexSort {
     
     struct State {
         
-        enum Action {
+        enum Action: Mutating {
             case none
             case refresh
             case delete

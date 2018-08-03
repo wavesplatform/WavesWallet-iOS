@@ -85,8 +85,7 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     @IBAction func showMenu(_ sender: Any) {
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
-        menu.presentLeftMenuViewController()
+         AppDelegate.shared().menuController.presentLeftMenuViewController()
     }
     
     //MARK: - SwipeView

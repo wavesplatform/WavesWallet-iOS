@@ -97,7 +97,9 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
     }
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        koloda.resetCurrentCardIndex()
+        
+        let controller = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController")
+        navigationController?.pushViewControllerAndSetLast(controller)
     }
     
     func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {

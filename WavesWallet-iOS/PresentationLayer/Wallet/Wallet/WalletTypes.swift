@@ -23,17 +23,19 @@ extension WalletTypes {
         case leasing
     }
 
-    struct State {
+    struct State: Mutating {
+        //TODO: Rename
         enum AnimateType  {
             case refresh
             case collapsed(Int)
             case expanded(Int)
         }
 
-        struct DisplayState {
+        struct DisplayState: Mutating {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
             var isRefreshing: Bool
+            var isNeedRefreshing: Bool
             var animateType: AnimateType = .refresh
         }
 
@@ -43,12 +45,15 @@ extension WalletTypes {
     }
 
     enum Event {
-        case none
+        //TODO: Rename
         case responseAssets([DTO.Asset])
+        //TODO: Rename
         case responseLeasing(DTO.Leasing)
         case refresh
         case readyView
         case tapSection(Int)
+        case tapSortButton
+        case tapAddressButton
         case changeDisplay(Display)
     }
 }
