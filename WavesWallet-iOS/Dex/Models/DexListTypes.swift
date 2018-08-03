@@ -7,20 +7,20 @@
 //
 
 import Foundation
-import SwiftyJSON
 
-enum DexTypes {
+enum DexList {
     enum DTO {}
-    
+    enum ViewModel {}
+
     enum State {
         case isLoading
         case normal
     }
 }
 
-extension DexTypes.DTO {
+extension DexList.DTO {
 
-    struct DexListModel {
+    struct DexListModel: Hashable {
         
         let percent: Float
         let amountAsset: String
@@ -31,18 +31,6 @@ extension DexTypes.DTO {
         let priceAssetName: String
         let priceTicker: String
         let priceDecimals: Int
-        
-        init(json: JSON) {
-            percent = 30
-            amountAsset = "amount Asset"
-            amountAssetName = "Asset Name"
-            amountDecimals = 8
-            amountTicker = "amount ticker"
-            priceAsset = "price Asset"
-            priceAssetName = "Asset Name"
-            priceDecimals = 8
-            priceTicker = "price Ticker"
-        }
         
         init(percent: Float, amountAsset: String, amountAssetName: String, amountDecimals: Int, amountTicker: String, priceAsset: String, priceAssetName: String, priceDecimals: Int, priceTicker: String) {
             
@@ -66,4 +54,6 @@ extension DexTypes.DTO {
         }
     }
 }
+
+
 

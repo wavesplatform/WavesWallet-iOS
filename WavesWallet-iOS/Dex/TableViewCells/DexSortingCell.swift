@@ -8,21 +8,19 @@
 
 import UIKit
 
-protocol DexSortingCellDelegate: AnyObject {
-
-    
-}
-
 final class DexSortingCell: UITableViewCell, Reusable {
-
-    
-    weak var delegate : DexSortingCellDelegate?
     
     @IBOutlet weak var viewContainer: UIView!
+    
+    var buttonDeleteDidTap: (() -> Void)?
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
     }
 
+    @IBAction func deleteTapped(_ sender: Any) {
+        buttonDeleteDidTap?()
+    }
 }
