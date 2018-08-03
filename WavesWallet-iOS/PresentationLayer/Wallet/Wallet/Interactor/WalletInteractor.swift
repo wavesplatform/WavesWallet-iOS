@@ -14,10 +14,9 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
-        guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
 
         return accountBalanceInteractor
-            .balances(by: wallet.address)
+            .balances()
             .map { $0.filter { $0.asset != nil } }
             .map {
                 $0.map { balance -> WalletTypes.DTO.Asset in
@@ -68,6 +67,16 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                transactions: transaction)
             }
     }
+
+
+    func refreshAssets() {
+        accountBalanceInteractor.updateBalances()
+    }
+
+    func refreshLeasing() {
+        accountBalanceInteractor.updateBalances()
+        leasingInteractor.updateActiveLeasingTransactions()
+    }
 }
 
 fileprivate extension WalletInteractor {
@@ -75,7 +84,7 @@ fileprivate extension WalletInteractor {
         let transactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
 
         let balance = accountBalanceInteractor
-            .balances(by: accountAddress)
+            .balances()
             .map { $0.first { $0.assetId == Environments.Constants.wavesAssetId } }
             .flatMap { balance -> Observable<AssetBalance> in
                 guard let balance = balance else { return Observable.empty() }

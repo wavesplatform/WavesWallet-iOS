@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalletTableAssetsCell: UITableViewCell, Reusable {
+final class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet var imageIcon: UIImageView!
     @IBOutlet var viewContent: UIView!
     @IBOutlet var iconArrow: UIImageView!

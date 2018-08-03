@@ -13,42 +13,49 @@ import RxSwift
 import RxSwiftExt
 
 protocol AccountBalanceInteractorProtocol {
-    func balances(by accountId: String) -> Observable<[AssetBalance]>
-    func update(balance: AssetBalance) -> Observable<Void>
+    func balances() -> Observable<[AssetBalance]>
+    func updateBalances()
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
+    
     private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
     private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init()
     private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
+    private let disposeBag: DisposeBag = DisposeBag()
 
-    func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
-        
+    func balances() -> Observable<[AssetBalance]> {
+
+        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
+
         return remoteBalances(by: accountAddress)
-            .map({ [weak self] balances -> [AssetBalance] in
+            .do(onNext: { balances in
                 let realm = try! Realm()
-                self?.save(balances: balances, to: realm)
-                return balances
+                self.save(balances: balances, to: realm)
             })
             .observeOn(MainScheduler.asyncInstance)
             .flatMap { balances -> Observable<[AssetBalance]> in
-
                 let realm = try! Realm()
                 return Observable
                     .collection(from: realm.objects(AssetBalance.self))
-                    .map { $0.toArray() }
+                    .map { $0.toArray() }                    
             }
     }
 
-    func update(balance: AssetBalance) -> Observable<Void> {
-        let realm = try! Realm()
-        try? realm.write {
-            realm.add(balance, update: true)
-        }
+    func updateBalances() {
 
-        return Observable.just(())
+        guard let accountAddress = WalletManager.currentWallet?.address else { return }
+
+        remoteBalances(by: accountAddress)
+            .do(onNext: { [weak self] balances in
+
+                let realm = try! Realm()
+                self?.save(balances: balances, to: realm)
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }
 

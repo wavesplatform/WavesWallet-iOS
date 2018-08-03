@@ -9,12 +9,8 @@
 import UIKit
 
 final class WalletCoordinator {
-    private lazy var walletViewContoller: WalletViewController = {
-        let vc = StoryboardScene.Wallet.walletViewController.instantiate()
-        let presenter = WalletPresenter()
-        vc.presenter = presenter
-        presenter.moduleOutput = self
-        return vc
+    private lazy var walletViewContoller: UIViewController = {
+        return WalletModuleBuilder(output: self).build()
     }()
 
     private var navigationController: UINavigationController!
@@ -27,7 +23,7 @@ final class WalletCoordinator {
 
 extension WalletCoordinator: WalletModuleOutput {
     func showWalletSort() {
-        let vc = StoryboardScene.Wallet.walletSortViewController.instantiate()
+        let vc = WalletSortModuleBuilder().build()
         navigationController.pushViewController(vc, animated: true)
     }
 

@@ -8,7 +8,6 @@
 
 import Gloss
 import IQKeyboardManagerSwift
-import Moya
 import RESideMenu
 import SVProgressHUD
 import UIKit
@@ -16,8 +15,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-
-    let accountBalanceInteractor = AccountBalanceInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -31,8 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         showStartController()
 
         self.window?.makeKeyAndVisible()
+
         return true
     }
+
+    
     
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
