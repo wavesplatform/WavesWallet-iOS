@@ -24,7 +24,7 @@ final class DexListCell: UITableViewCell, Reusable {
     }
     
  
-    func setupCell(_ model: DexTypes.DTO.DexListModel) {
+    func setupCell(_ model: DexList.DTO.DexListModel) {
         labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
         
         if model.percent == 0 {

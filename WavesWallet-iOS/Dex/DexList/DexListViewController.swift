@@ -93,7 +93,7 @@ private extension DexListViewController {
 //MARK: DexListPresenterDelegate
 extension DexListViewController: DexListPresenterDelegate {
     
-    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexTypes.DTO.DexListModel]) {
+    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexList.DTO.DexListModel]) {
         tableView.reloadData()
         setupViews()
         setupButtons()

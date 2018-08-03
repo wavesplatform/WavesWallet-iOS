@@ -32,19 +32,19 @@ extension DexSortViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
-}
-
-//MARK: - UITableViewDataSource
-extension DexSortViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        return proposedDestinationIndexPath
-    }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
     }
-   
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        return proposedDestinationIndexPath
+    }
+}
+
+//MARK: - UITableViewDataSource
+extension DexSortViewController: UITableViewDataSource {
+       
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
@@ -63,12 +63,24 @@ extension DexSortViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell() as DexSortingCell
-        cell.delegate = self
+        cell.buttonDeleteDidTap = { [weak self] in
+            self?.buttonDeleteDidTap(indexPath)
+        }
+        
         return cell
+    }
+
+}
+
+//MARK: - DexSortingCellActions
+
+private extension DexSortViewController {
+    
+    func buttonDeleteDidTap(_ indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
     }
 }
 
-//MARK: - DexSortingCellDelegate
-extension DexSortViewController : DexSortingCellDelegate {
-    
-}
+

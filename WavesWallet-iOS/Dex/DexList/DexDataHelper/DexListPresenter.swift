@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import SwiftyJSON
 import RxSwift
 
-protocol DexListPresenterDelegate: class {
-    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexTypes.DTO.DexListModel])
+protocol DexListPresenterDelegate: AnyObject {
+    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexList.DTO.DexListModel])
 }
 
 final class DexListPresenter {
@@ -19,15 +18,15 @@ final class DexListPresenter {
     weak var delegate: DexListPresenterDelegate?
     
     private let interactor : DexListInteractorProtocol = DexListInteractorMock()
-    private(set) var state = DexTypes.State.isLoading
-    private(set) var models: [DexTypes.DTO.DexListModel] = []
+    private(set) var state = DexList.State.isLoading
+    private(set) var models: [DexList.DTO.DexListModel] = []
     private let bag = DisposeBag()
 
     private var hasSetup = false
     
     //MARK: - TableData
     
-    func modelForIndexPath(_ indexPath: IndexPath) -> DexTypes.DTO.DexListModel {
+    func modelForIndexPath(_ indexPath: IndexPath) -> DexList.DTO.DexListModel {
         return models[indexPath.row]
     }
  
