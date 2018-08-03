@@ -196,7 +196,7 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         changeNameController.delegate = self
         changeNameController.showTabBarOnBack = true
         
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController
         mainTabBar.setupLastScrollCorrectOffset()
         let nav = mainTabBar.selectedViewController as! UINavigationController

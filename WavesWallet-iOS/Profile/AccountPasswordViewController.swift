@@ -8,11 +8,22 @@
 
 import UIKit
 
+protocol AccountPasswordViewControllerDelegate: class {
+    
+    func accountPasswordViewControllerDidSuccessEnter()
+}
+
 class AccountPasswordViewController: UIViewController {
 
+    var delegate: AccountPasswordViewControllerDelegate?
+    
     @IBOutlet weak var buttonSignIn: UIButton!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var labelPassword: UILabel!
+    
+    var isLoginMode = false
+    
+    private let password = "123456"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +47,18 @@ class AccountPasswordViewController: UIViewController {
     
     @IBAction func signInTapped(_ sender: Any) {
     
+        if textField.text == password {
+            if isLoginMode {
+                AppDelegate.shared().menuController.setContentViewController(MainTabBarController(), animated: true)
+            }
+            else {
+                delegate?.accountPasswordViewControllerDidSuccessEnter()
+                navigationController?.popViewController(animated: true)
+            }
+        }
+        else {
+            presentBasicAlertWithTitle(title: "Incorrect password")
+        }
     }
     
 }

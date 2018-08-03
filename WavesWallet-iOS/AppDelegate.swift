@@ -28,13 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-
         showStartController()
 
         self.window?.makeKeyAndVisible()
         return true
     }
-
+    
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
         let realm = WalletManager.getWalletsRealm()
@@ -73,5 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
+    }
+
+    var menuController: RESideMenu {
+        return window?.rootViewController as! RESideMenu
     }
 }
