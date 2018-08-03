@@ -30,15 +30,17 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         viewContent.backgroundColor = UIColor.basic50
         backgroundColor = UIColor.basic50
+        firstTitle.text = Localizable.Wallet.Label.Quicknote.Description.first
+        secondTitle.text = Localizable.Wallet.Label.Quicknote.Description.second
+        thirdTitle.text = Localizable.Wallet.Label.Quicknote.Description.third
     }
 
     class func cellHeight(with width: CGFloat) -> CGFloat {
-
-        //TODO: Localized
+        
         let font = UIFont.systemFont(ofSize: 13)
-        let text1 = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else."
-        let text2 = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less."
-        let text3 = "The generating balance will be updated after 1000 blocks."
+        let text1 = Localizable.Wallet.Label.Quicknote.Description.first
+        let text2 = Localizable.Wallet.Label.Quicknote.Description.second
+        let text3 = Localizable.Wallet.Label.Quicknote.Description.third
 
         var height = text1.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingSecondTitleTop

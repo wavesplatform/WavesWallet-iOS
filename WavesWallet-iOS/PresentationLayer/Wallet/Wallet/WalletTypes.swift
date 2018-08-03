@@ -35,13 +35,13 @@ extension WalletTypes {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
             var isRefreshing: Bool
-            var isNeedRefreshing: Bool
             var animateType: AnimateType = .refresh
         }
 
         var display: Display
         var assets: DisplayState
         var leasing: DisplayState
+        var isAappeared: Bool
     }
 
     enum Event {
@@ -55,17 +55,5 @@ extension WalletTypes {
         case tapSortButton
         case tapAddressButton
         case changeDisplay(Display)
-    }
-}
-
-extension WalletTypes.Display {
-
-    var name: String {
-        switch self {
-        case .assets:
-            return "Assets"
-        case .leasing:
-            return "Leasing"
-        }
     }
 }

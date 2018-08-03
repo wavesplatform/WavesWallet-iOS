@@ -14,6 +14,7 @@ import RxSwiftExt
 
 protocol LeasingInteractorProtocol {
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[LeasingTransaction]>
+    func updateActiveLeasingTransactions()
 }
 
 final class LeasingInteractor: LeasingInteractorProtocol {
@@ -28,5 +29,9 @@ final class LeasingInteractor: LeasingInteractorProtocol {
             .map([Node.DTO.LeasingTransaction].self)
             .asObservable()
             .map { $0.map { LeasingTransaction(model: $0) } }
+    }
+
+    func updateActiveLeasingTransactions() {
+
     }
 }

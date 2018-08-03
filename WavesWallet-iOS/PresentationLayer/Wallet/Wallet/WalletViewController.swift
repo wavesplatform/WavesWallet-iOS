@@ -13,6 +13,18 @@ import RxFeedback
 import RxSwift
 import UIKit
 
+private extension WalletTypes.Display {
+
+    var name: String {
+        switch self {
+        case .assets:
+            return Localizable.Wallet.Segmentedcontrol.assets
+        case .leasing:
+            return Localizable.Wallet.Segmentedcontrol.leasing
+        }
+    }
+}
+
 private enum Constants {
     static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
 }
@@ -40,7 +52,7 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Wallet"
+        title = Localizable.Wallet.Navigationbar.title
         createMenuButton()
         setupSegmetedControl()
         setupTableView()
@@ -200,21 +212,7 @@ private extension WalletViewController {
     }
 
     func setupTableView() {
-//        tableView.estimatedRowHeight = 0
-//        tableView.estimatedSectionFooterHeight = 0
-//        tableView.estimatedSectionHeaderHeight = 0
-//        tableView.contentInset = Constants.contentInset
-//        tableView.scrollIndicatorInsets = Constants.contentInset
         displayData.delegate = self
-
-//        navigationController?.navigationBar.isTranslucent = true
-//        edgesForExtendedLayout = .all
-
-//        extendedLayoutIncludesOpaqueBars = true
-//        if #available(iOS 11.0, *) {
-//            tableView.contentInsetAdjustmentBehavior = .always
-//        }
-//        automaticallyAdjustsScrollViewInsets = true
     }
 
     func setupSegmetedControl() {
