@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxDataSources
 
 enum HistoryTypes {
     enum DTO {}
@@ -40,7 +41,7 @@ enum HistoryTypes {
     }
     
     enum Event {
-        
+        case responseAll([DTO.Asset])
     }
 }
 

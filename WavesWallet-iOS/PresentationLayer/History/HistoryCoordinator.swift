@@ -10,9 +10,9 @@ import UIKit
 
 final class HistoryCoordinator {
     
-    private lazy var historyViewController: HistoryViewController = {
-        let vc = StoryboardScene.History.historyViewController.instantiate()
-        vc.isMenuButton = true
+    private lazy var historyViewController: NewHistoryViewController = {
+        let vc = StoryboardScene.History.newHistoryViewController.instantiate()
+//        vc.isMenuButton = true
         
 //        let presenter = HistoryPresenter()
 //        vc.presenter = presenter
