@@ -19,9 +19,11 @@ final class LeasingTransaction: Object {
     @objc dynamic var signature: String = ""
     @objc dynamic var version: Int = 0
     @objc dynamic var amount: Int64 = 0
-    @objc dynamic var recipient: String = ""
-    @objc dynamic var status: String = ""
+    @objc dynamic var recipient: String = ""    
     @objc dynamic var height: Int64 = 0
+    @objc dynamic var modified: Date = Date()
+
+    public override class func primaryKey() -> String? {
+        return "id"
+    }
 }
-
-

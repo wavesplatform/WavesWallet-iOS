@@ -9,7 +9,7 @@
 import Foundation
 import LocalAuthentication
 
-class BiometricManager {
+final class BiometricManager {
     
     enum BiometricType {
         case none

@@ -55,7 +55,7 @@ internal enum Localizable {
       }
       /// Quick note
       internal static let quickNote = Localizable.tr("Wallet", "section.quickNote")
-      /// Hidden assets (%d)
+      /// Spam assets (%d)
       internal static func spamAssets(_ p1: Int) -> String {
         return Localizable.tr("Wallet", "section.spamAssets", p1)
       }

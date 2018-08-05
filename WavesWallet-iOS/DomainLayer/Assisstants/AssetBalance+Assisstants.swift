@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AssetBalance {
+extension DomainLayer.DTO.AssetBalance {
     var avaliableBalance: Int64 {
         return balance - leasedBalance - reserveBalance
     }
