@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="b2m-TL-gDN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="b2m-TL-gDN">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="SDa-Pg-ekZ" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -1010,13 +1010,17 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="avaliableTitleLabel" destination="dYs-lG-ZmG" id="b0M-fb-chg"/>
                                             <outlet property="buttonStartLease" destination="RBm-vS-D94" id="rpk-Uk-OFO"/>
                                             <outlet property="labelAvaliableBalance" destination="KAJ-RA-5nt" id="bBl-28-j5L"/>
                                             <outlet property="labelBalance" destination="WSF-Og-DF9" id="dF7-Xk-Mjk"/>
                                             <outlet property="leasedBalanceLabel" destination="tlu-cn-jBD" id="57N-EJ-d5u"/>
                                             <outlet property="leasedInBalanceLabel" destination="wnP-Mc-VoY" id="QeB-Ss-A4K"/>
+                                            <outlet property="leasedInTitleLabel" destination="tLh-Bd-O4g" id="eb1-5k-W7f"/>
                                             <outlet property="leasedInWidth" destination="1o9-Jj-78n" id="6gh-nb-Gaf"/>
+                                            <outlet property="leasedTitleLabel" destination="7NI-iz-m8A" id="0zC-41-ftd"/>
                                             <outlet property="leasedWidth" destination="8gk-52-PYE" id="xsV-gx-cJ8"/>
+                                            <outlet property="totalBalanceTitleLabel" destination="tjo-tF-ic6" id="WF0-vi-QoP"/>
                                             <outlet property="viewContainer" destination="yRV-Dn-K2P" id="Sfn-Mu-SCb"/>
                                             <outlet property="viewLeasedInHeight" destination="eTR-FJ-MiG" id="Wxd-2v-0wk"/>
                                         </connections>

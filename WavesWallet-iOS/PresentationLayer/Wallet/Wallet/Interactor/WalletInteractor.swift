@@ -9,16 +9,68 @@
 import Foundation
 import RxSwift
 
+private struct Leasing {
+    let balance: DomainLayer.DTO.AssetBalance
+    let transaction: [DomainLayer.DTO.LeasingTransaction]
+}
+
 final class WalletInteractor: WalletInteractorProtocol {
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
-    private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
+
+    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
+
+    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
+
+    private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
+    private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
+
+    private let disposeBag: DisposeBag = DisposeBag()
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
-        guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
 
-        return accountBalanceInteractor
-            .balances(by: wallet.address)
-            .map { $0.filter { $0.asset != nil } }
+        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances
+            .sweetDebug("Listener BD")
+            .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+
+        return Observable.merge(assets(isNeedUpdate: false),
+                                refreshAssetsSubject.asObserver(),
+                                mapAssets(listener))
+            .sweetDebug("ASSETS")
+    }
+
+    func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {
+
+        return Observable.merge(leasing(isNeedUpdate: false),
+                                refreshLeasingSubject.asObserver())
+    }
+
+    func refreshAssets() {
+        assets(isNeedUpdate: true)
+            .take(1)
+            .sweetDebug("Refresh Assets")
+            .subscribe(weak: self, onNext: { owner, balances in
+                owner.refreshAssetsSubject.onNext(balances)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func refreshLeasing() {
+        leasing(isNeedUpdate: true)
+            .take(1)
+            .sweetDebug("Refresh Leasing")
+            .subscribe(weak: self, onNext: { owner, leasing in
+                owner.refreshLeasingSubject.onNext(leasing)
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: Assistants
+
+fileprivate extension WalletInteractor {
+
+    func mapAssets(_ observable: AsyncObservable<[DomainLayer.DTO.AssetBalance]>) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
+        return observable.map { $0.filter { $0.asset != nil || $0.settings != nil } }
             .map {
                 $0.map { balance -> WalletTypes.DTO.Asset in
                     WalletTypes.DTO.Asset.map(from: balance)
@@ -26,15 +78,51 @@ final class WalletInteractor: WalletInteractorProtocol {
             }
     }
 
-    func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {
-        guard let wallet = WalletManager.currentWallet else { return Observable.empty() }
+    func assets(isNeedUpdate: Bool) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
 
-        return activeLeasingTransactions(by: wallet.address)
+        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
+
+        return WalletManager
+            .getPrivateKey()
+            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[WalletTypes.DTO.Asset]> in
+                owner.mapAssets(owner.accountBalanceInteractor.balances(by: accountAddress,
+                                                                        privateKey: privateKey,
+                                                                        isNeedUpdate: isNeedUpdate))
+            }
+    }
+
+    func leasing(isNeedUpdate: Bool) -> AsyncObservable<WalletTypes.DTO.Leasing> {
+
+        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
+
+        let balance = WalletManager
+            .getPrivateKey()
+            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<DomainLayer.DTO.AssetBalance> in
+
+                owner.accountBalanceInteractor
+                    .balances(by: accountAddress,
+                              privateKey: privateKey,
+                              isNeedUpdate: isNeedUpdate)
+                    .map { $0.first { $0.asset?.isWaves == true } }
+                    .flatMap { balance -> Observable<DomainLayer.DTO.AssetBalance> in
+                        guard let balance = balance else { return Observable.empty() }
+                        return Observable.just(balance)
+                    }
+            }
+
+        let transactions = leasingInteractor.activeLeasingTransactions(by: accountAddress,
+                                                                       isNeedUpdate: isNeedUpdate)
+        return Observable
+            .zip(transactions, balance)
+            .map { transactions, balance -> Leasing in
+                Leasing(balance: balance,
+                        transaction: transactions)
+            }
             .map { leasing -> WalletTypes.DTO.Leasing in
 
                 let precision = leasing.balance.asset!.precision
-                let inTransactions = leasing.transaction.filter { $0.sender != wallet.address }
-                let myTransactions = leasing.transaction.filter { $0.sender == wallet.address }
+                let inTransactions = leasing.transaction.filter { $0.sender != accountAddress }
+                let myTransactions = leasing.transaction.filter { $0.sender == accountAddress }
 
                 let leaseAmount: Int64 = myTransactions
                     .reduce(0) { $0 + $1.amount }
@@ -70,30 +158,12 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
 }
 
-fileprivate extension WalletInteractor {
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<DomainLayer.DTO.Leasing> {
-        let transactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
-
-        let balance = accountBalanceInteractor
-            .balances(by: accountAddress)
-            .map { $0.first { $0.assetId == Environments.Constants.wavesAssetId } }
-            .flatMap { balance -> Observable<AssetBalance> in
-                guard let balance = balance else { return Observable.empty() }
-                return Observable.just(balance)
-            }
-
-        return Observable
-            .zip(transactions, balance)
-            .map { transactions, balance -> DomainLayer.DTO.Leasing in
-                DomainLayer.DTO.Leasing(balance: balance,
-                                        transaction: transactions)
-            }
-    }
-}
+// MARK: Mappers
 
 fileprivate extension WalletTypes.DTO.Asset {
-    static func map(from balance: AssetBalance) -> WalletTypes.DTO.Asset {
-        // TODO: Remove !
+
+    static func map(from balance: DomainLayer.DTO.AssetBalance) -> WalletTypes.DTO.Asset {
+
         let asset = balance.asset!
         let settings = balance.settings!
 
