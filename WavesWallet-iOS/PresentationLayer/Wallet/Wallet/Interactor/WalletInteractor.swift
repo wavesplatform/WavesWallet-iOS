@@ -16,14 +16,13 @@ private struct Leasing {
 
 final class WalletInteractor: WalletInteractorProtocol {
 
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
-    private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
+    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
-    private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
+    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
 
     private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
     private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
-
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -164,7 +163,6 @@ fileprivate extension WalletInteractor {
 fileprivate extension WalletTypes.DTO.Asset {
 
     static func map(from balance: DomainLayer.DTO.AssetBalance) -> WalletTypes.DTO.Asset {
-        // TODO: Remove !
 
         let asset = balance.asset!
         let settings = balance.settings!
