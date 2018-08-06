@@ -20,12 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-//        .error,
+//        [.error,
 //        .debug,
 //        .warning,
 //        .verbose,
 //        .info,
-//        .network
+//        .network]
         SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.showStartController()
 
+        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
         self.window?.makeKeyAndVisible()
 
         return true
