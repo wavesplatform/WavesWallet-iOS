@@ -22,7 +22,8 @@ extension DexList.DTO {
 
     struct DexListModel: Hashable {
         
-        let percent: Float
+        let firstPrice: Float
+        let lastPrice: Float
         let amountAsset: String
         let amountAssetName: String
         let amountTicker: String
@@ -32,9 +33,10 @@ extension DexList.DTO {
         let priceTicker: String
         let priceDecimals: Int
         
-        init(percent: Float, amountAsset: String, amountAssetName: String, amountDecimals: Int, amountTicker: String, priceAsset: String, priceAssetName: String, priceDecimals: Int, priceTicker: String) {
-            
-            self.percent = percent
+        init(firstPrice: Float, lastPrice: Float, amountAsset: String, amountAssetName: String, amountDecimals: Int, amountTicker: String, priceAsset: String, priceAssetName: String, priceDecimals: Int, priceTicker: String) {
+
+            self.firstPrice = firstPrice
+            self.lastPrice = lastPrice
             self.amountAsset = amountAsset
             self.amountAssetName = amountAssetName
             self.amountDecimals = amountDecimals
@@ -49,7 +51,7 @@ extension DexList.DTO {
             
             let priceAsset = Environments.current.isTestNet ? "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe" : "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"
             
-            return DexListModel(percent: 50, amountAsset: "WAVES", amountAssetName: "WAVES", amountDecimals: 8, amountTicker: "WAVES", priceAsset: priceAsset, priceAssetName: "Bitcoin", priceDecimals: 8, priceTicker: "BTC")
+            return DexListModel(firstPrice: 50, lastPrice: 23, amountAsset: "WAVES", amountAssetName: "WAVES", amountDecimals: 8, amountTicker: "WAVES", priceAsset: priceAsset, priceAssetName: "Bitcoin", priceDecimals: 8, priceTicker: "BTC")
 
         }
     }

@@ -23,25 +23,27 @@ final class DexListCell: UITableViewCell, Reusable {
         viewContainer.addTableCellShadowStyle()
     }
     
- 
-    func setupCell(_ model: DexList.DTO.DexListModel) {
-        labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
-        
-        if model.percent == 0 {
-            iconArrow.image = UIImage(named: "chartarrow22Accent100")
-            labelPercent.text = String(model.percent) + "%"
-        }
-        else if model.percent > 0 {
-            iconArrow.image = UIImage(named: "chartarrow22Success400")
-            labelPercent.text = "+ " + String(model.percent) + "%"
-        }
-        else {
-            iconArrow.image = UIImage(named: "chartarrow22Error500")
-            labelPercent.text = "- " + String(model.percent * -1) + "%"
-        }
-    }
-    
     class func cellHeight() -> CGFloat {
         return 70
+    }
+}
+
+extension DexListCell: ViewConfiguration {
+    func update(with model: DexList.DTO.DexListModel) {
+        labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
+        
+        let percent = (model.lastPrice - model.firstPrice) * 100 / model.lastPrice
+        if percent == 0 {
+            iconArrow.image = Images.chartarrow22Accent100.image
+            labelPercent.text = String(percent) + "%"
+        }
+        else if percent > 0 {
+            iconArrow.image = Images.chartarrow22Success400.image
+            labelPercent.text = "+ " + String(percent) + "%"
+        }
+        else {
+            iconArrow.image = Images.chartarrow22Error500.image
+            labelPercent.text = "- " + String(percent * -1) + "%"
+        }
     }
 }

@@ -8,12 +8,15 @@
 
 import UIKit
 
+
 private enum Constants {
     static let contentInset = UIEdgeInsetsMake(4, 0, 4, 0)
 }
 
 final class DexSortViewController: UIViewController {
 
+    private let presenter: DexSortPresenterProtocol = DexSortPresenter()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -23,8 +26,10 @@ final class DexSortViewController: UIViewController {
         title = "Sorting"
         tableView.setEditing(true, animated: false)
         tableView.contentInset = Constants.contentInset
+        
     }
 }
+
 
 //MARK: - UITableViewDelegate
 extension DexSortViewController: UITableViewDelegate {
@@ -62,7 +67,8 @@ extension DexSortViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell() as DexSortingCell
+        let cell = tableView.dequeueCell() as DexSortCell
+        
         cell.buttonDeleteDidTap = { [weak self] in
             self?.buttonDeleteDidTap(indexPath)
         }

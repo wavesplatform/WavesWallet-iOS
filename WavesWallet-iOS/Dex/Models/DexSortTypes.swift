@@ -19,7 +19,7 @@ enum DexSort {
         case setModels([DTO.DexSortModel])
     }
     
-    struct State {
+    struct State: Mutating {
         
         enum Action: Mutating {
             case none
@@ -34,16 +34,22 @@ enum DexSort {
 
 extension DexSort.DTO {
     
-    struct DexSortModel: Hashable {
+    struct DexSortModel: Hashable, Mutating {
         let id: String
         let name: String
         var sortLevel: Float
+        
+        init(id: String, name: String, sortLevel: Float) {
+            self.id = id
+            self.name = name
+            self.sortLevel = sortLevel
+        }
     }
-}
+  }
 
 extension DexSort.ViewModel {
 
-    struct Section {
+    struct Section: Mutating {
         var items: [Row]
     }
     

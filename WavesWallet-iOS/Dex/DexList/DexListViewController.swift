@@ -71,8 +71,8 @@ private extension DexListViewController {
     }
     
     func setupButtons() {
-        let btnAdd = UIBarButtonItem(image: UIImage(named: "topbarAddmarkets"), style: .plain, target: self, action: #selector(addTapped(_:)))
-        let buttonSort = UIBarButtonItem(image: UIImage(named: "topbarSort"), style: .plain, target: self, action: #selector(sortTapped))
+        let btnAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: self, action: #selector(addTapped(_:)))
+        let buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: self, action: #selector(sortTapped))
         
         if presenter.state == .isLoading {
             btnAdd.isEnabled = false
@@ -148,7 +148,7 @@ extension DexListViewController: UITableViewDataSource {
         }
         
         let cell: DexListCell = tableView.dequeueCell()
-        cell.setupCell(presenter.modelForIndexPath(indexPath))
+        cell.update(with: presenter.modelForIndexPath(indexPath))
         return cell
     }
 

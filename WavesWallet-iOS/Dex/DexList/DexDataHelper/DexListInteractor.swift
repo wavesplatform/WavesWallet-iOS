@@ -26,17 +26,17 @@ final class DexListInteractorMock: DexListInteractorProtocol {
                 
         let wavesBtcPair = [DexList.DTO.DexListModel.WavesBtcPair()]
         
-        let testPairs = [DexList.DTO.DexListModel(percent: 50, amountAsset: "xxx", amountAssetName: "Waves", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "Bitcoin", priceDecimals: 8, priceTicker: "dsd"),
+        let testPairs = [DexList.DTO.DexListModel(firstPrice: 50, lastPrice: 23, amountAsset: "xxx", amountAssetName: "Waves", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "Bitcoin", priceDecimals: 8, priceTicker: "dsd"),
                          
-                         DexList.DTO.DexListModel(percent: -30, amountAsset: "xxx", amountAssetName: "Monero", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "ETH", priceDecimals: 8, priceTicker: "dsd"),
+                         DexList.DTO.DexListModel(firstPrice: 30, lastPrice: 70, amountAsset: "xxx", amountAssetName: "Monero", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "ETH", priceDecimals: 8, priceTicker: "dsd"),
             
-                         DexList.DTO.DexListModel(percent: 10, amountAsset: "xxx", amountAssetName: "Waves", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "EOS", priceDecimals: 8, priceTicker: "dsd"),
+                         DexList.DTO.DexListModel(firstPrice: 10, lastPrice: 10, amountAsset: "xxx", amountAssetName: "Waves", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "EOS", priceDecimals: 8, priceTicker: "dsd"),
             
-                         DexList.DTO.DexListModel(percent: 20, amountAsset: "xxx", amountAssetName: "ETH Classic", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "ZCash", priceDecimals: 8, priceTicker: "dsd"),
+                         DexList.DTO.DexListModel(firstPrice: 20, lastPrice: 23, amountAsset: "xxx", amountAssetName: "ETH Classic", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "ZCash", priceDecimals: 8, priceTicker: "dsd"),
             
-                         DexList.DTO.DexListModel(percent: 0, amountAsset: "xxx", amountAssetName: "Litecoin", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "TRON", priceDecimals: 8, priceTicker: "dsd"),
+                         DexList.DTO.DexListModel(firstPrice: 10, lastPrice: 23, amountAsset: "xxx", amountAssetName: "Litecoin", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "TRON", priceDecimals: 8, priceTicker: "dsd"),
             
-                         DexList.DTO.DexListModel(percent: 23, amountAsset: "xxx", amountAssetName: "IOTA", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "NEO", priceDecimals: 8, priceTicker: "dsd")]
+                         DexList.DTO.DexListModel(firstPrice: 23, lastPrice: 12, amountAsset: "xxx", amountAssetName: "IOTA", amountDecimals: 8, amountTicker: "Waves", priceAsset: "BTC", priceAssetName: "NEO", priceDecimals: 8, priceTicker: "dsd")]
         
        
         return AsyncObservable.just(wavesBtcPair + testPairs)
