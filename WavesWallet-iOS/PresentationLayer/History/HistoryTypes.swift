@@ -25,8 +25,17 @@ enum HistoryTypes {
     }
     
     struct State: Mutating {
+        enum AnimateType  {
+            case refresh
+            case collapsed(Int)
+            case expanded(Int)
+        }
+        
         struct DisplayState: Mutating {
             var sections: [HistoryTypes.ViewModel.Section]
+            var isRefreshing: Bool
+            var isNeedRefreshing: Bool
+            var animateType: AnimateType = .refresh
         }
         
         var display: Display
@@ -42,22 +51,9 @@ enum HistoryTypes {
     
     enum Event {
         case responseAll([DTO.Asset])
-    }
-}
-
-extension HistoryTypes.ViewModel {
-    struct Section: Mutating {
-        enum Kind {
-            case all
-        }
-        
-        let kind: Kind
-        var items: [Row]
-    }
-    
-    enum Row {
-        case asset(HistoryTypes.DTO.Asset)
-        case assetSkeleton
+        case readyView
+        case refresh
+        case changeDisplay(Display)
     }
 }
 
