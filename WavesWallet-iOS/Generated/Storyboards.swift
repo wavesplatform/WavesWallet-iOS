@@ -53,6 +53,11 @@ internal extension UIViewController {
 
 // swiftlint:disable explicit_type_interface identifier_name line_length type_body_length type_name
 internal enum StoryboardScene {
+  internal enum Asset: StoryboardType {
+    internal static let storyboardName = "Asset"
+
+    internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
+  }
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
 
