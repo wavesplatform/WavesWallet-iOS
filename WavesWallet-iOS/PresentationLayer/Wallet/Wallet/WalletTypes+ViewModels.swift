@@ -67,7 +67,7 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: "Hidden assets (\(hiddenItems.count))",
+        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.hiddenAssets(hiddenItems.count),
                                                                  items: hiddenItems,
                                                                  isExpanded: true)
         let spamItems = assets
@@ -77,7 +77,7 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let spamSection: WalletTypes.ViewModel.Section = .init(header: "Spam assets (\(spamItems.count))",
+        let spamSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.spamAssets(spamItems.count),
                                                                items: spamItems,
                                                                isExpanded: true)
         return [generalSection,
@@ -101,13 +101,13 @@ extension WalletTypes.ViewModel.Section {
 
             let activeTransactionSection: WalletTypes
                 .ViewModel
-                .Section = .init(header: "Active now (\(rows.count))",
+                .Section = .init(header: Localizable.Wallet.Section.activeNow(rows.count),
                                  items: rows,
                                  isExpanded: true)
             sections.append(activeTransactionSection)
         }
 
-        let noteSection: WalletTypes.ViewModel.Section = .init(header: "Quick note",
+        let noteSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.quickNote,
                                                                items: [.quickNote],
                                                                isExpanded: true)
         sections.append(noteSection)

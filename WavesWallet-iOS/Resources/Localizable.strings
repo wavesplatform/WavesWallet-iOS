@@ -10,6 +10,4 @@
  controller.name.view.label
 */
 
-"controller.wallet.navigation.bar.title" = "Wallet";
-
-"general.name.myasset" = "/ My Asset";
+"general.title.myasset" = "/ My Asset";

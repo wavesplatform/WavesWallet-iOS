@@ -10,6 +10,7 @@ import UIKit
 
 final class WalletLeasingCell: UITableViewCell, NibReusable {
     @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var labelMoney: UILabel!
     @IBOutlet var viewContainer: UIView!
 
     override func awakeFromNib() {
@@ -24,7 +25,8 @@ final class WalletLeasingCell: UITableViewCell, NibReusable {
 
 extension WalletLeasingCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Leasing.Transaction) {
-        labelTitle.attributedText = .styleForBalance(text: model.balance.displayTextFull,
-                                                     font: labelTitle.font)
+        labelTitle.text = Localizable.Wallet.Label.startedLeasing
+        labelMoney.attributedText = .styleForBalance(text: model.balance.displayTextFull,
+                                                     font: labelMoney.font)
     }
 }

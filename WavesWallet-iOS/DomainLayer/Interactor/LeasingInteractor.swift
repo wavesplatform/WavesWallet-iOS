@@ -12,21 +12,45 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
+private struct Constants {
+    static let durationInseconds: Double =  15
+}
+
 protocol LeasingInteractorProtocol {
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[LeasingTransaction]>
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]>
 }
 
 final class LeasingInteractor: LeasingInteractorProtocol {
-    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init()
-    private let realm = try! Realm()
 
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[LeasingTransaction]> {
-        // TODO: DB Implementation
-        return leasingProvider
-            .rx
-            .request(.getActive(accountAddress: accountAddress))
-            .map([Node.DTO.LeasingTransaction].self)
-            .asObservable()
-            .map { $0.map { LeasingTransaction(model: $0) } }
-    }
+    private let leasingTransactionLocal: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryLocal
+    private let leasingTransactionRemote: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryRemote
+
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]> {
+
+            let local = leasingTransactionLocal.activeLeasingTransactions(by: accountAddress)
+            return local.flatMap(weak: self) { owner, transactions -> Observable<[DomainLayer.DTO.LeasingTransaction]> in
+
+                let now = Date()
+                let isNeedForceUpdate = transactions.count == 0 || transactions.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds }  != nil || isNeedUpdate
+
+                if isNeedForceUpdate {
+                    info("From Remote", type: LeasingInteractor.self)
+                } else {
+                    info("From BD", type: LeasingInteractor.self)
+                }
+
+                guard isNeedForceUpdate == true else { return Observable.just(transactions) }
+
+                return owner
+                    .leasingTransactionRemote
+                    .activeLeasingTransactions(by: accountAddress)
+                    .flatMap(weak: owner, selector: { owner, transactions -> Observable<[DomainLayer.DTO.LeasingTransaction]> in
+                        return owner.leasingTransactionLocal.saveLeasingTransactions(transactions).map({ _ -> [DomainLayer.DTO.LeasingTransaction] in
+                            return transactions
+                        })
+                    })
+                }
+                .share()
+                .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+        }
 }

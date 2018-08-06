@@ -19,6 +19,7 @@ final class Asset: Object {
     @objc dynamic var sender: String = ""
     @objc dynamic var quantity: Int64 = 0
     @objc dynamic var ticker: String?
+    @objc dynamic var modified: Date = Date()
     @objc dynamic var isReissuable: Bool = false
     @objc dynamic var isSpam: Bool = false
     @objc dynamic var isFiat: Bool = false

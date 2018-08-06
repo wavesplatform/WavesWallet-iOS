@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -103,7 +103,8 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="labelTitle" destination="79V-bn-6QY" id="Eav-KQ-vca"/>
+                <outlet property="labelMoney" destination="79V-bn-6QY" id="Eav-KQ-vca"/>
+                <outlet property="labelTitle" destination="Jon-XB-ex6" id="ozh-1t-yw5"/>
                 <outlet property="viewContainer" destination="8F5-y1-6rj" id="NiF-Xi-d6L"/>
             </connections>
             <point key="canvasLocation" x="48" y="34"/>
