@@ -23,6 +23,11 @@
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
 		0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */; };
 		0A26AA17211897DD00A00578 /* Asset.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A26AA16211897DD00A00578 /* Asset.storyboard */; };
+		0A26AA192118A7EE00A00578 /* AssetViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */; };
+		0A26AA1B2118A7F600A00578 /* AssetViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */; };
+		0A26AA1D2118A80200A00578 /* AssetViewInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */; };
+		0A26AA1F2118A80B00A00578 /* AssetViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */; };
+		0A26AA212118A81E00A00578 /* AssetModuleBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */; };
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
 		0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */; };
 		0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */; };
@@ -364,6 +369,11 @@
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorFooter.xib; sourceTree = "<group>"; };
 		0A26AA16211897DD00A00578 /* Asset.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Asset.storyboard; sourceTree = "<group>"; };
+		0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewPresenter.swift; sourceTree = "<group>"; };
+		0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractorProtocol.swift; sourceTree = "<group>"; };
+		0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractor.swift; sourceTree = "<group>"; };
+		0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetModuleBuild.swift; sourceTree = "<group>"; };
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
 		0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlScrollView.swift; sourceTree = "<group>"; };
 		0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -767,18 +777,16 @@
 		0A26AA14211897B800A00578 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				E999502B2091FDF300A11E37 /* Views */,
 				E90C6E6720981F0300AA311B /* AssetViewController.swift */,
-				0A26AA15211897C300A00578 /* New Group */,
 				0A26AA16211897DD00A00578 /* Asset.storyboard */,
+				0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */,
+				0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */,
+				0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */,
+				0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */,
+				0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */,
 			);
 			path = Asset;
-			sourceTree = "<group>";
-		};
-		0A26AA15211897C300A00578 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		0A381EEF2106892700D250F1 /* Assisstants */ = {
@@ -1324,8 +1332,6 @@
 				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
 				E9E1B51D20A0F3A60034DCD3 /* AssetChartCell.swift */,
 				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
-				E9FBFC9E20A0AE8300EBF3AD /* BorderButtView.swift */,
-				E9D385C82094ED1A00213E2C /* DottedLineView.swift */,
 				E93CEDE920A1A8A300756CA8 /* AssetChartHeaderView.swift */,
 				E93CEDEB20A1A8AE00756CA8 /* AssetChartHeaderView.xib */,
 				E9628842209F792300DE3B5A /* AssetLastTransactionView.swift */,
@@ -1537,7 +1543,6 @@
 				E9E6DAD920A620360081C71A /* AssetChartViewController.swift */,
 				E93E31D020A8785D0056032D /* StartLeasingViewController.swift */,
 				E97033EB2095BDD1007E728C /* TableViewCells */,
-				E999502B2091FDF300A11E37 /* Views */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -1653,6 +1658,8 @@
 		F7F97E861EAA0CF800BE2F6F /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				E9FBFC9E20A0AE8300EBF3AD /* BorderButtView.swift */,
+				E9D385C82094ED1A00213E2C /* DottedLineView.swift */,
 				0A388DB420F7918E00C07AA3 /* SegmentedControl */,
 				E929B4691F36EC1B00A335F7 /* Dex */,
 				F79C43D11EAEB0D9006057B0 /* HalfModalPresentationController */,
@@ -1991,6 +1998,7 @@
 				0AFBCA8D211326AB00285BCB /* ModuleBuilder.swift in Sources */,
 				0AE491EA2107A3FB009223DB /* WalletSortTypes.swift in Sources */,
 				0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */,
+				0A26AA1D2118A80200A00578 /* AssetViewInteractorProtocol.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeasingTransaction.swift in Sources */,
 				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
@@ -2014,6 +2022,7 @@
 				E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
+				0A26AA1B2118A7F600A00578 /* AssetViewPresenter.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
@@ -2148,6 +2157,7 @@
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
+				0A26AA212118A81E00A00578 /* AssetModuleBuild.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
 				0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */,
@@ -2231,6 +2241,7 @@
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
+				0A26AA192118A7EE00A00578 /* AssetViewPresenterProtocol.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
@@ -2250,6 +2261,7 @@
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */,
+				0A26AA1F2118A80B00A00578 /* AssetViewInteractor.swift in Sources */,
 				0AFEFB5221124F9C00B50F85 /* Locale+Test.swift in Sources */,
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
