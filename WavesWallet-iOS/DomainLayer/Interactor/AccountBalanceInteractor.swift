@@ -22,15 +22,11 @@ protocol AccountBalanceInteractorProtocol {
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
-    private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
-    private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryRemote()
+    private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
+    private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
 
-    private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
-    private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
-
-    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init()
+    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
+    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
 
     private let disposeBag: DisposeBag = DisposeBag()
 

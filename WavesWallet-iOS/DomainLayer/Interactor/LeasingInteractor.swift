@@ -22,8 +22,8 @@ protocol LeasingInteractorProtocol {
 
 final class LeasingInteractor: LeasingInteractorProtocol {
 
-    private let leasingTransactionLocal: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryLocal()
-    private let leasingTransactionRemote: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryRemote()
+    private let leasingTransactionLocal: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryLocal
+    private let leasingTransactionRemote: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryRemote
 
     func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]> {
 

@@ -23,8 +23,8 @@ private struct Constants {
 
 final class AssetsInteractor: AssetsInteractorProtocol {
 
-    private let repositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
-    private let repositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote()
+    private let repositoryLocal: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryLocal
+    private let repositoryRemote: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
 
     func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]> {
 
