@@ -238,6 +238,18 @@ class WalletManager {
     }
 
     class func restorePrivateKeyFromRealm() -> Observable<PrivateKeyAccount> {
+        
+        if let realm = getWalletSeedRealm(address: getAddress(), password: "111111") {
+            let item = realm.object(ofType: SeedItem.self, forPrimaryKey: currentWallet!.publicKeyStr)
+            if let item = item {
+                return Observable.just(PrivateKeyAccount(seed: Array(item.seed.utf8)))
+            } else {
+                return Observable.error(WalletError.Generic("Private key is not found in Realm"))
+            }
+        } else {
+            return Observable.error(WalletError.Generic("Incorrect password. Try again."))
+        }
+        
         return AskManager.askForPassword().flatMap { pwd -> Observable<PrivateKeyAccount>in
             if let realm = getWalletSeedRealm(address: getAddress(), password: pwd) {
                 let item = realm.object(ofType: SeedItem.self, forPrimaryKey: currentWallet!.publicKeyStr)

@@ -8,9 +8,10 @@
 
 import UIKit
 
-final class DexSortingCell: UITableViewCell, Reusable {
+final class DexSortCell: UITableViewCell, Reusable {
     
     @IBOutlet weak var viewContainer: UIView!
+    @IBOutlet weak var labelTitle: UILabel!
     
     var buttonDeleteDidTap: (() -> Void)?
 
@@ -22,5 +23,11 @@ final class DexSortingCell: UITableViewCell, Reusable {
 
     @IBAction func deleteTapped(_ sender: Any) {
         buttonDeleteDidTap?()
+    }
+}
+
+extension DexSortCell: ViewConfiguration {
+    func update(with model: DexSort.DTO.DexSortModel) {
+        labelTitle.text = model.name
     }
 }
