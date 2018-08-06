@@ -24,6 +24,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
     private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
 
+
     private let disposeBag: DisposeBag = DisposeBag()
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
@@ -41,7 +42,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {
 
         return Observable.merge(leasing(isNeedUpdate: false),
-                                refreshLeasingSubject.asObserver())            
+                                refreshLeasingSubject.asObserver())
     }
 
     func refreshAssets() {
@@ -69,7 +70,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
 fileprivate extension WalletInteractor {
 
-    func mapAssets(_ observable: AsyncObservable <[DomainLayer.DTO.AssetBalance]>) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
+    func mapAssets(_ observable: AsyncObservable<[DomainLayer.DTO.AssetBalance]>) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
         return observable.map { $0.filter { $0.asset != nil || $0.settings != nil } }
             .map {
                 $0.map { balance -> WalletTypes.DTO.Asset in
@@ -84,11 +85,11 @@ fileprivate extension WalletInteractor {
 
         return WalletManager
             .getPrivateKey()
-            .flatMap(weak: self, selector: { owner, privateKey -> AsyncObservable<[WalletTypes.DTO.Asset]> in
-                return owner.mapAssets(owner.accountBalanceInteractor.balances(by: accountAddress,
-                                                                               privateKey: privateKey,
-                                                                               isNeedUpdate: isNeedUpdate))
-            })
+            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[WalletTypes.DTO.Asset]> in
+                owner.mapAssets(owner.accountBalanceInteractor.balances(by: accountAddress,
+                                                                        privateKey: privateKey,
+                                                                        isNeedUpdate: isNeedUpdate))
+            }
     }
 
     func leasing(isNeedUpdate: Bool) -> AsyncObservable<WalletTypes.DTO.Leasing> {
@@ -97,9 +98,9 @@ fileprivate extension WalletInteractor {
 
         let balance = WalletManager
             .getPrivateKey()
-            .flatMap(weak: self, selector: { owner, privateKey -> AsyncObservable<DomainLayer.DTO.AssetBalance> in
+            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<DomainLayer.DTO.AssetBalance> in
 
-                return owner.accountBalanceInteractor
+                owner.accountBalanceInteractor
                     .balances(by: accountAddress,
                               privateKey: privateKey,
                               isNeedUpdate: isNeedUpdate)
@@ -107,16 +108,16 @@ fileprivate extension WalletInteractor {
                     .flatMap { balance -> Observable<DomainLayer.DTO.AssetBalance> in
                         guard let balance = balance else { return Observable.empty() }
                         return Observable.just(balance)
-                }
-            })
+                    }
+            }
 
         let transactions = leasingInteractor.activeLeasingTransactions(by: accountAddress,
                                                                        isNeedUpdate: isNeedUpdate)
         return Observable
             .zip(transactions, balance)
             .map { transactions, balance -> Leasing in
-                return Leasing(balance: balance,
-                               transaction: transactions)
+                Leasing(balance: balance,
+                        transaction: transactions)
             }
             .map { leasing -> WalletTypes.DTO.Leasing in
 
@@ -154,7 +155,7 @@ fileprivate extension WalletInteractor {
 
                 return WalletTypes.DTO.Leasing(balance: leasingBalance,
                                                transactions: transaction)
-        }
+            }
     }
 }
 

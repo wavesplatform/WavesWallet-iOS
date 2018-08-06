@@ -20,12 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        SweetLogger.current.visibleLevels = [.error,
-                                             .debug,
-                                             .warning,
-                                             .verbose,
-                                             .info,
-                                            .network]
+//        .error,
+//        .debug,
+//        .warning,
+//        .verbose,
+//        .info,
+//        .network
+        SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
