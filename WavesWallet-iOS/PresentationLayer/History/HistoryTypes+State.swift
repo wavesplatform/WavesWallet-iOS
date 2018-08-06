@@ -68,6 +68,18 @@ extension HistoryTypes.State {
 
 extension HistoryTypes.State {
     
+    func setIsNeedRefreshing(_ isRefreshing: Bool) -> HistoryTypes.State {
+        var displayState = currentDisplayState
+        displayState.isNeedRefreshing = isRefreshing
+        return updateCurrentDisplay(state: displayState)
+    }
+    
+    func setIsRefreshing(isRefreshing: Bool) -> HistoryTypes.State {
+        var displayState = currentDisplayState
+        displayState.isRefreshing = isRefreshing
+        return updateCurrentDisplay(state: displayState)
+    }
+    
     func setAll(all: DisplayState) -> HistoryTypes.State {
         var newState = self
         newState.all = all
@@ -114,6 +126,14 @@ extension HistoryTypes.State {
         var newState = self
         newState.canceled = canceled
         return newState
+    }
+    
+    func setDisplay(display: HistoryTypes.Display) -> HistoryTypes.State {
+        var newState = self
+        newState.display = display
+        var displayState = newState.currentDisplayState
+        displayState.animateType = .refresh
+        return newState.updateCurrentDisplay(state: displayState)
     }
 }
 

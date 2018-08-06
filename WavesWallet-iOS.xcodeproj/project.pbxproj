@@ -10,6 +10,7 @@
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
+		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04EB742621133318004A065B /* NewHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* NewHistoryViewController.swift */; };
@@ -330,6 +331,7 @@
 /* Begin PBXFileReference section */
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
+		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
 		04EB742521133318004A065B /* NewHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHistoryViewController.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */,
 				04EB74272113335B004A065B /* HistoryTypes.swift */,
 				04EB74292113415E004A065B /* HistoryTypes+State.swift */,
+				048447492118658400552772 /* HistoryTypes+ViewModels.swift */,
 				04EB742B21134300004A065B /* HistoryTypes+DisplayState.swift */,
 				04A2CFA22112103800784FEC /* HistoryCoordinator.swift */,
 				04FD4BFE21149477003664D4 /* HistoryDisplayData.swift */,
@@ -2006,6 +2009,7 @@
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
 				E97033EF2095BE34007E728C /* WalletTableAssetsCell.swift in Sources */,
 				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
+				0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */,
 				E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */,
 				0A93FED720FCE4AA0058179E /* RxTableViewAnimatedDataSource.swift in Sources */,
 				0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */,

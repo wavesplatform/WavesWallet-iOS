@@ -12,8 +12,8 @@ extension HistoryTypes.State.DisplayState {
     static func initialState(display: HistoryTypes.Display) -> HistoryTypes.State.DisplayState {
         var section: HistoryTypes.ViewModel.Section!
 
-        section = HistoryTypes.ViewModel.Section(kind: .all, items: [.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton])
+        section = HistoryTypes.ViewModel.Section(header: "Хедер", items: [.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton])
         
-        return .init(sections: [section])
+        return .init(sections: [section], isRefreshing: false, isNeedRefreshing: false, animateType: .refresh)
     }
 }
