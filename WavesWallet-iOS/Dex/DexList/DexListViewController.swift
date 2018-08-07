@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import RxCocoa
+import RxFeedback
+import RxSwift
+
 
 private enum Constants {
     static let contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
@@ -22,24 +26,33 @@ final class DexListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
     
-    private let presenter = DexListPresenter()
-    
+    private let presenter : DexListPresenterProtocol = DexListPresenter()
+    private var sections : [DexList.ViewModel.Section] = []
+    private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         createMenuButton()
         title = "Dex"
         tableView.contentInset = Constants.contentInset
+        setupViewNoItems(isHidden: true)
         
-        presenter.delegate = self
-        setupViews()
-        setupButtons()
+        let feedback = bind(self) { owner, state -> Bindings<DexList.Event> in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+        
+        let readyViewFeedback: DexListPresenter.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+        }
+        
+        presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-        presenter.setupObservable()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,29 +70,56 @@ final class DexListViewController: UIViewController {
         let controller = storyboard?.instantiateViewController(withIdentifier: "DexSearchViewController") as! DexSearchViewController
         navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+
+// MARK: Feedback
+
+fileprivate extension DexListViewController {
+    func events() -> [Signal<DexList.Event>] {
+        return [sendEvent.asSignal()]
+    }
     
-    deinit {
-        print(self.classForCoder, #function)
+    func subscriptions(state: Driver<DexList.State>) -> [Disposable] {
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] state in
+                
+                guard let strongSelf = self else { return }
+                
+                strongSelf.sections = state.sections
+                strongSelf.tableView.reloadData()
+                if (state.loadingDataState) {
+                    strongSelf.setupViewNoItems(isHidden: true)
+                }
+                else {
+                    strongSelf.setupViewNoItems(isHidden: state.isVisibleItems)
+                }
+                strongSelf.setupButtons(isLoadingState: state.loadingDataState,
+                                        isVisibleSortButton: state.isVisibleItems)
+            })
+        return [subscriptionSections]
     }
 }
+
 
 //MARK: SetupUI
 private extension DexListViewController {
 
-    func setupViews() {
-        viewNoItems.isHidden = presenter.models.count > 0 || presenter.state == .isLoading
+    func setupViewNoItems(isHidden: Bool) {
+        viewNoItems.isHidden = isHidden
     }
+
     
-    func setupButtons() {
+    func setupButtons(isLoadingState: Bool, isVisibleSortButton: Bool) {
         let btnAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: self, action: #selector(addTapped(_:)))
         let buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: self, action: #selector(sortTapped))
-        
-        if presenter.state == .isLoading {
+
+        if isLoadingState {
             btnAdd.isEnabled = false
             buttonSort.isEnabled = false
             navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
         }
-        else if presenter.models.count > 0{
+        else if isVisibleSortButton {
             navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
         }
         else {
@@ -90,15 +130,6 @@ private extension DexListViewController {
     
 }
 
-//MARK: DexListPresenterDelegate
-extension DexListViewController: DexListPresenterDelegate {
-    
-    func dexListPresenter(listPresenter: DexListPresenter, didUpdateModels models: [DexList.DTO.DexListModel]) {
-        tableView.reloadData()
-        setupViews()
-        setupButtons()
-    }
-}
 
 //MARK: - UITableViewDelegate
 extension DexListViewController: UITableViewDelegate {
@@ -108,10 +139,11 @@ extension DexListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if presenter.state == .isLoading || indexPath.section == Section.header.rawValue {
-            return
+       
+        let row = sections[indexPath.section].items[indexPath.row]
+        if let model = row.model {
+            print(model)
         }
-        
     }
 }
 
@@ -120,36 +152,48 @@ extension DexListViewController: UITableViewDelegate {
 extension DexListViewController: UITableViewDataSource {
   
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == Section.header.rawValue {
+       
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .header:
             return DexListHeaderCell.cellHeight()
+            
+        case .model(_):
+            return DexListCell.cellHeight()
+            
+        case .skeleton:
+            return DexListSkeletonCell.cellHeight()
         }
-        return DexListCell.cellHeight()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter.numberOfSections
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows(section)
+        return sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == Section.header.rawValue {
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .header:
             let cell = tableView.dequeueCell() as DexListHeaderCell
             return cell
-        }
-        
-        if presenter.state == .isLoading {
+            
+        case .model(let model):
+            let cell: DexListCell = tableView.dequeueCell()
+            cell.update(with: model)
+            return cell
+
+        case .skeleton:
             let cell = tableView.dequeueCell() as DexListSkeletonCell
             cell.slide(to: .right)
             return cell
         }
-        
-        let cell: DexListCell = tableView.dequeueCell()
-        cell.update(with: presenter.modelForIndexPath(indexPath))
-        return cell
     }
 
 }

@@ -18,10 +18,10 @@ private enum Constants {
 
 final class DexSortViewController: UIViewController {
 
-    private let presenter: DexSortPresenterProtocol = DexSortPresenter()
     
     @IBOutlet weak var tableView: UITableView!
     
+    private let presenter: DexSortPresenterProtocol = DexSortPresenter()
     private var modelSection = DexSort.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexSort.Event> = PublishRelay<DexSort.Event>()
 
