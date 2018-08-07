@@ -30,7 +30,7 @@ final class DexListInteractorMock: DexListInteractorProtocol {
         DexList.DTO.DexListModel.createPair(20, 43, "", "WAVES", "WAVES", 8, "", "ETH", "ETH", 8),
         DexList.DTO.DexListModel.createPair(10, 94, "", "Bitcoin", "Bitcoin", 8, "", "ETH", "ETH", 8),
         DexList.DTO.DexListModel.createPair(120, 20, "", "ETH Classic", "ETH Classic", 8, "", "IOTA", "IOTA", 8),
-        DexList.DTO.DexListModel.createPair(40, 0, "", "Monero", "Monero", 8, "", "ETH", "ETH", 8),
+        DexList.DTO.DexListModel.createPair(40, 0.1, "", "Monero", "Monero", 8, "", "ETH", "ETH", 8),
         DexList.DTO.DexListModel.createPair(10, 10, "", "BTC Cash", "BTC Cash", 8, "", "Waves", "Waves", 8),
         DexList.DTO.DexListModel.createPair(10, 94, "", "ZCash", "ZCash", 8, "", "ETH", "ETH", 8),
         DexList.DTO.DexListModel.createPair(20, 65, "", "Bitcoin", "Bitcoin", 8, "", "NEO", "NEO", 8),
