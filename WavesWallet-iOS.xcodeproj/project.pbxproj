@@ -237,6 +237,10 @@
 		E9B2A6AF2108A2A400F9DBF8 /* DexListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */; };
 		E9B2E30A211920C20004E452 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E309211920C20004E452 /* DexSortInteractorMock.swift */; };
 		E9B2E30C211920D10004E452 /* DexSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E30B211920D10004E452 /* DexSortInteractorProtocol.swift */; };
+		E9B2E311211934830004E452 /* DexListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E310211934830004E452 /* DexListInteractorProtocol.swift */; };
+		E9B2E313211934A70004E452 /* DexListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E312211934A70004E452 /* DexListInteractorMock.swift */; };
+		E9B2E315211936EB0004E452 /* DexSortPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E314211936EB0004E452 /* DexSortPresenterProtocol.swift */; };
+		E9B2E317211937700004E452 /* DexListPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E316211937700004E452 /* DexListPresenterProtocol.swift */; };
 		E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3755321109141000BBF79 /* DexListHeaderCell.swift */; };
 		E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */; };
 		E9BB427121149C32006E39AB /* DexSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427021149C32006E39AB /* DexSortPresenter.swift */; };
@@ -600,6 +604,10 @@
 		E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListInteractor.swift; sourceTree = "<group>"; };
 		E9B2E309211920C20004E452 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortInteractorMock.swift; path = "WavesWallet-iOS/dex/DexSort/Interactor/DexSortInteractorMock.swift"; sourceTree = SOURCE_ROOT; };
 		E9B2E30B211920D10004E452 /* DexSortInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortInteractorProtocol.swift; sourceTree = "<group>"; };
+		E9B2E310211934830004E452 /* DexListInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexListInteractorProtocol.swift; path = "WavesWallet-iOS/dex/DexList/Interactor/DexListInteractorProtocol.swift"; sourceTree = SOURCE_ROOT; };
+		E9B2E312211934A70004E452 /* DexListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListInteractorMock.swift; sourceTree = "<group>"; };
+		E9B2E314211936EB0004E452 /* DexSortPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenterProtocol.swift; path = "WavesWallet-iOS/dex/DexSort/Presenter/DexSortPresenterProtocol.swift"; sourceTree = SOURCE_ROOT; };
+		E9B2E316211937700004E452 /* DexListPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexListPresenterProtocol.swift; path = "WavesWallet-iOS/dex/DexList/Presenter/DexListPresenterProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E9B3755321109141000BBF79 /* DexListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListHeaderCell.swift; sourceTree = "<group>"; };
 		E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DexSortTypes.swift; path = "WavesWallet-iOS/dex/DexSort/DexSortTypes.swift"; sourceTree = SOURCE_ROOT; };
 		E9BB427021149C32006E39AB /* DexSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenter.swift; path = "WavesWallet-iOS/Dex/DexSort/Presenter/DexSortPresenter.swift"; sourceTree = SOURCE_ROOT; };
@@ -1275,40 +1283,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		E92611762107BC9200A9E793 /* TableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				E926117A2107C71100A9E793 /* DexListCell.swift */,
-				E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */,
-				E9B3755321109141000BBF79 /* DexListHeaderCell.swift */,
-			);
-			path = TableViewCells;
-			sourceTree = "<group>";
-		};
-		E92611772107BCBB00A9E793 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E926117C2107E76400A9E793 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				E926117D2107E7B300A9E793 /* DexListTypes.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		E926117F2107F33600A9E793 /* DexDataHelper */ = {
-			isa = PBXGroup;
-			children = (
-				E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */,
-				E92611802107F4E600A9E793 /* DexListPresenter.swift */,
-			);
-			path = DexDataHelper;
-			sourceTree = "<group>";
-		};
 		E9283A7420E1AD3700BAD3B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1361,7 +1335,10 @@
 		E97389C7210B73A2006D556B /* DexList */ = {
 			isa = PBXGroup;
 			children = (
-				E926117F2107F33600A9E793 /* DexDataHelper */,
+				E9B2E30D2119323F0004E452 /* Presenter */,
+				E9B2E30E211932460004E452 /* Interactor */,
+				E9B2E30F211932F10004E452 /* Views */,
+				E926117D2107E7B300A9E793 /* DexListTypes.swift */,
 				E92611782107C5F400A9E793 /* DexListViewController.swift */,
 			);
 			path = DexList;
@@ -1405,9 +1382,39 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E9B2E30D2119323F0004E452 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E9B2E316211937700004E452 /* DexListPresenterProtocol.swift */,
+				E92611802107F4E600A9E793 /* DexListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E9B2E30E211932460004E452 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E9B2E310211934830004E452 /* DexListInteractorProtocol.swift */,
+				E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */,
+				E9B2E312211934A70004E452 /* DexListInteractorMock.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E9B2E30F211932F10004E452 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E926117A2107C71100A9E793 /* DexListCell.swift */,
+				E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */,
+				E9B3755321109141000BBF79 /* DexListHeaderCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E9B75C0F21190FAC00C60999 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				E9B2E314211936EB0004E452 /* DexSortPresenterProtocol.swift */,
 				E9BB427021149C32006E39AB /* DexSortPresenter.swift */,
 			);
 			path = Presenter;
@@ -1518,9 +1525,6 @@
 		F73553741F03D94000ADC449 /* Dex */ = {
 			isa = PBXGroup;
 			children = (
-				E92611762107BC9200A9E793 /* TableViewCells */,
-				E92611772107BCBB00A9E793 /* Views */,
-				E926117C2107E76400A9E793 /* Models */,
 				E97389C8210B79E7006D556B /* DexSort */,
 				E97389C7210B73A2006D556B /* DexList */,
 				E99ECC5F1F59A7A100ADB12D /* OrderConfirmView.swift */,
@@ -2078,6 +2082,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */,
+				E926117E2107E7B300A9E793 /* DexListTypes.swift in Sources */,
 				0A5ABBA12117325D006A10A7 /* LeasingTransactionDomainDTO.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
@@ -2156,6 +2161,7 @@
 				E96038B520B5999D00D303E8 /* TransactionHistoryAddressView.swift in Sources */,
 				0A1DAD7620F3A6A6004DA625 /* ExchangeFilters.swift in Sources */,
 				E97033F52095D70D007E728C /* WalletQuickNoteCell.swift in Sources */,
+				E9B2E313211934A70004E452 /* DexListInteractorMock.swift in Sources */,
 				0A97976A2108CCFC00407F67 /* ViewCalculate.swift in Sources */,
 				0AE491F42107A51A009223DB /* WalletTypes+ViewModels.swift in Sources */,
 				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
@@ -2204,6 +2210,7 @@
 				E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */,
 				0AEB359E211657F000EDD63C /* Any+Name.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
+				E9B2E311211934830004E452 /* DexListInteractorProtocol.swift in Sources */,
 				E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */,
 				E9A0ADA220A1C65A00693160 /* AssetDetailCell.swift in Sources */,
 				0AE6572B2105E88E003D2DB8 /* UInt8+Assisstants.swift in Sources */,
@@ -2228,6 +2235,7 @@
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				E92611792107C5F400A9E793 /* DexListViewController.swift in Sources */,
+				E9B2E317211937700004E452 /* DexListPresenterProtocol.swift in Sources */,
 				0AE491FC2107A53E009223DB /* WalletAssetSkeletonCell.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
@@ -2242,6 +2250,7 @@
 				E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */,
 				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeasingTransaction+Mapper.swift in Sources */,
+				E9B2E315211936EB0004E452 /* DexSortPresenterProtocol.swift in Sources */,
 				E9283A7620E1AD5000BAD3B8 /* ProfileAliasView.swift in Sources */,
 				0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */,
 				0A485E982100A8B000079B49 /* BasicTransaction.swift in Sources */,
@@ -2277,7 +2286,6 @@
 				0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
-				E926117E2107E7B300A9E793 /* DexListTypes.swift in Sources */,
 				E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,

@@ -17,5 +17,8 @@ final class DexListSkeletonCell: SkeletonCell, Reusable {
         viewContainer.addTableCellShadowStyle()
     }
     
+    class func cellHeight() -> CGFloat {
+        return DexListCell.cellHeight()
+    }
     
 }

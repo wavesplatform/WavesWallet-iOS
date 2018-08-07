@@ -1,0 +1,85 @@
+//
+//  DexDataContainer.swift
+//  WavesWallet-iOS
+//
+//  Created by Pavel Gubin on 7/25/18.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import Foundation
+import RxFeedback
+import RxSwift
+import RxCocoa
+
+
+final class DexListPresenter: DexListPresenterProtocol {
+
+    private let interactor: DexListInteractorProtocol = DexListInteractorMock()
+    private let disposeBag = DisposeBag()
+
+    func system(feedbacks: [DexListPresenterProtocol.Feedback]) {
+        var newFeedbacks = feedbacks
+        newFeedbacks.append(modelsQuery())
+        
+        Driver.system(initialState: DexList.State.initialState,
+                      reduce: reduce,
+                      feedback: newFeedbacks)
+            .drive()
+            .disposed(by: disposeBag)
+    }
+    
+    private func modelsQuery() -> Feedback {
+        return react(query: { state -> Bool? in
+            return state.isNeedRefreshing == true ? true : nil
+        }, effects: { [weak self] _ -> Signal<DexList.Event> in
+            
+            // TODO: Error
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.interactor.models().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
+
+    private func reduce(state: DexList.State, event: DexList.Event) -> DexList.State {
+    
+        switch event {
+        case .readyView:
+            return state.mutate { $0.isNeedRefreshing = true }
+            
+        case .setModels(let models):
+            return state.mutate { state in
+                
+                state.isNeedRefreshing = false
+                state.loadingDataState = false
+                
+                if models.count > 0 {
+                    let sectionHeader = DexList.ViewModel.Section(items: [.header])
+                    
+                    let items = models.map { DexList.ViewModel.Row.model($0) }
+                    let itemsSection = DexList.ViewModel.Section(items: items)
+                    
+                    state.sections = [sectionHeader, itemsSection]
+                }
+                else {
+                    state.sections = []
+                }
+                
+                }.changeAction(.refresh)
+        }
+        
+    }
+}
+
+fileprivate extension DexList.State {
+    static var initialState: DexList.State {
+        let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
+        return DexList.State(isNeedRefreshing: false, action: .none, sections: [section], loadingDataState: true)
+    }
+    
+    func changeAction(_ action: DexList.State.Action) -> DexList.State {
+        
+        return mutate { state in
+            state.action = action
+        }
+    }
+}

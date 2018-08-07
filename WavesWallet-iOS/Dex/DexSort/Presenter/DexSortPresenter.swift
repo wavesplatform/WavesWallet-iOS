@@ -11,11 +11,6 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 
-protocol DexSortPresenterProtocol {
-    typealias Feedback = (Driver<DexSort.State>) -> Signal<DexSort.Event>
-    
-    func system(feedbacks: [Feedback])
-}
 
 final class DexSortPresenter: DexSortPresenterProtocol {
     
