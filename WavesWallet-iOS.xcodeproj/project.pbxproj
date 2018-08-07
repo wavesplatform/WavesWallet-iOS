@@ -10,6 +10,8 @@
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
+		048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048310832119675300509CED /* HistoryModuleBuilder.swift */; };
+		04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831085211967D500509CED /* HistoryModuleOutput.swift */; };
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
@@ -359,6 +361,8 @@
 /* Begin PBXFileReference section */
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
+		048310832119675300509CED /* HistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleBuilder.swift; sourceTree = "<group>"; };
+		04831085211967D500509CED /* HistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleOutput.swift; sourceTree = "<group>"; };
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
@@ -737,7 +741,9 @@
 			isa = PBXGroup;
 			children = (
 				04EB742521133318004A065B /* NewHistoryViewController.swift */,
+				048310832119675300509CED /* HistoryModuleBuilder.swift */,
 				044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */,
+				04831085211967D500509CED /* HistoryModuleOutput.swift */,
 				044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */,
 				04EB74272113335B004A065B /* HistoryTypes.swift */,
 				04EB74292113415E004A065B /* HistoryTypes+State.swift */,
@@ -2036,6 +2042,7 @@
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AE657292105E49F003D2DB8 /* EmptyCell.swift in Sources */,
 				F96DFFE220DD11560056BB52 /* FifthInfoPageView.swift in Sources */,
+				04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */,
 				E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */,
 				F762B3A51EABB6C000EAD7FF /* TransferSuccessViewController.swift in Sources */,
 				0A485E9E2100AE9B00079B49 /* IssueTransaction.swift in Sources */,
@@ -2083,6 +2090,7 @@
 				E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */,
 				0AD2B58820F65931007EE076 /* Reusable.swift in Sources */,
 				E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */,
+				048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */,
 				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
 				0A6F3E0B20F749BA00E2AF40 /* NibOwnerLoadable.swift in Sources */,
 				E9FA778020E9556B000B21D5 /* AccountPasswordViewController.swift in Sources */,
