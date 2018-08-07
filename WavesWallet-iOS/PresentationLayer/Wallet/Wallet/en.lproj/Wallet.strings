@@ -1,0 +1,27 @@
+/* 
+  LocalizableWallet.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 25.07.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"navigationBar.title" = "Wallet";
+"segmentedControl.assets" = "Assets";
+"segmentedControl.leasing" = "Leasing";
+
+"section.hiddenAssets" = "Hidden assets (%d)";
+"section.spamAssets" = "Spam assets (%d)";
+"section.activeNow" = "Active now (%d)";
+"section.quickNote" = "Quick note";
+
+"label.totalBalance" = "Total balance";
+"label.available" = "Available";
+"label.leased" = "Leased";
+"label.viewHistory" = "View history";
+"label.startedLeasing" = "Started Leasing";
+"label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
+"label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
+"label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
+
+"button.startLease" = "Start Lease";

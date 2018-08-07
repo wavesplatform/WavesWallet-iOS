@@ -9,6 +9,8 @@
 import Foundation
 
 extension Asset {
+
+    //TODO: Remove
     convenience init(model: API.DTO.Asset) {
         self.init()
         id = model.id
@@ -20,5 +22,49 @@ extension Asset {
         sender = model.sender
         quantity = model.quantity
         isReissuable = model.reissuable
+    }
+
+    convenience init(asset: DomainLayer.DTO.Asset) {
+        self.init()
+        self.id = asset.id
+        self.name = asset.name
+        self.precision = asset.precision
+        self.descriptionAsset = asset.description
+        self.height = asset.height
+        self.timestamp = asset.timestamp
+        self.sender = asset.sender
+        self.quantity = asset.quantity
+        self.ticker = asset.ticker
+        self.isReissuable = asset.isReissuable
+        self.isSpam = asset.isSpam
+        self.isFiat = asset.isFiat
+        self.isGeneral = asset.isGeneral
+        self.isMyAsset = asset.isMyAsset
+        self.isGateway = asset.isGateway
+        self.isWaves = asset.isWaves
+        self.modified = asset.modified
+    }
+}
+
+extension DomainLayer.DTO.Asset {
+
+    init(_ asset: Asset) {
+        self.modified = asset.modified
+        self.id = asset.id
+        self.name = asset.name
+        self.precision = asset.precision
+        self.description = asset.descriptionAsset
+        self.height = asset.height
+        self.timestamp = asset.timestamp
+        self.sender = asset.sender
+        self.quantity = asset.quantity
+        self.ticker = asset.ticker
+        self.isReissuable = asset.isReissuable
+        self.isSpam = asset.isSpam
+        self.isFiat = asset.isFiat
+        self.isGeneral = asset.isGeneral
+        self.isMyAsset = asset.isMyAsset
+        self.isGateway = asset.isGateway
+        self.isWaves = asset.isWaves
     }
 }

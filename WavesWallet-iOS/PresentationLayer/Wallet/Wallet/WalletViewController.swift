@@ -13,6 +13,18 @@ import RxFeedback
 import RxSwift
 import UIKit
 
+private extension WalletTypes.Display {
+
+    var name: String {
+        switch self {
+        case .assets:
+            return Localizable.Wallet.Segmentedcontrol.assets
+        case .leasing:
+            return Localizable.Wallet.Segmentedcontrol.leasing
+        }
+    }
+}
+
 private enum Constants {
     static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
 }
@@ -25,6 +37,9 @@ final class WalletViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     private let displayData: WalletDisplayData = WalletDisplayData()
     private let displays: [WalletTypes.Display] = [.assets, .leasing]
+
+    //It flag need for fix bug "jump" UITableView when activate "refresh control'
+    private var isRefreshing: Bool = false
 
     private let buttonAddress = UIBarButtonItem(image: Images.Wallet.walletScanner.image,
                                                 style: .plain,
@@ -40,7 +55,7 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Wallet"
+        title = Localizable.Wallet.Navigationbar.title
         createMenuButton()
         setupSegmetedControl()
         setupTableView()
@@ -163,7 +178,24 @@ extension WalletViewController {
 
         let refreshControl = state
             .map { $0.isRefreshing }
-            .drive(self.refreshControl.rx.isRefreshing)
+            .do(onNext: { [weak self] flag in
+                guard let owner = self else { return }
+                if flag {
+                    if owner.isRefreshing == false {
+                        owner.isRefreshing = true
+                       owner.refreshControl.beginRefreshing()
+                    }
+                } else {
+                    if owner.isRefreshing == true {
+                        owner.isRefreshing = false
+                        owner.displayData.completedReload = {
+                            DispatchQueue.main.async {
+                                owner.refreshControl.endRefreshing()
+                            }
+                        }
+                    }
+                }
+            }).asObservable().subscribe()
 
         let segmentedControl = state
             .map { $0.display }
@@ -200,21 +232,7 @@ private extension WalletViewController {
     }
 
     func setupTableView() {
-//        tableView.estimatedRowHeight = 0
-//        tableView.estimatedSectionFooterHeight = 0
-//        tableView.estimatedSectionHeaderHeight = 0
-//        tableView.contentInset = Constants.contentInset
-//        tableView.scrollIndicatorInsets = Constants.contentInset
         displayData.delegate = self
-
-//        navigationController?.navigationBar.isTranslucent = true
-//        edgesForExtendedLayout = .all
-
-//        extendedLayoutIncludesOpaqueBars = true
-//        if #available(iOS 11.0, *) {
-//            tableView.contentInsetAdjustmentBehavior = .always
-//        }
-//        automaticallyAdjustsScrollViewInsets = true
     }
 
     func setupSegmetedControl() {

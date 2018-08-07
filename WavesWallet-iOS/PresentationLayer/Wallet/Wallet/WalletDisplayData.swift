@@ -19,6 +19,7 @@ final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
     var delegate: WalletDisplayDataDelegate?
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
+    var completedReload: (() -> Void)?
 
     private lazy var configureCell: ConfigureCell<Section> = { _, tableView, _, item in
 
@@ -64,6 +65,11 @@ final class WalletDisplayData: NSObject {
 
     func bind(tableView: UITableView,
               event: Driver<[WalletTypes.ViewModel.Section]>) {
+
+        dataSource.completedReload = { [weak self] in
+            self?.completedReload?()
+        }
+
         tableView
             .rx
             .setDelegate(self)

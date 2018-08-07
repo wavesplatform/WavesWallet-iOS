@@ -12,246 +12,187 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
+private struct Constants {
+    static let durationInseconds: Double = 60
+}
+
 protocol AccountBalanceInteractorProtocol {
-    func balances(by accountId: String) -> Observable<[AssetBalance]>
-    func update(balance: AssetBalance) -> Observable<Void>
+    func balances(by accountAddress: String, privateKey: PrivateKeyAccount, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
-    private let assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()
-    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init()
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init()
-    private let leasingInteractor: LeasingInteractorProtocol = LeasingInteractor()
 
-    func balances(by accountAddress: String) -> Observable<[AssetBalance]> {
-        
-        return remoteBalances(by: accountAddress)
-            .map({ [weak self] balances -> [AssetBalance] in
-                let realm = try! Realm()
-                self?.save(balances: balances, to: realm)
-                return balances
-            })
-            .observeOn(MainScheduler.asyncInstance)
-            .flatMap { balances -> Observable<[AssetBalance]> in
+    private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
+    private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
 
-                let realm = try! Realm()
-                return Observable
-                    .collection(from: realm.objects(AssetBalance.self))
-                    .map { $0.toArray() }
+    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
+    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
+
+    private let disposeBag: DisposeBag = DisposeBag()
+
+    func balances(by accountAddress: String,
+                  privateKey: PrivateKeyAccount,
+                  isNeedUpdate: Bool = false) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+
+        return self.balanceRepositoryLocal
+            .balances(by: accountAddress, privateKey: privateKey)
+            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
+
+                let now = Date()
+                let isNeedForceUpdate = balances.count == 0 || balances.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds } != nil || isNeedUpdate
+
+                if isNeedForceUpdate {
+                    info("From Remote", type: AssetsInteractor.self)
+                } else {
+                    info("From BD", type: AssetsInteractor.self)
+                }
+                guard isNeedForceUpdate == true else { return Observable.just(balances) }
+
+                return owner.remoteBalances(accountAddress: accountAddress,
+                                            privateKey: privateKey,
+                                            localBalance: balances,
+                                            isNeedUpdate: isNeedForceUpdate)
             }
-    }
-
-    func update(balance: AssetBalance) -> Observable<Void> {
-        let realm = try! Realm()
-        try? realm.write {
-            realm.add(balance, update: true)
-        }
-
-        return Observable.just(())
-    }
-}
-
-fileprivate extension AccountBalanceInteractor {
-    func matcherBalances(by accountAddress: String) -> Observable<[String: Int64]> {
-        return WalletManager
-            .getPrivateKey()
-            .flatMap(weak: self, selector: { (owner, privateKey) -> Observable<[String: Int64]> in
-                owner.matcherBalanceProvider
-                    .rx
-                    .request(.getReservedBalances(privateKey))                       
-                    .map([String: Int64].self)
-                    .asObservable()
-                    .catchErrorJustReturn([String: Int64]())
-            })
-            .catchErrorJustReturn([String: Int64]())
-    }
-
-    func assetsBalance(by accountAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
-        return self.assetsProvider
-            .rx
-            .request(.getAssetsBalance(accountId: accountAddress))
-            .map(Node.DTO.AccountAssetsBalance.self)
-            .asObservable()
-    }
-
-    func accountBalance(by accountAddress: String) -> Observable<Node.DTO.AccountBalance> {
-        return self.addressesProvider
-            .rx
-            .request(.getAccountBalance(id: accountAddress))
-            .map(Node.DTO.AccountBalance.self)
-            .asObservable()
-    }
-}
-
-private extension AccountBalanceInteractor {
-
-    func save(balances: [AssetBalance], to realm: Realm) {
-        let ids = balances.map { $0.assetId }
-        try? realm.write {
-            let removeBalances = realm
-                .objects(AssetBalance.self)
-                .filter(NSPredicate(format: "NOT (assetId IN %@)", ids))
-
-            let removeSettings = removeBalances
-                .toArray()
-                .map { $0.settings }
-                .compactMap { $0 }
-
-            realm.delete(removeBalances)
-            realm.delete(removeSettings)
-
-            balances.forEach({ balance in
-                balance.settings = realm.object(ofType: AssetBalanceSettings.self,
-                                                forPrimaryKey: balance.assetId)
-            })
-            setupSettings(balances: balances)
-            realm.add(balances, update: true)
-        }
-    }
-
-    func remoteBalances(by accountAddress: String) -> Observable<[AssetBalance]> {
-
-        let assetsBalance = self.assetsBalance(by: accountAddress)
+            .share()
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-        let accountBalance = self.accountBalance(by: accountAddress)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-        let leasingTransactions = leasingInteractor.activeLeasingTransactions(by: accountAddress)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-        let matcherBalances = self.matcherBalances(by: accountAddress)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+    }
 
-        let list = Observable
-            .zip(assetsBalance, accountBalance, leasingTransactions, matcherBalances)
-            .map { AssetBalance.mapToAssetBalances(from: $0.0,
-                                                   account: $0.1,
-                                                   leasingTransactions: $0.2,
-                                                   matcherBalances: $0.3) }
-            .map { balances -> [AssetBalance] in
+    private func remoteBalances(accountAddress: String,
+                                privateKey: PrivateKeyAccount,
+                                localBalance: [DomainLayer.DTO.AssetBalance],
+                                isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-                let generalBalances = Environments.current.generalAssetIds.map { AssetBalance(model: $0) }
+        let balances = balanceRepositoryRemote.balances(by: accountAddress,
+                                                        privateKey: privateKey)
+        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: accountAddress, isNeedUpdate: isNeedUpdate)
+
+        return Observable.zip(balances, activeTransactions)
+            .map { balances, transactions -> [DomainLayer.DTO.AssetBalance] in
+
+                let generalBalances = Environments.current.generalAssetIds.map { DomainLayer.DTO.AssetBalance(info: $0) }
                 var newList = balances
                 for generalBalance in generalBalances {
                     if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
                         newList.append(generalBalance)
                     }
                 }
+
+                if let pair = newList.enumerated().first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
+                    let newBalance = pair.element.mutate { balance in
+                        balance.leasedBalance = transactions
+                            .filter { $0.sender == accountAddress }
+                            .reduce(0) { $0 + $1.amount }
+                    }
+                    newList[pair.offset] = newBalance
+                }
                 return newList
             }
-            .flatMap(weak: self, selector: { weak, balances -> Observable<[AssetBalance]> in
-                let ids = balances.map { $0.assetId }
+            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
 
-                return weak.assetsInteractor
-                    .assetsBy(ids: ids, accountAddress: accountAddress)
-                    .map { (assets) -> [AssetBalance] in
-                        balances.forEach { $0.setAssetFrom(list: assets) }
-                        return balances
-                }
-            })
-        return list
+                let ids = balances.map { $0.assetId }
+                return owner
+                    .assetsInteractor
+                    .assets(by: ids, accountAddress: accountAddress, isNeedUpdated: isNeedUpdate)
+                    .flatMap(weak: owner) { (owner, assets) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                        let mapAssets = assets.reduce([String: DomainLayer.DTO.Asset]()) {
+                            var map = $0
+                            map[$1.id] = $1
+                            return map
+                        }
+
+                        let oldSettings = localBalance.reduce([String: DomainLayer.DTO.AssetBalance.Settings]()) {
+                            var map = $0
+                            if let settings = $1.settings {
+                                map[settings.assetId] = settings
+                            }
+                            return map
+                        }
+
+                        var newBalances = balances
+                        for (index, balance) in newBalances.enumerated() {
+                            newBalances[index].asset = mapAssets[balance.assetId]
+                            newBalances[index].settings = oldSettings[balance.assetId]
+                        }
+                        newBalances = owner.initialSettings(for: newBalances)
+                        return owner
+                            .balanceRepositoryLocal
+                            .saveBalances(newBalances)
+                            .map { _ in newBalances }
+                    }
+            }
     }
 
-    func setupSettings(balances: [AssetBalance]) {
+    func initialSettings(for balances: [DomainLayer.DTO.AssetBalance]) -> [DomainLayer.DTO.AssetBalance] {
 
         let generalBalances = Environments
             .current
             .generalAssetIds
 
-        let newBalances = balances.filter { $0.settings == nil }
+        var newBalances = balances
+            .filter { $0.settings == nil }
+            .sorted { assetOne, assetTwo -> Bool in
 
-        let sort = newBalances.sorted { assetOne, assetTwo -> Bool in
+                let isGeneralOne = assetOne.asset?.isGeneral ?? false
+                let isGeneralTwo = assetTwo.asset?.isGeneral ?? false
 
-            let isGeneralOne = assetOne.asset?.isGeneral ?? false
-            let isGeneralTwo = assetTwo.asset?.isGeneral ?? false
+                if isGeneralOne == true && isGeneralTwo == true {
+                    let indexOne = generalBalances
+                        .enumerated()
+                        .first(where: { $0.element.assetId == assetOne.assetId })
+                        .map { $0.offset }
 
-            if isGeneralOne == true && isGeneralTwo == true {
-                let indexOne = generalBalances
-                    .enumerated()
-                    .first(where: { $0.element.assetId == assetOne.assetId })
-                    .map { $0.offset }
+                    let indexTwo = generalBalances
+                        .enumerated()
+                        .first(where: { $0.element.assetId == assetTwo.assetId })
+                        .map { $0.offset }
 
-                let indexTwo = generalBalances
-                    .enumerated()
-                    .first(where: { $0.element.assetId == assetTwo.assetId })
-                    .map { $0.offset }
+                    if let indexOne = indexOne, let indexTwo = indexTwo {
+                        return indexOne < indexTwo
+                    }
+                    return false
+                }
 
-                if let indexOne = indexOne, let indexTwo = indexTwo {
-                    return indexOne < indexTwo
+                if isGeneralOne {
+                    return true
                 }
                 return false
             }
 
-            if isGeneralOne {
-                return true
-            }
-
-            return false
-        }
-
         let oldBalances = balances
             .filter { $0.settings != nil }
-            .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
+            .sorted { $0.settings!.sortLevel < $1.settings!.sortLevel }
 
-        let lastSortLevel = oldBalances.last?.settings.sortLevel ?? 0
+        let lastSortLevel = oldBalances.last?.settings?.sortLevel ?? 0
 
-        sort.enumerated().forEach { balance in
-            
-            let settings = AssetBalanceSettings()
-            settings.assetId = balance.element.assetId
-            settings.sortLevel = lastSortLevel + Float(balance.offset)
+        for (index, balance) in newBalances.enumerated() {
 
-            if balance.element.assetId == Environments.Constants.wavesAssetId {
-                settings.isFavorite = true
-            }
-            balance.element.settings = settings
+            let assetId = balance.assetId
+            let sortLevel = lastSortLevel + Float(index)
+            let isFavorite: Bool = balance.asset?.isWaves ?? false
+
+            var newBalance = balance
+            newBalance.settings = DomainLayer.DTO.AssetBalance.Settings(assetId: assetId,
+                                                                        sortLevel: sortLevel,
+                                                                        isHidden: false,
+                                                                        isFavorite: isFavorite)
+            newBalances[index] = newBalance
         }
+
+        var newList = newBalances
+        newList.append(contentsOf: oldBalances)
+        return newList
     }
 }
 
-private extension AssetBalance {
-    func setAssetFrom(list: [Asset]) {
-        self.asset = list.first { $0.id == self.assetId }
-    }
-}
+private extension DomainLayer.DTO.AssetBalance {
 
-private extension AssetBalance {
-    convenience init(model: Environment.AssetInfo) {
-        self.init()
-        self.assetId = model.assetId
-    }
-
-    convenience init(accountBalance: Node.DTO.AccountBalance, transactions: [LeasingTransaction]) {
-        self.init()
-        self.balance = accountBalance.balance
-        self.leasedBalance = transactions
-            .filter { $0.sender == accountBalance.address }
-            .reduce(0) { $0 + $1.amount }
-        self.assetId = Environments.Constants.wavesAssetId
-    }
-
-    convenience init(model: Node.DTO.AssetBalance) {
-        self.init()
-        self.assetId = model.assetId
-        self.balance = model.balance
-    }
-
-    class func mapToAssetBalances(from assets: Node.DTO.AccountAssetsBalance,
-                                  account: Node.DTO.AccountBalance,
-                                  leasingTransactions: [LeasingTransaction],
-                                  matcherBalances: [String: Int64]) -> [AssetBalance] {
-        let assetsBalance = assets.balances.map { AssetBalance(model: $0) }
-        let accountBalance = AssetBalance(accountBalance: account,
-                                          transactions: leasingTransactions)
-
-        var list = [AssetBalance]()
-        list.append(contentsOf: assetsBalance)
-        list.append(accountBalance)
-
-        list.forEach { asset in
-            guard let balance = matcherBalances[asset.assetId] else { return }
-            asset.reserveBalance = balance
-        }
-
-        return list
+    init(info: Environment.AssetInfo) {
+        self.assetId = info.assetId
+        self.balance = 0
+        self.leasedBalance = 0
+        self.reserveBalance = 0
+        self.settings = nil
+        self.asset = nil
+        self.modified = Date()
     }
 }

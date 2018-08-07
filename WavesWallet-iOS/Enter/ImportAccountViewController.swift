@@ -66,14 +66,14 @@ class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate 
     @IBAction func scanTapped(_ sender: Any) {
     
         guard QRCodeReader.isAvailable() else { return }
+        
+        weak var weakSelf = self
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            
-            UIApplication.shared.setStatusBarStyle(.default, animated: true)
-            
             if let address = result?.value {
-
+                UIApplication.shared.setStatusBarStyle(.default, animated: true)
+                AppDelegate.shared().menuController.setContentViewController(MainTabBarController(), animated: true)
+                weakSelf?.dismiss(animated: true, completion: nil)
             }
-            self.dismiss(animated: true, completion: nil)
         }
         
         // Presents the readerVC as modal form sheet

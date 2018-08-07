@@ -14,9 +14,9 @@ class ConfirmBackupStackBaseView: UIView {
         
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         let width = title.maxWidth(font: button.titleLabel!.font)
         button.frame = CGRect(x: 0, y: 0, width: width + 28, height: buttonHeight)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
 
         if isBlueWord {
             button.layer.cornerRadius = 3
