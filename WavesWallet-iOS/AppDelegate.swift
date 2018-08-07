@@ -9,14 +9,24 @@
 import Gloss
 import IQKeyboardManagerSwift
 import RESideMenu
+import RxSwift
 import SVProgressHUD
 import UIKit
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+//        .error,
+//        .debug,
+//        .warning,
+//        .verbose,
+//        .info,
+//        .network
+        SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -25,15 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-        showStartController()
+        self.showStartController()
 
         self.window?.makeKeyAndVisible()
 
         return true
     }
 
-    
-    
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
         let realm = WalletManager.getWalletsRealm()
@@ -75,6 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     var menuController: RESideMenu {
-        return window?.rootViewController as! RESideMenu
+        return self.window?.rootViewController as! RESideMenu
     }
 }

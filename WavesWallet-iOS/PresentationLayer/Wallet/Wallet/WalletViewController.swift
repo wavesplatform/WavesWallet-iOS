@@ -38,6 +38,9 @@ final class WalletViewController: UIViewController {
     private let displayData: WalletDisplayData = WalletDisplayData()
     private let displays: [WalletTypes.Display] = [.assets, .leasing]
 
+    //It flag need for fix bug "jump" UITableView when activate "refresh control'
+    private var isRefreshing: Bool = false
+
     private let buttonAddress = UIBarButtonItem(image: Images.Wallet.walletScanner.image,
                                                 style: .plain,
                                                 target: nil,
@@ -175,7 +178,24 @@ extension WalletViewController {
 
         let refreshControl = state
             .map { $0.isRefreshing }
-            .drive(self.refreshControl.rx.isRefreshing)
+            .do(onNext: { [weak self] flag in
+                guard let owner = self else { return }
+                if flag {
+                    if owner.isRefreshing == false {
+                        owner.isRefreshing = true
+                       owner.refreshControl.beginRefreshing()
+                    }
+                } else {
+                    if owner.isRefreshing == true {
+                        owner.isRefreshing = false
+                        owner.displayData.completedReload = {
+                            DispatchQueue.main.async {
+                                owner.refreshControl.endRefreshing()
+                            }
+                        }
+                    }
+                }
+            }).asObservable().subscribe()
 
         let segmentedControl = state
             .map { $0.display }
