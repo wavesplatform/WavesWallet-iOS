@@ -61,23 +61,31 @@ fileprivate extension DexSortViewController {
                 guard state.action != .none else { return }
                 
                 strongSelf.modelSection = state.section
-                
-                if state.action == .delete {
-                    let indexPath = IndexPath(row: state.deletedIndex, section: 0)
-                    
-                    CATransaction.begin()
-                    CATransaction.setCompletionBlock({
-                        strongSelf.tableView.reloadData()
-                    })
-                    strongSelf.tableView.deleteRows(at: [indexPath], with: .fade)
-                    CATransaction.commit()
-                }
-                else {
-                    strongSelf.tableView.reloadData()
-                }
+                strongSelf.updateUI(state: state)
             })
         
         return [subscriptionSections]
+    }
+}
+
+//MARK: - SetupUI
+
+private extension DexSortViewController {
+    
+    func updateUI(state: DexSort.State) {
+        if state.action == .delete {
+            let indexPath = IndexPath(row: state.deletedIndex, section: 0)
+            
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                self.tableView.reloadData()
+            })
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            CATransaction.commit()
+        }
+        else {
+            tableView.reloadData()
+        }
     }
 }
 

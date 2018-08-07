@@ -82,14 +82,7 @@ fileprivate extension DexListViewController {
 
                 strongSelf.sections = state.sections
                 strongSelf.tableView.reloadData()
-                if (state.loadingDataState) {
-                    strongSelf.setupViewNoItems(isHidden: true)
-                }
-                else {
-                    strongSelf.setupViewNoItems(isHidden: state.isVisibleItems)
-                }
-                strongSelf.setupButtons(isLoadingState: state.loadingDataState,
-                                        isVisibleSortButton: state.isVisibleItems)
+                strongSelf.setupViews(loadingDataState: state.loadingDataState, isVisibleItems: state.isVisibleItems)
             })
         return [subscriptionSections]
     }
@@ -97,15 +90,27 @@ fileprivate extension DexListViewController {
 
 
 //MARK: SetupUI
+
 private extension DexListViewController {
 
+    func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
+        if (loadingDataState) {
+            setupViewNoItems(isHidden: true)
+        }
+        else {
+            setupViewNoItems(isHidden: isVisibleItems)
+        }
+     
+        setupButtons(loadingDataState: loadingDataState, isVisibleSortButton: isVisibleItems)
+    }
+    
     func setupViewNoItems(isHidden: Bool) {
         viewNoItems.isHidden = isHidden
     }
     
-    func setupButtons(isLoadingState: Bool, isVisibleSortButton: Bool) {
+    func setupButtons(loadingDataState: Bool, isVisibleSortButton: Bool) {
 
-        if isLoadingState {
+        if loadingDataState {
             buttonAdd.isEnabled = false
             buttonSort.isEnabled = false
             navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
