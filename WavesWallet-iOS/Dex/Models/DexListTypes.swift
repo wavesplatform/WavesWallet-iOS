@@ -57,5 +57,22 @@ extension DexList.DTO {
     }
 }
 
+extension DexList.ViewModel {
+    struct Section: Mutating {
+        enum Kind {
+            case header
+            case row
+        }
+        
+        let kind: Kind
+        var items: [Row]
+    }
+    
+    enum Row {
+        case header
+        case models(DexList.DTO.DexListModel)
+    }
+}
+
 
 

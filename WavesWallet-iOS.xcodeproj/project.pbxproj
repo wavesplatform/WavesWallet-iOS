@@ -167,7 +167,6 @@
 		E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93621541F3CAC01009F0459 /* DexSearchViewController.swift */; };
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryAssetCell.swift */; };
-		E939B3DC211298EC00EB01AE /* DexSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939B3DB211298EC00EB01AE /* DexSortTypes.swift */; };
 		E93CEDEA20A1A8A300756CA8 /* AssetChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEDE920A1A8A300756CA8 /* AssetChartHeaderView.swift */; };
 		E93CEDEC20A1A8AE00756CA8 /* AssetChartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93CEDEB20A1A8AE00756CA8 /* AssetChartHeaderView.xib */; };
 		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
@@ -236,7 +235,10 @@
 		E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */; };
 		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
 		E9B2A6AF2108A2A400F9DBF8 /* DexListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */; };
+		E9B2E30A211920C20004E452 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E309211920C20004E452 /* DexSortInteractorMock.swift */; };
+		E9B2E30C211920D10004E452 /* DexSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E30B211920D10004E452 /* DexSortInteractorProtocol.swift */; };
 		E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3755321109141000BBF79 /* DexListHeaderCell.swift */; };
+		E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */; };
 		E9BB427121149C32006E39AB /* DexSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427021149C32006E39AB /* DexSortPresenter.swift */; };
 		E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427221149C80006E39AB /* DexSortInteractor.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
@@ -527,7 +529,6 @@
 		E93621541F3CAC01009F0459 /* DexSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSearchViewController.swift; sourceTree = "<group>"; };
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAssetCell.swift; sourceTree = "<group>"; };
-		E939B3DB211298EC00EB01AE /* DexSortTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortTypes.swift; sourceTree = "<group>"; };
 		E93CEDE920A1A8A300756CA8 /* AssetChartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartHeaderView.swift; sourceTree = "<group>"; };
 		E93CEDEB20A1A8AE00756CA8 /* AssetChartHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetChartHeaderView.xib; sourceTree = "<group>"; };
 		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
@@ -597,8 +598,11 @@
 		E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
 		E9B2A6AE2108A2A400F9DBF8 /* DexListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListInteractor.swift; sourceTree = "<group>"; };
+		E9B2E309211920C20004E452 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortInteractorMock.swift; path = "WavesWallet-iOS/dex/DexSort/Interactor/DexSortInteractorMock.swift"; sourceTree = SOURCE_ROOT; };
+		E9B2E30B211920D10004E452 /* DexSortInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B3755321109141000BBF79 /* DexListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListHeaderCell.swift; sourceTree = "<group>"; };
-		E9BB427021149C32006E39AB /* DexSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenter.swift; path = "WavesWallet-iOS/dex/DexSort/DexSortPresenter.swift"; sourceTree = SOURCE_ROOT; };
+		E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DexSortTypes.swift; path = "WavesWallet-iOS/dex/DexSort/DexSortTypes.swift"; sourceTree = SOURCE_ROOT; };
+		E9BB427021149C32006E39AB /* DexSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenter.swift; path = "WavesWallet-iOS/Dex/DexSort/Presenter/DexSortPresenter.swift"; sourceTree = SOURCE_ROOT; };
 		E9BB427221149C80006E39AB /* DexSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortInteractor.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
@@ -1277,7 +1281,6 @@
 				E926117A2107C71100A9E793 /* DexListCell.swift */,
 				E92611822107FDB900A9E793 /* DexListSkeletonCell.swift */,
 				E9B3755321109141000BBF79 /* DexListHeaderCell.swift */,
-				E9104D4E2109A900001222B8 /* DexSortCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -1293,7 +1296,6 @@
 			isa = PBXGroup;
 			children = (
 				E926117D2107E7B300A9E793 /* DexListTypes.swift */,
-				E939B3DB211298EC00EB01AE /* DexSortTypes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1368,8 +1370,10 @@
 		E97389C8210B79E7006D556B /* DexSort */ = {
 			isa = PBXGroup;
 			children = (
-				E9BB427221149C80006E39AB /* DexSortInteractor.swift */,
-				E9BB427021149C32006E39AB /* DexSortPresenter.swift */,
+				E9B75C102119101300C60999 /* Interactor */,
+				E9B75C0F21190FAC00C60999 /* Presenter */,
+				E9B2E308211918A40004E452 /* Views */,
+				E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */,
 				E9104D4C2109A806001222B8 /* DexSortViewController.swift */,
 			);
 			path = DexSort;
@@ -1391,6 +1395,32 @@
 				E9628844209F792F00DE3B5A /* AssetLastTransactionView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E9B2E308211918A40004E452 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9104D4E2109A900001222B8 /* DexSortCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E9B75C0F21190FAC00C60999 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E9BB427021149C32006E39AB /* DexSortPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E9B75C102119101300C60999 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E9B2E30B211920D10004E452 /* DexSortInteractorProtocol.swift */,
+				E9BB427221149C80006E39AB /* DexSortInteractor.swift */,
+				E9B2E309211920C20004E452 /* DexSortInteractorMock.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E9DEECE620BEF90300F28C67 /* Waves */ = {
@@ -2047,6 +2077,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */,
 				0A5ABBA12117325D006A10A7 /* LeasingTransactionDomainDTO.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
@@ -2130,6 +2161,7 @@
 				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
 				E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */,
 				0AD2B58820F65931007EE076 /* Reusable.swift in Sources */,
+				E9B2E30C211920D10004E452 /* DexSortInteractorProtocol.swift in Sources */,
 				E97033F12095BEC3007E728C /* WalletLeasingBalanceCell.swift in Sources */,
 				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
 				0A6F3E0B20F749BA00E2AF40 /* NibOwnerLoadable.swift in Sources */,
@@ -2145,7 +2177,6 @@
 				E988E8B91F0D32360013EAF6 /* OrderBookViewController.swift in Sources */,
 				F74240D11EAB8EFF00C3B84D /* SelectAccountCollectionCell.swift in Sources */,
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
-				E939B3DC211298EC00EB01AE /* DexSortTypes.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
 				0AF2F2BF20F757BA00AA39FB /* ViewConfiguration.swift in Sources */,
 				F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */,
@@ -2227,6 +2258,7 @@
 				F761428C1EAFC09300F4C749 /* ReceiveViewController.swift in Sources */,
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
 				E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */,
+				E9B2E30A211920C20004E452 /* DexSortInteractorMock.swift in Sources */,
 				F7CBD8631EBA592B00B0D4CE /* StringExtension.swift in Sources */,
 				0AEB35942115E45500EDD63C /* AssetsRepositoryRemote.swift in Sources */,
 				0A1E8AD520F75E8A0054FA70 /* UIFont+Additions.swift in Sources */,
