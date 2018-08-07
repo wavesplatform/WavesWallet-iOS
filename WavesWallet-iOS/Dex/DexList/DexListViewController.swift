@@ -18,10 +18,13 @@ private enum Constants {
 
 final class DexListViewController: UIViewController {
 
+    private var buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: nil, action: nil)
+    private var buttonAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: nil, action: nil)
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
     
-    private let presenter : DexListPresenterProtocol = DexListPresenter()
+    var presenter : DexListPresenterProtocol!
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
 
@@ -32,7 +35,7 @@ final class DexListViewController: UIViewController {
         title = "Dex"
         tableView.contentInset = Constants.contentInset
         setupViewNoItems(isHidden: true)
-        
+                
         let feedback = bind(self) { owner, state -> Bindings<DexList.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
@@ -54,17 +57,6 @@ final class DexListViewController: UIViewController {
         super.viewDidAppear(animated)
         setupTopBarLine()
     }
-   
-    //MARK: - Actions
-    @objc func sortTapped() {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DexSortViewController") as! DexSortViewController
-        navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    @IBAction func addTapped(_ sender: Any) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DexSearchViewController") as! DexSearchViewController
-        navigationController?.pushViewController(controller, animated: true)
-    }
 }
 
 
@@ -72,7 +64,13 @@ final class DexListViewController: UIViewController {
 
 fileprivate extension DexListViewController {
     func events() -> [Signal<DexList.Event>] {
-        return [sendEvent.asSignal()]
+        
+        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
+            .asSignal(onErrorSignalWith: Signal.empty())
+        let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        return [sendEvent.asSignal(), sortTapEvent, addTapEvent]
     }
     
     func subscriptions(state: Driver<DexList.State>) -> [Disposable] {
@@ -80,7 +78,8 @@ fileprivate extension DexListViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let strongSelf = self else { return }
-                
+                guard state.action != .none else { return }
+
                 strongSelf.sections = state.sections
                 strongSelf.tableView.reloadData()
                 if (state.loadingDataState) {
@@ -103,26 +102,23 @@ private extension DexListViewController {
     func setupViewNoItems(isHidden: Bool) {
         viewNoItems.isHidden = isHidden
     }
-
     
     func setupButtons(isLoadingState: Bool, isVisibleSortButton: Bool) {
-        let btnAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: self, action: #selector(addTapped(_:)))
-        let buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: self, action: #selector(sortTapped))
 
         if isLoadingState {
-            btnAdd.isEnabled = false
+            buttonAdd.isEnabled = false
             buttonSort.isEnabled = false
-            navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
+            navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
         }
         else if isVisibleSortButton {
-            navigationItem.rightBarButtonItems = [btnAdd, buttonSort]
+            buttonSort.isEnabled = true
+            buttonAdd.isEnabled = true
+            navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
         }
         else {
-            navigationItem.rightBarButtonItem = btnAdd
+            navigationItem.rightBarButtonItem = buttonAdd
         }
     }
-    
-    
 }
 
 
