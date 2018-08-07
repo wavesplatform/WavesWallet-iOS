@@ -110,18 +110,11 @@ private extension DexListViewController {
     
     func setupButtons(loadingDataState: Bool, isVisibleSortButton: Bool) {
 
-        if loadingDataState {
-            buttonAdd.isEnabled = false
-            buttonSort.isEnabled = false
+        if !loadingDataState && isVisibleSortButton {
             navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
         }
-        else if isVisibleSortButton {
-            buttonSort.isEnabled = true
-            buttonAdd.isEnabled = true
-            navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
-        }
-        else {
-            navigationItem.rightBarButtonItem = buttonAdd
+        else if !loadingDataState {
+            navigationItem.rightBarButtonItems = [buttonAdd]
         }
     }
 }
