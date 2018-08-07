@@ -18,7 +18,10 @@ protocol HistoryPresenterProtocol {
 }
 
 final class HistoryPresenter: HistoryPresenterProtocol {
-    private let interactor: HistoryInteractorProtocol = HistoryInteractorMock()
+    
+    var interactor: HistoryInteractorProtocol!
+    var moduleOutput: HistoryModuleOutput?
+    
     private let disposeBag: DisposeBag = DisposeBag()
     
     func system(feedbacks: [Feedback]) {

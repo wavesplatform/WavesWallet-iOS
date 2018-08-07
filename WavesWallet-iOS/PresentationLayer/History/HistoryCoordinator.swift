@@ -10,16 +10,8 @@ import UIKit
 
 final class HistoryCoordinator {
     
-    private lazy var historyViewController: NewHistoryViewController = {
-        let vc = StoryboardScene.History.newHistoryViewController.instantiate()
-        vc.presenter = HistoryPresenter()
-//        vc.isMenuButton = true
-        
-//        let presenter = HistoryPresenter()
-//        vc.presenter = presenter
-//        presenter.moduleOutput = self
-        
-        return vc
+    private lazy var historyViewController: UIViewController = {
+        return HistoryModuleBuilder(output: self).build()
     }()
     
     private var navigationController: UINavigationController!
@@ -28,5 +20,10 @@ final class HistoryCoordinator {
         self.navigationController = navigationController
         navigationController.pushViewController(historyViewController, animated: false)
     }
+    
+}
+
+
+extension HistoryCoordinator: HistoryModuleOutput {
     
 }
