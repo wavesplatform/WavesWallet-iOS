@@ -21,7 +21,7 @@ enum DexSort {
     
     struct State: Mutating {
         
-        enum Action: Mutating {
+        enum Action {
             case none
             case refresh
             case delete
@@ -29,31 +29,25 @@ enum DexSort {
         
         var isNeedRefreshing: Bool
         var action: Action
+        var section: DexSort.ViewModel.Section
+        var deletedIndex: Int
     }
 }
 
-extension DexSort.DTO {
-    
-    struct DexSortModel: Hashable, Mutating {
-        let id: String
-        let name: String
-        var sortLevel: Float
-        
-        init(id: String, name: String, sortLevel: Float) {
-            self.id = id
-            self.name = name
-            self.sortLevel = sortLevel
-        }
-    }
-  }
-
 extension DexSort.ViewModel {
-
     struct Section: Mutating {
         var items: [Row]
     }
     
     enum Row {
-        case models(DexSort.DTO.DexSortModel)
+        case model(DexSort.DTO.DexSortModel)
+    }
+}
+
+extension DexSort.DTO {
+    struct DexSortModel: Hashable, Mutating {
+        let id: String
+        let name: String
+        var sortLevel: Float
     }
 }

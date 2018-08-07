@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxCocoa
+import RxFeedback
+import RxSwift
 
 
 private enum Constants {
@@ -19,6 +22,9 @@ final class DexSortViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    private var modelSection = DexSort.ViewModel.Section(items: [])
+    private let sendEvent: PublishRelay<DexSort.Event> = PublishRelay<DexSort.Event>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,10 +32,54 @@ final class DexSortViewController: UIViewController {
         title = "Sorting"
         tableView.setEditing(true, animated: false)
         tableView.contentInset = Constants.contentInset
-        
+
+        let feedback = bind(self) { owner, state -> Bindings<DexSort.Event> in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+
+        let readyViewFeedback: DexSortPresenter.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexSort.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
 }
+    
+// MARK: Feedback
 
+fileprivate extension DexSortViewController {
+    func events() -> [Signal<DexSort.Event>] {
+        return [sendEvent.asSignal()]
+    }
+    
+    func subscriptions(state: Driver<DexSort.State>) -> [Disposable] {
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] state in
+                
+                guard let strongSelf = self else { return }
+                guard state.action != .none else { return }
+                
+                strongSelf.modelSection = state.section
+                
+                if state.action == .delete {
+                    let indexPath = IndexPath(row: state.deletedIndex, section: 0)
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock({
+                        strongSelf.tableView.reloadData()
+                    })
+                    strongSelf.tableView.deleteRows(at: [indexPath], with: .fade)
+                    CATransaction.commit()
+                }
+                else {
+                    strongSelf.tableView.reloadData()
+                }
+            })
+        
+        return [subscriptionSections]
+    }
+}
 
 //MARK: - UITableViewDelegate
 extension DexSortViewController: UITableViewDelegate {
@@ -38,18 +88,17 @@ extension DexSortViewController: UITableViewDelegate {
         setupTopBarLine()
     }
     
+    // MARK: Draging cells
+
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
+
+        sendEvent.accept(.dragModels(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath))
     }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         return proposedDestinationIndexPath
     }
-}
-
-//MARK: - UITableViewDataSource
-extension DexSortViewController: UITableViewDataSource {
-       
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
@@ -61,19 +110,30 @@ extension DexSortViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+}
+
+//MARK: - UITableViewDataSource
+extension DexSortViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return modelSection.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell() as DexSortCell
         
-        cell.buttonDeleteDidTap = { [weak self] in
-            self?.buttonDeleteDidTap(indexPath)
+        let row = modelSection.items[indexPath.row]
+        
+        switch row {
+        case .model(let model):
+           
+            let cell = tableView.dequeueCell() as DexSortCell
+            cell.update(with: model)
+            cell.buttonDeleteDidTap = { [weak self] in
+                self?.buttonDeleteDidTap(indexPath)
+            }
+            
+            return cell
         }
-        
-        return cell
     }
 
 }
@@ -83,9 +143,7 @@ extension DexSortViewController: UITableViewDataSource {
 private extension DexSortViewController {
     
     func buttonDeleteDidTap(_ indexPath: IndexPath) {
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .fade)
-        tableView.endUpdates()
+        sendEvent.accept(.tapDeleteButton(indexPath))
     }
 }
 

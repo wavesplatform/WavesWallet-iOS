@@ -26,6 +26,10 @@ final class DexListPresenter {
     
     //MARK: - TableData
     
+    var numberOfSections: Int {
+        return 2
+    }
+    
     func modelForIndexPath(_ indexPath: IndexPath) -> DexList.DTO.DexListModel {
         return models[indexPath.row]
     }
