@@ -29,7 +29,7 @@ final class DexListCell: UITableViewCell, Reusable {
 }
 
 extension DexListCell: ViewConfiguration {
-    func update(with model: DexList.DTO.DexListModel) {
+    func update(with model: DexList.DTO.Pair) {
         labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
         labelValue.text = String(model.lastPrice)
         

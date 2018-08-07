@@ -148,7 +148,7 @@ extension DexListViewController: UITableViewDataSource {
         case .header:
             return DexListHeaderCell.cellHeight()
             
-        case .model(_):
+        case .model:
             return DexListCell.cellHeight()
             
         case .skeleton:

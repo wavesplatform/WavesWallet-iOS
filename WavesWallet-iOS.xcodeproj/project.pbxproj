@@ -223,6 +223,7 @@
 		E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */; };
 		E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */; };
 		E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */; };
+		E99240492119CB6B00E97414 /* DexList.strings in Resources */ = {isa = PBXBuildFile; fileRef = E99240482119CB6B00E97414 /* DexList.strings */; };
 		E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99950292091F15100A11E37 /* UIColor+Colors.swift */; };
 		E999502D2091FE0D00A11E37 /* WalletHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999502C2091FE0D00A11E37 /* WalletHeaderView.swift */; };
 		E999502F2091FE1400A11E37 /* WalletHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999502E2091FE1400A11E37 /* WalletHeaderView.xib */; };
@@ -594,6 +595,7 @@
 		E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradersViewController.swift; sourceTree = "<group>"; };
 		E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryMassSendView.swift; sourceTree = "<group>"; };
 		E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryMassSendView.xib; sourceTree = "<group>"; };
+		E99240482119CB6B00E97414 /* DexList.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = DexList.strings; sourceTree = "<group>"; };
 		E99950292091F15100A11E37 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		E999502C2091FE0D00A11E37 /* WalletHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHeaderView.swift; sourceTree = "<group>"; };
 		E999502E2091FE1400A11E37 /* WalletHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHeaderView.xib; sourceTree = "<group>"; };
@@ -1351,6 +1353,7 @@
 				E959293B211964C0007C06EA /* DexListCoordinator.swift */,
 				E959293F211969EE007C06EA /* DexListModuleBuilder.swift */,
 				E92611782107C5F400A9E793 /* DexListViewController.swift */,
+				E99240482119CB6B00E97414 /* DexList.strings */,
 			);
 			path = DexList;
 			sourceTree = "<group>";
@@ -1935,6 +1938,7 @@
 				E93CEDEC20A1A8AE00756CA8 /* AssetChartHeaderView.xib in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */,
+				E99240492119CB6B00E97414 /* DexList.strings in Resources */,
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
 				E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */,
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,

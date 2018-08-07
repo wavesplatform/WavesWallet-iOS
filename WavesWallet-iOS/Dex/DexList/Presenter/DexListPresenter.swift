@@ -15,7 +15,7 @@ import RxCocoa
 final class DexListPresenter: DexListPresenterProtocol {
 
     var interactor: DexListInteractorProtocol!
-    var moduleOutput: DexListModuleOutput?
+    weak var moduleOutput: DexListModuleOutput?
 
     private let disposeBag = DisposeBag()
 
@@ -37,7 +37,7 @@ final class DexListPresenter: DexListPresenterProtocol {
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.models().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.pairs().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

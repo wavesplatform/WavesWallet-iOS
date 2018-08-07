@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DexListModuleOutput {
+protocol DexListModuleOutput: AnyObject {
  
     func showDexSort()
     func showAddList()
