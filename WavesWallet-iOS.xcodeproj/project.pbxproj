@@ -223,7 +223,8 @@
 		E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */; };
 		E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */; };
 		E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */; };
-		E99240492119CB6B00E97414 /* DexList.strings in Resources */ = {isa = PBXBuildFile; fileRef = E99240482119CB6B00E97414 /* DexList.strings */; };
+		E992404A2119E3C200E97414 /* DexList.strings in Resources */ = {isa = PBXBuildFile; fileRef = E992404C2119E3C200E97414 /* DexList.strings */; };
+		E99240512119E4DC00E97414 /* DexSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = E99240532119E4DC00E97414 /* DexSort.strings */; };
 		E999502A2091F15200A11E37 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99950292091F15100A11E37 /* UIColor+Colors.swift */; };
 		E999502D2091FE0D00A11E37 /* WalletHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999502C2091FE0D00A11E37 /* WalletHeaderView.swift */; };
 		E999502F2091FE1400A11E37 /* WalletHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999502E2091FE1400A11E37 /* WalletHeaderView.xib */; };
@@ -595,7 +596,12 @@
 		E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradersViewController.swift; sourceTree = "<group>"; };
 		E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryMassSendView.swift; sourceTree = "<group>"; };
 		E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryMassSendView.xib; sourceTree = "<group>"; };
-		E99240482119CB6B00E97414 /* DexList.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = DexList.strings; sourceTree = "<group>"; };
+		E992404B2119E3C200E97414 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexList.strings; sourceTree = "<group>"; };
+		E992404D2119E3C900E97414 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexList.strings; sourceTree = "<group>"; };
+		E992404E2119E3CC00E97414 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexList.strings; sourceTree = "<group>"; };
+		E99240522119E4DC00E97414 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexSort.strings; sourceTree = "<group>"; };
+		E99240542119E4DD00E97414 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexSort.strings; sourceTree = "<group>"; };
+		E99240552119E4DE00E97414 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexSort.strings; sourceTree = "<group>"; };
 		E99950292091F15100A11E37 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		E999502C2091FE0D00A11E37 /* WalletHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHeaderView.swift; sourceTree = "<group>"; };
 		E999502E2091FE1400A11E37 /* WalletHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHeaderView.xib; sourceTree = "<group>"; };
@@ -1353,7 +1359,7 @@
 				E959293B211964C0007C06EA /* DexListCoordinator.swift */,
 				E959293F211969EE007C06EA /* DexListModuleBuilder.swift */,
 				E92611782107C5F400A9E793 /* DexListViewController.swift */,
-				E99240482119CB6B00E97414 /* DexList.strings */,
+				E992404C2119E3C200E97414 /* DexList.strings */,
 			);
 			path = DexList;
 			sourceTree = "<group>";
@@ -1367,6 +1373,7 @@
 				E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */,
 				E95929392119636B007C06EA /* DexSortModuleBuilder.swift */,
 				E9104D4C2109A806001222B8 /* DexSortViewController.swift */,
+				E99240532119E4DC00E97414 /* DexSort.strings */,
 			);
 			path = DexSort;
 			sourceTree = "<group>";
@@ -1921,6 +1928,7 @@
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */,
 				F96DFFDC20DD09340056BB52 /* ThirdIndoPageView.xib in Resources */,
+				E99240512119E4DC00E97414 /* DexSort.strings in Resources */,
 				0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */,
 				E9794F8D20A4614C007097BE /* HistoryTopHeaderCell.xib in Resources */,
 				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
@@ -1938,7 +1946,7 @@
 				E93CEDEC20A1A8AE00756CA8 /* AssetChartHeaderView.xib in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				E96AFE731F5799AF0046B1CA /* MyOrderHeaderView.xib in Resources */,
-				E99240492119CB6B00E97414 /* DexList.strings in Resources */,
+				E992404A2119E3C200E97414 /* DexList.strings in Resources */,
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
 				E94E9C7120983239007E0705 /* WalletHistoryCell.xib in Resources */,
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
@@ -2444,6 +2452,26 @@
 				0AFBCA7D2113068C00285BCB /* tr */,
 			);
 			name = Wallet.strings;
+			sourceTree = "<group>";
+		};
+		E992404C2119E3C200E97414 /* DexList.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E992404B2119E3C200E97414 /* en */,
+				E992404D2119E3C900E97414 /* ru */,
+				E992404E2119E3CC00E97414 /* tr */,
+			);
+			name = DexList.strings;
+			sourceTree = "<group>";
+		};
+		E99240532119E4DC00E97414 /* DexSort.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E99240522119E4DC00E97414 /* en */,
+				E99240542119E4DD00E97414 /* ru */,
+				E99240552119E4DE00E97414 /* tr */,
+			);
+			name = DexSort.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

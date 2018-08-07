@@ -61,8 +61,9 @@ extension DexList.ViewModel {
 extension DexList.DTO {
     
     struct Pair: Hashable, Mutating {
-        let firstPrice: Float
-        let lastPrice: Float
+        
+        let firstPrice: Money
+        let lastPrice: Money
         let amountAsset: String
         let amountAssetName: String
         let amountTicker: String
