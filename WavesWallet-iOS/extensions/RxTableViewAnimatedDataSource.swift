@@ -21,6 +21,7 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    var completedReload: (() -> Void)?
     var dataSet = false
 
     func tableView(_ tableView: UITableView, observedEvent: Event<Element>) {
@@ -38,7 +39,9 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
                                             .curveEaseInOut],
                                   animations: {
                                       tableView.reloadData()
-                }, completion: { _ in })
+                }, completion: { _ in
+                    self.completedReload?()
+                })
             }
         }
         .on(observedEvent)

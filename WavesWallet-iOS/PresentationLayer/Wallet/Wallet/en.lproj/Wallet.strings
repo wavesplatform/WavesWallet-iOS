@@ -11,7 +11,7 @@
 "segmentedControl.leasing" = "Leasing";
 
 "section.hiddenAssets" = "Hidden assets (%d)";
-"section.spamAssets" = "Hidden assets (%d)";
+"section.spamAssets" = "Spam assets (%d)";
 "section.activeNow" = "Active now (%d)";
 "section.quickNote" = "Quick note";
 

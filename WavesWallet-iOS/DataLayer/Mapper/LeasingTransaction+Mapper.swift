@@ -9,6 +9,7 @@
 import Foundation
 
 extension LeasingTransaction {
+    //TODO: Remove
     convenience init(model: Node.DTO.LeasingTransaction) {
         self.init()
         type = model.type
@@ -22,5 +23,55 @@ extension LeasingTransaction {
         amount = model.amount
         recipient = model.recipient
         height = model.height
+        modified = Date()
+    }
+
+    convenience init(transaction: DomainLayer.DTO.LeasingTransaction) {
+        self.init()
+        type = transaction.type
+        id = transaction.id
+        sender = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
+        fee = transaction.fee
+        timestamp = transaction.timestamp
+        signature = transaction.signature
+        version = transaction.version
+        amount = transaction.amount
+        recipient = transaction.recipient
+        height = transaction.height
+        modified = transaction.modified
+    }
+}
+
+extension DomainLayer.DTO.LeasingTransaction {
+
+    init(transaction: Node.DTO.LeasingTransaction) {
+        type = transaction.type
+        id = transaction.id
+        sender = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
+        fee = transaction.fee
+        timestamp = transaction.timestamp
+        signature = transaction.signature
+        version = transaction.version
+        amount = transaction.amount
+        recipient = transaction.recipient        
+        height = transaction.height
+        modified = Date()
+    }
+
+    init(transaction: LeasingTransaction) {
+        type = transaction.type
+        id = transaction.id
+        sender = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
+        fee = transaction.fee
+        timestamp = transaction.timestamp
+        signature = transaction.signature
+        version = transaction.version
+        amount = transaction.amount
+        recipient = transaction.recipient
+        height = transaction.height        
+        modified = transaction.modified
     }
 }
