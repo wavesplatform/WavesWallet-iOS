@@ -10,6 +10,7 @@
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
+		04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04615A22211A31C90000FF80 /* HistoryModuleInput.swift */; };
 		048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048310832119675300509CED /* HistoryModuleBuilder.swift */; };
 		04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831085211967D500509CED /* HistoryModuleOutput.swift */; };
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
@@ -361,6 +362,7 @@
 /* Begin PBXFileReference section */
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
+		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
 		048310832119675300509CED /* HistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleBuilder.swift; sourceTree = "<group>"; };
 		04831085211967D500509CED /* HistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleOutput.swift; sourceTree = "<group>"; };
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 				048310832119675300509CED /* HistoryModuleBuilder.swift */,
 				044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */,
 				04831085211967D500509CED /* HistoryModuleOutput.swift */,
+				04615A22211A31C90000FF80 /* HistoryModuleInput.swift */,
 				044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */,
 				04EB74272113335B004A065B /* HistoryTypes.swift */,
 				04EB74292113415E004A065B /* HistoryTypes+State.swift */,
@@ -2206,6 +2209,7 @@
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				0A8AFF2321010CDC00D0582B /* NSAttributedString+Styles.swift in Sources */,
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
+				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
 				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,

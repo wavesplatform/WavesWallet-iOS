@@ -12,9 +12,9 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
     
     var output: HistoryModuleOutput
     
-    func build(input: Void) -> UIViewController {
+    func build(input: HistoryModuleInput) -> UIViewController {
         
-        let presenter = HistoryPresenter()
+        let presenter = HistoryPresenter(input: input)
         let vc = StoryboardScene.History.newHistoryViewController.instantiate()
         
         presenter.interactor = HistoryInteractorMock()
