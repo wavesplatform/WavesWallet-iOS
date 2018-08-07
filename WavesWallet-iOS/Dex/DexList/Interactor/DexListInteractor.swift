@@ -11,7 +11,7 @@ import RxSwift
 
 final class DexListInteractor: DexListInteractorProtocol {
    
-    func models() -> Observable<[DexList.DTO.DexListModel]> {
+    func pairs() -> Observable<[DexList.DTO.Pair]> {
         return Observable.just([])
     }
 }

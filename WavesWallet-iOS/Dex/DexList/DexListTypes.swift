@@ -14,7 +14,7 @@ enum DexList {
 
     enum Event {
         case readyView
-        case setModels([DTO.DexListModel])
+        case setModels([DTO.Pair])
         case tapSortButton
         case tapAddButton
     }
@@ -45,9 +45,9 @@ extension DexList.ViewModel {
     enum Row: Hashable {
         case header
         case skeleton
-        case model(DexList.DTO.DexListModel)
+        case model(DexList.DTO.Pair)
         
-        var model: DexList.DTO.DexListModel? {
+        var model: DexList.DTO.Pair? {
             switch self {
             case .model(let model):
                 return model
@@ -60,7 +60,7 @@ extension DexList.ViewModel {
 
 extension DexList.DTO {
     
-    struct DexListModel: Hashable, Mutating {
+    struct Pair: Hashable, Mutating {
         let firstPrice: Float
         let lastPrice: Float
         let amountAsset: String
