@@ -15,6 +15,8 @@ enum DexList {
     enum Event {
         case readyView
         case setModels([DTO.DexListModel])
+        case tapSortButton
+        case tapAddButton
     }
     
     struct State: Mutating {

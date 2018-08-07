@@ -14,7 +14,7 @@ import RxCocoa
 
 final class DexSortPresenter: DexSortPresenterProtocol {
     
-    private let interactor: DexSortInteractorProtocol = DexSortInteractorMock()
+    var interactor: DexSortInteractorProtocol!
     private let disposeBag = DisposeBag()
 
     
@@ -80,7 +80,7 @@ final class DexSortPresenter: DexSortPresenterProtocol {
 
 fileprivate extension DexSort.State {
     static var initialState: DexSort.State {
-        return DexSort.State(isNeedRefreshing: false, action: .none, section: DexSort.ViewModel.Section(items: []), deletedIndex: 0)
+        return DexSort.State(isNeedRefreshing: false, action: .refresh, section: DexSort.ViewModel.Section(items: []), deletedIndex: 0)
     }
     
     func moveRow(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) -> DexSort.State {

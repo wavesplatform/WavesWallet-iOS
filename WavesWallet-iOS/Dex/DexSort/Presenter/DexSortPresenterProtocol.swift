@@ -11,6 +11,6 @@ import RxCocoa
 
 protocol DexSortPresenterProtocol {
     typealias Feedback = (Driver<DexSort.State>) -> Signal<DexSort.Event>
-    
+    var interactor: DexSortInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
 }

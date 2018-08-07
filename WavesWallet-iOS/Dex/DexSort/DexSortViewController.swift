@@ -21,7 +21,7 @@ final class DexSortViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let presenter: DexSortPresenterProtocol = DexSortPresenter()
+    var presenter: DexSortPresenterProtocol!
     private var modelSection = DexSort.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexSort.Event> = PublishRelay<DexSort.Event>()
 

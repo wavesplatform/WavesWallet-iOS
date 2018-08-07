@@ -4,7 +4,8 @@ import RDVTabBarController
 final class MainTabBarController: RDVTabBarController {
 
     let walletCoordinator: WalletCoordinator = WalletCoordinator()
-    
+    let dexListCoordinator: DexListCoordinator = DexListCoordinator()
+
     override var viewControllers: [Any]! {
         didSet {
             let walletItem = tabBar.items[0] as! RDVTabBarItem
@@ -45,9 +46,9 @@ final class MainTabBarController: RDVTabBarController {
         let navWallet = UINavigationController()
         walletCoordinator.start(navigationController: navWallet)
 
-        let dex = StoryboardManager.DexStoryboard().instantiateViewController(withIdentifier: "DexListViewController")
-        let navDex = UINavigationController(rootViewController: dex)
-
+        let navDex = UINavigationController()
+        dexListCoordinator.start(navigationController: navDex)
+        
         let history = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
         history.isMenuButton = true
         let navHistory = UINavigationController(rootViewController: history)

@@ -14,7 +14,9 @@ import RxCocoa
 
 final class DexListPresenter: DexListPresenterProtocol {
 
-    private let interactor: DexListInteractorProtocol = DexListInteractorMock()
+    var interactor: DexListInteractorProtocol!
+    var moduleOutput: DexListModuleOutput?
+
     private let disposeBag = DisposeBag()
 
     func system(feedbacks: [DexListPresenterProtocol.Feedback]) {
@@ -65,15 +67,23 @@ final class DexListPresenter: DexListPresenterProtocol {
                 }
                 
                 }.changeAction(.refresh)
+            
+        case .tapSortButton:
+            moduleOutput?.showDexSort()
+            return state.changeAction(.none)
+
+        case .tapAddButton:
+            moduleOutput?.showAddList()
+            return state.changeAction(.none)
         }
-        
     }
+        
 }
 
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isNeedRefreshing: false, action: .none, sections: [section], loadingDataState: true)
+        return DexList.State(isNeedRefreshing: false, action: .refresh, sections: [section], loadingDataState: true)
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {
