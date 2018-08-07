@@ -24,6 +24,10 @@ class SaveBackupPhraseViewController: UIViewController {
         
         setupWords()
     }
+    
+    override func backTapped() {
+        navigationController?.popToRootViewController(animated: true)
+    }
 
     @IBAction func copyTapped(_ sender: Any) {
         buttonCopy.isUserInteractionEnabled = false

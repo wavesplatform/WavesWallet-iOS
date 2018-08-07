@@ -14,96 +14,43 @@ import RxRealm
 import RxSwift
 
 protocol AssetsInteractorProtocol {
-    func assetsBy(ids: [String], accountAddress: String) -> Observable<[Asset]>
+    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]>
+}
+
+private struct Constants {
+        static let durationInseconds: Double =  120
 }
 
 final class AssetsInteractor: AssetsInteractorProtocol {
-    private let apiProvider: MoyaProvider<API.Service.Assets> = MoyaProvider<API.Service.Assets>()
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
 
-    func assetsBy(ids: [String], accountAddress: String) -> Observable<[Asset]> {
+    private let repositoryLocal: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryLocal
+    private let repositoryRemote: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
 
-        // TODO: Нужно решить в какой момент обновлять ассеты в базе
+    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let spamAssets = spamProvider
-            .rx
-            .request(.getSpamList, callbackQueue: DispatchQueue.global())
-            .map { response -> [String] in
+        let local = repositoryLocal.assets(by: ids, accountAddress: accountAddress)
+        return local.flatMap(weak: self) { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
 
-                guard let text = String(data: response.data, encoding: .utf8) else { return [] }
-                guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { return [] }
+            let now = Date()
+            let isNeedForceUpdate = assets.count == 0 || assets.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds }  != nil || isNeedUpdated
 
-                var addresses = [String]()
-                while let row = csv.next() {
-                    guard let address = scamAddressFrom(row: row) else { continue }
-                    addresses.append(address)
-                }
-                return addresses
+            if isNeedForceUpdate {
+                info("From Remote", type: AssetsInteractor.self)
+            } else {
+                info("From BD", type: AssetsInteractor.self)
             }
-            .asObservable()
 
-        let assetsList = apiProvider
-            .rx
-            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global())
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
-            .map { $0.data.map { $0.data } }
-            .map({ assets -> [Asset] in
-                assets.map { Asset(model: $0) }
-            })
-            .map { assets -> [Asset] in
+            guard isNeedForceUpdate == true else { return Observable.just(assets) }
 
-                let generalAssets = Environments.current.generalAssetIds
-
-                for generalAsset in generalAssets {
-                    if let asset = assets.first(where: { $0.id == generalAsset.assetId }) {
-                        asset.isGeneral = true
-                        if asset.id == Environments.Constants.wavesAssetId {
-                            asset.isWaves = true
-                        } else {
-                            asset.isGateway = true
-                        }
-                        asset.name = generalAsset.name
-                        asset.isFiat = generalAsset.isFiat
-                        asset.isMyAsset = asset.sender == accountAddress
-                    }
-                }
-                return assets
+            return owner
+                .repositoryRemote.assets(by: ids, accountAddress: accountAddress)
+                .flatMap(weak: owner, selector: { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
+                    return owner.repositoryLocal.saveAssets(assets).map({ _ -> [DomainLayer.DTO.Asset] in
+                            return assets
+                    })
+                })
             }
-            .asObservable()
-
-        return Observable
-            .zip(assetsList, spamAssets)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onNext: { assets, spamAssets in
-
-                assets.forEach { asset in
-                    asset.isSpam = spamAssets.contains(asset.id)
-                }
-                let realm = try? Realm()
-
-                try? realm?.write {
-                    realm?.add(assets, update: true)
-                }
-            })
-            .map { $0.0 }
+            .share()
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
-}
-
-// MARK: Private method
-
-extension AssetsInteractor {
-}
-
-fileprivate func scamAddressFrom(row: [String]) -> String? {
-    if row.count < 2 {
-        return nil
-    }
-    let address = row[0]
-    let type = row[1]
-
-    if type.lowercased() != "scam", address.count == 0 {
-        return nil
-    }
-
-    return address
 }

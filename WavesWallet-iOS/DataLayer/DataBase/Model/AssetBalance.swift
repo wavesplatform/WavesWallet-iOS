@@ -25,6 +25,7 @@ final class AssetBalance:
     @available(*, deprecated, message: "need remove")
     @objc dynamic var isHidden = false
 
+    @objc dynamic var modified: Date = Date()
     @objc dynamic var assetId = ""
     @objc dynamic var balance: Int64 = 0
     @objc dynamic var leasedBalance: Int64 = 0

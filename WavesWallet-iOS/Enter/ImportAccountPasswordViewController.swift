@@ -82,5 +82,8 @@ class ImportAccountPasswordViewController: UIViewController, UIScrollViewDelegat
     
     @IBAction func continueTapped(_ sender: Any) {
         
+        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+        controller.isCreatePasswordMode = true
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

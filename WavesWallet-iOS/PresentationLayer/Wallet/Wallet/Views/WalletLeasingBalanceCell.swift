@@ -16,6 +16,12 @@ private enum Constants {
 
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     @IBOutlet var viewContainer: UIView!
+
+    @IBOutlet var totalBalanceTitleLabel: UILabel!
+    @IBOutlet var avaliableTitleLabel: UILabel!
+    @IBOutlet var leasedTitleLabel: UILabel!
+    @IBOutlet var leasedInTitleLabel: UILabel!
+
     @IBOutlet var labelBalance: UILabel!
     @IBOutlet var labelAvaliableBalance: UILabel!
     @IBOutlet var leasedBalanceLabel: UILabel!
@@ -32,6 +38,10 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
+        totalBalanceTitleLabel.text = Localizable.Wallet.Label.totalBalance
+        avaliableTitleLabel.text = Localizable.Wallet.Label.available
+        leasedTitleLabel.text = Localizable.Wallet.Label.leased
+        buttonStartLease.setTitle(Localizable.Wallet.Button.startLease, for: .normal)
     }
 
     override func updateConstraints() {
@@ -69,6 +79,14 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
         if leasedInPercent < Constants.statusBarMinSmallPercent {
             let offSet = leasedPercent > leasedInPercent ? Constants.statusBarMinMediumPercent : Constants.statusBarMinSmallPercent
             leasedInPercent = leasedPercent + offSet
+        }
+
+        if leasedInPercent.isNaN {
+            leasedInPercent = 0
+        }
+        
+        if leasedPercent.isNaN {
+            leasedPercent = 0
         }
 
         leasedPercent = min(leasedPercent, 100)

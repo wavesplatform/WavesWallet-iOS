@@ -11,13 +11,8 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-protocol WalletSortPresenterProtocol {
-    typealias Feedback = (Driver<WalletSort.State>) -> Signal<WalletSort.Event>
-
-    func system(feedbacks: [Feedback])
-}
-
 final class WalletSortPresenter: WalletSortPresenterProtocol {
+
     private let interactor: WalletSortInteractorProtocol = WalletSortInteractor()
     private let disposeBag = DisposeBag()
 

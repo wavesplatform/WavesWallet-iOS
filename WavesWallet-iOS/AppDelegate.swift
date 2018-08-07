@@ -8,18 +8,25 @@
 
 import Gloss
 import IQKeyboardManagerSwift
-import Moya
 import RESideMenu
+import RxSwift
 import SVProgressHUD
 import UIKit
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    let accountBalanceInteractor = AccountBalanceInteractor()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+//        .error,
+//        .debug,
+//        .warning,
+//        .verbose,
+//        .info,
+//        .network
+        SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -28,9 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-        showStartController()
+        self.showStartController()
 
         self.window?.makeKeyAndVisible()
+
         return true
     }
 
@@ -72,5 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
+    }
+
+    var menuController: RESideMenu {
+        return self.window?.rootViewController as! RESideMenu
     }
 }

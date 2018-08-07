@@ -1957,7 +1957,7 @@ You should ONLY use the official Waves client.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50y-bF-cnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="706" y="90"/>
+            <point key="canvasLocation" x="684" y="86"/>
         </scene>
         <!--Enter Select Account View Controller-->
         <scene sceneID="N25-PC-H5F">

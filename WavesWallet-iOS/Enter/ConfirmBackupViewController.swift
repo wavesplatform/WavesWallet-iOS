@@ -16,7 +16,6 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
     @IBOutlet weak var labelTapWord: UILabel!
     
     let words = ["nigga", "wanna", "too", "get", "tothe", "close", "utmost", "but", "igot", "stacks", "that'll", "attack", "any", "wack", "host"]
-    
     var inputWords : [String] = []
     
     @IBOutlet weak var stackListViewHeight: NSLayoutConstraint!
@@ -36,13 +35,19 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
         buttonConfirm.alpha = 0
         labelError.alpha = 0
         
-        stackListView.setupWords(words)
+        var sortedSortds = words
+        sortedSortds.shuffle()
+        
+        stackListView.setupWords(sortedSortds)
         stackListView.delegate = self
         stackTopView.delegate = self
     }
     
     @IBAction func confirmTapped(_ sender: Any) {
         
+        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+        controller.isCreatePasswordMode = true
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     //MARK: - ConfirmBackupStackListViewDelegate
@@ -56,8 +61,8 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
             }
         }
         
-        let isFullyFilled = stackTopView.words.count == stackListView.words.count
-        let isCorrectFilled = stackTopView.words == stackListView.words
+        let isFullyFilled = stackTopView.words.count == words.count
+        let isCorrectFilled = stackTopView.words == words
         
         if isFullyFilled {
             if isCorrectFilled {
@@ -68,6 +73,8 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
                 }
             }
             else {
+                stackTopView.errorMode = true
+                stackTopView.setNeedsDisplay()
                 UIView.animate(withDuration: 0.3) {
                     self.labelError.alpha = 1
                     self.stackListView.alpha = 0
@@ -81,6 +88,11 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
     
     func confirmBackupStackInputViewDidRemoveWord(_ word: String) {
         stackListView.showWord(word)
+        
+        if stackTopView.errorMode {
+            stackTopView.errorMode = false
+            stackTopView.setNeedsDisplay()
+        }
         
         if labelError.alpha == 1 {
             UIView.animate(withDuration: 0.3) {

@@ -21,7 +21,7 @@ extension UIViewController {
     }
     
     @objc func menuTapped() {
-        let menu = AppDelegate.shared().window?.rootViewController as! RESideMenu
+        let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()
     }
     
@@ -60,7 +60,7 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+            navigationController?.navigationItem.largeTitleDisplayMode = .never
         }
     }
     
@@ -81,4 +81,6 @@ extension UIViewController {
         
         view.insertSubview(imageView, at: 0)
     }
+    
+    
 }
