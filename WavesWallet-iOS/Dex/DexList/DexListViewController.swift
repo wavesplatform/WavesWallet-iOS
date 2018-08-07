@@ -32,7 +32,8 @@ final class DexListViewController: UIViewController {
         super.viewDidLoad()
 
         createMenuButton()
-        title = "Dex"
+        title = Localizable.DexList.Navigationbar.title
+        
         tableView.contentInset = Constants.contentInset
         setupViewNoItems(isHidden: true)
                 
