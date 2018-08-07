@@ -19,7 +19,7 @@ final class NewHistoryViewController: UIViewController {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private let displays: [HistoryTypes.Display] = [.all, .sent, .received, .exchanged, .leased, .issued, .activeNow, .canceled]
+    private let statuses: [HistoryTypes.Status] = [.all, .sent, .received, .exchanged, .leased, .issued, .activeNow, .canceled]
     
     var presenter: HistoryPresenterProtocol!
     
@@ -31,6 +31,7 @@ final class NewHistoryViewController: UIViewController {
         title = "History"
 
         setupSystem()
+        setupSegmentedControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +81,8 @@ private extension NewHistoryViewController {
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
                 
-                let display = self?.displays[selectedIndex] ?? .all
-                return .changeDisplay(display)
+                let display = self?.statuses[selectedIndex] ?? .all
+                return .changeStatus(display)
         }
         
         return [changedDisplayEvent]
@@ -94,7 +95,8 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-            strongSelf.sections = state.currentDisplayState.sections
+            strongSelf.changeStatus(state.status)
+            strongSelf.sections = state.sections
             
             UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
                 
@@ -112,11 +114,15 @@ private extension NewHistoryViewController {
 
 extension NewHistoryViewController {
     
-    func setupSegmetedControl() {
-//        let buttons = displays.map { SegmentedControl.Button(name: $0.name) }
-//        segmentedControl
-//            .segmentedControl
-//            .update(with: buttons, animated: true)
+    func setupSegmentedControl() {
+        let buttons = statuses.map { SegmentedControl.Button(name: $0.name) }
+        segmentedControl
+            .segmentedControl
+            .update(with: buttons, animated: true)
+    }
+    
+    func changeStatus(_ status: HistoryTypes.Status) {
+        // тута меняем segmented
     }
     
 }

@@ -10,13 +10,13 @@ import Foundation
 import RxSwift
 
 protocol HistoryInteractorProtocol {
-    func all() -> AsyncObservable<[HistoryTypes.DTO.Asset]>
+    func all() -> AsyncObservable<[HistoryTypes.DTO.Transaction]>
 }
 
 final class HistoryInteractorMock: HistoryInteractorProtocol {
     
-    func all() -> Observable<[HistoryTypes.DTO.Asset]> {
-        let asset = HistoryTypes.DTO.Asset(id: "1", name: "Имя")
+    func all() -> Observable<[HistoryTypes.DTO.Transaction]> {
+        let asset = HistoryTypes.DTO.Transaction(id: "1", name: "Ssd", balance: Money(100, 1), kind: .transfer, tag: "Waves", sortLevel: 0)
         return Observable.just([asset, asset, asset])
     }
     

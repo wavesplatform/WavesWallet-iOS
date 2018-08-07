@@ -21,8 +21,13 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     
     var interactor: HistoryInteractorProtocol!
     var moduleOutput: HistoryModuleOutput?
+    let moduleInput: HistoryModuleInput
     
     private let disposeBag: DisposeBag = DisposeBag()
+    
+    init(input: HistoryModuleInput) {
+        moduleInput = input
+    }
     
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
@@ -37,7 +42,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func queryAll() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.display == .all && state.all.isNeedRefreshing == true {
+            if state.status == .all && state.isAppeared == true {
                 return true
             } else {
                 return nil
@@ -56,22 +61,29 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         switch event {
         case .readyView:
-            return state.setIsNeedRefreshing(true)
+            return state.setIsAppeared(true)
         
         case .refresh:
-            return state.setIsRefreshing(isRefreshing: true)
+            return state.setIsRefreshing(true)
             
-        case .changeDisplay(let display):
-            return state.setDisplay(display: display).setIsNeedRefreshing(true)
+        case .changeStatus(let status):
+            let sections = HistoryTypes.ViewModel.Section.filter(from: state.transactions, status: status)
+            let newState = state.setSections(sections: sections).setStatus(status: status)
+            return newState
             
         case .responseAll(let response):
             
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
-            let newState = state.setAll(all: .init(sections: sections,
-                                                         isRefreshing: false,
-                                                         isNeedRefreshing: false,
-                                                         animateType: .refresh))
-            
+            let newState = state
+                .setTransactions(transactions: response)
+                .setStatus(status: .all)
+                .setSections(sections: sections)
+                .setIsRefreshing(false)
+//            let newState = state.setAll(all: .init(sections: sections,
+//                                                         isRefreshing: false,
+//                                                         isNeedRefreshing: false,
+//                                                         animateType: .refresh))
+//
             return newState
             
             

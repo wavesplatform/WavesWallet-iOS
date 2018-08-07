@@ -11,7 +11,7 @@ import UIKit
 final class HistoryCoordinator {
     
     private lazy var historyViewController: UIViewController = {
-        return HistoryModuleBuilder(output: self).build()
+        return HistoryModuleBuilder(output: self).build(input: self)
     }()
     
     private var navigationController: UINavigationController!
@@ -25,5 +25,13 @@ final class HistoryCoordinator {
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
+    
+}
+
+extension HistoryCoordinator: HistoryModuleInput {
+    
+    var type: HistoryType {
+        return .all
+    }
     
 }

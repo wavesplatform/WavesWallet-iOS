@@ -15,14 +15,41 @@ extension HistoryTypes.ViewModel {
     }
     
     enum Row: Hashable {
-        case asset(HistoryTypes.DTO.Asset)
+        case asset(HistoryTypes.DTO.Transaction)
         case assetSkeleton
     }
 }
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func map(from assets: [HistoryTypes.DTO.Asset]) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from assets: [HistoryTypes.DTO.Transaction], status: HistoryTypes.Status) -> [HistoryTypes.ViewModel.Section] {
+        
+        let generalItems = assets
+            .filter { $0.kind == .transfer }
+            .sorted(by: { (asset1, asset2) -> Bool in
+                
+                //                if asset1.isWaves == true {
+                //                    return true
+                //                }
+                //
+                //                if asset1.isFavorite == true && asset2.isFavorite == false {
+                //                    return true
+                //                } else if asset1.isFavorite == false && asset2.isFavorite == true {
+                //                    return false
+                //                }
+                
+                return asset1.id < asset2.id
+            })
+            .map { HistoryTypes.ViewModel.Row.asset($0) }
+        
+        let generalSection: HistoryTypes.ViewModel.Section = .init(header: nil,
+                                                                   items: generalItems)
+        
+        return [generalSection]
+        
+    }
+    
+    static func map(from assets: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
         let generalItems = assets
             .sorted(by: { (asset1, asset2) -> Bool in
                 

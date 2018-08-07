@@ -13,7 +13,7 @@ enum HistoryTypes {
     enum DTO {}
     enum ViewModel {}
     
-    enum Display {
+    enum Status {
         case all
         case sent
         case received
@@ -25,42 +25,67 @@ enum HistoryTypes {
     }
     
     struct State: Mutating {
-        enum AnimateType  {
-            case refresh
-            case collapsed(Int)
-            case expanded(Int)
-        }
-        
-        struct DisplayState: Mutating {
-            var sections: [HistoryTypes.ViewModel.Section]
-            var isRefreshing: Bool
-            var isNeedRefreshing: Bool
-            var animateType: AnimateType = .refresh
-        }
-        
-        var display: Display
-        var all: DisplayState
-        var sent: DisplayState
-        var received: DisplayState
-        var exchanged: DisplayState
-        var leased: DisplayState
-        var issued: DisplayState
-        var activeNow: DisplayState
-        var canceled: DisplayState
+        var status: Status
+        var transactions: [HistoryTypes.DTO.Transaction]
+        var sections: [HistoryTypes.ViewModel.Section]
+        var isRefreshing: Bool
+        var isAppeared: Bool
     }
     
     enum Event {
-        case responseAll([DTO.Asset])
+        case responseAll([DTO.Transaction])
         case readyView
         case refresh
-        case changeDisplay(Display)
+        case changeStatus(Status)
     }
 }
 
 extension HistoryTypes.DTO {
-    struct Asset: Hashable, Mutating {
+    struct Transaction: Hashable, Mutating {
+        enum Kind: Int {
+            case issue = 3
+            case transfer = 4
+            case reissue = 5
+            case burn = 6
+            case exchange = 7
+            case lease = 8
+            case leaseCancel = 9
+            case alias = 10
+            case massTransfer = 11
+            case data = 12
+            case setScript = 13
+            case sponsorship = 14
+        }
+        
         let id: String
         let name: String
+        let balance: Money
+        let kind: Kind
+        let tag: String
+        let sortLevel: Float
     }
 }
 
+extension HistoryTypes.Status {
+
+    var name: String {
+        switch self {
+        case .all:
+            return "All"
+        case .sent:
+            return "Sent"
+        case .received:
+            return "Received"
+        case .exchanged:
+            return "Exchanged"
+        case .leased:
+            return "Leased"
+        case .issued:
+            return "Issued"
+        case .activeNow:
+            return "Active Now"
+        case .canceled:
+            return "Canceled"
+        }
+    }
+}
