@@ -10,7 +10,7 @@ import Foundation
 
 extension HistoryTypes.ViewModel {
     struct Section: Hashable {
-        var header: String?
+        var header: String
         var items: [Row]
     }
     
@@ -42,7 +42,7 @@ extension HistoryTypes.ViewModel.Section {
             })
             .map { HistoryTypes.ViewModel.Row.asset($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: nil,
+        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "Итемы",
                                                                    items: generalItems)
         
         return [generalSection]
@@ -67,7 +67,7 @@ extension HistoryTypes.ViewModel.Section {
             })
             .map { HistoryTypes.ViewModel.Row.asset($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: nil,
+        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "Итемы",
                                                                   items: generalItems)
 
         return [generalSection]
