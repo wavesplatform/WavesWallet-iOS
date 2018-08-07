@@ -48,6 +48,7 @@ final class MainTabBarController: RDVTabBarController {
 
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
 
+        
         let navHistory = UINavigationController()
         historyCoordinator.start(navigationController: navHistory)
         

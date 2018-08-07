@@ -93,6 +93,8 @@ private extension NewHistoryViewController {
             .drive(onNext: { [weak self] (state) in
             
             guard let strongSelf = self else { return }
+                
+            strongSelf.sections = state.currentDisplayState.sections
             
             UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
                 
