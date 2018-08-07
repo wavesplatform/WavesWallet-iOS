@@ -20,7 +20,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
         let spamAssets = spamProvider
             .rx
-            .request(.getSpamList)
+            .request(.getSpamList, callbackQueue: DispatchQueue.global(qos: .background))
             .map { response -> [String] in
 
                 guard let text = String(data: response.data, encoding: .utf8) else { return [] }
@@ -37,7 +37,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
         let assetsList = apiProvider
             .rx
-            .request(.getAssets(ids: ids))
+            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global(qos: .background))
             .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
             .map { $0.data.map { $0.data } }
             .asObservable()

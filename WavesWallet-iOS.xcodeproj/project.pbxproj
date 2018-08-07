@@ -28,6 +28,12 @@
 		0A26AA1D2118A80200A00578 /* AssetViewInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */; };
 		0A26AA1F2118A80B00A00578 /* AssetViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */; };
 		0A26AA212118A81E00A00578 /* AssetModuleBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */; };
+		0A26AA232119DA0B00A00578 /* ControlEvent+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA222119DA0B00A00578 /* ControlEvent+ScrollView.swift */; };
+		0A26AA252119F62400A00578 /* AssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA242119F62400A00578 /* AssetsSegmentedControl.swift */; };
+		0A26AA272119F64800A00578 /* AssetsSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A26AA262119F64800A00578 /* AssetsSegmentedControl.xib */; };
+		0A26AA292119FBC800A00578 /* TickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA282119FBC800A00578 /* TickerView.swift */; };
+		0A26AA2B2119FBE700A00578 /* TickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A26AA2A2119FBE700A00578 /* TickerView.xib */; };
+		0A26AA2D211A003E00A00578 /* CALayer+RoundingCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA2C211A003E00A00578 /* CALayer+RoundingCorners.swift */; };
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
 		0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */; };
 		0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */; };
@@ -374,6 +380,12 @@
 		0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractorProtocol.swift; sourceTree = "<group>"; };
 		0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractor.swift; sourceTree = "<group>"; };
 		0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetModuleBuild.swift; sourceTree = "<group>"; };
+		0A26AA222119DA0B00A00578 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
+		0A26AA242119F62400A00578 /* AssetsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSegmentedControl.swift; sourceTree = "<group>"; };
+		0A26AA262119F64800A00578 /* AssetsSegmentedControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsSegmentedControl.xib; sourceTree = "<group>"; };
+		0A26AA282119FBC800A00578 /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
+		0A26AA2A2119FBE700A00578 /* TickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TickerView.xib; sourceTree = "<group>"; };
+		0A26AA2C211A003E00A00578 /* CALayer+RoundingCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+RoundingCorners.swift"; sourceTree = "<group>"; };
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
 		0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlScrollView.swift; sourceTree = "<group>"; };
 		0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -1327,6 +1339,8 @@
 		E999502B2091FDF300A11E37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A26AA242119F62400A00578 /* AssetsSegmentedControl.swift */,
+				0A26AA262119F64800A00578 /* AssetsSegmentedControl.xib */,
 				E90C6E692098200500AA311B /* AssetBalanceCell.swift */,
 				E9628840209F729100DE3B5A /* AssetLastTransactionCell.swift */,
 				E9FBFC9C20A0AC2600EBF3AD /* AssetEmptyHistoryCell.swift */,
@@ -1668,6 +1682,8 @@
 				F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */,
 				E980EAC720A9A698001834DB /* ScrollButton.swift */,
 				0A485E8020FDFF8400079B49 /* SeparatorView.swift */,
+				0A26AA282119FBC800A00578 /* TickerView.swift */,
+				0A26AA2A2119FBE700A00578 /* TickerView.xib */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -1709,6 +1725,8 @@
 				E971DA4D20FFB3A100616A03 /* Array+Sort.swift */,
 				E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */,
 				0AEB359D211657F000EDD63C /* Any+Name.swift */,
+				0A26AA222119DA0B00A00578 /* ControlEvent+ScrollView.swift */,
+				0A26AA2C211A003E00A00578 /* CALayer+RoundingCorners.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1809,6 +1827,7 @@
 				E929B46D1F36EC4E00A335F7 /* LastTraderHeaderView.xib in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
 				F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */,
+				0A26AA272119F64800A00578 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */,
 				E999502F2091FE1400A11E37 /* WalletHeaderView.xib in Resources */,
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
@@ -1824,6 +1843,7 @@
 				0AE657272105E3E3003D2DB8 /* EmptyCell.xib in Resources */,
 				E96038B720B599A800D303E8 /* TransactionHistoryAddressView.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
+				0A26AA2B2119FBE700A00578 /* TickerView.xib in Resources */,
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
 				E9628845209F792F00DE3B5A /* AssetLastTransactionView.xib in Resources */,
@@ -1991,6 +2011,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A5ABBA12117325D006A10A7 /* LeasingTransactionDomainDTO.swift in Sources */,
+				0A26AA292119FBC800A00578 /* TickerView.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
 				0AFBCA932113275900285BCB /* WalletSortPresenterProtocol.swift in Sources */,
@@ -2024,6 +2045,7 @@
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
 				0A26AA1B2118A7F600A00578 /* AssetViewPresenter.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
+				0A26AA232119DA0B00A00578 /* ControlEvent+ScrollView.swift in Sources */,
 				0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				F763B9AD1EAC0ECF00FA3701 /* UIViewController+Alert.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
@@ -2130,6 +2152,7 @@
 				0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */,
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
 				0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */,
+				0A26AA2D211A003E00A00578 /* CALayer+RoundingCorners.swift in Sources */,
 				E95FEF5320A607E200C327A0 /* HistoryLeasedTopHeaderCell.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */,
@@ -2270,6 +2293,7 @@
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				0AEB359C2116533400EDD63C /* ObservableType+SweetLogger.swift in Sources */,
+				0A26AA252119F62400A00578 /* AssetsSegmentedControl.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,

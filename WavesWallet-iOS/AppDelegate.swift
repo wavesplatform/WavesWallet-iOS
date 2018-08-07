@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        .verbose,
 //        .info,
 //        .network]
-        SweetLogger.current.visibleLevels = []
+        SweetLogger.current.visibleLevels = [.debug]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -36,8 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
         self.showStartController()
-
-        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
+//        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
         self.window?.makeKeyAndVisible()
 
         return true

@@ -19,7 +19,7 @@ private enum ReactQuery {
 final class WalletPresenter: WalletPresenterProtocol {
 
     var interactor: WalletInteractorProtocol!
-    var moduleOutput: WalletModuleOutput?
+    weak var moduleOutput: WalletModuleOutput?
 
     private let disposeBag: DisposeBag = DisposeBag()
 
