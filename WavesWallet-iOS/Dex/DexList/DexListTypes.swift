@@ -51,7 +51,6 @@ extension DexList.ViewModel {
                 return model
             default:
                 return nil
-
             }
         }
     }

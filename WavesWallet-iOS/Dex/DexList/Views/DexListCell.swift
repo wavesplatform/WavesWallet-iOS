@@ -31,19 +31,20 @@ final class DexListCell: UITableViewCell, Reusable {
 extension DexListCell: ViewConfiguration {
     func update(with model: DexList.DTO.DexListModel) {
         labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
+        labelValue.text = String(model.lastPrice)
         
         let percent = (model.lastPrice - model.firstPrice) * 100 / model.lastPrice
         if percent == 0 {
             iconArrow.image = Images.chartarrow22Accent100.image
-            labelPercent.text = String(percent) + "%"
+            labelPercent.text = String(format: "%.02f", percent) + "%"
         }
         else if percent > 0 {
             iconArrow.image = Images.chartarrow22Success400.image
-            labelPercent.text = "+ " + String(percent) + "%"
+            labelPercent.text = "+ " + String(format: "%.02f", percent) + "%"
         }
         else {
             iconArrow.image = Images.chartarrow22Error500.image
-            labelPercent.text = "- " + String(percent * -1) + "%"
+            labelPercent.text = "- " + String(format: "%.02f", percent * -1) + "%"
         }
     }
 }

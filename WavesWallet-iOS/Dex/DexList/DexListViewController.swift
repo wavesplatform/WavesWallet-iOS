@@ -17,11 +17,6 @@ private enum Constants {
 }
 
 final class DexListViewController: UIViewController {
-    
-    enum Section: Int {
-        case header = 0
-        case list
-    }
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
