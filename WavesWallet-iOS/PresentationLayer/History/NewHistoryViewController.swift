@@ -23,6 +23,8 @@ final class NewHistoryViewController: UIViewController {
     
     var presenter: HistoryPresenterProtocol!
     
+    private var sections: [HistoryTypes.ViewModel.Section] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,7 +88,20 @@ private extension NewHistoryViewController {
     }
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
-        return []
+        
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] (state) in
+            
+            guard let strongSelf = self else { return }
+            
+            UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
+                
+                strongSelf.tableView.reloadData()
+                
+            }, completion: { _ in })
+        })
+        
+        return [subscriptionSections]
     }
     
 }
@@ -96,10 +111,10 @@ private extension NewHistoryViewController {
 extension NewHistoryViewController {
     
     func setupSegmetedControl() {
-        //        let buttons = displays.map { SegmentedControl.Button(name: $0.name) }
-        //        segmentedControl
-        //            .segmentedControl
-        //            .update(with: buttons, animated: true)
+//        let buttons = displays.map { SegmentedControl.Button(name: $0.name) }
+//        segmentedControl
+//            .segmentedControl
+//            .update(with: buttons, animated: true)
     }
     
 }
@@ -111,7 +126,18 @@ extension NewHistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        
+      let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .assetSkeleton:
+            return WalletAssetSkeletonCell.cellHeight()
+            
+        case .asset:
+            return HistoryAssetCell.cellHeight()
+        }
+        
+
     }
     
 }
@@ -119,17 +145,30 @@ extension NewHistoryViewController: UITableViewDelegate {
 extension NewHistoryViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: WalletAssetSkeletonCell = tableView.dequeueCell()
         
-        return cell
+        let item = sections[indexPath.section].items[indexPath.item]
+        
+        switch item {
+        case .assetSkeleton:
+            let cell: WalletAssetSkeletonCell = tableView.dequeueCell()
+            return cell
+            
+        case .asset:
+            let cell: HistoryAssetCell = tableView.dequeueCell()
+//            cell.se
+            return cell
+        }
+        
     }
+    
+    
     
 }
