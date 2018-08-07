@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetsSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqr-kX-Scj">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-zB-Myb">
+                            <rect key="frame" x="161.5" y="62" width="52.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-ID-uxW">
+                            <rect key="frame" x="148.5" y="87" width="79.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc0-Fy-vqT">
+                            <rect key="frame" x="0.0" y="666.5" width="375" height="0.5"/>
+                            <color key="backgroundColor" red="0.73725490199999999" green="0.73725490199999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="mKH-DS-YmN"/>
+                            </constraints>
+                        </view>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qBl-vH-xDV">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="po7-rZ-2Vj"/>
+                            </constraints>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Wrh-Jn-neT" customClass="UPCarouselFlowLayout" customModule="UPCarouselFlowLayout">
+                                <size key="itemSize" width="48" height="48"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemAlpha">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemScale">
+                                        <real key="value" value="0.69999999999999996"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </collectionViewFlowLayout>
+                            <cells>
+                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssetCollectionHeaderCell" id="Njf-Ed-iA7" customClass="AssetCollectionHeaderCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jcr-42-e8t">
+                                                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="24"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="Ft2-f2-c5e">
+                                                <rect key="frame" x="0.0" y="34" width="14" height="14"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqG-nJ-UqJ">
+                                                <rect key="frame" x="0.0" y="11" width="48" height="26.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="jcr-42-e8t" firstAttribute="leading" secondItem="Njf-Ed-iA7" secondAttribute="leading" id="12j-UD-Lcz"/>
+                                        <constraint firstItem="IqG-nJ-UqJ" firstAttribute="leading" secondItem="jcr-42-e8t" secondAttribute="leading" id="1tq-HZ-utD"/>
+                                        <constraint firstAttribute="trailing" secondItem="jcr-42-e8t" secondAttribute="trailing" id="4fk-pZ-ad0"/>
+                                        <constraint firstAttribute="bottom" secondItem="jcr-42-e8t" secondAttribute="bottom" id="8YD-ZX-dSr"/>
+                                        <constraint firstItem="Ft2-f2-c5e" firstAttribute="leading" secondItem="Njf-Ed-iA7" secondAttribute="leading" id="E2P-gp-5ee"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ft2-f2-c5e" secondAttribute="bottom" id="Oks-le-t69"/>
+                                        <constraint firstItem="jcr-42-e8t" firstAttribute="top" secondItem="Njf-Ed-iA7" secondAttribute="top" id="Zmh-c3-dWO"/>
+                                        <constraint firstItem="IqG-nJ-UqJ" firstAttribute="trailing" secondItem="jcr-42-e8t" secondAttribute="trailing" id="nLL-hU-Wql"/>
+                                        <constraint firstItem="IqG-nJ-UqJ" firstAttribute="centerY" secondItem="jcr-42-e8t" secondAttribute="centerY" id="sf2-ed-4Xi"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="imageArrow" destination="Ft2-f2-c5e" id="dQJ-tB-J8X"/>
+                                        <outlet property="imageViewIcon" destination="jcr-42-e8t" id="SAp-cJ-XYv"/>
+                                        <outlet property="labelTitle" destination="IqG-nJ-UqJ" id="Ilz-sF-TBA"/>
+                                    </connections>
+                                </collectionViewCell>
+                            </cells>
+                        </collectionView>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="38.5" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="ha4-FY-a1Q" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="168.5" y="84.5" width="38.5" height="16"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="eJC-zB-Myb" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="5jA-HY-OLT"/>
+                        <constraint firstItem="Vc0-Fy-vqT" firstAttribute="leading" secondItem="gqr-kX-Scj" secondAttribute="leading" id="5mH-A8-OW1"/>
+                        <constraint firstItem="qBl-vH-xDV" firstAttribute="top" secondItem="gqr-kX-Scj" secondAttribute="top" id="6Sg-VJ-l3c"/>
+                        <constraint firstItem="oe2-ID-uxW" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="4" id="9Sn-S0-X7k"/>
+                        <constraint firstAttribute="trailing" secondItem="qBl-vH-xDV" secondAttribute="trailing" id="J36-lx-j5N"/>
+                        <constraint firstAttribute="bottom" secondItem="Vc0-Fy-vqT" secondAttribute="bottom" id="JCn-q6-FJQ"/>
+                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="O3E-EP-Zr6"/>
+                        <constraint firstAttribute="trailing" secondItem="Vc0-Fy-vqT" secondAttribute="trailing" id="RF9-vU-wlX"/>
+                        <constraint firstItem="qBl-vH-xDV" firstAttribute="leading" secondItem="gqr-kX-Scj" secondAttribute="leading" id="fte-2g-Wol"/>
+                        <constraint firstItem="eJC-zB-Myb" firstAttribute="top" secondItem="qBl-vH-xDV" secondAttribute="bottom" constant="14" id="kIY-X7-ZG4"/>
+                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="2" id="t92-Gv-LSx"/>
+                        <constraint firstItem="oe2-ID-uxW" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="udJ-jD-08O"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gqr-kX-Scj" secondAttribute="bottom" id="0sE-IF-Iii"/>
+                <constraint firstItem="gqr-kX-Scj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JQE-CX-reb"/>
+                <constraint firstAttribute="trailing" secondItem="gqr-kX-Scj" secondAttribute="trailing" id="Oaq-jq-DQF"/>
+                <constraint firstItem="gqr-kX-Scj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WRf-U5-DiV"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="wallet_arrow_green" width="14" height="14"/>
+    </resources>
+</document>

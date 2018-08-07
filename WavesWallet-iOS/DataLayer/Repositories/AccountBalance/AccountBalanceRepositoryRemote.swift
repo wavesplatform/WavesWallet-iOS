@@ -52,7 +52,7 @@ private extension AccountBalanceRepositoryRemote {
     func matcherBalances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[String: Int64]> {
         return self.matcherBalanceProvider
             .rx
-            .request(.getReservedBalances(privateKey))
+            .request(.getReservedBalances(privateKey), callbackQueue: DispatchQueue.global(qos: .background))
             .map([String: Int64].self)
             .asObservable()
             .catchErrorJustReturn([String: Int64]())
@@ -61,7 +61,7 @@ private extension AccountBalanceRepositoryRemote {
     func assetsBalance(by accountAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
         return self.assetsProvider
             .rx
-            .request(.getAssetsBalance(accountId: accountAddress))
+            .request(.getAssetsBalance(accountId: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
             .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
     }
@@ -69,7 +69,7 @@ private extension AccountBalanceRepositoryRemote {
     func accountBalance(by accountAddress: String) -> Observable<Node.DTO.AccountBalance> {
         return self.addressesProvider
             .rx
-            .request(.getAccountBalance(id: accountAddress))
+            .request(.getAccountBalance(id: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
             .map(Node.DTO.AccountBalance.self)
             .asObservable()
     }

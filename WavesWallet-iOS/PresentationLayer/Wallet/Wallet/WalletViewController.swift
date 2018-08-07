@@ -123,20 +123,11 @@ extension WalletViewController {
             .map { WalletTypes.Event.tapAddressButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-
-        let scrollViewDidEndDecelerating = tableView
+        let refreshEvent = tableView
             .rx
-            .didEndDecelerating
-            .asSignal(onErrorSignalWith: Signal.empty())
-
-        let refreshControlValueChanged = refreshControl
-            .rx
-            .controlEvent(.valueChanged)
-            .asSignal(onErrorSignalWith: Signal.empty())
-
-        let refreshEvent = Signal.zip(refreshControlValueChanged,
-                                      scrollViewDidEndDecelerating)
+            .didRefreshing(refreshControl: refreshControl)
             .map { _ in WalletTypes.Event.refresh }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
         let tapEvent = displayData
             .tapSection
