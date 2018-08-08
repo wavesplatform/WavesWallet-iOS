@@ -77,6 +77,9 @@ final class DexListPresenter: DexListPresenterProtocol {
         case .tapAddButton:
             moduleOutput?.showAddList()
             return state.changeAction(.none)
+            
+        case .refresh:
+            return state.changeAction(.refresh)
         }
     }
         
