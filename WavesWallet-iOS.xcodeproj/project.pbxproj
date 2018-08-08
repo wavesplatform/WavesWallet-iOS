@@ -25,6 +25,7 @@
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
 		0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */; };
 		0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */; };
+		0A41E39A211B474200A1EF5E /* UICollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41E399211B474200A1EF5E /* UICollectionView+Reusable.swift */; };
 		0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */; };
 		0A485E8120FDFF8400079B49 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8020FDFF8400079B49 /* SeparatorView.swift */; };
 		0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */; };
@@ -366,6 +367,7 @@
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
 		0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlScrollView.swift; sourceTree = "<group>"; };
 		0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
+		0A41E399211B474200A1EF5E /* UICollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Reusable.swift"; sourceTree = "<group>"; };
 		0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingBalanceSkeletonCell.swift; sourceTree = "<group>"; };
 		0A485E8020FDFF8400079B49 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistorySkeletonCell.swift; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 				0AD2B58720F65931007EE076 /* Reusable.swift */,
 				0AD2B58920F65956007EE076 /* UITableView+Reusable.swift */,
 				0A6F3E0A20F749BA00E2AF40 /* NibOwnerLoadable.swift */,
+				0A41E399211B474200A1EF5E /* UICollectionView+Reusable.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -1994,6 +1997,7 @@
 				0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeasingTransaction.swift in Sources */,
+				0A41E39A211B474200A1EF5E /* UICollectionView+Reusable.swift in Sources */,
 				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
 				0AE491E421078CB9009223DB /* WalletSortSeparatorFooter.swift in Sources */,
 				0AE6572D21062EC7003D2DB8 /* Models.swift in Sources */,
