@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import UPCarouselFlowLayout
 
-final enum Constants {
+private enum Constants {
     static let spacing: Float = 24
 }
 
@@ -37,7 +37,7 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
 
     private var isNeedUpdateConstraint: Bool = true
     private var isVisibleTicker: Bool = false
-    private var models: [Model] = []()
+    private var models: [Model] = []
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,6 +46,8 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        self.models = [Model.init(name: "Waves", icon: UIImage(), kind: .fiat), Model.init(name: "Test2", icon: UIImage(), kind: .fiat)]
 
         detailLabel.isHidden = true
         tickerView.update(with: TickerView.Model(text: "Test", style: .normal))
@@ -84,9 +86,11 @@ extension AssetsSegmentedControl: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssetCollectionHeaderCell", for: indexPath) as! AssetCollectionHeaderCell
+        let cell: AssetsSegmentedCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
 
         let value = models[indexPath.row]
+
+        
 
 //        let iconName = DataManager.logoForCryptoCurrency(value)
 //        if iconName.count == 0 {

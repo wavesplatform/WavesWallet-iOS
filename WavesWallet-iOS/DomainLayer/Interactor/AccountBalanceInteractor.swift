@@ -12,7 +12,7 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
-private struct Constants {
+private enum Constants {
     static let durationInseconds: Double = 60
 }
 

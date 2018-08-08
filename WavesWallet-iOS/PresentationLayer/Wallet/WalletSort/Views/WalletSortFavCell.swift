@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import Kingfisher
+import RxSwift
+import UIKit
 
 private enum Constants {
     static let height: CGFloat = 48
@@ -21,7 +21,7 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet var buttonFav: UIButton!
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var iconLock: UIImageView!
-    @IBOutlet var arrowGreen: UIImageView!        
+    @IBOutlet var arrowGreen: UIImageView!
     @IBOutlet var viewContent: UIView!
 
     private var taskForAssetLogo: RetrieveImageDiskTask?
@@ -59,10 +59,11 @@ extension WalletSortFavCell: ViewConfiguration {
         iconLock.isHidden = !model.isLock
         arrowGreen.isHidden = !model.isGateway
 
-        taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
-                                                      size: Constants.icon,
-                                                      font: UIFont.systemFont(ofSize: 15)) { [weak self] image in
-                                                        self?.imageIcon.image = image
+        taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,
+                                                   style: AssetLogo.Style(size: Constants.icon,
+                                                                          font: UIFont.systemFont(ofSize: 15),
+                                                                          border: nil)) { [weak self] image in
+            self?.imageIcon.image = image
         }
     }
 }
