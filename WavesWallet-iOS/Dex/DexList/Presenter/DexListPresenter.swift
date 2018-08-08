@@ -55,7 +55,9 @@ final class DexListPresenter: DexListPresenterProtocol {
                 state.loadingDataState = false
                 
                 if models.count > 0 {
-                    let sectionHeader = DexList.ViewModel.Section(items: [.header])
+                    
+                    let rowHeader =  DexList.ViewModel.Row.header(state.lastUpdate)
+                    let sectionHeader = DexList.ViewModel.Section(items: [rowHeader])
                     
                     let items = models.map { DexList.ViewModel.Row.model($0) }
                     let itemsSection = DexList.ViewModel.Section(items: items)
@@ -83,7 +85,7 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isNeedRefreshing: false, action: .refresh, sections: [section], loadingDataState: true)
+        return DexList.State(isNeedRefreshing: false, action: .refresh, sections: [section], loadingDataState: true, lastUpdate: Date())
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {

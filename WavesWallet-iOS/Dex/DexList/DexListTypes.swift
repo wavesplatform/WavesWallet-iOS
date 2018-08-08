@@ -30,6 +30,7 @@ enum DexList {
         var action: Action
         var sections: [DexList.ViewModel.Section]
         var loadingDataState: Bool
+        var lastUpdate: Date
         
         var isVisibleItems: Bool {
             return sections.count > 1
@@ -43,7 +44,7 @@ extension DexList.ViewModel {
     }
     
     enum Row: Hashable {
-        case header
+        case header(Date)
         case skeleton
         case model(DexList.DTO.Pair)
         

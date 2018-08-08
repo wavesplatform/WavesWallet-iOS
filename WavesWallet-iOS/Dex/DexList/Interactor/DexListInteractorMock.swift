@@ -60,7 +60,6 @@ fileprivate extension MoneyUtil {
         return Money(amount, decimals)
     }
     
-    
     private static func getDecimals(from: Double) -> Int {
         
         let number = NSNumber(value: from)
