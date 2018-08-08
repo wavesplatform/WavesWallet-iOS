@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
+import Kingfisher
 import RxSwift
 import UIKit
-import Kingfisher
 
 private enum Constants {
     static let height: CGFloat = 56
@@ -73,9 +73,10 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isOn = model.isHidden
         arrowGreen.isHidden = !model.isGateway
 
-        taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
-                                                      size: Constants.icon,
-                                                      font: UIFont.systemFont(ofSize: 15)) { [weak self] image in
+        taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,
+                                                   style: AssetLogo.Style(size: Constants.icon,
+                                                                          font: UIFont.systemFont(ofSize: 15),
+                                                                          border: nil)) { [weak self] image in
             self?.imageIcon.image = image
         }
     }
