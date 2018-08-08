@@ -1,0 +1,16 @@
+//
+//  AssetCollectionHeaderCell.swift
+//  WavesWallet-iOS
+//
+//  Created by mefilt on 08.08.2018.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import Foundation
+
+final class AssetCollectionHeaderCell: UICollectionViewCell {
+
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var imageViewIcon: UIImageView!
+    @IBOutlet weak var imageArrow: UIImageView!
+}

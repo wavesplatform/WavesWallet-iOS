@@ -9,7 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="titleLabel" destination="k8B-s8-snK" id="HbU-te-HrW"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -22,7 +26,6 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="k8B-s8-snK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="0Yz-zc-3td"/>
                 <constraint firstItem="k8B-s8-snK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="70v-KM-gQl"/>

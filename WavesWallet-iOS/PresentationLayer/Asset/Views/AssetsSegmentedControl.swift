@@ -10,15 +10,47 @@ import Foundation
 import UIKit
 import UPCarouselFlowLayout
 
-final class AssetsSegmentedControl: UIView {
+final enum Constants {
+    static let spacing: Float = 24
+}
 
-    @IBOutlet var collectionView: UICollectionView!
+final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
+
+    struct Model {
+        enum Kind {
+            case fiat
+            case wavesToken
+            case spam
+            case gateway
+        }
+        let name: String
+        let icon: UIImage
+        let kind: Kind
+    }
+
+    @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var tickerView: TickerView!
+    @IBOutlet private var detailLabel: UILabel!
+    @IBOutlet private var tickerViewBottomConstaint: NSLayoutConstraint!
+    @IBOutlet private var detailLabelBottomConstaint: NSLayoutConstraint!
+
+    private var isNeedUpdateConstraint: Bool = true
+    private var isVisibleTicker: Bool = false
+    private var models: [Model] = []()
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        loadNibContent()
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-//        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-//        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
+        detailLabel.isHidden = true
+        tickerView.update(with: TickerView.Model(text: "Test", style: .normal))
+        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
     }
 }
 
@@ -39,23 +71,23 @@ fileprivate extension AssetsSegmentedControl {
     }
 }
 
-// MARK: UICollectionViewDataSource
+ //MARK: UICollectionViewDataSource
 
-//extension AssetsSegmentedControl: UICollectionViewDataSource {
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return headerItems.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssetCollectionHeaderCell", for: indexPath) as! AssetCollectionHeaderCell
-//
-//        let value = headerItems[indexPath.row]
-//
+extension AssetsSegmentedControl: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return models.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssetCollectionHeaderCell", for: indexPath) as! AssetCollectionHeaderCell
+
+        let value = models[indexPath.row]
+
 //        let iconName = DataManager.logoForCryptoCurrency(value)
 //        if iconName.count == 0 {
 //            cell.imageViewIcon.image = nil
@@ -66,9 +98,9 @@ fileprivate extension AssetsSegmentedControl {
 //            cell.labelTitle.text = nil
 //            cell.imageViewIcon.image = UIImage(named: iconName)
 //        }
-//        return cell
-//    }
-//}
+        return cell
+    }
+}
 //
 //extension AssetsSegmentedControl: UICollectionViewDelegate {
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

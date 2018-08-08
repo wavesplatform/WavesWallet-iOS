@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 16
+}
+
 final class TickerView: UIView, NibOwnerLoadable {
 
     struct Model {
@@ -23,6 +27,7 @@ final class TickerView: UIView, NibOwnerLoadable {
     }
 
     @IBOutlet private var titleLabel: UILabel!
+    private var style: Model.Style = .soft
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -32,6 +37,22 @@ final class TickerView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        switch style {
+        case .normal:
+            backgroundColor = .basic100
+            layer.removeBorder()
+        case .soft:
+            backgroundColor = .white
+            layer.border(cornerRadius: 10, borderWidth: 0.5, borderColor: .info500)
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Constants.height)
+    }
 }
 
 extension TickerView: ViewConfiguration {
@@ -40,13 +61,7 @@ extension TickerView: ViewConfiguration {
 
         titleLabel.text = model.text
         titleLabel.textColor = .info500
-        switch model.style {
-        case .normal:
-            backgroundColor = .basic100
-            layer.removeBorder()
-        case .soft:
-            backgroundColor = .white
-            layer.border(cornerRadius: 2, borderWidth: 0.5, borderColor: .info500)
-        }        
+        self.style = model.style
+        setNeedsLayout()
     }
 }

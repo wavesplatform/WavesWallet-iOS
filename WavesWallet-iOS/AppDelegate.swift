@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-        self.showStartController()
-//        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
+//        self.showStartController()
+        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
         self.window?.makeKeyAndVisible()
 
         return true

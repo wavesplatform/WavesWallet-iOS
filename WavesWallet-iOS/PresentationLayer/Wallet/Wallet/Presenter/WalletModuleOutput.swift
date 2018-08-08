@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol WalletModuleOutput {
+protocol WalletModuleOutput: AnyObject {
     func showWalletSort()
     func showMyAddress()
 }
