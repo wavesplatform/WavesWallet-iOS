@@ -14,5 +14,9 @@ final class DexListInteractor: DexListInteractorProtocol {
     func pairs() -> Observable<[DexList.DTO.Pair]> {
         return Observable.just([])
     }
+    
+    func refreshPairs() {
+        
+    }
 }
 
