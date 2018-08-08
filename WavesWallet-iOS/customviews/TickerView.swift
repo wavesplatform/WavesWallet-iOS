@@ -42,10 +42,10 @@ final class TickerView: UIView, NibOwnerLoadable {
         super.layoutSubviews()
         switch style {
         case .normal:
-            backgroundColor = .basic100
+            backgroundColor = .blue
             layer.removeBorder()
         case .soft:
-            backgroundColor = .white
+            backgroundColor = .red
             layer.border(cornerRadius: 10, borderWidth: 0.5, borderColor: .info500)
         }
     }

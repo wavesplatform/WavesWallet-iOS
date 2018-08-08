@@ -7,6 +7,36 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+  internal enum InfoPlist {
+    /// The camera is needed to scan QR codes
+    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
+    /// Authenticate with Face ID
+    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
+  }
+  internal enum General {
+
+    internal enum Label {
+
+      internal enum Title {
+        /// / My Asset
+        internal static let myasset = Localizable.tr("General", "label.title.myasset")
+      }
+    }
+
+    internal enum Ticker {
+
+      internal enum Title {
+        /// Cryptocurrency
+        internal static let cryptocurrency = Localizable.tr("General", "ticker.title.cryptocurrency")
+        /// Fiat Money
+        internal static let fiatmoney = Localizable.tr("General", "ticker.title.fiatmoney")
+        /// SPAM
+        internal static let spam = Localizable.tr("General", "ticker.title.spam")
+        /// Waves Token
+        internal static let wavestoken = Localizable.tr("General", "ticker.title.wavestoken")
+      }
+    }
+  }
   internal enum Wallet {
 
     internal enum Button {
@@ -67,12 +97,6 @@ internal enum Localizable {
       /// Leasing
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
-  }
-  internal enum InfoPlist {
-    /// The camera is needed to scan QR codes
-    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
-    /// Authenticate with Face ID
-    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
   internal enum WalletSort {
 
