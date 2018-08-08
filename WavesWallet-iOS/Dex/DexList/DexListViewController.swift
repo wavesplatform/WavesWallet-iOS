@@ -24,15 +24,19 @@ final class DexListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoItems: UIView!
     
+    @IBOutlet weak var labelNoItemsDescription: UILabel!
+    @IBOutlet weak var labelNoItemsTitle: UILabel!
+    @IBOutlet weak var buttonAddMarkets: UIButton!
+    
     var presenter : DexListPresenterProtocol!
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         createMenuButton()
-        title = Localizable.DexList.Navigationbar.title
+        setupLocalization()
         
         tableView.contentInset = Constants.contentInset
         setupViewNoItems(isHidden: true)
@@ -70,8 +74,10 @@ fileprivate extension DexListViewController {
             .asSignal(onErrorSignalWith: Signal.empty())
         let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
             .asSignal(onErrorSignalWith: Signal.empty())
+        let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton }
+            .asSignal(onErrorSignalWith: Signal.empty())
 
-        return [sendEvent.asSignal(), sortTapEvent, addTapEvent]
+        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event]
     }
     
     func subscriptions(state: Driver<DexList.State>) -> [Disposable] {
@@ -94,6 +100,13 @@ fileprivate extension DexListViewController {
 
 private extension DexListViewController {
 
+    func setupLocalization() {
+        title = Localizable.DexList.Navigationbar.title
+        labelNoItemsTitle.text = Localizable.DexList.Label.decentralisedExchange
+        labelNoItemsDescription.text = Localizable.DexList.Label.description
+        buttonAddMarkets.setTitle(Localizable.DexList.Button.addMarkets, for: .normal)
+    }
+    
     func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
         if (loadingDataState) {
             setupViewNoItems(isHidden: true)
@@ -170,8 +183,9 @@ extension DexListViewController: UITableViewDataSource {
         let row = sections[indexPath.section].items[indexPath.row]
         
         switch row {
-        case .header:
+        case .header(let lastUpdate):
             let cell = tableView.dequeueCell() as DexListHeaderCell
+            cell.update(with: lastUpdate)
             return cell
             
         case .model(let model):

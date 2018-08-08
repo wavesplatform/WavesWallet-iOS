@@ -22,6 +22,26 @@ internal enum Localizable {
   }
   internal enum DexList {
 
+    internal enum Button {
+      /// Add Markets
+      internal static let addMarkets = Localizable.tr("DexList", "button.addMarkets")
+    }
+
+    internal enum Label {
+      /// Decentralised Exchange
+      internal static let decentralisedExchange = Localizable.tr("DexList", "label.decentralisedExchange")
+      /// Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.
+      internal static let description = Localizable.tr("DexList", "label.description")
+      /// Last update
+      internal static let lastUpdate = Localizable.tr("DexList", "label.lastUpdate")
+      /// Price
+      internal static let price = Localizable.tr("DexList", "label.price")
+      /// today
+      internal static let today = Localizable.tr("DexList", "label.today")
+      /// yesterday
+      internal static let yesterday = Localizable.tr("DexList", "label.yesterday")
+    }
+
     internal enum Navigationbar {
       /// Dex
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
