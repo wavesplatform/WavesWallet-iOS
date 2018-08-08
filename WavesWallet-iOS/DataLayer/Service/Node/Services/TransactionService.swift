@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Moya
 
 extension Node.Service {
     enum Transaction {
