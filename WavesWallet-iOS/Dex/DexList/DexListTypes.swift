@@ -24,7 +24,7 @@ enum DexList {
         
         enum Action {
             case none
-            case refresh
+            case update
         }
         
         var isNeedRefreshing: Bool
@@ -64,8 +64,8 @@ extension DexList.DTO {
     
     struct Pair: Hashable, Mutating {
         
-        let firstPrice: Money
-        let lastPrice: Money
+        var firstPrice: Money
+        var lastPrice: Money
         let amountAsset: String
         let amountAssetName: String
         let amountTicker: String

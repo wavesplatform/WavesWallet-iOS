@@ -73,17 +73,8 @@ final class DexListViewController: UIViewController {
 fileprivate extension DexListViewController {
     func events() -> [Signal<DexList.Event>] {
         
-        let refreshControlValueChanged = refreshControl.rx.controlEvent(.valueChanged).map{ DexList.Event.refresh }
-        .asSignal(onErrorSignalWith: Signal.empty())
-            
-            
-//            .controlEvent(.valueChanged)
-//            .asSignal(onErrorSignalWith: Signal.empty())
-//
-//        let refreshEvent = Signal.zip(refreshControlValueChanged,
-//                                      scrollViewDidEndDecelerating)
-//            .map { _ in WalletTypes.Event.refresh }
-        
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
             .asSignal(onErrorSignalWith: Signal.empty())
         let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
@@ -91,20 +82,25 @@ fileprivate extension DexListViewController {
         let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event]
+        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event, refresh]
     }
     
     func subscriptions(state: Driver<DexList.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
-                
+
+                print(state.action)
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
 
-                strongSelf.sections = state.sections
-                strongSelf.tableView.reloadData()
-                strongSelf.setupViews(loadingDataState: state.loadingDataState, isVisibleItems: state.isVisibleItems)
+                if state.action == .update {
+                    strongSelf.refreshControl.endRefreshing()
+                    strongSelf.sections = state.sections
+                    strongSelf.tableView.reloadData()
+                    strongSelf.setupViews(loadingDataState: state.loadingDataState, isVisibleItems: state.isVisibleItems)
+                }
             })
+
         return [subscriptionSections]
     }
 }

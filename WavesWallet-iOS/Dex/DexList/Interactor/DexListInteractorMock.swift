@@ -11,12 +11,7 @@ import RxSwift
 
 
 fileprivate extension DexList.DTO.Pair {
-    
-    static func WavesBtcPair() -> DexList.DTO.Pair {
-        let priceAsset = Environments.current.isTestNet ? "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe" : "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"
-        return DexList.DTO.Pair.createPair(MoneyUtil.money(50.34), MoneyUtil.money(23.34), "WAVES", "WAVES", "WAVES", 8, priceAsset, "Bitcoin", "BTC", 8)
-    }  
-    
+  
     static func createPair(_ firstPrice: Money, _ lastPrice: Money, _ amountAsset: String, _ amountAssetName: String, _ amountTicker: String, _ amountDecimals: Int, _ priceAsset: String, _ priceAssetName: String, _ priceTicker: String, _ priceDecimals: Int) ->  DexList.DTO.Pair {
         
         return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, amountAssetName: amountAssetName, amountTicker: amountTicker, amountDecimals: amountDecimals, priceAsset: priceAsset, priceAssetName: priceAssetName, priceTicker: priceTicker, priceDecimals: priceDecimals)
@@ -25,8 +20,10 @@ fileprivate extension DexList.DTO.Pair {
 
 final class DexListInteractorMock: DexListInteractorProtocol {
     
+    private let refreshPairsSubject: PublishSubject<[DexList.DTO.Pair]> = PublishSubject<[DexList.DTO.Pair]>()
+
     private static var testModels : [DexList.DTO.Pair] = [
-        DexList.DTO.Pair.WavesBtcPair(),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "", "WAVES", "WAVES", 8, "", "BTC", "BTC", 8),
         DexList.DTO.Pair.createPair(MoneyUtil.money(20.0), MoneyUtil.money(43.23), "", "WAVES", "WAVES", 8, "", "ETH", "ETH", 8),
         DexList.DTO.Pair.createPair(MoneyUtil.money(10.12), MoneyUtil.money(94), "", "Bitcoin", "Bitcoin", 8, "", "ETH", "ETH", 8),
         DexList.DTO.Pair.createPair(MoneyUtil.money(120), MoneyUtil.money(20.32), "", "ETH Classic", "ETH Classic", 8, "", "IOTA", "IOTA", 8),
@@ -40,13 +37,20 @@ final class DexListInteractorMock: DexListInteractorProtocol {
     func pairs() -> Observable<[DexList.DTO.Pair]> {
         
         return Observable.create({ (subscribe) -> Disposable in
-
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 subscribe.onNext(DexListInteractorMock.testModels)
-            })
+//            })
             return Disposables.create()
         })
+    }
+    
+    
+    func refreshPairs() {
+        
+       
+        DexListInteractorMock.testModels.removeLast()
+//        DexListInteractorMock.testModels = newModels
     }
 }
 

@@ -68,7 +68,7 @@ final class DexListPresenter: DexListPresenterProtocol {
                     state.sections = []
                 }
                 
-                }.changeAction(.refresh)
+                }.changeAction(.update)
             
         case .tapSortButton:
             moduleOutput?.showDexSort()
@@ -79,7 +79,12 @@ final class DexListPresenter: DexListPresenterProtocol {
             return state.changeAction(.none)
             
         case .refresh:
-            return state.changeAction(.refresh)
+            interactor.refreshPairs()
+            
+            return state.mutate {
+                $0.sections.las
+            }
+            return state.changeAction(.update)
         }
     }
         
@@ -88,7 +93,7 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isNeedRefreshing: false, action: .refresh, sections: [section], loadingDataState: true, lastUpdate: Date())
+        return DexList.State(isNeedRefreshing: false, action: .update, sections: [section], loadingDataState: true, lastUpdate: Date())
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {
