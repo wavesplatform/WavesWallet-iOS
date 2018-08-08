@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 25.07.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+/*
+ controller.name.view.label
+*/
+
+"label.title.myasset" = "/ My Asset";
+"ticker.title.spam" = "SPAM";
+"ticker.title.fiatmoney" = "Fiat Money";
+"ticker.title.wavestoken" = "Waves Token";
+"ticker.title.cryptocurrency" = "Cryptocurrency";
+
+

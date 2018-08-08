@@ -11,20 +11,20 @@ import UIKit
 import UPCarouselFlowLayout
 
 private enum Constants {
-    static let spacing: Float = 24
+    static let spacing: CGFloat = 24
 }
 
 final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
 
-    struct Model {
+    struct Asset {
         enum Kind {
             case fiat
             case wavesToken
             case spam
             case gateway
         }
+
         let name: String
-        let icon: UIImage
         let kind: Kind
     }
 
@@ -32,12 +32,9 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var detailLabel: UILabel!
-    @IBOutlet private var tickerViewBottomConstaint: NSLayoutConstraint!
-    @IBOutlet private var detailLabelBottomConstaint: NSLayoutConstraint!
 
-    private var isNeedUpdateConstraint: Bool = true
-    private var isVisibleTicker: Bool = false
-    private var models: [Model] = []
+    private var assets: [Asset] = []
+    private(set) var currentPage: Int?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,33 +44,85 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.models = [Model.init(name: "Waves", icon: UIImage(), kind: .fiat), Model.init(name: "Test2", icon: UIImage(), kind: .fiat)]
+        assets = [Asset(name: "Waves", kind: .fiat),
+                  Asset(name: "Test2", kind: .gateway),
+                  Asset(name: "Test2", kind: .spam),
+                  Asset(name: "Test2", kind: .wavesToken)]
 
         detailLabel.isHidden = true
         tickerView.update(with: TickerView.Model(text: "Test", style: .normal))
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
+        let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
     }
 }
 
-
-//MARK: Private method
+// MARK: Private method
 
 fileprivate extension AssetsSegmentedControl {
 
-     var collectionPageSize: CGSize {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+    var currentPageByContentOffset: Int {
+        return  Int(floor((collectionView.contentOffset.x - collectionPageSize.width / 2) / collectionPageSize.width) + 1)
+    }
+
+    var collectionPageSize: CGSize {
+        let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         var pageSize = layout.itemSize
         if layout.scrollDirection == .horizontal {
             pageSize.width += layout.minimumLineSpacing
-        } else {
+        }
+        else {
             pageSize.height += layout.minimumLineSpacing
         }
         return pageSize
     }
+
+    func updateWithNewPage(_ newPage: Int) {
+
+        if newPage == currentPage {
+            return
+        }
+        currentPage = newPage
+        let asset = assets[newPage]
+
+        tickerView.isHidden = asset.kind != .spam
+        detailLabel.isHidden = asset.kind == .spam
+        switch asset.kind {
+        case .fiat:
+            detailLabel.text = Localizable.General.Ticker.Title.fiatmoney
+        case .gateway:
+            detailLabel.text = Localizable.General.Ticker.Title.cryptocurrency
+        case .spam:
+            tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
+                                          style: .normal))
+        case .wavesToken:
+            detailLabel.text = Localizable.General.Ticker.Title.wavestoken
+        }
+
+//        let sections = [0, 1, 2, 3]
+//        if newPage > currentPage {
+//            tableView.reloadSections(sections, animationStyle: .left)
+//        }
+//        else {
+//            tableView.reloadSections(sections, animationStyle: .right)
+//        }
+//
+//        currentPage = newPage
+//
+//        labelTitle.text = headerItems[currentPage]
+//        labelToken.text = headerItems[currentPage] + " token"
+//
+//        if currentPage == 2 {
+//            viewSpam.isHidden = false
+//            labelToken.isHidden = true
+//        }
+//        else {
+//            viewSpam.isHidden = true
+//            labelToken.isHidden = false
+//        }
+    }
 }
 
- //MARK: UICollectionViewDataSource
+// MARK: UICollectionViewDataSource
 
 extension AssetsSegmentedControl: UICollectionViewDataSource {
 
@@ -82,47 +131,32 @@ extension AssetsSegmentedControl: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models.count
+        return assets.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: AssetsSegmentedCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
 
-        let value = models[indexPath.row]
+        let asset = assets[indexPath.row]
 
-        
+        let isHiddenArrow = asset.kind != .fiat || asset.kind != .gateway
 
-//        let iconName = DataManager.logoForCryptoCurrency(value)
-//        if iconName.count == 0 {
-//            cell.imageViewIcon.image = nil
-//            cell.imageViewIcon.backgroundColor = DataManager.bgColorForCryptoCurrency(value)
-//            cell.labelTitle.text = String(value.uppercased().first!)
-//        }
-//        else {
-//            cell.labelTitle.text = nil
-//            cell.imageViewIcon.image = UIImage(named: iconName)
-//        }
+        let model = AssetsSegmentedCell.Model(icon: asset.name,
+                                              isHiddenArrow: isHiddenArrow)
+        cell.update(with: model)
         return cell
     }
 }
-//
-//extension AssetsSegmentedControl: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        if indexPath.row != currentPage {
-//            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        }
-//
-//        updateTableWithNewPage(indexPath.row)
-//    }
-//
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == collectionView {
-//            let newPage = Int(floor((scrollView.contentOffset.x - collectionPageSize.width / 2) / collectionPageSize.width) + 1)
-//            updateTableWithNewPage(newPage)
-//        }
-//        else {
-//            updateTopBarOffset()
-//        }
-//    }
-//}
+
+extension AssetsSegmentedControl: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        updateWithNewPage(indexPath.row)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+            updateWithNewPage(currentPageByContentOffset)
+    }
+}

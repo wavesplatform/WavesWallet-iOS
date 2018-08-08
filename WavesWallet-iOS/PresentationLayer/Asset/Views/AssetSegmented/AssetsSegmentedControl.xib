@@ -65,7 +65,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="38.5" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="ha4-FY-a1Q" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="168.5" y="101.5" width="38.5" height="18.5"/>
+                            <rect key="frame" x="168.5" y="103.5" width="38.5" height="16.5"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.37315848210000002" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,7 +78,7 @@
                         <constraint firstItem="qBl-vH-xDV" firstAttribute="leading" secondItem="gqr-kX-Scj" secondAttribute="leading" id="fte-2g-Wol"/>
                         <constraint firstAttribute="bottom" secondItem="ha4-FY-a1Q" secondAttribute="bottom" priority="650" id="iLs-KX-Sa8"/>
                         <constraint firstItem="eJC-zB-Myb" firstAttribute="top" secondItem="qBl-vH-xDV" secondAttribute="bottom" constant="14" id="kIY-X7-ZG4"/>
-                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="2" id="t92-Gv-LSx"/>
+                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="4" id="t92-Gv-LSx"/>
                         <constraint firstItem="oe2-ID-uxW" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="udJ-jD-08O"/>
                         <constraint firstAttribute="bottom" secondItem="oe2-ID-uxW" secondAttribute="bottom" id="wfc-Zt-PFk"/>
                     </constraints>
