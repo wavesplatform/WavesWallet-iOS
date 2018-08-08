@@ -37,6 +37,7 @@
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
 		0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */; };
 		0A388DBB20F7A42F00C07AA3 /* SegmentedControlScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */; };
+		0A41E398211B3A5800A1EF5E /* AssetCollectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41E397211B3A5800A1EF5E /* AssetCollectionHeaderCell.swift */; };
 		0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */; };
 		0A485E8120FDFF8400079B49 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8020FDFF8400079B49 /* SeparatorView.swift */; };
 		0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */; };
@@ -389,6 +390,7 @@
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
 		0A388DB520F791A400C07AA3 /* SegmentedControlScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlScrollView.swift; sourceTree = "<group>"; };
 		0A388DB720F7A20700C07AA3 /* CGFloat+Min.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
+		0A41E397211B3A5800A1EF5E /* AssetCollectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetCollectionHeaderCell.swift; sourceTree = "<group>"; };
 		0A485E7D20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLeasingBalanceSkeletonCell.swift; sourceTree = "<group>"; };
 		0A485E8020FDFF8400079B49 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		0A485E8220FE2B1B00079B49 /* WalletHistorySkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistorySkeletonCell.swift; sourceTree = "<group>"; };
@@ -1350,6 +1352,7 @@
 				E93CEDEB20A1A8AE00756CA8 /* AssetChartHeaderView.xib */,
 				E9628842209F792300DE3B5A /* AssetLastTransactionView.swift */,
 				E9628844209F792F00DE3B5A /* AssetLastTransactionView.xib */,
+				0A41E397211B3A5800A1EF5E /* AssetCollectionHeaderCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2290,6 +2293,7 @@
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,
+				0A41E398211B3A5800A1EF5E /* AssetCollectionHeaderCell.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				0AEB359C2116533400EDD63C /* ObservableType+SweetLogger.swift in Sources */,
