@@ -17,6 +17,7 @@ enum DexList {
         case setModels([DTO.Pair])
         case tapSortButton
         case tapAddButton
+        case refresh
     }
     
     struct State: Mutating {

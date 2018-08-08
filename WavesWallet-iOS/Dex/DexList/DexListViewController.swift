@@ -27,7 +27,9 @@ final class DexListViewController: UIViewController {
     @IBOutlet weak var labelNoItemsDescription: UILabel!
     @IBOutlet weak var labelNoItemsTitle: UILabel!
     @IBOutlet weak var buttonAddMarkets: UIButton!
-    
+
+    private var refreshControl: UIRefreshControl!
+
     var presenter : DexListPresenterProtocol!
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
@@ -37,6 +39,7 @@ final class DexListViewController: UIViewController {
 
         createMenuButton()
         setupLocalization()
+        setupRefreshControl()
         
         tableView.contentInset = Constants.contentInset
         setupViewNoItems(isHidden: true)
@@ -69,6 +72,17 @@ final class DexListViewController: UIViewController {
 
 fileprivate extension DexListViewController {
     func events() -> [Signal<DexList.Event>] {
+        
+        let refreshControlValueChanged = refreshControl.rx.controlEvent(.valueChanged).map{ DexList.Event.refresh }
+        .asSignal(onErrorSignalWith: Signal.empty())
+            
+            
+//            .controlEvent(.valueChanged)
+//            .asSignal(onErrorSignalWith: Signal.empty())
+//
+//        let refreshEvent = Signal.zip(refreshControlValueChanged,
+//                                      scrollViewDidEndDecelerating)
+//            .map { _ in WalletTypes.Event.refresh }
         
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
             .asSignal(onErrorSignalWith: Signal.empty())
@@ -129,6 +143,15 @@ private extension DexListViewController {
         }
         else if !loadingDataState {
             navigationItem.rightBarButtonItems = [buttonAdd]
+        }
+    }
+    
+    func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
         }
     }
 }
