@@ -4,6 +4,7 @@ import RDVTabBarController
 final class MainTabBarController: RDVTabBarController {
 
     let walletCoordinator: WalletCoordinator = WalletCoordinator()
+    let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
     
     override var viewControllers: [Any]! {
         didSet {
@@ -47,9 +48,9 @@ final class MainTabBarController: RDVTabBarController {
 
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
 
-        let history = StoryboardManager.MainStoryboard().instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
-        history.isMenuButton = true
-        let navHistory = UINavigationController(rootViewController: history)
+        
+        let navHistory = UINavigationController()
+        historyCoordinator.start(navigationController: navHistory)
         
         let profile = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "ProfileViewController")
         let navProfile = UINavigationController(rootViewController: profile)

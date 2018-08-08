@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryAssetCell: UITableViewCell {
+class HistoryAssetCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelValue: UILabel!
