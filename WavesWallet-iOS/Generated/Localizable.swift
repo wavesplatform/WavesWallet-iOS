@@ -7,11 +7,45 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+  internal enum DexSort {
+
+    internal enum Navigationbar {
+      /// Sorting
+      internal static let title = Localizable.tr("DexSort", "navigationBar.title")
+    }
+  }
   internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
     /// Authenticate with Face ID
     internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
+  }
+  internal enum DexList {
+
+    internal enum Button {
+      /// Add Markets
+      internal static let addMarkets = Localizable.tr("DexList", "button.addMarkets")
+    }
+
+    internal enum Label {
+      /// Decentralised Exchange
+      internal static let decentralisedExchange = Localizable.tr("DexList", "label.decentralisedExchange")
+      /// Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.
+      internal static let description = Localizable.tr("DexList", "label.description")
+      /// Last update
+      internal static let lastUpdate = Localizable.tr("DexList", "label.lastUpdate")
+      /// Price
+      internal static let price = Localizable.tr("DexList", "label.price")
+      /// today
+      internal static let today = Localizable.tr("DexList", "label.today")
+      /// yesterday
+      internal static let yesterday = Localizable.tr("DexList", "label.yesterday")
+    }
+
+    internal enum Navigationbar {
+      /// Dex
+      internal static let title = Localizable.tr("DexList", "navigationBar.title")
+    }
   }
   internal enum History {
 
