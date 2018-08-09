@@ -42,7 +42,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func queryAll() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.status == .all && state.isAppeared == true {
+            if state.currentFilter == .all && state.isAppeared == true {
                 return true
             } else {
                 return nil
@@ -66,9 +66,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         case .refresh:
             return state.setIsRefreshing(true)
             
-        case .changeStatus(let status):
-            let sections = HistoryTypes.ViewModel.Section.filter(from: state.transactions, status: status)
-            let newState = state.setSections(sections: sections).setStatus(status: status)
+        case .changeFilter(let filter):
+            let sections = HistoryTypes.ViewModel.Section.filter(from: state.transactions, filter: filter)
+            let newState = state.setSections(sections: sections).setFilter(filter: filter)
             return newState
             
         case .responseAll(let response):
@@ -76,7 +76,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             let newState = state
                 .setTransactions(transactions: response)
-                .setStatus(status: .all)
+                .setFilter(filter: .all)
                 .setSections(sections: sections)
                 .setIsRefreshing(false)
 //            let newState = state.setAll(all: .init(sections: sections,

@@ -13,7 +13,7 @@ enum HistoryTypes {
     enum DTO {}
     enum ViewModel {}
     
-    enum Status {
+    enum Filter {
         case all
         case sent
         case received
@@ -25,7 +25,8 @@ enum HistoryTypes {
     }
     
     struct State: Mutating {
-        var status: Status
+        var currentFilter: Filter
+        var filters: [Filter]
         var transactions: [HistoryTypes.DTO.Transaction]
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
@@ -36,7 +37,7 @@ enum HistoryTypes {
         case responseAll([DTO.Transaction])
         case readyView
         case refresh
-        case changeStatus(Status)
+        case changeFilter(Filter)
     }
 }
 
@@ -66,7 +67,7 @@ extension HistoryTypes.DTO {
     }
 }
 
-extension HistoryTypes.Status {
+extension HistoryTypes.Filter {
 
     var name: String {
         switch self {
