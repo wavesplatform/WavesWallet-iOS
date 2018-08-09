@@ -7,6 +7,38 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+  internal enum InfoPlist {
+    /// The camera is needed to scan QR codes
+    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
+    /// Authenticate with Face ID
+    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
+  }
+  internal enum History {
+
+    internal enum Navigationbar {
+      /// History
+      internal static let title = Localizable.tr("History", "navigationBar.title")
+    }
+
+    internal enum Segmentedcontrol {
+      /// Active Now
+      internal static let activeNow = Localizable.tr("History", "segmentedControl.activeNow")
+      /// All
+      internal static let all = Localizable.tr("History", "segmentedControl.all")
+      /// Canceled
+      internal static let canceled = Localizable.tr("History", "segmentedControl.canceled")
+      /// Exchanged
+      internal static let exchanged = Localizable.tr("History", "segmentedControl.exchanged")
+      /// Issued
+      internal static let issued = Localizable.tr("History", "segmentedControl.issued")
+      /// Leased
+      internal static let leased = Localizable.tr("History", "segmentedControl.leased")
+      /// Received
+      internal static let received = Localizable.tr("History", "segmentedControl.received")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "segmentedControl.sent")
+    }
+  }
   internal enum Wallet {
 
     internal enum Button {
@@ -67,12 +99,6 @@ internal enum Localizable {
       /// Leasing
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
-  }
-  internal enum InfoPlist {
-    /// The camera is needed to scan QR codes
-    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
-    /// Authenticate with Face ID
-    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
   internal enum WalletSort {
 
