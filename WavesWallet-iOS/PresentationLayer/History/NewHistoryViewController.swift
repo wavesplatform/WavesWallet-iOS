@@ -110,7 +110,7 @@ private extension NewHistoryViewController {
     
 }
 
-// MARK: - Setup
+// MARK: - Setupd
 
 extension NewHistoryViewController {
     
