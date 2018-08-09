@@ -34,7 +34,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         newFeedbacks.append(queryAll())
 //        newFeedbacks.append(queryAll())
         
-        Driver.system(initialState: HistoryPresenter.initialState(), reduce: reduce, feedback: newFeedbacks)
+        Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type), reduce: reduce, feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
@@ -90,8 +90,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         }
     }
     
-    private static func initialState() -> HistoryTypes.State {
-        return HistoryTypes.State.initialState()
+    private static func initialState(historyType: HistoryType) -> HistoryTypes.State {
+        return HistoryTypes.State.initialState(historyType: historyType)
     }
     
 }

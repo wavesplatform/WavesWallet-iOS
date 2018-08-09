@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 protocol HistoryModuleInput {
     var type: HistoryType { get }
 }
@@ -19,3 +17,4 @@ enum HistoryType {
     case asset(String)
     case leasing(assetId: String)
 }
+
