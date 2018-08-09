@@ -96,7 +96,7 @@ fileprivate extension DexListViewController {
                     strongSelf.sections = state.sections
                     strongSelf.tableView.reloadData()
                     strongSelf.refreshControl.endRefreshing()
-                    strongSelf.setupViews(loadingDataState: state.loadingDataState, isVisibleItems: state.isVisibleItems)
+                    strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
                 }
             })
 
