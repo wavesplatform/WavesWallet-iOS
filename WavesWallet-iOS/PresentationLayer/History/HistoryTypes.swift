@@ -94,21 +94,21 @@ extension HistoryTypes.Filter {
     var name: String {
         switch self {
         case .all:
-            return "All"
+            return Localizable.History.Segmentedcontrol.all
         case .sent:
-            return "Sent"
+            return Localizable.History.Segmentedcontrol.sent
         case .received:
-            return "Received"
+            return Localizable.History.Segmentedcontrol.received
         case .exchanged:
-            return "Exchanged"
+            return Localizable.History.Segmentedcontrol.exchanged
         case .leased:
-            return "Leased"
+            return Localizable.History.Segmentedcontrol.leased
         case .issued:
-            return "Issued"
+            return Localizable.History.Segmentedcontrol.issued
         case .activeNow:
-            return "Active Now"
+            return Localizable.History.Segmentedcontrol.activeNow
         case .canceled:
-            return "Canceled"
+            return Localizable.History.Segmentedcontrol.canceled
         }
     }
 }

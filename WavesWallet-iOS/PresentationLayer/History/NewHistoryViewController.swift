@@ -27,7 +27,7 @@ final class NewHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "History"
+        title = Localizable.History.Navigationbar.title
 
         setupSystem()
         setupSegmentedControl()
@@ -36,12 +36,19 @@ final class NewHistoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.barTintColor = UIColor.basic50
+        setupTopBarLine()
+        setupBigNavigationBar()
+        if rdv_tabBarController.isTabBarHidden {
+            rdv_tabBarController.setTabBarHidden(false, animated: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
+        setupTopBarLine()
     }
 }
 
