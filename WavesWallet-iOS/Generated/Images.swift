@@ -86,6 +86,9 @@ internal enum Images {
   internal static let chartArrowGreen = ImageAsset(name: "chart_arrow_green")
   internal static let chartArrowRed = ImageAsset(name: "chart_arrow_red")
   internal static let chartEmpty = ImageAsset(name: "chart_empty")
+  internal static let chartarrow22Accent100 = ImageAsset(name: "chartarrow22Accent100")
+  internal static let chartarrow22Error500 = ImageAsset(name: "chartarrow22Error500")
+  internal static let chartarrow22Success400 = ImageAsset(name: "chartarrow22Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
   internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
@@ -97,6 +100,7 @@ internal enum Images {
   internal static let copyBlack = ImageAsset(name: "copy_black")
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
   internal static let delete = ImageAsset(name: "delete")
+  internal static let delete22Error500 = ImageAsset(name: "delete22Error500")
   internal static let dex = ImageAsset(name: "dex")
   internal static let disclosure = ImageAsset(name: "disclosure")
   internal static let doneBtn = ImageAsset(name: "done_btn")
@@ -130,7 +134,6 @@ internal enum Images {
   internal static let iconEth = ImageAsset(name: "icon-eth")
   internal static let iconAction = ImageAsset(name: "icon_action")
   internal static let iconCert = ImageAsset(name: "icon_cert")
-  internal static let iconDeleteRed = ImageAsset(name: "icon_delete_red")
   internal static let iconExchange = ImageAsset(name: "icon_exchange")
   internal static let iconFavEmpty = ImageAsset(name: "icon_fav_empty")
   internal static let iconLock = ImageAsset(name: "icon_lock")
@@ -208,6 +211,7 @@ internal enum Images {
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
+  internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
   internal static let topbarClose = ImageAsset(name: "topbarClose")
   internal static let topbarClosewhite = ImageAsset(name: "topbarClosewhite")
@@ -217,11 +221,13 @@ internal enum Images {
   internal static let topbarFlashOff = ImageAsset(name: "topbarFlashOff")
   internal static let topbarFlashOn = ImageAsset(name: "topbarFlashOn")
   internal static let topbarMenuwhite = ImageAsset(name: "topbarMenuwhite")
+  internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgBackupmoney80Submit400 = ImageAsset(name: "userimgBackupmoney80Submit400")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
+  internal static let userimgDex80Multy = ImageAsset(name: "userimgDex80Multy")
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
@@ -281,6 +287,9 @@ internal enum Images {
     chartArrowGreen,
     chartArrowRed,
     chartEmpty,
+    chartarrow22Accent100,
+    chartarrow22Error500,
+    chartarrow22Success400,
     checkMark,
     checkSuccess,
     checkmarkEmpty,
@@ -292,6 +301,7 @@ internal enum Images {
     copyBlack,
     deladdress24Error400,
     delete,
+    delete22Error500,
     dex,
     disclosure,
     doneBtn,
@@ -325,7 +335,6 @@ internal enum Images {
     iconEth,
     iconAction,
     iconCert,
-    iconDeleteRed,
     iconExchange,
     iconFavEmpty,
     iconLock,
@@ -403,6 +412,7 @@ internal enum Images {
     tTokenreis48,
     tabbarWavesActive,
     topbarAddaddress,
+    topbarAddmarkets,
     topbarBackwhite,
     topbarClose,
     topbarClosewhite,
@@ -412,11 +422,13 @@ internal enum Images {
     topbarFlashOff,
     topbarFlashOn,
     topbarMenuwhite,
+    topbarSort,
     touchid48Submit300,
     unhide,
     upChevron,
     userimgBackupmoney80Submit400,
     userimgBlockchain80White,
+    userimgDex80Multy,
     userimgDex80White,
     userimgDone80Success400,
     userimgEmpty80Multi,
