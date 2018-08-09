@@ -30,7 +30,7 @@ enum DexList {
         var isNeedRefreshing: Bool
         var action: Action
         var sections: [DexList.ViewModel.Section]
-        var loadingDataState: Bool
+        var isFirstLoadingData: Bool
         var lastUpdate: Date
         
         var isVisibleItems: Bool {

@@ -54,7 +54,7 @@ final class DexListPresenter: DexListPresenterProtocol {
             return state.mutate { state in
                 
                 state.isNeedRefreshing = false
-                state.loadingDataState = false
+                state.isFirstLoadingData = false
                 
                 if models.count > 0 {
                     
@@ -91,7 +91,7 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isNeedRefreshing: false, action: .update, sections: [section], loadingDataState: true, lastUpdate: Date())
+        return DexList.State(isNeedRefreshing: false, action: .update, sections: [section], isFirstLoadingData: true, lastUpdate: Date())
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {
