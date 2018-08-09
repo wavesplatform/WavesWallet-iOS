@@ -94,11 +94,13 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-//            strongSelf.changeFilter(state.currentFilter)
-                if (strongSelf.filters.count == 0) {
-                    strongSelf.filters = state.filters
-                    strongSelf.setupSegmentedControl()
-                }
+            
+            if (!strongSelf.filters.elementsEqual(state.filters)) {
+                strongSelf.filters = state.filters
+                strongSelf.setupSegmentedControl()
+                strongSelf.changeFilter(state.currentFilter)
+            }
+                
             strongSelf.sections = state.sections
             
             UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
@@ -126,8 +128,9 @@ extension NewHistoryViewController {
     }
     
     func changeFilter(_ filter: HistoryTypes.Filter) {
+//        segmentedControl.select
         // тута меняем segmented
-//        segmentedControl.
+        segmentedControl.segmentedControl.selectedIndex = filters.index(of: filter) ?? 0
     }
     
 }
@@ -149,7 +152,6 @@ extension NewHistoryViewController: UITableViewDelegate {
         case .asset:
             return HistoryAssetCell.cellHeight()
         }
-        
 
     }
     
@@ -182,6 +184,12 @@ extension NewHistoryViewController: UITableViewDataSource {
         
     }
     
+}
+
+extension NewHistoryViewController: UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
+    }
     
 }
