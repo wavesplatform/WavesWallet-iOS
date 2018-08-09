@@ -21,6 +21,7 @@ fileprivate extension DexList.DTO.Pair {
 final class DexListInteractorMock: DexListInteractorProtocol {
     
     private let refreshPairsSubject: PublishSubject<[DexList.DTO.Pair]> = PublishSubject<[DexList.DTO.Pair]>()
+    private let disposeBag: DisposeBag = DisposeBag()
 
     private static var testModels : [DexList.DTO.Pair] = [
         DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "", "WAVES", "WAVES", 8, "", "BTC", "BTC", 8),
@@ -35,25 +36,43 @@ final class DexListInteractorMock: DexListInteractorProtocol {
  
     
     func pairs() -> Observable<[DexList.DTO.Pair]> {
-        
-        return Observable.create({ (subscribe) -> Disposable in
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                subscribe.onNext(DexListInteractorMock.testModels)
-//            })
-            return Disposables.create()
-        })
+        return Observable.merge(pairs(isNeedUpdate: false), refreshPairsSubject.asObserver())
     }
     
     
     func refreshPairs() {
         
-       
-        DexListInteractorMock.testModels.removeLast()
-//        DexListInteractorMock.testModels = newModels
+        pairs(isNeedUpdate: true).subscribe(weak: self, onNext: { owner, pairs in
+            owner.refreshPairsSubject.onNext(pairs)
+        }).disposed(by: disposeBag)
     }
 }
 
+private extension DexListInteractorMock {
+    
+    func pairs(isNeedUpdate: Bool) -> Observable<[DexList.DTO.Pair]> {
+        
+        if isNeedUpdate {
+            var newModels : [DexList.DTO.Pair] = []
+            for model in DexListInteractorMock.testModels {
+                let newModel = model.mutate {
+                    $0.firstPrice = MoneyUtil.money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
+                    $0.lastPrice = MoneyUtil.money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
+                }
+                newModels.append(newModel)
+            }
+            DexListInteractorMock.testModels = newModels
+        }
+        
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                subscribe.onNext(DexListInteractorMock.testModels)
+            })
+            return Disposables.create()
+        })
+    }
+}
 
 fileprivate extension MoneyUtil {
     

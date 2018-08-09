@@ -89,14 +89,13 @@ fileprivate extension DexListViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
 
-                print(state.action)
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
 
                 if state.action == .update {
-                    strongSelf.refreshControl.endRefreshing()
                     strongSelf.sections = state.sections
                     strongSelf.tableView.reloadData()
+                    strongSelf.refreshControl.endRefreshing()
                     strongSelf.setupViews(loadingDataState: state.loadingDataState, isVisibleItems: state.isVisibleItems)
                 }
             })
