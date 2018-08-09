@@ -19,7 +19,7 @@ final class NewHistoryViewController: UIViewController {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private let statuses: [HistoryTypes.Status] = [.all, .sent, .received, .exchanged, .leased, .issued, .activeNow, .canceled]
+    private let filters: [HistoryTypes.Filter] = [.all, .sent, .received, .exchanged, .leased, .issued, .activeNow, .canceled]
     
     var presenter: HistoryPresenterProtocol!
     
@@ -81,8 +81,8 @@ private extension NewHistoryViewController {
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
                 
-                let display = self?.statuses[selectedIndex] ?? .all
-                return .changeStatus(display)
+                let filter = self?.filters[selectedIndex] ?? .all
+                return .changeFilter(filter)
         }
         
         return [changedDisplayEvent]
@@ -95,7 +95,7 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-            strongSelf.changeStatus(state.status)
+            strongSelf.changeFilter(state.currentFilter)
             strongSelf.sections = state.sections
             
             UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
@@ -115,13 +115,13 @@ private extension NewHistoryViewController {
 extension NewHistoryViewController {
     
     func setupSegmentedControl() {
-        let buttons = statuses.map { SegmentedControl.Button(name: $0.name) }
+        let buttons = filters.map { SegmentedControl.Button(name: $0.name) }
         segmentedControl
             .segmentedControl
             .update(with: buttons, animated: true)
     }
     
-    func changeStatus(_ status: HistoryTypes.Status) {
+    func changeFilter(_ filter: HistoryTypes.Filter) {
         // тута меняем segmented
     }
     

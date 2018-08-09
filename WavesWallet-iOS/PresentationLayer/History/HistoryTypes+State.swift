@@ -46,9 +46,9 @@ extension HistoryTypes.State {
         return newState
     }
     
-    func setStatus(status: HistoryTypes.Status) -> HistoryTypes.State {
+    func setFilter(filter: HistoryTypes.Filter) -> HistoryTypes.State {
         var newState = self
-        newState.status = status
+        newState.currentFilter = filter
         return newState
 //        var displayState = newState.currentDisplayState
 //        displayState.animateType = .refresh
@@ -62,6 +62,6 @@ extension HistoryTypes.State {
         
         section = HistoryTypes.ViewModel.Section(header: "Хедер", items: [.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton])
         
-        return HistoryTypes.State(status: .all, transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
+        return HistoryTypes.State(currentFilter: .all, filters: [], transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
     }
 }

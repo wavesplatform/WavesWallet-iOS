@@ -22,7 +22,7 @@ extension HistoryTypes.ViewModel {
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from assets: [HistoryTypes.DTO.Transaction], status: HistoryTypes.Status) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from assets: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
         
         let generalItems = assets
             .filter { $0.kind == .transfer }
