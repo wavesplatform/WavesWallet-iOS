@@ -22,23 +22,12 @@ extension HistoryTypes.ViewModel {
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from assets: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from transactions: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
         
-        let generalItems = assets
-            .filter { $0.kind == .transfer }
-            .sorted(by: { (asset1, asset2) -> Bool in
-                
-                //                if asset1.isWaves == true {
-                //                    return true
-                //                }
-                //
-                //                if asset1.isFavorite == true && asset2.isFavorite == false {
-                //                    return true
-                //                } else if asset1.isFavorite == false && asset2.isFavorite == true {
-                //                    return false
-                //                }
-                
-                return asset1.id < asset2.id
+        let generalItems = transactions
+            .filter { filter.kinds.contains($0.kind) }
+            .sorted(by: { (transaction1, transaction2) -> Bool in
+                return transaction1.id < transaction2.id
             })
             .map { HistoryTypes.ViewModel.Row.asset($0) }
         

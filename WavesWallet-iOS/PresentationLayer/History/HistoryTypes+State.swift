@@ -50,18 +50,16 @@ extension HistoryTypes.State {
         var newState = self
         newState.currentFilter = filter
         return newState
-//        var displayState = newState.currentDisplayState
-//        displayState.animateType = .refresh
-//        return newState.updateCurrentDisplay(state: displayState)
     }
+
 }
 
 extension HistoryTypes.State {
-    static func initialState() -> HistoryTypes.State {
+    static func initialState(historyType: HistoryType) -> HistoryTypes.State {
         var section: HistoryTypes.ViewModel.Section!
         
         section = HistoryTypes.ViewModel.Section(header: "Хедер", items: [.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton])
         
-        return HistoryTypes.State(currentFilter: .all, filters: [], transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
+        return HistoryTypes.State(currentFilter: .all, filters: historyType.filters, transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
     }
 }

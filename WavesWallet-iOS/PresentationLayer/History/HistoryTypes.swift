@@ -69,6 +69,28 @@ extension HistoryTypes.DTO {
 
 extension HistoryTypes.Filter {
 
+    var kinds: [HistoryTypes.DTO.Transaction.Kind] {
+        switch self {
+        case .all:
+            return [.issue, .transfer, .reissue, .burn, .exchange, .lease, .leaseCancel, .alias, .massTransfer, .data, .setScript, .sponsorship]
+        case .sent:
+            return [.transfer, .massTransfer]
+        case .received:
+            return [.transfer, .massTransfer]
+        case .exchanged:
+            return [.exchange]
+        case .leased:
+            return [.lease, .leaseCancel]
+        case .issued:
+            return [.issue, .reissue]
+        case .activeNow:
+            return [.lease]
+        case .canceled:
+            return [.leaseCancel]
+            
+        }
+    }
+    
     var name: String {
         switch self {
         case .all:
@@ -90,3 +112,19 @@ extension HistoryTypes.Filter {
         }
     }
 }
+
+extension HistoryType {
+    
+    var filters: [HistoryTypes.Filter] {
+        switch self {
+        case .all:
+            fallthrough
+        case .asset(_):
+            return [.all, .sent, .received, .exchanged, .leased, .issued]
+        case .leasing(_):
+            return [.all, .activeNow, .canceled]
+        }
+    }
+    
+}
+

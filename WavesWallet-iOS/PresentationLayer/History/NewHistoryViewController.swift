@@ -19,11 +19,10 @@ final class NewHistoryViewController: UIViewController {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private let filters: [HistoryTypes.Filter] = [.all, .sent, .received, .exchanged, .leased, .issued, .activeNow, .canceled]
-    
     var presenter: HistoryPresenterProtocol!
     
     private var sections: [HistoryTypes.ViewModel.Section] = []
+    private var filters: [HistoryTypes.Filter] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +94,17 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-            strongSelf.changeFilter(state.currentFilter)
+//            strongSelf.changeFilter(state.currentFilter)
+                if (strongSelf.filters.count == 0) {
+                    strongSelf.filters = state.filters
+                    strongSelf.setupSegmentedControl()
+                }
             strongSelf.sections = state.sections
             
             UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
                 
                 strongSelf.tableView.reloadData()
+                
                 
             }, completion: { _ in })
         })
@@ -110,7 +114,7 @@ private extension NewHistoryViewController {
     
 }
 
-// MARK: - Setupd
+// MARK: - Setup
 
 extension NewHistoryViewController {
     
@@ -123,6 +127,7 @@ extension NewHistoryViewController {
     
     func changeFilter(_ filter: HistoryTypes.Filter) {
         // тута меняем segmented
+//        segmentedControl.
     }
     
 }
