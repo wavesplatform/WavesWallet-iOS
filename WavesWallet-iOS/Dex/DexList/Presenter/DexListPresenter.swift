@@ -32,6 +32,7 @@ final class DexListPresenter: DexListPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Bool? in
+
             return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
@@ -49,6 +50,7 @@ final class DexListPresenter: DexListPresenterProtocol {
             return state.mutate { $0.isNeedRefreshing = true }
             
         case .setModels(let models):
+            
             return state.mutate { state in
                 
                 state.isNeedRefreshing = false
@@ -56,7 +58,7 @@ final class DexListPresenter: DexListPresenterProtocol {
                 
                 if models.count > 0 {
                     
-                    let rowHeader =  DexList.ViewModel.Row.header(state.lastUpdate)
+                    let rowHeader =  DexList.ViewModel.Row.header(Date())
                     let sectionHeader = DexList.ViewModel.Section(items: [rowHeader])
                     
                     let items = models.map { DexList.ViewModel.Row.model($0) }
@@ -80,11 +82,7 @@ final class DexListPresenter: DexListPresenterProtocol {
             
         case .refresh:
             interactor.refreshPairs()
-            
-            return state.mutate {
-                $0.sections.las
-            }
-            return state.changeAction(.update)
+            return state.mutate { $0.isNeedRefreshing = true }.changeAction(.none)
         }
     }
         
