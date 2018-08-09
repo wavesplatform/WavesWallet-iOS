@@ -43,19 +43,35 @@ enum HistoryTypes {
 
 extension HistoryTypes.DTO {
     struct Transaction: Hashable, Mutating {
+//        enum Kind: Int {
+//            case issue = 3
+//            case transfer = 4
+//            case reissue = 5
+//            case burn = 6
+//            case exchange = 7
+//            case lease = 8
+//            case leaseCancel = 9
+//            case alias = 10
+//            case massTransfer = 11
+//            case data = 12
+//            case setScript = 13
+//            case sponsorship = 14
+//        }
+        
         enum Kind: Int {
-            case issue = 3
-            case transfer = 4
-            case reissue = 5
-            case burn = 6
-            case exchange = 7
-            case lease = 8
-            case leaseCancel = 9
-            case alias = 10
-            case massTransfer = 11
-            case data = 12
-            case setScript = 13
-            case sponsorship = 14
+            case viewReceived = 0
+            case viewSend
+            case viewLeasing
+            case exchange // not show comment, not show address
+            case selfTranserred // not show address
+            case tokenGeneration // show ID token
+            case tokenReissue // show ID token,
+            case tokenBurning // show ID token, do not have bottom state of token
+            case createdAlias // show ID token
+            case canceledLeasing
+            case incomingLeasing
+            case massSend // multiple addresses
+            case massReceived
         }
         
         let id: String
@@ -68,26 +84,47 @@ extension HistoryTypes.DTO {
 }
 
 extension HistoryTypes.Filter {
-
+    // TODO: посмотреть точно все типы, когда какой показывается
     var kinds: [HistoryTypes.DTO.Transaction.Kind] {
         switch self {
         case .all:
-            return [.issue, .transfer, .reissue, .burn, .exchange, .lease, .leaseCancel, .alias, .massTransfer, .data, .setScript, .sponsorship]
+            return [
+            .viewReceived,
+            .viewSend,
+            .viewLeasing,
+            .exchange, // not show comment, not show address
+            .selfTranserred, // not show address
+            .tokenGeneration, // show ID token
+            .tokenReissue, // show ID token,
+            .tokenBurning, // show ID token, do not have bottom state of token
+            .createdAlias, // show ID token
+            .canceledLeasing,
+            .incomingLeasing,
+            .massSend, // multiple addresses
+            .massReceived
+            ]
+//            return [.issue, .transfer, .reissue, .burn, .exchange, .lease, .leaseCancel, .alias, .massTransfer, .data, .setScript, .sponsorship]
         case .sent:
-            return [.transfer, .massTransfer]
+            return [.viewSend, .massSend]
+//            return [.transfer, .massTransfer]
         case .received:
-            return [.transfer, .massTransfer]
+            return [.viewReceived, .massReceived]
+//            return [.transfer, .massTransfer]
         case .exchanged:
             return [.exchange]
+//            return [.exchange]
         case .leased:
-            return [.lease, .leaseCancel]
+            return [.viewLeasing, .incomingLeasing]
+//            return [.lease, .leaseCancel]
         case .issued:
-            return [.issue, .reissue]
+            return [.tokenReissue]
+//            return [.issue, .reissue]
         case .activeNow:
-            return [.lease]
+            return [.viewLeasing]
+//            return [.lease]
         case .canceled:
-            return [.leaseCancel]
-            
+            return [.canceledLeasing]
+//            return [.leaseCancel]
         }
     }
     

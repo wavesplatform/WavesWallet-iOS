@@ -81,3 +81,54 @@ class HistoryAssetCell: UITableViewCell, Reusable {
             
     }
 }
+
+
+extension HistoryAssetCell: ViewConfiguration {
+    
+    func update(with model: HistoryTypes.DTO.Transaction) {
+        
+        viewSpam.isHidden = true
+        viewAssetType.isHidden = false
+        
+        imageViewIcon.image = UIImage(named: HistoryTransactionImages[model.kind.rawValue])
+        
+        labelValue.attributedText = .styleForBalance(text: model.balance.displayTextFull, font: labelValue.font)
+        
+        var labelText = ""
+        
+        switch model.kind {
+        case .massReceived:
+            labelText = "Received " + model.name
+        case .viewReceived:
+            labelText = "Received " + model.name
+        case .viewSend:
+            labelText = "Sent " + model.name
+        case .massSend:
+            labelText = "Sent " + model.name
+        case .createdAlias:
+            labelText = "Create Alias"
+        case .viewLeasing:
+            labelText = "Started Leasing"
+        case .incomingLeasing:
+            labelText = "Incoming Leasing"
+        case .canceledLeasing:
+            labelText = "Canceled Leasing"
+        case .selfTranserred:
+            labelText = "Self-transfer" + model.name
+        case .exchange:
+            labelText = "Exchange" // тут должно быть -0.00040000 BTC
+        case .tokenGeneration:
+            labelText = model.name + "Token Generation"
+        case .tokenBurning:
+            labelText = "Token Burn"
+        case .tokenReissue:
+            labelText = "Token Reissue"
+        }
+        
+        labelTitle.text = labelText
+        
+        setNeedsUpdateConstraints()
+        
+    }
+    
+}

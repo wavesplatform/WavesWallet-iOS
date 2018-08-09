@@ -31,10 +31,10 @@ extension HistoryTypes.ViewModel.Section {
             })
             .map { HistoryTypes.ViewModel.Row.asset($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "Итемы",
+        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "February 12, 2018",
                                                                    items: generalItems)
         
-        return [generalSection]
+        return [generalSection, generalSection]
         
     }
     
@@ -56,9 +56,9 @@ extension HistoryTypes.ViewModel.Section {
             })
             .map { HistoryTypes.ViewModel.Row.asset($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "Итемы",
+        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "February 12, 2018",
                                                                   items: generalItems)
 
-        return [generalSection]
+        return [generalSection, generalSection]
     }
 }

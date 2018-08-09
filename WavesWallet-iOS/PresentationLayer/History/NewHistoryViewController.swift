@@ -31,6 +31,7 @@ final class NewHistoryViewController: UIViewController {
 
         setupSystem()
         setupSegmentedControl()
+        createMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +147,17 @@ extension NewHistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .assetSkeleton:
+            let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
+            skeletonCell.slide(to: .right)
+            
+        default:
+            break
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -160,6 +172,26 @@ extension NewHistoryViewController: UITableViewDelegate {
             return HistoryAssetCell.cellHeight()
         }
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return WalletHeaderView.viewHeight()
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, heightForHeaderInSection: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.minValue
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.minValue
     }
     
 }
@@ -183,13 +215,29 @@ extension NewHistoryViewController: UITableViewDataSource {
             let cell: WalletAssetSkeletonCell = tableView.dequeueCell()
             return cell
             
-        case .asset:
+        case .asset(let transaction):
             let cell: HistoryAssetCell = tableView.dequeueCell()
-//            cell.se
+            cell.update(with: transaction)
             return cell
         }
         
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let model = sections[section]
+        
+        let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
+        view.update(with: model.header)
+//            view.setupArrow(isExpanded: true, animation: false)
+        
+//            view.arrowDidTap = { [weak self] in
+//                self?.tapSection.accept(section)
+//            }
+        return view
+        
+    
+    }
+
     
 }
 
