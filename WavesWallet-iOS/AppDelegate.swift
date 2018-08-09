@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
 //        self.showStartController()
-        self.window!.rootViewController = StoryboardScene.Asset.assetViewController.instantiate()
+        self.window!.rootViewController = UINavigationController(rootViewController: StoryboardScene.Asset.assetViewController.instantiate())
         self.window?.makeKeyAndVisible()
 
         return true

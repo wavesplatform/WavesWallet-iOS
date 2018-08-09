@@ -11,6 +11,7 @@ import UIKit
 
 private enum Constants {
     static let height: CGFloat = 16
+    static let cornerRadius: CGFloat = 2
 }
 
 final class TickerView: UIView, NibOwnerLoadable {
@@ -42,11 +43,12 @@ final class TickerView: UIView, NibOwnerLoadable {
         super.layoutSubviews()
         switch style {
         case .normal:
-            backgroundColor = .blue
+            backgroundColor = .basic100
+            layer.clip(cornerRadius: Constants.cornerRadius)
             layer.removeBorder()
         case .soft:
-            backgroundColor = .red
-            layer.border(cornerRadius: 10, borderWidth: 0.5, borderColor: .info500)
+            backgroundColor = .white
+            layer.border(cornerRadius: Constants.cornerRadius, borderWidth: 0.5, borderColor: .info500)
         }
     }
 

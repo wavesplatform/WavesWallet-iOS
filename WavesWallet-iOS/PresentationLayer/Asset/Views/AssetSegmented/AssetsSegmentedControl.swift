@@ -14,7 +14,7 @@ private enum Constants {
     static let spacing: CGFloat = 24
 }
 
-final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
+final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
     struct Asset {
         enum Kind {
@@ -33,12 +33,33 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var detailLabel: UILabel!
 
-    private var assets: [Asset] = []
-    private(set) var currentPage: Int?
+    private var assets: [Asset] = [] {
+        didSet {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                self.updateWithNewPage(self.currentPage)
+            }
+            collectionView.reloadData()
+            CATransaction.commit()
+        }
+    }
+
+    private(set) var currentPage: Int = 0
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
+    }
+
+    override var backgroundColor: UIColor? {
+        didSet {
+            self.collectionView.backgroundColor = backgroundColor
+            self.collectionView.backgroundView = {
+                let view = UIView()
+                view.backgroundColor = backgroundColor
+                return view
+            }()
+        }
     }
 
     override func awakeFromNib() {
@@ -53,6 +74,17 @@ final class AssetsSegmentedControl: UIView, NibOwnerLoadable {
         tickerView.update(with: TickerView.Model(text: "Test", style: .normal))
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
+    }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 300, height: 100)
+    }
+
+    func setCurrentPage(_ page: Int, animated: Bool = true) {
+        collectionView.scrollToItem(at: IndexPath(item: page, section: 0),
+                                    at: .centeredHorizontally,
+                                    animated: animated)
+        updateWithNewPage(page)
     }
 }
 
@@ -98,27 +130,7 @@ fileprivate extension AssetsSegmentedControl {
             detailLabel.text = Localizable.General.Ticker.Title.wavestoken
         }
 
-//        let sections = [0, 1, 2, 3]
-//        if newPage > currentPage {
-//            tableView.reloadSections(sections, animationStyle: .left)
-//        }
-//        else {
-//            tableView.reloadSections(sections, animationStyle: .right)
-//        }
-//
-//        currentPage = newPage
-//
-//        labelTitle.text = headerItems[currentPage]
-//        labelToken.text = headerItems[currentPage] + " token"
-//
-//        if currentPage == 2 {
-//            viewSpam.isHidden = false
-//            labelToken.isHidden = true
-//        }
-//        else {
-//            viewSpam.isHidden = true
-//            labelToken.isHidden = false
-//        }
+        sendActions(for: .valueChanged)
     }
 }
 
@@ -148,15 +160,15 @@ extension AssetsSegmentedControl: UICollectionViewDataSource {
     }
 }
 
-extension AssetsSegmentedControl: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//TODO: UICollectionViewDelegate
 
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        updateWithNewPage(indexPath.row)
+extension AssetsSegmentedControl: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        setCurrentPage(indexPath.row)
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
-            updateWithNewPage(currentPageByContentOffset)
+        setCurrentPage(currentPageByContentOffset)
     }
 }
