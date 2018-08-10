@@ -141,7 +141,7 @@ extension DexMarketViewController: UITableViewDataSource {
             let cell = tableView.dequeueCell() as DexMarketCell
             cell.update(with: pair)
             cell.buttonInfoDidTap = { [weak self] in
-                self?.buttonDeleteDidTap(indexPath)
+                self?.buttonInfoDidTap(indexPath)
             }
             
             return cell
@@ -153,7 +153,7 @@ extension DexMarketViewController: UITableViewDataSource {
 
 private extension DexMarketViewController {
     
-    func buttonDeleteDidTap(_ indexPath: IndexPath) {
+    func buttonInfoDidTap(_ indexPath: IndexPath) {
         sendEvent.accept(.tapInfoButton(index: indexPath.row))
     }
 }
