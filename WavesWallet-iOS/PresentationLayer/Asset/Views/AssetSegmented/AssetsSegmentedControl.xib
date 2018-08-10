@@ -43,6 +43,9 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="sideItemScale">
                                         <real key="value" value="0.69999999999999996"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemShift">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </collectionViewFlowLayout>
                             <cells/>

@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        .verbose,
 //        .info,
 //        .network]
+        UIView.passtroughInit()
         SweetLogger.current.visibleLevels = [.debug]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
