@@ -12,6 +12,7 @@ import RxCocoa
 import RealmSwift
 import AVFoundation
 import QRCodeReader
+import AppsFlyerLib
 
 class SendViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var selectAssetView: UIView!
@@ -223,6 +224,13 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         present(vc, animated: true, completion: nil)
     }
 
+    func trackSendPayment(tx: TransferTransaction) {
+        AppsFlyerTracker.shared().trackEvent("af_transfer_tx", withValues: [
+            "af_amount" : tx.amount,
+            "af_asset_id" : tx.assetId ?? "WAVES"
+            ]);
+    }
+    
     var submitBag = DisposeBag()
     func onSubmit() {
         WalletManager.restorePrivateKey()
@@ -235,6 +243,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
             }
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { tx in
+                self.trackSendPayment(tx: tx)
                 self.performSegue(withIdentifier: "TransactionSuccess", sender: self.savePending(tx: tx))
                 self.submitBag = DisposeBag()
             }, onError: { err in

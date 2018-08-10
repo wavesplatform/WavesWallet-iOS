@@ -63,7 +63,11 @@ class ReceiveViewController: UITableViewController, UITextFieldDelegate {
         setupAmountField()
         
         shareUrl
-            .map{ QRCode($0)?.image }
+            .map{ url in
+                var qr = QRCode(url)
+                qr?.errorCorrection = .Medium
+                return (qr?.image)!
+            }
             .drive(qrCodeImageView.rx.image)
             .addDisposableTo(bag)
         

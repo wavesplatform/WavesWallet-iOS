@@ -27,6 +27,7 @@ target 'WavesWallet-iOS' do
   pod 'Charts'
   pod 'TPKeyboardAvoiding'
   pod 'SVProgressHUD'
+  pod 'AppsFlyerFramework'
 end
 
 post_install do |installer|

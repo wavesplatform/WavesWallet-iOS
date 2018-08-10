@@ -10,11 +10,12 @@ import UIKit
 import IQKeyboardManagerSwift
 import SVProgressHUD
 import Gloss
+import AppsFlyerLib
 
 typealias Decodable = Gloss.Decodable
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate {
 
     var window: UIWindow?
 
@@ -33,17 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setDefaultMaskType(.clear)
         
+        initAppsFlyer()
         return true
     }
     
-    func testBase58() {
-        let s = "trial appear battle what fiber hello weasel grunt spare heavy produce beach one friend sad"
-        let b = "KFWy4MpQgRcaEAdjwr9KenkSWCKzEUCzK9SXWCFGD4KWYsXiKBhmjW2Dma996W5XV5esBJTELoTjF88C6QBNVRKenMjCzYWinbvWTfcbUfB5YjjxVVhrt9FUKRM"
-        let b1 = "ZiCa"
-        let r = Base58.decode(b1)
-        let sr = String(data: Data(r), encoding: .utf8) ?? ""
-        print(sr)
+    func initAppsFlyer() {
+        AppsFlyerTracker.shared().appsFlyerDevKey = "4di8SsYap4CM4XYMdh8uT6";
+        AppsFlyerTracker.shared().appleAppID = "1233158971"
+        AppsFlyerTracker.shared().delegate = self
     }
+
 
     func showStartController() {
         self.window?.backgroundColor = AppColors.wavesColor
@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        AppsFlyerTracker.shared().trackAppLaunch() 
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

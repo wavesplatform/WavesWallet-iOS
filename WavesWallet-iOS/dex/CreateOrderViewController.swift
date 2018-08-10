@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import SVProgressHUD
 import RxSwift
+import AppsFlyerLib
 
 protocol CreateOrderViewControllerDelegate: class {
  
@@ -299,6 +300,15 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
         executeSellBuyAction()
     }
     
+    func trackPlaceOrder(order: Order) {
+        AppsFlyerTracker.shared().trackEvent("af_place_order", withValues: [
+            "af_order_pair" : order.assetPair.key,
+            "af_order_type" : order.orderType.rawValue,
+            "af_order_price" : order.price,
+            "af_order_amount" : order.amount
+            ]);
+    }
+    
     func executeSellBuyAction() {
         WalletManager.getPrivateKey(complete: { (privateKey) in
             SVProgressHUD.show()
@@ -319,6 +329,7 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
                     self.presentBasicAlertWithTitle(title: errorMessage!)
                 }
                 else {
+                    self.trackPlaceOrder(order: order)
                     self.presentSuccessAlert()
                 }
             })

@@ -5,6 +5,7 @@ import RxSwift
 import RxCocoa
 import KeychainAccess
 import LocalAuthentication
+import AppsFlyerLib
 
 class WalletItem: Object {
     dynamic var publicKey = ""
@@ -472,6 +473,10 @@ class WalletManager {
             }.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
     
+    class func trackNewWallet() {
+        AppsFlyerTracker.shared().trackEvent("af_new_wallet", withValues: [:]);
+    }
+    
     class func createWallet(wallet: WalletItem, seedBytes: [UInt8]) {
         createWalletInRealm(wallet: wallet, seedBytes: seedBytes).flatMap { Void -> Observable<Void> in
                 if isTouchIdAvailable() {
@@ -482,6 +487,7 @@ class WalletManager {
             }.observeOn(MainScheduler.instance)
             .subscribe(onNext: { tx in
                     saveToRealm(wallet: wallet)
+                    trackNewWallet()
                     didLogin(toWallet: wallet)
                 }, onError: { err in
                     AskManager.presentBasicAlertWithTitle(title: "Failed to store your seed", message: err.localizedDescription)
