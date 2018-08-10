@@ -57,7 +57,6 @@ fileprivate extension DexSortViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                print(state.action)
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
