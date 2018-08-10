@@ -21,7 +21,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     func system(feedbacks: [DexMarketPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
-        
+        newFeedbacks.append(searchModelsQuery())
+
         Driver.system(initialState: DexMarket.State.initialState,
                       reduce: reduce,
                       feedback: newFeedbacks)
@@ -32,7 +33,6 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Bool? in
             return true
-//            return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
             // TODO: Error
@@ -41,6 +41,16 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
         })
     }
     
+    private func searchModelsQuery() -> Feedback {
+        return react(query: { state -> Bool? in
+            return true
+        }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
+            
+            // TODO: Error
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.interactor.searchPairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
     
     private func reduce(state: DexMarket.State, event: DexMarket.Event) -> DexMarket.State {
         
@@ -73,7 +83,9 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return state.changeAction(.none)
             
         case .searchTextChange(let text):
-            return state.changeAction(.update)
+            
+            interactor.searchPair(searchText: text)
+            return state.changeAction(.none)
         }
     }
 }

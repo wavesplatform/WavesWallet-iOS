@@ -15,7 +15,15 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         return Observable.just([])
     }
     
+    func searchPairs() -> Observable<[DexMarket.DTO.Pair]> {
+        return Observable.just([])
+    }
+    
     func checkMark(pair: DexMarket.DTO.Pair) {
+        
+    }
+    
+    func searchPair(searchText: String) {
         
     }
 }

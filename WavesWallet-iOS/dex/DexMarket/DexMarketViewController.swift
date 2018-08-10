@@ -72,11 +72,12 @@ fileprivate extension DexMarketViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                debug(state.action)
                 
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
+                debug(state.action)
+
                 strongSelf.setupViews(isLoadingState: false)
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
