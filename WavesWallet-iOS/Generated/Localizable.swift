@@ -47,6 +47,23 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum DexMarket {
+
+    internal enum Label {
+      /// Loading markets…
+      internal static let loadingMarkets = Localizable.tr("DexMarket", "label.loadingMarkets")
+    }
+
+    internal enum Navigationbar {
+      /// Markets
+      internal static let title = Localizable.tr("DexMarket", "navigationBar.title")
+    }
+
+    internal enum Searchbar {
+      /// Search
+      internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
+    }
+  }
   internal enum Wallet {
 
     internal enum Button {

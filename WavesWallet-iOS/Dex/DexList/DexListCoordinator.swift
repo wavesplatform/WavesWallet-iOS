@@ -29,7 +29,7 @@ extension DexListCoordinator: DexListModuleOutput {
     }
     
     func showAddList() {
-        let vc = StoryboardScene.Dex.dexSearchViewController.instantiate()
+        let vc = DexMarketModuleBuilder().build()
         navigationController.pushViewController(vc, animated: true)
     }
 }
