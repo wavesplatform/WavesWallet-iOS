@@ -20,11 +20,17 @@ final class WrapperAssetsSegmentedControl: UIView, ViewConfiguration {
     override func awakeFromNib() {
         super.awakeFromNib()
         leftGradient.startColor = .basic50
-        leftGradient.direction = .horizontal
-        leftGradient.endColor = .clear
-        rightGradient.direction = .horizontal
-        rightGradient.startColor = .clear
+        leftGradient.endColor = UIColor.basic50.withAlphaComponent(0.0)
+        leftGradient.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                    endPoint: CGPoint(x: 1, y: 0),
+                                                                    locations: [0.7, 1]))
+
+        rightGradient.startColor = UIColor.basic50.withAlphaComponent(0.0)
         rightGradient.endColor = .basic50
+        rightGradient.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                    endPoint: CGPoint(x: 1.0, y: 0),
+                                                                    locations: [0, 0.3]))
+
         backgroundColor = .basic50
         assetsSegmentedControl.backgroundColor = .basic50
         addSubview(leftGradient)

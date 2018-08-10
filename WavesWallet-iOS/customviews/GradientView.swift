@@ -11,18 +11,23 @@ import QuartzCore
 
 final class GradientView: UIView {
 
-    enum Direction: Int {
-        case vertical = 0
-        case horizontal = 1
+    struct Settings {
+        let startPoint: CGPoint
+        let endPoint: CGPoint
+        let locations: [Float]?
+    }
+
+    enum Direction {
+        case vertical
+        case horizontal
+        case custom(Settings)
 
         var startPoint: CGPoint {
             switch self {
-            case .horizontal:
+            case .custom(let settings):
+                return settings.startPoint
+            default:
                 return CGPoint(x: 0, y: 0)
-
-            case .vertical:
-                return CGPoint(x: 0, y: 0)
-                
             }
         }
 
@@ -33,20 +38,25 @@ final class GradientView: UIView {
 
             case .vertical:
                 return CGPoint(x: 0, y: 1)
+
+            case .custom(let settings):
+                return settings.endPoint
             }
         }
 
+        var locations: [Float]? {
+            switch self {
+            case .custom(let settings):
+                return settings.locations
+            default:
+                return nil
+            }
+        }
     }
 
     var direction: Direction = .vertical {
         didSet {
             updateColor()
-        }
-    }
-
-    var directionValue: Int = 0 {
-        didSet {
-            direction = Direction(rawValue: directionValue) ?? .vertical
         }
     }
 
@@ -72,6 +82,7 @@ final class GradientView: UIView {
 
         layer.startPoint = direction.startPoint
         layer.endPoint = direction.endPoint
+        layer.locations = direction.locations.map { NSNumber(value: $0) }
         layer.colors = [startColor.cgColor, endColor.cgColor]
     }
 }

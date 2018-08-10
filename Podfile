@@ -13,6 +13,7 @@ use_frameworks!(true)
 target 'WavesWallet-iOS' do
 
     inherit! :search_paths
+
     # UI
     pod 'RxCocoa'
     pod 'RxDataSources'
@@ -29,6 +30,7 @@ target 'WavesWallet-iOS' do
 
     pod 'RDVTabBarController'
     pod 'UPCarouselFlowLayout'
+    pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
     
     pod "Skeleton"
@@ -81,6 +83,15 @@ end
 post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
+
+        swift3_2pods = [
+            'InfiniteCollectionView'
+        ]
+
+        if swift3_2pods.include? target.name
+            config.build_settings['SWIFT_VERSION'] = '3.2'
+        end
+
         if config.name == 'Debug'
           config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
           config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
