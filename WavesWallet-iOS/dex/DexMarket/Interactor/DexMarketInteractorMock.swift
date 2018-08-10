@@ -13,29 +13,53 @@ import SwiftyJSON
 
 final class DexMarketInteractorMock: DexMarketInteractorProtocol {
     
-    private static var testModels: [DexMarket.DTO.Pair] = []
+    private static var allPairs: [DexMarket.DTO.Pair] = []
+    private static var searchPairs: [DexMarket.DTO.Pair] = []
+    
+    private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
+
     private let disposeBag: DisposeBag = DisposeBag()
     
+    
     func pairs() -> Observable<[DexMarket.DTO.Pair]> {
-        
         return Observable.create({ (subscribe) -> Disposable in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                DexMarketInteractorMock.testModels = self.getAllPairs()
-                subscribe.onNext(DexMarketInteractorMock.testModels)
+                DexMarketInteractorMock.allPairs = self.getAllPairs()
+                subscribe.onNext(DexMarketInteractorMock.allPairs)
             })
             return Disposables.create()
         })
     }
     
+    func searchPairs() -> Observable<[DexMarket.DTO.Pair]> {
+        return searchPairsSubject.asObserver()
+    }
+    
     func checkMark(pair: DexMarket.DTO.Pair) {
         
-        
-        if let index = DexMarketInteractorMock.testModels.index(where: {$0.id == pair.id}) {
-            DexMarketInteractorMock.testModels[index] = pair.mutate { $0.isChecked = !$0.isChecked }
+        if let index = DexMarketInteractorMock.searchPairs.index(where: {$0.id == pair.id}) {
+            DexMarketInteractorMock.searchPairs[index] = pair.mutate { $0.isChecked = !$0.isChecked }
         }
         
-        debug(DexMarketInteractorMock.testModels[0])
+        if let index = DexMarketInteractorMock.allPairs.index(where: {$0.id == pair.id}) {
+            DexMarketInteractorMock.allPairs[index] = pair.mutate { $0.isChecked = !$0.isChecked }
+        }
+    }
+    
+    func searchPair(searchText: String) {
+
+        DexMarketInteractorMock.searchPairs.removeAll()
+        
+        if searchText.count > 0 {
+            DexMarketInteractorMock.searchPairs = DexMarketInteractorMock.allPairs.filter {
+                ($0.name.lowercased() as NSString).range(of: searchText.lowercased()).location != NSNotFound
+            }
+            searchPairsSubject.onNext(DexMarketInteractorMock.searchPairs)
+        }
+        else {
+            searchPairsSubject.onNext(DexMarketInteractorMock.allPairs)
+        }
     }
 }
 
@@ -45,7 +69,7 @@ private extension DexMarketInteractorMock {
     func getAllPairs() -> [DexMarket.DTO.Pair] {
         
         var pairs: [DexMarket.DTO.Pair] = []
-        let items = parseJSON(json: "DexMarketPairs")
+        let items = parseJSON(json: "DexMarketPairs").arrayValue
         
         for item in items {
             pairs.append(DexMarket.DTO.Pair(id: item["amountAsset"].stringValue + item["priceAsset"].stringValue,                                            
@@ -57,7 +81,7 @@ private extension DexMarketInteractorMock {
         return pairs
     }
     
-    func parseJSON(json fileName: String) -> [JSON] {
+    func parseJSON(json fileName: String) -> JSON {
         guard let path = Bundle.main.url(forResource: fileName, withExtension: "json") else {
             return []
         }
@@ -68,6 +92,6 @@ private extension DexMarketInteractorMock {
             return []
         }
         
-        return JSON(json).arrayValue
+        return JSON(json)
     }
 }
