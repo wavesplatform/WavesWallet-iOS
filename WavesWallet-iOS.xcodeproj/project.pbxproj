@@ -69,6 +69,11 @@
 		0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */; };
 		0A5ABBA8211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA7211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift */; };
 		0A5B6E82211B944C005A7F09 /* General.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5B6E84211B944C005A7F09 /* General.strings */; };
+		0A5B6E88211CE5E2005A7F09 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E87211CE5E2005A7F09 /* Runtime.swift */; };
+		0A5B6E8A211CF6FC005A7F09 /* UIView+Passtrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E89211CF6FC005A7F09 /* UIView+Passtrough.swift */; };
+		0A5B6E8C211CF728005A7F09 /* NSObject+AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8B211CF728005A7F09 /* NSObject+AssociatedObject.swift */; };
+		0A5B6E8E211CF9B7005A7F09 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */; };
+		0A5B6E90211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -429,6 +434,11 @@
 		0A5B6E83211B944C005A7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/General.strings; sourceTree = "<group>"; };
 		0A5B6E85211B944E005A7F09 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/General.strings; sourceTree = "<group>"; };
 		0A5B6E86211B944F005A7F09 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/General.strings; sourceTree = "<group>"; };
+		0A5B6E87211CE5E2005A7F09 /* Runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
+		0A5B6E89211CF6FC005A7F09 /* UIView+Passtrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Passtrough.swift"; sourceTree = "<group>"; };
+		0A5B6E8B211CF728005A7F09 /* NSObject+AssociatedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedObject.swift"; sourceTree = "<group>"; };
+		0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperAssetsSegmentedControl.swift; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -1376,6 +1386,7 @@
 				E9628842209F792300DE3B5A /* AssetLastTransactionView.swift */,
 				E9628844209F792F00DE3B5A /* AssetLastTransactionView.xib */,
 				0A41E39D211B483500A1EF5E /* AssetSegmented */,
+				0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1710,6 +1721,7 @@
 				0A485E8020FDFF8400079B49 /* SeparatorView.swift */,
 				0A26AA282119FBC800A00578 /* TickerView.swift */,
 				0A26AA2A2119FBE700A00578 /* TickerView.xib */,
+				0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -1755,6 +1767,9 @@
 				0A7F34DE211B598300315E1A /* CGSize+Hashable.swift */,
 				0A7F34E2211C5C7A00315E1A /* UITableView+HeaderView.swift */,
 				0A7F34E4211C64F200315E1A /* UIViewController+SafeArea.swift */,
+				0A5B6E87211CE5E2005A7F09 /* Runtime.swift */,
+				0A5B6E89211CF6FC005A7F09 /* UIView+Passtrough.swift */,
+				0A5B6E8B211CF728005A7F09 /* NSObject+AssociatedObject.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2099,6 +2114,7 @@
 				E9628843209F792300DE3B5A /* AssetLastTransactionView.swift in Sources */,
 				0AEB358C2115DB3C00EDD63C /* AssetsRepositoryProtocol.swift in Sources */,
 				E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */,
+				0A5B6E8C211CF728005A7F09 /* NSObject+AssociatedObject.swift in Sources */,
 				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,
 				F77A92071EB09D3700C77439 /* BackupVerifyViewController.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
@@ -2244,8 +2260,10 @@
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				0A8AFF2321010CDC00D0582B /* NSAttributedString+Styles.swift in Sources */,
+				0A5B6E8E211CF9B7005A7F09 /* GradientView.swift in Sources */,
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
 				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
+				0A5B6E90211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
 				0A7643FA211874F400B633E1 /* FactoryInteractorsProtocol.swift in Sources */,
@@ -2271,6 +2289,7 @@
 				0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */,
 				E9A05C5620E924B400B0E0FA /* NewAccountBackupInfoViewController.swift in Sources */,
 				F73553761F03D9FC00ADC449 /* Order.swift in Sources */,
+				0A5B6E88211CE5E2005A7F09 /* Runtime.swift in Sources */,
 				0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */,
 				E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */,
 				0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */,
@@ -2309,6 +2328,7 @@
 				E9E1B51E20A0F3A60034DCD3 /* AssetChartCell.swift in Sources */,
 				E99ECC601F59A7A100ADB12D /* OrderConfirmView.swift in Sources */,
 				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,
+				0A5B6E8A211CF6FC005A7F09 /* UIView+Passtrough.swift in Sources */,
 				F7F97E941EAA0CF800BE2F6F /* UIView+Borders.swift in Sources */,
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,

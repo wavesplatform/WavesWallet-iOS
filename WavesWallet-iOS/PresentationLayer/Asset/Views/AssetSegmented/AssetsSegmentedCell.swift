@@ -9,11 +9,11 @@
 import Kingfisher
 import UIKit
 
-private enum Constants {
-    static let sizeLogo = CGSize(width: 48, height: 48)
-}
-
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
+
+    enum Constants {
+        static let sizeLogo = CGSize(width: 48, height: 48)
+    }
 
     struct Model {
         let icon: String

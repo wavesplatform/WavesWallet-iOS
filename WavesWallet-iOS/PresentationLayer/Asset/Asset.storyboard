@@ -548,11 +548,11 @@
                                         <rect key="frame" x="0.0" y="730" width="375" height="450"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="449.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9h0-sn-6uU">
-                                                    <rect key="frame" x="16" y="0.0" width="359" height="449.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="359" height="449"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sm5-Ig-doC" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="10" width="343" height="1"/>
@@ -745,10 +745,25 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rup-Ol-Lth" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="109" id="dQq-VF-O2V" customClass="AssetsSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="109" id="dQq-VF-O2V" customClass="WrapperAssetsSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Av9-Pc-BvK" customClass="AssetsSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="119" y="-10" width="240" height="128"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Av9-Pc-BvK" firstAttribute="top" secondItem="dQq-VF-O2V" secondAttribute="top" id="FIi-qY-eZT"/>
+                        <constraint firstItem="Av9-Pc-BvK" firstAttribute="leading" secondItem="yjL-pg-fHb" secondAttribute="leading" id="j78-u8-NRP"/>
+                        <constraint firstItem="yjL-pg-fHb" firstAttribute="trailing" secondItem="Av9-Pc-BvK" secondAttribute="trailing" id="r53-xg-M3K"/>
+                        <constraint firstAttribute="bottom" secondItem="Av9-Pc-BvK" secondAttribute="bottom" id="u4X-AO-kCq"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="yjL-pg-fHb"/>
+                    <connections>
+                        <outlet property="assetsSegmentedControl" destination="Av9-Pc-BvK" id="aqe-OD-x3T"/>
+                    </connections>
                 </view>
             </objects>
             <point key="canvasLocation" x="2404" y="-125"/>

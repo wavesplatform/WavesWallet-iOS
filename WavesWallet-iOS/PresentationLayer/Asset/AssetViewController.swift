@@ -6,59 +6,8 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
+import Foundation
 import UIKit
-
-enum Swizzle {
-    static func swizzle(for forClass: AnyClass, original: Selector, swizzled: Selector) {
-        let originalMethod = class_getInstanceMethod(forClass, original)!
-        let swizzledMethod = class_getInstanceMethod(forClass, swizzled)!
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    }
-}
-extension NSObject {
-
-    func associatedObject<T>(for key: UnsafeRawPointer) -> T? {
-        return objc_getAssociatedObject(self, key) as? T
-    }
-
-    func setAssociatedObject<T>(_ object: T, for key: UnsafeRawPointer) {
-        objc_setAssociatedObject(self, key, object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-}
-
-
-
-extension UIView {
-
-    private enum AssociatedKeys {
-        static var shouldPassthroughTouchEvents = "shouldPassthroughTouchEvents"
-    }
-
-    static func passtroughInit() {
-        Swizzle.swizzle(for: self,
-                        original: #selector(hitTest(_:with:)),
-                        swizzled: #selector(swizzled_hitTest(_:with:)))
-    }
-
-    @IBInspectable var shouldPassthroughTouchEvents: Bool {
-        get {
-            return associatedObject(for: &AssociatedKeys.shouldPassthroughTouchEvents) ?? false
-        }
-        set {
-            setAssociatedObject(newValue, for: &AssociatedKeys.shouldPassthroughTouchEvents)
-        }
-    }
-
-    @objc func swizzled_hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let view = swizzled_hitTest(point, with: event)
-        if shouldPassthroughTouchEvents && view == self {
-            return nil
-        } else {
-            return view
-        }
-    }
-}
-
 
 private final class FrameListenerNavigationTitle: UIView {
 
@@ -85,7 +34,7 @@ private final class FrameListenerNavigationTitle: UIView {
         return UILayoutFittingExpandedSize
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         guard keyPath == Constants.frame else { return }
         changedFrame?(self, frame)
     }
@@ -99,7 +48,7 @@ private final class FrameListenerNavigationTitle: UIView {
 final class AssetViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet var segmentedControl: AssetsSegmentedControl!
+    @IBOutlet var segmentedControl: WrapperAssetsSegmentedControl!
 
 
     enum Section: Int {
@@ -114,7 +63,6 @@ final class AssetViewController: UIViewController {
         case week
         case month
     }
-
 
     var selectedChartPediod = ChartPeriod.day
     let isAvailableChart = true
@@ -141,87 +89,57 @@ final class AssetViewController: UIViewController {
         setupRefreshControl()
 
         title = "test"
+        view.addSubview(segmentedControl)
 
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - 152) * 0.5, y: 0, width: 152, height: 44)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.shouldPassthroughTouch = true
+        navigationController?.navigationBar.isEnabledPassthroughSubviews = true
 
-        setupNavigationTitleView(state: self.stateTitleView)
+        segmentedControl.frame.origin = CGPoint(x: 0, y: navigationController?.navigationBar.frame.origin.y ?? 0)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
 
 
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+
+        tableView.contentInset = UIEdgeInsetsMake(-(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height, 0, 0, 0)
+//        setupNavigationTitleView(state: self.stateTitleView)
+
 //        navigationController?.navigationBar.shadowImage = UIImage()
 //        navigationController?.navigationBar.isTranslucent = true
 //
 //        setupSmallNavigationBar()
     }
 
-
-
     func setupRefreshControl() {
         if #available(iOS 10.0, *) {
             refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 //            refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
             tableView.refreshControl = refreshControl
-        }
-        else {
+        } else {
             tableView.addSubview(refreshControl)
         }
     }
 
     @objc func sendTapped() {
-        self.stateTitleView = self.stateTitleView == .assets ? .title : .assets
-        setupNavigationTitleView(state: self.stateTitleView)
+        stateTitleView = stateTitleView == .assets ? .title : .assets
+//        setupNavigationTitleView(state: self.stateTitleView)
     }
 
-    fileprivate func setupListenerTitle() {
-        
-    }
-
-    fileprivate func setupNavigationTitleView(state: StateTitleView) {
-
-        guard let navigationController = self.navigationController  else { return }
-
-        if state == .assets {
-            frameListenerNavigationTitle.changedFrame = { listener, frame in
-                let convertedframe = listener.convert(frame, to: navigationController.navigationBar)
-                self.originTitleFrame = convertedframe
-
-                let size = self.segmentedControl.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-                self.segmentedControl.frame = CGRect(x: convertedframe.origin.x, y: 10, width: convertedframe.width, height: size.height)
-                self.tableView.contentInset = UIEdgeInsetsMake(size.height, 0, 0, 0)
-            }
-            segmentedControl.translatesAutoresizingMaskIntoConstraints = true
-            navigationController.navigationBar.addSubview(self.segmentedControl)
-            frameListenerNavigationTitle.bounds = navigationController.navigationBar.frame
-            self.navigationItem.titleView = frameListenerNavigationTitle
-
-//            navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationController.navigationBar.shadowImage = UIImage()
-            navigationController.navigationBar.isTranslucent = true
-        } else {
-            self.segmentedControl.removeFromSuperview()
-            self.navigationItem.titleView = nil
-            self.navigationItem.title = "Test"
-//            navigationController.navigationBar.setBackgroundImage(nil, for: .default)
-            navigationController.navigationBar.isTranslucent = false
-            navigationController.navigationBar.shadowImage = nil
-        }
-    }
 
     func updateTitleView() {
-
     }
-    
 }
 
 extension AssetViewController: UIScrollViewDelegate {
@@ -232,14 +150,8 @@ extension AssetViewController: UIScrollViewDelegate {
         guard let originTitleFrame = self.originTitleFrame else { return }
 
         let yContent = scrollView.contentOffset.y
-
-
-
-
-
     }
 }
-
 
 //
 //    @objc func sendTapped() {
@@ -350,7 +262,7 @@ extension AssetViewController: UIScrollViewDelegate {
 //        }
 //    }
 //
-    // MARK: - UICollectionView
+// MARK: - UICollectionView
 
 //
 //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -363,11 +275,11 @@ extension AssetViewController: UIScrollViewDelegate {
 //        }
 //    }
 
-    // MARK: - UITableView
+// MARK: - UITableView
+
 extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     }
 
     var maxScrollOffset: CGFloat {
@@ -408,8 +320,6 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 //        }
 //    }
 
-
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        if section == Section.lastTransactions.rawValue{
 //            return WalletHeaderView.viewHeight()
@@ -437,8 +347,8 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 //        }
 //        else if section == Section.chart.rawValue && isAvailableChart {
 //            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AssetChartHeaderView.identifier()) as! AssetChartHeaderView
-////            view.labelTitle.text = "\(getChartPediodText()) status"
-////            view.buttonChangePeriod.addTarget(self, action: #selector(changeChartPeriod), for: .touchUpInside)
+        ////            view.labelTitle.text = "\(getChartPediodText()) status"
+        ////            view.buttonChangePeriod.addTarget(self, action: #selector(changeChartPeriod), for: .touchUpInside)
 //            return view
 //        }
         return nil
@@ -491,8 +401,8 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 //        if indexPath.section == Section.balance.rawValue {
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetBalanceCell") as! AssetBalanceCell
 //            cell.buttonSend.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
-////            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
-////            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
+        ////            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
+        ////            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
 //            cell.setupCell(isLeased: true, inOrder: true)
 //            return cell
 //        }

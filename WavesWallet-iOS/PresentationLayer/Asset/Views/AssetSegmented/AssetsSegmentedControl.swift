@@ -12,6 +12,7 @@ import UPCarouselFlowLayout
 
 private enum Constants {
     static let spacing: CGFloat = 24
+    static let scaleCell: CGFloat = 0.7
 }
 
 final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
@@ -53,8 +54,8 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
     override var backgroundColor: UIColor? {
         didSet {
-            self.collectionView.backgroundColor = backgroundColor
-            self.collectionView.backgroundView = {
+            self.collectionView?.backgroundColor = backgroundColor
+            self.collectionView?.backgroundView = {
                 let view = UIView()
                 view.backgroundColor = backgroundColor
                 return view
@@ -70,14 +71,9 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
                   Asset(name: "Test2", kind: .spam),
                   Asset(name: "Test2", kind: .wavesToken)]
 
-        detailLabel.isHidden = true
-        tickerView.update(with: TickerView.Model(text: "Test", style: .normal))
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
-    }
-
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 300, height: 100)
+        layout.sideItemScale = Constants.scaleCell
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {
@@ -85,6 +81,20 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
                                     at: .centeredHorizontally,
                                     animated: animated)
         updateWithNewPage(page)
+    }
+
+    func witdthCells(by count: Int) -> CGFloat {
+        switch count {
+        case 0:
+            return 0
+        case 1:
+            return AssetsSegmentedCell.Constants.sizeLogo.width
+        default:
+            let smallCellsCount: CGFloat = CGFloat(count) - 1
+            return  AssetsSegmentedCell.Constants.sizeLogo.width
+                + (AssetsSegmentedCell.Constants.sizeLogo.width * Constants.scaleCell) * smallCellsCount
+                + Constants.spacing * smallCellsCount
+        }
     }
 }
 
@@ -160,7 +170,7 @@ extension AssetsSegmentedControl: UICollectionViewDataSource {
     }
 }
 
-//TODO: UICollectionViewDelegate
+// MARK: UICollectionViewDelegate
 
 extension AssetsSegmentedControl: UICollectionViewDelegate {
 
@@ -170,5 +180,12 @@ extension AssetsSegmentedControl: UICollectionViewDelegate {
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         setCurrentPage(currentPageByContentOffset)
+    }
+}
+
+extension AssetsSegmentedControl: ViewConfiguration {
+    func update(with model: [AssetsSegmentedControl.Asset]) {
+        self.assets = model
+        collectionView.reloadData()
     }
 }
