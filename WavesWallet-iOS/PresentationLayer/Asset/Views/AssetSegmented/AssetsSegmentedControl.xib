@@ -25,7 +25,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqr-kX-Scj">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                     <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qBl-vH-xDV">
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qBl-vH-xDV" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -49,10 +49,6 @@
                                 </userDefinedRuntimeAttributes>
                             </collectionViewFlowLayout>
                             <cells/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="dpM-hg-hMq"/>
-                                <outlet property="delegate" destination="-1" id="Uxb-FU-BJ8"/>
-                            </connections>
                         </collectionView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-zB-Myb">
                             <rect key="frame" x="161.5" y="62" width="52.5" height="37.5"/>

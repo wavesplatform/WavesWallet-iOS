@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import UPCarouselFlowLayout
+import InfiniteCollectionView
 
 private enum Constants {
     static let spacing: CGFloat = 24
@@ -29,7 +30,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let kind: Kind
     }
 
-    @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var collectionView: InfiniteCollectionView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var detailLabel: UILabel!
@@ -65,11 +66,19 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        collectionView.infiniteDataSource = self
+        collectionView.delegate = collectionView
+        collectionView.dataSource = collectionView
+        collectionView.infiniteDelegate = self
 
-        assets = [Asset(name: "Waves", kind: .fiat),
-                  Asset(name: "Test2", kind: .gateway),
-                  Asset(name: "Test2", kind: .spam),
-                  Asset(name: "Test2", kind: .wavesToken)]
+        tickerView.isHidden = true
+        detailLabel.isHidden = true
+
+        assets = [Asset(name: "Waves", kind: .wavesToken),
+                  Asset(name: "BTC", kind: .gateway),
+                  Asset(name: "ALLADIN", kind: .spam),
+                  Asset(name: "USD", kind: .fiat)]
+        self.update(with: assets)
 
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
@@ -144,22 +153,19 @@ fileprivate extension AssetsSegmentedControl {
     }
 }
 
-// MARK: UICollectionViewDataSource
+extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 
-extension AssetsSegmentedControl: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func number(ofItems collectionView: UICollectionView) -> Int {
         return assets.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: AssetsSegmentedCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView,
+                        dequeueForItemAt dequeueIndexPath: IndexPath,
+                        cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
 
-        let asset = assets[indexPath.row]
+        let cell: AssetsSegmentedCell = collectionView.dequeueAndRegisterCell(indexPath: dequeueIndexPath)
+
+        let asset = assets[usableIndexPath.row]
 
         let isHiddenArrow = asset.kind != .fiat || asset.kind != .gateway
 
@@ -170,22 +176,22 @@ extension AssetsSegmentedControl: UICollectionViewDataSource {
     }
 }
 
-// MARK: UICollectionViewDelegate
+extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
-extension AssetsSegmentedControl: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setCurrentPage(indexPath.row)
+    func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
+        collectionView.scrollToItem(at: IndexPath(item: dequeueForItemAt.row, section: 0),
+                                    at: .centeredHorizontally,
+                                    animated: true)
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        setCurrentPage(currentPageByContentOffset)
+    func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
+        updateWithNewPage(pageIndex)
     }
 }
 
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: [AssetsSegmentedControl.Asset]) {
         self.assets = model
-        collectionView.reloadData()
+        collectionView.reloadData()        
     }
 }

@@ -88,7 +88,7 @@ final class AssetViewController: UIViewController {
 //        hideTopBarLine()
         setupRefreshControl()
 
-        title = "test"
+//        title = "test"
         view.addSubview(segmentedControl)
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
@@ -107,13 +107,8 @@ final class AssetViewController: UIViewController {
         navigationController?.navigationBar.isEnabledPassthroughSubviews = true
 
         segmentedControl.frame.origin = CGPoint(x: 0, y: navigationController?.navigationBar.frame.origin.y ?? 0)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
 
-
-
-        tableView.contentInset = UIEdgeInsetsMake(-(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar, 0, 0, 0)
 //        setupNavigationTitleView(state: self.stateTitleView)
 
 //        navigationController?.navigationBar.shadowImage = UIImage()
@@ -137,19 +132,45 @@ final class AssetViewController: UIViewController {
 //        setupNavigationTitleView(state: self.stateTitleView)
     }
 
+    private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
+        return -(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
+    }
 
     func updateTitleView() {
     }
+
 }
 
 extension AssetViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset)
 
-        guard let originTitleFrame = self.originTitleFrame else { return }
+        var yContent = scrollView.contentOffset.y
 
-        let yContent = scrollView.contentOffset.y
+        if #available(iOS 11.0, *) {
+            yContent += scrollView.adjustedContentInset.top
+        }
+
+
+        let navigationBarY = navigationController?.navigationBar.frame.origin.y ?? 0
+        let navigationBarMaxY = navigationController?.navigationBar.frame.maxY ?? 0
+        var newPosY: CGFloat = navigationBarY - yContent
+        newPosY = min(navigationBarY, newPosY)
+
+        if yContent > navigationBarMaxY {
+            navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+            navigationController?.navigationBar.shadowImage = nil
+//            navigationController?.navigationBar.isTranslucent = false
+        } else {
+            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            navigationController?.navigationBar.shadowImage = UIImage()
+//            navigationController?.navigationBar.isTranslucent = true
+        }
+        segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
+
+
+//        let-(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
+
     }
 }
 

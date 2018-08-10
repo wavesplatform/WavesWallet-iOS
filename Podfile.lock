@@ -9,6 +9,7 @@ PODS:
   - CSV.swift (2.2.1)
   - Differentiator (3.0.2)
   - Gloss (2.0.0-beta.1)
+  - InfiniteCollectionView (1.3.1)
   - IQKeyboardManagerSwift (6.0.4)
   - keccak (0.1)
   - KeychainAccess (3.1.1)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - Charts
   - CSV.swift
   - Gloss (= 2.0.0-beta.1)
+  - "InfiniteCollectionView (from `git@github.com:wavesplatform/InfiniteCollectionView.git`)"
   - IQKeyboardManagerSwift
   - keccak (from `Vendors/Keccak`)
   - KeychainAccess
@@ -159,6 +161,8 @@ EXTERNAL SOURCES:
     :path: Vendors/Base58
   blake2:
     :path: Vendors/Blake2
+  InfiniteCollectionView:
+    :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
   keccak:
     :path: Vendors/Keccak
   RESideMenu:
@@ -168,6 +172,9 @@ CHECKOUT OPTIONS:
   '25519':
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
     :git: "git@github.com:wavesplatform/25519.git"
+  InfiniteCollectionView:
+    :commit: c5340ee0fb7f8e7e7cd93d28d8b477fd9aea7ca5
+    :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
   RESideMenu:
     :commit: a5246a511cef009a60f07eabd68a41a1e19ce2a9
     :git: https://github.com/florianbuerger/RESideMenu.git
@@ -181,6 +188,7 @@ SPEC CHECKSUMS:
   CSV.swift: 5bf3338aff82371cb51cc6dc559d7b45a74bab14
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
+  InfiniteCollectionView: 7f6a02482689c7aa34f87bc555b6daa94cb10f7a
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
   keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
@@ -217,6 +225,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: cf26df2148d680974d4332007e128c7e3d184155
+PODFILE CHECKSUM: ef068a49342ffdf963c15c493d94c39191d3e7b3
 
 COCOAPODS: 1.5.3
