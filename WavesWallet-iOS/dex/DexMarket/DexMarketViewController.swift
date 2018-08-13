@@ -14,11 +14,10 @@ import RxFeedback
 
 final class DexMarketViewController: UIViewController {
 
-    @IBOutlet weak var textFieldSearch: UITextField!
+    @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewLoadingInfo: UIView!
     @IBOutlet weak var labelLoadingMarkets: UILabel!
-    @IBOutlet weak var viewSearchBar: UIView!
     
     var presenter: DexMarketPresenterProtocol!
     private var modelSection = DexMarket.ViewModel.Section(items: [])
@@ -32,7 +31,8 @@ final class DexMarketViewController: UIViewController {
         setupLocalization()
         setupViews(isLoadingState: true)
         tableView.keyboardDismissMode = .onDrag
-
+        searchBar.delegate = self
+        
         let feedback = bind(self) { owner, state -> Bindings<DexMarket.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
@@ -56,8 +56,6 @@ final class DexMarketViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isTranslucent = true
     }
-    
-    
 }
 
 
@@ -91,30 +89,21 @@ fileprivate extension DexMarketViewController {
 private extension DexMarketViewController {
     
     func setupViews(isLoadingState: Bool) {
-        viewSearchBar.isHidden = isLoadingState
+        searchBar.isHidden = isLoadingState
         viewLoadingInfo.isHidden = !isLoadingState
     }
     
     func setupLocalization() {
         title = Localizable.DexMarket.Navigationbar.title
         labelLoadingMarkets.text = Localizable.DexMarket.Label.loadingMarkets
-        textFieldSearch.attributedPlaceholder = NSAttributedString(string: Localizable.DexMarket.Searchbar.placeholder, attributes: [NSAttributedStringKey.foregroundColor : UIColor.basic500])
     }
 }
 
 //MARK: - UITextFieldDelegate
-extension DexMarketViewController: UITextFieldDelegate {
+extension DexMarketViewController: SearchBarViewDelegate {
 
-    @IBAction func searchDidChange(_ sender: Any) {
-        
-        if let text = textFieldSearch.text {
-            sendEvent.accept(.searchTextChange(text: text))
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    func searchBarDidChangeText(_ searchText: String) {
+        sendEvent.accept(.searchTextChange(text: searchText))
     }
 }
 
