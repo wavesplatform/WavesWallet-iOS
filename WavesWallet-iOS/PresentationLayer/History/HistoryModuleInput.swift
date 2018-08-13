@@ -14,7 +14,7 @@ protocol HistoryModuleInput {
 
 enum HistoryType {
     case all
-    case asset(String)
-    case leasing(assetId: String)
+    case transaction(String)
+    case leasing(transactionId: String)
 }
 

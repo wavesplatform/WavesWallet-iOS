@@ -58,7 +58,7 @@ extension HistoryTypes.State {
     static func initialState(historyType: HistoryType) -> HistoryTypes.State {
         var section: HistoryTypes.ViewModel.Section!
         
-        section = HistoryTypes.ViewModel.Section(header: "Хедер", items: [.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton,.assetSkeleton])
+        section = HistoryTypes.ViewModel.Section(items: [.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton])
         
         return HistoryTypes.State(currentFilter: .all, filters: historyType.filters, transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
     }

@@ -20,7 +20,7 @@ protocol HistoryPresenterProtocol {
 final class HistoryPresenter: HistoryPresenterProtocol {
     
     var interactor: HistoryInteractorProtocol!
-    var moduleOutput: HistoryModuleOutput?
+    weak var moduleOutput: HistoryModuleOutput?
     let moduleInput: HistoryModuleInput
     
     private let disposeBag: DisposeBag = DisposeBag()
@@ -52,7 +52,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
-                .all()
+                .all(input: strongSelf.moduleInput)
                 .map { .responseAll($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
