@@ -149,6 +149,11 @@
 		E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E6720981F0300AA311B /* AssetViewController.swift */; };
 		E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E692098200500AA311B /* AssetBalanceCell.swift */; };
 		E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E25F92093506600CDCE56 /* MyAddressViewController.swift */; };
+		E90F151C2121174F00C11124 /* DexInfo.strings in Resources */ = {isa = PBXBuildFile; fileRef = E90F151E2121174F00C11124 /* DexInfo.strings */; };
+		E90F15222121181400C11124 /* DexInfoTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F15212121181400C11124 /* DexInfoTypes.swift */; };
+		E90F152B21211ED200C11124 /* DexInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F152721211ED100C11124 /* DexInfoViewController.swift */; };
+		E90F152C21211ED200C11124 /* DexInfoModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F152821211ED200C11124 /* DexInfoModuleBuilder.swift */; };
+		E90F152F2121209000C11124 /* DexMarketModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F152E2121209000C11124 /* DexMarketModuleOutput.swift */; };
 		E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4C2109A806001222B8 /* DexSortViewController.swift */; };
 		E9104D4F2109A900001222B8 /* DexSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4E2109A900001222B8 /* DexSortCell.swift */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
@@ -544,6 +549,13 @@
 		E90C6E6720981F0300AA311B /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		E90C6E692098200500AA311B /* AssetBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceCell.swift; sourceTree = "<group>"; };
 		E90E25F92093506600CDCE56 /* MyAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewController.swift; sourceTree = "<group>"; };
+		E90F151D2121174F00C11124 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexInfo.strings; sourceTree = "<group>"; };
+		E90F151F2121175000C11124 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexInfo.strings; sourceTree = "<group>"; };
+		E90F15202121175200C11124 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexInfo.strings; sourceTree = "<group>"; };
+		E90F15212121181400C11124 /* DexInfoTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexInfoTypes.swift; sourceTree = "<group>"; };
+		E90F152721211ED100C11124 /* DexInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DexInfoViewController.swift; path = "WavesWallet-iOS/dex/DexInfo/DexInfoViewController.swift"; sourceTree = SOURCE_ROOT; };
+		E90F152821211ED200C11124 /* DexInfoModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DexInfoModuleBuilder.swift; path = "WavesWallet-iOS/dex/DexInfo/DexInfoModuleBuilder.swift"; sourceTree = SOURCE_ROOT; };
+		E90F152E2121209000C11124 /* DexMarketModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexMarketModuleOutput.swift; path = "WavesWallet-iOS/dex/DexMarket/DexMarketModuleOutput.swift"; sourceTree = SOURCE_ROOT; };
 		E9104D4C2109A806001222B8 /* DexSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortViewController.swift; sourceTree = "<group>"; };
 		E9104D4E2109A900001222B8 /* DexSortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortCell.swift; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -1331,6 +1343,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E90F15152120F25800C11124 /* DexInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E90F152721211ED100C11124 /* DexInfoViewController.swift */,
+				E90F152821211ED200C11124 /* DexInfoModuleBuilder.swift */,
+				E90F15212121181400C11124 /* DexInfoTypes.swift */,
+				E90F151E2121174F00C11124 /* DexInfo.strings */,
+			);
+			path = DexInfo;
+			sourceTree = "<group>";
+		};
 		E9193B8120D7E26500F5D983 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1406,9 +1429,9 @@
 				E9B2E30F211932F10004E452 /* Views */,
 				E926117D2107E7B300A9E793 /* DexListTypes.swift */,
 				E959293D211965A4007C06EA /* DexListModuleOutput.swift */,
-				E959293B211964C0007C06EA /* DexListCoordinator.swift */,
 				E959293F211969EE007C06EA /* DexListModuleBuilder.swift */,
 				E92611782107C5F400A9E793 /* DexListViewController.swift */,
+				E959293B211964C0007C06EA /* DexListCoordinator.swift */,
 				E992404C2119E3C200E97414 /* DexList.strings */,
 			);
 			path = DexList;
@@ -1435,9 +1458,10 @@
 				E9983DC5211C71D0002349CA /* Views */,
 				E9983DC4211C71C8002349CA /* Presenter */,
 				E9983DC3211C71BF002349CA /* Interactor */,
-				E9983DF5211C80A0002349CA /* DexMarketModuleBuilder.swift */,
 				E9983DBF211C7117002349CA /* DexMarketViewController.swift */,
 				E9983DD0211C729F002349CA /* DexMarketTypes.swift */,
+				E9983DF5211C80A0002349CA /* DexMarketModuleBuilder.swift */,
+				E90F152E2121209000C11124 /* DexMarketModuleOutput.swift */,
 				E9983DF2211C8027002349CA /* DexMarket.strings */,
 			);
 			path = DexMarket;
@@ -1648,6 +1672,7 @@
 		F73553741F03D94000ADC449 /* Dex */ = {
 			isa = PBXGroup;
 			children = (
+				E90F15152120F25800C11124 /* DexInfo */,
 				E9983DBE211C6F45002349CA /* DexMarket */,
 				E97389C8210B79E7006D556B /* DexSort */,
 				E97389C7210B73A2006D556B /* DexList */,
@@ -2015,6 +2040,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94E9C7320983522007E0705 /* WalletLeasingCell.xib in Resources */,
+				E90F151C2121174F00C11124 /* DexInfo.strings in Resources */,
 				F7E954FF1EA90CA600A804DE /* Login.storyboard in Resources */,
 				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
@@ -2288,6 +2314,7 @@
 				F74240CF1EAB8EFF00C3B84D /* AccountCell.swift in Sources */,
 				E93CEDEA20A1A8A300756CA8 /* AssetChartHeaderView.swift in Sources */,
 				E92611832107FDB900A9E793 /* DexListSkeletonCell.swift in Sources */,
+				E90F15222121181400C11124 /* DexInfoTypes.swift in Sources */,
 				F96DFFE620DD136F0056BB52 /* SixthInfoPageView.swift in Sources */,
 				0AEB35A021165CBF00EDD63C /* AssetBalanceDomainDTO.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
@@ -2335,6 +2362,7 @@
 				E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */,
 				0A1DAD7A20F3A9AE004DA625 /* TransactionApi.swift in Sources */,
 				0A93FECE20FCA82F0058179E /* SpamService.swift in Sources */,
+				E90F152C21211ED200C11124 /* DexInfoModuleBuilder.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
 				E9628841209F729100DE3B5A /* AssetLastTransactionCell.swift in Sources */,
 				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
@@ -2455,6 +2483,7 @@
 				0A485E8520FE37D600079B49 /* SkeletonCell.swift in Sources */,
 				0A93FED520FCACF90058179E /* Observable+Types.swift in Sources */,
 				E9983DCB211C723E002349CA /* DexMarketInteractorMock.swift in Sources */,
+				E90F152B21211ED200C11124 /* DexInfoViewController.swift in Sources */,
 				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColor+Hex.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
@@ -2533,6 +2562,7 @@
 				F79C43D91EAEB101006057B0 /* HalfModalTransitionAnimator.swift in Sources */,
 				0A7643FE21187DF500B633E1 /* FactoryInteractors.swift in Sources */,
 				E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */,
+				E90F152F2121209000C11124 /* DexMarketModuleOutput.swift in Sources */,
 				0AD8543C20F7A74C00D23E48 /* SegmentedControl.swift in Sources */,
 				0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */,
 				0AE491F02107A4BD009223DB /* WalletCoordinator.swift in Sources */,
@@ -2570,6 +2600,16 @@
 				0AFBCA7D2113068C00285BCB /* tr */,
 			);
 			name = Wallet.strings;
+			sourceTree = "<group>";
+		};
+		E90F151E2121174F00C11124 /* DexInfo.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E90F151D2121174F00C11124 /* en */,
+				E90F151F2121175000C11124 /* ru */,
+				E90F15202121175200C11124 /* tr */,
+			);
+			name = DexInfo.strings;
 			sourceTree = "<group>";
 		};
 		E992404C2119E3C200E97414 /* DexList.strings */ = {
@@ -2720,8 +2760,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "53526b6f-a54c-47d1-8322-10d2e5de3f14";
+				PROVISIONING_PROFILE_SPECIFIER = "profile all";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";

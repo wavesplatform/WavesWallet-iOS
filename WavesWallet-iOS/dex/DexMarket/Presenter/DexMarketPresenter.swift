@@ -15,7 +15,8 @@ import RxCocoa
 final class DexMarketPresenter: DexMarketPresenterProtocol {
  
     var interactor: DexMarketInteractorProtocol!
-    
+    weak var moduleOutput: DexMarketModuleOutput?
+
     private let disposeBag = DisposeBag()
 
     func system(feedbacks: [DexMarketPresenterProtocol.Feedback]) {
@@ -80,6 +81,18 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             }.changeAction(.update)
             
         case .tapInfoButton(let index):
+            
+            if let pair = state.section.items[index].pair {
+                
+                //test Data
+                let range = (pair.name as NSString).range(of: " / ")
+                let amountAsset = (pair.name as NSString).substring(to: range.location)
+                let priceAsset = (pair.name as NSString).substring(from: range.location + range.length)
+                //
+                
+                let infoPair = DexInfoPair.DTO.Pair(amountAsset: amountAsset, amountAssetName: amountAsset, priceAsset: priceAsset, priceAssetName: priceAsset, isPopular: true)
+                moduleOutput?.showInfo(pair: infoPair)
+            }
             return state.changeAction(.none)
             
         case .searchTextChange(let text):
