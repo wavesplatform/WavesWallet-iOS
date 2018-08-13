@@ -139,6 +139,17 @@ internal enum Localizable {
       internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
     }
   }
+  internal enum DexInfo {
+
+    internal enum Label {
+      /// Amount Asset
+      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
+      /// Popular
+      internal static let popular = Localizable.tr("DexInfo", "label.popular")
+      /// Price Asset
+      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

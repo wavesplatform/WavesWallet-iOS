@@ -8,13 +8,17 @@
 
 import UIKit
 
-struct DexMarketModuleBuilder: ModuleBuilder {
+struct DexMarketModuleBuilder: ModuleBuilderOutput {
+    
+    var output: DexMarketModuleOutput
     
     func build(input: Void) -> UIViewController {
         
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
+        
         var presenter: DexMarketPresenterProtocol = DexMarketPresenter()
         presenter.interactor = DexMarketInteractorMock()
+        presenter.moduleOutput = output
         vc.presenter = presenter
         
         return vc

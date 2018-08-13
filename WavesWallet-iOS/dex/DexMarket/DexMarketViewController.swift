@@ -154,6 +154,6 @@ extension DexMarketViewController: UITableViewDataSource {
 private extension DexMarketViewController {
     
     func buttonInfoDidTap(_ indexPath: IndexPath) {
-        sendEvent.accept(.tapInfoButton(index: indexPath.row))
+        sendEvent.accept(.tapInfoButton(index: indexPath.row))        
     }
 }
