@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol HistoryModuleOutput {
+protocol HistoryModuleOutput: class {
 
 }

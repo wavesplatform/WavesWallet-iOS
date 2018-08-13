@@ -79,6 +79,7 @@ extension HistoryTypes.DTO {
         let balance: Money
         let kind: Kind
         let tag: String
+        let date: NSDate
         let sortLevel: Float
     }
 }
@@ -156,7 +157,7 @@ extension HistoryType {
         switch self {
         case .all:
             fallthrough
-        case .asset(_):
+        case .transaction(_):
             return [.all, .sent, .received, .exchanged, .leased, .issued]
         case .leasing(_):
             return [.all, .activeNow, .canceled]

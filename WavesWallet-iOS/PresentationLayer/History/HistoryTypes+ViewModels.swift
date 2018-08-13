@@ -10,13 +10,20 @@ import Foundation
 
 extension HistoryTypes.ViewModel {
     struct Section: Hashable {
-        var header: String
         var items: [Row]
+        var header: String?
+//        var date: NSDate
+        
+        init(items: [Row], header: String? = nil) {
+            self.items = items
+//            self.date = NSDate()
+            self.header = header
+        }
     }
     
     enum Row: Hashable {
-        case asset(HistoryTypes.DTO.Transaction)
-        case assetSkeleton
+        case transaction(HistoryTypes.DTO.Transaction)
+        case transactionSkeleton
     }
 }
 
@@ -29,35 +36,22 @@ extension HistoryTypes.ViewModel.Section {
             .sorted(by: { (transaction1, transaction2) -> Bool in
                 return transaction1.id < transaction2.id
             })
-            .map { HistoryTypes.ViewModel.Row.asset($0) }
+            .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "February 12, 2018",
-                                                                   items: generalItems)
+        let generalSection: HistoryTypes.ViewModel.Section = .init(items: generalItems)
         
         return [generalSection, generalSection]
         
     }
     
-    static func map(from assets: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
-        let generalItems = assets
-            .sorted(by: { (asset1, asset2) -> Bool in
-                
-//                if asset1.isWaves == true {
-//                    return true
-//                }
-//
-//                if asset1.isFavorite == true && asset2.isFavorite == false {
-//                    return true
-//                } else if asset1.isFavorite == false && asset2.isFavorite == true {
-//                    return false
-//                }
-                
-                return asset1.id < asset2.id
+    static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+        let generalItems = transactions
+            .sorted(by: { (transaction1, transaction2) -> Bool in
+                return transaction1.id < transaction2.id
             })
-            .map { HistoryTypes.ViewModel.Row.asset($0) }
+            .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(header: "February 12, 2018",
-                                                                  items: generalItems)
+        let generalSection: HistoryTypes.ViewModel.Section = .init(items: generalItems)
 
         return [generalSection, generalSection]
     }

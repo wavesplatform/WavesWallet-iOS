@@ -11,6 +11,7 @@ import RxCocoa
 import RxDataSources
 import RxFeedback
 import RxSwift
+import SwiftDate
 
 final class NewHistoryViewController: UIViewController {
     
@@ -111,7 +112,10 @@ private extension NewHistoryViewController {
                 
             strongSelf.sections = state.sections
             
-            UIView.transition(with: strongSelf.tableView, duration: 0.24, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
+            UIView.transition(with: strongSelf.tableView,
+                              duration: 0.24,
+                              options: [.transitionCrossDissolve, .curveEaseInOut],
+                              animations: {
                 
                 strongSelf.tableView.reloadData()
                 
@@ -150,7 +154,7 @@ extension NewHistoryViewController: UITableViewDelegate {
         let row = sections[indexPath.section].items[indexPath.row]
         
         switch row {
-        case .assetSkeleton:
+        case .transactionSkeleton:
             let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
             skeletonCell.slide(to: .right)
             
@@ -165,10 +169,10 @@ extension NewHistoryViewController: UITableViewDelegate {
       let row = sections[indexPath.section].items[indexPath.row]
         
         switch row {
-        case .assetSkeleton:
+        case .transactionSkeleton:
             return WalletAssetSkeletonCell.cellHeight()
             
-        case .asset:
+        case .transaction:
             return HistoryAssetCell.cellHeight()
         }
 
@@ -211,11 +215,11 @@ extension NewHistoryViewController: UITableViewDataSource {
         let item = sections[indexPath.section].items[indexPath.item]
         
         switch item {
-        case .assetSkeleton:
+        case .transactionSkeleton:
             let cell: WalletAssetSkeletonCell = tableView.dequeueCell()
             return cell
             
-        case .asset(let transaction):
+        case .transaction(let transaction):
             let cell: HistoryAssetCell = tableView.dequeueCell()
             cell.update(with: transaction)
             return cell
@@ -227,15 +231,24 @@ extension NewHistoryViewController: UITableViewDataSource {
         let model = sections[section]
         
         let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-        view.update(with: model.header)
-//            view.setupArrow(isExpanded: true, animation: false)
         
-//            view.arrowDidTap = { [weak self] in
-//                self?.tapSection.accept(section)
-//            }
+        guard let firstItem = model.items.first else { return view }
+        
+        
+        switch firstItem {
+        case .transaction(let transaction):
+            if let header = model.header {
+                view.update(with: header)
+            } else {
+                let date = transaction.date as Date
+                let d = date.toFormat("dd MMM yyyy", locale: Locales.current)
+                view.update(with: d)
+            }
+        default:
+            break
+        }
+        
         return view
-        
-    
     }
 
     
