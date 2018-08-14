@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="textField" destination="t8a-td-mQ4" id="iga-hO-IvC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nin-Wd-Yev">
+                    <rect key="frame" x="8" y="0.0" width="359" height="36"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search24Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="2Y9-Ec-Jtt">
+                            <rect key="frame" x="8" y="6" width="24" height="24"/>
+                        </imageView>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="t8a-td-mQ4">
+                            <rect key="frame" x="40" y="0.0" width="319" height="36"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                            <connections>
+                                <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="WD1-nH-k1P"/>
+                                <outlet property="delegate" destination="-1" id="9jj-Ib-KQZ"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="t8a-td-mQ4" secondAttribute="trailing" id="8Gd-hI-bJd"/>
+                        <constraint firstItem="t8a-td-mQ4" firstAttribute="leading" secondItem="2Y9-Ec-Jtt" secondAttribute="trailing" constant="8" id="JYe-Py-dOW"/>
+                        <constraint firstItem="2Y9-Ec-Jtt" firstAttribute="centerY" secondItem="Nin-Wd-Yev" secondAttribute="centerY" id="SRP-Wb-808"/>
+                        <constraint firstItem="2Y9-Ec-Jtt" firstAttribute="leading" secondItem="Nin-Wd-Yev" secondAttribute="leading" constant="8" id="YK6-pA-EWD"/>
+                        <constraint firstItem="t8a-td-mQ4" firstAttribute="top" secondItem="Nin-Wd-Yev" secondAttribute="top" id="tKV-3V-4nH"/>
+                        <constraint firstAttribute="height" constant="36" id="udf-Ma-uR8"/>
+                        <constraint firstAttribute="bottom" secondItem="t8a-td-mQ4" secondAttribute="bottom" id="va0-Ly-2dA"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Nin-Wd-Yev" secondAttribute="trailing" constant="8" id="BTd-tl-647"/>
+                <constraint firstAttribute="bottom" secondItem="Nin-Wd-Yev" secondAttribute="bottom" id="Krd-Sr-w5D"/>
+                <constraint firstItem="Nin-Wd-Yev" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="t76-Qg-6Yr"/>
+                <constraint firstItem="Nin-Wd-Yev" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="uWZ-LF-Lyy"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="search24Basic500" width="24" height="24"/>
+    </resources>
+</document>
