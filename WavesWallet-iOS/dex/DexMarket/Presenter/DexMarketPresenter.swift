@@ -84,13 +84,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             
             if let pair = state.section.items[index].pair {
                 
-                //test Data
-                let range = (pair.name as NSString).range(of: " / ")
-                let amountAsset = (pair.name as NSString).substring(to: range.location)
-                let priceAsset = (pair.name as NSString).substring(from: range.location + range.length)
-                //
-                
-                let infoPair = DexInfoPair.DTO.Pair(amountAsset: amountAsset, amountAssetName: amountAsset, priceAsset: priceAsset, priceAssetName: priceAsset, isPopular: true)
+                let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset.id, amountAssetName: pair.amountAsset.name, priceAsset: pair.priceAsset.id, priceAssetName: pair.priceAsset.name, isPopular: !pair.isHiddenPair)
                 moduleOutput?.showInfo(pair: infoPair)
             }
             return state.changeAction(.none)
@@ -105,7 +99,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
 fileprivate extension DexMarket.ViewModel.Row {
     
-    var pair: DexMarket.DTO.Pair? {
+    var pair: DexMarket.DTO.AssetPair? {
         switch self {
         case .pair(let pair):
             return pair

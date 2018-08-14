@@ -11,15 +11,15 @@ import RxSwift
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
  
-    func pairs() -> Observable<[DexMarket.DTO.Pair]> {
+    func pairs() -> Observable<[DexMarket.DTO.AssetPair]> {
         return Observable.just([])
     }
     
-    func searchPairs() -> Observable<[DexMarket.DTO.Pair]> {
+    func searchPairs() -> Observable<[DexMarket.DTO.AssetPair]> {
         return Observable.just([])
     }
     
-    func checkMark(pair: DexMarket.DTO.Pair) {
+    func checkMark(pair: DexMarket.DTO.AssetPair) {
         
     }
     
