@@ -15,7 +15,7 @@ enum DexMarket {
     
     enum Event {
         case readyView
-        case setPairs([DTO.AssetPair])
+        case setPairs([DTO.Pair])
         case tapCheckMark(index: Int)
         case tapInfoButton(index: Int)
         case searchTextChange(text: String)
@@ -39,22 +39,22 @@ extension DexMarket.ViewModel {
     }
     
     enum Row {
-        case pair(DexMarket.DTO.AssetPair)
+        case pair(DexMarket.DTO.Pair)
     }
     
 }
 
 extension DexMarket.DTO {
     
-    struct Pair: Hashable {
+    struct Asset: Hashable {
         let id: String
         let name: String
         let shortName: String
     }
     
-    struct AssetPair: Mutating {
-        let amountAsset: Pair
-        let priceAsset: Pair
+    struct Pair: Mutating {
+        let amountAsset: Asset
+        let priceAsset: Asset
         var isChecked: Bool
         let isHiddenPair: Bool
     }

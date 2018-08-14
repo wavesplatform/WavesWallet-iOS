@@ -13,15 +13,15 @@ import SwiftyJSON
 
 final class DexMarketInteractorMock: DexMarketInteractorProtocol {
     
-    private static var allPairs: [DexMarket.DTO.AssetPair] = []
-    private static var searchPairs: [DexMarket.DTO.AssetPair] = []
+    private static var allPairs: [DexMarket.DTO.Pair] = []
+    private static var searchPairs: [DexMarket.DTO.Pair] = []
     
-    private let searchPairsSubject: PublishSubject<[DexMarket.DTO.AssetPair]> = PublishSubject<[DexMarket.DTO.AssetPair]>()
+    private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
 
     private let disposeBag: DisposeBag = DisposeBag()
     
     
-    func pairs() -> Observable<[DexMarket.DTO.AssetPair]> {
+    func pairs() -> Observable<[DexMarket.DTO.Pair]> {
         return Observable.create({ (subscribe) -> Disposable in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -32,11 +32,11 @@ final class DexMarketInteractorMock: DexMarketInteractorProtocol {
         })
     }
     
-    func searchPairs() -> Observable<[DexMarket.DTO.AssetPair]> {
+    func searchPairs() -> Observable<[DexMarket.DTO.Pair]> {
         return searchPairsSubject.asObserver()
     }
     
-    func checkMark(pair: DexMarket.DTO.AssetPair) {
+    func checkMark(pair: DexMarket.DTO.Pair) {
         
         if let index = DexMarketInteractorMock.searchPairs.index(where: {$0.amountAsset == pair.amountAsset && $0.priceAsset == pair.priceAsset}) {
             DexMarketInteractorMock.searchPairs[index] = pair.mutate { $0.isChecked = !$0.isChecked }
@@ -105,22 +105,22 @@ private extension DexMarketInteractorMock {
 //MARK: - TestData
 private extension DexMarketInteractorMock {
     
-    func getAllPairs() -> [DexMarket.DTO.AssetPair] {
+    func getAllPairs() -> [DexMarket.DTO.Pair] {
         
-        var pairs: [DexMarket.DTO.AssetPair] = []
+        var pairs: [DexMarket.DTO.Pair] = []
         let items = parseJSON(json: "DexMarketPairs").arrayValue
         
         for item in items {
             
-            let amountAsset = DexMarket.DTO.Pair(id: item["amountAsset"].stringValue,
+            let amountAsset = DexMarket.DTO.Asset(id: item["amountAsset"].stringValue,
                                                  name: item["amountAssetName"].stringValue,
                                                  shortName: item["amountAssetName"].stringValue)
 
-            let priceAsset = DexMarket.DTO.Pair(id: item["priceAsset"].stringValue,
+            let priceAsset = DexMarket.DTO.Asset(id: item["priceAsset"].stringValue,
                                                  name: item["priceAssetName"].stringValue,
                                                  shortName: item["priceAssetName"].stringValue)
 
-            pairs.append(DexMarket.DTO.AssetPair(amountAsset: amountAsset, priceAsset: priceAsset, isChecked: false, isHiddenPair: false))
+            pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isChecked: false, isHiddenPair: false))
         }
         
         return pairs
