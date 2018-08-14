@@ -11,23 +11,15 @@ import RxSwift
 
 protocol HistoryInteractorProtocol {
     func transactions(input: HistoryModuleInput) -> AsyncObservable<[HistoryTypes.DTO.Transaction]>
+    
+    func refreshTransactions()
 }
 
 final class HistoryInteractorMock: HistoryInteractorProtocol {
     
-//    .viewReceived,
-//    .viewSend,
-//    .viewLeasing,
-//    .exchange, // not show comment, not show address
-//    .selfTranserred, // not show address
-//    .tokenGeneration, // show ID token
-//    .tokenReissue, // show ID token,
-//    .tokenBurning, // show ID token, do not have bottom state of token
-//    .createdAlias, // show ID token
-//    .canceledLeasing,
-//    .incomingLeasing,
-//    .massSend, // multiple addresses
-//    .massReceived
+    private let refreshTransactionsSubject: PublishSubject<[HistoryTypes.DTO.Transaction]> = PublishSubject<[HistoryTypes.DTO.Transaction]>()
+    
+    private let disposeBag: DisposeBag = DisposeBag()
     
     func transactions(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
         let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(), sortLevel: 0)
@@ -45,6 +37,16 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
         let asset12 = HistoryTypes.DTO.Transaction(id: "12", name: "Waves", balance: Money(100, 1), kind: .massReceived, tag: "Waves Tag", date: NSDate(), sortLevel: 0)
         
         return Observable.just([asset, asset1, asset2, asset3, asset4, asset5, asset6, asset6, asset7, asset8, asset9, asset10, asset11, asset12])
+    }
+    
+    func refreshTransactions() {
+//        transactions()
+//            .take(1)
+//            .sweetDebug("Refresh Assets")
+//            .subscribe(weak: self, onNext: { owner, balances in
+//                owner.refreshAssetsSubject.onNext(balances)
+//            })
+//            .disposed(by: disposeBag)
     }
     
 }
