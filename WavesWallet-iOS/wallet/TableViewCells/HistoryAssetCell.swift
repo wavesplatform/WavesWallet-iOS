@@ -98,31 +98,31 @@ extension HistoryAssetCell: ViewConfiguration {
         
         switch model.kind {
         case .massReceived:
-            labelText = "Received " + model.name
+            labelText = Localizable.History.Transactioncell.received + " " + model.name
         case .viewReceived:
-            labelText = "Received " + model.name
+            labelText = Localizable.History.Transactioncell.received + " " + model.name
         case .viewSend:
-            labelText = "Sent " + model.name
+            labelText = Localizable.History.Transactioncell.sent + " " + model.name
         case .massSend:
-            labelText = "Sent " + model.name
+            labelText = Localizable.History.Transactioncell.sent + " " + model.name
         case .createdAlias:
-            labelText = "Create Alias"
+            labelText = Localizable.History.Transactioncell.alias
         case .viewLeasing:
-            labelText = "Started Leasing"
+            labelText = Localizable.History.Transactioncell.startedLeasing
         case .incomingLeasing:
-            labelText = "Incoming Leasing"
+            labelText = Localizable.History.Transactioncell.incomingLeasing
         case .canceledLeasing:
-            labelText = "Canceled Leasing"
+            labelText = Localizable.History.Transactioncell.canceledLeasing
         case .selfTranserred:
-            labelText = "Self-transfer" + model.name
+            labelText = Localizable.History.Transactioncell.selfTransfer + " " + model.name
         case .exchange:
-            labelText = "Exchange" // тут должно быть -0.00040000 BTC
+            labelText = Localizable.History.Transactioncell.exchange // тут должно быть -0.00040000 BTC
         case .tokenGeneration:
-            labelText = model.name + "Token Generation"
+            labelText = model.name + " " + Localizable.History.Transactioncell.tokenGeneration
         case .tokenBurning:
-            labelText = "Token Burn"
+            labelText = Localizable.History.Transactioncell.tokenBurn
         case .tokenReissue:
-            labelText = "Token Reissue"
+            labelText = Localizable.History.Transactioncell.tokenReissue
         }
         
         labelTitle.text = labelText

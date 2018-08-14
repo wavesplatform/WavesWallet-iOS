@@ -52,7 +52,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
-                .all(input: strongSelf.moduleInput)
+                .transactions(input: strongSelf.moduleInput)
                 .map { .responseAll($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })

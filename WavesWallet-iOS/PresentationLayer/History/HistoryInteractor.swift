@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol HistoryInteractorProtocol {
-    func all(input: HistoryModuleInput) -> AsyncObservable<[HistoryTypes.DTO.Transaction]>
+    func transactions(input: HistoryModuleInput) -> AsyncObservable<[HistoryTypes.DTO.Transaction]>
 }
 
 final class HistoryInteractorMock: HistoryInteractorProtocol {
@@ -29,7 +29,7 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
 //    .massSend, // multiple addresses
 //    .massReceived
     
-    func all(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
+    func transactions(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
         let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(), sortLevel: 0)
         let asset1 = HistoryTypes.DTO.Transaction(id: "1", name: "Waves", balance: Money(100, 1), kind: .viewSend, tag: "Waves", date: NSDate(), sortLevel: 0)
         let asset2 = HistoryTypes.DTO.Transaction(id: "2", name: "BTC", balance: Money(100, 1), kind: .viewLeasing, tag: "BTC TAG", date: NSDate(), sortLevel: 0)
