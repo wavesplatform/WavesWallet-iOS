@@ -67,7 +67,7 @@ extension WalletSort.DTO {
         let id: String
         let name: String
         let isLock: Bool
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
         var isFavorite: Bool
         let isGateway: Bool
         var isHidden: Bool

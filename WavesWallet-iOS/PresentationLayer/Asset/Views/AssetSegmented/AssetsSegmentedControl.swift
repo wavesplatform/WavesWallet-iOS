@@ -74,12 +74,6 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         tickerView.isHidden = true
         detailLabel.isHidden = true
 
-        assets = [Asset(name: "Waves", kind: .wavesToken),
-                  Asset(name: "BTC", kind: .gateway),
-                  Asset(name: "ALLADIN", kind: .spam),
-                  Asset(name: "USD", kind: .fiat)]
-        self.update(with: assets)
-
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
@@ -137,6 +131,8 @@ fileprivate extension AssetsSegmentedControl {
 
         tickerView.isHidden = asset.kind != .spam
         detailLabel.isHidden = asset.kind == .spam
+
+        titleLabel.text = asset.name
         switch asset.kind {
         case .fiat:
             detailLabel.text = Localizable.General.Ticker.Title.fiatmoney

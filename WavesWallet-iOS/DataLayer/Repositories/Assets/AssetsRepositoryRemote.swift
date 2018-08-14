@@ -49,7 +49,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamAssets.contains($0.id),
-                                                          isMyAsset:  $0.sender == accountAddress) }
+                                                          isMyWavesToken: $0.sender == accountAddress) }
             }
     }
 
@@ -77,7 +77,7 @@ fileprivate extension Environment {
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyAsset: Bool) {
+    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.precision = asset.precision
@@ -88,7 +88,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.quantity = asset.quantity
         self.isReissuable = asset.reissuable
         self.isSpam = isSpam
-        self.isMyAsset = isMyAsset
+        self.isMyWavesToken = isMyWavesToken
         self.modified = Date()
         var isGeneral = false
         var isWaves = false

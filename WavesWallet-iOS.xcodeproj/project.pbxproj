@@ -23,10 +23,10 @@
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
 		0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */; };
 		0A26AA17211897DD00A00578 /* Asset.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A26AA16211897DD00A00578 /* Asset.storyboard */; };
-		0A26AA192118A7EE00A00578 /* AssetViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */; };
-		0A26AA1B2118A7F600A00578 /* AssetViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */; };
-		0A26AA1D2118A80200A00578 /* AssetViewInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */; };
-		0A26AA1F2118A80B00A00578 /* AssetViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */; };
+		0A26AA192118A7EE00A00578 /* AssetPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA182118A7EE00A00578 /* AssetPresenterProtocol.swift */; };
+		0A26AA1B2118A7F600A00578 /* AssetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1A2118A7F600A00578 /* AssetPresenter.swift */; };
+		0A26AA1D2118A80200A00578 /* AssetInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1C2118A80200A00578 /* AssetInteractorProtocol.swift */; };
+		0A26AA1F2118A80B00A00578 /* AssetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA1E2118A80B00A00578 /* AssetInteractor.swift */; };
 		0A26AA212118A81E00A00578 /* AssetModuleBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */; };
 		0A26AA232119DA0B00A00578 /* ControlEvent+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA222119DA0B00A00578 /* ControlEvent+ScrollView.swift */; };
 		0A26AA252119F62400A00578 /* AssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26AA242119F62400A00578 /* AssetsSegmentedControl.swift */; };
@@ -109,6 +109,7 @@
 		0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */; };
 		0A97976A2108CCFC00407F67 /* ViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797692108CCFC00407F67 /* ViewCalculate.swift */; };
 		0A97976C2109F03000407F67 /* Mutating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97976B2109F03000407F67 /* Mutating.swift */; };
+		0ABB89152122F7440076D185 /* AssetTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB89142122F7440076D185 /* AssetTypes.swift */; };
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
 		0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57E20F64738007EE076 /* Array+Hashable.swift */; };
 		0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B58020F64760007EE076 /* Optional+Hashable.swift */; };
@@ -386,10 +387,10 @@
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorFooter.xib; sourceTree = "<group>"; };
 		0A26AA16211897DD00A00578 /* Asset.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Asset.storyboard; sourceTree = "<group>"; };
-		0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewPresenterProtocol.swift; sourceTree = "<group>"; };
-		0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewPresenter.swift; sourceTree = "<group>"; };
-		0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractorProtocol.swift; sourceTree = "<group>"; };
-		0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewInteractor.swift; sourceTree = "<group>"; };
+		0A26AA182118A7EE00A00578 /* AssetPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPresenterProtocol.swift; sourceTree = "<group>"; };
+		0A26AA1A2118A7F600A00578 /* AssetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPresenter.swift; sourceTree = "<group>"; };
+		0A26AA1C2118A80200A00578 /* AssetInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetInteractorProtocol.swift; sourceTree = "<group>"; };
+		0A26AA1E2118A80B00A00578 /* AssetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetInteractor.swift; sourceTree = "<group>"; };
 		0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetModuleBuild.swift; sourceTree = "<group>"; };
 		0A26AA222119DA0B00A00578 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		0A26AA242119F62400A00578 /* AssetsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSegmentedControl.swift; sourceTree = "<group>"; };
@@ -474,6 +475,7 @@
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
 		0A9797692108CCFC00407F67 /* ViewCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalculate.swift; sourceTree = "<group>"; };
 		0A97976B2109F03000407F67 /* Mutating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutating.swift; sourceTree = "<group>"; };
+		0ABB89142122F7440076D185 /* AssetTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTypes.swift; sourceTree = "<group>"; };
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
 		0AD2B57E20F64738007EE076 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 		0AD2B58020F64760007EE076 /* Optional+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Hashable.swift"; sourceTree = "<group>"; };
@@ -816,11 +818,12 @@
 				E999502B2091FDF300A11E37 /* Views */,
 				E90C6E6720981F0300AA311B /* AssetViewController.swift */,
 				0A26AA16211897DD00A00578 /* Asset.storyboard */,
-				0A26AA182118A7EE00A00578 /* AssetViewPresenterProtocol.swift */,
-				0A26AA1A2118A7F600A00578 /* AssetViewPresenter.swift */,
-				0A26AA1C2118A80200A00578 /* AssetViewInteractorProtocol.swift */,
-				0A26AA1E2118A80B00A00578 /* AssetViewInteractor.swift */,
+				0A26AA182118A7EE00A00578 /* AssetPresenterProtocol.swift */,
+				0A26AA1A2118A7F600A00578 /* AssetPresenter.swift */,
+				0A26AA1C2118A80200A00578 /* AssetInteractorProtocol.swift */,
+				0A26AA1E2118A80B00A00578 /* AssetInteractor.swift */,
 				0A26AA202118A81E00A00578 /* AssetModuleBuild.swift */,
+				0ABB89142122F7440076D185 /* AssetTypes.swift */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -2065,7 +2068,7 @@
 				0AFBCA8D211326AB00285BCB /* ModuleBuilder.swift in Sources */,
 				0AE491EA2107A3FB009223DB /* WalletSortTypes.swift in Sources */,
 				0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */,
-				0A26AA1D2118A80200A00578 /* AssetViewInteractorProtocol.swift in Sources */,
+				0A26AA1D2118A80200A00578 /* AssetInteractorProtocol.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeasingTransaction.swift in Sources */,
 				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
@@ -2090,7 +2093,7 @@
 				E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				F7F97E901EAA0CF800BE2F6F /* DateExtension.swift in Sources */,
-				0A26AA1B2118A7F600A00578 /* AssetViewPresenter.swift in Sources */,
+				0A26AA1B2118A7F600A00578 /* AssetPresenter.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				0A26AA232119DA0B00A00578 /* ControlEvent+ScrollView.swift in Sources */,
 				0A485E7E20FDFDF300079B49 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
@@ -2284,6 +2287,7 @@
 				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColor+Hex.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
+				0ABB89152122F7440076D185 /* AssetTypes.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
 				0AEB359A211652CB00EDD63C /* SweetNetworkLoggerPlugin.swift in Sources */,
 				E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */,
@@ -2318,7 +2322,7 @@
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
-				0A26AA192118A7EE00A00578 /* AssetViewPresenterProtocol.swift in Sources */,
+				0A26AA192118A7EE00A00578 /* AssetPresenterProtocol.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
@@ -2339,7 +2343,7 @@
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */,
-				0A26AA1F2118A80B00A00578 /* AssetViewInteractor.swift in Sources */,
+				0A26AA1F2118A80B00A00578 /* AssetInteractor.swift in Sources */,
 				0AFEFB5221124F9C00B50F85 /* Locale+Test.swift in Sources */,
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,

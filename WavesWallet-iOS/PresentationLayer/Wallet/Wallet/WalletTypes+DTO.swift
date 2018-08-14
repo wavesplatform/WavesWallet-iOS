@@ -21,7 +21,7 @@ extension WalletTypes.DTO {
         let name: String
         let balance: Money
         let fiatBalance: Money
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
         let isFavorite: Bool
         let isFiat: Bool
         let isGateway: Bool
