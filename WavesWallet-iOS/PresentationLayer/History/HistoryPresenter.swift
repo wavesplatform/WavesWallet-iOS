@@ -64,6 +64,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             return state.setIsAppeared(true)
         
         case .refresh:
+            interactor.refreshTransactions()
+            
             return state.setIsRefreshing(true)
             
         case .changeFilter(let filter):

@@ -17,8 +17,10 @@ final class NewHistoryViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
+    private var refreshControl: UIRefreshControl!
     
     private let disposeBag: DisposeBag = DisposeBag()
+    private var isRefreshing: Bool = false
     
     var presenter: HistoryPresenterProtocol!
     
@@ -29,10 +31,11 @@ final class NewHistoryViewController: UIViewController {
         super.viewDidLoad()
         
         title = Localizable.History.Navigationbar.title
-
-        setupSystem()
+        
         setupSegmentedControl()
         createMenuButton()
+        setupRefreshControl()
+        setupSystem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +89,20 @@ private extension NewHistoryViewController {
     
     func events() -> [Signal<HistoryTypes.Event>] {
         
+        let scrollViewDidEndDecelerating = tableView
+            .rx
+            .didEndDecelerating
+            .asSignal(onErrorSignalWith: Signal.empty())
+        
+        let refreshControlValueChanged = refreshControl
+            .rx
+            .controlEvent(.valueChanged)
+            .asSignal(onErrorSignalWith: Signal.empty())
+        
+        let refreshEvent = Signal.zip(refreshControlValueChanged,
+                                      scrollViewDidEndDecelerating)
+            .map { _ in HistoryTypes.Event.refresh }
+        
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
                 
@@ -93,7 +110,7 @@ private extension NewHistoryViewController {
                 return .changeFilter(filter)
         }
         
-        return [changedDisplayEvent]
+        return [changedDisplayEvent, refreshEvent]
     }
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
@@ -103,6 +120,12 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
+                // в комментах настоящий код, когда будет лоудинг из инета
+//                if (!state.isRefreshing && strongSelf.isRefreshing) {
+                    strongSelf.refreshControl.endRefreshing()
+//                }
+                
+                strongSelf.isRefreshing = state.isRefreshing
             
             if (!strongSelf.filters.elementsEqual(state.filters)) {
                 strongSelf.filters = state.filters
@@ -144,6 +167,17 @@ extension NewHistoryViewController {
         // тута меняем segmented
         segmentedControl.segmentedControl.selectedIndex = filters.index(of: filter) ?? 0
     }
+    
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+    }
+
     
 }
 
@@ -234,7 +268,6 @@ extension NewHistoryViewController: UITableViewDataSource {
         
         guard let firstItem = model.items.first else { return view }
         
-        
         switch firstItem {
         case .transaction(let transaction):
             if let header = model.header {
@@ -244,6 +277,8 @@ extension NewHistoryViewController: UITableViewDataSource {
                 let d = date.toFormat("dd MMM yyyy", locale: Locales.current)
                 view.update(with: d)
             }
+            
+            view.iconArrow.isHidden = true
         default:
             break
         }
