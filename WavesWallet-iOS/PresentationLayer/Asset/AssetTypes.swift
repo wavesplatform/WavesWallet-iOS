@@ -16,49 +16,92 @@ extension AssetTypes {
 }
 
 extension AssetTypes {
-    enum Display {
-        case assets
-        case leasing
-    }
 
     struct State: Mutating {
-        //TODO: Rename
-        enum AnimateType  {
-            case refresh
-            case collapsed(Int)
-            case expanded(Int)
-        }
 
-//        var displayState: DisplayState
-//        var lastEvent: Event?
+        var assets: [Asset]
+        var displayState: DisplayState
     }
 
-    struct DisplayState {
-
+    enum Event {
+        case none
     }
 
     enum DisplayEvent {
         case readyView
+        case changedAsset(id: String)
+        case refresh
+        case tapFavorite(on: Bool)
+        case tapSend
+        case tapReceive
+        case tapExchange
+        case tapTransaction
+        case tapHistory
     }
 
-    enum Event {
-        case updated(DisplayState)
+    struct DisplayState: StateDisplayCollection, Mutating {
+    
+        enum AnimateType {
+            case none
+            case refresh
+        }
+
+        var sections: [AssetTypes.ViewModel.Section]
+//        var isRefreshing: Bool
+//        var isFavorite: Bool
+    }
+
+
+}
+
+extension AssetTypes.ViewModel {
+
+    struct Section: SectionCollection {
+        var rows: [AssetTypes.ViewModel.Row]
+    }
+
+    enum Row {
+        case balanceSkeleton
+        case balance(AssetTypes.DTO.Asset.Balance)
+        case viewHistory
+        case lastTransactions([AssetTypes.DTO.Asset.Transaction])
+        case transactionSkeleton
+        case assetInfo(AssetTypes.DTO.Asset.Info)
     }
 }
 
 extension AssetTypes.DTO {
 
-    struct Asset: Hashable {
-        let id: String
-        let name: String
-        let isMyWavesToken: Bool
-        let isWaves: Bool
-        let isFavorite: Bool
-        let isFiat: Bool
-        let isSpam: Bool
-        let isGateway: Bool
-        let sortLevel: Float
+    struct Asset {
+
+        struct Info {
+            let id: String
+            let name: String
+            let isMyWavesToken: Bool
+            let isWaves: Bool
+            let isFavorite: Bool
+            let isFiat: Bool
+            let isSpam: Bool
+            let isGateway: Bool
+            let sortLevel: Float
+        }
+
+        struct Balance {
+            let totalMoney: Money
+            let avaliableMoney: Money
+            let leasedMoney: Money
+            let leasedInMoney: Money
+        }
+
+        struct Transaction {
+
+        }
+
+        let info: Info
+        let balance: Balance
+        let transactions: [Transaction]
     }
+
 //
 //    struct Leasing: Hashable {
 //
@@ -78,4 +121,3 @@ extension AssetTypes.DTO {
 //        let transactions: [Transaction]
 //    }
 }
-
