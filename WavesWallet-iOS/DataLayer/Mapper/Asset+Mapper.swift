@@ -39,7 +39,7 @@ extension Asset {
         self.isSpam = asset.isSpam
         self.isFiat = asset.isFiat
         self.isGeneral = asset.isGeneral
-        self.isMyAsset = asset.isMyAsset
+        self.isMyWavesToken = asset.isMyWavesToken
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
         self.modified = asset.modified
@@ -63,7 +63,7 @@ extension DomainLayer.DTO.Asset {
         self.isSpam = asset.isSpam
         self.isFiat = asset.isFiat
         self.isGeneral = asset.isGeneral
-        self.isMyAsset = asset.isMyAsset
+        self.isMyWavesToken = asset.isMyWavesToken
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
     }

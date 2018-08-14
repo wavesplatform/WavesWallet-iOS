@@ -27,6 +27,12 @@ class DateAxisValueFormatter: NSObject, IAxisValueFormatter {
 
 class AssetChartViewController: UIViewController, ChartViewDelegate, UIGestureRecognizerDelegate {
 
+    enum ChartPeriod: Int {
+        case day
+        case week
+        case month
+    }
+
     @IBOutlet weak var viewDotter: UIView!
     @IBOutlet weak var chartView: LineChartView!
     
@@ -36,7 +42,7 @@ class AssetChartViewController: UIViewController, ChartViewDelegate, UIGestureRe
     @IBOutlet weak var viewChartView: UIView!
     @IBOutlet weak var leadingChartView: NSLayoutConstraint!
     
-    var selectedChartPediod = AssetViewController.ChartPeriod.day
+    var selectedChartPediod = AssetChartViewController.ChartPeriod.day
     
     @IBOutlet weak var labelPeriod: UILabel!
     

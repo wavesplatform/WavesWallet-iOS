@@ -188,7 +188,7 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      name: name,
                                      balance: balanceToken,
                                      fiatBalance: fiatBalance,
-                                     isMyAsset: asset.isMyAsset,
+                                     isMyWavesToken: asset.isMyWavesToken,
                                      isFavorite: settings.isFavorite,
                                      isFiat: asset.isFiat,
                                      isGateway: asset.isGateway,

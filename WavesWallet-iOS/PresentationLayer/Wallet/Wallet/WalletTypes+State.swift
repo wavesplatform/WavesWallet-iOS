@@ -56,9 +56,9 @@ extension WalletTypes.State {
         return updateCurrentDisplay(state: displayState)
     }
 
-    func setIsAappeared(_ isAappeared: Bool) -> WalletTypes.State {
+    func setIsAppeared(_ isAppeared: Bool) -> WalletTypes.State {
         var newState = self
-        newState.isAappeared = isAappeared
+        newState.isAppeared = isAppeared
         return newState
     }
 
@@ -94,6 +94,6 @@ extension WalletTypes.State {
         return WalletTypes.State(display: .assets,
                                  assets: .initialState(display: .assets),
                                  leasing: .initialState(display: .leasing),
-                                 isAappeared: false)
+                                 isAppeared: false)
     }
 }

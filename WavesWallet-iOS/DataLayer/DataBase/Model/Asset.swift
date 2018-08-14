@@ -24,7 +24,7 @@ final class Asset: Object {
     @objc dynamic var isSpam: Bool = false
     @objc dynamic var isFiat: Bool = false
     @objc dynamic var isGeneral: Bool = false
-    @objc dynamic var isMyAsset: Bool = false
+    @objc dynamic var isMyWavesToken: Bool = false
     @objc dynamic var isGateway: Bool = false
     @objc dynamic var isWaves: Bool = false
 

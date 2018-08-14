@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxDataSources
 import UIKit
 
 enum WalletTypes {}
@@ -41,7 +40,7 @@ extension WalletTypes {
         var display: Display
         var assets: DisplayState
         var leasing: DisplayState
-        var isAappeared: Bool
+        var isAppeared: Bool
     }
 
     enum Event {

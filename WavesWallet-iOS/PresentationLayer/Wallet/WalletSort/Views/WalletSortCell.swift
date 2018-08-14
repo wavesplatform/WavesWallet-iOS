@@ -59,7 +59,7 @@ final class WalletSortCell: UITableViewCell, Reusable {
 extension WalletSortCell: ViewConfiguration {
     struct Model {
         let name: String
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
         let isVisibility: Bool
         let isHidden: Bool
         let isGateway: Bool

@@ -175,7 +175,7 @@ extension WalletSortViewController: UITableViewDelegate {
         case .asset(let asset):
             let cell: WalletSortCell = tableView.dequeueCell()
             let model: WalletSortCell.Model = .init(name: asset.name,
-                                                    isMyAsset: asset.isMyAsset,
+                                                    isMyWavesToken: asset.isMyWavesToken,
                                                     isVisibility: status == .visibility,
                                                     isHidden: asset.isHidden,
                                                     isGateway: asset.isGateway)
@@ -199,7 +199,7 @@ extension WalletSortViewController: UITableViewDelegate {
         case .favorityAsset(let asset):
             let cell: WalletSortFavCell = tableView.dequeueCell()
             let model: WalletSortFavCell.Model = .init(name: asset.name,
-                                                       isMyAsset: asset.isMyAsset,
+                                                       isMyWavesToken: asset.isMyWavesToken,
                                                        isLock: asset.isLock,
                                                        isGateway: asset.isGateway)
             cell.update(with: model)

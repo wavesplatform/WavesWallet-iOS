@@ -23,7 +23,7 @@ extension DomainLayer.DTO {
         let isSpam: Bool
         let isFiat: Bool
         let isGeneral: Bool
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
         let isGateway: Bool
         let isWaves: Bool
         let modified: Date

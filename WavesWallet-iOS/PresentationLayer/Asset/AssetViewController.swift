@@ -8,126 +8,112 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
+import RxFeedback
 
-private final class FrameListenerNavigationTitle: UIView {
-
-    private enum Constants {
-        static let frame = "frame"
-    }
-
-    var changedFrame: ((FrameListenerNavigationTitle, CGRect) -> Void)?
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        addObserver(self, forKeyPath: Constants.frame, options: [.new, .initial, .old], context: nil)
-        autoresizingMask = [.flexibleWidth]
-        backgroundColor = .clear
-        isUserInteractionEnabled = false
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override var intrinsicContentSize: CGSize {
-        return UILayoutFittingExpandedSize
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        guard keyPath == Constants.frame else { return }
-        changedFrame?(self, frame)
-    }
-
-    deinit {
-        removeObserver(self, forKeyPath: Constants.frame)
-    }
-}
-
-// , UITableViewDelegate, UITableViewDataSource
 final class AssetViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     @IBOutlet var segmentedControl: WrapperAssetsSegmentedControl!
 
-
-    enum Section: Int {
-        case balance = 0
-        case lastTransactions
-        case chart
-        case info
-    }
-
-    enum ChartPeriod: Int {
-        case day
-        case week
-        case month
-    }
-
-    var selectedChartPediod = ChartPeriod.day
-    let isAvailableChart = true
-    let lastTransctions: [String] = ["WAVES", "USD", "Bitcoin", "ETH"]
-
-    var inFavourite = false
-
-    let headerItems = ["Waves", "ETH", "Bitcoin", "Eth Classic"]
-
-    fileprivate enum StateTitleView {
-        case assets
-        case title
-    }
-
     private var refreshControl: UIRefreshControl!
-
-    private let frameListenerNavigationTitle: FrameListenerNavigationTitle = FrameListenerNavigationTitle()
-    private var stateTitleView: StateTitleView = .assets
     private var isHiddenSegmentedControl = false
-
     private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image, style: .plain, target: nil, action: nil)
     private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image, style: .plain, target: nil, action: nil)
+
+    private var presenter: AsssetPresenterProtocol! = AsssetPresenter()
+
+    private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
+
+        let assets: [AssetsSegmentedControl.Asset] = [.init(name: "Waves", kind: .wavesToken),
+                                                      .init(name: "BTC", kind: .gateway),
+                                                      .init(name: "ALLADIN", kind: .spam),
+                                                      .init(name: "USD", kind: .fiat)]
+        segmentedControl.update(with: assets)
+
         view.addSubview(segmentedControl)
-        
         navigationItem.rightBarButtonItem = favoriteOffBarButton
+        favoriteOffBarButton.action = #selector(sendTapped)
+        favoriteOffBarButton.target = self
+
+        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.DisplayEvent>) in
+
+            let event = owner.replaySubject.map { _ in AssetTypes.DisplayEvent.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+
+
+            return Bindings(subscriptions: [], events: [event])
+        }
+        presenter.system(feedbacks: [bin])
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - 152) * 0.5, y: 0, width: 152, height: 44)
+        layoutPassthroughFrameForNavigationBar()
+        updateContentInsetForTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.navigationBar.shouldPassthroughTouch = true
-        navigationController?.navigationBar.isEnabledPassthroughSubviews = true
-        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar, 0, 0, 0)
-
-        layoutSegmentedControlSubviews(scrollView: tableView, animated: animated)
+        setupNavigationBar()
+        layoutSegmentedControl(scrollView: tableView, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.shouldPassthroughTouch = false
-        navigationController?.navigationBar.isEnabledPassthroughSubviews = false
+        resetSetupNavigationBar()
+    }
+}
+
+// MARL: RxFeedback
+
+extension AssetViewController {
+
+    static var number = 0
+    @objc func sendTapped() {
+//        presenter = nil
+
+        if AssetViewController.number >= 2 {
+             presenter = nil
+        } else {
+            AssetViewController.number += 1
+            replaySubject.onNext(true)
+        }
     }
 
-    func setupRefreshControl() {
+}
+
+// MARL: Setup Methods
+
+extension AssetViewController {
+
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         if #available(iOS 10.0, *) {
-            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//            refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
+            //            refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
             tableView.refreshControl = refreshControl
         } else {
             tableView.addSubview(refreshControl)
         }
     }
 
-    @objc func sendTapped() {
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.shouldPassthroughTouch = true
+        navigationController?.navigationBar.isEnabledPassthroughSubviews = true
+    }
 
+    private func resetSetupNavigationBar() {
+        navigationController?.navigationBar.shouldPassthroughTouch = false
+        navigationController?.navigationBar.isEnabledPassthroughSubviews = false
+    }
+
+    private func updateContentInsetForTableView() {
+        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar, 0, 0, 0)
     }
 }
 
@@ -135,11 +121,15 @@ final class AssetViewController: UIViewController {
 
 private extension AssetViewController {
 
+    private func layoutPassthroughFrameForNavigationBar() {
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - 152) * 0.5, y: 0, width: 152, height: 44)
+    }
+
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
         return -(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
     }
 
-    func layoutSegmentedControlSubviews(scrollView: UIScrollView, animated: Bool = true) {
+    func layoutSegmentedControl(scrollView: UIScrollView, animated: Bool = true) {
 
         var yContent = scrollView.contentOffset.y
         if #available(iOS 11.0, *) {
@@ -150,13 +140,13 @@ private extension AssetViewController {
         var newPosY: CGFloat = navigationBarY - yContent
         newPosY = min(navigationBarY, newPosY)
 
-        let animations =  {
+        let animations = {
             let isHiddenSegmentedControl = yContent < self.heightDifferenceSegmentedControlBetweenNavigationBar
             if isHiddenSegmentedControl == false {
                 self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
                 self.navigationController?.navigationBar.shadowImage = nil
-                self.title = "test"
-            } else  {
+                self.title = "Waves"
+            } else {
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
                 self.navigationController?.navigationBar.shadowImage = UIImage()
                 self.title = nil
@@ -176,7 +166,7 @@ private extension AssetViewController {
 extension AssetViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        layoutSegmentedControlSubviews(scrollView: scrollView)
+        layoutSegmentedControl(scrollView: scrollView)
     }
 }
 
@@ -260,7 +250,6 @@ extension AssetViewController: UIScrollViewDelegate {
 //        return "Month"
 //    }
 //
-
 
 // MARK: - UITableView
 

@@ -41,7 +41,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.isAappeared && state.display == .assets {
+            if state.isAppeared && state.display == .assets {
                 return true
             } else {
                 return nil
@@ -61,7 +61,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.isAappeared && state.display == .leasing {
+            if state.isAppeared && state.display == .leasing {
                 return true
             } else {
                 return nil
@@ -81,7 +81,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
         case .readyView:
-            return state.setIsAappeared(true)
+            return state.setIsAppeared(true)
 
         case .tapSortButton:
             moduleOutput?.showWalletSort()

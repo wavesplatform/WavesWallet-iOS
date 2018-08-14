@@ -24,5 +24,5 @@ extension DomainLayer.DTO {
         var settings: Settings?
         var asset: DomainLayer.DTO.Asset?
         var modified: Date
-    }
+    } 
 }
