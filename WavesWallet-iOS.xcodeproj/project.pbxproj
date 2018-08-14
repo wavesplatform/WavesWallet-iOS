@@ -74,6 +74,7 @@
 		0A5B6E8C211CF728005A7F09 /* NSObject+AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8B211CF728005A7F09 /* NSObject+AssociatedObject.swift */; };
 		0A5B6E8E211CF9B7005A7F09 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */; };
 		0A5B6E90211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */; };
+		0A5B6E9221237BFA005A7F09 /* SectionDisplayCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -440,6 +441,7 @@
 		0A5B6E8B211CF728005A7F09 /* NSObject+AssociatedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+AssociatedObject.swift"; sourceTree = "<group>"; };
 		0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperAssetsSegmentedControl.swift; sourceTree = "<group>"; };
+		0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDisplayCollection.swift; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -1257,6 +1259,7 @@
 				0A97976B2109F03000407F67 /* Mutating.swift */,
 				0AF2F2BE20F757BA00AA39FB /* ViewConfiguration.swift */,
 				0A9797692108CCFC00407F67 /* ViewCalculate.swift */,
+				0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2323,6 +2326,7 @@
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				0A26AA192118A7EE00A00578 /* AssetPresenterProtocol.swift in Sources */,
+				0A5B6E9221237BFA005A7F09 /* SectionDisplayCollection.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,

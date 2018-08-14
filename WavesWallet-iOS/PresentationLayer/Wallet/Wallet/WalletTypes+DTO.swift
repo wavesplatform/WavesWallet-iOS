@@ -10,8 +10,8 @@ import Foundation
 
 extension WalletTypes.DTO {
 
-    struct Asset: Hashable {
-        enum Kind: Hashable {
+    struct Asset {
+        enum Kind {
             case general
             case hidden
             case spam
@@ -30,14 +30,14 @@ extension WalletTypes.DTO {
         let sortLevel: Float
     }
 
-    struct Leasing: Hashable {
+    struct Leasing {
 
-        struct Transaction: Hashable {
+        struct Transaction {
             let id: String
             let balance: Money
         }
 
-        struct Balance: Hashable {
+        struct Balance {
             let totalMoney: Money
             let avaliableMoney: Money
             let leasedMoney: Money

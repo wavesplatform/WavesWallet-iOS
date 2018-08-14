@@ -63,7 +63,7 @@ extension WalletSort.ViewModel {
 }
 
 extension WalletSort.DTO {
-    struct Asset: Hashable, Mutating {
+    struct Asset: Mutating {
         let id: String
         let name: String
         let isLock: Bool
