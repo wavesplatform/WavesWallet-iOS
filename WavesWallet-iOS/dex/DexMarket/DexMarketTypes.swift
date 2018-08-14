@@ -46,11 +46,17 @@ extension DexMarket.ViewModel {
 
 extension DexMarket.DTO {
     
-    struct Pair: Mutating {
+    struct Asset: Hashable {
         let id: String
-        let shortName: String
         let name: String
+        let shortName: String
+    }
+    
+    struct Pair: Mutating {
+        let amountAsset: Asset
+        let priceAsset: Asset
         var isChecked: Bool
+        let isHiddenPair: Bool
     }
 }
 
