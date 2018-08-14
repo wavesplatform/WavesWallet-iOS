@@ -81,18 +81,17 @@ final class AssetViewController: UIViewController {
 
     private let frameListenerNavigationTitle: FrameListenerNavigationTitle = FrameListenerNavigationTitle()
     private var stateTitleView: StateTitleView = .assets
-    private var originTitleFrame: CGRect?
+    private var isHiddenSegmentedControl = false
+
+    private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image, style: .plain, target: nil, action: nil)
+    private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image, style: .plain, target: nil, action: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        hideTopBarLine()
         setupRefreshControl()
-
-//        title = "test"
         view.addSubview(segmentedControl)
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Aladin", style: .done, target: self, action: #selector(sendTapped))
+        
+        navigationItem.rightBarButtonItem = favoriteOffBarButton
     }
 
     override func viewDidLayoutSubviews() {
@@ -103,18 +102,18 @@ final class AssetViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         navigationController?.navigationBar.shouldPassthroughTouch = true
         navigationController?.navigationBar.isEnabledPassthroughSubviews = true
-
-        segmentedControl.frame.origin = CGPoint(x: 0, y: navigationController?.navigationBar.frame.origin.y ?? 0)
-
         tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar, 0, 0, 0)
-//        setupNavigationTitleView(state: self.stateTitleView)
 
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.isTranslucent = true
-//
-//        setupSmallNavigationBar()
+        layoutSegmentedControlSubviews(scrollView: tableView, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.shouldPassthroughTouch = false
+        navigationController?.navigationBar.isEnabledPassthroughSubviews = false
     }
 
     func setupRefreshControl() {
@@ -128,49 +127,56 @@ final class AssetViewController: UIViewController {
     }
 
     @objc func sendTapped() {
-        stateTitleView = stateTitleView == .assets ? .title : .assets
-//        setupNavigationTitleView(state: self.stateTitleView)
+
     }
+}
+
+// MARK: Private Methods
+
+private extension AssetViewController {
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
         return -(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
     }
 
-    func updateTitleView() {
-    }
+    func layoutSegmentedControlSubviews(scrollView: UIScrollView, animated: Bool = true) {
 
+        var yContent = scrollView.contentOffset.y
+        if #available(iOS 11.0, *) {
+            yContent += scrollView.adjustedContentInset.top
+        }
+
+        let navigationBarY = navigationController?.navigationBar.frame.origin.y ?? 0
+        var newPosY: CGFloat = navigationBarY - yContent
+        newPosY = min(navigationBarY, newPosY)
+
+        let animations =  {
+            let isHiddenSegmentedControl = yContent < self.heightDifferenceSegmentedControlBetweenNavigationBar
+            if isHiddenSegmentedControl == false {
+                self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+                self.navigationController?.navigationBar.shadowImage = nil
+                self.title = "test"
+            } else  {
+                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+                self.navigationController?.navigationBar.shadowImage = UIImage()
+                self.title = nil
+            }
+            self.isHiddenSegmentedControl = isHiddenSegmentedControl
+        }
+        if animated {
+            UIView.animate(withDuration: 0.34, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+
+        segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
+    }
 }
 
 extension AssetViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        var yContent = scrollView.contentOffset.y
-
-        if #available(iOS 11.0, *) {
-            yContent += scrollView.adjustedContentInset.top
-        }
-
-
-        let navigationBarY = navigationController?.navigationBar.frame.origin.y ?? 0
-        let navigationBarMaxY = navigationController?.navigationBar.frame.maxY ?? 0
-        var newPosY: CGFloat = navigationBarY - yContent
-        newPosY = min(navigationBarY, newPosY)
-
-        if yContent > navigationBarMaxY {
-            navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-            navigationController?.navigationBar.shadowImage = nil
-//            navigationController?.navigationBar.isTranslucent = false
-        } else {
-            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationController?.navigationBar.shadowImage = UIImage()
-//            navigationController?.navigationBar.isTranslucent = true
-        }
-        segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
-
-
-//        let-(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
-
+        layoutSegmentedControlSubviews(scrollView: scrollView)
     }
 }
 
@@ -254,47 +260,7 @@ extension AssetViewController: UIScrollViewDelegate {
 //        return "Month"
 //    }
 //
-//    func updateTableWithNewPage(_ newPage: Int) {
-//
-//        if newPage == currentPage {
-//            return
-//        }
-//
-//        let sections = [0, 1, 2, 3]
-//        if newPage > currentPage {
-//            tableView.reloadSections(sections, animationStyle: .left)
-//        }
-//        else {
-//            tableView.reloadSections(sections, animationStyle: .right)
-//        }
-//
-//        currentPage = newPage
-//
-//        labelTitle.text = headerItems[currentPage]
-//        labelToken.text = headerItems[currentPage] + " token"
-//
-//        if currentPage == 2 {
-//            viewSpam.isHidden = false
-//            labelToken.isHidden = true
-//        }
-//        else {
-//            viewSpam.isHidden = true
-//            labelToken.isHidden = false
-//        }
-//    }
-//
-// MARK: - UICollectionView
 
-//
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == collectionView {
-//            let newPage = Int(floor((scrollView.contentOffset.x - collectionPageSize.width / 2) / collectionPageSize.width) + 1)
-//            updateTableWithNewPage(newPage)
-//        }
-//        else {
-//            updateTopBarOffset()
-//        }
-//    }
 
 // MARK: - UITableView
 
@@ -302,44 +268,6 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
-
-    var maxScrollOffset: CGFloat {
-        return 64
-    }
-
-    func updateTopBarOffset() {
-//        let offset = abs(topViewOffset.constant)
-//
-//        if offset < maxScrollOffset / 2 && offset > 0 {
-//            self.topViewOffset.constant = 0
-//
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.collectionView.alpha = 1
-//                self.labelToken.alpha = 1
-//                self.view.layoutIfNeeded()
-//            }) { (complete) in
-//                self.viewSeparator.isHidden = true
-//            }
-//        }
-//        else if offset < maxScrollOffset && offset > 0 {
-//            self.topViewOffset.constant = -maxScrollOffset
-//
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.collectionView.alpha = 0
-//                self.labelToken.alpha = 0
-//                self.view.layoutIfNeeded()
-//            }) { (complete) in
-//                self.viewSeparator.isHidden = false
-//            }
-//        }
-    }
-
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//
-//        if scrollView == tableView {
-//           updateTopBarOffset()
-//        }
-//    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        if section == Section.lastTransactions.rawValue{
