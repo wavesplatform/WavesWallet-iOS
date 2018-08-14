@@ -72,6 +72,31 @@ internal enum Localizable {
       /// Sent
       internal static let sent = Localizable.tr("History", "segmentedControl.sent")
     }
+
+    internal enum Transactioncell {
+      /// Create Alias
+      internal static let alias = Localizable.tr("History", "transactionCell.alias")
+      /// Canceled Leasing
+      internal static let canceledLeasing = Localizable.tr("History", "transactionCell.canceledLeasing")
+      /// Exchange
+      internal static let exchange = Localizable.tr("History", "transactionCell.exchange")
+      /// Incoming Leasing
+      internal static let incomingLeasing = Localizable.tr("History", "transactionCell.incomingLeasing")
+      /// Received
+      internal static let received = Localizable.tr("History", "transactionCell.received")
+      /// Self-transfer
+      internal static let selfTransfer = Localizable.tr("History", "transactionCell.selfTransfer")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "transactionCell.sent")
+      /// Started Leasing
+      internal static let startedLeasing = Localizable.tr("History", "transactionCell.startedLeasing")
+      /// Token Burn
+      internal static let tokenBurn = Localizable.tr("History", "transactionCell.tokenBurn")
+      /// Token Generation
+      internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
+      /// Token Reissue
+      internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
+    }
   }
   internal enum Wallet {
 

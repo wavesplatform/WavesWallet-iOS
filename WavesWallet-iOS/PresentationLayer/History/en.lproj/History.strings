@@ -15,3 +15,15 @@
 "segmentedControl.issued" = "Issued";
 "segmentedControl.activeNow" = "Active Now";
 "segmentedControl.canceled" = "Canceled";
+
+"transactionCell.received" = "Received";
+"transactionCell.sent" = "Sent";
+"transactionCell.alias" = "Create Alias";
+"transactionCell.startedLeasing" = "Started Leasing";
+"transactionCell.incomingLeasing" = "Incoming Leasing";
+"transactionCell.canceledLeasing" = "Canceled Leasing";
+"transactionCell.selfTransfer" = "Self-transfer";
+"transactionCell.exchange" = "Exchange";
+"transactionCell.tokenGeneration" = "Token Generation";
+"transactionCell.tokenBurn" = "Token Burn";
+"transactionCell.tokenReissue" = "Token Reissue";
