@@ -25,9 +25,9 @@ final class DexMarketCell: UITableViewCell, Reusable {
 
 extension DexMarketCell: ViewConfiguration {
     
-    func update(with model: DexMarket.DTO.Pair) {
-        labelTitle.text = model.shortName
-        labelSubtitle.text = model.name
+    func update(with model: DexMarket.DTO.AssetPair) {
+        labelTitle.text = model.amountAsset.shortName + " / " + model.priceAsset.shortName
+        labelSubtitle.text = model.amountAsset.name + " / " + model.priceAsset.name
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
     }
     
