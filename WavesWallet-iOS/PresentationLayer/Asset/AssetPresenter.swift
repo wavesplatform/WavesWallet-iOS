@@ -11,6 +11,19 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
+func readState<State, Event, Owner: AnyObject>(_ owner: Owner, reading: @escaping (Owner, State) -> Void) -> (Driver<State>) -> Signal<Event> {
+
+    return bind(owner) { (owner, state) -> (Bindings<Event>) in
+
+        let read = state.drive { [weak owner] state in
+            guard let owner = owner else { return }
+            reading(owner, state)
+        }
+
+        return Bindings(subscriptions: [read], events: [Signal<Event>]())
+    }
+}
+
 final class AsssetPresenter: AsssetPresenterProtocol {
 
     private typealias FeedbackCore = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
@@ -20,53 +33,48 @@ final class AsssetPresenter: AsssetPresenterProtocol {
 
     func system(feedbacks: [Feedback]) {
 
+        var newFeedbacks = feedbacks
 
-        Driver.system(initialState: AssetTypes.State(),
-                      reduce: { [unowned self] state, event in self.reduceCore(state: state, event: event) },
-                      feedback: reactUI(feedbacks: feedbacks))
-            .debug(" Gopka ")
-            .drive()
+        let system = Driver.system(initialState: AsssetPresenter.initialState,
+                                   reduce: AsssetPresenter.reduce,
+                                   feedback: newFeedbacks)
+
+        system
+            .drive(onNext: { [weak self] state in
+                self?.handlerEventOutput(state: state)
+            })
             .disposed(by: disposeBag)
     }
 
-    private func reactUI(feedbacks: [AsssetPresenterProtocol.Feedback]) -> FeedbackCore {
-        return react(query: { _ in return true },
-                     effects: { [unowned self] _ -> Signal<AssetTypes.Event> in
+    func handlerEventOutput(state: AssetTypes.State) {
+        guard let event = state.event else { return }
 
-                        return Driver.system(initialState: AssetTypes.DisplayState(),
-                                               reduce: { [unowned self] state, event in self.reduceUI(state: state, event: event) },
-                                               feedback: feedbacks)
-                            .map({ [unowned self] state -> AssetTypes.Event in self.reduceEvent(state: state) })
-                            .debug("Removed")
-                            .asSignal(onErrorSignalWith: Signal<AssetTypes.Event>.empty())
-        })
-    }
-
-   private  func systemUI(feedbacks:  [AsssetPresenterProtocol.Feedback]) -> Driver<AssetTypes.DisplayState> {
-        return Driver.system(initialState: AssetTypes.DisplayState(sections: []),
-                             reduce: { [unowned self] state, event in self.reduceUI(state: state, event: event) },
-                             feedback: feedbacks)
-    }
-
-    deinit {
-        debug("Ala din")
+        switch event {
+        default:
+            break
+        }
     }
 }
 
-extension AsssetPresenter {
+// MARK: Core State
 
-    func reduceEvent(state: AssetTypes.DisplayState) -> AssetTypes.Event {
+private extension AsssetPresenter {
 
-        return AssetTypes.Event.none
+    class func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
+        
+        return state
+    }
+}
+
+// MARK: UI State
+
+private extension AsssetPresenter {
+
+    static var initialState: AssetTypes.State {
+        return AssetTypes.State(event: nil, assets: [], displayState: initialDisplayState)
     }
 
-    func reduceCore(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
-
-        return AssetTypes.State(assets: [], displayState: .init(sections: []))
-    }
-
-    func reduceUI(state: AssetTypes.DisplayState, event: AssetTypes.DisplayEvent) -> AssetTypes.DisplayState {
-
-        return AssetTypes.DisplayState(sections: [])
+    static var initialDisplayState: AssetTypes.DisplayState {
+        return AssetTypes.DisplayState(sections: [], isAppeared: false, isRefreshing: false, isFavorite: false)
     }
 }

@@ -19,18 +19,20 @@ extension AssetTypes {
 
     struct State: Mutating {
 
+        enum EventOutput {
+
+        }
+
+        var event: EventOutput?
         var assets: [Asset]
         var displayState: DisplayState
     }
 
     enum Event {
-        case none
-    }
-
-    enum DisplayEvent {
         case readyView
         case changedAsset(id: String)
-        case refresh
+        case setAssets([AssetTypes.DTO.Asset])
+        case refreshing
         case tapFavorite(on: Bool)
         case tapSend
         case tapReceive
@@ -40,18 +42,20 @@ extension AssetTypes {
     }
 
     struct DisplayState: StateDisplayCollection, Mutating {
-    
+
         enum AnimateType {
             case none
             case refresh
         }
+        
 
-        var sections: [AssetTypes.ViewModel.Section]
-//        var isRefreshing: Bool
-//        var isFavorite: Bool
+        var currentAsset: AssetTypes.DTO.Asset
+        var assets: AssetTypes.DTO.Asset = [AssetTypes.DTO.Asset]
+        var sections: [AssetTypes.ViewModel.Section] = []
+        var isAppeared: Bool
+        var isRefreshing: Bool
+        var isFavorite: Bool
     }
-
-
 }
 
 extension AssetTypes.ViewModel {
@@ -101,23 +105,4 @@ extension AssetTypes.DTO {
         let balance: Balance
         let transactions: [Transaction]
     }
-
-//
-//    struct Leasing: Hashable {
-//
-//        struct Transaction: Hashable {
-//            let id: String
-//            let balance: Money
-//        }
-//
-//        struct Balance: Hashable {
-//            let totalMoney: Money
-//            let avaliableMoney: Money
-//            let leasedMoney: Money
-//            let leasedInMoney: Money
-//        }
-//
-//        let balance: Balance
-//        let transactions: [Transaction]
-//    }
 }

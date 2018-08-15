@@ -70,7 +70,7 @@ extension WalletSortCell: ViewConfiguration {
         let cryptoName = model.name
         labelTitle.text = cryptoName
         switchControl.isHidden = model.isVisibility
-        switchControl.isOn = model.isHidden
+        switchControl.isOn = !model.isHidden
         arrowGreen.isHidden = !model.isGateway
 
         taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,

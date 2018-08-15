@@ -12,7 +12,7 @@ import RxDataSources
 // MARK: ViewModel for UITableView
 
 extension WalletTypes.ViewModel {
-    enum Row {
+    enum Row: Hashable {
         case hidden
         case asset(WalletTypes.DTO.Asset)
         case assetSkeleton
@@ -24,7 +24,7 @@ extension WalletTypes.ViewModel {
         case quickNote
     }
 
-    struct Section {
+    struct Section: Hashable {
         var header: String?
         var items: [Row]
         var isExpanded: Bool

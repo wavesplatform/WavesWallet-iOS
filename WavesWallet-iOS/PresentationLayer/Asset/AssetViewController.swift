@@ -41,9 +41,9 @@ final class AssetViewController: UIViewController {
         favoriteOffBarButton.action = #selector(sendTapped)
         favoriteOffBarButton.target = self
 
-        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.DisplayEvent>) in
+        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
 
-            let event = owner.replaySubject.map { _ in AssetTypes.DisplayEvent.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            let event = owner.replaySubject.map { _ in AssetTypes.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
 
 
             return Bindings(subscriptions: [], events: [event])

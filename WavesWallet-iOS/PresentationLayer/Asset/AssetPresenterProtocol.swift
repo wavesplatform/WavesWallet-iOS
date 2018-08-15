@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 protocol AsssetPresenterProtocol {
-    typealias Feedback = (Driver<AssetTypes.DisplayState>) -> Signal<AssetTypes.DisplayEvent>
+    typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
     var interactor: AssetsInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
 }
