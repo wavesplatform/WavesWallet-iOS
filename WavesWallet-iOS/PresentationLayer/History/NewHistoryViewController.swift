@@ -122,10 +122,10 @@ private extension NewHistoryViewController {
             guard let strongSelf = self else { return }
                 
                 // в комментах настоящий код, когда будет лоудинг из инета
-//                if (!state.isRefreshing && strongSelf.isRefreshing) {
+                if (!state.isRefreshing && strongSelf.isRefreshing) {
                     strongSelf.refreshControl.endRefreshing()
-//                }
-                
+                }
+
                 strongSelf.isRefreshing = state.isRefreshing
             
             if (!strongSelf.filters.elementsEqual(state.filters)) {

@@ -20,8 +20,10 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
     private let refreshTransactionsSubject: PublishSubject<[HistoryTypes.DTO.Transaction]> = PublishSubject<[HistoryTypes.DTO.Transaction]>()
     
     private let disposeBag: DisposeBag = DisposeBag()
+    private let replay: PublishSubject<Bool> = PublishSubject<Bool>()
     
     func transactions(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
+
         let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(), sortLevel: 0)
         let asset1 = HistoryTypes.DTO.Transaction(id: "1", name: "Waves", balance: Money(100, 1), kind: .viewSend, tag: "Waves", date: NSDate(), sortLevel: 0)
         let asset2 = HistoryTypes.DTO.Transaction(id: "2", name: "BTC", balance: Money(100, 1), kind: .viewLeasing, tag: "BTC TAG", date: NSDate(), sortLevel: 0)
@@ -35,18 +37,14 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
         let asset10 = HistoryTypes.DTO.Transaction(id: "10", name: "Waves", balance: Money(100, 1), kind: .incomingLeasing, tag: "Waves Tag", date: NSDate(), sortLevel: 0)
         let asset11 = HistoryTypes.DTO.Transaction(id: "11", name: "Waves", balance: Money(100, 1), kind: .massSend, tag: "Waves Tag", date: NSDate(), sortLevel: 0)
         let asset12 = HistoryTypes.DTO.Transaction(id: "12", name: "Waves", balance: Money(100, 1), kind: .massReceived, tag: "Waves Tag", date: NSDate(), sortLevel: 0)
-        
-        return Observable.just([asset, asset1, asset2, asset3, asset4, asset5, asset6, asset6, asset7, asset8, asset9, asset10, asset11, asset12])
+
+        let transactions = Observable.just([asset, asset1, asset2, asset3, asset4, asset5, asset6, asset6, asset7, asset8, asset9, asset10, asset11, asset12])
+
+        return Observable.merge(replay.flatMap { _ in transactions }, transactions).delay(5, scheduler: MainScheduler.asyncInstance)
     }
     
     func refreshTransactions() {
-//        transactions()
-//            .take(1)
-//            .sweetDebug("Refresh Assets")
-//            .subscribe(weak: self, onNext: { owner, balances in
-//                owner.refreshAssetsSubject.onNext(balances)
-//            })
-//            .disposed(by: disposeBag)
+        replay.onNext(true)
     }
     
 }
