@@ -15,6 +15,7 @@ import SwiftDate
 
 final class NewHistoryViewController: UIViewController {
     
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
@@ -182,6 +183,14 @@ extension NewHistoryViewController {
 }
 
 extension NewHistoryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "TransactionHistoryViewController") as! TransactionHistoryViewController
+        controller.items = [NSDictionary()]
+        controller.currentPage = 0
+        let popup = PopupViewController()
+        popup.present(contentViewController: controller)
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
