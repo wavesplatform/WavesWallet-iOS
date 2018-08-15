@@ -808,22 +808,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04A2CFA12112100B00784FEC /* History */ = {
+		048684F02124A77F00D12189 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				04EB742521133318004A065B /* NewHistoryViewController.swift */,
-				048310832119675300509CED /* HistoryModuleBuilder.swift */,
+				044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		048684F12124A79E00D12189 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
 				044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */,
 				04831085211967D500509CED /* HistoryModuleOutput.swift */,
 				04615A22211A31C90000FF80 /* HistoryModuleInput.swift */,
-				044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		048684F22124B1E400D12189 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				048684F12124A79E00D12189 /* Presenter */,
+				048684F02124A77F00D12189 /* Interactor */,
+				04EB742521133318004A065B /* NewHistoryViewController.swift */,
+				048310832119675300509CED /* HistoryModuleBuilder.swift */,
 				04EB74272113335B004A065B /* HistoryTypes.swift */,
 				04EB74292113415E004A065B /* HistoryTypes+State.swift */,
 				048447492118658400552772 /* HistoryTypes+ViewModels.swift */,
 				04EB742B21134300004A065B /* HistoryTypes+DisplayState.swift */,
+				04C1BF59211CA5EF0095377D /* History.strings */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		04A2CFA12112100B00784FEC /* History */ = {
+			isa = PBXGroup;
+			children = (
 				04A2CFA22112103800784FEC /* HistoryCoordinator.swift */,
 				04A2CFA4211213BE00784FEC /* History.storyboard */,
-				04C1BF59211CA5EF0095377D /* History.strings */,
+				048684F22124B1E400D12189 /* History */,
 			);
 			path = History;
 			sourceTree = "<group>";
