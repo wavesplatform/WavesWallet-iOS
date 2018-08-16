@@ -9,15 +9,13 @@
 import UIKit
 
 private enum Constants {
-    static let deffaultCornerRadius: Float = -1
+    static let deffaultCornerRadius: Float = 0
 }
 
 extension UIView {
 
     private enum AssociatedKeys {
         static var cornerRadius = "cornerRadius"
-        static var passthroughFrame = "passthroughFrame"
-        static var isEnabledPassthroughSubviews = "isEnabledPassthroughSubviews"
     }
 
     static func roundedInit() {
@@ -44,7 +42,7 @@ extension UIView {
         if cornerRadius == Constants.deffaultCornerRadius {
             layer.removeClip()
         } else {
-            layer.clip(cornerRadius: CGFloat(cornerRadius))
+            layer.clip(cornerRadius: CGFloat(cornerRadius))            
         }
     }
 }
