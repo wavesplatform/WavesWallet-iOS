@@ -121,7 +121,6 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-                // в комментах настоящий код, когда будет лоудинг из инета
                 if (!state.isRefreshing && strongSelf.isRefreshing) {
                     strongSelf.refreshControl.endRefreshing()
                 }
@@ -164,8 +163,6 @@ extension NewHistoryViewController {
     }
     
     func changeFilter(_ filter: HistoryTypes.Filter) {
-//        segmentedControl.select
-        // тута меняем segmented
         segmentedControl.segmentedControl.selectedIndex = filters.index(of: filter) ?? 0
     }
     
@@ -216,7 +213,7 @@ extension NewHistoryViewController: UITableViewDelegate {
             return WalletAssetSkeletonCell.cellHeight()
             
         case .transaction:
-            return HistoryAssetCell.cellHeight()
+            return HistoryTransactionCell.cellHeight()
         }
 
     }
@@ -263,7 +260,7 @@ extension NewHistoryViewController: UITableViewDataSource {
             return cell
             
         case .transaction(let transaction):
-            let cell: HistoryAssetCell = tableView.dequeueCell()
+            let cell: HistoryTransactionCell = tableView.dequeueCell()
             cell.update(with: transaction)
             return cell
         }

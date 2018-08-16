@@ -12,11 +12,9 @@ extension HistoryTypes.ViewModel {
     struct Section: Hashable {
         var items: [Row]
         var header: String?
-//        var date: NSDate
         
         init(items: [Row], header: String? = nil) {
             self.items = items
-//            self.date = NSDate()
             self.header = header
         }
     }
@@ -34,7 +32,7 @@ extension HistoryTypes.ViewModel.Section {
         let generalItems = transactions
             .filter { filter.kinds.contains($0.kind) }
             .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.id < transaction2.id
+                return transaction1.date.timeIntervalSince1970 < transaction2.date.timeIntervalSince1970
             })
             .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
@@ -47,7 +45,7 @@ extension HistoryTypes.ViewModel.Section {
     static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
         let generalItems = transactions
             .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.id < transaction2.id
+                return transaction1.date.timeIntervalSince1970 < transaction2.date.timeIntervalSince1970
             })
             .map { HistoryTypes.ViewModel.Row.transaction($0) }
         

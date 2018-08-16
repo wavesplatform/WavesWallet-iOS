@@ -32,7 +32,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAll())
-//        newFeedbacks.append(queryAll())
         
         Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type), reduce: reduce, feedback: newFeedbacks)
             .drive()
@@ -81,10 +80,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 .setFilter(filter: .all)
                 .setSections(sections: sections)
                 .setIsRefreshing(false)
-//            let newState = state.setAll(all: .init(sections: sections,
-//                                                         isRefreshing: false,
-//                                                         isNeedRefreshing: false,
-//                                                         animateType: .refresh))
 //
             return newState
             

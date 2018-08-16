@@ -29,7 +29,6 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
 
 struct HistoryInput: HistoryModuleInput {
     
-    // эм, переназвать
     let inputType: HistoryType
     
     var type: HistoryType {

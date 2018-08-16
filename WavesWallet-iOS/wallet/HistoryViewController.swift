@@ -425,9 +425,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         let item = itemForSection(indexPath.section)
         if indexPath.row == (item["items"] as! [Any]).count - 1 {
-            return HistoryAssetCell.cellHeight() + 10
+            return HistoryTransactionCell.cellHeight() + 10
         }
-        return HistoryAssetCell.cellHeight()
+        return HistoryTransactionCell.cellHeight()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -462,7 +462,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryAssetCell") as! HistoryAssetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTransactionCell") as! HistoryTransactionCell
         cell.viewAssetType.isHidden = false
         cell.viewSpam.isHidden = true
         
