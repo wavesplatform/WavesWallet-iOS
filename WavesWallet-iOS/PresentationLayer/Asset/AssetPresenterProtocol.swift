@@ -10,6 +10,16 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+protocol AsssetModuleOutput: AnyObject {
+
+}
+
+protocol AsssetModuleInput {
+
+    var assets: [AssetTypes.DTO.Asset.Info] { get set }
+    var currentAsset: AssetTypes.DTO.Asset.Info { get set }
+}
+
 protocol AsssetPresenterProtocol {
     typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
     var interactor: AssetsInteractorProtocol! { get set }

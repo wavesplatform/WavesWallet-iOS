@@ -20,13 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-//        [.error,
-//        .debug,
-//        .warning,
-//        .verbose,
-//        .info,
-//        .network]
-        UIView.passtroughInit()
+
+        Swizzle(initializers: [UIView.passtroughInit,
+                               UIView.roundedInit]).start()
+
+        //        [.error,
+        //        .debug,
+        //        .warning,
+        //        .verbose,
+        //        .info,
+        //        .network]
+
         SweetLogger.current.visibleLevels = [.debug]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)

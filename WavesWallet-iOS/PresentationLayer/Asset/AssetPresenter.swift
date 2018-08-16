@@ -11,25 +11,14 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-func readState<State, Event, Owner: AnyObject>(_ owner: Owner, reading: @escaping (Owner, State) -> Void) -> (Driver<State>) -> Signal<Event> {
-
-    return bind(owner) { (owner, state) -> (Bindings<Event>) in
-
-        let read = state.drive { [weak owner] state in
-            guard let owner = owner else { return }
-            reading(owner, state)
-        }
-
-        return Bindings(subscriptions: [read], events: [Signal<Event>]())
-    }
-}
-
 final class AsssetPresenter: AsssetPresenterProtocol {
 
     private typealias FeedbackCore = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
 
     var interactor: AssetsInteractorProtocol!
     private var disposeBag: DisposeBag = DisposeBag()
+
+    
 
     func system(feedbacks: [Feedback]) {
 
@@ -75,6 +64,24 @@ private extension AsssetPresenter {
     }
 
     static var initialDisplayState: AssetTypes.DisplayState {
-        return AssetTypes.DisplayState(sections: [], isAppeared: false, isRefreshing: false, isFavorite: false)
+
+        let balances = AssetTypes.ViewModel.Section.init(kind: .none, rows: [.balanceSkeleton])
+        let transactions = AssetTypes.ViewModel.Section.init(kind: .skeletonTitle, rows: [.transactionSkeleton, .viewHistorySkeleton])
+
+        return AssetTypes.DisplayState(isAppeared: false,
+                                       isRefreshing: false,
+                                       isFavorite: false,
+                                       currentAsset: AssetTypes.DTO.Asset.Info.init(id: "",
+                                                                                    name: "",
+                                                                                    isMyWavesToken: false,
+                                                                                    isWaves: false,
+                                                                                    isFavorite: false,
+                                                                                    isFiat: false,
+                                                                                    isSpam: false,
+                                                                                    isGateway: false,
+                                                                                    sortLevel: 1),
+                                       assets: [],
+                                       sections: [balances,
+                                                  transactions])
     }
 }

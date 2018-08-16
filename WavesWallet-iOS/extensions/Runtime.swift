@@ -15,3 +15,15 @@ enum Runtime {
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
 }
+
+struct Swizzle {
+
+    typealias Initializer = (() -> Void)
+    let initializers: [Initializer]
+
+    func start() {
+        initializers.forEach { call in
+            call()
+        }
+    }
+}

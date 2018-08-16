@@ -1,15 +1,20 @@
 //
-//  AssetSkeletonCell.swift
+//  AssetViewHistorySkeletonCell.swift
 //  WavesWallet-iOS
 //
-//  Created by Prokofev Ruslan on 17/07/2018.
+//  Created by mefilt on 16.08.2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-final class WalletAssetSkeletonCell: SkeletonCell, Reusable {
+private enum Constants {
+    static var height: CGFloat = 56
+}
+
+final class AssetHistorySkeletonCell: SkeletonCell, NibReusable {
+    
     @IBOutlet var viewContent: UIView!
 
     override func awakeFromNib() {
@@ -19,7 +24,6 @@ final class WalletAssetSkeletonCell: SkeletonCell, Reusable {
     }
 
     class func cellHeight() -> CGFloat {
-        return 76
+        return Constants.height
     }
-    
 }

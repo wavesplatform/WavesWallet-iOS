@@ -34,7 +34,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2SU-uZ-e3X">
-                                                    <rect key="frame" x="16" y="24" width="343" height="305"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="329"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSe-qs-0Fb">
                                                             <rect key="frame" x="16" y="24" width="104.5" height="16"/>
@@ -183,7 +183,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvu-RG-XO5">
-                                                            <rect key="frame" x="0.0" y="211" width="114.5" height="94"/>
+                                                            <rect key="frame" x="0.0" y="211" width="114.5" height="118"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_send" translatesAutoresizingMaskIntoConstraints="NO" id="CkU-pS-eka">
                                                                     <rect key="frame" x="43.5" y="24" width="28" height="28"/>
@@ -195,7 +195,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xq2-h9-ZdF">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="114.5" height="94"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="114.5" height="118"/>
                                                                     <connections>
                                                                         <action selector="sendTapped:" destination="RgR-Il-Q2x" eventType="touchUpInside" id="wZz-nc-hBF"/>
                                                                     </connections>
@@ -214,7 +214,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CgC-Rp-m9i">
-                                                            <rect key="frame" x="114.5" y="211" width="114" height="94"/>
+                                                            <rect key="frame" x="114.5" y="211" width="114" height="118"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yW5-pf-EkJ">
                                                                     <rect key="frame" x="33.5" y="60" width="47.5" height="16"/>
@@ -226,7 +226,7 @@
                                                                     <rect key="frame" x="42.5" y="24" width="28" height="28"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-Oj-INx">
-                                                                    <rect key="frame" x="-0.5" y="0.0" width="114.5" height="94"/>
+                                                                    <rect key="frame" x="-0.5" y="0.0" width="114.5" height="118"/>
                                                                     <connections>
                                                                         <action selector="receiveTapped:" destination="RgR-Il-Q2x" eventType="touchUpInside" id="JVv-g9-GoC"/>
                                                                     </connections>
@@ -245,7 +245,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-h2-vkV">
-                                                            <rect key="frame" x="228.5" y="211" width="114.5" height="94"/>
+                                                            <rect key="frame" x="228.5" y="211" width="114.5" height="118"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG6-uR-iOg">
                                                                     <rect key="frame" x="17.5" y="60" width="80" height="16"/>
@@ -257,7 +257,7 @@
                                                                     <rect key="frame" x="43.5" y="24" width="28" height="28"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dna-QV-sJs">
-                                                                    <rect key="frame" x="-0.5" y="0.0" width="114.5" height="94"/>
+                                                                    <rect key="frame" x="-0.5" y="0.0" width="114.5" height="118"/>
                                                                     <connections>
                                                                         <action selector="exchangeTapped:" destination="RgR-Il-Q2x" eventType="touchUpInside" id="b8j-rR-VHf"/>
                                                                     </connections>
@@ -323,7 +323,7 @@
                                                 <constraint firstItem="2SU-uZ-e3X" firstAttribute="leading" secondItem="guG-LM-E9q" secondAttribute="leading" constant="16" id="493-MK-NWI"/>
                                                 <constraint firstAttribute="trailing" secondItem="2SU-uZ-e3X" secondAttribute="trailing" constant="16" id="XcU-IN-Lhz"/>
                                                 <constraint firstAttribute="bottom" secondItem="2SU-uZ-e3X" secondAttribute="bottom" constant="11" id="kRe-Gk-VP2"/>
-                                                <constraint firstItem="2SU-uZ-e3X" firstAttribute="top" secondItem="guG-LM-E9q" secondAttribute="top" constant="24" id="wrf-WY-uzq"/>
+                                                <constraint firstItem="2SU-uZ-e3X" firstAttribute="top" secondItem="guG-LM-E9q" secondAttribute="top" id="wrf-WY-uzq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

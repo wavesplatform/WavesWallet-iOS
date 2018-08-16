@@ -41,26 +41,40 @@ extension AssetTypes {
         case tapHistory
     }
 
-    struct DisplayState: StateDisplayCollection, Mutating {
+    struct DisplayState: StateDisplayBase, Mutating {
 
-        enum AnimateType {
+        enum Action {
             case none
             case refresh
         }
-        
 
-        var currentAsset: AssetTypes.DTO.Asset
-        var assets: AssetTypes.DTO.Asset = [AssetTypes.DTO.Asset]
-        var sections: [AssetTypes.ViewModel.Section] = []
+        enum TransactionStatus {
+            case empty
+            case loading
+            case transaction([AssetTypes.DTO.Transaction])
+        }
+
         var isAppeared: Bool
         var isRefreshing: Bool
         var isFavorite: Bool
+
+        var currentAsset: AssetTypes.DTO.Asset.Info
+        var assets: [AssetTypes.DTO.Asset.Info]
+        var sections: [AssetTypes.ViewModel.Section] = []
     }
 }
 
 extension AssetTypes.ViewModel {
 
-    struct Section: SectionCollection {
+    struct Section: SectionBase {
+
+        enum Kind {
+            case none
+            case title(String)
+            case skeletonTitle
+        }
+        
+        var kind: Kind
         var rows: [AssetTypes.ViewModel.Row]
     }
 
@@ -68,13 +82,18 @@ extension AssetTypes.ViewModel {
         case balanceSkeleton
         case balance(AssetTypes.DTO.Asset.Balance)
         case viewHistory
-        case lastTransactions([AssetTypes.DTO.Asset.Transaction])
+        case viewHistorySkeleton
+        case lastTransactions([AssetTypes.DTO.Transaction])
         case transactionSkeleton
         case assetInfo(AssetTypes.DTO.Asset.Info)
     }
 }
 
 extension AssetTypes.DTO {
+
+    struct Transaction {
+
+    }
 
     struct Asset {
 
@@ -97,12 +116,7 @@ extension AssetTypes.DTO {
             let leasedInMoney: Money
         }
 
-        struct Transaction {
-
-        }
-
         let info: Info
         let balance: Balance
-        let transactions: [Transaction]
     }
 }
