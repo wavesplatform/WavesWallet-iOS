@@ -25,7 +25,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             case spam
             case gateway
         }
-        
+        let id: String
         let name: String
         let kind: Kind
     }
@@ -47,6 +47,9 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     private(set) var currentPage: Int = 0
+    var currentAsset: Asset {
+        return assets[currentPage]
+    }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -77,6 +80,12 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
+    }
+
+    func setCurrentAsset(id: String, animated: Bool = true) {
+        let element = assets.enumerated().first(where: { $0.element.id == id })
+        guard let page = element?.offset else { return }
+        setCurrentPage(page, animated: animated)
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {

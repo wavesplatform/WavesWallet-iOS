@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 import Skeleton
 
-class SkeletonCell: UITableViewCell, GradientsOwner {
+//TODO: Rename SkeletonTableCell
+class SkeletonCell: UITableViewCell, SkeletonAnimatable {
 
     @IBOutlet var views: [GradientContainerView]!
 
@@ -31,3 +32,4 @@ class SkeletonCell: UITableViewCell, GradientsOwner {
         return views.map { $0.gradientLayer }
     }
 }
+

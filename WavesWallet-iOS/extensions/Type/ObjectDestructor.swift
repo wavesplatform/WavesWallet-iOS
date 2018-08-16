@@ -1,6 +1,6 @@
 
 //
-//  ObjectDesctuctor.swift
+//  ObjectDestructor.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 16.08.2018.
@@ -8,3 +8,16 @@
 //
 
 import Foundation
+
+final class ObjectDestructor {
+
+    let dealloc: (() -> Void)
+
+    init(dealloc: @escaping (() -> Void)) {
+        self.dealloc = dealloc
+    }
+
+    deinit {
+        dealloc()
+    }
+}

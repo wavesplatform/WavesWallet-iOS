@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Skeleton
 
-class SkeletonTableHeaderFooterView: UITableViewHeaderFooterView, GradientsOwner {
+class SkeletonTableHeaderFooterView: UITableViewHeaderFooterView, SkeletonAnimatable {
 
     @IBOutlet var views: [GradientContainerView]!
 
