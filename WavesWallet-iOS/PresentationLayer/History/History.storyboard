@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryAssetCell" rowHeight="76" id="Lyl-SX-e6R" customClass="HistoryAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryTransactionCell" rowHeight="76" id="Lyl-SX-e6R" customClass="HistoryTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lyl-SX-e6R" id="9zf-uR-ZeG">
@@ -248,7 +248,7 @@ You do not have any transactions</string>
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryAssetCell" rowHeight="76" id="85K-Lv-oGY" customClass="HistoryAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryTransactionCell" rowHeight="76" id="85K-Lv-oGY" customClass="HistoryTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="94" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="85K-Lv-oGY" id="ikd-3u-9Fn">

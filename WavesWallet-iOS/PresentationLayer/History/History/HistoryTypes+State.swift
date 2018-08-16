@@ -8,16 +8,6 @@
 
 import Foundation
 
-extension HistoryTypes.State {
-    
-}
-
-// MARK: Get Methods
-
-extension HistoryTypes.State {
-    
-}
-
 // MARK: Set Methods
 
 extension HistoryTypes.State {

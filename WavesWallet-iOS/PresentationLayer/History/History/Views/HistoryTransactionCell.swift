@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryAssetCell: UITableViewCell, Reusable {
+final class HistoryTransactionCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelValue: UILabel!
@@ -83,7 +83,7 @@ class HistoryAssetCell: UITableViewCell, Reusable {
 }
 
 
-extension HistoryAssetCell: ViewConfiguration {
+extension HistoryTransactionCell: ViewConfiguration {
     
     func update(with model: HistoryTypes.DTO.Transaction) {
         
@@ -126,8 +126,6 @@ extension HistoryAssetCell: ViewConfiguration {
         }
         
         labelTitle.text = labelText
-        
-        setNeedsUpdateConstraints()
         
     }
     

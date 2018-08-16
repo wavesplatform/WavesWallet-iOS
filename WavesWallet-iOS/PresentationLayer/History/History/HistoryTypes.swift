@@ -43,21 +43,6 @@ enum HistoryTypes {
 
 extension HistoryTypes.DTO {
     struct Transaction: Hashable, Mutating {
-//        enum Kind: Int {
-//            case issue = 3
-//            case transfer = 4
-//            case reissue = 5
-//            case burn = 6
-//            case exchange = 7
-//            case lease = 8
-//            case leaseCancel = 9
-//            case alias = 10
-//            case massTransfer = 11
-//            case data = 12
-//            case setScript = 13
-//            case sponsorship = 14
-//        }
-        
         enum Kind: Int {
             case viewReceived = 0
             case viewSend
@@ -104,28 +89,20 @@ extension HistoryTypes.Filter {
             .massSend, // multiple addresses
             .massReceived
             ]
-//            return [.issue, .transfer, .reissue, .burn, .exchange, .lease, .leaseCancel, .alias, .massTransfer, .data, .setScript, .sponsorship]
         case .sent:
             return [.viewSend, .massSend]
-//            return [.transfer, .massTransfer]
         case .received:
             return [.viewReceived, .massReceived]
-//            return [.transfer, .massTransfer]
         case .exchanged:
             return [.exchange]
-//            return [.exchange]
         case .leased:
             return [.viewLeasing, .incomingLeasing]
-//            return [.lease, .leaseCancel]
         case .issued:
             return [.tokenReissue]
-//            return [.issue, .reissue]
         case .activeNow:
             return [.viewLeasing]
-//            return [.lease]
         case .canceled:
             return [.canceledLeasing]
-//            return [.leaseCancel]
         }
     }
     
