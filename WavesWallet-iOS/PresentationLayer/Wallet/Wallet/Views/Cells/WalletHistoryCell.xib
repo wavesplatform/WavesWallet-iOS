@@ -14,7 +14,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletHistoryCell" rowHeight="66" id="PLh-RM-oRJ" customClass="WalletHistoryCell" customModule="WavesWallet_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PLh-RM-oRJ" id="mU4-Bl-McI">
+            <tableViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PLh-RM-oRJ" id="mU4-Bl-McI">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -38,6 +38,11 @@
                             <constraint firstItem="U7u-Ud-PYx" firstAttribute="leading" secondItem="D6w-Za-8Ck" secondAttribute="leading" constant="14" id="Fv4-fP-Cek"/>
                             <constraint firstItem="U7u-Ud-PYx" firstAttribute="centerY" secondItem="D6w-Za-8Ck" secondAttribute="centerY" id="nHs-WO-7Fl"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>

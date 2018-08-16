@@ -25,7 +25,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             case spam
             case gateway
         }
-
+        
         let name: String
         let kind: Kind
     }

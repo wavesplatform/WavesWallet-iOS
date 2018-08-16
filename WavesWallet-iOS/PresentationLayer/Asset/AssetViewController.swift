@@ -23,17 +23,18 @@ final class AssetViewController: UIViewController {
     private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image, style: .plain, target: nil, action: nil)
 
     private var presenter: AsssetPresenterProtocol! = AsssetPresenter()
-
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
+
+    private var sections: [AssetTypes.ViewModel.Section] = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
 
-        let assets: [AssetsSegmentedControl.Asset] = [.init(name: "Waves", kind: .wavesToken),
-                                                      .init(name: "BTC", kind: .gateway),
-                                                      .init(name: "ALLADIN", kind: .spam),
-                                                      .init(name: "USD", kind: .fiat)]
+        let assets: [AssetsSegmentedControl.Asset] = [.init(id: "1", name: "Waves", kind: .wavesToken),
+                                                      .init(id: "2", name: "BTC", kind: .gateway),
+                                                      .init(id: "3", name: "ALLADIN", kind: .spam),
+                                                      .init(id: "4", name: "USD", kind: .fiat)]
         segmentedControl.update(with: assets)
 
         view.addSubview(segmentedControl)
@@ -41,14 +42,7 @@ final class AssetViewController: UIViewController {
         favoriteOffBarButton.action = #selector(sendTapped)
         favoriteOffBarButton.target = self
 
-        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
-
-            let event = owner.replaySubject.map { _ in AssetTypes.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
-
-
-            return Bindings(subscriptions: [], events: [event])
-        }
-        presenter.system(feedbacks: [bin])
+        setupSystem()
     }
 
     override func viewDidLayoutSubviews() {
@@ -69,10 +63,52 @@ final class AssetViewController: UIViewController {
         resetSetupNavigationBar()
     }
 }
+// MARK :
+extension AssetViewController {
+
+}
 
 // MARL: RxFeedback
 
-extension AssetViewController {
+private extension AssetViewController {
+
+    func setupSystem() {
+
+        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+
+        let readyViewFeedback: AsssetPresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in AssetTypes.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        presenter.system(feedbacks: [bin, readyViewFeedback])
+    }
+
+    func events() -> [Signal<AssetTypes.Event>] {
+
+        return []
+    }
+
+    func subscriptions(state: Driver<AssetTypes.State>) -> [Disposable] {
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] state in
+
+                guard let strongSelf = self else { return }
+
+                strongSelf.sections = state.displayState.sections
+                strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
+            })
+
+        return [subscriptionSections]
+    }
+
 
     static var number = 0
     @objc func sendTapped() {
@@ -113,7 +149,7 @@ extension AssetViewController {
     }
 
     private func updateContentInsetForTableView() {
-        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar + 24, 0, 0, 0)
     }
 }
 
@@ -253,7 +289,83 @@ extension AssetViewController: UIScrollViewDelegate {
 
 // MARK: - UITableView
 
-extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
+extension AssetViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].rows.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let row = sections[indexPath]
+
+        switch row {
+        case .balance(let balance):
+            break
+        case .balanceSkeleton:
+            let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
+
+            return cell
+        case .viewHistory:
+            break
+        case .viewHistorySkeleton:
+            let cell: AssetHistorySkeletonCell = tableView.dequeueAndRegisterCell()
+
+            return cell
+        case .lastTransactions(_):
+            break
+        case .transactionSkeleton:
+            let cell: AssetTransactionSkeletonCell = tableView.dequeueAndRegisterCell()
+
+            return cell
+        case .assetInfo(_):
+            break
+        }
+
+        //
+        //        if indexPath.section == Section.balance.rawValue {
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetBalanceCell") as! AssetBalanceCell
+        //            cell.buttonSend.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
+        ////            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
+        ////            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
+        //            cell.setupCell(isLeased: true, inOrder: true)
+        //            return cell
+        //        }
+        //        else if indexPath.section == Section.lastTransactions.rawValue {
+        //            if indexPath.row == 0 {
+        //                let cell = tableView.dequeueReusableCell(withIdentifier: "AssetLastTransactionCell") as! AssetLastTransactionCell
+        //                cell.setupCell(lastTransctions)
+        //                return cell
+        //            }
+        //
+        //            if lastTransctions.count == 0 {
+        //                return tableView.dequeueReusableCell(withIdentifier: "AssetEmptyHistoryCell") as! AssetEmptyHistoryCell
+        //            }
+        //
+        //            var cell: WalletHistoryCell! = tableView.dequeueReusableCell(withIdentifier: "WalletHistoryCell") as? WalletHistoryCell
+        //            if cell == nil {
+        //                cell = WalletHistoryCell.loadView() as? WalletHistoryCell
+        //            }
+        //            return cell
+        //        }
+        //        else if indexPath.section == Section.chart.rawValue {
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetChartCell") as! AssetChartCell
+        //            cell.setupCell(isNoDataChart: false)
+        //            return cell
+        //        }
+        //        else if indexPath.section == Section.info.rawValue {
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetDetailCell") as! AssetDetailCell
+        //            return cell
+        //        }
+
+        return UITableViewCell()
+    }
+}
+extension AssetViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
@@ -266,7 +378,16 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 //            return AssetChartHeaderView.viewHeight()
 //        }
 
-        return 0
+        let model = sections[section]
+
+        switch model.kind {
+        case .skeletonTitle:
+            return AssetHistorySkeletonCell.cellHeight()
+        default:
+            break
+        }
+
+        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -289,6 +410,17 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
         ////            view.buttonChangePeriod.addTarget(self, action: #selector(changeChartPeriod), for: .touchUpInside)
 //            return view
 //        }
+
+        let model = sections[section]
+
+        switch model.kind {
+        case .skeletonTitle:
+            var view: AssetHeaderSkeletonView = tableView.dequeueAndRegisterHeaderFooter()                        
+            return view
+        default:
+            break
+        }
+
         return nil
     }
 
@@ -309,68 +441,59 @@ extension AssetViewController: UITableViewDelegate, UITableViewDataSource {
 //        else if indexPath.section == Section.info.rawValue {
 //            return AssetDetailCell.cellHeight()
 //        }
+        let row = sections[indexPath]
+
+        switch row {
+        case .balance(let balance):
+            break
+        case .balanceSkeleton:
+            return AssetBalanceSkeletonCell.cellHeight()
+        case .viewHistory:
+            break
+        case .viewHistorySkeleton:
+            return AssetHistorySkeletonCell.cellHeight()
+        case .lastTransactions(_):
+            break
+        case .transactionSkeleton:
+            return AssetTransactionSkeletonCell.cellHeight()
+        case .assetInfo(_):
+            break
+        }
 
         return 100
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//        if section == Section.balance.rawValue {
-//            return 1
-//        }
-//        else if section == Section.lastTransactions.rawValue {
-//            return 2
-//        }
-//        else if section == Section.chart.rawValue {
-//            return isAvailableChart ? 1 : 0
-//        }
-//        else if section == Section.info.rawValue {
-//            return 1
-//        }
-        return 150
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        let row = sections[indexPath]
+
+        switch row {
+        case .balanceSkeleton:
+            let cell = cell as? AssetBalanceSkeletonCell
+            cell?.startAnimation()
+
+        case .viewHistorySkeleton:
+            let cell = cell as? AssetHistorySkeletonCell
+            cell?.startAnimation()
+
+        case .transactionSkeleton:
+            let cell = cell as? AssetTransactionSkeletonCell
+            cell?.startAnimation()
+        default:
+            break
+        }
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        if indexPath.section == Section.balance.rawValue {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetBalanceCell") as! AssetBalanceCell
-//            cell.buttonSend.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
-        ////            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
-        ////            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
-//            cell.setupCell(isLeased: true, inOrder: true)
-//            return cell
-//        }
-//        else if indexPath.section == Section.lastTransactions.rawValue {
-//            if indexPath.row == 0 {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "AssetLastTransactionCell") as! AssetLastTransactionCell
-//                cell.setupCell(lastTransctions)
-//                return cell
-//            }
-//
-//            if lastTransctions.count == 0 {
-//                return tableView.dequeueReusableCell(withIdentifier: "AssetEmptyHistoryCell") as! AssetEmptyHistoryCell
-//            }
-//
-//            var cell: WalletHistoryCell! = tableView.dequeueReusableCell(withIdentifier: "WalletHistoryCell") as? WalletHistoryCell
-//            if cell == nil {
-//                cell = WalletHistoryCell.loadView() as? WalletHistoryCell
-//            }
-//            return cell
-//        }
-//        else if indexPath.section == Section.chart.rawValue {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetChartCell") as! AssetChartCell
-//            cell.setupCell(isNoDataChart: false)
-//            return cell
-//        }
-//        else if indexPath.section == Section.info.rawValue {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetDetailCell") as! AssetDetailCell
-//            return cell
-//        }
+        let model = sections[section]
 
-        return UITableViewCell()
+        switch model.kind {
+        case .skeletonTitle:
+            let view = view as? AssetHeaderSkeletonView
+            view?.startAnimation()
+        default:
+            break
+        }
     }
 }

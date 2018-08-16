@@ -24,5 +24,4 @@ class AssetChartHeaderView: UITableViewHeaderFooterView {
     class func viewHeight() -> CGFloat {
         return 34
     }
-
 }

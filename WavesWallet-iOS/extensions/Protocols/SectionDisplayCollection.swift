@@ -8,24 +8,31 @@
 
 import Foundation
 
-protocol SectionCollection {
+protocol SectionBase {
     associatedtype Row
     var rows: [Row] { get set }
 }
 
-protocol StateDisplayCollection {
-    associatedtype Section: SectionCollection
+protocol StateDisplayBase {
+    associatedtype Section: SectionBase
     var sections: [Section] { get set }
 }
 
-extension StateDisplayCollection {
+extension StateDisplayBase {
     subscript(indexPath: IndexPath) -> Section.Row {
         return sections[indexPath.section].rows[indexPath.row]
     }
 }
 
-extension SectionCollection {
+extension SectionBase {
     subscript(index: Int) -> Row {
         return rows[index]
+    }
+}
+
+extension Array where Element: SectionBase {
+
+    subscript(indexPath: IndexPath) -> Element.Row {
+        return self[indexPath.section][indexPath.row]
     }
 }

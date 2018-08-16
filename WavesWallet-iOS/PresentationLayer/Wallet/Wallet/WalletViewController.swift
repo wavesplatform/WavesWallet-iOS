@@ -95,7 +95,7 @@ extension WalletViewController {
                             events: events)
         }
 
-        let readyViewFeedback: WalletPresenter.Feedback = { [weak self] _ in
+        let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx

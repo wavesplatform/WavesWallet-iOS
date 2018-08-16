@@ -99,13 +99,13 @@ extension WalletDisplayData: UITableViewDelegate {
         switch item {
         case .historySkeleton:
             let skeletonCell: WalletHistorySkeletonCell = cell as! WalletHistorySkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         case .assetSkeleton:
             let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         case .balanceSkeleton:
             let skeletonCell: WalletLeasingBalanceSkeletonCell = cell as! WalletLeasingBalanceSkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         default:
             break
         }

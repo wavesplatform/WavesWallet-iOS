@@ -40,10 +40,24 @@ extension CALayer {
                 path.append(UIBezierPath(rect: bounds))
                 mask.fillRule = kCAFillRuleEvenOdd
             }
+
             mask.frame = bounds
             mask.path = path.cgPath
+
+            mask.shadowColor = self.shadowColor
+            mask.shadowOffset = self.shadowOffset
+            mask.shadowOpacity = self.shadowOpacity
+            mask.shadowRadius = self.shadowRadius
+            mask.shadowPath = self.shadowPath
+            mask.shouldRasterize = self.shouldRasterize
+            mask.rasterizationScale = self.rasterizationScale
+
             return mask
         }()
+    }
+
+    func removeClip() {
+        self.mask = nil
     }
 
     func border(roundedRect rect: CGRect? = nil,
@@ -61,6 +75,12 @@ extension CALayer {
             mask.path = UIBezierPath(roundedRect: rect,
                                      byRoundingCorners: corners,
                                      cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+            mask.shadowColor = self.shadowColor
+            mask.shadowOffset = self.shadowOffset
+            mask.shadowOpacity = self.shadowOpacity
+            mask.shadowRadius = self.shadowRadius
+            mask.shadowPath = self.shadowPath
+
 
             return mask
         }()
