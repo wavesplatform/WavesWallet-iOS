@@ -28,10 +28,15 @@ final class NewHistoryViewController: UIViewController {
     private var sections: [HistoryTypes.ViewModel.Section] = []
     private var filters: [HistoryTypes.Filter] = []
     
+    let tapCell: PublishSubject<HistoryTypes.DTO.Transaction> = PublishSubject<HistoryTypes.DTO.Transaction>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = Localizable.History.Navigationbar.title
+        
+        tableView.delegate = self
+        emptyView.isHidden = true
         
         setupSegmentedControl()
         createMenuButton()
@@ -100,6 +105,14 @@ private extension NewHistoryViewController {
             .controlEvent(.valueChanged)
             .asSignal(onErrorSignalWith: Signal.empty())
         
+        let tap = tableView
+            .rx
+            .itemSelected
+            .map { indexPath -> HistoryTypes.Event in
+                return HistoryTypes.Event.tapCell(indexPath) 
+            }
+            .asSignal(onErrorSignalWith: Signal.empty())
+        
         let refreshEvent = Signal.zip(refreshControlValueChanged,
                                       scrollViewDidEndDecelerating)
             .map { _ in HistoryTypes.Event.refresh }
@@ -111,10 +124,15 @@ private extension NewHistoryViewController {
                 return .changeFilter(filter)
         }
         
-        return [changedDisplayEvent, refreshEvent]
+        return [changedDisplayEvent, refreshEvent, tap]
     }
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
+        
+//        tableView
+//            .rx
+//            .setDelegate(self)
+//            .disposed(by: disposeBag)
         
         let subscriptionSections = state
             .drive(onNext: { [weak self] (state) in
@@ -182,11 +200,17 @@ extension NewHistoryViewController {
 extension NewHistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "TransactionHistoryViewController") as! TransactionHistoryViewController
-        controller.items = [NSDictionary()]
-        controller.currentPage = 0
-        let popup = PopupViewController()
-        popup.present(contentViewController: controller)
+        
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .transaction(let transaction):
+            
+            self.tapCell.onNext(transaction)
+            
+        default: break
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -298,6 +322,7 @@ extension NewHistoryViewController: UITableViewDataSource {
 extension NewHistoryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scroll")
         setupTopBarLine()
     }
     
