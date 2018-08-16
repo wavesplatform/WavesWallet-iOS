@@ -45,7 +45,7 @@ target 'WavesWallet-iOS' do
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
 
-    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
+    pod '25519', :git => 'https://github.com/wavesplatform/25519.git'
     pod 'base58', :path => 'Vendors/Base58'
     pod 'keccak', :path => 'Vendors/Keccak'
     pod 'blake2', :path => 'Vendors/Blake2'
