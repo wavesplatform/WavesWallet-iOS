@@ -13,6 +13,10 @@ import RxFeedback
 import RxSwift
 import SwiftDate
 
+private enum Constants {
+    static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
+}
+
 final class NewHistoryViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
@@ -35,7 +39,7 @@ final class NewHistoryViewController: UIViewController {
         
         title = Localizable.History.Navigationbar.title
         
-        tableView.delegate = self
+        tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
         
         setupSegmentedControl()
@@ -243,7 +247,7 @@ extension NewHistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return WalletHeaderView.viewHeight()
+        return HistoryHeaderView.viewHeight()
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -294,7 +298,7 @@ extension NewHistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let model = sections[section]
         
-        let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
+        let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
         
         guard let firstItem = model.items.first else { return view }
         
@@ -304,13 +308,13 @@ extension NewHistoryViewController: UITableViewDataSource {
                 view.update(with: header)
             } else {
                 let date = transaction.date as Date
-                let d = date.toFormat("dd MMM yyyy", locale: Locales.current)
+                let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
                 view.update(with: d)
             }
-            
-            view.iconArrow.isHidden = true
+
         default:
-            break
+            // тут скелетон будет
+            view.update(with: "")
         }
         
         return view
