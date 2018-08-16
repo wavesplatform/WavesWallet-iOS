@@ -25,7 +25,14 @@ final class HistoryCoordinator {
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
-    
+    func showTransaction() {
+        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "TransactionHistoryViewController") as! TransactionHistoryViewController
+        controller.items = [NSDictionary()]
+        controller.currentPage = 0
+        
+        let popup = PopupViewController()
+        popup.present(contentViewController: controller)
+    }
 }
 
 extension HistoryCoordinator: HistoryModuleInput {

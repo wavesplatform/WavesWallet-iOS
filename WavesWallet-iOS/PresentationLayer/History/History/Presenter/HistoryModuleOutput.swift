@@ -9,5 +9,5 @@
 import Foundation
 
 protocol HistoryModuleOutput: class {
-
+    func showTransaction()
 }

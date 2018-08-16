@@ -38,6 +38,7 @@ enum HistoryTypes {
         case readyView
         case refresh
         case changeFilter(Filter)
+        case tapCell(IndexPath)
     }
 }
 
