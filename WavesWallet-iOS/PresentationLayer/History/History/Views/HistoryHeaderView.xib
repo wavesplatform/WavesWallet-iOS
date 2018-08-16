@@ -50,8 +50,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="buttonTap" destination="HJ8-yA-loy" id="G8I-nE-T19"/>
-                <outlet property="labelTitle" destination="FvJ-9M-bfV" id="jLq-96-exX"/>
+                <outlet property="buttonTap" destination="HJ8-yA-loy" id="igm-Pl-ewy"/>
+                <outlet property="labelTitle" destination="FvJ-9M-bfV" id="bzM-d5-jd8"/>
             </connections>
             <point key="canvasLocation" x="36" y="-258"/>
         </view>
