@@ -40,7 +40,6 @@ final class HistoryViewController: UIViewController {
         title = Localizable.History.Navigationbar.title
         
         tableView.contentInset = Constants.contentInset
-        tableView.register(HeaderSkeletonView.nib, forHeaderFooterViewReuseIdentifier: HeaderSkeletonView.nibName)
         emptyView.isHidden = true
         
         setupSegmentedControl()
@@ -334,7 +333,7 @@ extension HistoryViewController: UITableViewDataSource {
 
         case .transactionSkeleton:
             
-            let view: HeaderSkeletonView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderSkeletonView.nibName) as! HeaderSkeletonView
+            let view: HeaderSkeletonView = tableView.dequeueAndRegisterHeaderFooter()
             
             return view
             
