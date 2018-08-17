@@ -37,7 +37,11 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
     private var model: [Button] = [Button]()
 
     var selectedIndex: Int {
-        return scrollView.selectedButtonIndex
+        get {
+            return scrollView.selectedButtonIndex
+        } set (newValue) {
+            scrollView.selectedWith(index: newValue, animated: false)
+        }
     }
 
     override init(frame: CGRect) {

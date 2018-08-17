@@ -64,6 +64,71 @@ internal enum Localizable {
       internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
     }
   }
+  internal enum History {
+
+    internal enum Navigationbar {
+      /// History
+      internal static let title = Localizable.tr("History", "navigationBar.title")
+    }
+
+    internal enum Segmentedcontrol {
+      /// Active Now
+      internal static let activeNow = Localizable.tr("History", "segmentedControl.activeNow")
+      /// All
+      internal static let all = Localizable.tr("History", "segmentedControl.all")
+      /// Canceled
+      internal static let canceled = Localizable.tr("History", "segmentedControl.canceled")
+      /// Exchanged
+      internal static let exchanged = Localizable.tr("History", "segmentedControl.exchanged")
+      /// Issued
+      internal static let issued = Localizable.tr("History", "segmentedControl.issued")
+      /// Leased
+      internal static let leased = Localizable.tr("History", "segmentedControl.leased")
+      /// Received
+      internal static let received = Localizable.tr("History", "segmentedControl.received")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "segmentedControl.sent")
+    }
+
+    internal enum Transactioncell {
+      /// Create Alias
+      internal static let alias = Localizable.tr("History", "transactionCell.alias")
+      /// Canceled Leasing
+      internal static let canceledLeasing = Localizable.tr("History", "transactionCell.canceledLeasing")
+      /// Exchange
+      internal static let exchange = Localizable.tr("History", "transactionCell.exchange")
+      /// Incoming Leasing
+      internal static let incomingLeasing = Localizable.tr("History", "transactionCell.incomingLeasing")
+      /// Received
+      internal static let received = Localizable.tr("History", "transactionCell.received")
+      /// Self-transfer
+      internal static let selfTransfer = Localizable.tr("History", "transactionCell.selfTransfer")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "transactionCell.sent")
+      /// Started Leasing
+      internal static let startedLeasing = Localizable.tr("History", "transactionCell.startedLeasing")
+      /// Token Burn
+      internal static let tokenBurn = Localizable.tr("History", "transactionCell.tokenBurn")
+      /// Token Generation
+      internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
+      /// Token Reissue
+      internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
+    }
+  }
+  internal enum WalletSort {
+
+    internal enum Button {
+      /// Position
+      internal static let position = Localizable.tr("WalletSort", "button.position")
+      /// Visibility
+      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
+    }
+
+    internal enum Navigationbar {
+      /// Sorting
+      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
+    }
+  }
   internal enum Wallet {
 
     internal enum Button {
@@ -123,20 +188,6 @@ internal enum Localizable {
       internal static let assets = Localizable.tr("Wallet", "segmentedControl.assets")
       /// Leasing
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
-    }
-  }
-  internal enum WalletSort {
-
-    internal enum Button {
-      /// Position
-      internal static let position = Localizable.tr("WalletSort", "button.position")
-      /// Visibility
-      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
-    }
-
-    internal enum Navigationbar {
-      /// Sorting
-      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
     }
   }
   internal enum DexInfo {
