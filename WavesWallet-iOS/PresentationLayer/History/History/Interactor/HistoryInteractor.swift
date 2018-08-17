@@ -24,7 +24,7 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
     
     func transactions(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
 
-        let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(), sortLevel: 0)
+        let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Old Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(timeIntervalSince1970: 2937927), sortLevel: 0)
         let asset1 = HistoryTypes.DTO.Transaction(id: "1", name: "Waves", balance: Money(100, 1), kind: .viewSend, tag: "Waves", date: NSDate(), sortLevel: 0)
         let asset2 = HistoryTypes.DTO.Transaction(id: "2", name: "BTC", balance: Money(100, 1), kind: .viewLeasing, tag: "BTC TAG", date: NSDate(), sortLevel: 0)
         let asset3 = HistoryTypes.DTO.Transaction(id: "3", name: "COIN", balance: Money(100, 1), kind: .exchange, tag: "COIN", date: NSDate(), sortLevel: 0)
