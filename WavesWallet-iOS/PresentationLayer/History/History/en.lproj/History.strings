@@ -1,0 +1,29 @@
+/* 
+  History.strings
+  WavesWallet-iOS
+
+  Created by Mac on 09/08/2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"navigationBar.title" = "History";
+"segmentedControl.all" = "All";
+"segmentedControl.sent" = "Sent";
+"segmentedControl.received" = "Received";
+"segmentedControl.exchanged" = "Exchanged";
+"segmentedControl.leased" = "Leased";
+"segmentedControl.issued" = "Issued";
+"segmentedControl.activeNow" = "Active Now";
+"segmentedControl.canceled" = "Canceled";
+
+"transactionCell.received" = "Received";
+"transactionCell.sent" = "Sent";
+"transactionCell.alias" = "Create Alias";
+"transactionCell.startedLeasing" = "Started Leasing";
+"transactionCell.incomingLeasing" = "Incoming Leasing";
+"transactionCell.canceledLeasing" = "Canceled Leasing";
+"transactionCell.selfTransfer" = "Self-transfer";
+"transactionCell.exchange" = "Exchange";
+"transactionCell.tokenGeneration" = "Token Generation";
+"transactionCell.tokenBurn" = "Token Burn";
+"transactionCell.tokenReissue" = "Token Reissue";
