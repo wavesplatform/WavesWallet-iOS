@@ -64,10 +64,21 @@ final class WalletViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+
+        
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.barTintColor = UIColor.basic50
+
+        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
+            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+
+            self?.navigationController?.setNavigationBarHidden(false, animated: true)
+            self?.navigationController?.navigationBar.barTintColor = UIColor.basic50
+        }, completion: nil)
+
+
+
+
         setupTopBarLine()
         setupBigNavigationBar()
         if rdv_tabBarController.isTabBarHidden {
@@ -239,5 +250,9 @@ private extension WalletViewController {
 extension WalletViewController: WalletDisplayDataDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
+    }
+
+    func tableViewDidSelect(indexPath: IndexPath) {
+        self.navigationController?.pushViewController(StoryboardScene.Asset.assetViewController.instantiate(), animated: true)
     }
 }

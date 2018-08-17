@@ -8,7 +8,10 @@
 
 import UIKit
 
-class AssetBalanceCell: UITableViewCell {
+//final class AssetBalanceCell
+
+
+final class AssetBalanceCell: UITableViewCell, NibReusable {
 
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var viewLeased: UIView!

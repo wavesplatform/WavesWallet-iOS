@@ -22,7 +22,7 @@ final class AssetViewController: UIViewController {
     private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image, style: .plain, target: nil, action: nil)
     private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image, style: .plain, target: nil, action: nil)
 
-    private var presenter: AsssetPresenterProtocol! = AsssetPresenter()
+    private var presenter: AssetPresenterProtocol! = AssetPresenter()
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
 
     private var sections: [AssetTypes.ViewModel.Section] = .init()
@@ -55,7 +55,7 @@ final class AssetViewController: UIViewController {
         super.viewWillAppear(animated)
 
         setupNavigationBar()
-        layoutSegmentedControl(scrollView: tableView, animated: animated)
+        hiddenSegmentedIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,11 +75,11 @@ private extension AssetViewController {
 
     func setupSystem() {
 
-        let bin: AsssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
+        let bin: AssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
-        let readyViewFeedback: AsssetPresenterProtocol.Feedback = { [weak self] _ in
+        let readyViewFeedback: AssetPresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
@@ -138,6 +138,7 @@ extension AssetViewController {
     }
 
     private func setupNavigationBar() {
+        setupSmallNavigationBar()
         navigationController?.navigationBar.shouldPassthroughTouch = true
         navigationController?.navigationBar.isEnabledPassthroughSubviews = true
     }
@@ -145,6 +146,18 @@ extension AssetViewController {
     private func resetSetupNavigationBar() {
         navigationController?.navigationBar.shouldPassthroughTouch = false
         navigationController?.navigationBar.isEnabledPassthroughSubviews = false
+
+//        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
+//            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+//            self?.navigationController?.navigationBar.shadowImage = nil
+//            }, completion: nil)
+
+        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
+            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+            self?.navigationController?.setNavigationBarHidden(false, animated: true)
+            self?.navigationController?.navigationBar.backgroundColor = .white
+            self?.navigationController?.navigationBar.barTintColor = .white
+            }, completion: nil)
     }
 
     private func updateContentInsetForTableView() {
@@ -207,10 +220,12 @@ private extension AssetViewController {
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.shadowImage = nil
         title = "Waves"
+        segmentedControl.isHidden = true
     }
 
     func showSegmentedControl() {
 
+        segmentedControl.isHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         title = nil
@@ -323,7 +338,10 @@ extension AssetViewController: UITableViewDataSource {
 
         switch row {
         case .balance(let balance):
-            break
+            let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
+
+            cell.setupCell(isLeased: false, inOrder: false)
+            return cell
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
 
@@ -390,52 +408,32 @@ extension AssetViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == Section.lastTransactions.rawValue{
-//            return WalletHeaderView.viewHeight()
-//        }
-//        else if section == Section.chart.rawValue && isAvailableChart {
-//            return AssetChartHeaderView.viewHeight()
-//        }
 
         let model = sections[section]
 
         switch model.kind {
         case .skeletonTitle:
             return AssetHistorySkeletonCell.cellHeight()
+        case .title:
+            return AssetHeaderView.viewHeight()
         default:
-            break
+            return CGFloat.minValue
         }
-
-        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        if section == Section.lastTransactions.rawValue {
-//            let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-//            view.iconArrow.isHidden = true
-//
-//            if lastTransctions.count > 0 {
-//                view.labelTitle.text = "Last transactions"
-//            }
-//            else {
-//                view.labelTitle.text = "You do not have any transactions"
-//            }
-//
-//            return view
-//        }
-//        else if section == Section.chart.rawValue && isAvailableChart {
-//            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: AssetChartHeaderView.identifier()) as! AssetChartHeaderView
-        ////            view.labelTitle.text = "\(getChartPediodText()) status"
-        ////            view.buttonChangePeriod.addTarget(self, action: #selector(changeChartPeriod), for: .touchUpInside)
-//            return view
-//        }
 
         let model = sections[section]
 
         switch model.kind {
         case .skeletonTitle:
-            var view: AssetHeaderSkeletonView = tableView.dequeueAndRegisterHeaderFooter()
-            return view
+            return tableView.dequeueAndRegisterHeaderFooter() as AssetHeaderSkeletonView
+
+        case .title(let title):
+            let header = tableView.dequeueAndRegisterHeaderFooter() as AssetHeaderView
+            header.update(with: title)
+            return header
+
         default:
             break
         }
@@ -464,7 +462,7 @@ extension AssetViewController: UITableViewDelegate {
 
         switch row {
         case .balance(let balance):
-            break
+            return AssetBalanceCell.cellHeight(isLeased: true, inOrder: true)
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
         case .viewHistory:

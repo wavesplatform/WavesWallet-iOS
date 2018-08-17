@@ -91,13 +91,13 @@ extension AssetTypes.ViewModel {
 
 extension AssetTypes.DTO {
 
-    struct Transaction {
+    struct Transaction: Codable {
 
     }
 
-    struct Asset {
+    struct Asset: Codable {
 
-        struct Info {
+        struct Info: Codable {
             let id: String
             let name: String
             let isMyWavesToken: Bool
@@ -109,7 +109,7 @@ extension AssetTypes.DTO {
             let sortLevel: Float
         }
 
-        struct Balance {
+        struct Balance: Codable {
             let totalMoney: Money
             let avaliableMoney: Money
             let leasedMoney: Money

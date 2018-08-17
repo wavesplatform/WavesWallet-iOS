@@ -1,0 +1,80 @@
+[
+  {
+    "balance": {
+      "leasedInMoney": {
+        "avaliableMoney": {
+          "amount": 2012,
+          "decimals": 2012
+        },
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "leasedMoney": {
+        "avaliableMoney": {
+          "amount": 2012,
+          "decimals": 2012
+        },
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "avaliableMoney": {
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "totalMoney": {
+        "amount": 2012,
+        "decimals": 2012
+      }
+    },
+    "info": {
+      "isSpam": true,
+      "isGateway": true,
+      "sortLevel": 1,
+      "id": "BTC",
+      "name": "BTC",
+      "isMyWavesToken": true,
+      "isWaves": true,
+      "isFavorite": true,
+      "isFiat": true
+    }
+  },
+  {
+    "balance": {
+      "leasedInMoney": {
+        "avaliableMoney": {
+          "amount": 2012,
+          "decimals": 2012
+        },
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "leasedMoney": {
+        "avaliableMoney": {
+          "amount": 2012,
+          "decimals": 2012
+        },
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "avaliableMoney": {
+        "amount": 2012,
+        "decimals": 2012
+      },
+      "totalMoney": {
+        "amount": 2012,
+        "decimals": 2012
+      }
+    },
+    "info": {
+      "isSpam": true,
+      "isGateway": true,
+      "sortLevel": 1,
+      "id": "Test",
+      "name": "Waves",
+      "isMyWavesToken": true,
+      "isWaves": true,
+      "isFavorite": true,
+      "isFiat": true
+    }
+  }
+]
