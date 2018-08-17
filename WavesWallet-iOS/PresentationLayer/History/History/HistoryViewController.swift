@@ -138,12 +138,6 @@ private extension HistoryViewController {
             .drive(onNext: { [weak self] (state) in
             
                 guard let strongSelf = self else { return }
-                
-//                if (!state.isRefreshing && strongSelf.isRefreshing) {
-//                    strongSelf.refreshControl.endRefreshing()
-//                }
-//
-//                strongSelf.isRefreshing = state.isRefreshing
             
                 strongSelf.emptyView.isHidden = state.sections.count > 0
                 
