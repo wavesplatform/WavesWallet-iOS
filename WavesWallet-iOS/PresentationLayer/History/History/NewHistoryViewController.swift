@@ -134,11 +134,6 @@ private extension NewHistoryViewController {
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
         
-//        tableView
-//            .rx
-//            .setDelegate(self)
-//            .disposed(by: disposeBag)
-        
         let subscriptionSections = state
             .drive(onNext: { [weak self] (state) in
             
