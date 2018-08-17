@@ -1,0 +1,9 @@
+"label.lastPrice" = "LAST PRICE";
+"label.spread" = "SPREAD";
+"label.amount" = "Amount";
+"label.price" = "Price";
+"label.sum" = "Sum";
+"label.loadingOrderbook" = "Loading orderbook…";
+
+"button.buy" = "BUY";
+"button.sell" = "SELL";

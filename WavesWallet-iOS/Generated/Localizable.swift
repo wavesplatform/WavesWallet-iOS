@@ -150,6 +150,43 @@ internal enum Localizable {
       internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
     }
   }
+  internal enum DexTraderContainer {
+
+    internal enum Button {
+      /// Chart
+      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
+      /// Last trades
+      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
+      /// My orders
+      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
+      /// Orderbook
+      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
+    }
+  }
+  internal enum DexOrderBook {
+
+    internal enum Button {
+      /// BUY
+      internal static let buy = Localizable.tr("DexOrderBook", "button.buy")
+      /// SELL
+      internal static let sell = Localizable.tr("DexOrderBook", "button.sell")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexOrderBook", "label.amount")
+      /// LAST PRICE
+      internal static let lastPrice = Localizable.tr("DexOrderBook", "label.lastPrice")
+      /// Loading orderbook…
+      internal static let loadingOrderbook = Localizable.tr("DexOrderBook", "label.loadingOrderbook")
+      /// Price
+      internal static let price = Localizable.tr("DexOrderBook", "label.price")
+      /// SPREAD
+      internal static let spread = Localizable.tr("DexOrderBook", "label.spread")
+      /// Sum
+      internal static let sum = Localizable.tr("DexOrderBook", "label.sum")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

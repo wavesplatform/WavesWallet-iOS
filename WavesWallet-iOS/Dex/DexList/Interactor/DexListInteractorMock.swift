@@ -14,7 +14,10 @@ fileprivate extension DexList.DTO.Pair {
   
     static func createPair(_ firstPrice: Money, _ lastPrice: Money, _ amountAsset: String, _ amountAssetName: String, _ amountTicker: String, _ amountDecimals: Int, _ priceAsset: String, _ priceAssetName: String, _ priceTicker: String, _ priceDecimals: Int) ->  DexList.DTO.Pair {
         
-        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, amountAssetName: amountAssetName, amountTicker: amountTicker, amountDecimals: amountDecimals, priceAsset: priceAsset, priceAssetName: priceAssetName, priceTicker: priceTicker, priceDecimals: priceDecimals)
+        let amountAsset = DexList.DTO.Asset(id: amountAsset, name: amountAssetName, decimals: amountDecimals, ticker: amountTicker)
+        let priceAsset = DexList.DTO.Asset(id: priceAsset, name: priceAssetName, decimals: priceDecimals, ticker: priceTicker)
+        
+        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false)
     }
 }
 
@@ -24,15 +27,24 @@ final class DexListInteractorMock: DexListInteractorProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     private static var testModels : [DexList.DTO.Pair] = [
-        DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "", "WAVES", "WAVES", 8, "", "BTC", "BTC", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(20.0), MoneyUtil.money(43.23), "", "WAVES", "WAVES", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(10.12), MoneyUtil.money(94), "", "Bitcoin", "Bitcoin", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(120), MoneyUtil.money(20.32), "", "ETH Classic", "ETH Classic", 8, "", "IOTA", "IOTA", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(40), MoneyUtil.money(20.32), "", "Monero", "Monero", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(100), MoneyUtil.money(10.4), "", "BTC Cash", "BTC Cash", 8, "", "Waves", "Waves", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(1034.31), MoneyUtil.money(94.00003), "", "ZCash", "ZCash", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(20), MoneyUtil.money(65.000), "", "Bitcoin", "Bitcoin", 8, "", "NEO", "NEO", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(200.343), MoneyUtil.money(96.34), "", "NEM", "NEM", 8, "", "BTC", "BTC", 8)]
+        DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "WAVES", "WAVES", "WAVES",
+                                    8, "BTC", "BTC", "BTC", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(20.0), MoneyUtil.money(43.23), "WAVES", "WAVES", "WAVES", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(10.12), MoneyUtil.money(94), "Bitcoin", "Bitcoin", "Bitcoin", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(120), MoneyUtil.money(20.32), "ETH Classic", "ETH Classic", "ETH Classic",
+                                    8, "IOTA", "IOTA", "IOTA", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(40), MoneyUtil.money(20.32), "Monero", "Monero", "Monero", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(100), MoneyUtil.money(10.4), "BTC Cash", "BTC Cash", "BTC Cash",
+                                    8, "Waves", "Waves", "Waves", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(1034.31), MoneyUtil.money(94.00003), "ZCash", "ZCash", "ZCash",
+                                    8, "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(20), MoneyUtil.money(65.000), "Bitcoin", "Bitcoin", "Bitcoin", 8,
+                                    "NEO", "NEO", "NEO", 8),
+        DexList.DTO.Pair.createPair(MoneyUtil.money(200.343), MoneyUtil.money(96.34), "NEM", "NEM", "NEM", 8,
+                                    "BTC", "BTC", "BTC", 8)]
  
     
     func pairs() -> Observable<[DexList.DTO.Pair]> {

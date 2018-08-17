@@ -161,9 +161,8 @@ extension DexListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-        let row = sections[indexPath.section].items[indexPath.row]
-        if let model = row.model {
-            print(model)
+        if let model = sections[indexPath.section].items[indexPath.row].model {
+            sendEvent.accept(.tapAssetPair(model))
         }
     }
 }
