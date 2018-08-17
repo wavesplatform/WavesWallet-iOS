@@ -47,6 +47,23 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum DexMarket {
+
+    internal enum Label {
+      /// Loading markets…
+      internal static let loadingMarkets = Localizable.tr("DexMarket", "label.loadingMarkets")
+    }
+
+    internal enum Navigationbar {
+      /// Markets
+      internal static let title = Localizable.tr("DexMarket", "navigationBar.title")
+    }
+
+    internal enum Searchbar {
+      /// Search
+      internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
+    }
+  }
   internal enum History {
 
     internal enum Navigationbar {
@@ -96,6 +113,20 @@ internal enum Localizable {
       internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
       /// Token Reissue
       internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
+    }
+  }
+  internal enum WalletSort {
+
+    internal enum Button {
+      /// Position
+      internal static let position = Localizable.tr("WalletSort", "button.position")
+      /// Visibility
+      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
+    }
+
+    internal enum Navigationbar {
+      /// Sorting
+      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
     }
   }
   internal enum Wallet {
@@ -159,18 +190,15 @@ internal enum Localizable {
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
   }
-  internal enum WalletSort {
+  internal enum DexInfo {
 
-    internal enum Button {
-      /// Position
-      internal static let position = Localizable.tr("WalletSort", "button.position")
-      /// Visibility
-      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
-    }
-
-    internal enum Navigationbar {
-      /// Sorting
-      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
+    internal enum Label {
+      /// Amount Asset
+      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
+      /// Popular
+      internal static let popular = Localizable.tr("DexInfo", "label.popular")
+      /// Price Asset
+      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
     }
   }
 }
