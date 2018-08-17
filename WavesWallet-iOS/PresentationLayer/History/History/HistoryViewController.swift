@@ -1,5 +1,5 @@
 //
-//  NewHistoryViewController.swift
+//  HistoryViewController.swift
 //  WavesWallet-iOS
 //
 //  Created by Mac on 02/08/2018.
@@ -17,7 +17,7 @@ private enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
 }
 
-final class NewHistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -70,7 +70,7 @@ final class NewHistoryViewController: UIViewController {
 
 // MARK: Bind UI
 
-private extension NewHistoryViewController {
+private extension HistoryViewController {
     
     func setupSystem() {
         
@@ -137,33 +137,42 @@ private extension NewHistoryViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] (state) in
             
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
                 
-            if (!state.isRefreshing && strongSelf.isRefreshing) {
-                strongSelf.refreshControl.endRefreshing()
-            }
-
-            strongSelf.isRefreshing = state.isRefreshing
-        
-            strongSelf.emptyView.isHidden = state.sections.count > 0
-                
-            if (!strongSelf.filters.elementsEqual(state.filters)) {
-                strongSelf.filters = state.filters
-                strongSelf.setupSegmentedControl()
-                strongSelf.changeFilter(state.currentFilter)
-            }
-                
-            strongSelf.sections = state.sections
+//                if (!state.isRefreshing && strongSelf.isRefreshing) {
+//                    strongSelf.refreshControl.endRefreshing()
+//                }
+//
+//                strongSelf.isRefreshing = state.isRefreshing
             
-            UIView.transition(with: strongSelf.tableView,
-                              duration: 0.24,
-                              options: [.transitionCrossDissolve, .curveEaseInOut],
-                              animations: {
+                strongSelf.emptyView.isHidden = state.sections.count > 0
                 
-                strongSelf.tableView.reloadData()
+                if (!strongSelf.filters.elementsEqual(state.filters)) {
+                    strongSelf.filters = state.filters
+                    strongSelf.setupSegmentedControl()
+                    strongSelf.changeFilter(state.currentFilter)
+                }
                 
+                strongSelf.sections = state.sections
+            
+                UIView.transition(with: strongSelf.tableView,
+                                  duration: 0.24,
+                                  options: [.transitionCrossDissolve, .curveEaseInOut],
+                                  animations: {
+                                    
+                                    strongSelf.tableView.reloadData()
+                                    
+                                    
+                }, completion: { _ in
+                    
+                    if (!state.isRefreshing && strongSelf.isRefreshing) {
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+                    
+                    strongSelf.isRefreshing = state.isRefreshing
+                    
+                })
                 
-            }, completion: { _ in })
         })
         
         return [subscriptionSections]
@@ -173,7 +182,7 @@ private extension NewHistoryViewController {
 
 // MARK: - Setup
 
-extension NewHistoryViewController {
+extension HistoryViewController {
     
     func setupSegmentedControl() {
         let buttons = filters.map { SegmentedControl.Button(name: $0.name) }
@@ -199,7 +208,7 @@ extension NewHistoryViewController {
     
 }
 
-extension NewHistoryViewController: UITableViewDelegate {
+extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -281,7 +290,7 @@ extension NewHistoryViewController: UITableViewDelegate {
     
 }
 
-extension NewHistoryViewController: UITableViewDataSource {
+extension HistoryViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -343,7 +352,7 @@ extension NewHistoryViewController: UITableViewDataSource {
     
 }
 
-extension NewHistoryViewController: UIScrollViewDelegate {
+extension HistoryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
