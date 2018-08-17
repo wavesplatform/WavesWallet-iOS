@@ -34,6 +34,11 @@ extension DexListCoordinator: DexListModuleOutput, DexMarketModuleOutput {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
+        let vc = DexTraderContainerModuleBuilder().build(input: pair)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func showInfo(pair: DexInfoPair.DTO.Pair) {
         
         let controller = DexInfoModuleBuilder().build(input: pair)

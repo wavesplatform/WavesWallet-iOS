@@ -12,4 +12,5 @@ protocol DexListModuleOutput: AnyObject {
  
     func showDexSort()
     func showAddList()
+    func showTradePairInfo(pair: DexTraderContainer.DTO.Pair)
 }

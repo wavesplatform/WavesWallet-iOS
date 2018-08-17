@@ -30,9 +30,10 @@ final class DexListCell: UITableViewCell, Reusable {
 
 extension DexListCell: ViewConfiguration {
     func update(with model: DexList.DTO.Pair) {
-        labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
+        
+        labelTitle.text = model.amountAsset.name + " / " + model.priceAsset.name
 
-        labelType.text = Localizable.DexList.Label.price + " " + model.amountAssetName
+        labelType.text = Localizable.DexList.Label.price + " " + model.amountAsset.name
         
         let firstPrice = MoneyUtil.value(model.firstPrice)
         let lastPrice = MoneyUtil.value(model.lastPrice)
