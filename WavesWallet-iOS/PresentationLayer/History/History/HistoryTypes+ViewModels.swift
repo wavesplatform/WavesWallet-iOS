@@ -28,29 +28,56 @@ extension HistoryTypes.ViewModel {
 
 extension HistoryTypes.ViewModel.Section {
     static func filter(from transactions: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
-        
-        let generalItems = transactions
+        let filteredTransactions = transactions
             .filter { filter.kinds.contains($0.kind) }
-            .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
-            })
-            .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(items: generalItems)
-        
-        return [generalSection, generalSection]
-        
+        return sections(from: filteredTransactions)
     }
     
     static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
-        let generalItems = transactions
+        return sections(from: transactions)
+    }
+    
+    static func sections(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+        
+        let transactions = transactions
             .sorted(by: { (transaction1, transaction2) -> Bool in
                 return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
             })
-            .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
-        let generalSection: HistoryTypes.ViewModel.Section = .init(items: generalItems)
-
-        return [generalSection, generalSection]
+        var sections: [NSMutableArray] = []
+        var lastSection: NSMutableArray = NSMutableArray()
+        var previousDay: Int? = 0
+        var previousMonth: Int? = 0
+        var previousYear: Int? = 0
+        
+        for transaction in transactions {
+            let calendar = NSCalendar.current
+            
+            let components = calendar.dateComponents([.day, .month, .year], from: transaction.date as Date)
+            
+            let year = components.year
+            let month = components.month
+            let day = components.day
+            
+            if day != previousDay || month != previousMonth || year != previousYear {
+                lastSection = NSMutableArray()
+                sections.append(lastSection)
+            }
+            
+            lastSection.add(transaction)
+            
+            previousDay = day
+            previousMonth = month
+            previousYear = year
+        }
+        
+        let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
+            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! HistoryTypes.DTO.Transaction) })
+        }
+        
+        let generalSections = items.map { HistoryTypes.ViewModel.Section(items: $0) }
+        
+        return generalSections
     }
 }
