@@ -22,14 +22,24 @@ final class DexListCoordinator {
     }
 }
 
-extension DexListCoordinator: DexListModuleOutput {
+extension DexListCoordinator: DexListModuleOutput, DexMarketModuleOutput {
+    
     func showDexSort() {
         let vc = DexSortModuleBuilder().build()
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showAddList() {
-        let vc = StoryboardScene.Dex.dexSearchViewController.instantiate()
+        let vc = DexMarketModuleBuilder(output: self).build()
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func showInfo(pair: DexInfoPair.DTO.Pair) {
+        
+        let controller = DexInfoModuleBuilder().build(input: pair)
+        let popup = PopupViewController()
+        popup.contentHeight = 300
+        popup.present(contentViewController: controller)
+
     }
 }

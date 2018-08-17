@@ -146,6 +146,7 @@ internal enum Images {
   internal static let info18Basic300 = ImageAsset(name: "info18Basic300")
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
+  internal static let information22Multy = ImageAsset(name: "information22Multy")
   internal static let logo = ImageAsset(name: "logo")
   internal static let logo3x = ImageAsset(name: "logo3x")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
@@ -348,6 +349,7 @@ internal enum Images {
     info18Basic300,
     info18Error500,
     info18Warning600,
+    information22Multy,
     logo,
     logo3x,
     logoBitcoin48,
