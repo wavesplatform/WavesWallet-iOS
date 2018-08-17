@@ -40,6 +40,7 @@ final class NewHistoryViewController: UIViewController {
         title = Localizable.History.Navigationbar.title
         
         tableView.contentInset = Constants.contentInset
+        tableView.register(HeaderSkeletonView.nib, forHeaderFooterViewReuseIdentifier: HeaderSkeletonView.nibName)
         emptyView.isHidden = true
         
         setupSegmentedControl()
@@ -143,12 +144,14 @@ private extension NewHistoryViewController {
             
             guard let strongSelf = self else { return }
                 
-                if (!state.isRefreshing && strongSelf.isRefreshing) {
-                    strongSelf.refreshControl.endRefreshing()
-                }
+            if (!state.isRefreshing && strongSelf.isRefreshing) {
+                strongSelf.refreshControl.endRefreshing()
+            }
 
-                strongSelf.isRefreshing = state.isRefreshing
-            
+            strongSelf.isRefreshing = state.isRefreshing
+        
+            strongSelf.emptyView.isHidden = state.sections.count > 0
+                
             if (!strongSelf.filters.elementsEqual(state.filters)) {
                 strongSelf.filters = state.filters
                 strongSelf.setupSegmentedControl()
@@ -223,9 +226,24 @@ extension NewHistoryViewController: UITableViewDelegate {
         
         switch row {
         case .transactionSkeleton:
-            let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
+            let skeletonCell: HistoryTransactionSkeletonCell = cell as! HistoryTransactionSkeletonCell
             skeletonCell.slide(to: .right)
             
+        default:
+            break
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let model = sections[section]
+        
+        guard let firstItem = model.items.first else { return }
+        
+        switch firstItem {
+        case .transactionSkeleton:
+            (view as! HeaderSkeletonView).slide(to: .right)
         default:
             break
         }
@@ -238,7 +256,7 @@ extension NewHistoryViewController: UITableViewDelegate {
         
         switch row {
         case .transactionSkeleton:
-            return WalletAssetSkeletonCell.cellHeight()
+            return HistoryTransactionSkeletonCell.cellHeight()
             
         case .transaction:
             return HistoryTransactionCell.cellHeight()
@@ -284,7 +302,7 @@ extension NewHistoryViewController: UITableViewDataSource {
         
         switch item {
         case .transactionSkeleton:
-            let cell: WalletAssetSkeletonCell = tableView.dequeueCell()
+            let cell: HistoryTransactionSkeletonCell = tableView.dequeueCell()
             return cell
             
         case .transaction(let transaction):
@@ -296,14 +314,16 @@ extension NewHistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let model = sections[section]
         
-        let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-        
-        guard let firstItem = model.items.first else { return view }
+        guard let firstItem = model.items.first else { return nil }
         
         switch firstItem {
         case .transaction(let transaction):
+            
+            let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
+            
             if let header = model.header {
                 view.update(with: header)
             } else {
@@ -311,13 +331,18 @@ extension NewHistoryViewController: UITableViewDataSource {
                 let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
                 view.update(with: d)
             }
+            
+            return view
 
-        default:
-            // тут скелетон будет
-            view.update(with: "")
+        case .transactionSkeleton:
+            
+            let view: HeaderSkeletonView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderSkeletonView.nibName) as! HeaderSkeletonView
+            
+            return view
+            
         }
         
-        return view
+
     }
 
     
@@ -326,7 +351,6 @@ extension NewHistoryViewController: UITableViewDataSource {
 extension NewHistoryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scroll")
         setupTopBarLine()
     }
     

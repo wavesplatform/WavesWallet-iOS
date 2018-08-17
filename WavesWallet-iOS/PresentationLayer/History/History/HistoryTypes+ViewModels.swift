@@ -32,7 +32,7 @@ extension HistoryTypes.ViewModel.Section {
         let generalItems = transactions
             .filter { filter.kinds.contains($0.kind) }
             .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.date.timeIntervalSince1970 < transaction2.date.timeIntervalSince1970
+                return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
             })
             .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
@@ -45,7 +45,7 @@ extension HistoryTypes.ViewModel.Section {
     static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
         let generalItems = transactions
             .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.date.timeIntervalSince1970 < transaction2.date.timeIntervalSince1970
+                return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
             })
             .map { HistoryTypes.ViewModel.Row.transaction($0) }
         
