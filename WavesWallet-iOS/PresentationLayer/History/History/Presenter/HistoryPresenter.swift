@@ -85,7 +85,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 .setFilter(filter: .all)
                 .setSections(sections: sections)
                 .setIsRefreshing(false)
-//
+
             return newState
             
             
