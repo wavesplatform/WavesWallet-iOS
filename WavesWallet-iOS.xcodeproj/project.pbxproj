@@ -22,7 +22,6 @@
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
-		04E1C35C2126B26700C702BA /* HistoryTransactionSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C35B2126B26700C702BA /* HistoryTransactionSkeletonCell.xib */; };
 		04EB742621133318004A065B /* NewHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* NewHistoryViewController.swift */; };
 		04EB74282113335B004A065B /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
@@ -408,7 +407,6 @@
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
-		04E1C35B2126B26700C702BA /* HistoryTransactionSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionSkeletonCell.xib; sourceTree = "<group>"; };
 		04EB742521133318004A065B /* NewHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
@@ -857,7 +855,6 @@
 			children = (
 				E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */,
 				04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */,
-				04E1C35B2126B26700C702BA /* HistoryTransactionSkeletonCell.xib */,
 				048684F421258B0B00D12189 /* HistoryHeaderView.swift */,
 				048684F621258BC400D12189 /* HistoryHeaderView.xib */,
 				04E1C3552126157000C702BA /* HeaderSkeletonView.swift */,
@@ -2037,7 +2034,6 @@
 				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
 				F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */,
-				04E1C35C2126B26700C702BA /* HistoryTransactionSkeletonCell.xib in Resources */,
 				F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */,
 				0AD8543B20F7A74C00D23E48 /* SegmentedControl.xib in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,

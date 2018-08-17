@@ -374,7 +374,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="viewContent" destination="A32-81-Gvp" id="NCc-Tu-u2l"/>
+                                            <outlet property="viewContent" destination="A32-81-Gvp" id="d3b-Za-ZuJ"/>
                                             <outletCollection property="views" destination="0eB-Fy-Axg" collectionClass="NSMutableArray" id="0ju-Jj-qfR"/>
                                             <outletCollection property="views" destination="3jR-d4-Csv" collectionClass="NSMutableArray" id="udX-YD-FJu"/>
                                             <outletCollection property="views" destination="4Lv-wy-ZF1" collectionClass="NSMutableArray" id="hFZ-KX-CQF"/>

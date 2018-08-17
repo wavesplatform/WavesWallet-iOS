@@ -20,5 +20,5 @@ final class HistoryTransactionSkeletonCell: SkeletonCell, Reusable {
     class func cellHeight() -> CGFloat {
         return 76
     }
-    
 }
+
