@@ -29,25 +29,11 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        viewContent.addTableCellShadowStyle()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        viewContent.layer.mask?.shadowColor = UIColor.black.cgColor
-        viewContent.layer.mask?.shadowOffset = CGSize(width: 0, height: 10)
-        viewContent.layer.mask?.shadowOpacity = 1.12
-        viewContent.layer.mask?.shadowRadius = 1
-        viewContent.layer.mask?.shouldRasterize = true
-        viewContent.layer.mask?.rasterizationScale = UIScreen.main.scale
-        viewContent.layer.mask?.shadowPath = UIBezierPath(roundedRect: viewContent.bounds.insetBy(dx: 0, dy: 0), cornerRadius: CGFloat(cornerRadius)).cgPath
-
-        viewContent.layer.shadowColor = UIColor.black.cgColor
-        viewContent.layer.shadowOffset = CGSize(width: 0, height: 10)
-        viewContent.layer.shadowOpacity = 1.12
-        viewContent.layer.shadowRadius = 1
-        viewContent.layer.shouldRasterize = true
-        viewContent.layer.rasterizationScale = UIScreen.main.scale
-        viewContent.layer.shadowPath = UIBezierPath(roundedRect: viewContent.bounds.insetBy(dx: 0, dy: 0), cornerRadius: CGFloat(cornerRadius)).cgPath
     }
 
     override func prepareForReuse() {

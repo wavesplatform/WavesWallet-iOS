@@ -16,7 +16,7 @@ extension UIView {
         static var isEnabledPassthroughSubviews = "isEnabledPassthroughSubviews"
     }
 
-    static func passtroughInit() {
+    static func shadowInit() {
         Runtime.swizzle(for: self,
                         original: #selector(hitTest(_:with:)),
                         swizzled: #selector(swizzledHitTest(_:with:)))

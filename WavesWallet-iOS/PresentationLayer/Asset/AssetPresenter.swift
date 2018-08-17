@@ -35,6 +35,21 @@ final class AsssetPresenter: AsssetPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
+//    private func assetsQuery() -> Feedback {
+//        return react(query: { state -> Bool? in
+//            return state.isNeedRefreshing == true ? true : nil
+//        }, effects: { [weak self] _ -> Signal<WalletSort.Event> in
+//
+//            // TODO: Error
+//            guard let strongSelf = self else { return Signal.empty() }
+//            return strongSelf
+//                .interactor
+//                .assets()
+//                .map { .setAssets($0) }
+//                .asSignal(onErrorSignalWith: Signal.empty())
+//        })
+//    }
+
     func handlerEventOutput(state: AssetTypes.State) {
         guard let event = state.event else { return }
 
@@ -68,6 +83,7 @@ private extension AsssetPresenter {
         let balances = AssetTypes.ViewModel.Section.init(kind: .none, rows: [.balanceSkeleton])
         let transactions = AssetTypes.ViewModel.Section.init(kind: .skeletonTitle, rows: [.transactionSkeleton, .viewHistorySkeleton])
 
+
         return AssetTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
@@ -83,5 +99,24 @@ private extension AsssetPresenter {
                                        assets: [],
                                        sections: [balances,
                                                   transactions])
+    }
+
+    static func assets() -> [AssetTypes.DTO.Asset] {
+
+        AssetTypes.DTO.Asset.init(info: AssetTypes.DTO.Asset.Info.init(id: "1",
+                                                                       name: "Test",
+                                                                       isMyWavesToken: false,
+                                                                       isWaves: false,
+                                                                       isFavorite: false,
+                                                                       isFiat: false,
+                                                                       isSpam: false,
+                                                                       isGateway: false,
+                                                                       sortLevel: 1),
+                                  balance: AssetTypes.DTO.Asset.Balance.init(totalMoney: Money.init(10, 1),
+                                                                             avaliableMoney: Money.init(10, 1),
+                                                                             leasedMoney: Money.init(10, 1),
+                                                                             leasedInMoney: Money.init(10, 1)))
+
+        return []
     }
 }

@@ -25,6 +25,16 @@ final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var switchControl: UISwitch!
     @IBOutlet var viewContent: UIView!
 
+    var isDragged: Bool = false {
+        didSet {
+            if isDragged {
+                viewContent.removeShadow()
+            } else {
+                viewContent.addTableCellShadowStyle()
+            }
+        }
+    }
+
     private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
 
@@ -51,11 +61,12 @@ final class WalletSortCell: UITableViewCell, Reusable {
         return Constants.height
     }
 
-    @objc func changedValueSwitchAction() {
+     @objc private func changedValueSwitchAction() {
         changedValueSwitchControl?(switchControl.isOn)
     }
 }
 
+// MARK: ViewConfiguration
 extension WalletSortCell: ViewConfiguration {
     struct Model {
         let name: String

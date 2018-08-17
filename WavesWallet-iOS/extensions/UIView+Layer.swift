@@ -27,6 +27,4 @@ public extension UIView {
             layer.borderColor = newValue?.cgColor
         }
     }
-
-    
 }

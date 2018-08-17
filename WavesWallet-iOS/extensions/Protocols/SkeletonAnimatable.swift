@@ -22,12 +22,11 @@ protocol SkeletonAnimatable: GradientsOwner {
 
 private enum AssociatedKeys {
     static var direction = "direction"
-    static var token = "token"
 }
 
-extension SkeletonAnimatable where Self: NSObject {
+extension SkeletonAnimatable where Self: UIView {
 
-    private var direction: SkeletonDirection {
+    fileprivate var direction: SkeletonDirection {
 
         get {
             return associatedObject(for: &AssociatedKeys.direction) ?? .right
@@ -38,42 +37,35 @@ extension SkeletonAnimatable where Self: NSObject {
         }
     }
 
-    private var token: NSObjectProtocol? {
-
-        get {
-            return associatedObject(for: &AssociatedKeys.token)
-        }
-
-        set {
-            setAssociatedObject(newValue, for: &AssociatedKeys.token)
-        }
-    }
-
     private func startListener() {
-        self.token = NotificationCenter.default.addObserver(forName: .UIApplicationDidEnterBackground, object: self, queue: OperationQueue.main) { [weak self] _ in
-            print("UIApplicationDidEnterBackground")
-            guard let owner = self else { return }
-            owner.startAnimation(to: owner.direction)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
 
     private func stopListener() {
-        self.token = nil
+          NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     func startAnimation(to dir: SkeletonDirection = .right) {
 
-//        stopAnimation()
+        stopAnimation()
 
         self.direction = dir
+
         let direction: Direction = dir == .left ? .left : .right
         slide(to: direction)
-
         startListener()
     }
 
     func stopAnimation() {
         stopListener()
         stopSliding()
+    }
+}
+
+fileprivate extension UIView {
+    @objc fileprivate  func didBecomeActive() {
+        if let skeleton = self as? (UIView & SkeletonAnimatable) {
+            skeleton.startAnimation(to: skeleton.direction)
+        }
     }
 }
