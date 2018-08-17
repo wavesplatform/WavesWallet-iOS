@@ -20,9 +20,9 @@ protocol AsssetModuleInput {
     var currentAsset: AssetTypes.DTO.Asset.Info { get set }
 }
 
-protocol AsssetPresenterProtocol {
+protocol AssetPresenterProtocol {
     typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
-    var interactor: AssetsInteractorProtocol! { get set }
+    var interactor: AssetInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
 }
 

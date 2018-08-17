@@ -13,6 +13,8 @@ import UIKit
 
 protocol WalletDisplayDataDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
+
+    func tableViewDidSelect(indexPath: IndexPath)
 }
 
 final class WalletDisplayData: NSObject {
@@ -176,6 +178,10 @@ extension WalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView(tableView, heightForRowAt: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableViewDidSelect(indexPath: indexPath)
     }
 }
 

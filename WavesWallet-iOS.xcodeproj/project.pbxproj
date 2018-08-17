@@ -94,6 +94,9 @@
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
 		0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919B20F3E7DD00443CE6 /* Asset.swift */; };
+		0A63976B2126ED07007E682A /* Assets.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A63976A2126ED06007E682A /* Assets.json */; };
+		0A63976D2126F821007E682A /* AssetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63976C2126F821007E682A /* AssetHeaderView.swift */; };
+		0A63976F2126F82C007E682A /* AssetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A63976E2126F82C007E682A /* AssetHeaderView.xib */; };
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
 		0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */; };
@@ -476,6 +479,9 @@
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919B20F3E7DD00443CE6 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		0A63976A2126ED06007E682A /* Assets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Assets.json; sourceTree = "<group>"; };
+		0A63976C2126F821007E682A /* AssetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetHeaderView.swift; sourceTree = "<group>"; };
+		0A63976E2126F82C007E682A /* AssetHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetHeaderView.xib; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
 		0A6CCD4020F50F2A0023E36E /* ObservableType+Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+Weak.swift"; sourceTree = "<group>"; };
@@ -909,6 +915,7 @@
 		0A26AA14211897B800A00578 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				0A63976A2126ED06007E682A /* Assets.json */,
 				E999502B2091FDF300A11E37 /* Views */,
 				E90C6E6720981F0300AA311B /* AssetViewController.swift */,
 				0A26AA16211897DD00A00578 /* Asset.storyboard */,
@@ -1464,6 +1471,8 @@
 				E9628842209F792300DE3B5A /* AssetLastTransactionView.swift */,
 				E9628844209F792F00DE3B5A /* AssetLastTransactionView.xib */,
 				0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */,
+				0A63976C2126F821007E682A /* AssetHeaderView.swift */,
+				0A63976E2126F82C007E682A /* AssetHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1966,6 +1975,7 @@
 				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
 				F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */,
+				0A63976B2126ED07007E682A /* Assets.json in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */,
 				0AE657272105E3E3003D2DB8 /* EmptyCell.xib in Resources */,
@@ -1973,6 +1983,7 @@
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				0A26AA2B2119FBE700A00578 /* TickerView.xib in Resources */,
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
+				0A63976F2126F82C007E682A /* AssetHeaderView.xib in Resources */,
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
 				E9628845209F792F00DE3B5A /* AssetLastTransactionView.xib in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
@@ -2143,6 +2154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ABB89152122F7440076D185 /* AssetTypes.swift in Sources */,
 				0A5ABBA12117325D006A10A7 /* LeasingTransactionDomainDTO.swift in Sources */,
 				0A26AA292119FBC800A00578 /* TickerView.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
@@ -2378,7 +2390,6 @@
 				0A21C4C321259A9C0054967F /* AssetBalanceSkeletonCell.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColor+Hex.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
-				0ABB89152122F7440076D185 /* AssetTypes.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
 				0AEB359A211652CB00EDD63C /* SweetNetworkLoggerPlugin.swift in Sources */,
 				E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */,
@@ -2395,6 +2406,7 @@
 				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0A5495F4210F7242009080BE /* UIColor+Asset.swift in Sources */,
+				0A63976D2126F821007E682A /* AssetHeaderView.swift in Sources */,
 				0A5B6E94212609D6005A7F09 /* UIView+Shadow.swift in Sources */,
 				0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,

@@ -11,21 +11,18 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-final class AsssetPresenter: AsssetPresenterProtocol {
+final class AssetPresenter: AssetPresenterProtocol {
 
-    private typealias FeedbackCore = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
-
-    var interactor: AssetsInteractorProtocol!
+    var interactor: AssetInteractorProtocol! = AssetInteractorMock()
     private var disposeBag: DisposeBag = DisposeBag()
-
-    
 
     func system(feedbacks: [Feedback]) {
 
         var newFeedbacks = feedbacks
+        newFeedbacks.append(assetsQuery())
 
-        let system = Driver.system(initialState: AsssetPresenter.initialState,
-                                   reduce: AsssetPresenter.reduce,
+        let system = Driver.system(initialState: AssetPresenter.initialState,
+                                   reduce: AssetPresenter.reduce,
                                    feedback: newFeedbacks)
 
         system
@@ -35,20 +32,21 @@ final class AsssetPresenter: AsssetPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-//    private func assetsQuery() -> Feedback {
-//        return react(query: { state -> Bool? in
-//            return state.isNeedRefreshing == true ? true : nil
-//        }, effects: { [weak self] _ -> Signal<WalletSort.Event> in
-//
-//            // TODO: Error
-//            guard let strongSelf = self else { return Signal.empty() }
-//            return strongSelf
-//                .interactor
-//                .assets()
-//                .map { .setAssets($0) }
-//                .asSignal(onErrorSignalWith: Signal.empty())
-//        })
-//    }
+    private func assetsQuery() -> Feedback {
+        return react(query: { state -> Bool? in
+            return true
+        }, effects: { [weak self] _ -> Signal<AssetTypes.Event> in
+
+            // TODO: Error
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .assets()
+                .map { AssetTypes.Event.setAssets($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
 
     func handlerEventOutput(state: AssetTypes.State) {
         guard let event = state.event else { return }
@@ -62,17 +60,53 @@ final class AsssetPresenter: AsssetPresenterProtocol {
 
 // MARK: Core State
 
-private extension AsssetPresenter {
+private extension AssetPresenter {
 
     class func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
-        
+
+        switch event {
+        case .readyView:
+
+            return state.mutate { $0.displayState = $0.displayState.mutate { $0.isAppeared = true } }
+        case .setAssets(let assets):
+
+            if let asset = assets.first {
+
+//                return state.mutate { $0.displayState = $0.displayState.mutate { $0.sections = asset.toSections() } }
+            }
+
+            return state
+        default:
+            break
+        }
         return state
     }
 }
 
 // MARK: UI State
 
-private extension AsssetPresenter {
+fileprivate extension AssetTypes.DTO.Asset {
+
+    func toSections() -> [AssetTypes.ViewModel.Section] {
+
+        let balance: AssetTypes.ViewModel.Section = .init(kind: .none, rows: [.balance(self.balance)])
+        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title("Last transactions"), rows: [.transactionSkeleton])
+        let assetInfo: AssetTypes.ViewModel.Section =   .init(kind: .none, rows: [.assetInfo(self.info)])
+
+        return [balance,
+                transactions,
+                assetInfo]
+    }
+}
+
+private extension Array where Element == AssetTypes.DTO.Asset {
+
+
+}
+
+// MARK: UI State
+
+private extension AssetPresenter {
 
     static var initialState: AssetTypes.State {
         return AssetTypes.State(event: nil, assets: [], displayState: initialDisplayState)
@@ -98,7 +132,7 @@ private extension AsssetPresenter {
                                                                                     sortLevel: 1),
                                        assets: [],
                                        sections: [balances,
-                                                  transactions])
+                                                  transactions, transactions , transactions, balances])
     }
 
     static func assets() -> [AssetTypes.DTO.Asset] {
