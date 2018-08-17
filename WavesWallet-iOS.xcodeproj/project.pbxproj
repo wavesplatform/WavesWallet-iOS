@@ -88,6 +88,8 @@
 		0A5B6E8E211CF9B7005A7F09 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */; };
 		0A5B6E90211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */; };
 		0A5B6E9221237BFA005A7F09 /* SectionDisplayCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */; };
+		0A5B6E94212609D6005A7F09 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E93212609D6005A7F09 /* UIView+Shadow.swift */; };
+		0A5B6E9621260CBA005A7F09 /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E9521260CBA005A7F09 /* CALayer+Shadow.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -468,6 +470,8 @@
 		0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0A5B6E8F211CFCA9005A7F09 /* WrapperAssetsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperAssetsSegmentedControl.swift; sourceTree = "<group>"; };
 		0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDisplayCollection.swift; sourceTree = "<group>"; };
+		0A5B6E93212609D6005A7F09 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		0A5B6E9521260CBA005A7F09 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -845,7 +849,6 @@
 			children = (
 				0A485E8420FE37D600079B49 /* SkeletonCell.swift */,
 				0A21C4D72125B8560054967F /* SkeletonTableHeaderFooterView.swift */,
-				0A21C4E12125CF770054967F /* SkeletonAnimatable.swift */,
 			);
 			path = Skeleton;
 			sourceTree = "<group>";
@@ -1326,6 +1329,7 @@
 		0AF2F2C020F757BD00AA39FB /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				0A21C4E12125CF770054967F /* SkeletonAnimatable.swift */,
 				0AFBCA8B2113269F00285BCB /* Module */,
 				0A97976B2109F03000407F67 /* Mutating.swift */,
 				0AF2F2BE20F757BA00AA39FB /* ViewConfiguration.swift */,
@@ -1841,6 +1845,8 @@
 				E99950342092188D00A11E37 /* UIView+Additionals.swift */,
 				F7F97E8D1EAA0CF800BE2F6F /* UIView+Borders.swift */,
 				F7F97E8E1EAA0CF800BE2F6F /* UIView+Layer.swift */,
+				0A5B6E9521260CBA005A7F09 /* CALayer+Shadow.swift */,
+				0A5B6E93212609D6005A7F09 /* UIView+Shadow.swift */,
 				0A5B6E89211CF6FC005A7F09 /* UIView+Passtrough.swift */,
 				0A21C4C821259E160054967F /* UIView+RoundingCorners.swift */,
 				E9995032209213AC00A11E37 /* UIViewController+Additionals.swift */,
@@ -2389,6 +2395,7 @@
 				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0A5495F4210F7242009080BE /* UIColor+Asset.swift in Sources */,
+				0A5B6E94212609D6005A7F09 /* UIView+Shadow.swift in Sources */,
 				0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
 				F74240D01EAB8EFF00C3B84D /* AccountsViewController.swift in Sources */,
@@ -2419,6 +2426,7 @@
 				F79C43D81EAEB101006057B0 /* HalfModalInteractiveTransition.swift in Sources */,
 				E99950352092188D00A11E37 /* UIView+Additionals.swift in Sources */,
 				F770753D1EAA3DD000FE6995 /* NavigationAccessoryView.swift in Sources */,
+				0A5B6E9621260CBA005A7F09 /* CALayer+Shadow.swift in Sources */,
 				E9E1B51E20A0F3A60034DCD3 /* AssetChartCell.swift in Sources */,
 				E99ECC601F59A7A100ADB12D /* OrderConfirmView.swift in Sources */,
 				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,

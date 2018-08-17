@@ -39,7 +39,7 @@ final class WrapperAssetsSegmentedControl: UIView, ViewConfiguration {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let witdthCells = assetsSegmentedControl.witdthCells(by: Constants.maxCount)
+        let witdthCells = self.witdthCells()
 
         leftGradient.frame = CGRect(x: 0,
                                     y: 0,
@@ -49,6 +49,10 @@ final class WrapperAssetsSegmentedControl: UIView, ViewConfiguration {
                                      y: 0,
                                      width: (frame.width - witdthCells) * 0.5,
                                      height: AssetsSegmentedCell.Constants.sizeLogo.height)
+    }
+
+    func witdthCells() -> CGFloat {
+        return assetsSegmentedControl.witdthCells(by: Constants.maxCount)
     }
 
     func update(with model: AssetsSegmentedControl.Model) {

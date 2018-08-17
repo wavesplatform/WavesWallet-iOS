@@ -33,7 +33,6 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="1C3-X0-qd3" firstAttribute="centerY" secondItem="ka5-dA-N9k" secondAttribute="centerY" id="Rhu-eu-u2q"/>
                         <constraint firstItem="1C3-X0-qd3" firstAttribute="leading" secondItem="ka5-dA-N9k" secondAttribute="leading" id="uDl-Ld-qSR"/>
@@ -45,7 +44,6 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ka5-dA-N9k" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="FEZ-Ss-vQy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ka5-dA-N9k" secondAttribute="bottom" id="hfy-wC-0nW"/>

@@ -64,23 +64,4 @@ extension UINavigationItem {
                                      .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-
-    func bindTitleView(_ view: UIView) {
-
-//        self.containerTitleView?.removeFromSuperview()
-//        self.containerTitleView = UIView()
-//        self.containerTitleView?.translatesAutoresizingMaskIntoConstraints = false
-//        self.containerTitleView?.addSubview(view)
-
-
-        
-        
-//        self.containerTitleView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        self.containerTitleView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        self.containerTitleView?.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-//        self.containerTitleView?.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-
-//        self.titleView?.layoutIfNeeded()
-//        self.titleView = self.containerTitleView
-    }
 }

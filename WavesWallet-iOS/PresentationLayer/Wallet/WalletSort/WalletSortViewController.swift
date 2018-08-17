@@ -56,7 +56,7 @@ final class WalletSortViewController: UIViewController {
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
-        presenter.system(feedbacks: [feedback, readyViewFeedback])
+        presenter.system(feedbacks: [feedback, readyViewFeedback])    
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -226,6 +226,7 @@ extension WalletSortViewController: UITableViewDelegate {
 
         let sectionModel = sections[proposedDestinationIndexPath.section]
         guard sectionModel.kind == .all else { return IndexPath(row: 0, section: sourceIndexPath.section) }
+
         return proposedDestinationIndexPath
     }
 

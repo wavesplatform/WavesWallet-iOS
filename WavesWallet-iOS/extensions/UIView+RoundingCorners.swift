@@ -36,7 +36,7 @@ extension UIView {
         }
     }
 
-    @objc func swizzledLayoutSubviews() {
+    @objc private func swizzledLayoutSubviews() {
         swizzledLayoutSubviews()
 
         if cornerRadius == Constants.deffaultCornerRadius {

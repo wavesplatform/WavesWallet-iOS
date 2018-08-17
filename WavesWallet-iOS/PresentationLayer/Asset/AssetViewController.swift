@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import UIKit
 import RxCocoa
-import RxSwift
 import RxFeedback
+import RxSwift
+import UIKit
 
 final class AssetViewController: UIViewController {
 
@@ -63,9 +63,10 @@ final class AssetViewController: UIViewController {
         resetSetupNavigationBar()
     }
 }
-// MARK :
-extension AssetViewController {
 
+// MARK:
+
+extension AssetViewController {
 }
 
 // MARL: RxFeedback
@@ -97,31 +98,29 @@ private extension AssetViewController {
     }
 
     func subscriptions(state: Driver<AssetTypes.State>) -> [Disposable] {
-        let subscriptionSections = state
-            .drive(onNext: { [weak self] state in
+
+        let subscriptionSections = state.drive(onNext: { [weak self] state in
 
                 guard let strongSelf = self else { return }
 
                 strongSelf.sections = state.displayState.sections
                 strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
-            })
+        })
 
         return [subscriptionSections]
     }
-
 
     static var number = 0
     @objc func sendTapped() {
 //        presenter = nil
 
         if AssetViewController.number >= 2 {
-             presenter = nil
+            presenter = nil
         } else {
             AssetViewController.number += 1
             replaySubject.onNext(true)
         }
     }
-
 }
 
 // MARL: Setup Methods
@@ -158,7 +157,8 @@ extension AssetViewController {
 private extension AssetViewController {
 
     private func layoutPassthroughFrameForNavigationBar() {
-        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - 152) * 0.5, y: 0, width: 152, height: 44)
+        let witdthCells = segmentedControl.witdthCells()
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5, y: 0, width: witdthCells, height: 44)
     }
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
@@ -175,27 +175,45 @@ private extension AssetViewController {
         let navigationBarY = navigationController?.navigationBar.frame.origin.y ?? 0
         var newPosY: CGFloat = navigationBarY - yContent
         newPosY = min(navigationBarY, newPosY)
-
-        let animations = {
-            let isHiddenSegmentedControl = yContent < self.heightDifferenceSegmentedControlBetweenNavigationBar
-            if isHiddenSegmentedControl == false {
-                self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-                self.navigationController?.navigationBar.shadowImage = nil
-                self.title = "Waves"
-            } else {
-                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-                self.navigationController?.navigationBar.shadowImage = UIImage()
-                self.title = nil
-            }
-            self.isHiddenSegmentedControl = isHiddenSegmentedControl
-        }
-        if animated {
-            UIView.animate(withDuration: 0.34, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: animations, completion: nil)
-        } else {
-            animations()
-        }
-
         segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
+
+        hiddenSegmentedIfNeeded()
+    }
+
+    func hiddenSegmentedIfNeeded() {
+
+        guard let navigationController = self.navigationController else { return }
+        let navigationBar = navigationController.navigationBar
+        guard let assetsSegmentedControl = self.segmentedControl.assetsSegmentedControl else { return }
+        guard let titleLabel = assetsSegmentedControl.titleLabel else { return }
+
+        let titleFrame = assetsSegmentedControl.convert(titleLabel.frame, to: view)
+        let navigationFrame = view.convert(navigationBar.frame, to: view)
+        let dif = (navigationFrame.height - titleFrame.height) * 0.5
+        let navigationTitlePosition = navigationFrame.origin.y + dif
+
+        let isHiddenSegmentedControl = navigationTitlePosition < titleFrame.origin.y
+
+        if isHiddenSegmentedControl == false {
+            showNavigationTitle()
+        } else {
+            showSegmentedControl()
+        }
+        self.isHiddenSegmentedControl = isHiddenSegmentedControl
+    }
+
+    func showNavigationTitle() {
+
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
+        title = "Waves"
+    }
+
+    func showSegmentedControl() {
+
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        title = nil
     }
 }
 
@@ -316,13 +334,13 @@ extension AssetViewController: UITableViewDataSource {
             let cell: AssetHistorySkeletonCell = tableView.dequeueAndRegisterCell()
 
             return cell
-        case .lastTransactions(_):
+        case .lastTransactions:
             break
         case .transactionSkeleton:
             let cell: AssetTransactionSkeletonCell = tableView.dequeueAndRegisterCell()
 
             return cell
-        case .assetInfo(_):
+        case .assetInfo:
             break
         }
 
@@ -365,6 +383,7 @@ extension AssetViewController: UITableViewDataSource {
         return UITableViewCell()
     }
 }
+
 extension AssetViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -415,7 +434,7 @@ extension AssetViewController: UITableViewDelegate {
 
         switch model.kind {
         case .skeletonTitle:
-            var view: AssetHeaderSkeletonView = tableView.dequeueAndRegisterHeaderFooter()                        
+            var view: AssetHeaderSkeletonView = tableView.dequeueAndRegisterHeaderFooter()
             return view
         default:
             break
@@ -452,11 +471,11 @@ extension AssetViewController: UITableViewDelegate {
             break
         case .viewHistorySkeleton:
             return AssetHistorySkeletonCell.cellHeight()
-        case .lastTransactions(_):
+        case .lastTransactions:
             break
         case .transactionSkeleton:
             return AssetTransactionSkeletonCell.cellHeight()
-        case .assetInfo(_):
+        case .assetInfo:
             break
         }
 

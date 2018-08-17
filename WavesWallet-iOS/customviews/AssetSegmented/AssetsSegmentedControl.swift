@@ -31,7 +31,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     @IBOutlet private var collectionView: InfiniteCollectionView!
-    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private(set) var titleLabel: UILabel!
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var detailLabel: UILabel!
 

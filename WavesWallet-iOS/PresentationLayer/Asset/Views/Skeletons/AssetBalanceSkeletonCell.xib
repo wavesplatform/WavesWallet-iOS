@@ -358,6 +358,7 @@
                 <outletCollection property="views" destination="7Tz-gU-2iz" collectionClass="NSMutableArray" id="Nrx-Ef-RtO"/>
                 <outletCollection property="views" destination="p5P-N8-MQF" collectionClass="NSMutableArray" id="q4d-Cm-NDk"/>
                 <outletCollection property="views" destination="sml-fq-np0" collectionClass="NSMutableArray" id="Lz1-2T-7LO"/>
+                <outletCollection property="separatorViews" destination="kn3-jQ-Guu" collectionClass="NSMutableArray" id="uky-oG-wUC"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="54"/>
         </tableViewCell>

@@ -13,13 +13,12 @@ extension UIView {
 
     func addTableCellShadowStyle() {
 
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 1.12
-        layer.shadowRadius = 1
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+        setupShadow(options: .init(offset: CGSize(width: 0, height: 2),
+                                   color: .black,
+                                   opacity: 0.12,
+                                   radius: 2,
+                                   shouldRasterize: true,
+                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))
     }
     
     class func loadView() -> UIView {
