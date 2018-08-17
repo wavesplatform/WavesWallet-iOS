@@ -9,17 +9,7 @@
 import UIKit
 
 final class HistoryHeaderView: UITableViewHeaderFooterView, NibReusable {
-    @IBOutlet var buttonTap: UIButton!
     @IBOutlet var labelTitle: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        buttonTap.addTarget(self, action: #selector(tapHandler), for: .touchUpInside)
-    }
-
-    
-    @objc private func tapHandler() {
-    }
     
     class func viewHeight() -> CGFloat {
         return 48

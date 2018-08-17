@@ -19,9 +19,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fql-qr-BF8">
                     <rect key="frame" x="0.0" y="0.0" width="380" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJ8-yA-loy">
-                            <rect key="frame" x="0.0" y="0.0" width="380" height="44"/>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden assets (2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvJ-9M-bfV">
                             <rect key="frame" x="16" y="18" width="107.5" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -31,12 +28,8 @@
                     </subviews>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="HJ8-yA-loy" firstAttribute="leading" secondItem="fql-qr-BF8" secondAttribute="leading" id="1eh-9W-iaW"/>
-                        <constraint firstAttribute="trailing" secondItem="HJ8-yA-loy" secondAttribute="trailing" id="EO0-uQ-qtx"/>
-                        <constraint firstItem="HJ8-yA-loy" firstAttribute="top" secondItem="fql-qr-BF8" secondAttribute="top" id="PLf-w0-h4O"/>
                         <constraint firstItem="FvJ-9M-bfV" firstAttribute="top" secondItem="fql-qr-BF8" secondAttribute="top" constant="18" id="Rcf-WE-0VU"/>
                         <constraint firstItem="FvJ-9M-bfV" firstAttribute="leading" secondItem="fql-qr-BF8" secondAttribute="leading" constant="16" id="hwi-OI-j7x"/>
-                        <constraint firstAttribute="bottom" secondItem="HJ8-yA-loy" secondAttribute="bottom" id="qhH-7y-Rg8"/>
                     </constraints>
                 </view>
             </subviews>
@@ -50,7 +43,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="buttonTap" destination="HJ8-yA-loy" id="igm-Pl-ewy"/>
                 <outlet property="labelTitle" destination="FvJ-9M-bfV" id="bzM-d5-jd8"/>
             </connections>
             <point key="canvasLocation" x="36" y="-258"/>
