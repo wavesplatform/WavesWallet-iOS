@@ -1490,10 +1490,9 @@
 		E906131D212247C600E8F87F /* DexTraderContainer */ = {
 			isa = PBXGroup;
 			children = (
+				E9DAB6442128A2A200C2D552 /* Modules */,
 				E91705EF21238F32006CE9A5 /* Views */,
 				E906131E212247C600E8F87F /* DexTraderContainerViewController.swift */,
-				E9EDC6CB2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift */,
-				E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */,
 				E9EDC6CD2123AAF800C58E0D /* DexTraderContainerTypes.swift */,
 				E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */,
 			);
@@ -1767,6 +1766,15 @@
 				E99C2C5521258B930029D819 /* DexOrderBookHeaderView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E9DAB6442128A2A200C2D552 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E9EDC6CB2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift */,
+				E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		E9DEECE620BEF90300F28C67 /* Waves */ = {

@@ -11,6 +11,8 @@ import RxSwift
 
 protocol DexOrderBookInteractorProtocol {
 
-    func displayInfo(_ pair: DexTraderContainer.DTO.Pair) -> Observable<(DexOrderBook.DTO.DisplayData)>
+    var pair: DexTraderContainer.DTO.Pair! { get set }
+    
+    func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)>
     
 }
