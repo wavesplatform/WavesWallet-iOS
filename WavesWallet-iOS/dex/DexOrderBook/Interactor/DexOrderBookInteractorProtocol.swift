@@ -11,6 +11,6 @@ import RxSwift
 
 protocol DexOrderBookInteractorProtocol {
 
-    func bidsAsks(_ pair: DexTraderContainer.DTO.Pair) -> Observable<(bids: [DexOrderBook.DTO.BidAsk], asks: [DexOrderBook.DTO.BidAsk])>
+    func displayInfo(_ pair: DexTraderContainer.DTO.Pair) -> Observable<(DexOrderBook.DTO.DisplayData)>
     
 }

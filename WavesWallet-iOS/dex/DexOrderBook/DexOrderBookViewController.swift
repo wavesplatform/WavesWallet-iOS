@@ -34,6 +34,7 @@ final class DexOrderBookViewController: UIViewController {
     
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
+    private var sections: [DexOrderBook.ViewModel.Section] = []
     
     var hasInit = false
     
@@ -46,16 +47,16 @@ final class DexOrderBookViewController: UIViewController {
         
         setupButtonsWithEmptyValues()
         setupLocalization()
-        
-        viewTopHeader.setWhiteState()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.hasInit = true
-            self.viewTopHeader.setDefaultState()
-            self.viewLoading.isHidden = true
-            self.tableView.reloadData()            
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .middle, animated: false)
-        }
-        
+        setupLoadingState()
+        setupFeedBack()
+    }
+}
+
+// MARK: Feedback
+
+fileprivate extension DexOrderBookViewController {
+
+    func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<DexOrderBook.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
@@ -65,31 +66,9 @@ final class DexOrderBookViewController: UIViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.rx.viewWillAppear.take(1).map { _ in DexOrderBook.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
-        
         presenter.system(feedbacks: [feedback, readyViewFeedback])
-        
-        loadTestData()
     }
     
-    func loadTestData() {
-
-        
-        
-//        let bid = DexOrderBook.DTO.BidAsk(price: 32050, amount: 237499500000, amountAssetDecimal: 8, priceAssetDecimal: 8)
-        
-//        print("price",MoneyUtil.getScaledText(bid.price, decimals: bid.priceAssetDecimal, scale: bid.defaultScaleDecimal + bid.priceAssetDecimal - bid.amountAssetDecimal))
-
-//        print("amount", MoneyUtil.getScaledTextTrimZeros(bid.amount, decimals: bid.amountAssetDecimal))
-
-        
-//        cell.labelPrice.text = MoneyUtil.getScaledText(item["price"] as! Int64, decimals: priceAssetDecimal, scale: 8 + priceAssetDecimal - amountAssetDecimal)
-//        cell.labelSell.text = MoneyUtil.getScaledTextTrimZeros(item["amount"] as! Int64, decimals: amountAssetDecimal)
-
-    }
-}
-
-// MARK: Feedback
-fileprivate extension DexOrderBookViewController {
     func events() -> [Signal<DexOrderBook.Event>] {
         return [sendEvent.asSignal()]
     }
@@ -99,13 +78,13 @@ fileprivate extension DexOrderBookViewController {
             .drive(onNext: { [weak self] state in
                 
                 debug(state.action)
-
                 
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
-                
+                strongSelf.sections = state.sections
                 strongSelf.tableView.reloadData()
+                strongSelf.setupDefaultState(scrollTableToCenter: state.action == .scrollTableToCenter)
             })
         
         return [subscriptionSections]
@@ -125,44 +104,66 @@ extension DexOrderBookViewController: UITableViewDelegate {
 extension DexOrderBookViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if !hasInit {
-            return 0
-        }
-        if section == 1 {
-            return 1
-        }
-        else if section == 0 {
-            
-        }
-        
-        return 10
+        return sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        if indexPath.section == 1 {
-            let cell = tableView.dequeueCell() as DexOrderBookLastPriceCell
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .ask(let ask):
+            return updateAskBidCell(ask)
             
-            let model = DexOrderBookLastPriceCell.Model(price: "0.3144", percent: "23", isSell: true)
-            cell.update(with: model)
+        case .bid(let bid):
+            return updateAskBidCell(bid)
+
+        case .lastPrice(let lastPrice):
+            let cell = tableView.dequeueCell() as DexOrderBookLastPriceCell
+            cell.update(with: lastPrice)
             return cell
         }
-        let cell = tableView.dequeueCell() as DexOrderBookCell
-        
-//        let model = DexOrderBookCell.Model(amount: "0.4314", price: "0.43141", sum: "3143.13", isSell: false, percentAmountOverlay: Float(arc4random() % 100))
-//        cell.update(with: model)
-        return cell
     }
 }
 
 
+//MARK: - Cells
+private extension DexOrderBookViewController {
+    
+    func updateAskBidCell(_ askBid: DexOrderBook.DTO.BidAsk) -> DexOrderBookCell {
+        let cell = tableView.dequeueCell() as DexOrderBookCell
+        cell.update(with: askBid)
+        return cell
+    }
+}
+
 //MARK: - SetupUI
 private extension DexOrderBookViewController {
+    
+    func setupDefaultState(scrollTableToCenter: Bool) {
+        
+        viewLoading.isHidden = true
+        viewEmptyData.isHidden = sections.count > 0
+
+        if sections.count > 0 {
+            viewTopHeader.setDefaultState()
+            
+            if let sectionIndex = sections.index(where: {
+                $0.items.filter({$0.lastPrice != nil}).count > 0}) {
+                
+                tableView.scrollToRow(at: IndexPath(row: 0, section: sectionIndex), at: .middle, animated: false)
+            }
+        }
+    }
+    
+    func setupLoadingState() {
+        viewTopHeader.setWhiteState()
+        viewEmptyData.isHidden = true
+    }
     
     func setupLocalization() {
         labelLoadingOrderBook.text = Localizable.DexOrderBook.Label.loadingOrderbook

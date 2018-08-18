@@ -23,29 +23,22 @@ final class DexOrderBookLastPriceCell: UITableViewCell, Reusable {
 }
 
 extension DexOrderBookLastPriceCell: ViewConfiguration {
-    
-    struct Model {
-        let price: String
-        let percent: String
-        let isSell: Bool
-    }
-    
-    func update(with model: DexOrderBookLastPriceCell.Model) {
+   
+    func update(with model: DexOrderBook.DTO.LastPrice) {
         
-        labelPrice.text = model.price
-        labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + model.percent + "%"
-        
+        labelPrice.text = String(model.price)
+        labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + String(model.percent) + "%"
+        iconState.image = model.orderType == .sell ? Images.chartarrow22Error500.image : Images.chartarrow22Success400.image
         
         // price = lastAsk - firstBid * 100 / lastAsk
-        
-//        const [lastAsk] = asks;
-//        const [firstBid] = bids;
-        
-//        const sell = new BigNumber(firstBid && firstBid.price);
-//        const buy = new BigNumber(lastAsk && lastAsk.price);
-        
-//        const percent = (sell && buy && buy.gt(0)) ? buy.minus(sell).times(100).div(buy) : new BigNumber(0);
+
+        //        const [lastAsk] = asks;
+        //        const [firstBid] = bids;
+
+        //        const sell = new BigNumber(firstBid && firstBid.price);
+        //        const buy = new BigNumber(lastAsk && lastAsk.price);
+
+        //        const percent = (sell && buy && buy.gt(0)) ? buy.minus(sell).times(100).div(buy) : new BigNumber(0);
     }
-    
-    
+   
 }
