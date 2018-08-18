@@ -13,15 +13,18 @@ import SwiftyJSON
 
 final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
  
-    func displayInfo(_ pair: DexTraderContainer.DTO.Pair) -> Observable<(DexOrderBook.DTO.DisplayData)> {
+    var pair: DexTraderContainer.DTO.Pair!
+    
+    func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)> {
 
         return Observable.create({ (subscribe) -> Disposable in
             
-            NetworkManager.getOrderBook(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id, complete: { (info, errorMessage) in
+            NetworkManager.getOrderBook(amountAsset: self.pair.amountAsset.id, priceAsset: self.pair.priceAsset.id, complete: { (info, errorMessage) in
                 if let info = info {
                     let json = JSON(info)
-                    self.getLastPrice(pair, { (lastPrice) in
-                        subscribe.onNext(self.getDisplayData(info: json, lastPrice: lastPrice, pair: pair))
+                    
+                    self.getLastPrice({ (lastPrice) in
+                        subscribe.onNext(self.getDisplayData(info: json, lastPrice: lastPrice))
                     })
                 }
                 else {
@@ -37,7 +40,7 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 //MARK: - TesData
 private extension DexOrderBookInteractorMock {
     
-    func getDisplayData(info: JSON, lastPrice: DexOrderBook.DTO.LastPrice,  pair: DexTraderContainer.DTO.Pair) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastPrice: DexOrderBook.DTO.LastPrice) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -78,7 +81,7 @@ private extension DexOrderBookInteractorMock {
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids)
     }
     
-    func getLastPrice(_ pair: DexTraderContainer.DTO.Pair, _ complete:@escaping(_ lastPrice: DexOrderBook.DTO.LastPrice) -> Void) {
+    func getLastPrice(_ complete:@escaping(_ lastPrice: DexOrderBook.DTO.LastPrice) -> Void) {
         
         //        onst [lastAsk] = asks;
         //        const [firstBid] = bids;

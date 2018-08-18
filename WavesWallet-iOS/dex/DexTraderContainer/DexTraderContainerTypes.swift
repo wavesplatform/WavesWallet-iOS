@@ -23,5 +23,6 @@ extension DexTraderContainer.DTO {
     struct Pair {
         let amountAsset: Asset
         let priceAsset: Asset
+        let isHidden: Bool
     }
 }

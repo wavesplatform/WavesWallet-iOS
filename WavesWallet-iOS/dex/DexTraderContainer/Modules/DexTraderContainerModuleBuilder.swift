@@ -8,13 +8,14 @@
 
 import UIKit
 
-struct DexTraderContainerModuleBuilder: ModuleBuilder {
+struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
+    
+    var output: DexTraderContainerModuleOutput
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         let vc = StoryboardScene.Dex.dexTraderContainerViewController.instantiate()
         vc.pair = input
+        vc.moduleOutput = output
         return vc
     }
 }
-
-

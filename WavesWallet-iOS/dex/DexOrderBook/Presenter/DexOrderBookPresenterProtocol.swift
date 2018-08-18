@@ -12,7 +12,5 @@ import RxCocoa
 protocol DexOrderBookPresenterProtocol {
     typealias Feedback = (Driver<DexOrderBook.State>) -> Signal<DexOrderBook.Event>
     var interactor: DexOrderBookInteractorProtocol! { get set }
-    func system(feedbacks: [Feedback])
-    var pair: DexTraderContainer.DTO.Pair! { get set }
-    
+    func system(feedbacks: [Feedback])    
 }

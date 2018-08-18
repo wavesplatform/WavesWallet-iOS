@@ -11,8 +11,9 @@ import RxSwift
 
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     
-    
-    func displayInfo(_ pair: DexTraderContainer.DTO.Pair) -> Observable<(DexOrderBook.DTO.DisplayData)> {
+    var pair: DexTraderContainer.DTO.Pair!
+
+    func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)> {
         return Observable.empty()
     }
 }

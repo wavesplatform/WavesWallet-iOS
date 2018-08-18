@@ -17,10 +17,6 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
     var interactor: DexOrderBookInteractorProtocol!
     private let disposeBag = DisposeBag()
-
-//    weak var moduleOutput: DexMarketModuleOutput?
-
-    var pair: DexTraderContainer.DTO.Pair!
  
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
@@ -43,7 +39,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
-            return strongSelf.interactor.displayInfo(strongSelf.pair).map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

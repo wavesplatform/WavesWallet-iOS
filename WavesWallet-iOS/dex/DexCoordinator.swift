@@ -22,7 +22,7 @@ final class DexCoordinator {
     }
 }
 
-extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput {
+extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput {
     
     func showDexSort() {
         let vc = DexSortModuleBuilder().build()
@@ -35,7 +35,7 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput {
     }
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
-        let vc = DexTraderContainerModuleBuilder().build(input: pair)
+        let vc = DexTraderContainerModuleBuilder(output: self).build(input: pair)
         navigationController.pushViewController(vc, animated: true)
     }
     

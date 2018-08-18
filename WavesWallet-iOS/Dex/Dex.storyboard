@@ -1206,8 +1206,8 @@ The order book is empty</string>
                                                 <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEW-QQ-fAJ">
-                                                <rect key="frame" x="16" y="35" width="311" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nEW-QQ-fAJ">
+                                                <rect key="frame" x="16" y="35" width="316" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1240,7 +1240,7 @@ The order book is empty</string>
                                             <constraint firstItem="nEW-QQ-fAJ" firstAttribute="top" secondItem="JVl-9W-6Pg" secondAttribute="bottom" constant="6" id="od4-K1-3Fc"/>
                                             <constraint firstItem="VEc-3R-95h" firstAttribute="leading" secondItem="Dfn-fI-ohw" secondAttribute="leading" constant="16" id="tCJ-dg-CjI"/>
                                             <constraint firstItem="JVl-9W-6Pg" firstAttribute="leading" secondItem="Dfn-fI-ohw" secondAttribute="leading" constant="16" id="w5y-Gc-tlC"/>
-                                            <constraint firstItem="gnx-ha-Cci" firstAttribute="leading" secondItem="nEW-QQ-fAJ" secondAttribute="trailing" constant="5" id="wrI-Ln-yUz"/>
+                                            <constraint firstItem="gnx-ha-Cci" firstAttribute="leading" secondItem="nEW-QQ-fAJ" secondAttribute="trailing" id="wrI-Ln-yUz"/>
                                             <constraint firstAttribute="trailing" secondItem="gnx-ha-Cci" secondAttribute="trailing" constant="5" id="zyR-Rc-9Zl"/>
                                         </constraints>
                                     </view>
@@ -1253,8 +1253,8 @@ The order book is empty</string>
                                                 <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVt-Fg-zGG">
-                                                <rect key="frame" x="16" y="35" width="311" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="yVt-Fg-zGG">
+                                                <rect key="frame" x="16" y="35" width="316" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1284,7 +1284,7 @@ The order book is empty</string>
                                             <constraint firstItem="3BY-I7-HbY" firstAttribute="leading" secondItem="lgp-EE-on1" secondAttribute="trailing" constant="5" id="J1a-XB-6iO"/>
                                             <constraint firstItem="lgp-EE-on1" firstAttribute="top" secondItem="Opb-nS-Bev" secondAttribute="top" constant="13" id="QSb-oj-HQb"/>
                                             <constraint firstItem="lgp-EE-on1" firstAttribute="leading" secondItem="Opb-nS-Bev" secondAttribute="leading" constant="16" id="b8P-dW-KFg"/>
-                                            <constraint firstItem="3BY-I7-HbY" firstAttribute="leading" secondItem="yVt-Fg-zGG" secondAttribute="trailing" constant="5" id="kWo-sZ-bLN"/>
+                                            <constraint firstItem="3BY-I7-HbY" firstAttribute="leading" secondItem="yVt-Fg-zGG" secondAttribute="trailing" id="kWo-sZ-bLN"/>
                                             <constraint firstItem="3BY-I7-HbY" firstAttribute="centerY" secondItem="Opb-nS-Bev" secondAttribute="centerY" id="zYQ-bn-ZwJ"/>
                                         </constraints>
                                     </view>

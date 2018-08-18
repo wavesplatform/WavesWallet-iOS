@@ -14,6 +14,7 @@ final class DexTraderContainerViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     var pair: DexTraderContainer.DTO.Pair!
+    weak var moduleOutput: DexTraderContainerModuleOutput?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ final class DexTraderContainerViewController: UIViewController {
         addBackground()
         build()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image, style: .plain, target: self, action: #selector(infoTapped))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +41,15 @@ final class DexTraderContainerViewController: UIViewController {
     }
 }
 
+//MARK: - Actions
+private extension DexTraderContainerViewController {
+    
+    @objc func infoTapped() {
+        let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset.id, amountAssetName: pair.amountAsset.name, priceAsset: pair.priceAsset.id, priceAssetName: pair.priceAsset.name, isHidden: pair.isHidden)
+        moduleOutput?.showInfo(pair: infoPair)
+    }
+    
+}
 
 //MARK: - DexTranderContainerSegmentedControlDelegate
 extension DexTraderContainerViewController: DexTranderContainerSegmentedControlDelegate {
