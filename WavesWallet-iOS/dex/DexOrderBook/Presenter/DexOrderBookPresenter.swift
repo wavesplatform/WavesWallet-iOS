@@ -82,10 +82,12 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 }
             }
             
-        case .tapBuyButton:
+        case .didTapBid(let bid):
+            debug(bid)
             return state.changeAction(.none)
-        
-        case .tapSellButton:
+            
+        case .didTapAsk(let ask):
+            debug(ask)
             return state.changeAction(.none)
         }
     }
@@ -94,11 +96,6 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
 
 fileprivate extension DexOrderBook.State {
-    
-    static var initialState: DexOrderBook.State {
-
-        return DexOrderBook.State(action: .none, sections: [], sellTitle: "-", buyTitle: "-", hasFirstTimeLoad: false)
-    }
     
     func changeAction(_ action: DexOrderBook.State.Action) -> DexOrderBook.State {
         

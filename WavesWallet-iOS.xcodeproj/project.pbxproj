@@ -307,6 +307,7 @@
 		E9CFBC482124EE2400CE7413 /* DexOrderBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CFBC472124EE2400CE7413 /* DexOrderBookCell.swift */; };
 		E9D385C92094ED1A00213E2C /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D385C82094ED1A00213E2C /* DottedLineView.swift */; };
 		E9D60AD720973A730042464A /* WalletHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D60AD620973A730042464A /* WalletHistoryCell.swift */; };
+		E9DAB6432128561800C2D552 /* DexTraderContainerModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
@@ -759,6 +760,7 @@
 		E9CFBC472124EE2400CE7413 /* DexOrderBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexOrderBookCell.swift; path = "WavesWallet-iOS/dex/DexOrderBook/Views/DexOrderBookCell.swift"; sourceTree = SOURCE_ROOT; };
 		E9D385C82094ED1A00213E2C /* DottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		E9D60AD620973A730042464A /* WalletHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistoryCell.swift; sourceTree = "<group>"; };
+		E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTraderContainerModuleOutput.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
@@ -1491,6 +1493,7 @@
 				E91705EF21238F32006CE9A5 /* Views */,
 				E906131E212247C600E8F87F /* DexTraderContainerViewController.swift */,
 				E9EDC6CB2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift */,
+				E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */,
 				E9EDC6CD2123AAF800C58E0D /* DexTraderContainerTypes.swift */,
 				E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */,
 			);
@@ -2814,6 +2817,7 @@
 				E99ECC601F59A7A100ADB12D /* OrderConfirmView.swift in Sources */,
 				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,
 				F7F97E941EAA0CF800BE2F6F /* UIView+Borders.swift in Sources */,
+				E9DAB6432128561800C2D552 /* DexTraderContainerModuleOutput.swift in Sources */,
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,

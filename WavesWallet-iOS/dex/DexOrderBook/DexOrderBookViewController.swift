@@ -33,12 +33,12 @@ final class DexOrderBookViewController: UIViewController {
     
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
-    private var sections: [DexOrderBook.ViewModel.Section] = []
+    private var state: DexOrderBook.State = DexOrderBook.State.initialState
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupButtonsWithEmptyValues()
+        setupSellBuyButtons()
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
@@ -69,27 +69,47 @@ fileprivate extension DexOrderBookViewController {
     func subscriptions(state: Driver<DexOrderBook.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
-                
-                debug(state.action)
-                
+                                
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
-                strongSelf.sections = state.sections
+                strongSelf.state = state
                 strongSelf.tableView.reloadData()
-                strongSelf.setupDefaultState(scrollTableToCenter: state.action == .scrollTableToCenter)
+                strongSelf.setupSellBuyButtons()
+                strongSelf.setupDefaultState(state: state)
             })
         
         return [subscriptionSections]
     }
 }
 
+//MARK: - Actions
+private extension DexOrderBookViewController {
+    
+    @IBAction func sellTapped(_ sender: Any) {
+        if let bid = state.lastBid {
+            sendEvent.accept(.didTapBid(bid))
+        }
+    }
+    
+    @IBAction func buyTapped(_ sender: Any) {
+        if let ask = state.lastAsk {
+            sendEvent.accept(.didTapAsk(ask))
+        }
+    }
+}
 
 //MARK: - UITableViewDelegate
 extension DexOrderBookViewController: UITableViewDelegate {
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let row = state.sections[indexPath.section].items[indexPath.row]
+        if let bid = row.bid {
+            sendEvent.accept(.didTapBid(bid))
+        }
+        else if let ask = row.ask {
+            sendEvent.accept(.didTapAsk(ask))
+        }
     }
 }
 
@@ -97,16 +117,16 @@ extension DexOrderBookViewController: UITableViewDelegate {
 extension DexOrderBookViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return state.sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return state.sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let row = sections[indexPath.section].items[indexPath.row]
+        let row = state.sections[indexPath.section].items[indexPath.row]
         
         switch row {
         case .ask(let ask):
@@ -137,19 +157,16 @@ private extension DexOrderBookViewController {
 //MARK: - SetupUI
 private extension DexOrderBookViewController {
     
-    func setupDefaultState(scrollTableToCenter: Bool) {
-        
-        let isNotEmpty = sections.filter({$0.items.count > 0}).count > 0
+    func setupDefaultState(state: DexOrderBook.State) {
         
         viewLoading.isHidden = true
-        viewEmptyData.isHidden = isNotEmpty
+        viewEmptyData.isHidden = state.isNotEmpty
 
-        if isNotEmpty {
+        if state.isNotEmpty {
             viewTopHeader.setDefaultState()
             
-            if let sectionLastPrice = sections.index(where: {
-                $0.items.filter({$0.lastPrice != nil}).count > 0}) {
-                
+            if let sectionLastPrice = state.lastPriceSection,
+                state.action == .scrollTableToCenter {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: sectionLastPrice), at: .middle, animated: false)
             }
         }
@@ -160,13 +177,31 @@ private extension DexOrderBookViewController {
         viewEmptyData.isHidden = true
     }
     
+    func setupSellBuyButtons() {
+        setupButton(buttonBuy, title: Localizable.DexOrderBook.Button.buy, subTitle: askTitle)
+        setupButton(buttonSell, title: Localizable.DexOrderBook.Button.sell, subTitle: bidTitle)
+    }
+    
     func setupLocalization() {
         labelLoadingOrderBook.text = Localizable.DexOrderBook.Label.loadingOrderbook
     }
+}
+
+//MARK: - UI Settings
+private extension DexOrderBookViewController {
     
-    func setupButtonsWithEmptyValues() {
-        setupButton(buttonBuy, title: Localizable.DexOrderBook.Button.buy, subTitle: "—")
-        setupButton(buttonSell, title: Localizable.DexOrderBook.Button.sell, subTitle: "—")
+    var bidTitle: String {
+        if let bid = state.lastBid {
+            return bid.priceText
+        }
+        return "—"
+    }
+    
+    var askTitle: String {
+        if let ask = state.lastAsk {
+            return ask.priceText
+        }
+        return "—"
     }
     
     func setupButton(_ button: UIButton, title: String, subTitle: String) {

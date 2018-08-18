@@ -15,10 +15,9 @@ enum DexOrderBook {
     enum Event {
         case readyView
         case setDisplayData(DTO.DisplayData)
-        case tapSellButton
-        case tapBuyButton
+        case didTapBid(DTO.BidAsk)
+        case didTapAsk(DTO.BidAsk)
     }
-    
     
     struct State: Mutating {
         enum Action {
@@ -29,8 +28,6 @@ enum DexOrderBook {
         
         var action: Action
         var sections: [DexOrderBook.ViewModel.Section]
-        var sellTitle: String = "—"
-        var buyTitle: String = "—"
         var hasFirstTimeLoad: Bool
     }
 }
@@ -48,18 +45,7 @@ extension DexOrderBook.ViewModel {
     }
 }
 
-extension DexOrderBook.ViewModel.Row {
-    
-    var lastPrice: DexOrderBook.DTO.LastPrice? {
-        switch self {
-        case .lastPrice(let price):
-            return price
-        default:
-            return nil
-        }
-    }
-}
-
+//MARK: - DTO
 extension DexOrderBook.DTO {
 
     enum OrderType {
@@ -75,16 +61,90 @@ extension DexOrderBook.DTO {
     }
     
     struct BidAsk {
+        private let defaultScaleDecimal: Int = 8
+
         let price: Money
         let amount: Money
         let orderType: OrderType
         let percentAmount: Float
-        let defaultScaleDecimal: Int = 8
+
+        var priceText: String {
+            return MoneyUtil.getScaledText(price.amount, decimals: price.decimals, scale: defaultScaleDecimal + price.decimals - amount.decimals)
+        }
     }
     
     struct DisplayData {
         let asks: [BidAsk]
-        let bids: [BidAsk]
         let lastPrice: LastPrice
+        let bids: [BidAsk]
     }
 }
+
+//MARK: - Row
+extension DexOrderBook.ViewModel.Row {
+    
+    var lastPrice: DexOrderBook.DTO.LastPrice? {
+        switch self {
+        case .lastPrice(let price):
+            return price
+        default:
+            return nil
+        }
+    }
+    
+    var bid: DexOrderBook.DTO.BidAsk? {
+        switch self {
+        case .bid(let bid):
+            return bid
+        default:
+            return nil
+        }
+    }
+    
+    var ask: DexOrderBook.DTO.BidAsk? {
+        switch self {
+        case .ask(let ask):
+            return ask
+        default:
+            return nil
+        }
+    }
+}
+
+
+//MARK: - LastPrice
+extension DexOrderBook.DTO.LastPrice {
+    static var empty: DexOrderBook.DTO.LastPrice {
+        return DexOrderBook.DTO.LastPrice(price: 0, percent: 0, orderType: .none)
+    }
+}
+
+//MARK: - State
+extension DexOrderBook.State {
+  
+    static var initialState: DexOrderBook.State {
+        return DexOrderBook.State(action: .none, sections: [], hasFirstTimeLoad: false)
+    }
+    
+    var lastBid: DexOrderBook.DTO.BidAsk? {
+        return sections.first(where: {
+            $0.items.filter({$0.bid != nil}).count > 0
+        })?.items.first?.bid
+    }
+    
+    var lastAsk: DexOrderBook.DTO.BidAsk? {
+        return sections.first(where: {
+            $0.items.filter({$0.ask != nil}).count > 0
+        })?.items.last?.ask
+    }
+    
+    var isNotEmpty: Bool {
+        return sections.filter({$0.items.count > 0}).count > 0
+    }
+    
+    var lastPriceSection: Int? {
+        return sections.index(where: {$0.items.filter({$0.lastPrice != nil}).count > 0})
+    }
+}
+
+
