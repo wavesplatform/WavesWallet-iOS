@@ -17,7 +17,6 @@ final class DexOrderBookCell: UITableViewCell, Reusable {
     @IBOutlet weak var backgroundAmountViewWidth: NSLayoutConstraint!
     
     private var percentAmountOverlay: CGFloat = 0
-  
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -32,7 +31,7 @@ extension DexOrderBookCell: ViewConfiguration {
         labelPrice.textColor = model.orderType == .sell ? UIColor.submit400 : UIColor.error500
         backgroundAmountView.backgroundColor = model.orderType == .sell ? UIColor.submit50 : UIColor.error100
         
-        labelPrice.text = MoneyUtil.getScaledText(model.price.amount, decimals: model.price.decimals, scale: model.defaultScaleDecimal + model.price.decimals - model.amount.decimals)
+        labelPrice.text = model.priceText
         
         labelAmount.text = model.amount.displayText
         
@@ -40,6 +39,6 @@ extension DexOrderBookCell: ViewConfiguration {
         let sum = model.price.amount * model.amount.amount /// NSDecimalNumber(decimal: pow(10, model.price.decimals)).int64Value
         labelSum.text = MoneyUtil.getScaledText(sum, decimals: model.price.decimals)
     
-        percentAmountOverlay = 50
+        percentAmountOverlay = CGFloat(model.percentAmount)
     }
 }

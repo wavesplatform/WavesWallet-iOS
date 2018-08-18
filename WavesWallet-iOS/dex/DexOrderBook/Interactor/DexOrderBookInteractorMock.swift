@@ -20,11 +20,12 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
             NetworkManager.getOrderBook(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id, complete: { (info, errorMessage) in
                 if let info = info {
                     let json = JSON(info)
-                    subscribe.onNext(self.getDisplayData(info: json, pair: pair))
+                    self.getLastPrice(pair, { (lastPrice) in
+                        subscribe.onNext(self.getDisplayData(info: json, lastPrice: lastPrice, pair: pair))
+                    })
                 }
                 else {
-                    let lastPrice = DexOrderBook.DTO.LastPrice(price: 0, percent: 0, orderType: .none)
-                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], bids: [], lastPrice: lastPrice))
+                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: []))
                 }
             })
             return Disposables.create()
@@ -36,7 +37,7 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 //MARK: - TesData
 private extension DexOrderBookInteractorMock {
     
-    func getDisplayData(info: JSON, pair: DexTraderContainer.DTO.Pair) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastPrice: DexOrderBook.DTO.LastPrice,  pair: DexTraderContainer.DTO.Pair) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -44,25 +45,59 @@ private extension DexOrderBookInteractorMock {
         var bids: [DexOrderBook.DTO.BidAsk] = []
         var asks: [DexOrderBook.DTO.BidAsk] = []
 
+//        let biggestAmount: Int64 = (itemsBids + itemsAsks).map { $0["amount"].int64Value}.sorted().last ?? 0
+//        let biggestAmountDecimal = Decimal(biggestAmount) / pow(10, pair.amountAsset.decimals)
+
         for item in itemsBids {
 
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
-            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .sell, percentAmount: 35.2)
+            
+//            let amountDeciminal = Decimal(amount.amount) / pow(10, amount.decimals)
+//
+//            let percent = 100 * amountDeciminal / biggestAmountDecimal
+//
+//            print(percent)
 
+            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .sell, percentAmount: Float(arc4random() % 100))
             bids.append(bid)
         }
         
         for item in itemsAsks {
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
-            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .buy, percentAmount: 54.43)
-
+            
+//            let percent = 100 * amount.amount / biggestAmount
+//
+//            print(percent)
+            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .buy, percentAmount: Float(arc4random() % 100))
             asks.append(ask)
         }
         
-        let lastPrice = DexOrderBook.DTO.LastPrice(price: 0.00032666, percent: 30, orderType: .sell)
-        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), bids: bids, lastPrice: lastPrice)
+        
+        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids)
     }
     
+    func getLastPrice(_ pair: DexTraderContainer.DTO.Pair, _ complete:@escaping(_ lastPrice: DexOrderBook.DTO.LastPrice) -> Void) {
+        
+        //        onst [lastAsk] = asks;
+        //        const [firstBid] = bids;
+        //        const sell = new BigNumber(firstBid && firstBid.price);
+        //        const buy = new BigNumber(lastAsk && lastAsk.price);
+        //        const percent = (sell && buy && buy.gt(0)) ? buy.minus(sell).times(100).div(buy) : new BigNumber(0);
+
+        
+        NetworkManager.getLastTraders(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id) { (items, errorMessage) in
+            if let item = items?.firstObject as? NSDictionary {
+                
+                let info = JSON(item)
+                let type = info["type"].stringValue == "buy" ? DexOrderBook.DTO.OrderType.buy :  DexOrderBook.DTO.OrderType.sell
+                let lastPrice = DexOrderBook.DTO.LastPrice(price: info["price"].doubleValue, percent: 23.21, orderType: type)
+                complete(lastPrice)
+            }
+            else {
+                complete(DexOrderBook.DTO.LastPrice.empty)
+            }
+        }
+    }
 }
