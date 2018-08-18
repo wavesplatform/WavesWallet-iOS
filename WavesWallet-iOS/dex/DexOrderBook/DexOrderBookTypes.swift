@@ -14,40 +14,62 @@ enum DexOrderBook {
     
     enum Event {
         case readyView
-        case setBids([DTO.BidAsk])
-        case setAsks([DTO.BidAsk])
-        case setLastPrice(DTO.LastPrice)
+        case setDisplayData(DTO.DisplayData)
         case tapSellButton
         case tapBuyButton
-//        case refresh
     }
-    
     
     
     struct State: Mutating {
         enum Action {
             case none
             case update
+            case scrollTableToCenter
         }
         
         var action: Action
-//        var section: DexMarket.ViewModel.Section
+        var sections: [DexOrderBook.ViewModel.Section]
+        var sellTitle: String = "—"
+        var buyTitle: String = "—"
+        var hasFirstTimeLoad: Bool
     }
 }
 
-extension DexMarket.ViewModel {
+extension DexOrderBook.ViewModel {
+   
+    struct Section: Mutating {
+        var items: [Row]
+    }
     
+    enum Row {
+        case bid(DexOrderBook.DTO.BidAsk)
+        case ask(DexOrderBook.DTO.BidAsk)
+        case lastPrice(DexOrderBook.DTO.LastPrice)
+    }
+}
+
+extension DexOrderBook.ViewModel.Row {
+    
+    var lastPrice: DexOrderBook.DTO.LastPrice? {
+        switch self {
+        case .lastPrice(let price):
+            return price
+        
+        default:
+            return nil
+        }
+    }
 }
 
 extension DexOrderBook.DTO {
-    
+
     enum OrderType {
         case sell
         case buy
     }
     
     struct LastPrice {
-        let price: Int64
+        let price: Double
         let percent: Float
         let orderType: OrderType
     }
@@ -60,5 +82,11 @@ extension DexOrderBook.DTO {
         let orderType: OrderType
         let percentAmount: Float
         let defaultScaleDecimal: Int = 8
+    }
+    
+    struct DisplayData {
+        let bids: [BidAsk]
+        let asks: [BidAsk]
+        let lastPrice: LastPrice
     }
 }

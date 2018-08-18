@@ -42,28 +42,57 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
-            
 
-            
-            return strongSelf.interactor.bidsAsks(strongSelf.pair).map {.setBids($0.bids)}.asSignal(onErrorSignalWith: Signal.empty())
-
-//            return strongSelf.interactor.pairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.displayInfo(strongSelf.pair).map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     private func reduce(state: DexOrderBook.State, event: DexOrderBook.Event) -> DexOrderBook.State {
         
-        return state
+        switch event {
+        case .readyView:
+            return state.changeAction(.none)
         
+        case .setDisplayData(let displayData):
+            
+            return state.mutate {
+                
+                let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
+                    DexOrderBook.ViewModel.Row.ask($0)})
+
+                let sectionLastPrice = DexOrderBook.ViewModel.Section(items:
+                    [DexOrderBook.ViewModel.Row.lastPrice(displayData.lastPrice)])
+                
+                let sectionBids = DexOrderBook.ViewModel.Section(items: displayData.bids.map {
+                    DexOrderBook.ViewModel.Row.bid($0)})
+                
+                $0.sections = [sectionAsks, sectionLastPrice, sectionBids]
+                
+                if state.hasFirstTimeLoad {
+                    $0.action = .update
+                }
+                else {
+                    $0.hasFirstTimeLoad = true
+                    $0.action = .scrollTableToCenter
+                }
+            }
+            
+        case .tapBuyButton:
+            return state.changeAction(.none)
+        
+        case .tapSellButton:
+            return state.changeAction(.none)
+        }
     }
 
 }
 
 
 fileprivate extension DexOrderBook.State {
+    
     static var initialState: DexOrderBook.State {
 
-        return DexOrderBook.State(action: .none)
+        return DexOrderBook.State(action: .none, sections: [], sellTitle: "-", buyTitle: "-", hasFirstTimeLoad: false)
     }
     
     func changeAction(_ action: DexOrderBook.State.Action) -> DexOrderBook.State {

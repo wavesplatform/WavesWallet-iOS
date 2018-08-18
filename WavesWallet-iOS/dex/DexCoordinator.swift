@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DexListCoordinator {
+final class DexCoordinator {
     
     private lazy var dexListViewContoller: UIViewController = {
         return DexListModuleBuilder(output: self).build()
@@ -22,7 +22,7 @@ final class DexListCoordinator {
     }
 }
 
-extension DexListCoordinator: DexListModuleOutput, DexMarketModuleOutput {
+extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput {
     
     func showDexSort() {
         let vc = DexSortModuleBuilder().build()
