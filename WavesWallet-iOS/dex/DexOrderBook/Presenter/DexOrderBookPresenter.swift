@@ -66,14 +66,19 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 let sectionBids = DexOrderBook.ViewModel.Section(items: displayData.bids.map {
                     DexOrderBook.ViewModel.Row.bid($0)})
                 
-                $0.sections = [sectionAsks, sectionLastPrice, sectionBids]
-                
-                if state.hasFirstTimeLoad {
-                    $0.action = .update
+                if sectionAsks.items.count > 0 || sectionBids.items.count > 0 {
+                    $0.sections = [sectionAsks, sectionLastPrice, sectionBids]
                 }
                 else {
+                    $0.sections = []
+                }
+                
+                if !state.hasFirstTimeLoad && $0.sections.count > 0 {
                     $0.hasFirstTimeLoad = true
                     $0.action = .scrollTableToCenter
+                }
+                else {
+                    $0.action = .update
                 }
             }
             

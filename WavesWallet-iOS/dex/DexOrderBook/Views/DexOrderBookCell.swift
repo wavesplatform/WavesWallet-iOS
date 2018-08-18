@@ -32,10 +32,13 @@ extension DexOrderBookCell: ViewConfiguration {
         labelPrice.textColor = model.orderType == .sell ? UIColor.submit400 : UIColor.error500
         backgroundAmountView.backgroundColor = model.orderType == .sell ? UIColor.submit50 : UIColor.error100
         
-        labelPrice.text = MoneyUtil.getScaledText(model.price, decimals: model.priceAssetDecimal, scale: model.defaultScaleDecimal + model.priceAssetDecimal - model.amountAssetDecimal)
+        labelPrice.text = MoneyUtil.getScaledText(model.price.amount, decimals: model.price.decimals, scale: model.defaultScaleDecimal + model.price.decimals - model.amount.decimals)
         
-        labelAmount.text = MoneyUtil.getScaledTextTrimZeros(model.amount, decimals: model.amountAssetDecimal)
-        labelSum.text = "341414.323"
+        labelAmount.text = model.amount.displayText
+        
+        // Need check correct of calculation if decimals of price and amount will be different
+        let sum = model.price.amount * model.amount.amount /// NSDecimalNumber(decimal: pow(10, model.price.decimals)).int64Value
+        labelSum.text = MoneyUtil.getScaledText(sum, decimals: model.price.decimals)
     
         percentAmountOverlay = 50
     }

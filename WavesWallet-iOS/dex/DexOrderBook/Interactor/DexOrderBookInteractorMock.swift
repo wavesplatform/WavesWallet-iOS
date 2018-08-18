@@ -17,9 +17,15 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 
         return Observable.create({ (subscribe) -> Disposable in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                
-                subscribe.onNext(self.getDisplayData(pair))
+            NetworkManager.getOrderBook(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id, complete: { (info, errorMessage) in
+                if let info = info {
+                    let json = JSON(info)
+                    subscribe.onNext(self.getDisplayData(info: json, pair: pair))
+                }
+                else {
+                    let lastPrice = DexOrderBook.DTO.LastPrice(price: 0, percent: 0, orderType: .none)
+                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], bids: [], lastPrice: lastPrice))
+                }
             })
             return Disposables.create()
         })
@@ -30,42 +36,33 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 //MARK: - TesData
 private extension DexOrderBookInteractorMock {
     
-    func getDisplayData(_ pair: DexTraderContainer.DTO.Pair) -> DexOrderBook.DTO.DisplayData {
-        let info = parseJSON(json: "OrderBookWavesBtcPair")
+    func getDisplayData(info: JSON, pair: DexTraderContainer.DTO.Pair) -> DexOrderBook.DTO.DisplayData {
+       
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
         
         var bids: [DexOrderBook.DTO.BidAsk] = []
         var asks: [DexOrderBook.DTO.BidAsk] = []
 
-        
         for item in itemsBids {
-            let bid = DexOrderBook.DTO.BidAsk(price: item["price"].int64Value, amount: item["amount"].int64Value, amountAssetDecimal: pair.amountAsset.decimals, priceAssetDecimal: pair.priceAsset.decimals, orderType: .buy, percentAmount: 50)
+
+            let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
+            let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
+            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .sell, percentAmount: 35.2)
+
             bids.append(bid)
         }
         
         for item in itemsAsks {
-            let bid = DexOrderBook.DTO.BidAsk(price: item["price"].int64Value, amount: item["amount"].int64Value, amountAssetDecimal: pair.amountAsset.decimals, priceAssetDecimal: pair.priceAsset.decimals, orderType: .sell, percentAmount: 50)
-            asks.append(bid)
+            let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
+            let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
+            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, orderType: .buy, percentAmount: 54.43)
+
+            asks.append(ask)
         }
         
         let lastPrice = DexOrderBook.DTO.LastPrice(price: 0.00032666, percent: 30, orderType: .sell)
-        return DexOrderBook.DTO.DisplayData(bids: bids, asks: asks, lastPrice: lastPrice)
-    }
-
-    
-    func parseJSON(json fileName: String) -> JSON {
-        guard let path = Bundle.main.url(forResource: fileName, withExtension: "json") else {
-            return []
-        }
-        guard let data = try? Data(contentsOf: path) else {
-            return []
-        }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {
-            return []
-        }
-        
-        return JSON(json)
+        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), bids: bids, lastPrice: lastPrice)
     }
     
 }
