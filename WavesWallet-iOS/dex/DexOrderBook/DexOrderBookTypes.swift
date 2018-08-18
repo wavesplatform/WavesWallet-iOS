@@ -54,7 +54,6 @@ extension DexOrderBook.ViewModel.Row {
         switch self {
         case .lastPrice(let price):
             return price
-        
         default:
             return nil
         }
@@ -64,6 +63,7 @@ extension DexOrderBook.ViewModel.Row {
 extension DexOrderBook.DTO {
 
     enum OrderType {
+        case none
         case sell
         case buy
     }
@@ -75,18 +75,16 @@ extension DexOrderBook.DTO {
     }
     
     struct BidAsk {
-        let price: Int64
-        let amount: Int64
-        let amountAssetDecimal: Int
-        let priceAssetDecimal: Int
+        let price: Money
+        let amount: Money
         let orderType: OrderType
         let percentAmount: Float
         let defaultScaleDecimal: Int = 8
     }
     
     struct DisplayData {
-        let bids: [BidAsk]
         let asks: [BidAsk]
+        let bids: [BidAsk]
         let lastPrice: LastPrice
     }
 }

@@ -28,7 +28,7 @@ final class DexListInteractorMock: DexListInteractorProtocol {
 
     private static var testModels : [DexList.DTO.Pair] = [
         DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "WAVES", "WAVES", "WAVES",
-                                    8, "BTC", "BTC", "BTC", 8),
+                                    8, "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8),
         DexList.DTO.Pair.createPair(MoneyUtil.money(20.0), MoneyUtil.money(43.23), "WAVES", "WAVES", "WAVES", 8,
                                     "ETH", "ETH", "ETH", 8),
         DexList.DTO.Pair.createPair(MoneyUtil.money(10.12), MoneyUtil.money(94), "Bitcoin", "Bitcoin", "Bitcoin", 8,

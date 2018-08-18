@@ -31,16 +31,9 @@ final class DexOrderBookViewController: UIViewController {
     @IBOutlet weak var viewLoading: UIView!
     @IBOutlet weak var viewEmptyData: UIView!
     
-    
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
     private var sections: [DexOrderBook.ViewModel.Section] = []
-    
-    var hasInit = false
-    
-    var bids: [DexOrderBook.DTO.BidAsk] = []
-    var asks: [DexOrderBook.DTO.BidAsk] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,16 +139,18 @@ private extension DexOrderBookViewController {
     
     func setupDefaultState(scrollTableToCenter: Bool) {
         
+        let isNotEmpty = sections.filter({$0.items.count > 0}).count > 0
+        
         viewLoading.isHidden = true
-        viewEmptyData.isHidden = sections.count > 0
+        viewEmptyData.isHidden = isNotEmpty
 
-        if sections.count > 0 {
+        if isNotEmpty {
             viewTopHeader.setDefaultState()
             
-            if let sectionIndex = sections.index(where: {
+            if let sectionLastPrice = sections.index(where: {
                 $0.items.filter({$0.lastPrice != nil}).count > 0}) {
                 
-                tableView.scrollToRow(at: IndexPath(row: 0, section: sectionIndex), at: .middle, animated: false)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: sectionLastPrice), at: .middle, animated: false)
             }
         }
     }

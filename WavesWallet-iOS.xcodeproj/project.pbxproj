@@ -232,7 +232,6 @@
 		E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA4D20FFB3A100616A03 /* Array+Sort.swift */; };
 		E971DA5020FFEE8700616A03 /* UINavigationController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
-		E97CF06A2124FD74002A75DF /* OrderBookWavesBtcPair.json in Resources */ = {isa = PBXBuildFile; fileRef = E97CF0692124FD74002A75DF /* OrderBookWavesBtcPair.json */; };
 		E97CF06D2124FF04002A75DF /* DexOrderBook.strings in Resources */ = {isa = PBXBuildFile; fileRef = E97CF06F2124FF04002A75DF /* DexOrderBook.strings */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
 		E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */; };
@@ -677,7 +676,6 @@
 		E971DA4D20FFB3A100616A03 /* Array+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Sort.swift"; sourceTree = "<group>"; };
 		E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Additionals.swift"; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
-		E97CF0692124FD74002A75DF /* OrderBookWavesBtcPair.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OrderBookWavesBtcPair.json; sourceTree = "<group>"; };
 		E97CF06E2124FF04002A75DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexOrderBook.strings; sourceTree = "<group>"; };
 		E97CF0702124FF06002A75DF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexOrderBook.strings; sourceTree = "<group>"; };
 		E97CF0712124FF09002A75DF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexOrderBook.strings; sourceTree = "<group>"; };
@@ -1612,14 +1610,6 @@
 			path = DexSort;
 			sourceTree = "<group>";
 		};
-		E97CF0682124FD25002A75DF /* TestDataFiles */ = {
-			isa = PBXGroup;
-			children = (
-				E97CF0692124FD74002A75DF /* OrderBookWavesBtcPair.json */,
-			);
-			path = TestDataFiles;
-			sourceTree = "<group>";
-		};
 		E9983DBE211C6F45002349CA /* DexMarket */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,7 +1802,6 @@
 		E9EDC6BF2123A59300C58E0D /* DexOrderBook */ = {
 			isa = PBXGroup;
 			children = (
-				E97CF0682124FD25002A75DF /* TestDataFiles */,
 				E9CFBC3C2124EABD00CE7413 /* Views */,
 				E9CFBC3B2124EA6400CE7413 /* Interactor */,
 				E9CFBC3A2124EA5400CE7413 /* Presenter */,
@@ -2342,7 +2331,6 @@
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				E9619267211CAA03005E6D1E /* DexMarketPairs.json in Resources */,
 				0A979754210885CC00407F67 /* Localizable.strings in Resources */,
-				E97CF06A2124FD74002A75DF /* OrderBookWavesBtcPair.json in Resources */,
 				E9619265211CA845005E6D1E /* DexMarketVerifiedAssets.json in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				E91705F121238F50006CE9A5 /* DexTranderContainerSegmentedControl.xib in Resources */,
