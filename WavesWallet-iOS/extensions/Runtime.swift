@@ -14,6 +14,12 @@ enum Runtime {
         let swizzledMethod = class_getInstanceMethod(forClass, swizzled)!
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
+
+    static func swizzleClass(for forClass: AnyClass, original: Selector, swizzled: Selector) {        
+        let originalMethod = class_getClassMethod(forClass, original)!
+        let swizzledMethod = class_getClassMethod(forClass, swizzled)!
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+    }
 }
 
 struct Swizzle {

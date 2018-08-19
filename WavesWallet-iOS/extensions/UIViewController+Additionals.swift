@@ -13,7 +13,7 @@ import RESideMenu
 extension UIViewController {
     
     func createBackButton() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createMenuButton() {
@@ -30,7 +30,7 @@ extension UIViewController {
     }
 
     func hideTopBarLine() {
-        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.shadowImage = UIImage()
     }
 
     // TODO: Меня смущает проверка (<= 44) в showImage.
@@ -53,13 +53,13 @@ extension UIViewController {
     
     func setupSmallNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.prefersLargeTitles = false
         }
     }
     
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .never
         }
     }

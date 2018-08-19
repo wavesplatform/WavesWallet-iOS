@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,
-                               UIView.shadowInit]).start()
+                               UIView.shadowInit,
+                               UINavigationItem.customPropertiesInit]).start()
 
         //        [.error,
         //        .debug,

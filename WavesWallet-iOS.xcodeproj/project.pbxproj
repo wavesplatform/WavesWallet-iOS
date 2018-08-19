@@ -90,6 +90,7 @@
 		0A5B6E9221237BFA005A7F09 /* SectionDisplayCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */; };
 		0A5B6E94212609D6005A7F09 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E93212609D6005A7F09 /* UIView+Shadow.swift */; };
 		0A5B6E9621260CBA005A7F09 /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E9521260CBA005A7F09 /* CALayer+Shadow.swift */; };
+		0A5B6EB8212790C2005A7F09 /* HalfNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6EB7212790C1005A7F09 /* HalfNavController.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -345,7 +346,6 @@
 		F79C43D71EAEB101006057B0 /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43D41EAEB101006057B0 /* HalfModalTransitioningDelegate.swift */; };
 		F79C43D81EAEB101006057B0 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43D51EAEB101006057B0 /* HalfModalInteractiveTransition.swift */; };
 		F79C43D91EAEB101006057B0 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43D61EAEB101006057B0 /* HalfModalTransitionAnimator.swift */; };
-		F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */; };
 		F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */; };
 		F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */; };
 		F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7B713A51EABA0C300331E1B /* Transfer.storyboard */; };
@@ -475,6 +475,7 @@
 		0A5B6E9121237BFA005A7F09 /* SectionDisplayCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDisplayCollection.swift; sourceTree = "<group>"; };
 		0A5B6E93212609D6005A7F09 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		0A5B6E9521260CBA005A7F09 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
+		0A5B6EB7212790C1005A7F09 /* HalfNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfNavController.swift; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -741,7 +742,6 @@
 		F79C43D41EAEB101006057B0 /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F79C43D51EAEB101006057B0 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		F79C43D61EAEB101006057B0 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
-		F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfNavController.swift; sourceTree = "<group>"; };
 		F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeTransactionViewController.swift; sourceTree = "<group>"; };
 		F7B713A51EABA0C300331E1B /* Transfer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transfer.storyboard; sourceTree = "<group>"; };
@@ -1714,12 +1714,12 @@
 		F7C683B81EA93C5800C87DAF /* main */ = {
 			isa = PBXGroup;
 			children = (
+				0A5B6EB7212790C1005A7F09 /* HalfNavController.swift */,
 				F7C683B91EA93C5800C87DAF /* AppSettings.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
 				F7C683BB1EA93C5800C87DAF /* MainTabBarController.swift */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
 				F7C683D51EA943E700C87DAF /* StoryboardManager.swift */,
-				F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */,
 				E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */,
 				E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */,
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
@@ -2300,7 +2300,6 @@
 				0AD2B58320F64A8B007EE076 /* RxDataSource+TableView.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
-				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				0AFBCA8F211326BD00285BCB /* ModuleBuilderOutput.swift in Sources */,
 				E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */,
@@ -2325,6 +2324,7 @@
 				0A97976C2109F03000407F67 /* Mutating.swift in Sources */,
 				E9D385C92094ED1A00213E2C /* DottedLineView.swift in Sources */,
 				E999502D2091FE0D00A11E37 /* WalletHeaderView.swift in Sources */,
+				0A5B6EB8212790C2005A7F09 /* HalfNavController.swift in Sources */,
 				E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */,
 				E96AFE711F5799A70046B1CA /* MyOrderHeaderView.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeasingTransaction+Mapper.swift in Sources */,

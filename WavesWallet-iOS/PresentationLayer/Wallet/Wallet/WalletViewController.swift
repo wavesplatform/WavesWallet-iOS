@@ -54,8 +54,9 @@ final class WalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = Localizable.Wallet.Navigationbar.title
+
+        navigationItem.title = Localizable.Wallet.Navigationbar.title
+        setupBigNavigationBar()
         createMenuButton()
         setupSegmetedControl()
         setupTableView()
@@ -64,23 +65,8 @@ final class WalletViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
-        
         super.viewWillAppear(animated)
 
-
-        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
-            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-
-            self?.navigationController?.setNavigationBarHidden(false, animated: true)
-            self?.navigationController?.navigationBar.barTintColor = UIColor.basic50
-        }, completion: nil)
-
-
-
-
-        setupTopBarLine()
-        setupBigNavigationBar()
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }

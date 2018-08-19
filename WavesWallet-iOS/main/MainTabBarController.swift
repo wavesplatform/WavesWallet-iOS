@@ -42,7 +42,7 @@ final class MainTabBarController: RDVTabBarController {
             tabBar.setHeight(50)
         }
 
-        let navWallet = UINavigationController()
+        let navWallet = CustomNavigationController()
         walletCoordinator.start(navigationController: navWallet)
 
         let navDex = StoryboardManager.DexStoryboard().instantiateInitialViewController()!
