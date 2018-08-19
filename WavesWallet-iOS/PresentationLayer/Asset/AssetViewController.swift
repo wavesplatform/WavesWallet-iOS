@@ -30,7 +30,7 @@ final class AssetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-
+createBackButton()
         let assets: [AssetsSegmentedControl.Asset] = [.init(id: "1", name: "Waves", kind: .wavesToken),
                                                       .init(id: "2", name: "BTC", kind: .gateway),
                                                       .init(id: "3", name: "ALLADIN", kind: .spam),
@@ -146,18 +146,6 @@ extension AssetViewController {
     private func resetSetupNavigationBar() {
         navigationController?.navigationBar.shouldPassthroughTouch = false
         navigationController?.navigationBar.isEnabledPassthroughSubviews = false
-
-//        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
-//            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-//            self?.navigationController?.navigationBar.shadowImage = nil
-//            }, completion: nil)
-
-        self.transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in
-            self?.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-            self?.navigationController?.setNavigationBarHidden(false, animated: true)
-            self?.navigationController?.navigationBar.backgroundColor = .white
-            self?.navigationController?.navigationBar.barTintColor = .white
-            }, completion: nil)
     }
 
     private func updateContentInsetForTableView() {
@@ -217,8 +205,8 @@ private extension AssetViewController {
 
     func showNavigationTitle() {
 
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.shadowImage = nil
+        navigationItem.backgroundImage = nil
+        navigationItem.shadowImage = nil
         title = "Waves"
         segmentedControl.isHidden = true
     }
@@ -226,8 +214,8 @@ private extension AssetViewController {
     func showSegmentedControl() {
 
         segmentedControl.isHidden = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.backgroundImage = UIImage()
+        navigationItem.shadowImage = UIImage()
         title = nil
     }
 }
@@ -238,87 +226,6 @@ extension AssetViewController: UIScrollViewDelegate {
         layoutSegmentedControl(scrollView: scrollView)
     }
 }
-
-//
-//    @objc func sendTapped() {
-//        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
-//        controller.hideTabBarOnBack = true
-//        navigationController?.pushViewController(controller, animated: true)
-//    }
-//
-//    @objc func receiveTapped() {
-//        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesReceiveViewController") as! WavesReceiveViewController
-//        controller.hideTabBarOnBack = true
-//        navigationController?.pushViewController(controller, animated: true)
-//
-//    }
-//
-//    @objc func exchangeTapped() {
-//
-//    }
-//
-//    @objc func beginRefresh() {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            self.refreshControl.endRefreshing()
-//        }
-//    }
-//
-//    @IBAction func favouriteTapped(_ sender: Any) {
-//
-//        inFavourite = !inFavourite
-//        buttonFavourite.setImage(UIImage(named: inFavourite ? "topbarFavoriteOn" : "topbarFavoriteOff"), for: .normal)
-//    }
-//
-//    @IBAction func backTapped(_ sender: Any) {
-//        navigationController?.popViewController(animated: true)
-//    }
-//
-//    @objc func changeChartPeriod() {
-//
-//        let controller = UIAlertController(title: "Choose period", message: nil, preferredStyle: .actionSheet)
-//        let day = UIAlertAction(title: "Day", style: .default) { (action) in
-//
-//            if self.selectedChartPediod == .day {
-//                return
-//            }
-//            self.selectedChartPediod = .day
-//            self.tableView.reloadData()
-//        }
-//        let week = UIAlertAction(title: "Week", style: .default) { (action) in
-//
-//            if self.selectedChartPediod == .week {
-//                return
-//            }
-//            self.selectedChartPediod = .week
-//            self.tableView.reloadData()
-//        }
-//        let month = UIAlertAction(title: "Month", style: .default) { (action) in
-//
-//            if self.selectedChartPediod == .month {
-//                return
-//            }
-//            self.selectedChartPediod = .month
-//            self.tableView.reloadData()
-//        }
-//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        controller.addAction(day)
-//        controller.addAction(week)
-//        controller.addAction(month)
-//        controller.addAction(cancel)
-//        present(controller, animated: true, completion: nil)
-//    }
-//
-//    func getChartPediodText() -> String {
-//
-//        if selectedChartPediod == .day {
-//            return "Day"
-//        }
-//        else if selectedChartPediod == .week {
-//            return "Week"
-//        }
-//        return "Month"
-//    }
-//
 
 // MARK: - UITableView
 
