@@ -80,6 +80,8 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
+
+        collectionView.registerCell(type: AssetsSegmentedCell.self)
     }
 
     func setCurrentAsset(id: String, animated: Bool = true) {
@@ -168,7 +170,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
                         dequeueForItemAt dequeueIndexPath: IndexPath,
                         cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: AssetsSegmentedCell = collectionView.dequeueAndRegisterCell(indexPath: dequeueIndexPath)
+        let cell: AssetsSegmentedCell = collectionView.dequeueCellForIndexPath(indexPath: dequeueIndexPath)
 
         let asset = assets[usableIndexPath.row]
 

@@ -14,7 +14,7 @@ enum SeparatorLineStyle: Int {
     case vertical = 1
 }
 
-fileprivate final class SeparatorLineView: UIView {
+private final class SeparatorLineView: UIView {
 
     override class var layerClass: AnyClass {
         get {

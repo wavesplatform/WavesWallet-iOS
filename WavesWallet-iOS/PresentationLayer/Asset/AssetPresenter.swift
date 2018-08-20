@@ -71,8 +71,7 @@ private extension AssetPresenter {
         case .setAssets(let assets):
 
             if let asset = assets.first {
-
-//                return state.mutate { $0.displayState = $0.displayState.mutate { $0.sections = asset.toSections() } }
+                return state.mutate { $0.displayState = $0.displayState.mutate { $0.sections = asset.toSections() } }
             }
 
             return state
@@ -132,25 +131,6 @@ private extension AssetPresenter {
                                                                                     sortLevel: 1),
                                        assets: [],
                                        sections: [balances,
-                                                  transactions, transactions , transactions, balances])
-    }
-
-    static func assets() -> [AssetTypes.DTO.Asset] {
-
-        AssetTypes.DTO.Asset.init(info: AssetTypes.DTO.Asset.Info.init(id: "1",
-                                                                       name: "Test",
-                                                                       isMyWavesToken: false,
-                                                                       isWaves: false,
-                                                                       isFavorite: false,
-                                                                       isFiat: false,
-                                                                       isSpam: false,
-                                                                       isGateway: false,
-                                                                       sortLevel: 1),
-                                  balance: AssetTypes.DTO.Asset.Balance.init(totalMoney: Money.init(10, 1),
-                                                                             avaliableMoney: Money.init(10, 1),
-                                                                             leasedMoney: Money.init(10, 1),
-                                                                             leasedInMoney: Money.init(10, 1)))
-
-        return []
+                                                  transactions])
     }
 }

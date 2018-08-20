@@ -8,51 +8,29 @@
 
 import UIKit
 
-//final class AssetBalanceCell
-
-
 final class AssetBalanceCell: UITableViewCell, NibReusable {
 
-    @IBOutlet weak var viewContainer: UIView!
-    @IBOutlet weak var viewLeased: UIView!
-    @IBOutlet weak var viewTotal: UIView!
-    @IBOutlet weak var viewInOrder: UIView!
-    @IBOutlet weak var viewDotterLine: DottedLineView!
-    
-    
-    @IBOutlet weak var heightLeased: NSLayoutConstraint!
-    @IBOutlet weak var heightTotal: NSLayoutConstraint!
-    @IBOutlet weak var heightInOrder: NSLayoutConstraint!
-    
-    @IBOutlet weak var labelBalance: UILabel!
-    
-    @IBOutlet weak var buttonSend: UIButton!
-    @IBOutlet weak var buttonReceive: UIButton!
-    @IBOutlet weak var buttonExchange: UIButton!
-    
+    private struct Options {
+        var isHiddenLeased: Bool
+        var isHiddenInOrder: Bool
+    }
+
+    @IBOutlet private var viewContainer: UIView!
+    @IBOutlet private var viewLeased: AssetBalanceMoneyInfoView!
+    @IBOutlet private var viewTotal: AssetBalanceMoneyInfoView!
+    @IBOutlet private var viewInOrder: AssetBalanceMoneyInfoView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var balanceLabel: UILabel!
+
+    @IBOutlet private(set) var sendButton: UIButton!
+    @IBOutlet private(set) var receiveButton: UIButton!
+    @IBOutlet private(set) var exchangeButton: UIButton!
+
+    private var options: Options?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
-        
-    }
-
-    @IBAction func receiveTapped(_ sender: Any) {
-        
-      
-    }
-    
-    @IBAction func sendTapped(_ sender: Any) {
-    
-    }
-    
-    @IBAction func exchangeTapped(_ sender: Any) {
-    
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     class func cellHeight(isLeased: Bool, inOrder: Bool) -> CGFloat {
@@ -77,38 +55,61 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     
     func setupCell(isLeased: Bool, inOrder: Bool) {
         
-        let text = "000.0000000"
-        
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: text, font: labelBalance.font)
+//        let text = "000.0000000"
+//
+//        labelBalance.attributedText = NSAttributedString.styleForBalance(text: text, font: labelBalance.font)
+//
+//
+//        if isLeased {
+//            heightLeased.constant = 44
+//            viewLeased.isHidden = false
+//        }
+//        else {
+//            heightLeased.constant = 0
+//            viewLeased.isHidden = true
+//        }
+//
+//        if inOrder {
+//            heightInOrder.constant = 44
+//            viewInOrder.isHidden = false
+//        }
+//        else {
+//            heightInOrder.constant = 0
+//            viewInOrder.isHidden = true
+//        }
+//
+//        if isLeased || inOrder {
+//            viewDotterLine.isHidden = true
+//            heightTotal.constant = 44
+//            viewTotal.isHidden = false
+//        }
+//        else {
+//            viewDotterLine.isHidden = false
+//            heightTotal.constant = 10
+//            viewTotal.isHidden = true
+//        }
+    }
+}
 
-        
-        if isLeased {
-            heightLeased.constant = 44
-            viewLeased.isHidden = false
-        }
-        else {
-            heightLeased.constant = 0
-            viewLeased.isHidden = true
-        }
-        
-        if inOrder {
-            heightInOrder.constant = 44
-            viewInOrder.isHidden = false
-        }
-        else {
-            heightInOrder.constant = 0
-            viewInOrder.isHidden = true
-        }
-        
-        if isLeased || inOrder {
-            viewDotterLine.isHidden = true
-            heightTotal.constant = 44
-            viewTotal.isHidden = false
-        }
-        else {
-            viewDotterLine.isHidden = false
-            heightTotal.constant = 10
-            viewTotal.isHidden = true
-        }
+extension AssetBalanceCell: ViewConfiguration {
+
+    func update(with model: AssetTypes.DTO.Asset.Balance) {
+
+        options = Options(isHiddenLeased: model.leasedMoney.isZero, isHiddenInOrder: model.inOrderMoney.isZero)
+
+        titleLabel.text = ""
+        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull, font: balanceLabel.font)
+        viewLeased.update(with: .init(name: "1", money: model.leasedMoney))
+        viewInOrder.update(with: .init(name: "2", money: model.inOrderMoney))
+        viewTotal.update(with: .init(name: "3", money: model.totalMoney))
+        updateConstraints()
+    }
+}
+
+extension AssetBalanceCell: ViewCalculateHeight {
+
+    static func viewHeight(model: AssetTypes.DTO.Asset.Balance) -> CGFloat {
+
+        return 400
     }
 }

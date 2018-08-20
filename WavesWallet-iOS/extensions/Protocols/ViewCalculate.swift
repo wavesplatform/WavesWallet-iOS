@@ -10,5 +10,11 @@ import UIKit
 
 protocol ViewCalculateHeight {
     associatedtype Model
-    static func cellHeight(model: Model) -> CGFloat
+    static func viewHeight(model: Model) -> CGFloat
+}
+
+extension ViewCalculateHeight where Model == Void {
+    static func viewHeight() -> CGFloat {
+        return viewHeight(model: ())
+    }
 }

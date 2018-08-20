@@ -52,7 +52,7 @@ extension SkeletonAnimatable where Self: UIView {
         self.direction = dir
 
         let direction: Direction = dir == .left ? .left : .right
-//        slide(to: direction)
+        slide(to: direction)
         startListener()
     }
 

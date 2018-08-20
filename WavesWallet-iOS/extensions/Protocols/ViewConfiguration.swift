@@ -22,3 +22,4 @@ extension ViewAnimatableConfiguration {
         update(with: model, animated: true)
     }
 }
+
