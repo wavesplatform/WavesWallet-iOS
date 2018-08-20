@@ -21,10 +21,10 @@ final class DexTraderContainerViewController: UIViewController {
 
         segmentedControl.delegate = self
         title = pair.amountAsset.name + " / " + pair.priceAsset.name
-        addBackground()
+        createBackWhiteButton()
+        addBgBlueImage()
+        addInfoButton()
         build()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image, style: .plain, target: self, action: #selector(infoTapped))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,12 +32,13 @@ final class DexTraderContainerViewController: UIViewController {
         setupSmallNavigationBar()
         hideTopBarLine()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.titleTextAttributes = nil
     }
 }
 
@@ -77,10 +78,11 @@ private extension DexTraderContainerViewController {
         scrollView.setContentOffset(CGPoint(x: CGFloat(pageIndex) * scrollView.frame.size.width, y: scrollView.contentOffset.y), animated: true)
     }
     
-    func addBackground() {
-        addBgBlueImage()
+    func addInfoButton() {
+        let btn = UIBarButtonItem(image: Images.topbarInfowhite.image, style: .plain, target: self, action: #selector(infoTapped))
+        btn.tintColor = .white
+        navigationItem.rightBarButtonItem = btn
     }
-    
     
     func build() {
         let numberOrScreens = 4
