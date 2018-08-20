@@ -1,29 +1,29 @@
 [
   {
     "balance": {
-      "leasedInMoney": {
+      "inOrderMoney": {
         "avaliableMoney": {
           "amount": 2012,
-          "decimals": 2012
+          "decimals": 3
         },
         "amount": 2012,
-        "decimals": 2012
+        "decimals": 3
       },
       "leasedMoney": {
         "avaliableMoney": {
           "amount": 2012,
-          "decimals": 2012
+          "decimals": 3
         },
         "amount": 2012,
-        "decimals": 2012
+        "decimals": 3
       },
       "avaliableMoney": {
         "amount": 2012,
-        "decimals": 2012
+        "decimals": 3
       },
       "totalMoney": {
         "amount": 2012,
-        "decimals": 2012
+        "decimals": 3
       }
     },
     "info": {
@@ -40,13 +40,13 @@
   },
   {
     "balance": {
-      "leasedInMoney": {
+      "inOrderMoney": {
         "avaliableMoney": {
           "amount": 2012,
-          "decimals": 2012
+          "decimals": 3
         },
         "amount": 2012,
-        "decimals": 2012
+        "decimals": 3
       },
       "leasedMoney": {
         "avaliableMoney": {

@@ -12,6 +12,12 @@ import RxFeedback
 import RxSwift
 import UIKit
 
+private enum Constants {
+    static let segmentedControlHeight: CGFloat = 110
+    static let segmentedControlTopPading: CGFloat = 14
+    static let segmentedControlBottomPading: CGFloat = 24
+}
+
 final class AssetViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
@@ -30,13 +36,14 @@ final class AssetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-createBackButton()
+        createBackButton()
         let assets: [AssetsSegmentedControl.Asset] = [.init(id: "1", name: "Waves", kind: .wavesToken),
                                                       .init(id: "2", name: "BTC", kind: .gateway),
                                                       .init(id: "3", name: "ALLADIN", kind: .spam),
                                                       .init(id: "4", name: "USD", kind: .fiat)]
         segmentedControl.update(with: assets)
 
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(segmentedControl)
         navigationItem.rightBarButtonItem = favoriteOffBarButton
         favoriteOffBarButton.action = #selector(sendTapped)
@@ -88,7 +95,7 @@ private extension AssetViewController {
                 .map { _ in AssetTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
-
+        
         presenter.system(feedbacks: [bin, readyViewFeedback])
     }
 
@@ -149,7 +156,7 @@ extension AssetViewController {
     }
 
     private func updateContentInsetForTableView() {
-        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar + 24, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading, 0, 0, 0)
     }
 }
 
@@ -173,10 +180,11 @@ private extension AssetViewController {
             yContent += scrollView.adjustedContentInset.top
         }
 
-        let navigationBarY = navigationController?.navigationBar.frame.origin.y ?? 0
+        let navigationBarY = (navigationController?.navigationBar.frame.origin.y ?? 0) + Constants.segmentedControlTopPading
         var newPosY: CGFloat = navigationBarY - yContent
         newPosY = min(navigationBarY, newPosY)
         segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
+        segmentedControl.frame.size = CGSize(width: view.frame.size.width, height: Constants.segmentedControlHeight)
 
         hiddenSegmentedIfNeeded()
     }
@@ -208,12 +216,10 @@ private extension AssetViewController {
         navigationItem.backgroundImage = nil
         navigationItem.shadowImage = nil
         title = "Waves"
-        segmentedControl.isHidden = true
     }
 
     func showSegmentedControl() {
 
-        segmentedControl.isHidden = false
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
         title = nil
@@ -246,8 +252,7 @@ extension AssetViewController: UITableViewDataSource {
         switch row {
         case .balance(let balance):
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
-
-            cell.setupCell(isLeased: false, inOrder: false)
+            cell.update(with: balance)
             return cell
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
@@ -369,7 +374,7 @@ extension AssetViewController: UITableViewDelegate {
 
         switch row {
         case .balance(let balance):
-            return AssetBalanceCell.cellHeight(isLeased: true, inOrder: true)
+            return AssetBalanceCell.viewHeight(model: balance)
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
         case .viewHistory:

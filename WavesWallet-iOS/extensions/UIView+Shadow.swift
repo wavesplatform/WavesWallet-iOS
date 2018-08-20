@@ -13,12 +13,33 @@ extension UIView {
     private enum AssociatedKeys {
         static var isAutomaticShadowPathSetting = "isAutomaticShadowPathSetting"
         static var isEnabledShadow = "isEnabledShadow"
+        static var prevBounds = "prevBounds"
     }
 
-    static func passtroughInit() {
+    static func shadowInit() {
         Runtime.swizzle(for: self,
                         original: #selector(layoutSubviews),
                         swizzled: #selector(swizzled_shadow_layoutSubviews))
+    }
+
+    private var prevBounds: CGRect? {
+
+        get {
+            if let value: NSValue = associatedObject(for: &AssociatedKeys.prevBounds) {
+                return value.cgRectValue
+            }
+            return nil
+        }
+
+        set {
+
+            if let newValue = newValue {
+                setAssociatedObject(NSValue(cgRect: newValue), for: &AssociatedKeys.prevBounds)
+            } else {
+                let value: NSValue? = nil
+                setAssociatedObject(value, for: &AssociatedKeys.prevBounds)
+            }
+        }
     }
 
     private var isEnabledShadow: Bool {
@@ -48,10 +69,18 @@ extension UIView {
             return
         }
 
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
-        if let mask = layer.mask {
-            mask.shadowPath = UIBezierPath(roundedRect: mask.bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+        if isEnabledShadow == false {
+            return
         }
+
+        if prevBounds != bounds {
+            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+            if let mask = layer.mask {
+                mask.shadowPath = UIBezierPath(roundedRect: mask.bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+            }
+        }
+
+        prevBounds = bounds
     }
 
     func setupShadow(options: ShadowOptions) {

@@ -16,24 +16,31 @@ extension UIView {
         static var isEnabledPassthroughSubviews = "isEnabledPassthroughSubviews"
     }
 
-    static func shadowInit() {
+    static func passtroughInit() {
         Runtime.swizzle(for: self,
                         original: #selector(hitTest(_:with:)),
                         swizzled: #selector(swizzledHitTest(_:with:)))
     }
-
+    
     var isEnabledPassthroughSubviews: Bool {
+
         get {
             return associatedObject(for: &AssociatedKeys.isEnabledPassthroughSubviews) ?? false
         }
 
         set {
+
+            let oldValue = isEnabledPassthroughSubviews
             setAssociatedObject(newValue, for: &AssociatedKeys.isEnabledPassthroughSubviews)
-            setupSubviews(isEnabledSubviews: newValue)
+
+            if oldValue != newValue {
+                setupSubviews(isEnabledSubviews: newValue)
+            }
         }
     }
 
     var passthroughFrame: CGRect? {
+
         get {
             if let value: NSValue = associatedObject(for: &AssociatedKeys.passthroughFrame) {
                 return value.cgRectValue
@@ -42,24 +49,36 @@ extension UIView {
         }
 
         set {
+
+            let oldValue = passthroughFrame
+
             if let newValue = newValue {
                 setAssociatedObject(NSValue(cgRect: newValue), for: &AssociatedKeys.passthroughFrame)
             } else {
                 let value: NSValue? = nil
                 setAssociatedObject(value, for: &AssociatedKeys.passthroughFrame)
             }
-            setupSubviews(isEnabledSubviews: isEnabledPassthroughSubviews)
+
+            if oldValue != newValue {
+                setupSubviews(isEnabledSubviews: isEnabledPassthroughSubviews)
+            }
         }
     }
 
     @IBInspectable var shouldPassthroughTouch: Bool {
+
         get {
             return associatedObject(for: &AssociatedKeys.shouldPassthroughTouch) ?? false
         }
 
         set {
+
+            let oldValue = shouldPassthroughTouch
             setAssociatedObject(newValue, for: &AssociatedKeys.shouldPassthroughTouch)
-            setupSubviews(isEnabledSubviews: isEnabledPassthroughSubviews)
+
+            if oldValue != newValue {
+                setupSubviews(isEnabledSubviews: isEnabledPassthroughSubviews)
+            }
         }
     }
 

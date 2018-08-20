@@ -16,7 +16,7 @@ extension NSAttributedString {
 
         if range.location != NSNotFound {
             let length = text.count - range.location
-            attrString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)], range: NSRange(location: range.location, length: length))
+            attrString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: font.pointSize, weight: .regular)], range: NSRange(location: range.location, length: length))
         }
         return attrString
     }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 private enum Constants {
-    static let maskName = "calayer.mask.name"
+    static let maskName = "calayer.mask.clip.name"
 }
 
 extension CALayer {
@@ -30,9 +30,10 @@ extension CALayer {
               byRoundingCorners corners: UIRectCorner = .allCorners,
               cornerRadius: CGFloat,
               inverse: Bool = false) {
-
+        
         self.mask = {
             let mask = CAShapeLayer()
+            mask.name = Constants.maskName
             let path = UIBezierPath(roundedRect: rect ?? bounds,
                                     byRoundingCorners: corners,
                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -80,7 +81,8 @@ extension CALayer {
             mask.shadowOpacity = self.shadowOpacity
             mask.shadowRadius = self.shadowRadius
             mask.shadowPath = self.shadowPath
-
+            mask.shouldRasterize = self.shouldRasterize
+            mask.rasterizationScale = self.rasterizationScale
 
             return mask
         }()

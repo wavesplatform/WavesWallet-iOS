@@ -7,6 +7,57 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+  internal enum Asset {
+
+    internal enum Cell {
+      /// View history
+      internal static let viewHistory = Localizable.tr("Asset", "cell.viewHistory")
+
+      internal enum Assetinfo {
+        /// Description
+        internal static let description = Localizable.tr("Asset", "cell.assetInfo.description")
+        /// ID
+        internal static let id = Localizable.tr("Asset", "cell.assetInfo.id")
+        /// Issue date
+        internal static let issueDate = Localizable.tr("Asset", "cell.assetInfo.issueDate")
+        /// Issuer
+        internal static let issuer = Localizable.tr("Asset", "cell.assetInfo.issuer")
+        /// Name
+        internal static let name = Localizable.tr("Asset", "cell.assetInfo.name")
+        /// Asset Info
+        internal static let title = Localizable.tr("Asset", "cell.assetInfo.title")
+        /// Type
+        internal static let type = Localizable.tr("Asset", "cell.assetInfo.type")
+      }
+
+      internal enum Balance {
+        /// Available balance
+        internal static let avaliableBalance = Localizable.tr("Asset", "cell.balance.avaliableBalance")
+        /// In order
+        internal static let inOrderBalance = Localizable.tr("Asset", "cell.balance.inOrderBalance")
+        /// Leased
+        internal static let leased = Localizable.tr("Asset", "cell.balance.leased")
+        /// Total
+        internal static let totalBalance = Localizable.tr("Asset", "cell.balance.totalBalance")
+
+        internal enum Button {
+          /// Exchange
+          internal static let exchange = Localizable.tr("Asset", "cell.balance.button.exchange")
+          /// Receive
+          internal static let receive = Localizable.tr("Asset", "cell.balance.button.receive")
+          /// Send
+          internal static let send = Localizable.tr("Asset", "cell.balance.button.send")
+        }
+      }
+    }
+
+    internal enum Header {
+      /// Last transactions
+      internal static let lastTransactions = Localizable.tr("Asset", "header.lastTransactions")
+      /// You do not have any transactions
+      internal static let notHaveTransactions = Localizable.tr("Asset", "header.notHaveTransactions")
+    }
+  }
   internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")

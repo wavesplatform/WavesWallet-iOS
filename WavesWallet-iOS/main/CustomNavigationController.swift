@@ -10,20 +10,20 @@ import UIKit
 
 extension UINavigationItem {
 
-        private enum AssociatedKeys {
-            static var prefersLargeTitles = "prefersLargeTitles"
-            static var backgroundImage = "backgroundImage"
-            static var shadowImage = "shadowImage"
+    private enum AssociatedKeys {
+        static var prefersLargeTitles = "prefersLargeTitles"
+        static var backgroundImage = "backgroundImage"
+        static var shadowImage = "shadowImage"
+    }
+
+    @objc var prefersLargeTitles: Bool {
+        get {
+            return associatedObject(for: &AssociatedKeys.prefersLargeTitles) ?? false
         }
 
-        @objc var prefersLargeTitles: Bool {
-            get {
-                return associatedObject(for: &AssociatedKeys.prefersLargeTitles) ?? false
-            }
-
-            set {
-                setAssociatedObject(newValue, for: &AssociatedKeys.prefersLargeTitles)
-            }
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.prefersLargeTitles)
+        }
     }
 
     @objc var backgroundImage: UIImage? {
@@ -59,14 +59,13 @@ class CustomNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
-        self.interactivePopGestureRecognizer?.delegate = self
-
+        delegate = self
+        interactivePopGestureRecognizer?.delegate = self
     }
 
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
+                               change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
 
         if let prevViewContoller = prevViewContoller {
@@ -74,27 +73,18 @@ class CustomNavigationController: UINavigationController {
         }
     }
 
-//    override func popViewController(animated: Bool) -> UIViewController? {
-//        let vc = super.popViewController(animated: animated)
-//
-//        if let topViewController = topViewController {
-////            apperanceNavigationItemProperties(topViewController)
-//        }
-//        return vc
-//    }
-//
-//    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-//        super.pushViewController(viewController, animated: animated)
-////        apperanceNavigationItemProperties(viewController)
-//    }
-
     private func apperanceNavigationItemProperties(_ viewController: UIViewController) {
 
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
-        navigationBar.shadowImage = viewController.navigationItem.shadowImage
+
+        if navigationBar.shadowImage != viewController.navigationItem.shadowImage {
+            navigationBar.shadowImage = viewController.navigationItem.shadowImage
+        }
 
         if #available(iOS 11.0, *) {
-            navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
+            if navigationBar.prefersLargeTitles != viewController.navigationItem.prefersLargeTitles {
+                navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
+            }
         }
     }
 }
@@ -102,7 +92,7 @@ class CustomNavigationController: UINavigationController {
 // MARK: UIGestureRecognizerDelegate
 
 extension CustomNavigationController: UIGestureRecognizerDelegate {
-    
+
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }

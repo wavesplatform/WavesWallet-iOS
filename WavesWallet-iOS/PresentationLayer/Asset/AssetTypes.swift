@@ -113,7 +113,7 @@ extension AssetTypes.DTO {
             let totalMoney: Money
             let avaliableMoney: Money
             let leasedMoney: Money
-            let leasedInMoney: Money
+            let inOrderMoney: Money
         }
 
         let info: Info
