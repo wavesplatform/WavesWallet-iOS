@@ -12,20 +12,7 @@ import RxSwift
 final class AssetInteractorMock: AssetInteractorProtocol {
 
     func assets() -> Observable<[AssetTypes.DTO.Asset]> {
-
-        do {
-            let decoder = JSONDecoder()
-
-            let file = Bundle.main.path(forResource: "Assets", ofType: "json")!
-            guard let data = try? Data(contentsOf: URL(fileURLWithPath: file)) else { return Observable.just([]) }
-
-            let assets = try decoder.decode([AssetTypes.DTO.Asset].self, from: data)
-
-            return Observable.just(assets)
-        } catch let error {
-            print(error)
-        }
-
-        return Observable.just([])
+        return JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self, json: "Assets")
     }
 }
+

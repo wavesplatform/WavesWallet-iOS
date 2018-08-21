@@ -24,9 +24,11 @@
 "cell.assetInfo.name" = "Name";
 "cell.assetInfo.issuer" = "Issuer";
 "cell.assetInfo.id" = "ID";
-"cell.assetInfo.type" = "Type";
 "cell.assetInfo.issueDate" = "Issue date";
 "cell.assetInfo.description" = "Description";
+"cell.assetInfo.kind.title" = "Type";
+"cell.assetInfo.kind.reissuable" = "Reissuable";
+"cell.assetInfo.kind.notReissuable" = "Not reissuable";
 
 
 

@@ -20,5 +20,4 @@ class BorderButtView: UIView {
         UIColor.basic300.setStroke()
         path.stroke()
     }
-    
 }
