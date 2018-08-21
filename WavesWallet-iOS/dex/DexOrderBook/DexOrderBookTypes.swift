@@ -61,10 +61,11 @@ extension DexOrderBook.DTO {
     }
     
     struct BidAsk {
-        private let defaultScaleDecimal: Int = 8
+        let defaultScaleDecimal: Int = 8
 
         let price: Money
         let amount: Money
+        let sum: Money
         let orderType: OrderType
         let percentAmount: Float
 

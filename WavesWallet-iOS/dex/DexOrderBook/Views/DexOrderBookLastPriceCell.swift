@@ -29,7 +29,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
         labelPrice.text = String(model.price)
        
         if model.percent > 0 {
-            labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + String(model.percent) + "%"
+            labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
         }
         else {
             labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + "%"

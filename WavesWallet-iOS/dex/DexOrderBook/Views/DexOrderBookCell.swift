@@ -18,9 +18,13 @@ final class DexOrderBookCell: UITableViewCell, Reusable {
     
     private var percentAmountOverlay: CGFloat = 0
     
+    private let minFullPercent: CGFloat = 90
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundAmountViewWidth.constant = frame.size.width * percentAmountOverlay / 100
+        
+        backgroundAmountViewWidth.constant = frame.size.width * percentAmountOverlay / minFullPercent
     }
 }
 
@@ -34,11 +38,20 @@ extension DexOrderBookCell: ViewConfiguration {
         labelPrice.text = model.priceText
         
         labelAmount.text = model.amount.displayText
-        
-        // Need check correct of calculation if decimals of price and amount will be different
-        let sum = model.price.amount * model.amount.amount /// NSDecimalNumber(decimal: pow(10, model.price.decimals)).int64Value
-        labelSum.text = MoneyUtil.getScaledText(sum, decimals: model.price.decimals)
+
+        labelSum.text = MoneyUtil.getScaledText(model.sum.amount, decimals: model.sum.decimals, maximumFractionDigits: model.defaultScaleDecimal)
     
         percentAmountOverlay = CGFloat(model.percentAmount)
+    }
+}
+
+private extension MoneyUtil {
+    class func getScaledText(_ amount: Int64, decimals: Int,  maximumFractionDigits: Int, scale: Int? = nil) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = maximumFractionDigits
+        f.minimumFractionDigits = decimals
+        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
+        return result ?? ""
     }
 }
