@@ -13,12 +13,12 @@ extension UIView {
 
     func addTableCellShadowStyle() {
 
-        setupShadow(options: .init(offset: CGSize(width: 0, height: 2),
+        setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                    color: .black,
                                    opacity: 0.12,
                                    radius: 2,
                                    shouldRasterize: true,
-                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))
+                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))                
     }
     
     class func loadView() -> UIView {

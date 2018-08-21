@@ -14,10 +14,6 @@ final class CenteringContentButton: UIButton {
         static let titleTopPadding: CGFloat = 8
     }
 
-    override func contentRect(forBounds bounds: CGRect) -> CGRect {
-        return super.contentRect(forBounds: bounds)
-    }
-
     override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
 
         let iconSize = super.imageRect(forContentRect: contentRect).size

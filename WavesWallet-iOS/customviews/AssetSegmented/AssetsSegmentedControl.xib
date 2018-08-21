@@ -19,14 +19,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="364" height="97"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqr-kX-Scj">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                    <rect key="frame" x="0.0" y="0.0" width="364" height="97"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qBl-vH-xDV" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="364" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="po7-rZ-2Vj"/>
@@ -51,19 +51,19 @@
                             <cells/>
                         </collectionView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-zB-Myb">
-                            <rect key="frame" x="161.5" y="62" width="52.5" height="37.5"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <rect key="frame" x="157" y="62" width="50.5" height="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-ID-uxW">
-                            <rect key="frame" x="148.5" y="104" width="79.5" height="16"/>
+                            <rect key="frame" x="143" y="81.5" width="79.5" height="15.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="38.5" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="ha4-FY-a1Q" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="168.5" y="103.5" width="38.5" height="16.5"/>
+                            <rect key="frame" x="163" y="81" width="38.5" height="16"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -88,7 +88,7 @@
                 <constraint firstItem="gqr-kX-Scj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WRf-U5-DiV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="33.5" y="44"/>
+            <point key="canvasLocation" x="28" y="32.5"/>
         </view>
     </objects>
 </document>

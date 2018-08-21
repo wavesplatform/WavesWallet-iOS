@@ -101,6 +101,10 @@
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
 		0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919B20F3E7DD00443CE6 /* Asset.swift */; };
+		0A5D8B7A212C348B00A45EA4 /* AssetViewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D8B79212C348B00A45EA4 /* AssetViewHistoryCell.swift */; };
+		0A5D8B7C212C354B00A45EA4 /* AssetViewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5D8B7B212C354B00A45EA4 /* AssetViewHistoryCell.xib */; };
+		0A5D8B80212C647F00A45EA4 /* JSONDecoder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D8B7F212C647F00A45EA4 /* JSONDecoder+Rx.swift */; };
+		0A5D8B82212CC51B00A45EA4 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D8B81212CC51B00A45EA4 /* CopyableLabel.swift */; };
 		0A63976B2126ED07007E682A /* Assets.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A63976A2126ED06007E682A /* Assets.json */; };
 		0A63976D2126F821007E682A /* AssetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63976C2126F821007E682A /* AssetHeaderView.swift */; };
 		0A63976F2126F82C007E682A /* AssetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A63976E2126F82C007E682A /* AssetHeaderView.xib */; };
@@ -495,6 +499,10 @@
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919B20F3E7DD00443CE6 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		0A5D8B79212C348B00A45EA4 /* AssetViewHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewHistoryCell.swift; sourceTree = "<group>"; };
+		0A5D8B7B212C354B00A45EA4 /* AssetViewHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetViewHistoryCell.xib; sourceTree = "<group>"; };
+		0A5D8B7F212C647F00A45EA4 /* JSONDecoder+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Rx.swift"; sourceTree = "<group>"; };
+		0A5D8B81212CC51B00A45EA4 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		0A63976A2126ED06007E682A /* Assets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Assets.json; sourceTree = "<group>"; };
 		0A63976C2126F821007E682A /* AssetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetHeaderView.swift; sourceTree = "<group>"; };
 		0A63976E2126F82C007E682A /* AssetHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetHeaderView.xib; sourceTree = "<group>"; };
@@ -890,6 +898,8 @@
 				E9A0ADA120A1C65A00693160 /* AssetDetailCell.swift */,
 				0A105D47212B1B4600869376 /* AssetBalanceMoneyInfoView.swift */,
 				0A105D49212B1B5200869376 /* AssetBalanceMoneyInfoView.xib */,
+				0A5D8B79212C348B00A45EA4 /* AssetViewHistoryCell.swift */,
+				0A5D8B7B212C354B00A45EA4 /* AssetViewHistoryCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -908,8 +918,6 @@
 			isa = PBXGroup;
 			children = (
 				E97033EE2095BE34007E728C /* WalletTableAssetsCell.swift */,
-				0AE657282105E49F003D2DB8 /* EmptyCell.swift */,
-				0AE657262105E3E3003D2DB8 /* EmptyCell.xib */,
 				E9D60AD620973A730042464A /* WalletHistoryCell.swift */,
 				E94E9C7020983239007E0705 /* WalletHistoryCell.xib */,
 				E97033F02095BEC3007E728C /* WalletLeasingBalanceCell.swift */,
@@ -1803,6 +1811,8 @@
 		F7F97E861EAA0CF800BE2F6F /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				0AE657282105E49F003D2DB8 /* EmptyCell.swift */,
+				0AE657262105E3E3003D2DB8 /* EmptyCell.xib */,
 				0A21C4D42125B8200054967F /* Skeleton */,
 				0A41E39D211B483500A1EF5E /* AssetSegmented */,
 				E9FBFC9E20A0AE8300EBF3AD /* BorderButtView.swift */,
@@ -1819,6 +1829,7 @@
 				0A26AA2A2119FBE700A00578 /* TickerView.xib */,
 				0A5B6E8D211CF9B7005A7F09 /* GradientView.swift */,
 				0A105D45212B142C00869376 /* CenteringContentButton.swift */,
+				0A5D8B81212CC51B00A45EA4 /* CopyableLabel.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -1871,6 +1882,7 @@
 				F763B9AC1EAC0ECF00FA3701 /* UIViewController+Alert.swift */,
 				0A54960321109EA9009080BE /* UIViewController+Rx.swift */,
 				0A7F34E4211C64F200315E1A /* UIViewController+SafeArea.swift */,
+				0A5D8B7F212C647F00A45EA4 /* JSONDecoder+Rx.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1965,6 +1977,7 @@
 				0A105D64212B2C0700869376 /* Asset.strings in Resources */,
 				F7E954FF1EA90CA600A804DE /* Login.storyboard in Resources */,
 				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
+				0A5D8B7C212C354B00A45EA4 /* AssetViewHistoryCell.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
 				F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */,
 				F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */,
@@ -2192,6 +2205,7 @@
 				0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */,
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
+				0A5D8B80212C647F00A45EA4 /* JSONDecoder+Rx.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				0AEB35982116306D00EDD63C /* SweetLogger.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
@@ -2444,9 +2458,11 @@
 				0A21C4DA2125C8AC0054967F /* UITableView+Animation.swift in Sources */,
 				0A5B6E9221237BFA005A7F09 /* SectionDisplayCollection.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
+				0A5D8B82212CC51B00A45EA4 /* CopyableLabel.swift in Sources */,
 				E95F602120A45D2F00D8D5B0 /* HistoryViewController.swift in Sources */,
 				F7F97E911EAA0CF800BE2F6F /* UIButtonExtension.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
+				0A5D8B7A212C348B00A45EA4 /* AssetViewHistoryCell.swift in Sources */,
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				F79C43D81EAEB101006057B0 /* HalfModalInteractiveTransition.swift in Sources */,
 				E99950352092188D00A11E37 /* UIView+Additionals.swift in Sources */,

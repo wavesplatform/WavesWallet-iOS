@@ -71,7 +71,13 @@ private extension AssetPresenter {
         case .setAssets(let assets):
 
             if let asset = assets.first {
-                return state.mutate { $0.displayState = $0.displayState.mutate { $0.sections = asset.toSections() } }
+                return state.mutate {
+                    let display = $0.displayState.mutate {
+                        $0.sections = asset.toSections()
+                        $0.assets = assets.map { $0.info }
+                    }
+                    $0.displayState = display
+                }
             }
 
             return state
@@ -89,18 +95,13 @@ fileprivate extension AssetTypes.DTO.Asset {
     func toSections() -> [AssetTypes.ViewModel.Section] {
 
         let balance: AssetTypes.ViewModel.Section = .init(kind: .none, rows: [.balance(self.balance)])
-        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title("Last transactions"), rows: [.transactionSkeleton])
+        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title("Last transactions"), rows: [.transactionSkeleton, .viewHistory, .viewHistoryDisabled])
         let assetInfo: AssetTypes.ViewModel.Section =   .init(kind: .none, rows: [.assetInfo(self.info)])
 
         return [balance,
                 transactions,
                 assetInfo]
     }
-}
-
-private extension Array where Element == AssetTypes.DTO.Asset {
-
-
 }
 
 // MARK: UI State
@@ -120,9 +121,14 @@ private extension AssetPresenter {
         return AssetTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
-                                       currentAsset: AssetTypes.DTO.Asset.Info.init(id: "",
-                                                                                    name: "",
+                                       currentAsset: AssetTypes.DTO.Asset.Info.init(id: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+                                                                                    issuer: "",
+                                                                                    name: "Waves",
+                                                                                    description: "",
+                                                                                    issueDate: Date(),
+                                                                                    isReissuable: false,
                                                                                     isMyWavesToken: false,
+                                                                                    isWavesToken: false,
                                                                                     isWaves: false,
                                                                                     isFavorite: false,
                                                                                     isFiat: false,

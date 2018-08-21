@@ -12,39 +12,26 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="tqs-OW-ads" userLabel="AssetHeaderView" customClass="AssetHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" id="q8m-cs-7B2" customClass="AssetHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8m-cs-7B2">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden assets (2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wK3-xf-glw">
-                            <rect key="frame" x="16" y="18" width="108" height="16"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="wK3-xf-glw" firstAttribute="top" secondItem="q8m-cs-7B2" secondAttribute="top" constant="18" id="kre-Br-n7c"/>
-                        <constraint firstItem="wK3-xf-glw" firstAttribute="leading" secondItem="q8m-cs-7B2" secondAttribute="leading" constant="16" id="lId-GH-0Uj"/>
-                    </constraints>
-                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden assets (2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wK3-xf-glw">
+                    <rect key="frame" x="16" y="16" width="108" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
+            <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="q8m-cs-7B2" secondAttribute="bottom" id="ZP1-2o-q4T"/>
-                <constraint firstItem="q8m-cs-7B2" firstAttribute="leading" secondItem="l11-wf-6gM" secondAttribute="leading" id="fin-Hb-epG"/>
-                <constraint firstItem="q8m-cs-7B2" firstAttribute="top" secondItem="tqs-OW-ads" secondAttribute="top" id="gdl-9I-4o1"/>
-                <constraint firstItem="l11-wf-6gM" firstAttribute="trailing" secondItem="q8m-cs-7B2" secondAttribute="trailing" id="pTy-be-Cbx"/>
+                <constraint firstItem="wK3-xf-glw" firstAttribute="top" secondItem="q8m-cs-7B2" secondAttribute="top" constant="16" id="kre-Br-n7c"/>
+                <constraint firstItem="wK3-xf-glw" firstAttribute="leading" secondItem="q8m-cs-7B2" secondAttribute="leading" constant="16" id="lId-GH-0Uj"/>
             </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="l11-wf-6gM"/>
+            <viewLayoutGuide key="safeArea" id="Kck-xc-Vvh"/>
             <connections>
-                <outlet property="labelTitle" destination="wK3-xf-glw" id="jvr-7a-gvT"/>
+                <outlet property="labelTitle" destination="wK3-xf-glw" id="tg7-kW-DiR"/>
             </connections>
-            <point key="canvasLocation" x="34.5" y="54"/>
         </view>
     </objects>
 </document>

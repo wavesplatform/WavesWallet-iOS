@@ -82,6 +82,7 @@ extension AssetTypes.ViewModel {
         case balanceSkeleton
         case balance(AssetTypes.DTO.Asset.Balance)
         case viewHistory
+        case viewHistoryDisabled
         case viewHistorySkeleton
         case lastTransactions([AssetTypes.DTO.Transaction])
         case transactionSkeleton
@@ -99,8 +100,13 @@ extension AssetTypes.DTO {
 
         struct Info: Codable {
             let id: String
+            let issuer: String
             let name: String
+            let description: String
+            let issueDate: Date
+            let isReissuable: Bool
             let isMyWavesToken: Bool
+            let isWavesToken: Bool
             let isWaves: Bool
             let isFavorite: Bool
             let isFiat: Bool

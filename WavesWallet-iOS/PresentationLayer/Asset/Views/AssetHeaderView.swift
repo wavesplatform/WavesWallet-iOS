@@ -8,15 +8,21 @@
 
 import UIKit
 
-final class AssetHeaderView: UITableViewHeaderFooterView, NibReusable {
+final class AssetHeaderView: UITableViewHeaderFooterView, NibReusable, ViewCalculateHeight {
 
     @IBOutlet private var labelTitle: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        backgroundView = {
+            let view = UIView()
+            view.backgroundColor = .basic50
+            return view
+        }()
     }
 
-    class func viewHeight() -> CGFloat {
+    class func viewHeight(model: AssetHeaderView.Model, width: CGFloat) -> CGFloat {
         return 48
     }
 }

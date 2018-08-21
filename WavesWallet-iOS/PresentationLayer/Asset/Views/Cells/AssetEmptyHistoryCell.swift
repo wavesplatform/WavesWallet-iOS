@@ -8,22 +8,11 @@
 
 import UIKit
 
-class AssetEmptyHistoryCell: UITableViewCell {
+final class AssetEmptyHistoryCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var viewContainer: UIView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
     class func cellHeight() -> CGFloat {
-        return 66
+        return 56
     }
 }

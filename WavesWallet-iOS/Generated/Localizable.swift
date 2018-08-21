@@ -26,8 +26,15 @@ internal enum Localizable {
         internal static let name = Localizable.tr("Asset", "cell.assetInfo.name")
         /// Asset Info
         internal static let title = Localizable.tr("Asset", "cell.assetInfo.title")
-        /// Type
-        internal static let type = Localizable.tr("Asset", "cell.assetInfo.type")
+
+        internal enum Kind {
+          /// Not reissuable
+          internal static let notReissuable = Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable")
+          /// Reissuable
+          internal static let reissuable = Localizable.tr("Asset", "cell.assetInfo.kind.reissuable")
+          /// Type
+          internal static let title = Localizable.tr("Asset", "cell.assetInfo.kind.title")
+        }
       }
 
       internal enum Balance {

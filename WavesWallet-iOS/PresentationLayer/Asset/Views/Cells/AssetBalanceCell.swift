@@ -8,6 +8,15 @@
 
 import UIKit
 
+private enum Constants {
+    static let heightViewWithoutBalances: CGFloat = 188
+    static let heightViewWithBalance: CGFloat = 208
+    static let heightBalanceView: CGFloat = 42
+    static let heightFirstBalanceView: CGFloat = 28
+    static let bottomPadding: CGFloat = 8
+    static let heightSeparator: CGFloat = 0.5
+}
+
 final class AssetBalanceCell: UITableViewCell, NibReusable {
 
     private struct Options {
@@ -19,6 +28,9 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private var viewLeased: AssetBalanceMoneyInfoView!
     @IBOutlet private var viewTotal: AssetBalanceMoneyInfoView!
     @IBOutlet private var viewInOrder: AssetBalanceMoneyInfoView!
+    @IBOutlet private var firstSeparatorView: SeparatorView!
+    @IBOutlet private var secondSeparatorView: SeparatorView!
+    @IBOutlet private var thirdSeparatorView: SeparatorView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var balanceLabel: UILabel!
 
@@ -26,68 +38,40 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private(set) var receiveButton: UIButton!
     @IBOutlet private(set) var exchangeButton: UIButton!
 
-    private var options: Options?
+    private var options: Options = Options(isHiddenLeased: false, isHiddenInOrder: false)
+    private var isNeedsUpdateConstraints: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
+        backgroundColor = .basic50        
     }
 
-    class func cellHeight(isLeased: Bool, inOrder: Bool) -> CGFloat {
-        var height : CGFloat = 210
-        
-        if isLeased {
-            height += 44
+    override func updateConstraints() {
+
+        if isNeedsUpdateConstraints {
+            isNeedsUpdateConstraints = false
+
+            viewLeased.isHidden = options.isHiddenLeased
+            viewInOrder.isHidden = options.isHiddenInOrder
+            viewTotal.isHidden = options.isHiddenLeased && options.isHiddenInOrder
+
+            if options.isHiddenInOrder && options.isHiddenLeased {
+                firstSeparatorView.isHidden = false
+                secondSeparatorView.isHidden = true
+                thirdSeparatorView.isHidden = true
+            } else if !options.isHiddenInOrder && !options.isHiddenLeased {
+                firstSeparatorView.isHidden = false
+                secondSeparatorView.isHidden = false
+                thirdSeparatorView.isHidden = false
+            } else {
+                firstSeparatorView.isHidden = true
+                secondSeparatorView.isHidden = false
+                thirdSeparatorView.isHidden = false
+            }
         }
-        if inOrder {
-            height += 44
-        }
-        
-        if isLeased || inOrder {
-            height += 44
-        }
-        else {
-            height += 10
-        }
-        
-        return height
-    }
-    
-    func setupCell(isLeased: Bool, inOrder: Bool) {
-        
-//        let text = "000.0000000"
-//
-//        labelBalance.attributedText = NSAttributedString.styleForBalance(text: text, font: labelBalance.font)
-//
-//
-//        if isLeased {
-//            heightLeased.constant = 44
-//            viewLeased.isHidden = false
-//        }
-//        else {
-//            heightLeased.constant = 0
-//            viewLeased.isHidden = true
-//        }
-//
-//        if inOrder {
-//            heightInOrder.constant = 44
-//            viewInOrder.isHidden = false
-//        }
-//        else {
-//            heightInOrder.constant = 0
-//            viewInOrder.isHidden = true
-//        }
-//
-//        if isLeased || inOrder {
-//            viewDotterLine.isHidden = true
-//            heightTotal.constant = 44
-//            viewTotal.isHidden = false
-//        }
-//        else {
-//            viewDotterLine.isHidden = false
-//            heightTotal.constant = 10
-//            viewTotal.isHidden = true
-//        }
+
+        super.updateConstraints()
     }
 }
 
@@ -97,19 +81,58 @@ extension AssetBalanceCell: ViewConfiguration {
 
         options = Options(isHiddenLeased: model.leasedMoney.isZero, isHiddenInOrder: model.inOrderMoney.isZero)
 
-        titleLabel.text = ""
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull, font: balanceLabel.font)
-        viewLeased.update(with: .init(name: "1", money: model.leasedMoney))
-        viewInOrder.update(with: .init(name: "2", money: model.inOrderMoney))
-        viewTotal.update(with: .init(name: "3", money: model.totalMoney))
-        updateConstraints()
+        sendButton.setTitle(Localizable.Asset.Cell.Balance.Button.send, for: .normal)
+        receiveButton.setTitle(Localizable.Asset.Cell.Balance.Button.receive, for: .normal)
+        exchangeButton.setTitle(Localizable.Asset.Cell.Balance.Button.exchange, for: .normal)
+
+        titleLabel.text = Localizable.Asset.Cell.Balance.avaliableBalance
+
+        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull,
+                                                                         font: balanceLabel.font)
+
+        viewLeased.update(with: .init(name: Localizable.Asset.Cell.Balance.leased,
+                                      money: model.leasedMoney))
+        viewInOrder.update(with: .init(name: Localizable.Asset.Cell.Balance.inOrderBalance,
+                                       money: model.inOrderMoney))
+        viewTotal.update(with: .init(name: Localizable.Asset.Cell.Balance.totalBalance,
+                                     money: model.totalMoney))
+
+        isNeedsUpdateConstraints = true
+        setNeedsUpdateConstraints()
     }
 }
 
 extension AssetBalanceCell: ViewCalculateHeight {
 
-    static func viewHeight(model: AssetTypes.DTO.Asset.Balance) -> CGFloat {
+    static func viewHeight(model: AssetTypes.DTO.Asset.Balance, width: CGFloat) -> CGFloat {
 
-        return 400
+        let isHiddenLeased = model.leasedMoney.isZero
+        let isHiddenInOrder = model.inOrderMoney.isZero
+
+        if isHiddenLeased && isHiddenInOrder {
+            return Constants.heightViewWithoutBalances + Constants.bottomPadding
+        }
+
+        var height : CGFloat = Constants.heightViewWithoutBalances
+
+        if isHiddenLeased == false {
+            height += Constants.heightBalanceView
+        }
+
+        if isHiddenInOrder == false {
+            height += Constants.heightBalanceView
+        }
+
+         height += Constants.heightFirstBalanceView + Constants.bottomPadding
+
+        if isHiddenInOrder && isHiddenLeased {
+            height += Constants.heightSeparator
+        } else if !isHiddenInOrder && !isHiddenLeased {
+            height += Constants.heightSeparator * 3
+        } else {
+            height += Constants.heightSeparator * 2
+        }
+
+        return height
     }
 }

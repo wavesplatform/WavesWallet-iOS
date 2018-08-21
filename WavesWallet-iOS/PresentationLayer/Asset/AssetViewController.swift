@@ -13,8 +13,8 @@ import RxSwift
 import UIKit
 
 private enum Constants {
-    static let segmentedControlHeight: CGFloat = 110
-    static let segmentedControlTopPading: CGFloat = 14
+    static let segmentedControlHeight: CGFloat = 100
+    static let segmentedControlTopPading: CGFloat = 11
     static let segmentedControlBottomPading: CGFloat = 24
 }
 
@@ -32,16 +32,19 @@ final class AssetViewController: UIViewController {
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
 
     private var sections: [AssetTypes.ViewModel.Section] = .init()
+    private var currentAssetName: String? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
         createBackButton()
-        let assets: [AssetsSegmentedControl.Asset] = [.init(id: "1", name: "Waves", kind: .wavesToken),
-                                                      .init(id: "2", name: "BTC", kind: .gateway),
-                                                      .init(id: "3", name: "ALLADIN", kind: .spam),
-                                                      .init(id: "4", name: "USD", kind: .fiat)]
-        segmentedControl.update(with: assets)
+        tableView.backgroundColor = .basic50
+//        let assets: [AssetsSegmentedControl.Asset] = [.init(id: "12", name: "US Dollar", kind: .fiat),
+//                                                      .init(id: "1", name: "Waves", kind: .wavesToken),
+//                                                      .init(id: "2", name: "BTC", kind: .gateway),
+//                                                      .init(id: "3", name: "ALLADIN", kind: .spam),
+//                                                      .init(id: "4", name: "US Dollar", kind: .fiat)]
+//        segmentedControl.update(with: assets)
 
         segmentedControl.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(segmentedControl)
@@ -108,10 +111,18 @@ private extension AssetViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-                guard let strongSelf = self else { return }
+            guard let strongSelf = self else { return }
+            strongSelf.sections = state.displayState.sections
+            let assets = state.displayState.assets.map { $0.map() }
+            strongSelf.segmentedControl.update(with: assets)
+            strongSelf.segmentedControl.setCurrentAsset(id: state.displayState.currentAsset.id)
+            strongSelf.currentAssetName = state.displayState.currentAsset.name
+            strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve(completion: {
+                DispatchQueue.main.async {
+                    strongSelf.layoutSegmentedControl(scrollView: strongSelf.tableView)
+                }
+            })
 
-                strongSelf.sections = state.displayState.sections
-                strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
         })
 
         return [subscriptionSections]
@@ -156,7 +167,10 @@ extension AssetViewController {
     }
 
     private func updateContentInsetForTableView() {
-        tableView.contentInset = UIEdgeInsetsMake(heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading, 0, 0, 0)
+
+        let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading
+        tableView.contentInset = UIEdgeInsetsMake(top, 0, 24, 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, 24, 0)
     }
 }
 
@@ -215,7 +229,7 @@ private extension AssetViewController {
 
         navigationItem.backgroundImage = nil
         navigationItem.shadowImage = nil
-        title = "Waves"
+        title = currentAssetName
     }
 
     func showSegmentedControl() {
@@ -254,35 +268,36 @@ extension AssetViewController: UITableViewDataSource {
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
             return cell
+
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
-
             return cell
+
         case .viewHistory:
-            break
+            let cell: AssetViewHistoryCell = tableView.dequeueAndRegisterCell()
+            return cell
+
         case .viewHistorySkeleton:
             let cell: AssetHistorySkeletonCell = tableView.dequeueAndRegisterCell()
-
             return cell
+
         case .lastTransactions:
             break
+
         case .transactionSkeleton:
             let cell: AssetTransactionSkeletonCell = tableView.dequeueAndRegisterCell()
-
             return cell
-        case .assetInfo:
-            break
+
+        case .viewHistoryDisabled:
+            let cell: AssetEmptyHistoryCell = tableView.dequeueAndRegisterCell()
+            return cell
+
+        case .assetInfo(let info):
+            let cell: AssetDetailCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: info)
+            return cell
         }
 
-        //
-        //        if indexPath.section == Section.balance.rawValue {
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetBalanceCell") as! AssetBalanceCell
-        //            cell.buttonSend.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
-        ////            cell.buttonReceive.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
-        ////            cell.buttonExchange.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
-        //            cell.setupCell(isLeased: true, inOrder: true)
-        //            return cell
-        //        }
         //        else if indexPath.section == Section.lastTransactions.rawValue {
         //            if indexPath.row == 0 {
         //                let cell = tableView.dequeueReusableCell(withIdentifier: "AssetLastTransactionCell") as! AssetLastTransactionCell
@@ -300,15 +315,7 @@ extension AssetViewController: UITableViewDataSource {
         //            }
         //            return cell
         //        }
-        //        else if indexPath.section == Section.chart.rawValue {
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetChartCell") as! AssetChartCell
-        //            cell.setupCell(isNoDataChart: false)
-        //            return cell
-        //        }
-        //        else if indexPath.section == Section.info.rawValue {
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "AssetDetailCell") as! AssetDetailCell
-        //            return cell
-        //        }
+
 
         return UITableViewCell()
     }
@@ -326,8 +333,8 @@ extension AssetViewController: UITableViewDelegate {
         switch model.kind {
         case .skeletonTitle:
             return AssetHistorySkeletonCell.cellHeight()
-        case .title:
-            return AssetHeaderView.viewHeight()
+        case .title(let title):
+            return AssetHeaderView.viewHeight(model: title, width: tableView.frame.width)
         default:
             return CGFloat.minValue
         }
@@ -353,43 +360,45 @@ extension AssetViewController: UITableViewDelegate {
         return nil
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.minValue
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == Section.balance.rawValue {
-//            return AssetBalanceCell.cellHeight(isLeased: true, inOrder: true)
-//        }
+
 //        else if indexPath.section == Section.lastTransactions.rawValue {
 //            if indexPath.row == 0 {
 //                return lastTransctions.count > 0 ? AssetLastTransactionCell.cellHeight() : 0
 //            }
-//
-//            return lastTransctions.count == 0 ? AssetEmptyHistoryCell.cellHeight() : WalletHistoryCell.cellHeight()
-//        }
-//        else if indexPath.section == Section.chart.rawValue {
-//            return AssetChartCell.cellHeight()
-//        }
-//        else if indexPath.section == Section.info.rawValue {
-//            return AssetDetailCell.cellHeight()
-//        }
+
         let row = sections[indexPath]
 
         switch row {
         case .balance(let balance):
-            return AssetBalanceCell.viewHeight(model: balance)
+            return AssetBalanceCell.viewHeight(model: balance, width: tableView.frame.width)
+
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
+
         case .viewHistory:
-            break
+            return AssetViewHistoryCell.cellHeight()
+
         case .viewHistorySkeleton:
             return AssetHistorySkeletonCell.cellHeight()
+
         case .lastTransactions:
             break
+
+        case .viewHistoryDisabled:
+            return AssetEmptyHistoryCell.cellHeight()
+
         case .transactionSkeleton:
             return AssetTransactionSkeletonCell.cellHeight()
-        case .assetInfo:
-            break
-        }
 
-        return 100
+        case .assetInfo(let info):
+            return AssetDetailCell.viewHeight(model: info, width: tableView.frame.width)
+        }
+        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -424,5 +433,26 @@ extension AssetViewController: UITableViewDelegate {
         default:
             break
         }
+    }
+}
+
+// MARK: Assisstants
+extension AssetTypes.DTO.Asset.Info {
+
+    func map() -> AssetsSegmentedControl.Asset {
+
+        var kind: AssetsSegmentedControl.Asset.Kind!
+
+        if isSpam {
+            kind = .spam
+        } else if isFiat {
+            kind = .fiat
+        } else if isGateway {
+            kind = .gateway
+        } else if isWavesToken {
+            kind = .wavesToken
+        }
+
+        return AssetsSegmentedControl.Asset(id: id, name: name, kind: kind)
     }
 }

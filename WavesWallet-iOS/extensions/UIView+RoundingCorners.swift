@@ -69,9 +69,9 @@ extension UIView {
             return
         }
 
-        if prevBounds != bounds {
+//        if prevBounds != bounds {
             layer.clip(cornerRadius: CGFloat(cornerRadius))
-        }
-        prevBounds = bounds
+//        }
+//        prevBounds = bounds
     }
 }

@@ -12,7 +12,7 @@ private enum Constants {
     static let maxCount = 3
 }
 
-final class WrapperAssetsSegmentedControl: UIView, ViewConfiguration {
+final class WrapperAssetsSegmentedControl: UIView {
     @IBOutlet private(set) var assetsSegmentedControl: AssetsSegmentedControl!
     private var leftGradient: GradientView = GradientView()
     private var rightGradient: GradientView = GradientView()
@@ -54,6 +54,15 @@ final class WrapperAssetsSegmentedControl: UIView, ViewConfiguration {
     func witdthCells() -> CGFloat {
         return assetsSegmentedControl.witdthCells(by: Constants.maxCount)
     }
+
+    func setCurrentAsset(id: String, animated: Bool = true) {
+        assetsSegmentedControl.setCurrentAsset(id: id, animated: animated)
+    }
+}
+
+// MARK: ViewConfiguration
+
+extension WrapperAssetsSegmentedControl: ViewConfiguration {
 
     func update(with model: AssetsSegmentedControl.Model) {
         assetsSegmentedControl.update(with: model)
