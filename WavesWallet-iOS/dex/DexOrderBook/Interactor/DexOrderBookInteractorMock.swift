@@ -48,22 +48,22 @@ private extension DexOrderBookInteractorMock {
         var bids: [DexOrderBook.DTO.BidAsk] = []
         var asks: [DexOrderBook.DTO.BidAsk] = []
 
-        var totalSumBid: Decimal = 0
-        var totalSumAsk: Decimal = 0
+        var totalSumBid: Double = 0
+        var totalSumAsk: Double = 0
         
         let maxAmount = (itemsAsks + itemsBids).map({$0["amount"].int64Value}).max() ?? 0
-        let maxAmountValue = decimalValue(Money(maxAmount, pair.amountAsset.decimals)).floatValue
+        let maxAmountValue = Money(maxAmount, pair.amountAsset.decimals).floatValue
         
         for item in itemsBids {
 
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
             
-            totalSumBid += decimalValue(price) * decimalValue(amount)
+            totalSumBid += price.doubleValue * amount.doubleValue
             
-            let percent: Float = 100 * decimalValue(amount).floatValue / maxAmountValue
+            let percent: Float = 100 * amount.decimalValue.floatValue / maxAmountValue
 
-            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: MoneyUtil.money(totalSumBid.doubleValue), orderType: .sell, percentAmount: percent)
+            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: Money(totalSumBid), orderType: .sell, percentAmount: percent)
             bids.append(bid)
         }
         
@@ -71,11 +71,11 @@ private extension DexOrderBookInteractorMock {
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
             
-            totalSumAsk += decimalValue(price) * decimalValue(amount)
+            totalSumAsk += price.doubleValue * amount.doubleValue
 
-            let percent: Float = 100 * decimalValue(amount).floatValue / maxAmountValue
+            let percent: Float = 100 * amount.floatValue / maxAmountValue
 
-            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: MoneyUtil.money(totalSumAsk.doubleValue), orderType: .buy, percentAmount: percent)
+            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: Money(totalSumAsk), orderType: .buy, percentAmount: percent)
             asks.append(ask)
         }
         
@@ -85,14 +85,16 @@ private extension DexOrderBookInteractorMock {
         if let priceInfo = lastPriceInfo {
             var percent: Float = 0
             if let ask = asks.first, let bid = bids.first {
-                let askValue = decimalValue(ask.price)
-                let bidValue = decimalValue(bid.price)
+                let askValue = ask.price.decimalValue
+                let bidValue = bid.price.decimalValue
                 
                 percent = ((askValue - bidValue) * 100 / bidValue).floatValue
             }
             
             let type = priceInfo["type"].stringValue == "buy" ? DexOrderBook.DTO.OrderType.buy :  DexOrderBook.DTO.OrderType.sell
-            lastPrice = DexOrderBook.DTO.LastPrice(price: priceInfo["price"].doubleValue, percent: percent, orderType: type)
+            let price = Money(priceInfo["price"].doubleValue)
+            
+            lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }
         
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids)
@@ -108,37 +110,5 @@ private extension DexOrderBookInteractorMock {
                 complete(nil)
             }
         }
-    }
-    
-    func decimalValue(_ from: Money) -> Decimal {
-        return Decimal(from.amount) / pow(10, from.decimals)
-    }
-}
-
-
-fileprivate extension MoneyUtil {
-    
-    static func money(_ from: Double) -> Money {
-        
-        let decimals = getDecimals(from: from)
-        let amount = Int64(from * pow(10, decimals).doubleValue)
-        return Money(amount, decimals)
-    }
-    
-    private static func getDecimals(from: Double) -> Int {
-        
-        let number = NSNumber(value: from)
-        let resultString = number.stringValue
-        
-        let theScanner = Scanner(string: resultString)
-        let decimalPoint = "."
-        var unwanted: NSString?
-        
-        theScanner.scanUpTo(decimalPoint, into: &unwanted)
-        
-        if let unwanted = unwanted {
-            return ((resultString.count - unwanted.length) > 0) ? resultString.count - unwanted.length - 1 : 0
-        }
-        return 0
     }
 }

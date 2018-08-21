@@ -26,7 +26,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
    
     func update(with model: DexOrderBook.DTO.LastPrice) {
         
-        labelPrice.text = String(model.price)
+        labelPrice.text = MoneyUtil.getScaledText(model.price.amount, decimals: model.price.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
        
         if model.percent > 0 {
             labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
@@ -45,5 +45,4 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
             iconState.image = nil
         }
     }
-   
 }

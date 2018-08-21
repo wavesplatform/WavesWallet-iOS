@@ -55,23 +55,17 @@ extension DexOrderBook.DTO {
     }
     
     struct LastPrice {
-        let price: Double
+        let price: Money
         let percent: Float
         let orderType: OrderType
     }
     
     struct BidAsk {
-        let defaultScaleDecimal: Int = 8
-
         let price: Money
         let amount: Money
         let sum: Money
         let orderType: OrderType
         let percentAmount: Float
-
-        var priceText: String {
-            return MoneyUtil.getScaledText(price.amount, decimals: price.decimals, scale: defaultScaleDecimal + price.decimals - amount.decimals)
-        }
     }
     
     struct DisplayData {
@@ -80,6 +74,15 @@ extension DexOrderBook.DTO {
         let bids: [BidAsk]
     }
 }
+
+extension DexOrderBook.DTO.BidAsk {
+    
+    var priceText: String {
+        
+        return MoneyUtil.getScaledText(price.amount, decimals: price.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
+    }
+}
+
 
 //MARK: - Row
 extension DexOrderBook.ViewModel.Row {
@@ -116,7 +119,7 @@ extension DexOrderBook.ViewModel.Row {
 //MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
     static var empty: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice(price: 0, percent: 0, orderType: .none)
+        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: .none)
     }
 }
 
