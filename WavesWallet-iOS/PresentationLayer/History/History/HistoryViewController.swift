@@ -303,8 +303,8 @@ extension HistoryViewController: UITableViewDataSource {
             return cell
             
         case .transaction(let transaction):
-            let cell: HistoryTransactionCell = tableView.dequeueCell()
-            cell.update(with: transaction)
+            let cell: HistoryTransactionCell = tableView.dequeueAndRegisterCell()
+            cell.transactionView.update(with: transaction)
             return cell
         }
         
