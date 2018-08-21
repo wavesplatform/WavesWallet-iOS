@@ -4,18 +4,54 @@ import UIKit
 struct Money: Hashable {
     let amount: Int64
     let decimals: Int
-    
+
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
     }
-    
+
     var displayText: String {
         return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
     }
     
     var displayTextFull: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
+    }
+    
+    var decimalValue: Decimal {
+        return Decimal(amount) / pow(10, decimals)
+    }
+    
+    var doubleValue: Double {
+        return decimalValue.doubleValue
+    }
+    
+    var floatValue: Float {
+        return decimalValue.floatValue
+    }
+}
+
+extension Money {
+    
+    init(_ value: Double) {
+        
+        let number = NSNumber(value: value)
+        let resultString = number.stringValue
+        
+        let theScanner = Scanner(string: resultString)
+        let decimalPoint = "."
+        var unwanted: NSString?
+        
+        theScanner.scanUpTo(decimalPoint, into: &unwanted)
+        
+        var countDecimals = 0
+        
+        if let unwanted = unwanted {
+            countDecimals = ((resultString.count - unwanted.length) > 0) ? resultString.count - unwanted.length - 1 : 0
+        }
+        
+        decimals = countDecimals
+        amount = Int64(value * pow(10, decimals).doubleValue)
     }
 }
 
@@ -31,6 +67,10 @@ extension Decimal {
 
 
 class MoneyUtil {
+    
+    private static let defaultMaximumFractionDigits = 8
+    private static let defaultMinimumFractionDigits = 0
+
     class func getScaledText(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
@@ -40,6 +80,15 @@ class MoneyUtil {
         return result ?? ""
     }
 
+    class func getScaledText(_ amount: Int64, decimals: Int, defaultMaximumFractionDigits: Bool, defaultMinimumFractionDigits: Bool) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = defaultMaximumFractionDigits ? MoneyUtil.defaultMaximumFractionDigits : decimals
+        f.minimumFractionDigits = defaultMinimumFractionDigits ? MoneyUtil.defaultMinimumFractionDigits : decimals
+        let result = f.string(from: Decimal(amount) / pow(10, decimals) as NSNumber)
+        return result ?? ""
+    }
+    
     class func formatDecimalNoGroupingAndZeros(_ amount: Decimal, decimals: Int) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal

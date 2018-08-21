@@ -37,21 +37,11 @@ extension DexOrderBookCell: ViewConfiguration {
         
         labelPrice.text = model.priceText
         
-        labelAmount.text = model.amount.displayText
+        labelAmount.text = MoneyUtil.getScaledText(model.amount.amount, decimals: model.amount.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
 
-        labelSum.text = MoneyUtil.getScaledText(model.sum.amount, decimals: model.sum.decimals, maximumFractionDigits: model.defaultScaleDecimal)
+        labelSum.text = MoneyUtil.getScaledText(model.sum.amount, decimals: model.sum.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
     
         percentAmountOverlay = CGFloat(model.percentAmount)
     }
 }
 
-private extension MoneyUtil {
-    class func getScaledText(_ amount: Int64, decimals: Int,  maximumFractionDigits: Int, scale: Int? = nil) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.maximumFractionDigits = maximumFractionDigits
-        f.minimumFractionDigits = decimals
-        let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
-        return result ?? ""
-    }
-}
