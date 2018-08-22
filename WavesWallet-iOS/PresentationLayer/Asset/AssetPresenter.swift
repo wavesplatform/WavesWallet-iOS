@@ -72,12 +72,18 @@ private extension AssetPresenter {
         case .changedAsset(let assetId):
 
             return state.mutate(transform: { state in
-                let currentAsset = state.assets.first(where: { $0.info.id == assetId }).map { $0.info }
+
+                if state.displayState.currentAsset.id == assetId {
+                    state.displayState.action = .none
+                    return
+                }
+
+                let currentAsset = state.assets.first(where: { $0.info.id == assetId })
                 if let currentAsset = currentAsset {
-                    state.displayState.currentAsset = currentAsset
+                    state.displayState.currentAsset = currentAsset.info
+                    state.displayState.sections = currentAsset.toSections()
                     state.displayState.action = .changedCurrentAsset
                 }
-                
             })
 
         case .setAssets(let assets):
@@ -109,7 +115,7 @@ private extension AssetPresenter {
 
             return state.mutate {
                 $0.displayState.isFavorite = on
-                $0.displayState.action = .refresh
+                $0.displayState.action = .changedFavorite
             }
 
         default:

@@ -94,12 +94,8 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {
-        //        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: true)
-
-        let newPage = collectionView.correctedIndex(page + collectionView.indexOffset)
-        debug("setCurrentPage \(page)")
+        let newPage = collectionView.correctedIncorectIndex(page)
         collectionView.scrollToItem(at: IndexPath(item: newPage , section: 0), at: .centeredHorizontally, animated: animated)
-        //        collectionView.selectItem(at: IndexPath(item: page, section: 0), animated: true, scrollPosition: .centeredHorizontally)
         updateWithNewPage(page)
     }
 
@@ -191,32 +187,8 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
-//        UIView.setAnimationsEnabled(false)
-//        CATransaction.begin()
-//        CATransaction.setCompletionBlock {
-//            print("TEST")
-//            UIView.setAnimationsEnabled(true)
-////             self.sendActions(for: .valueChanged)
-//        }
-//        CATransaction.setAnimationDuration(5)
-
-//        collectionView.performBatchUpdates({
-//        self.collectionView.performBatchUpdates({
-            self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)
-
-//            self.collectionView.selectItem(at: usableIndexPath, animated: true, scrollPosition: .centeredHorizontally)
-//        }) { (_) in
-             self.sendActions(for: .valueChanged)
-//            print("Go")
-//        }
-
-//        }) { _ in
-//            self.updateWithNewPage(usableIndexPath.row)
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3, execute: {
-
-//            })
-//        }
-//        CATransaction.commit()
+            self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)            
+            self.sendActions(for: .valueChanged)
     }
 
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
@@ -232,9 +204,5 @@ extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
         collectionView.reloadInfinity()
-        collectionView.layoutIfNeeded()
-        self.setCurrentAsset(id: model.currentAsset.id, animated: false)
-
-        
     }
 }

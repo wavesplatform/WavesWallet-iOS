@@ -25,8 +25,8 @@ final class AssetViewController: UIViewController {
 
     private var refreshControl: UIRefreshControl!
     private var isHiddenSegmentedControl = false
-    private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image, style: .plain, target: nil, action: nil)
-    private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image, style: .plain, target: nil, action: nil)
+    private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+    private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
 
     private var presenter: AssetPresenterProtocol! = AssetPresenter()
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
@@ -95,8 +95,8 @@ private extension AssetViewController {
     func events() -> [Signal<AssetTypes.Event>] {
 
         let eventChangedAsset = segmentedControl.currentAssetId().map { AssetTypes.Event.changedAsset(id: $0) }
-        let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: true) }
-        let favoriteOff = favoriteOnBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: false) }
+        let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: false) }
+        let favoriteOff = favoriteOffBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: true) }
         let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal().map { _ in AssetTypes.Event.refreshing }
 
 
@@ -120,25 +120,52 @@ private extension AssetViewController {
 
         switch state.action {
         case .changedCurrentAsset:
-                changedCurrentAsset(info: state.currentAsset)
-
+            changeCurrentAsset(info: state.currentAsset)
+            reloadSectionTable(with: state)
+            
         case .refresh:
-
-            updatedSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
-            sections = state.sections
-            tableView.reloadDataWithAnimationTheCrossDissolve()
+            reloadTable(with: state)
+            reloadSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
+            changeCurrentAsset(info: state.currentAsset)
+            updateNavigationItem(with: state)
+        case .changedFavorite:
+            updateNavigationItem(with: state)
         case .none:
             break
         }
     }
 
-    func updatedSegmentedControl(assets: [AssetTypes.DTO.Asset.Info], currentAsset: AssetTypes.DTO.Asset.Info) {
+    func updateNavigationItem(with state: AssetTypes.DisplayState) {
+        if state.isFavorite {
+            self.navigationItem.rightBarButtonItem = favoriteOnBarButton
+        } else {
+            self.navigationItem.rightBarButtonItem = favoriteOffBarButton
+        }
+    }
+
+    func reloadSectionTable(with state: AssetTypes.DisplayState) {
+        sections = state.sections
+        tableView.beginUpdates()
+        let count = max(0, sections.count - 1)
+        tableView.reloadSections(IndexSet(0...count), with: .fade)
+        tableView.endUpdates()
+    }
+
+    func reloadTable(with state: AssetTypes.DisplayState) {
+        sections = state.sections
+        tableView.reloadDataWithAnimationTheCrossDissolve()
+    }
+
+    func reloadSegmentedControl(assets: [AssetTypes.DTO.Asset.Info], currentAsset: AssetTypes.DTO.Asset.Info) {
         let assets = assets.map { $0.map() }
         segmentedControl.update(with: .init(assets: assets, currentAsset: currentAsset.map() ))
     }
 
-    func changedCurrentAsset(info : AssetTypes.DTO.Asset.Info) {
+    func changeCurrentAssetForSegmentedControl(info : AssetTypes.DTO.Asset.Info) {
         segmentedControl.setCurrentAsset(id: info.id)
+    }
+
+    func changeCurrentAsset(info : AssetTypes.DTO.Asset.Info) {
         currentAssetName = info.name
         layoutSegmentedControl(scrollView: tableView)
     }
