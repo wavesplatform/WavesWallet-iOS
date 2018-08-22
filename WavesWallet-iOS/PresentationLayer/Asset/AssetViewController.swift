@@ -39,19 +39,9 @@ final class AssetViewController: UIViewController {
         setupRefreshControl()
         createBackButton()
         tableView.backgroundColor = .basic50
-//        let assets: [AssetsSegmentedControl.Asset] = [.init(id: "12", name: "US Dollar", kind: .fiat),
-//                                                      .init(id: "1", name: "Waves", kind: .wavesToken),
-//                                                      .init(id: "2", name: "BTC", kind: .gateway),
-//                                                      .init(id: "3", name: "ALLADIN", kind: .spam),
-//                                                      .init(id: "4", name: "US Dollar", kind: .fiat)]
-//        segmentedControl.update(with: assets)
-
         segmentedControl.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(segmentedControl)
         navigationItem.rightBarButtonItem = favoriteOffBarButton
-        favoriteOffBarButton.action = #selector(sendTapped)
-        favoriteOffBarButton.target = self
-
         setupSystem()
     }
 
@@ -85,7 +75,7 @@ private extension AssetViewController {
 
     func setupSystem() {
 
-        let bin: AssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
+        let uiFeedback: AssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
@@ -95,16 +85,22 @@ private extension AssetViewController {
                 .rx
                 .viewWillAppear
                 .take(1)
-                .map { _ in AssetTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in AssetTypes.Event.readyView }
         }
         
-        presenter.system(feedbacks: [bin, readyViewFeedback])
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
     }
 
     func events() -> [Signal<AssetTypes.Event>] {
 
-        return []
+        let eventChangedAsset = segmentedControl.currentAssetId().map { AssetTypes.Event.changedAsset(id: $0) }
+        let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: true) }
+        let favoriteOff = favoriteOnBarButton.rx.tap.asSignal().map { AssetTypes.Event.tapFavorite(on: false) }
+        let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal().map { _ in AssetTypes.Event.refreshing }
+
+
+        return [eventChangedAsset, favoriteOn, favoriteOff, refreshEvent]
     }
 
     func subscriptions(state: Driver<AssetTypes.State>) -> [Disposable] {
@@ -112,32 +108,39 @@ private extension AssetViewController {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let strongSelf = self else { return }
-            strongSelf.sections = state.displayState.sections
-            let assets = state.displayState.assets.map { $0.map() }
-            strongSelf.segmentedControl.update(with: assets)
-            strongSelf.segmentedControl.setCurrentAsset(id: state.displayState.currentAsset.id)
-            strongSelf.currentAssetName = state.displayState.currentAsset.name
-            strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve(completion: {
-                DispatchQueue.main.async {
-                    strongSelf.layoutSegmentedControl(scrollView: strongSelf.tableView)
-                }
-            })
 
+            strongSelf.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]
     }
 
-    static var number = 0
-    @objc func sendTapped() {
-//        presenter = nil
 
-        if AssetViewController.number >= 2 {
-            presenter = nil
-        } else {
-            AssetViewController.number += 1
-            replaySubject.onNext(true)
+    func updateView(with state: AssetTypes.DisplayState) {
+
+        switch state.action {
+        case .changedCurrentAsset:
+                changedCurrentAsset(info: state.currentAsset)
+
+        case .refresh:
+
+            updatedSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
+            sections = state.sections
+            tableView.reloadDataWithAnimationTheCrossDissolve()
+        case .none:
+            break
         }
+    }
+
+    func updatedSegmentedControl(assets: [AssetTypes.DTO.Asset.Info], currentAsset: AssetTypes.DTO.Asset.Info) {
+        let assets = assets.map { $0.map() }
+        segmentedControl.update(with: .init(assets: assets, currentAsset: currentAsset.map() ))
+    }
+
+    func changedCurrentAsset(info : AssetTypes.DTO.Asset.Info) {
+        segmentedControl.setCurrentAsset(id: info.id)
+        currentAssetName = info.name
+        layoutSegmentedControl(scrollView: tableView)
     }
 }
 
@@ -439,9 +442,9 @@ extension AssetViewController: UITableViewDelegate {
 // MARK: Assisstants
 extension AssetTypes.DTO.Asset.Info {
 
-    func map() -> AssetsSegmentedControl.Asset {
+    func map() -> AssetsSegmentedControl.Model.Asset {
 
-        var kind: AssetsSegmentedControl.Asset.Kind!
+        var kind: AssetsSegmentedControl.Model.Asset.Kind = .spam
 
         if isSpam {
             kind = .spam
@@ -453,6 +456,6 @@ extension AssetTypes.DTO.Asset.Info {
             kind = .wavesToken
         }
 
-        return AssetsSegmentedControl.Asset(id: id, name: name, kind: kind)
+        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind)
     }
 }

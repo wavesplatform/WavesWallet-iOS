@@ -18,16 +18,21 @@ private enum Constants {
 
 final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
-    struct Asset {
-        enum Kind {
-            case fiat
-            case wavesToken
-            case spam
-            case gateway
+    struct Model {
+        struct Asset {
+            enum Kind {
+                case fiat
+                case wavesToken
+                case spam
+                case gateway
+            }
+            let id: String
+            let name: String
+            let kind: Kind
         }
-        let id: String
-        let name: String
-        let kind: Kind
+
+        let assets: [Asset]
+        let currentAsset: Asset
     }
 
     @IBOutlet private var collectionView: InfiniteCollectionView!
@@ -35,19 +40,17 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var detailLabel: UILabel!
 
-    private var assets: [Asset] = [] {
+    private var isTouchOnScrollView: Bool = false
+
+    private var assets: [Model.Asset] = [] {
         didSet {
-            CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                self.updateWithNewPage(self.currentPage)
-            }
             collectionView.reloadData()
-            CATransaction.commit()
         }
     }
 
     private(set) var currentPage: Int = 0
-    var currentAsset: Asset {
+
+    var currentAsset: Model.Asset {
         return assets[currentPage]
     }
 
@@ -91,9 +94,12 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {
-        collectionView.scrollToItem(at: IndexPath(item: page, section: 0),
-                                    at: .centeredHorizontally,
-                                    animated: animated)
+        //        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: true)
+
+        let newPage = collectionView.correctedIndex(page + collectionView.indexOffset)
+        debug("setCurrentPage \(page)")
+        collectionView.scrollToItem(at: IndexPath(item: newPage , section: 0), at: .centeredHorizontally, animated: animated)
+        //        collectionView.selectItem(at: IndexPath(item: page, section: 0), animated: true, scrollPosition: .centeredHorizontally)
         updateWithNewPage(page)
     }
 
@@ -155,8 +161,6 @@ fileprivate extension AssetsSegmentedControl {
         case .wavesToken:
             detailLabel.text = Localizable.General.Ticker.Title.wavestoken
         }
-
-        sendActions(for: .valueChanged)
     }
 }
 
@@ -179,6 +183,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
         let model = AssetsSegmentedCell.Model(icon: asset.name,
                                               isHiddenArrow: isHiddenArrow)
         cell.update(with: model)
+
         return cell
     }
 }
@@ -186,19 +191,50 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
-        collectionView.scrollToItem(at: IndexPath(item: dequeueForItemAt.row, section: 0),
-                                    at: .centeredHorizontally,
-                                    animated: true)
+//        UIView.setAnimationsEnabled(false)
+//        CATransaction.begin()
+//        CATransaction.setCompletionBlock {
+//            print("TEST")
+//            UIView.setAnimationsEnabled(true)
+////             self.sendActions(for: .valueChanged)
+//        }
+//        CATransaction.setAnimationDuration(5)
+
+//        collectionView.performBatchUpdates({
+//        self.collectionView.performBatchUpdates({
+            self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)
+
+//            self.collectionView.selectItem(at: usableIndexPath, animated: true, scrollPosition: .centeredHorizontally)
+//        }) { (_) in
+             self.sendActions(for: .valueChanged)
+//            print("Go")
+//        }
+
+//        }) { _ in
+//            self.updateWithNewPage(usableIndexPath.row)
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3, execute: {
+
+//            })
+//        }
+//        CATransaction.commit()
     }
 
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
         updateWithNewPage(pageIndex)
     }
+
+    func scrollViewEndMoved(_ scrollView: UIScrollView, pageIndex: Int) {
+        sendActions(for: .valueChanged)
+    }
 }
 
 extension AssetsSegmentedControl: ViewConfiguration {
-    func update(with model: [AssetsSegmentedControl.Asset]) {
-        self.assets = model
-        collectionView.reloadData()        
+    func update(with model: Model) {
+        self.assets = model.assets
+        collectionView.reloadInfinity()
+        collectionView.layoutIfNeeded()
+        self.setCurrentAsset(id: model.currentAsset.id, animated: false)
+
+        
     }
 }

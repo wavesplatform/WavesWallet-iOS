@@ -68,19 +68,50 @@ private extension AssetPresenter {
         case .readyView:
 
             return state.mutate { $0.displayState = $0.displayState.mutate { $0.isAppeared = true } }
+
+        case .changedAsset(let assetId):
+
+            return state.mutate(transform: { state in
+                let currentAsset = state.assets.first(where: { $0.info.id == assetId }).map { $0.info }
+                if let currentAsset = currentAsset {
+                    state.displayState.currentAsset = currentAsset
+                    state.displayState.action = .changedCurrentAsset
+                }
+                
+            })
+
         case .setAssets(let assets):
 
-            if let asset = assets.first {
-                return state.mutate {
-                    let display = $0.displayState.mutate {
-                        $0.sections = asset.toSections()
-                        $0.assets = assets.map { $0.info }
-                    }
-                    $0.displayState = display
+            return state.mutate { state in
+
+                var asset = assets.first(where: { asset -> Bool in
+                    return asset.info.id == state.displayState.currentAsset.id
+                })
+
+                if asset == nil {
+                   asset = assets.first
                 }
+
+                if let asset = asset {
+                    state.displayState.sections = asset.toSections()
+                    state.displayState.action = .refresh
+                    state.displayState.currentAsset = asset.info
+                    state.assets = assets
+                } else {
+                    state.displayState.sections = []
+                    state.displayState.action = .none
+                }
+                state.displayState.assets = assets.map { $0.info }
+                state.assets = assets
             }
 
-            return state
+        case .tapFavorite(let on):
+
+            return state.mutate {
+                $0.displayState.isFavorite = on
+                $0.displayState.action = .refresh
+            }
+
         default:
             break
         }
@@ -137,6 +168,7 @@ private extension AssetPresenter {
                                                                                     sortLevel: 1),
                                        assets: [],
                                        sections: [balances,
-                                                  transactions])
+                                                  transactions],
+                                       action: .refresh)
     }
 }
