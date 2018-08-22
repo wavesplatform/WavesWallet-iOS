@@ -10,22 +10,10 @@ import UIKit
 
 final class HistoryTransactionCell: UITableViewCell, Reusable {
 
-    @IBOutlet var transactionView: HistoryTransactionView!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-//        transactionView = HistoryTransactionView()
-    }
+    @IBOutlet private(set) var transactionView: HistoryTransactionView!
     
     class func cellHeight() -> CGFloat {
         return 76
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        transactionView.frame = bounds
     }
     
 }
