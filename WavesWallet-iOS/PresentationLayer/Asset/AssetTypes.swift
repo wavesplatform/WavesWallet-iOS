@@ -53,6 +53,7 @@ extension AssetTypes {
             case none
             case refresh            
             case changedCurrentAsset
+            case changedFavorite
         }
 
         var isAppeared: Bool
