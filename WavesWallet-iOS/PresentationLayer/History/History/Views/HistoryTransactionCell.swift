@@ -10,71 +10,26 @@ import UIKit
 
 final class HistoryTransactionCell: UITableViewCell, Reusable {
 
-    @IBOutlet weak var viewContainer: UIView!
-    @IBOutlet weak var labelValue: UILabel!
-    @IBOutlet weak var imageViewIcon: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var viewSpam: UIView!
-    @IBOutlet weak var viewAssetType: UIView!
+    @IBOutlet private(set) var transactionView: HistoryTransactionView!
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        viewContainer.addTableCellShadowStyle()
-    }
-
     class func cellHeight() -> CGFloat {
         return 76
     }
     
 }
 
-
 extension HistoryTransactionCell: ViewConfiguration {
     
     func update(with model: HistoryTypes.DTO.Transaction) {
-        
-        viewSpam.isHidden = true
-        viewAssetType.isHidden = false
-        
-        imageViewIcon.image = UIImage(named: HistoryTransactionImages[model.kind.rawValue])
-        
-        labelValue.attributedText = .styleForBalance(text: model.balance.displayTextFull, font: labelValue.font)
-        
-        var labelText = ""
-        
-        switch model.kind {
-        case .massReceived:
-            labelText = Localizable.History.Transactioncell.received + " " + model.name
-        case .viewReceived:
-            labelText = Localizable.History.Transactioncell.received + " " + model.name
-        case .viewSend:
-            labelText = Localizable.History.Transactioncell.sent + " " + model.name
-        case .massSend:
-            labelText = Localizable.History.Transactioncell.sent + " " + model.name
-        case .createdAlias:
-            labelText = Localizable.History.Transactioncell.alias
-        case .viewLeasing:
-            labelText = Localizable.History.Transactioncell.startedLeasing
-        case .incomingLeasing:
-            labelText = Localizable.History.Transactioncell.incomingLeasing
-        case .canceledLeasing:
-            labelText = Localizable.History.Transactioncell.canceledLeasing
-        case .selfTranserred:
-            labelText = Localizable.History.Transactioncell.selfTransfer + " " + model.name
-        case .exchange:
-            labelText = Localizable.History.Transactioncell.exchange // тут должно быть -0.00040000 BTC
-        case .tokenGeneration:
-            labelText = model.name + " " + Localizable.History.Transactioncell.tokenGeneration
-        case .tokenBurning:
-            labelText = Localizable.History.Transactioncell.tokenBurn
-        case .tokenReissue:
-            labelText = Localizable.History.Transactioncell.tokenReissue
-        }
-        
-        labelTitle.text = labelText
-        
+        transactionView.update(with: HistoryTransactionView.Transaction(with: model))
     }
     
+}
+
+fileprivate extension HistoryTransactionView.Transaction {
+    init(with transaction: HistoryTypes.DTO.Transaction) {
+        let kind = HistoryTransactionView.Transaction.Kind(rawValue: transaction.kind.rawValue)!
+        
+        self.init(id: transaction.id, name: transaction.name, balance: transaction.balance, kind: kind, tag: transaction.tag, date: transaction.date)
+    }
 }
