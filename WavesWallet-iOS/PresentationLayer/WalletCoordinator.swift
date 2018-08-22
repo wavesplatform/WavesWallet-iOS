@@ -31,4 +31,26 @@ extension WalletCoordinator: WalletModuleOutput {
         let vc = StoryboardScene.Main.myAddressViewController.instantiate()
         navigationController.pushViewController(vc, animated: true)
     }
+
+    func showAsset(with asset: WalletTypes.DTO.Asset) {
+        AssetModuleBuilder.init(output: self).build(input: AssetMod)
+    }
+}
+
+extension WalletCoordinator: AssetModuleOutput {
+
+}
+
+
+fileprivate extension AssetModuleBuilder.Input {
+
+    init(asset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset]) {
+
+    }
+}
+
+fileprivate extension AssetTypes.DTO.Asset.Info {
+    init(asset: WalletTypes.DTO.Asset) {
+        
+    }
 }

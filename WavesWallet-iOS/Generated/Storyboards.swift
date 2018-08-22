@@ -61,8 +61,6 @@ internal enum StoryboardScene {
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
 
-    internal static let initialScene = InitialSceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Dex.self)
-
     internal static let assetPairDetailsViewController = SceneType<WavesWallet_iOS.HalfNavController>(storyboard: Dex.self, identifier: "AssetPairDetailsViewController")
 
     internal static let chartViewController = SceneType<WavesWallet_iOS.ChartViewController>(storyboard: Dex.self, identifier: "ChartViewController")
@@ -73,9 +71,17 @@ internal enum StoryboardScene {
 
     internal static let dexContainerViewController = SceneType<WavesWallet_iOS.DexContainerViewController>(storyboard: Dex.self, identifier: "DexContainerViewController")
 
+    internal static let dexInfoViewController = SceneType<WavesWallet_iOS.DexInfoViewController>(storyboard: Dex.self, identifier: "DexInfoViewController")
+
+    internal static let dexListViewController = SceneType<WavesWallet_iOS.DexListViewController>(storyboard: Dex.self, identifier: "DexListViewController")
+
+    internal static let dexMarketViewController = SceneType<WavesWallet_iOS.DexMarketViewController>(storyboard: Dex.self, identifier: "DexMarketViewController")
+
     internal static let dexNewPairViewController = SceneType<WavesWallet_iOS.DexNewPairViewController>(storyboard: Dex.self, identifier: "DexNewPairViewController")
 
     internal static let dexSearchViewController = SceneType<WavesWallet_iOS.DexSearchViewController>(storyboard: Dex.self, identifier: "DexSearchViewController")
+
+    internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
     internal static let dexViewController = SceneType<WavesWallet_iOS.DexViewController>(storyboard: Dex.self, identifier: "DexViewController")
 
@@ -123,6 +129,11 @@ internal enum StoryboardScene {
 
     internal static let infoPagesViewController = SceneType<WavesWallet_iOS.InfoPagesViewController>(storyboard: Hello.self, identifier: "InfoPagesViewController")
   }
+  internal enum History: StoryboardType {
+    internal static let storyboardName = "History"
+
+    internal static let newHistoryViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "NewHistoryViewController")
+  }
   internal enum LaunchScreen: StoryboardType {
     internal static let storyboardName = "LaunchScreen"
 
@@ -143,8 +154,6 @@ internal enum StoryboardScene {
     internal static let assetChartViewController = SceneType<WavesWallet_iOS.AssetChartViewController>(storyboard: Main.self, identifier: "AssetChartViewController")
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Main.self, identifier: "AssetViewController")
-
-    internal static let historyViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: Main.self, identifier: "HistoryViewController")
 
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
 

@@ -38,7 +38,19 @@ extension WalletTypes.ViewModel.Section: SectionModelType {
     }
 }
 
+extension WalletTypes.ViewModel.Row {
+
+        var asset: WalletTypes.DTO.Asset? {
+        switch self {
+        case .asset(let asset):
+            return asset
+        default:
+            return nil
+        }
+    }
+}
 extension WalletTypes.ViewModel.Section {
+
     static func map(from assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
             .filter { $0.kind == .general }
@@ -114,3 +126,4 @@ extension WalletTypes.ViewModel.Section {
         return sections
     }
 }
+

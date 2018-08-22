@@ -57,6 +57,8 @@ target 'WavesWallet-iOS' do
     pod 'QRCode'
     pod 'QRCodeReader.swift'
 
+    pod 'SwiftDate'
+    
     # Cache
     pod 'Kingfisher'
 

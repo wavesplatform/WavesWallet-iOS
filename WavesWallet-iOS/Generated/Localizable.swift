@@ -7,62 +7,11 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
-  internal enum Asset {
+  internal enum DexSort {
 
-    internal enum Cell {
-      /// View history
-      internal static let viewHistory = Localizable.tr("Asset", "cell.viewHistory")
-
-      internal enum Assetinfo {
-        /// Description
-        internal static let description = Localizable.tr("Asset", "cell.assetInfo.description")
-        /// ID
-        internal static let id = Localizable.tr("Asset", "cell.assetInfo.id")
-        /// Issue date
-        internal static let issueDate = Localizable.tr("Asset", "cell.assetInfo.issueDate")
-        /// Issuer
-        internal static let issuer = Localizable.tr("Asset", "cell.assetInfo.issuer")
-        /// Name
-        internal static let name = Localizable.tr("Asset", "cell.assetInfo.name")
-        /// Asset Info
-        internal static let title = Localizable.tr("Asset", "cell.assetInfo.title")
-
-        internal enum Kind {
-          /// Not reissuable
-          internal static let notReissuable = Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable")
-          /// Reissuable
-          internal static let reissuable = Localizable.tr("Asset", "cell.assetInfo.kind.reissuable")
-          /// Type
-          internal static let title = Localizable.tr("Asset", "cell.assetInfo.kind.title")
-        }
-      }
-
-      internal enum Balance {
-        /// Available balance
-        internal static let avaliableBalance = Localizable.tr("Asset", "cell.balance.avaliableBalance")
-        /// In order
-        internal static let inOrderBalance = Localizable.tr("Asset", "cell.balance.inOrderBalance")
-        /// Leased
-        internal static let leased = Localizable.tr("Asset", "cell.balance.leased")
-        /// Total
-        internal static let totalBalance = Localizable.tr("Asset", "cell.balance.totalBalance")
-
-        internal enum Button {
-          /// Exchange
-          internal static let exchange = Localizable.tr("Asset", "cell.balance.button.exchange")
-          /// Receive
-          internal static let receive = Localizable.tr("Asset", "cell.balance.button.receive")
-          /// Send
-          internal static let send = Localizable.tr("Asset", "cell.balance.button.send")
-        }
-      }
-    }
-
-    internal enum Header {
-      /// Last transactions
-      internal static let lastTransactions = Localizable.tr("Asset", "header.lastTransactions")
-      /// You do not have any transactions
-      internal static let notHaveTransactions = Localizable.tr("Asset", "header.notHaveTransactions")
+    internal enum Navigationbar {
+      /// Sorting
+      internal static let title = Localizable.tr("DexSort", "navigationBar.title")
     }
   }
   internal enum InfoPlist {
@@ -71,28 +20,113 @@ internal enum Localizable {
     /// Authenticate with Face ID
     internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
-  internal enum General {
+  internal enum DexList {
 
-    internal enum Label {
-
-      internal enum Title {
-        /// / My Asset
-        internal static let myasset = Localizable.tr("General", "label.title.myasset")
-      }
+    internal enum Button {
+      /// Add Markets
+      internal static let addMarkets = Localizable.tr("DexList", "button.addMarkets")
     }
 
-    internal enum Ticker {
+    internal enum Label {
+      /// Decentralised Exchange
+      internal static let decentralisedExchange = Localizable.tr("DexList", "label.decentralisedExchange")
+      /// Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.
+      internal static let description = Localizable.tr("DexList", "label.description")
+      /// Last update
+      internal static let lastUpdate = Localizable.tr("DexList", "label.lastUpdate")
+      /// Price
+      internal static let price = Localizable.tr("DexList", "label.price")
+      /// today
+      internal static let today = Localizable.tr("DexList", "label.today")
+      /// yesterday
+      internal static let yesterday = Localizable.tr("DexList", "label.yesterday")
+    }
 
-      internal enum Title {
-        /// Cryptocurrency
-        internal static let cryptocurrency = Localizable.tr("General", "ticker.title.cryptocurrency")
-        /// Fiat Money
-        internal static let fiatmoney = Localizable.tr("General", "ticker.title.fiatmoney")
-        /// SPAM
-        internal static let spam = Localizable.tr("General", "ticker.title.spam")
-        /// Waves Token
-        internal static let wavestoken = Localizable.tr("General", "ticker.title.wavestoken")
-      }
+    internal enum Navigationbar {
+      /// Dex
+      internal static let title = Localizable.tr("DexList", "navigationBar.title")
+    }
+  }
+  internal enum DexMarket {
+
+    internal enum Label {
+      /// Loading markets…
+      internal static let loadingMarkets = Localizable.tr("DexMarket", "label.loadingMarkets")
+    }
+
+    internal enum Navigationbar {
+      /// Markets
+      internal static let title = Localizable.tr("DexMarket", "navigationBar.title")
+    }
+
+    internal enum Searchbar {
+      /// Search
+      internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
+    }
+  }
+  internal enum History {
+
+    internal enum Navigationbar {
+      /// History
+      internal static let title = Localizable.tr("History", "navigationBar.title")
+    }
+
+    internal enum Segmentedcontrol {
+      /// Active Now
+      internal static let activeNow = Localizable.tr("History", "segmentedControl.activeNow")
+      /// All
+      internal static let all = Localizable.tr("History", "segmentedControl.all")
+      /// Canceled
+      internal static let canceled = Localizable.tr("History", "segmentedControl.canceled")
+      /// Exchanged
+      internal static let exchanged = Localizable.tr("History", "segmentedControl.exchanged")
+      /// Issued
+      internal static let issued = Localizable.tr("History", "segmentedControl.issued")
+      /// Leased
+      internal static let leased = Localizable.tr("History", "segmentedControl.leased")
+      /// Received
+      internal static let received = Localizable.tr("History", "segmentedControl.received")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "segmentedControl.sent")
+    }
+
+    internal enum Transactioncell {
+      /// Create Alias
+      internal static let alias = Localizable.tr("History", "transactionCell.alias")
+      /// Canceled Leasing
+      internal static let canceledLeasing = Localizable.tr("History", "transactionCell.canceledLeasing")
+      /// Exchange
+      internal static let exchange = Localizable.tr("History", "transactionCell.exchange")
+      /// Incoming Leasing
+      internal static let incomingLeasing = Localizable.tr("History", "transactionCell.incomingLeasing")
+      /// Received
+      internal static let received = Localizable.tr("History", "transactionCell.received")
+      /// Self-transfer
+      internal static let selfTransfer = Localizable.tr("History", "transactionCell.selfTransfer")
+      /// Sent
+      internal static let sent = Localizable.tr("History", "transactionCell.sent")
+      /// Started Leasing
+      internal static let startedLeasing = Localizable.tr("History", "transactionCell.startedLeasing")
+      /// Token Burn
+      internal static let tokenBurn = Localizable.tr("History", "transactionCell.tokenBurn")
+      /// Token Generation
+      internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
+      /// Token Reissue
+      internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
+    }
+  }
+  internal enum WalletSort {
+
+    internal enum Button {
+      /// Position
+      internal static let position = Localizable.tr("WalletSort", "button.position")
+      /// Visibility
+      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
+    }
+
+    internal enum Navigationbar {
+      /// Sorting
+      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
     }
   }
   internal enum Wallet {
@@ -156,18 +190,97 @@ internal enum Localizable {
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
   }
-  internal enum WalletSort {
+  internal enum General {
 
-    internal enum Button {
-      /// Position
-      internal static let position = Localizable.tr("WalletSort", "button.position")
-      /// Visibility
-      internal static let visibility = Localizable.tr("WalletSort", "button.visibility")
+    internal enum Label {
+
+      internal enum Title {
+        /// / My Asset
+        internal static let myasset = Localizable.tr("General", "label.title.myasset")
+      }
     }
 
-    internal enum Navigationbar {
-      /// Sorting
-      internal static let title = Localizable.tr("WalletSort", "navigationBar.title")
+    internal enum Ticker {
+
+      internal enum Title {
+        /// Cryptocurrency
+        internal static let cryptocurrency = Localizable.tr("General", "ticker.title.cryptocurrency")
+        /// Fiat Money
+        internal static let fiatmoney = Localizable.tr("General", "ticker.title.fiatmoney")
+        /// SPAM
+        internal static let spam = Localizable.tr("General", "ticker.title.spam")
+        /// Waves Token
+        internal static let wavestoken = Localizable.tr("General", "ticker.title.wavestoken")
+      }
+    }
+  }
+  internal enum DexInfo {
+
+    internal enum Label {
+      /// Amount Asset
+      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
+      /// Popular
+      internal static let popular = Localizable.tr("DexInfo", "label.popular")
+      /// Price Asset
+      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    }
+  }
+  internal enum Asset {
+
+    internal enum Cell {
+      /// View history
+      internal static let viewHistory = Localizable.tr("Asset", "cell.viewHistory")
+
+      internal enum Assetinfo {
+        /// Description
+        internal static let description = Localizable.tr("Asset", "cell.assetInfo.description")
+        /// ID
+        internal static let id = Localizable.tr("Asset", "cell.assetInfo.id")
+        /// Issue date
+        internal static let issueDate = Localizable.tr("Asset", "cell.assetInfo.issueDate")
+        /// Issuer
+        internal static let issuer = Localizable.tr("Asset", "cell.assetInfo.issuer")
+        /// Name
+        internal static let name = Localizable.tr("Asset", "cell.assetInfo.name")
+        /// Asset Info
+        internal static let title = Localizable.tr("Asset", "cell.assetInfo.title")
+
+        internal enum Kind {
+          /// Not reissuable
+          internal static let notReissuable = Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable")
+          /// Reissuable
+          internal static let reissuable = Localizable.tr("Asset", "cell.assetInfo.kind.reissuable")
+          /// Type
+          internal static let title = Localizable.tr("Asset", "cell.assetInfo.kind.title")
+        }
+      }
+
+      internal enum Balance {
+        /// Available balance
+        internal static let avaliableBalance = Localizable.tr("Asset", "cell.balance.avaliableBalance")
+        /// In order
+        internal static let inOrderBalance = Localizable.tr("Asset", "cell.balance.inOrderBalance")
+        /// Leased
+        internal static let leased = Localizable.tr("Asset", "cell.balance.leased")
+        /// Total
+        internal static let totalBalance = Localizable.tr("Asset", "cell.balance.totalBalance")
+
+        internal enum Button {
+          /// Exchange
+          internal static let exchange = Localizable.tr("Asset", "cell.balance.button.exchange")
+          /// Receive
+          internal static let receive = Localizable.tr("Asset", "cell.balance.button.receive")
+          /// Send
+          internal static let send = Localizable.tr("Asset", "cell.balance.button.send")
+        }
+      }
+    }
+
+    internal enum Header {
+      /// Last transactions
+      internal static let lastTransactions = Localizable.tr("Asset", "header.lastTransactions")
+      /// You do not have any transactions
+      internal static let notHaveTransactions = Localizable.tr("Asset", "header.notHaveTransactions")
     }
   }
 }

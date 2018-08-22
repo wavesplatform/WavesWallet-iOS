@@ -374,7 +374,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="viewContent" destination="A32-81-Gvp" id="NCc-Tu-u2l"/>
+                                            <outlet property="viewContent" destination="A32-81-Gvp" id="d3b-Za-ZuJ"/>
                                             <outletCollection property="views" destination="0eB-Fy-Axg" collectionClass="NSMutableArray" id="0ju-Jj-qfR"/>
                                             <outletCollection property="views" destination="3jR-d4-Csv" collectionClass="NSMutableArray" id="udX-YD-FJu"/>
                                             <outletCollection property="views" destination="4Lv-wy-ZF1" collectionClass="NSMutableArray" id="hFZ-KX-CQF"/>
@@ -670,7 +670,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="36"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>
@@ -734,7 +734,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBB-zl-cCl">
-                                                            <rect key="frame" x="211" y="50" width="37.5" height="16"/>
+                                                            <rect key="frame" x="211" y="49" width="37.5" height="16"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 196" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jy9-B9-BPF">
                                                                     <rect key="frame" x="5" y="2" width="27.5" height="12"/>

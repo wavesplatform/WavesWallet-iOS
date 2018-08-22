@@ -50,6 +50,7 @@ extension WalletTypes {
         case responseLeasing(DTO.Leasing)
         case refresh
         case readyView
+        case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton
         case tapAddressButton
