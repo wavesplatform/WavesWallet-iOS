@@ -23,8 +23,14 @@ extension AssetTypes {
 
         }
 
+        enum TransactionStatus {
+            case empty
+            case loading
+            case transaction([AssetTypes.DTO.Transaction])
+        }
+
         var event: EventOutput?
-        var assets: [Asset]
+        var assets: [AssetTypes.DTO.Asset]
         var displayState: DisplayState
     }
 
@@ -45,13 +51,8 @@ extension AssetTypes {
 
         enum Action {
             case none
-            case refresh
-        }
-
-        enum TransactionStatus {
-            case empty
-            case loading
-            case transaction([AssetTypes.DTO.Transaction])
+            case refresh            
+            case changedCurrentAsset
         }
 
         var isAppeared: Bool
@@ -61,6 +62,7 @@ extension AssetTypes {
         var currentAsset: AssetTypes.DTO.Asset.Info
         var assets: [AssetTypes.DTO.Asset.Info]
         var sections: [AssetTypes.ViewModel.Section] = []
+        var action: Action
     }
 }
 

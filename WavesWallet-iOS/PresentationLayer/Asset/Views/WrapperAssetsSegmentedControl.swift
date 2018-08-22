@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 private enum Constants {
     static let maxCount = 3
@@ -57,6 +59,20 @@ final class WrapperAssetsSegmentedControl: UIView {
 
     func setCurrentAsset(id: String, animated: Bool = true) {
         assetsSegmentedControl.setCurrentAsset(id: id, animated: animated)
+    }
+
+    func currentAssetId() -> Signal<String> {
+
+        return self
+            .assetsSegmentedControl
+            .rx
+            .controlEvent(.valueChanged)
+            .flatMap({ [weak self] _ -> Observable<String> in
+                guard let strongSelf = self else { return Observable.empty() }
+                return Observable.just(strongSelf.assetsSegmentedControl.currentAsset.id)
+            })
+            .asSignal(onErrorSignalWith: Signal.empty())
+
     }
 }
 
