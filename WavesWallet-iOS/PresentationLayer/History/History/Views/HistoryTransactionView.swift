@@ -8,7 +8,32 @@
 
 import UIKit
 
-class HistoryTransactionView: UIView, NibOwnerLoadable {
+final class HistoryTransactionView: UIView, NibOwnerLoadable {
+    
+    struct Transaction {
+        enum Kind: Int {
+            case viewReceived = 0
+            case viewSend
+            case viewLeasing
+            case exchange // not show comment, not show address
+            case selfTranserred // not show address
+            case tokenGeneration // show ID token
+            case tokenReissue // show ID token,
+            case tokenBurning // show ID token, do not have bottom state of token
+            case createdAlias // show ID token
+            case canceledLeasing
+            case incomingLeasing
+            case massSend // multiple addresses
+            case massReceived
+        }
+        
+        let id: String
+        let name: String
+        let balance: Money
+        let kind: Kind
+        let tag: String
+        let date: NSDate
+    }
     
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelValue: UILabel!
@@ -37,7 +62,7 @@ class HistoryTransactionView: UIView, NibOwnerLoadable {
 
 extension HistoryTransactionView: ViewConfiguration {
     
-    func update(with model: HistoryTypes.DTO.Transaction) {
+    func update(with model: Transaction) {
         
         viewSpam.isHidden = true
         viewAssetType.isHidden = false
@@ -81,4 +106,12 @@ extension HistoryTransactionView: ViewConfiguration {
         
     }
     
+}
+
+extension HistoryTransactionView.Transaction {
+    init(with transaction: HistoryTypes.DTO.Transaction) {
+        let kind = HistoryTransactionView.Transaction.Kind(rawValue: transaction.kind.rawValue)!
+        
+        self.init(id: transaction.id, name: transaction.name, balance: transaction.balance, kind: kind, tag: transaction.tag, date: transaction.date)
+    }
 }
