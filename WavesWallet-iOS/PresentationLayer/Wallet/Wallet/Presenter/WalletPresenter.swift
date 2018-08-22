@@ -100,6 +100,12 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
             return state.setIsRefreshing(isRefreshing: true)
 
+        case .tapRow(let indexPath):
+
+            guard let asset = state.visibleSections[indexPath.section].items[indexPath.row].asset else { return state }
+            moduleOutput?.showAsset(with: asset)
+
+            return state
         case .tapSection(let section):
             return state.toggleCollapse(index: section)
 

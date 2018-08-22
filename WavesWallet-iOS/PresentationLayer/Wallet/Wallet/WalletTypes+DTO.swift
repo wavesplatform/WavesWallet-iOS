@@ -19,15 +19,22 @@ extension WalletTypes.DTO {
 
         let id: String
         let name: String
+        let issuer: String
+        let description: String
+        let issueDate: Date
         let balance: Money
         let fiatBalance: Money
+        let isReissuable: Bool
         let isMyWavesToken: Bool
+        let isWavesToken: Bool
+        let isWaves: Bool
         let isFavorite: Bool
+        let isSpam: Bool
         let isFiat: Bool
         let isGateway: Bool
         let isWaves: Bool
         let kind: Kind
-        let sortLevel: Float
+        let sortLevel: Float        
     }
 
     struct Leasing: Hashable {

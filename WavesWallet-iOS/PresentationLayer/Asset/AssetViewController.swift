@@ -28,7 +28,7 @@ final class AssetViewController: UIViewController {
     private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
     private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
 
-    private var presenter: AssetPresenterProtocol! = AssetPresenter()
+    var presenter: AssetPresenterProtocol!
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
 
     private var sections: [AssetTypes.ViewModel.Section] = .init()

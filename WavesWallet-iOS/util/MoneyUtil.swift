@@ -147,3 +147,13 @@ infix operator ^^: PowerPrecedence
 func ^^ (radix: Int, power: Int) -> Int64 {
     return Int64(pow(Double(radix), Double(power)))
 }
+
+extension Decimal {
+    var doubleValue:Double {
+        return NSDecimalNumber(decimal:self).doubleValue
+    }
+
+    var floatValue: Float {
+        return NSDecimalNumber(decimal: self).floatValue
+    }
+}

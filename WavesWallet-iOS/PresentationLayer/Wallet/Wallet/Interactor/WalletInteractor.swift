@@ -183,7 +183,25 @@ fileprivate extension WalletTypes.DTO.Asset {
         if asset.isSpam {
             state = .spam
         }
-
+        //TODO: Доделать модель данных Next task!
+//        let id: String
+//        let name: String
+//        let issuer: String
+//        let description: String
+//        let issueDate: Date
+//        let balance: Money
+//        let fiatBalance: Money
+//        let isReissuable: Bool
+//        let isMyWavesToken: Bool
+//        let isWavesToken: Bool
+//        let isWaves: Bool
+//        let isFavorite: Bool
+//        let isSpam: Bool
+//        let isFiat: Bool
+//        let isGateway: Bool
+//        let isWaves: Bool
+//        let kind: Kind
+//        let sortLevel: Float 
         return WalletTypes.DTO.Asset(id: id,
                                      name: name,
                                      balance: balanceToken,

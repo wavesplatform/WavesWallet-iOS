@@ -1,4 +1,4 @@
-//
+    //
 //  WalletViewController.swift
 //  WavesWallet-iOS
 //
@@ -49,6 +49,8 @@ final class WalletViewController: UIViewController {
                                              style: .plain,
                                              target: nil,
                                              action: nil)
+
+    private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
 
     var presenter: WalletPresenterProtocol!
 
@@ -138,11 +140,14 @@ extension WalletViewController {
                 return .changeDisplay(display)
         }
 
+        let recieverEvents = sendEvent.asSignal()
+
         return [refreshEvent,
                 tapEvent,
                 changedDisplayEvent,
                 sortTapEvent,
-                addressTapEvent]
+                addressTapEvent,
+                recieverEvents]
     }
 
     func uiSubscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
@@ -239,6 +244,9 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
 
     func tableViewDidSelect(indexPath: IndexPath) {
+
+        sendEvent.accept(.tapRow(indexPath))
+
         self.navigationController?.pushViewController(StoryboardScene.Asset.assetViewController.instantiate(), animated: true)
     }
 }
