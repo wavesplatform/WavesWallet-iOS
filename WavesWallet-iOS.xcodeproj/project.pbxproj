@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */; };
+		0444E7B4212C81E1004C7DF2 /* HistoryTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */; };
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
@@ -405,6 +407,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionView.xib; sourceTree = "<group>"; };
+		0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionView.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
@@ -886,6 +890,8 @@
 			isa = PBXGroup;
 			children = (
 				E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */,
+				0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */,
+				0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */,
 				04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */,
 				048684F421258B0B00D12189 /* HistoryHeaderView.swift */,
 				048684F621258BC400D12189 /* HistoryHeaderView.xib */,
@@ -2161,6 +2167,7 @@
 				0AE657272105E3E3003D2DB8 /* EmptyCell.xib in Resources */,
 				04C1BF57211CA5EF0095377D /* History.strings in Resources */,
 				E96038B720B599A800D303E8 /* TransactionHistoryAddressView.xib in Resources */,
+				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
@@ -2587,6 +2594,7 @@
 				0A485E8520FE37D600079B49 /* SkeletonCell.swift in Sources */,
 				0A93FED520FCACF90058179E /* Observable+Types.swift in Sources */,
 				E9983DCB211C723E002349CA /* DexMarketInteractorMock.swift in Sources */,
+				0444E7B4212C81E1004C7DF2 /* HistoryTransactionView.swift in Sources */,
 				E90F152B21211ED200C11124 /* DexInfoViewController.swift in Sources */,
 				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F7F97E921EAA0CF800BE2F6F /* UIColor+Hex.swift in Sources */,
