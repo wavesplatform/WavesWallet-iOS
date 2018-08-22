@@ -107,11 +107,3 @@ extension HistoryTransactionView: ViewConfiguration {
     }
     
 }
-
-extension HistoryTransactionView.Transaction {
-    init(with transaction: HistoryTypes.DTO.Transaction) {
-        let kind = HistoryTransactionView.Transaction.Kind(rawValue: transaction.kind.rawValue)!
-        
-        self.init(id: transaction.id, name: transaction.name, balance: transaction.balance, kind: kind, tag: transaction.tag, date: transaction.date)
-    }
-}
