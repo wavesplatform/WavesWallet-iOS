@@ -83,8 +83,6 @@ class StoryboardManager {
         return vc
     }
 
-
-    
     class func didEndLogin() {
         
         let menuController = MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
@@ -94,7 +92,7 @@ class StoryboardManager {
         sideMenuViewController.contentViewShadowOpacity = 0.2
         sideMenuViewController.contentViewShadowRadius = 15
         sideMenuViewController.contentViewShadowEnabled = true
-        sideMenuViewController.panGestureEnabled = true
+        sideMenuViewController.panGestureEnabled = false
         sideMenuViewController.panFromEdge = true
         sideMenuViewController.interactivePopGestureRecognizerEnabled = true
         AppDelegate.shared().window?.rootViewController = sideMenuViewController

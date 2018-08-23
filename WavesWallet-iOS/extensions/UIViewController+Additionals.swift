@@ -39,13 +39,12 @@ extension UIViewController {
         if let nav = navigationController {
             let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= 44
             if showImage {
-                if nav.navigationBar.shadowImage != nil {
-                    nav.navigationBar.shadowImage = nil
+                if navigationItem.shadowImage != nil {
+                    navigationItem.shadowImage = nil
                 }
-            }
-            else {
-                if nav.navigationBar.shadowImage == nil {
-                    nav.navigationBar.shadowImage = UIImage()
+            } else {
+                if navigationItem.shadowImage == nil {
+                    navigationItem.shadowImage = UIImage()
                 }
             }
         }

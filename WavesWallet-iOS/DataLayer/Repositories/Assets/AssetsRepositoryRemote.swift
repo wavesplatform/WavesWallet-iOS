@@ -35,10 +35,13 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
             .asObservable()
 
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy =  .formatted(DateFormatter.iso())
+
         let assetsList = apiProvider
             .rx
             .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global(qos: .background))
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
+            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
             .map { $0.data.map { $0.data } }
             .asObservable()
 
@@ -86,7 +89,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.timestamp = asset.timestamp
         self.sender = asset.sender
         self.quantity = asset.quantity
-        self.isReissuable = asset.reissuable
+        self.isReusable = asset.reissuable
         self.isSpam = isSpam
         self.isMyWavesToken = isMyWavesToken
         self.modified = Date()
@@ -96,6 +99,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isGateway = false
         var name = asset.name
 
+        //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
             if info.assetId == Environments.Constants.wavesAssetId {
@@ -107,6 +111,7 @@ fileprivate extension DomainLayer.DTO.Asset {
             isFiat = info.isFiat
         }
 
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat

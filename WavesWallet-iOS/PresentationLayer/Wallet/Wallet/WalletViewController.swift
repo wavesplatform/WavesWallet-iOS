@@ -13,7 +13,7 @@ import RxFeedback
 import RxSwift
 import UIKit
 
-private extension WalletTypes.Display {
+private extension WalletTypes.DisplayState.Kind {
 
     var name: String {
         switch self {
@@ -36,7 +36,7 @@ final class WalletViewController: UIViewController {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let displayData: WalletDisplayData = WalletDisplayData()
-    private let displays: [WalletTypes.Display] = [.assets, .leasing]
+    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing]
 
     //It flag need for fix bug "jump" UITableView when activate "refresh control'
     private var isRefreshing: Bool = false
@@ -87,7 +87,7 @@ extension WalletViewController {
 
         let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
 
-            let subscriptions = owner.uiSubscriptions(state: state)
+            let subscriptions = owner.uiSubscriptions(state: state.map { $0.displayState })
             let events = owner.events()
 
             return Bindings(subscriptions: subscriptions,
@@ -150,18 +150,19 @@ extension WalletViewController {
                 recieverEvents]
     }
 
-    func uiSubscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
+    func uiSubscriptions(state: Driver<WalletTypes.DisplayState>) -> [Disposable] {
+
         let refreshState = state
-            .filter { $0.animateType.isRefresh }
-            .map { $0.visibleSections }
+            .filter { $0.currentDisplay.animateType.isRefresh }
+            .map { $0.currentDisplay.visibleSections }
 
         let collapsedSection = state
-            .filter { $0.animateType.isCollapsed }
+            .filter { $0.currentDisplay.animateType.isCollapsed }
             .map { (sections: $0.visibleSections,
                     index: $0.animateType.sectionIndex ?? 0) }
 
         let expandedSection = state
-            .filter { $0.animateType.isExpanded }
+            .filter { $0.currentDisplay.animateType.isExpanded }
             .map { (sections: $0.visibleSections,
                     index: $0.animateType.sectionIndex ?? 0) }
 
@@ -170,7 +171,7 @@ extension WalletViewController {
         displayData.expanded(tableView: tableView, event: expandedSection)
 
         let refreshControl = state
-            .map { $0.isRefreshing }
+            .map { $0.currentDisplay.isRefreshing }
             .do(onNext: { [weak self] flag in
                 guard let owner = self else { return }
                 if flag {
@@ -191,9 +192,9 @@ extension WalletViewController {
             }).asObservable().subscribe()
 
         let segmentedControl = state
-            .map { $0.display }
-            .drive(onNext: { [weak self] display in
-                self?.setupRightButons(display: display)
+            .map { $0.kind }
+            .drive(onNext: { [weak self] kind in
+                self?.setupRightButons(kind: kind)
             })
 
         return [segmentedControl, refreshControl]
@@ -203,9 +204,9 @@ extension WalletViewController {
 // MARK: Setup Methods
 
 private extension WalletViewController {
-    func setupRightButons(display: WalletTypes.Display) {
+    func setupRightButons(kind: WalletTypes.DisplayState.Kind) {
 
-        switch display {
+        switch kind {
         case .assets:
             navigationItem.rightBarButtonItems = [buttonAddress,
                                                   buttonSort]
@@ -246,7 +247,5 @@ extension WalletViewController: WalletDisplayDataDelegate {
     func tableViewDidSelect(indexPath: IndexPath) {
 
         sendEvent.accept(.tapRow(indexPath))
-
-        self.navigationController?.pushViewController(StoryboardScene.Asset.assetViewController.instantiate(), animated: true)
     }
 }

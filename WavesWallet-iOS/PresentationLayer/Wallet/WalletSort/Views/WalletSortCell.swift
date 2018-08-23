@@ -25,15 +25,15 @@ final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var switchControl: UISwitch!
     @IBOutlet var viewContent: UIView!
 
-    var isDragged: Bool = false {
-        didSet {
-            if isDragged {
-                viewContent.removeShadow()
-            } else {
-                viewContent.addTableCellShadowStyle()
-            }
-        }
-    }
+//    var isDragged: Bool = false {
+//        didSet {
+//            if isDragged {
+//                viewContent.removeShadow()
+//            } else {
+//                viewContent.addTableCellShadowStyle()
+//            }
+//        }
+//    }
 
     private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()

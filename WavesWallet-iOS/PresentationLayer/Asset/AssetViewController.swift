@@ -479,7 +479,7 @@ extension AssetTypes.DTO.Asset.Info {
             kind = .fiat
         } else if isGateway {
             kind = .gateway
-        } else if isWavesToken {
+        } else {
             kind = .wavesToken
         }
 

@@ -107,7 +107,7 @@ extension AssetTypes.DTO {
             let name: String
             let description: String
             let issueDate: Date
-            let isReissuable: Bool
+            let isReusable: Bool
             let isMyWavesToken: Bool
             let isWavesToken: Bool
             let isWaves: Bool

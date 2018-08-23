@@ -21,9 +21,12 @@ protocol AssetModuleInput {
 }
 
 protocol AssetPresenterProtocol {
-    typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
-    var interactor: AssetInteractorProtocol! { get set }    
-    func system(feedbacks: [Feedback])
 
+    typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
+
+    var interactor: AssetInteractorProtocol! { get set }
+    var moduleOutput: AssetModuleOutput? { get set }
+
+    func system(feedbacks: [Feedback])
 }
 
