@@ -38,7 +38,7 @@ extension DexListCell: ViewConfiguration {
         let firstPrice = model.firstPrice.doubleValue
         let lastPrice = model.lastPrice.doubleValue
 
-        labelValue.text = MoneyUtil.getScaledText(model.lastPrice.amount, decimals: model.lastPrice.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: true)
+        labelValue.text = model.lastPrice.formattedText(defaultMinimumFractionDigits: true)
         
         let percent = (lastPrice - firstPrice) * 100 / lastPrice
         if percent == 0 {

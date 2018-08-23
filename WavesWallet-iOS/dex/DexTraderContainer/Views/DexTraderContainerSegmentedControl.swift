@@ -36,9 +36,6 @@ final class DexTraderContainerSegmentedControl: UIView, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        if let view = subviews.first {
-            view.backgroundColor = .clear
-        }
         
         setupButtonsState()
         setupLocalization()

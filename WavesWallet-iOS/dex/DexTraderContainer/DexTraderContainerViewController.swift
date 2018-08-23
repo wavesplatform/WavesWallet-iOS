@@ -40,6 +40,14 @@ final class DexTraderContainerViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.titleTextAttributes = nil
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        for view in scrollView.subviews {
+            view.frame.size = scrollView.bounds.size
+        }
+    }
 }
 
 //MARK: - Actions
@@ -65,8 +73,7 @@ extension DexTraderContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        let page = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-        segmentedControl.changeStateToScrollPage(page)
+        segmentedControl.changeStateToScrollPage(scrollView.currentPage)
     }
 }
 
@@ -75,7 +82,8 @@ extension DexTraderContainerViewController: UIScrollViewDelegate {
 private extension DexTraderContainerViewController {
     
     func scrollToPageIndex(_ pageIndex: Int) {
-        scrollView.setContentOffset(CGPoint(x: CGFloat(pageIndex) * scrollView.frame.size.width, y: scrollView.contentOffset.y), animated: true)
+        scrollView.setContentOffset(CGPoint(x: CGFloat(pageIndex) * scrollView.frame.size.width,
+                                            y: scrollView.contentOffset.y), animated: true)
     }
     
     func addInfoButton() {

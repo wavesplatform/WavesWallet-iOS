@@ -76,14 +76,6 @@ fileprivate extension DexLastTradesViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
-extension DexLastTradesViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-}
-
-
 //MARK: - UITableViewDataSource
 extension DexLastTradesViewController: UITableViewDataSource {
 
@@ -108,7 +100,9 @@ extension DexLastTradesViewController: UITableViewDataSource {
 private extension DexLastTradesViewController {
     
     @IBAction func sellTapped(_ sender: Any) {
-        
+        if let sell = state.lastSell {
+            
+        }
     }
     
     @IBAction func buyTapped(_ sender: Any) {
@@ -141,7 +135,33 @@ private extension DexLastTradesViewController {
     }
     
     func setupSellBuyButtons() {
-        buttonBuy.setup(title: Localizable.DexLastTrades.Button.buy, subTitle: "—")
-        buttonSell.setup(title: Localizable.DexLastTrades.Button.sell, subTitle: "—")
+        buttonBuy.setup(title: Localizable.DexLastTrades.Button.buy, subTitle: buyTitle)
+        buttonSell.setup(title: Localizable.DexLastTrades.Button.sell, subTitle: sellTitle)
+    }
+}
+
+
+
+//MARK: - UI Settings
+private extension DexLastTradesViewController {
+    
+    var sellTitle: String {
+        if let sell = state.lastSell {
+            return sell.price.formattedText(defaultMinimumFractionDigits: false)
+        }
+        else if !state.hasFirstTimeLoad {
+            return "—"
+        }
+        return "0.000"
+    }
+    
+    var buyTitle: String {
+        if let buy = state.lastBuy {
+            return buy.price.formattedText(defaultMinimumFractionDigits: false)
+        }
+        else if !state.hasFirstTimeLoad {
+            return "—"
+        }
+        return "0.000"
     }
 }
