@@ -61,6 +61,10 @@ extension Money {
         decimals = countDecimals
         amount = Int64(value * pow(10, decimals).doubleValue)
     }
+    
+    func formattedText(defaultMinimumFractionDigits: Bool) -> String {
+        return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
+    }
 }
 
 extension Decimal {

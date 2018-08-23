@@ -84,8 +84,14 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             debug(bid)
             return state.changeAction(.none)
             
+        case .didTapEmptyBid:
+            return state.changeAction(.none)
+            
         case .didTapAsk(let ask):
             debug(ask)
+            return state.changeAction(.none)
+            
+        case .didTamEmptyAsk:
             return state.changeAction(.none)
         }
     }

@@ -28,9 +28,11 @@ extension DexLastTradesCell: ViewConfiguration {
     func update(with model: DexLastTrades.DTO.Trade) {
 
         labelTime.text = DexLastTradesCell.dateFormatter.string(from: model.time)
-        labelPrice.text = MoneyUtil.getScaledText(model.price.amount, decimals: model.price.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
-        labelAmount.text = MoneyUtil.getScaledText(model.amount.amount, decimals: model.amount.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
-        labelSum.text = MoneyUtil.getScaledText(model.sum.amount, decimals: model.sum.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
+        labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
+        
+        labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
+        
+        labelSum.text = model.sum.formattedText(defaultMinimumFractionDigits: false)
         
         labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
     }

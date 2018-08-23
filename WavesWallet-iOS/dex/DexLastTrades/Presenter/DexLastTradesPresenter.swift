@@ -48,11 +48,24 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         case .setTrades(let trades):
             return state.mutate {
+                
+                $0.hasFirstTimeLoad = true
+
                 let items = trades.map {DexLastTrades.ViewModel.Row.trade($0)}
                 $0.section = DexLastTrades.ViewModel.Section(items: items)
             }.changeAction(.update)
             
-        case .didTapTrade(let trade):
+        
+        case .didTapBuy(let buy):
+            return state.changeAction(.none)
+        
+        case .didTapEmptyBuy:
+            return state.changeAction(.none)
+            
+        case .didTapSell(let sell):
+            return state.changeAction(.none)
+            
+        case .didTapEmptySell:
             return state.changeAction(.none)
         }
        

@@ -300,6 +300,7 @@
 		E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427221149C80006E39AB /* DexSortInteractor.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */; };
+		E9C540CD212EE30D00253BDB /* UIScrollView+ Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
@@ -770,6 +771,7 @@
 		E9BB427221149C80006E39AB /* DexSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortInteractor.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ Pagination.swift"; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
@@ -2276,6 +2278,7 @@
 				E971DA4D20FFB3A100616A03 /* Array+Sort.swift */,
 				E971DA4F20FFEE8700616A03 /* UINavigationController+Additionals.swift */,
 				0AEB359D211657F000EDD63C /* Any+Name.swift */,
+				E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2654,6 +2657,7 @@
 				E91705EE21238F2B006CE9A5 /* DexTraderContainerSegmentedControl.swift in Sources */,
 				0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */,
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,
+				E9C540CD212EE30D00253BDB /* UIScrollView+ Pagination.swift in Sources */,
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				F74240CF1EAB8EFF00C3B84D /* AccountCell.swift in Sources */,
 				E93CEDEA20A1A8A300756CA8 /* AssetChartHeaderView.swift in Sources */,

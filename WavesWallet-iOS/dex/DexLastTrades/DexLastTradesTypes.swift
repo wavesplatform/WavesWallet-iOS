@@ -15,7 +15,10 @@ enum DexLastTrades {
     enum Event {
         case readyView
         case setTrades([DTO.Trade])
-        case didTapTrade(DTO.Trade)
+        case didTapSell(DTO.SellBuyTrade)
+        case didTapEmptySell
+        case didTapBuy(DTO.SellBuyTrade)
+        case didTapEmptyBuy
     }
     
     struct State: Mutating {
@@ -26,6 +29,9 @@ enum DexLastTrades {
         
         var action: Action
         var section: DexLastTrades.ViewModel.Section
+        var lastSell: DTO.SellBuyTrade?
+        var lastBuy: DTO.SellBuyTrade?
+        var hasFirstTimeLoad: Bool
     }
 }
 
@@ -56,12 +62,17 @@ extension DexLastTrades.DTO {
         let sum: Money
         let type: TradeType
     }
+    
+    struct SellBuyTrade {
+        let price: Money
+        let type: TradeType
+    }
 }
 
 extension DexLastTrades.State {
     static var initialState: DexLastTrades.State {
         let section = DexLastTrades.ViewModel.Section(items: [])
-        return DexLastTrades.State(action: .none, section: section)
+        return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false)
     }
     
     var isNotEmpty: Bool {

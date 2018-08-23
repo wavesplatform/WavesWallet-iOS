@@ -83,7 +83,6 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ETU-xZ-LM6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1qH-QC-9Pn"/>
                 <constraint firstItem="ETU-xZ-LM6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="5sV-nZ-aoC"/>

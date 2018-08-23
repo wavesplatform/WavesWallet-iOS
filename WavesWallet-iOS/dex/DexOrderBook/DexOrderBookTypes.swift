@@ -16,7 +16,9 @@ enum DexOrderBook {
         case readyView
         case setDisplayData(DTO.DisplayData)
         case didTapBid(DTO.BidAsk)
+        case didTapEmptyBid
         case didTapAsk(DTO.BidAsk)
+        case didTamEmptyAsk
     }
     
     struct State: Mutating {
@@ -82,15 +84,6 @@ extension DexOrderBook.DTO {
         let header: DexOrderBook.ViewModel.Header
     }
 }
-
-extension DexOrderBook.DTO.BidAsk {
-    
-    var priceText: String {
-        
-        return MoneyUtil.getScaledText(price.amount, decimals: price.decimals, defaultMaximumFractionDigits: true, defaultMinimumFractionDigits: false)
-    }
-}
-
 
 //MARK: - Row
 extension DexOrderBook.ViewModel.Row {

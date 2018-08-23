@@ -15,10 +15,10 @@ class MoneyUtil {
         return result ?? ""
     }
 
-    class func getScaledText(_ amount: Int64, decimals: Int, defaultMaximumFractionDigits: Bool, defaultMinimumFractionDigits: Bool) -> String {
+    class func getScaledText(_ amount: Int64, decimals: Int, defaultMinimumFractionDigits: Bool) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        f.maximumFractionDigits = defaultMaximumFractionDigits ? MoneyUtil.defaultMaximumFractionDigits : decimals
+        f.maximumFractionDigits = MoneyUtil.defaultMaximumFractionDigits
         f.minimumFractionDigits = defaultMinimumFractionDigits ? MoneyUtil.defaultMinimumFractionDigits : decimals
         let result = f.string(from: Decimal(amount) / pow(10, decimals) as NSNumber)
         return result ?? ""

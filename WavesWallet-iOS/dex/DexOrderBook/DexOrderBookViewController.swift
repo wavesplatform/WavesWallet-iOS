@@ -82,11 +82,17 @@ private extension DexOrderBookViewController {
         if let bid = state.lastBid {
             sendEvent.accept(.didTapBid(bid))
         }
+        else if state.hasFirstTimeLoad {
+            sendEvent.accept(.didTapEmptyBid)
+        }
     }
     
     @IBAction func buyTapped(_ sender: Any) {
         if let ask = state.lastAsk {
             sendEvent.accept(.didTapAsk(ask))
+        }
+        else if state.hasFirstTimeLoad {
+            sendEvent.accept(.didTamEmptyAsk)
         }
     }
 }
@@ -186,15 +192,21 @@ private extension DexOrderBookViewController {
     
     var bidTitle: String {
         if let bid = state.lastBid {
-            return bid.priceText
+            return bid.price.formattedText(defaultMinimumFractionDigits: false)
         }
-        return "—"
+        else if !state.hasFirstTimeLoad {
+            return "—"
+        }
+        return "0.000"
     }
     
     var askTitle: String {
         if let ask = state.lastAsk {
-            return ask.priceText
+            return ask.price.formattedText(defaultMinimumFractionDigits: false)
         }
-        return "—"
+        else if !state.hasFirstTimeLoad {
+            return "—"
+        }
+        return "0.000"
     }
 }
