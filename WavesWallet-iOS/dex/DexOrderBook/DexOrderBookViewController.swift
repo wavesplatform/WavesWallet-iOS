@@ -11,25 +11,17 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
-
-
-private enum Constants {
-    static let buttonTitleSize: CGFloat = 10
-    static let buttonSubTitleSize: CGFloat = 13
-    static let buttonLineSpacing: CGFloat = 3
-    static let headerCornerRadius: CGFloat = 3
-}
-
 final class DexOrderBookViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var buttonBuy: UIButton!
-    @IBOutlet weak var buttonSell: UIButton!
-    @IBOutlet weak var viewTopHeader: DexOrderBookHeaderView!
-    @IBOutlet weak var labelLoadingOrderBook: UILabel!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var buttonBuy: DexTraderContainerButton!
+    @IBOutlet private weak var buttonSell: DexTraderContainerButton!
+    @IBOutlet private weak var viewTopHeader: DexOrderBookHeaderView!
+    @IBOutlet private weak var labelLoadingOrderBook: UILabel!
     
-    @IBOutlet weak var viewLoading: UIView!
-    @IBOutlet weak var viewEmptyData: UIView!
+    @IBOutlet private weak var viewLoading: UIView!
+    @IBOutlet private weak var viewEmptyData: UIView!
+    @IBOutlet private weak var labelEmptyData: UILabel!
     
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
@@ -161,6 +153,7 @@ private extension DexOrderBookViewController {
         
         viewLoading.isHidden = true
         viewEmptyData.isHidden = state.isNotEmpty
+        viewTopHeader.update(with: state.header)
 
         if state.isNotEmpty {
             viewTopHeader.setDefaultState()
@@ -178,12 +171,13 @@ private extension DexOrderBookViewController {
     }
     
     func setupSellBuyButtons() {
-        setupButton(buttonBuy, title: Localizable.DexOrderBook.Button.buy, subTitle: askTitle)
-        setupButton(buttonSell, title: Localizable.DexOrderBook.Button.sell, subTitle: bidTitle)
+        buttonBuy.setup(title: Localizable.DexOrderBook.Button.buy, subTitle: askTitle)
+        buttonSell.setup(title: Localizable.DexOrderBook.Button.sell, subTitle: bidTitle)
     }
     
     func setupLocalization() {
         labelLoadingOrderBook.text = Localizable.DexOrderBook.Label.loadingOrderbook
+        labelEmptyData.text = Localizable.DexOrderBook.Label.emptyData
     }
 }
 
@@ -202,24 +196,5 @@ private extension DexOrderBookViewController {
             return ask.priceText
         }
         return "—"
-    }
-    
-    func setupButton(_ button: UIButton, title: String, subTitle: String) {
-        
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineSpacing = Constants.buttonLineSpacing
-        paragraph.alignment = .center
-        
-        let attributes =  [NSAttributedStringKey.font : UIFont.systemFont(ofSize: Constants.buttonSubTitleSize, weight: .semibold),
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
-                           NSAttributedStringKey.paragraphStyle : paragraph]
-        
-        let text = title + "\n" + subTitle
-        let attrString = NSMutableAttributedString(string: text, attributes: attributes)
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: Constants.buttonTitleSize), range: (text as NSString).range(of: title))
-        
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.attributedText = attrString
-        button.setAttributedTitle(attrString, for: .normal)
     }
 }

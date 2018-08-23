@@ -10,10 +10,10 @@ import UIKit
 
 final class DexOrderBookLastPriceCell: UITableViewCell, Reusable {
 
-    @IBOutlet weak var labelPrice: UILabel!
-    @IBOutlet weak var labelSpread: UILabel!
-    @IBOutlet weak var iconState: UIImageView!
-    @IBOutlet weak var labelLastPrice: UILabel!
+    @IBOutlet private weak var labelPrice: UILabel!
+    @IBOutlet private weak var labelSpread: UILabel!
+    @IBOutlet private weak var iconState: UIImageView!
+    @IBOutlet private weak var labelLastPrice: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

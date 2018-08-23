@@ -47,6 +47,30 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum DexLastTrades {
+
+    internal enum Button {
+      /// BUY
+      internal static let buy = Localizable.tr("DexLastTrades", "button.buy")
+      /// SELL
+      internal static let sell = Localizable.tr("DexLastTrades", "button.sell")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexLastTrades", "label.amount")
+      /// Nothing Here…\nThe trading history is empty
+      internal static let emptyData = Localizable.tr("DexLastTrades", "label.emptyData")
+      /// Loading last trades…
+      internal static let loadingLastTrades = Localizable.tr("DexLastTrades", "label.loadingLastTrades")
+      /// Price
+      internal static let price = Localizable.tr("DexLastTrades", "label.price")
+      /// Sum
+      internal static let sum = Localizable.tr("DexLastTrades", "label.sum")
+      /// Time
+      internal static let time = Localizable.tr("DexLastTrades", "label.time")
+    }
+  }
   internal enum DexMarket {
 
     internal enum Label {
@@ -226,6 +250,8 @@ internal enum Localizable {
     internal enum Label {
       /// Amount
       internal static let amount = Localizable.tr("DexOrderBook", "label.amount")
+      /// Nothing Here…\nThe order book is empty
+      internal static let emptyData = Localizable.tr("DexOrderBook", "label.emptyData")
       /// LAST PRICE
       internal static let lastPrice = Localizable.tr("DexOrderBook", "label.lastPrice")
       /// Loading orderbook…

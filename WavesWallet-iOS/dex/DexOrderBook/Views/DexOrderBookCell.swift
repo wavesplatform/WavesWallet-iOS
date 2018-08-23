@@ -10,11 +10,11 @@ import UIKit
 
 final class DexOrderBookCell: UITableViewCell, Reusable {
 
-    @IBOutlet weak var labelAmount: UILabel!
-    @IBOutlet weak var labelPrice: UILabel!
-    @IBOutlet weak var labelSum: UILabel!
-    @IBOutlet weak var backgroundAmountView: UIView!
-    @IBOutlet weak var backgroundAmountViewWidth: NSLayoutConstraint!
+    @IBOutlet private weak var labelAmount: UILabel!
+    @IBOutlet private weak var labelPrice: UILabel!
+    @IBOutlet private weak var labelSum: UILabel!
+    @IBOutlet private weak var backgroundAmountView: UIView!
+    @IBOutlet private weak var backgroundAmountViewWidth: NSLayoutConstraint!
     
     private var percentAmountOverlay: CGFloat = 0
     
