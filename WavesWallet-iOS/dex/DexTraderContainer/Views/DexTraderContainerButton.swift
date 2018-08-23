@@ -15,7 +15,7 @@ private enum Constants {
     static let cornerRadius: CGFloat = 3
 }
 
-final class DexTraderContainerButton: UIButton {
+final class DexTraderContainerButton: HighlightedButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()

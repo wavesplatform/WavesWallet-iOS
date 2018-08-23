@@ -47,7 +47,7 @@ final class DexTraderContainerViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         for view in scrollView.subviews {
-            view.frame.size = scrollView.bounds.size
+            setupViewControllerSize(view: view)
         }
     }
 }
@@ -109,9 +109,13 @@ private extension DexTraderContainerViewController {
     
     func addController(_ viewController: UIViewController, atIndex: Int) {
         scrollView.addSubview(viewController.view)
-        viewController.view.frame = scrollView.bounds
+        setupViewControllerSize(view: viewController.view)
         viewController.view.frame.origin.x = CGFloat(atIndex) * Platform.ScreenWidth
         addChildViewController(viewController)
         viewController.didMove(toParentViewController: self)
+    }
+    
+    func setupViewControllerSize(view: UIView) {
+        view.frame.size = scrollView.bounds.size
     }
 }

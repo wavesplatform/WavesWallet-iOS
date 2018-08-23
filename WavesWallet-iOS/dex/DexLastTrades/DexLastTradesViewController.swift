@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+private enum Constansts {
+    static let emptyButtonsTitle: String = "0.000"
+    static let loadingButtonsTitle: String = "—"
+}
 
 final class DexLastTradesViewController: UIViewController {
 
@@ -101,12 +105,20 @@ private extension DexLastTradesViewController {
     
     @IBAction func sellTapped(_ sender: Any) {
         if let sell = state.lastSell {
-            
+            sendEvent.accept(.didTapSell(sell))
+        }
+        else if state.hasFirstTimeLoad {
+            sendEvent.accept(.didTapEmptySell)
         }
     }
     
     @IBAction func buyTapped(_ sender: Any) {
-        
+        if let buy = state.lastBuy {
+            sendEvent.accept(.didTapBuy(buy))
+        }
+        else if state.hasFirstTimeLoad {
+            sendEvent.accept(.didTapEmptyBuy)
+        }
     }
 }
 
@@ -150,9 +162,9 @@ private extension DexLastTradesViewController {
             return sell.price.formattedText(defaultMinimumFractionDigits: false)
         }
         else if !state.hasFirstTimeLoad {
-            return "—"
+            return Constansts.loadingButtonsTitle
         }
-        return "0.000"
+        return Constansts.emptyButtonsTitle
     }
     
     var buyTitle: String {
@@ -160,8 +172,8 @@ private extension DexLastTradesViewController {
             return buy.price.formattedText(defaultMinimumFractionDigits: false)
         }
         else if !state.hasFirstTimeLoad {
-            return "—"
+            return Constansts.loadingButtonsTitle
         }
-        return "0.000"
+        return Constansts.emptyButtonsTitle
     }
 }

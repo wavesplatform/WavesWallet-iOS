@@ -15,12 +15,15 @@ final class DexLastTradesInteractorMock: DexLastTradesInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair!
 
-    func trades() -> Observable<([DexLastTrades.DTO.Trade])> {
+    func displayInfo() -> Observable<(DexLastTrades.DTO.DisplayData)> {
 
         return Observable.create({ (subscribe) -> Disposable in
             
             self.getLastTrades({ (trades) in
-                subscribe.onNext(trades)
+                self.getLastSellBuy({ (lastSell, lastBuy) in
+                    let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy)
+                    subscribe.onNext(display)
+                })
             })
 
             return Disposables.create()
@@ -59,6 +62,31 @@ private extension DexLastTradesInteractorMock {
             }
 
             complete(trades)
+        }
+    }
+    
+    func getLastSellBuy(_ complete:@escaping(_ lastSell: DexLastTrades.DTO.SellBuyTrade?, _ lastBuy: DexLastTrades.DTO.SellBuyTrade?) -> Void) {
+        
+        NetworkManager.getOrderBook(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id) { (items, errorMessage) in
+            
+            var sell: DexLastTrades.DTO.SellBuyTrade?
+            var buy: DexLastTrades.DTO.SellBuyTrade?
+            
+            if let items = items {
+                let info = JSON(items)
+                
+                if let bid = info["bids"].arrayValue.first {
+                    sell = DexLastTrades.DTO.SellBuyTrade(price: Money((bid["price"]).int64Value, self.pair.priceAsset.decimals),
+                                                          type: .sell)
+                }
+                
+                if let ask = info["asks"].arrayValue.first {
+                    buy = DexLastTrades.DTO.SellBuyTrade(price: Money((ask["price"]).int64Value, self.pair.priceAsset.decimals),
+                                                         type: .buy)
+                }
+            }
+
+            complete(sell, buy)
         }
     }
 }

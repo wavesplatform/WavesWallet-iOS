@@ -302,6 +302,7 @@
 		E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */; };
 		E9C540CD212EE30D00253BDB /* UIScrollView+ Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */; };
 		E9C540CF212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540CE212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift */; };
+		E9C540D1212F06DE00253BDB /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540D0212F06DE00253BDB /* HighlightedButton.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
@@ -774,6 +775,7 @@
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ Pagination.swift"; sourceTree = "<group>"; };
 		E9C540CE212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTraderContainerInputProtocol.swift; sourceTree = "<group>"; };
+		E9C540D0212F06DE00253BDB /* HighlightedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
@@ -2240,6 +2242,7 @@
 				F7179BD41F726CE400FAE8F5 /* CustomUITextField.swift */,
 				E980EAC720A9A698001834DB /* ScrollButton.swift */,
 				0A485E8020FDFF8400079B49 /* SeparatorView.swift */,
+				E9C540D0212F06DE00253BDB /* HighlightedButton.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -2883,6 +2886,7 @@
 				0A5495F4210F7242009080BE /* UIColor+Asset.swift in Sources */,
 				0A485E8320FE2B1B00079B49 /* WalletHistorySkeletonCell.swift in Sources */,
 				E9EDC6C72123A5F500C58E0D /* DexLastTradesViewController.swift in Sources */,
+				E9C540D1212F06DE00253BDB /* HighlightedButton.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
 				F74240D01EAB8EFF00C3B84D /* AccountsViewController.swift in Sources */,
 				E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */,

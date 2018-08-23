@@ -11,6 +11,11 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+private enum Constansts {
+    static let emptyButtonsTitle: String = "0.000"
+    static let loadingButtonsTitle: String = "—"
+}
+
 final class DexOrderBookViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
@@ -195,9 +200,9 @@ private extension DexOrderBookViewController {
             return bid.price.formattedText(defaultMinimumFractionDigits: false)
         }
         else if !state.hasFirstTimeLoad {
-            return "—"
+            return Constansts.loadingButtonsTitle
         }
-        return "0.000"
+        return Constansts.emptyButtonsTitle
     }
     
     var askTitle: String {
@@ -205,8 +210,8 @@ private extension DexOrderBookViewController {
             return ask.price.formattedText(defaultMinimumFractionDigits: false)
         }
         else if !state.hasFirstTimeLoad {
-            return "—"
+            return Constansts.loadingButtonsTitle
         }
-        return "0.000"
+        return Constansts.emptyButtonsTitle
     }
 }
