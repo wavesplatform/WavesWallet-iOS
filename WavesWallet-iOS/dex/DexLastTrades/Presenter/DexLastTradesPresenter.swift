@@ -36,7 +36,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.trades().map {.setTrades($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -46,23 +46,26 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         case .readyView:
             return state.changeAction(.none)
         
-        case .setTrades(let trades):
+        case .setDisplayData(let displayData):
             return state.mutate {
                 
                 $0.hasFirstTimeLoad = true
-
-                let items = trades.map {DexLastTrades.ViewModel.Row.trade($0)}
+                $0.lastBuy = displayData.lastBuy
+                $0.lastSell = displayData.lastSell
+                
+                let items = displayData.trades.map {DexLastTrades.ViewModel.Row.trade($0)}
                 $0.section = DexLastTrades.ViewModel.Section(items: items)
             }.changeAction(.update)
-            
         
         case .didTapBuy(let buy):
+            debug(buy)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
+            debug(sell)
             return state.changeAction(.none)
             
         case .didTapEmptySell:

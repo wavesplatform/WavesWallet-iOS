@@ -13,7 +13,8 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
  
     var pair: DexTraderContainer.DTO.Pair!
 
-    func trades() -> Observable<([DexLastTrades.DTO.Trade])> {
+    func displayInfo() -> Observable<(DexLastTrades.DTO.DisplayData)> {
         return Observable.empty()
     }
+    
 }

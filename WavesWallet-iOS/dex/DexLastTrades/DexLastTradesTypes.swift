@@ -14,7 +14,7 @@ enum DexLastTrades {
     
     enum Event {
         case readyView
-        case setTrades([DTO.Trade])
+        case setDisplayData(DTO.DisplayData)
         case didTapSell(DTO.SellBuyTrade)
         case didTapEmptySell
         case didTapBuy(DTO.SellBuyTrade)
@@ -66,6 +66,12 @@ extension DexLastTrades.DTO {
     struct SellBuyTrade {
         let price: Money
         let type: TradeType
+    }
+    
+    struct DisplayData {
+        let trades: [Trade]
+        let lastSell: SellBuyTrade?
+        let lastBuy: SellBuyTrade?
     }
 }
 
