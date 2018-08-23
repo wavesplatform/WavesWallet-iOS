@@ -301,6 +301,7 @@
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C4134E20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */; };
 		E9C540CD212EE30D00253BDB /* UIScrollView+ Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */; };
+		E9C540CF212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C540CE212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
@@ -772,6 +773,7 @@
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E9C540CC212EE30D00253BDB /* UIScrollView+ Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ Pagination.swift"; sourceTree = "<group>"; };
+		E9C540CE212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTraderContainerInputProtocol.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
@@ -1838,6 +1840,7 @@
 		E9DAB6442128A2A200C2D552 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E9C540CE212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift */,
 				E9EDC6CB2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift */,
 				E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */,
 			);
@@ -2918,6 +2921,7 @@
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,
+				E9C540CF212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift in Sources */,
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
