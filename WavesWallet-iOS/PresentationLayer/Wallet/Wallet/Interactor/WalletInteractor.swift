@@ -183,7 +183,7 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      isWavesToken: asset.isWavesToken,
                                      isWaves: asset.isWaves,
                                      isHidden: settings.isHidden,
-                                     isFavorite: settings.isFavorite,
+                                 isFavorite: settings.isFavorite,
                                      isSpam: asset.isSpam,
                                      isFiat: asset.isFiat,
                                      isGateway: asset.isGateway,                                     
