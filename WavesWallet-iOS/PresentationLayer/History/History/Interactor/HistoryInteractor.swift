@@ -23,7 +23,8 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
     private let replay: PublishSubject<Bool> = PublishSubject<Bool>()
     
     func transactions(input: HistoryModuleInput) -> Observable<[HistoryTypes.DTO.Transaction]> {
-        return Observable.just([])
+        let asset = HistoryTypes.DTO.Transaction(id: "0", name: "Waves", balance: Money(100, 1), kind: .viewReceived, tag: "Waves", date: NSDate(), sortLevel: 0)
+        return Observable.just([asset])
     }
     
     func refreshTransactions() {
