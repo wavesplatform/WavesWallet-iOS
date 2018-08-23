@@ -16,6 +16,11 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
         let vc = StoryboardScene.Dex.dexTraderContainerViewController.instantiate()
         vc.pair = input
         vc.moduleOutput = output
+        
+        vc.addViewController(DexOrderBookModuleBuilder().build(input: input))
+        vc.addViewController(DexChartModuleBuilder().build())
+        vc.addViewController(DexLastTradesModuleBuilder().build(input: input))
+        vc.addViewController(DexMyOrdersModuleMuilder().build())
         return vc
     }
 }

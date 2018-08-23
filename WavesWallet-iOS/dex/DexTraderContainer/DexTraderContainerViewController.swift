@@ -16,6 +16,8 @@ final class DexTraderContainerViewController: UIViewController {
     var pair: DexTraderContainer.DTO.Pair!
     weak var moduleOutput: DexTraderContainerModuleOutput?
     
+    private var viewControllers: [UIViewController] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +26,7 @@ final class DexTraderContainerViewController: UIViewController {
         createBackWhiteButton()
         addBgBlueImage()
         addInfoButton()
-        build()
+        buildControllers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +49,12 @@ final class DexTraderContainerViewController: UIViewController {
         for view in scrollView.subviews {
             view.frame.size = scrollView.bounds.size
         }
+    }
+}
+
+extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
+    func addViewController(_ viewController: UIViewController) {
+        viewControllers.append(viewController)
     }
 }
 
@@ -92,22 +100,11 @@ private extension DexTraderContainerViewController {
         navigationItem.rightBarButtonItem = btn
     }
     
-    func build() {
-        let numberOrScreens = 4
-        
-        let orderIndex = DexTraderContainerSegmentedControl.SegmentedState.orderBook.rawValue
-        addController(DexOrderBookModuleBuilder().build(input: pair), atIndex: orderIndex)
-        
-        let chartIndex = DexTraderContainerSegmentedControl.SegmentedState.chart.rawValue
-        addController(DexChartModuleBuilder().build(), atIndex: chartIndex)
-        
-        let lastTradesIndex = DexTraderContainerSegmentedControl.SegmentedState.lastTraders.rawValue
-        addController(DexLastTradesModuleBuilder().build(input: pair), atIndex: lastTradesIndex)
-        
-        let myOrdersIndex = DexTraderContainerSegmentedControl.SegmentedState.myOrders.rawValue
-        addController(DexMyOrdersModuleMuilder().build(), atIndex: myOrdersIndex)
-        
-        scrollView.contentSize = CGSize(width: CGFloat(numberOrScreens) * Platform.ScreenWidth, height: scrollView.contentSize.height)
+    func buildControllers() {
+        for (index, controller) in viewControllers.enumerated() {
+            addController(controller, atIndex: index)
+        }
+        scrollView.contentSize = CGSize(width: CGFloat(viewControllers.count) * Platform.ScreenWidth, height: scrollView.contentSize.height)
     }
     
     func addController(_ viewController: UIViewController, atIndex: Int) {
