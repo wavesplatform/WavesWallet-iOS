@@ -42,7 +42,7 @@ final class AssetViewController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(segmentedControl)
         navigationItem.rightBarButtonItem = favoriteOffBarButton
-        setupSystem()
+        setupSystem()        
     }
 
     override func viewDidLayoutSubviews() {
@@ -62,6 +62,7 @@ final class AssetViewController: UIViewController {
         super.viewWillDisappear(animated)
         resetSetupNavigationBar()
     }
+
 }
 
 // MARK:
@@ -83,7 +84,7 @@ private extension AssetViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
-                .viewWillAppear
+                .viewDidAppear
                 .take(1)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in AssetTypes.Event.readyView }
