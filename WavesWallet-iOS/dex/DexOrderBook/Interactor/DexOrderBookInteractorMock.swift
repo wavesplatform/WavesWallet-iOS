@@ -19,16 +19,18 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 
         return Observable.create({ (subscribe) -> Disposable in
             
+            let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name, priceName: self.pair.priceAsset.name, sumName: self.pair.priceAsset.name)
+            
             NetworkManager.getOrderBook(amountAsset: self.pair.amountAsset.id, priceAsset: self.pair.priceAsset.id, complete: { (info, errorMessage) in
                 if let info = info {
                     let json = JSON(info)
                     
                     self.getLastPriceInfo({ (lastPriceInfo) in
-                        subscribe.onNext(self.getDisplayData(info: json, lastPriceInfo: lastPriceInfo))
+                        subscribe.onNext(self.getDisplayData(info: json, lastPriceInfo: lastPriceInfo, header: header))
                     })
                 }
                 else {
-                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: []))
+                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [], header: header))
                 }
             })
             return Disposables.create()
@@ -40,7 +42,7 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
 //MARK: - TesData
 private extension DexOrderBookInteractorMock {
     
-    func getDisplayData(info: JSON, lastPriceInfo: JSON?) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastPriceInfo: JSON?, header: DexOrderBook.ViewModel.Header) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -97,7 +99,7 @@ private extension DexOrderBookInteractorMock {
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }
         
-        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids)
+        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header)
     }
     
     func getLastPriceInfo(_ complete:@escaping(_ lastPriceInfo: JSON?) -> Void) {

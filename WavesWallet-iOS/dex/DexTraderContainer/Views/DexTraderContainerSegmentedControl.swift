@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol DexTranderContainerSegmentedControlDelegate: AnyObject {
+protocol DexTraderContainerSegmentedControlDelegate: AnyObject {
     
-    func segmentedControlDidChangeState(_ state: DexTranderContainerSegmentedControl.SegmentedState)
+    func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState)
 }
 
-final class DexTranderContainerSegmentedControl: UIView, NibOwnerLoadable {
+final class DexTraderContainerSegmentedControl: UIView, NibOwnerLoadable {
 
     enum SegmentedState: Int {
         case orderBook = 0
@@ -22,7 +22,7 @@ final class DexTranderContainerSegmentedControl: UIView, NibOwnerLoadable {
         case myOrders
     }
     
-    weak var delegate: DexTranderContainerSegmentedControlDelegate?
+    weak var delegate: DexTraderContainerSegmentedControlDelegate?
     private(set) var selectedState: SegmentedState = SegmentedState.orderBook
     
     @IBOutlet private weak var buttonOrderBook: UIButton!
@@ -31,7 +31,9 @@ final class DexTranderContainerSegmentedControl: UIView, NibOwnerLoadable {
     @IBOutlet private weak var buttonMyOrders: UIButton!
     @IBOutlet private weak var viewLine: UIView!
     @IBOutlet private weak var linePosition: NSLayoutConstraint!
-        
+    
+    private var isNeedsUpdatesConstaints: Bool = true
+
     override func awakeFromNib() {
         super.awakeFromNib()
         if let view = subviews.first {
@@ -52,9 +54,13 @@ final class DexTranderContainerSegmentedControl: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupLinePosition(animation: false)
+    override func updateConstraints() {
+     
+        if isNeedsUpdatesConstaints {
+            isNeedsUpdatesConstaints = false
+            linePosition.constant = activeButtonPosition + buttonWidth / 2 - viewLine.frame.size.width / 2
+        }
+        super.updateConstraints()
     }
    
     func changeStateToScrollPage(_ page: Int) {
@@ -88,7 +94,7 @@ final class DexTranderContainerSegmentedControl: UIView, NibOwnerLoadable {
 }
 
 //MARK - Localization
-private extension DexTranderContainerSegmentedControl {
+private extension DexTraderContainerSegmentedControl {
     func setupLocalization() {
         buttonOrderBook.setTitle(Localizable.DexTraderContainer.Button.orderbook, for: .normal)
         buttonChart.setTitle(Localizable.DexTraderContainer.Button.chart, for: .normal)
@@ -98,7 +104,7 @@ private extension DexTranderContainerSegmentedControl {
 }
 
 //MARK - Setup UI
-private extension DexTranderContainerSegmentedControl {
+private extension DexTraderContainerSegmentedControl {
     
     func setupButtonsState() {
         setupInactiveState(buttonMyOrders)
@@ -130,8 +136,8 @@ private extension DexTranderContainerSegmentedControl {
     
     func setupLinePosition(animation: Bool) {
         
-        linePosition.constant = activeButtonPosition + buttonWidth / 2 - viewLine.frame.size.width / 2
-
+        isNeedsUpdatesConstaints = true
+        setNeedsUpdateConstraints()
         if animation {
             UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
@@ -143,10 +149,13 @@ private extension DexTranderContainerSegmentedControl {
         switch selectedState {
         case .orderBook:
             return buttonOrderBook.frame.size.width
+            
         case .chart:
             return buttonChart.frame.size.width
+            
         case .lastTraders:
             return buttonLastTrades.frame.size.width
+            
         case .myOrders:
             return buttonMyOrders.frame.size.width
         }
@@ -167,7 +176,7 @@ private extension DexTranderContainerSegmentedControl {
 }
 
 //MARK: - Actions
-private extension DexTranderContainerSegmentedControl {
+private extension DexTraderContainerSegmentedControl {
     
     @IBAction func actionTapped(_ sender: UIButton) {
         

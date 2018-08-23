@@ -10,8 +10,17 @@ import UIKit
 
 struct DexLastTradesModuleBuilder: ModuleBuilder {
     
-    func build(input: Void) -> UIViewController {
+    func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
+        
+        let interactor = DexLastTradesInteractorMock()
+        interactor.pair = input
+        
+        var presenter: DexLastTradesPresenterProtocol = DexLastTradesPresenter()
+        presenter.interactor = interactor
+
         let vc = StoryboardScene.Dex.dexLastTradesViewController.instantiate()
+        vc.presenter = presenter
+
         return vc
     }
 }

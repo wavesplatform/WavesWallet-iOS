@@ -28,12 +28,19 @@ enum DexOrderBook {
         
         var action: Action
         var sections: [DexOrderBook.ViewModel.Section]
+        var header: DexOrderBook.ViewModel.Header
         var hasFirstTimeLoad: Bool
     }
 }
 
 extension DexOrderBook.ViewModel {
    
+    struct Header {
+        let amountName: String
+        let priceName: String
+        let sumName: String
+    }
+    
     struct Section: Mutating {
         var items: [Row]
     }
@@ -72,6 +79,7 @@ extension DexOrderBook.DTO {
         let asks: [BidAsk]
         let lastPrice: LastPrice
         let bids: [BidAsk]
+        let header: DexOrderBook.ViewModel.Header
     }
 }
 
@@ -127,7 +135,8 @@ extension DexOrderBook.DTO.LastPrice {
 extension DexOrderBook.State {
   
     static var initialState: DexOrderBook.State {
-        return DexOrderBook.State(action: .none, sections: [], hasFirstTimeLoad: false)
+        let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
+        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false)
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {

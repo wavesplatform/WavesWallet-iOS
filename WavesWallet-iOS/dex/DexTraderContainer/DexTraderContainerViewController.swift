@@ -10,7 +10,7 @@ import UIKit
 
 final class DexTraderContainerViewController: UIViewController {
 
-    @IBOutlet weak var segmentedControl: DexTranderContainerSegmentedControl!
+    @IBOutlet weak var segmentedControl: DexTraderContainerSegmentedControl!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var pair: DexTraderContainer.DTO.Pair!
@@ -53,9 +53,9 @@ private extension DexTraderContainerViewController {
 }
 
 //MARK: - DexTranderContainerSegmentedControlDelegate
-extension DexTraderContainerViewController: DexTranderContainerSegmentedControlDelegate {
+extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDelegate {
     
-    func segmentedControlDidChangeState(_ state: DexTranderContainerSegmentedControl.SegmentedState) {
+    func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState) {
         scrollToPageIndex(state.rawValue)
     }
 }
@@ -87,16 +87,16 @@ private extension DexTraderContainerViewController {
     func build() {
         let numberOrScreens = 4
         
-        let orderIndex = DexTranderContainerSegmentedControl.SegmentedState.orderBook.rawValue
+        let orderIndex = DexTraderContainerSegmentedControl.SegmentedState.orderBook.rawValue
         addController(DexOrderBookModuleBuilder().build(input: pair), atIndex: orderIndex)
         
-        let chartIndex = DexTranderContainerSegmentedControl.SegmentedState.chart.rawValue
+        let chartIndex = DexTraderContainerSegmentedControl.SegmentedState.chart.rawValue
         addController(DexChartModuleBuilder().build(), atIndex: chartIndex)
         
-        let lastTradesIndex = DexTranderContainerSegmentedControl.SegmentedState.lastTraders.rawValue
-        addController(DexLastTradesModuleBuilder().build(), atIndex: lastTradesIndex)
+        let lastTradesIndex = DexTraderContainerSegmentedControl.SegmentedState.lastTraders.rawValue
+        addController(DexLastTradesModuleBuilder().build(input: pair), atIndex: lastTradesIndex)
         
-        let myOrdersIndex = DexTranderContainerSegmentedControl.SegmentedState.myOrders.rawValue
+        let myOrdersIndex = DexTraderContainerSegmentedControl.SegmentedState.myOrders.rawValue
         addController(DexMyOrdersModuleMuilder().build(), atIndex: myOrdersIndex)
         
         scrollView.contentSize = CGSize(width: CGFloat(numberOrScreens) * Platform.ScreenWidth, height: scrollView.contentSize.height)
