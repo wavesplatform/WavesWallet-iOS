@@ -53,7 +53,7 @@ extension WalletTypes.ViewModel.Section {
 
     static func map(from assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
-            .filter { $0.kind == .general }
+            .filter { $0.isSpam != true && $0.isHidden != true }
             .sorted(by: { (asset1, asset2) -> Bool in
 
                 if asset1.isWaves == true {
@@ -73,7 +73,7 @@ extension WalletTypes.ViewModel.Section {
                                                                   items: generalItems,
                                                                   isExpanded: true)
         let hiddenItems = assets
-            .filter { $0.kind == .hidden }
+            .filter { $0.isHidden == true }
             .sorted(by: { (asset1, asset2) -> Bool in
                 asset1.sortLevel < asset2.sortLevel
             })
@@ -81,9 +81,9 @@ extension WalletTypes.ViewModel.Section {
 
         let hiddenSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.hiddenAssets(hiddenItems.count),
                                                                  items: hiddenItems,
-                                                                 isExpanded: true)
+                                                                 isExpanded: false)
         let spamItems = assets
-            .filter { $0.kind == .spam }
+            .filter { $0.isSpam == true }
             .sorted(by: { (asset1, asset2) -> Bool in
                 asset1.sortLevel < asset2.sortLevel
             })
@@ -91,7 +91,7 @@ extension WalletTypes.ViewModel.Section {
 
         let spamSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.spamAssets(spamItems.count),
                                                                items: spamItems,
-                                                               isExpanded: true)
+                                                               isExpanded: false)
         return [generalSection,
                 hiddenSection,
                 spamSection]

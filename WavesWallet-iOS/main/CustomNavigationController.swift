@@ -75,6 +75,7 @@ class CustomNavigationController: UINavigationController {
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController) {
 
+//        debug("apperanceNavigationItemProperties")
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         if navigationBar.shadowImage != viewController.navigationItem.shadowImage {

@@ -17,43 +17,49 @@ extension WalletTypes {
 }
 
 extension WalletTypes {
-    enum Display {
-        case assets
-        case leasing
-    }
 
-    struct State: Mutating {
-        //TODO: Rename
+    struct DisplayState: Mutating {
+
+        enum Kind {
+            case assets
+            case leasing
+        }
+
+        //TODO: Rename to Action
         enum AnimateType  {
             case refresh
             case collapsed(Int)
             case expanded(Int)
         }
 
-        struct DisplayState: Mutating {
+        struct Display: Mutating {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
             var isRefreshing: Bool
             var animateType: AnimateType = .refresh
         }
 
-        var display: Display
-        var assets: DisplayState
-        var leasing: DisplayState
+        var kind: Kind
+        var assets: DisplayState.Display
+        var leasing: DisplayState.Display
         var isAppeared: Bool
     }
 
+    struct State: Mutating {
+
+        var assets: [WalletTypes.DTO.Asset]
+        var displayState: DisplayState
+    }
+
     enum Event {
-        //TODO: Rename
-        case responseAssets([DTO.Asset])
-        //TODO: Rename
-        case responseLeasing(DTO.Leasing)
+        case setAssets([DTO.Asset])
+        case setLeasing(DTO.Leasing)
         case refresh
         case readyView
         case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton
         case tapAddressButton
-        case changeDisplay(Display)
+        case changeDisplay(DisplayState.Kind)
     }
 }

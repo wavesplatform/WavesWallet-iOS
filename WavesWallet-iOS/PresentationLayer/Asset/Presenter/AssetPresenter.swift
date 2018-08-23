@@ -13,8 +13,10 @@ import RxSwift
 
 final class AssetPresenter: AssetPresenterProtocol {
 
-    var interactor: AssetInteractorProtocol! = AssetInteractorMock()
     private var disposeBag: DisposeBag = DisposeBag()
+    
+    var interactor: AssetInteractorProtocol!
+    var moduleOutput: AssetModuleOutput?
 
     let input: AssetModuleInput
 
@@ -169,7 +171,7 @@ private extension AssetPresenter {
                                                                                     name: "Waves",
                                                                                     description: "",
                                                                                     issueDate: Date(),
-                                                                                    isReissuable: false,
+                                                                                    isReusable: false,
                                                                                     isMyWavesToken: false,
                                                                                     isWavesToken: false,
                                                                                     isWaves: false,

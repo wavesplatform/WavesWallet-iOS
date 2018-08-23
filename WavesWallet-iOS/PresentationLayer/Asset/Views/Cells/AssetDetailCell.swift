@@ -88,7 +88,7 @@ extension AssetDetailCell: ViewConfiguration {
         dateFormatter.dateFormat  = Constants.issueDateFormat
         dateLabel.text = dateFormatter.string(from: Date())
 
-        if model.isReissuable {
+        if model.isReusable {
             typeLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.reissuable
         } else {
             typeLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.notReissuable

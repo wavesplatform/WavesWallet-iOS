@@ -170,48 +170,23 @@ fileprivate extension WalletTypes.DTO.Asset {
         let level = settings.sortLevel
         // TODO: Fiat money
         let fiatBalance = Money(100, 1)
-        var state: WalletTypes.DTO.Asset.Kind = .general
 
-        if asset.isGeneral {
-            state = .general
-        }
-
-        if settings.isHidden {
-            state = .hidden
-        }
-
-        if asset.isSpam {
-            state = .spam
-        }
-        //TODO: Доделать модель данных Next task!
-//        let id: String
-//        let name: String
-//        let issuer: String
-//        let description: String
-//        let issueDate: Date
-//        let balance: Money
-//        let fiatBalance: Money
-//        let isReissuable: Bool
-//        let isMyWavesToken: Bool
-//        let isWavesToken: Bool
-//        let isWaves: Bool
-//        let isFavorite: Bool
-//        let isSpam: Bool
-//        let isFiat: Bool
-//        let isGateway: Bool
-//        let isWaves: Bool
-//        let kind: Kind
-//        let sortLevel: Float 
         return WalletTypes.DTO.Asset(id: id,
                                      name: name,
+                                     issuer: asset.sender,
+                                     description: asset.description,
+                                     issueDate: asset.timestamp,
                                      balance: balanceToken,
                                      fiatBalance: fiatBalance,
+                                     isReusable: asset.isReusable,
                                      isMyWavesToken: asset.isMyWavesToken,
-                                     isFavorite: settings.isFavorite,
-                                     isFiat: asset.isFiat,
-                                     isGateway: asset.isGateway,
+                                     isWavesToken: asset.isWavesToken,
                                      isWaves: asset.isWaves,
-                                     kind: state,
+                                     isHidden: settings.isHidden,
+                                     isFavorite: settings.isFavorite,
+                                     isSpam: asset.isSpam,
+                                     isFiat: asset.isFiat,
+                                     isGateway: asset.isGateway,                                     
                                      sortLevel: level)
     }
 }

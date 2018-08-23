@@ -37,6 +37,7 @@ final class WalletSortViewController: UIViewController {
         super.viewDidLoad()
 
         createBackButton()
+        setupBigNavigationBar()
 
         title = Localizable.WalletSort.Navigationbar.title
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
@@ -59,8 +60,8 @@ final class WalletSortViewController: UIViewController {
         presenter.system(feedbacks: [feedback, readyViewFeedback])    
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupTopBarLine()
     }
 }

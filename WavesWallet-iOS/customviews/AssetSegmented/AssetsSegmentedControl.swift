@@ -118,10 +118,6 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
 fileprivate extension AssetsSegmentedControl {
 
-    var currentPageByContentOffset: Int {
-        return  Int(floor((collectionView.contentOffset.x - collectionPageSize.width / 2) / collectionPageSize.width) + 1)
-    }
-
     var collectionPageSize: CGSize {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         var pageSize = layout.itemSize
@@ -187,8 +183,8 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
-            self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)            
-            self.sendActions(for: .valueChanged)
+        self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)
+        self.sendActions(for: .valueChanged)
     }
 
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
