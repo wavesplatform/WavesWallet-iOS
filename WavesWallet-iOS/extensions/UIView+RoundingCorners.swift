@@ -22,7 +22,7 @@ extension UIView {
     static func roundedInit() {
         Runtime.swizzle(for: self,
                         original: #selector(layoutSubviews),
-                        swizzled: #selector(swizzledLayoutSubviews))
+                        swizzled: #selector(swizzled_RoundingCorners_LayoutSubviews))
     }
 
     private var prevBounds: CGRect? {
@@ -62,16 +62,16 @@ extension UIView {
         }
     }
 
-    @objc private func swizzledLayoutSubviews() {
-        swizzledLayoutSubviews()
+    @objc private func swizzled_RoundingCorners_LayoutSubviews() {
+        swizzled_RoundingCorners_LayoutSubviews()
 
         if cornerRadius == Constants.deffaultCornerRadius {
             return
         }
 
-//        if prevBounds != bounds {
+        if prevBounds != bounds {
             layer.clip(cornerRadius: CGFloat(cornerRadius))
-//        }
-//        prevBounds = bounds
+        }
+        prevBounds = bounds
     }
 }
