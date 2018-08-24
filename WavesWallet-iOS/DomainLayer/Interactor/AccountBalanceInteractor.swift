@@ -190,7 +190,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.assetId = info.assetId
         self.balance = 0
         self.leasedBalance = 0
-        self.reserveBalance = 0
+        self.inOrderBalance = 0
         self.settings = nil
         self.asset = nil
         self.modified = Date()

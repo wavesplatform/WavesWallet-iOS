@@ -65,12 +65,7 @@ final class AssetViewController: UIViewController {
 
 }
 
-// MARK:
-
-extension AssetViewController {
-}
-
-// MARL: RxFeedback
+// MARK: RxFeedback
 
 private extension AssetViewController {
 
@@ -84,7 +79,7 @@ private extension AssetViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
-                .viewDidAppear
+                .viewWillAppear
                 .take(1)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in AssetTypes.Event.readyView }
@@ -119,6 +114,8 @@ private extension AssetViewController {
 
     func updateView(with state: AssetTypes.DisplayState) {
 
+        self.segmentedControl.isUserInteractionEnabled = state.isUserInteractionEnabled
+
         switch state.action {
         case .changedCurrentAsset:
             changeCurrentAsset(info: state.currentAsset)
@@ -137,6 +134,12 @@ private extension AssetViewController {
     }
 
     func updateNavigationItem(with state: AssetTypes.DisplayState) {
+
+        guard state.isUserInteractionEnabled else {
+            self.navigationItem.rightBarButtonItem = nil
+            return
+        }
+
         if state.isFavorite {
             self.navigationItem.rightBarButtonItem = favoriteOnBarButton
         } else {

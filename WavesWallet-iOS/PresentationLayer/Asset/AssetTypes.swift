@@ -59,6 +59,7 @@ extension AssetTypes {
         var isAppeared: Bool
         var isRefreshing: Bool
         var isFavorite: Bool
+        var isUserInteractionEnabled: Bool
 
         var currentAsset: AssetTypes.DTO.Asset.Info
         var assets: [AssetTypes.DTO.Asset.Info]

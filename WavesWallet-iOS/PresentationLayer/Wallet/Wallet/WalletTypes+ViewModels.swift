@@ -25,6 +25,18 @@ extension WalletTypes.ViewModel {
     }
 
     struct Section: Hashable {
+
+        enum Kind {
+            case skeleton
+            case balance
+            case transactions
+            case info
+            case general
+            case spam
+            case hidden
+        }
+
+        var kind: Kind
         var header: String?
         var items: [Row]
         var isExpanded: Bool
@@ -69,7 +81,8 @@ extension WalletTypes.ViewModel.Section {
                 return asset1.sortLevel < asset2.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
-        let generalSection: WalletTypes.ViewModel.Section = .init(header: nil,
+        let generalSection: WalletTypes.ViewModel.Section = .init(kind: .general,
+                                                                  header: nil,
                                                                   items: generalItems,
                                                                   isExpanded: true)
         let hiddenItems = assets
@@ -79,7 +92,8 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let hiddenSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.hiddenAssets(hiddenItems.count),
+        let hiddenSection: WalletTypes.ViewModel.Section = .init(kind: .hidden,
+                                                                 header: Localizable.Wallet.Section.hiddenAssets(hiddenItems.count),
                                                                  items: hiddenItems,
                                                                  isExpanded: false)
         let spamItems = assets
@@ -89,7 +103,8 @@ extension WalletTypes.ViewModel.Section {
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-        let spamSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.spamAssets(spamItems.count),
+        let spamSection: WalletTypes.ViewModel.Section = .init(kind: .spam,
+                                                               header: Localizable.Wallet.Section.spamAssets(spamItems.count),
                                                                items: spamItems,
                                                                isExpanded: false)
         return [generalSection,
@@ -102,7 +117,8 @@ extension WalletTypes.ViewModel.Section {
 
         let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
         let historyRow = WalletTypes.ViewModel.Row.allHistory
-        let mainSection: WalletTypes.ViewModel.Section = .init(header: nil,
+        let mainSection: WalletTypes.ViewModel.Section = .init(kind: .balance,
+                                                               header: nil,
                                                                items: [balanceRow, historyRow],
                                                                isExpanded: true)
         sections.append(mainSection)
@@ -113,13 +129,15 @@ extension WalletTypes.ViewModel.Section {
 
             let activeTransactionSection: WalletTypes
                 .ViewModel
-                .Section = .init(header: Localizable.Wallet.Section.activeNow(rows.count),
+                .Section = .init(kind: .transactions,
+                                 header: Localizable.Wallet.Section.activeNow(rows.count),
                                  items: rows,
                                  isExpanded: true)
             sections.append(activeTransactionSection)
         }
 
-        let noteSection: WalletTypes.ViewModel.Section = .init(header: Localizable.Wallet.Section.quickNote,
+        let noteSection: WalletTypes.ViewModel.Section = .init(kind: .info,
+                                                               header: Localizable.Wallet.Section.quickNote,
                                                                items: [.quickNote],
                                                                isExpanded: true)
         sections.append(noteSection)

@@ -17,6 +17,7 @@ extension UIView {
     private enum AssociatedKeys {
         static var cornerRadius = "cornerRadius"
         static var prevBounds = "prevBounds"
+        static var maskLayer = "maskLayer"
     }
 
     static func roundedInit() {
@@ -52,13 +53,8 @@ extension UIView {
         }
 
         set {
-
-            let oldValue = cornerRadius
             setAssociatedObject(newValue, for: &AssociatedKeys.cornerRadius)
-
-            if oldValue != newValue {
-                setNeedsLayout()
-            }
+            layer.clip(cornerRadius: CGFloat(cornerRadius))
         }
     }
 
@@ -69,9 +65,14 @@ extension UIView {
             return
         }
 
-        if prevBounds != bounds {
-            layer.clip(cornerRadius: CGFloat(cornerRadius))
-        }
-        prevBounds = bounds
+        guard let mask = layer.mask as? CAShapeLayer else { return }
+        
+        let path = UIBezierPath(roundedRect: bounds,
+                                byRoundingCorners: .allCorners,
+                                cornerRadii: CGSize(width: CGFloat(cornerRadius),
+                                                    height: CGFloat(cornerRadius)))
+
+        mask.frame = bounds
+        mask.path = path.cgPath
     }
 }

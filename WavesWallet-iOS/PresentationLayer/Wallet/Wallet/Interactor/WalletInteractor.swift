@@ -134,7 +134,7 @@ fileprivate extension WalletInteractor {
                 let balance = leasing.balance
                 let totalMoney: Money = .init(balance.balance,
                                               precision)
-                let avaliableMoney: Money = .init(balance.balance - balance.reserveBalance,
+                let avaliableMoney: Money = .init(balance.balance - balance.inOrderBalance,
                                                   precision)
                 let leasedMoney: Money = .init(leaseAmount,
                                                precision)
@@ -183,7 +183,7 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      isWavesToken: asset.isWavesToken,
                                      isWaves: asset.isWaves,
                                      isHidden: settings.isHidden,
-                                 isFavorite: settings.isFavorite,
+                                     isFavorite: settings.isFavorite,
                                      isSpam: asset.isSpam,
                                      isFiat: asset.isFiat,
                                      isGateway: asset.isGateway,                                     

@@ -77,21 +77,21 @@ private extension AccountBalanceRepositoryRemote {
 
 private extension DomainLayer.DTO.AssetBalance {
 
-    init(accountBalance: Node.DTO.AccountBalance, reserveBalance: Int64?) {
+    init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
         self.assetId = Environments.Constants.wavesAssetId
         self.balance = accountBalance.balance
         self.leasedBalance = 0
-        self.reserveBalance = 0
+        self.inOrderBalance = inOrderBalance
         self.settings = nil
         self.asset = nil
         self.modified = Date()
     }
 
-    init(model: Node.DTO.AssetBalance, reserveBalance: Int64?) {
+    init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
         self.assetId = model.assetId
         self.balance = model.balance
         self.leasedBalance = 0
-        self.reserveBalance = 0
+        self.inOrderBalance = inOrderBalance
         self.settings = nil
         self.asset = nil
         self.modified = Date()
@@ -101,9 +101,9 @@ private extension DomainLayer.DTO.AssetBalance {
                     account: Node.DTO.AccountBalance,
                     matcherBalances: [String: Int64]) -> [DomainLayer.DTO.AssetBalance] {
 
-        let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, reserveBalance: matcherBalances[$0.assetId]) }
+        let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
         let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-                                                          reserveBalance: matcherBalances[Environments.Constants.wavesAssetId])
+                                                          inOrderBalance: matcherBalances[Environments.Constants.wavesAssetId] ?? 0)
 
         var list = [DomainLayer.DTO.AssetBalance]()
         list.append(contentsOf: assetsBalance)
