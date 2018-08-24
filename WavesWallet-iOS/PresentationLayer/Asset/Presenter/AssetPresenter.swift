@@ -29,7 +29,8 @@ final class AssetPresenter: AssetPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(assetsQuery())
 
-        let system = Driver.system(initialState: AssetPresenter.initialState,
+        let initialState = self.initialState(input: input)
+        let system = Driver.system(initialState: initialState,
                                    reduce: AssetPresenter.reduce,
                                    feedback: newFeedbacks)
 
@@ -47,10 +48,11 @@ final class AssetPresenter: AssetPresenterProtocol {
 
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
+            let ids = strongSelf.input.assets.map { $0.id }
 
             return strongSelf
                 .interactor
-                .assets()
+                .assets(by: ids)
                 .map { AssetTypes.Event.setAssets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -75,7 +77,12 @@ private extension AssetPresenter {
         switch event {
         case .readyView:
 
-            return state.mutate { $0.displayState = $0.displayState.mutate { $0.isAppeared = true } }
+            return state.mutate {
+                $0.displayState = $0.displayState.mutate {
+                    $0.isAppeared = true
+                    $0.action = .refresh
+                }
+            }
 
         case .changedAsset(let assetId):
 
@@ -91,6 +98,8 @@ private extension AssetPresenter {
                     state.displayState.currentAsset = currentAsset.info
                     state.displayState.sections = currentAsset.toSections()
                     state.displayState.action = .changedCurrentAsset
+                } else {
+                    state.displayState.action = .none
                 }
             })
 
@@ -110,6 +119,7 @@ private extension AssetPresenter {
                     state.displayState.sections = asset.toSections()
                     state.displayState.action = .refresh
                     state.displayState.currentAsset = asset.info
+                    state.displayState.isUserInteractionEnabled = true
                     state.assets = assets
                 } else {
                     state.displayState.sections = []
@@ -129,7 +139,12 @@ private extension AssetPresenter {
         default:
             break
         }
-        return state
+
+        return state.mutate {
+            $0.displayState = $0.displayState.mutate {
+                $0.action = .none
+            }
+        }
     }
 }
 
@@ -153,34 +168,22 @@ fileprivate extension AssetTypes.DTO.Asset {
 
 private extension AssetPresenter {
 
-    static var initialState: AssetTypes.State {
-        return AssetTypes.State(event: nil, assets: [], displayState: initialDisplayState)
+    func initialState(input: AssetModuleInput) -> AssetTypes.State {
+        return AssetTypes.State(event: nil, assets: [], displayState: initialDisplayState(input: input))
     }
 
-    static var initialDisplayState: AssetTypes.DisplayState {
+    func initialDisplayState(input: AssetModuleInput) -> AssetTypes.DisplayState {
 
         let balances = AssetTypes.ViewModel.Section.init(kind: .none, rows: [.balanceSkeleton])
         let transactions = AssetTypes.ViewModel.Section.init(kind: .skeletonTitle, rows: [.transactionSkeleton, .viewHistorySkeleton])
 
-
         return AssetTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
-                                       currentAsset: AssetTypes.DTO.Asset.Info.init(id: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
-                                                                                    issuer: "",
-                                                                                    name: "Waves",
-                                                                                    description: "",
-                                                                                    issueDate: Date(),
-                                                                                    isReusable: false,
-                                                                                    isMyWavesToken: false,
-                                                                                    isWavesToken: false,
-                                                                                    isWaves: false,
-                                                                                    isFavorite: false,
-                                                                                    isFiat: false,
-                                                                                    isSpam: false,
-                                                                                    isGateway: false,
-                                                                                    sortLevel: 1),
-                                       assets: [],
+                                       isUserInteractionEnabled
+            : false,
+                                       currentAsset: input.currentAsset,
+                                       assets: input.assets,
                                        sections: [balances,
                                                   transactions],
                                        action: .refresh)

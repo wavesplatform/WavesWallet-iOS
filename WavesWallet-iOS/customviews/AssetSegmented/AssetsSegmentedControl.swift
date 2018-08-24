@@ -200,5 +200,6 @@ extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
         collectionView.reloadInfinity()
+        setCurrentAsset(id: model.currentAsset.id, animated: false)
     }
 }

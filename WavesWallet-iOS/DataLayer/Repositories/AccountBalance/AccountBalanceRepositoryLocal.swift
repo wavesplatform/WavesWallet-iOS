@@ -112,7 +112,7 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
         self.assetId = balance.assetId
         self.balance = balance.balance
         self.leasedBalance = balance.leasedBalance
-        self.reserveBalance = balance.reserveBalance
+        self.inOrderBalance = balance.inOrderBalance
 
         if let asset = balance.asset {
             self.asset = DomainLayer.DTO.Asset(asset)
@@ -131,7 +131,7 @@ fileprivate extension AssetBalance {
         self.assetId = balance.assetId
         self.balance = balance.balance
         self.leasedBalance = balance.leasedBalance
-        self.reserveBalance = balance.reserveBalance
+        self.inOrderBalance = balance.inOrderBalance
 
         if let asset = balance.asset {
             self.asset = Asset(asset: asset)
