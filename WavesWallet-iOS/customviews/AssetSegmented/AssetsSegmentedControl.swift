@@ -183,8 +183,12 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {            
+            self.sendActions(for: .valueChanged)
+        }
         self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)
-        self.sendActions(for: .valueChanged)
+        CATransaction.commit()
     }
 
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {

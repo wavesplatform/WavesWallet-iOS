@@ -43,7 +43,7 @@ final class AssetPresenter: AssetPresenterProtocol {
 
     private func assetsQuery() -> Feedback {
         return react(query: { state -> Bool? in
-            return true
+            return state.displayState.isAppeared == true
         }, effects: { [weak self] _ -> Signal<AssetTypes.Event> in
 
             // TODO: Error

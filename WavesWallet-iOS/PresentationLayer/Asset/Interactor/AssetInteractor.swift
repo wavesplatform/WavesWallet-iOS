@@ -25,40 +25,56 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
 
+        return assets(by: ids,
+                      isNeedUpdate: false)
+    }
+
+    private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetTypes.DTO.Asset]> {
+
         guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
 
-//        let balance = WalletManager
-//            .getPrivateKey()
-//            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[AssetTypes.DTO.Asset]> in
-//
-//                accountBalanceInteractor.balances(by: accountAddress,
-//                                                  privateKey: privateKey,
-//                                                  isNeedUpdate: false).asObservable()
-//
-//        }
+        return WalletManager
+            .getPrivateKey()
+            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[AssetTypes.DTO.Asset]> in
 
-        return Observable.just([])
+                return owner.accountBalanceInteractor
+                    .balances(by: accountAddress,
+                              privateKey: privateKey,
+                              isNeedUpdate: false)
+                    .filter {
+                        $0.filter({ asset -> Bool in
+                            return ids.contains(asset.assetId)
+                        }).count != 0
+                    }
+                    .map { $0.map { $0.mapToAsset() } }
+        }
     }
-    
-
-    
 }
 
 private extension DomainLayer.DTO.AssetBalance {
 
-//    func map() -> AssetTypes.DTO.Asset {
-//
-//
-//
-//    }
+    func mapToAsset() -> AssetTypes.DTO.Asset {
 
-    func map() -> AssetTypes.DTO.Asset.Balance {
-
-
-        return AssetTypes.DTO.Asset.Balance(totalMoney: <#T##Money#>, avaliableMoney: <#T##Money#>, leasedMoney: <#T##Money#>, inOrderMoney: <#T##Money#>)
+        return AssetTypes.DTO.Asset(info: mapToInfo(),
+                                    balance: mapToBalance())
     }
 
-    func map() -> AssetTypes.DTO.Asset.Info {
+    func mapToBalance() -> AssetTypes.DTO.Asset.Balance {
+
+        let decimal = asset?.precision ?? 0
+
+        let totalMoney = Money(balance, decimal)
+        let avaliableMoney = Money(avaliableBalance, decimal)
+        let leasedMoney = Money(leasedBalance, decimal)
+        let inOrderMoney = Money(inOrderBalance, decimal)
+
+        return AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
+                                            avaliableMoney: avaliableMoney,
+                                            leasedMoney: leasedMoney,
+                                            inOrderMoney: inOrderMoney)
+    }
+
+    func mapToInfo() -> AssetTypes.DTO.Asset.Info {
 
         let id = asset?.id ?? ""
         let issuer = asset?.sender ?? ""
