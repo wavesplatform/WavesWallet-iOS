@@ -7,6 +7,19 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+  internal enum DexMyOrders {
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexMyOrders", "label.amount")
+      /// Price
+      internal static let price = Localizable.tr("DexMyOrders", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexMyOrders", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexMyOrders", "label.time")
+    }
+  }
   internal enum DexSort {
 
     internal enum Navigationbar {
