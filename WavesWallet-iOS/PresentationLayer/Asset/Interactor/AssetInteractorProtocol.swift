@@ -11,4 +11,5 @@ import RxSwift
 
 protocol AssetInteractorProtocol {
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]>
+    
 }
