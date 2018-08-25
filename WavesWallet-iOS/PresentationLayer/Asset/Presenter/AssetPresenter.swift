@@ -58,6 +58,33 @@ final class AssetPresenter: AssetPresenterProtocol {
         })
     }
 
+    private func transactionsQuery() -> Feedback {
+        return react(query: { state -> String? in
+
+            guard state.displayState.isAppeared == true else { return nil }
+
+            // TODO: WTF?
+            switch state.transactionStatus {
+            case .loading:
+                return nil
+            default:
+                break
+            }
+
+            return state.displayState.currentAsset.id
+
+        }, effects: { [weak self] id -> Signal<AssetTypes.Event> in
+
+            // TODO: Error
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor.transactions(by: id)
+                .map { AssetTypes.Event.setTransactions($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+
     func handlerEventOutput(state: AssetTypes.State) {
         guard let event = state.event else { return }
 
@@ -96,12 +123,23 @@ private extension AssetPresenter {
                 let currentAsset = state.assets.first(where: { $0.info.id == assetId })
                 if let currentAsset = currentAsset {
                     state.displayState.currentAsset = currentAsset.info
-                    state.displayState.sections = currentAsset.toSections()
+                    state.displayState.sections = mapTosections(from: currentAsset,
+                                                                and: state.transactionStatus)
                     state.displayState.action = .changedCurrentAsset
                 } else {
                     state.displayState.action = .none
                 }
             })
+
+        case .setTransactions(let transactions):
+
+            return state.mutate {
+                $0.transactionStatus = .empty
+//                $0.displayState.sections = mapTosections(from: asset,
+//                                                         and: state.transactionStatus)
+                $0.displayState.action = .refresh
+            }
+            break
 
         case .setAssets(let assets):
 
@@ -116,7 +154,9 @@ private extension AssetPresenter {
                 }
 
                 if let asset = asset {
-                    state.displayState.sections = asset.toSections()
+                    state.displayState.sections = mapTosections(from: asset,
+                                                                and: state.transactionStatus)
+                    
                     state.displayState.action = .refresh
                     state.displayState.currentAsset = asset.info
                     state.displayState.isUserInteractionEnabled = true
@@ -126,6 +166,7 @@ private extension AssetPresenter {
                     state.displayState.action = .none
                 }
                 state.displayState.assets = assets.map { $0.info }
+                state.transactionStatus = .loading
                 state.assets = assets
             }
 
@@ -148,19 +189,42 @@ private extension AssetPresenter {
     }
 }
 
-// MARK: UI State
+// MARK: Map
+extension AssetPresenter {
 
-fileprivate extension AssetTypes.DTO.Asset {
+    class func mapTosections(from asset: AssetTypes.DTO.Asset,
+                             and transactionStatus: AssetTypes.State.TransactionStatus) -> [AssetTypes.ViewModel.Section]
+    {
 
-    func toSections() -> [AssetTypes.ViewModel.Section] {
+        let balance: AssetTypes.ViewModel.Section = .init(kind: .none, rows: [.balance(asset.balance)])
+        let assetInfo: AssetTypes.ViewModel.Section =   .init(kind: .none, rows: [.assetInfo(asset.info)])
 
-        let balance: AssetTypes.ViewModel.Section = .init(kind: .none, rows: [.balance(self.balance)])
-        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title("Last transactions"), rows: [.transactionSkeleton, .viewHistory, .viewHistoryDisabled])
-        let assetInfo: AssetTypes.ViewModel.Section =   .init(kind: .none, rows: [.assetInfo(self.info)])
+        var transactionRows: [AssetTypes.ViewModel.Row] = []
+        var transactionHeaderTitle: String = ""
+
+        switch transactionStatus {
+        case .empty:
+            transactionHeaderTitle = Localizable.Asset.Header.notHaveTransactions
+            transactionRows = [.viewHistoryDisabled]
+
+        case .loading:
+            transactionHeaderTitle = Localizable.Asset.Header.lastTransactions
+            transactionRows = [.transactionSkeleton]
+
+        case .transaction(let transactions):
+            transactionHeaderTitle = Localizable.Asset.Header.lastTransactions
+            transactionRows = [.lastTransactions(transactions), .viewHistory]
+        case .none:
+            break
+        }
+
+        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title(transactionHeaderTitle),
+                                                               rows: transactionRows)
 
         return [balance,
                 transactions,
                 assetInfo]
+
     }
 }
 
@@ -169,7 +233,10 @@ fileprivate extension AssetTypes.DTO.Asset {
 private extension AssetPresenter {
 
     func initialState(input: AssetModuleInput) -> AssetTypes.State {
-        return AssetTypes.State(event: nil, assets: [], displayState: initialDisplayState(input: input))
+        return AssetTypes.State(event: nil,
+                                assets: [],
+                                transactionStatus: .none,
+                                displayState: initialDisplayState(input: input))
     }
 
     func initialDisplayState(input: AssetModuleInput) -> AssetTypes.DisplayState {
@@ -180,8 +247,7 @@ private extension AssetPresenter {
         return AssetTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
-                                       isUserInteractionEnabled
-            : false,
+                                       isUserInteractionEnabled: false,
                                        currentAsset: input.currentAsset,
                                        assets: input.assets,
                                        sections: [balances,

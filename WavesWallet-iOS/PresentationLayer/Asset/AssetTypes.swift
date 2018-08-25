@@ -24,6 +24,7 @@ extension AssetTypes {
         }
 
         enum TransactionStatus {
+            case none
             case empty
             case loading
             case transaction([AssetTypes.DTO.Transaction])
@@ -31,12 +32,14 @@ extension AssetTypes {
 
         var event: EventOutput?
         var assets: [AssetTypes.DTO.Asset]
+        var transactionStatus: TransactionStatus
         var displayState: DisplayState
     }
 
     enum Event {
         case readyView
         case changedAsset(id: String)
+        case setTransactions([AssetTypes.DTO.Transaction])
         case setAssets([AssetTypes.DTO.Asset])
         case refreshing
         case tapFavorite(on: Bool)

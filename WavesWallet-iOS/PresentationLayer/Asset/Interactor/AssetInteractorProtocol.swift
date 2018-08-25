@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 
 protocol AssetInteractorProtocol {
+
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]>
-    
+    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]>
+    func refreshAssets(by ids: [String], andTransactions assetId: String)
 }

@@ -14,6 +14,14 @@ final class AssetInteractorMock: AssetInteractorProtocol {
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
         return JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self, json: "Assets").delay(20, scheduler: MainScheduler.asyncInstance)
     }
+
+    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
+        return Observable.just([])
+    }
+
+    func refreshAssets(by ids: [String], andTransactions assetId: String) {
+
+    }
 }
 
 final class AssetInteractor: AssetInteractorProtocol {
@@ -49,12 +57,18 @@ final class AssetInteractor: AssetInteractorProtocol {
                     .map { $0.map { $0.mapToAsset() } }
         }
     }
+
+    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
+        return Observable.just([])
+    }
+
+    func refreshAssets(by ids: [String], andTransactions assetId: String) {
+    }
 }
 
 private extension DomainLayer.DTO.AssetBalance {
 
     func mapToAsset() -> AssetTypes.DTO.Asset {
-
         return AssetTypes.DTO.Asset(info: mapToInfo(),
                                     balance: mapToBalance())
     }

@@ -14,7 +14,6 @@ import SVProgressHUD
 import UIKit
 
 @UIApplicationMain
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
@@ -25,13 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        //        [.error,
-        //        .debug,
-        //        .warning,
-        //        .verbose,
-        //        .info,
-        //        .network]
-
         SweetLogger.current.visibleLevels = [.debug]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -41,10 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-        self.showStartController()
-//        self.window!.rootViewController = CustomNavigationController(rootViewController: StoryboardScene.Asset.assetViewController.instantiate())
-        self.window?.makeKeyAndVisible()
+//        self.showStartController()
 
+        JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self,
+                           json: "Assets")
+            .subscribe(onNext: { assets in
+                let vc = AssetModuleBuilder(output: self)
+                    .build(input: .init(assets: assets.map { $0.info }, currentAsset: assets.first!.info))
+                self.window!.rootViewController = CustomNavigationController(rootViewController: vc)
+        }).dispose()
+
+        self.window?.makeKeyAndVisible()
         return true
     }
 
@@ -91,4 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuController: RESideMenu {
         return self.window?.rootViewController as! RESideMenu
     }
+}
+
+// TODO: Remove
+extension AppDelegate: AssetModuleOutput {
+
 }
