@@ -11,13 +11,6 @@ import UIKit
 struct AssetModuleBuilder: ModuleBuilderOutput {
 
     struct Input: AssetModuleInput {
-
-        enum Filter {
-            case onlyHiddenAssets
-            case onlySpamAssets
-            case onlyAssets
-        }
-
         var assets: [AssetTypes.DTO.Asset.Info]
         var currentAsset: AssetTypes.DTO.Asset.Info
     }
@@ -28,8 +21,9 @@ struct AssetModuleBuilder: ModuleBuilderOutput {
 
         let presenter = AssetPresenter(input: input)
         let vc = StoryboardScene.Asset.assetViewController.instantiate()
-        
-        presenter.interactor = AssetInteractor()
+
+//        presenter.interactor = AssetInteractor()
+        presenter.interactor = AssetInteractorMock()
         presenter.moduleOutput = output
         vc.presenter = presenter
 
