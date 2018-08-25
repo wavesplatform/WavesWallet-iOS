@@ -12,4 +12,5 @@ import RxSwift
 protocol DexMyOrdersInteractorProtocol {
     
     func myOrders() -> Observable<([DexMyOrders.DTO.Order])>
+    func deleteOrder(order: DexMyOrders.DTO.Order)
 }

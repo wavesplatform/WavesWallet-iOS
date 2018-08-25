@@ -19,17 +19,34 @@ final class DexMyOrdersCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelAmountText: UILabel!
     @IBOutlet private weak var labelAmount: UILabel!
     
-    
+    var buttonDeleteDidTap: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLocalization()
     }
+    
 }
 
 extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DexMyOrders.DTO.Order) {
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        labelTime.text = dateFormatter.string(from: model.time)
+        labelStatus.text = model.status
+        labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
+        labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
+    }
+}
+
+//MARK: - Actions
+private extension DexMyOrdersCell {
+   
+    @IBAction func deleteTapped(_ sender: Any) {
+        buttonDeleteDidTap?()
     }
 }
 

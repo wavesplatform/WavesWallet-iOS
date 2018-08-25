@@ -54,41 +54,51 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
             return state.mutate {
                 
                 var sections: [DexMyOrders.ViewModel.Section] = []
+                
                 for order in orders {
-                    addOrder(order, to: &sections)
+
+                    let row = DexMyOrders.ViewModel.Row.order(order)
+                    if let index = sections.index(where: {
+                        $0.header.date.year == order.time.year &&
+                        $0.header.date.month == order.time.month &&
+                        $0.header.date.day == order.time.day}) {
+
+                        sections[index].items.append(row)
+                    }
+                    else {
+                        let header = DexMyOrders.ViewModel.Header(date: order.time)
+                        sections.append(DexMyOrders.ViewModel.Section(items: [row], header: header))
+                    }
                 }
+               
                 $0.sections = sections
                 
             }.changeAction(.update)
             
         case .didRemoveOrder(let indexPath):
-            return state.changeAction(.none)
-        
+            
+            return state.mutate {
+
+                $0.sections[indexPath.section].items.remove(at: indexPath.row)
+                
+                var deletedSection: Int?
+                if let emptySectionIndex = $0.sections.index(where: {$0.items.count == 0}) {
+                    $0.sections.remove(at: emptySectionIndex)
+                    deletedSection = emptySectionIndex
+                }
+                
+                if let section = deletedSection {
+                    $0.deletedSection = section
+                    $0.deletedIndexPath = nil
+                }
+                else {
+                    $0.deletedSection = nil
+                    $0.deletedIndexPath = indexPath
+                }
+             }.changeAction(.delete)
         }
       
     }
-}
-
-private extension DexMyOrdersPresenter {
-    
-    func addOrder(_ order: DexMyOrders.DTO.Order, to: UnsafeMutablePointer<[DexMyOrders.ViewModel.Section]>) {
-        
-        let row = DexMyOrders.ViewModel.Row.order(order)
-
-        if let index = to.pointee.index(where: {
-            $0.header.date.year == order.time.year &&
-            $0.header.date.month == order.time.month &&
-            $0.header.date.day == order.time.day}) {
-            
-            to.pointee[index].items.append(row)
-        }
-        else {
-            let header = DexMyOrders.ViewModel.Header(date: order.time)
-            to.pointee.append(DexMyOrders.ViewModel.Section(items: [row], header: header))
-        }
-    }
-    
-    
 }
 
 fileprivate extension DexMyOrders.State {
@@ -103,6 +113,6 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [])
+        return DexMyOrders.State(action: .none, sections: [], deletedIndexPath: nil, deletedSection: nil)
     }
 }

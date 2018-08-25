@@ -1222,6 +1222,9 @@ The trading history is empty</string>
                                                                 <constraint firstAttribute="height" constant="40" id="yol-gQ-3ZR"/>
                                                             </constraints>
                                                             <state key="normal" image="deladdress24Error400"/>
+                                                            <connections>
+                                                                <action selector="deleteTapped:" destination="S7d-4E-cv1" eventType="touchUpInside" id="3oi-nR-V4D"/>
+                                                            </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z6D-Mi-yA1">
                                                             <rect key="frame" x="318.5" y="15" width="0.5" height="24"/>
@@ -1341,17 +1344,73 @@ The trading history is empty</string>
                                     <constraint firstAttribute="trailing" secondItem="UXB-v7-zPB" secondAttribute="trailing" id="xvr-Rh-XyP"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iF4-tY-s00">
+                                <rect key="frame" x="87" y="270" width="200" height="125.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80Multi" translatesAutoresizingMaskIntoConstraints="NO" id="tee-Lh-TEv">
+                                        <rect key="frame" x="59.5" y="0.0" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ic-gP-FBJ">
+                                        <rect key="frame" x="0.0" y="94" width="200" height="31.5"/>
+                                        <string key="text">Nothing Here…
+You do not have any orders</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5ic-gP-FBJ" firstAttribute="leading" secondItem="iF4-tY-s00" secondAttribute="leading" id="KaT-WS-18a"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="OkK-TY-3HC"/>
+                                    <constraint firstItem="tee-Lh-TEv" firstAttribute="centerX" secondItem="iF4-tY-s00" secondAttribute="centerX" id="Sqx-Ju-raw"/>
+                                    <constraint firstItem="tee-Lh-TEv" firstAttribute="top" secondItem="iF4-tY-s00" secondAttribute="top" id="pMr-Pz-Ue6"/>
+                                    <constraint firstAttribute="bottom" secondItem="5ic-gP-FBJ" secondAttribute="bottom" id="skN-xO-3be"/>
+                                    <constraint firstAttribute="trailing" secondItem="5ic-gP-FBJ" secondAttribute="trailing" id="xFJ-hZ-luI"/>
+                                    <constraint firstItem="5ic-gP-FBJ" firstAttribute="top" secondItem="tee-Lh-TEv" secondAttribute="bottom" constant="14" id="zdT-JH-byx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5x-1W-M7K">
+                                <rect key="frame" x="124" y="308" width="126" height="50"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5At-gE-hzd">
+                                        <rect key="frame" x="52.5" y="0.0" width="20" height="20"/>
+                                        <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading last trades…" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ab-sW-4tu">
+                                        <rect key="frame" x="0.0" y="34" width="126" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5At-gE-hzd" firstAttribute="top" secondItem="H5x-1W-M7K" secondAttribute="top" id="E9g-MV-5h8"/>
+                                    <constraint firstItem="5At-gE-hzd" firstAttribute="centerX" secondItem="H5x-1W-M7K" secondAttribute="centerX" id="LlW-2f-dnC"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Ab-sW-4tu" secondAttribute="bottom" id="Qm6-QQ-G7E"/>
+                                    <constraint firstItem="3Ab-sW-4tu" firstAttribute="top" secondItem="5At-gE-hzd" secondAttribute="bottom" constant="14" id="ZwN-2u-kRW"/>
+                                    <constraint firstItem="3Ab-sW-4tu" firstAttribute="leading" secondItem="H5x-1W-M7K" secondAttribute="leading" id="dsR-Fr-DAZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Ab-sW-4tu" secondAttribute="trailing" id="te0-S0-DBf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="NLj-2c-7gB" secondAttribute="bottom" id="0Ec-nT-4ps"/>
+                            <constraint firstItem="H5x-1W-M7K" firstAttribute="centerY" secondItem="PeA-sK-7OR" secondAttribute="centerY" id="7tf-Ok-Dyz"/>
+                            <constraint firstItem="iF4-tY-s00" firstAttribute="centerX" secondItem="PeA-sK-7OR" secondAttribute="centerX" id="8My-8E-gEK"/>
                             <constraint firstItem="NLj-2c-7gB" firstAttribute="top" secondItem="IFc-Zy-T9j" secondAttribute="bottom" id="Lqz-Ln-zGI"/>
                             <constraint firstItem="NLj-2c-7gB" firstAttribute="leading" secondItem="PeA-sK-7OR" secondAttribute="leading" constant="8" id="NhT-Yw-E9j"/>
+                            <constraint firstItem="H5x-1W-M7K" firstAttribute="centerX" secondItem="PeA-sK-7OR" secondAttribute="centerX" id="r4F-cp-8BB"/>
                             <constraint firstAttribute="trailing" secondItem="NLj-2c-7gB" secondAttribute="trailing" constant="8" id="wFC-7r-uHQ"/>
+                            <constraint firstItem="iF4-tY-s00" firstAttribute="centerY" secondItem="PeA-sK-7OR" secondAttribute="centerY" id="yU7-qm-oXJ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="labelEmptyData" destination="5ic-gP-FBJ" id="Jh4-74-SW8"/>
+                        <outlet property="labelLoadingData" destination="3Ab-sW-4tu" id="PaP-OC-IQ3"/>
                         <outlet property="tableContainer" destination="NLj-2c-7gB" id="Oej-mP-jAI"/>
                         <outlet property="tableView" destination="UXB-v7-zPB" id="CZl-MA-0e2"/>
+                        <outlet property="viewEmptyData" destination="iF4-tY-s00" id="MYC-W6-fFK"/>
+                        <outlet property="viewLoadingInfo" destination="H5x-1W-M7K" id="qEe-W5-bZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsM-pn-ai7" userLabel="First Responder" sceneMemberID="firstResponder"/>
