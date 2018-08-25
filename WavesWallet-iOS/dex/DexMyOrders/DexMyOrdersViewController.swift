@@ -20,6 +20,10 @@ final class DexMyOrdersViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var tableContainer: UIView!
+    @IBOutlet private weak var viewEmptyData: UIView!
+    @IBOutlet private weak var viewLoadingInfo: UIView!
+    @IBOutlet private weak var labelLoadingData: UILabel!
+    @IBOutlet private weak var labelEmptyData: UILabel!
     
     private var sections: [DexMyOrders.ViewModel.Section] = []
     var presenter: DexMyOrdersPresenterProtocol!
@@ -30,6 +34,8 @@ final class DexMyOrdersViewController: UIViewController {
 
         tableView.registerHeaderFooter(type: DexMyOrdersHeaderView.self)
         setupFeedBack()
+        setupLocalization()
+        setupLoadingState()
     }
     
     override func viewWillLayoutSubviews() {
@@ -67,13 +73,42 @@ fileprivate extension DexMyOrdersViewController {
                 guard state.action != .none else { return }
                 
                 strongSelf.sections = state.sections
-                strongSelf.tableView.reloadData()
+
+                if state.action == .update {
+                    strongSelf.tableView.reloadData()
+                }
+                else if state.action == .delete {
+                    strongSelf.deleteAt(indexPath: state.deletedIndexPath, section: state.deletedSection)
+                }
+                strongSelf.setupDefaultState()
             })
         
         return [subscriptionSections]
     }
 }
 
+//MARK: - Actions
+private extension DexMyOrdersViewController {
+    
+    func deleteAt(indexPath: IndexPath?, section: Int?) {
+        
+        if indexPath == nil && section == nil {
+            return
+        }
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock({
+            self.tableView.reloadData()
+        })
+        if let indexPath = indexPath {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        else if let section = section {
+            tableView.deleteSections([section], animationStyle: .fade)
+        }
+        CATransaction.commit()
+    }
+}
 
 //MARK: - UITableViewDelegate
 extension DexMyOrdersViewController: UITableViewDelegate {
@@ -108,6 +143,10 @@ extension DexMyOrdersViewController: UITableViewDataSource {
         case .order(let myOrder):
             let cell = tableView.dequeueCell() as DexMyOrdersCell
             cell.update(with: myOrder)
+            
+            cell.buttonDeleteDidTap = { [weak self] in
+                self?.sendEvent.accept(.didRemoveOrder(indexPath))
+            }
             return cell
         }
     }
@@ -116,6 +155,20 @@ extension DexMyOrdersViewController: UITableViewDataSource {
 //MARK: - SetupUI
 
 private extension DexMyOrdersViewController {
+    
+    func setupLoadingState() {
+        viewEmptyData.isHidden = true
+    }
+    
+    func setupDefaultState() {
+        viewLoadingInfo.isHidden = true
+        viewEmptyData.isHidden = sections.count > 0
+    }
+    
+    func setupLocalization() {
+        labelEmptyData.text = Localizable.DexMyOrders.Label.emptyData
+        labelLoadingData.text = Localizable.DexMyOrders.Label.loadingLastTrades
+    }
     
     func setupCorners() {
         

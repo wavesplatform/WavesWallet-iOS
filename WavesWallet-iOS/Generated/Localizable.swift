@@ -12,6 +12,10 @@ internal enum Localizable {
     internal enum Label {
       /// Amount
       internal static let amount = Localizable.tr("DexMyOrders", "label.amount")
+      /// Nothing Here…\nYou do not have any orders
+      internal static let emptyData = Localizable.tr("DexMyOrders", "label.emptyData")
+      /// Loading orders…
+      internal static let loadingLastTrades = Localizable.tr("DexMyOrders", "label.loadingLastTrades")
       /// Price
       internal static let price = Localizable.tr("DexMyOrders", "label.price")
       /// Status

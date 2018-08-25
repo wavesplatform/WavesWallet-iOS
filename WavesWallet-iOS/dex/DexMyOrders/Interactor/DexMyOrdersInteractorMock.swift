@@ -16,7 +16,7 @@ final class DexMyOrdersInteractorMock: DexMyOrdersInteractorProtocol {
         return Observable.create({ (subscribe) -> Disposable in
             
           
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                 
                 var orders : [DexMyOrders.DTO.Order] = []
                 
@@ -26,21 +26,24 @@ final class DexMyOrdersInteractorMock: DexMyOrdersInteractorProtocol {
                 let date3 = Calendar.current.date(byAdding: .day, value: 3, to: today)!
 
                 for _ in 0..<10 {
-                    orders.append(DexMyOrders.DTO.Order(time: date1.addingTimeInterval(1000), status: "dsda", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
+                    orders.append(DexMyOrders.DTO.Order(time: date1.addingTimeInterval(Double(arc4random() % 1000)), status: "dsda", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
                 }
                 
                 for _ in 0..<10 {
-                    orders.append(DexMyOrders.DTO.Order(time: date2.addingTimeInterval(1000), status: "gfdg", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
+                    orders.append(DexMyOrders.DTO.Order(time: date2.addingTimeInterval(Double(arc4random() % 2000)), status: "gfdg", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
                 }
                 
                 for _ in 0..<10 {
-                    orders.append(DexMyOrders.DTO.Order(time: date3.addingTimeInterval(2000), status: "xxxfa", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
+                    orders.append(DexMyOrders.DTO.Order(time: date3.addingTimeInterval(Double(arc4random() % 3000)), status: "xxxfa", price: Money(Double(arc4random() % 200)), amount: Money(Double(arc4random() % 300)), type: arc4random() % 2 == 0 ? .sell : .buy))
                 }
                 
                 subscribe.onNext(orders)
             })
             return Disposables.create()
         })
+    }
+    
+    func deleteOrder(order: DexMyOrders.DTO.Order) {
         
     }
 }

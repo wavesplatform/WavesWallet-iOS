@@ -22,10 +22,13 @@ enum DexMyOrders {
         enum Action {
             case none
             case update
+            case delete
         }
         
         var action: Action
         var sections: [DexMyOrders.ViewModel.Section]
+        var deletedIndexPath: IndexPath?
+        var deletedSection: Int?
     }
 }
 

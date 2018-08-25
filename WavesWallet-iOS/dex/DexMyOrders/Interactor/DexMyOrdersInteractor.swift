@@ -14,4 +14,8 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     func myOrders() -> Observable<([DexMyOrders.DTO.Order])> {
         return Observable.empty()
     }
+ 
+    func deleteOrder(order: DexMyOrders.DTO.Order) {
+        
+    }
 }
