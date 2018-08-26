@@ -126,7 +126,6 @@ extension DexMyOrdersViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
     
-   
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }

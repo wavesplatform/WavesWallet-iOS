@@ -32,7 +32,7 @@ extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DexMyOrders.DTO.Order) {
         
-        labelTime.text = DexMyOrders.ViewModel.dateFormatter.string(from: model.time)
+        labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
         labelStatus.text = model.statusText
         labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
         labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
