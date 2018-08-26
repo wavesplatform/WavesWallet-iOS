@@ -33,10 +33,12 @@ extension DexMyOrdersCell: ViewConfiguration {
     func update(with model: DexMyOrders.DTO.Order) {
         
         labelTime.text = DexMyOrders.ViewModel.dateFormatter.string(from: model.time)
-        labelStatus.text = model.status
+        labelStatus.text = model.statusText
         labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
         labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
+        labelStatus.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
     }
+    
 }
 
 //MARK: - Actions
@@ -55,5 +57,25 @@ private extension DexMyOrdersCell {
         labelStatusText.text = Localizable.DexMyOrders.Label.status
         labelAmountText.text = Localizable.DexMyOrders.Label.amount
         labelPriceText.text = Localizable.DexMyOrders.Label.price
+    }
+}
+
+//MARK: - DexMyOrders.DTO.Order
+fileprivate extension DexMyOrders.DTO.Order {
+    
+    var statusText: String {
+        switch status {
+        case .accepted:
+            return Localizable.DexMyOrders.Label.Status.accepted
+            
+        case .partiallyFilled:
+            return Localizable.DexMyOrders.Label.Status.partiallyFilled
+            
+        case .cancelled:
+            return Localizable.DexMyOrders.Label.Status.cancelled
+            
+        case .filled:
+            return Localizable.DexMyOrders.Label.Status.filled
+        }
     }
 }

@@ -77,6 +77,10 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
             
         case .didRemoveOrder(let indexPath):
             
+            if let order = state.sections[indexPath.section].items[indexPath.row].order {
+                interactor.deleteOrder(order: order)
+            }
+            
             return state.mutate {
 
                 $0.sections[indexPath.section].items.remove(at: indexPath.row)

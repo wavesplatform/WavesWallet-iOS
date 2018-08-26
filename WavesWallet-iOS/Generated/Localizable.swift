@@ -22,6 +22,17 @@ internal enum Localizable {
       internal static let status = Localizable.tr("DexMyOrders", "label.status")
       /// Time
       internal static let time = Localizable.tr("DexMyOrders", "label.time")
+
+      internal enum Status {
+        /// Open
+        internal static let accepted = Localizable.tr("DexMyOrders", "label.status.accepted")
+        /// Cancelled
+        internal static let cancelled = Localizable.tr("DexMyOrders", "label.status.cancelled")
+        /// Filled
+        internal static let filled = Localizable.tr("DexMyOrders", "label.status.filled")
+        /// Partial
+        internal static let partiallyFilled = Localizable.tr("DexMyOrders", "label.status.partiallyFilled")
+      }
     }
   }
   internal enum DexSort {

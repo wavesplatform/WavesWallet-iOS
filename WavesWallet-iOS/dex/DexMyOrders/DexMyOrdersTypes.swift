@@ -61,11 +61,27 @@ extension DexMyOrders.DTO {
         case buy
     }
     
+    enum Status {
+        case accepted
+        case partiallyFilled
+        case cancelled
+        case filled
+    }
+    
     struct Order {
         let time: Date
-        let status: String
+        let status: Status
         let price: Money
         let amount: Money
         let type: OrderType
+    }
+}
+
+extension DexMyOrders.ViewModel.Row {
+    var order: DexMyOrders.DTO.Order? {
+        switch self {
+        case .order(let order):
+            return order
+        }
     }
 }

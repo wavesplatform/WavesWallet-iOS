@@ -4,3 +4,7 @@
 "label.amount" = "Amount";
 "label.emptyData" = "Nothing Here…\nYou do not have any orders";
 "label.loadingLastTrades" = "Loading orders…";
+"label.status.accepted" = "Open";
+"label.status.partiallyFilled" = "Partial";
+"label.status.cancelled" = "Cancelled";
+"label.status.filled" = "Filled";

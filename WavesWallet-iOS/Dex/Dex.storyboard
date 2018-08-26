@@ -1244,22 +1244,22 @@ The trading history is empty</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbM-Lz-DqS">
-                                                            <rect key="frame" x="52" y="14" width="62" height="12"/>
+                                                            <rect key="frame" x="52" y="14" width="70" height="12"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="62" id="dVD-tY-hvl"/>
+                                                                <constraint firstAttribute="width" constant="70" id="MBj-Pq-zKo"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwU-Sj-iyc">
-                                                            <rect key="frame" x="126" y="14" width="81" height="12"/>
+                                                            <rect key="frame" x="122" y="14" width="89.5" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-cg-T8Q">
-                                                            <rect key="frame" x="219" y="14" width="81.5" height="12"/>
+                                                            <rect key="frame" x="211.5" y="14" width="89" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1270,20 +1270,20 @@ The trading history is empty</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canceled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8l6-XF-lka">
-                                                            <rect key="frame" x="52" y="28" width="62" height="12"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canceled" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8l6-XF-lka">
+                                                            <rect key="frame" x="52" y="28" width="70" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000.00000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQz-RQ-6jX">
-                                                            <rect key="frame" x="126" y="28" width="81" height="12"/>
+                                                            <rect key="frame" x="122" y="28" width="89.5" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000.00000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2h-gI-t7J">
-                                                            <rect key="frame" x="219" y="28" width="81" height="12"/>
+                                                            <rect key="frame" x="211.5" y="28" width="88.5" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1298,14 +1298,14 @@ The trading history is empty</string>
                                                         <constraint firstItem="zyB-cg-T8Q" firstAttribute="top" secondItem="PwU-Sj-iyc" secondAttribute="top" id="CES-I1-Qw4"/>
                                                         <constraint firstItem="8l6-XF-lka" firstAttribute="top" secondItem="JQZ-cU-tnB" secondAttribute="top" id="E7E-9O-dsB"/>
                                                         <constraint firstItem="l2h-gI-t7J" firstAttribute="leading" secondItem="zyB-cg-T8Q" secondAttribute="leading" id="GRc-p9-gjd"/>
-                                                        <constraint firstItem="zyB-cg-T8Q" firstAttribute="leading" secondItem="PwU-Sj-iyc" secondAttribute="trailing" constant="12" id="IbH-ww-o0g"/>
+                                                        <constraint firstItem="zyB-cg-T8Q" firstAttribute="leading" secondItem="PwU-Sj-iyc" secondAttribute="trailing" id="IbH-ww-o0g"/>
                                                         <constraint firstItem="bbM-Lz-DqS" firstAttribute="leading" secondItem="8u7-yL-lrM" secondAttribute="trailing" id="JD8-XK-BWI"/>
                                                         <constraint firstAttribute="trailing" secondItem="Vfj-Pd-jI8" secondAttribute="trailing" id="LGX-Nq-OHX"/>
                                                         <constraint firstItem="Vfj-Pd-jI8" firstAttribute="centerY" secondItem="JjE-nh-3Oc" secondAttribute="centerY" id="MXp-8o-qYX"/>
                                                         <constraint firstItem="8l6-XF-lka" firstAttribute="trailing" secondItem="bbM-Lz-DqS" secondAttribute="trailing" id="PQL-iN-Qsw"/>
                                                         <constraint firstItem="8u7-yL-lrM" firstAttribute="leading" secondItem="JjE-nh-3Oc" secondAttribute="leading" id="QDK-pS-AVC"/>
                                                         <constraint firstItem="MQz-RQ-6jX" firstAttribute="top" secondItem="8l6-XF-lka" secondAttribute="top" id="TY7-eM-zAB"/>
-                                                        <constraint firstItem="PwU-Sj-iyc" firstAttribute="leading" secondItem="bbM-Lz-DqS" secondAttribute="trailing" constant="12" id="bQP-7U-bA2"/>
+                                                        <constraint firstItem="PwU-Sj-iyc" firstAttribute="leading" secondItem="bbM-Lz-DqS" secondAttribute="trailing" id="bQP-7U-bA2"/>
                                                         <constraint firstItem="JQZ-cU-tnB" firstAttribute="leading" secondItem="8u7-yL-lrM" secondAttribute="leading" id="cSO-ND-3ju"/>
                                                         <constraint firstItem="l2h-gI-t7J" firstAttribute="trailing" secondItem="zyB-cg-T8Q" secondAttribute="trailing" id="ccM-PR-gJ6"/>
                                                         <constraint firstItem="Vfj-Pd-jI8" firstAttribute="leading" secondItem="Z6D-Mi-yA1" secondAttribute="trailing" id="czV-GW-geG"/>
