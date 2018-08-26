@@ -2641,6 +2641,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9599401212F98C8007C8DDA /* DexMyOrdersTypes.swift in Sources */,
 				E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */,
 				E926117E2107E7B300A9E793 /* DexListTypes.swift in Sources */,
 				E9EDC6D22123AF1A00C58E0D /* DexOrderBookTypes.swift in Sources */,
@@ -2659,6 +2660,7 @@
 				E9C540DB212F88F200253BDB /* DexMyOrdersInteractor.swift in Sources */,
 				0A4C9A9F20EE425B0095A417 /* WalletTypes.swift in Sources */,
 				0AE491E421078CB9009223DB /* WalletSortSeparatorFooter.swift in Sources */,
+				E9983DF8211C952D002349CA /* DexMarketCell.swift in Sources */,
 				0AE6572D21062EC7003D2DB8 /* Models.swift in Sources */,
 				E9983DC0211C7117002349CA /* DexMarketViewController.swift in Sources */,
 				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
@@ -2934,7 +2936,6 @@
 				E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */,
 				E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */,
 				0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */,
-				E9983DF8211C952D002349CA /* DexMarketCell.swift in Sources */,
 				E9CFBC422124EB7300CE7413 /* DexOrderBookInteractorProtocol.swift in Sources */,
 				E9A05C5620E924B400B0E0FA /* NewAccountBackupInfoViewController.swift in Sources */,
 				F73553761F03D9FC00ADC449 /* Order.swift in Sources */,
@@ -2989,7 +2990,6 @@
 				F7F97E951EAA0CF800BE2F6F /* UIView+Layer.swift in Sources */,
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,
 				F763B9A31EABBFBE00FA3701 /* TransactionCell.swift in Sources */,
-				E9599401212F98C8007C8DDA /* DexMyOrdersTypes.swift in Sources */,
 				E9C540CF212EFB8B00253BDB /* DexTraderContainerInputProtocol.swift in Sources */,
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
