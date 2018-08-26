@@ -47,9 +47,15 @@ extension DexMyOrders.ViewModel {
         case order(DexMyOrders.DTO.Order)
     }
     
-    static let dateFormatter: DateFormatter = {
+    static let dateFormatterTime: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
+    
+    static let dateFormatterHeader: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter
     }()
 }

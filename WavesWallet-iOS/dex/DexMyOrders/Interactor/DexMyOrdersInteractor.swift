@@ -11,6 +11,8 @@ import RxSwift
 
 final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
+    var pair: DexTraderContainer.DTO.Pair!
+    
     func myOrders() -> Observable<([DexMyOrders.DTO.Order])> {
         return Observable.empty()
     }
