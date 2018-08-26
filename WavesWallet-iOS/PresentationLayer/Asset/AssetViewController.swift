@@ -115,6 +115,7 @@ private extension AssetViewController {
     func updateView(with state: AssetTypes.DisplayState) {
 
         self.segmentedControl.isUserInteractionEnabled = state.isUserInteractionEnabled
+        self.refreshControl.isUserInteractionEnabled = state.isUserInteractionEnabled
 
         switch state.action {
         case .changedCurrentAsset:
@@ -122,6 +123,7 @@ private extension AssetViewController {
             reloadSectionTable(with: state)
             
         case .refresh:
+            refreshControl.endRefreshing()
             reloadTable(with: state)
             reloadSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
             changeCurrentAsset(info: state.currentAsset)

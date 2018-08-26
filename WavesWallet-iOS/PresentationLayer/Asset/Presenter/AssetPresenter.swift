@@ -28,10 +28,12 @@ final class AssetPresenter: AssetPresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(assetsQuery())
+        newFeedbacks.append(transactionsQuery())
 
         let initialState = self.initialState(input: input)
+
         let system = Driver.system(initialState: initialState,
-                                   reduce: AssetPresenter.reduce,
+                                   reduce: reduce,
                                    feedback: newFeedbacks)
 
         system
@@ -62,14 +64,7 @@ final class AssetPresenter: AssetPresenterProtocol {
         return react(query: { state -> String? in
 
             guard state.displayState.isAppeared == true else { return nil }
-
-            // TODO: WTF?
-            switch state.transactionStatus {
-            case .loading:
-                return nil
-            default:
-                break
-            }
+            guard state.transactionStatus.isLoading == true else { return nil }
 
             return state.displayState.currentAsset.id
 
@@ -99,7 +94,7 @@ final class AssetPresenter: AssetPresenterProtocol {
 
 private extension AssetPresenter {
 
-    class func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
+    func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
 
         switch event {
         case .readyView:
@@ -110,6 +105,12 @@ private extension AssetPresenter {
                     $0.action = .refresh
                 }
             }
+
+        case .refreshing:
+
+            let ids = state.assets.map { $0.info.id }
+            interactor.refreshAssets(by: ids)
+            break
 
         case .changedAsset(let assetId):
 
@@ -134,12 +135,16 @@ private extension AssetPresenter {
         case .setTransactions(let transactions):
 
             return state.mutate {
-                $0.transactionStatus = .empty
-//                $0.displayState.sections = mapTosections(from: asset,
-//                                                         and: state.transactionStatus)
-                $0.displayState.action = .refresh
+                if let asset = $0.asset {
+                    $0.transactionStatus = transactions.count == 0 ? .empty : .transaction(transactions)
+
+                    $0.displayState.sections = mapTosections(from: asset,
+                                                             and: state.transactionStatus)
+                    $0.displayState.action = .refresh
+                } else {
+                    $0.displayState.action = .none
+                }
             }
-            break
 
         case .setAssets(let assets):
 
@@ -154,6 +159,7 @@ private extension AssetPresenter {
                 }
 
                 if let asset = asset {
+                    state.transactionStatus = .loading
                     state.displayState.sections = mapTosections(from: asset,
                                                                 and: state.transactionStatus)
                     
@@ -162,11 +168,12 @@ private extension AssetPresenter {
                     state.displayState.isUserInteractionEnabled = true
                     state.assets = assets
                 } else {
+                    state.transactionStatus = .none
+                    state.asset = nil
                     state.displayState.sections = []
                     state.displayState.action = .none
                 }
                 state.displayState.assets = assets.map { $0.info }
-                state.transactionStatus = .loading
                 state.assets = assets
             }
 
@@ -192,7 +199,7 @@ private extension AssetPresenter {
 // MARK: Map
 extension AssetPresenter {
 
-    class func mapTosections(from asset: AssetTypes.DTO.Asset,
+    func mapTosections(from asset: AssetTypes.DTO.Asset,
                              and transactionStatus: AssetTypes.State.TransactionStatus) -> [AssetTypes.ViewModel.Section]
     {
 
@@ -235,6 +242,7 @@ private extension AssetPresenter {
     func initialState(input: AssetModuleInput) -> AssetTypes.State {
         return AssetTypes.State(event: nil,
                                 assets: [],
+                                asset: nil,
                                 transactionStatus: .none,
                                 displayState: initialDisplayState(input: input))
     }

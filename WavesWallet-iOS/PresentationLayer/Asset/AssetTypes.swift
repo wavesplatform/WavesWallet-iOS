@@ -28,10 +28,20 @@ extension AssetTypes {
             case empty
             case loading
             case transaction([AssetTypes.DTO.Transaction])
+
+            var isLoading: Bool {
+                switch self {
+                case .loading:
+                    return true
+                default:
+                    return false
+                }
+            }
         }
 
         var event: EventOutput?
         var assets: [AssetTypes.DTO.Asset]
+        var asset:  AssetTypes.DTO.Asset?
         var transactionStatus: TransactionStatus
         var displayState: DisplayState
     }
