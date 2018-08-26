@@ -45,6 +45,12 @@ extension DexLastTrades.ViewModel {
     enum Row {
         case trade(DexLastTrades.DTO.Trade)
     }
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
 }
 
 
