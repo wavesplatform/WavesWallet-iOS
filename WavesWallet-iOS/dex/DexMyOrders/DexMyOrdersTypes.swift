@@ -46,6 +46,12 @@ extension DexMyOrders.ViewModel {
     enum Row {
         case order(DexMyOrders.DTO.Order)
     }
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
 }
 
 extension DexMyOrders.DTO {
