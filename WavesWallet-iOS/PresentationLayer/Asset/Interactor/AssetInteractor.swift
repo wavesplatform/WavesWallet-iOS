@@ -12,14 +12,14 @@ import RxSwift
 final class AssetInteractorMock: AssetInteractorProtocol {
 
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
-        return JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self, json: "Assets").delay(20, scheduler: MainScheduler.asyncInstance)
+        return JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self, json: "Assets").delay(8, scheduler: MainScheduler.asyncInstance)
     }
 
     func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
         return Observable.just([])
     }
 
-    func refreshAssets(by ids: [String], andTransactions assetId: String) {
+    func refreshAssets(by ids: [String]) {
 
     }
 }
@@ -62,7 +62,8 @@ final class AssetInteractor: AssetInteractorProtocol {
         return Observable.just([])
     }
 
-    func refreshAssets(by ids: [String], andTransactions assetId: String) {
+    func refreshAssets(by ids: [String]) { 
+
     }
 }
 
