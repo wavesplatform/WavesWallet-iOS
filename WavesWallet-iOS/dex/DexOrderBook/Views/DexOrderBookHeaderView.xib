@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexOrderBookHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelAmountAssetName" destination="Vg8-ln-QaJ" id="KIv-gm-6h8"/>
+                <outlet property="labelPriceAssetName" destination="CeV-IE-lQO" id="Vvb-Vz-jdX"/>
+                <outlet property="labelSumAssetName" destination="7bc-kI-ORc" id="yk9-S5-guW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount WAVES" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vg8-ln-QaJ">
+                    <rect key="frame" x="12" y="0.0" width="109" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price BTC" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeV-IE-lQO">
+                    <rect key="frame" x="133" y="0.0" width="109" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sum BTC" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-kI-ORc">
+                    <rect key="frame" x="254" y="0.0" width="109" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIq-Lb-BhA">
+                    <rect key="frame" x="0.0" y="29.5" width="375" height="0.5"/>
+                    <color key="backgroundColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="Pyt-7A-tf2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CeV-IE-lQO" firstAttribute="top" secondItem="Vg8-ln-QaJ" secondAttribute="top" id="1yq-OZ-yh0"/>
+                <constraint firstItem="Vg8-ln-QaJ" firstAttribute="width" secondItem="CeV-IE-lQO" secondAttribute="width" id="3NK-Ru-2H6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Vg8-ln-QaJ" secondAttribute="bottom" id="AsV-XR-rY1"/>
+                <constraint firstItem="Vg8-ln-QaJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="BK0-n6-Bp7"/>
+                <constraint firstItem="CeV-IE-lQO" firstAttribute="bottom" secondItem="Vg8-ln-QaJ" secondAttribute="bottom" id="F83-uI-HVU"/>
+                <constraint firstItem="TIq-Lb-BhA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="MSi-Bc-cr9"/>
+                <constraint firstItem="7bc-kI-ORc" firstAttribute="bottom" secondItem="CeV-IE-lQO" secondAttribute="bottom" id="OSg-Dq-Fm1"/>
+                <constraint firstItem="TIq-Lb-BhA" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="TLP-Bp-X79"/>
+                <constraint firstAttribute="bottom" secondItem="TIq-Lb-BhA" secondAttribute="bottom" id="VUl-0q-XDV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7bc-kI-ORc" secondAttribute="trailing" constant="12" id="Wa1-Ld-Hmp"/>
+                <constraint firstItem="Vg8-ln-QaJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="Yq1-QD-cmh"/>
+                <constraint firstItem="CeV-IE-lQO" firstAttribute="width" secondItem="7bc-kI-ORc" secondAttribute="width" id="ZMb-Bi-mCl"/>
+                <constraint firstItem="7bc-kI-ORc" firstAttribute="top" secondItem="CeV-IE-lQO" secondAttribute="top" id="ZPv-SQ-5TC"/>
+                <constraint firstItem="7bc-kI-ORc" firstAttribute="leading" secondItem="CeV-IE-lQO" secondAttribute="trailing" constant="12" id="e10-Rq-dWY"/>
+                <constraint firstItem="CeV-IE-lQO" firstAttribute="leading" secondItem="Vg8-ln-QaJ" secondAttribute="trailing" constant="12" id="xdu-rI-Bav"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </view>
+    </objects>
+</document>

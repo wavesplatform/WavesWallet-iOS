@@ -5,7 +5,7 @@ final class MainTabBarController: RDVTabBarController {
 
     let walletCoordinator: WalletCoordinator = WalletCoordinator()
     let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-    let dexListCoordinator: DexListCoordinator = DexListCoordinator()
+    let dexListCoordinator: DexCoordinator = DexCoordinator()
 
     override var viewControllers: [Any]! {
         didSet {
