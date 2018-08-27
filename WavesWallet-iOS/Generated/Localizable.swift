@@ -47,6 +47,30 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum DexLastTrades {
+
+    internal enum Button {
+      /// BUY
+      internal static let buy = Localizable.tr("DexLastTrades", "button.buy")
+      /// SELL
+      internal static let sell = Localizable.tr("DexLastTrades", "button.sell")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexLastTrades", "label.amount")
+      /// Nothing Here…\nThe trading history is empty
+      internal static let emptyData = Localizable.tr("DexLastTrades", "label.emptyData")
+      /// Loading last trades…
+      internal static let loadingLastTrades = Localizable.tr("DexLastTrades", "label.loadingLastTrades")
+      /// Price
+      internal static let price = Localizable.tr("DexLastTrades", "label.price")
+      /// Sum
+      internal static let sum = Localizable.tr("DexLastTrades", "label.sum")
+      /// Time
+      internal static let time = Localizable.tr("DexLastTrades", "label.time")
+    }
+  }
   internal enum DexMarket {
 
     internal enum Label {
@@ -199,6 +223,45 @@ internal enum Localizable {
       internal static let popular = Localizable.tr("DexInfo", "label.popular")
       /// Price Asset
       internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    }
+  }
+  internal enum DexTraderContainer {
+
+    internal enum Button {
+      /// Chart
+      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
+      /// Last trades
+      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
+      /// My orders
+      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
+      /// Orderbook
+      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
+    }
+  }
+  internal enum DexOrderBook {
+
+    internal enum Button {
+      /// BUY
+      internal static let buy = Localizable.tr("DexOrderBook", "button.buy")
+      /// SELL
+      internal static let sell = Localizable.tr("DexOrderBook", "button.sell")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexOrderBook", "label.amount")
+      /// Nothing Here…\nThe order book is empty
+      internal static let emptyData = Localizable.tr("DexOrderBook", "label.emptyData")
+      /// LAST PRICE
+      internal static let lastPrice = Localizable.tr("DexOrderBook", "label.lastPrice")
+      /// Loading orderbook…
+      internal static let loadingOrderbook = Localizable.tr("DexOrderBook", "label.loadingOrderbook")
+      /// Price
+      internal static let price = Localizable.tr("DexOrderBook", "label.price")
+      /// SPREAD
+      internal static let spread = Localizable.tr("DexOrderBook", "label.spread")
+      /// Sum
+      internal static let sum = Localizable.tr("DexOrderBook", "label.sum")
     }
   }
 }

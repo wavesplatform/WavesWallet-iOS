@@ -18,6 +18,7 @@ enum DexList {
         case tapSortButton
         case tapAddButton
         case refresh
+        case tapAssetPair(DTO.Pair)
     }
     
     struct State: Mutating {
@@ -62,17 +63,19 @@ extension DexList.ViewModel {
 
 extension DexList.DTO {
     
+    struct Asset: Hashable  {
+        let id: String
+        let name: String
+        let decimals: Int
+        let ticker: String
+    }
+    
     struct Pair: Hashable, Mutating {
         
         var firstPrice: Money
         var lastPrice: Money
-        let amountAsset: String
-        let amountAssetName: String
-        let amountTicker: String
-        let amountDecimals: Int
-        let priceAsset: String
-        let priceAssetName: String
-        let priceTicker: String
-        let priceDecimals: Int
+        let amountAsset: Asset
+        let priceAsset: Asset
+        let isHidden: Bool
     }
 }
