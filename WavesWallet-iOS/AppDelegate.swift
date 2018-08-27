@@ -19,12 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
+        UserDefaults.standard.synchronize()
 
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug]
+        SweetLogger.current.visibleLevels = [.debug, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -33,15 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.clear)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
-//        self.showStartController()
-
-        JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self,
-                           json: "Assets")
-            .subscribe(onNext: { assets in
-                let vc = AssetModuleBuilder(output: self)
-                    .build(input: .init(assets: assets.map { $0.info }, currentAsset: assets.first!.info))
-                self.window!.rootViewController = CustomNavigationController(rootViewController: vc)
-        }).dispose()
+        self.showStartController()
 
         self.window?.makeKeyAndVisible()
         return true

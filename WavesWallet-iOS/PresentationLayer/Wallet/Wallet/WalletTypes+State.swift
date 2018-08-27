@@ -20,7 +20,15 @@ extension WalletTypes.State {
         
         var newState = self
 
-        var display = newState.displayState.currentDisplay
+        var display: WalletTypes.DisplayState.Display!
+
+        switch kind {
+        case .assets:
+            display = newState.displayState.assets
+        case .leasing:
+            display = newState.displayState.leasing
+        }
+
         display.animateType = .refresh
 
         newState.displayState.kind = kind

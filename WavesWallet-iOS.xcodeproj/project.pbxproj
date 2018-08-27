@@ -86,6 +86,7 @@
 		0A9797612108A60000407F67 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979757210886EA00407F67 /* Storyboards.swift */; };
 		0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797642108B18C00407F67 /* WalletModuleOutput.swift */; };
 		0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */; };
+		0AC573892134121800B5EBA5 /* UITableView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC573882134121800B5EBA5 /* UITableView+Skeleton.swift */; };
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
 		0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57E20F64738007EE076 /* Array+Hashable.swift */; };
 		0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B58020F64760007EE076 /* Optional+Hashable.swift */; };
@@ -547,6 +548,7 @@
 		0A97975F2108A11A00407F67 /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
 		0A9797642108B18C00407F67 /* WalletModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleOutput.swift; sourceTree = "<group>"; };
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
+		0AC573882134121800B5EBA5 /* UITableView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Skeleton.swift"; sourceTree = "<group>"; };
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
 		0AD2B57E20F64738007EE076 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 		0AD2B58020F64760007EE076 /* Optional+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Hashable.swift"; sourceTree = "<group>"; };
@@ -1355,6 +1357,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		0AC573872134120600B5EBA5 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				0AF9227A212E1233003BA067 /* SkeletonAnimatable.swift */,
+				0AC573882134121800B5EBA5 /* UITableView+Skeleton.swift */,
+			);
+			path = Skeleton;
+			sourceTree = "<group>";
+		};
 		0AE491E221078CA1009223DB /* WalletSort */ = {
 			isa = PBXGroup;
 			children = (
@@ -1417,15 +1428,15 @@
 		0AF921BE212E07B2003BA067 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				0AF921C3212E07B2003BA067 /* AssetTypes.swift */,
-				0AF921C7212E07B2003BA067 /* AssetModuleBuild.swift */,
-				0AF921BF212E07B2003BA067 /* Asset.strings */,
 				0AF9220A212E0AF4003BA067 /* Interactor */,
-				0AF921C4212E07B2003BA067 /* Asset.storyboard */,
-				0AF921C6212E07B2003BA067 /* AssetViewController.swift */,
 				0AF92209212E0AAE003BA067 /* Presenter */,
-				0AF921CB212E07B2003BA067 /* Assets.json */,
 				0AF921CC212E07B2003BA067 /* Views */,
+				0AF921C4212E07B2003BA067 /* Asset.storyboard */,
+				0AF921BF212E07B2003BA067 /* Asset.strings */,
+				0AF921CB212E07B2003BA067 /* Assets.json */,
+				0AF921C3212E07B2003BA067 /* AssetTypes.swift */,
+				0AF921C6212E07B2003BA067 /* AssetViewController.swift */,
+				0AF921C7212E07B2003BA067 /* AssetModuleBuild.swift */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -1433,11 +1444,11 @@
 		0AF921CC212E07B2003BA067 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0AF921CD212E07B2003BA067 /* AssetLastTransactionView.xib */,
+				0AF921DA212E07B2003BA067 /* Skeletons */,
 				0AF921CE212E07B2003BA067 /* Cells */,
+				0AF921CD212E07B2003BA067 /* AssetLastTransactionView.xib */,
 				0AF921D8212E07B2003BA067 /* AssetChartHeaderView.xib */,
 				0AF921D9212E07B2003BA067 /* AssetChartHeaderView.swift */,
-				0AF921DA212E07B2003BA067 /* Skeletons */,
 				0AF921E3212E07B2003BA067 /* WrapperAssetsSegmentedControl.swift */,
 				0AF921E4212E07B2003BA067 /* AssetHeaderView.xib */,
 				0AF921E5212E07B2003BA067 /* AssetLastTransactionView.swift */,
@@ -1613,7 +1624,7 @@
 				0AF92277212E1233003BA067 /* Mutating.swift */,
 				0AF92278212E1233003BA067 /* ViewCalculate.swift */,
 				0AF92279212E1233003BA067 /* SectionDisplayCollection.swift */,
-				0AF9227A212E1233003BA067 /* SkeletonAnimatable.swift */,
+				0AC573872134120600B5EBA5 /* Skeleton */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2576,6 +2587,7 @@
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				0AFBCA932113275900285BCB /* WalletSortPresenterProtocol.swift in Sources */,
+				0AC573892134121800B5EBA5 /* UITableView+Skeleton.swift in Sources */,
 				0AFBCA912113274B00285BCB /* WalletSortInteractorProtocol.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
 				0AE491EA2107A3FB009223DB /* WalletSortTypes.swift in Sources */,

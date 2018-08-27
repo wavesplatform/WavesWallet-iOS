@@ -40,8 +40,7 @@ extension AssetTypes {
         }
 
         var event: EventOutput?
-        var assets: [AssetTypes.DTO.Asset]
-        var asset:  AssetTypes.DTO.Asset?
+        var assets: [AssetTypes.DTO.Asset]        
         var transactionStatus: TransactionStatus
         var displayState: DisplayState
     }
@@ -72,6 +71,7 @@ extension AssetTypes {
         var isAppeared: Bool
         var isRefreshing: Bool
         var isFavorite: Bool
+        var isDisabledFavoriteButton: Bool
         var isUserInteractionEnabled: Bool
 
         var currentAsset: AssetTypes.DTO.Asset.Info

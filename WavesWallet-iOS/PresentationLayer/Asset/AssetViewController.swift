@@ -25,24 +25,23 @@ final class AssetViewController: UIViewController {
 
     private var refreshControl: UIRefreshControl!
     private var isHiddenSegmentedControl = false
-    private let favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-    private let favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+    private lazy var favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapFavoriteButton(sender:)))
+    private lazy var favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapFavoriteButton(sender:)))
 
     var presenter: AssetPresenterProtocol!
     private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
 
     private var sections: [AssetTypes.ViewModel.Section] = .init()
     private var currentAssetName: String? = nil
+    private var isRefreshing: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
         createBackButton()
+        setupSegmentedControl()
         tableView.backgroundColor = .basic50
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = true
-        view.addSubview(segmentedControl)
-        navigationItem.rightBarButtonItem = favoriteOffBarButton
-        setupSystem()        
+        setupSystem()
     }
 
     override func viewDidLayoutSubviews() {
@@ -62,7 +61,6 @@ final class AssetViewController: UIViewController {
         super.viewWillDisappear(animated)
         resetSetupNavigationBar()
     }
-
 }
 
 // MARK: RxFeedback
@@ -116,20 +114,32 @@ private extension AssetViewController {
 
         self.segmentedControl.isUserInteractionEnabled = state.isUserInteractionEnabled
         self.refreshControl.isUserInteractionEnabled = state.isUserInteractionEnabled
+        self.refreshControl.isEnabled = state.isUserInteractionEnabled
 
+        isRefreshing = state.isRefreshing
+        
         switch state.action {
         case .changedCurrentAsset:
+
+            if isRefreshing {
+                tableView.contentOffset = CGPoint(x: 0, y: -(tableView.contentInset.top + refreshControl.frame.height))
+                layoutSegmentedControl(scrollView: tableView)
+            }
+
             changeCurrentAsset(info: state.currentAsset)
             reloadSectionTable(with: state)
-            
+            updateNavigationItem(with: state)
+
         case .refresh:
             refreshControl.endRefreshing()
             reloadTable(with: state)
             reloadSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
             changeCurrentAsset(info: state.currentAsset)
             updateNavigationItem(with: state)
+
         case .changedFavorite:
             updateNavigationItem(with: state)
+
         case .none:
             break
         }
@@ -141,6 +151,9 @@ private extension AssetViewController {
             self.navigationItem.rightBarButtonItem = nil
             return
         }
+
+        favoriteOnBarButton.isEnabled = state.isDisabledFavoriteButton == false
+        favoriteOffBarButton.isEnabled = state.isDisabledFavoriteButton == false
 
         if state.isFavorite {
             self.navigationItem.rightBarButtonItem = favoriteOnBarButton
@@ -177,14 +190,27 @@ private extension AssetViewController {
     }
 }
 
-// MARL: Setup Methods
+// MARK: - Actions
 
 extension AssetViewController {
+
+    @objc func tapFavoriteButton(sender: Any) {
+        ImpactFeedbackGenerator.impactOccurred()
+    }
+}
+
+// MARK: Setup Methods
+
+extension AssetViewController {
+
+    private func setupSegmentedControl() {
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = true
+        view.addSubview(segmentedControl)
+    }
 
     private func setupRefreshControl() {
         refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         if #available(iOS 10.0, *) {
-            //            refreshControl.addTarget(self, action: #selector(beginRefresh), for: .valueChanged)
             tableView.refreshControl = refreshControl
         } else {
             tableView.addSubview(refreshControl)
@@ -216,7 +242,7 @@ private extension AssetViewController {
 
     private func layoutPassthroughFrameForNavigationBar() {
         let witdthCells = segmentedControl.witdthCells()
-        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5, y: 0, width: witdthCells, height: 44)
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5, y: 0, width: witdthCells, height: navigationController?.navigationBar.frame.height ?? 0)
     }
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
@@ -283,7 +309,7 @@ extension AssetViewController: UIScrollViewDelegate {
     }
 }
 
-// MARK: - UITableView
+// MARK: - UITableViewDataSource
 
 extension AssetViewController: UITableViewDataSource {
 
@@ -357,6 +383,8 @@ extension AssetViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension AssetViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -374,6 +402,10 @@ extension AssetViewController: UITableViewDelegate {
         default:
             return CGFloat.minValue
         }
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, heightForHeaderInSection: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -396,8 +428,17 @@ extension AssetViewController: UITableViewDelegate {
         return nil
     }
 
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, heightForFooterInSection: section)
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.minValue
+    }
+
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
