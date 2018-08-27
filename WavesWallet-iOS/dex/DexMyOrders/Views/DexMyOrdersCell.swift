@@ -34,8 +34,8 @@ extension DexMyOrdersCell: ViewConfiguration {
         
         labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
         labelStatus.text = model.statusText
-        labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
-        labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
+        labelAmount.text = model.amount.formattedText()
+        labelPrice.text = model.price.formattedText()
         labelStatus.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
     }
     
