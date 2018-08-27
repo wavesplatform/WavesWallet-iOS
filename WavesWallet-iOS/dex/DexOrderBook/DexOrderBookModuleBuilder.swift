@@ -12,7 +12,7 @@ struct DexOrderBookModuleBuilder: ModuleBuilder {
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
        
-        let interactor = DexOrderBookInteractorMock()
+        var interactor: DexOrderBookInteractorProtocol = DexOrderBookInteractorMock()
         interactor.pair = input
         
         var presenter: DexOrderBookPresenterProtocol = DexOrderBookPresenter()
