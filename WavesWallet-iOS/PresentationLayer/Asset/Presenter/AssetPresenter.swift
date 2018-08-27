@@ -33,7 +33,9 @@ final class AssetPresenter: AssetPresenterProtocol {
         let initialState = self.initialState(input: input)
 
         let system = Driver.system(initialState: initialState,
-                                   reduce: reduce,
+                                   reduce: { [weak self] state, event -> AssetTypes.State in
+                                        return self?.reduce(state: state, event: event) ?? state
+                                    },
                                    feedback: newFeedbacks)
 
         system
@@ -110,7 +112,13 @@ private extension AssetPresenter {
 
             let ids = state.assets.map { $0.info.id }
             interactor.refreshAssets(by: ids)
-            break
+
+            return state.mutate {
+                $0.displayState = $0.displayState.mutate {
+                    $0.isRefreshing = true
+                    $0.action = .none
+                }
+            }
 
         case .changedAsset(let assetId):
 
@@ -123,9 +131,11 @@ private extension AssetPresenter {
 
                 let currentAsset = state.assets.first(where: { $0.info.id == assetId })
                 if let currentAsset = currentAsset {
+                    state.transactionStatus = .loading
                     state.displayState.currentAsset = currentAsset.info
                     state.displayState.sections = mapTosections(from: currentAsset,
                                                                 and: state.transactionStatus)
+                    state.displayState.isFavorite = currentAsset.info.isFavorite
                     state.displayState.action = .changedCurrentAsset
                 } else {
                     state.displayState.action = .none
@@ -135,11 +145,16 @@ private extension AssetPresenter {
         case .setTransactions(let transactions):
 
             return state.mutate {
-                if let asset = $0.asset {
+
+                let currentAsset = state.assets.first(where: { asset -> Bool in
+                    return asset.info.id == state.displayState.currentAsset.id
+                })
+
+                if let asset = currentAsset {
                     $0.transactionStatus = transactions.count == 0 ? .empty : .transaction(transactions)
 
                     $0.displayState.sections = mapTosections(from: asset,
-                                                             and: state.transactionStatus)
+                                                             and: $0.transactionStatus)
                     $0.displayState.action = .refresh
                 } else {
                     $0.displayState.action = .none
@@ -162,22 +177,25 @@ private extension AssetPresenter {
                     state.transactionStatus = .loading
                     state.displayState.sections = mapTosections(from: asset,
                                                                 and: state.transactionStatus)
-                    
-                    state.displayState.action = .refresh
+
                     state.displayState.currentAsset = asset.info
+                    state.displayState.isFavorite = asset.info.isFavorite
+                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam || asset.info.isWaves
                     state.displayState.isUserInteractionEnabled = true
-                    state.assets = assets
+                    state.displayState.action = .refresh
                 } else {
                     state.transactionStatus = .none
-                    state.asset = nil
                     state.displayState.sections = []
                     state.displayState.action = .none
                 }
+                state.displayState.isRefreshing = false
                 state.displayState.assets = assets.map { $0.info }
                 state.assets = assets
             }
 
         case .tapFavorite(let on):
+
+            interactor.toggleFavoriteFlagForAsset(by: state.displayState.currentAsset.id, isFavorite: on)
 
             return state.mutate {
                 $0.displayState.isFavorite = on
@@ -221,6 +239,7 @@ extension AssetPresenter {
         case .transaction(let transactions):
             transactionHeaderTitle = Localizable.Asset.Header.lastTransactions
             transactionRows = [.lastTransactions(transactions), .viewHistory]
+
         case .none:
             break
         }
@@ -241,8 +260,7 @@ private extension AssetPresenter {
 
     func initialState(input: AssetModuleInput) -> AssetTypes.State {
         return AssetTypes.State(event: nil,
-                                assets: [],
-                                asset: nil,
+                                assets: [],                                
                                 transactionStatus: .none,
                                 displayState: initialDisplayState(input: input))
     }
@@ -255,6 +273,7 @@ private extension AssetPresenter {
         return AssetTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
+                                       isDisabledFavoriteButton: false,
                                        isUserInteractionEnabled: false,
                                        currentAsset: input.currentAsset,
                                        assets: input.assets,

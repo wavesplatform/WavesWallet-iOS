@@ -75,6 +75,7 @@ class CustomNavigationController: UINavigationController {
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController) {
 
+        print(nameType(type(of: viewController)))
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         if navigationBar.shadowImage != viewController.navigationItem.shadowImage {
@@ -104,8 +105,6 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 
-        apperanceNavigationItemProperties(viewController)
-
         if let prevViewContoller = prevViewContoller {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
@@ -114,8 +113,24 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
         prevViewContoller = viewController
 
+        apperanceNavigationItemProperties(viewController)
+
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
+
+        self.transitionCoordinator?.notifyWhenInteractionEnds({ [weak self] context in
+            guard context.isCancelled else { return }
+            guard let fromViewController = context.viewController(forKey: .from) else { return }
+            self?.navigationController(navigationController, willShow: fromViewController, animated: animated)
+
+            let animationCompletion = context.transitionDuration * Double(context.percentComplete)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion, execute: {
+                self?.navigationController(navigationController, didShow: fromViewController, animated: animated)
+            })
+
+        })
     }
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {}
 }

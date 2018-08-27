@@ -31,6 +31,11 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                                                     matcherBalances: $0.2) }
     }
 
+    func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+        assert(true, "Method don't supported")
+        return Observable.never()
+    }
+
     func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance]) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()

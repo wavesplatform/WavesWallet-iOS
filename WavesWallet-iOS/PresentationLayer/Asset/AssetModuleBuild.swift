@@ -22,8 +22,7 @@ struct AssetModuleBuilder: ModuleBuilderOutput {
         let presenter = AssetPresenter(input: input)
         let vc = StoryboardScene.Asset.assetViewController.instantiate()
 
-//        presenter.interactor = AssetInteractor()
-        presenter.interactor = AssetInteractorMock()
+        presenter.interactor = AssetInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
 

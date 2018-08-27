@@ -22,19 +22,27 @@ final class AssetInteractorMock: AssetInteractorProtocol {
     func refreshAssets(by ids: [String]) {
 
     }
+
+    func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
+
+    }
 }
 
 final class AssetInteractor: AssetInteractorProtocol {
 
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
+
     private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
 
-    private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
+    private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
+    private let disposeBag: DisposeBag = DisposeBag()
 
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
 
-        return assets(by: ids,
-                      isNeedUpdate: false)
+        return Observable.merge(refreshAssetsSubject.asObserver(),
+                                assets(by: ids,
+                                       isNeedUpdate: false))
     }
 
     private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetTypes.DTO.Asset]> {
@@ -49,10 +57,10 @@ final class AssetInteractor: AssetInteractorProtocol {
                     .balances(by: accountAddress,
                               privateKey: privateKey,
                               isNeedUpdate: false)
-                    .filter {
+                    .map {
                         $0.filter({ asset -> Bool in
                             return ids.contains(asset.assetId)
-                        }).count != 0
+                        })
                     }
                     .map { $0.map { $0.mapToAsset() } }
         }
@@ -62,8 +70,29 @@ final class AssetInteractor: AssetInteractorProtocol {
         return Observable.just([])
     }
 
-    func refreshAssets(by ids: [String]) { 
+    func refreshAssets(by ids: [String]) {
+        
+        assets(by: ids, isNeedUpdate: true)
+            .take(1)
+            .subscribe(weak: self, onNext: { owner, assets in
+                owner.refreshAssetsSubject.onNext(assets)
+            })
+            .disposed(by: disposeBag)
+    }
 
+    func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
+
+        accountBalanceRepositoryLocal
+            .balance(by: id)
+            .flatMap { [weak self] balance -> Observable<Bool> in
+
+                guard let owner = self else { return Observable.never() }
+
+                let newBalance = balance.mutate { $0.settings?.isFavorite = isFavorite }
+                return owner.accountBalanceRepositoryLocal.saveBalance(newBalance)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }
 

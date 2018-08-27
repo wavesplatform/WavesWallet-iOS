@@ -32,6 +32,27 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
+    func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+
+        return Observable.create { (observer) -> Disposable in
+
+            guard let realm = try? Realm() else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: id) {
+                let balance = DomainLayer.DTO.AssetBalance(balance: object)
+                observer.onNext(balance)
+                observer.onCompleted()
+            } else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+            }
+
+            return Disposables.create()
+        }
+    }
+
     func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance]) -> Observable<Bool> {
         return Observable.create { (observer) -> Disposable in
 
