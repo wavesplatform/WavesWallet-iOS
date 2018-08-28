@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import UIKit
 
 extension UIViewController {
@@ -40,8 +39,8 @@ protocol LayoutGuideProvider {
     var centerYAnchor: NSLayoutYAxisAnchor { get }
 }
 
-extension UIView: LayoutGuideProvider { }
-extension UILayoutGuide: LayoutGuideProvider { }
+extension UIView: LayoutGuideProvider {}
+extension UILayoutGuide: LayoutGuideProvider {}
 
 extension UIView {
     var compatibleSafeAreaLayoutGuide: LayoutGuideProvider {

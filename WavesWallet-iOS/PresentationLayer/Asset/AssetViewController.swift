@@ -16,6 +16,7 @@ private enum Constants {
     static let segmentedControlHeight: CGFloat = 100
     static let segmentedControlTopPading: CGFloat = 11
     static let segmentedControlBottomPading: CGFloat = 24
+    static let contentBottomInset: CGFloat = 24
 }
 
 final class AssetViewController: UIViewController {
@@ -231,8 +232,8 @@ extension AssetViewController {
     private func updateContentInsetForTableView() {
 
         let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading
-        tableView.contentInset = UIEdgeInsetsMake(top, 0, 24, 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, 24, 0)
+        tableView.contentInset = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
     }
 }
 
@@ -251,10 +252,7 @@ private extension AssetViewController {
 
     func layoutSegmentedControl(scrollView: UIScrollView, animated: Bool = true) {
 
-        var yContent = scrollView.contentOffset.y
-        if #available(iOS 11.0, *) {
-            yContent += scrollView.adjustedContentInset.top
-        }
+        let yContent = scrollView.contentOffset.y + scrollView.adjustedContentInsetAdapter.top
 
         let navigationBarY = (navigationController?.navigationBar.frame.origin.y ?? 0) + Constants.segmentedControlTopPading
         var newPosY: CGFloat = navigationBarY - yContent

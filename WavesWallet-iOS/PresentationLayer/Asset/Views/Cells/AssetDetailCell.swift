@@ -38,6 +38,11 @@ final class AssetDetailCell: UITableViewCell, Reusable {
     @IBOutlet private var descriptionLabel: UILabel!
 
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupLocalization()
+    }
+
     @IBAction func copyIssuerTapped(_ sender: Any) {
 
         UIPasteboard.general.string = issuerLabel.text
@@ -65,12 +70,8 @@ final class AssetDetailCell: UITableViewCell, Reusable {
             button.isUserInteractionEnabled = true
         }
     }
-}
 
-extension AssetDetailCell: ViewConfiguration {
-
-    func update(with model: AssetTypes.DTO.Asset.Info) {
-
+    private func setupLocalization() {
         assetTitleLabel.text = Localizable.Asset.Cell.Assetinfo.title
         nameTitleLabel.text = Localizable.Asset.Cell.Assetinfo.name
         issuerTitleLabel.text = Localizable.Asset.Cell.Assetinfo.issuer
@@ -78,13 +79,19 @@ extension AssetDetailCell: ViewConfiguration {
         typeTitleLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.title
         dateTitleLabel.text = Localizable.Asset.Cell.Assetinfo.issueDate
         descriptionTitleLabel.text = Localizable.Asset.Cell.Assetinfo.description
+    }
+}
+
+extension AssetDetailCell: ViewConfiguration {
+
+    func update(with model: AssetTypes.DTO.Asset.Info) {
 
         nameLabel.text = model.name
         idLabel.text = model.id
         issuerLabel.text = model.issuer
         descriptionLabel.text = model.description
 
-        let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter.sharedFormatter
         dateFormatter.dateFormat  = Constants.issueDateFormat
         dateLabel.text = dateFormatter.string(from: Date())
 

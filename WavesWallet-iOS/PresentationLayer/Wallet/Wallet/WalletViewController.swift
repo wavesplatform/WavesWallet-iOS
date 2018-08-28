@@ -98,7 +98,7 @@ extension WalletViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
-                .viewDidAppear
+                .viewWillAppear
                 .take(1)
                 .map { _ in WalletTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())

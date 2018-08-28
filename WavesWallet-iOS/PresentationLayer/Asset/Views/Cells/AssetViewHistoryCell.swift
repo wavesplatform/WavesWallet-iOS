@@ -8,13 +8,17 @@
 
 import UIKit
 
+private enum Constants {
+    static let padding: CGFloat = 14
+}
+
 final class AssetViewHistoryCell: UITableViewCell, NibReusable {
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        titleLabel.text = Localizable.Asset.Cell.viewHistory
+        titleLabel.text = Localizable.Asset.Cell.viewHistory
         viewContainer.addTableCellShadowStyle()
     }
 
@@ -30,7 +34,7 @@ final class AssetViewHistoryButton: UIButton {
 
         let iconSize = super.imageRect(forContentRect: contentRect).size
 
-        return CGRect(x: contentRect.size.width - iconSize.width - 14,
+        return CGRect(x: contentRect.size.width - iconSize.width - Constants.padding,
                       y: ((contentRect.height - iconSize.height) * 0.5),
                       width: iconSize.width,
                       height: iconSize.height)
