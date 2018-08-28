@@ -12,7 +12,7 @@ struct DexLastTradesModuleBuilder: ModuleBuilder {
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         
-        let interactor = DexLastTradesInteractorMock()
+        var interactor: DexLastTradesInteractorProtocol = DexLastTradesInteractorMock()
         interactor.pair = input
         
         var presenter: DexLastTradesPresenterProtocol = DexLastTradesPresenter()
