@@ -245,7 +245,6 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
 
     func tableViewDidSelect(indexPath: IndexPath) {
-
         sendEvent.accept(.tapRow(indexPath))
     }
 }

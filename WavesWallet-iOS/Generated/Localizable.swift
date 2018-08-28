@@ -89,31 +89,6 @@ internal enum Localizable {
       /// Sent
       internal static let sent = Localizable.tr("History", "segmentedControl.sent")
     }
-
-    internal enum Transactioncell {
-      /// Create Alias
-      internal static let alias = Localizable.tr("History", "transactionCell.alias")
-      /// Canceled Leasing
-      internal static let canceledLeasing = Localizable.tr("History", "transactionCell.canceledLeasing")
-      /// Exchange
-      internal static let exchange = Localizable.tr("History", "transactionCell.exchange")
-      /// Incoming Leasing
-      internal static let incomingLeasing = Localizable.tr("History", "transactionCell.incomingLeasing")
-      /// Received
-      internal static let received = Localizable.tr("History", "transactionCell.received")
-      /// Self-transfer
-      internal static let selfTransfer = Localizable.tr("History", "transactionCell.selfTransfer")
-      /// Sent
-      internal static let sent = Localizable.tr("History", "transactionCell.sent")
-      /// Started Leasing
-      internal static let startedLeasing = Localizable.tr("History", "transactionCell.startedLeasing")
-      /// Token Burn
-      internal static let tokenBurn = Localizable.tr("History", "transactionCell.tokenBurn")
-      /// Token Generation
-      internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
-      /// Token Reissue
-      internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
-    }
   }
   internal enum WalletSort {
 
@@ -191,6 +166,46 @@ internal enum Localizable {
     }
   }
   internal enum General {
+
+    internal enum History {
+
+      internal enum Transaction {
+
+        internal enum Title {
+          /// Create Alias
+          internal static let alias = Localizable.tr("General", "history.transaction.title.alias")
+          /// Canceled Leasing
+          internal static let canceledLeasing = Localizable.tr("General", "history.transaction.title.canceledLeasing")
+          /// Data transaction
+          internal static let data = Localizable.tr("General", "history.transaction.title.data")
+          /// Exchange
+          internal static let exchange = Localizable.tr("General", "history.transaction.title.exchange")
+          /// Incoming Leasing
+          internal static let incomingLeasing = Localizable.tr("General", "history.transaction.title.incomingLeasing")
+          /// Received
+          internal static let received = Localizable.tr("General", "history.transaction.title.received")
+          /// Self-transfer
+          internal static let selfTransfer = Localizable.tr("General", "history.transaction.title.selfTransfer")
+          /// Sent
+          internal static let sent = Localizable.tr("General", "history.transaction.title.sent")
+          /// Started Leasing
+          internal static let startedLeasing = Localizable.tr("General", "history.transaction.title.startedLeasing")
+          /// Token Burn
+          internal static let tokenBurn = Localizable.tr("General", "history.transaction.title.tokenBurn")
+          /// Token Generation
+          internal static let tokenGeneration = Localizable.tr("General", "history.transaction.title.tokenGeneration")
+          /// Token Reissue
+          internal static let tokenReissue = Localizable.tr("General", "history.transaction.title.tokenReissue")
+          /// Unrecognised Transaction
+          internal static let unrecognisedTransaction = Localizable.tr("General", "history.transaction.title.unrecognisedTransaction")
+        }
+
+        internal enum Value {
+          /// Entry in blockchain
+          internal static let data = Localizable.tr("General", "history.transaction.value.data")
+        }
+      }
+    }
 
     internal enum Label {
 

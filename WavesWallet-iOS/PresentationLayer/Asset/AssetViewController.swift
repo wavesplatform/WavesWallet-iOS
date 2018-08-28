@@ -343,8 +343,10 @@ extension AssetViewController: UITableViewDataSource {
             let cell: AssetHistorySkeletonCell = tableView.dequeueAndRegisterCell()
             return cell
 
-        case .lastTransactions:
-            break
+        case .lastTransactions(let transactions):
+            let cell: AssetTransactionsCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: transactions)
+            return cell
 
         case .transactionSkeleton:
             let cell: AssetTransactionSkeletonCell = tableView.dequeueAndRegisterCell()
@@ -359,27 +361,6 @@ extension AssetViewController: UITableViewDataSource {
             cell.update(with: info)
             return cell
         }
-
-        //        else if indexPath.section == Section.lastTransactions.rawValue {
-        //            if indexPath.row == 0 {
-        //                let cell = tableView.dequeueReusableCell(withIdentifier: "AssetLastTransactionCell") as! AssetLastTransactionCell
-        //                cell.setupCell(lastTransctions)
-        //                return cell
-        //            }
-        //
-        //            if lastTransctions.count == 0 {
-        //                return tableView.dequeueReusableCell(withIdentifier: "AssetEmptyHistoryCell") as! AssetEmptyHistoryCell
-        //            }
-        //
-        //            var cell: WalletHistoryCell! = tableView.dequeueReusableCell(withIdentifier: "WalletHistoryCell") as? WalletHistoryCell
-        //            if cell == nil {
-        //                cell = WalletHistoryCell.loadView() as? WalletHistoryCell
-        //            }
-        //            return cell
-        //        }
-
-
-        return UITableViewCell()
     }
 }
 
@@ -443,11 +424,6 @@ extension AssetViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-//        else if indexPath.section == Section.lastTransactions.rawValue {
-//            if indexPath.row == 0 {
-//                return lastTransctions.count > 0 ? AssetLastTransactionCell.cellHeight() : 0
-//            }
-
         let row = sections[indexPath]
 
         switch row {
@@ -464,7 +440,7 @@ extension AssetViewController: UITableViewDelegate {
             return AssetHistorySkeletonCell.cellHeight()
 
         case .lastTransactions:
-            break
+            return AssetTransactionsCell.cellHeight()
 
         case .viewHistoryDisabled:
             return AssetEmptyHistoryCell.cellHeight()
