@@ -13,6 +13,7 @@ import UIKit
 
 private enum Constants {
     static let heightForFooter: CGFloat = 23
+    static let contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
 }
 
 final class WalletSortViewController: UIViewController {
@@ -40,7 +41,7 @@ final class WalletSortViewController: UIViewController {
         setupBigNavigationBar()
 
         title = Localizable.WalletSort.Navigationbar.title
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
+        tableView.contentInset = Constants.contentInset
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state),

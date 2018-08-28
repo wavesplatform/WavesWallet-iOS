@@ -18,7 +18,7 @@ extension JSONDecoder {
             do {
                 let decoder = JSONDecoder()
 
-                let dateFormate = DateFormatter()
+                let dateFormate = DateFormatter.sharedFormatter
                 dateFormate.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
                 decoder.dateDecodingStrategy = .formatted(dateFormate)
 

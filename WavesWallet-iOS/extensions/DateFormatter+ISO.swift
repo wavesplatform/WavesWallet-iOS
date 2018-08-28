@@ -11,7 +11,7 @@ import Foundation
 extension DateFormatter {
 
     static func iso() -> DateFormatter {
-        let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter.sharedFormatter(forRegion: <#T##Region?#>, format: <#T##String?#>)
         let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
         dateFormatter.locale = enUSPosixLocale
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

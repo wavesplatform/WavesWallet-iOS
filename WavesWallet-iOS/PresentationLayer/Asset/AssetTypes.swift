@@ -19,10 +19,6 @@ extension AssetTypes {
 
     struct State: Mutating {
 
-        enum EventOutput {
-
-        }
-
         enum TransactionStatus {
             case none
             case empty
@@ -110,7 +106,7 @@ extension AssetTypes.ViewModel {
 extension AssetTypes.DTO {
 
     struct Transaction: Codable {
-
+        //TODO: After transaction
     }
 
     struct Asset: Codable {

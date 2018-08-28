@@ -8,6 +8,11 @@
 
 import UIKit
 
+private enum Constants {
+    static let contentInset = UIEdgeInsetsMake(0, 16, 0, 16)
+    static let height: CGFloat = 76
+}
+
 final class AssetTransactionsCell: UITableViewCell, Reusable {
 
     @IBOutlet private var collectionView: UICollectionView!
@@ -18,11 +23,11 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         backgroundColor = .basic50
         collectionView.backgroundColor = .basic50
-        collectionView.contentInset = UIEdgeInsetsMake(0, 16, 0, 16)
+        collectionView.contentInset = Constants.contentInset
     }
 
     class func cellHeight() -> CGFloat {
-        return 76
+        return Constants.height
     }
 }
 
