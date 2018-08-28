@@ -83,6 +83,14 @@ final class DexListPresenter: DexListPresenterProtocol {
         case .refresh:
             interactor.refreshPairs()
             return state.mutate { $0.isNeedRefreshing = true }.changeAction(.none)
+        
+        case .tapAssetPair(let pair):
+            let amountAsset = DexTraderContainer.DTO.Asset(id: pair.amountAsset.id, name: pair.amountAsset.name, decimals: pair.amountAsset.decimals)
+            let priceAsset = DexTraderContainer.DTO.Asset(id: pair.priceAsset.id, name: pair.priceAsset.name, decimals: pair.priceAsset.decimals)
+            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isHidden: pair.isHidden)
+            moduleOutput?.showTradePairInfo(pair: tradePair)
+            
+            return state.changeAction(.none)
         }
     }
         

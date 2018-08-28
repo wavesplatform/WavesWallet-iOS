@@ -39,9 +39,7 @@ final class AssetPresenter: AssetPresenterProtocol {
                                    feedback: newFeedbacks)
 
         system
-            .drive(onNext: { [weak self] state in
-                self?.handlerEventOutput(state: state)
-            })
+            .drive()
             .disposed(by: disposeBag)
     }
 
@@ -80,15 +78,6 @@ final class AssetPresenter: AssetPresenterProtocol {
                 .map { AssetTypes.Event.setTransactions($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
-    }
-
-    func handlerEventOutput(state: AssetTypes.State) {
-        guard let event = state.event else { return }
-
-        switch event {
-        default:
-            break
-        }
     }
 }
 
@@ -259,8 +248,7 @@ extension AssetPresenter {
 private extension AssetPresenter {
 
     func initialState(input: AssetModuleInput) -> AssetTypes.State {
-        return AssetTypes.State(event: nil,
-                                assets: [],                                
+        return AssetTypes.State(assets: [],
                                 transactionStatus: .none,
                                 displayState: initialDisplayState(input: input))
     }

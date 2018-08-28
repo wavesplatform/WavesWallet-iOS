@@ -22,7 +22,7 @@ extension DexInfoPair.DTO {
         let amountAssetName: String
         let priceAsset: String
         let priceAssetName: String
-        let isPopular: Bool
+        let isHidden: Bool
     }
 }
 

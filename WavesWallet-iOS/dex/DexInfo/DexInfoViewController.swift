@@ -74,7 +74,7 @@ private extension DexInfoViewController {
         labelPriceAssetTitle.text = Localizable.DexInfo.Label.priceAsset + " — " + pair.priceAssetName
         labelPriceAsset.text = pair.priceAsset
         
-        labelPopular.isHidden = !pair.isPopular
+        labelPopular.isHidden = pair.isHidden
     }
     
     func setupLocalization() {

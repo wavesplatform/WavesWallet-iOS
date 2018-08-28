@@ -120,7 +120,7 @@ private extension DexMarketInteractorMock {
                                                  name: item["priceAssetName"].stringValue,
                                                  shortName: item["priceAssetName"].stringValue)
 
-            pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isChecked: false, isHiddenPair: false))
+            pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isChecked: false, isHidden: false))
         }
         
         return pairs

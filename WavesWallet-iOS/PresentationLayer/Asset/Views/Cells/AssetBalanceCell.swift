@@ -15,8 +15,8 @@ private enum Constants {
     static let heightFirstBalanceView: CGFloat = 28
     static let bottomPadding: CGFloat = 8
     static let heightSeparator: CGFloat = 0.5
-    static let countSeparatorsWhenThreeFields = 3
-    static let countSeparatorsWhenTwoFields = 3
+    static let countSeparatorsWhenThreeFields: CGFloat = 3
+    static let countSeparatorsWhenTwoFields: CGFloat = 3
 }
 
 final class AssetBalanceCell: UITableViewCell, NibReusable {
