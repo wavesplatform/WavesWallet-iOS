@@ -17,3 +17,18 @@
 "ticker.title.cryptocurrency" = "Cryptocurrency";
 
 
+"history.transaction.title.received" = "Received";
+"history.transaction.title.sent" = "Sent";
+"history.transaction.title.alias" = "Create Alias";
+"history.transaction.title.startedLeasing" = "Started Leasing";
+"history.transaction.title.incomingLeasing" = "Incoming Leasing";
+"history.transaction.title.canceledLeasing" = "Canceled Leasing";
+"history.transaction.title.selfTransfer" = "Self-transfer";
+"history.transaction.title.exchange" = "Exchange";
+"history.transaction.title.tokenGeneration" = "Token Generation";
+"history.transaction.title.tokenBurn" = "Token Burn";
+"history.transaction.title.tokenReissue" = "Token Reissue";
+"history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
+"history.transaction.title.data" = "Data transaction";
+"history.transaction.value.data" = "Entry in blockchain";
+

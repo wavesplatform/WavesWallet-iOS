@@ -74,18 +74,13 @@ class CustomNavigationController: UINavigationController {
     }
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController) {
-
-        print(nameType(type(of: viewController)))
+        
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
-        if navigationBar.shadowImage != viewController.navigationItem.shadowImage {
-            navigationBar.shadowImage = viewController.navigationItem.shadowImage
-        }
+        navigationBar.shadowImage = viewController.navigationItem.shadowImage
 
         if #available(iOS 11.0, *) {
-            if navigationBar.prefersLargeTitles != viewController.navigationItem.prefersLargeTitles {
-                navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
-            }
+            navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
         }
     }
 }
@@ -118,7 +113,7 @@ extension CustomNavigationController: UINavigationControllerDelegate {
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
-
+        
         self.transitionCoordinator?.notifyWhenInteractionEnds({ [weak self] context in
             guard context.isCancelled else { return }
             guard let fromViewController = context.viewController(forKey: .from) else { return }

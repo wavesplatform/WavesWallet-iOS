@@ -41,6 +41,9 @@
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
 		0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */; };
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
+		0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */; };
+		0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */; };
+		0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
 		0A485E8D20FFB02100079B49 /* TransactionLeasingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8C20FFB02100079B49 /* TransactionLeasingNode.swift */; };
@@ -123,7 +126,6 @@
 		0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C7212E07B2003BA067 /* AssetModuleBuild.swift */; };
 		0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921CA212E07B2003BA067 /* AssetPresenter.swift */; };
 		0AF921F0212E07B3003BA067 /* Assets.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921CB212E07B2003BA067 /* Assets.json */; };
-		0AF921F1212E07B3003BA067 /* AssetLastTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921CD212E07B2003BA067 /* AssetLastTransactionView.xib */; };
 		0AF921F2212E07B3003BA067 /* AssetViewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921CF212E07B2003BA067 /* AssetViewHistoryCell.xib */; };
 		0AF921F3212E07B3003BA067 /* AssetEmptyHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D0212E07B2003BA067 /* AssetEmptyHistoryCell.swift */; };
 		0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D1212E07B2003BA067 /* AssetChartCell.swift */; };
@@ -131,7 +133,6 @@
 		0AF921F6212E07B3003BA067 /* AssetBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D3212E07B2003BA067 /* AssetBalanceCell.swift */; };
 		0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921D4212E07B2003BA067 /* AssetBalanceMoneyInfoView.xib */; };
 		0AF921F8212E07B3003BA067 /* AssetViewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D5212E07B2003BA067 /* AssetViewHistoryCell.swift */; };
-		0AF921F9212E07B3003BA067 /* AssetLastTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D6212E07B2003BA067 /* AssetLastTransactionCell.swift */; };
 		0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D7212E07B2003BA067 /* AssetBalanceMoneyInfoView.swift */; };
 		0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921D8212E07B2003BA067 /* AssetChartHeaderView.xib */; };
 		0AF921FC212E07B3003BA067 /* AssetChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921D9212E07B2003BA067 /* AssetChartHeaderView.swift */; };
@@ -145,7 +146,6 @@
 		0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921E2212E07B2003BA067 /* AssetHeaderSkeletonView.xib */; };
 		0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921E3212E07B2003BA067 /* WrapperAssetsSegmentedControl.swift */; };
 		0AF92206212E07B3003BA067 /* AssetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921E4212E07B2003BA067 /* AssetHeaderView.xib */; };
-		0AF92207212E07B3003BA067 /* AssetLastTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921E5212E07B2003BA067 /* AssetLastTransactionView.swift */; };
 		0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921E6212E07B2003BA067 /* AssetHeaderView.swift */; };
 		0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92216212E0F1F003BA067 /* WalletHeaderView.swift */; };
 		0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92218212E0F1F003BA067 /* WalletHistoryCell.swift */; };
@@ -494,6 +494,9 @@
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorFooter.xib; sourceTree = "<group>"; };
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
+		0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetTransactionsCell.swift; sourceTree = "<group>"; };
+		0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetTransactionCell.xib; sourceTree = "<group>"; };
+		0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTransactionCell.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
 		0A485E8C20FFB02100079B49 /* TransactionLeasingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLeasingNode.swift; sourceTree = "<group>"; };
@@ -586,7 +589,6 @@
 		0AF921C9212E07B2003BA067 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Asset.strings; sourceTree = "<group>"; };
 		0AF921CA212E07B2003BA067 /* AssetPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPresenter.swift; sourceTree = "<group>"; };
 		0AF921CB212E07B2003BA067 /* Assets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Assets.json; sourceTree = "<group>"; };
-		0AF921CD212E07B2003BA067 /* AssetLastTransactionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetLastTransactionView.xib; sourceTree = "<group>"; };
 		0AF921CF212E07B2003BA067 /* AssetViewHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetViewHistoryCell.xib; sourceTree = "<group>"; };
 		0AF921D0212E07B2003BA067 /* AssetEmptyHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetEmptyHistoryCell.swift; sourceTree = "<group>"; };
 		0AF921D1212E07B2003BA067 /* AssetChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetChartCell.swift; sourceTree = "<group>"; };
@@ -594,7 +596,6 @@
 		0AF921D3212E07B2003BA067 /* AssetBalanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalanceCell.swift; sourceTree = "<group>"; };
 		0AF921D4212E07B2003BA067 /* AssetBalanceMoneyInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetBalanceMoneyInfoView.xib; sourceTree = "<group>"; };
 		0AF921D5212E07B2003BA067 /* AssetViewHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetViewHistoryCell.swift; sourceTree = "<group>"; };
-		0AF921D6212E07B2003BA067 /* AssetLastTransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetLastTransactionCell.swift; sourceTree = "<group>"; };
 		0AF921D7212E07B2003BA067 /* AssetBalanceMoneyInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalanceMoneyInfoView.swift; sourceTree = "<group>"; };
 		0AF921D8212E07B2003BA067 /* AssetChartHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetChartHeaderView.xib; sourceTree = "<group>"; };
 		0AF921D9212E07B2003BA067 /* AssetChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetChartHeaderView.swift; sourceTree = "<group>"; };
@@ -608,7 +609,6 @@
 		0AF921E2212E07B2003BA067 /* AssetHeaderSkeletonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetHeaderSkeletonView.xib; sourceTree = "<group>"; };
 		0AF921E3212E07B2003BA067 /* WrapperAssetsSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapperAssetsSegmentedControl.swift; sourceTree = "<group>"; };
 		0AF921E4212E07B2003BA067 /* AssetHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetHeaderView.xib; sourceTree = "<group>"; };
-		0AF921E5212E07B2003BA067 /* AssetLastTransactionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetLastTransactionView.swift; sourceTree = "<group>"; };
 		0AF921E6212E07B2003BA067 /* AssetHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetHeaderView.swift; sourceTree = "<group>"; };
 		0AF92216212E0F1F003BA067 /* WalletHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHeaderView.swift; sourceTree = "<group>"; };
 		0AF92218212E0F1F003BA067 /* WalletHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHistoryCell.swift; sourceTree = "<group>"; };
@@ -1446,12 +1446,10 @@
 			children = (
 				0AF921DA212E07B2003BA067 /* Skeletons */,
 				0AF921CE212E07B2003BA067 /* Cells */,
-				0AF921CD212E07B2003BA067 /* AssetLastTransactionView.xib */,
 				0AF921D8212E07B2003BA067 /* AssetChartHeaderView.xib */,
 				0AF921D9212E07B2003BA067 /* AssetChartHeaderView.swift */,
 				0AF921E3212E07B2003BA067 /* WrapperAssetsSegmentedControl.swift */,
 				0AF921E4212E07B2003BA067 /* AssetHeaderView.xib */,
-				0AF921E5212E07B2003BA067 /* AssetLastTransactionView.swift */,
 				0AF921E6212E07B2003BA067 /* AssetHeaderView.swift */,
 			);
 			path = Views;
@@ -1460,6 +1458,9 @@
 		0AF921CE212E07B2003BA067 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */,
+				0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */,
+				0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */,
 				0AF921CF212E07B2003BA067 /* AssetViewHistoryCell.xib */,
 				0AF921D0212E07B2003BA067 /* AssetEmptyHistoryCell.swift */,
 				0AF921D1212E07B2003BA067 /* AssetChartCell.swift */,
@@ -1467,7 +1468,6 @@
 				0AF921D3212E07B2003BA067 /* AssetBalanceCell.swift */,
 				0AF921D4212E07B2003BA067 /* AssetBalanceMoneyInfoView.xib */,
 				0AF921D5212E07B2003BA067 /* AssetViewHistoryCell.swift */,
-				0AF921D6212E07B2003BA067 /* AssetLastTransactionCell.swift */,
 				0AF921D7212E07B2003BA067 /* AssetBalanceMoneyInfoView.swift */,
 			);
 			path = Cells;
@@ -2376,8 +2376,8 @@
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
 				0AF921E7212E07B3003BA067 /* Asset.strings in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
-				0AF921F1212E07B3003BA067 /* AssetLastTransactionView.xib in Resources */,
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
+				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
 				F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
@@ -2614,6 +2614,7 @@
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
 				0AF922CD212E1234003BA067 /* NSObject+AssociatedObject.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
+				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
@@ -2743,7 +2744,6 @@
 				0AF921F3212E07B3003BA067 /* AssetEmptyHistoryCell.swift in Sources */,
 				0AF922C1212E1234003BA067 /* UIView+Borders.swift in Sources */,
 				E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */,
-				0AF921F9212E07B3003BA067 /* AssetLastTransactionCell.swift in Sources */,
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
@@ -2843,6 +2843,7 @@
 				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
 				0AF922BA212E1234003BA067 /* SweetNetworkLoggerPlugin.swift in Sources */,
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
+				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
 				0AF922CF212E1234003BA067 /* UIView+Passtrough.swift in Sources */,
@@ -2900,7 +2901,6 @@
 				0AF922B2212E1234003BA067 /* UIView+Additionals.swift in Sources */,
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
 				0AF922DD212E1234003BA067 /* UICollectionView+Reusable.swift in Sources */,
-				0AF92207212E07B3003BA067 /* AssetLastTransactionView.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				F763B9A41EABBFBE00FA3701 /* TransactionsViewController.swift in Sources */,

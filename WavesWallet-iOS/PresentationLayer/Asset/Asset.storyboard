@@ -225,29 +225,39 @@
                                             <outlet property="viewTotal" destination="VxC-hN-Yq2" id="FJq-ag-WDY"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetLastTransactionCell" rowHeight="76" id="yeI-14-2wK" customClass="AssetLastTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetTransactionsCell" rowHeight="76" id="yeI-14-2wK" customClass="AssetTransactionsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="395.5" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yeI-14-2wK" id="BKI-Sw-T5b">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnS-KT-jhq">
-                                                    <rect key="frame" x="6" y="4" width="353" height="68"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="68" id="hF5-Gs-WSE"/>
-                                                    </constraints>
-                                                </scrollView>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NDr-qv-csd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="8" id="J1S-hf-Fq2">
+                                                        <size key="itemSize" width="50" height="50"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="yeI-14-2wK" id="2ul-2G-2nr"/>
+                                                        <outlet property="delegate" destination="yeI-14-2wK" id="Tf7-ud-Zuy"/>
+                                                    </connections>
+                                                </collectionView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lnS-KT-jhq" firstAttribute="top" secondItem="BKI-Sw-T5b" secondAttribute="top" constant="4" id="ATl-Ol-hYb"/>
-                                                <constraint firstItem="lnS-KT-jhq" firstAttribute="leading" secondItem="BKI-Sw-T5b" secondAttribute="leading" constant="6" id="SCK-00-3ba"/>
-                                                <constraint firstAttribute="trailing" secondItem="lnS-KT-jhq" secondAttribute="trailing" constant="16" id="jBY-5e-WQK"/>
+                                                <constraint firstAttribute="bottom" secondItem="NDr-qv-csd" secondAttribute="bottom" id="9ad-nh-2fS"/>
+                                                <constraint firstAttribute="trailing" secondItem="NDr-qv-csd" secondAttribute="trailing" id="M8h-8x-Y8P"/>
+                                                <constraint firstItem="NDr-qv-csd" firstAttribute="top" secondItem="BKI-Sw-T5b" secondAttribute="top" id="eqE-9j-A1t"/>
+                                                <constraint firstItem="NDr-qv-csd" firstAttribute="leading" secondItem="BKI-Sw-T5b" secondAttribute="leading" id="x4F-Db-rqT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="scrollView" destination="lnS-KT-jhq" id="HoX-EB-bej"/>
+                                            <outlet property="collectionView" destination="NDr-qv-csd" id="dyh-ux-b8W"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetEmptyHistoryCell" rowHeight="66" id="6F7-fJ-Zp4" customClass="AssetEmptyHistoryCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -436,11 +446,11 @@
                                         <rect key="frame" x="0.0" y="757.5" width="375" height="450"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="449.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9h0-sn-6uU">
-                                                    <rect key="frame" x="16" y="-0.5" width="343" height="450"/>
+                                                    <rect key="frame" x="16" y="-0.5" width="343" height="449.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sm5-Ig-doC" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="16" width="343" height="1"/>

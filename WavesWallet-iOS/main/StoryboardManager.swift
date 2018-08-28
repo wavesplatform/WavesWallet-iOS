@@ -93,7 +93,8 @@ class StoryboardManager {
         sideMenuViewController.contentViewShadowRadius = 15
         sideMenuViewController.contentViewShadowEnabled = true
         sideMenuViewController.panGestureEnabled = false
-        sideMenuViewController.panFromEdge = true
+        sideMenuViewController.interactivePopGestureRecognizerEnabled = false
+        sideMenuViewController.panFromEdge = false
         sideMenuViewController.interactivePopGestureRecognizerEnabled = true
         AppDelegate.shared().window?.rootViewController = sideMenuViewController
     }

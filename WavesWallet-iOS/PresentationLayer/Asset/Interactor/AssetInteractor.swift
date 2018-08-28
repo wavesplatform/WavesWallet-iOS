@@ -67,7 +67,7 @@ final class AssetInteractor: AssetInteractorProtocol {
     }
 
     func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
-        return Observable.just([])
+        return Observable.just([AssetTypes.DTO.Transaction()])
     }
 
     func refreshAssets(by ids: [String]) {

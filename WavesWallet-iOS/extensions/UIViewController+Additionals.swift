@@ -59,22 +59,20 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationItem.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     
     func addBgBlueImage() {
         let imageView = UIImageView(frame: UIScreen.main.bounds)
+
         if Platform.isIphone5 {
             imageView.image = UIImage(named: "bg-iphone5")
-        }
-        else if Platform.isIphoneX {
+        } else if Platform.isIphoneX {
             imageView.image = UIImage(named: "bg-iphonex")
-        }
-        else if Platform.isIphonePlus {
+        } else if Platform.isIphonePlus {
             imageView.image = UIImage(named: "bg-iphone8plus")
-        }
-        else {
+        } else {
             imageView.image = UIImage(named: "bg-iphone8")
         }
         
