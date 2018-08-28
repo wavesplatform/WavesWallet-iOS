@@ -14,7 +14,10 @@ fileprivate extension DexList.DTO.Pair {
   
     static func createPair(_ firstPrice: Money, _ lastPrice: Money, _ amountAsset: String, _ amountAssetName: String, _ amountTicker: String, _ amountDecimals: Int, _ priceAsset: String, _ priceAssetName: String, _ priceTicker: String, _ priceDecimals: Int) ->  DexList.DTO.Pair {
         
-        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, amountAssetName: amountAssetName, amountTicker: amountTicker, amountDecimals: amountDecimals, priceAsset: priceAsset, priceAssetName: priceAssetName, priceTicker: priceTicker, priceDecimals: priceDecimals)
+        let amountAsset = DexList.DTO.Asset(id: amountAsset, name: amountAssetName, decimals: amountDecimals, ticker: amountTicker)
+        let priceAsset = DexList.DTO.Asset(id: priceAsset, name: priceAssetName, decimals: priceDecimals, ticker: priceTicker)
+        
+        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false)
     }
 }
 
@@ -24,15 +27,24 @@ final class DexListInteractorMock: DexListInteractorProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     private static var testModels : [DexList.DTO.Pair] = [
-        DexList.DTO.Pair.createPair(MoneyUtil.money(123.0), MoneyUtil.money(53.23), "", "WAVES", "WAVES", 8, "", "BTC", "BTC", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(20.0), MoneyUtil.money(43.23), "", "WAVES", "WAVES", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(10.12), MoneyUtil.money(94), "", "Bitcoin", "Bitcoin", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(120), MoneyUtil.money(20.32), "", "ETH Classic", "ETH Classic", 8, "", "IOTA", "IOTA", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(40), MoneyUtil.money(20.32), "", "Monero", "Monero", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(100), MoneyUtil.money(10.4), "", "BTC Cash", "BTC Cash", 8, "", "Waves", "Waves", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(1034.31), MoneyUtil.money(94.00003), "", "ZCash", "ZCash", 8, "", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(20), MoneyUtil.money(65.000), "", "Bitcoin", "Bitcoin", 8, "", "NEO", "NEO", 8),
-        DexList.DTO.Pair.createPair(MoneyUtil.money(200.343), MoneyUtil.money(96.34), "", "NEM", "NEM", 8, "", "BTC", "BTC", 8)]
+        DexList.DTO.Pair.createPair(Money(123.0), Money(53.234234234234), "WAVES", "WAVES", "WAVES",
+                                    8, "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8),
+        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "WAVES", "WAVES", "WAVES", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234), "Bitcoin", "Bitcoin", "Bitcoin", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(Money(120), Money(20.32423423423424235453643), "ETH Classic", "ETH Classic", "ETH Classic",
+                                    8, "IOTA", "IOTA", "IOTA", 8),
+        DexList.DTO.Pair.createPair(Money(40), Money(20.32), "Monero", "Monero", "Monero", 8,
+                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(Money(100), Money(10.4), "BTC Cash", "BTC Cash", "BTC Cash",
+                                    8, "Waves", "Waves", "Waves", 8),
+        DexList.DTO.Pair.createPair(Money(1034.31), Money(94.00003), "ZCash", "ZCash", "ZCash",
+                                    8, "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(Money(20), Money(65.000), "Bitcoin", "Bitcoin", "Bitcoin", 8,
+                                    "NEO", "NEO", "NEO", 8),
+        DexList.DTO.Pair.createPair(Money(200.343), Money(96.34), "NEM", "NEM", "NEM", 8,
+                                    "BTC", "BTC", "BTC", 8)]
  
     
     func pairs() -> Observable<[DexList.DTO.Pair]> {
@@ -56,8 +68,8 @@ private extension DexListInteractorMock {
             var newModels : [DexList.DTO.Pair] = []
             for model in DexListInteractorMock.testModels {
                 let newModel = model.mutate {
-                    $0.firstPrice = MoneyUtil.money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
-                    $0.lastPrice = MoneyUtil.money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
+                    $0.firstPrice = Money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
+                    $0.lastPrice = Money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
                 }
                 newModels.append(newModel)
             }
@@ -71,32 +83,5 @@ private extension DexListInteractorMock {
             })
             return Disposables.create()
         })
-    }
-}
-
-fileprivate extension MoneyUtil {
-    
-    static func money(_ from: Double) -> Money {
-        
-        let decimals = getDecimals(from: from)
-        let amount = Int64(from * pow(10, decimals).doubleValue)
-        return Money(amount, decimals)
-    }
-    
-    private static func getDecimals(from: Double) -> Int {
-        
-        let number = NSNumber(value: from)
-        let resultString = number.stringValue
-        
-        let theScanner = Scanner(string: resultString)
-        let decimalPoint = "."
-        var unwanted: NSString?
-        
-        theScanner.scanUpTo(decimalPoint, into: &unwanted)
-        
-        if let unwanted = unwanted {
-            return ((resultString.count - unwanted.length) > 0) ? resultString.count - unwanted.length - 1 : 0
-        }
-        return 0
     }
 }

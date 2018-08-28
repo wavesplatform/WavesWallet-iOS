@@ -30,14 +30,15 @@ final class DexListCell: UITableViewCell, Reusable {
 
 extension DexListCell: ViewConfiguration {
     func update(with model: DexList.DTO.Pair) {
-        labelTitle.text = model.amountAssetName + " / " + model.priceAssetName
-
-        labelType.text = Localizable.DexList.Label.price + " " + model.amountAssetName
         
-        let firstPrice = MoneyUtil.value(model.firstPrice)
-        let lastPrice = MoneyUtil.value(model.lastPrice)
+        labelTitle.text = model.amountAsset.name + " / " + model.priceAsset.name
 
-        labelValue.text = MoneyUtil.getScaledText(model.lastPrice.amount, decimals: model.lastPrice.decimals)
+        labelType.text = Localizable.DexList.Label.price + " " + model.amountAsset.name
+        
+        let firstPrice = model.firstPrice.doubleValue
+        let lastPrice = model.lastPrice.doubleValue
+
+        labelValue.text = model.lastPrice.formattedText(defaultMinimumFractionDigits: true)
         
         let percent = (lastPrice - firstPrice) * 100 / lastPrice
         if percent == 0 {
@@ -52,11 +53,5 @@ extension DexListCell: ViewConfiguration {
             iconArrow.image = Images.chartarrow22Error500.image
             labelPercent.text = "- " + String(format: "%.02f", percent * -1) + "%"
         }
-    }
-}
-
-fileprivate extension MoneyUtil {
-    static func value(_ from: Money) -> Double {
-        return Double(from.amount) / pow(10, from.decimals).doubleValue
     }
 }

@@ -69,19 +69,29 @@ internal enum StoryboardScene {
 
     internal static let createOrderViewController1 = SceneType<UIViewController>(storyboard: Dex.self, identifier: "CreateOrderViewController1")
 
+    internal static let dexChartViewController = SceneType<WavesWallet_iOS.DexChartViewController>(storyboard: Dex.self, identifier: "DexChartViewController")
+
     internal static let dexContainerViewController = SceneType<WavesWallet_iOS.DexContainerViewController>(storyboard: Dex.self, identifier: "DexContainerViewController")
 
     internal static let dexInfoViewController = SceneType<WavesWallet_iOS.DexInfoViewController>(storyboard: Dex.self, identifier: "DexInfoViewController")
+
+    internal static let dexLastTradesViewController = SceneType<WavesWallet_iOS.DexLastTradesViewController>(storyboard: Dex.self, identifier: "DexLastTradesViewController")
 
     internal static let dexListViewController = SceneType<WavesWallet_iOS.DexListViewController>(storyboard: Dex.self, identifier: "DexListViewController")
 
     internal static let dexMarketViewController = SceneType<WavesWallet_iOS.DexMarketViewController>(storyboard: Dex.self, identifier: "DexMarketViewController")
 
+    internal static let dexMyOrdersViewController = SceneType<WavesWallet_iOS.DexMyOrdersViewController>(storyboard: Dex.self, identifier: "DexMyOrdersViewController")
+
     internal static let dexNewPairViewController = SceneType<WavesWallet_iOS.DexNewPairViewController>(storyboard: Dex.self, identifier: "DexNewPairViewController")
+
+    internal static let dexOrderBookViewController = SceneType<WavesWallet_iOS.DexOrderBookViewController>(storyboard: Dex.self, identifier: "DexOrderBookViewController")
 
     internal static let dexSearchViewController = SceneType<WavesWallet_iOS.DexSearchViewController>(storyboard: Dex.self, identifier: "DexSearchViewController")
 
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
+
+    internal static let dexTraderContainerViewController = SceneType<WavesWallet_iOS.DexTraderContainerViewController>(storyboard: Dex.self, identifier: "DexTraderContainerViewController")
 
     internal static let dexViewController = SceneType<WavesWallet_iOS.DexViewController>(storyboard: Dex.self, identifier: "DexViewController")
 

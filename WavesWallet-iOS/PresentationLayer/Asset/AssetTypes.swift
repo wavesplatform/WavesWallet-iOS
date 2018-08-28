@@ -35,7 +35,6 @@ extension AssetTypes {
             }
         }
 
-        var event: EventOutput?
         var assets: [AssetTypes.DTO.Asset]        
         var transactionStatus: TransactionStatus
         var displayState: DisplayState
