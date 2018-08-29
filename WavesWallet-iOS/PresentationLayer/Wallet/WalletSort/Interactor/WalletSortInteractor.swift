@@ -20,7 +20,7 @@ private extension WalletSort.DTO.Asset {
     static func map(from balance: AssetBalance) -> WalletSort.DTO.Asset {
 
         let isLock = balance.asset?.isWaves == true
-        let isMyAsset = balance.asset?.isMyAsset ?? false
+        let isMyWavesToken = balance.asset?.isMyWavesToken ?? false
         let isFavorite = balance.settings?.isFavorite ?? false
         let isGateway = balance.asset?.isGateway ?? false
         let isHidden = balance.settings?.isHidden ?? false
@@ -28,7 +28,7 @@ private extension WalletSort.DTO.Asset {
         return WalletSort.DTO.Asset(id: balance.assetId,
                                     name: balance.asset?.name ?? "",
                                     isLock: isLock,
-                                    isMyAsset: isMyAsset,
+                                    isMyWavesToken: isMyWavesToken,
                                     isFavorite: isFavorite,
                                     isGateway: isGateway,
                                     isHidden: isHidden,

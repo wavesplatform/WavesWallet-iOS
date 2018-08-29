@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetHistorySkeletonCell" rowHeight="44" id="TmD-Bz-fXX" customClass="AssetHistorySkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TmD-Bz-fXX" id="Gct-i7-UhD">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVD-X7-bdf">
+                        <rect key="frame" x="16" y="0.0" width="343" height="36"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeB-vm-MjC" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="14" y="13" width="144" height="10"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="FRu-j7-IV3"/>
+                                    <constraint firstAttribute="height" constant="10" id="LrX-WC-7Wc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aeB-vm-MjC" firstAttribute="centerY" secondItem="iVD-X7-bdf" secondAttribute="centerY" id="AOX-EN-dPE"/>
+                            <constraint firstItem="aeB-vm-MjC" firstAttribute="leading" secondItem="iVD-X7-bdf" secondAttribute="leading" constant="14" id="GHn-SM-Byq"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="iVD-X7-bdf" firstAttribute="top" secondItem="Gct-i7-UhD" secondAttribute="top" id="097-XY-DkN"/>
+                    <constraint firstAttribute="trailing" secondItem="iVD-X7-bdf" secondAttribute="trailing" constant="16" id="bNL-EJ-vRR"/>
+                    <constraint firstItem="iVD-X7-bdf" firstAttribute="leading" secondItem="Gct-i7-UhD" secondAttribute="leading" constant="16" id="rlK-X8-Xsw"/>
+                    <constraint firstAttribute="bottom" secondItem="iVD-X7-bdf" secondAttribute="bottom" constant="8" id="u24-xT-5aM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="viewContent" destination="iVD-X7-bdf" id="gjk-uG-CE6"/>
+                <outletCollection property="views" destination="aeB-vm-MjC" collectionClass="NSMutableArray" id="o34-uS-Xlw"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

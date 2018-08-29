@@ -38,6 +38,12 @@ extension UICollectionView {
             return dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
     }
 
+    func dequeueAndRegisterCell<Cell>(indexPath: IndexPath) -> Cell
+        where Cell: UICollectionViewCell & NibReusable {
+            registerCell(type: Cell.self)
+            return dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
+    }
+
     func registerSupplementaryView<Supplementary>(type: Supplementary.Type,
                                                   kind: SupplementaryViewKind)
         where Supplementary: UICollectionReusableView & NibReusable {

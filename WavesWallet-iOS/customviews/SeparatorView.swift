@@ -14,7 +14,7 @@ enum SeparatorLineStyle: Int {
     case vertical = 1
 }
 
-fileprivate final class SeparatorLineView: UIView {
+private final class SeparatorLineView: UIView {
 
     override class var layerClass: AnyClass {
         get {
@@ -92,7 +92,8 @@ fileprivate final class SeparatorLineView: UIView {
 
         switch style {
         case .horizontal:
-            path.move(to: CGPoint(x: 0, y: 0))
+            let x = isDashed ? -dashPhase : 0
+            path.move(to: CGPoint(x: x, y: 0))
             path.addLine(to: CGPoint(x: frame.width, y: 0))
         case .vertical:
             path.move(to: CGPoint(x: 0, y: 0))
@@ -101,6 +102,7 @@ fileprivate final class SeparatorLineView: UIView {
 
         let layer: CAShapeLayer = self.layer as! CAShapeLayer
         layer.path = path
+        layer.lineJoin = kCALineJoinMiter;
         layer.strokeStart = 0
     }
 

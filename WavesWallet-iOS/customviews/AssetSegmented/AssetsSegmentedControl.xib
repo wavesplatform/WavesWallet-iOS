@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetsSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="qBl-vH-xDV" id="HfA-hN-c3j"/>
+                <outlet property="detailLabel" destination="oe2-ID-uxW" id="npP-k7-ciz"/>
+                <outlet property="tickerView" destination="ha4-FY-a1Q" id="ax4-q8-Wvq"/>
+                <outlet property="titleLabel" destination="eJC-zB-Myb" id="HLY-rx-JcT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="364" height="97"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqr-kX-Scj">
+                    <rect key="frame" x="0.0" y="0.0" width="364" height="97"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qBl-vH-xDV" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
+                            <rect key="frame" x="0.0" y="0.0" width="364" height="48"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="po7-rZ-2Vj"/>
+                            </constraints>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Wrh-Jn-neT" customClass="UPCarouselFlowLayout" customModule="UPCarouselFlowLayout">
+                                <size key="itemSize" width="48" height="48"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemAlpha">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemScale">
+                                        <real key="value" value="0.69999999999999996"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sideItemShift">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </collectionViewFlowLayout>
+                            <cells/>
+                        </collectionView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-zB-Myb">
+                            <rect key="frame" x="157" y="62" width="50.5" height="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-ID-uxW">
+                            <rect key="frame" x="143" y="81.5" width="79.5" height="15.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="38.5" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="ha4-FY-a1Q" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="163" y="81" width="38.5" height="16"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="eJC-zB-Myb" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="5jA-HY-OLT"/>
+                        <constraint firstItem="qBl-vH-xDV" firstAttribute="top" secondItem="gqr-kX-Scj" secondAttribute="top" id="6Sg-VJ-l3c"/>
+                        <constraint firstItem="oe2-ID-uxW" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="4" id="9Sn-S0-X7k"/>
+                        <constraint firstAttribute="trailing" secondItem="qBl-vH-xDV" secondAttribute="trailing" id="J36-lx-j5N"/>
+                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="O3E-EP-Zr6"/>
+                        <constraint firstItem="qBl-vH-xDV" firstAttribute="leading" secondItem="gqr-kX-Scj" secondAttribute="leading" id="fte-2g-Wol"/>
+                        <constraint firstAttribute="bottom" secondItem="ha4-FY-a1Q" secondAttribute="bottom" priority="650" id="iLs-KX-Sa8"/>
+                        <constraint firstItem="eJC-zB-Myb" firstAttribute="top" secondItem="qBl-vH-xDV" secondAttribute="bottom" constant="14" id="kIY-X7-ZG4"/>
+                        <constraint firstItem="ha4-FY-a1Q" firstAttribute="top" secondItem="eJC-zB-Myb" secondAttribute="bottom" constant="4" id="t92-Gv-LSx"/>
+                        <constraint firstItem="oe2-ID-uxW" firstAttribute="centerX" secondItem="gqr-kX-Scj" secondAttribute="centerX" id="udJ-jD-08O"/>
+                        <constraint firstAttribute="bottom" secondItem="oe2-ID-uxW" secondAttribute="bottom" id="wfc-Zt-PFk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gqr-kX-Scj" secondAttribute="bottom" id="0sE-IF-Iii"/>
+                <constraint firstItem="gqr-kX-Scj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JQE-CX-reb"/>
+                <constraint firstAttribute="trailing" secondItem="gqr-kX-Scj" secondAttribute="trailing" id="Oaq-jq-DQF"/>
+                <constraint firstItem="gqr-kX-Scj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WRf-U5-DiV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="28" y="32.5"/>
+        </view>
+    </objects>
+</document>

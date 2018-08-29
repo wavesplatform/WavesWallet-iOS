@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
+import Kingfisher
 import RxSwift
 import UIKit
-import Kingfisher
 
 private enum Constants {
     static let height: CGFloat = 56
@@ -51,15 +51,16 @@ final class WalletSortCell: UITableViewCell, Reusable {
         return Constants.height
     }
 
-    @objc func changedValueSwitchAction() {
+     @objc private func changedValueSwitchAction() {
         changedValueSwitchControl?(switchControl.isOn)
     }
 }
 
+// MARK: ViewConfiguration
 extension WalletSortCell: ViewConfiguration {
     struct Model {
         let name: String
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
         let isVisibility: Bool
         let isHidden: Bool
         let isGateway: Bool
@@ -70,12 +71,13 @@ extension WalletSortCell: ViewConfiguration {
         let cryptoName = model.name
         labelTitle.text = cryptoName
         switchControl.isHidden = model.isVisibility
-        switchControl.isOn = model.isHidden
+        switchControl.isOn = !model.isHidden
         arrowGreen.isHidden = !model.isGateway
 
-        taskForAssetLogo = UIImage.assetLogoFromCache(name: cryptoName,
-                                                      size: Constants.icon,
-                                                      font: UIFont.systemFont(ofSize: 15)) { [weak self] image in
+        taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,
+                                                   style: AssetLogo.Style(size: Constants.icon,
+                                                                          font: UIFont.systemFont(ofSize: 15),
+                                                                          border: nil)) { [weak self] image in
             self?.imageIcon.image = image
         }
     }

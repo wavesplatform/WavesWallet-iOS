@@ -12,12 +12,15 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
-private struct Constants {
-    static let durationInseconds: Double = 60
+private enum Constants {
+    static let durationInseconds: Double = 6000
 }
 
 protocol AccountBalanceInteractorProtocol {
-    func balances(by accountAddress: String, privateKey: PrivateKeyAccount, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
+
+    func balances(by accountAddress: String,
+                  privateKey: PrivateKeyAccount,
+                  isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>    
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
@@ -56,6 +59,12 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
             .share()
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
+}
+
+
+// MARK: Privet methods
+
+private extension AccountBalanceInteractor {
 
     private func remoteBalances(accountAddress: String,
                                 privateKey: PrivateKeyAccount,
@@ -184,13 +193,15 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     }
 }
 
+// MARK: Mapper
+
 private extension DomainLayer.DTO.AssetBalance {
 
     init(info: Environment.AssetInfo) {
         self.assetId = info.assetId
         self.balance = 0
         self.leasedBalance = 0
-        self.reserveBalance = 0
+        self.inOrderBalance = 0
         self.settings = nil
         self.asset = nil
         self.modified = Date()

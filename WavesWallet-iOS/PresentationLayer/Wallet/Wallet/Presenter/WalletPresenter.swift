@@ -19,7 +19,7 @@ private enum ReactQuery {
 final class WalletPresenter: WalletPresenterProtocol {
 
     var interactor: WalletInteractorProtocol!
-    var moduleOutput: WalletModuleOutput?
+    weak var moduleOutput: WalletModuleOutput?
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -41,7 +41,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.isAappeared && state.display == .assets {
+            if state.displayState.isAppeared && state.displayState.kind == .assets {
                 return true
             } else {
                 return nil
@@ -53,7 +53,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             return strongSelf
                 .interactor
                 .assets()
-                .map { .responseAssets($0) }
+                .map { .setAssets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -61,7 +61,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.isAappeared && state.display == .leasing {
+            if state.displayState.isAppeared && state.displayState.kind == .leasing {
                 return true
             } else {
                 return nil
@@ -73,7 +73,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             return strongSelf
                 .interactor
                 .leasing()
-                .map { .responseLeasing($0) }
+                .map { .setLeasing($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -81,7 +81,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
         case .readyView:
-            return state.setIsAappeared(true)
+            return state.mutate { $0.displayState.isAppeared = true }
 
         case .tapSortButton:
             moduleOutput?.showWalletSort()
@@ -92,38 +92,54 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state
 
         case .refresh:
-            switch state.display {
+            switch state.displayState.kind {
             case .assets:
                 interactor.refreshAssets()
             case .leasing:
                 interactor.refreshLeasing()
             }
-            return state.setIsRefreshing(isRefreshing: true)
+            return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: true) }
+
+        case .tapRow(let indexPath):
+
+            let section = state.displayState.currentDisplay.visibleSections[indexPath.section]
+            guard let asset = section.items[indexPath.row].asset else { return state }
+
+            switch section.kind {
+            case .hidden:
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isHidden == true } )
+            case .spam:
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam == true } )
+            case .general:
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
+            default:
+                break
+            }
+
+            return state
 
         case .tapSection(let section):
-            return state.toggleCollapse(index: section)
+            return state.mutate { $0.displayState = $0.displayState.toggleCollapse(index: section) }
 
-        case .changeDisplay(let display):
-            return state.setDisplay(display: display)
+        case .changeDisplay(let kind):
+            return state.changeDisplay(kind: kind)
 
-        case .responseAssets(let response):
+        case .setAssets(let response):
 
-            let secions = WalletTypes.ViewModel.Section.map(from: response)
-            let newState = state.setAssets(assets: .init(sections: secions,
-                                                         collapsedSections: state.assets.collapsedSections,
-                                                         isRefreshing: false,                                                         
-                                                         animateType: .refresh))
+            return state.mutate {
+                let sections = WalletTypes.ViewModel.Section.map(from: response)
+                $0.displayState = $0.displayState.updateDisplay(kind: .assets,
+                                                                sections: sections)
+                $0.assets = response
+            }
 
-            return newState
-            
-        case .responseLeasing(let response):
-            let secions = WalletTypes.ViewModel.Section.map(from: response)
-            let newState = state.setLeasing(leasing: .init(sections: secions,
-                                                           collapsedSections: state.leasing.collapsedSections,
-                                                           isRefreshing: false,
-                                                           animateType: .refresh))
+        case .setLeasing(let response):
 
-            return newState
+            return state.mutate {
+                let sections = WalletTypes.ViewModel.Section.map(from: response)
+                $0.displayState = $0.displayState.updateDisplay(kind: .leasing,
+                                                                sections: sections)
+            }
         }
     }
 

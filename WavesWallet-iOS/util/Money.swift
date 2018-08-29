@@ -9,33 +9,13 @@
 import Foundation
 
 
-struct Money: Hashable {
+struct Money: Hashable, Codable {
     let amount: Int64
     let decimals: Int
     
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
-    }
-    
-    var displayText: String {
-        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
-    }
-    
-    var displayTextFull: String {
-        return MoneyUtil.getScaledText(amount, decimals: decimals)
-    }
-    
-    var decimalValue: Decimal {
-        return Decimal(amount) / pow(10, decimals)
-    }
-    
-    var doubleValue: Double {
-        return decimalValue.doubleValue
-    }
-    
-    var floatValue: Float {
-        return decimalValue.floatValue
     }
 }
 
@@ -67,12 +47,29 @@ extension Money {
     }
 }
 
-extension Decimal {
-    var doubleValue:Double {
-        return NSDecimalNumber(decimal:self).doubleValue
+extension Money {
+
+    var isZero: Bool {
+        return amount == 0
     }
-    
+
+    var displayText: String {
+        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
+    }
+
+    var displayTextFull: String {
+        return MoneyUtil.getScaledText(amount, decimals: decimals)
+    }
+
+    var decimalValue: Decimal {
+        return Decimal(amount) / pow(10, decimals)
+    }
+
+    var doubleValue: Double {
+        return decimalValue.doubleValue
+    }
+
     var floatValue: Float {
-        return NSDecimalNumber(decimal: self).floatValue
+        return decimalValue.floatValue
     }
 }

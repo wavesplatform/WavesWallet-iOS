@@ -13,6 +13,8 @@ import UIKit
 
 protocol WalletDisplayDataDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
+
+    func tableViewDidSelect(indexPath: IndexPath)
 }
 
 final class WalletDisplayData: NSObject {
@@ -99,13 +101,13 @@ extension WalletDisplayData: UITableViewDelegate {
         switch item {
         case .historySkeleton:
             let skeletonCell: WalletHistorySkeletonCell = cell as! WalletHistorySkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         case .assetSkeleton:
             let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         case .balanceSkeleton:
             let skeletonCell: WalletLeasingBalanceSkeletonCell = cell as! WalletLeasingBalanceSkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
         default:
             break
         }
@@ -176,6 +178,10 @@ extension WalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView(tableView, heightForRowAt: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableViewDidSelect(indexPath: indexPath)
     }
 }
 
