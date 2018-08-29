@@ -26,7 +26,7 @@ extension Node.Service.Transaction: NodeTargetType {
     }
 
     private enum Constants {
-        static let transaction = "transaction"
+        static let transactions = "transactions"
         static let limit = "limit"
         static let address = "address"
         static let info = "info"
@@ -35,9 +35,9 @@ extension Node.Service.Transaction: NodeTargetType {
     var path: String {
         switch self {
         case .list(let accountAddress, let limit):
-            return Constants.transaction + "/" + Constants.address + "/" + "\(accountAddress)".urlEscaped + "/" + Constants.limit + "/" + "\(limit)".urlEscaped
+            return Constants.transactions + "/" + Constants.address + "/" + "\(accountAddress)".urlEscaped + "/" + Constants.limit + "/" + "\(limit)".urlEscaped
         case .info(let id):
-            return Constants.transaction + "/" + Constants.info + "/" + "\(id)".urlEscaped
+            return Constants.transactions + "/" + Constants.info + "/" + "\(id)".urlEscaped
         }
     }
 
