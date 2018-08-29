@@ -17,7 +17,7 @@ extension UIViewController {
     }
     
     func createBackButton() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createMenuButton() {
@@ -34,7 +34,7 @@ extension UIViewController {
     }
 
     func hideTopBarLine() {
-        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.shadowImage = UIImage()
     }
 
     // TODO: Меня смущает проверка (<= 44) в showImage.
@@ -43,13 +43,12 @@ extension UIViewController {
         if let nav = navigationController {
             let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= 44
             if showImage {
-                if nav.navigationBar.shadowImage != nil {
-                    nav.navigationBar.shadowImage = nil
+                if navigationItem.shadowImage != nil {
+                    navigationItem.shadowImage = nil
                 }
-            }
-            else {
-                if nav.navigationBar.shadowImage == nil {
-                    nav.navigationBar.shadowImage = UIImage()
+            } else {
+                if navigationItem.shadowImage == nil {
+                    navigationItem.shadowImage = UIImage()
                 }
             }
         }
@@ -57,29 +56,27 @@ extension UIViewController {
     
     func setupSmallNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.prefersLargeTitles = false
         }
     }
     
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .never
+            navigationItem.prefersLargeTitles = true
+            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     
     func addBgBlueImage() {
         let imageView = UIImageView(frame: UIScreen.main.bounds)
+
         if Platform.isIphone5 {
             imageView.image = UIImage(named: "bg-iphone5")
-        }
-        else if Platform.isIphoneX {
+        } else if Platform.isIphoneX {
             imageView.image = UIImage(named: "bg-iphonex")
-        }
-        else if Platform.isIphonePlus {
+        } else if Platform.isIphonePlus {
             imageView.image = UIImage(named: "bg-iphone8plus")
-        }
-        else {
+        } else {
             imageView.image = UIImage(named: "bg-iphone8")
         }
         

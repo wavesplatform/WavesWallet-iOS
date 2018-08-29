@@ -43,3 +43,10 @@ extension String {
         return ceil(text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.width)
     }
 }
+
+extension NSAttributedString {
+
+    func boundingRect(with size: CGSize) -> CGRect {
+        return boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+    }    
+}
