@@ -11,23 +11,24 @@ import Foundation
 extension WalletTypes.DTO {
 
     struct Asset: Hashable {
-        enum Kind: Hashable {
-            case general
-            case hidden
-            case spam
-        }
-
+   
         let id: String
         let name: String
+        let issuer: String
+        let description: String
+        let issueDate: Date
         let balance: Money
         let fiatBalance: Money
-        let isMyAsset: Bool
+        let isReusable: Bool
+        let isMyWavesToken: Bool
+        let isWavesToken: Bool
+        let isWaves: Bool
+        let isHidden: Bool
         let isFavorite: Bool
+        let isSpam: Bool
         let isFiat: Bool
         let isGateway: Bool
-        let isWaves: Bool
-        let kind: Kind
-        let sortLevel: Float
+        let sortLevel: Float        
     }
 
     struct Leasing: Hashable {

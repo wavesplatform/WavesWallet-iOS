@@ -14,19 +14,19 @@ import SVProgressHUD
 import UIKit
 
 @UIApplicationMain
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-//        .error,
-//        .debug,
-//        .warning,
-//        .verbose,
-//        .info,
-//        .network
-        SweetLogger.current.visibleLevels = []
+        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
+        UserDefaults.standard.synchronize()
+
+        Swizzle(initializers: [UIView.passtroughInit,
+                               UIView.roundedInit,
+                               UIView.shadowInit]).start()
+
+        SweetLogger.current.visibleLevels = [.debug, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.showStartController()
 
         self.window?.makeKeyAndVisible()
-
         return true
     }
 
@@ -85,4 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuController: RESideMenu {
         return self.window?.rootViewController as! RESideMenu
     }
+}
+
+// TODO: Remove
+extension AppDelegate: AssetModuleOutput {
+
 }

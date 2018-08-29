@@ -18,7 +18,7 @@ extension API.DTO {
         let precision: Int64
         let height: Int64
         let description: String
-        let timestamp: String
+        let timestamp: Double
         let sender: String
         let quantity: Int64
         let reissuable: Bool

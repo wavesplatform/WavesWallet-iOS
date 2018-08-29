@@ -201,6 +201,7 @@ internal enum Images {
   internal static let tAlias48 = ImageAsset(name: "tAlias48")
   internal static let tCloselease28 = ImageAsset(name: "tCloselease28")
   internal static let tCloselease48 = ImageAsset(name: "tCloselease48")
+  internal static let tData48 = ImageAsset(name: "tData48")
   internal static let tExchange48 = ImageAsset(name: "tExchange48")
   internal static let tIncominglease48 = ImageAsset(name: "tIncominglease48")
   internal static let tMassreceived48 = ImageAsset(name: "tMassreceived48")
@@ -210,9 +211,12 @@ internal enum Images {
   internal static let tSend48 = ImageAsset(name: "tSend48")
   internal static let tSoonExchange28 = ImageAsset(name: "tSoonExchange28")
   internal static let tSoonExchange48 = ImageAsset(name: "tSoonExchange48")
+  internal static let tSpamMassreceived48 = ImageAsset(name: "tSpamMassreceived48")
+  internal static let tSpamReceive48 = ImageAsset(name: "tSpamReceive48")
   internal static let tTokenburn48 = ImageAsset(name: "tTokenburn48")
   internal static let tTokengen48 = ImageAsset(name: "tTokengen48")
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
+  internal static let tUndefined48 = ImageAsset(name: "tUndefined48")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
@@ -407,6 +411,7 @@ internal enum Images {
     tAlias48,
     tCloselease28,
     tCloselease48,
+    tData48,
     tExchange48,
     tIncominglease48,
     tMassreceived48,
@@ -416,9 +421,12 @@ internal enum Images {
     tSend48,
     tSoonExchange28,
     tSoonExchange48,
+    tSpamMassreceived48,
+    tSpamReceive48,
     tTokenburn48,
     tTokengen48,
     tTokenreis48,
+    tUndefined48,
     tabbarWavesActive,
     topbarAddaddress,
     topbarAddmarkets,
