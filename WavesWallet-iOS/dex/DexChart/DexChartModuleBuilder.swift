@@ -10,8 +10,18 @@ import UIKit
 
 struct DexChartModuleBuilder: ModuleBuilder {
     
-    func build(input: Void) -> UIViewController {
+    func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
+        
+        var interactor: DexChartInteractorProtocol = DexChartInteractorMock()
+        interactor.pair = input
+        
+        var presenter: DexChartPresenterProtocol = DexChartPresenter()
+        presenter.interactor = interactor
+        
         let vc = StoryboardScene.Dex.dexChartViewController.instantiate()
+        vc.presenter = presenter
         return vc
     }
 }
+
+
