@@ -9,9 +9,9 @@
 import Foundation
 
 extension Node.DTO {
-    struct TransactionMassTransfer {
+    struct TransactionMassTransfer: Decodable {
 
-        struct Transfer {
+        struct Transfer: Decodable {
             let recipient: String
             let amount: Int
         }

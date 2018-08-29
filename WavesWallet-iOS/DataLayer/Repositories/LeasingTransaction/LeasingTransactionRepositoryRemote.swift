@@ -18,7 +18,7 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
         return leasingProvider
             .rx
             .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
-            .map([Node.DTO.LeasingTransaction].self)
+            .map([Node.DTO.TransactionLease].self)
             .map { $0.map { DomainLayer.DTO.LeasingTransaction(transaction: $0) } }
             .asObservable()
     }

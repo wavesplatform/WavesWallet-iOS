@@ -13,16 +13,16 @@ extension Node.DTO {
     struct TransactionData: Decodable {
 
         struct Data: Decodable {
-            let key: String
-            let type: String
-            let value: Value
-        }
 
-        enum Value: Decodable {
-            case bool(Bool)
-            case integer(Int)
-            case string(String)
-            case binary(String)
+            enum Value {
+                case bool(Bool)
+                case integer(Int)
+                case string(String)
+                case binary(String)
+            }
+
+            let key: String
+            let value: Value
         }
 
         let type: Int
@@ -38,9 +38,15 @@ extension Node.DTO {
     }
 }
 
-extension Node.DTO.TransactionData.Value {
+extension Node.DTO.TransactionData.Data {
 
     enum CodingKeys: String, CodingKey {
+        case key
+        case type
+        case value
+    }
+
+    enum ValueKey: String {
         case bool
         case integer
         case string
@@ -51,17 +57,35 @@ extension Node.DTO.TransactionData.Value {
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        if let value = try container.decodeIfPresent(Bool.self, forKey: .bool) {
-            self = .bool(value)
-        } else if let value = try container.decodeIfPresent(Int.self, forKey: .integer) {
-            self = .integer(value)
-        } else if let value = try container.decodeIfPresent(String.self, forKey: .string) {
-            self = .string(value)
-        } else if let value = try container.decodeIfPresent(String.self, forKey: .binary) {
-            self = .binary(value)
+        if let value = try container.decodeIfPresent(String.self, forKey: .key) {
+            key = value
         } else {
-            throw DecodingError.dataCorrupted(DecodingError.Context.init(codingPath: container.codingPath,
-                                                                       debugDescription: "Incorrect Value"))
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath,
+                                                                    debugDescription: "Not found key"))
+        }
+
+        var rawType: String? = nil
+        if let value = try container.decodeIfPresent(String.self, forKey: .type) {
+            rawType = value
+        } else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath,
+                                                                    debugDescription: "Not found value"))
+        }
+
+        if let rawType = rawType, let type = ValueKey(rawValue: rawType) {
+            switch type {
+            case .bool:
+                value = .bool(try container.decode(Bool.self, forKey: .value))
+            case .integer:
+                value = .integer(try container.decode(Int.self, forKey: .value))
+            case .string:
+                value = .string(try container.decode(String.self, forKey: .value))
+            case .binary:
+                value = .binary(try container.decode(String.self, forKey: .value))
+            }
+        } else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath,
+                                                                         debugDescription: "Not found value"))
         }
     }
 }

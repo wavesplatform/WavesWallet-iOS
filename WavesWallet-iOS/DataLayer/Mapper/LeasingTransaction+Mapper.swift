@@ -10,7 +10,7 @@ import Foundation
 
 extension LeasingTransaction {
     //TODO: Remove
-    convenience init(model: Node.DTO.LeasingTransaction) {
+    convenience init(model: Node.DTO.TransactionLease) {
         self.init()
         type = model.type
         id = model.id
@@ -45,7 +45,7 @@ extension LeasingTransaction {
 
 extension DomainLayer.DTO.LeasingTransaction {
 
-    init(transaction: Node.DTO.LeasingTransaction) {
+    init(transaction: Node.DTO.TransactionLease) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender

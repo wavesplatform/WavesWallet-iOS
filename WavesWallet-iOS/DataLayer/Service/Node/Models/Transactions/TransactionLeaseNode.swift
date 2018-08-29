@@ -1,5 +1,5 @@
 //
-//  TransactionLeasingNode.swift
+//  TransactionLeaseNode.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 18.07.2018.
@@ -9,7 +9,7 @@
 import Foundation
 
 extension Node.DTO {
-    struct LeasingTransaction: Decodable {
+    struct TransactionLease: Decodable {
         let type: Int
         let id: String
         let sender: String

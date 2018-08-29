@@ -20,7 +20,7 @@ extension Node.DTO {
         let chainId: String?
         let version: Int
         let leaseId: String
-        let lease: Node.DTO.LeasingTransaction
+        let lease: Node.DTO.TransactionLease
         let height: Int64
     }
 }
