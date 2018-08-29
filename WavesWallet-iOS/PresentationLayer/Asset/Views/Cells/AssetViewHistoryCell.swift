@@ -18,7 +18,7 @@ final class AssetViewHistoryCell: UITableViewCell, NibReusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.text = Localizable.Asset.Cell.viewHistory
+//        titleLabel.text = Localizable.Asset.Cell.viewHistory
         viewContainer.addTableCellShadowStyle()
     }
 
