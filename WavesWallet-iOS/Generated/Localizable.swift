@@ -42,12 +42,6 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexSort", "navigationBar.title")
     }
   }
-  internal enum InfoPlist {
-    /// The camera is needed to scan QR codes
-    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
-    /// Authenticate with Face ID
-    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
-  }
   internal enum DexList {
 
     internal enum Button {
@@ -99,6 +93,100 @@ internal enum Localizable {
       internal static let time = Localizable.tr("DexLastTrades", "label.time")
     }
   }
+  internal enum General {
+
+    internal enum History {
+
+      internal enum Transaction {
+
+        internal enum Title {
+          /// Create Alias
+          internal static let alias = Localizable.tr("General", "history.transaction.title.alias")
+          /// Canceled Leasing
+          internal static let canceledLeasing = Localizable.tr("General", "history.transaction.title.canceledLeasing")
+          /// Data transaction
+          internal static let data = Localizable.tr("General", "history.transaction.title.data")
+          /// Exchange
+          internal static let exchange = Localizable.tr("General", "history.transaction.title.exchange")
+          /// Incoming Leasing
+          internal static let incomingLeasing = Localizable.tr("General", "history.transaction.title.incomingLeasing")
+          /// Received
+          internal static let received = Localizable.tr("General", "history.transaction.title.received")
+          /// Self-transfer
+          internal static let selfTransfer = Localizable.tr("General", "history.transaction.title.selfTransfer")
+          /// Sent
+          internal static let sent = Localizable.tr("General", "history.transaction.title.sent")
+          /// Started Leasing
+          internal static let startedLeasing = Localizable.tr("General", "history.transaction.title.startedLeasing")
+          /// Token Burn
+          internal static let tokenBurn = Localizable.tr("General", "history.transaction.title.tokenBurn")
+          /// Token Generation
+          internal static let tokenGeneration = Localizable.tr("General", "history.transaction.title.tokenGeneration")
+          /// Token Reissue
+          internal static let tokenReissue = Localizable.tr("General", "history.transaction.title.tokenReissue")
+          /// Unrecognised Transaction
+          internal static let unrecognisedTransaction = Localizable.tr("General", "history.transaction.title.unrecognisedTransaction")
+        }
+
+        internal enum Value {
+          /// Entry in blockchain
+          internal static let data = Localizable.tr("General", "history.transaction.value.data")
+        }
+      }
+    }
+
+    internal enum Label {
+
+      internal enum Title {
+        /// / My Asset
+        internal static let myasset = Localizable.tr("General", "label.title.myasset")
+      }
+    }
+
+    internal enum Ticker {
+
+      internal enum Title {
+        /// Cryptocurrency
+        internal static let cryptocurrency = Localizable.tr("General", "ticker.title.cryptocurrency")
+        /// Fiat Money
+        internal static let fiatmoney = Localizable.tr("General", "ticker.title.fiatmoney")
+        /// SPAM
+        internal static let spam = Localizable.tr("General", "ticker.title.spam")
+        /// Waves Token
+        internal static let wavestoken = Localizable.tr("General", "ticker.title.wavestoken")
+      }
+    }
+  }
+  internal enum DexInfo {
+
+    internal enum Label {
+      /// Amount Asset
+      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
+      /// Popular
+      internal static let popular = Localizable.tr("DexInfo", "label.popular")
+      /// Price Asset
+      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    }
+  }
+  internal enum DexTraderContainer {
+
+    internal enum Button {
+      /// Chart
+      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
+      /// Last trades
+      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
+      /// My orders
+      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
+      /// Orderbook
+      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
+    }
+  }
+  internal enum InfoPlist {
+    /// The camera is needed to scan QR codes
+    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
+    /// Authenticate with Face ID
+    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
+  }
   internal enum DexMarket {
 
     internal enum Label {
@@ -140,31 +228,6 @@ internal enum Localizable {
       internal static let received = Localizable.tr("History", "segmentedControl.received")
       /// Sent
       internal static let sent = Localizable.tr("History", "segmentedControl.sent")
-    }
-
-    internal enum Transactioncell {
-      /// Create Alias
-      internal static let alias = Localizable.tr("History", "transactionCell.alias")
-      /// Canceled Leasing
-      internal static let canceledLeasing = Localizable.tr("History", "transactionCell.canceledLeasing")
-      /// Exchange
-      internal static let exchange = Localizable.tr("History", "transactionCell.exchange")
-      /// Incoming Leasing
-      internal static let incomingLeasing = Localizable.tr("History", "transactionCell.incomingLeasing")
-      /// Received
-      internal static let received = Localizable.tr("History", "transactionCell.received")
-      /// Self-transfer
-      internal static let selfTransfer = Localizable.tr("History", "transactionCell.selfTransfer")
-      /// Sent
-      internal static let sent = Localizable.tr("History", "transactionCell.sent")
-      /// Started Leasing
-      internal static let startedLeasing = Localizable.tr("History", "transactionCell.startedLeasing")
-      /// Token Burn
-      internal static let tokenBurn = Localizable.tr("History", "transactionCell.tokenBurn")
-      /// Token Generation
-      internal static let tokenGeneration = Localizable.tr("History", "transactionCell.tokenGeneration")
-      /// Token Reissue
-      internal static let tokenReissue = Localizable.tr("History", "transactionCell.tokenReissue")
     }
   }
   internal enum WalletSort {
@@ -242,28 +305,62 @@ internal enum Localizable {
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
   }
-  internal enum DexInfo {
+  internal enum Asset {
 
-    internal enum Label {
-      /// Amount Asset
-      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
-      /// Popular
-      internal static let popular = Localizable.tr("DexInfo", "label.popular")
-      /// Price Asset
-      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    internal enum Cell {
+      /// View history
+      internal static let viewHistory = Localizable.tr("Asset", "cell.viewHistory")
+
+      internal enum Assetinfo {
+        /// Description
+        internal static let description = Localizable.tr("Asset", "cell.assetInfo.description")
+        /// ID
+        internal static let id = Localizable.tr("Asset", "cell.assetInfo.id")
+        /// Issue date
+        internal static let issueDate = Localizable.tr("Asset", "cell.assetInfo.issueDate")
+        /// Issuer
+        internal static let issuer = Localizable.tr("Asset", "cell.assetInfo.issuer")
+        /// Name
+        internal static let name = Localizable.tr("Asset", "cell.assetInfo.name")
+        /// Asset Info
+        internal static let title = Localizable.tr("Asset", "cell.assetInfo.title")
+
+        internal enum Kind {
+          /// Not reissuable
+          internal static let notReissuable = Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable")
+          /// Reissuable
+          internal static let reissuable = Localizable.tr("Asset", "cell.assetInfo.kind.reissuable")
+          /// Type
+          internal static let title = Localizable.tr("Asset", "cell.assetInfo.kind.title")
+        }
+      }
+
+      internal enum Balance {
+        /// Available balance
+        internal static let avaliableBalance = Localizable.tr("Asset", "cell.balance.avaliableBalance")
+        /// In order
+        internal static let inOrderBalance = Localizable.tr("Asset", "cell.balance.inOrderBalance")
+        /// Leased
+        internal static let leased = Localizable.tr("Asset", "cell.balance.leased")
+        /// Total
+        internal static let totalBalance = Localizable.tr("Asset", "cell.balance.totalBalance")
+
+        internal enum Button {
+          /// Exchange
+          internal static let exchange = Localizable.tr("Asset", "cell.balance.button.exchange")
+          /// Receive
+          internal static let receive = Localizable.tr("Asset", "cell.balance.button.receive")
+          /// Send
+          internal static let send = Localizable.tr("Asset", "cell.balance.button.send")
+        }
+      }
     }
-  }
-  internal enum DexTraderContainer {
 
-    internal enum Button {
-      /// Chart
-      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
-      /// Last trades
-      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
-      /// My orders
-      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
-      /// Orderbook
-      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
+    internal enum Header {
+      /// Last transactions
+      internal static let lastTransactions = Localizable.tr("Asset", "header.lastTransactions")
+      /// You do not have any transactions
+      internal static let notHaveTransactions = Localizable.tr("Asset", "header.notHaveTransactions")
     }
   }
   internal enum DexOrderBook {

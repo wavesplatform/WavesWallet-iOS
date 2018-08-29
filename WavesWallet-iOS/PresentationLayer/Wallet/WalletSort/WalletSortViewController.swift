@@ -13,6 +13,7 @@ import UIKit
 
 private enum Constants {
     static let heightForFooter: CGFloat = 23
+    static let contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
 }
 
 final class WalletSortViewController: UIViewController {
@@ -37,16 +38,17 @@ final class WalletSortViewController: UIViewController {
         super.viewDidLoad()
 
         createBackButton()
+        setupBigNavigationBar()
 
         title = Localizable.WalletSort.Navigationbar.title
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
+        tableView.contentInset = Constants.contentInset
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state),
                             events: owner.events())
         }
 
-        let readyViewFeedback: WalletSortPresenter.Feedback = { [weak self] _ in
+        let readyViewFeedback: WalletSortPresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
@@ -56,11 +58,11 @@ final class WalletSortViewController: UIViewController {
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
-        presenter.system(feedbacks: [feedback, readyViewFeedback])
+        presenter.system(feedbacks: [feedback, readyViewFeedback])    
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupTopBarLine()
     }
 }
@@ -98,14 +100,7 @@ fileprivate extension WalletSortViewController {
 
                 strongSelf.changeStatus(state.status)
                 strongSelf.sections = state.sections
-
-                UIView.transition(with: strongSelf.tableView,
-                                  duration: 0.24,
-                                  options: [.transitionCrossDissolve,
-                                            .curveEaseInOut],
-                                  animations: {
-                                    strongSelf.tableView.reloadData()
-                }, completion: { _ in })
+                strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
             })
 
         return [subscriptionSections]
@@ -175,7 +170,7 @@ extension WalletSortViewController: UITableViewDelegate {
         case .asset(let asset):
             let cell: WalletSortCell = tableView.dequeueCell()
             let model: WalletSortCell.Model = .init(name: asset.name,
-                                                    isMyAsset: asset.isMyAsset,
+                                                    isMyWavesToken: asset.isMyWavesToken,
                                                     isVisibility: status == .visibility,
                                                     isHidden: asset.isHidden,
                                                     isGateway: asset.isGateway)
@@ -199,7 +194,7 @@ extension WalletSortViewController: UITableViewDelegate {
         case .favorityAsset(let asset):
             let cell: WalletSortFavCell = tableView.dequeueCell()
             let model: WalletSortFavCell.Model = .init(name: asset.name,
-                                                       isMyAsset: asset.isMyAsset,
+                                                       isMyWavesToken: asset.isMyWavesToken,
                                                        isLock: asset.isLock,
                                                        isGateway: asset.isGateway)
             cell.update(with: model)
@@ -233,6 +228,7 @@ extension WalletSortViewController: UITableViewDelegate {
 
         let sectionModel = sections[proposedDestinationIndexPath.section]
         guard sectionModel.kind == .all else { return IndexPath(row: 0, section: sourceIndexPath.section) }
+
         return proposedDestinationIndexPath
     }
 

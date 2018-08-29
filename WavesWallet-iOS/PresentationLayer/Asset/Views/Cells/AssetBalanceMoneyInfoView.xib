@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetBalanceMoneyInfoView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="balanceLabel" destination="UOP-8l-R2F" id="kEK-e2-Ola"/>
+                <outlet property="namelabel" destination="QpW-CO-mgV" id="4xS-Q1-cbg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xiM-Ay-LHb">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOP-8l-R2F">
+                    <rect key="frame" x="0.0" y="34" width="335.5" height="619"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpW-CO-mgV">
+                    <rect key="frame" x="345.5" y="335.5" width="29.5" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="UOP-8l-R2F" firstAttribute="top" secondItem="cqF-Ff-cZG" secondAttribute="top" constant="14" id="9Q2-m3-4eX"/>
+                <constraint firstItem="UOP-8l-R2F" firstAttribute="leading" secondItem="xiM-Ay-LHb" secondAttribute="leading" id="9xo-rO-SrT"/>
+                <constraint firstAttribute="trailing" secondItem="QpW-CO-mgV" secondAttribute="trailing" id="D2W-Sx-L7c"/>
+                <constraint firstItem="QpW-CO-mgV" firstAttribute="leading" secondItem="UOP-8l-R2F" secondAttribute="trailing" constant="10" id="Ius-Da-rWh"/>
+                <constraint firstItem="cqF-Ff-cZG" firstAttribute="bottom" secondItem="UOP-8l-R2F" secondAttribute="bottom" constant="14" id="g6n-v5-FI6"/>
+                <constraint firstItem="UOP-8l-R2F" firstAttribute="leading" secondItem="cqF-Ff-cZG" secondAttribute="leading" id="kBA-Dv-Bbb"/>
+                <constraint firstItem="QpW-CO-mgV" firstAttribute="centerY" secondItem="UOP-8l-R2F" secondAttribute="centerY" id="rN4-0R-S5P"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="cqF-Ff-cZG"/>
+        </view>
+    </objects>
+</document>
