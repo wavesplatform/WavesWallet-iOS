@@ -9,7 +9,7 @@
 import Foundation
 
 extension Node.DTO {
-    struct TransactionBurnTransactionBurn: Decodable {
+    struct TransactionBurn: Decodable {
         let type: Int
         let id: String
         let sender: String

@@ -48,7 +48,7 @@
 		0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */; };
 		0A3FE8B82137007500DBF4E1 /* TransactionTransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E74211A3103005A7F09 /* TransactionTransferNode.swift */; };
 		0A3FE8B92137007500DBF4E1 /* TransactionReissueNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E76211A3161005A7F09 /* TransactionReissueNode.swift */; };
-		0A3FE8BA2137007500DBF4E1 /* TransactionLeasingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8C20FFB02100079B49 /* TransactionLeasingNode.swift */; };
+		0A3FE8BA2137007500DBF4E1 /* TransactionLeaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8C20FFB02100079B49 /* TransactionLeaseNode.swift */; };
 		0A3FE8BB2137007500DBF4E1 /* TransactionMassTransferNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E70211A2F77005A7F09 /* TransactionMassTransferNode.swift */; };
 		0A3FE8BC2137007500DBF4E1 /* TransactionBurnNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E78211A319C005A7F09 /* TransactionBurnNode.swift */; };
 		0A3FE8BD2137007500DBF4E1 /* TransactionExchangeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E7A211A327C005A7F09 /* TransactionExchangeNode.swift */; };
@@ -77,6 +77,7 @@
 		0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */; };
 		0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E6B2135FCD200C62549 /* Decimal+Assisstants.swift */; };
 		0A580E6E2135FE1400C62549 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E6D2135FE1400C62549 /* HighlightedButton.swift */; };
+		0A580E702137449100C62549 /* AllTransactionExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A580E6F2137449000C62549 /* AllTransactionExample.json */; };
 		0A5ABBA12117325D006A10A7 /* LeasingTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA02117325D006A10A7 /* LeasingTransactionDomainDTO.swift */; };
 		0A5ABBA421173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA321173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift */; };
 		0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */; };
@@ -558,7 +559,7 @@
 		0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContainersNode.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
-		0A485E8C20FFB02100079B49 /* TransactionLeasingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLeasingNode.swift; sourceTree = "<group>"; };
+		0A485E8C20FFB02100079B49 /* TransactionLeaseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLeaseNode.swift; sourceTree = "<group>"; };
 		0A485E8F21009DC700079B49 /* LeasingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingInteractor.swift; sourceTree = "<group>"; };
 		0A485E942100A0D400079B49 /* DomainLayerTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerTypes.swift; sourceTree = "<group>"; };
 		0A485E972100A8B000079B49 /* BasicTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTransaction.swift; sourceTree = "<group>"; };
@@ -578,6 +579,7 @@
 		0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Pagination.swift"; sourceTree = "<group>"; };
 		0A580E6B2135FCD200C62549 /* Decimal+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Assisstants.swift"; sourceTree = "<group>"; };
 		0A580E6D2135FE1400C62549 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
+		0A580E6F2137449000C62549 /* AllTransactionExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AllTransactionExample.json; sourceTree = "<group>"; };
 		0A5ABBA02117325D006A10A7 /* LeasingTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionDomainDTO.swift; sourceTree = "<group>"; };
 		0A5ABBA321173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionRepositoryRemote.swift; sourceTree = "<group>"; };
@@ -1188,11 +1190,12 @@
 		0A3FE8AF2136FE9B00DBF4E1 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
+				0A580E6F2137449000C62549 /* AllTransactionExample.json */,
 				0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */,
 				0A5B6E72211A3065005A7F09 /* TransactionIssueNode.swift */,
 				0A5B6E74211A3103005A7F09 /* TransactionTransferNode.swift */,
 				0A5B6E76211A3161005A7F09 /* TransactionReissueNode.swift */,
-				0A485E8C20FFB02100079B49 /* TransactionLeasingNode.swift */,
+				0A485E8C20FFB02100079B49 /* TransactionLeaseNode.swift */,
 				0A5B6E7C211A3343005A7F09 /* TransactionLeaseCancelNode.swift */,
 				0A5B6E7E211A3373005A7F09 /* TransactionAliasNode.swift */,
 				0A5B6E70211A2F77005A7F09 /* TransactionMassTransferNode.swift */,
@@ -2680,6 +2683,7 @@
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E9FA5F552121B3EA00F16889 /* SearchBarView.xib in Resources */,
+				0A580E702137449100C62549 /* AllTransactionExample.json in Resources */,
 				E95FD576212CD10E00D73E18 /* DexLastTradesHeaderView.xib in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */,
@@ -3198,7 +3202,7 @@
 				E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */,
 				0AF92227212E0F1F003BA067 /* WalletTableAssetsCell.swift in Sources */,
 				E906131F212247C700E8F87F /* DexTraderContainerViewController.swift in Sources */,
-				0A3FE8BA2137007500DBF4E1 /* TransactionLeasingNode.swift in Sources */,
+				0A3FE8BA2137007500DBF4E1 /* TransactionLeaseNode.swift in Sources */,
 				0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */,
 				E902ADCF212E1EB8000C289A /* Money.swift in Sources */,
 				E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */,

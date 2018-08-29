@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .network]
+        SweetLogger.current.visibleLevels = [.debug, .network, .error]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -43,9 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
         test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
+            let container = try? response.map(Node.DTO.TransactionContainers.self)
 
         }, onError: nil)
-        
+
+        JSONDecoder.decode(type: Node.DTO.TransactionContainers.self, json: "AllTransactionExample").subscribe()
+
         return true
     }
 
