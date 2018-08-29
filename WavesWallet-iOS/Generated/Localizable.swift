@@ -7,46 +7,12 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
-  internal enum DexMyOrders {
-
-    internal enum Label {
-      /// Amount
-      internal static let amount = Localizable.tr("DexMyOrders", "label.amount")
-      /// Nothing Here…\nYou do not have any orders
-      internal static let emptyData = Localizable.tr("DexMyOrders", "label.emptyData")
-      /// Loading orders…
-      internal static let loadingLastTrades = Localizable.tr("DexMyOrders", "label.loadingLastTrades")
-      /// Price
-      internal static let price = Localizable.tr("DexMyOrders", "label.price")
-      /// Status
-      internal static let status = Localizable.tr("DexMyOrders", "label.status")
-      /// Time
-      internal static let time = Localizable.tr("DexMyOrders", "label.time")
-
-      internal enum Status {
-        /// Open
-        internal static let accepted = Localizable.tr("DexMyOrders", "label.status.accepted")
-        /// Cancelled
-        internal static let cancelled = Localizable.tr("DexMyOrders", "label.status.cancelled")
-        /// Filled
-        internal static let filled = Localizable.tr("DexMyOrders", "label.status.filled")
-        /// Partial
-        internal static let partiallyFilled = Localizable.tr("DexMyOrders", "label.status.partiallyFilled")
-      }
-    }
-  }
   internal enum DexSort {
 
     internal enum Navigationbar {
       /// Sorting
       internal static let title = Localizable.tr("DexSort", "navigationBar.title")
     }
-  }
-  internal enum InfoPlist {
-    /// The camera is needed to scan QR codes
-    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
-    /// Authenticate with Face ID
-    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
   internal enum DexList {
 
@@ -98,6 +64,88 @@ internal enum Localizable {
       /// Time
       internal static let time = Localizable.tr("DexLastTrades", "label.time")
     }
+  }
+  internal enum DexInfo {
+
+    internal enum Label {
+      /// Amount Asset
+      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
+      /// Popular
+      internal static let popular = Localizable.tr("DexInfo", "label.popular")
+      /// Price Asset
+      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
+    }
+  }
+  internal enum DexTraderContainer {
+
+    internal enum Button {
+      /// Chart
+      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
+      /// Last trades
+      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
+      /// My orders
+      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
+      /// Orderbook
+      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
+    }
+  }
+  internal enum DexChart {
+
+    internal enum Button {
+      /// Cancel
+      internal static let cancel = Localizable.tr("DexChart", "button.cancel")
+    }
+
+    internal enum Label {
+      /// No chart data available
+      internal static let emptyData = Localizable.tr("DexChart", "label.emptyData")
+      /// Full
+      internal static let full = Localizable.tr("DexChart", "label.full")
+      /// hour
+      internal static let hour = Localizable.tr("DexChart", "label.hour")
+      /// hours
+      internal static let hours = Localizable.tr("DexChart", "label.hours")
+      /// Loading chart…
+      internal static let loadingChart = Localizable.tr("DexChart", "label.loadingChart")
+      /// minutes
+      internal static let minutes = Localizable.tr("DexChart", "label.minutes")
+      /// Time
+      internal static let time = Localizable.tr("DexChart", "label.time")
+    }
+  }
+  internal enum DexMyOrders {
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexMyOrders", "label.amount")
+      /// Nothing Here…\nYou do not have any orders
+      internal static let emptyData = Localizable.tr("DexMyOrders", "label.emptyData")
+      /// Loading orders…
+      internal static let loadingLastTrades = Localizable.tr("DexMyOrders", "label.loadingLastTrades")
+      /// Price
+      internal static let price = Localizable.tr("DexMyOrders", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexMyOrders", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexMyOrders", "label.time")
+
+      internal enum Status {
+        /// Open
+        internal static let accepted = Localizable.tr("DexMyOrders", "label.status.accepted")
+        /// Cancelled
+        internal static let cancelled = Localizable.tr("DexMyOrders", "label.status.cancelled")
+        /// Filled
+        internal static let filled = Localizable.tr("DexMyOrders", "label.status.filled")
+        /// Partial
+        internal static let partiallyFilled = Localizable.tr("DexMyOrders", "label.status.partiallyFilled")
+      }
+    }
+  }
+  internal enum InfoPlist {
+    /// The camera is needed to scan QR codes
+    internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
+    /// Authenticate with Face ID
+    internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
   internal enum DexMarket {
 
@@ -240,30 +288,6 @@ internal enum Localizable {
       internal static let assets = Localizable.tr("Wallet", "segmentedControl.assets")
       /// Leasing
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
-    }
-  }
-  internal enum DexInfo {
-
-    internal enum Label {
-      /// Amount Asset
-      internal static let amountAsset = Localizable.tr("DexInfo", "label.amountAsset")
-      /// Popular
-      internal static let popular = Localizable.tr("DexInfo", "label.popular")
-      /// Price Asset
-      internal static let priceAsset = Localizable.tr("DexInfo", "label.priceAsset")
-    }
-  }
-  internal enum DexTraderContainer {
-
-    internal enum Button {
-      /// Chart
-      internal static let chart = Localizable.tr("DexTraderContainer", "button.chart")
-      /// Last trades
-      internal static let lastTrades = Localizable.tr("DexTraderContainer", "button.lastTrades")
-      /// My orders
-      internal static let myOrders = Localizable.tr("DexTraderContainer", "button.myOrders")
-      /// Orderbook
-      internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
     }
   }
   internal enum DexOrderBook {

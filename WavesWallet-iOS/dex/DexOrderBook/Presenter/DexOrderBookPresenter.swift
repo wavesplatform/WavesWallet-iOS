@@ -12,7 +12,6 @@ import RxFeedback
 import RxCocoa
 
 
-
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
     var interactor: DexOrderBookInteractorProtocol!

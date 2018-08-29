@@ -18,7 +18,7 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
         vc.moduleOutput = output
         
         vc.addViewController(DexOrderBookModuleBuilder().build(input: input))
-        vc.addViewController(DexChartModuleBuilder().build())
+        vc.addViewController(DexChartModuleBuilder().build(input: input))
         vc.addViewController(DexLastTradesModuleBuilder().build(input: input))
         vc.addViewController(DexMyOrdersModuleMuilder().build(input: input))
         return vc
