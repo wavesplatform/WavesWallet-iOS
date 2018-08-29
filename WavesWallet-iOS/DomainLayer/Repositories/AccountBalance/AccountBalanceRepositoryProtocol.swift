@@ -17,7 +17,6 @@ protocol AccountBalanceRepositoryProtocol {
     
     func balances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]>
 
-
     func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance>
 
     func saveBalances(_ balances:[DomainLayer.DTO.AssetBalance]) -> Observable<Bool>

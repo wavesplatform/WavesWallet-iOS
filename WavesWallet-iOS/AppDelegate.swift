@@ -12,10 +12,13 @@ import RESideMenu
 import RxSwift
 import SVProgressHUD
 import UIKit
+import Moya
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+
+    let test: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -38,6 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.showStartController()
 
         self.window?.makeKeyAndVisible()
+
+        test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
+
+        }, onError: nil)
+        
         return true
     }
 

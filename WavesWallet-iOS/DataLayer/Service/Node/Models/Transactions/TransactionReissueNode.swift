@@ -1,14 +1,15 @@
 //
-//  TransactionLeasingNode.swift
+//  TransactionReissueNode.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 18.07.2018.
+//  Created by Prokofev Ruslan on 07/08/2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import Foundation
+
 extension Node.DTO {
-    struct LeasingTransaction: Decodable {
+    struct TransactionReissue: Decodable {
         let type: Int
         let id: String
         let sender: String
@@ -17,8 +18,10 @@ extension Node.DTO {
         let timestamp: Int64
         let signature: String
         let version: Int
-        let amount: Int64
-        let recipient: String
+        let chainId: String?
+        let assetId: String
+        let quantity: Int64
+        let reissuable: Bool
         let height: Int64
     }
 }
