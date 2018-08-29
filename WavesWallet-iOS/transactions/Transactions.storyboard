@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Transaction History View Controller-->
+        <!--Old Transaction History View Controller-->
         <scene sceneID="euB-Gl-RDY">
             <objects>
-                <viewController storyboardIdentifier="TransactionHistoryViewController" id="qqf-L2-lnO" customClass="TransactionHistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OldTransactionHistoryViewController" id="qqf-L2-lnO" customClass="OldTransactionHistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IY9-oe-fbW"/>
                         <viewControllerLayoutGuide type="bottom" id="bhH-mh-YpM"/>

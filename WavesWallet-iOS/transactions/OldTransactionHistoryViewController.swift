@@ -10,7 +10,7 @@ import UIKit
 import SwipeView
 
 
-class TransactionHistoryViewController: UIViewController, SwipeViewDelegate, SwipeViewDataSource {
+class OldTransactionHistoryViewController: UIViewController, SwipeViewDelegate, SwipeViewDataSource {
 
     @IBOutlet weak var swipeView: SwipeView!
     @IBOutlet weak var arrowRight: UIButton!

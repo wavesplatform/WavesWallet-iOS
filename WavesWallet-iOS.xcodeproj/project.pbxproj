@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0424E30E212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424E30D212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift */; };
+		043AEDE62136098C003A8B6A /* TransactionHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043AEDE52136098C003A8B6A /* TransactionHistoryCoordinator.swift */; };
+		043AEDE821360A40003A8B6A /* TransactionHistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043AEDE721360A40003A8B6A /* TransactionHistoryModuleBuilder.swift */; };
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
+		0449E5E5212DE2720068B5E3 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449E5E4212DE2710068B5E3 /* TransactionHistoryViewController.swift */; };
+		0449E5E7212DE3790068B5E3 /* TransactionHistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449E5E6212DE3790068B5E3 /* TransactionHistoryTypes.swift */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
 		04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04615A22211A31C90000FF80 /* HistoryModuleInput.swift */; };
 		048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048310832119675300509CED /* HistoryModuleBuilder.swift */; };
 		04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831085211967D500509CED /* HistoryModuleOutput.swift */; };
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
+		04861B4B21358AEC006993A8 /* TransactionHistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861B4A21358AEC006993A8 /* TransactionHistoryModuleOutput.swift */; };
+		04861B4D2135D842006993A8 /* TransactionHistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
@@ -25,6 +32,11 @@
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB74282113335B004A065B /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
+		04FB3F2521342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F2421342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift */; };
+		04FB3F2821343FCF0008CFF3 /* NewTransactionHistoryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */; };
+		04FB3F2E21347B8C0008CFF3 /* TransactionHistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F2D21347B8C0008CFF3 /* TransactionHistoryPresenter.swift */; };
+		04FB3F3021347BC50008CFF3 /* TransactionHistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F2F21347BC50008CFF3 /* TransactionHistoryModuleInput.swift */; };
+		04FB3F3221347C2B0008CFF3 /* TransactionHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F3121347C2B0008CFF3 /* TransactionHistoryInteractor.swift */; };
 		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
@@ -161,7 +173,7 @@
 		0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFEFB5C211276F000B50F85 /* Wallet.strings */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
-		E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */; };
+		E904525C20B4F09500A490E5 /* OldTransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525B20B4F09500A490E5 /* OldTransactionHistoryViewController.swift */; };
 		E906D2CC20D8BDB300AF2D3C /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */; };
 		E90C6E6820981F0300AA311B /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E6720981F0300AA311B /* AssetViewController.swift */; };
 		E90C6E6A2098200500AA311B /* AssetBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90C6E692098200500AA311B /* AssetBalanceCell.swift */; };
@@ -405,12 +417,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0424E30D212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
+		043AEDE52136098C003A8B6A /* TransactionHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCoordinator.swift; sourceTree = "<group>"; };
+		043AEDE721360A40003A8B6A /* TransactionHistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleBuilder.swift; sourceTree = "<group>"; };
+		0449E5E4212DE2710068B5E3 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
+		0449E5E6212DE3790068B5E3 /* TransactionHistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTypes.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
 		048310832119675300509CED /* HistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleBuilder.swift; sourceTree = "<group>"; };
 		04831085211967D500509CED /* HistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleOutput.swift; sourceTree = "<group>"; };
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
+		04861B4A21358AEC006993A8 /* TransactionHistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleOutput.swift; sourceTree = "<group>"; };
+		04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+State.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
@@ -424,6 +443,11 @@
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
+		04FB3F2421342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+DTO.swift"; sourceTree = "<group>"; };
+		04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionHistoryContentView.swift; sourceTree = "<group>"; };
+		04FB3F2D21347B8C0008CFF3 /* TransactionHistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPresenter.swift; sourceTree = "<group>"; };
+		04FB3F2F21347BC50008CFF3 /* TransactionHistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleInput.swift; sourceTree = "<group>"; };
+		04FB3F3121347C2B0008CFF3 /* TransactionHistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryInteractor.swift; sourceTree = "<group>"; };
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
@@ -577,7 +601,7 @@
 		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSelectAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
-		E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
+		E904525B20B4F09500A490E5 /* OldTransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTransactionHistoryViewController.swift; sourceTree = "<group>"; };
 		E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		E90C6E6720981F0300AA311B /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		E90C6E692098200500AA311B /* AssetBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceCell.swift; sourceTree = "<group>"; };
@@ -848,6 +872,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0449E5E3212DDFA10068B5E3 /* TransactionHistory */ = {
+			isa = PBXGroup;
+			children = (
+				0449E5E4212DE2710068B5E3 /* TransactionHistoryViewController.swift */,
+				043AEDE52136098C003A8B6A /* TransactionHistoryCoordinator.swift */,
+				043AEDE721360A40003A8B6A /* TransactionHistoryModuleBuilder.swift */,
+				04FB3F2C21347B6C0008CFF3 /* Interactor */,
+				04FB3F2B21347B660008CFF3 /* Presenter */,
+				04FB3F2621343F280008CFF3 /* Views */,
+				0449E5E6212DE3790068B5E3 /* TransactionHistoryTypes.swift */,
+				04FB3F2421342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift */,
+				04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */,
+				0424E30D212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift */,
+			);
+			path = TransactionHistory;
+			sourceTree = "<group>";
+		};
 		048684F02124A77F00D12189 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -903,6 +944,32 @@
 				048684F22124B1E400D12189 /* History */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		04FB3F2621343F280008CFF3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04FB3F2B21347B660008CFF3 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				04FB3F2D21347B8C0008CFF3 /* TransactionHistoryPresenter.swift */,
+				04FB3F2F21347BC50008CFF3 /* TransactionHistoryModuleInput.swift */,
+				04861B4A21358AEC006993A8 /* TransactionHistoryModuleOutput.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		04FB3F2C21347B6C0008CFF3 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				04FB3F3121347C2B0008CFF3 /* TransactionHistoryInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		0A1DAD6020F37BA2004DA625 /* Models */ = {
@@ -1234,6 +1301,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0449E5E3212DDFA10068B5E3 /* TransactionHistory */,
 				04A2CFA12112100B00784FEC /* History */,
 				0A97975E2108A10400407F67 /* Wallet */,
 				0AE491EF2107A4BD009223DB /* WalletCoordinator.swift */,
@@ -1850,7 +1918,7 @@
 				F79C43CD1EAEA9F4006057B0 /* TransferTransactionViewController.swift */,
 				F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */,
 				F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */,
-				E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */,
+				E904525B20B4F09500A490E5 /* OldTransactionHistoryViewController.swift */,
 				E9FCE79020C01CD200B6B588 /* AddAddressViewController.swift */,
 				E96038AF20B597A700D303E8 /* Views */,
 			);
@@ -2403,6 +2471,7 @@
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */,
+				04FB3F3221347C2B0008CFF3 /* TransactionHistoryInteractor.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				F7F97E8F1EAA0CF800BE2F6F /* CustomSectionHeader.swift in Sources */,
 				0A6CCD4120F50F2A0023E36E /* ObservableType+Weak.swift in Sources */,
@@ -2444,6 +2513,7 @@
 				F7E955071EA9120300A804DE /* CreateNewWalletViewController.swift in Sources */,
 				E9995033209213AC00A11E37 /* UIViewController+Additionals.swift in Sources */,
 				E988E8B91F0D32360013EAF6 /* OrderBookViewController.swift in Sources */,
+				043AEDE62136098C003A8B6A /* TransactionHistoryCoordinator.swift in Sources */,
 				F74240D11EAB8EFF00C3B84D /* SelectAccountCollectionCell.swift in Sources */,
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
@@ -2481,6 +2551,8 @@
 				0AE6572B2105E88E003D2DB8 /* UInt8+Assisstants.swift in Sources */,
 				E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */,
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
+				04FB3F3021347BC50008CFF3 /* TransactionHistoryModuleInput.swift in Sources */,
+				0424E30E212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift in Sources */,
 				0AD2B58320F64A8B007EE076 /* RxDataSource+TableView.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
@@ -2509,6 +2581,7 @@
 				E959293C211964C0007C06EA /* DexListCoordinator.swift in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */,
+				04FB3F2821343FCF0008CFF3 /* NewTransactionHistoryContentView.swift in Sources */,
 				0A93FED320FCAADC0058179E /* WalletTypes+DTO.swift in Sources */,
 				F7179BD51F726CE400FAE8F5 /* CustomUITextField.swift in Sources */,
 				044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */,
@@ -2529,7 +2602,9 @@
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
+				0449E5E5212DE2720068B5E3 /* TransactionHistoryViewController.swift in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
+				04861B4B21358AEC006993A8 /* TransactionHistoryModuleOutput.swift in Sources */,
 				0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */,
 				0AD2B58A20F65956007EE076 /* UITableView+Reusable.swift in Sources */,
 				F761428C1EAFC09300F4C749 /* ReceiveViewController.swift in Sources */,
@@ -2539,6 +2614,7 @@
 				F7CBD8631EBA592B00B0D4CE /* StringExtension.swift in Sources */,
 				0AEB35942115E45500EDD63C /* AssetsRepositoryRemote.swift in Sources */,
 				0A1E8AD520F75E8A0054FA70 /* UIFont+Additions.swift in Sources */,
+				04861B4D2135D842006993A8 /* TransactionHistoryTypes+State.swift in Sources */,
 				F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */,
 				F762B3A31EABB6C000EAD7FF /* SendViewController.swift in Sources */,
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
@@ -2558,6 +2634,7 @@
 				E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */,
 				E9983DCD211C726C002349CA /* DexMarketPresenterProtocol.swift in Sources */,
 				E959293E211965A4007C06EA /* DexListModuleOutput.swift in Sources */,
+				04FB3F2E21347B8C0008CFF3 /* TransactionHistoryPresenter.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				0A5ABBA421173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift in Sources */,
@@ -2593,7 +2670,7 @@
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
 				0AEB359A211652CB00EDD63C /* SweetNetworkLoggerPlugin.swift in Sources */,
-				E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */,
+				E904525C20B4F09500A490E5 /* OldTransactionHistoryViewController.swift in Sources */,
 				E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */,
 				0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */,
 				E9983DF8211C952D002349CA /* DexMarketCell.swift in Sources */,
@@ -2614,6 +2691,7 @@
 				0AEB35912115E44300EDD63C /* AssetsRepositoryLocal.swift in Sources */,
 				E9E2A90A1F4C42C40093782E /* MyOrdersViewController.swift in Sources */,
 				E9592940211969EE007C06EA /* DexListModuleBuilder.swift in Sources */,
+				0449E5E7212DE3790068B5E3 /* TransactionHistoryTypes.swift in Sources */,
 				0AD2B58620F658EA007EE076 /* NibLoadable.swift in Sources */,
 				E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */,
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
@@ -2658,6 +2736,7 @@
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
+				04FB3F2521342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift in Sources */,
 				F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */,
 				0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */,
 				E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */,
@@ -2666,6 +2745,7 @@
 				E9F984B220E53FE000D2CB4D /* EnterLanguageViewController.swift in Sources */,
 				F79C43D91EAEB101006057B0 /* HalfModalTransitionAnimator.swift in Sources */,
 				0A7643FE21187DF500B633E1 /* FactoryInteractors.swift in Sources */,
+				043AEDE821360A40003A8B6A /* TransactionHistoryModuleBuilder.swift in Sources */,
 				E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */,
 				E90F152F2121209000C11124 /* DexMarketModuleOutput.swift in Sources */,
 				0AD8543C20F7A74C00D23E48 /* SegmentedControl.swift in Sources */,

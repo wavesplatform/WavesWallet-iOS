@@ -67,9 +67,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             
             return state.setIsRefreshing(true)
             
-        case .tapCell(_):
+        case .tapCell(let indexPath):
             
-            moduleOutput?.showTransaction()
+            moduleOutput?.showTransaction(transactions: state.transactions, index: 0)
             return state
             
         case .changeFilter(let filter):
