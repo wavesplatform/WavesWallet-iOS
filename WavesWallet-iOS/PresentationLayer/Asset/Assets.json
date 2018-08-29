@@ -1,0 +1,110 @@
+[
+  {
+    "balance": {
+      "inOrderMoney": {
+        "amount": 2012,
+        "decimals": 3
+      },
+      "leasedMoney": {
+        "amount": 1,
+        "decimals": 3
+      },
+      "avaliableMoney": {
+        "amount": 2012,
+        "decimals": 2
+      },
+      "totalMoney": {
+        "amount": 2012,
+        "decimals": 2
+      }
+    },
+    "info": {
+      "issueDate": "2012-11-16T02:02:55.000-08:00",
+      "isWavesToken": false,
+      "issuer": "Gagarin",
+      "isSpam": true,
+      "description": "For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.",
+      "isReusable": false,
+      "isGateway": false,
+      "sortLevel": 1,
+      "id": "3",
+      "name": "LoL",
+      "isMyWavesToken": true,
+      "isWaves": true,
+      "isFavorite": true,
+      "isFiat": true
+    }
+  },
+  {
+    "balance": {
+      "inOrderMoney": {
+        "amount": 1,
+        "decimals": 3
+      },
+      "leasedMoney": {
+        "amount": 0,
+        "decimals": 3
+      },
+      "avaliableMoney": {
+        "amount": 2012,
+        "decimals": 3
+      },
+      "totalMoney": {
+        "amount": 2012,
+        "decimals": 3
+      }
+    },
+    "info": {
+      "issueDate": "2017-11-16T02:23:55.000-08:00",
+      "issuer": "3PC4roN512iugc6xGVTTM2XkoWKEdSiiscd",
+      "description": "FBI test",
+      "isReusable": false,
+      "isSpam": false,
+      "isGateway": true,
+      "sortLevel": 1,
+      "id": "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+      "name": "Mefilt",
+      "isMyWavesToken": true,
+      "isWavesToken": true,
+      "isWaves": true,
+      "isFavorite": true,
+      "isFiat": true
+    }
+  },
+  {
+    "balance": {
+      "inOrderMoney": {
+        "amount": 2012,
+        "decimals": 3
+      },
+      "leasedMoney": {
+        "amount": 0,
+        "decimals": 2
+      },
+      "avaliableMoney": {
+        "amount": 2012,
+        "decimals": 2
+      },
+      "totalMoney": {
+        "amount": 2012,
+        "decimals": 2
+      }
+    },
+    "info": {
+      "issueDate": "2012-11-16T02:02:55.000-08:00",
+      "isWavesToken": false,
+      "issuer": "Gagarin",
+      "isSpam": true,
+      "description": "For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.For fixed format representations of dates and times, you can specify a custom format string.",
+      "isReusable": false,
+      "isGateway": true,
+      "sortLevel": 1,
+      "id": "Test",
+      "name": "Waves",
+      "isMyWavesToken": true,
+      "isWaves": true,
+      "isFavorite": true,
+      "isFiat": true
+    }
+  }
+]

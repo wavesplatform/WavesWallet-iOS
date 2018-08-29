@@ -8,7 +8,8 @@
 
 import Foundation
 
-protocol WalletModuleOutput {
+protocol WalletModuleOutput: AnyObject {
     func showWalletSort()
     func showMyAddress()
+    func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset])
 }

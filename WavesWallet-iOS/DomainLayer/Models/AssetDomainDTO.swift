@@ -15,15 +15,16 @@ extension DomainLayer.DTO {
         let precision: Int
         let description: String
         let height: Int64
-        let timestamp: String
+        let timestamp: Date
         let sender: String
         let quantity: Int64
         let ticker: String?
-        let isReissuable: Bool
+        let isReusable: Bool
         let isSpam: Bool
         let isFiat: Bool
         let isGeneral: Bool
-        let isMyAsset: Bool
+        let isMyWavesToken: Bool
+        let isWavesToken: Bool
         let isGateway: Bool
         let isWaves: Bool
         let modified: Date

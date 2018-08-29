@@ -21,7 +21,7 @@ extension Asset {
         timestamp = model.timestamp
         sender = model.sender
         quantity = model.quantity
-        isReissuable = model.reissuable
+        isReusable = model.reissuable
     }
 
     convenience init(asset: DomainLayer.DTO.Asset) {
@@ -35,11 +35,12 @@ extension Asset {
         self.sender = asset.sender
         self.quantity = asset.quantity
         self.ticker = asset.ticker
-        self.isReissuable = asset.isReissuable
+        self.isReusable = asset.isReusable
         self.isSpam = asset.isSpam
         self.isFiat = asset.isFiat
         self.isGeneral = asset.isGeneral
-        self.isMyAsset = asset.isMyAsset
+        self.isMyWavesToken = asset.isMyWavesToken
+        self.isWavesToken = asset.isWavesToken
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
         self.modified = asset.modified
@@ -59,11 +60,12 @@ extension DomainLayer.DTO.Asset {
         self.sender = asset.sender
         self.quantity = asset.quantity
         self.ticker = asset.ticker
-        self.isReissuable = asset.isReissuable
+        self.isReusable = asset.isReusable
         self.isSpam = asset.isSpam
         self.isFiat = asset.isFiat
         self.isGeneral = asset.isGeneral
-        self.isMyAsset = asset.isMyAsset
+        self.isMyWavesToken = asset.isMyWavesToken
+        self.isWavesToken = asset.isWavesToken
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
     }
