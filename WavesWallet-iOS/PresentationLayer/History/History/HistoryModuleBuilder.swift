@@ -22,9 +22,7 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
         vc.presenter = presenter
         
         return vc
-        
     }
-    
 }
 
 struct HistoryInput: HistoryModuleInput {

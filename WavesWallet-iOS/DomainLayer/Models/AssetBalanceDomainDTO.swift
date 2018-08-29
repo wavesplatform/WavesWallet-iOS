@@ -18,11 +18,12 @@ extension DomainLayer.DTO {
             var isFavorite: Bool
         }
         let assetId: String
+        //TODO: Rename totalBalance
         var balance: Int64
         var leasedBalance: Int64
-        var reserveBalance: Int64
+        var inOrderBalance: Int64
         var settings: Settings?
         var asset: DomainLayer.DTO.Asset?
         var modified: Date
-    }
+    } 
 }

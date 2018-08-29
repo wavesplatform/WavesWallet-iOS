@@ -10,6 +10,6 @@ import Foundation
 
 extension DomainLayer.DTO.AssetBalance {
     var avaliableBalance: Int64 {
-        return balance - leasedBalance - reserveBalance
+        return balance - leasedBalance - inOrderBalance
     }
 }
