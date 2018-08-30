@@ -28,6 +28,7 @@ enum DexMyOrders {
         
         var action: Action
         var sections: [DexMyOrders.ViewModel.Section]
+        var isAppeared: Bool
     }
 }
 

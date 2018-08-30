@@ -33,7 +33,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         
         return react(query: { state -> Bool? in
-            return true
+            return state.isAppeared ? true : nil
         }, effects: { [weak self] ss -> Signal<DexMyOrders.Event> in
             
             // TODO: Error
@@ -47,7 +47,9 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         switch event {
         case .readyView:
-            return state.changeAction(.none)
+            return state.mutate {
+                $0.isAppeared = true
+            }.changeAction(.none)
         
         case .setOrders(let orders):
           
@@ -115,6 +117,6 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [])
+        return DexMyOrders.State(action: .none, sections: [], isAppeared: false)
     }
 }
