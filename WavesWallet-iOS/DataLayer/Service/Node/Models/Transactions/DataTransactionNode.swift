@@ -30,9 +30,9 @@ extension Node.DTO {
         let id: String
         let sender: String
         let senderPublicKey: String
-        let fee: Int
-        let timestamp: Int
-        let height: Int
+        let fee: Int64
+        let timestamp: Int64
+        let height: Int64
         let version: Int
 
         let proofs: [String]
