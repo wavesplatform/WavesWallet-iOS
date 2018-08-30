@@ -12,13 +12,18 @@ import RealmSwift
 import Realm
 import RxDataSources
 
-public class IssueTransaction: Transaction {
-    @objc dynamic var name = ""
-    @objc dynamic var assetDescription: String?
-    @objc dynamic var quantity: Int64 = 0
-    @objc dynamic var decimals: Int = 0
-    @objc dynamic var reissuable = false
+final class IssueTransaction: Transaction {
 
+    @objc dynamic var signature: String = ""
+    @objc dynamic var assetId: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var quantity: Int64 = 0
+    @objc dynamic var reissuable: Bool = false
+    @objc dynamic var decimals: Int = 0
+    @objc dynamic var assetDescription: String = ""
+    @objc dynamic var script: String? = nil
+
+    @available(*, deprecated, message: "need remove")
     public required init?(json: JSON) {
         guard let name: String = "name" <~~ json
             , let quantity: Int64 = "quantity" <~~ json
@@ -28,7 +33,7 @@ public class IssueTransaction: Transaction {
         }
 
         self.name = name
-        self.assetDescription = "description" <~~ json
+        self.assetDescription = ("description" <~~ json) ?? ""
         self.quantity = quantity
         self.decimals = decimals
         self.reissuable = reissuable
@@ -50,12 +55,14 @@ public class IssueTransaction: Transaction {
 
     public required init(value: Any, schema: RLMSchema) {
         super.init(value: value, schema: schema)
-    }
 
+    }
+    @available(*, deprecated, message: "need remove")
     public override func getAssetId() -> String {
         return id
     }
 
+    @available(*, deprecated, message: "need remove")
     public override func getAmount() -> Int64 {
         return quantity
     }

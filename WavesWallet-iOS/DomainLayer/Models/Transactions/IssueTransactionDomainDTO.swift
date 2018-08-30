@@ -1,5 +1,5 @@
 //
-//  TransactionAliasNode.swift
+//  TransactionIssueNode.swift
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 07/08/2018.
@@ -8,17 +8,25 @@
 
 import Foundation
 
-extension Node.DTO {
-    struct TransactionAlias: Decodable {
+extension DomainLayer.DTO {
+    struct IssueTransaction {
         let type: Int
         let id: String
         let sender: String
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let signature: String
         let version: Int
-        let alias: String
         let height: Int64
+
+        let signature: String
+        let assetId: String
+        let name: String
+        let quantity: Int64
+        let reissuable: Bool
+        let decimals: Int
+        let description: String
+        let script: String?
+        var modified: Date
     }
 }

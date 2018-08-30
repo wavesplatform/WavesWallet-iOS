@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension Node.DTO {
-    struct TransactionMassTransfer: Decodable {
+extension DomainLayer.DTO {
+    struct MassTransferTransaction {
 
-        struct Transfer: Decodable {
+        struct Transfer {
             let recipient: String
             let amount: Int
         }
@@ -22,13 +22,15 @@ extension Node.DTO {
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let proofs: [String]
         let version: Int
+        let height: Int64
+
+        let proofs: [String]
         let assetId: String
         let attachment: String
         let transferCount: Int
         let totalAmount: Int64
         let transfers: [Transfer]
-        let height: Int64
+        var modified: Date
     }
 }

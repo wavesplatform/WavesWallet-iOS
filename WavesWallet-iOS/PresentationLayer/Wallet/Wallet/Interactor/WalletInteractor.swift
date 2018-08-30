@@ -11,7 +11,7 @@ import RxSwift
 
 private struct Leasing {
     let balance: DomainLayer.DTO.AssetBalance
-    let transaction: [DomainLayer.DTO.LeasingTransaction]
+    let transaction: [DomainLayer.DTO.LeaseTransaction]
 }
 
 final class WalletInteractor: WalletInteractorProtocol {

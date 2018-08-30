@@ -10,7 +10,7 @@ import Foundation
 
 extension Node.DTO {
 
-    struct TransactionData: Decodable {
+    struct DataTransaction: Decodable {
 
         struct Data: Decodable {
 
@@ -22,6 +22,7 @@ extension Node.DTO {
             }
 
             let key: String
+            let type: String
             let value: Value
         }
 
@@ -31,14 +32,15 @@ extension Node.DTO {
         let senderPublicKey: String
         let fee: Int
         let timestamp: Int
-        let proofs: [String]
-        let version: Int
-        let data: [Data]
         let height: Int
+        let version: Int
+
+        let proofs: [String]
+        let data: [Data]
     }
 }
 
-extension Node.DTO.TransactionData.Data {
+extension Node.DTO.DataTransaction.Data {
 
     enum CodingKeys: String, CodingKey {
         case key
@@ -47,7 +49,7 @@ extension Node.DTO.TransactionData.Data {
     }
 
     enum ValueKey: String {
-        case bool
+        case boolean
         case integer
         case string
         case binary
@@ -64,17 +66,17 @@ extension Node.DTO.TransactionData.Data {
                                                                     debugDescription: "Not found key"))
         }
 
-        var rawType: String? = nil
+
         if let value = try container.decodeIfPresent(String.self, forKey: .type) {
-            rawType = value
+            type = value
         } else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath,
                                                                     debugDescription: "Not found value"))
         }
 
-        if let rawType = rawType, let type = ValueKey(rawValue: rawType) {
+        if let type = ValueKey(rawValue: self.type) {
             switch type {
-            case .bool:
+            case .boolean:
                 value = .bool(try container.decode(Bool.self, forKey: .value))
             case .integer:
                 value = .integer(try container.decode(Int.self, forKey: .value))
@@ -89,4 +91,3 @@ extension Node.DTO.TransactionData.Data {
         }
     }
 }
-

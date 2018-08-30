@@ -15,5 +15,6 @@ enum TransactionsRepositoryError: Error {
 
 protocol TransactionsRepositoryProtocol {
 
-//    func transactions() 
+    func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func transactions(by accountAddress: String, assetId: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
 }

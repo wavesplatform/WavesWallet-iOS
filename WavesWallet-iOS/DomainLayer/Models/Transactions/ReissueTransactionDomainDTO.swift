@@ -1,5 +1,5 @@
 //
-//  TransactionIssueNode.swift
+//  TransactionReissueNode.swift
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 07/08/2018.
@@ -8,23 +8,22 @@
 
 import Foundation
 
-extension Node.DTO {
-    struct TransactionIssue: Decodable {
+extension DomainLayer.DTO {
+    struct ReissueTransaction {
         let type: Int
         let id: String
         let sender: String
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let signature: String
         let version: Int
+        let height: Int64
+
+        let signature: String
+        let chainId: String?
         let assetId: String
-        let name: String
         let quantity: Int64
         let reissuable: Bool
-        let decimals: Int64
-        let description: String
-        let script: String?
-        let height: Int64
+        var modified: Date
     }
 }

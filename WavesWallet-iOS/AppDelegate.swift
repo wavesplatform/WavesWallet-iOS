@@ -13,12 +13,11 @@ import RxSwift
 import SVProgressHUD
 import UIKit
 import Moya
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-
-    let test: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -42,12 +41,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.makeKeyAndVisible()
 
-        test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
-            let container = try? response.map(Node.DTO.TransactionContainers.self)
+//        test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
+//            let container = try? response.map(Node.DTO.TransactionContainers.self)
+//
+//        }, onError: nil)
+//
+//        JSONDecoder.decode(type: Node.DTO.TransactionContainers.self, json: "AllTransactionExample").subscribe()
 
-        }, onError: nil)
+//        do {
+//            let bd = try? Realm()
+//
+//            let txMain = MassTransferTransaction()
+//
+//            let tx = MassTransferTransaction.Transfer()
+//            tx.recipient = "Anal"
+//            txMain.transfers.append(tx)
+//
+//            try? bd?.write {
+//                bd?.add(txMain, update: true)
+//            }
+//        } catch let e {
+//            print(e)
+//        }
 
-        JSONDecoder.decode(type: Node.DTO.TransactionContainers.self, json: "AllTransactionExample").subscribe()
 
         return true
     }

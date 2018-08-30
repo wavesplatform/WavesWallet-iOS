@@ -8,25 +8,9 @@
 
 import Foundation
 
-extension LeasingTransaction {
-    //TODO: Remove
-    convenience init(model: Node.DTO.TransactionLease) {
-        self.init()
-        type = model.type
-        id = model.id
-        sender = model.sender
-        senderPublicKey = model.senderPublicKey
-        fee = model.fee
-        timestamp = model.timestamp
-        signature = model.signature
-        version = model.version
-        amount = model.amount
-        recipient = model.recipient
-        height = model.height
-        modified = Date()
-    }
+extension LeaseTransaction {
 
-    convenience init(transaction: DomainLayer.DTO.LeasingTransaction) {
+    convenience init(transaction: DomainLayer.DTO.LeaseTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -43,9 +27,9 @@ extension LeasingTransaction {
     }
 }
 
-extension DomainLayer.DTO.LeasingTransaction {
+extension DomainLayer.DTO.LeaseTransaction {
 
-    init(transaction: Node.DTO.TransactionLease) {
+    init(transaction: Node.DTO.LeaseTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -60,7 +44,7 @@ extension DomainLayer.DTO.LeasingTransaction {
         modified = Date()
     }
 
-    init(transaction: LeasingTransaction) {
+    init(transaction: LeaseTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -71,7 +55,7 @@ extension DomainLayer.DTO.LeasingTransaction {
         version = transaction.version
         amount = transaction.amount
         recipient = transaction.recipient
-        height = transaction.height        
+        height = transaction.height
         modified = transaction.modified
     }
 }

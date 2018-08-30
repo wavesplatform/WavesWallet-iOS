@@ -13,7 +13,7 @@ import RealmSwift
 
 final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProtocol {
 
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]> {
+    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
         return Observable.create({ (observer) -> Disposable in
 
             guard let realm = try? Realm() else {
@@ -21,9 +21,9 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
                 return Disposables.create()
             }
 
-            let objects = realm.objects(LeasingTransaction.self)
+            let objects = realm.objects(LeaseTransaction.self)
                 .toArray()
-                .map { DomainLayer.DTO.LeasingTransaction(transaction: $0) }
+                .map { DomainLayer.DTO.LeaseTransaction(transaction: $0) }
 
             observer.onNext(objects)
             observer.onCompleted()
@@ -32,7 +32,7 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
         })
     }
 
-    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeasingTransaction]) -> Observable<Bool> {
+    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction]) -> Observable<Bool> {
         return Observable.create({ (observer) -> Disposable in
 
             guard let realm = try? Realm() else {
@@ -43,7 +43,7 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
 
             do {
                 try realm.write({
-                    realm.add(transactions.map { LeasingTransaction(transaction: $0) }, update: true)
+                    realm.add(transactions.map { LeaseTransaction(transaction: $0) }, update: true)
                 })
                 observer.onNext(true)
                 observer.onCompleted()
@@ -57,7 +57,7 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
         })
     }
 
-    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeasingTransaction) -> Observable<Bool> {
+    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction) -> Observable<Bool> {
         return saveLeasingTransactions([transaction])
     }
 }

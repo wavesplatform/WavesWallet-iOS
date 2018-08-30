@@ -13,9 +13,13 @@ extension Node.Service {
     enum Transaction {
         /**
          Response:
-         - [Node.Model.LeasingTransaction].self
+         - Node.DTO.TransactionContainers.self
          */
         case list(accountAddress: String, limit: Int)
+        /**
+         Response:
+         - ?
+         */
         case info(id: String)
     }
 }
@@ -36,6 +40,7 @@ extension Node.Service.Transaction: NodeTargetType {
         switch self {
         case .list(let accountAddress, let limit):
             return Constants.transactions + "/" + Constants.address + "/" + "\(accountAddress)".urlEscaped + "/" + Constants.limit + "/" + "\(limit)".urlEscaped
+            
         case .info(let id):
             return Constants.transactions + "/" + Constants.info + "/" + "\(id)".urlEscaped
         }
