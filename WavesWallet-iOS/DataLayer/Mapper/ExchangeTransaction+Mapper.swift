@@ -49,8 +49,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         signature = transaction.signature
         amount = transaction.amount
-        price = transaction.price
-        signature = transaction.signature
+        price = transaction.price        
         buyMatcherFee = transaction.buyMatcherFee
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1)
