@@ -1,5 +1,5 @@
 //
-//  TransactionReissueNode.swift
+//  TransactionBurnNode.swift
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 07/08/2018.
@@ -8,20 +8,21 @@
 
 import Foundation
 
-extension Node.DTO {
-    struct TransactionReissue: Decodable {
+extension DomainLayer.DTO {
+    struct BurnTransaction: Decodable {
         let type: Int
         let id: String
         let sender: String
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let signature: String
         let version: Int
+        let height: Int64
+        
+        let signature: String
         let chainId: String?
         let assetId: String
-        let quantity: Int64
-        let reissuable: Bool
-        let height: Int64
+        let amount: Int64
+        var modified: Date
     }
 }

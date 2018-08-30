@@ -14,21 +14,21 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
 
     private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]> {
+    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
         return leasingProvider
             .rx
             .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
-            .map([Node.DTO.TransactionLease].self)
-            .map { $0.map { DomainLayer.DTO.LeasingTransaction(transaction: $0) } }
+            .map([Node.DTO.LeaseTransaction].self)
+            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
             .asObservable()
     }
 
-    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeasingTransaction]) -> Observable<Bool> {
+    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction]) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }
     
-    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeasingTransaction) -> Observable<Bool> {
+    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }

@@ -9,18 +9,19 @@
 import Foundation
 
 extension Node.DTO {
-    struct TransactionBurn: Decodable {
+    struct BurnTransaction: Decodable {
         let type: Int
         let id: String
         let sender: String
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
+        let version: Int
+        let height: Int64
+        
         let signature: String
         let chainId: String?
-        let version: Int
         let assetId: String
         let amount: Int64
-        let height: Int64
     }
 }

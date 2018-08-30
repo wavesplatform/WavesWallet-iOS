@@ -13,18 +13,18 @@
     "data": [
       {
         "key": "4900",
-        "type": "integer",
-        "value": 24010000
+        "type": "string",
+        "value": "Test"
       },
       {
         "key": "4901",
-        "type": "integer",
-        "value": 24019801
+        "type": "boolean",
+        "value": true
       },
       {
         "key": "4902",
-        "type": "integer",
-        "value": 24029604
+        "type": "binary",
+        "value": "BzWHaQU"
       },
       {
         "key": "4903",

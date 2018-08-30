@@ -13,19 +13,32 @@ import Realm
 import RxDataSources
 
 public class BasicTransaction: Object, IdentifiableType {
-    @objc dynamic var id = ""
+
+    @objc dynamic var id: String = ""
     @objc dynamic var type: Int = 0
-    @objc dynamic var sender = ""
+    @objc dynamic var sender: String = ""    
     @objc dynamic var timestamp: Int64 = 0
     @objc dynamic var fee: Int64 = 0
+    @objc dynamic var height: Int64 = 0
+
+
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var assetId: String = ""
-    @objc dynamic var asset: IssueTransaction?
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var amount: Int64 = 0
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var isInput = false
-    @objc dynamic var addressBook: AddressBook?
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var counterParty = ""
+    @available(*, deprecated, message: "need remove")
     @objc dynamic var isPending: Bool = false
 
+    @available(*, deprecated, message: "need remove")
+    @objc dynamic var asset: IssueTransaction?
+    @available(*, deprecated, message: "need remove")
+    @objc dynamic var addressBook: AddressBook?
+
+    @available(*, deprecated, message: "need remove")
     convenience init(tx: Transaction) {
         self.init()
         id = tx.id
@@ -42,6 +55,7 @@ public class BasicTransaction: Object, IdentifiableType {
         isPending = tx.isPending
     }
 
+    @available(*, deprecated, message: "need remove")
     public var identity: String {
         return "\(id)"
     }
@@ -50,6 +64,8 @@ public class BasicTransaction: Object, IdentifiableType {
         return "id"
     }
 }
+
+@available(*, deprecated, message: "need remove")
 // equatable, this is needed to detect changes
 func == (lhs: BasicTransaction, rhs: BasicTransaction) -> Bool {
     return lhs.id == rhs.id
