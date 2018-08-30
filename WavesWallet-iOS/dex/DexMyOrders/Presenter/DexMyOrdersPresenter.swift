@@ -92,14 +92,12 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 }
                 
                 if let section = deletedSection {
-                    $0.deletedSection = section
-                    $0.deletedIndexPath = nil
+                    $0.action = .deleteSection(section)
                 }
                 else {
-                    $0.deletedSection = nil
-                    $0.deletedIndexPath = indexPath
+                    $0.action = .deleteRow(indexPath)
                 }
-             }.changeAction(.delete)
+             }
         }
       
     }
@@ -117,6 +115,6 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [], deletedIndexPath: nil, deletedSection: nil)
+        return DexMyOrders.State(action: .none, sections: [])
     }
 }
