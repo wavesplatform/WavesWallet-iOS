@@ -15,7 +15,7 @@ struct TransactionHistoryModuleBuilder: ModuleBuilderOutput {
     func build(input: TransactionHistoryModuleInput) -> UIViewController {
     
         let presenter = TransactionHistoryPresenter(input: input)
-        let vc = TransactionHistoryViewController()
+        let vc = StoryboardScene.TransactionHistory.transactionHistoryViewController.instantiate()
         
         presenter.interactor = TransactionHistoryInteractorMock()
         presenter.moduleOutput = output

@@ -23,7 +23,8 @@ final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
     }()
     
     func start() {
-        UIApplication.shared.keyWindow?.rootViewController?.present(transactionHistoryViewController, animated: true, completion: nil)
+        let popupViewController = PopupViewController()
+        popupViewController.present(contentViewController: transactionHistoryViewController)
     }
     
 }
