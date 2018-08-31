@@ -14,6 +14,13 @@ import RealmSwift
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+        return Observable.never()
+    }
+
+    func transactions(by accountAddress: String,
+                      offset: Int,
+                      limit: Int,
+                      assetId: String?) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return Observable.create { (observer) -> Disposable in
 
