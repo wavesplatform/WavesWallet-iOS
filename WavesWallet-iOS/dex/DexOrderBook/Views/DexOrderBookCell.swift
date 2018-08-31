@@ -35,11 +35,11 @@ extension DexOrderBookCell: ViewConfiguration {
         labelPrice.textColor = model.orderType == .sell ? UIColor.submit400 : UIColor.error500
         backgroundAmountView.backgroundColor = model.orderType == .sell ? UIColor.submit50 : UIColor.error100
         
-        labelPrice.text = model.price.formattedText(defaultMinimumFractionDigits: false)
+        labelPrice.text = model.price.formattedText()
         
-        labelAmount.text = model.amount.formattedText(defaultMinimumFractionDigits: false)
+        labelAmount.text = model.amount.formattedText()
         
-        labelSum.text = model.sum.formattedText(defaultMinimumFractionDigits: false)
+        labelSum.text = model.sum.formattedText()
     
         percentAmountOverlay = CGFloat(model.percentAmount)
     }

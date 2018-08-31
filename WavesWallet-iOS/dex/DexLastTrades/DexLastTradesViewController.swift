@@ -159,7 +159,7 @@ private extension DexLastTradesViewController {
     
     var sellTitle: String {
         if let sell = state.lastSell {
-            return sell.price.formattedText(defaultMinimumFractionDigits: false)
+            return sell.price.formattedText()
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle
@@ -169,7 +169,7 @@ private extension DexLastTradesViewController {
     
     var buyTitle: String {
         if let buy = state.lastBuy {
-            return buy.price.formattedText(defaultMinimumFractionDigits: false)
+            return buy.price.formattedText()
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle
