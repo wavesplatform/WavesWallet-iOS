@@ -24,12 +24,26 @@ extension TransactionHistoryTypes.ViewModel {
         let data: String
     }
     
+    struct Comment: Hashable {
+        let text: String
+    }
+    
+    struct Status: Hashable {
+        let timestamp: String
+        let status: TransactionHistoryTypes.DTO.Transaction.Status
+    }
+    
+    struct ResendButton: Hashable {
+        let title: String
+    }
+    
     enum Row: Hashable {
+        case recipient(Recipient)
+        case comment(Comment)
         case keyValue(KeyValue)
         case keysValues([KeyValue])
-        case recipient(Recipient)
-        case comment(String)
-        case resendButton
+        case status(Status)
+        case resendButton(ResendButton)
     }
     
     struct Section: Hashable {
@@ -44,14 +58,17 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         rows.append(.recipient(.init(name: nil, address: "sdfokpok3rp34kk54")))
+        rows.append(.comment(.init(text: "This is the comment we ll wanted")))
         rows.append(.keyValue(.init(title: "Fee", value: "0.001 Waves")))
+
         rows.append(.keysValues(
             [
                 .init(title: "Confirmations", value: "09090"),
                 .init(title:"Block", value: "106060")
             ])
         )
-        rows.append(.keyValue(.init(title: "Timestamp", value: "DD.MM.YYYY at 00:00")))
+        rows.append(.status(.init(timestamp: "Year 2002", status: .activeNow)))
+        rows.append(.resendButton(.init(title: "Cancel leasing")))
         
         let generalSection = TransactionHistoryTypes.ViewModel.Section(items: rows)
         
