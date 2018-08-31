@@ -10,7 +10,7 @@ import Foundation
 
 extension DomainLayer.DTO {
     enum AnyTransaction {
-        case unrecognised
+        case unrecognised(DomainLayer.DTO.UnrecognisedTransaction)
         case issue(DomainLayer.DTO.IssueTransaction)
         case transfer(DomainLayer.DTO.TransferTransaction)
         case reissue(DomainLayer.DTO.ReissueTransaction)

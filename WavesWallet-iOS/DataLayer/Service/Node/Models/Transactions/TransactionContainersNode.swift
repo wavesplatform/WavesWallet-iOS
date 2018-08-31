@@ -16,7 +16,7 @@ extension Node.DTO {
 
     struct TransactionContainers: Decodable {
         enum Transaction {
-            case unrecognised
+            case unrecognised(Node.DTO.UnrecognisedTransaction)
             case issue(Node.DTO.IssueTransaction)
             case transfer(Node.DTO.TransferTransaction)
             case reissue(Node.DTO.ReissueTransaction)
@@ -58,7 +58,10 @@ extension Node.DTO {
 
                     let objectType = try listForType.nestedContainer(keyedBy: CodingKeys.self)
                     guard let type = try? objectType.decode(TransactionTypes.self, forKey: .type) else {
-                        transactions.append(.unrecognised)
+
+                        if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
+                            transactions.append(.unrecognised(tx))
+                        }
                         continue
                     }
 

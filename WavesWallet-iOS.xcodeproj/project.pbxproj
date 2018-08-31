@@ -82,6 +82,11 @@
 		0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */; };
 		0A5ABBA8211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA7211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift */; };
 		0A5B6E6F211A2B6D005A7F09 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E6E211A2B6D005A7F09 /* TransactionService.swift */; };
+		0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */; };
+		0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */; };
+		0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E021394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift */; };
+		0A5C53E32139502F00667E34 /* Asset+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E22139502F00667E34 /* Asset+Message.swift */; };
+		0A5C53E52139609600667E34 /* TransactionsRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E42139609600667E34 /* TransactionsRepositoryLocal.swift */; };
 		0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */; };
 		0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */; };
@@ -620,6 +625,11 @@
 		0A5B6E7C211A3343005A7F09 /* LeaseCancelTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseCancelTransactionNode.swift; sourceTree = "<group>"; };
 		0A5B6E7E211A3373005A7F09 /* AliasTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTransactionNode.swift; sourceTree = "<group>"; };
 		0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransactionNode.swift; sourceTree = "<group>"; };
+		0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrecognisedTransactionNode.swift; sourceTree = "<group>"; };
+		0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrecognisedTransactionDomainDTO.swift; sourceTree = "<group>"; };
+		0A5C53E021394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnrecognisedTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0A5C53E22139502F00667E34 /* Asset+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Message.swift"; sourceTree = "<group>"; };
+		0A5C53E42139609600667E34 /* TransactionsRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryLocal.swift; sourceTree = "<group>"; };
 		0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceTypes.swift; sourceTree = "<group>"; };
 		0A5C919720F3DB1100443CE6 /* AccountBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceNode.swift; sourceTree = "<group>"; };
 		0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAssetsBalanceNode.swift; sourceTree = "<group>"; };
@@ -1256,6 +1266,7 @@
 				0A5B6E78211A319C005A7F09 /* BurnTransactionNode.swift */,
 				0A5B6E7A211A327C005A7F09 /* ExchangeTransactionNode.swift */,
 				0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */,
+				0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1446,6 +1457,7 @@
 				0A5E4BC5213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift */,
 				0A5E4BC7213820C500E3C3C3 /* AliasTransactionDomainDTO.swift */,
 				0A5E4BC6213820C500E3C3C3 /* AnyTransactionDomainDTO.swift */,
+				0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1463,6 +1475,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5E4BD82138297000E3C3C3 /* TransactionsRepositoryRemote.swift */,
+				0A5C53E42139609600667E34 /* TransactionsRepositoryLocal.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1482,6 +1495,7 @@
 				0A5E4BE821383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift */,
 				0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */,
 				0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */,
+				0A5C53E021394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -1818,6 +1832,7 @@
 				0A580E632135F5CE00C62549 /* DateFormatter+Once.swift */,
 				0A580E652135F7B800C62549 /* Thread+Assisstants.swift */,
 				0A580E6B2135FCD200C62549 /* Decimal+Assisstants.swift */,
+				0A5C53E22139502F00667E34 /* Asset+Message.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2960,7 +2975,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
+				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
+				0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */,
 				0A485E9C2100A91500079B49 /* ExchangeTransaction.swift in Sources */,
+				0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
 				0A3FE8BC2137007500DBF4E1 /* BurnTransactionNode.swift in Sources */,
@@ -3282,6 +3300,7 @@
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
 				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
+				0A5C53E52139609600667E34 /* TransactionsRepositoryLocal.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
 				0AF922CF212E1234003BA067 /* UIView+Passtrough.swift in Sources */,
@@ -3300,6 +3319,7 @@
 				0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */,
 				E9EDC6C42123A5CE00C58E0D /* DexChartViewController.swift in Sources */,
 				F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */,
+				0A5C53E32139502F00667E34 /* Asset+Message.swift in Sources */,
 				E9983DCB211C723E002349CA /* DexMarketInteractorMock.swift in Sources */,
 				0444E7B4212C81E1004C7DF2 /* HistoryTransactionView.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
