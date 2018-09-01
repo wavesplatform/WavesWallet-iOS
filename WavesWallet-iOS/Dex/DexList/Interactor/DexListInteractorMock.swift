@@ -29,10 +29,11 @@ final class DexListInteractorMock: DexListInteractorProtocol {
     private static var testModels : [DexList.DTO.Pair] = [
         DexList.DTO.Pair.createPair(Money(123.0), Money(53.234234234234), "WAVES", "WAVES", "WAVES",
                                     8, "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8),
-        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "WAVES", "WAVES", "WAVES", 8,
-                                    "ETH", "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234), "Bitcoin", "Bitcoin", "Bitcoin", 8,
-                                    "ETH", "ETH", "ETH", 8),
+        DexList.DTO.Pair.createPair(Money(314), Money(350), "WAVES", "WAVES", "WAVES",
+                                    8, "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", "USD", 8),
+        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", "ETH", 8, "WAVES", "WAVES", "WAVES", 8),
+        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234), "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8,
+                                    "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", "ETH", 8),
         DexList.DTO.Pair.createPair(Money(120), Money(20.32423423423424235453643), "ETH Classic", "ETH Classic", "ETH Classic",
                                     8, "IOTA", "IOTA", "IOTA", 8),
         DexList.DTO.Pair.createPair(Money(40), Money(20.32), "Monero", "Monero", "Monero", 8,
@@ -78,7 +79,7 @@ private extension DexListInteractorMock {
         
         return Observable.create({ (subscribe) -> Disposable in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 subscribe.onNext(DexListInteractorMock.testModels)
             })
             return Disposables.create()

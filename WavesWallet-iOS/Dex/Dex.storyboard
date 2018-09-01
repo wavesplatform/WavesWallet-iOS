@@ -949,11 +949,17 @@ The order book is empty</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTb-KW-n6A" customClass="CandleStickChartView" customModule="Charts">
-                                        <rect key="frame" x="0.0" y="32" width="359" height="525"/>
+                                        <rect key="frame" x="-10" y="32" width="369" height="525"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-sf-hhh">
+                                        <rect key="frame" x="10" y="40" width="64.5" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvv-S9-oaU" customClass="BarChartView" customModule="Charts">
-                                        <rect key="frame" x="0.0" y="557" width="359" height="90"/>
+                                        <rect key="frame" x="-10" y="557" width="369" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="ebF-q3-0ag"/>
@@ -1011,17 +1017,19 @@ The order book is empty</string>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="0NR-MF-Rkv"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="2Xf-Tc-WZL"/>
                                     <constraint firstAttribute="trailing" secondItem="yvv-S9-oaU" secondAttribute="trailing" id="5Ch-gv-gge"/>
-                                    <constraint firstItem="oTb-KW-n6A" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="Ar5-aS-A7T"/>
+                                    <constraint firstItem="oTb-KW-n6A" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" constant="-10" id="Ar5-aS-A7T"/>
                                     <constraint firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" id="As2-jo-GjF"/>
                                     <constraint firstAttribute="trailing" secondItem="1h7-Bv-hvU" secondAttribute="trailing" id="Bmn-OC-NOT"/>
+                                    <constraint firstItem="yvv-S9-oaU" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="Cte-0z-shD"/>
                                     <constraint firstItem="oTb-KW-n6A" firstAttribute="top" secondItem="1h7-Bv-hvU" secondAttribute="bottom" id="Iyv-nv-LnV"/>
                                     <constraint firstAttribute="bottom" secondItem="yvv-S9-oaU" secondAttribute="bottom" id="Lio-2W-YrU"/>
                                     <constraint firstItem="yvv-S9-oaU" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="bottom" id="P33-Da-18G"/>
-                                    <constraint firstItem="yvv-S9-oaU" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="PQl-Cz-7lW"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="UUb-Dw-RMq"/>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="aCB-Za-1u6"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="eJV-OE-FE3"/>
+                                    <constraint firstItem="vJy-sf-hhh" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" constant="20" id="nnh-pu-sTr"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="top" secondItem="gZh-fa-6fT" secondAttribute="top" id="qbb-lK-htf"/>
+                                    <constraint firstItem="vJy-sf-hhh" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="8" id="xte-CK-Ljb"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1037,6 +1045,7 @@ The order book is empty</string>
                         <outlet property="candleChartView" destination="oTb-KW-n6A" id="KjR-xR-GJY"/>
                         <outlet property="containerView" destination="gZh-fa-6fT" id="Rdr-pr-Rar"/>
                         <outlet property="headerView" destination="1h7-Bv-hvU" id="EMt-YI-wuH"/>
+                        <outlet property="labelChartTopInfo" destination="vJy-sf-hhh" id="sjB-kO-3CQ"/>
                         <outlet property="labelEmptyData" destination="g3G-eE-Pg3" id="N11-2g-2DO"/>
                         <outlet property="labelLoadingData" destination="ZDl-GU-fsY" id="Px6-nt-4ky"/>
                         <outlet property="viewEmptyData" destination="S2B-rd-5Sq" id="wlv-TK-YmD"/>

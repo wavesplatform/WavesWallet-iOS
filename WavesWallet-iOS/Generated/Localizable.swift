@@ -163,8 +163,6 @@ internal enum Localizable {
     internal enum Label {
       /// No chart data available
       internal static let emptyData = Localizable.tr("DexChart", "label.emptyData")
-      /// Full
-      internal static let full = Localizable.tr("DexChart", "label.full")
       /// hour
       internal static let hour = Localizable.tr("DexChart", "label.hour")
       /// hours
@@ -173,8 +171,6 @@ internal enum Localizable {
       internal static let loadingChart = Localizable.tr("DexChart", "label.loadingChart")
       /// minutes
       internal static let minutes = Localizable.tr("DexChart", "label.minutes")
-      /// Time
-      internal static let time = Localizable.tr("DexChart", "label.time")
     }
   }
   internal enum DexMyOrders {

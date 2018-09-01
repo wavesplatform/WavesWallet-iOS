@@ -93,7 +93,7 @@ final class DexListPresenter: DexListPresenterProtocol {
             return state.changeAction(.none)
         }
     }
-        
+  
 }
 
 fileprivate extension DexList.State {

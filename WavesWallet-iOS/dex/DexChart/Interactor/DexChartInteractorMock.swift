@@ -30,7 +30,7 @@ final class DexChartInteractorMock: DexChartInteractorProtocol {
                         let volume = item["volume"].doubleValue
                         if volume > 0 {
 
-                            let timestamp = Double(item["timestamp"].int64Value / Int64(1000 * 60 * timeFrame.rawValue))
+                            let timestamp = self.convertTimestamp(item["timestamp"].int64Value, timeFrame: timeFrame)
                           
                             let model = DexChart.DTO.Candle(close: item["close"].doubleValue,
                                                             confirmed: item["confirmed"].boolValue,
@@ -47,9 +47,14 @@ final class DexChartInteractorMock: DexChartInteractorProtocol {
                 }
                 
                 subscribe.onNext(models)
+//                subscribe.onCompleted()
             }
 
             return Disposables.create()
         })
+    }
+    
+    private func convertTimestamp(_ timestamp: Int64, timeFrame: DexChart.DTO.TimeFrameType) -> Double {
+        return Double(timestamp / Int64(1000 * 60 * timeFrame.rawValue))
     }
 }

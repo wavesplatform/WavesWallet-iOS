@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
+        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
 
-        Swizzle(initializers: [UIView.passtroughInit,
-                               UIView.roundedInit,
-                               UIView.shadowInit]).start()
+//        Swizzle(initializers: [UIView.passtroughInit,
+//                               UIView.roundedInit,
+//                               UIView.shadowInit]).start()
 
         SweetLogger.current.visibleLevels = [.debug, .network]
 
