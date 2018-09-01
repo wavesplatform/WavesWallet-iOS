@@ -70,16 +70,30 @@ fileprivate extension DexMyOrdersViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
+                switch state.action {
+                case .none:
+                    return
+                default:
+                    break
+                }
+                
                 
                 strongSelf.sections = state.sections
 
-                if state.action == .update {
+                switch state.action {
+                case .update:
                     strongSelf.tableView.reloadData()
+                
+                case .deleteSection(let section):
+                    strongSelf.deleteAt(indexPath: nil, section: section)
+                    
+                case .deleteRow(let indexPath):
+                    strongSelf.deleteAt(indexPath: indexPath, section: nil)
+
+                default:
+                    break
                 }
-                else if state.action == .delete {
-                    strongSelf.deleteAt(indexPath: state.deletedIndexPath, section: state.deletedSection)
-                }
+               
                 strongSelf.setupDefaultState()
             })
         

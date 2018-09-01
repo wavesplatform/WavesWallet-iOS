@@ -31,7 +31,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
     private func modelsQuery() -> Feedback {
         
         return react(query: { state -> Bool? in
-            return true
+            return state.isAppeared ? true : nil
+            
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in
             
             // TODO: Error
@@ -44,8 +45,10 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         switch event {
         case .readyView:
-            return state.changeAction(.none)
-        
+            return state.mutate {
+                $0.isAppeared = true
+            }.changeAction(.none)
+            
         case .setDisplayData(let displayData):
             return state.mutate {
                 
