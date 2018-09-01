@@ -19,7 +19,6 @@ extension DexChart.ChartContants {
     static let gridLineWidth: CGFloat = 0.2
     static let minWidth: CGFloat = 55
     static let maxWidth: CGFloat = 55
-    
 }
 
 

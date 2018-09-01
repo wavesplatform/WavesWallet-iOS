@@ -31,7 +31,7 @@ enum DexChart {
         var dateFrom: Date
         var dateTo: Date
         var isPreloading: Bool
-        var isAppeared: Bool
+        var isNeedLoadingData: Bool
     }
 }
 
@@ -73,6 +73,7 @@ extension DexChart.DTO.Candle {
         return dateFormatter
     }()
 }
+
 
 extension DexChart.DTO.TimeFrameType {
     
@@ -123,6 +124,7 @@ extension DexChart.DTO.TimeFrameType {
 
 
 extension DexChart.State {
+    
     static var initialState: DexChart.State {
         
         let timeFrame = DexChart.DTO.TimeFrameType.m15
@@ -133,7 +135,7 @@ extension DexChart.State {
         let dateFrom = dateTo.addingTimeInterval(-additionalTime)
         
         return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
-                              isPreloading: false, isAppeared: false)
+                              isPreloading: false, isNeedLoadingData: false)
     }
     
     var isNotEmpty: Bool {
@@ -141,3 +143,28 @@ extension DexChart.State {
     }
 }
 
+extension DexChart.DTO.Candle: Equatable {
+    static func == (lhs: DexChart.DTO.Candle, rhs: DexChart.DTO.Candle) -> Bool {
+        return lhs.close == rhs.close &&
+        lhs.confirmed == rhs.confirmed &&
+        lhs.high == rhs.high &&
+        lhs.low == rhs.low &&
+        lhs.open == rhs.open &&
+        lhs.priceVolume == rhs.priceVolume &&
+        lhs.timestamp == rhs.timestamp &&
+        lhs.volume == rhs.volume &&
+        lhs.vwap == rhs.vwap
+        
+    }
+}
+extension DexChart.State: Equatable {
+    static func == (lhs: DexChart.State, rhs: DexChart.State) -> Bool {
+        return lhs.action == rhs.action &&
+        lhs.candles == rhs.candles &&
+        lhs.timeFrame == rhs.timeFrame &&
+        lhs.dateFrom == rhs.dateFrom &&
+        lhs.dateTo == rhs.dateTo &&
+        lhs.isPreloading == rhs.isPreloading &&
+        lhs.isNeedLoadingData == rhs.isNeedLoadingData
+    }
+}

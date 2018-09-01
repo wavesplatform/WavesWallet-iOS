@@ -24,7 +24,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         Driver.system(initialState: DexMyOrders.State.initialState,
                       reduce: { [weak self] state, event -> DexMyOrders.State in
-                                return self?.reduce(state: state, event: event) ?? state },
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -102,11 +102,6 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 }
              }
         }
-    }
-    
-    
-    deinit {
-        print("DexMyOrdersPresenter deinit")
     }
 }
 
