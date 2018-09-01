@@ -18,7 +18,7 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelFull: UILabel!
     @IBOutlet private weak var labelTime: UILabel!
    
-    private var timeFrame = DexChart.DTO.TimeFrameType.m5
+    private var timeFrame: DexChart.DTO.TimeFrameType!
     
     weak var delegate: DexChartHeaderViewDelegate?
     
@@ -27,12 +27,10 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupLocalization()
+    func setupTimeFrame(timeFrame:  DexChart.DTO.TimeFrameType) {
+        self.timeFrame = timeFrame
         setuptTimeFrameTitle()
     }
-   
 }
 
 //MARK: - SetupUI
@@ -40,7 +38,7 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
 private extension DexChartHeaderView {
     
     func setuptTimeFrameTitle() {
-        labelTime.text = Localizable.DexChart.Label.time + " " + timeFrame.text
+        labelTime.text = timeFrame.text
     }
     
     @IBAction func timeTapped(_ sender: Any) {
@@ -49,7 +47,7 @@ private extension DexChartHeaderView {
         let cancel = UIAlertAction(title: Localizable.DexChart.Button.cancel, style: .cancel, handler: nil)
         controller.addAction(cancel)
 
-        let types: [DexChart.DTO.TimeFrameType] = [.m5, .m15, .m30, .h4, .h24]
+        let types: [DexChart.DTO.TimeFrameType] = [.m5, .m15, .m30, .h1, .h4, .h24]
         
         for type in types {
             let action = UIAlertAction(title: type.text, style: .default) { (action) in
@@ -65,10 +63,5 @@ private extension DexChartHeaderView {
             controller.addAction(action)
         }
         firstAvailableViewController().present(controller, animated: true, completion: nil)
-    }
-    
-    func setupLocalization() {
-        labelTime.text = Localizable.DexChart.Label.time
-        labelFull.text = Localizable.DexChart.Label.full
     }
 }

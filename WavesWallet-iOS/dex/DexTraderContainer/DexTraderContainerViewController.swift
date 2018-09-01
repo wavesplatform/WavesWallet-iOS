@@ -27,22 +27,30 @@ final class DexTraderContainerViewController: UIViewController {
         addBgBlueImage()
         addInfoButton()
         buildControllers()
+        
+        
+        
+        scrollToPageIndex(1)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: animated)
+        navigationItem.backgroundImage = UIImage()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.titleTextAttributes = nil
+        UIApplication.shared.setStatusBarStyle(.default, animated: animated)
+
+        navigationItem.backgroundImage = nil
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
     }
     
+ 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         

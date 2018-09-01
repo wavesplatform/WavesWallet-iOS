@@ -11,6 +11,7 @@ import Foundation
 enum DexChart {
     enum DTO {}
     enum ViewModel {}
+    enum ChartContants {}
     
     enum Event {
         case readyView
@@ -29,12 +30,9 @@ enum DexChart {
         var timeFrame: DTO.TimeFrameType
         var dateFrom: Date
         var dateTo: Date
-        var isLoading: Bool
+        var isPreloading: Bool
+        var isAppeared: Bool
     }
-}
-
-extension DexChart.ViewModel {
-    
 }
 
 extension DexChart.DTO {
@@ -61,6 +59,21 @@ extension DexChart.DTO {
     }
 }
 
+extension DexChart.DTO.Candle {
+    
+    func formatterTime(timeFrame: DexChart.DTO.TimeFrameType) -> String{
+        let time = timestamp * 60 * Double(timeFrame.rawValue)
+        let date = Date(timeIntervalSince1970: time)
+        return DexChart.DTO.Candle.dateFormatter.string(from: date)
+    }
+    
+    private static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        return dateFormatter
+    }()
+}
+
 extension DexChart.DTO.TimeFrameType {
     
     var text: String {
@@ -84,18 +97,47 @@ extension DexChart.DTO.TimeFrameType {
             return "24" + " " + Localizable.DexChart.Label.hours
         }
     }
+    
+    var shortText: String {
+        switch self {
+        case .m5:
+            return "M5"
+            
+        case .m15:
+            return "M15"
+            
+        case .m30:
+            return "M30"
+            
+        case .h1:
+            return "H1"
+            
+        case .h4:
+            return "H4"
+            
+        case .h24:
+            return "H24"
+        }
+    }
 }
 
 
 extension DexChart.State {
     static var initialState: DexChart.State {
         
-        let additionalTime : Double = Double(3600 * ((5 * 100) / 60))
+        let timeFrame = DexChart.DTO.TimeFrameType.m15
+        
+        let additionalTime : Double = Double(3600 * ((timeFrame.rawValue * 100) / 60))
         
         let dateTo = Date()
         let dateFrom = dateTo.addingTimeInterval(-additionalTime)
         
-        return DexChart.State(action: .none, candles: [], timeFrame: .m5, dateFrom: dateFrom, dateTo: dateTo, isLoading: false)
+        return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
+                              isPreloading: false, isAppeared: false)
+    }
+    
+    var isNotEmpty: Bool {
+        return candles.count > 0
     }
 }
 

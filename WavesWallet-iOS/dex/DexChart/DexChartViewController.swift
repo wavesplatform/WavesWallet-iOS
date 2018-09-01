@@ -13,8 +13,12 @@ import RxCocoa
 import RxFeedback
 import SwiftyJSON
 
-private enum Contants {
+private enum Constants {
     static let cornerRadius: CGFloat = 3
+    
+    typealias ChartContants = DexChart.ChartContants
+    typealias Candle = ChartContants.Candle
+    typealias Bar = ChartContants.Bar
 }
 
 final class DexChartViewController: UIViewController {
@@ -27,21 +31,19 @@ final class DexChartViewController: UIViewController {
     @IBOutlet private weak var labelEmptyData: UILabel!
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var viewLoadingInfo: UIView!
-        
+    @IBOutlet private weak var labelChartTopInfo: UILabel!
+   
     private var state = DexChart.State.initialState
-
+    var pair: DexTraderContainer.DTO.Pair!
     
     var presenter: DexChartPresenterProtocol!
     private let sendEvent: PublishRelay<DexChart.Event> = PublishRelay<DexChart.Event>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewEmptyData.isHidden = true
-        viewLoadingInfo.isHidden = true
-        
         
         headerView.delegate = self
+        setupLoadingState()
         setupFeedBack()
         setupChartsStyle()
         setupLocalization()
@@ -49,7 +51,7 @@ final class DexChartViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        containerView.createTopCorners(radius: Contants.cornerRadius)
+        containerView.createTopCorners(radius: Constants.cornerRadius)
     }
 }
 
@@ -84,6 +86,9 @@ fileprivate extension DexChartViewController {
                 
                 strongSelf.state = state
                 strongSelf.setupChartData()
+                strongSelf.setupDefaultState()
+                strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
+                strongSelf.setupLabelChartInfo()
             })
         
         return [subscriptionSections]
@@ -95,7 +100,22 @@ fileprivate extension DexChartViewController {
 private extension DexChartViewController {
 
     func setupLoadingState() {
-        
+        viewEmptyData.isHidden = true
+        viewLoadingInfo.isHidden = false
+
+        headerView.isHidden = true
+        candleChartView.isHidden = true
+        barChartView.isHidden = true
+        labelChartTopInfo.isHidden = true
+    }
+    
+    func setupDefaultState() {
+        viewLoadingInfo.isHidden = true
+        viewEmptyData.isHidden = state.isNotEmpty
+        headerView.isHidden = !state.isNotEmpty
+        candleChartView.isHidden = !state.isNotEmpty
+        barChartView.isHidden = !state.isNotEmpty
+        labelChartTopInfo.isHidden = !state.isNotEmpty
     }
     
     func setupLocalization() {
@@ -108,6 +128,13 @@ private extension DexChartViewController {
 extension DexChartViewController: DexChartHeaderViewDelegate {
     
     func dexChartDidChangeTimeFrame(_ timeFrame: DexChart.DTO.TimeFrameType) {
+        
+        candleChartView.data = nil
+        candleChartView.notifyDataSetChanged()
+        barChartView.data = nil
+        barChartView.notifyDataSetChanged()
+        
+        setupLoadingState()
         sendEvent.accept(.didChangeTimeFrame(timeFrame))
     }
 }
@@ -123,7 +150,7 @@ extension DexChartViewController: ChartViewDelegate {
             barChartView.highlightValue(chartView.highlighted.first)
         }
         
-//        setupLabelCandleInfo()
+        setupLabelChartInfo()
     }
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
@@ -135,7 +162,7 @@ extension DexChartViewController: ChartViewDelegate {
             barChartView.highlightValue(nil)
         }
         
-//        setupLabelCandleInfo()
+        setupLabelChartInfo()
     }
     
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
@@ -165,7 +192,7 @@ extension DexChartViewController: ChartViewDelegate {
             
             if let model = state.candles.first {
                 
-                if value == model.timestamp && !state.isLoading {
+                if value == model.timestamp && !state.isPreloading {
 //                    lastOffsetX = candleChartView.lowestVisibleX
 //                    let prevCount = self.candles.count
 //                    
@@ -199,14 +226,37 @@ extension DexChartViewController: ChartViewDelegate {
 //MARK: - Setup Charts
 private extension DexChartViewController {
 
+    func setupLabelChartInfo() {
+        
+        let title = pair.amountAsset.name + " / " + pair.priceAsset.name
+        
+        if let highlighted = candleChartView.highlighted.first, state.candles.count > 0 {
+            
+            for model in state.candles {
+                if model.timestamp == highlighted.x {
+                    
+                    labelChartTopInfo.text = String(format: "%@, %@, %@\nO: %0.8f, H: %0.8f,\nL: %0.8f, C: %0.8f, V: %0.6f",
+                                                    title, state.timeFrame.shortText,
+                                                    model.formatterTime(timeFrame: state.timeFrame),
+                                                    model.open,
+                                                    model.high,
+                                                    model.low,
+                                                    model.close,
+                                                    model.volume)
+                }
+            }
+            
+        }
+        else {
+            labelChartTopInfo.text = "\(title), \(state.timeFrame.shortText)"
+        }
+    }
+    
     func setupChartData() {
         
-        let valueFormatter = candleChartView.xAxis.valueFormatter as! CandleTimeAxisValueFormatter
-        valueFormatter.timeFrame = state.timeFrame.rawValue
-        
-//        self.state.candles = state.candles.sorted(by: {$0.timestamp < $1.timestamp})
-
-//        candles.sort(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
+        if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
+            formatter.timeFrame = state.timeFrame.rawValue
+        }
         
         var candleYVals: [CandleChartDataEntry] = []
         var barYVals: [BarChartDataEntry] = []
@@ -216,41 +266,46 @@ private extension DexChartViewController {
             barYVals.append(BarChartDataEntry(x: model.timestamp, y: model.volume))
         }
         
-        let candleSet = CandleChartDataSet(values: candleYVals, label: "")
+        let candleSet = CandleChartDataSet(values: candleYVals, label: nil)
         candleSet.axisDependency = .right
         candleSet.setColor(NSUIColor.init(cgColor: UIColor.init(white: 80/255, alpha: 1).cgColor))
         candleSet.drawIconsEnabled = false
         candleSet.drawValuesEnabled = false
-        candleSet.shadowWidth = 0.7;
-        candleSet.decreasingColor = UIColor.error400
+        candleSet.shadowWidth = Constants.Candle.DataSet.shadowWidth
+        candleSet.decreasingColor = Constants.ChartContants.decreasingColor
         candleSet.decreasingFilled = true
-        candleSet.increasingColor = UIColor.submit300
+        candleSet.increasingColor = Constants.ChartContants.increasingColor
         candleSet.increasingFilled = true
-        candleSet.neutralColor = UIColor.black// UIColor(red: 136, green: 226, blue: 247)
+        candleSet.neutralColor = Constants.ChartContants.neutralColor
         candleSet.shadowColorSameAsCandle = true
         candleSet.drawHorizontalHighlightIndicatorEnabled = false
-        candleSet.highlightLineWidth = 0.4
-        
+        candleSet.highlightLineWidth = Constants.Candle.DataSet.highlightLineWidth
+        candleSet.highlightColor = Constants.Candle.DataSet.highlightColor
+        candleSet.colors = [UIColor.blue, UIColor.red]
+
         if candleSet.entryCount > 0 {
             candleChartView.data = CandleChartData(dataSet: candleSet)
             candleChartView.notifyDataSetChanged()
         }
         
-        let barSet = BarChartDataSet(values: barYVals, label: "")
+        let barSet = BarChartDataSet(values: barYVals, label: nil)
         barSet.axisDependency = .right
         barSet.drawIconsEnabled = false
         barSet.drawValuesEnabled = false
-        barSet.highlightColor = UIColor(red: 103, green: 105, blue: 111)
-        barSet.setColor(UIColor(red: 195, green: 199, blue: 210))
-        
+        barSet.highlightColor = Constants.Bar.DataSet.highlightColor
+        barSet.setColor(Constants.Bar.DataSet.color)
+
         let barData = BarChartData(dataSet: barSet)
         barData.barWidth = 0.80
-        barChartView.data = barData
-        barChartView.notifyDataSetChanged()
+        if barData.entryCount > 0 {
+            barChartView.data = barData
+            barChartView.notifyDataSetChanged()
+        }
     }
     
     
     func setupChartsStyle() {
+        
         candleChartView.delegate = self
         candleChartView.chartDescription?.enabled = false
         candleChartView.pinchZoomEnabled = false
@@ -262,24 +317,25 @@ private extension DexChartViewController {
         candleChartView.legend.enabled = false
         candleChartView.doubleTapToZoomEnabled = false
         candleChartView.drawGridBackgroundEnabled = false
-        candleChartView.noDataTextColor = UIColor.white
-        
+        candleChartView.noDataText = ""
+
         candleChartView.xAxis.labelPosition = .bottom;
-        candleChartView.xAxis.gridLineWidth = 0.2
-        candleChartView.xAxis.labelCount = 4
-        candleChartView.xAxis.labelTextColor = UIColor.darkGray
-        candleChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 9)
-        candleChartView.xAxis.valueFormatter = CandleTimeAxisValueFormatter()
+        candleChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
+        candleChartView.xAxis.labelCount = Constants.Candle.xAxis.labelCount
+        candleChartView.xAxis.labelTextColor = Constants.Candle.xAxis.labelTextColor
+        candleChartView.xAxis.labelFont = Constants.Candle.xAxis.labelFont
+        candleChartView.xAxis.valueFormatter = DexChartCandleAxisFormatter()
         candleChartView.xAxis.granularityEnabled = true
-        
+        candleChartView.xAxis.granularityEnabled = true
+
         candleChartView.rightAxis.enabled = true
-        candleChartView.rightAxis.labelCount = 10
-        candleChartView.rightAxis.gridLineWidth = 0.2
-        candleChartView.rightAxis.labelTextColor = UIColor.darkGray
-        candleChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
+        candleChartView.rightAxis.labelCount = Constants.Candle.RightAxis.labelCount
+        candleChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
+        candleChartView.rightAxis.labelTextColor = Constants.Candle.RightAxis.labelTextColor
+        candleChartView.rightAxis.labelFont = Constants.Candle.RightAxis.labelFont
         candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
-        candleChartView.rightAxis.minWidth = 55
-        candleChartView.rightAxis.maxWidth = 55
+        candleChartView.rightAxis.minWidth = Constants.ChartContants.minWidth
+        candleChartView.rightAxis.maxWidth = Constants.ChartContants.maxWidth
         candleChartView.rightAxis.forceLabelsEnabled = true
         
         barChartView.delegate = self
@@ -292,23 +348,24 @@ private extension DexChartViewController {
         barChartView.legend.enabled = false
         barChartView.doubleTapToZoomEnabled = false
         barChartView.drawGridBackgroundEnabled = false
-        barChartView.noDataTextColor = UIColor.white
         barChartView.noDataText = ""
-        
+
         barChartView.rightAxis.enabled = true
-        barChartView.rightAxis.labelCount = 4
-        barChartView.rightAxis.gridLineWidth = 0.2
-        barChartView.rightAxis.labelTextColor = UIColor.darkGray
-        barChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 8)
+        barChartView.rightAxis.labelCount = Constants.Bar.RightAxis.labelCount
+        barChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
+        barChartView.rightAxis.labelTextColor = Constants.Bar.RightAxis.labelTextColor
+        barChartView.rightAxis.labelFont = Constants.Bar.RightAxis.labelFont
         barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
-        barChartView.rightAxis.minWidth = 55
-        barChartView.rightAxis.maxWidth = 55
+        barChartView.rightAxis.minWidth = Constants.ChartContants.maxWidth
+        barChartView.rightAxis.maxWidth = Constants.ChartContants.maxWidth
         barChartView.rightAxis.axisMinimum = 0
         barChartView.rightAxis.forceLabelsEnabled = true
         
-        barChartView.xAxis.gridLineWidth = 0.2
-        barChartView.xAxis.valueFormatter = BarAxisSpaceFormatter()
+        barChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
+        barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.xAxis.labelPosition = .bottom;
+        
+
     }
     
 }

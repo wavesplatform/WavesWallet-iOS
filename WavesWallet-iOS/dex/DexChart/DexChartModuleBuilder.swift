@@ -20,6 +20,7 @@ struct DexChartModuleBuilder: ModuleBuilder {
         
         let vc = StoryboardScene.Dex.dexChartViewController.instantiate()
         vc.presenter = presenter
+        vc.pair = input
         return vc
     }
 }
