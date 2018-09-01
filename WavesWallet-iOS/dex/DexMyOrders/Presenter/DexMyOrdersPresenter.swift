@@ -22,22 +22,19 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
         
-//        Driver.system(initialState: DexMyOrders.State.initialState,
-//                      reduce: { [weak self] state, event -> DexMyOrders.State in
-//                                return self?.reduce(state: state, event: event) ?? state },
-//                      feedback: newFeedbacks).drive().disposed(by: disposeBag)
-        
         Driver.system(initialState: DexMyOrders.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexMyOrders.State in
+                                return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
+        
     }
     
     private func modelsQuery() -> Feedback {
         
         return react(query: { state -> Bool? in
-            return true
+            return state.isAppeared ? true : nil
         }, effects: { [weak self] ss -> Signal<DexMyOrders.Event> in
             
             // TODO: Error
@@ -51,7 +48,9 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         switch event {
         case .readyView:
-            return state.changeAction(.none)
+            return state.mutate {
+                $0.isAppeared = true
+            }.changeAction(.none)
         
         case .setOrders(let orders):
           
@@ -96,14 +95,12 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 }
                 
                 if let section = deletedSection {
-                    $0.deletedSection = section
-                    $0.deletedIndexPath = nil
+                    $0.action = .deleteSection(section)
                 }
                 else {
-                    $0.deletedSection = nil
-                    $0.deletedIndexPath = indexPath
+                    $0.action = .deleteRow(indexPath)
                 }
-             }.changeAction(.delete)
+             }
         }
     }
     
@@ -125,6 +122,6 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [], deletedIndexPath: nil, deletedSection: nil)
+        return DexMyOrders.State(action: .none, sections: [], isAppeared: false)
     }
 }

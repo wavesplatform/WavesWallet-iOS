@@ -18,7 +18,7 @@ final class DexMyOrdersInteractorMock: DexMyOrdersInteractorProtocol {
         return Observable.create({ (subscribe) -> Disposable in
             
           
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                 
                 var orders : [DexMyOrders.DTO.Order] = []
                 
