@@ -22,9 +22,9 @@ final class DexChartPresenter: DexChartPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexChart.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexChart.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
-
             .drive()
             .disposed(by: disposeBag)
     }
@@ -33,7 +33,7 @@ final class DexChartPresenter: DexChartPresenterProtocol {
       
         return react(query: { state -> DexChart.State? in
             
-            return state.isAppeared ? state : nil
+            return state.isNeedLoadingData ? state : nil
             
         }, effects: { [weak self] state -> Signal<DexChart.Event> in
             
@@ -52,18 +52,21 @@ final class DexChartPresenter: DexChartPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isAppeared = true
+                $0.isNeedLoadingData = true
             }.changeAction(.none)
             
         case .didChangeTimeFrame(let timeFrame):
             return state.mutate {
+                $0.isNeedLoadingData = true 
                 $0.timeFrame = timeFrame
                 $0.candles = []
-                
+                 
             }.changeAction(.update)
             
         case .setCandles(let candles):
             return state.mutate {
+                $0.isNeedLoadingData = false
+
                 $0.candles.append(contentsOf: candles)
                 $0.candles.sort(by: {$0.timestamp < $1.timestamp})
                 

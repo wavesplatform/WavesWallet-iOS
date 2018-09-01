@@ -24,7 +24,8 @@ final class DexListPresenter: DexListPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexList.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexList.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)

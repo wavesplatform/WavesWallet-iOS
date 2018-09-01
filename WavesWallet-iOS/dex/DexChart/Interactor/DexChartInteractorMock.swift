@@ -47,7 +47,6 @@ final class DexChartInteractorMock: DexChartInteractorProtocol {
                 }
                 
                 subscribe.onNext(models)
-//                subscribe.onCompleted()
             }
 
             return Disposables.create()

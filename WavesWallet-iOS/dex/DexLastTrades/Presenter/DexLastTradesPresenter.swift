@@ -21,8 +21,10 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
         
+        
         Driver.system(initialState: DexLastTrades.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexLastTrades.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -31,7 +33,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
     private func modelsQuery() -> Feedback {
         
         return react(query: { state -> Bool? in
-            return state.isAppeared ? true : nil
+            return state.isNeedRefreshing ? true : nil
             
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in
             
@@ -46,12 +48,13 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isAppeared = true
+                $0.isNeedRefreshing = true
             }.changeAction(.none)
             
         case .setDisplayData(let displayData):
             return state.mutate {
                 
+                $0.isNeedRefreshing = false
                 $0.hasFirstTimeLoad = true
                 $0.lastBuy = displayData.lastBuy
                 $0.lastSell = displayData.lastSell
@@ -61,14 +64,12 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             }.changeAction(.update)
         
         case .didTapBuy(let buy):
-            debug(buy)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            debug(sell)
             return state.changeAction(.none)
             
         case .didTapEmptySell:
