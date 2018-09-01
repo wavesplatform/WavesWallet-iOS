@@ -61,7 +61,7 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.timeFrame = timeFrame
                 $0.candles = []
                  
-            }.changeAction(.update)
+            }.changeAction(.loading)
             
         case .setCandles(let candles):
             return state.mutate {

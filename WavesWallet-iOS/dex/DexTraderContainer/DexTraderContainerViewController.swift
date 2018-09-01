@@ -26,9 +26,7 @@ final class DexTraderContainerViewController: UIViewController {
         createBackWhiteButton()
         addBgBlueImage()
         addInfoButton()
-        buildControllers()
-        
-        
+        buildControllers()        
         
         scrollToPageIndex(1)
     }

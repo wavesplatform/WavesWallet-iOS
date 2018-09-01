@@ -953,7 +953,7 @@ The order book is empty</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-sf-hhh">
-                                        <rect key="frame" x="10" y="40" width="64.5" height="12"/>
+                                        <rect key="frame" x="10" y="47" width="64.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1029,7 +1029,7 @@ The order book is empty</string>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="eJV-OE-FE3"/>
                                     <constraint firstItem="vJy-sf-hhh" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" constant="20" id="nnh-pu-sTr"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="top" secondItem="gZh-fa-6fT" secondAttribute="top" id="qbb-lK-htf"/>
-                                    <constraint firstItem="vJy-sf-hhh" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="8" id="xte-CK-Ljb"/>
+                                    <constraint firstItem="vJy-sf-hhh" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="15" id="xte-CK-Ljb"/>
                                 </constraints>
                             </view>
                         </subviews>

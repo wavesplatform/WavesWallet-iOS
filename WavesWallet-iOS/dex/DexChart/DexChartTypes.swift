@@ -23,6 +23,7 @@ enum DexChart {
         enum Action {
             case none
             case update
+            case loading
         }
         
         var action: Action
