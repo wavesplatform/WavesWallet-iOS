@@ -50,7 +50,7 @@ final class MainTabBarController: RDVTabBarController {
         let navHistory = UINavigationController()
         historyCoordinator.start(navigationController: navHistory)
 
-        let navDex = UINavigationController()
+        let navDex = CustomNavigationController()
         dexListCoordinator.start(navigationController: navDex)
         
         
