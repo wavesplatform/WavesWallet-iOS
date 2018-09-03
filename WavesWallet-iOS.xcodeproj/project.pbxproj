@@ -82,6 +82,7 @@
 		0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */; };
 		0A5ABBA8211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA7211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift */; };
 		0A5B6E6F211A2B6D005A7F09 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E6E211A2B6D005A7F09 /* TransactionService.swift */; };
+		0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3201213D916900420004 /* AnyTransaction.swift */; };
 		0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */; };
 		0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */; };
 		0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E021394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift */; };
@@ -625,6 +626,7 @@
 		0A5B6E7C211A3343005A7F09 /* LeaseCancelTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseCancelTransactionNode.swift; sourceTree = "<group>"; };
 		0A5B6E7E211A3373005A7F09 /* AliasTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTransactionNode.swift; sourceTree = "<group>"; };
 		0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransactionNode.swift; sourceTree = "<group>"; };
+		0A5C3201213D916900420004 /* AnyTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTransaction.swift; sourceTree = "<group>"; };
 		0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrecognisedTransactionNode.swift; sourceTree = "<group>"; };
 		0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrecognisedTransactionDomainDTO.swift; sourceTree = "<group>"; };
 		0A5C53E021394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnrecognisedTransaction+Mapper.swift"; sourceTree = "<group>"; };
@@ -1286,6 +1288,7 @@
 				0A5E4BB621380B3300E3C3C3 /* BurnTransaction.swift */,
 				0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */,
 				0A5E4BB921381E3400E3C3C3 /* DataTransaction.swift */,
+				0A5C3201213D916900420004 /* AnyTransaction.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -3245,6 +3248,7 @@
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
+				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				E9F81B78212DF2E900AF07C7 /* DexLastTradesPresenter.swift in Sources */,
 				E90DB010212592980065071C /* DexOrderBookLastPriceCell.swift in Sources */,

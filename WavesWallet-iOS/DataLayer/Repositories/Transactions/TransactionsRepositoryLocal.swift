@@ -11,6 +11,18 @@ import RxSwift
 import RxRealm
 import RealmSwift
 
+extension Realm {
+    func filter<ParentType: Object>(parentType: ParentType.Type,
+                                    subclasses: [ParentType.Type],
+                                    predicate: NSPredicate) -> [ParentType] {
+        return ([parentType] + subclasses)
+            .flatMap { classType in
+            return Array(self.objects(classType).filter(predicate))
+        }
+    }
+}
+
+
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
@@ -108,6 +120,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             transactions.append(contentsOf: burnTxs)
             transactions.append(contentsOf: exchangeTxs)
             transactions.append(contentsOf: dataTxs)
+
 
 
             observer.onNext(transactions)

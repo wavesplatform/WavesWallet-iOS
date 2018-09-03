@@ -66,4 +66,8 @@ final class IssueTransaction: Transaction {
     public override func getAmount() -> Int64 {
         return quantity
     }
+
+    deinit {
+
+    }
 }

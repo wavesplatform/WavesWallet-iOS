@@ -15,9 +15,21 @@ import UIKit
 import Moya
 import RealmSwift
 
+func createRandomTransaction(index: Int) -> Transaction {
+
+    let tx = IssueTransaction()
+    tx.name = "Test \(arc4random() % 1000)"
+    tx.timestamp = Int64(Date().timeIntervalSinceNow)
+    tx.id = "\(index)"
+    return tx
+}
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+
+    lazy var bd = try? Realm()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -40,6 +52,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.showStartController()
 
         self.window?.makeKeyAndVisible()
+
+
+        do {
+
+
+
+
+            try? bd?.write {
+
+                var all: [AnyTransaction] = [AnyTransaction]()
+                var transactions: [Transaction] = [Transaction]()
+
+                for i in 1...2 {
+                    let transaction = createRandomTransaction(index: i)
+                    let any = AnyTransaction()
+                    any.transaction = transaction
+                    any.id = transaction.id
+
+                    transactions.append(transaction)
+                    all.append(any)
+
+                }
+//                bd?.deleteAll()
+//                bd?.add(transactions, update: true)
+
+                bd?.add(all, update: true)
+            }
+
+//            let results = bd?.objects(AnyTransaction.self).filter(NSPredicate(format: "transaction.name = 1"))
+//
+//            print(results!)
+
+
+        } catch let e {
+            print(e)
+        }
+
+
+
+
+
+
 
 //        test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
 //            let container = try? response.map(Node.DTO.TransactionContainers.self)
