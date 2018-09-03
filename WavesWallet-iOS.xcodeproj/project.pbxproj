@@ -29,6 +29,8 @@
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
 		04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04615A22211A31C90000FF80 /* HistoryModuleInput.swift */; };
+		0477E6F9213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477E6F8213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift */; };
+		0477E6FB213CA350007DB8E0 /* TransactionHistoryGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0477E6FA213CA350007DB8E0 /* TransactionHistoryGeneralCell.xib */; };
 		048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048310832119675300509CED /* HistoryModuleBuilder.swift */; };
 		04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831085211967D500509CED /* HistoryModuleOutput.swift */; };
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
@@ -452,6 +454,8 @@
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
+		0477E6F8213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryGeneralCell.swift; sourceTree = "<group>"; };
+		0477E6FA213CA350007DB8E0 /* TransactionHistoryGeneralCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryGeneralCell.xib; sourceTree = "<group>"; };
 		048310832119675300509CED /* HistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleBuilder.swift; sourceTree = "<group>"; };
 		04831085211967D500509CED /* HistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleOutput.swift; sourceTree = "<group>"; };
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
@@ -903,6 +907,8 @@
 		042B32F221394D0400F4EFB9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0477E6F8213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift */,
+				0477E6FA213CA350007DB8E0 /* TransactionHistoryGeneralCell.xib */,
 				042B32E02139379400F4EFB9 /* TransactionHistoryRecipientCell.swift */,
 				042B32DE2139368500F4EFB9 /* TransactionHistoryRecipientCell.xib */,
 				042B32E42139415F00F4EFB9 /* TransactionHistoryKeyValueCell.swift */,
@@ -2281,6 +2287,7 @@
 				04FDF2222137F753005008F4 /* TransactionHistory.storyboard in Resources */,
 				E99240512119E4DC00E97414 /* DexSort.strings in Resources */,
 				0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */,
+				0477E6FB213CA350007DB8E0 /* TransactionHistoryGeneralCell.xib in Resources */,
 				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
 				F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */,
@@ -2705,6 +2712,7 @@
 				E959293E211965A4007C06EA /* DexListModuleOutput.swift in Sources */,
 				04FB3F2E21347B8C0008CFF3 /* TransactionHistoryPresenter.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
+				0477E6F9213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift in Sources */,
 				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				0A5ABBA421173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift in Sources */,
 				E9FBFC9F20A0AE8300EBF3AD /* BorderButtView.swift in Sources */,

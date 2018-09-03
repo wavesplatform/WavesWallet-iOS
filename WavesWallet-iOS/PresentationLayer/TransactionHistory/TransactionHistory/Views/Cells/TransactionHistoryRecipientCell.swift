@@ -9,20 +9,24 @@
 import UIKit
 
 final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var keyLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        contentView.backgroundColor = .gray
     }
     
     class func cellHeight() -> CGFloat {
-        return 76
+        return 70.5
     }
 }
 
 extension TransactionHistoryRecipientCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Recipient) {
-        
+        titleLabel.text = "Sent to"
+        valueLabel.text = model.name
+        keyLabel.text = model.address
     }
 }

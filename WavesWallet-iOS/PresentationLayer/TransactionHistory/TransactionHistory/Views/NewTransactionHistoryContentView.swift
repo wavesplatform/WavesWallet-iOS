@@ -94,6 +94,12 @@ extension NewTransactionHistoryContentView: UITableViewDataSource {
             cell.update(with: model)
             return cell
             
+        case .general(let model):
+            
+            let cell: TransactionHistoryGeneralCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: model)
+            return cell
+            
         }
         
     }
@@ -109,8 +115,8 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
         switch item {
         case .recipient(_):
             return TransactionHistoryRecipientCell.cellHeight()
-        case .comment(_):
-            return TransactionHistoryCommentCell.cellHeight()
+        case .comment(let comment):
+            return TransactionHistoryCommentCell.cellHeight(width: tableView.bounds.width, model: comment)
         case .keyValue(_):
             return TransactionHistoryKeyValueCell.cellHeight()
         case .keysValues(_):
@@ -119,6 +125,8 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
             return TransactionHistoryButtonCell.cellHeight()
         case .status(_):
             return TransactionHistoryStatusCell.cellHeight()
+        case .general(_):
+            return TransactionHistoryGeneralCell.cellHeight()
         }
         
     }

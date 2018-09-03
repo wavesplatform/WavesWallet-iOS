@@ -8,17 +8,21 @@
 
 import UIKit
 
+
 final class TransactionHistoryKeyValueCell: UITableViewCell, NibReusable {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var separator: SeparatorView!
+    @IBOutlet weak var valueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        contentView.backgroundColor = .brown
+    
     }
     
     
     class func cellHeight() -> CGFloat {
-        return 76
+        return 63
     }
 }
 
