@@ -17,8 +17,8 @@ extension DexChart.ChartContants {
     static let increasingColor = UIColor.submit300
     static let neutralColor = UIColor.basic700
     static let gridLineWidth: CGFloat = 0.2
-    static let minWidth: CGFloat = 55
-    static let maxWidth: CGFloat = 55
+    static let minWidth: CGFloat = 60
+    static let maxWidth: CGFloat = 60
 }
 
 
@@ -48,6 +48,7 @@ extension DexChart.ChartContants.Bar {
     enum DataSet {
         static let color = UIColor.basic300
         static let highlightColor = UIColor.basic700
+        static let barWidth: Double = 0.10
     }
     
     enum RightAxis {

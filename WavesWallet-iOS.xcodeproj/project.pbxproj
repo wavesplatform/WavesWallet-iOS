@@ -348,7 +348,8 @@
 		E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */; };
 		E98A989720BA202A008FDB47 /* TransactionHistoryMassSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */; };
 		E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */; };
-		E98B0BA1213B133E0030D8F2 /* DexChartSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B0BA0213B133E0030D8F2 /* DexChartSettings.swift */; };
+		E98B0BA1213B133E0030D8F2 /* DexChartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B0BA0213B133E0030D8F2 /* DexChartHelper.swift */; };
+		E98B0BA3213C3F230030D8F2 /* DexChartBarRightAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B0BA2213C3F230030D8F2 /* DexChartBarRightAxisFormatter.swift */; };
 		E992404A2119E3C200E97414 /* DexList.strings in Resources */ = {isa = PBXBuildFile; fileRef = E992404C2119E3C200E97414 /* DexList.strings */; };
 		E99240512119E4DC00E97414 /* DexSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = E99240532119E4DC00E97414 /* DexSort.strings */; };
 		E9983DC0211C7117002349CA /* DexMarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9983DBF211C7117002349CA /* DexMarketViewController.swift */; };
@@ -898,7 +899,8 @@
 		E988E8BC1F0D32570013EAF6 /* LastTradersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradersViewController.swift; sourceTree = "<group>"; };
 		E98A989620BA202A008FDB47 /* TransactionHistoryMassSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryMassSendView.swift; sourceTree = "<group>"; };
 		E98A989820BA203A008FDB47 /* TransactionHistoryMassSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryMassSendView.xib; sourceTree = "<group>"; };
-		E98B0BA0213B133E0030D8F2 /* DexChartSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexChartSettings.swift; path = "WavesWallet-iOS/dex/DexChart/DexChartSettings.swift"; sourceTree = SOURCE_ROOT; };
+		E98B0BA0213B133E0030D8F2 /* DexChartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexChartHelper.swift; path = "WavesWallet-iOS/dex/DexChart/DexChartHelper.swift"; sourceTree = SOURCE_ROOT; };
+		E98B0BA2213C3F230030D8F2 /* DexChartBarRightAxisFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexChartBarRightAxisFormatter.swift; sourceTree = "<group>"; };
 		E992404B2119E3C200E97414 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexList.strings; sourceTree = "<group>"; };
 		E992404D2119E3C900E97414 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexList.strings; sourceTree = "<group>"; };
 		E992404E2119E3CC00E97414 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexList.strings; sourceTree = "<group>"; };
@@ -2107,6 +2109,7 @@
 			children = (
 				E99EC50E2139E84600B1C413 /* DexChartCandleAxisFormatter.swift */,
 				E99EC5102139EA3F00B1C413 /* DexChartBarAxisFormatter.swift */,
+				E98B0BA2213C3F230030D8F2 /* DexChartBarRightAxisFormatter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2300,7 +2303,7 @@
 				E9F5E4772134D4AA001FC87A /* Interactor */,
 				E9F5E4762134D49A001FC87A /* Presenter */,
 				E976D6462137854A007D28DC /* DexChartConstants.swift */,
-				E98B0BA0213B133E0030D8F2 /* DexChartSettings.swift */,
+				E98B0BA0213B133E0030D8F2 /* DexChartHelper.swift */,
 				E9EDC6C32123A5CE00C58E0D /* DexChartViewController.swift */,
 				E9CFBC382124D5ED00CE7413 /* DexChartModuleBuilder.swift */,
 				E9F5E4792134D4DA001FC87A /* DexChartTypes.swift */,
@@ -3213,6 +3216,7 @@
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
+				E98B0BA3213C3F230030D8F2 /* DexChartBarRightAxisFormatter.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				E9F81B78212DF2E900AF07C7 /* DexLastTradesPresenter.swift in Sources */,
 				E90DB010212592980065071C /* DexOrderBookLastPriceCell.swift in Sources */,
@@ -3285,7 +3289,7 @@
 				0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */,
 				E96D1F7220DE5BA40061AD75 /* HelloLanguagesViewController.swift in Sources */,
 				0AEB35A221165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift in Sources */,
-				E98B0BA1213B133E0030D8F2 /* DexChartSettings.swift in Sources */,
+				E98B0BA1213B133E0030D8F2 /* DexChartHelper.swift in Sources */,
 				0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */,
 				E9EDC6C42123A5CE00C58E0D /* DexChartViewController.swift in Sources */,
 				F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */,

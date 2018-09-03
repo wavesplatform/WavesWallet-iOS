@@ -13,15 +13,55 @@ private enum Constants {
     typealias ChartContants = DexChart.ChartContants
     typealias Candle = ChartContants.Candle
     typealias Bar = ChartContants.Bar
+    
+    static let maxCountCandlesToZoom = 10
+    static let defaultZoomScale: CGFloat = 10
 }
 
-final class DexChartSettings {
+final class DexChartHelper {
+
+    private var hasInitFirstTimeZoom = false
     
+    func updateCharts(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+        
+        if hasInitFirstTimeZoom {
+            
+            if candles.count > 1 {
+                let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(candles.count)
+                let additionalZoom = zoom / candleChartView.scaleX
+                
+                let minimumDuration = 0.00001
+                
+                candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
+                
+                barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
+                
+                if candles.count > 0 {
+                    candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                    barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+                }
+                
+                candleChartView.highlightValue(nil)
+                barChartView.highlightValue(nil)
+                
+                //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                //                self.setupLimitLinePosition()
+                //            })
+            }
+        }
+        else {
+            hasInitFirstTimeZoom = true
+            
+            if candles.count > Constants.maxCountCandlesToZoom {
+                candleChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+                barChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+            }
+        }
+    }
+    
+
     //MARK: - Data
-    
-    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView,
-                        timeFrame: DexChart.DTO.TimeFrameType,
-                        candles: [DexChart.DTO.Candle]) {
+    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle]) {
         
         if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
             formatter.timeFrame = timeFrame.rawValue
@@ -37,7 +77,6 @@ final class DexChartSettings {
         
         let candleSet = CandleChartDataSet(values: candleYVals, label: nil)
         candleSet.axisDependency = .right
-        candleSet.setColor(NSUIColor.init(cgColor: UIColor.init(white: 80/255, alpha: 1).cgColor))
         candleSet.drawIconsEnabled = false
         candleSet.drawValuesEnabled = false
         candleSet.shadowWidth = Constants.Candle.DataSet.shadowWidth
@@ -65,7 +104,7 @@ final class DexChartSettings {
         barSet.setColor(Constants.Bar.DataSet.color)
         
         let barData = BarChartData(dataSet: barSet)
-        barData.barWidth = 0.80
+        barData.barWidth = Constants.Bar.DataSet.barWidth
         if barData.entryCount > 0 {
             barChartView.data = barData
             barChartView.notifyDataSetChanged()
@@ -74,7 +113,6 @@ final class DexChartSettings {
     
     
     //MARK: - UI
-    
     func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView) {
 
         candleChartView.chartDescription?.enabled = false
@@ -129,9 +167,11 @@ final class DexChartSettings {
         barChartView.rightAxis.maxWidth = Constants.ChartContants.maxWidth
         barChartView.rightAxis.axisMinimum = 0
         barChartView.rightAxis.forceLabelsEnabled = true
-        
+        barChartView.rightAxis.valueFormatter = DexChartBarRightAxisFormatter()
+            
         barChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
-        barChartView.xAxis.labelPosition = .bottom;
+        barChartView.xAxis.labelPosition = .bottom
     }
 }
+

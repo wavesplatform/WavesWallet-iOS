@@ -16,7 +16,9 @@ final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     var timeFrame: Int = 0
     
     init() {
-        DexChartCandleAxisFormatter.dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+//        DexChartCandleAxisFormatter.dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+        DexChartCandleAxisFormatter.dateFormatter.dateFormat = "HH:mm\ndd.MM\nyyyy"
+
     }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
