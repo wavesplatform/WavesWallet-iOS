@@ -63,10 +63,10 @@ internal enum Images {
   }
   internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
+  internal static let arrowLeft = ImageAsset(name: "arrow_left")
   internal static let arrowRed = ImageAsset(name: "arrow_red")
+  internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
-  internal static let arrowleft14Basic200 = ImageAsset(name: "arrowleft14Basic200")
-  internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
   internal static let assetReceive = ImageAsset(name: "asset_receive")
   internal static let assets = ImageAsset(name: "assets")
@@ -96,6 +96,7 @@ internal enum Images {
   internal static let checkmarkFill = ImageAsset(name: "checkmark_fill")
   internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
   internal static let close = ImageAsset(name: "close")
+  internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copyAddress = ImageAsset(name: "copy_address")
   internal static let copyBlack = ImageAsset(name: "copy_black")
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
@@ -107,7 +108,7 @@ internal enum Images {
   internal static let downChevron = ImageAsset(name: "down-chevron")
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
-  internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
+  internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
@@ -186,6 +187,7 @@ internal enum Images {
   internal static let receive = ImageAsset(name: "receive")
   internal static let receiveBtn = ImageAsset(name: "receive_btn")
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
+  internal static let resendIcon = ImageAsset(name: "resend_icon")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -197,13 +199,11 @@ internal enum Images {
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
   internal static let swipeRight = ImageAsset(name: "swipe_right")
   internal static let tAlias48 = ImageAsset(name: "tAlias48")
-  internal static let tCloselease28 = ImageAsset(name: "tCloselease28")
   internal static let tCloselease48 = ImageAsset(name: "tCloselease48")
   internal static let tExchange48 = ImageAsset(name: "tExchange48")
   internal static let tIncominglease48 = ImageAsset(name: "tIncominglease48")
   internal static let tMassreceived48 = ImageAsset(name: "tMassreceived48")
   internal static let tMasstransfer48 = ImageAsset(name: "tMasstransfer48")
-  internal static let tResend28 = ImageAsset(name: "tResend28")
   internal static let tSelftrans48 = ImageAsset(name: "tSelftrans48")
   internal static let tSend48 = ImageAsset(name: "tSend48")
   internal static let tSoonExchange28 = ImageAsset(name: "tSoonExchange28")
@@ -266,10 +266,10 @@ internal enum Images {
     Wallet.walletSort,
     addaddress24Submit300,
     arrowGreen,
+    arrowLeft,
     arrowRed,
+    arrowRight,
     arrowTransfer,
-    arrowleft14Basic200,
-    arrowright14Basic200,
     assetChangeArrows,
     assetReceive,
     assets,
@@ -299,6 +299,7 @@ internal enum Images {
     checkmarkFill,
     checkmarkFillGray,
     close,
+    closeLeaseIcon,
     copyAddress,
     copyBlack,
     deladdress24Error400,
@@ -310,7 +311,7 @@ internal enum Images {
     downChevron,
     down,
     dragElem,
-    editaddress24Submit300,
+    editAddressIcon,
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
@@ -389,6 +390,7 @@ internal enum Images {
     receive,
     receiveBtn,
     repeatBtn,
+    resendIcon,
     search,
     search24Basic500,
     send,
@@ -400,13 +402,11 @@ internal enum Images {
     swipeLeft,
     swipeRight,
     tAlias48,
-    tCloselease28,
     tCloselease48,
     tExchange48,
     tIncominglease48,
     tMassreceived48,
     tMasstransfer48,
-    tResend28,
     tSelftrans48,
     tSend48,
     tSoonExchange28,

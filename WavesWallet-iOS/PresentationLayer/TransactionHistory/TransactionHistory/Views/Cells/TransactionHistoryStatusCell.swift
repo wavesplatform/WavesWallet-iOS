@@ -11,19 +11,27 @@ import UIKit
 
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.backgroundColor = .yellow
     }
     
     class func cellHeight() -> CGFloat {
-        return 76
+        return 64
     }
 }
 
 extension TransactionHistoryStatusCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Status) {
+        
+        titleLabel.text = "Timestamp"
+        valueLabel.text = model.timestamp
+        
+        statusLabel.text = model.status.rawValue
         
     }
 }

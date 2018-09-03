@@ -10,14 +10,19 @@ import UIKit
 
 final class TransactionHistoryKeysValuesCell: UITableViewCell, NibReusable {
     
+    @IBOutlet weak var firstTitleLabel: UILabel!
+    @IBOutlet weak var firstValueLabel: UILabel!
+    @IBOutlet weak var secondTitleLabel: UILabel!
+    @IBOutlet weak var secondValueLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.backgroundColor = .green
+
     }
     
     class func cellHeight() -> CGFloat {
-        return 76
+        return 63
     }
 }
 
