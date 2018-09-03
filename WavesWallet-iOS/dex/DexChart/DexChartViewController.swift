@@ -29,7 +29,7 @@ final class DexChartViewController: UIViewController {
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelChartTopInfo: UILabel!
    
-    private var chartSettings = DexChartSettings()
+    private var chartHelper = DexChartHelper()
     
     private var state = DexChart.State.initialState
     var pair: DexTraderContainer.DTO.Pair!
@@ -43,7 +43,7 @@ final class DexChartViewController: UIViewController {
         headerView.delegate = self
         setupLoadingState()
         setupFeedBack()
-        chartSettings.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
+        setupCharts()
         setupLocalization()
     }
     
@@ -83,10 +83,9 @@ fileprivate extension DexChartViewController {
                 guard state.action != .none else { return }
                 
                 strongSelf.state = state
-                strongSelf.setupChartData()
                 strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
                 strongSelf.setupLabelChartInfo()
-                
+                strongSelf.setupChartData()
                 if state.action == .loading {
                     strongSelf.setupLoadingState()
                 }
@@ -227,6 +226,12 @@ extension DexChartViewController: ChartViewDelegate {
 //MARK: - Setup Charts
 private extension DexChartViewController {
 
+    func setupCharts() {
+        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
+        candleChartView.delegate = self
+        barChartView.delegate = self
+    }
+    
     func setupLabelChartInfo() {
         
         let title = pair.amountAsset.name + " / " + pair.priceAsset.name
@@ -252,37 +257,13 @@ private extension DexChartViewController {
             labelChartTopInfo.text = "\(title), \(state.timeFrame.shortText)"
         }
     }
-    
-    func updateCharts() {
-        
-        if state.candles.count > 1 {
-            
-            let zoom = CGFloat(state.candles.count) * candleChartView.scaleX / CGFloat(state.candles.count)
-            let additionalZoom = zoom / self.candleChartView.scaleX
-            
-            self.candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-            
-            self.barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-            
-            if state.candles.count > 0 {
-                candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-                barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-            }
-            
-            candleChartView.highlightValue(nil)
-            barChartView.highlightValue(nil)
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-//                self.setupLimitLinePosition()
-//            })
-        }
-        
-    }
-//    
+   
     func setupChartData() {
-        chartSettings.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
-                                     timeFrame: state.timeFrame,
-                                     candles: state.candles)
+        chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
+                                   timeFrame: state.timeFrame,
+                                   candles: state.candles)
+        
+        chartHelper.updateCharts(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
     }
     
 }
