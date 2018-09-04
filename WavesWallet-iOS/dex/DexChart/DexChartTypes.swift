@@ -17,13 +17,15 @@ enum DexChart {
         case readyView
         case didChangeTimeFrame(DTO.TimeFrameType)
         case setCandles([DTO.Candle])
+        case preloading
     }
     
     struct State: Mutating {
         enum Action {
             case none
             case update
-            case loading
+            case changeTimeFrame
+            case changeZoomAfterPreload
         }
         
         var action: Action
@@ -126,14 +128,20 @@ extension DexChart.DTO.TimeFrameType {
 
 extension DexChart.State {
     
+    static func additionalDate(start: Date, timeFrame: DexChart.DTO.TimeFrameType) -> Date {
+        let additionalTime : Double = Double(3600 * ((timeFrame.rawValue * 100) / 60))
+        return start.addingTimeInterval(-additionalTime)
+    }
+    
+    static func initialDateTo() -> Date {
+        return Date()
+    }
+    
     static var initialState: DexChart.State {
         
         let timeFrame = DexChart.DTO.TimeFrameType.m15
-        
-        let additionalTime : Double = Double(3600 * ((timeFrame.rawValue * 100) / 60))
-        
-        let dateTo = Date()
-        let dateFrom = dateTo.addingTimeInterval(-additionalTime)
+        let dateTo = initialDateTo()
+        let dateFrom = additionalDate(start: dateTo, timeFrame: timeFrame)
         
         return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
                               isPreloading: false, isNeedLoadingData: false)
