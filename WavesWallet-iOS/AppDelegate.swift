@@ -15,25 +15,17 @@ import UIKit
 import Moya
 import RealmSwift
 
-func createRandomTransaction(index: Int) -> Transaction {
-
-    let tx = IssueTransaction()
-    tx.name = "Test \(arc4random() % 1000)"
-    tx.timestamp = Int64(Date().timeIntervalSinceNow)
-    tx.id = "\(index)"
-    return tx
-}
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    lazy var tansactionsInteractor = TransactionsInteractor()
     lazy var bd = try? Realm()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
+        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
 
         Swizzle(initializers: [UIView.passtroughInit,
@@ -56,21 +48,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         do {
 
-
-
-
             try? bd?.write {
 
                 var all: [AnyTransaction] = [AnyTransaction]()
                 var transactions: [Transaction] = [Transaction]()
 
                 for i in 1...2 {
-                    let transaction = createRandomTransaction(index: i)
-                    let any = AnyTransaction()
-                    any.transaction = transaction
-                    any.id = transaction.id
 
-                    transactions.append(transaction)
+                    let tx = IssueTransaction()
+                    tx.name = "Test \(i)"
+                    tx.timestamp = Int64(Date().timeIntervalSinceNow)
+                    tx.id = "\(i)"
+
+
+                    let any = AnyTransaction()
+                    any.id = tx.id
+
+//                    transactions.append(transaction)
                     all.append(any)
 
                 }
@@ -80,9 +74,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 bd?.add(all, update: true)
             }
 
-//            let results = bd?.objects(AnyTransaction.self).filter(NSPredicate(format: "transaction.name = 1"))
+            let results = bd?.objects(AnyTransaction.self).filter(NSPredicate(format: "id IN %@", ["1", "2"]))
 //
-//            print(results!)
+            print(results!)
 
 
         } catch let e {
@@ -90,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
 
+        tansactionsInteractor.transactions(by: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj").sweetDebug("Alarm").subscribe()
 
 
 

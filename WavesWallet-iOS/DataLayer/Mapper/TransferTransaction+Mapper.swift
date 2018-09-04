@@ -26,7 +26,7 @@ extension TransferTransaction {
 
         recipient = transaction.recipient
         feeAssetId = transaction.feeAssetId
-        feeAsset.value = transaction.feeAsset
+        feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
     }
@@ -49,7 +49,7 @@ extension DomainLayer.DTO.TransferTransaction {
         modified = Date()
 
         recipient = transaction.recipient
-        feeAssetId = transaction.feeAssetId
+        feeAssetId = transaction.feeAssetId        
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
@@ -70,7 +70,7 @@ extension DomainLayer.DTO.TransferTransaction {
 
         recipient = transaction.recipient
         feeAssetId = transaction.feeAssetId
-        feeAsset = transaction.feeAsset.value
+        feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
     }

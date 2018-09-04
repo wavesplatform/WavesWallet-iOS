@@ -55,12 +55,95 @@ extension Node.DTO.TransactionContainers {
         return anyTransactions
     }
 }
-////DomainLayer.DTO.AnyTransaction
-//
-//extension DomainLayer.DTO.AnyTransaction {
-//
-//    static func map(transacations: AnyTransaction) -> [DomainLayer.DTO.AnyTransaction] {
-//
-//    }
-//}
-//
+
+extension DomainLayer.DTO.AnyTransaction {
+
+    var transaction: Transaction {
+        
+        switch self {
+        case .unrecognised(let tx):
+            return UnrecognisedTransaction(transaction: tx)
+
+        case .issue(let tx):
+            return IssueTransaction(transaction: tx)
+
+        case .transfer(let tx):
+            return TransferTransaction(transaction: tx)
+
+        case .reissue(let tx):
+            return ReissueTransaction(transaction: tx)
+
+        case .burn(let tx):
+            return BurnTransaction(transaction: tx)
+
+        case .exchange(let tx):
+            return ExchangeTransaction(transaction: tx)
+
+        case .lease(let tx):
+            return LeaseTransaction(transaction: tx)
+
+        case .leaseCancel(let tx):
+            return LeaseCancelTransaction(transaction: tx)
+
+        case .alias(let tx):
+            return AliasTransaction(transaction: tx)
+
+        case .massTransfer(let tx):
+            return MassTransferTransaction(transaction: tx)
+
+        case .data(let tx):
+            return DataTransaction(transaction: tx)
+        }
+    }
+
+    func anyTransaction(from: Transaction) -> AnyTransaction {
+
+        let any = AnyTransaction()
+        any.type = from.type
+        any.id = from.id
+        any.sender = from.sender
+        any.senderPublicKey = from.senderPublicKey
+        any.fee = from.fee
+        any.timestamp = from.timestamp
+        any.height = from.height
+        any.version = from.version
+        any.modified = from.modified
+
+        switch self {
+        case .unrecognised:
+            any.unrecognisedTransaction = from as? UnrecognisedTransaction
+
+        case .issue:
+            any.issueTransaction = from as? IssueTransaction
+
+        case .transfer:
+            any.transferTransaction = from as? TransferTransaction
+
+        case .reissue:
+            any.reissueTransaction = from as? ReissueTransaction
+
+        case .burn:
+            any.burnTransaction = from as? BurnTransaction
+
+        case .exchange:
+            any.exchangeTransaction = from as? ExchangeTransaction
+
+        case .lease:
+            any.leaseTransaction = from as? LeaseTransaction
+
+        case .leaseCancel:
+            any.leaseCancelTransaction = from as? LeaseCancelTransaction
+
+        case .alias:
+            any.aliasTransaction = from as? AliasTransaction
+
+        case .massTransfer:
+            any.massTransferTransaction = from as? MassTransferTransaction
+
+        case .data:
+            any.dataTransaction = from as? DataTransaction
+        }
+
+        return any
+    }
+}

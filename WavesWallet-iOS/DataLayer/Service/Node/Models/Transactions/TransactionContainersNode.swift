@@ -29,7 +29,7 @@ extension Node.DTO {
             case data(Node.DTO.DataTransaction)
         }
 
-        enum TransactionTypes: Int, Decodable {
+        private enum TransactionType: Int, Decodable {
             case issue = 3
             case transfer = 4
             case reissue = 5
@@ -57,7 +57,7 @@ extension Node.DTO {
                 while !listForType.isAtEnd {
 
                     let objectType = try listForType.nestedContainer(keyedBy: CodingKeys.self)
-                    guard let type = try? objectType.decode(TransactionTypes.self, forKey: .type) else {
+                    guard let type = try? objectType.decode(TransactionType.self, forKey: .type) else {
 
                         if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
                             transactions.append(.unrecognised(tx))
@@ -112,7 +112,6 @@ extension Node.DTO {
                 error(e)
             }
 
-            debug(transactions)
             self.transactions = transactions
         }
     }

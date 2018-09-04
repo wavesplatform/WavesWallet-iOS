@@ -11,7 +11,7 @@ import RealmSwift
 
 final class MassTransferTransaction: Transaction {
 
-    @objc dynamic var assetId: String = ""
+    @objc dynamic var assetId: String? = ""
     @objc dynamic var attachment: String = ""
     @objc dynamic var transferCount: Int = 0
     @objc dynamic var totalAmount: Int64 = 0

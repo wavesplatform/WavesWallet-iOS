@@ -111,6 +111,6 @@ final class ExchangeTransactionOrder: Object {
 }
 
 final class ExchangeTransactionAssetPair: Object {
-    @objc dynamic var amountAsset: String = ""
+    @objc dynamic var amountAsset: String? = nil
     @objc dynamic var priceAsset: String? = nil
 }

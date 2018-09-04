@@ -17,8 +17,8 @@ extension Node.DTO {
         let fee: Int64
         let timestamp: Int64
         let version: Int
-        let height: Int64
-        
+        let height: Int64? //I do optional variable for cancel leasing model
+    
         let signature: String
         let amount: Int64
         let recipient: String

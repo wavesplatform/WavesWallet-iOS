@@ -40,7 +40,7 @@ extension DomainLayer.DTO.LeaseTransaction {
         version = transaction.version
         amount = transaction.amount
         recipient = transaction.recipient        
-        height = transaction.height
+        height = transaction.height ?? -1
         modified = Date()
     }
 
