@@ -19,15 +19,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NB2-C9-ANw" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="16" y="62" width="343" height="0.5"/>
+                        <rect key="frame" x="12" y="62" width="351" height="0.5"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="0r0-VI-aZJ"/>
+                            <constraint firstAttribute="height" id="0r0-VI-aZJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
                             <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
                                 <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="3"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seV-qP-Tf6">
@@ -51,9 +55,9 @@
                 </constraints>
             </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="NB2-C9-ANw" firstAttribute="leading" secondItem="U0r-Hp-2ER" secondAttribute="leading" constant="16" id="cQ8-t2-88y"/>
-                <constraint firstAttribute="bottom" secondItem="NB2-C9-ANw" secondAttribute="bottom" constant="0.5" id="e7E-s6-ord"/>
-                <constraint firstAttribute="trailing" secondItem="NB2-C9-ANw" secondAttribute="trailing" constant="16" id="pLc-6h-XKq"/>
+                <constraint firstItem="NB2-C9-ANw" firstAttribute="leading" secondItem="U0r-Hp-2ER" secondAttribute="leading" constant="12" id="cQ8-t2-88y"/>
+                <constraint firstAttribute="bottom" secondItem="NB2-C9-ANw" secondAttribute="bottom" id="e7E-s6-ord"/>
+                <constraint firstAttribute="trailing" secondItem="NB2-C9-ANw" secondAttribute="trailing" constant="12" id="pLc-6h-XKq"/>
             </constraints>
             <connections>
                 <outlet property="separator" destination="NB2-C9-ANw" id="vuL-ho-rsK"/>

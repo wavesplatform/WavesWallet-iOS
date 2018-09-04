@@ -8,19 +8,31 @@
 
 import UIKit
 
+protocol TransactionHistoryButtonCellDelegate: class {
+    func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell)
+}
+
 final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
+    
+    weak var delegate: TransactionHistoryButtonCellDelegate?
     
     @IBOutlet weak var button: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        button.addTarget(self, action: #selector(buttonPressed(sender:)), for: .touchUpInside)
     }
     
     class func cellHeight() -> CGFloat {
         return 64
     }
+    
+    @objc private func buttonPressed(sender: Any) {
+        
+        delegate?.transactionButtonCellDidPress(cell: self)
+    }
+    
 }
 
 extension TransactionHistoryButtonCell: ViewConfiguration {

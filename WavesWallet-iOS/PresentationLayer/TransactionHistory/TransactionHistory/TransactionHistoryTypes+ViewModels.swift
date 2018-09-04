@@ -71,8 +71,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         rows.append(.general(.init(kind: transaction.kind, value: "+000000000.00000000", currencyConversion: "= 00 000 00 US Dollar", tag: "WAVES")))
-        rows.append(.recipient(.init(name: "Mr. Brock", address: "96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0")))
-        rows.append(.comment(.init(text: "This is the comment we all wanted ant its very looooooong")))
+        rows.append(.recipient(.init(name: nil, address: "96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0")))
+        rows.append(.comment(.init(text: "This is the comment we all wanted ant its very loooooooooooong")))
         rows.append(.keyValue(.init(title: "Fee", value: "0.0000001 Waves")))
 
         rows.append(.keysValues(
@@ -82,7 +82,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             ])
         )
         rows.append(.status(.init(timestamp: "12.04.2018", status: .activeNow)))
-        rows.append(.resendButton(.init(type: .resend)))
+        rows.append(.resendButton(.init(type: .cancelLeasing)))
         
         let generalSection = TransactionHistoryTypes.ViewModel.Section(items: rows)
         

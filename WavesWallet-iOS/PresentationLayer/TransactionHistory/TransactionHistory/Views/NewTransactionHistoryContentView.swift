@@ -23,7 +23,6 @@ class NewTransactionHistoryContentView: UIView {
     // MARK: - Setups
     
     private func setupTableView() {
-        tableView.backgroundColor = .red
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -86,6 +85,7 @@ extension NewTransactionHistoryContentView: UITableViewDataSource {
             
             let cell: TransactionHistoryButtonCell = tableView.dequeueAndRegisterCell()
             cell.update(with: model)
+            cell.delegate = self
             return cell
          
         case .status(let model):
@@ -113,10 +113,10 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
          let item = display!.sections[indexPath.section].items[indexPath.item]
         
         switch item {
-        case .recipient(_):
-            return TransactionHistoryRecipientCell.cellHeight()
-        case .comment(let comment):
-            return TransactionHistoryCommentCell.cellHeight(width: tableView.bounds.width, model: comment)
+        case .recipient(let model):
+            return TransactionHistoryRecipientCell.cellHeight(width: tableView.bounds.width, model: model)
+        case .comment(let model):
+            return TransactionHistoryCommentCell.cellHeight(width: tableView.bounds.width, model: model)
         case .keyValue(_):
             return TransactionHistoryKeyValueCell.cellHeight()
         case .keysValues(_):
@@ -129,6 +129,15 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
             return TransactionHistoryGeneralCell.cellHeight()
         }
         
+    }
+
+    
+}
+
+extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate {
+    
+    func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell) {
+        print("нажатие")
     }
     
 }

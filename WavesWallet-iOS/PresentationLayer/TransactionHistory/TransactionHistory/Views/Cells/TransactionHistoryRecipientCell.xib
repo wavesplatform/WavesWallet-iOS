@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionHistoryRecipientCell" rowHeight="71" id="8jT-UJ-Rdz" customClass="TransactionHistoryRecipientCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionHistoryRecipientCell" rowHeight="81" id="8jT-UJ-Rdz" customClass="TransactionHistoryRecipientCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8jT-UJ-Rdz" id="ekU-SN-hJs">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="80.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zca-qI-tzY">
@@ -48,20 +48,21 @@
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="top" secondItem="t38-6W-U0R" secondAttribute="bottom" constant="2" id="DnG-xO-H6P"/>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="F9d-2V-Ajr"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="U3w-oS-csW"/>
+                    <constraint firstItem="dns-7C-v4h" firstAttribute="bottom" secondItem="Goq-BE-4Z1" secondAttribute="bottom" id="VTa-fe-VNz"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="top" secondItem="zca-qI-tzY" secondAttribute="bottom" constant="6" id="bj9-mx-tNv"/>
                     <constraint firstAttribute="trailing" secondItem="dns-7C-v4h" secondAttribute="trailing" constant="12" id="d4H-ZU-6eM"/>
                     <constraint firstAttribute="trailing" secondItem="Goq-BE-4Z1" secondAttribute="trailing" constant="12" id="kLT-Nb-d5t"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="top" secondItem="ekU-SN-hJs" secondAttribute="top" constant="14" id="sEw-m4-6ia"/>
-                    <constraint firstAttribute="bottom" secondItem="dns-7C-v4h" secondAttribute="bottom" constant="4.5" id="yYm-Rt-xqx"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="yys-lA-61f"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="keyLabel" destination="Goq-BE-4Z1" id="aWh-c1-7ab"/>
+                <outlet property="nameToKeyConstraint" destination="DnG-xO-H6P" id="RPv-dY-FBL"/>
                 <outlet property="titleLabel" destination="zca-qI-tzY" id="e2d-PF-2Nb"/>
                 <outlet property="valueLabel" destination="t38-6W-U0R" id="wUT-ut-MBa"/>
             </connections>
-            <point key="canvasLocation" x="-180.5" y="-133.5"/>
+            <point key="canvasLocation" x="-180.5" y="-128.5"/>
         </tableViewCell>
     </objects>
     <resources>
