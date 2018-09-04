@@ -21,44 +21,65 @@ private enum Constants {
 final class DexChartHelper {
 
     private var hasInitFirstTimeZoom = false
+    private var prevCandlesCount = 0
     
-    func updateCharts(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
-        
-        if hasInitFirstTimeZoom {
+    func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle], lastOffsetX: Double) {
+        if candles.count > prevCandlesCount {
+            let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(prevCandlesCount)
+            let additionalZoom = zoom / candleChartView.scaleX
             
-            if candles.count > 1 {
-                let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(candles.count)
-                let additionalZoom = zoom / candleChartView.scaleX
-                
-                let minimumDuration = 0.00001
-                
-                candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
-                
-                barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
-                
-                if candles.count > 0 {
-                    candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-                    barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-                }
-                
-                candleChartView.highlightValue(nil)
-                barChartView.highlightValue(nil)
-                
-                //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-                //                self.setupLimitLinePosition()
-                //            })
-            }
+            candleChartView.moveViewToAnimated(xValue: lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+            candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+            
+            barChartView.moveViewToAnimated(xValue: lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+            barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
         }
-        else {
+        
+        prevCandlesCount = candles.count
+    }
+    
+    func setupFirstTimeZoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+        if !hasInitFirstTimeZoom {
             hasInitFirstTimeZoom = true
             
             if candles.count > Constants.maxCountCandlesToZoom {
-                candleChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
-                barChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x:CGFloat.greatestFiniteMagnitude, y: 0)
+                candleChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x: CGFloat.greatestFiniteMagnitude, y: 0)
+                barChartView.zoom(scaleX: Constants.defaultZoomScale, scaleY: 0, x: CGFloat.greatestFiniteMagnitude, y: 0)
             }
         }
+        
+        prevCandlesCount = candles.count
+
     }
-    
+//    
+//    func updateCharts(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+//        
+//        if hasInitFirstTimeZoom {
+//
+//            if candles.count > 1 {
+//                let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(prevCandlesCount)
+//                let additionalZoom = zoom / candleChartView.scaleX
+//
+//                let minimumDuration = 0.00001
+//
+//                candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
+//
+//                barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
+//
+//                if prevCandlesCount > 0 {
+//                    candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+//                    barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
+//                }
+//
+//                candleChartView.highlightValue(nil)
+//                barChartView.highlightValue(nil)
+//            }
+//            
+//            prevCandlesCount = candles.count
+//        }
+//       
+//    }
+//    
 
     //MARK: - Data
     func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle]) {
@@ -172,6 +193,30 @@ final class DexChartHelper {
         barChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.xAxis.labelPosition = .bottom
+    }
+    
+    
+    func lastPricePosition(candleChartView: CandleStickChartView) -> CGFloat {
+        
+        let uknownPosition: CGFloat = -100
+        
+        if candleChartView.rightAxis.limitLines.count > 0 {
+            
+            if let limitLine = candleChartView.rightAxis.limitLines.first,
+                let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
+                
+                var clippingRect = candleChartView.viewPortHandler.contentRect
+                clippingRect.origin.y -= limitLine.lineWidth / 2.0
+                clippingRect.size.height += limitLine.lineWidth
+               
+                var position = CGPoint(x: 0.0, y: CGFloat(limitLine.limit))
+                position = position.applying(trans)
+                
+                return position.y.isNaN ? uknownPosition : position.y
+            }
+        }
+        
+        return uknownPosition
     }
 }
 

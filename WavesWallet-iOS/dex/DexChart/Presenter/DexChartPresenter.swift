@@ -57,21 +57,38 @@ final class DexChartPresenter: DexChartPresenterProtocol {
             
         case .didChangeTimeFrame(let timeFrame):
             return state.mutate {
-                $0.isNeedLoadingData = true 
+                $0.isNeedLoadingData = true
+                $0.isPreloading = false
                 $0.timeFrame = timeFrame
-                $0.candles = []
-                 
-            }.changeAction(.loading)
+                $0.candles.removeAll()
+                $0.dateTo = DexChart.State.initialDateTo()
+                $0.dateFrom = DexChart.State.additionalDate(start:$0.dateTo, timeFrame: timeFrame)
+                
+            }.changeAction(.changeTimeFrame)
+        
+        case .preloading:
+            return state.mutate {
+                $0.isNeedLoadingData = true
+                $0.isPreloading = true
+                $0.dateTo = $0.dateFrom
+                $0.dateFrom = DexChart.State.additionalDate(start: $0.dateFrom, timeFrame: $0.timeFrame)
+            }.changeAction(.none)
             
         case .setCandles(let candles):
             return state.mutate {
                 $0.isNeedLoadingData = false
-
+                $0.isPreloading = false
                 $0.candles.append(contentsOf: candles)
                 $0.candles.sort(by: {$0.timestamp < $1.timestamp})
                 
+                if state.isPreloading {
+                    $0.action = .changeZoomAfterPreload
+                }
+                else {
+                    $0.action = .update
+                }
                 //        candles.sort(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
-            }.changeAction(.update)
+            }
         }
     }
 }

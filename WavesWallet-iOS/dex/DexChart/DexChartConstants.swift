@@ -48,7 +48,7 @@ extension DexChart.ChartContants.Bar {
     enum DataSet {
         static let color = UIColor.basic300
         static let highlightColor = UIColor.basic700
-        static let barWidth: Double = 0.10
+        static let barWidth: Double = 0.8
     }
     
     enum RightAxis {
