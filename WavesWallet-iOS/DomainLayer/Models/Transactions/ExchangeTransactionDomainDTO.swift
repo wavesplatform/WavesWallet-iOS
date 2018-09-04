@@ -27,7 +27,7 @@ extension DomainLayer.DTO {
         }
 
         struct AssetPair: Decodable {
-            let amountAsset: String
+            let amountAsset: String?
             let priceAsset: String?
         }
         

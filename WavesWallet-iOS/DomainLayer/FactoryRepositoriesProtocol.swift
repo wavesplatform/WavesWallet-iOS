@@ -18,4 +18,7 @@ protocol FactoryRepositoriesProtocol {
 
     var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
+
+    var transactionsRepositoryLocal: TransactionsRepositoryProtocol { get }
+    var transactionsRepositoryRemote: TransactionsRepositoryProtocol { get }
 }

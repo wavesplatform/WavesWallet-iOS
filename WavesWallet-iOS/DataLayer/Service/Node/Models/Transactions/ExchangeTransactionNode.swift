@@ -27,7 +27,7 @@ extension Node.DTO {
         }
 
         struct AssetPair: Decodable {
-            let amountAsset: String
+            let amountAsset: String?
             let priceAsset: String?
         }
         

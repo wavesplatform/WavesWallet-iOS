@@ -22,8 +22,8 @@ final class DataTransaction: Transaction {
 final class DataTransactionData: Object {
     @objc dynamic var key: String = ""
     @objc dynamic var type: String = ""
+    @objc dynamic var string: String? = nil
+    @objc dynamic var binary: String? = nil
     var boolean: RealmOptional<Bool> = .init()
     var integer: RealmOptional<Int> = .init()
-    var string: String? = nil
-    var binary: String? = nil
 }

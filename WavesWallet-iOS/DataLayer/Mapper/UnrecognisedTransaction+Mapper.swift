@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Transaction {
+extension UnrecognisedTransaction {
 
     convenience init(transaction: DomainLayer.DTO.UnrecognisedTransaction) {
         self.init()
@@ -38,7 +38,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
         modified = Date()
     }
 
-    init(transaction: Transaction) {
+    init(transaction: UnrecognisedTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender

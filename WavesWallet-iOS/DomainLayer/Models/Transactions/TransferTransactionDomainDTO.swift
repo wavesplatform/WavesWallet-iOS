@@ -23,7 +23,7 @@ extension DomainLayer.DTO {
         let recipient: String
         let assetId: String?
         let feeAssetId: String?
-        let feeAsset: Int64?
+        let feeAsset: String?
         let amount: Int64
         let attachment: String?
         var modified: Date

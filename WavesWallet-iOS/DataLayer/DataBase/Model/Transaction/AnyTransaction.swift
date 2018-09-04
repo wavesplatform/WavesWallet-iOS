@@ -9,12 +9,17 @@
 import Foundation
 import RealmSwift
 
-final class AnyTransaction: Object {
+final class AnyTransaction: Transaction {
 
-    @objc dynamic var transaction: Transaction?
-    @objc dynamic var id: String = ""
-
-    public override class func primaryKey() -> String? {
-        return "id"
-    }
+    var unrecognisedTransaction: UnrecognisedTransaction?
+    var issueTransaction: IssueTransaction?
+    var transferTransaction: TransferTransaction?
+    var reissueTransaction: ReissueTransaction?
+    var leaseTransaction: LeaseTransaction?
+    var leaseCancelTransaction: LeaseCancelTransaction?
+    var aliasTransaction: AliasTransaction?
+    var massTransferTransaction: MassTransferTransaction?
+    var burnTransaction: BurnTransaction?
+    var exchangeTransaction: ExchangeTransaction?
+    var dataTransaction: DataTransaction?
 }

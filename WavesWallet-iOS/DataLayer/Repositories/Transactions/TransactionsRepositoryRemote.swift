@@ -29,13 +29,19 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .asObservable()        
     }
 
-    func transactions(by accountAddress: String, assetId: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+    func transactions(by accountAddress: String,
+                      specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool> {
         assertMethodDontSupported()
+        return Observable.never()
+    }
+
+    var isHasTransactions: Observable<Bool> {
+        assertVarDontSupported()
         return Observable.never()
     }
 }

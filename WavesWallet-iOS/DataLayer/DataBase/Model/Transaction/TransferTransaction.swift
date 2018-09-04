@@ -18,7 +18,7 @@ public class TransferTransaction: Transaction {
     @objc dynamic var recipient: String = ""
     @objc dynamic var assetId: String? = nil
     @objc dynamic var feeAssetId: String? = nil
-    var feeAsset: RealmOptional<Int64> = .init()
+    @objc dynamic var feeAsset: String? = nil    
     @objc dynamic var amount: Int64 = 0
     @objc dynamic var attachment: String? = nil
 
