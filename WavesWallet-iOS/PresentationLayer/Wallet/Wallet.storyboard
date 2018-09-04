@@ -553,7 +553,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="styleInt">
                                                                     <integer key="value" value="0"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="NO"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
@@ -666,11 +666,11 @@
                                         <rect key="frame" x="0.0" y="748" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vJG-r1-UAG" id="iph-aj-DDz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="35"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>

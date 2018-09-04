@@ -22,12 +22,15 @@ final class TransactionHistoryKeyValueCell: UITableViewCell, NibReusable {
     
     
     class func cellHeight() -> CGFloat {
-        return 63
+        return 66
     }
 }
 
 extension TransactionHistoryKeyValueCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.KeyValue) {
+        
+        titleLabel.text = model.title
+        valueLabel.text = model.value
         
     }
 }

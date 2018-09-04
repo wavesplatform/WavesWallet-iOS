@@ -69,7 +69,19 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             
         case .tapCell(let indexPath):
             
-            moduleOutput?.showTransaction(transactions: state.transactions, index: 0)
+            let item =  state.sections[indexPath.section].items[indexPath.item]
+            var index = NSNotFound
+            
+            switch item {
+            case .transaction(let transaction):
+                index = state.transactions.index(of: transaction) ?? NSNotFound
+            default: break
+            }
+            
+            if (index != NSNotFound) {
+                moduleOutput?.showTransaction(transactions: state.transactions, index: 0)
+            }
+            
             return state
             
         case .changeFilter(let filter):

@@ -24,6 +24,8 @@ final class TransactionHistoryCommentCell: UITableViewCell, NibReusable {
 
 extension TransactionHistoryCommentCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Comment) {
+        
         commentLabel.text = model.text
+        
     }
 }
