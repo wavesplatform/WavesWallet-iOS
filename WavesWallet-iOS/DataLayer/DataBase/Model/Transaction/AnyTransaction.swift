@@ -11,15 +11,15 @@ import RealmSwift
 
 final class AnyTransaction: Transaction {
 
-    var unrecognisedTransaction: UnrecognisedTransaction?
-    var issueTransaction: IssueTransaction?
-    var transferTransaction: TransferTransaction?
-    var reissueTransaction: ReissueTransaction?
-    var leaseTransaction: LeaseTransaction?
-    var leaseCancelTransaction: LeaseCancelTransaction?
-    var aliasTransaction: AliasTransaction?
-    var massTransferTransaction: MassTransferTransaction?
-    var burnTransaction: BurnTransaction?
-    var exchangeTransaction: ExchangeTransaction?
-    var dataTransaction: DataTransaction?
+    @objc dynamic var unrecognisedTransaction: UnrecognisedTransaction?
+    @objc dynamic var issueTransaction: IssueTransaction?
+    @objc dynamic var transferTransaction: TransferTransaction?
+    @objc dynamic var reissueTransaction: ReissueTransaction?
+    @objc dynamic var leaseTransaction: LeaseTransaction?
+    @objc dynamic var leaseCancelTransaction: LeaseCancelTransaction?
+    @objc dynamic var aliasTransaction: AliasTransaction?
+    @objc dynamic var massTransferTransaction: MassTransferTransaction?
+    @objc dynamic var burnTransaction: BurnTransaction?
+    @objc dynamic var exchangeTransaction: ExchangeTransaction?
+    @objc dynamic var dataTransaction: DataTransaction?
 }

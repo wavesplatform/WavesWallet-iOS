@@ -39,17 +39,9 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [UnrecognisedTransaction.predicate(specifications),
-                                                                               IssueTransaction.predicate(specifications),
-                                                                               TransferTransaction.predicate(specifications),
-                                                                               ReissueTransaction.predicate(specifications),
-                                                                               LeaseTransaction.predicate(specifications),
-                                                                               LeaseCancelTransaction.predicate(specifications),
-                                                                               AliasTransaction.predicate(specifications),
-                                                                               MassTransferTransaction.predicate(specifications),
-                                                                               BurnTransaction.predicate(specifications),
-                                                                               ExchangeTransaction.predicate(specifications),
-                                                                               DataTransaction.predicate(specifications)])
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [UnrecognisedTransaction.predicate(specifications)])
+
+            
 
             let types = specifications.types.map { $0.rawValue }
 
@@ -57,7 +49,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 .objects(AnyTransaction.self)
                 .sorted(byKeyPath: "timestamp")
                 .filter("type IN %@", types)
-//                .filter(predicate)
+                .filter("dataTransaction != NULL")
 
 
             for any in txs.toArray() {
@@ -191,19 +183,15 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            var list: [Transaction] = []
             var anyList: [AnyTransaction] = []
             
             for tx in transactions {
                 let realmTx = tx.transaction
-
-                list.append(realmTx)
                 anyList.append(tx.anyTransaction(from: realmTx))
             }
 
             do {
                 try realm.write {
-                    realm.add(list, update: true)
                     realm.add(anyList, update: true)
                 }
                 observer.onNext(true)
@@ -226,7 +214,7 @@ fileprivate protocol TransactionsSpecificationsConverter {
 
 extension UnrecognisedTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate()
+        return NSPredicate(format: "WAVES IN %@", from.assets)
     }
 }
 
