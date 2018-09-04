@@ -30,13 +30,14 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                                                   limit: 10000)
             .flatMap(weak: self) { owner, transactions -> Observable<[DomainLayer.DTO.AnyTransaction]> in
                 return owner.transactionsRepositoryLocal.saveTransactions(transactions).map { _ in transactions }
-            }.flatMap(weak: self, selector: { owner, transaction -> Observable<[DomainLayer.DTO.AnyTransaction]> in
-                return owner.transactionsRepositoryLocal.transactions(by: accountAddress,
-                                                                      specifications: TransactionsSpecifications(page: .init(offset: 0,
-                                                                                                                             limit: 10000),
-                                                                                                                 assets: ["WAVES"],
-                                                                                                                 senders: [],
-                                                                                                                 types: [.transfer]))
-            })
+                    .flatMap(weak: owner, selector: { owner, transaction -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+                        return owner.transactionsRepositoryLocal.transactions(by: accountAddress,
+                                                                              specifications: TransactionsSpecifications(page: .init(offset: 0,
+                                                                                                                                 limit: 10000),
+                                                                                                                     assets: ["WAVES"],
+                                                                                                                     senders: [],
+                                                                                                                     types: [.transfer]))
+                })
+            }
     }
 }

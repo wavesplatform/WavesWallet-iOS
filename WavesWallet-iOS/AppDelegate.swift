@@ -46,43 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
 
-        do {
-
-            try? bd?.write {
-
-                var all: [AnyTransaction] = [AnyTransaction]()
-                var transactions: [Transaction] = [Transaction]()
-
-                for i in 1...2 {
-
-                    let tx = IssueTransaction()
-                    tx.name = "Test \(i)"
-                    tx.timestamp = Int64(Date().timeIntervalSinceNow)
-                    tx.id = "\(i)"
-
-
-                    let any = AnyTransaction()
-                    any.id = tx.id
-
-//                    transactions.append(transaction)
-                    all.append(any)
-
-                }
-//                bd?.deleteAll()
-//                bd?.add(transactions, update: true)
-
-                bd?.add(all, update: true)
-            }
-
-            let results = bd?.objects(AnyTransaction.self).filter(NSPredicate(format: "id IN %@", ["1", "2"]))
-//
-            print(results!)
-
-
-        } catch let e {
-            print(e)
-        }
-
 
         tansactionsInteractor.transactions(by: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj").sweetDebug("Alarm").subscribe()
 
