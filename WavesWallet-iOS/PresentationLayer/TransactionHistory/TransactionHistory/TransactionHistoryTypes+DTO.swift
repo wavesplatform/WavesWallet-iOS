@@ -34,6 +34,7 @@ extension TransactionHistoryTypes.DTO {
             case massReceived(MassReceived)
         }
         
+        let balance: Money
         let fee: Money
         let confirmations: Int
         let block: Int
@@ -109,7 +110,7 @@ extension TransactionHistoryTypes.DTO.Transaction {
         
         return transactions.map({ (transaction) -> TransactionHistoryTypes.DTO.Transaction in
             
-            return TransactionHistoryTypes.DTO.Transaction(fee: Money(110, 0), confirmations: 3525, block: 324, timestamp: 321901305, status: .completed, kind: .viewReceived(.init(from: TransactionHistoryTypes.ViewModel.Recipient(name: "Привет", address: "x4Jjksd#jkl$klssd"))), comment: "Комментарий")
+            return TransactionHistoryTypes.DTO.Transaction(balance: transaction.balance, fee: Money(110, 0), confirmations: 3525, block: 324, timestamp: 321901305, status: .completed, kind: .viewReceived(.init(from: TransactionHistoryTypes.ViewModel.Recipient(name: "Привет", address: "x4Jjksd#jkl$klssd"))), comment: "Комментарий")
             
         })
         
