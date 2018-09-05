@@ -12,7 +12,7 @@ import RxDataSources
 extension TransactionHistoryTypes.ViewModel {
     struct General {
         let kind: TransactionHistoryTypes.DTO.Transaction.Kind
-        let value: String
+        let balance: Money
         let currencyConversion: String
         let tag: String
     }
@@ -70,7 +70,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
         
-        rows.append(.general(.init(kind: transaction.kind, value: "+000000000.00000000", currencyConversion: "= 00 000 00 US Dollar", tag: "WAVES")))
+        rows.append(.general(.init(kind: transaction.kind, balance: transaction.balance, currencyConversion: "= 00 000 00 US Dollar", tag: "WAVES")))
         rows.append(.recipient(.init(name: nil, address: "96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0")))
         rows.append(.comment(.init(text: "This is the comment we all wanted ant its very loooooooooooong")))
         rows.append(.keyValue(.init(title: "Fee", value: "0.0000001 Waves")))

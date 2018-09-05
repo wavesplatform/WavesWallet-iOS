@@ -74,17 +74,18 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 extension TransactionHistoryGeneralCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.General) {
         
-        let values = model.value.split(separator: ".")
-        
-        let string = NSMutableAttributedString(string: model.value)
-        
-        for (i, value) in values.enumerated() {
-            if i == 0 {
-                string.addAttributes([NSAttributedStringKey.font : UIFont.bodySemibold], range: NSMakeRange(0, value.count))
-            } else {
-                string.addAttributes([NSAttributedStringKey.font : UIFont.bodyRegular], range: NSMakeRange(0, value.count))
-            }
-        }
+//        let values = model.value.split(separator: ".")
+//
+//        let string = NSMutableAttributedString(string: model.value)
+//
+//        for (i, value) in values.enumerated() {
+//            if i == 0 {
+//                string.addAttributes([NSAttributedStringKey.font : UIFont.bodySemibold], range: NSMakeRange(0, value.count))
+//            } else {
+//                string.addAttributes([NSAttributedStringKey.font : UIFont.bodyRegular], range: NSMakeRange(0, value.count))
+//            }
+//        }
+        valueLabel.attributedText = .styleForBalance(text: model.balance.displayTextFull, font: valueLabel.font)
         
         iconImageView.image = icon(for: model.kind)
         tagLabel.text = model.tag
