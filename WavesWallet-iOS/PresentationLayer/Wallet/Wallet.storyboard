@@ -135,10 +135,10 @@
                                             <outlet property="viewContent" destination="hEI-oP-PRf" id="cmi-S7-RNO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="296" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zxf-gt-R6U" id="foS-gd-Nwu">
+                                        <tableViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zxf-gt-R6U" id="foS-gd-Nwu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -719,7 +719,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="317.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="317"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-tF-ic6">
                                                             <rect key="frame" x="16" y="24" width="80.5" height="16"/>
@@ -728,7 +728,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="500" text="000000000.000000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WSF-Og-DF9">
-                                                            <rect key="frame" x="16" y="48" width="189.5" height="18"/>
+                                                            <rect key="frame" x="16" y="48" width="189.5" height="17.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -763,7 +763,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJF-Ow-2yD" userLabel="ProgressBar">
-                                                            <rect key="frame" x="16" y="83.5" width="311" height="8"/>
+                                                            <rect key="frame" x="16" y="83" width="311" height="8"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQf-y0-2gm" userLabel="avaialble">
                                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="8"/>
@@ -804,7 +804,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcL-6r-9ca">
-                                                            <rect key="frame" x="16" y="101.5" width="311" height="40"/>
+                                                            <rect key="frame" x="16" y="101" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KAJ-RA-5nt">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -855,7 +855,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBL-v1-B05">
-                                                            <rect key="frame" x="16" y="141.5" width="311" height="40"/>
+                                                            <rect key="frame" x="16" y="141" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-cn-jBD">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -906,7 +906,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVF-Fg-Q9g">
-                                                            <rect key="frame" x="16" y="181.5" width="311" height="40"/>
+                                                            <rect key="frame" x="16" y="181" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wnP-Mc-VoY">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -957,7 +957,7 @@
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBm-vS-D94">
-                                                            <rect key="frame" x="16" y="245.5" width="311" height="48"/>
+                                                            <rect key="frame" x="16" y="245" width="311" height="48"/>
                                                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="48" id="DEU-g9-8JI"/>
@@ -999,6 +999,11 @@
                                                         <constraint firstItem="tjo-tF-ic6" firstAttribute="top" secondItem="yRV-Dn-K2P" secondAttribute="top" constant="24" id="yQD-Fs-1e4"/>
                                                         <constraint firstAttribute="trailing" secondItem="gJF-Ow-2yD" secondAttribute="trailing" constant="16" id="zpG-Ok-uR1"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -1045,7 +1050,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHv-It-KZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1610.625" y="-126.7605633802817"/>
+            <point key="canvasLocation" x="-2292" y="-226"/>
         </scene>
         <!--Wallet Sort View Controller-->
         <scene sceneID="cjU-LW-Ws9">
@@ -1189,6 +1194,11 @@
                                                         <constraint firstItem="BXr-CX-yoj" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="jun-eR-XLq"/>
                                                         <constraint firstItem="NwQ-Wi-YlN" firstAttribute="leading" secondItem="e5T-2M-SpC" secondAttribute="trailing" id="kab-mX-dbq"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>

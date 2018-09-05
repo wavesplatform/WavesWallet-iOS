@@ -20,7 +20,7 @@ class EnterSelectAccountCell: MGSwipeTableCell {
     override func awakeFromNib() {
 
         let view = UIView(frame: CGRect(x: 16, y: 4, width: Platform.ScreenWidth - 32, height: frame.size.height - 8))
-        view.cornerRadius = 3
+        view.layer.cornerRadius = 3
         view.backgroundColor = .overlayDark
         insertSubview(view, at: 0)
     }

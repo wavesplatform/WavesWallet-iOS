@@ -1,35 +1,40 @@
 {
   "name": "Testnet",
   "servers": {
-    "nodeUrl": "http://52.30.47.67:6869",
-    "dataUrl": "https://api.wavesplatform.com",
-    "spamUrl": "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv"
+    "nodeUrl": "https://testnode1.wavesnodes.com",
+    "dataUrl": "https://api.testnet.wavesplatform.com",
+    "spamUrl": "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
+    "matcherUrl": "https://matcher.wavesplatform.com"
   },
   "scheme": "T",
   "generalAssetIds": [
     {
-      "assetId": "",
+      "assetId": "WAVES",
       "name": "WAVES",
       "quantity": 10000000000000000,
-      "decimals": 8
+      "decimals": 8,
+      "isFiat": false
     },
     {
       "assetId": "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe",
       "name": "BTC",
       "quantity": 2100000000000000,
-      "decimals": 8
+      "decimals": 8,
+      "isFiat": false
     },
     {
       "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",
       "name": "USD",
       "quantity": 100000000000,
-      "decimals": 2
+      "decimals": 2,
+      "isFiat": true
     },
     {
       "assetId": "2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux",
       "name": "EUR",
       "quantity": 100000000000,
-      "decimals": 2
+      "decimals": 2,
+      "isFiat": true
     }
   ]
 }

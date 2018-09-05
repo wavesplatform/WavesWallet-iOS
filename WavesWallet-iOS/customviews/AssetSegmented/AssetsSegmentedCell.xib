@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssetsSegmentedCell" id="JtP-tJ-gbt" customClass="AssetsSegmentedCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ki1-VM-4pt">
+                        <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="PQ1-6j-dO3">
+                        <rect key="frame" x="0.0" y="34" width="14" height="14"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ki1-VM-4pt" secondAttribute="trailing" id="4dI-Ga-PYk"/>
+                <constraint firstItem="Ki1-VM-4pt" firstAttribute="top" secondItem="JtP-tJ-gbt" secondAttribute="top" id="DQI-Oi-hUm"/>
+                <constraint firstItem="Ki1-VM-4pt" firstAttribute="leading" secondItem="JtP-tJ-gbt" secondAttribute="leading" id="TRb-fJ-1M8"/>
+                <constraint firstAttribute="bottom" secondItem="PQ1-6j-dO3" secondAttribute="bottom" id="TrV-Zr-LCN"/>
+                <constraint firstAttribute="bottom" secondItem="Ki1-VM-4pt" secondAttribute="bottom" id="guJ-Ka-CJN"/>
+                <constraint firstItem="PQ1-6j-dO3" firstAttribute="leading" secondItem="JtP-tJ-gbt" secondAttribute="leading" id="lIJ-ia-83P"/>
+            </constraints>
+            <connections>
+                <outlet property="imageArrow" destination="PQ1-6j-dO3" id="rEl-SP-qiU"/>
+                <outlet property="imageViewIcon" destination="Ki1-VM-4pt" id="AKg-5x-V92"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="wallet_arrow_green" width="14" height="14"/>
+    </resources>
+</document>

@@ -20,7 +20,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
         let spamAssets = spamProvider
             .rx
-            .request(.getSpamList)
+            .request(.getSpamList, callbackQueue: DispatchQueue.global(qos: .background))
             .map { response -> [String] in
 
                 guard let text = String(data: response.data, encoding: .utf8) else { return [] }
@@ -35,10 +35,13 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
             .asObservable()
 
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy =  .formatted(DateFormatter.iso())
+
         let assetsList = apiProvider
             .rx
-            .request(.getAssets(ids: ids))
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self)
+            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global(qos: .background))
+            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
             .map { $0.data.map { $0.data } }
             .asObservable()
 
@@ -49,7 +52,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamAssets.contains($0.id),
-                                                          isMyAsset:  $0.sender == accountAddress) }
+                                                          isMyWavesToken: $0.sender == accountAddress) }
             }
     }
 
@@ -77,7 +80,7 @@ fileprivate extension Environment {
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyAsset: Bool) {
+    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.precision = asset.precision
@@ -86,9 +89,9 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.timestamp = asset.timestamp
         self.sender = asset.sender
         self.quantity = asset.quantity
-        self.isReissuable = asset.reissuable
+        self.isReusable = asset.reissuable
         self.isSpam = isSpam
-        self.isMyAsset = isMyAsset
+        self.isMyWavesToken = isMyWavesToken
         self.modified = Date()
         var isGeneral = false
         var isWaves = false
@@ -96,6 +99,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isGateway = false
         var name = asset.name
 
+        //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
             if info.assetId == Environments.Constants.wavesAssetId {
@@ -107,6 +111,7 @@ fileprivate extension DomainLayer.DTO.Asset {
             isFiat = info.isFiat
         }
 
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat

@@ -33,13 +33,7 @@ final class RxTableViewAnimatedDataSource<S: Hashable>: TableViewSectionedDataSo
                 tableView.reloadData()
             } else if self.dataSet {
                 dataSource.setSections(newSections)
-                UIView.transition(with: tableView,
-                                  duration: 0.24,
-                                  options: [.transitionCrossDissolve,
-                                            .curveEaseInOut],
-                                  animations: {
-                                      tableView.reloadData()
-                }, completion: { _ in
+                tableView.reloadDataWithAnimationTheCrossDissolve(completion: {
                     self.completedReload?()
                 })
             }
