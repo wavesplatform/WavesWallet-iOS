@@ -560,10 +560,10 @@
 		042B32F521394DA400F4EFB9 /* TransactionHistoryStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionHistoryStatusCell.xib; sourceTree = "<group>"; };
 		043AEDE52136098C003A8B6A /* TransactionHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCoordinator.swift; sourceTree = "<group>"; };
 		043AEDE721360A40003A8B6A /* TransactionHistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleBuilder.swift; sourceTree = "<group>"; };
-		0449E5E4212DE2710068B5E3 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		0449E5E6212DE3790068B5E3 /* TransactionHistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTypes.swift; sourceTree = "<group>"; };
 		0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionView.xib; sourceTree = "<group>"; };
 		0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionView.swift; sourceTree = "<group>"; };
+		0449E5E4212DE2710068B5E3 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
+		0449E5E6212DE3790068B5E3 /* TransactionHistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTypes.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
@@ -2840,7 +2840,6 @@
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				E9EDC6BA2123A38500C58E0D /* DexTraderContainer.strings in Resources */,
 				E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */,
-				0AE657272105E3E3003D2DB8 /* EmptyCell.xib in Resources */,
 				042B33042139749B00F4EFB9 /* TransactionHistoryRecipientCell.xib in Resources */,
 				04C1BF57211CA5EF0095377D /* History.strings in Resources */,
 				E96038B720B599A800D303E8 /* TransactionHistoryAddressView.xib in Resources */,
@@ -2853,7 +2852,6 @@
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
 				042B330D213974BB00F4EFB9 /* TransactionHistoryStatusCell.xib in Resources */,
-				E9628845209F792F00DE3B5A /* AssetLastTransactionView.xib in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E9FA5F552121B3EA00F16889 /* SearchBarView.xib in Resources */,
 				E95FD576212CD10E00D73E18 /* DexLastTradesHeaderView.xib in Resources */,
@@ -2867,7 +2865,6 @@
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				E9619267211CAA03005E6D1E /* DexMarketPairs.json in Resources */,
 				042B3308213974A900F4EFB9 /* TransactionHistoryCommentCell.xib in Resources */,
-				0A979754210885CC00407F67 /* Localizable.strings in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E9619265211CA845005E6D1E /* DexMarketVerifiedAssets.json in Resources */,
 				0AF92200212E07B3003BA067 /* AssetHistorySkeletonCell.xib in Resources */,
@@ -2925,6 +2922,7 @@
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/InfiniteCollectionView/InfiniteCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
@@ -2971,6 +2969,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InfiniteCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
@@ -3082,7 +3081,6 @@
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				042B33032139749800F4EFB9 /* TransactionHistoryRecipientCell.swift in Sources */,
-				0AEB35982116306D00EDD63C /* SweetLogger.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
 				0AF922D3212E1234003BA067 /* ObservableType+Weak.swift in Sources */,
@@ -3113,9 +3111,7 @@
 				F7C683BF1EA93C5800C87DAF /* MainTabBarController.swift in Sources */,
 				0A20145F212EDD720004BDE8 /* DateFormatter+ISO.swift in Sources */,
 				E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */,
-				F7F97E931EAA0CF800BE2F6F /* UIResponder+Rx.swift in Sources */,
 				042B33052139749D00F4EFB9 /* TransactionHistoryKeyValueCell.swift in Sources */,
-				0A5495F621105CCE009080BE /* UIFeedbackGenerator.swift in Sources */,
 				0AF9222B212E0F1F003BA067 /* WalletLeasingCell.swift in Sources */,
 				0AF922AB212E1234003BA067 /* Array+Sort.swift in Sources */,
 				F755C1011EAA8319008A938F /* DateUtil.swift in Sources */,
@@ -3232,7 +3228,6 @@
 				04FB3F3021347BC50008CFF3 /* TransactionHistoryModuleInput.swift in Sources */,
 				042B330A213974B000F4EFB9 /* TransactionHistoryButtonCell.swift in Sources */,
 				0424E30E212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift in Sources */,
-				0AD2B58320F64A8B007EE076 /* RxDataSource+TableView.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				E926117B2107C71100A9E793 /* DexListCell.swift in Sources */,
@@ -3305,7 +3300,6 @@
 				E9B2E30A211920C20004E452 /* DexSortInteractorMock.swift in Sources */,
 				0AF92203212E07B3003BA067 /* AssetBalanceSkeletonCell.swift in Sources */,
 				0AEB35942115E45500EDD63C /* AssetsRepositoryRemote.swift in Sources */,
-				0A1E8AD520F75E8A0054FA70 /* UIFont+Additions.swift in Sources */,
 				04861B4D2135D842006993A8 /* TransactionHistoryTypes+State.swift in Sources */,
 				F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */,
 				0AF922AF212E1234003BA067 /* UIColor+Asset.swift in Sources */,
@@ -3340,7 +3334,6 @@
 				E959293E211965A4007C06EA /* DexListModuleOutput.swift in Sources */,
 				04FB3F2E21347B8C0008CFF3 /* TransactionHistoryPresenter.swift in Sources */,
 				0477E6F9213CA2E4007DB8E0 /* TransactionHistoryGeneralCell.swift in Sources */,
-				0A388DB820F7A20700C07AA3 /* CGFloat+Min.swift in Sources */,
 				E9CFBC352124D31700CE7413 /* DexLastTradesModuleBuilder.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0AF922B5212E1234003BA067 /* UIFont+Additions.swift in Sources */,
@@ -3361,7 +3354,6 @@
 				E9983DC7211C71F1002349CA /* DexMarketInteractorProtocol.swift in Sources */,
 				0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */,
 				042B330C213974B400F4EFB9 /* TransactionHistoryStatusCell.swift in Sources */,
-				0A50A45A20FBF756009DC253 /* ControlEvent+Signal.swift in Sources */,
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
 				0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */,
 				0AF922C4212E1234003BA067 /* ControlEvent+Signal.swift in Sources */,
@@ -3382,7 +3374,6 @@
 				E988E8B31F0C00DB0013EAF6 /* DexViewController.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
-				0AEB359A211652CB00EDD63C /* SweetNetworkLoggerPlugin.swift in Sources */,
 				E904525C20B4F09500A490E5 /* OldTransactionHistoryViewController.swift in Sources */,
 				0A580E642135F5CE00C62549 /* DateFormatter+Once.swift in Sources */,
 				0AF922DB212E1234003BA067 /* SectionDisplayCollection.swift in Sources */,
@@ -3418,7 +3409,6 @@
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
 				E9592940211969EE007C06EA /* DexListModuleBuilder.swift in Sources */,
 				0449E5E7212DE3790068B5E3 /* TransactionHistoryTypes.swift in Sources */,
-				0AD2B58620F658EA007EE076 /* NibLoadable.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
 				0AF922DA212E1234003BA067 /* ViewCalculate.swift in Sources */,
 				E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */,
@@ -3455,8 +3445,6 @@
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
-				E971DA4E20FFB3A100616A03 /* Array+Sort.swift in Sources */,
-				0AFEFB5221124F9C00B50F85 /* Locale+Test.swift in Sources */,
 				042B330E213974C100F4EFB9 /* TransactionHistoryCommentCell.swift in Sources */,
 				E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
