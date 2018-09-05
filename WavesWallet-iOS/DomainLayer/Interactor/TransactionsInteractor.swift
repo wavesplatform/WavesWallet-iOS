@@ -29,15 +29,61 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                                                   offset: 0,
                                                   limit: 10000)
             .flatMap(weak: self) { owner, transactions -> Observable<[DomainLayer.DTO.AnyTransaction]> in
-                return owner.transactionsRepositoryLocal.saveTransactions(transactions).map { _ in transactions }
+
+                let newTransaction = owner.setupTransactions(transactions)
+
+                return owner.transactionsRepositoryLocal.saveTransactions(newTransaction).map { _ in transactions }
                     .flatMap(weak: owner, selector: { owner, transaction -> Observable<[DomainLayer.DTO.AnyTransaction]> in
                         return owner.transactionsRepositoryLocal.transactions(by: accountAddress,
                                                                               specifications: TransactionsSpecifications(page: .init(offset: 0,
                                                                                                                                  limit: 10000),
                                                                                                                      assets: ["WAVES"],
                                                                                                                      senders: [],
-                                                                                                                     types: [.transfer]))
+                                                                                                                     types: TransactionType.all))
                 })
             }
     }
+
+    func setupTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> [DomainLayer.DTO.AnyTransaction] {
+
+        var newTransactions: [DomainLayer.DTO.AnyTransaction] = .init()
+
+        for tx in transactions {
+            switch tx {
+
+            case .transfer(let tx):
+                let newTx = tx.mutate { $0.assetId = $0.assetId?.normalizeAssetId }
+                newTransactions.append(.transfer(newTx))
+            case .massTransfer(let tx):
+                let newTx = tx.mutate { $0.assetId = $0.assetId?.normalizeAssetId }
+                newTransactions.append(.massTransfer(newTx))
+            case .exchange(let tx):
+
+                let newTx = tx.mutate {
+                    $0.order1 = $0.order1.mutate {
+                        $0.assetPair.amountAsset = $0.assetPair.amountAsset?.normalizeAssetId
+                        $0.assetPair.priceAsset = $0.assetPair.priceAsset?.normalizeAssetId
+                    }
+                    $0.order2 = $0.order2.mutate {
+                        $0.assetPair.amountAsset = $0.assetPair.amountAsset?.normalizeAssetId
+                        $0.assetPair.priceAsset = $0.assetPair.priceAsset?.normalizeAssetId
+                    }
+
+                }
+                newTransactions.append(.exchange(newTx))
+            default:
+                newTransactions.append(tx)
+            }
+        }
+
+        return newTransactions
+    }
 }
+
+extension String {
+
+    var normalizeAssetId: String {
+        return self == nil ? Environments.Constants.wavesAssetId : self
+    }
+}
+

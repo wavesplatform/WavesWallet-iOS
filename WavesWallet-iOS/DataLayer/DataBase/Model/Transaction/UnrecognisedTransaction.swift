@@ -8,4 +8,6 @@
 
 import Foundation
 
-final class UnrecognisedTransaction: Transaction {}
+final class UnrecognisedTransaction: Transaction {
+    @objc dynamic var assetId: String = ""
+}
