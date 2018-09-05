@@ -15,9 +15,13 @@ enum AccountBalanceRepositoryError: Error {
 
 protocol AccountBalanceRepositoryProtocol {
     
-    func balances(by  accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]>
-    
+    func balances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]>
+
+
+    func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance>
+
     func saveBalances(_ balances:[DomainLayer.DTO.AssetBalance]) -> Observable<Bool>
     func saveBalance(_ balance: DomainLayer.DTO.AssetBalance) -> Observable<Bool>
+    
     var listenerOfUpdatedBalances: Observable<[DomainLayer.DTO.AssetBalance]> { get }
 }

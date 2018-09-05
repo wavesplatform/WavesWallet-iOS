@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexTraderContainerSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonChart" destination="Pqa-CI-Tec" id="RMv-Jn-V3P"/>
+                <outlet property="buttonLastTrades" destination="AwC-vr-o0G" id="uF4-xo-ZCe"/>
+                <outlet property="buttonMyOrders" destination="esZ-np-UfS" id="TAj-IL-hrB"/>
+                <outlet property="buttonOrderBook" destination="ETU-xZ-LM6" id="Mef-EU-ig9"/>
+                <outlet property="linePosition" destination="j3G-Ah-3yZ" id="X5M-qA-0aY"/>
+                <outlet property="viewLine" destination="V7y-ht-nUw" id="l3P-8E-dKV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETU-xZ-LM6">
+                    <rect key="frame" x="0.0" y="0.0" width="94" height="46"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Orderbook">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="actionTapped:" destination="-1" eventType="touchUpInside" id="NIN-Qh-BxP"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pqa-CI-Tec">
+                    <rect key="frame" x="94" y="0.0" width="93.5" height="46"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Chart">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="actionTapped:" destination="-1" eventType="touchUpInside" id="vdL-4U-r9f"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwC-vr-o0G">
+                    <rect key="frame" x="187.5" y="0.0" width="94" height="46"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Last trades">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="actionTapped:" destination="-1" eventType="touchUpInside" id="4zX-Ti-O6Y"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esZ-np-UfS">
+                    <rect key="frame" x="281.5" y="0.0" width="93.5" height="46"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="My orders">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="actionTapped:" destination="-1" eventType="touchUpInside" id="2Sy-i8-Kxm"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7y-ht-nUw">
+                    <rect key="frame" x="0.0" y="30" width="12" height="2"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="3Db-TM-5Re"/>
+                        <constraint firstAttribute="height" constant="2" id="UNI-7d-81k"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ETU-xZ-LM6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1qH-QC-9Pn"/>
+                <constraint firstItem="ETU-xZ-LM6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="5sV-nZ-aoC"/>
+                <constraint firstItem="AwC-vr-o0G" firstAttribute="width" secondItem="esZ-np-UfS" secondAttribute="width" id="6vG-lG-IX2"/>
+                <constraint firstItem="esZ-np-UfS" firstAttribute="top" secondItem="AwC-vr-o0G" secondAttribute="top" id="GDk-l5-Txv"/>
+                <constraint firstItem="Pqa-CI-Tec" firstAttribute="width" secondItem="AwC-vr-o0G" secondAttribute="width" id="Hqa-ee-Iuz"/>
+                <constraint firstItem="AwC-vr-o0G" firstAttribute="top" secondItem="Pqa-CI-Tec" secondAttribute="top" id="LXF-Uc-u2h"/>
+                <constraint firstItem="esZ-np-UfS" firstAttribute="leading" secondItem="AwC-vr-o0G" secondAttribute="trailing" id="NZq-R9-7ot"/>
+                <constraint firstItem="ETU-xZ-LM6" firstAttribute="width" secondItem="Pqa-CI-Tec" secondAttribute="width" id="RdW-iy-Bme"/>
+                <constraint firstItem="V7y-ht-nUw" firstAttribute="centerY" secondItem="ETU-xZ-LM6" secondAttribute="centerY" constant="8" id="YPX-HS-mpe"/>
+                <constraint firstItem="Pqa-CI-Tec" firstAttribute="top" secondItem="ETU-xZ-LM6" secondAttribute="top" id="ab3-Gg-Lpg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ETU-xZ-LM6" secondAttribute="bottom" id="dv1-UP-xJr"/>
+                <constraint firstItem="AwC-vr-o0G" firstAttribute="leading" secondItem="Pqa-CI-Tec" secondAttribute="trailing" id="eCO-wG-FGR"/>
+                <constraint firstItem="Pqa-CI-Tec" firstAttribute="leading" secondItem="ETU-xZ-LM6" secondAttribute="trailing" id="geJ-Ve-VMZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="esZ-np-UfS" secondAttribute="trailing" id="gnh-8W-nmx"/>
+                <constraint firstItem="V7y-ht-nUw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="j3G-Ah-3yZ"/>
+                <constraint firstItem="Pqa-CI-Tec" firstAttribute="bottom" secondItem="ETU-xZ-LM6" secondAttribute="bottom" id="mSH-2X-lFq"/>
+                <constraint firstItem="AwC-vr-o0G" firstAttribute="bottom" secondItem="Pqa-CI-Tec" secondAttribute="bottom" id="qZE-zF-U69"/>
+                <constraint firstItem="esZ-np-UfS" firstAttribute="bottom" secondItem="AwC-vr-o0G" secondAttribute="bottom" id="wyj-56-Jee"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-27.5" y="54"/>
+        </view>
+    </objects>
+</document>

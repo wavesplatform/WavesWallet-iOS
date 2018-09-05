@@ -28,14 +28,13 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
 
-        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances
-            .sweetDebug("Listener BD")
+        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances.observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
 
         return Observable.merge(assets(isNeedUpdate: false),
                                 refreshAssetsSubject.asObserver(),
                                 mapAssets(listener))
-            .sweetDebug("ASSETS")
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {
@@ -47,7 +46,6 @@ final class WalletInteractor: WalletInteractorProtocol {
     func refreshAssets() {
         assets(isNeedUpdate: true)
             .take(1)
-            .sweetDebug("Refresh Assets")
             .subscribe(weak: self, onNext: { owner, balances in
                 owner.refreshAssetsSubject.onNext(balances)
             })
@@ -56,8 +54,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func refreshLeasing() {
         leasing(isNeedUpdate: true)
-            .take(1)
-            .sweetDebug("Refresh Leasing")
+            .take(1)            
             .subscribe(weak: self, onNext: { owner, leasing in
                 owner.refreshLeasingSubject.onNext(leasing)
             })
@@ -137,7 +134,7 @@ fileprivate extension WalletInteractor {
                 let balance = leasing.balance
                 let totalMoney: Money = .init(balance.balance,
                                               precision)
-                let avaliableMoney: Money = .init(balance.balance - balance.reserveBalance,
+                let avaliableMoney: Money = .init(balance.balance - balance.inOrderBalance,
                                                   precision)
                 let leasedMoney: Money = .init(leaseAmount,
                                                precision)
@@ -173,30 +170,23 @@ fileprivate extension WalletTypes.DTO.Asset {
         let level = settings.sortLevel
         // TODO: Fiat money
         let fiatBalance = Money(100, 1)
-        var state: WalletTypes.DTO.Asset.Kind = .general
-
-        if asset.isGeneral {
-            state = .general
-        }
-
-        if settings.isHidden {
-            state = .hidden
-        }
-
-        if asset.isSpam {
-            state = .spam
-        }
 
         return WalletTypes.DTO.Asset(id: id,
                                      name: name,
+                                     issuer: asset.sender,
+                                     description: asset.description,
+                                     issueDate: asset.timestamp,
                                      balance: balanceToken,
                                      fiatBalance: fiatBalance,
-                                     isMyAsset: asset.isMyAsset,
-                                     isFavorite: settings.isFavorite,
-                                     isFiat: asset.isFiat,
-                                     isGateway: asset.isGateway,
+                                     isReusable: asset.isReusable,
+                                     isMyWavesToken: asset.isMyWavesToken,
+                                     isWavesToken: asset.isWavesToken,
                                      isWaves: asset.isWaves,
-                                     kind: state,
+                                     isHidden: settings.isHidden,
+                                     isFavorite: settings.isFavorite,
+                                     isSpam: asset.isSpam,
+                                     isFiat: asset.isFiat,
+                                     isGateway: asset.isGateway,                                     
                                      sortLevel: level)
     }
 }

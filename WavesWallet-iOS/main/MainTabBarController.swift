@@ -5,7 +5,7 @@ final class MainTabBarController: RDVTabBarController {
 
     let walletCoordinator: WalletCoordinator = WalletCoordinator()
     let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-    let dexListCoordinator: DexListCoordinator = DexListCoordinator()
+    let dexListCoordinator: DexCoordinator = DexCoordinator()
 
     override var viewControllers: [Any]! {
         didSet {
@@ -44,7 +44,7 @@ final class MainTabBarController: RDVTabBarController {
             tabBar.setHeight(50)
         }
 
-        let navWallet = UINavigationController()
+        let navWallet = CustomNavigationController()
         walletCoordinator.start(navigationController: navWallet)
         
         let navHistory = UINavigationController()

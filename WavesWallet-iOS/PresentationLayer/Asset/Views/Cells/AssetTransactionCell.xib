@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssetTransactionCell" id="AWZ-2n-ETu" customClass="AssetTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="490" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="490" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7c6-dv-kfO" customClass="HistoryTransactionView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="490" height="42"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="7c6-dv-kfO" firstAttribute="top" secondItem="AWZ-2n-ETu" secondAttribute="top" id="4cK-Bo-xzm"/>
+                <constraint firstAttribute="bottom" secondItem="7c6-dv-kfO" secondAttribute="bottom" constant="8" id="5CU-p2-D30"/>
+                <constraint firstAttribute="trailing" secondItem="7c6-dv-kfO" secondAttribute="trailing" id="6g0-em-JbI"/>
+                <constraint firstItem="7c6-dv-kfO" firstAttribute="leading" secondItem="AWZ-2n-ETu" secondAttribute="leading" id="kgm-iE-bbm"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="bTl-tR-qlB"/>
+            <size key="customSize" width="490" height="50"/>
+            <connections>
+                <outlet property="transactionView" destination="7c6-dv-kfO" id="1su-38-JCP"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="54"/>
+        </collectionViewCell>
+    </objects>
+</document>
