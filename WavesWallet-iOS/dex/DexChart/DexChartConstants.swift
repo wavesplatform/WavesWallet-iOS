@@ -13,9 +13,6 @@ extension DexChart.ChartContants {
     enum Candle {}
     enum Bar {}
     
-    static let decreasingColor = UIColor.error400
-    static let increasingColor = UIColor.submit300
-    static let neutralColor = UIColor.basic700
     static let gridLineWidth: CGFloat = 0.2
     static let minWidth: CGFloat = 60
     static let maxWidth: CGFloat = 60
@@ -25,6 +22,9 @@ extension DexChart.ChartContants {
 extension DexChart.ChartContants.Candle {
     
     enum DataSet {
+        static let decreasingColor = UIColor.error400
+        static let increasingColor = UIColor.submit300
+        static let neutralColor = UIColor.basic700
         static let highlightLineWidth: CGFloat = 0.5
         static let highlightColor = UIColor.basic700
         static let shadowWidth: CGFloat = 0.7

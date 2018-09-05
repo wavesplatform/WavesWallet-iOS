@@ -66,13 +66,15 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 
             }.changeAction(.changeTimeFrame)
         
-        case .preloading:
+        case .preloading(let candleLowestVisibleX):
             return state.mutate {
                 $0.isNeedLoadingData = true
                 $0.isPreloading = true
                 $0.dateTo = $0.dateFrom
                 $0.dateFrom = DexChart.State.additionalDate(start: $0.dateFrom, timeFrame: $0.timeFrame)
-            }.changeAction(.none)
+                $0.candleLowestVisibleX = candleLowestVisibleX
+                
+                }.changeAction(.none)
             
         case .setCandles(let candles):
             return state.mutate {

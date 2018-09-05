@@ -949,7 +949,7 @@ The order book is empty</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTb-KW-n6A" customClass="CandleStickChartView" customModule="Charts">
-                                        <rect key="frame" x="-10" y="32" width="369" height="525"/>
+                                        <rect key="frame" x="-10" y="32" width="369" height="505"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-sf-hhh">
@@ -959,10 +959,10 @@ The order book is empty</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvv-S9-oaU" customClass="BarChartView" customModule="Charts">
-                                        <rect key="frame" x="-10" y="557" width="369" height="90"/>
+                                        <rect key="frame" x="-10" y="537" width="369" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="ebF-q3-0ag"/>
+                                            <constraint firstAttribute="height" constant="110" id="ebF-q3-0ag"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2B-rd-5Sq">
@@ -1011,50 +1011,33 @@ The order book is empty</string>
                                             <constraint firstItem="is2-2r-N4b" firstAttribute="top" secondItem="m4h-Np-Twc" secondAttribute="top" id="ZV2-6k-syt"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u78-sk-0c0">
-                                        <rect key="frame" x="302" y="82" width="50" height="16"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.000784" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sae-gy-Rav">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ok9-gN-uPU" customClass="DexChartCandlePriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="-10" y="62" width="362" height="16"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="sae-gy-Rav" firstAttribute="leading" secondItem="u78-sk-0c0" secondAttribute="leading" id="Bfw-LG-d8F"/>
-                                            <constraint firstItem="sae-gy-Rav" firstAttribute="top" secondItem="u78-sk-0c0" secondAttribute="top" id="LUf-E6-uRU"/>
-                                            <constraint firstAttribute="trailing" secondItem="sae-gy-Rav" secondAttribute="trailing" id="RBM-yR-qdZ"/>
-                                            <constraint firstAttribute="width" constant="50" id="SE1-Qr-QwF"/>
-                                            <constraint firstAttribute="height" constant="16" id="Z7i-Qd-0mS"/>
-                                            <constraint firstAttribute="bottom" secondItem="sae-gy-Rav" secondAttribute="bottom" id="Zpq-ZO-c4P"/>
+                                            <constraint firstAttribute="height" constant="16" id="sAI-7g-HF3"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="0NR-MF-Rkv"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="2Xf-Tc-WZL"/>
-                                    <constraint firstItem="u78-sk-0c0" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="50" id="54J-Nj-q4I"/>
+                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="30" id="4PY-uf-2bP"/>
                                     <constraint firstAttribute="trailing" secondItem="yvv-S9-oaU" secondAttribute="trailing" id="5Ch-gv-gge"/>
+                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" constant="-7" id="9Xi-Qc-GBb"/>
                                     <constraint firstItem="oTb-KW-n6A" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" constant="-10" id="Ar5-aS-A7T"/>
                                     <constraint firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" id="As2-jo-GjF"/>
                                     <constraint firstAttribute="trailing" secondItem="1h7-Bv-hvU" secondAttribute="trailing" id="Bmn-OC-NOT"/>
                                     <constraint firstItem="yvv-S9-oaU" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="Cte-0z-shD"/>
                                     <constraint firstItem="oTb-KW-n6A" firstAttribute="top" secondItem="1h7-Bv-hvU" secondAttribute="bottom" id="Iyv-nv-LnV"/>
-                                    <constraint firstItem="u78-sk-0c0" firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" constant="-7" id="J0C-ty-M7i"/>
                                     <constraint firstAttribute="bottom" secondItem="yvv-S9-oaU" secondAttribute="bottom" id="Lio-2W-YrU"/>
                                     <constraint firstItem="yvv-S9-oaU" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="bottom" id="P33-Da-18G"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="UUb-Dw-RMq"/>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="aCB-Za-1u6"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="eJV-OE-FE3"/>
                                     <constraint firstItem="vJy-sf-hhh" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" constant="20" id="nnh-pu-sTr"/>
+                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="qWh-1d-C7L"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="top" secondItem="gZh-fa-6fT" secondAttribute="top" id="qbb-lK-htf"/>
                                     <constraint firstItem="vJy-sf-hhh" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="15" id="xte-CK-Ljb"/>
                                 </constraints>
@@ -1074,11 +1057,10 @@ The order book is empty</string>
                         <outlet property="headerView" destination="1h7-Bv-hvU" id="EMt-YI-wuH"/>
                         <outlet property="labelChartTopInfo" destination="vJy-sf-hhh" id="sjB-kO-3CQ"/>
                         <outlet property="labelEmptyData" destination="g3G-eE-Pg3" id="N11-2g-2DO"/>
-                        <outlet property="labelLastPrice" destination="sae-gy-Rav" id="M9R-gU-JhG"/>
                         <outlet property="labelLoadingData" destination="ZDl-GU-fsY" id="Px6-nt-4ky"/>
                         <outlet property="viewEmptyData" destination="S2B-rd-5Sq" id="wlv-TK-YmD"/>
-                        <outlet property="viewLastPrice" destination="u78-sk-0c0" id="SXb-ba-npw"/>
-                        <outlet property="viewLastPriceOffset" destination="54J-Nj-q4I" id="KCU-BA-Sbf"/>
+                        <outlet property="viewLastVisibleCandle" destination="Ok9-gN-uPU" id="9go-Pc-IM6"/>
+                        <outlet property="viewLastVisibleCandleOffset" destination="4PY-uf-2bP" id="SwS-B1-Xxj"/>
                         <outlet property="viewLoadingInfo" destination="m4h-Np-Twc" id="5x9-qC-OI0"/>
                     </connections>
                 </viewController>
