@@ -17,7 +17,7 @@ enum DexChart {
         case readyView
         case didChangeTimeFrame(DTO.TimeFrameType)
         case setCandles([DTO.Candle])
-        case preloading
+        case preloading(candleLowestVisibleX: Double)
     }
     
     struct State: Mutating {
@@ -35,6 +35,7 @@ enum DexChart {
         var dateTo: Date
         var isPreloading: Bool
         var isNeedLoadingData: Bool
+        var candleLowestVisibleX: Double
     }
 }
 
@@ -144,7 +145,7 @@ extension DexChart.State {
         let dateFrom = additionalDate(start: dateTo, timeFrame: timeFrame)
         
         return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
-                              isPreloading: false, isNeedLoadingData: false)
+                              isPreloading: false, isNeedLoadingData: false, candleLowestVisibleX: 0)
     }
     
     var isNotEmpty: Bool {

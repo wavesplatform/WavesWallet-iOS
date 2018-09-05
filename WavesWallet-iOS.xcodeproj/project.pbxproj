@@ -282,6 +282,8 @@
 		E90F152F2121209000C11124 /* DexMarketModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F152E2121209000C11124 /* DexMarketModuleOutput.swift */; };
 		E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4C2109A806001222B8 /* DexSortViewController.swift */; };
 		E9104D4F2109A900001222B8 /* DexSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9104D4E2109A900001222B8 /* DexSortCell.swift */; };
+		E9167CE2213F7B9300B8D793 /* DexChartCandlePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9167CE1213F7B9300B8D793 /* DexChartCandlePriceView.swift */; };
+		E9167CE4213F7BD200B8D793 /* DexChartCandlePriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9167CE3213F7BD200B8D793 /* DexChartCandlePriceView.xib */; };
 		E91705EE21238F2B006CE9A5 /* DexTraderContainerSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91705ED21238F2B006CE9A5 /* DexTraderContainerSegmentedControl.swift */; };
 		E91705F121238F50006CE9A5 /* DexTraderContainerSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91705F021238F50006CE9A5 /* DexTraderContainerSegmentedControl.xib */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
@@ -826,6 +828,8 @@
 		E90F152E2121209000C11124 /* DexMarketModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexMarketModuleOutput.swift; path = "WavesWallet-iOS/dex/DexMarket/DexMarketModuleOutput.swift"; sourceTree = SOURCE_ROOT; };
 		E9104D4C2109A806001222B8 /* DexSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortViewController.swift; sourceTree = "<group>"; };
 		E9104D4E2109A900001222B8 /* DexSortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortCell.swift; sourceTree = "<group>"; };
+		E9167CE1213F7B9300B8D793 /* DexChartCandlePriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexChartCandlePriceView.swift; sourceTree = "<group>"; };
+		E9167CE3213F7BD200B8D793 /* DexChartCandlePriceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexChartCandlePriceView.xib; sourceTree = "<group>"; };
 		E91705ED21238F2B006CE9A5 /* DexTraderContainerSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTraderContainerSegmentedControl.swift; sourceTree = "<group>"; };
 		E91705F021238F50006CE9A5 /* DexTraderContainerSegmentedControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexTraderContainerSegmentedControl.xib; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -2372,6 +2376,8 @@
 			children = (
 				E9F5E48C213590F7001FC87A /* DexChartHeaderView.swift */,
 				E9F5E48E2135911D001FC87A /* DexChartHeaderView.xib */,
+				E9167CE1213F7B9300B8D793 /* DexChartCandlePriceView.swift */,
+				E9167CE3213F7BD200B8D793 /* DexChartCandlePriceView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2807,6 +2813,7 @@
 				F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */,
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
+				E9167CE4213F7BD200B8D793 /* DexChartCandlePriceView.xib in Resources */,
 				E9C540E3212F8D5200253BDB /* DexMyOrders.strings in Resources */,
 				E97CF06D2124FF04002A75DF /* DexOrderBook.strings in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
@@ -3211,6 +3218,7 @@
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
 				E9FA21B41F45CBF8008BF4C4 /* DexNewPairViewController.swift in Sources */,
 				E9F81B78212DF2E900AF07C7 /* DexLastTradesPresenter.swift in Sources */,
+				E9167CE2213F7B9300B8D793 /* DexChartCandlePriceView.swift in Sources */,
 				E90DB010212592980065071C /* DexOrderBookLastPriceCell.swift in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,

@@ -41,13 +41,17 @@ final class DexChartBarAxisFormatter: IAxisValueFormatter {
 //MARK: - DexChartBarRightAxisFormatter
 final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
+    private static let numberFormatter = NumberFormatter()
+    
+    init() {
+        DexChartBarRightAxisFormatter.numberFormatter.maximumFractionDigits = 5
+        DexChartBarRightAxisFormatter.numberFormatter.decimalSeparator = " "
+        DexChartBarRightAxisFormatter.numberFormatter.groupingSeparator = ","
+    }
+    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 5
-        formatter.decimalSeparator = " "
-        formatter.groupingSeparator = ","
-        if let string = formatter.string(from: NSNumber(value: value)) {
+        if let string = DexChartBarRightAxisFormatter.numberFormatter.string(from: NSNumber(value: value)) {
             return string
         }
         return ""

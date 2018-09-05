@@ -28,18 +28,16 @@ final class DexChartViewController: UIViewController {
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelChartTopInfo: UILabel!
-    @IBOutlet private weak var viewLastPrice: UIView!
-    @IBOutlet private weak var labelLastPrice: UILabel!
-    @IBOutlet private weak var viewLastPriceOffset: NSLayoutConstraint!
+    
+    @IBOutlet private weak var viewLastVisibleCandle: DexChartCandlePriceView!
+    @IBOutlet private weak var viewLastVisibleCandleOffset: NSLayoutConstraint!
     
     private var chartHelper = DexChartHelper()
-    private var lastOffsetX: Double = 0
-
     private var state = DexChart.State.initialState
-    var pair: DexTraderContainer.DTO.Pair!
-    
-    var presenter: DexChartPresenterProtocol!
     private let sendEvent: PublishRelay<DexChart.Event> = PublishRelay<DexChart.Event>()
+
+    var pair: DexTraderContainer.DTO.Pair!
+    var presenter: DexChartPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,28 +52,6 @@ final class DexChartViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         containerView.createTopCorners(radius: Constants.cornerRadius)
-    }
-    
-    
-    @objc func updateCandleLimitLine() {
-        
-        NetworkManager.getLastTraderPairPrice(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id) { (price, timestamp, errorMessage) in
-            
-            if price > 0 && self.candleChartView.data != nil {
-                
-                let limitLine = ChartLimitLine(limit: price)
-                
-                limitLine.lineColor = UIColor.basic700
-                limitLine.lineWidth = 0.5
-                
-                self.candleChartView.rightAxis.removeAllLimitLines()
-                self.candleChartView.rightAxis.addLimitLine(limitLine);
-                self.candleChartView.notifyDataSetChanged()
-                self.labelLastPrice.text = String(format: "%.06f",price)
-                
-                self.setupLimitLinePosition()
-            }
-        }
     }
 }
 
@@ -107,10 +83,10 @@ fileprivate extension DexChartViewController {
                 
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
-                
+
                 strongSelf.state = state
                 strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
-                strongSelf.setupLabelChartInfo()
+                strongSelf.setupCandleChartInfo()
                 strongSelf.setupChartData(state: state)
                 
                 if state.action == .changeTimeFrame {
@@ -119,7 +95,6 @@ fileprivate extension DexChartViewController {
                 else {
                     strongSelf.setupDefaultState()
                 }
-                strongSelf.updateCandleLimitLine()
             })
         
         return [subscriptionSections]
@@ -132,16 +107,16 @@ private extension DexChartViewController {
 
     func setupLimitLinePosition() {
         
-        viewLastPriceOffset.constant = chartHelper.lastPricePosition(candleChartView: candleChartView) -
-            viewLastPrice.frame.size.height / 2
-        
-        if viewLastPriceOffset.constant > candleChartView.frame.size.height - 30 ||
-            viewLastPriceOffset.constant < 5 {
-            viewLastPrice.isHidden = true
-        }
-        else {
-            viewLastPrice.isHidden = false
-        }
+//        viewLastCandlePriceOffset.constant = chartHelper.lastPricePosition(candleChartView: candleChartView) -
+//            viewLastCandlePrice.frame.size.height / 2
+//
+//        if viewLastCandlePriceOffset.constant > candleChartView.frame.size.height - 30 ||
+//            viewLastCandlePriceOffset.constant < 5 {
+//            viewLastCandlePrice.isHidden = true
+//        }
+//        else {
+//            viewLastCandlePrice.isHidden = false
+//        }
     }
     
     func setupUpdatingState() {
@@ -151,7 +126,7 @@ private extension DexChartViewController {
         candleChartView.isHidden = true
         barChartView.isHidden = true
         labelChartTopInfo.isHidden = true
-        viewLastPrice.isHidden = true
+        viewLastVisibleCandle.isHidden = true
     }
     
     func setupLoadingState() {
@@ -162,7 +137,7 @@ private extension DexChartViewController {
         candleChartView.isHidden = true
         barChartView.isHidden = true
         labelChartTopInfo.isHidden = true
-        viewLastPrice.isHidden = true
+        viewLastVisibleCandle.isHidden = true
     }
     
     func setupDefaultState() {
@@ -172,7 +147,7 @@ private extension DexChartViewController {
         candleChartView.isHidden = !state.isNotEmpty
         barChartView.isHidden = !state.isNotEmpty
         labelChartTopInfo.isHidden = !state.isNotEmpty
-        viewLastPrice.isHidden = !state.isNotEmpty
+        viewLastVisibleCandle.isHidden = !state.isNotEmpty
     }
     
     func setupLocalization() {
@@ -206,7 +181,7 @@ extension DexChartViewController: ChartViewDelegate {
             barChartView.highlightValue(chartView.highlighted.first)
         }
         
-        setupLabelChartInfo()
+        setupCandleChartInfo()
     }
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
@@ -218,7 +193,7 @@ extension DexChartViewController: ChartViewDelegate {
             barChartView.highlightValue(nil)
         }
         
-        setupLabelChartInfo()
+        setupCandleChartInfo()
     }
     
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
@@ -232,10 +207,12 @@ extension DexChartViewController: ChartViewDelegate {
             candleChartView.moveViewToX(barChartView.lowestVisibleX)
         }
         
-        setupLimitLinePosition()
+        setupLastVisibleCandle()
     }
     
     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
+        
+        setupLastVisibleCandle()
         
         if chartView == candleChartView {
             barChartView.moveViewToX(candleChartView.lowestVisibleX)
@@ -244,15 +221,15 @@ extension DexChartViewController: ChartViewDelegate {
             candleChartView.moveViewToX(barChartView.lowestVisibleX)
         }
         
-        if state.candles.count > 10 {
+        if state.candles.count > DexChartHelper.minCountCandlesToZoom {
             
             let value = round(candleChartView.lowestVisibleX)
             
-            if let model = state.candles.first {
+            if let candle = state.candles.first {
                 
-                if value == model.timestamp && !state.isPreloading {
-                    lastOffsetX = candleChartView.lowestVisibleX
-                    sendEvent.accept(.preloading)
+                if value == candle.timestamp && !state.isPreloading {
+                    sendEvent.accept(.preloading(candleLowestVisibleX: candleChartView.lowestVisibleX))
+                    
 //                    lastOffsetX = candleChartView.lowestVisibleX
 //                    let prevCount = self.candles.count
 //                    
@@ -276,7 +253,7 @@ extension DexChartViewController: ChartViewDelegate {
            
         }
         
-        setupLimitLinePosition()
+//        setupLimitLinePosition()
     }
 }
 
@@ -284,13 +261,20 @@ extension DexChartViewController: ChartViewDelegate {
 //MARK: - Setup Charts
 private extension DexChartViewController {
 
-    func setupCharts() {
-        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
-        candleChartView.delegate = self
-        barChartView.delegate = self
+    func setupLastVisibleCandle() {
+        
+        let (position, color, text) = chartHelper.lastVisibleCandleInfo(candleChartView: candleChartView)
+        viewLastVisibleCandle.setup(textPrice: text, color: color)
+        viewLastVisibleCandleOffset.constant = position - viewLastVisibleCandle.frame.size.height / 2        
     }
     
-    func setupLabelChartInfo() {
+    func setupCharts() {
+        candleChartView.delegate = self
+        barChartView.delegate = self
+        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
+    }
+    
+    func setupCandleChartInfo() {
         
         let title = pair.amountAsset.name + " / " + pair.priceAsset.name
         
@@ -316,21 +300,24 @@ private extension DexChartViewController {
     }
    
     func setupChartData(state: DexChart.State) {
-        chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
-                                   timeFrame: state.timeFrame,
-                                   candles: state.candles)
         
+        
+        self.chartHelper.setupChartData(candleChartView: self.candleChartView, barChartView: self.barChartView,
+                                        timeFrame: state.timeFrame,
+                                        candles: state.candles)
+   
+       
         if state.action == .changeZoomAfterPreload {
             chartHelper.zoom(candleChartView: candleChartView, barChartView: barChartView,
                                         candles: state.candles,
-                                        lastOffsetX: lastOffsetX)
+                                        lowestVisibleX: state.candleLowestVisibleX)
         }
         else {
-            chartHelper.setupFirstTimeZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
+            chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-            self.setupLimitLinePosition()
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.setupLastVisibleCandle()
+        }
     }
 }
