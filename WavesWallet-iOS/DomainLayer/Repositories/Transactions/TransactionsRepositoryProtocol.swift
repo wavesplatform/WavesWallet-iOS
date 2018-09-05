@@ -58,5 +58,6 @@ protocol TransactionsRepositoryProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
 
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool>
+
     var isHasTransactions: Observable<Bool> { get }
 }
