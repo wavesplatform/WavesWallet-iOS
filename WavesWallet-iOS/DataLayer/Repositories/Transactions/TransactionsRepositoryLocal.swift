@@ -67,13 +67,58 @@ fileprivate extension TransactionType {
             return DataTransaction.predicate(specifications)
         }
     }
+
+    func anyTransaction(from transaction: AnyTransaction) -> DomainLayer.DTO.AnyTransaction? {
+
+        switch self {
+        case .alias:
+            guard let aliasTransaction = transaction.aliasTransaction else { return nil }
+            return .alias(.init(transaction: aliasTransaction))
+
+        case .issue:
+            guard let issueTransaction = transaction.issueTransaction else { return nil }
+            return .issue(.init(transaction: issueTransaction))
+
+        case .transfer:
+            guard let transferTransaction = transaction.transferTransaction else { return nil }
+            return .transfer(.init(transaction: transferTransaction))
+
+        case .reissue:
+            guard let reissueTransaction = transaction.reissueTransaction else { return nil }
+            return .reissue(.init(transaction: reissueTransaction))
+
+        case .burn:
+            guard let burnTransaction = transaction.burnTransaction else { return nil }
+            return .burn(.init(transaction: burnTransaction))
+
+        case .exchange:
+            guard let exchangeTransaction = transaction.exchangeTransaction else { return nil }
+            return .exchange(.init(transaction: exchangeTransaction))
+
+        case .lease:
+            guard let leaseTransaction = transaction.leaseTransaction else { return nil }
+            return .lease(.init(transaction: leaseTransaction))
+
+        case .leaseCancel:
+            guard let leaseCancelTransaction = transaction.leaseCancelTransaction else { return nil }
+            return .leaseCancel(.init(transaction: leaseCancelTransaction))
+
+        case .massTransfer:
+            guard let massTransferTransaction = transaction.massTransferTransaction else { return nil }
+            return .massTransfer(.init(transaction: massTransferTransaction))
+
+        case .data:
+            guard let dataTransaction = transaction.dataTransaction else { return nil }
+            return .data(.init(transaction: dataTransaction))
+        }
+    }
 }
 
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return Observable.never()
+        return transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: .all))
     }
 
     func transactions(by accountAddress: String,
@@ -107,105 +152,16 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 .filter("type IN %@", types.map { $0.rawValue })
                 .filter(predicate)
 
-
+            var transactions = [DomainLayer.DTO.AnyTransaction]()
 
             for any in txs.toArray() {
-
-
+                guard let type = TransactionType(rawValue: any.type) else { continue }
+                guard let tx = type.anyTransaction(from: any) else { continue }
+                transactions.append(tx)
             }
 
-            debug(txs.toArray())
-
-
-
-
-//
-//
-//            let unrecogniedTxs = realm
-//                .objects(AnyTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.UnrecognisedTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.unrecognised($0) }
-//
-//            let issueTxs = realm
-//                .objects(IssueTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.IssueTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.issue($0) }
-//
-//            let transferTxs = realm
-//                .objects(TransferTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.TransferTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.transfer($0) }
-//
-//            let reissueTxs = realm
-//                .objects(ReissueTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.ReissueTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.reissue($0) }
-//
-//            let leaseTxs = realm
-//                .objects(LeaseTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.LeaseTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.lease($0) }
-//
-//            let leaseCancelTxs = realm
-//                .objects(LeaseCancelTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.LeaseCancelTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.leaseCancel($0) }
-//
-//            let aliasTxs = realm
-//                .objects(AliasTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.AliasTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.alias($0) }
-//
-//            let massTransferTxs = realm
-//                .objects(MassTransferTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.MassTransferTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.massTransfer($0) }
-//
-//            let burnTxs = realm
-//                .objects(BurnTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.BurnTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.burn($0) }
-//
-//            let exchangeTxs = realm
-//                .objects(ExchangeTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.ExchangeTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.exchange($0) }
-//
-//            let dataTxs = realm
-//                .objects(DataTransaction.self)
-//                .toArray()
-//                .map { DomainLayer.DTO.DataTransaction(transaction: $0) }
-//                .map { DomainLayer.DTO.AnyTransaction.data($0) }
-//
-//            var transactions = [DomainLayer.DTO.AnyTransaction]()
-//
-//            transactions.append(contentsOf: unrecogniedTxs)
-//            transactions.append(contentsOf: issueTxs)
-//            transactions.append(contentsOf: transferTxs)
-//            transactions.append(contentsOf: reissueTxs)
-//            transactions.append(contentsOf: leaseTxs)
-//            transactions.append(contentsOf: leaseCancelTxs)
-//            transactions.append(contentsOf: aliasTxs)
-//            transactions.append(contentsOf: massTransferTxs)
-//            transactions.append(contentsOf: burnTxs)
-//            transactions.append(contentsOf: exchangeTxs)
-//            transactions.append(contentsOf: dataTxs)
-//
-//
-//
-//            observer.onNext(transactions)
+            observer.onNext(transactions)
             observer.onCompleted()
-//
             return Disposables.create()
         }
     }
