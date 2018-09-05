@@ -16,7 +16,6 @@ final class ExchangeTransaction: Transaction {
 
     @objc dynamic var amount: Int64 = 0
     @objc dynamic var price: Int64 = 0
-
     @objc dynamic var signature: String = ""
     @objc dynamic var buyMatcherFee: Int64 = 0
     @objc dynamic var sellMatcherFee: Int64 = 0

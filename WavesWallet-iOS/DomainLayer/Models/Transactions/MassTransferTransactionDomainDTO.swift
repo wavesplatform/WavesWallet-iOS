@@ -9,7 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct MassTransferTransaction {
+    struct MassTransferTransaction: Mutating {
 
         struct Transfer {
             let recipient: String
@@ -26,7 +26,7 @@ extension DomainLayer.DTO {
         let height: Int64
 
         let proofs: [String]
-        let assetId: String?
+        var assetId: String?
         let attachment: String
         let transferCount: Int
         let totalAmount: Int64

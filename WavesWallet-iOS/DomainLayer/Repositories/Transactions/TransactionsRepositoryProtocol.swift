@@ -24,6 +24,19 @@ enum TransactionType: Int {
     case alias = 10
     case massTransfer = 11
     case data = 12
+
+    static var all: [TransactionType] {
+        return [.issue,
+                .transfer,
+                .reissue,
+                .burn,
+                .exchange,
+                .lease,
+                .leaseCancel,
+                .alias,
+                .massTransfer,
+                .data]
+    }
 }
 
 struct TransactionsSpecifications {

@@ -9,7 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct TransferTransaction: Decodable {
+    struct TransferTransaction: Decodable, Mutating {
         let type: Int
         let id: String
         let sender: String
@@ -21,7 +21,7 @@ extension DomainLayer.DTO {
 
         let signature: String
         let recipient: String
-        let assetId: String?
+        var assetId: String?
         let feeAssetId: String?
         let feeAsset: String?
         let amount: Int64

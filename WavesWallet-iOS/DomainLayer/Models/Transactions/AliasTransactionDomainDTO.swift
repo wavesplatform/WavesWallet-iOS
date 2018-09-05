@@ -18,7 +18,6 @@ extension DomainLayer.DTO {
         let timestamp: Int64
         let version: Int
         let height: Int64
-
         let signature: String
         let alias: String
         var modified: Date

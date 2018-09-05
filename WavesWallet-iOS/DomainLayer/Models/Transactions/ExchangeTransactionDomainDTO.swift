@@ -10,13 +10,13 @@ import Foundation
 
 extension DomainLayer.DTO {
 
-    struct ExchangeTransaction: Decodable {
-        struct Order: Decodable {
+    struct ExchangeTransaction: Decodable, Mutating {
+        struct Order: Decodable, Mutating {
             let id: String
             let sender: String
             let senderPublicKey: String
             let matcherPublicKey: String
-            let assetPair: AssetPair
+            var assetPair: AssetPair
             let orderType: String
             let price: Int64
             let amount: Int64
@@ -26,9 +26,9 @@ extension DomainLayer.DTO {
             let signature: String
         }
 
-        struct AssetPair: Decodable {
-            let amountAsset: String?
-            let priceAsset: String?
+        struct AssetPair: Decodable, Mutating {
+            var amountAsset: String?
+            var priceAsset: String?
         }
         
         let type: Int
@@ -40,8 +40,8 @@ extension DomainLayer.DTO {
         let height: Int64
 
         let signature: String
-        let order1: Order
-        let order2: Order
+        var order1: Order
+        var order2: Order
         let price: Int64
         let amount: Int64
         let buyMatcherFee: Int64

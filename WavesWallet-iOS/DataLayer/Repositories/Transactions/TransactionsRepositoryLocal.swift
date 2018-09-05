@@ -22,6 +22,53 @@ extension Realm {
     }
 }
 
+fileprivate extension TransactionType {
+    static var waves: [TransactionType] {
+        return [.issue,
+                .reissue,
+                .burn,
+                .lease,
+                .leaseCancel,
+                .alias,
+                .data]
+    }
+
+    func predicate(from specifications: TransactionsSpecifications) -> NSPredicate {
+
+        switch self {
+        case .alias:
+            return AliasTransaction.predicate(specifications)
+
+        case .issue:
+            return IssueTransaction.predicate(specifications)
+
+        case .transfer:
+            return TransferTransaction.predicate(specifications)
+
+        case .reissue:
+            return ReissueTransaction.predicate(specifications)
+
+        case .burn:
+            return BurnTransaction.predicate(specifications)
+
+        case .exchange:
+            return ExchangeTransaction.predicate(specifications)
+
+        case .lease:
+            return LeaseTransaction.predicate(specifications)
+
+        case .leaseCancel:
+            return LeaseCancelTransaction.predicate(specifications)
+
+        case .massTransfer:
+            return MassTransferTransaction.predicate(specifications)
+
+        case .data:
+            return DataTransaction.predicate(specifications)
+        }
+    }
+}
+
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
@@ -39,17 +86,27 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [UnrecognisedTransaction.predicate(specifications)])
+            let wavesAssetId = Environments.Constants.wavesAssetId
 
-            
 
-            let types = specifications.types.map { $0.rawValue }
+            let hasWaves = specifications.assets.contains(wavesAssetId)
+
+            var types = specifications.types
+            if specifications.assets.count > 0 && hasWaves == false {
+                types = types.filter { TransactionType.waves.contains($0) == false }
+            }
+
+            var predicatesFromTypes: [NSPredicate] = .init()
+            types.forEach { predicatesFromTypes.append($0.predicate(from: specifications)) }
+
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
 
             let txs = realm
                 .objects(AnyTransaction.self)
                 .sorted(byKeyPath: "timestamp")
-                .filter("type IN %@", types)
-                .filter("dataTransaction != NULL")
+                .filter("type IN %@", types.map { $0.rawValue })
+                .filter(predicate)
+
 
 
             for any in txs.toArray() {
@@ -214,70 +271,125 @@ fileprivate protocol TransactionsSpecificationsConverter {
 
 extension UnrecognisedTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "WAVES IN %@", from.assets)
+        return NSPredicate(format: "unrecognisedTransaction != NULL")
     }
 }
 
 extension IssueTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "issueTransaction.assetId IN %@", from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "issueTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "issueTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension TransferTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "transferTransaction.assetId IN %@", from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "transferTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "transferTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension ReissueTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "reissueTransaction.assetId IN %@", from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "reissueTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "reissueTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension LeaseTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "leaseTransaction != NULL AND WAVES IN %@", from.assets)
+        return NSPredicate(format: "leaseTransaction != NULL")
     }
 }
 
 extension LeaseCancelTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "leaseCancelTransaction != NULL AND WAVES IN %@", from.assets)
+        return NSPredicate(format: "leaseCancelTransaction != NULL")
     }
 }
 
 extension AliasTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "aliasTransaction != NULL AND WAVES IN %@", from.assets)
+        return NSPredicate(format: "aliasTransaction != NULL")
     }
 }
 
 extension MassTransferTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "massTransferTransaction.assetId IN %@", from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "massTransferTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "massTransferTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension BurnTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "burnTransaction.assetId IN %@", from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "burnTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "burnTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension ExchangeTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "exchangeTransaction.order1.assetPair.amountAsset IN %@ OR exchangeTransaction.order1.assetPair.priceAsset IN %@ OR exchangeTransaction.order2.assetPair.amountAsset IN %@ OR exchangeTransaction.order2.assetPair.priceAsset IN %@",
-                           from.assets,
-                           from.assets,
-                           from.assets,
-                           from.assets)
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "exchangeTransaction != NULL"))
+
+        if from.assets.count > 0 {
+
+
+            let format = "exchangeTransaction.order1.assetPair.amountAsset IN %@"
+                + " OR exchangeTransaction.order1.assetPair.priceAsset IN %@"
+                + " OR exchangeTransaction.order2.assetPair.amountAsset IN %@"
+                + " OR exchangeTransaction.order2.assetPair.priceAsset IN %@"
+
+            predicates.append(NSPredicate(format: format,
+                                          from.assets,
+                                          from.assets,
+                                          from.assets,
+                                          from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension DataTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "dataTransaction != NULL AND WAVES IN %@", from.assets)
+        return NSPredicate(format: "dataTransaction != NULL")
     }
 }
