@@ -38,6 +38,7 @@
 		04861B4D2135D842006993A8 /* TransactionHistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
+		0497A5662140140000C730A3 /* DottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497A5652140140000C730A3 /* DottedView.swift */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
@@ -463,6 +464,7 @@
 		04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+State.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
+		0497A5652140140000C730A3 /* DottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedView.swift; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
@@ -1871,6 +1873,7 @@
 				E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */,
 				E9F984AF20E53A7200D2CB4D /* EnterStartView.xib */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
+				0497A5652140140000C730A3 /* DottedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2634,6 +2637,7 @@
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				E926117B2107C71100A9E793 /* DexListCell.swift in Sources */,
 				E92611812107F4E600A9E793 /* DexListPresenter.swift in Sources */,
+				0497A5662140140000C730A3 /* DottedView.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				0AFBCA8F211326BD00285BCB /* ModuleBuilderOutput.swift in Sources */,
