@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-        tansactionsInteractor.transactions(by: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t").sweetDebug("Alarm").subscribe()
+//        tansactionsInteractor.transactions(by: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", specifications: <#TransactionsSpecifications#>).sweetDebug("Alarm").subscribe()
 
 
 

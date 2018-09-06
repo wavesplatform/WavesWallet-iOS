@@ -27,6 +27,9 @@
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB74282113335B004A065B /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
+		0A14CFC32141A1B600C3A4D5 /* GeneralTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFC22141A1B600C3A4D5 /* GeneralTypes.swift */; };
+		0A14CFC52141CEE300C3A4D5 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFC42141CEE300C3A4D5 /* Balance.swift */; };
+		0A14CFC72141DA9800C3A4D5 /* TransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFC62141DA9800C3A4D5 /* TransactionDomainDTO.swift */; };
 		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
@@ -573,6 +576,9 @@
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
+		0A14CFC22141A1B600C3A4D5 /* GeneralTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTypes.swift; sourceTree = "<group>"; };
+		0A14CFC42141CEE300C3A4D5 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		0A14CFC62141DA9800C3A4D5 /* TransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDomainDTO.swift; sourceTree = "<group>"; };
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
@@ -1467,6 +1473,7 @@
 				0A5E4BC7213820C500E3C3C3 /* AliasTransactionDomainDTO.swift */,
 				0A5E4BC6213820C500E3C3C3 /* AnyTransactionDomainDTO.swift */,
 				0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */,
+				0A14CFC62141DA9800C3A4D5 /* TransactionDomainDTO.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -1862,6 +1869,7 @@
 				0AF92262212E1233003BA067 /* AssetLogo.swift */,
 				0AF92263212E1233003BA067 /* ObjectDestructor.swift */,
 				0AF92264212E1233003BA067 /* Locale+Test.swift */,
+				0A14CFC22141A1B600C3A4D5 /* GeneralTypes.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -2533,6 +2541,7 @@
 				F755C0FF1EAA8319008A938F /* Either.swift */,
 				E902ADCE212E1EB8000C289A /* Money.swift */,
 				F755C1001EAA8319008A938F /* MoneyUtil.swift */,
+				0A14CFC42141CEE300C3A4D5 /* Balance.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -3024,6 +3033,7 @@
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
 				0AE491EA2107A3FB009223DB /* WalletSortTypes.swift in Sources */,
 				0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */,
+				0A14CFC52141CEE300C3A4D5 /* Balance.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0A5E4BAD2137FC3B00E3C3C3 /* TransferSuccessViewController.swift in Sources */,
 				E9574836212D0B9F00452963 /* DexLastTradesTypes.swift in Sources */,
@@ -3215,6 +3225,7 @@
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				E9CFBC442124EB9400CE7413 /* DexOrderBookInteractor.swift in Sources */,
 				0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */,
+				0A14CFC32141A1B600C3A4D5 /* GeneralTypes.swift in Sources */,
 				F74240D21EAB8EFF00C3B84D /* SelectAccountViewController.swift in Sources */,
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
 				0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */,
@@ -3263,6 +3274,7 @@
 				0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */,
 				F761428C1EAFC09300F4C749 /* ReceiveViewController.swift in Sources */,
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
+				0A14CFC72141DA9800C3A4D5 /* TransactionDomainDTO.swift in Sources */,
 				0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */,
 				E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */,
 				E9B2E30A211920C20004E452 /* DexSortInteractorMock.swift in Sources */,

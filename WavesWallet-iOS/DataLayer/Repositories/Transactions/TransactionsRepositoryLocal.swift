@@ -118,7 +118,7 @@ fileprivate extension TransactionType {
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: .all))
+        return transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
     }
 
     func transactions(by accountAddress: String,
@@ -182,10 +182,37 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 
-    func transactions(by accountAddress: String, assetId: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return Observable.never()
+    func isHasTransaction(by id: String) -> Observable<Bool> {
+
+        return Observable.create { observer -> Disposable in
+
+            guard let realm = try? Realm() else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            observer.onNext(realm.object(ofType: AnyTransaction.self, forPrimaryKey: id) != nil)
+            observer.onCompleted()
+
+            return Disposables.create()
+        }
     }
 
+    func isHasTransactions(by ids: [String]) -> Observable<Bool> {
+        return Observable.create { observer -> Disposable in
+
+            guard let realm = try? Realm() else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let result = realm.objects(AnyTransaction.self).filter("id IN %@",ids)
+            observer.onNext(result.count == ids.count)
+            observer.onCompleted()
+
+            return Disposables.create()
+        }
+    }
 
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool> {
 

@@ -21,16 +21,8 @@ final class HistoryTransactionCell: UITableViewCell, Reusable {
 //TODO Model
 extension HistoryTransactionCell: ViewConfiguration {
     
-    func update(with model: HistoryTypes.DTO.Transaction) {
-//        transactionView.update(with: HistoryTransactionView.Transaction(with: model, kind: <#HistoryTransactionView.Transaction.Kind#>))
+    func update(with model: GeneralTypes.DTO.Transaction) {
+        transactionView.update(with: model)
     }
-    
 }
 
-//fileprivate extension HistoryTransactionView.Transaction {
-//    init(with transaction: HistoryTypes.DTO.Transaction) {
-//        let kind = HistoryTransactionView.Transaction.Kind(rawValue: transaction.kind.rawValue)!
-//        
-//        self.init(id: transaction.id, name: transaction.name, balance: transaction.balance, kind: kind, tag: transaction.tag, date: transaction.date)
-//    }
-//}

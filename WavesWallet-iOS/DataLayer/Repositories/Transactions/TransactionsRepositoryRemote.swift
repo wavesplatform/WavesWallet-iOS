@@ -44,4 +44,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         assertVarDontSupported()
         return Observable.never()
     }
+
+    func isHasTransaction(by id: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
+
+    func isHasTransactions(by ids: [String]) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
 }

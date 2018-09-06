@@ -9,7 +9,7 @@
 import Foundation
 
 extension HistoryTypes.ViewModel {
-    struct Section: Hashable {
+    struct Section {
         var items: [Row]
         var header: String?
         
@@ -19,32 +19,27 @@ extension HistoryTypes.ViewModel {
         }
     }
     
-    enum Row: Hashable {
-        case transaction(HistoryTypes.DTO.Transaction)
+    enum Row {
+        case transaction(GeneralTypes.DTO.Transaction)
         case transactionSkeleton
     }
 }
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from transactions: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from transactions: [GeneralTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
         let filteredTransactions = transactions
-            .filter { filter.kinds.contains($0.kind) }
+            .filter { filter.isNeedTransaction(where: $0) }
         
         return sections(from: filteredTransactions)
     }
     
-    static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+    static func map(from transactions: [GeneralTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
         return sections(from: transactions)
     }
     
-    static func sections(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
-        
-        let transactions = transactions
-            .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
-            })
-        
+    static func sections(from transactions: [GeneralTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+                
         var sections: [NSMutableArray] = []
         var lastSection: NSMutableArray = NSMutableArray()
         var previousDay: Int? = 0
@@ -73,7 +68,7 @@ extension HistoryTypes.ViewModel.Section {
         }
         
         let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
-            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! HistoryTypes.DTO.Transaction) })
+            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! GeneralTypes.DTO.Transaction) })
         }
         
         let generalSections = items.map { HistoryTypes.ViewModel.Section(items: $0) }
