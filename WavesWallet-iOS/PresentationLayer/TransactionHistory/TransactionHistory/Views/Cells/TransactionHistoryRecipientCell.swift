@@ -77,10 +77,16 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Recipient) {
         
         titleLabel.text = TransactionHistoryRecipientCell.title(for: model)
-        valueLabel.text = model.name
-        keyLabel.text = model.address
         
-        nameToKeyConstraint.constant = model.name != nil ? 2 : 0
+        if model.name != nil {
+            valueLabel.text = model.name
+            keyLabel.text = model.address
+        } else {
+            valueLabel.text = model.address
+            keyLabel.text = ""
+        }
+        
+        nameToKeyConstraint.constant = model.name != nil ? Constants.nameToAddressY : 0
         
         setNeedsUpdateConstraints()
     }
