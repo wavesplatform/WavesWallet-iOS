@@ -32,7 +32,7 @@ final class HistoryViewController: UIViewController {
     private var sections: [HistoryTypes.ViewModel.Section] = []
     private var filters: [HistoryTypes.Filter] = []
     
-    let tapCell: PublishSubject<HistoryTypes.DTO.Transaction> = PublishSubject<HistoryTypes.DTO.Transaction>()
+    let tapCell: PublishSubject<GeneralTypes.DTO.Transaction> = PublishSubject<GeneralTypes.DTO.Transaction>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,18 +317,13 @@ extension HistoryViewController: UITableViewDataSource {
         guard let firstItem = model.items.first else { return nil }
         
         switch firstItem {
-        case .transaction(let transaction):
+        case .transaction:
             
             let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             
             if let header = model.header {
                 view.update(with: header)
-            } else {
-                let date = transaction.date as Date
-                let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
-                view.update(with: d)
             }
-            
             return view
 
         case .transactionSkeleton:
@@ -338,11 +333,7 @@ extension HistoryViewController: UITableViewDataSource {
             return view
             
         }
-        
-
     }
-
-    
 }
 
 extension HistoryViewController: UIScrollViewDelegate {

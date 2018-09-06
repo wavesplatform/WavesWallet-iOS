@@ -17,7 +17,7 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
 
     @IBOutlet private var collectionView: UICollectionView!
 
-    fileprivate var transactions: [HistoryTransactionView.Transaction]?
+    fileprivate var transactions: [GeneralTypes.DTO.Transaction]?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,9 +38,9 @@ extension AssetTransactionsCell: ViewConfiguration {
     func update(with model: [AssetTypes.DTO.Transaction]) {
         //TODO: Update
 
-        let asset = HistoryTransactionView.Transaction.Asset.init(isSpam: true, isGeneral: false, name: "test", balance: Money.init(100, 0))
+//        let asset = HistoryTransactionView.Transaction.Asset.init(isSpam: true, isGeneral: false, name: "test", balance: Money.init(100, 0))
 
-        transactions = [HistoryTransactionView.Transaction(id: "1", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "2", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "4", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "3", kind: .receive(asset))]
+//        transactions = [HistoryTransactionView.Transaction(id: "1", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "2", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "4", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "3", kind: .receive(asset))]
         collectionView.reloadData()
     }
 }
