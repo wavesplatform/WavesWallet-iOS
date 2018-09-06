@@ -114,9 +114,9 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
         
         switch item {
         case .recipient(let model):
-            return TransactionHistoryRecipientCell.cellHeight(width: tableView.bounds.width, model: model)
+            return TransactionHistoryRecipientCell.viewHeight(model: model, width: tableView.bounds.width) 
         case .comment(let model):
-            return TransactionHistoryCommentCell.cellHeight(width: tableView.bounds.width, model: model)
+            return TransactionHistoryCommentCell.viewHeight(model: model, width: tableView.bounds.width)
         case .keyValue(_):
             return TransactionHistoryKeyValueCell.cellHeight()
         case .keysValues(_):

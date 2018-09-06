@@ -25,7 +25,7 @@ final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
     }
     
     class func cellHeight() -> CGFloat {
-        return 64
+        return 58
     }
     
     @objc private func buttonPressed(sender: Any) {

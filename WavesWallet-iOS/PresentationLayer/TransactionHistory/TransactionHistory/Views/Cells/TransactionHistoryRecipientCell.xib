@@ -21,7 +21,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zca-qI-tzY">
                         <rect key="frame" x="12" y="14" width="26.5" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.77254901960784317" green="0.81568627450980391" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t38-6W-U0R">
@@ -48,8 +48,8 @@
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="top" secondItem="t38-6W-U0R" secondAttribute="bottom" constant="2" id="DnG-xO-H6P"/>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="F9d-2V-Ajr"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="U3w-oS-csW"/>
-                    <constraint firstItem="dns-7C-v4h" firstAttribute="bottom" secondItem="Goq-BE-4Z1" secondAttribute="bottom" id="VTa-fe-VNz"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="top" secondItem="zca-qI-tzY" secondAttribute="bottom" constant="6" id="bj9-mx-tNv"/>
+                    <constraint firstAttribute="bottom" secondItem="dns-7C-v4h" secondAttribute="bottom" constant="14" id="cdx-Ab-doe"/>
                     <constraint firstAttribute="trailing" secondItem="dns-7C-v4h" secondAttribute="trailing" constant="12" id="d4H-ZU-6eM"/>
                     <constraint firstAttribute="trailing" secondItem="Goq-BE-4Z1" secondAttribute="trailing" constant="12" id="kLT-Nb-d5t"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="top" secondItem="ekU-SN-hJs" secondAttribute="top" constant="14" id="sEw-m4-6ia"/>

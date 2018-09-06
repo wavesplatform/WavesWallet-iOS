@@ -20,8 +20,10 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
     
     @IBOutlet weak var tagLabel: UILabel!
     
+   @IBOutlet weak var valueLabelXConstraint: NSLayoutConstraint!
+    
     class func cellHeight() -> CGFloat {
-        return 192
+        return 170
     }
     
     override func awakeFromNib() {
@@ -37,32 +39,40 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         var image: ImageAsset!
         
         switch kind {
-        case .viewSend(_):
+        case .viewSend:
             image = Images.tSend48
-        case .viewReceived(_):
+        case .viewReceived:
             image = Images.assetReceive
-        case .viewLeasing(_):
+        case .viewLeasing:
             image = Images.walletStartLease
-        case .exchange(_):
+        case .exchange:
             image = Images.tExchange48
-        case .selfTranserred(_):
+        case .selfTranserred:
             image = Images.tSelftrans48
-        case .tokenGeneration(_):
+        case .tokenGeneration:
             image = Images.tTokengen48
-        case .tokenReissue(_):
+        case .tokenReissue:
             image = Images.tTokenreis48
-        case .tokenBurning(_):
+        case .tokenBurning:
             image = Images.tTokenburn48
-        case .createdAlias(_):
+        case .createdAlias:
             image = Images.tAlias48
-        case .canceledLeasing(_):
+        case .canceledLeasing:
             image = Images.tCloselease48
-        case .incomingLeasing(_):
+        case .incomingLeasing:
             image = Images.tIncominglease48
-        case .massSend(_):
+        case .massSend:
             image = Images.tMasstransfer48
-        case .massReceived(_):
+        case .massReceived:
             image = Images.tMassreceived48
+        case .spamReceived:
+            image = Images.tSpamReceive48
+        case .massSpamReceived:
+            image = Images.tSpamReceive48
+        case .data:
+            image = Images.tData48
+        case .unrecognisedTransaction:
+            image = Images.tAlias48
         }
         
         return UIImage(asset: image)
@@ -74,24 +84,30 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 extension TransactionHistoryGeneralCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.General) {
         
-//        let values = model.value.split(separator: ".")
-//
-//        let string = NSMutableAttributedString(string: model.value)
-//
-//        for (i, value) in values.enumerated() {
-//            if i == 0 {
-//                string.addAttributes([NSAttributedStringKey.font : UIFont.bodySemibold], range: NSMakeRange(0, value.count))
-//            } else {
-//                string.addAttributes([NSAttributedStringKey.font : UIFont.bodyRegular], range: NSMakeRange(0, value.count))
-//            }
-//        }
-        valueLabel.attributedText = .styleForBalance(text: model.balance.displayTextFull, font: valueLabel.font)
+        valueLabel.attributedText = .styleForBalance(text: model.balance.money.displayTextFull, font: valueLabel.font)
         
         iconImageView.image = icon(for: model.kind)
-        tagLabel.text = model.tag
+        tagLabel.text = model.balance.currency.ticket
         currencyLabel.text = model.currencyConversion
         
+        let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
         
+        valueLabelXConstraint.constant = tagSize.width / -2
+        
+        setNeedsUpdateConstraints()
+        
+    }
+    
+}
+
+extension TransactionHistoryGeneralCell: ViewCalculateHeight {
+    
+    static func viewHeight(model: TransactionHistoryTypes.ViewModel.General, width: CGFloat) -> CGFloat {
+        if model.currencyConversion != nil {
+            return 148
+        }
+        
+        return 170
     }
     
 }

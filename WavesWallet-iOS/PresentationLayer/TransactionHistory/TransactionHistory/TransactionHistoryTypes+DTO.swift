@@ -32,16 +32,31 @@ extension TransactionHistoryTypes.DTO {
             case incomingLeasing(IncomingLeasing)
             case massSend(MassSend)
             case massReceived(MassReceived)
+            case spamReceived(Spam)
+            case massSpamReceived(MassSpam)
+            case data(Data)
+            case unrecognisedTransaction
         }
+
+        // Waves, BTC..
+        let balance: Balance
+        let conversionBalance: Balance
         
-        let balance: Money
         let fee: Money
-        let confirmations: Int
-        let block: Int
+        
+        let confirmations: Int 
+        let height: Int
+        
         let timestamp: TimeInterval
         let status: Status
+        
         let kind: Kind
         let comment: String?
+    }
+    
+    struct Recipient {
+        let name: String?
+        let address: String
     }
     
 }
@@ -49,19 +64,20 @@ extension TransactionHistoryTypes.DTO {
 extension TransactionHistoryTypes.DTO.Transaction.Kind {
     
     struct ViewReceived {
-        let from: TransactionHistoryTypes.ViewModel.Recipient
+        let from: TransactionHistoryTypes.DTO.Recipient
     }
     
     struct ViewSend {
-        let to: TransactionHistoryTypes.ViewModel.Recipient
+        let to: TransactionHistoryTypes.DTO.Recipient
     }
     
     struct ViewLeasing {
-        let to: TransactionHistoryTypes.ViewModel.Recipient
+        let to: TransactionHistoryTypes.DTO.Recipient
     }
     
     struct Exchange {
-        let BTCPrice: Money
+        let exchangeBalance: Money
+        let exchangeCurrency: String
     }
     
     struct SelfTransferred {
@@ -87,19 +103,31 @@ extension TransactionHistoryTypes.DTO.Transaction.Kind {
     }
     
     struct CanceledLeasing {
-        let from: TransactionHistoryTypes.ViewModel.Recipient
+        let from: TransactionHistoryTypes.DTO.Recipient
     }
     
     struct IncomingLeasing {
-        let from: TransactionHistoryTypes.ViewModel.Recipient
+        let from: TransactionHistoryTypes.DTO.Recipient
     }
     
     struct MassSend {
-        let to: [TransactionHistoryTypes.ViewModel.Recipient]
+        let to: [TransactionHistoryTypes.DTO.Recipient]
     }
     
     struct MassReceived {
-        let from: [TransactionHistoryTypes.ViewModel.Recipient]
+        let from: [TransactionHistoryTypes.DTO.Recipient]
+    }
+    
+    struct Spam {
+        let from:  TransactionHistoryTypes.DTO.Recipient
+    }
+    
+    struct MassSpam {
+        let from:  [TransactionHistoryTypes.DTO.Recipient]
+    }
+    
+    struct Data {
+        let data: String
     }
     
 }
@@ -108,11 +136,28 @@ extension TransactionHistoryTypes.DTO.Transaction {
     
     static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [TransactionHistoryTypes.DTO.Transaction] {
         
-        return transactions.map({ (transaction) -> TransactionHistoryTypes.DTO.Transaction in
+        var t: [TransactionHistoryTypes.DTO.Transaction] = []
+        
+        for transaction in transactions {
             
-            return TransactionHistoryTypes.DTO.Transaction(balance: transaction.balance, fee: Money(110, 0), confirmations: 3525, block: 324, timestamp: 321901305, status: .completed, kind: .viewReceived(.init(from: TransactionHistoryTypes.ViewModel.Recipient(name: "Привет", address: "x4Jjksd#jkl$klssd"))), comment: "Комментарий")
+            let mock = TransactionHistoryTypes.DTO.Transaction(
+                balance:
+                Balance(currency: .init(title: "Waves", ticket: "Waves"), money: Money(10000, 0)),
+                conversionBalance:
+                Balance(currency: .init(title: "Dollar", ticket: "Dollar"), money: Money(20, 4)),
+                fee: Money(15, 4),
+                confirmations: 235235,
+                height: 2346,
+                timestamp: 321901305,
+                status: .completed,
+                kind: .viewSend(.init(to: .init(name: "Mr. Pit", address: "skjw34oijijosjdijo435o3k3o"))),
+                comment: "Это мой комментарий, он очень хорошиииий")
             
-        })
+            t.append(mock)
+            
+        }
+        
+        return t
         
     }
     
