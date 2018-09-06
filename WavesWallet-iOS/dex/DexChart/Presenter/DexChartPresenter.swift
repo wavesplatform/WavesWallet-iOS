@@ -71,7 +71,7 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.isNeedLoadingData = true
                 $0.isPreloading = true
                 $0.dateTo = $0.dateFrom
-                $0.dateFrom = DexChart.State.additionalDate(start: $0.dateFrom, timeFrame: $0.timeFrame)
+                $0.dateFrom = DexChart.State.additionalDate(start: $0.dateFrom, timeFrame: state.timeFrame)
                 $0.candleLowestVisibleX = candleLowestVisibleX
                 
                 }.changeAction(.none)
@@ -80,7 +80,8 @@ final class DexChartPresenter: DexChartPresenterProtocol {
             return state.mutate {
                 $0.isNeedLoadingData = false
                 $0.isPreloading = false
-                $0.candles.append(contentsOf: candles)
+                
+                $0.candles.insert(contentsOf: candles, at: 0)
                 $0.candles.sort(by: {$0.timestamp < $1.timestamp})
                 
                 if state.isPreloading {

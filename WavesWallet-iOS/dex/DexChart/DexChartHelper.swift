@@ -53,25 +53,6 @@ final class DexChartHelper {
 //
 //    }
 //
-    
-    func lastPricePosition(candleChartView: CandleStickChartView) -> CGFloat {
-        
-        let uknownPosition: CGFloat = -100
-        
-        if candleChartView.rightAxis.limitLines.count > 0 {
-            
-            if let limitLine = candleChartView.rightAxis.limitLines.first,
-                let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
-                
-                var position = CGPoint(x: 0.0, y: CGFloat(limitLine.limit))
-                position = position.applying(trans)
-                
-                return position.y.isNaN ? uknownPosition : position.y
-            }
-        }
-        
-        return uknownPosition
-    }
 }
 
 
@@ -102,13 +83,13 @@ extension DexChartHelper {
         candleSet.decreasingFilled = true
         candleSet.increasingColor = Constants.Candle.DataSet.increasingColor
         candleSet.increasingFilled = true
-        candleSet.neutralColor = Constants.Candle.DataSet.neutralColor
+        candleSet.neutralColor = Constants.Candle.DataSet.increasingColor
         candleSet.shadowColorSameAsCandle = true
         candleSet.highlightLineWidth = Constants.Candle.DataSet.highlightLineWidth
         candleSet.highlightColor = Constants.Candle.DataSet.highlightColor
-        candleSet.colors = [UIColor.blue, UIColor.red]
+        candleSet.highlightLineDashLengths = Constants.Candle.DataSet.highlightLineDashLengths
         candleSet.drawHorizontalHighlightIndicatorEnabled = false
-
+        
         if candleSet.entryCount > 0 {
             candleChartView.data = CandleChartData(dataSet: candleSet)
             candleChartView.notifyDataSetChanged()
@@ -155,7 +136,7 @@ extension DexChartHelper {
         candleChartView.xAxis.valueFormatter = DexChartCandleAxisFormatter()
         candleChartView.xAxis.granularityEnabled = true
         candleChartView.xAxis.drawAxisLineEnabled = false
-
+        
         candleChartView.rightAxis.enabled = true
         candleChartView.rightAxis.labelCount = Constants.Candle.RightAxis.labelCount
         candleChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
@@ -203,12 +184,15 @@ extension DexChartHelper {
     func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle], lowestVisibleX: Double) {
         
         if candles.count > prevCandlesCount {
+            
             let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(prevCandlesCount)
             let additionalZoom = zoom / candleChartView.scaleX
             
             candleChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
             candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
             
+//            barChartView.zoomAndCenterViewAnimated(scaleX: additionalZoom, scaleY: 0, xValue: lowestVisibleX, yValue: 0, axis: .right, duration: 0.00001)
+
             barChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
             barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
         }
@@ -235,11 +219,11 @@ extension DexChartHelper {
 //MARK: - Other
 extension DexChartHelper {
     
-    func lastVisibleCandleInfo(candleChartView: CandleStickChartView) -> (positionY: CGFloat, color: UIColor, text: String) {
+    func lastVisibleCandleInfo(candleChartView: CandleStickChartView) -> (positionY: CGFloat, color: UIColor, price: Double) {
 
-        var text = ""
         var color = UIColor.clear
         var positionY: CGFloat = 0
+        var price: Double = 0
         
         if let dataSet = candleChartView.candleData?.dataSets.first {
             
@@ -253,7 +237,7 @@ extension DexChartHelper {
             
             if let entry = dataSet.entryForXValue(highestVisibleX, closestToY: 0) as? CandleChartDataEntry {
                
-                text = String(format: "%0.6f", entry.close)
+                price = entry.close
 
                 if let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
                     var position = CGPoint(x: 0.0, y: CGFloat(entry.close))
@@ -264,15 +248,45 @@ extension DexChartHelper {
                 if entry.open > entry.close {
                     color = Constants.Candle.DataSet.decreasingColor
                 }
-                else if entry.open < entry.close {
-                    color = Constants.Candle.DataSet.increasingColor
-                }
                 else {
-                    color = Constants.Candle.DataSet.neutralColor
+                    color = Constants.Candle.DataSet.increasingColor
                 }
             }
         }
         
-        return (positionY, color, text)
+        return (positionY, color, price)
+    }
+    
+    func highlightedCandleInfo(candleChartView: CandleStickChartView, state: DexChart.State) -> (positionY: CGFloat, topTitle: String, price: Double) {
+        
+        var title = ""
+        var price: Double = 0
+        var positionY: CGFloat = 0
+        
+        if let highlighted = candleChartView.highlighted.first, state.candles.count > 0 {
+            
+            if let candle = state.candles.first(where: {$0.timestamp == highlighted.x}) {
+                
+                price = candle.close
+                
+                title = String(format: "%@, %@\nO: %0.8f, H: %0.8f,\nL: %0.8f, C: %0.8f, V: %0.6f",
+                                        state.timeFrame.shortText,
+                                        candle.formatterTime(timeFrame: state.timeFrame),
+                                        candle.open,
+                                        candle.high,
+                                        candle.low,
+                                        candle.close,
+                                        candle.volume)
+                
+                
+                if let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
+                    var position = CGPoint(x: 0.0, y: CGFloat(candle.close))
+                    position = position.applying(trans)
+                    positionY = position.y
+                }
+            }
+        }
+        
+        return (positionY, title, price)
     }
 }
