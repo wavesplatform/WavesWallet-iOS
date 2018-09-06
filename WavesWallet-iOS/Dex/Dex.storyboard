@@ -1011,11 +1011,18 @@ The order book is empty</string>
                                             <constraint firstItem="is2-2r-N4b" firstAttribute="top" secondItem="m4h-Np-Twc" secondAttribute="top" id="ZV2-6k-syt"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ok9-gN-uPU" customClass="DexChartCandlePriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="-10" y="62" width="362" height="16"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfp-bm-fGF" customClass="DexChartCandlePriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="-10" y="32" width="362" height="16"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="sAI-7g-HF3"/>
+                                            <constraint firstAttribute="height" constant="16" id="gel-HE-wvk"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVk-Li-tZ9" customClass="DexChartCandlePriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="-10" y="82" width="362" height="16"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="wH5-RL-3v1"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1023,21 +1030,24 @@ The order book is empty</string>
                                 <constraints>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="0NR-MF-Rkv"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerY" secondItem="gZh-fa-6fT" secondAttribute="centerY" id="2Xf-Tc-WZL"/>
-                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="30" id="4PY-uf-2bP"/>
                                     <constraint firstAttribute="trailing" secondItem="yvv-S9-oaU" secondAttribute="trailing" id="5Ch-gv-gge"/>
-                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" constant="-7" id="9Xi-Qc-GBb"/>
+                                    <constraint firstItem="FVk-Li-tZ9" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="50" id="8o6-KQ-xOh"/>
                                     <constraint firstItem="oTb-KW-n6A" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" constant="-10" id="Ar5-aS-A7T"/>
                                     <constraint firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" id="As2-jo-GjF"/>
                                     <constraint firstAttribute="trailing" secondItem="1h7-Bv-hvU" secondAttribute="trailing" id="Bmn-OC-NOT"/>
                                     <constraint firstItem="yvv-S9-oaU" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="Cte-0z-shD"/>
+                                    <constraint firstItem="FVk-Li-tZ9" firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" constant="-7" id="HcR-rf-Gvd"/>
                                     <constraint firstItem="oTb-KW-n6A" firstAttribute="top" secondItem="1h7-Bv-hvU" secondAttribute="bottom" id="Iyv-nv-LnV"/>
                                     <constraint firstAttribute="bottom" secondItem="yvv-S9-oaU" secondAttribute="bottom" id="Lio-2W-YrU"/>
                                     <constraint firstItem="yvv-S9-oaU" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="bottom" id="P33-Da-18G"/>
+                                    <constraint firstItem="gfp-bm-fGF" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" id="QaO-Eq-jsq"/>
                                     <constraint firstItem="m4h-Np-Twc" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="UUb-Dw-RMq"/>
+                                    <constraint firstItem="gfp-bm-fGF" firstAttribute="trailing" secondItem="oTb-KW-n6A" secondAttribute="trailing" constant="-7" id="XnC-6t-5OZ"/>
                                     <constraint firstItem="S2B-rd-5Sq" firstAttribute="centerX" secondItem="gZh-fa-6fT" secondAttribute="centerX" id="aCB-Za-1u6"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="leading" secondItem="gZh-fa-6fT" secondAttribute="leading" id="eJV-OE-FE3"/>
                                     <constraint firstItem="vJy-sf-hhh" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" constant="20" id="nnh-pu-sTr"/>
-                                    <constraint firstItem="Ok9-gN-uPU" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="qWh-1d-C7L"/>
+                                    <constraint firstItem="FVk-Li-tZ9" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="pz7-pY-H5V"/>
+                                    <constraint firstItem="gfp-bm-fGF" firstAttribute="leading" secondItem="oTb-KW-n6A" secondAttribute="leading" id="qQI-oH-uzV"/>
                                     <constraint firstItem="1h7-Bv-hvU" firstAttribute="top" secondItem="gZh-fa-6fT" secondAttribute="top" id="qbb-lK-htf"/>
                                     <constraint firstItem="vJy-sf-hhh" firstAttribute="top" secondItem="oTb-KW-n6A" secondAttribute="top" constant="15" id="xte-CK-Ljb"/>
                                 </constraints>
@@ -1059,8 +1069,10 @@ The order book is empty</string>
                         <outlet property="labelEmptyData" destination="g3G-eE-Pg3" id="N11-2g-2DO"/>
                         <outlet property="labelLoadingData" destination="ZDl-GU-fsY" id="Px6-nt-4ky"/>
                         <outlet property="viewEmptyData" destination="S2B-rd-5Sq" id="wlv-TK-YmD"/>
-                        <outlet property="viewLastVisibleCandle" destination="Ok9-gN-uPU" id="9go-Pc-IM6"/>
-                        <outlet property="viewLastVisibleCandleOffset" destination="4PY-uf-2bP" id="SwS-B1-Xxj"/>
+                        <outlet property="viewHighlightedCandle" destination="FVk-Li-tZ9" id="pGZ-vs-too"/>
+                        <outlet property="viewHighlightedCandleOffset" destination="8o6-KQ-xOh" id="1K3-Is-dkz"/>
+                        <outlet property="viewLastVisibleCandle" destination="gfp-bm-fGF" id="zag-En-2Go"/>
+                        <outlet property="viewLastVisibleCandleOffset" destination="QaO-Eq-jsq" id="ctu-fq-vTM"/>
                         <outlet property="viewLoadingInfo" destination="m4h-Np-Twc" id="5x9-qC-OI0"/>
                     </connections>
                 </viewController>

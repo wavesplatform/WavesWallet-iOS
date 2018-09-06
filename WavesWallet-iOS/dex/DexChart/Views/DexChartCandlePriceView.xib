@@ -12,60 +12,50 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexChartCandlePriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="bgViewPrice" destination="Hvi-gU-bsc" id="59b-yN-kSC"/>
-                <outlet property="labelPrice" destination="4Yo-mS-Ofe" id="J81-NV-emJ"/>
-                <outlet property="viewSeparator" destination="Qv7-mY-GDN" id="jp6-6S-6Jd"/>
+                <outlet property="labelPrice" destination="1v4-W9-7hr" id="SQK-1M-uh4"/>
+                <outlet property="viewLine" destination="T5O-rC-5Xd" id="AAp-MC-fgY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hvi-gU-bsc">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1v4-W9-7hr">
                     <rect key="frame" x="325" y="0.0" width="50" height="16"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.000784" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yo-mS-Ofe">
-                            <rect key="frame" x="0.0" y="0.0" width="50" height="16"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" red="0.8980392157" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="4Yo-mS-Ofe" secondAttribute="bottom" id="5Gr-XJ-wST"/>
-                        <constraint firstItem="4Yo-mS-Ofe" firstAttribute="leading" secondItem="Hvi-gU-bsc" secondAttribute="leading" id="HzY-4w-rhY"/>
-                        <constraint firstAttribute="trailing" secondItem="4Yo-mS-Ofe" secondAttribute="trailing" id="bEf-Tf-TvN"/>
-                        <constraint firstItem="4Yo-mS-Ofe" firstAttribute="top" secondItem="Hvi-gU-bsc" secondAttribute="top" id="gEN-Nn-eQg"/>
-                        <constraint firstAttribute="width" constant="50" id="mwv-2E-dzN"/>
+                        <constraint firstAttribute="width" constant="50" id="YCw-C1-ZH5"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="2"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qv7-mY-GDN">
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5O-rC-5Xd">
                     <rect key="frame" x="0.0" y="8" width="325" height="0.5"/>
                     <color key="backgroundColor" red="0.8980392157" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="0.5" id="8Du-Xo-moA"/>
+                        <constraint firstAttribute="height" constant="0.5" id="ctK-OB-07A"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Hvi-gU-bsc" secondAttribute="trailing" id="0XR-L4-8c6"/>
-                <constraint firstItem="Hvi-gU-bsc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="DKX-Q4-zDd"/>
-                <constraint firstAttribute="bottom" secondItem="Hvi-gU-bsc" secondAttribute="bottom" id="HQe-gp-wwJ"/>
-                <constraint firstItem="Hvi-gU-bsc" firstAttribute="leading" secondItem="Qv7-mY-GDN" secondAttribute="trailing" id="HZ1-aL-ZpX"/>
-                <constraint firstItem="Qv7-mY-GDN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="br3-6D-ZzL"/>
-                <constraint firstItem="Qv7-mY-GDN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="vAD-EQ-Esl"/>
+                <constraint firstItem="1v4-W9-7hr" firstAttribute="leading" secondItem="T5O-rC-5Xd" secondAttribute="trailing" id="2aI-Zk-vgr"/>
+                <constraint firstItem="T5O-rC-5Xd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="HVy-qT-O8F"/>
+                <constraint firstItem="T5O-rC-5Xd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ZPE-86-3Jg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1v4-W9-7hr" secondAttribute="trailing" id="bSN-ck-1CN"/>
+                <constraint firstItem="1v4-W9-7hr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dJJ-HM-NoG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="1v4-W9-7hr" secondAttribute="bottom" id="pV1-Yz-Hf5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="33.5" y="54"/>
+            <point key="canvasLocation" x="101.5" y="54"/>
         </view>
     </objects>
 </document>

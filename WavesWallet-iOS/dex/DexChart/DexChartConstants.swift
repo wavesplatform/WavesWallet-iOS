@@ -24,9 +24,9 @@ extension DexChart.ChartContants.Candle {
     enum DataSet {
         static let decreasingColor = UIColor.error400
         static let increasingColor = UIColor.submit300
-        static let neutralColor = UIColor.basic700
         static let highlightLineWidth: CGFloat = 0.5
         static let highlightColor = UIColor.basic700
+        static let highlightLineDashLengths: [CGFloat] = [5, 5]
         static let shadowWidth: CGFloat = 0.7
     }
     

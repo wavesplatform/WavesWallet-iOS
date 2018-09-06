@@ -29,8 +29,11 @@ final class DexChartViewController: UIViewController {
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelChartTopInfo: UILabel!
     
-    @IBOutlet private weak var viewLastVisibleCandle: DexChartCandlePriceView!
     @IBOutlet private weak var viewLastVisibleCandleOffset: NSLayoutConstraint!
+    @IBOutlet weak var viewLastVisibleCandle: DexChartCandlePriceView!
+    
+    @IBOutlet private weak var viewHighlightedCandle: DexChartCandlePriceView!
+    @IBOutlet private weak var viewHighlightedCandleOffset: NSLayoutConstraint!
     
     private var chartHelper = DexChartHelper()
     private var state = DexChart.State.initialState
@@ -104,25 +107,10 @@ fileprivate extension DexChartViewController {
 //MARK: - SetupUI
 
 private extension DexChartViewController {
-
-    func setupLimitLinePosition() {
-        
-//        viewLastCandlePriceOffset.constant = chartHelper.lastPricePosition(candleChartView: candleChartView) -
-//            viewLastCandlePrice.frame.size.height / 2
-//
-//        if viewLastCandlePriceOffset.constant > candleChartView.frame.size.height - 30 ||
-//            viewLastCandlePriceOffset.constant < 5 {
-//            viewLastCandlePrice.isHidden = true
-//        }
-//        else {
-//            viewLastCandlePrice.isHidden = false
-//        }
-    }
     
     func setupUpdatingState() {
         viewEmptyData.isHidden = true
         viewLoadingInfo.isHidden = false
-        
         candleChartView.isHidden = true
         barChartView.isHidden = true
         labelChartTopInfo.isHidden = true
@@ -132,7 +120,6 @@ private extension DexChartViewController {
     func setupLoadingState() {
         viewEmptyData.isHidden = true
         viewLoadingInfo.isHidden = false
-
         headerView.isHidden = true
         candleChartView.isHidden = true
         barChartView.isHidden = true
@@ -154,8 +141,6 @@ private extension DexChartViewController {
         labelLoadingData.text = Localizable.DexChart.Label.loadingChart
         labelEmptyData.text = Localizable.DexChart.Label.emptyData
     }
-    
-    
 }
 
 //MARK: - DexChartHeaderViewDelegate
@@ -208,11 +193,13 @@ extension DexChartViewController: ChartViewDelegate {
         }
         
         setupLastVisibleCandle()
+        updateHighlightedPosition()
     }
     
     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
         
         setupLastVisibleCandle()
+        updateHighlightedPosition()
         
         if chartView == candleChartView {
             barChartView.moveViewToX(candleChartView.lowestVisibleX)
@@ -224,36 +211,11 @@ extension DexChartViewController: ChartViewDelegate {
         if state.candles.count > DexChartHelper.minCountCandlesToZoom {
             
             let value = round(candleChartView.lowestVisibleX)
-            
-            if let candle = state.candles.first {
-                
-                if value == candle.timestamp && !state.isPreloading {
-                    sendEvent.accept(.preloading(candleLowestVisibleX: candleChartView.lowestVisibleX))
-                    
-//                    lastOffsetX = candleChartView.lowestVisibleX
-//                    let prevCount = self.candles.count
-//                    
-//                    preloadInfo {
-//                        
-//                        if self.candles.count > prevCount {
-//                            
-//                            let zoom = CGFloat(self.candles.count) * self.candleChartView.scaleX / CGFloat(prevCount)
-//                            let additionalZoom = zoom / self.candleChartView.scaleX
-//                            
-//                            self.candleChartView.moveViewToAnimated(xValue: self.lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-//                            self.candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-//                            
-//                            self.barChartView.moveViewToAnimated(xValue: self.lastOffsetX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
-//                            self.barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-//                        }
-//                    }
-                }
+            let candle = state.candles[0]
+            if value == candle.timestamp && !state.isPreloading {
+                sendEvent.accept(.preloading(candleLowestVisibleX: candleChartView.lowestVisibleX))
             }
-            
-           
         }
-        
-//        setupLimitLinePosition()
     }
 }
 
@@ -263,54 +225,65 @@ private extension DexChartViewController {
 
     func setupLastVisibleCandle() {
         
-        let (position, color, text) = chartHelper.lastVisibleCandleInfo(candleChartView: candleChartView)
-        viewLastVisibleCandle.setup(textPrice: text, color: color)
-        viewLastVisibleCandleOffset.constant = position - viewLastVisibleCandle.frame.size.height / 2        
+        let (position, color, price) = chartHelper.lastVisibleCandleInfo(candleChartView: candleChartView)
+        viewLastVisibleCandle.setup(price: price, color: color)
+        viewLastVisibleCandleOffset.constant = position - viewLastVisibleCandle.frame.size.height / 2
     }
     
     func setupCharts() {
         candleChartView.delegate = self
         barChartView.delegate = self
         chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
+        viewHighlightedCandle.highlightedMode = true
+        viewHighlightedCandle.isHidden = true
     }
+    
+    func updateHighlightedPosition() {
+        if candleChartView.highlighted.count > 0 {
+            let (positionY, _, _) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView, state: state)
+            viewHighlightedCandleOffset.constant = positionY - viewHighlightedCandle.frame.size.height / 2
+        }
+    }
+    
     
     func setupCandleChartInfo() {
         
         let title = pair.amountAsset.name + " / " + pair.priceAsset.name
         
-        if let highlighted = candleChartView.highlighted.first, state.candles.count > 0 {
+        let isVisibleHighlight = candleChartView.highlighted.count > 0
+        
+        viewHighlightedCandle.isHidden = !isVisibleHighlight
+        
+        if isVisibleHighlight {
             
-            for model in state.candles {
-                if model.timestamp == highlighted.x {
-                    
-                    labelChartTopInfo.text = String(format: "%@, %@, %@\nO: %0.8f, H: %0.8f,\nL: %0.8f, C: %0.8f, V: %0.6f",
-                                                    title, state.timeFrame.shortText,
-                                                    model.formatterTime(timeFrame: state.timeFrame),
-                                                    model.open,
-                                                    model.high,
-                                                    model.low,
-                                                    model.close,
-                                                    model.volume)
-                }
-            }
+            let (_, topTitle, price) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView, state: state)
+            
+            labelChartTopInfo.text = title + ", " + topTitle
+
+            viewHighlightedCandle.setup(price: price, color: UIColor.basic700)
+            updateHighlightedPosition()
         }
         else {
-            labelChartTopInfo.text = "\(title), \(state.timeFrame.shortText)"
+            labelChartTopInfo.text = title + ", " + state.timeFrame.shortText
         }
     }
    
     func setupChartData(state: DexChart.State) {
         
         
-        self.chartHelper.setupChartData(candleChartView: self.candleChartView, barChartView: self.barChartView,
-                                        timeFrame: state.timeFrame,
-                                        candles: state.candles)
+        chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
+                                   timeFrame: state.timeFrame,
+                                   candles: state.candles)
    
        
         if state.action == .changeZoomAfterPreload {
-            chartHelper.zoom(candleChartView: candleChartView, barChartView: barChartView,
-                                        candles: state.candles,
-                                        lowestVisibleX: state.candleLowestVisibleX)
+            
+            DispatchQueue.main.async {
+                self.chartHelper.zoom(candleChartView: self.candleChartView, barChartView: self.barChartView,
+                                      candles: state.candles,
+                                      lowestVisibleX: state.candleLowestVisibleX)
+
+            }
         }
         else {
             chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
