@@ -21,7 +21,7 @@ final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
     }
     
     class func cellHeight() -> CGFloat {
-        return 64
+        return 62
     }
 }
 

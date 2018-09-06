@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOM-uj-UQi">
-                        <rect key="frame" x="275.5" y="31" width="87.5" height="20"/>
+                        <rect key="frame" x="275.5" y="29.5" width="87.5" height="20"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNCONFIRMED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNz-Il-78U">
                                 <rect key="frame" x="6" y="4" width="75.5" height="12"/>
@@ -53,11 +53,11 @@
                     <constraint firstItem="LvJ-dT-iUY" firstAttribute="top" secondItem="pqM-ct-X10" secondAttribute="top" constant="14" id="4Fz-WN-gRJ"/>
                     <constraint firstItem="YCM-Ct-kKg" firstAttribute="top" secondItem="LvJ-dT-iUY" secondAttribute="bottom" constant="6" id="IYC-B8-zLm"/>
                     <constraint firstItem="YCM-Ct-kKg" firstAttribute="leading" secondItem="pqM-ct-X10" secondAttribute="leading" constant="12" id="Kv5-bU-vSh"/>
+                    <constraint firstAttribute="bottom" secondItem="rOM-uj-UQi" secondAttribute="bottom" constant="14" id="kMF-pt-Fdr"/>
                     <constraint firstItem="LvJ-dT-iUY" firstAttribute="leading" secondItem="pqM-ct-X10" secondAttribute="leading" constant="12" id="qx2-xw-yuE"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="rOM-uj-UQi" firstAttribute="top" secondItem="vjH-VT-W6K" secondAttribute="top" constant="31" id="ASU-bD-EcP"/>
                 <constraint firstAttribute="trailing" secondItem="rOM-uj-UQi" secondAttribute="trailing" constant="12" id="reA-Ci-PnV"/>
             </constraints>
             <connections>

@@ -22,7 +22,7 @@ final class TransactionHistoryKeysValuesCell: UITableViewCell, NibReusable {
     }
     
     class func cellHeight() -> CGFloat {
-        return 66
+        return 62
     }
 }
 

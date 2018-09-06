@@ -8,6 +8,12 @@
 
 import UIKit
 
+private enum Constants {
+    static let padding: UIEdgeInsets = Platform.isIphone5 ? UIEdgeInsets(top: 14, left: 12, bottom: 14, right: 12) : UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 16)
+    static let titleToNameY: CGFloat = 6
+    static let nameToAddressY: CGFloat = 2
+}
+
 final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -20,21 +26,57 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         super.awakeFromNib()
     }
     
-    class func cellHeight(width: CGFloat, model: TransactionHistoryTypes.ViewModel.Recipient) -> CGFloat {
-        let titleHeight = "Sent to".maxHeight(font: UIFont.systemFont(ofSize: 13), forWidth: width)
+    fileprivate static func title(for model: TransactionHistoryTypes.ViewModel.Recipient) -> String {
+     
+        var title = ""
         
-        let nameToAddressY: CGFloat = (model.name != nil) ? 2 : 0
+        switch model.kind {
+        case .viewSend:
+            title = "Sent to"
+        case .viewReceived:
+            title = "Recieved from"
+        case .viewLeasing:
+            title = "Leasing to"
+        case .canceledLeasing:
+            title = "From"
+        case .incomingLeasing:
+            title = "From"
+        case .massSend:
+            title = "Recipient"
+        case .massReceived:
+            title = "From"
+        default:
+            title = ""
+        }
+        
+        return title
+        
+    }
+    
+}
+
+extension TransactionHistoryRecipientCell: ViewCalculateHeight {
+    
+    typealias Model = TransactionHistoryTypes.ViewModel.Recipient
+    
+    static func viewHeight(model: TransactionHistoryTypes.ViewModel.Recipient, width: CGFloat) -> CGFloat {
+        
+        let titleHeight = title(for: model).maxHeight(font: UIFont.systemFont(ofSize: 13), forWidth: width)
+        
+        let nameToAddressY: CGFloat = (model.name != nil) ? Constants.nameToAddressY : 0
         
         let nameHeight = model.name?.maxHeight(font: UIFont.systemFont(ofSize: 13), forWidth: width) ?? 0
         let addressHeight = model.address.maxHeight(font: UIFont.systemFont(ofSize: 10), forWidth: width)
         
-        return 14 + titleHeight + 6 + nameHeight + nameToAddressY + addressHeight + 14
+        return Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + addressHeight + Constants.padding.bottom
     }
+    
 }
 
 extension TransactionHistoryRecipientCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Recipient) {
-        titleLabel.text = "Sent to"
+        
+        titleLabel.text = TransactionHistoryRecipientCell.title(for: model)
         valueLabel.text = model.name
         keyLabel.text = model.address
         
