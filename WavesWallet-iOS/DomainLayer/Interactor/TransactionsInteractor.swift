@@ -141,7 +141,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
 
             let balance = Balance(currency: .init(title: asset.name,
                                                   ticker: asset.ticker),
-                                  money: .init(tx.amount, asset.quantity))
+                                  money: .init(tx.amount, asset.precision))
             let transfer: DomainLayer.DTO.Transaction.Transfer = .init(asset: asset, recipient: recipient)
 
             if isSenderAccount && isRecipientAccount {
@@ -156,14 +156,14 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             guard let asset = assets[tx.assetId] else { return nil }
             let balance = Balance(currency: .init(title: asset.name,
                                                   ticker: asset.ticker),
-                                  money: .init(tx.quantity, asset.quantity))
+                                  money: .init(tx.quantity, asset.precision))
             return DomainLayer.DTO.Transaction.Kind.tokenReissue(.init(asset: asset, balance: balance))
 
         case .burn(let tx):
             guard let asset = assets[tx.assetId] else { return nil }
             let balance = Balance(currency: .init(title: asset.name,
                                                   ticker: asset.ticker),
-                                  money: .init(tx.quantity, asset.quantity))
+                                  money: .init(tx.quantity, asset.precision))
             return DomainLayer.DTO.Transaction.Kind.tokenBurn(.init(asset: asset, balance: balance))
 
         case .exchange(let exchange):
