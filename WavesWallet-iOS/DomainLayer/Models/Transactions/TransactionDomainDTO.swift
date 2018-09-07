@@ -9,88 +9,78 @@
 import Foundation
 extension DomainLayer.DTO {
 
-    struct Recipient {
+    struct AssetPair {
+        var amountAsset: Asset
+        var priceAsset: Asset
+    }
+
+    struct Account {
         struct Contact {
             let name: String
         }
 
-        let sender: String
+        let id: String
         let contant: Contact?
     }
 
     struct Transaction {
 
         typealias Asset = DomainLayer.DTO.Asset
-        typealias Recipient = DomainLayer.DTO.Recipient
-
-        struct Receive {
-            let asset: Asset
-        }
+        typealias Account = DomainLayer.DTO.Account
 
         struct Transfer {
             let balance: Balance
             let asset: Asset
-            let recipient: Recipient
-        }
-
-        struct StartedLeasing {
-            let asset: Asset
+            let recipient: Account
         }
 
         struct Exchange {
+
             struct Order {
                 enum Kind {
                     case buy
                     case sell
                 }
-                let asset: Asset
+
+                let timestamp: Date
+                let expiration: Date
+                let sender: Account
+                let kind: Kind
+                let pair: AssetPair
+                let price: Balance
+                let amount: Balance
+                let total: Balance
             }
+
+            let price: Balance
+            let amount: Balance
+            let total: Balance
+            let buyMatcherFee: Balance
+            let sellMatcherFee: Balance
+            let order1: Order
+            let order2: Order
         }
 
-        struct CanceledLeasing {
+        struct Leasing {
             let asset: Asset
+            let balance: Balance
+            let account: Account
         }
 
-        struct TokenGeneration {
-            let asset: Asset            
-        }
-
-        struct TokenBurn {
+        struct Issue {
             let asset: Asset
             let balance: Balance
         }
 
-        struct TokenReissue {
-            let asset: Asset
-            let balance: Balance
-        }
+        struct MassTransfer {
+            struct Transfer {
+                let amount: Money
+                let recipient: Account
+            }
 
-        struct SelfTransfer {
+            let total: Balance
             let asset: Asset
-        }
-
-        struct CreatedAlias {
-            let asset: Asset
-        }
-
-        struct IncomingLeasing {
-            let asset: Asset
-        }
-
-        struct MassSent {
-            let asset: Asset
-        }
-
-        struct MassReceived {
-            let asset: Asset
-        }
-
-        struct SpamReceive {
-            let asset: Asset
-        }
-
-        struct SpamMassReceived {
-            let asset: Asset
+            let transfers: [Transfer]
         }
 
         struct Data {
@@ -99,22 +89,27 @@ extension DomainLayer.DTO {
         enum Kind {
             case receive(Transfer)
             case sent(Transfer)
+            case spamReceive(Transfer)
             case selfTransfer(Transfer)
 
-            case startedLeasing(StartedLeasing)
-            case exchange(Exchange)
-            case canceledLeasing(CanceledLeasing)
-            case tokenGeneration(TokenGeneration)
-            case tokenBurn(TokenBurn)
-            case tokenReissue(TokenReissue)
+            case startedLeasing(Leasing)
+            case canceledLeasing(Leasing)
+            case incomingLeasing(Leasing)
 
-            case createdAlias(CreatedAlias)
-            case incomingLeasing(IncomingLeasing)
+            case exchange(Exchange)
+
+            case tokenGeneration(Issue)
+            case tokenBurn(Issue)
+            case tokenReissue(Issue)
+
+            case createdAlias(String)
+
             case unrecognisedTransaction
-            case massSent(MassSent)
-            case massReceived(MassReceived)
-            case spamReceive(SpamReceive)
-            case spamMassReceived(SpamMassReceived)
+
+            case massSent(MassTransfer)
+            case massReceived(MassTransfer)
+            case spamMassReceived(MassTransfer)
+
             case data(Data)
         }
 

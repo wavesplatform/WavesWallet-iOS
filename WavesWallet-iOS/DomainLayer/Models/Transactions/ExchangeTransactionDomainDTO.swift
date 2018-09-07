@@ -10,14 +10,21 @@ import Foundation
 
 extension DomainLayer.DTO {
 
-    struct ExchangeTransaction: Decodable, Mutating {
-        struct Order: Decodable, Mutating {
+    struct ExchangeTransaction: Mutating {
+
+        struct Order: Mutating {
+
+            enum Kind {
+                case sell
+                case buy
+            }
+
             let id: String
             let sender: String
             let senderPublicKey: String
             let matcherPublicKey: String
             var assetPair: AssetPair
-            let orderType: String
+            let orderType: Kind
             let price: Int64
             let amount: Int64
             let timestamp: Int64
