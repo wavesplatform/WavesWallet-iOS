@@ -23,36 +23,6 @@ final class DexChartHelper {
     private var prevCandlesCount = 0
     
     static let minCountCandlesToZoom = 10
-
-//
-//    func updateCharts(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
-//
-//        if hasInitFirstTimeZoom {
-//
-//            if candles.count > 1 {
-//                let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(prevCandlesCount)
-//                let additionalZoom = zoom / candleChartView.scaleX
-//
-//                let minimumDuration = 0.00001
-//
-//                candleChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
-//
-//                barChartView.moveViewToAnimated(xValue: Double(CGFloat.greatestFiniteMagnitude), yValue: 0, axis: YAxis.AxisDependency.right, duration: minimumDuration)
-//
-//                if prevCandlesCount > 0 {
-//                    candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-//                    barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-//                }
-//
-//                candleChartView.highlightValue(nil)
-//                barChartView.highlightValue(nil)
-//            }
-//            
-//            prevCandlesCount = candles.count
-//        }
-//
-//    }
-//
 }
 
 
@@ -171,16 +141,40 @@ extension DexChartHelper {
         barChartView.rightAxis.axisMinimum = 0
         barChartView.rightAxis.forceLabelsEnabled = true
         barChartView.rightAxis.valueFormatter = DexChartBarRightAxisFormatter()
-        
+        barChartView.rightAxis.drawAxisLineEnabled = false
+
         barChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.drawAxisLineEnabled = false
     }
 }
 
 //MARK: - Zoom
 extension DexChartHelper {
+    
+    func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+        
+        if candles.count > 1 {
 
+            let newZoom = 1 / candleChartView.scaleX * Constants.defaultZoomScale
+       
+            candleChartView.moveViewToAnimated(xValue: Double.greatestFiniteMagnitude, yValue: 0, axis: YAxis.AxisDependency.right,
+                                               duration: Double.leastNormalMagnitude)
+
+            barChartView.moveViewToAnimated(xValue: Double.greatestFiniteMagnitude, yValue: 0, axis: YAxis.AxisDependency.right,
+                                            duration: Double.leastNormalMagnitude)
+
+            candleChartView.zoomToCenter(scaleX: newZoom, scaleY: 0)
+            barChartView.zoomToCenter(scaleX: newZoom, scaleY: 0)
+
+            candleChartView.highlightValue(nil)
+            barChartView.highlightValue(nil)
+        }
+        
+        prevCandlesCount = candles.count
+    }
+    
     func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle], lowestVisibleX: Double) {
         
         if candles.count > prevCandlesCount {
@@ -188,12 +182,12 @@ extension DexChartHelper {
             let zoom = CGFloat(candles.count) * candleChartView.scaleX / CGFloat(prevCandlesCount)
             let additionalZoom = zoom / candleChartView.scaleX
             
-            candleChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+            candleChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right,
+                                               duration: Double.leastNormalMagnitude)
             candleChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
-            
-//            barChartView.zoomAndCenterViewAnimated(scaleX: additionalZoom, scaleY: 0, xValue: lowestVisibleX, yValue: 0, axis: .right, duration: 0.00001)
 
-            barChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right, duration: 0.00001)
+            barChartView.moveViewToAnimated(xValue: lowestVisibleX, yValue: 0, axis: YAxis.AxisDependency.right,
+                                            duration: Double.leastNormalMagnitude)
             barChartView.zoomToCenter(scaleX: additionalZoom, scaleY: 0)
         }
         
@@ -257,7 +251,7 @@ extension DexChartHelper {
         return (positionY, color, price)
     }
     
-    func highlightedCandleInfo(candleChartView: CandleStickChartView, state: DexChart.State) -> (positionY: CGFloat, topTitle: String, price: Double) {
+    func highlightedCandleInfo(candleChartView: CandleStickChartView, highlightedView: UIView, state: DexChart.State) -> (positionY: CGFloat, topTitle: String, price: Double) {
         
         var title = ""
         var price: Double = 0
@@ -282,7 +276,17 @@ extension DexChartHelper {
                 if let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
                     var position = CGPoint(x: 0.0, y: CGFloat(candle.close))
                     position = position.applying(trans)
-                    positionY = position.y
+                    positionY = position.y - highlightedView.frame.size.height / 2
+                }
+                
+                let bottomAxisHeight: CGFloat = 28
+                let minimumTopPostition: CGFloat = 2
+                
+                if positionY < minimumTopPostition {
+                    positionY = minimumTopPostition
+                }
+                else if positionY > candleChartView.frame.size.height - bottomAxisHeight {
+                    positionY = candleChartView.frame.size.height - bottomAxisHeight - highlightedView.frame.size.height / 2
                 }
             }
         }

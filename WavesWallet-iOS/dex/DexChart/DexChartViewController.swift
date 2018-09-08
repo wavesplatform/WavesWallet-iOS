@@ -38,7 +38,8 @@ final class DexChartViewController: UIViewController {
     private var chartHelper = DexChartHelper()
     private var state = DexChart.State.initialState
     private let sendEvent: PublishRelay<DexChart.Event> = PublishRelay<DexChart.Event>()
-
+    private var lowestVisibleX: Double = 0
+    
     var pair: DexTraderContainer.DTO.Pair!
     var presenter: DexChartPresenterProtocol!
     
@@ -57,7 +58,6 @@ final class DexChartViewController: UIViewController {
         containerView.createTopCorners(radius: Constants.cornerRadius)
     }
 }
-
 
 // MARK: Feedback
 
@@ -85,9 +85,9 @@ fileprivate extension DexChartViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
-
                 strongSelf.state = state
+                guard state.action != .none else { return }
+                
                 strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
                 strongSelf.setupCandleChartInfo()
                 strongSelf.setupChartData(state: state)
@@ -150,7 +150,6 @@ extension DexChartViewController: DexChartHeaderViewDelegate {
         
         candleChartView.clear()
         barChartView.clear()
-        
         sendEvent.accept(.didChangeTimeFrame(timeFrame))
     }
 }
@@ -194,6 +193,8 @@ extension DexChartViewController: ChartViewDelegate {
         
         setupLastVisibleCandle()
         updateHighlightedPosition()
+        
+        lowestVisibleX = candleChartView.lowestVisibleX
     }
     
     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
@@ -208,12 +209,14 @@ extension DexChartViewController: ChartViewDelegate {
             candleChartView.moveViewToX(barChartView.lowestVisibleX)
         }
         
+        lowestVisibleX = candleChartView.lowestVisibleX
+        
         if state.candles.count > DexChartHelper.minCountCandlesToZoom {
-            
+
             let value = round(candleChartView.lowestVisibleX)
             let candle = state.candles[0]
             if value == candle.timestamp && !state.isPreloading {
-                sendEvent.accept(.preloading(candleLowestVisibleX: candleChartView.lowestVisibleX))
+                sendEvent.accept(.preloading)
             }
         }
     }
@@ -240,8 +243,10 @@ private extension DexChartViewController {
     
     func updateHighlightedPosition() {
         if candleChartView.highlighted.count > 0 {
-            let (positionY, _, _) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView, state: state)
-            viewHighlightedCandleOffset.constant = positionY - viewHighlightedCandle.frame.size.height / 2
+            let (positionY, _, _) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView,
+                                                                      highlightedView: viewHighlightedCandle,
+                                                                      state: state)
+            viewHighlightedCandleOffset.constant = positionY
         }
     }
     
@@ -256,12 +261,14 @@ private extension DexChartViewController {
         
         if isVisibleHighlight {
             
-            let (_, topTitle, price) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView, state: state)
+            let (positionY, topTitle, price) = chartHelper.highlightedCandleInfo(candleChartView: candleChartView,
+                                                                         highlightedView:viewHighlightedCandle,
+                                                                         state: state)
             
             labelChartTopInfo.text = title + ", " + topTitle
 
             viewHighlightedCandle.setup(price: price, color: UIColor.basic700)
-            updateHighlightedPosition()
+            viewHighlightedCandleOffset.constant = positionY
         }
         else {
             labelChartTopInfo.text = title + ", " + state.timeFrame.shortText
@@ -270,20 +277,17 @@ private extension DexChartViewController {
    
     func setupChartData(state: DexChart.State) {
         
-        
         chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
                                    timeFrame: state.timeFrame,
                                    candles: state.candles)
-   
-       
-        if state.action == .changeZoomAfterPreload {
-            
-            DispatchQueue.main.async {
-                self.chartHelper.zoom(candleChartView: self.candleChartView, barChartView: self.barChartView,
-                                      candles: state.candles,
-                                      lowestVisibleX: state.candleLowestVisibleX)
 
-            }
+        if state.action == .zoomAfterPreloading {
+            chartHelper.zoom(candleChartView: candleChartView, barChartView: barChartView,
+                             candles: state.candles,
+                             lowestVisibleX: lowestVisibleX)
+        }
+        else if state.action == .zoomAfterTimeFrameChanged {
+            chartHelper.updateAfterTimeFrameChanged(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
         }
         else {
             chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)

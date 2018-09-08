@@ -41,19 +41,25 @@ final class DexChartBarAxisFormatter: IAxisValueFormatter {
 //MARK: - DexChartBarRightAxisFormatter
 final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
-    private static let numberFormatter = NumberFormatter()
-    
-    init() {
-        DexChartBarRightAxisFormatter.numberFormatter.maximumFractionDigits = 5
-        DexChartBarRightAxisFormatter.numberFormatter.decimalSeparator = " "
-        DexChartBarRightAxisFormatter.numberFormatter.groupingSeparator = ","
-    }
-    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        if let string = DexChartBarRightAxisFormatter.numberFormatter.string(from: NSNumber(value: value)) {
-            return string
+        if value < 10 {
+            return String(Int(value))
         }
-        return ""
+        else if value < 100 {
+            return String(roundTo(value: value, to: 10))
+        }
+        else if value < 1000 {
+            return String(roundTo(value: value, to: 100))
+        }
+        else {
+            let val = roundTo(value: value, to: 1000)
+            return String(val / 1000) + "K"
+        }
+    }
+    
+    private func roundTo(value: Double, to: Int) -> Int {
+        return Int(Double(to) * floor(value / Double(to) + 0.5))
+        
     }
 }
