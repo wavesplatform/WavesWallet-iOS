@@ -67,7 +67,6 @@ extension DexList.DTO {
     }
     
     struct Pair: Hashable, Mutating {
-        
         var firstPrice: Money
         var lastPrice: Money
         let amountAsset: Asset

@@ -54,23 +54,6 @@ final class DexListViewController: UIViewController {
         }
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let amountAsset = DexTraderContainer.DTO.Asset(id: "WAVES", name: "WAVES", decimals: 8)
-            let priceAsset = DexTraderContainer.DTO.Asset(id: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", name: "BTC", decimals: 8)
-            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false)
-            
-            let vc = StoryboardScene.Dex.dexTraderContainerViewController.instantiate()
-            vc.pair = tradePair
-            
-            vc.addViewController(DexOrderBookModuleBuilder().build(input: tradePair))
-            vc.addViewController(DexChartModuleBuilder().build(input: tradePair))
-            vc.addViewController(DexLastTradesModuleBuilder().build(input: tradePair))
-            vc.addViewController(DexMyOrdersModuleMuilder().build(input: tradePair))
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
