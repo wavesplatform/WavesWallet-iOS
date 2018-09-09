@@ -27,8 +27,6 @@ final class DexTraderContainerViewController: UIViewController {
         addBgBlueImage()
         addInfoButton()
         buildControllers()        
-        
-        scrollToPageIndex(1)
     }
 
     override func viewWillAppear(_ animated: Bool) {
