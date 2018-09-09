@@ -9,5 +9,5 @@
 import UIKit
 
 protocol DexTraderContainerInputProtocol {
-    func addViewController(_ viewController: UIViewController)
+    func addViewController(_ viewController: UIViewController, isScrollEnabled: Bool)
 }
