@@ -62,7 +62,19 @@ final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        if value < 10 {
+        if value == 0 {
+            return String(Int(value))
+        }
+        else if value < 0.01 {
+            return String(format: "%0.3f", value)
+        }
+        else if value < 0.1 {
+            return String(format: "%0.2f", value)
+        }
+        else if value < 1 {
+            return String(format: "%0.1f", value)
+        }
+        else if value < 10 {
             return String(Int(value))
         }
         else if value < 100 {
