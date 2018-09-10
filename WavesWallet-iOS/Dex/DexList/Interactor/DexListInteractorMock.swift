@@ -17,7 +17,8 @@ fileprivate extension DexList.DTO.Pair {
         let amountAsset = DexList.DTO.Asset(id: amountAsset, name: amountAssetName, decimals: amountDecimals, ticker: amountTicker)
         let priceAsset = DexList.DTO.Asset(id: priceAsset, name: priceAssetName, decimals: priceDecimals, ticker: priceTicker)
         
-        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false)
+        let isFiat = DexList.DTO.fiatAssets.contains(amountAsset.id) ||  DexList.DTO.fiatAssets.contains(priceAsset.id)
+        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false, isFiat: isFiat)
     }
 }
 
@@ -34,6 +35,9 @@ final class DexListInteractorMock: DexListInteractorProtocol {
         DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", "ETH", 8, "WAVES", "WAVES", "WAVES", 8),
         DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234), "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8,
                                     "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", "ETH", 8),
+        
+        DexList.DTO.Pair.createPair(Money(120.0), Money(434.15), "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", "BTC", 8, "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", "USD", 8),        
+        
         DexList.DTO.Pair.createPair(Money(120), Money(20.32423423423424235453643), "ETH Classic", "ETH Classic", "ETH Classic",
                                     8, "IOTA", "IOTA", "IOTA", 8),
         DexList.DTO.Pair.createPair(Money(40), Money(20.32), "Monero", "Monero", "Monero", 8,

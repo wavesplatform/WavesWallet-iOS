@@ -8,13 +8,22 @@
 
 import UIKit
 
+private enum Constants {
+    static let additionalDeltaWidth: CGFloat = 7
+    static let cornerRadius: CGFloat = 2
+}
+
 final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var viewLine: UIView!
+    @IBOutlet weak var viewBgPrice: UIView!
+    @IBOutlet weak var viewPriceWidth: NSLayoutConstraint!
     
     private var shapeLayer: CAShapeLayer?
-    
+    private var isNeedUpdateConstraints = false
+    private var width: CGFloat = 0
+
     var highlightedMode = false {
         didSet {
             viewLine.isHidden = highlightedMode
@@ -26,15 +35,35 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
         }
     }
     
+    override func updateConstraints() {
+        if isNeedUpdateConstraints {
+            isNeedUpdateConstraints = false
+            viewPriceWidth.constant = width
+            viewBgPrice.layer.cornerRadius = Constants.cornerRadius
+        }
+        
+        super.updateConstraints()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
     
-    func setup(price: Double, color: UIColor) {
+    func setupWidth(candles: [DexChart.DTO.Candle], isFiatPair: Bool) {
+        if width == 0 {
+            width = DexChartHelper.candleRightWidth(candles: candles, isFiatPair: isFiatPair) + Constants.additionalDeltaWidth
+            isNeedUpdateConstraints = true
+            setNeedsUpdateConstraints()
+        }
+    }
+    
+    func setup(price: Double, color: UIColor, isFiatPair: Bool) {
+   
+        let numberFormatter = isFiatPair ? DexChart.DTO.Candle.fiatFormatter : DexChart.DTO.Candle.defaultFormatter
         
-        labelPrice.text = String(format: "%0.6f", price)
-        labelPrice.backgroundColor = color
+        labelPrice.text = numberFormatter.string(from: NSNumber(value: price))
+        viewBgPrice.backgroundColor = color
         viewLine.backgroundColor = color
         
         if highlightedMode && shapeLayer == nil {
