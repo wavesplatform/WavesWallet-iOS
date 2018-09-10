@@ -24,5 +24,6 @@ extension DexTraderContainer.DTO {
         let amountAsset: Asset
         let priceAsset: Asset
         let isHidden: Bool
+        let isFiat: Bool
     }
 }

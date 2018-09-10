@@ -15,14 +15,16 @@ private enum Constants {
     typealias Bar = ChartContants.Bar
     
     static let defaultZoomScale: CGFloat = 8
+    static let deltaRightAxisWidth: CGFloat = 15
 }
 
 final class DexChartHelper {
 
+    static let minCountCandlesToZoom = 10
+
     private var hasInitFirstTimeZoom = false
     private var prevCandlesCount = 0
-    
-    static let minCountCandlesToZoom = 10
+    private var hasInitRightAxisWidth = false
 }
 
 
@@ -30,7 +32,18 @@ final class DexChartHelper {
 extension DexChartHelper {
     
     
-    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle]) {
+    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle], isFiatPair: Bool) {
+        
+        if !hasInitRightAxisWidth && candles.count > 0 {
+            hasInitRightAxisWidth = true
+            
+            let width = DexChartHelper.candleRightWidth(candles: candles, isFiatPair: isFiatPair) + Constants.deltaRightAxisWidth
+            candleChartView.rightAxis.minWidth = width
+            candleChartView.rightAxis.maxWidth = width
+
+            barChartView.rightAxis.minWidth = width
+            barChartView.rightAxis.maxWidth = width
+        }
         
         if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
             formatter.timeFrame = timeFrame.rawValue
@@ -84,7 +97,7 @@ extension DexChartHelper {
 //MARK: - Setup UI
 extension DexChartHelper {
 
-    func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView) {
+    func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView, isFiatPair: Bool) {
         
         candleChartView.chartDescription?.enabled = false
         candleChartView.pinchZoomEnabled = false
@@ -112,9 +125,7 @@ extension DexChartHelper {
         candleChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         candleChartView.rightAxis.labelTextColor = Constants.Candle.RightAxis.labelTextColor
         candleChartView.rightAxis.labelFont = Constants.Candle.RightAxis.labelFont
-        candleChartView.rightAxis.valueFormatter = CandleAxisValueFormatter()
-        candleChartView.rightAxis.minWidth = Constants.ChartContants.minWidth
-        candleChartView.rightAxis.maxWidth = Constants.ChartContants.maxWidth
+        candleChartView.rightAxis.valueFormatter = DexChartCandleRightAxisFormatter(isFiatPair: isFiatPair)
         candleChartView.rightAxis.forceLabelsEnabled = true
         candleChartView.rightAxis.drawAxisLineEnabled = false
         
@@ -136,8 +147,6 @@ extension DexChartHelper {
         barChartView.rightAxis.labelTextColor = Constants.Bar.RightAxis.labelTextColor
         barChartView.rightAxis.labelFont = Constants.Bar.RightAxis.labelFont
         barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
-        barChartView.rightAxis.minWidth = Constants.ChartContants.maxWidth
-        barChartView.rightAxis.maxWidth = Constants.ChartContants.maxWidth
         barChartView.rightAxis.axisMinimum = 0
         barChartView.rightAxis.forceLabelsEnabled = true
         barChartView.rightAxis.valueFormatter = DexChartBarRightAxisFormatter()
@@ -292,5 +301,19 @@ extension DexChartHelper {
         }
         
         return (positionY, title, price)
+    }
+    
+    static func candleRightWidth(candles: [DexChart.DTO.Candle], isFiatPair: Bool) -> CGFloat {
+       
+        if candles.count > 0 {
+            let price = candles[0].close
+            let numberFormatter = isFiatPair ? DexChart.DTO.Candle.fiatFormatter : DexChart.DTO.Candle.defaultFormatter
+            
+            if let string = numberFormatter.string(from: NSNumber(value: price)) {
+                return string.maxWidth(font: DexChart.ChartContants.Candle.RightAxis.labelFont)
+            }
+        }
+        
+        return 0
     }
 }

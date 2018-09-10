@@ -229,14 +229,14 @@ private extension DexChartViewController {
     func setupLastVisibleCandle() {
         
         let (position, color, price) = chartHelper.lastVisibleCandleInfo(candleChartView: candleChartView)
-        viewLastVisibleCandle.setup(price: price, color: color)
+        viewLastVisibleCandle.setup(price: price, color: color, isFiatPair: pair.isFiat)
         viewLastVisibleCandleOffset.constant = position - viewLastVisibleCandle.frame.size.height / 2
     }
     
     func setupCharts() {
         candleChartView.delegate = self
         barChartView.delegate = self
-        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView)
+        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView, isFiatPair: pair.isFiat)
         viewHighlightedCandle.highlightedMode = true
         viewHighlightedCandle.isHidden = true
     }
@@ -267,7 +267,7 @@ private extension DexChartViewController {
             
             labelChartTopInfo.text = title + ", " + topTitle
 
-            viewHighlightedCandle.setup(price: price, color: UIColor.basic700)
+            viewHighlightedCandle.setup(price: price, color: UIColor.basic700, isFiatPair: pair.isFiat)
             viewHighlightedCandleOffset.constant = positionY
         }
         else {
@@ -279,7 +279,8 @@ private extension DexChartViewController {
         
         chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
                                    timeFrame: state.timeFrame,
-                                   candles: state.candles)
+                                   candles: state.candles,
+                                   isFiatPair: pair.isFiat)
 
         if state.action == .zoomAfterPreloading {
             chartHelper.zoom(candleChartView: candleChartView, barChartView: barChartView,
@@ -292,6 +293,8 @@ private extension DexChartViewController {
         else {
             chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
         }
+        viewLastVisibleCandle.setupWidth(candles: state.candles, isFiatPair: pair.isFiat)
+        viewHighlightedCandle.setupWidth(candles: state.candles, isFiatPair: pair.isFiat)
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.setupLastVisibleCandle()

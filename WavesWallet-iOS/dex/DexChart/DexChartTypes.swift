@@ -8,6 +8,11 @@
 
 import Foundation
 
+private enum Constants {
+    static let fiatDecimals = 2
+    static let defaultDecimals = 8
+}
+
 enum DexChart {
     enum DTO {}
     enum ViewModel {}
@@ -77,6 +82,27 @@ extension DexChart.DTO.Candle {
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         return dateFormatter
     }()
+    
+    static let fiatFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = "."
+        formatter.usesGroupingSeparator = false
+        formatter.minimumFractionDigits = Constants.fiatDecimals
+        formatter.maximumFractionDigits = Constants.fiatDecimals
+        return formatter
+    }()
+    
+    static let defaultFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = "."
+        formatter.usesGroupingSeparator = false
+        formatter.minimumFractionDigits = Constants.defaultDecimals
+        formatter.maximumFractionDigits = Constants.defaultDecimals
+        return formatter
+    }()
+    
 }
 
 
