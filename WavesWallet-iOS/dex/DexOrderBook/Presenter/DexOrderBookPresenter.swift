@@ -15,6 +15,8 @@ import RxCocoa
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
     var interactor: DexOrderBookInteractorProtocol!
+    weak var moduleOutput: DexOrderBookModuleOutput?
+    
     private let disposeBag = DisposeBag()
  
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
@@ -86,15 +88,19 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid):
+            moduleOutput?.didTapBid(bid)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
+            moduleOutput?.didTapEmptyBid()
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
+            moduleOutput?.didTapAsk(ask)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
+            moduleOutput?.didTamEmptyAsk()
             return state.changeAction(.none)
         }
     }

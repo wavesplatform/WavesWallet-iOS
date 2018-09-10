@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct DexOrderBookModuleBuilder: ModuleBuilder {
+struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
+    
+    var output: DexOrderBookModuleOutput
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
        
@@ -17,9 +19,10 @@ struct DexOrderBookModuleBuilder: ModuleBuilder {
         
         var presenter: DexOrderBookPresenterProtocol = DexOrderBookPresenter()
         presenter.interactor = interactor
-        
+        presenter.moduleOutput = output
         let vc = StoryboardScene.Dex.dexOrderBookViewController.instantiate()
         vc.presenter = presenter
         return vc
     }
+    
 }
