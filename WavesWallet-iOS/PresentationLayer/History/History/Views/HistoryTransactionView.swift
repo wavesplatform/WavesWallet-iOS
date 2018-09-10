@@ -32,19 +32,99 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
         viewContainer.addTableCellShadowStyle()
         viewContainer.cornerRadius = 2
     }
-    
 }
 
-extension HistoryTransactionView: ViewConfiguration {
-    
-    func update(with model: GeneralTypes.DTO.Transaction) {
+fileprivate extension HistoryTransactionView {
 
-//        imageViewIcon.image = model.kind.image
-//        labelTitle.text = model.kind.title
-//        tickerView.isHidden = true
-//        labelValue.text = nil
-//
-//        if let asset = model.kind.asset {
+    func updateValue(with asset: DomainLayer.DTO.Asset, balance: Balance) {
+
+        if asset.isSpam {
+            tickerView.isHidden = false
+            tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
+                                          style: .normal))
+        } else if let ticker = balance.currency.ticker {
+            tickerView.isHidden = false
+            tickerView.update(with: .init(text: ticker,
+                                          style: .soft))
+            labelValue.attributedText = .styleForBalance(text: balance.displayTextWithoutCurrencyName,
+                                                         font: labelValue.font)
+        } else {
+            tickerView.isHidden = true
+            labelValue.attributedText = .styleForBalance(text: balance.displayText,
+                                                         font: labelValue.font)
+        }
+    }
+
+}
+
+// TODO: ViewConfiguration
+
+extension HistoryTransactionView: ViewConfiguration {
+
+    typealias Model = DomainLayer.DTO.SmartTransaction
+
+    func update(with model: DomainLayer.DTO.SmartTransaction) {
+
+        imageViewIcon.image = model.image
+        labelTitle.text = model.title
+        tickerView.isHidden = true
+        labelValue.text = nil
+
+        switch model.kind {
+        case .receive(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .sent(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .startedLeasing(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .exchange(let tx):
+            updateValue(with: tx.order1.pair.amountAsset, balance: tx.order1.amount)
+
+
+        case .canceledLeasing(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .tokenGeneration(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .tokenBurn(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .tokenReissue(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .selfTransfer(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .createdAlias(let name):
+            labelValue.text = name
+
+        case .incomingLeasing(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .unrecognisedTransaction:
+            labelValue.text = nil
+
+        case .massSent(let tx):
+            updateValue(with: tx.asset, balance: tx.total)
+
+        case .massReceived(let tx):
+            updateValue(with: tx.asset, balance: tx.total)
+
+        case .spamReceive(let tx):
+            updateValue(with: tx.asset, balance: tx.balance)
+
+        case .spamMassReceived(let tx):
+            updateValue(with: tx.asset, balance: tx.total)
+
+        case .data:
+            labelValue.text = "Entry in blockchain"
+        }
+
+
 //            if asset.isSpam {
 //                tickerView.isHidden = false
 //                tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
@@ -54,7 +134,7 @@ extension HistoryTransactionView: ViewConfiguration {
 //                tickerView.update(with: .init(text: asset.name,
 //                                              style: .soft))
 //            }
-//
+
 //            labelValue.attributedText = .styleForBalance(text: asset.title,
 //                                                        font: labelValue.font)
 //        } else {
@@ -81,119 +161,63 @@ fileprivate extension GeneralTypes.DTO.Transaction.Asset {
     }
 }
 
-extension GeneralTypes.DTO.Transaction {
+extension DomainLayer.DTO.SmartTransaction {
 
-//    var asset: GeneralTypes.DTO.Transaction.Asset? {
-//
-//        switch kind {
-//        case .receive(let tx):
-//            return GeneralTypes.DTO.Transaction.Asset(
-//
-//        case .sent(let asset):
-//            return asset
-//
-//        case .startedLeasing(let asset):
-//            return asset
-//
-//        case .exchange(_, _):
-//            return from
-//
-//        case .canceledLeasing(let asset):
-//            return asset
-//
-//        case .tokenGeneration(let asset):
-//            return asset
-//
-//        case .tokenBurn(let asset):
-//            return asset
-//
-//        case .tokenReissue(let asset):
-//            return asset
-//
-//        case .selfTransfer(let asset):
-//            return asset
-//
-//        case .createdAlias:
-//            return nil
-//
-//        case .incomingLeasing(let asset):
-//            return asset
-//
-//        case .unrecognisedTransaction:
-//            return nil
-//
-//        case .massSent(let asset):
-//            return asset
-//
-//        case .massReceived(let asset):
-//            return asset
-//
-//        case .spamReceive(let asset):
-//            return asset
-//
-//        case .spamMassReceived(let asset):
-//            return asset
-//
-//        case .data:
-//            return nil
-//        }
-//    }
-//
-//    var title: String {
-//
-//        switch kind {
-//        case .receive:
-//            return Localizable.General.History.Transaction.Title.received
-//
-//        case .sent:
-//            return Localizable.General.History.Transaction.Title.sent
-//
-//        case .startedLeasing:
-//            return Localizable.General.History.Transaction.Title.startedLeasing
-//
-//        case .exchange(_, _):
-//            return "" //from.title
-//
-//        case .canceledLeasing:
-//            return Localizable.General.History.Transaction.Title.canceledLeasing
-//
-//        case .tokenGeneration:
-//            return Localizable.General.History.Transaction.Title.tokenGeneration
-//
-//        case .tokenBurn:
-//            return Localizable.General.History.Transaction.Title.tokenBurn
-//
-//        case .tokenReissue:
-//            return Localizable.General.History.Transaction.Title.tokenReissue
-//
-//        case .selfTransfer:
-//            return Localizable.General.History.Transaction.Title.selfTransfer
-//
-//        case .createdAlias:
-//            return Localizable.General.History.Transaction.Title.alias
-//
-//        case .incomingLeasing:
-//            return Localizable.General.History.Transaction.Title.incomingLeasing
-//
-//        case .unrecognisedTransaction:
-//            return Localizable.General.History.Transaction.Title.unrecognisedTransaction
-//
-//        case .massSent:
-//            return Localizable.General.History.Transaction.Title.sent
-//
-//        case .massReceived:
-//            return Localizable.General.History.Transaction.Title.received
-//
-//        case .spamReceive:
-//            return Localizable.General.History.Transaction.Title.received
-//
-//        case .spamMassReceived:
-//           return Localizable.General.History.Transaction.Title.received
-//
-//        case .data:
-//            return Localizable.General.History.Transaction.Title.data
-//        }
-//    }
+    var title: String {
+
+        switch kind {
+        case .receive:
+            return Localizable.General.History.Transaction.Title.received
+
+        case .sent:
+            return Localizable.General.History.Transaction.Title.sent
+
+        case .startedLeasing:
+            return Localizable.General.History.Transaction.Title.startedLeasing
+
+        case .exchange:
+            return "" //from.title
+
+        case .canceledLeasing:
+            return Localizable.General.History.Transaction.Title.canceledLeasing
+
+        case .tokenGeneration:
+            return Localizable.General.History.Transaction.Title.tokenGeneration
+
+        case .tokenBurn:
+            return Localizable.General.History.Transaction.Title.tokenBurn
+
+        case .tokenReissue:
+            return Localizable.General.History.Transaction.Title.tokenReissue
+
+        case .selfTransfer:
+            return Localizable.General.History.Transaction.Title.selfTransfer
+
+        case .createdAlias:
+            return Localizable.General.History.Transaction.Title.alias
+
+        case .incomingLeasing:
+            return Localizable.General.History.Transaction.Title.incomingLeasing
+
+        case .unrecognisedTransaction:
+            return Localizable.General.History.Transaction.Title.unrecognisedTransaction
+
+        case .massSent:
+            return Localizable.General.History.Transaction.Title.sent
+
+        case .massReceived:
+            return Localizable.General.History.Transaction.Title.received
+
+        case .spamReceive:
+            return Localizable.General.History.Transaction.Title.received
+
+        case .spamMassReceived:
+           return Localizable.General.History.Transaction.Title.received
+
+        case .data:
+            return Localizable.General.History.Transaction.Title.data
+        }
+    }
 
     var image: UIImage {
         switch kind {

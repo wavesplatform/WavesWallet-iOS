@@ -154,6 +154,8 @@
 		0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */; };
 		0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */; };
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
+		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
+		0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */; };
 		0ABD1BE621469CE70027A7A2 /* AccountsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */; };
 		0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BE721469D2F0027A7A2 /* AccountDomainDTO.swift */; };
 		0ABD1BEC2146BFEE0027A7A2 /* BlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BEB2146BFEE0027A7A2 /* BlockNode.swift */; };
@@ -706,6 +708,8 @@
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
 		0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
 		0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsInteractor.swift; sourceTree = "<group>"; };
 		0ABD1BE721469D2F0027A7A2 /* AccountDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDomainDTO.swift; sourceTree = "<group>"; };
 		0ABD1BE92146BEED0027A7A2 /* BlocksNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksNodeService.swift; sourceTree = "<group>"; };
@@ -1641,6 +1645,7 @@
 				0A5E4BD72138274A00E3C3C3 /* Transactions */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
 				0A5ABB9C21171A4F006A10A7 /* Assets */,
+				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1683,6 +1688,7 @@
 				0A5E4BD62138242C00E3C3C3 /* Transactions */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
 				0AEB35922115E44A00EDD63C /* Assets */,
+				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3032,6 +3038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
 				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
 				0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */,
@@ -3099,7 +3106,6 @@
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				0AE6572D21062EC7003D2DB8 /* Models.swift in Sources */,
 				E9983DC0211C7117002349CA /* DexMarketViewController.swift in Sources */,
-				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
 				0AF922B9212E1234003BA067 /* ObservableType+SweetLogger.swift in Sources */,
 				0AF9222F212E0F1F003BA067 /* WalletAssetSkeletonCell.swift in Sources */,
 				E9CB908320D1DE24000E54AA /* ChooseAddressBookViewController.swift in Sources */,
@@ -3323,6 +3329,7 @@
 				E9CFBC372124D44800CE7413 /* DexMyOrdersModuleMuilder.swift in Sources */,
 				0A485E982100A8B000079B49 /* BasicTransaction.swift in Sources */,
 				E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */,
+				0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */,
 				0AF922DC212E1234003BA067 /* SkeletonAnimatable.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
@@ -3438,6 +3445,7 @@
 				0AEB35912115E44300EDD63C /* AssetsRepositoryLocal.swift in Sources */,
 				E9E2A90A1F4C42C40093782E /* MyOrdersViewController.swift in Sources */,
 				0AF922CA212E1234003BA067 /* UIViewController+SafeArea.swift in Sources */,
+				0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */,
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
 				E9592940211969EE007C06EA /* DexListModuleBuilder.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,

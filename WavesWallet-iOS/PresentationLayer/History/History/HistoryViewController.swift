@@ -32,7 +32,7 @@ final class HistoryViewController: UIViewController {
     private var sections: [HistoryTypes.ViewModel.Section] = []
     private var filters: [HistoryTypes.Filter] = []
     
-    let tapCell: PublishSubject<GeneralTypes.DTO.Transaction> = PublishSubject<GeneralTypes.DTO.Transaction>()
+    let tapCell: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
     
     override func viewDidLoad() {
         super.viewDidLoad()

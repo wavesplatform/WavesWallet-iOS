@@ -17,3 +17,14 @@ struct Balance {
     let currency: Currency
     let money: Money
 }
+
+extension Balance {
+
+    var displayText: String {
+        return money.displayTextFull + " " + currency.title
+    }
+
+    var displayTextWithoutCurrencyName: String {
+        return money.displayTextFull
+    }
+}
