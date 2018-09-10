@@ -29,17 +29,17 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
 
         switch input.type {
         case .all:
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 1000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
                                                assets: [],
                                                senders: [],
                                                types: TransactionType.all)
         case .asset(let id):
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 1000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
                                                assets: [id],
                                                senders: [],
                                                types: TransactionType.all)
         case .leasing:
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 1000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
                                                assets: [],
                                                senders: [],
                                                types: [.lease, .leaseCancel])
