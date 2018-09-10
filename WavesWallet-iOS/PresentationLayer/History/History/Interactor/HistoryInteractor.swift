@@ -10,20 +10,20 @@ import Foundation
 import RxSwift
 
 protocol HistoryInteractorProtocol {
-    func transactions(input: HistoryModuleInput) -> AsyncObservable<[GeneralTypes.DTO.Transaction]>
+    func transactions(input: HistoryModuleInput) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
     func refreshTransactions()
 }
 
 final class HistoryInteractorMock: HistoryInteractorProtocol {
     
-    private let refreshTransactionsSubject: PublishSubject<[GeneralTypes.DTO.Transaction]> = PublishSubject<[GeneralTypes.DTO.Transaction]>()
+    private let refreshTransactionsSubject: PublishSubject<[DomainLayer.DTO.SmartTransaction]> = PublishSubject<[DomainLayer.DTO.SmartTransaction]>()
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     private var specifications: TransactionsSpecifications?
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func transactions(input: HistoryModuleInput) -> Observable<[GeneralTypes.DTO.Transaction]> {
+    func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
         var specifications: TransactionsSpecifications! = nil
 
@@ -47,14 +47,14 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
 
         self.specifications = specifications
 
-        let transactions =  loadingTransactions(specifications: specifications)
+        let transactions = loadingTransactions(specifications: specifications)
         return Observable.merge(transactions, refreshTransactionsSubject.asObserver())
     }
     
     func refreshTransactions() {
 
         guard let specifications = specifications else { return }
-        let transactions =  loadingTransactions(specifications: specifications)
+        let transactions = loadingTransactions(specifications: specifications)
         transactions
             .take(1)
             .subscribe(onNext: { [weak self] txs in
@@ -64,15 +64,12 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
         .disposed(by: disposeBag)
     }
 
-    private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<[GeneralTypes.DTO.Transaction]> {
+    private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
         guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.never() }
-        let asset = GeneralTypes.DTO.Transaction.init(id: "", kind: .data(.init()), date: Date())
 
         return transactionsInteractor
             .transactions(by: accountAddress, specifications: specifications)
-            .sweetDebug("Gop")
-            .map { txs in txs.map { _ in asset } }
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }

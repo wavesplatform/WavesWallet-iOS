@@ -22,6 +22,6 @@ final class AssetTransactionCell: UICollectionViewCell, NibReusable, ViewConfigu
     }
 
     func update(with model: GeneralTypes.DTO.Transaction) {
-        transactionView.update(with: model)
+//        transactionView.update(with: model)
     }
 }

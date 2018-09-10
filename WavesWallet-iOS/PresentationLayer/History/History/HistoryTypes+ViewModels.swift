@@ -20,25 +20,25 @@ extension HistoryTypes.ViewModel {
     }
     
     enum Row {
-        case transaction(GeneralTypes.DTO.Transaction)
+        case transaction(DomainLayer.DTO.SmartTransaction)
         case transactionSkeleton
     }
 }
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from transactions: [GeneralTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from transactions: [DomainLayer.DTO.SmartTransaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
         let filteredTransactions = transactions
             .filter { filter.isNeedTransaction(where: $0) }
         
         return sections(from: filteredTransactions)
     }
     
-    static func map(from transactions: [GeneralTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+    static func map(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
         return sections(from: transactions)
     }
     
-    static func sections(from transactions: [GeneralTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+    static func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
                 
         var sections: [NSMutableArray] = []
         var lastSection: NSMutableArray = NSMutableArray()
@@ -49,7 +49,7 @@ extension HistoryTypes.ViewModel.Section {
         for transaction in transactions {
             let calendar = NSCalendar.current
             
-            let components = calendar.dateComponents([.day, .month, .year], from: transaction.date as Date)
+            let components = calendar.dateComponents([.day, .month, .year], from: transaction.timestamp as Date)
             
             let year = components.year
             let month = components.month
@@ -66,9 +66,10 @@ extension HistoryTypes.ViewModel.Section {
             previousMonth = month
             previousYear = year
         }
-        
+
+        //TODO: Fix map code
         let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
-            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! GeneralTypes.DTO.Transaction) })
+            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! DomainLayer.DTO.SmartTransaction) })
         }
         
         let generalSections = items.map { HistoryTypes.ViewModel.Section(items: $0) }

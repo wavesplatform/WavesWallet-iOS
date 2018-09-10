@@ -50,14 +50,14 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     private var transactionsRepositoryLocal: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryLocal
     private var transactionsRepositoryRemote: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryRemote
+
     private var assetsInteractors: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
     private var accountsInteractors: AccountsInteractorProtocol = FactoryInteractors.instance.accounts
-    //TODO: Repository
-    private let blocksApi: MoyaProvider<API.Service.Blocks> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-//
+
+    private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
+
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> SmartTransactionsObservable {
 
-//        API.Service.
         return transactionsRepositoryLocal
             .isHasTransactions
             .map { InitialTransactionsQuery(accountAddress: accountAddress,
@@ -187,12 +187,15 @@ fileprivate extension TransactionsInteractor {
 
         let txs = Observable.just(query.transactions)
 
+        let blockHeight = blockRepositoryRemote.height()
+
         return Observable.zip(assets,
                               accounts,
-                              txs)
+                              txs,
+                              blockHeight)
             .map { arg -> [DomainLayer.DTO.SmartTransaction] in
                 return arg.2
-                    .map { $0.transaction(by: query.accountAddress, assets: arg.0, accounts: arg.1, totalHeight: 1) }
+                    .map { $0.transaction(by: query.accountAddress, assets: arg.0, accounts: arg.1, totalHeight: arg.3) }
                     .compactMap { $0 }
             }
     }

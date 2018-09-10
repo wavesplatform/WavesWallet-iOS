@@ -27,14 +27,14 @@ enum HistoryTypes {
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
-        var transactions: [GeneralTypes.DTO.Transaction]
+        var transactions: [DomainLayer.DTO.SmartTransaction]
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
     }
     
     enum Event {
-        case responseAll([GeneralTypes.DTO.Transaction])
+        case responseAll([DomainLayer.DTO.SmartTransaction])
         case readyView
         case refresh
         case changeFilter(Filter)
@@ -42,7 +42,7 @@ enum HistoryTypes {
     }
 }
 
-fileprivate extension GeneralTypes.DTO.Transaction {
+fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var isIncludedAllGroup: Bool {
         switch kind {
@@ -117,7 +117,7 @@ fileprivate extension GeneralTypes.DTO.Transaction {
 
 extension HistoryTypes.Filter {
 
-    func isNeedTransaction(where kind: GeneralTypes.DTO.Transaction) -> Bool {
+    func isNeedTransaction(where kind: DomainLayer.DTO.SmartTransaction) -> Bool {
 
         switch self {
         case .all:
