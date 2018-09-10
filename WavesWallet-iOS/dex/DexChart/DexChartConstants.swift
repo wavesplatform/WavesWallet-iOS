@@ -14,8 +14,6 @@ extension DexChart.ChartContants {
     enum Bar {}
     
     static let gridLineWidth: CGFloat = 0.2
-    static let minWidth: CGFloat = 60
-    static let maxWidth: CGFloat = 60
 }
 
 
