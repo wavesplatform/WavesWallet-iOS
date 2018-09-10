@@ -66,7 +66,6 @@ extension Node.DTO.DataTransaction.Data {
                                                                     debugDescription: "Not found key"))
         }
 
-
         if let value = try container.decodeIfPresent(String.self, forKey: .type) {
             type = value
         } else {

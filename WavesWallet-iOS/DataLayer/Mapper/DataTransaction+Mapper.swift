@@ -37,6 +37,7 @@ extension DataTransaction {
                 txData.binary = value
             }
             txData.key = data.key
+            txData.type = data.type
             return txData
         }
         data.append(objectsIn: dataList)
@@ -71,7 +72,8 @@ extension DomainLayer.DTO.DataTransaction {
                 dataValue = .binary(value)
             }
             return DomainLayer.DTO.DataTransaction.Data(key: data.key,
-                                                        value: dataValue)
+                                                                                            value: dataValue,
+                                                                                            type: data.type)
         }
 
         proofs = transaction.proofs
@@ -104,7 +106,7 @@ extension DomainLayer.DTO.DataTransaction {
                 dataValue = .bool(value)
             }
 
-            return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue)
+            return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
         data = dataList
     }

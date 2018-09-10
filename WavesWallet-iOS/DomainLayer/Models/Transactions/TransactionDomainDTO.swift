@@ -84,6 +84,7 @@ extension DomainLayer.DTO {
         }
 
         struct Data {
+            let prettyJSON: String
         }
 
         enum Kind {
@@ -115,6 +116,9 @@ extension DomainLayer.DTO {
 
         let id: String
         let kind: Kind
-        let date: Date
+        let timestamp: Date
+        let totalFee: Balance
+        let height: Int64
+
     }
 }
