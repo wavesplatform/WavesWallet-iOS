@@ -89,6 +89,8 @@ internal enum StoryboardScene {
 
     internal static let dexSearchViewController = SceneType<WavesWallet_iOS.DexSearchViewController>(storyboard: Dex.self, identifier: "DexSearchViewController")
 
+    internal static let dexSellBuyViewController = SceneType<WavesWallet_iOS.DexSellBuyViewController>(storyboard: Dex.self, identifier: "DexSellBuyViewController")
+
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
     internal static let dexTraderContainerViewController = SceneType<WavesWallet_iOS.DexTraderContainerViewController>(storyboard: Dex.self, identifier: "DexTraderContainerViewController")

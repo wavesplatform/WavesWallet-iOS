@@ -35,7 +35,8 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
-        let vc = DexTraderContainerModuleBuilder(output: self).build(input: pair)
+        
+        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self).build(input: pair)
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -45,6 +46,28 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
         let popup = PopupViewController()
         popup.contentHeight = 300
         popup.present(contentViewController: controller)
+
+    }
+}
+
+extension DexCoordinator: DexOrderBookModuleOutput {
+    func didTapBid(_ ask: DexOrderBook.DTO.BidAsk) {
+        
+        print(#function)
+    }
+    
+    func didTapAsk(_ bid: DexOrderBook.DTO.BidAsk) {
+        print(#function)
+
+    }
+    
+    func didTapEmptyBid() {
+        print(#function)
+
+    }
+    
+    func didTamEmptyAsk() {
+        print(#function)
 
     }
 }

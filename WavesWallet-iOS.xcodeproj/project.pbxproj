@@ -300,6 +300,9 @@
 		E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93621541F3CAC01009F0459 /* DexSearchViewController.swift */; };
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
+		E93D55362144689100F3ACC0 /* DexSellBuyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D55352144689100F3ACC0 /* DexSellBuyViewController.swift */; };
+		E93D553821446B0C00F3ACC0 /* DexSellBuyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553721446B0C00F3ACC0 /* DexSellBuyTypes.swift */; };
+		E93D553E2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */; };
 		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
@@ -846,6 +849,9 @@
 		E93621541F3CAC01009F0459 /* DexSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSearchViewController.swift; sourceTree = "<group>"; };
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
+		E93D55352144689100F3ACC0 /* DexSellBuyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSellBuyViewController.swift; path = "WavesWallet-iOS/dex/DexSellBuy/DexSellBuyViewController.swift"; sourceTree = SOURCE_ROOT; };
+		E93D553721446B0C00F3ACC0 /* DexSellBuyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSellBuyTypes.swift; sourceTree = "<group>"; };
+		E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookModuleOutput.swift; sourceTree = "<group>"; };
 		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -1986,6 +1992,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E93D55342144687200F3ACC0 /* DexSellBuy */ = {
+			isa = PBXGroup;
+			children = (
+				E93D55352144689100F3ACC0 /* DexSellBuyViewController.swift */,
+				E93D553721446B0C00F3ACC0 /* DexSellBuyTypes.swift */,
+			);
+			path = DexSellBuy;
+			sourceTree = "<group>";
+		};
 		E95FD56D212CD05A00D73E18 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2287,6 +2302,7 @@
 				E9CFBC3A2124EA5400CE7413 /* Presenter */,
 				E9EDC6C02123A5A900C58E0D /* DexOrderBookViewController.swift */,
 				E9EDC6CF2123AEDA00C58E0D /* DexOrderBookModuleBuilder.swift */,
+				E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */,
 				E9EDC6D12123AF1A00C58E0D /* DexOrderBookTypes.swift */,
 				E97CF06F2124FF04002A75DF /* DexOrderBook.strings */,
 			);
@@ -2440,6 +2456,7 @@
 			isa = PBXGroup;
 			children = (
 				E959293B211964C0007C06EA /* DexCoordinator.swift */,
+				E93D55342144687200F3ACC0 /* DexSellBuy */,
 				E9EDC6C82123A5FB00C58E0D /* DexMyOrders */,
 				E9EDC6C52123A5DF00C58E0D /* DexLastTrades */,
 				E9EDC6C22123A5C300C58E0D /* DexChart */,
@@ -3062,6 +3079,7 @@
 				E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */,
 				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,
 				04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */,
+				E93D553E2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift in Sources */,
 				0AF922DF212E1234003BA067 /* UITableView+Reusable.swift in Sources */,
 				0AF922EE212E1234003BA067 /* AssetsSegmentedCell.swift in Sources */,
 				F77A92071EB09D3700C77439 /* BackupVerifyViewController.swift in Sources */,
@@ -3146,6 +3164,7 @@
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				0AF922D8212E1234003BA067 /* ViewConfiguration.swift in Sources */,
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
+				E93D553821446B0C00F3ACC0 /* DexSellBuyTypes.swift in Sources */,
 				0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */,
 				F77A920B1EB2005400C77439 /* BaseTransactionDetailViewController.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
@@ -3260,6 +3279,7 @@
 				E9983DCD211C726C002349CA /* DexMarketPresenterProtocol.swift in Sources */,
 				0AF922E8212E1234003BA067 /* CustomSectionHeader.swift in Sources */,
 				E959293E211965A4007C06EA /* DexListModuleOutput.swift in Sources */,
+				E93D55362144689100F3ACC0 /* DexSellBuyViewController.swift in Sources */,
 				E9CFBC352124D31700CE7413 /* DexLastTradesModuleBuilder.swift in Sources */,
 				E9104D4D2109A806001222B8 /* DexSortViewController.swift in Sources */,
 				0AF922B5212E1234003BA067 /* UIFont+Additions.swift in Sources */,
