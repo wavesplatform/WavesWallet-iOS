@@ -31,7 +31,7 @@ extension HistoryCoordinator: HistoryModuleOutput {
         controller.currentPage = 0
         
         let popup = PopupViewController()
-        popup.present(contentViewController: controller)
+//        popup.present(contentViewController: controller)
     }
 }
 
