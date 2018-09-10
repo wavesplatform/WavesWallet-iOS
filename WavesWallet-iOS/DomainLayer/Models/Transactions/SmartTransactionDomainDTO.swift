@@ -14,16 +14,7 @@ extension DomainLayer.DTO {
         var priceAsset: Asset
     }
 
-    struct Account {
-        struct Contact {
-            let name: String
-        }
-
-        let id: String
-        let contant: Contact?
-    }
-
-    struct Transaction {
+    struct SmartTransaction {
 
         typealias Asset = DomainLayer.DTO.Asset
         typealias Account = DomainLayer.DTO.Account
@@ -32,6 +23,7 @@ extension DomainLayer.DTO {
             let balance: Balance
             let asset: Asset
             let recipient: Account
+            let attachment: String?
         }
 
         struct Exchange {
@@ -70,6 +62,7 @@ extension DomainLayer.DTO {
         struct Issue {
             let asset: Asset
             let balance: Balance
+            let description: String?
         }
 
         struct MassTransfer {
@@ -80,6 +73,7 @@ extension DomainLayer.DTO {
 
             let total: Balance
             let asset: Asset
+            let attachment: String?
             let transfers: [Transfer]
         }
 
@@ -119,6 +113,6 @@ extension DomainLayer.DTO {
         let timestamp: Date
         let totalFee: Balance
         let height: Int64
-
+        let confirmationHeight: Int64
     }
 }
