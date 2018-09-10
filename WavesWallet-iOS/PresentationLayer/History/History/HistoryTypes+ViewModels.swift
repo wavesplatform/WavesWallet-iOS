@@ -71,8 +71,14 @@ extension HistoryTypes.ViewModel.Section {
         let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
             return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! DomainLayer.DTO.SmartTransaction) })
         }
-        
-        let generalSections = items.map { HistoryTypes.ViewModel.Section(items: $0) }
+
+//        let date = transaction.date as Date
+//        let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
+//        view.update(with: d)
+        let generalSections = items.map {
+
+            HistoryTypes.ViewModel.Section(items: $0)
+        }
         
         return generalSections
     }
