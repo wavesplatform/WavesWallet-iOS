@@ -8,6 +8,12 @@
 
 import Foundation
 
+private enum FiatAsset {
+    static let USD = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
+    static let EUR = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
+    static let TRY = "2mX5DzVKWrAJw8iwdJnV2qtoeVG9h5nTDpTqC1wb1WEN"
+}
+
 enum DexList {
     enum DTO {}
     enum ViewModel {}
@@ -72,7 +78,12 @@ extension DexList.DTO {
         let amountAsset: Asset
         let priceAsset: Asset
         let isHidden: Bool
+        let isFiat: Bool
     }
+    
+    static let fiatAssets: [String] = {
+        return [FiatAsset.USD, FiatAsset.EUR, FiatAsset.TRY]
+    }()
 }
 
 extension DexList.State {
