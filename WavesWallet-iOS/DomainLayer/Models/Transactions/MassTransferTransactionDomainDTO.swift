@@ -13,7 +13,7 @@ extension DomainLayer.DTO {
 
         struct Transfer {
             let recipient: String
-            let amount: Int
+            let amount: Int64
         }
 
         let type: Int

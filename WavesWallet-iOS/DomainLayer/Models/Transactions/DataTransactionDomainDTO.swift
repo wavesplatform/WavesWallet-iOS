@@ -20,6 +20,7 @@ extension DomainLayer.DTO {
             }
             let key: String
             let value: Value
+            let type: String
         }
 
         let type: Int

@@ -76,6 +76,26 @@ extension DomainLayer.DTO.ExchangeTransaction {
     }
 }
 
+fileprivate extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
+
+    init(key: String) {
+        if key == "sell" {
+            self = .sell
+        } else {
+            self = .buy
+        }
+    }
+
+    var key: String {
+        switch self {
+        case .sell:
+            return "sell"
+        case .buy:
+            return "buy"
+        }
+    }
+}
+
 extension ExchangeTransactionOrder {
 
     convenience init(order: DomainLayer.DTO.ExchangeTransaction.Order) {
@@ -85,7 +105,7 @@ extension ExchangeTransactionOrder {
         sender = order.sender
         senderPublicKey = order.sender
         matcherPublicKey = order.matcherPublicKey
-        orderType = order.orderType
+        orderType = order.orderType.key
         price = order.price
         amount = order.amount
         timestamp = order.timestamp
@@ -108,7 +128,7 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         sender = order.sender
         senderPublicKey = order.sender
         matcherPublicKey = order.matcherPublicKey
-        orderType = order.orderType
+        orderType = .init(key: order.orderType)
         price = order.price
         amount = order.amount
         timestamp = order.timestamp
@@ -124,7 +144,7 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         sender = order.sender
         senderPublicKey = order.sender
         matcherPublicKey = order.matcherPublicKey
-        orderType = order.orderType
+        orderType =  .init(key: order.orderType)
         price = order.price
         amount = order.amount
         timestamp = order.timestamp

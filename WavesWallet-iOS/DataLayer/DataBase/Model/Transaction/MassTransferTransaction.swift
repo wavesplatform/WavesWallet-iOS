@@ -21,5 +21,5 @@ final class MassTransferTransaction: Transaction {
 
 final class MassTransferTransactionTransfer: Object {
     @objc dynamic var recipient: String = ""
-    @objc dynamic var amount: Int = 0    
+    @objc dynamic var amount: Int64 = 0    
 }

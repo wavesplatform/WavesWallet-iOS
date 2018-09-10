@@ -13,7 +13,7 @@ extension Node.DTO {
 
         struct Transfer: Decodable {
             let recipient: String
-            let amount: Int
+            let amount: Int64
         }
 
         let type: Int
