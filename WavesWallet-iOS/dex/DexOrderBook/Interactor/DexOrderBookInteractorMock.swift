@@ -65,7 +65,11 @@ private extension DexOrderBookInteractorMock {
             
             let percent: Float = 100 * amount.floatValue / maxAmountValue
 
-            let bid = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: Money(totalSumBid), orderType: .sell, percentAmount: percent)
+            let bid = DexOrderBook.DTO.BidAsk(price: price,
+                                              amount: amount,
+                                              sum: Money(totalSumBid),
+                                              orderType: .sell,
+                                              percentAmount: percent)
             bids.append(bid)
         }
         
@@ -77,7 +81,11 @@ private extension DexOrderBookInteractorMock {
 
             let percent: Float = 100 * amount.floatValue / maxAmountValue
 
-            let ask = DexOrderBook.DTO.BidAsk(price: price, amount: amount, sum: Money(totalSumAsk), orderType: .buy, percentAmount: percent)
+            let ask = DexOrderBook.DTO.BidAsk(price: price,
+                                              amount: amount,
+                                              sum: Money(totalSumAsk),
+                                              orderType: .buy,
+                                              percentAmount: percent)
             asks.append(ask)
         }
         

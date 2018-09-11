@@ -1894,12 +1894,22 @@ You do not have any orders</string>
                                                     <constraint firstAttribute="height" constant="40" id="myB-sB-N8D"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCj-mR-Pg4" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="40" width="343" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="2Xk-4z-27F"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="pCj-mR-Pg4" firstAttribute="top" secondItem="PG3-20-Dd2" secondAttribute="bottom" id="6Th-RZ-Wco"/>
                                             <constraint firstAttribute="trailing" secondItem="PG3-20-Dd2" secondAttribute="trailing" id="DFg-4G-qLM"/>
+                                            <constraint firstItem="pCj-mR-Pg4" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="Sgs-2K-xQ5"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" id="TAE-Gg-1Za"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="kRJ-Iv-X6h"/>
+                                            <constraint firstAttribute="trailing" secondItem="pCj-mR-Pg4" secondAttribute="trailing" constant="16" id="rr0-Zt-O23"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1927,7 +1937,7 @@ You do not have any orders</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8K-cx-MpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="153" y="3058"/>
+            <point key="canvasLocation" x="152.80000000000001" y="3057.1214392803599"/>
         </scene>
         <!--Dex Search View Controller-->
         <scene sceneID="R9O-T1-0aV">

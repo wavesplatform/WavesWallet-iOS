@@ -13,12 +13,15 @@ import RxCocoa
 
 
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
-
+    
     var interactor: DexOrderBookInteractorProtocol!
     weak var moduleOutput: DexOrderBookModuleOutput?
     
     private let disposeBag = DisposeBag()
- 
+
+    var priceAsset: DexTraderContainer.DTO.Asset!
+    var amountAsset: DexTraderContainer.DTO.Asset!
+    
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
@@ -88,19 +91,20 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid):
-            moduleOutput?.didTapSell(bid)
+            
+            moduleOutput?.didCreateOrder(bid, priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
-            moduleOutput?.didTapEmptySell()
+            moduleOutput?.didCreateOrderSellEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
-            moduleOutput?.didTapBuy(ask)
+            moduleOutput?.didCreateOrder(ask, priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            moduleOutput?.didTapEmptyBuy()
+            moduleOutput?.didCreateOrderBuyEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
         }
     }
