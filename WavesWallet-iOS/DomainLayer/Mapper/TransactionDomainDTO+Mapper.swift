@@ -71,10 +71,12 @@ extension DomainLayer.DTO.IssueTransaction {
 
         guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
+        guard let asset = assets[self.assetId] else { return nil }
+        let balance = asset.balance(self.quantity)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
-                     kind: .unrecognisedTransaction,
+                     kind: .tokenGeneration(.init(asset: asset, balance: balance, description: nil)),
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
@@ -209,8 +211,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         let amount = assetPair.amountBalance(self.amount)
         let price = assetPair.priceBalance(self.price)
-        let total = assetPair.totalBalance(priceAmount: self.amount,
-                                           assetAmount: self.price)
+        let total = assetPair.totalBalance(priceAmount: self.price,
+                                           assetAmount: self.amount)
 
         let buyMatcherFee = wavesAsset.balance(self.buyMatcherFee)
         let sellMatcherFee = wavesAsset.balance(self.sellMatcherFee)

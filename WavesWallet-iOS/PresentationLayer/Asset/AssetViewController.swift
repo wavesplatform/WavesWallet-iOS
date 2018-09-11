@@ -30,7 +30,7 @@ final class AssetViewController: UIViewController {
     private lazy var favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapFavoriteButton(sender:)))
 
     var presenter: AssetPresenterProtocol!
-    private var replaySubject: PublishSubject<Bool> = PublishSubject<Bool>()
+    private var eventInput: PublishSubject<AssetTypes.Event> = PublishSubject<AssetTypes.Event>()
 
     private var sections: [AssetTypes.ViewModel.Section] = .init()
     private var currentAssetName: String? = nil
@@ -95,7 +95,7 @@ private extension AssetViewController {
         let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal().map { _ in AssetTypes.Event.refreshing }
 
 
-        return [eventChangedAsset, favoriteOn, favoriteOff, refreshEvent]
+        return [eventChangedAsset, favoriteOn, favoriteOff, refreshEvent, eventInput.asSignal(onErrorSignalWith: Signal.empty())]
     }
 
     func subscriptions(state: Driver<AssetTypes.State>) -> [Disposable] {
@@ -343,6 +343,9 @@ extension AssetViewController: UITableViewDataSource {
 
         case .lastTransactions(let transactions):
             let cell: AssetTransactionsCell = tableView.dequeueAndRegisterCell()
+            cell.transactionDidSelect = { [weak self] tx in
+                self?.eventInput.onNext(.tapTransaction(tx))
+            }
             cell.update(with: transactions)
             return cell
 

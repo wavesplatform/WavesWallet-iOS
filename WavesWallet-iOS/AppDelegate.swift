@@ -20,19 +20,16 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    lazy var tansactionsInteractor = TransactionsInteractor()
-    lazy var bd = try? Realm()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
-        UserDefaults.standard.synchronize()
+//        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
+//        UserDefaults.standard.synchronize()
 
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .network, .error]
+        SweetLogger.current.visibleLevels = [.debug, .error]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -44,38 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.showStartController()
 
         self.window?.makeKeyAndVisible()
-
-
-
-//        tansactionsInteractor.transactions(by: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", specifications: <#TransactionsSpecifications#>).sweetDebug("Alarm").subscribe()
-
-
-
-
-
-//        test.rx.request(.list(accountAddress: "3N9yFERJHAg921W7Soamj5R8NydMpZmCR8t", limit: 10000)).subscribe(onSuccess: { (response) in
-//            let container = try? response.map(Node.DTO.TransactionContainers.self)
-//
-//        }, onError: nil)
-//
-//        JSONDecoder.decode(type: Node.DTO.TransactionContainers.self, json: "AllTransactionExample").subscribe()
-
-//        do {
-//            let bd = try? Realm()
-//
-//            let txMain = MassTransferTransaction()
-//
-//            let tx = MassTransferTransaction.Transfer()
-//            tx.recipient = "Anal"
-//            txMain.transfers.append(tx)
-//
-//            try? bd?.write {
-//                bd?.add(txMain, update: true)
-//            }
-//        } catch let e {
-//            print(e)
-//        }
-
 
         return true
     }
@@ -127,5 +92,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // TODO: Remove
 extension AppDelegate: AssetModuleOutput {
+    func showHistory(by assetId: String) {
+        
+    }
 
+    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+
+    }
 }

@@ -43,7 +43,7 @@ fileprivate extension HistoryTransactionView {
             tickerView.isHidden = false
             tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
                                           style: .normal))
-            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: false), font: labelValue.font)
+            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
             return
         }
 
@@ -131,41 +131,6 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .data:
             labelValue.text = Localizable.General.History.Transaction.Value.data
-        }
-
-
-//            if asset.isSpam {
-//                tickerView.isHidden = false
-//                tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
-//                                              style: .normal))
-//            } else if asset.isGeneral {
-//                tickerView.isHidden = false
-//                tickerView.update(with: .init(text: asset.name,
-//                                              style: .soft))
-//            }
-
-//            labelValue.attributedText = .styleForBalance(text: asset.title,
-//                                                        font: labelValue.font)
-//        } else {
-//            switch model.kind {
-//            case .data:
-//                labelValue.text = Localizable.General.History.Transaction.Value.data
-//            case .createdAlias(let name):
-//                labelValue.text = name
-//            default:
-//                labelValue.text = "nil"
-//            }
-//        }
-    }
-}
-
-fileprivate extension GeneralTypes.DTO.Transaction.Asset {
-
-    var title: String {
-        if let ticker = balance.currency.ticker, isGeneral == false {
-            return "\(balance.money.displayTextFull) \(ticker)"
-        } else {
-            return "\(balance.money.displayTextFull)"
         }
     }
 }

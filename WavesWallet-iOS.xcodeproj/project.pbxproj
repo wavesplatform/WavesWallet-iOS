@@ -34,6 +34,7 @@
 		0A14CFCC2144156400C3A4D5 /* String+NormalizeAssetId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFCB2144156400C3A4D5 /* String+NormalizeAssetId.swift */; };
 		0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */; };
 		0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */; };
+		0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */; };
 		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
@@ -593,6 +594,7 @@
 		0A14CFCB2144156400C3A4D5 /* String+NormalizeAssetId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NormalizeAssetId.swift"; sourceTree = "<group>"; };
 		0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Assistants.swift"; sourceTree = "<group>"; };
 		0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
+		0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+Limit.swift"; sourceTree = "<group>"; };
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
@@ -1228,13 +1230,6 @@
 			path = History;
 			sourceTree = "<group>";
 		};
-		0A14CFCA2144154900C3A4D5 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		0A14CFCD2144157A00C3A4D5 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1839,7 +1834,6 @@
 		0AF9223F212E1233003BA067 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0A14CFCA2144154900C3A4D5 /* New Group */,
 				0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */,
 				0AF92257212E1233003BA067 /* ActivityIndicator.swift */,
 				0AF92270212E1233003BA067 /* Any+Name.swift */,
@@ -1895,6 +1889,7 @@
 				0A5C53E22139502F00667E34 /* Asset+Message.swift */,
 				0A14CFC82144130500C3A4D5 /* Dictionary+Json.swift */,
 				0A14CFCB2144156400C3A4D5 /* String+NormalizeAssetId.swift */,
+				0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3230,6 +3225,7 @@
 				E96038BD20B5A16700D303E8 /* TransactionHistoryContentView.swift in Sources */,
 				E9EDC6CE2123AAF800C58E0D /* DexTraderContainerTypes.swift in Sources */,
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
+				0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */,
 				0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */,
 				E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */,
 				0A1DAD7A20F3A9AE004DA625 /* TransactionApi.swift in Sources */,
