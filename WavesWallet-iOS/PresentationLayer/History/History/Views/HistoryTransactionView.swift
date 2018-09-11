@@ -84,13 +84,11 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .exchange(let tx):
 
-            if tx.order1.kind == .buy {
+            if tx.order1.kind == .sell {
                 update(with: tx.order1.pair.amountAsset, balance: tx.order1.amount, sign: .plus)
             } else {
                 update(with: tx.order2.pair.amountAsset, balance: tx.order2.amount)
             }
-
-
 
         case .canceledLeasing(let tx):
             update(with: tx.asset, balance: tx.balance)
