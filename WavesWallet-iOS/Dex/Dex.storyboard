@@ -1869,10 +1869,10 @@ You do not have any orders</string>
             </objects>
             <point key="canvasLocation" x="865" y="1714"/>
         </scene>
-        <!--Dex Sell Buy View Controller-->
+        <!--Dex Create Order View Controller-->
         <scene sceneID="ERb-IJ-Icb">
             <objects>
-                <viewController storyboardIdentifier="DexSellBuyViewController" id="vvR-I6-z9c" customClass="DexSellBuyViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DexCreateOrderViewController" id="vvR-I6-z9c" customClass="DexCreateOrderViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sve-ig-8eV"/>
                         <viewControllerLayoutGuide type="bottom" id="I5g-Sa-i70"/>
@@ -1886,7 +1886,21 @@ You do not have any orders</string>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8x-pB-0Cg">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-20-Dd2" customClass="DexCreateOrderTypeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="myB-sB-N8D"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="PG3-20-Dd2" secondAttribute="trailing" id="DFg-4G-qLM"/>
+                                            <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" id="TAE-Gg-1Za"/>
+                                            <constraint firstItem="PG3-20-Dd2" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="kRJ-Iv-X6h"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -1907,6 +1921,9 @@ You do not have any orders</string>
                             <constraint firstItem="Fhv-s2-xpD" firstAttribute="leading" secondItem="oE6-Xj-jkT" secondAttribute="leading" id="lU5-OS-h0U"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="typeView" destination="PG3-20-Dd2" id="dhq-xl-vty"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8K-cx-MpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

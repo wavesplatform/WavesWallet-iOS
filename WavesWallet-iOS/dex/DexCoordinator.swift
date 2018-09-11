@@ -35,8 +35,8 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
-        
-        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self).build(input: pair)
+
+        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self).build(input: pair)
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -46,28 +46,43 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
         let popup = PopupViewController()
         popup.contentHeight = 300
         popup.present(contentViewController: controller)
-
     }
 }
 
-extension DexCoordinator: DexOrderBookModuleOutput {
-    func didTapBid(_ ask: DexOrderBook.DTO.BidAsk) {
-        
-        print(#function)
+extension DexCoordinator: DexOrderBookModuleOutput, DexLastTradesModuleOutput {
+    
+    func didTapEmptyBuy() {
+        let input = DexCreateOrder.DTO.Input(type: .buy, price: Money(0, 0))
+        showSellBuyController(input)
     }
     
-    func didTapAsk(_ bid: DexOrderBook.DTO.BidAsk) {
-        print(#function)
-
+    func didTapEmptySell() {
+        let input = DexCreateOrder.DTO.Input(type: .sell, price: Money(0, 0))
+        showSellBuyController(input)
     }
     
-    func didTapEmptyBid() {
-        print(#function)
+    func didTapBuy(_ bid: DexOrderBook.DTO.BidAsk) {
+        let type: DexCreateOrder.DTO.OrderType = bid.orderType == .sell ? .sell : .buy
+        let input = DexCreateOrder.DTO.Input(type: type, price: bid.price)
+        showSellBuyController(input)
+    }
 
+    func didTapSell(_ ask: DexOrderBook.DTO.BidAsk) {
+        let type: DexCreateOrder.DTO.OrderType = ask.orderType == .sell ? .sell : .buy
+        let input = DexCreateOrder.DTO.Input(type: type, price: ask.price)
+        showSellBuyController(input)
+    }
+
+    func didTapSellBuy(_ trade: DexLastTrades.DTO.SellBuyTrade) {
+     
+        let type: DexCreateOrder.DTO.OrderType = trade.type == .sell ? .sell : .buy
+        let input = DexCreateOrder.DTO.Input(type: type, price: trade.price)
+        showSellBuyController(input)
     }
     
-    func didTamEmptyAsk() {
-        print(#function)
-
+    private func showSellBuyController(_ input: DexCreateOrder.DTO.Input) {
+        let controller = DexCreateOrderModuleBuilder().build(input: input)
+        let popup = PopupViewController()
+        popup.present(contentViewController: controller)
     }
 }

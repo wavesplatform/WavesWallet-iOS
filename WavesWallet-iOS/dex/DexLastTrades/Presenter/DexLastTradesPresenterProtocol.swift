@@ -13,4 +13,6 @@ protocol DexLastTradesPresenterProtocol {
     typealias Feedback = (Driver<DexLastTrades.State>) -> Signal<DexLastTrades.Event>
     var interactor: DexLastTradesInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
+    
+    var moduleOutput: DexLastTradesModuleOutput? { get set }
 }

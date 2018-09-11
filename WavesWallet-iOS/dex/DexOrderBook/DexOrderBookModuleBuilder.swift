@@ -10,7 +10,7 @@ import UIKit
 
 struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
     
-    var output: DexOrderBookModuleOutput
+    weak var output: DexOrderBookModuleOutput?
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
        
@@ -20,6 +20,7 @@ struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
         var presenter: DexOrderBookPresenterProtocol = DexOrderBookPresenter()
         presenter.interactor = interactor
         presenter.moduleOutput = output
+        
         let vc = StoryboardScene.Dex.dexOrderBookViewController.instantiate()
         vc.presenter = presenter
         return vc

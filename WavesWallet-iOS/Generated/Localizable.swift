@@ -14,6 +14,15 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexSort", "navigationBar.title")
     }
   }
+  internal enum DexCreateOrder {
+
+    internal enum Button {
+      /// Buy
+      internal static let buy = Localizable.tr("DexCreateOrder", "button.buy")
+      /// Sell
+      internal static let sell = Localizable.tr("DexCreateOrder", "button.sell")
+    }
+  }
   internal enum DexList {
 
     internal enum Button {

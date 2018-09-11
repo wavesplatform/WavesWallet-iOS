@@ -16,6 +16,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
     var interactor: DexLastTradesInteractorProtocol!
     private let disposeBag = DisposeBag()
 
+    weak var moduleOutput: DexLastTradesModuleOutput?
+    
     func system(feedbacks: [DexLastTradesPresenterProtocol.Feedback]) {
         
         var newFeedbacks = feedbacks
@@ -64,15 +66,19 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             }.changeAction(.update)
         
         case .didTapBuy(let buy):
+            moduleOutput?.didTapSellBuy(buy)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
+            moduleOutput?.didTapEmptyBuy()
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
+            moduleOutput?.didTapSellBuy(sell)
             return state.changeAction(.none)
             
         case .didTapEmptySell:
+            moduleOutput?.didTapEmptySell()
             return state.changeAction(.none)
         }
        

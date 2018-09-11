@@ -88,19 +88,19 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid):
-            moduleOutput?.didTapBid(bid)
+            moduleOutput?.didTapSell(bid)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
-            moduleOutput?.didTapEmptyBid()
+            moduleOutput?.didTapEmptySell()
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
-            moduleOutput?.didTapAsk(ask)
+            moduleOutput?.didTapBuy(ask)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            moduleOutput?.didTamEmptyAsk()
+            moduleOutput?.didTapEmptyBuy()
             return state.changeAction(.none)
         }
     }
