@@ -114,5 +114,6 @@ extension DomainLayer.DTO {
         let totalFee: Balance
         let height: Int64
         let confirmationHeight: Int64
+        let sender: Account
     }
 }

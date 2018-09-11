@@ -16,5 +16,6 @@ extension DomainLayer.DTO {
 
         let id: String
         let contact: Contact?
+        let isMyAccount: Bool
     }
 }
