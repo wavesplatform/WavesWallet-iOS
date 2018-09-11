@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let countButtons = 4
+}
+
 protocol DexTraderContainerSegmentedControlDelegate: AnyObject {
     
     func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState)
@@ -142,7 +146,11 @@ private extension DexTraderContainerSegmentedControl {
         }
     }
     
+
     var buttonWidth: CGFloat {
+        //FIXME: Need to update code
+        return UIScreen.main.bounds.size.width / CGFloat(Constants.countButtons)
+        
         switch selectedState {
         case .orderBook:
             return buttonOrderBook.frame.size.width
