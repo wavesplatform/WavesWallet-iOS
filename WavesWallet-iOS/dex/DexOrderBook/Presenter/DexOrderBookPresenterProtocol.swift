@@ -15,6 +15,6 @@ protocol DexOrderBookPresenterProtocol {
     func system(feedbacks: [Feedback])
     var moduleOutput: DexOrderBookModuleOutput? { get set }
     
-    var priceAsset: DexTraderContainer.DTO.Asset! { get set }
-    var amountAsset: DexTraderContainer.DTO.Asset! { get set }
+    var priceAsset: Dex.DTO.Asset! { get set }
+    var amountAsset: Dex.DTO.Asset! { get set }
 }

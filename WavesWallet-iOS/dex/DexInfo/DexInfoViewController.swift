@@ -54,12 +54,12 @@ private extension DexInfoViewController {
     
     @IBAction func copyPriceAssetTapped(_ sender: Any) {
     
-        copy(text: pair.priceAsset, buttonAction: btnCopyPriceAsset)
+        copy(text: pair.priceAsset.id, buttonAction: btnCopyPriceAsset)
     }
     
     @IBAction func copyAmountAssetTapped(_ sender: Any) {
     
-        copy(text: pair.amountAsset, buttonAction: btnCopyAmountAsset)
+        copy(text: pair.amountAsset.id, buttonAction: btnCopyAmountAsset)
     }
 }
 
@@ -68,11 +68,11 @@ private extension DexInfoViewController {
 private extension DexInfoViewController {
  
     func setupInfo() {
-        labelAmountAssetTitle.text = Localizable.DexInfo.Label.amountAsset + " — " + pair.amountAssetName
-        labelAmountAsset.text = pair.amountAsset
+        labelAmountAssetTitle.text = Localizable.DexInfo.Label.amountAsset + " — " + pair.amountAsset.name
+        labelAmountAsset.text = pair.amountAsset.id
         
-        labelPriceAssetTitle.text = Localizable.DexInfo.Label.priceAsset + " — " + pair.priceAssetName
-        labelPriceAsset.text = pair.priceAsset
+        labelPriceAssetTitle.text = Localizable.DexInfo.Label.priceAsset + " — " + pair.priceAsset.name
+        labelPriceAsset.text = pair.priceAsset.id
         
         labelPopular.isHidden = pair.isHidden
     }

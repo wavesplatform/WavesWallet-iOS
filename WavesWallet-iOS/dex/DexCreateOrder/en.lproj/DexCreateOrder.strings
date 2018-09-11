@@ -1,2 +1,10 @@
 "button.sell" = "Sell";
 "button.buy" = "Buy";
+"button.useTotalBalanace" = "Use total balance";
+
+"label.amountIn" = "Amount in";
+"label.limitPriceIn" = "Limit Price in";
+"label.totalIn" = "Total in";
+"label.fee" = "Fee";
+"label.Expiration" = "Expiration";
+"label.days" = "days";

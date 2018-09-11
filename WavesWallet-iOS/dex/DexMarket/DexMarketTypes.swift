@@ -50,6 +50,7 @@ extension DexMarket.DTO {
         let id: String
         let name: String
         let shortName: String
+        let decimals: Int
     }
     
     struct Pair: Mutating {
