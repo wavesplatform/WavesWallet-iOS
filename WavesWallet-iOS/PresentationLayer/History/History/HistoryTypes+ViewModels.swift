@@ -39,47 +39,29 @@ extension HistoryTypes.ViewModel.Section {
     }
     
     static func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
-                
-        var sections: [NSMutableArray] = []
-        var lastSection: NSMutableArray = NSMutableArray()
-        var previousDay: Int? = 0
-        var previousMonth: Int? = 0
-        var previousYear: Int? = 0
-        
-        for transaction in transactions {
-            let calendar = NSCalendar.current
-            
-            let components = calendar.dateComponents([.day, .month, .year], from: transaction.timestamp as Date)
-            
-            let year = components.year
-            let month = components.month
-            let day = components.day
-            
-            if day != previousDay || month != previousMonth || year != previousYear {
-                lastSection = NSMutableArray()
-                sections.append(lastSection)
-            }
-            
-            lastSection.add(transaction)
-            
-            previousDay = day
-            previousMonth = month
-            previousYear = year
+
+        let calendar = NSCalendar.current
+        let sections = transactions.reduce(into: [Date:  [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
+
+            let components = calendar.dateComponents([.day, .month, .year], from: tx.timestamp)
+            let date = calendar.date(from: components) ?? Date()
+            var list = result[date] ?? []
+            list.append(tx)
+            result[date] = list
         }
 
-        //TODO: Fix map code
-        let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
-            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! DomainLayer.DTO.SmartTransaction) })
-        }
+        let sortedKeys = Array(sections.keys).sorted(by: { $0 > $1 })
 
-//        let date = transaction.date as Date
-//        let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
-//        view.update(with: d)
-        let generalSections = items.map {
+        let formatter = DateFormatter.sharedFormatter
+        //TODO: Constants
+        formatter.dateFormat = "MMM dd, yyyy"
 
-            HistoryTypes.ViewModel.Section(items: $0)
+        return sortedKeys.map { key -> HistoryTypes.ViewModel.Section? in
+            guard let section = sections[key] else { return nil }
+            let rows = section.map { HistoryTypes.ViewModel.Row.transaction($0) }
+            return HistoryTypes.ViewModel.Section.init(items: rows,
+                                                       header: formatter.string(from: key))
         }
-        
-        return generalSections
+        .compactMap { $0 }
     }
 }

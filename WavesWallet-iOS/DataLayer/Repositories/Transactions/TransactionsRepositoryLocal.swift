@@ -148,7 +148,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             let txs = realm
                 .objects(AnyTransaction.self)
-                .sorted(byKeyPath: "timestamp")
+                .sorted(byKeyPath: "timestamp", ascending: false)
                 .filter("type IN %@", types.map { $0.rawValue })
                 .filter(predicate)
 
