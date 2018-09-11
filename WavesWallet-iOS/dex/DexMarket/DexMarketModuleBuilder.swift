@@ -10,7 +10,7 @@ import UIKit
 
 struct DexMarketModuleBuilder: ModuleBuilderOutput {
     
-    var output: DexMarketModuleOutput
+    weak var output: DexMarketModuleOutput?
     
     func build(input: Void) -> UIViewController {
         

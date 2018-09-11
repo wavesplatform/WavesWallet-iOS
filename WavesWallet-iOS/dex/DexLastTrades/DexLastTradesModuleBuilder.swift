@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct DexLastTradesModuleBuilder: ModuleBuilder {
+struct DexLastTradesModuleBuilder: ModuleBuilderOutput {
+    
+    weak var output: DexLastTradesModuleOutput?
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         
@@ -17,7 +19,8 @@ struct DexLastTradesModuleBuilder: ModuleBuilder {
         
         var presenter: DexLastTradesPresenterProtocol = DexLastTradesPresenter()
         presenter.interactor = interactor
-
+        presenter.moduleOutput = output
+        
         let vc = StoryboardScene.Dex.dexLastTradesViewController.instantiate()
         vc.presenter = presenter
 

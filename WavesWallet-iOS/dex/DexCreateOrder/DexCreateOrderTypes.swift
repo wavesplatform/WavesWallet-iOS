@@ -8,25 +8,24 @@
 
 import Foundation
 
-enum DexSellBuy {
+enum DexCreateOrder {
     enum DTO {}
     enum ViewModel {}
     
 }
 
-extension DexSellBuy.ViewModel {
+extension DexCreateOrder.ViewModel {
     
 }
 
-extension DexSellBuy.DTO {
+extension DexCreateOrder.DTO {
     enum OrderType {
         case sell
         case buy
     }
     
-    struct Order {
+    struct Input {
         let type: OrderType
-        let amount: Double
-        let price: Double
+        let price: Money
     }
 }
