@@ -18,6 +18,9 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
 
     weak var moduleOutput: DexLastTradesModuleOutput?
     
+    var priceAsset: DexTraderContainer.DTO.Asset!
+    var amountAsset: DexTraderContainer.DTO.Asset!
+    
     func system(feedbacks: [DexLastTradesPresenterProtocol.Feedback]) {
         
         var newFeedbacks = feedbacks
@@ -66,19 +69,20 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             }.changeAction(.update)
         
         case .didTapBuy(let buy):
-            moduleOutput?.didTapSellBuy(buy)
+            
+            moduleOutput?.didCreateOrder(buy, priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
-            moduleOutput?.didTapEmptyBuy()
+            moduleOutput?.didCreateOrderBuyEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            moduleOutput?.didTapSellBuy(sell)
+            moduleOutput?.didCreateOrder(sell, priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
             
         case .didTapEmptySell:
-            moduleOutput?.didTapEmptySell()
+            moduleOutput?.didCreateOrderSellEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
             return state.changeAction(.none)
         }
        

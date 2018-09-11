@@ -71,11 +71,12 @@ private extension DexLastTradesInteractorMock {
             
             var sell: DexLastTrades.DTO.SellBuyTrade?
             var buy: DexLastTrades.DTO.SellBuyTrade?
-            
+
             if let items = items {
                 let info = JSON(items)
                 
                 if let bid = info["bids"].arrayValue.first {
+
                     sell = DexLastTrades.DTO.SellBuyTrade(price: Money((bid["price"]).int64Value, self.pair.priceAsset.decimals),
                                                           type: .sell)
                 }

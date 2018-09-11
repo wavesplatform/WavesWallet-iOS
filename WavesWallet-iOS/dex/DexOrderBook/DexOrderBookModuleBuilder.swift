@@ -20,7 +20,9 @@ struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
         var presenter: DexOrderBookPresenterProtocol = DexOrderBookPresenter()
         presenter.interactor = interactor
         presenter.moduleOutput = output
-        
+        presenter.priceAsset = input.priceAsset
+        presenter.amountAsset = input.amountAsset
+
         let vc = StoryboardScene.Dex.dexOrderBookViewController.instantiate()
         vc.presenter = presenter
         return vc

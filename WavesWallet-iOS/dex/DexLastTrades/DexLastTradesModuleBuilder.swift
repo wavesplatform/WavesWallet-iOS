@@ -20,6 +20,8 @@ struct DexLastTradesModuleBuilder: ModuleBuilderOutput {
         var presenter: DexLastTradesPresenterProtocol = DexLastTradesPresenter()
         presenter.interactor = interactor
         presenter.moduleOutput = output
+        presenter.amountAsset = input.amountAsset
+        presenter.priceAsset = input.priceAsset
         
         let vc = StoryboardScene.Dex.dexLastTradesViewController.instantiate()
         vc.presenter = presenter

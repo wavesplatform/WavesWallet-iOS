@@ -19,12 +19,20 @@ extension DexCreateOrder.ViewModel {
 }
 
 extension DexCreateOrder.DTO {
+  
     enum OrderType {
         case sell
         case buy
     }
     
+    struct Asset {
+        let id: String
+        let name: String
+    }
+    
     struct Input {
+        let priceAsset: Asset
+        let amountAsset: Asset
         let type: OrderType
         let price: Money
     }

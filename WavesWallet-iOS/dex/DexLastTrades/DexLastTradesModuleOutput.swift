@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DexLastTradesModuleOutput: AnyObject {
-    func didTapSellBuy(_ trade: DexLastTrades.DTO.SellBuyTrade)
-    func didTapEmptyBuy()
-    func didTapEmptySell()
+    func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, priceAsset: DexTraderContainer.DTO.Asset, amountAsset: DexTraderContainer.DTO.Asset)
+    func didCreateOrderSellEmpty(priceAsset: DexTraderContainer.DTO.Asset, amountAsset: DexTraderContainer.DTO.Asset)
+    func didCreateOrderBuyEmpty(priceAsset: DexTraderContainer.DTO.Asset, amountAsset: DexTraderContainer.DTO.Asset)
 }
