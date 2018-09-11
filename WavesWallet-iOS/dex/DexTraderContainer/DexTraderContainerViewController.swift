@@ -71,7 +71,7 @@ extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
 private extension DexTraderContainerViewController {
     
     @objc func infoTapped() {
-        let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset.id, amountAssetName: pair.amountAsset.name, priceAsset: pair.priceAsset.id, priceAssetName: pair.priceAsset.name, isHidden: pair.isHidden)
+        let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isHidden: pair.isHidden)
         moduleOutput?.showInfo(pair: infoPair)
     }
     

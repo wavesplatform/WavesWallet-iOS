@@ -19,8 +19,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
     
     private let disposeBag = DisposeBag()
 
-    var priceAsset: DexTraderContainer.DTO.Asset!
-    var amountAsset: DexTraderContainer.DTO.Asset!
+    var priceAsset: Dex.DTO.Asset!
+    var amountAsset: Dex.DTO.Asset!
     
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks

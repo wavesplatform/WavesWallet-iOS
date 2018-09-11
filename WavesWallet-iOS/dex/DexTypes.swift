@@ -13,6 +13,7 @@ enum Dex {
 }
 
 extension Dex.DTO {
+    
     struct Asset {
         let id: String
         let name: String

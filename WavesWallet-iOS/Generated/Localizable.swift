@@ -21,6 +21,23 @@ internal enum Localizable {
       internal static let buy = Localizable.tr("DexCreateOrder", "button.buy")
       /// Sell
       internal static let sell = Localizable.tr("DexCreateOrder", "button.sell")
+      /// Use total balance
+      internal static let useTotalBalanace = Localizable.tr("DexCreateOrder", "button.useTotalBalanace")
+    }
+
+    internal enum Label {
+      /// Amount in
+      internal static let amountIn = Localizable.tr("DexCreateOrder", "label.amountIn")
+      /// days
+      internal static let days = Localizable.tr("DexCreateOrder", "label.days")
+      /// Expiration
+      internal static let expiration = Localizable.tr("DexCreateOrder", "label.Expiration")
+      /// Fee
+      internal static let fee = Localizable.tr("DexCreateOrder", "label.fee")
+      /// Limit Price in
+      internal static let limitPriceIn = Localizable.tr("DexCreateOrder", "label.limitPriceIn")
+      /// Total in
+      internal static let totalIn = Localizable.tr("DexCreateOrder", "label.totalIn")
     }
   }
   internal enum DexList {
