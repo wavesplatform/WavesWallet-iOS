@@ -165,6 +165,7 @@ fileprivate extension TransactionsInteractor {
 
     private func smartTransactions(_ query: SmartTransactionsQuery) -> SmartTransactionsObservable {
 
+        guard query.transactions.count != 0 else { return Observable.just([]) }
         let assetsIds = query.transactions.assetsIds
         let accountsIds = query.transactions.accountsIds
 

@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import RxSwift
-import RxRealm
 import RealmSwift
+import RxRealm
+import RxSwift
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,
@@ -17,8 +17,8 @@ extension Realm {
                                     predicate: NSPredicate) -> [ParentType] {
         return ([parentType] + subclasses)
             .flatMap { classType in
-            return Array(self.objects(classType).filter(predicate))
-        }
+                Array(self.objects(classType).filter(predicate))
+            }
     }
 }
 
@@ -114,11 +114,10 @@ fileprivate extension TransactionType {
     }
 }
 
-
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
+        return self.transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
     }
 
     func transactions(by accountAddress: String,
@@ -133,7 +132,6 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             let wavesAssetId = Environments.Constants.wavesAssetId
 
-
             let hasWaves = specifications.assets.contains(wavesAssetId)
 
             var types = specifications.types
@@ -146,15 +144,16 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
 
-            let txs = realm
+            let txs: [AnyTransaction] = realm
                 .objects(AnyTransaction.self)
                 .sorted(byKeyPath: "timestamp", ascending: false)
                 .filter("type IN %@", types.map { $0.rawValue })
                 .filter(predicate)
+                .get(offset: specifications.page.offset, limit: specifications.page.limit)
 
             var transactions = [DomainLayer.DTO.AnyTransaction]()
 
-            for any in txs.toArray() {
+            for any in txs {
                 guard let type = TransactionType(rawValue: any.type) else { continue }
                 guard let tx = type.anyTransaction(from: any) else { continue }
                 transactions.append(tx)
@@ -175,7 +174,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            observer.onNext(realm.objects(AnyTransaction.self).count == 0)
+            observer.onNext(realm.objects(AnyTransaction.self).count != 0)
             observer.onCompleted()
 
             return Disposables.create()
@@ -206,7 +205,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let result = realm.objects(AnyTransaction.self).filter("id IN %@",ids)
+            let result = realm.objects(AnyTransaction.self).filter("id IN %@", ids)
             observer.onNext(result.count == ids.count)
             observer.onCompleted()
 
@@ -224,7 +223,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
 
             var anyList: [AnyTransaction] = []
-            
+
             for tx in transactions {
                 let realmTx = tx.transaction
                 anyList.append(tx.anyTransaction(from: realmTx))
@@ -246,7 +245,6 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 }
-
 
 fileprivate protocol TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate
@@ -353,7 +351,6 @@ extension ExchangeTransaction: TransactionsSpecificationsConverter {
         predicates.append(NSPredicate(format: "exchangeTransaction != NULL"))
 
         if from.assets.count > 0 {
-
 
             let format = "exchangeTransaction.order1.assetPair.amountAsset IN %@"
                 + " OR exchangeTransaction.order1.assetPair.priceAsset IN %@"

@@ -12,6 +12,8 @@ import RxCocoa
 
 protocol AssetModuleOutput: AnyObject {
 
+    func showHistory(by assetId: String)
+    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
 }
 
 protocol AssetModuleInput {

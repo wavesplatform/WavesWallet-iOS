@@ -47,8 +47,10 @@ extension DomainLayer.DTO.AssetPair {
 
     func totalBalance(priceAmount: Int64, assetAmount: Int64) -> Balance {
 
-        let delta = pow(10, max(1, (precisionDifference + amountAsset.precision) - priceAsset.precision))
-        let amount = Decimal(priceAmount * assetAmount) / delta
+        let price = Decimal(priceAmount) / pow(10, precisionDifference)
+        let asset = Decimal(assetAmount) / pow(10, amountAsset.precision)
+
+        let amount = (price * asset) * pow(10, priceAsset.precision)
 
         return priceAsset.balance(amount.int64Value, precision: priceAsset.precision)
     }
