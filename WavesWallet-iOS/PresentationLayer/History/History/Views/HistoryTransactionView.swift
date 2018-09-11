@@ -59,6 +59,7 @@ fileprivate extension HistoryTransactionView {
     }
 }
 
+
 // TODO: ViewConfiguration
 
 extension HistoryTransactionView: ViewConfiguration {
@@ -84,10 +85,12 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .exchange(let tx):
 
-            if tx.order1.kind == .sell {
-                update(with: tx.order1.pair.amountAsset, balance: tx.order1.amount, sign: .plus)
+            let myOrder = tx.myOrder
+
+            if myOrder.kind == .sell {
+                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .plus)
             } else {
-                update(with: tx.order2.pair.amountAsset, balance: tx.order2.amount)
+                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .minus)
             }
 
         case .canceledLeasing(let tx):
@@ -112,7 +115,7 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.balance, sign: .minus)
 
         case .unrecognisedTransaction:
-            labelValue.text = nil
+            labelValue.text = "¯\\_(ツ)_/¯"
 
         case .massSent(let tx):
             update(with: tx.asset, balance: tx.total, sign: .plus)
@@ -167,7 +170,19 @@ fileprivate extension GeneralTypes.DTO.Transaction.Asset {
     }
 }
 
-extension DomainLayer.DTO.SmartTransaction {
+fileprivate extension DomainLayer.DTO.SmartTransaction.Exchange {
+    var myOrder: Order {
+        if order1.sender.isMyAccount && order2.sender.isMyAccount {
+            return order1.timestamp > order2.timestamp ? order1 : order2
+        } else if order1.sender.isMyAccount {
+            return order1
+        } else {
+            return order2
+        }
+    }
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var title: String {
 
@@ -182,7 +197,13 @@ extension DomainLayer.DTO.SmartTransaction {
             return Localizable.General.History.Transaction.Title.startedLeasing
 
         case .exchange(let tx):
-            return "_0_0_"
+            let myOrder = tx.myOrder
+
+            if myOrder.kind == .sell {
+                return tx.amount.displayText(sign: .minus, withoutCurrency: false)
+            } else {
+                return tx.amount.displayText(sign: .plus, withoutCurrency: false)
+            }
 
         case .canceledLeasing:
             return Localizable.General.History.Transaction.Title.canceledLeasing

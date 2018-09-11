@@ -18,6 +18,8 @@ final class AccountsInteractorMock: AccountsInteractorProtocol {
 
     func accounts(by ids: [String]) -> AsyncObservable<[DomainLayer.DTO.Account]> {
 
-        return Observable.just(ids.map { DomainLayer.DTO.Account(id: $0, contact: nil) })
+        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
+
+        return Observable.just(ids.map { DomainLayer.DTO.Account(id: $0, contact: nil, isMyAccount: accountAddress == $0) })
     }
 }
