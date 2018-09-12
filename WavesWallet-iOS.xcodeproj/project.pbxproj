@@ -139,6 +139,7 @@
 		0A5E4BE521383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE421383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift */; };
 		0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE621383E1600E3C3C3 /* BurnTransaction+Mapper.swift */; };
 		0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE821383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift */; };
+		0A61F0A9214976260002C53B /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61F0A8214976260002C53B /* HelloCoordinator.swift */; };
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
 		0A7643FA211874F400B633E1 /* FactoryInteractorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */; };
@@ -698,6 +699,7 @@
 		0A5E4BE621383E1600E3C3C3 /* BurnTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BurnTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A5E4BE821383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExchangeTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsInteractor.swift; sourceTree = "<group>"; };
+		0A61F0A8214976260002C53B /* HelloCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
 		0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractorsProtocol.swift; sourceTree = "<group>"; };
@@ -1607,6 +1609,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9E7129B20DC058F00B95669 /* Hello */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				04A2CFA12112100B00784FEC /* History */,
 				0A97975E2108A10400407F67 /* Wallet */,
@@ -2433,6 +2436,7 @@
 				E9E7129C20DC05A900B95669 /* Hello.storyboard */,
 				F96DFFCE20DCE7DA0056BB52 /* InfoPagesViewController.swift */,
 				E96D1F7120DE5BA40061AD75 /* HelloLanguagesViewController.swift */,
+				0A61F0A8214976260002C53B /* HelloCoordinator.swift */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -2754,7 +2758,6 @@
 				F72EECFE1EAD1207002BBA26 /* settings */,
 				F755C0FD1EAA8319008A938F /* util */,
 				E9193B8120D7E26500F5D983 /* Profile */,
-				E9E7129B20DC058F00B95669 /* Hello */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				F7E954E71EA8FE0700A804DE /* AppDelegate.swift */,
 				0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */,
@@ -3220,6 +3223,7 @@
 				0AF922D7212E1234003BA067 /* ModuleBuilder.swift in Sources */,
 				0AF922CB212E1234003BA067 /* CGSize+Hashable.swift in Sources */,
 				0AEB358C2115DB3C00EDD63C /* AssetsRepositoryProtocol.swift in Sources */,
+				0A61F0A9214976260002C53B /* HelloCoordinator.swift in Sources */,
 				0AF922D4212E1234003BA067 /* Any+Name.swift in Sources */,
 				E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */,
 				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,

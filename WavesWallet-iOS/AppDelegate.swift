@@ -20,6 +20,8 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    var helloCoordinator: HelloCoordinator!
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         UserDefaults.standard.set(false, forKey: "isTestEnvironment")
@@ -52,7 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if w.count > 0 {
             WalletManager.didLogin(toWallet: w[0])
         } else {
-            self.window!.rootViewController = StoryboardManager.launchViewController()
+            helloCoordinator = HelloCoordinator()
+            helloCoordinator.start(window: window!)
+//            self.window!.rootViewController = StoryboardManager.launchViewController()
         }
     }
 
