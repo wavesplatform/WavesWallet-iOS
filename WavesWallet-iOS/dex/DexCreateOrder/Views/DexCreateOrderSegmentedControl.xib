@@ -10,12 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderTypeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="buttonBuy" destination="YbB-Dt-jNS" id="m4C-wh-WR0"/>
-                <outlet property="buttonSell" destination="HOy-Y9-9nd" id="QGT-CU-3b3"/>
-                <outlet property="viewPosition" destination="Wdv-B4-05k" id="F1s-mS-nqj"/>
-                <outlet property="viewPositionOffset" destination="B2K-il-Hp0" id="Hjr-h2-qd1"/>
+                <outlet property="buttonBuy" destination="YbB-Dt-jNS" id="xYU-93-80w"/>
+                <outlet property="buttonSell" destination="HOy-Y9-9nd" id="e1J-r6-jVt"/>
+                <outlet property="viewPosition" destination="Wdv-B4-05k" id="qo8-JY-Je3"/>
+                <outlet property="viewPositionOffset" destination="B2K-il-Hp0" id="Dr6-uc-IiE"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,14 +28,14 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Buy"/>
                     <connections>
-                        <action selector="buyTapped:" destination="-1" eventType="touchUpInside" id="gNV-WM-1nC"/>
+                        <action selector="buyTapped:" destination="-1" eventType="touchUpInside" id="7IR-IV-8sX"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOy-Y9-9nd">
                     <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
                     <state key="normal" title="Sell"/>
                     <connections>
-                        <action selector="sellTapped:" destination="-1" eventType="touchUpInside" id="Z7l-sb-azm"/>
+                        <action selector="sellTapped:" destination="-1" eventType="touchUpInside" id="qOW-eO-omB"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-B4-05k" userLabel="view position">

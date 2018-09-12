@@ -8,19 +8,24 @@
 
 import UIKit
 
-protocol DexCreateOrderTypeViewDelegate: AnyObject {
+private enum Constants {
+    static let animationDuration: TimeInterval = 0.3
+    static let countButtons = 2
+}
+
+protocol DexCreateOrderSegmentedControlDelegate: AnyObject {
     
     func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType)
 }
 
-final class DexCreateOrderTypeView: UIView, NibOwnerLoadable {
+final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var buttonBuy: UIButton!
     @IBOutlet private weak var buttonSell: UIButton!
     @IBOutlet private weak var viewPosition: UIView!
     @IBOutlet private weak var viewPositionOffset: NSLayoutConstraint!
     
-    weak var delegate: DexCreateOrderTypeViewDelegate?
+    weak var delegate: DexCreateOrderSegmentedControlDelegate?
     
     var type: DexCreateOrder.DTO.OrderType! {
         didSet {
@@ -44,6 +49,7 @@ final class DexCreateOrderTypeView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         buttonBuy.setTitle(Localizable.DexCreateOrder.Button.buy, for: .normal)
         buttonSell.setTitle(Localizable.DexCreateOrder.Button.sell, for: .normal)
     }
@@ -55,16 +61,16 @@ final class DexCreateOrderTypeView: UIView, NibOwnerLoadable {
 }
 
 //MARK: - Setup
-private extension DexCreateOrderTypeView {
+private extension DexCreateOrderSegmentedControl {
     
     func setupViewPositionOffset(animation: Bool) {
-        let buttonWidth = frame.size.width / 2
+        let buttonWidth = frame.size.width / CGFloat(Constants.countButtons)
         let buttonPosition: CGFloat = type == .sell ? buttonWidth : 0
 
         viewPositionOffset.constant = buttonPosition + (buttonWidth - viewPosition.frame.size.width) / 2
 
         if animation {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: Constants.animationDuration) {
                 self.layoutIfNeeded()
             }
         }
@@ -72,8 +78,7 @@ private extension DexCreateOrderTypeView {
 }
 
 //MARK: - Actions
-private extension DexCreateOrderTypeView {
-    
+private extension DexCreateOrderSegmentedControl {    
     
     @IBAction func buyTapped(_ sender: UIButton) {
         guard type != .buy else { return }
@@ -82,11 +87,11 @@ private extension DexCreateOrderTypeView {
         delegate?.dexCreateOrderDidChangeType(type)
     }
     
+    
     @IBAction func sellTapped(_ sender: UIButton) {
         guard type != .sell else { return }
         type = .sell
         setupViewPositionOffset(animation: true)
         delegate?.dexCreateOrderDidChangeType(type)
     }
-    
 }

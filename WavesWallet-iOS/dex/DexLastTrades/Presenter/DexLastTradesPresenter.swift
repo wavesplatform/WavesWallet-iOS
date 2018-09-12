@@ -70,19 +70,19 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         case .didTapBuy(let buy):
             
-            moduleOutput?.didCreateOrder(buy, priceAsset: priceAsset, amountAsset: amountAsset)
+            moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
-            moduleOutput?.didCreateOrderBuyEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
+            moduleOutput?.didCreateOrderBuyEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            moduleOutput?.didCreateOrder(sell, priceAsset: priceAsset, amountAsset: amountAsset)
+            moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset,  priceAsset: priceAsset)
             return state.changeAction(.none)
             
         case .didTapEmptySell:
-            moduleOutput?.didCreateOrderSellEmpty(priceAsset: priceAsset, amountAsset: amountAsset)
+            moduleOutput?.didCreateOrderSellEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
             return state.changeAction(.none)
         }
        

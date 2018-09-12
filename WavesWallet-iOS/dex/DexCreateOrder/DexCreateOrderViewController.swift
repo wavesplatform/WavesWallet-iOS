@@ -12,28 +12,51 @@ final class DexCreateOrderViewController: UIViewController {
 
     var input: DexCreateOrder.DTO.Input!
     
-    @IBOutlet weak var typeView: DexCreateOrderTypeView!
+    @IBOutlet private weak var typeView: DexCreateOrderSegmentedControl!
+    @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
+    @IBOutlet private weak var inputPrice: DexCreateOrderInputView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTypeView()
+        setupViews()
+        setupInputViews()
     }
 }
 
 //MARK: - DexCreateOrderTypeViewDelegate
-extension DexCreateOrderViewController: DexCreateOrderTypeViewDelegate {
+extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
     
     func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType) {
         
     }
 }
 
-//MARK: - Setup
+//MARK: - DexCreateOrderInputViewDelegate
+extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
+    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double) {
+        
+        if inputView == inputAmount {
+            print("amountDidChange", value)
+        }
+        else if inputView == inputPrice {
+            print("priceDidChange", value)
+        }
+    }
+}
 
+//MARK: - Setup
 private extension DexCreateOrderViewController {
-    func setupTypeView() {
+    func setupViews() {
         typeView.type = input.type
         typeView.delegate = self
+        
+        inputAmount.delegate = self
+        inputPrice.delegate = self
+    }
+    
+    func setupInputViews() {
+        inputAmount.setupTitle(title: Localizable.DexCreateOrder.Label.amountIn, input: input)
+        inputPrice.setupTitle(title: Localizable.DexCreateOrder.Label.limitPriceIn, input: input)
     }
 }
