@@ -1,0 +1,17 @@
+//
+//  DexCreateOrderInteractor.swift
+//  WavesWallet-iOS
+//
+//  Created by Pavel Gubin on 9/13/18.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import Foundation
+import RxSwift
+
+final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
+    
+    func getTotalBalance() -> Observable<(DexCreateOrder.DTO.Balance)> {
+        return Observable.empty()
+    }
+}

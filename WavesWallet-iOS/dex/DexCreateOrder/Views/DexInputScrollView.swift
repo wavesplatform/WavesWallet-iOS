@@ -24,7 +24,12 @@ final class DexInputScrollView: UIScrollView {
 
     weak var inputDelegate: DexInputScrollViewDelegate?
     
-    var input: [String] = [] {
+    struct Input {
+        let text: String
+        let value: Money
+    }
+    
+    var input: [Input] = [] {
         
         didSet {
             subviews.forEach( {$0.removeFromSuperview()})
@@ -32,7 +37,7 @@ final class DexInputScrollView: UIScrollView {
             var scrollWidth: CGFloat = Constants.startOffset
             
             for (index, value) in input.enumerated() {
-                let button = createButton(title: value)
+                let button = createButton(title: value.text)
                 button.addTarget(self, action: #selector(amountTapped(_:)), for: .touchUpInside)
                 button.tag = index
                 button.frame.origin.x = scrollWidth

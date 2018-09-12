@@ -9,13 +9,7 @@
 import Foundation
 
 enum DexCreateOrder {
-    enum DTO {}
-    enum ViewModel {}
-    
-}
-
-extension DexCreateOrder.ViewModel {
-    
+    enum DTO {}    
 }
 
 extension DexCreateOrder.DTO {
@@ -30,5 +24,9 @@ extension DexCreateOrder.DTO {
         let priceAsset: Dex.DTO.Asset
         let type: OrderType
         let price: Money
+    }
+    
+    struct Balance {
+        let totalMoney: Money
     }
 }

@@ -26,6 +26,24 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     weak var delegate: DexCreateOrderInputViewDelegate?
     
+    private var isShowInputScrollView = false {
+        didSet {
+            if isShowInputScrollView {
+                showInputScrollView(animation: false)
+            }
+            else {
+                hideInputScrollView(animation: false)
+            }
+        }
+    }
+    
+    var input: [Dictionary<String, Double>] = [] {
+        didSet {
+            isShowInputScrollView = input.count > 0
+            inputScrollView.input = input
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -34,11 +52,9 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        inputScrollView.input = ["dsad", "daddadadfda", "0.000", "dsad", "dsadasd", "dsad", "dasdad", "dsxx", "sdsd"]
         inputScrollView.inputDelegate = self
-        
         textField.inputNumericDelegate = self
-        showInputScrollView(animation: false)
+        hideInputScrollView(animation: false)
     }
 }
 
@@ -48,10 +64,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
   
     func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Double) {
-        
-        delegate?.dexCreateOrder(inputView: self, didChangeValue: textField.value)
-
-        updateViewHeight(inputValue: value)
+        textFieldDidChangeNewValue()
     }
 }
 
@@ -60,6 +73,15 @@ extension DexCreateOrderInputView: DexInputScrollViewDelegate {
     
     func dexInputScrollViewDidTapAt(index: Int) {
         hideInputScrollView(animation: true)
+        
+        if index == 0 {
+            textField.setStringValue(value: "0.4314")
+
+        }
+        else {
+            let value = input[index]
+            textField.setStringValue(value: value)
+        }
     }
 }
 
@@ -69,15 +91,20 @@ private extension DexCreateOrderInputView {
     @IBAction func plusTapped(_ sender: Any) {
         textField.addPlusValue()
         
-        delegate?.dexCreateOrder(inputView: self, didChangeValue: textField.value)
-        updateViewHeight(inputValue: textField.value)
+        textFieldDidChangeNewValue()
     }
     
     @IBAction func minusTapped(_ sender: Any) {
         textField.addMinusValue()
+        textFieldDidChangeNewValue()
+    }
+    
+    func textFieldDidChangeNewValue() {
         
         delegate?.dexCreateOrder(inputView: self, didChangeValue: textField.value)
-        updateViewHeight(inputValue: textField.value)
+        if isShowInputScrollView {
+            updateViewHeight(inputValue: textField.value)
+        }
     }
 }
 
@@ -94,11 +121,14 @@ extension DexCreateOrderInputView {
 private extension DexCreateOrderInputView {
     
     func updateViewHeight(inputValue: Double) {
-        if inputValue > 0 {
-            hideInputScrollView(animation: true)
-        }
-        else {
-            showInputScrollView(animation: true)
+        
+        if isShowInputScrollView {
+            if inputValue > 0 {
+                hideInputScrollView(animation: true)
+            }
+            else {
+                showInputScrollView(animation: true)
+            }
         }
     }
     
