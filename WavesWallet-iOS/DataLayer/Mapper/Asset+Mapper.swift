@@ -10,20 +10,6 @@ import Foundation
 
 extension Asset {
 
-    //TODO: Remove
-    convenience init(model: API.DTO.Asset) {
-        self.init()
-        id = model.id
-        name = model.name
-        precision = model.precision
-        descriptionAsset = model.description
-        height = model.height
-        timestamp = model.timestamp
-        sender = model.sender
-        quantity = model.quantity
-        isReusable = model.reissuable
-    }
-
     convenience init(asset: DomainLayer.DTO.Asset) {
         self.init()
         self.id = asset.id

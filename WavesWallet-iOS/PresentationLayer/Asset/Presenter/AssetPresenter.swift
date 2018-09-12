@@ -88,6 +88,12 @@ private extension AssetPresenter {
     func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
 
         switch event {
+        case .tapTransaction(let tx):
+            self.moduleOutput?.showTransaction(tx)
+
+        case .tapHistory:
+            self.moduleOutput?.showHistory(by: state.displayState.currentAsset.id)
+            
         case .readyView:
 
             return state.mutate {
