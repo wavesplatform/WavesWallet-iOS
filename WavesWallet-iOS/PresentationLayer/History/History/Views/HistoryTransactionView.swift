@@ -8,42 +8,6 @@
 
 import UIKit
 
-extension HistoryTransactionView {
-
-    struct Transaction {
-
-        struct Asset {
-            let isSpam: Bool
-            let isGeneral: Bool
-            let name: String
-            let balance: Money
-        }
-
-        enum Kind {
-            case receive(Asset)
-            case sent(Asset)
-            case startedLeasing(Asset)
-            case exchange(from: Asset, to: Asset)
-            case canceledLeasing(Asset)
-            case tokenGeneration(Asset)
-            case tokenBurn(Asset)
-            case tokenReissue(Asset)
-            case selfTransfer(Asset)
-            case createdAlias(String)
-            case incomingLeasing(Asset)
-            case unrecognisedTransaction
-            case massSent(Asset)
-            case massReceived(Asset)
-            case spamReceive(Asset)
-            case spamMassReceived(Asset)
-            case data
-        }
-
-        let id: String
-        let kind: Kind
-    }
-}
-
 final class HistoryTransactionView: UIView, NibOwnerLoadable {
 
     @IBOutlet weak var viewContainer: UIView!
@@ -68,116 +32,126 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
         viewContainer.addTableCellShadowStyle()
         viewContainer.cornerRadius = 2
     }
-    
 }
 
-extension HistoryTransactionView: ViewConfiguration {
-    
-    func update(with model: Transaction) {
 
-        imageViewIcon.image = model.kind.image
-        labelTitle.text = model.kind.title
+fileprivate extension HistoryTransactionView {
+
+    func update(with asset: DomainLayer.DTO.Asset, balance: Balance, sign: Balance.Sign = .none) {
+
+        if asset.isSpam {
+            tickerView.isHidden = false
+            tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
+                                          style: .normal))
+            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
+            return
+        }
+
+        if let ticker = balance.currency.ticker {
+            tickerView.isHidden = false
+            tickerView.update(with: .init(text: ticker,
+                                          style: .soft))
+            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
+        } else {
+            tickerView.isHidden = true
+            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: false), font: labelValue.font)
+        }
+    }
+}
+
+
+// TODO: ViewConfiguration
+
+extension HistoryTransactionView: ViewConfiguration {
+
+    typealias Model = DomainLayer.DTO.SmartTransaction
+
+    func update(with model: DomainLayer.DTO.SmartTransaction) {
+
+        imageViewIcon.image = model.image
+        labelTitle.text = model.title
         tickerView.isHidden = true
         labelValue.text = nil
 
-        if let asset = model.kind.asset {
-            if asset.isSpam {
-                tickerView.isHidden = false
-                tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
-                                              style: .normal))
-            } else if asset.isGeneral {
-                tickerView.isHidden = false
-                tickerView.update(with: .init(text: asset.name,
-                                              style: .soft))
+        switch model.kind {
+        case .receive(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .plus)
+
+        case .sent(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .minus)
+
+        case .startedLeasing(let tx):
+            update(with: tx.asset, balance: tx.balance)
+
+        case .exchange(let tx):
+
+            let myOrder = tx.myOrder
+
+            if myOrder.kind == .sell {
+                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .plus)
+            } else {
+                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .minus)
             }
 
-            labelValue.attributedText = .styleForBalance(text: asset.title,
-                                                        font: labelValue.font)
-        } else {
-            switch model.kind {
-            case .data:
-                labelValue.text = Localizable.General.History.Transaction.Value.data
-            case .createdAlias(let name):
-                labelValue.text = name
-            default:
-                labelValue.text = "nil"
-            }
-        }
-    }
-}
+        case .canceledLeasing(let tx):
+            update(with: tx.asset, balance: tx.balance)
 
-extension HistoryTransactionView.Transaction.Asset {
+        case .tokenGeneration(let tx):
+            update(with: tx.asset, balance: tx.balance)
 
-    var title: String {
-        if isGeneral == false {
-            return "\(balance.displayTextFull) \(name)"
-        } else {
-            return "\(balance.displayTextFull)"
-        }
-    }
-}
+        case .tokenBurn(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .minus)
 
-extension HistoryTransactionView.Transaction.Kind {
+        case .tokenReissue(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .plus)
 
-    var asset: HistoryTransactionView.Transaction.Asset? {
+        case .selfTransfer(let tx):
+            update(with: tx.asset, balance: tx.balance)
 
-        switch self {
-        case .receive(let asset):
-            return asset
+        case .createdAlias(let name):
+            labelValue.text = name
 
-        case .sent(let asset):
-            return asset
-
-        case .startedLeasing(let asset):
-            return asset
-
-        case .exchange(let from, _):
-            return from
-
-        case .canceledLeasing(let asset):
-            return asset
-
-        case .tokenGeneration(let asset):
-            return asset
-
-        case .tokenBurn(let asset):
-            return asset
-
-        case .tokenReissue(let asset):
-            return asset
-
-        case .selfTransfer(let asset):
-            return asset
-
-        case .createdAlias:
-            return nil
-
-        case .incomingLeasing(let asset):
-            return asset
+        case .incomingLeasing(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .minus)
 
         case .unrecognisedTransaction:
-            return nil
+            labelValue.text = "¯\\_(ツ)_/¯"
 
-        case .massSent(let asset):
-            return asset
+        case .massSent(let tx):
+            update(with: tx.asset, balance: tx.total, sign: .plus)
 
-        case .massReceived(let asset):
-            return asset
+        case .massReceived(let tx):
+            update(with: tx.asset, balance: tx.total, sign: .minus)
 
-        case .spamReceive(let asset):
-            return asset
+        case .spamReceive(let tx):
+            update(with: tx.asset, balance: tx.balance, sign: .plus)
 
-        case .spamMassReceived(let asset):
-            return asset
+        case .spamMassReceived(let tx):
+            update(with: tx.asset, balance: tx.total, sign: .plus)
 
         case .data:
-            return nil
+            labelValue.text = Localizable.General.History.Transaction.Value.data
         }
     }
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction.Exchange {
+    var myOrder: Order {
+        if order1.sender.isMyAccount && order2.sender.isMyAccount {
+            return order1.timestamp > order2.timestamp ? order1 : order2
+        } else if order1.sender.isMyAccount {
+            return order1
+        } else {
+            return order2
+        }
+    }
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var title: String {
 
-        switch self {
+        switch kind {
         case .receive:
             return Localizable.General.History.Transaction.Title.received
 
@@ -187,8 +161,14 @@ extension HistoryTransactionView.Transaction.Kind {
         case .startedLeasing:
             return Localizable.General.History.Transaction.Title.startedLeasing
 
-        case .exchange(let from, _):
-            return from.title
+        case .exchange(let tx):
+            let myOrder = tx.myOrder
+
+            if myOrder.kind == .sell {
+                return tx.amount.displayText(sign: .minus, withoutCurrency: false)
+            } else {
+                return tx.amount.displayText(sign: .plus, withoutCurrency: false)
+            }
 
         case .canceledLeasing:
             return Localizable.General.History.Transaction.Title.canceledLeasing
@@ -232,7 +212,7 @@ extension HistoryTransactionView.Transaction.Kind {
     }
 
     var image: UIImage {
-        switch self {
+        switch kind {
         case .receive:
             return Images.assetReceive.image
 

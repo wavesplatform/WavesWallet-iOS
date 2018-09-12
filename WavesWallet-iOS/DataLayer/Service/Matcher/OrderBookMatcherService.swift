@@ -18,7 +18,6 @@ extension Matcher.Service {
         case getOrderHistory(PrivateKeyAccount, isActiveOnly: Bool)
     }
 }
-
 extension Matcher.Service.OrderBook: MatcherTargetType {
     private enum Constants {
         static let matcher = "matcher"

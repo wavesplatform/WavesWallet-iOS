@@ -10,15 +10,15 @@ import UIKit
 
 final class HistoryCoordinator {
     
-    private lazy var historyViewController: UIViewController = {
-        return HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: .all))
-    }()
+    private weak var historyViewController: UIViewController?
     
     private var navigationController: UINavigationController!
     
-    func start(navigationController: UINavigationController) {
+    func start(navigationController: UINavigationController, historyType: HistoryType) {
         self.navigationController = navigationController
-        navigationController.pushViewController(historyViewController, animated: false)
+
+        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+        navigationController.pushViewController(historyViewController!, animated: true)
     }
     
 }
@@ -31,14 +31,6 @@ extension HistoryCoordinator: HistoryModuleOutput {
         controller.currentPage = 0
         
         let popup = PopupViewController()
-        popup.present(contentViewController: controller)
+//        popup.present(contentViewController: controller)
     }
-}
-
-extension HistoryCoordinator: HistoryModuleInput {
-    
-    var type: HistoryType {
-        return .all
-    }
-    
 }
