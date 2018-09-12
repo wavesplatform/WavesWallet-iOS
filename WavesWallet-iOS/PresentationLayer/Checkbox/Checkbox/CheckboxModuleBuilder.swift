@@ -15,6 +15,9 @@ struct CheckboxModuleBuilder: ModuleBuilderOutput {
     func build(input: CheckboxModuleInput) -> UIViewController {
         
         let vc = StoryboardScene.Checkbox.checkboxViewController.instantiate()
+        vc.transitioningDelegate = vc
+        vc.modalPresentationStyle = .custom
+//        vc.preffe
         vc.input = input
         
         return vc

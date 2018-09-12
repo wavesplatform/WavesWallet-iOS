@@ -25,6 +25,8 @@
 		04892C602148811100339F33 /* CheckboxModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */; };
 		04892C62214895C100339F33 /* CheckboxModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C61214895C100339F33 /* CheckboxModuleOutput.swift */; };
 		04892C642148964100339F33 /* CheckboxModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C632148964100339F33 /* CheckboxModuleInput.swift */; };
+		04892C6F21497A8300339F33 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C6E21497A8200339F33 /* Localizable.swift */; };
+		04892C7221497B4100339F33 /* Checkbox.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04892C7421497B4100339F33 /* Checkbox.strings */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
@@ -97,7 +99,6 @@
 		0A93FECE20FCA82F0058179E /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECD20FCA82F0058179E /* SpamService.swift */; };
 		0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECF20FCA8610058179E /* AssetsSpamService.swift */; };
 		0A93FED320FCAADC0058179E /* WalletTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */; };
-		0A97975C210888B600407F67 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97975B210888B600407F67 /* Localizable.swift */; };
 		0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A97975F2108A11A00407F67 /* Wallet.storyboard */; };
 		0A9797612108A60000407F67 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979757210886EA00407F67 /* Storyboards.swift */; };
 		0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797642108B18C00407F67 /* WalletModuleOutput.swift */; };
@@ -539,6 +540,10 @@
 		04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleBuilder.swift; sourceTree = "<group>"; };
 		04892C61214895C100339F33 /* CheckboxModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleOutput.swift; sourceTree = "<group>"; };
 		04892C632148964100339F33 /* CheckboxModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleInput.swift; sourceTree = "<group>"; };
+		04892C6E21497A8200339F33 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		04892C7321497B4100339F33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Checkbox.strings; sourceTree = "<group>"; };
+		04892C7521497B4300339F33 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Checkbox.strings; sourceTree = "<group>"; };
+		04892C7621497B4500339F33 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Checkbox.strings; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
@@ -623,7 +628,6 @@
 		0A93FECF20FCA8610058179E /* AssetsSpamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
 		0A979757210886EA00407F67 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
-		0A97975B210888B600407F67 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		0A97975F2108A11A00407F67 /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
 		0A9797642108B18C00407F67 /* WalletModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleOutput.swift; sourceTree = "<group>"; };
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
@@ -1146,13 +1150,9 @@
 		04892C55214845CE00339F33 /* Checkbox */ = {
 			isa = PBXGroup;
 			children = (
-				04892C5A2148714F00339F33 /* Views */,
 				04892C56214868CF00339F33 /* Checkbox.storyboard */,
-				04892C5821486C0100339F33 /* CheckboxViewController.swift */,
 				04892C5D21487EB000339F33 /* CheckboxCoordinator.swift */,
-				04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */,
-				04892C61214895C100339F33 /* CheckboxModuleOutput.swift */,
-				04892C632148964100339F33 /* CheckboxModuleInput.swift */,
+				04892C652149614C00339F33 /* Checkbox */,
 			);
 			path = Checkbox;
 			sourceTree = "<group>";
@@ -1163,6 +1163,27 @@
 				04892C5B2148731B00339F33 /* CheckboxControl.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		04892C652149614C00339F33 /* Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				04892C5821486C0100339F33 /* CheckboxViewController.swift */,
+				04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */,
+				04892C662149625400339F33 /* Presenter */,
+				04892C5A2148714F00339F33 /* Views */,
+				04892C7421497B4100339F33 /* Checkbox.strings */,
+			);
+			path = Checkbox;
+			sourceTree = "<group>";
+		};
+		04892C662149625400339F33 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				04892C632148964100339F33 /* CheckboxModuleInput.swift */,
+				04892C61214895C100339F33 /* CheckboxModuleOutput.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		04A2CFA12112100B00784FEC /* History */ = {
@@ -1468,7 +1489,7 @@
 			isa = PBXGroup;
 			children = (
 				0AFBCA9921132F9300285BCB /* Images.swift */,
-				0A97975B210888B600407F67 /* Localizable.swift */,
+				04892C6E21497A8200339F33 /* Localizable.swift */,
 				0A979757210886EA00407F67 /* Storyboards.swift */,
 			);
 			path = Generated;
@@ -2734,6 +2755,7 @@
 				0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */,
 				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
+				04892C7221497B4100339F33 /* Checkbox.strings in Resources */,
 				F96DFFD820DD06480056BB52 /* SecondInfoPageView.xib in Resources */,
 				0AF922FA212E1234003BA067 /* MyOrderHeaderView.xib in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
@@ -2986,7 +3008,6 @@
 				E9CFBC3E2124EADE00CE7413 /* DexOrderBookPresenterProtocol.swift in Sources */,
 				E9F81B7A212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
-				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				E9C540E0212F8D1A00253BDB /* DexMyOrdersCell.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
@@ -3129,6 +3150,7 @@
 				0AF922BC212E1234003BA067 /* ActivityIndicator.swift in Sources */,
 				0AF921F8212E07B3003BA067 /* AssetViewHistoryCell.swift in Sources */,
 				0A485E8D20FFB02100079B49 /* TransactionLeasingNode.swift in Sources */,
+				04892C6F21497A8300339F33 /* Localizable.swift in Sources */,
 				E9983DC9211C7221002349CA /* DexMarketInteractor.swift in Sources */,
 				E9104D4F2109A900001222B8 /* DexSortCell.swift in Sources */,
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
@@ -3368,6 +3390,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		04892C7421497B4100339F33 /* Checkbox.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04892C7321497B4100339F33 /* en */,
+				04892C7521497B4300339F33 /* ru */,
+				04892C7621497B4500339F33 /* tr */,
+			);
+			name = Checkbox.strings;
+			sourceTree = "<group>";
+		};
 		04C1BF59211CA5EF0095377D /* History.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
