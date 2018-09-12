@@ -20,6 +20,15 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
         presenter.interactor = HistoryInteractorMock()
         presenter.moduleOutput = output
         vc.presenter = presenter
+
+        //TODO: Нужно подумать как лучше это сделать
+        switch input.type {
+        case .all:
+            vc.createMenuButton()
+
+        default:
+            vc.createBackButton()
+        }
         
         return vc
     }

@@ -42,8 +42,7 @@ final class HistoryViewController: UIViewController {
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
         
-        setupSegmentedControl()
-        createMenuButton()
+        setupSegmentedControl()        
         setupRefreshControl()
         setupSystem()
     }

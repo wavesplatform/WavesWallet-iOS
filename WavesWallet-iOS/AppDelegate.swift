@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-//        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
-//        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
+        UserDefaults.standard.synchronize()
 
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,

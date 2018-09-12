@@ -370,6 +370,15 @@ extension AssetViewController: UITableViewDataSource {
 extension AssetViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let row = sections[indexPath]
+
+        switch row {
+        case .viewHistory:
+            eventInput.onNext(.tapHistory)
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
