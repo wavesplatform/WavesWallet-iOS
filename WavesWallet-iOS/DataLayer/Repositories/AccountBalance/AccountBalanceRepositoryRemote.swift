@@ -32,22 +32,22 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     }
 
     func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 
     func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance]) -> Observable<Bool> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 
     func saveBalance(_ balance: DomainLayer.DTO.AssetBalance) -> Observable<Bool> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 
     var listenerOfUpdatedBalances: Observable<[DomainLayer.DTO.AssetBalance]> = {
-        assert(true, "Var don't supported")
+        assertVarDontSupported()
         return Observable.never()
     }()
 }

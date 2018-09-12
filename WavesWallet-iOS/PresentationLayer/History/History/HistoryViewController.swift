@@ -32,7 +32,7 @@ final class HistoryViewController: UIViewController {
     private var sections: [HistoryTypes.ViewModel.Section] = []
     private var filters: [HistoryTypes.Filter] = []
     
-    let tapCell: PublishSubject<HistoryTypes.DTO.Transaction> = PublishSubject<HistoryTypes.DTO.Transaction>()
+    let tapCell: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,6 @@ final class HistoryViewController: UIViewController {
         emptyView.isHidden = true
         
         setupSegmentedControl()
-        createMenuButton()
         setupRefreshControl()
         setupSystem()
     }
@@ -98,16 +97,13 @@ private extension HistoryViewController {
     }
     
     func events() -> [Signal<HistoryTypes.Event>] {
-        
-        let scrollViewDidEndDecelerating = tableView
+
+        let refreshEvent = tableView
             .rx
-            .didEndDecelerating
+            .didRefreshing(refreshControl: refreshControl)
+            .map { _ in HistoryTypes.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
-        
-        let refreshControlValueChanged = refreshControl
-            .rx
-            .controlEvent(.valueChanged)
-            .asSignal(onErrorSignalWith: Signal.empty())
+
         
         let tap = tableView
             .rx
@@ -116,11 +112,7 @@ private extension HistoryViewController {
                 return HistoryTypes.Event.tapCell(indexPath) 
             }
             .asSignal(onErrorSignalWith: Signal.empty())
-        
-        let refreshEvent = Signal.zip(refreshControlValueChanged,
-                                      scrollViewDidEndDecelerating)
-            .map { _ in HistoryTypes.Event.refresh }
-        
+
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
                 
@@ -317,18 +309,13 @@ extension HistoryViewController: UITableViewDataSource {
         guard let firstItem = model.items.first else { return nil }
         
         switch firstItem {
-        case .transaction(let transaction):
+        case .transaction:
             
             let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             
             if let header = model.header {
                 view.update(with: header)
-            } else {
-                let date = transaction.date as Date
-                let d = date.toFormat("MMM dd, yyyy", locale: Locales.current)
-                view.update(with: d)
             }
-            
             return view
 
         case .transactionSkeleton:
@@ -338,11 +325,7 @@ extension HistoryViewController: UITableViewDataSource {
             return view
             
         }
-        
-
     }
-
-    
 }
 
 extension HistoryViewController: UIScrollViewDelegate {

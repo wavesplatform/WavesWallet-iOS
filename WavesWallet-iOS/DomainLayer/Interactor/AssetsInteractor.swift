@@ -18,7 +18,7 @@ protocol AssetsInteractorProtocol {
 }
 
 private struct Constants {
-        static let durationInseconds: Double =  120
+        static let durationInseconds: Double =  320
 }
 
 final class AssetsInteractor: AssetsInteractorProtocol {
