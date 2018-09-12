@@ -44,24 +44,3 @@ extension UITableView {
         self.tableHeaderView = self.containerHeaderView
     }
 }
-
-
-extension UINavigationItem {
-
-    private enum AssociatedKey {
-        static var titleView = "titleView"
-    }
-
-    private var containerTitleView: UIView? {
-
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKey.titleView) as? UIView
-        }
-
-        set {
-            objc_setAssociatedObject(self,
-                                     &AssociatedKey.titleView, newValue,
-                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}

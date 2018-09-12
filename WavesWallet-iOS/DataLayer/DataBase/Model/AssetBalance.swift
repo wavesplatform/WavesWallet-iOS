@@ -12,14 +12,12 @@ final class AssetBalance:
 
     typealias Identity = String
 
-
     @available(*, deprecated, message: "need remove")
     @objc dynamic var quantity: Int64 = 0
     @available(*, deprecated, message: "need remove")
     @objc dynamic var reissuable = false
     @available(*, deprecated, message: "need remove")
     @objc dynamic var issueTransaction: IssueTransaction?
-
     @available(*, deprecated, message: "need remove")
     @objc dynamic var isGeneral = false
     @available(*, deprecated, message: "need remove")
@@ -60,6 +58,7 @@ final class AssetBalance:
         super.init()
     }
 
+    @available(*, deprecated, message: "need remove")
     func getDecimals() -> Int {
         return Int(self.issueTransaction?.decimals ?? 0)
     }
@@ -77,6 +76,7 @@ final class AssetBalance:
     }
 }
 
+@available(*, deprecated, message: "need remove")
 // equatable, this is needed to detect changes
 func == (lhs: AssetBalance, rhs: AssetBalance) -> Bool {
     return lhs.assetId == rhs.assetId && lhs.balance == rhs.balance && lhs.isHidden == rhs.isHidden

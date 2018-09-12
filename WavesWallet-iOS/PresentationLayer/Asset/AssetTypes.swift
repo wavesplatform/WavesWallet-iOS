@@ -23,7 +23,7 @@ extension AssetTypes {
             case none
             case empty
             case loading
-            case transaction([AssetTypes.DTO.Transaction])
+            case transaction([DomainLayer.DTO.SmartTransaction])
 
             var isLoading: Bool {
                 switch self {
@@ -43,14 +43,14 @@ extension AssetTypes {
     enum Event {
         case readyView
         case changedAsset(id: String)
-        case setTransactions([AssetTypes.DTO.Transaction])
+        case setTransactions([DomainLayer.DTO.SmartTransaction])
         case setAssets([AssetTypes.DTO.Asset])
         case refreshing
         case tapFavorite(on: Bool)
         case tapSend
         case tapReceive
         case tapExchange
-        case tapTransaction
+        case tapTransaction(DomainLayer.DTO.SmartTransaction)
         case tapHistory
     }
 
@@ -96,17 +96,13 @@ extension AssetTypes.ViewModel {
         case viewHistory
         case viewHistoryDisabled
         case viewHistorySkeleton
-        case lastTransactions([AssetTypes.DTO.Transaction])
+        case lastTransactions([DomainLayer.DTO.SmartTransaction])
         case transactionSkeleton
         case assetInfo(AssetTypes.DTO.Asset.Info)
     }
 }
 
 extension AssetTypes.DTO {
-
-    struct Transaction: Codable {
-        //TODO: After transaction
-    }
 
     struct Asset: Codable {
 

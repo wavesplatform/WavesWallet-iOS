@@ -103,14 +103,24 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .tapRow(let indexPath):
 
             let section = state.displayState.currentDisplay.visibleSections[indexPath.section]
-            guard let asset = section.items[indexPath.row].asset else { return state }
 
             switch section.kind {
+            case .balance:
+                let row = section.items[indexPath.row]
+                if row == .allHistory {
+                    moduleOutput?.showHistoryForLeasing()
+                }
+
             case .hidden:
+                guard let asset = section.items[indexPath.row].asset else { return state }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isHidden == true } )
+
             case .spam:
+                guard let asset = section.items[indexPath.row].asset else { return state }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam == true } )
+
             case .general:
+                guard let asset = section.items[indexPath.row].asset else { return state }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
             default:
                 break

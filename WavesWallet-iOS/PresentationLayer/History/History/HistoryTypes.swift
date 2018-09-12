@@ -27,14 +27,14 @@ enum HistoryTypes {
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
-        var transactions: [HistoryTypes.DTO.Transaction]
+        var transactions: [DomainLayer.DTO.SmartTransaction]
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
     }
     
     enum Event {
-        case responseAll([DTO.Transaction])
+        case responseAll([DomainLayer.DTO.SmartTransaction])
         case readyView
         case refresh
         case changeFilter(Filter)
@@ -42,68 +42,107 @@ enum HistoryTypes {
     }
 }
 
-extension HistoryTypes.DTO {
-    struct Transaction: Hashable, Mutating {
-        enum Kind: Int {
-            case viewReceived = 0
-            case viewSend
-            case viewLeasing
-            case exchange // not show comment, not show address
-            case selfTranserred // not show address
-            case tokenGeneration // show ID token
-            case tokenReissue // show ID token,
-            case tokenBurning // show ID token, do not have bottom state of token
-            case createdAlias // show ID token
-            case canceledLeasing
-            case incomingLeasing
-            case massSend // multiple addresses
-            case massReceived
+fileprivate extension DomainLayer.DTO.SmartTransaction {
+
+    var isIncludedAllGroup: Bool {
+        switch kind {
+        default:
+            return true
         }
-        
-        let id: String
-        let name: String
-        let balance: Money
-        let kind: Kind
-        let tag: String
-        let date: NSDate
-        let sortLevel: Float
+    }
+
+    var isIncludedSentGroup: Bool {
+        switch kind {
+        case .sent, .massSent:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedReceivedGroup: Bool {
+        switch kind {
+        case .spamReceive, .spamMassReceived:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedExchangedGroup: Bool {
+        switch kind {
+        case .exchange:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedLeasedGroup: Bool {
+        switch kind {
+        case .canceledLeasing, .incomingLeasing, .startedLeasing:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedIssuedGroup: Bool {
+        switch kind {
+        case .tokenBurn, .tokenReissue, .tokenGeneration:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedActiveNowGroup: Bool {
+        switch kind {
+        case .startedLeasing:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isIncludedCanceledGroup: Bool {
+        switch kind {
+        case .canceledLeasing:
+            return true
+        default:
+            return false
+        }
     }
 }
 
 extension HistoryTypes.Filter {
-    // TODO: посмотреть точно все типы, когда какой показывается
-    var kinds: [HistoryTypes.DTO.Transaction.Kind] {
+
+    func isNeedTransaction(where kind: DomainLayer.DTO.SmartTransaction) -> Bool {
+
         switch self {
         case .all:
-            return [
-            .viewReceived,
-            .viewSend,
-            .viewLeasing,
-            .exchange, // not show comment, not show address
-            .selfTranserred, // not show address
-            .tokenGeneration, // show ID token
-            .tokenReissue, // show ID token,
-            .tokenBurning, // show ID token, do not have bottom state of token
-            .createdAlias, // show ID token
-            .canceledLeasing,
-            .incomingLeasing,
-            .massSend, // multiple addresses
-            .massReceived
-            ]
+            return kind.isIncludedAllGroup
+
         case .sent:
-            return [.viewSend, .massSend]
+            return kind.isIncludedSentGroup
+
         case .received:
-            return [.viewReceived, .massReceived]
+            return kind.isIncludedReceivedGroup
+
         case .exchanged:
-            return [.exchange]
+            return kind.isIncludedExchangedGroup
+
         case .leased:
-            return [.viewLeasing, .incomingLeasing]
+            return kind.isIncludedLeasedGroup
+
         case .issued:
-            return [.tokenReissue]
+            return kind.isIncludedIssuedGroup
+
         case .activeNow:
-            return [.viewLeasing]
+            return kind.isIncludedActiveNowGroup
+
         case .canceled:
-            return [.canceledLeasing]
+            return kind.isIncludedCanceledGroup
         }
     }
     
@@ -135,12 +174,10 @@ extension HistoryType {
         switch self {
         case .all:
             fallthrough
-        case .transaction(_):
+        case .asset:
             return [.all, .sent, .received, .exchanged, .leased, .issued]
-        case .leasing(_):
+        case .leasing:
             return [.all, .activeNow, .canceled]
         }
     }
-    
 }
-

@@ -47,15 +47,15 @@ final class MainTabBarController: RDVTabBarController {
         let navWallet = CustomNavigationController()
         walletCoordinator.start(navigationController: navWallet)
         
-        let navHistory = UINavigationController()
-        historyCoordinator.start(navigationController: navHistory)
+        let navHistory = CustomNavigationController()
+        historyCoordinator.start(navigationController: navHistory, historyType: .all)
 
         let navDex = CustomNavigationController()
         dexListCoordinator.start(navigationController: navDex)
         
         
         let profile = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "ProfileViewController")
-        let navProfile = UINavigationController(rootViewController: profile)
+        let navProfile = CustomNavigationController(rootViewController: profile)
         
         viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
 
