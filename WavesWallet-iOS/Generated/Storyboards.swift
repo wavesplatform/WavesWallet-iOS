@@ -58,6 +58,11 @@ internal enum StoryboardScene {
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
   }
+  internal enum Checkbox: StoryboardType {
+    internal static let storyboardName = "Checkbox"
+
+    internal static let checkboxViewController = SceneType<WavesWallet_iOS.CheckboxViewController>(storyboard: Checkbox.self, identifier: "CheckboxViewController")
+  }
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
 
