@@ -33,10 +33,6 @@ enum DexList {
         var sections: [DexList.ViewModel.Section]
         var isFirstLoadingData: Bool
         var lastUpdate: Date
-        
-        var isVisibleItems: Bool {
-            return sections.count > 1
-        }
     }
 }
 
@@ -77,5 +73,11 @@ extension DexList.DTO {
         let amountAsset: Asset
         let priceAsset: Asset
         let isHidden: Bool
+    }
+}
+
+extension DexList.State {
+    var isVisibleItems: Bool {
+        return sections.count > 1
     }
 }

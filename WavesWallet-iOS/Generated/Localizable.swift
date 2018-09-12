@@ -153,6 +153,34 @@ internal enum Localizable {
       internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
     }
   }
+  internal enum DexMyOrders {
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexMyOrders", "label.amount")
+      /// Nothing Here…\nYou do not have any orders
+      internal static let emptyData = Localizable.tr("DexMyOrders", "label.emptyData")
+      /// Loading orders…
+      internal static let loadingLastTrades = Localizable.tr("DexMyOrders", "label.loadingLastTrades")
+      /// Price
+      internal static let price = Localizable.tr("DexMyOrders", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexMyOrders", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexMyOrders", "label.time")
+
+      internal enum Status {
+        /// Open
+        internal static let accepted = Localizable.tr("DexMyOrders", "label.status.accepted")
+        /// Cancelled
+        internal static let cancelled = Localizable.tr("DexMyOrders", "label.status.cancelled")
+        /// Filled
+        internal static let filled = Localizable.tr("DexMyOrders", "label.status.filled")
+        /// Partial
+        internal static let partiallyFilled = Localizable.tr("DexMyOrders", "label.status.partiallyFilled")
+      }
+    }
+  }
   internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")

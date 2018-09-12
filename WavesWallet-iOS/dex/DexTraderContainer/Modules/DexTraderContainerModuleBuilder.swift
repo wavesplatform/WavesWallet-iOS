@@ -20,7 +20,7 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
         vc.addViewController(DexOrderBookModuleBuilder().build(input: input))
         vc.addViewController(DexChartModuleBuilder().build())
         vc.addViewController(DexLastTradesModuleBuilder().build(input: input))
-        vc.addViewController(DexMyOrdersModuleMuilder().build())
+        vc.addViewController(DexMyOrdersModuleMuilder().build(input: input))
         return vc
     }
 }

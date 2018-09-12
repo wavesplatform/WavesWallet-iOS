@@ -32,6 +32,7 @@ enum DexLastTrades {
         var lastSell: DTO.SellBuyTrade?
         var lastBuy: DTO.SellBuyTrade?
         var hasFirstTimeLoad: Bool
+        var isAppeared: Bool
     }
 }
 
@@ -84,7 +85,7 @@ extension DexLastTrades.DTO {
 extension DexLastTrades.State {
     static var initialState: DexLastTrades.State {
         let section = DexLastTrades.ViewModel.Section(items: [])
-        return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false)
+        return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false, isAppeared: false)
     }
     
     var isNotEmpty: Bool {
