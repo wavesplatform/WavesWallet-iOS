@@ -9,6 +9,9 @@
 import UIKit
 
 final class WalletCoordinator {
+
+    private lazy var historyCoordinator: HistoryCoordinator = HistoryCoordinator()
+
     private lazy var walletViewContoller: UIViewController = {
         return WalletModuleBuilder(output: self).build()
     }()
@@ -40,14 +43,16 @@ extension WalletCoordinator: WalletModuleOutput {
 
         navigationController.pushViewController(vc, animated: true)
     }
+
+    func showHistoryForLeasing() {
+        historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
+    }
 }
 
 extension WalletCoordinator: AssetModuleOutput {
 
     func showHistory(by assetId: String) {
-
-        let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-        historyCoordinator.start(navigationController: navigationController)
+        historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 
     func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {

@@ -48,7 +48,7 @@ final class MainTabBarController: RDVTabBarController {
         walletCoordinator.start(navigationController: navWallet)
         
         let navHistory = CustomNavigationController()
-        historyCoordinator.start(navigationController: navHistory)
+        historyCoordinator.start(navigationController: navHistory, historyType: .all)
 
         let navDex = CustomNavigationController()
         dexListCoordinator.start(navigationController: navDex)
