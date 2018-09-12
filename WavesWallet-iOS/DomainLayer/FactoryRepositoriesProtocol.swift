@@ -25,18 +25,13 @@ protocol FactoryRepositoriesProtocol {
     var blockRemote: BlockRepositoryProtocol { get }
 }
 
+final class RepositoriesDuplex<R> {
 
-//final class RepositoriesDuplex<R> {
-//
-//    let local: R
-//    let remote: R
-//
-//    init(local: R, remote: R) {
-//        self.local = local
-//        self.remote = remote
-//    }
-//}
-//
-//var assetsRepository: RepositoriesDuplex<AssetsRepositoryProtocol> =  .init(local: AssetsRepositoryLocal(),
-//                                                                            remote: AssetsRepositoryLocal())
+    let local: R
+    let remote: R
 
+    init(local: R, remote: R) {
+        self.local = local
+        self.remote = remote
+    }
+}

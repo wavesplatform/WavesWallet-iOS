@@ -12,6 +12,7 @@ import RealmSwift
 import Realm
 import RxDataSources
 
+@available(*, deprecated, message: "need remove")
 public class BasicTransaction: Object, IdentifiableType {
 
     @objc dynamic var id: String = ""

@@ -9,12 +9,16 @@
 import Foundation
 import RxSwift
 
+private enum Constants {
+    static let limitTransactions = 10000
+}
+
 protocol HistoryInteractorProtocol {
     func transactions(input: HistoryModuleInput) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
     func refreshTransactions()
 }
 
-final class HistoryInteractorMock: HistoryInteractorProtocol {
+final class HistoryInteractor: HistoryInteractorProtocol {
     
     private let refreshTransactionsSubject: PublishSubject<[DomainLayer.DTO.SmartTransaction]> = PublishSubject<[DomainLayer.DTO.SmartTransaction]>()
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
@@ -29,17 +33,17 @@ final class HistoryInteractorMock: HistoryInteractorProtocol {
 
         switch input.type {
         case .all:
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.limitTransactions),
                                                assets: [],
                                                senders: [],
                                                types: TransactionType.all)
         case .asset(let id):
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.limitTransactions),
                                                assets: [id],
                                                senders: [],
                                                types: TransactionType.all)
         case .leasing:
-            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: 10000),
+            specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.limitTransactions),
                                                assets: [],
                                                senders: [],
                                                types: [.lease, .leaseCancel])
