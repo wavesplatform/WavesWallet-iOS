@@ -42,7 +42,7 @@ extension Money {
         amount = Int64(value * pow(10, decimals).doubleValue)
     }
     
-    func formattedText(defaultMinimumFractionDigits: Bool) -> String {
+    func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
         return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
     }
 }

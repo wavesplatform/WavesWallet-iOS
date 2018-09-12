@@ -10,8 +10,16 @@ import UIKit
 
 struct DexMyOrdersModuleMuilder: ModuleBuilder {
     
-    func build(input: Void) -> UIViewController {
+    func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
+
+        var interactor: DexMyOrdersInteractorProtocol = DexMyOrdersInteractorMock()
+        interactor.pair = input
+        
+        var presenter: DexMyOrdersPresenterProtocol = DexMyOrdersPresenter()
+        presenter.interactor = interactor
+        
         let vc = StoryboardScene.Dex.dexMyOrdersViewController.instantiate()
+        vc.presenter = presenter
         return vc
     }
 }
