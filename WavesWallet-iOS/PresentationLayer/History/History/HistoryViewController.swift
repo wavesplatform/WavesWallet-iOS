@@ -42,7 +42,7 @@ final class HistoryViewController: UIViewController {
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
         
-        setupSegmentedControl()        
+        setupSegmentedControl()
         setupRefreshControl()
         setupSystem()
     }
@@ -97,16 +97,13 @@ private extension HistoryViewController {
     }
     
     func events() -> [Signal<HistoryTypes.Event>] {
-        
-        let scrollViewDidEndDecelerating = tableView
+
+        let refreshEvent = tableView
             .rx
-            .didEndDecelerating
+            .didRefreshing(refreshControl: refreshControl)
+            .map { _ in HistoryTypes.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
-        
-        let refreshControlValueChanged = refreshControl
-            .rx
-            .controlEvent(.valueChanged)
-            .asSignal(onErrorSignalWith: Signal.empty())
+
         
         let tap = tableView
             .rx
@@ -115,11 +112,7 @@ private extension HistoryViewController {
                 return HistoryTypes.Event.tapCell(indexPath) 
             }
             .asSignal(onErrorSignalWith: Signal.empty())
-        
-        let refreshEvent = Signal.zip(refreshControlValueChanged,
-                                      scrollViewDidEndDecelerating)
-            .map { _ in HistoryTypes.Event.refresh }
-        
+
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
                 

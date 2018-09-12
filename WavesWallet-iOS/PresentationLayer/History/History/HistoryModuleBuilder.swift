@@ -17,7 +17,7 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
         let presenter = HistoryPresenter(input: input)
         let vc = StoryboardScene.History.newHistoryViewController.instantiate()
         
-        presenter.interactor = HistoryInteractorMock()
+        presenter.interactor = HistoryInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
 
