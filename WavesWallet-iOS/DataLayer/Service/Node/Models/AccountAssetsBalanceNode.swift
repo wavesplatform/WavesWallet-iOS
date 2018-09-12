@@ -15,6 +15,25 @@ extension Node.DTO {
     }
 
     struct AssetBalance: Decodable {
+
+        struct IssueTransaction: Decodable {
+            let type: Int64
+            let id: String
+            let sender: String
+            let senderPublicKey: String
+            let fee: Int64
+            let timestamp: Int64
+            let signature: String
+            let version: Int64
+            let assetId: String
+            let name: String
+            let quantity: Int64
+            let reissuable: Bool
+            let decimals: Int64
+            let description: String
+            let script: String?
+        }
+        
         let assetId: String
         let balance: Int64
         let reissuable: Bool
@@ -22,23 +41,5 @@ extension Node.DTO {
         let sponsorBalance: Int64?
         let quantity: Int64
         let issueTransaction: IssueTransaction
-    }
-
-    struct IssueTransaction: Decodable {
-        let type: Int64
-        let id: String
-        let sender: String
-        let senderPublicKey: String
-        let fee: Int64
-        let timestamp: Int64
-        let signature: String
-        let version: Int64
-        let assetId: String
-        let name: String
-        let quantity: Int64
-        let reissuable: Bool
-        let decimals: Int64
-        let description: String
-        let script: String?
     }
 }

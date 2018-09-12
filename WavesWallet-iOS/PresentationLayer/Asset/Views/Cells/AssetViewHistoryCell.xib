@@ -52,6 +52,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="button" destination="aaQ-Hq-YOu" id="XjK-7m-HDp"/>
                 <outlet property="viewContainer" destination="AP1-2j-Jh7" id="Zi4-Ph-lsG"/>
             </connections>
             <point key="canvasLocation" x="55" y="35"/>

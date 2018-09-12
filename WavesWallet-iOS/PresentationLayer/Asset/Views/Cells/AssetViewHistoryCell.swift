@@ -14,11 +14,12 @@ private enum Constants {
 
 final class AssetViewHistoryCell: UITableViewCell, NibReusable {
     @IBOutlet var viewContainer: UIView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        titleLabel.text = Localizable.Asset.Cell.viewHistory
+        button.setTitle(Localizable.Asset.Cell.viewHistory, for: .normal)
+        button.isUserInteractionEnabled = false
         viewContainer.addTableCellShadowStyle()
     }
 

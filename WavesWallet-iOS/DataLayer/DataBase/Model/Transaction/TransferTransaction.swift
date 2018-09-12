@@ -13,11 +13,16 @@ import Realm
 import RxDataSources
 
 public class TransferTransaction: Transaction {
-    @objc dynamic var amount: Int64 = 0
-    @objc dynamic var assetId: String?
-    @objc dynamic var recipient: String = ""
-    @objc dynamic var attachment: String?
 
+    @objc dynamic var signature: String = ""
+    @objc dynamic var recipient: String = ""
+    @objc dynamic var assetId: String? = nil
+    @objc dynamic var feeAssetId: String? = nil
+    @objc dynamic var feeAsset: String? = nil    
+    @objc dynamic var amount: Int64 = 0
+    @objc dynamic var attachment: String? = nil
+
+    @available(*, deprecated, message: "need remove")
     public required init?(json: JSON) {
         guard let amount: Int64 = "amount" <~~ json,
             let recipient: String = "recipient" <~~ json else {
@@ -27,7 +32,7 @@ public class TransferTransaction: Transaction {
         self.amount = amount
         self.assetId = "assetId" <~~ json
         self.recipient = recipient
-        self.attachment = "attachment" <~~ json
+        self.attachment = ("attachment" <~~ json)!
 
         super.init(json: json)
     }
@@ -48,14 +53,17 @@ public class TransferTransaction: Transaction {
         super.init(value: value, schema: schema)
     }
 
+    @available(*, deprecated, message: "need remove")
     public override func getAssetId() -> String {
         return assetId ?? ""
     }
 
+    @available(*, deprecated, message: "need remove")
     public override func getAmount() -> Int64 {
         return amount
     }
 
+    @available(*, deprecated, message: "need remove")
     public override func getCounterParty() -> String {
         return isInput() ? sender : recipient
     }

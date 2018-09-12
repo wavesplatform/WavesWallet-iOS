@@ -18,4 +18,20 @@ protocol FactoryRepositoriesProtocol {
 
     var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
+
+    var transactionsRepositoryLocal: TransactionsRepositoryProtocol { get }
+    var transactionsRepositoryRemote: TransactionsRepositoryProtocol { get }
+
+    var blockRemote: BlockRepositoryProtocol { get }
+}
+
+final class RepositoriesDuplex<R> {
+
+    let local: R
+    let remote: R
+
+    init(local: R, remote: R) {
+        self.local = local
+        self.remote = remote
+    }
 }
