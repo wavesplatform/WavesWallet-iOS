@@ -120,8 +120,10 @@ final class CheckboxViewController: UIViewController {
         let range = (thirdString as NSString).range(of: termsString)
         
         attributedString.addAttribute(NSAttributedStringKey.link, value: Localizable.Checkbox.Box.termsOfUse, range: range)
+ 
         
         // так, оставь пока)
+ 
 //        thirdTextView.linkTextAttributes = [kCTUnderlineStyleAttributeName as String: NSUnderlineStyle.styleSingle]
         
         thirdTextView.attributedText = attributedString
