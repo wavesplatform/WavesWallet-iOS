@@ -21,6 +21,9 @@ final class DexCreateOrderViewController: UIViewController {
         
         setupViews()
         setupInputViews()
+        
+        inputAmount.input = ["Use totalMoney", "0.012", "0.3414", "1.2323"]
+        inputPrice.input = ["Ask", "Bid", "Last"]
     }
 }
 
