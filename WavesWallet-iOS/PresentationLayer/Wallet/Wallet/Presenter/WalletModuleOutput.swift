@@ -11,5 +11,6 @@ import Foundation
 protocol WalletModuleOutput: AnyObject {
     func showWalletSort()
     func showMyAddress()
+    func showHistoryForLeasing()
     func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset])
 }

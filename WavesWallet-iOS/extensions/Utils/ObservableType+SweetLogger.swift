@@ -21,7 +21,7 @@ extension ObservableType {
             let name = Thread.current.name ?? ""
             log(identifier: identifier, message: "\(name) onNext \(element)")
         }, onError: { error in
-           log(identifier: identifier, message: "onError")
+           log(identifier: identifier, message: "onError \(error)")
         }, onCompleted: {
            log(identifier: identifier, message: "onCompleted")
         }, onSubscribe: {

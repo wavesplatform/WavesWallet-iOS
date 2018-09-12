@@ -17,7 +17,8 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
 
     @IBOutlet private var collectionView: UICollectionView!
 
-    fileprivate var transactions: [HistoryTransactionView.Transaction]?
+    fileprivate var transactions: [DomainLayer.DTO.SmartTransaction]?
+    var transactionDidSelect: ((DomainLayer.DTO.SmartTransaction) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,12 +36,8 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
 
 extension AssetTransactionsCell: ViewConfiguration {
 
-    func update(with model: [AssetTypes.DTO.Transaction]) {
-        //TODO: Update
-
-        let asset = HistoryTransactionView.Transaction.Asset.init(isSpam: true, isGeneral: false, name: "test", balance: Money.init(100, 0))
-
-        transactions = [HistoryTransactionView.Transaction(id: "1", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "2", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "4", kind: .receive(asset)), HistoryTransactionView.Transaction(id: "3", kind: .receive(asset))]
+    func update(with model: [DomainLayer.DTO.SmartTransaction]) {
+        self.transactions = model
         collectionView.reloadData()
     }
 }
@@ -50,10 +47,9 @@ extension AssetTransactionsCell: ViewConfiguration {
 extension AssetTransactionsCell: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: Did Select Row
+        guard let tx = transactions?[indexPath.row] else { return }
+        transactionDidSelect?(tx)
     }
-
-    
 }
 
 // MARK: UICollectionViewDelegate

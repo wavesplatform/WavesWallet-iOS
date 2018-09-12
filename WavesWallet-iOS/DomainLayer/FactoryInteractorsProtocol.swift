@@ -12,4 +12,6 @@ protocol FactoryInteractorsProtocol {
     var assetsInteractor: AssetsInteractorProtocol { get }
     var leasingInteractor: LeasingInteractorProtocol { get }
     var accountBalance: AccountBalanceInteractorProtocol { get }
+    var transactions: TransactionsInteractorProtocol { get }
+    var accounts: AccountsInteractorProtocol { get }
 }

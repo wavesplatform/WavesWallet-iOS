@@ -21,5 +21,10 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
     private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryRemote()
 
+    private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
+    private(set) lazy var transactionsRepositoryRemote: TransactionsRepositoryProtocol = TransactionsRepositoryRemote()
+
+    private(set) lazy var blockRemote: BlockRepositoryProtocol = BlockRepositoryRemote()
+
     fileprivate init() {}
 }
