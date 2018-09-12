@@ -26,8 +26,8 @@ extension DexCreateOrder.DTO {
     }
     
     struct Input {
-        let priceAsset: Dex.DTO.Asset
         let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
         let type: OrderType
         let price: Money
     }

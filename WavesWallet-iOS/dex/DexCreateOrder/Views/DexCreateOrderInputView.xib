@@ -12,51 +12,103 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="inputScrollView" destination="zCw-2D-0ha" id="eKN-DP-LPk"/>
                 <outlet property="labelTitle" destination="GxR-Wf-tkp" id="ZlY-FH-bwX"/>
                 <outlet property="textField" destination="P6c-tW-oCz" id="nsk-ng-6eQ"/>
+                <outlet property="viewTextField" destination="JRl-dB-8bk" id="WnK-hQ-ezT"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P6c-tW-oCz">
-                    <rect key="frame" x="0.0" y="16" width="375" height="48"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="K3P-D8-ubu"/>
-                    </constraints>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount in WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GxR-Wf-tkp">
-                    <rect key="frame" x="0.0" y="0.0" width="110" height="16"/>
+                    <rect key="frame" x="16" y="0.0" width="110" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqY-TO-lcl">
-                    <rect key="frame" x="0.0" y="64" width="375" height="0.5"/>
-                    <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRl-dB-8bk">
+                    <rect key="frame" x="0.0" y="24" width="375" height="44"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P6c-tW-oCz" customClass="InputNumericTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqY-TO-lcl">
+                            <rect key="frame" x="16" y="43.5" width="343" height="0.5"/>
+                            <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="dcy-ZU-sgi"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ev-sq-nZB">
+                            <rect key="frame" x="325" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="3TR-6L-9bx"/>
+                                <constraint firstAttribute="width" constant="40" id="JuD-jO-FhF"/>
+                            </constraints>
+                            <state key="normal" image="plus18Disabled900"/>
+                            <connections>
+                                <action selector="plusTapped:" destination="-1" eventType="touchUpInside" id="1zW-jm-6Px"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Xr-DbC">
+                            <rect key="frame" x="285" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="2wM-73-e2l"/>
+                                <constraint firstAttribute="width" constant="40" id="Pg0-4Z-dwn"/>
+                            </constraints>
+                            <state key="normal" image="minus18Disabled900"/>
+                            <connections>
+                                <action selector="minusTapped:" destination="-1" eventType="touchUpInside" id="hIi-Qs-IOd"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="0.5" id="dcy-ZU-sgi"/>
+                        <constraint firstItem="uqY-TO-lcl" firstAttribute="top" secondItem="P6c-tW-oCz" secondAttribute="bottom" id="7Ic-uQ-Ng0"/>
+                        <constraint firstItem="P6c-tW-oCz" firstAttribute="top" secondItem="JRl-dB-8bk" secondAttribute="top" id="9Sd-mY-tYD"/>
+                        <constraint firstItem="8ev-sq-nZB" firstAttribute="leading" secondItem="bZN-Xr-DbC" secondAttribute="trailing" id="MpX-1g-BCt"/>
+                        <constraint firstItem="uqY-TO-lcl" firstAttribute="leading" secondItem="JRl-dB-8bk" secondAttribute="leading" constant="16" id="SNB-m8-2AT"/>
+                        <constraint firstAttribute="height" constant="44" id="U6s-4V-wXy"/>
+                        <constraint firstAttribute="bottom" secondItem="uqY-TO-lcl" secondAttribute="bottom" id="ULn-L0-MQq"/>
+                        <constraint firstItem="8ev-sq-nZB" firstAttribute="centerY" secondItem="P6c-tW-oCz" secondAttribute="centerY" id="UN6-Af-Dta"/>
+                        <constraint firstAttribute="trailing" secondItem="uqY-TO-lcl" secondAttribute="trailing" constant="16" id="bEv-mU-Dbf"/>
+                        <constraint firstAttribute="trailing" secondItem="8ev-sq-nZB" secondAttribute="trailing" constant="10" id="bFJ-A0-7mm"/>
+                        <constraint firstItem="bZN-Xr-DbC" firstAttribute="centerY" secondItem="8ev-sq-nZB" secondAttribute="centerY" id="eiv-KB-NKe"/>
+                        <constraint firstItem="bZN-Xr-DbC" firstAttribute="leading" secondItem="P6c-tW-oCz" secondAttribute="trailing" id="lnX-AF-Fi4"/>
                     </constraints>
                 </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="DexInputScrollView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="76" width="375" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="aCO-QS-hkc"/>
+                    </constraints>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="P6c-tW-oCz" firstAttribute="top" secondItem="GxR-Wf-tkp" secondAttribute="bottom" id="CKZ-M7-Y3b"/>
-                <constraint firstItem="GxR-Wf-tkp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="J3g-7g-JBh"/>
+                <constraint firstItem="P6c-tW-oCz" firstAttribute="leading" secondItem="GxR-Wf-tkp" secondAttribute="leading" id="CxO-Bf-3pD"/>
+                <constraint firstItem="JRl-dB-8bk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Egd-T0-mhN"/>
+                <constraint firstItem="zCw-2D-0ha" firstAttribute="top" secondItem="JRl-dB-8bk" secondAttribute="bottom" constant="8" id="HeT-rX-uXH"/>
+                <constraint firstItem="GxR-Wf-tkp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="J3g-7g-JBh"/>
                 <constraint firstItem="GxR-Wf-tkp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Jk8-st-p5c"/>
-                <constraint firstAttribute="trailing" secondItem="uqY-TO-lcl" secondAttribute="trailing" id="TB6-oa-eWA"/>
-                <constraint firstItem="uqY-TO-lcl" firstAttribute="top" secondItem="P6c-tW-oCz" secondAttribute="bottom" id="XpM-es-lUk"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="P6c-tW-oCz" secondAttribute="trailing" id="d8O-Bu-wCx"/>
-                <constraint firstItem="P6c-tW-oCz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ldY-yA-jp5"/>
-                <constraint firstItem="uqY-TO-lcl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rrh-Ax-JtH"/>
+                <constraint firstItem="zCw-2D-0ha" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Uly-xg-5NV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zCw-2D-0ha" secondAttribute="trailing" id="ilp-wH-vrU"/>
+                <constraint firstAttribute="trailing" secondItem="JRl-dB-8bk" secondAttribute="trailing" id="jXY-zn-zGs"/>
+                <constraint firstItem="JRl-dB-8bk" firstAttribute="top" secondItem="GxR-Wf-tkp" secondAttribute="bottom" constant="8" id="vkG-Nv-kaR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="71.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="minus18Disabled900" width="18" height="18"/>
+        <image name="plus18Disabled900" width="18" height="18"/>
+    </resources>
 </document>
