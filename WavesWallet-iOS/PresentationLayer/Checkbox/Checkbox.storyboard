@@ -181,7 +181,6 @@
                         <viewLayoutGuide key="safeArea" id="tso-YO-Hkj"/>
                     </view>
                     <connections>
-                        <outlet property="buttonPressed" destination="ZZW-zI-zMx" id="VZS-5O-pDV"/>
                         <outlet property="firstCheckboxView" destination="hap-zv-gPI" id="5zK-5p-sHu"/>
                         <outlet property="grayView" destination="eXn-bO-61P" id="pUn-xF-YxY"/>
                         <outlet property="okButton" destination="ZZW-zI-zMx" id="zZ0-vF-URk"/>
