@@ -337,6 +337,7 @@
 		0AFBCA9A21132F9300285BCB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA9921132F9300285BCB /* Images.swift */; };
 		0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFEFB5721126E0E00B50F85 /* WalletSort.strings */; };
 		0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFEFB5C211276F000B50F85 /* Wallet.strings */; };
+		E901CE4D2149C36500942783 /* DexLastTradesInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B79212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift */; };
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
@@ -511,7 +512,6 @@
 		E9F5E48F2135911D001FC87A /* DexChartHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F5E48E2135911D001FC87A /* DexChartHeaderView.xib */; };
 		E9F81B76212DF2CC00AF07C7 /* DexLastTradesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B75212DF2CC00AF07C7 /* DexLastTradesPresenterProtocol.swift */; };
 		E9F81B78212DF2E900AF07C7 /* DexLastTradesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B77212DF2E900AF07C7 /* DexLastTradesPresenter.swift */; };
-		E9F81B7A212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B79212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift */; };
 		E9F81B7C212DF32000AF07C7 /* DexLastTradesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B7B212DF32000AF07C7 /* DexLastTradesInteractor.swift */; };
 		E9F81B80212E125E00AF07C7 /* DexTraderContainerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F81B7F212E125E00AF07C7 /* DexTraderContainerButton.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
@@ -3170,6 +3170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E901CE4D2149C36500942783 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				E926117E2107E7B300A9E793 /* DexListTypes.swift in Sources */,
 				0A3AD40C21492F7A00F8A929 /* DexListInteractorMock.swift in Sources */,
 				0A3AD40B21492F5B00F8A929 /* DexLastTradesInteractorMock.swift in Sources */,
@@ -3273,7 +3274,6 @@
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				E99EC50F2139E84600B1C413 /* DexChartAxisFormatters.swift in Sources */,
 				E9CFBC3E2124EADE00CE7413 /* DexOrderBookPresenterProtocol.swift in Sources */,
-				E9F81B7A212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				E9F5E47A2134D4DA001FC87A /* DexChartTypes.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
@@ -3436,7 +3436,6 @@
 				F7B713AD1EABA3EC00331E1B /* AddressBookViewController.swift in Sources */,
 				0AFBCA912113274B00285BCB /* WalletSortInteractorProtocol.swift in Sources */,
 				E9F81B7C212DF32000AF07C7 /* DexLastTradesInteractor.swift in Sources */,
-				E9F81B7A212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				0ABD1BE621469CE70027A7A2 /* AccountsInteractor.swift in Sources */,
 				E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */,
 				E9CFBC462124EB9D00CE7413 /* DexOrderBookInteractorMock.swift in Sources */,
