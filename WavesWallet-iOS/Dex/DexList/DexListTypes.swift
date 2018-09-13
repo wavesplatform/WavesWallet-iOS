@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: - Refactor, use asset from DomainLayer.DTO.Asset
 private enum FiatAsset {
     static let USD = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
     static let EUR = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"

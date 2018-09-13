@@ -28,13 +28,23 @@ final class DexListInteractorMock: DexListInteractorProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     private static var testModels : [DexList.DTO.Pair] = [
-        DexList.DTO.Pair.createPair(Money(123.0), Money(53.234234234234),
-                                    "WAVES", "WAVES", 8,
+
+        DexList.DTO.Pair.createPair(Money(123.0), Money(53.234234234234), "WAVES", "WAVES", 8,
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8),
         
-        DexList.DTO.Pair.createPair(Money(314), Money(350),
-                                    "WAVES", "WAVES", 8,
-                                    "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 8),
+        DexList.DTO.Pair.createPair(Money(314), Money(350), "WAVES", "WAVES", 8,
+                                    "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 2),
+        
+        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8,
+                                    "WAVES", "WAVES", 8),
+        
+        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234),
+                                    "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
+                                    "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8),
+        
+        DexList.DTO.Pair.createPair(Money(120.0), Money(434.15),
+                                    "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
+                                    "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 2),        
         
         DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300),
                                     "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8,

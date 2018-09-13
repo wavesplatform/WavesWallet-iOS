@@ -12,16 +12,16 @@ import Charts
 //MARK: - DexChartCandleRightAxisFormatter
 final class DexChartCandleRightAxisFormatter: IAxisValueFormatter {
 
-    private var isFiatPair: Bool
+    private var pair: DexTraderContainer.DTO.Pair
 
-    init(isFiatPair: Bool) {
-        self.isFiatPair = isFiatPair
+    init(pair: DexTraderContainer.DTO.Pair) {
+        self.pair = pair
     }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        let numberFormatter = isFiatPair ? DexChart.DTO.Candle.fiatFormatter : DexChart.DTO.Candle.defaultFormatter
-
+        let numberFormatter = DexChart.ViewModel.numberFormatter(pair: pair)
+        
         if let string = numberFormatter.string(from: NSNumber(value: value)) {
             return string
         }
@@ -62,6 +62,7 @@ final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
+        //TODO: - check if correct format and optimize formula if need
         if value == 0 {
             return String(Int(value))
         }

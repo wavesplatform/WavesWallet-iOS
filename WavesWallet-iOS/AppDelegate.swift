@@ -25,9 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
 
-//        Swizzle(initializers: [UIView.passtroughInit,
-//                               UIView.roundedInit,
-//                               UIView.shadowInit]).start()
+        Swizzle(initializers: [UIView.passtroughInit,
+                               UIView.roundedInit,
+                               UIView.shadowInit]).start()
 
         SweetLogger.current.visibleLevels = [.debug, .error]
 
