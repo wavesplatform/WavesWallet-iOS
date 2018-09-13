@@ -50,18 +50,18 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
-    func setupWidth(candles: [DexChart.DTO.Candle], isFiatPair: Bool) {
+    func setupWidth(candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         if width == 0 {
-            width = DexChartHelper.candleRightWidth(candles: candles, isFiatPair: isFiatPair) + Constants.additionalDeltaWidth
+            width = DexChartHelper.candleRightWidth(candles: candles, pair: pair) + Constants.additionalDeltaWidth
             isNeedUpdateConstraints = true
             setNeedsUpdateConstraints()
         }
     }
     
-    func setup(price: Double, color: UIColor, isFiatPair: Bool) {
+    func setup(price: Double, color: UIColor, pair: DexTraderContainer.DTO.Pair) {
    
-        let numberFormatter = isFiatPair ? DexChart.DTO.Candle.fiatFormatter : DexChart.DTO.Candle.defaultFormatter
-        
+        let numberFormatter = DexChart.ViewModel.numberFormatter(pair: pair)
+
         labelPrice.text = numberFormatter.string(from: NSNumber(value: price))
         viewBgPrice.backgroundColor = color
         viewLine.backgroundColor = color
