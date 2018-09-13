@@ -18,13 +18,13 @@
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
-		04892C57214868CF00339F33 /* Checkbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04892C56214868CF00339F33 /* Checkbox.storyboard */; };
-		04892C5921486C0100339F33 /* CheckboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5821486C0100339F33 /* CheckboxViewController.swift */; };
+		04892C57214868CF00339F33 /* Legal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04892C56214868CF00339F33 /* Legal.storyboard */; };
+		04892C5921486C0100339F33 /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5821486C0100339F33 /* LegalViewController.swift */; };
 		04892C5C2148731B00339F33 /* CheckboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5B2148731B00339F33 /* CheckboxControl.swift */; };
-		04892C5E21487EB000339F33 /* CheckboxCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5D21487EB000339F33 /* CheckboxCoordinator.swift */; };
-		04892C602148811100339F33 /* CheckboxModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */; };
-		04892C62214895C100339F33 /* CheckboxModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C61214895C100339F33 /* CheckboxModuleOutput.swift */; };
-		04892C642148964100339F33 /* CheckboxModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C632148964100339F33 /* CheckboxModuleInput.swift */; };
+		04892C5E21487EB000339F33 /* LegalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5D21487EB000339F33 /* LegalCoordinator.swift */; };
+		04892C602148811100339F33 /* LegalModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C5F2148811100339F33 /* LegalModuleBuilder.swift */; };
+		04892C62214895C100339F33 /* LegalModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C61214895C100339F33 /* LegalModuleOutput.swift */; };
+		04892C642148964100339F33 /* LegalModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C632148964100339F33 /* LegalModuleInput.swift */; };
 		04892C6F21497A8300339F33 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04892C6E21497A8200339F33 /* Localizable.swift */; };
 		04892C7221497B4100339F33 /* Checkbox.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04892C7421497B4100339F33 /* Checkbox.strings */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
@@ -534,13 +534,13 @@
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
-		04892C56214868CF00339F33 /* Checkbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Checkbox.storyboard; sourceTree = "<group>"; };
-		04892C5821486C0100339F33 /* CheckboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxViewController.swift; sourceTree = "<group>"; };
+		04892C56214868CF00339F33 /* Legal.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Legal.storyboard; sourceTree = "<group>"; };
+		04892C5821486C0100339F33 /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
 		04892C5B2148731B00339F33 /* CheckboxControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxControl.swift; sourceTree = "<group>"; };
-		04892C5D21487EB000339F33 /* CheckboxCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCoordinator.swift; sourceTree = "<group>"; };
-		04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleBuilder.swift; sourceTree = "<group>"; };
-		04892C61214895C100339F33 /* CheckboxModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleOutput.swift; sourceTree = "<group>"; };
-		04892C632148964100339F33 /* CheckboxModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxModuleInput.swift; sourceTree = "<group>"; };
+		04892C5D21487EB000339F33 /* LegalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalCoordinator.swift; sourceTree = "<group>"; };
+		04892C5F2148811100339F33 /* LegalModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalModuleBuilder.swift; sourceTree = "<group>"; };
+		04892C61214895C100339F33 /* LegalModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalModuleOutput.swift; sourceTree = "<group>"; };
+		04892C632148964100339F33 /* LegalModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalModuleInput.swift; sourceTree = "<group>"; };
 		04892C6E21497A8200339F33 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		04892C7321497B4100339F33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Checkbox.strings; sourceTree = "<group>"; };
 		04892C7521497B4300339F33 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Checkbox.strings; sourceTree = "<group>"; };
@@ -1152,8 +1152,8 @@
 		04892C55214845CE00339F33 /* Checkbox */ = {
 			isa = PBXGroup;
 			children = (
-				04892C56214868CF00339F33 /* Checkbox.storyboard */,
-				04892C5D21487EB000339F33 /* CheckboxCoordinator.swift */,
+				04892C56214868CF00339F33 /* Legal.storyboard */,
+				04892C5D21487EB000339F33 /* LegalCoordinator.swift */,
 				04892C652149614C00339F33 /* Checkbox */,
 			);
 			path = Checkbox;
@@ -1170,8 +1170,8 @@
 		04892C652149614C00339F33 /* Checkbox */ = {
 			isa = PBXGroup;
 			children = (
-				04892C5821486C0100339F33 /* CheckboxViewController.swift */,
-				04892C5F2148811100339F33 /* CheckboxModuleBuilder.swift */,
+				04892C5821486C0100339F33 /* LegalViewController.swift */,
+				04892C5F2148811100339F33 /* LegalModuleBuilder.swift */,
 				04892C662149625400339F33 /* Presenter */,
 				04892C5A2148714F00339F33 /* Views */,
 				04892C7421497B4100339F33 /* Checkbox.strings */,
@@ -1182,8 +1182,8 @@
 		04892C662149625400339F33 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				04892C632148964100339F33 /* CheckboxModuleInput.swift */,
-				04892C61214895C100339F33 /* CheckboxModuleOutput.swift */,
+				04892C632148964100339F33 /* LegalModuleInput.swift */,
+				04892C61214895C100339F33 /* LegalModuleOutput.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -2814,7 +2814,7 @@
 				F96DFFD420DCED080056BB52 /* FirstInfoPageView.xib in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
-				04892C57214868CF00339F33 /* Checkbox.storyboard in Resources */,
+				04892C57214868CF00339F33 /* Legal.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3005,7 +3005,7 @@
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
-				04892C5E21487EB000339F33 /* CheckboxCoordinator.swift in Sources */,
+				04892C5E21487EB000339F33 /* LegalCoordinator.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
 				04892C5C2148731B00339F33 /* CheckboxControl.swift in Sources */,
@@ -3149,7 +3149,7 @@
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
-				04892C602148811100339F33 /* CheckboxModuleBuilder.swift in Sources */,
+				04892C602148811100339F33 /* LegalModuleBuilder.swift in Sources */,
 				E926117B2107C71100A9E793 /* DexListCell.swift in Sources */,
 				0AF922BF212E1234003BA067 /* UIViewController+Alert.swift in Sources */,
 				E99C2C5421258A6B0029D819 /* DexOrderBookHeaderView.swift in Sources */,
@@ -3242,7 +3242,7 @@
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				E9C540D7212F88AC00253BDB /* DexMyOrdersPresenter.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
-				04892C5921486C0100339F33 /* CheckboxViewController.swift in Sources */,
+				04892C5921486C0100339F33 /* LegalViewController.swift in Sources */,
 				0A580E6E2135FE1400C62549 /* HighlightedButton.swift in Sources */,
 				0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */,
 				E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */,
@@ -3333,7 +3333,7 @@
 				F763B9A41EABBFBE00FA3701 /* TransactionsViewController.swift in Sources */,
 				E9574834212D0B6A00452963 /* DexLastTradesCell.swift in Sources */,
 				E9EDC6C12123A5A900C58E0D /* DexOrderBookViewController.swift in Sources */,
-				04892C62214895C100339F33 /* CheckboxModuleOutput.swift in Sources */,
+				04892C62214895C100339F33 /* LegalModuleOutput.swift in Sources */,
 				0A485E9021009DC700079B49 /* LeasingInteractor.swift in Sources */,
 				0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */,
 				0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */,
@@ -3382,7 +3382,7 @@
 				E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */,
 				F96DFFDE20DD0F4F0056BB52 /* FourthInfoPageView.swift in Sources */,
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,
-				04892C642148964100339F33 /* CheckboxModuleInput.swift in Sources */,
+				04892C642148964100339F33 /* LegalModuleInput.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
 				0AE491FA2107A532009223DB /* WalletInteractor.swift in Sources */,
 				0AF922D2212E1234003BA067 /* CALayer+RoundingCorners.swift in Sources */,

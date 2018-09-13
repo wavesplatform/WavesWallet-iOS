@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CheckboxModuleOutput: AnyObject {
+protocol LegalModuleOutput: AnyObject {
     
     func showViewController(viewController: UIViewController)
     

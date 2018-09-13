@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CheckboxModuleInput {
+protocol LegalModuleInput {
     
 }

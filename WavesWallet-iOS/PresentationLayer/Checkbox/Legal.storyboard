@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Checkbox View Controller-->
+        <!--Legal View Controller-->
         <scene sceneID="tim-2F-rkM">
             <objects>
-                <viewController storyboardIdentifier="CheckboxViewController" modalPresentationStyle="overCurrentContext" id="p30-Ya-GBz" customClass="CheckboxViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LegalViewController" modalPresentationStyle="overCurrentContext" id="p30-Ya-GBz" customClass="LegalViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V8g-YY-dbn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

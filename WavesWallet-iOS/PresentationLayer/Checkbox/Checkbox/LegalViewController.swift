@@ -20,7 +20,7 @@ private enum Constants {
     }
 }
 
-final class CheckboxViewController: UIViewController {
+final class LegalViewController: UIViewController {
     
     var documentViewer: UIDocumentInteractionController!
     
@@ -29,7 +29,7 @@ final class CheckboxViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var okButton: UIButton!
-    var output: CheckboxModuleOutput?
+    var output: LegalModuleOutput?
     
     @IBOutlet weak var firstCheckboxView: CheckboxControl!
     
@@ -146,7 +146,7 @@ final class CheckboxViewController: UIViewController {
     
 }
 
-extension CheckboxViewController: UIViewControllerTransitioningDelegate {
+extension LegalViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = true
@@ -160,7 +160,7 @@ extension CheckboxViewController: UIViewControllerTransitioningDelegate {
     
 }
 
-extension CheckboxViewController: UIViewControllerAnimatedTransitioning {
+extension LegalViewController: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return Constants.Animation.durationTransition
@@ -229,15 +229,8 @@ extension CheckboxViewController: UIViewControllerAnimatedTransitioning {
     
 }
 
-extension CheckboxViewController: UITextViewDelegate {
-    
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        return true
-    }
-    
-}
 
-extension CheckboxViewController: TTTAttributedLabelDelegate {
+extension LegalViewController: TTTAttributedLabelDelegate {
     
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         

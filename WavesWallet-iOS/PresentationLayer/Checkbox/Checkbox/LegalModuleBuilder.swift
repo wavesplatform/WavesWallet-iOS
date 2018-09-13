@@ -8,16 +8,16 @@
 
 import UIKit
 
-struct CheckboxModuleBuilder: ModuleBuilderOutput {
+struct LegalModuleBuilder: ModuleBuilderOutput {
     
-    var output: CheckboxModuleOutput
+    var output: LegalModuleOutput
     
-    func build(input: CheckboxModuleInput) -> UIViewController {
+    func build(input: LegalModuleInput) -> UIViewController {
         
-        let vc = StoryboardScene.Checkbox.checkboxViewController.instantiate()
+        let vc = StoryboardScene.Legal.legalViewController.instantiate()
         vc.transitioningDelegate = vc
         vc.modalPresentationStyle = .custom
-//        vc.preffe
+ 
         vc.output = output
         
         return vc
