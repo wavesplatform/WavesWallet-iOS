@@ -45,7 +45,7 @@
                                 <constraint firstAttribute="height" constant="0.5" id="dcy-ZU-sgi"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ev-sq-nZB">
+                        <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ev-sq-nZB" customClass="DexCreateOrderAmountButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="325" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="3TR-6L-9bx"/>
@@ -56,7 +56,7 @@
                                 <action selector="plusTapped:" destination="-1" eventType="touchUpInside" id="1zW-jm-6Px"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Xr-DbC">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Xr-DbC" customClass="DexCreateOrderAmountButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="285" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="2wM-73-e2l"/>

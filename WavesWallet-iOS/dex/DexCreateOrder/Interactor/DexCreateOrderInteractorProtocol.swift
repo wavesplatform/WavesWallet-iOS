@@ -11,5 +11,4 @@ import RxSwift
 
 protocol DexCreateOrderInteractorProtocol {
 
-    func getTotalBalance() -> Observable<(DexCreateOrder.DTO.Balance)>
 }
