@@ -18,7 +18,7 @@ struct CheckboxModuleBuilder: ModuleBuilderOutput {
         vc.transitioningDelegate = vc
         vc.modalPresentationStyle = .custom
 //        vc.preffe
-        vc.input = input
+        vc.output = output
         
         return vc
     }

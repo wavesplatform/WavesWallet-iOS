@@ -42,7 +42,7 @@ final class BrowserViewController: UIViewController {
         
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
+ 
         webView.navigationDelegate = self
         view.addSubview(webView)
         
@@ -77,17 +77,10 @@ final class BrowserViewController: UIViewController {
 
 }
 
-extension BrowserViewController: WKUIDelegate {
-    
-    
-    
-}
 
 extension BrowserViewController: WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
-    }
+ 
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         finishLoading()

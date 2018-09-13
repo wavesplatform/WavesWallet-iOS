@@ -29,7 +29,7 @@ final class CheckboxViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var okButton: UIButton!
-    var input: CheckboxModuleInput?
+    var output: CheckboxModuleOutput?
     
     @IBOutlet weak var firstCheckboxView: CheckboxControl!
     
@@ -100,9 +100,7 @@ final class CheckboxViewController: UIViewController {
     
     @IBAction func buttonTap(_ sender: Any) {
         
-        dismiss(animated: true) {
-            
-        }
+        dismiss(animated: true) 
         
     }
     
@@ -244,10 +242,7 @@ extension CheckboxViewController: TTTAttributedLabelDelegate {
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         
         if url.absoluteString == Constants.termsAndConditionsUrl {
-            let browser = BrowserViewController(url: url)
-            let navigationController = UINavigationController(rootViewController: browser)
-            
-            present(navigationController, animated: true)
+            output?.showViewController(viewController: BrowserViewController(url: url))
             return
         }
         
