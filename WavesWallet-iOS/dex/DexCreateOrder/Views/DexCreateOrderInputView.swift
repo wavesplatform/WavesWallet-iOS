@@ -17,15 +17,16 @@ protocol DexCreateOrderInputViewDelegate: AnyObject {
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double)
 }
 
+
 final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var textField: InputNumericTextField!
-    @IBOutlet private weak var inputScrollView: DexInputScrollView!
+    @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
-    
+  
     private var isShowInputScrollView = false {
         didSet {
             if isShowInputScrollView {
@@ -37,10 +38,15 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         }
     }
     
-    var input: [Dictionary<String, Double>] = [] {
+    struct Input {
+        let text: String
+        let value: Double
+    }
+    
+    var input: [Input] = [] {
         didSet {
             isShowInputScrollView = input.count > 0
-            inputScrollView.input = input
+            inputScrollView.input = input.map({$0.text})
         }
     }
     
@@ -58,8 +64,6 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     }
 }
 
-
-
 //MARK: - InputNumericTextFieldDelegate
 extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
   
@@ -68,20 +72,16 @@ extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
     }
 }
 
-//MARK: - DexInputScrollViewDelegate
-extension DexCreateOrderInputView: DexInputScrollViewDelegate {
+//MARK: - InputScrollButtonsViewDelegate
+extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     
-    func dexInputScrollViewDidTapAt(index: Int) {
+    func inputScrollButtonsViewDidTapAt(index: Int) {
         hideInputScrollView(animation: true)
         
-        if index == 0 {
-            textField.setStringValue(value: "0.4314")
-
-        }
-        else {
-            let value = input[index]
-            textField.setStringValue(value: value)
-        }
+        let value = input[index].value
+        textField.setStringValue(value: String(value))
+        
+        textFieldDidChangeNewValue()
     }
 }
 
@@ -112,8 +112,8 @@ private extension DexCreateOrderInputView {
 
 extension DexCreateOrderInputView {
     
-    func setupTitle(title: String, input: DexCreateOrder.DTO.Input) {
-        labelTitle.text = title + " " + input.amountAsset.name
+    func setupTitle(title: String) {
+        labelTitle.text = title
     }
 }
 
@@ -149,7 +149,6 @@ private extension DexCreateOrderInputView {
         heightConstraint.constant = height
         updateWithAnimationIfNeed(animation: animation)
     }
-    
     
     func updateWithAnimationIfNeed(animation: Bool) {
         if animation {

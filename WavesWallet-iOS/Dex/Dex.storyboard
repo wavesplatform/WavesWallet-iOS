@@ -1226,9 +1226,6 @@ The trading history is empty</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="background">
                                                 <color key="value" red="0.8980392157" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
@@ -1900,6 +1897,11 @@ You do not have any orders</string>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="2Xk-4z-27F"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="test">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnp-g3-pO1" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="205" width="375" height="100"/>
@@ -1908,30 +1910,110 @@ You do not have any orders</string>
                                                     <constraint firstAttribute="height" constant="100" id="pY8-lg-7sp"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B3B-WO-lAR">
-                                                <rect key="frame" x="20" y="355" width="335" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gNA-TX-wyo" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="330" width="375" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="wKf-Sc-ULV"/>
+                                                    <constraint firstAttribute="height" constant="100" id="LkI-MB-Yei"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sf-j0-xXd">
+                                                <rect key="frame" x="16" y="455" width="343" height="39"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-X7-Wxc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="22.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gq-ZM-SUQ">
+                                                        <rect key="frame" x="171.5" y="0.0" width="0.0" height="39"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" id="P3m-EZ-rmB"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTj-qc-GaF">
+                                                        <rect key="frame" x="171.5" y="0.0" width="60.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001 Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzZ-Ku-aDF">
+                                                        <rect key="frame" x="0.0" y="18" width="76.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ie-0S-Kpq">
+                                                        <rect key="frame" x="171.5" y="18" width="48.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuQ-7u-Mrc">
+                                                        <rect key="frame" x="161.5" y="0.0" width="80.5" height="39"/>
+                                                        <connections>
+                                                            <action selector="changeExpiration:" destination="vvR-I6-z9c" eventType="touchUpInside" id="cgv-FT-lRE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="0Gq-ZM-SUQ" firstAttribute="centerX" secondItem="1Sf-j0-xXd" secondAttribute="centerX" id="0OB-6W-7mP"/>
+                                                    <constraint firstItem="VTj-qc-GaF" firstAttribute="leading" secondItem="0Gq-ZM-SUQ" secondAttribute="trailing" id="8Ll-Ss-xlI"/>
+                                                    <constraint firstItem="yuQ-7u-Mrc" firstAttribute="top" secondItem="VTj-qc-GaF" secondAttribute="top" id="9F8-gi-fp5"/>
+                                                    <constraint firstItem="yuQ-7u-Mrc" firstAttribute="bottom" secondItem="3Ie-0S-Kpq" secondAttribute="bottom" constant="5" id="AAM-We-Krr"/>
+                                                    <constraint firstItem="0Gq-ZM-SUQ" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="C9r-CX-bsx"/>
+                                                    <constraint firstItem="yuQ-7u-Mrc" firstAttribute="trailing" secondItem="VTj-qc-GaF" secondAttribute="trailing" constant="10" id="Cqn-em-G6c"/>
+                                                    <constraint firstItem="3Ie-0S-Kpq" firstAttribute="leading" secondItem="VTj-qc-GaF" secondAttribute="leading" id="E0z-Bg-p21"/>
+                                                    <constraint firstAttribute="bottom" secondItem="0Gq-ZM-SUQ" secondAttribute="bottom" id="R5t-Nw-QWI"/>
+                                                    <constraint firstItem="KzZ-Ku-aDF" firstAttribute="top" secondItem="NGu-X7-Wxc" secondAttribute="bottom" constant="2" id="UXA-xN-pUQ"/>
+                                                    <constraint firstItem="KzZ-Ku-aDF" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="UwO-po-nia"/>
+                                                    <constraint firstItem="NGu-X7-Wxc" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="WiB-Vt-M4d"/>
+                                                    <constraint firstItem="3Ie-0S-Kpq" firstAttribute="centerY" secondItem="KzZ-Ku-aDF" secondAttribute="centerY" id="j9s-hz-FVn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yuQ-7u-Mrc" secondAttribute="bottom" id="jCk-Ws-FsA"/>
+                                                    <constraint firstItem="NGu-X7-Wxc" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="mNV-Os-pWa"/>
+                                                    <constraint firstItem="VTj-qc-GaF" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="sjz-CC-a2k"/>
+                                                    <constraint firstItem="yuQ-7u-Mrc" firstAttribute="leading" secondItem="3Ie-0S-Kpq" secondAttribute="leading" constant="-10" id="xye-Fw-T4C"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-r8-mHL" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="575" width="343" height="48"/>
+                                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="jpm-Kb-eOz"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <state key="normal" title="Buy WAVES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                                        <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Zhj-r8-mHL" secondAttribute="bottom" constant="24" id="23X-Sf-gFw"/>
+                                            <constraint firstItem="gNA-TX-wyo" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="5X5-Ri-VOe"/>
                                             <constraint firstItem="pCj-mR-Pg4" firstAttribute="top" secondItem="PG3-20-Dd2" secondAttribute="bottom" constant="30" id="6Th-RZ-Wco"/>
                                             <constraint firstAttribute="trailing" secondItem="nnp-g3-pO1" secondAttribute="trailing" id="9kk-LJ-wGc"/>
+                                            <constraint firstItem="1Sf-j0-xXd" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="9zZ-at-r1E"/>
                                             <constraint firstAttribute="trailing" secondItem="PG3-20-Dd2" secondAttribute="trailing" id="DFg-4G-qLM"/>
                                             <constraint firstItem="pCj-mR-Pg4" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="Sgs-2K-xQ5"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" constant="10" id="TAE-Gg-1Za"/>
-                                            <constraint firstItem="B3B-WO-lAR" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="20" id="hUB-g7-NOi"/>
+                                            <constraint firstAttribute="trailing" secondItem="gNA-TX-wyo" secondAttribute="trailing" id="Va6-EY-vY5"/>
+                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="24" id="XBr-A6-ZeK"/>
+                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="bHC-aE-Kmr"/>
+                                            <constraint firstItem="1Sf-j0-xXd" firstAttribute="top" secondItem="gNA-TX-wyo" secondAttribute="bottom" constant="25" id="ggr-8c-UgQ"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="top" secondItem="pCj-mR-Pg4" secondAttribute="bottom" constant="25" id="jVT-rW-21n"/>
-                                            <constraint firstAttribute="trailing" secondItem="B3B-WO-lAR" secondAttribute="trailing" constant="20" id="jo7-11-ihu"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="kRJ-Iv-X6h"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="orc-xH-ZeH"/>
                                             <constraint firstAttribute="trailing" secondItem="pCj-mR-Pg4" secondAttribute="trailing" id="rr0-Zt-O23"/>
-                                            <constraint firstItem="B3B-WO-lAR" firstAttribute="top" secondItem="nnp-g3-pO1" secondAttribute="bottom" constant="50" id="w3w-JR-zYh"/>
+                                            <constraint firstAttribute="trailing" secondItem="1Sf-j0-xXd" secondAttribute="trailing" constant="16" id="sTL-Jl-af1"/>
+                                            <constraint firstAttribute="trailing" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="16" id="xBd-Te-x7T"/>
+                                            <constraint firstItem="gNA-TX-wyo" firstAttribute="top" secondItem="nnp-g3-pO1" secondAttribute="bottom" constant="25" id="ycH-gE-8Fl"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1954,9 +2036,14 @@ You do not have any orders</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonBuy" destination="Zhj-r8-mHL" id="tOk-ZJ-arD"/>
                         <outlet property="inputAmount" destination="pCj-mR-Pg4" id="hUO-EZ-uTn"/>
                         <outlet property="inputPrice" destination="nnp-g3-pO1" id="Pfl-Kd-CeJ"/>
-                        <outlet property="typeView" destination="PG3-20-Dd2" id="dhq-xl-vty"/>
+                        <outlet property="inputTotal" destination="gNA-TX-wyo" id="adJ-01-u6N"/>
+                        <outlet property="labelExpiration" destination="VTj-qc-GaF" id="xHi-f8-nHq"/>
+                        <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
+                        <outlet property="labelFee" destination="NGu-X7-Wxc" id="smc-nm-g5h"/>
+                        <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8K-cx-MpO" userLabel="First Responder" sceneMemberID="firstResponder"/>

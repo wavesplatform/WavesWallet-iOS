@@ -83,7 +83,7 @@
                         <constraint firstItem="bZN-Xr-DbC" firstAttribute="leading" secondItem="P6c-tW-oCz" secondAttribute="trailing" id="lnX-AF-Fi4"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="DexInputScrollView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="InputScrollButtonsView" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="76" width="375" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="aCO-QS-hkc"/>

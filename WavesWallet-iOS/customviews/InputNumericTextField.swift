@@ -40,9 +40,17 @@ final class InputNumericTextField: UITextField {
         return 0
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        initialize()
+    }
     
+    private func initialize() {
         super.delegate = self
         placeholder = "0"
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)

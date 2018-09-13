@@ -1,6 +1,15 @@
 "button.sell" = "Sell";
 "button.buy" = "Buy";
 "button.useTotalBalanace" = "Use total balance";
+"button.bid" = "Bid";
+"button.ask" = "Ask";
+"button.last" = "Last";
+"button.minutes" = "minutes";
+"button.hour" = "hour";
+"button.day" = "day";
+"button.days" = "days";
+"button.week" = "week";
+"button.cancel" = "Cancel";
 
 "label.amountIn" = "Amount in";
 "label.limitPriceIn" = "Limit Price in";
@@ -8,3 +17,4 @@
 "label.fee" = "Fee";
 "label.Expiration" = "Expiration";
 "label.days" = "days";
+
