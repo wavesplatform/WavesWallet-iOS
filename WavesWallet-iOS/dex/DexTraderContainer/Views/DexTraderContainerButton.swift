@@ -12,16 +12,10 @@ private enum Constants {
     static let titleFontSize: CGFloat = 10
     static let subTitleFontSize: CGFloat = 13
     static let lineSpacing: CGFloat = 3
-    static let cornerRadius: CGFloat = 3
 }
 
 final class DexTraderContainerButton: HighlightedButton {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = Constants.cornerRadius
-    }
-    
     func setup(title: String, subTitle: String) {
         
         let paragraph = NSMutableParagraphStyle()

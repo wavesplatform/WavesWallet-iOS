@@ -102,7 +102,6 @@ extension DexChart.DTO.Candle {
         formatter.maximumFractionDigits = Constants.defaultDecimals
         return formatter
     }()
-    
 }
 
 

@@ -17,12 +17,30 @@ internal enum Localizable {
   internal enum DexCreateOrder {
 
     internal enum Button {
+      /// Ask
+      internal static let ask = Localizable.tr("DexCreateOrder", "button.ask")
+      /// Bid
+      internal static let bid = Localizable.tr("DexCreateOrder", "button.bid")
       /// Buy
       internal static let buy = Localizable.tr("DexCreateOrder", "button.buy")
+      /// Cancel
+      internal static let cancel = Localizable.tr("DexCreateOrder", "button.cancel")
+      /// day
+      internal static let day = Localizable.tr("DexCreateOrder", "button.day")
+      /// days
+      internal static let days = Localizable.tr("DexCreateOrder", "button.days")
+      /// hour
+      internal static let hour = Localizable.tr("DexCreateOrder", "button.hour")
+      /// Last
+      internal static let last = Localizable.tr("DexCreateOrder", "button.last")
+      /// minutes
+      internal static let minutes = Localizable.tr("DexCreateOrder", "button.minutes")
       /// Sell
       internal static let sell = Localizable.tr("DexCreateOrder", "button.sell")
       /// Use total balance
       internal static let useTotalBalanace = Localizable.tr("DexCreateOrder", "button.useTotalBalanace")
+      /// week
+      internal static let week = Localizable.tr("DexCreateOrder", "button.week")
     }
 
     internal enum Label {
