@@ -1,5 +1,5 @@
 //
-//  SeventhInfoPageView.swift
+//  FourthInfoPageView.swift
 //  WavesWallet-iOS
 //
 //  Copyright © 2018 Waves Platform. All rights reserved.
@@ -7,14 +7,27 @@
 
 import UIKit
 
-class SeventhInfoPageView: UIView {
-    @IBOutlet weak var nextBtn: UIButton!
-    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var textTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var btnBotConstraint: NSLayoutConstraint!
-    @IBOutlet weak var secondSectionTopConstraint: NSLayoutConstraint!
-    
+final class FourthInfoPageView: UIView {
+    @IBOutlet private weak var nextBtn: UIButton!
+    @IBOutlet private weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var titleLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var textTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var btnBotConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var secondSectionTopConstraint: NSLayoutConstraint!
+
+    @IBOutlet private weak var headLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var detailLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupLanguages()
+    }
+
+    func setupLanguages() {
+
+    }
+
     func setupConstraints() {
         if Platform.isIphone5 {
             setupAllConstraints(titleTop: 24, titleLeading: 12, textTrailing: 12, btnBot: 14, secondTop: 24)

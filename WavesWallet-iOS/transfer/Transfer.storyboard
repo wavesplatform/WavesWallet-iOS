@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mJ8-xx-ScN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mJ8-xx-ScN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -362,9 +362,6 @@
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4o-3A-Ra8">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                                                    <connections>
-                                                        <segue destination="Ac8-Fz-9Z0" kind="embed" id="veX-uN-xUO"/>
-                                                    </connections>
                                                 </containerView>
                                             </subviews>
                                             <constraints>
@@ -777,131 +774,6 @@
             </objects>
             <point key="canvasLocation" x="1270" y="-286"/>
         </scene>
-        <!--Select Account View Controller-->
-        <scene sceneID="X6v-bj-LzC">
-            <objects>
-                <viewController storyboardIdentifier="SelectAccountViewController" id="Ac8-Fz-9Z0" customClass="SelectAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0ef-oE-36k"/>
-                        <viewControllerLayoutGuide type="bottom" id="fBX-DP-oXH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wQw-bx-P8k">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ldr-a8-CBv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8F8-vI-Mpo">
-                                    <size key="itemSize" width="375" height="100"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="59S-hL-nlw" customClass="SelectAccountCollectionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.5" width="375" height="100"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDA-Xu-gSL">
-                                                    <rect key="frame" x="8" y="16" width="359" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzS-LV-lUD">
-                                                    <rect key="frame" x="123" y="44.5" width="129" height="20.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="– 25,600" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UvM-Sj-kc3">
-                                                            <rect key="frame" x="0.0" y="0.0" width="67.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text=".00100500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="rOB-y6-pl5">
-                                                            <rect key="frame" x="67.5" y="4.5" width="61.5" height="14.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="UvM-Sj-kc3" secondAttribute="bottom" id="2cn-HY-EfC"/>
-                                                        <constraint firstItem="rOB-y6-pl5" firstAttribute="baseline" secondItem="UvM-Sj-kc3" secondAttribute="baseline" id="Anh-Dl-tUZ"/>
-                                                        <constraint firstItem="UvM-Sj-kc3" firstAttribute="leading" secondItem="IzS-LV-lUD" secondAttribute="leading" id="BZ4-n3-x0T"/>
-                                                        <constraint firstItem="UvM-Sj-kc3" firstAttribute="top" secondItem="IzS-LV-lUD" secondAttribute="top" id="NkO-cw-XkT"/>
-                                                        <constraint firstItem="rOB-y6-pl5" firstAttribute="leading" secondItem="UvM-Sj-kc3" secondAttribute="trailing" id="pT7-F7-q41"/>
-                                                        <constraint firstAttribute="trailing" secondItem="rOB-y6-pl5" secondAttribute="trailing" id="pfT-Wh-lbp"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="IzS-LV-lUD" firstAttribute="centerX" secondItem="59S-hL-nlw" secondAttribute="centerX" id="5R1-pf-FTA"/>
-                                            <constraint firstItem="XDA-Xu-gSL" firstAttribute="leading" secondItem="59S-hL-nlw" secondAttribute="leading" constant="8" id="Qyp-es-x5U"/>
-                                            <constraint firstItem="XDA-Xu-gSL" firstAttribute="top" secondItem="59S-hL-nlw" secondAttribute="top" constant="16" id="U7L-Qr-t4I"/>
-                                            <constraint firstItem="IzS-LV-lUD" firstAttribute="top" secondItem="XDA-Xu-gSL" secondAttribute="bottom" constant="8" id="pwB-nJ-fcb"/>
-                                            <constraint firstAttribute="trailing" secondItem="XDA-Xu-gSL" secondAttribute="trailing" constant="8" id="q2v-AA-dOY"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="balanceDecimalLabel" destination="rOB-y6-pl5" id="2Ry-f7-TxA"/>
-                                            <outlet property="balanceIntLabel" destination="UvM-Sj-kc3" id="6x4-6k-x4L"/>
-                                            <outlet property="nameLabel" destination="XDA-Xu-gSL" id="8Ss-SG-BYS"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="Ac8-Fz-9Z0" id="6vF-Jg-JEk"/>
-                                </connections>
-                            </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcw-jX-rwI">
-                                <rect key="frame" x="0.0" y="-0.5" width="40" height="101"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="yHJ-Cv-RuS"/>
-                                </constraints>
-                                <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="swipe_left"/>
-                                <connections>
-                                    <action selector="onSlideLeft:" destination="Ac8-Fz-9Z0" eventType="touchUpInside" id="7fc-4q-b9U"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bA-S1-CBh">
-                                <rect key="frame" x="335" y="-0.5" width="40" height="101"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="n97-X6-1ge"/>
-                                </constraints>
-                                <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="swipe_right"/>
-                                <connections>
-                                    <action selector="onSlideRight:" destination="Ac8-Fz-9Z0" eventType="touchUpInside" id="Vaj-51-LZs"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ldr-a8-CBv" secondAttribute="trailing" id="IZx-OE-U6V"/>
-                            <constraint firstItem="0bA-S1-CBh" firstAttribute="top" secondItem="wQw-bx-P8k" secondAttribute="top" id="J5a-X2-1z2"/>
-                            <constraint firstItem="mcw-jX-rwI" firstAttribute="top" secondItem="wQw-bx-P8k" secondAttribute="top" id="ZdV-8E-3n0"/>
-                            <constraint firstAttribute="bottom" secondItem="ldr-a8-CBv" secondAttribute="bottom" id="bHa-dz-AcD"/>
-                            <constraint firstItem="ldr-a8-CBv" firstAttribute="leading" secondItem="wQw-bx-P8k" secondAttribute="leading" id="cJa-0N-KHs"/>
-                            <constraint firstAttribute="trailing" secondItem="0bA-S1-CBh" secondAttribute="trailing" id="lzr-8M-mHI"/>
-                            <constraint firstItem="ldr-a8-CBv" firstAttribute="top" secondItem="wQw-bx-P8k" secondAttribute="top" id="pwe-8X-2Lu"/>
-                            <constraint firstItem="mcw-jX-rwI" firstAttribute="leading" secondItem="wQw-bx-P8k" secondAttribute="leading" id="vdH-ki-Kui"/>
-                            <constraint firstAttribute="bottom" secondItem="0bA-S1-CBh" secondAttribute="bottom" id="x8O-2C-HDN"/>
-                            <constraint firstAttribute="bottom" secondItem="mcw-jX-rwI" secondAttribute="bottom" id="xyd-B6-scq"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="collectionView" destination="ldr-a8-CBv" id="pfb-gA-vTm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZdO-mh-idN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1270" y="-1564"/>
-        </scene>
         <!--Receive-->
         <scene sceneID="Kfx-Zy-MgK">
             <objects>
@@ -946,9 +818,6 @@
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3X-bc-c2e">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                                                    <connections>
-                                                        <segue destination="Ac8-Fz-9Z0" kind="embed" id="at7-op-lZh"/>
-                                                    </connections>
                                                 </containerView>
                                             </subviews>
                                             <constraints>
@@ -1119,10 +988,5 @@
         <image name="repeat_btn" width="42" height="42"/>
         <image name="send" width="25" height="22"/>
         <image name="star_btn" width="42" height="42"/>
-        <image name="swipe_left" width="6" height="10"/>
-        <image name="swipe_right" width="6" height="10"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="at7-op-lZh"/>
-    </inferredMetricsTieBreakers>
 </document>

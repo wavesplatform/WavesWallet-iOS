@@ -8,14 +8,14 @@
 
 import UIKit
 
-class EnterLanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class EnterLanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var buttonConfirm: UIButton!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var buttonConfirm: UIButton!
     
-    let languages = DataManager.getLanguages()
+    private let languages = Language.list
 
-    var selectedIndex = -1
+    private var selectedIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +54,8 @@ class EnterLanguageViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCell", for: indexPath) as! LanguageTableCell
         
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item["title"]
-        cell.iconLanguage.image = UIImage(named: item["icon"]!)
+        cell.labelTitle.text = item.title
+        cell.iconLanguage.image = UIImage(named: item.icon)
         
         if indexPath.row == selectedIndex {
             cell.iconCheckmark.image = UIImage(named: "on")

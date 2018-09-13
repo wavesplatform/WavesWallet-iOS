@@ -75,93 +75,6 @@ class WalletManager {
         currentWallet = toWallet.toWallet
         bag = DisposeBag()
         StoryboardManager.didEndLogin()
-//        autoUpdateFromNode()
-    }
-
-    class func updateTransactions(onComplete: (() -> Void)?) {
-        let load = Observable.from([NodeManager.loadTransaction(), NodeManager.loadPendingTransaction()])
-            .merge().toArray()
-            .map { Array($0.joined()) }
-
-        load
-            .catchError { err in
-                print(err)
-                return Observable.empty()
-            }
-            .subscribe(onNext: { txs in
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.add(txs, update: true)
-                    realm.add(txs.map { tx in
-                        let bt = BasicTransaction(tx: tx)
-                        bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
-                        return bt
-                    }, update: true)
-                }
-                if let onComplete = onComplete {
-                    onComplete()
-                }
-            })
-            .disposed(by: bag)
-    }
-
-    class func autoUpdateFromNode() {
-        _ = Observable<Int>
-            .timer(30, period: 30, scheduler: MainScheduler.instance)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .subscribe(onNext: { _ in
-//                print(Date())
-                updateBalances(onComplete: nil)
-                updateTransactions(onComplete: nil)
-            })
-            .disposed(by: bag)
-    }
-
-    class func updateBalances(onComplete: (() -> Void)?) {
-        let load = Observable.from([NodeManager.loadWavesBalance(),
-                                    NodeManager.loadBalances()])
-            .merge().toArray()
-            .map { Array($0.joined()) }
-
-        load
-            .catchError { err in
-                print(err)
-                return Observable.empty()
-            }
-            .subscribe(onNext: { abs in
-                let realm = try! Realm()
-                try! realm.write {
-                    let oldHiddenIds = Array(realm
-                        .objects(AssetBalance.self)
-                        .filter("isHidden = true")
-                        .map { $0.assetId })
-                    realm.add(abs, update: true)
-
-                    let generalAssetsIds = Environments
-                        .current
-                        .generalAssetIds
-                        .map { $0.assetId }
-                    realm
-                        .objects(AssetBalance.self)
-                        .filter("assetId in %@", generalAssetsIds)
-                        .setValue(true, forKeyPath: "isGeneral")
-
-                    realm
-                        .objects(AssetBalance.self)
-                        .filter("assetId in %@", oldHiddenIds)
-                        .setValue(true, forKeyPath: "isHidden")
-
-                    let ids = abs.map { $0.assetId }
-                    let deleted = realm
-                        .objects(AssetBalance.self)
-                        .filter("isGeneral = false AND NOT (assetId in %@)", ids)
-                    realm.delete(deleted)
-                }
-                if let onComplete = onComplete {
-                    onComplete()
-                }
-            })
-            .disposed(by: bag)
     }
 
     class func didLogout() {
@@ -439,6 +352,12 @@ class WalletManager {
         try! realm.write {
             realm.delete(walletItem)
         }
+    }
+
+    static var isWalletLoggedIn: (isLoggedIn: Bool, item: WalletItem?) {
+        let realm = WalletManager.getWalletsRealm()
+        let w = realm.objects(WalletItem.self).filter("isLoggedIn == true")
+        return (isLoggedIn: w.count > 0, item: w.count > 0 ? w[0] : nil)
     }
 }
 

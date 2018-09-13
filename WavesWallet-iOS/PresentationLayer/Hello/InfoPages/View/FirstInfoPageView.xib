@@ -99,8 +99,10 @@ By continuing to use our platform, you agree to accept all risks associated with
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="btnBotConstraint" destination="Kzy-WM-vtc" id="Dnt-SD-XVH"/>
+                <outlet property="detailLabel" destination="act-ti-Wcz" id="kT6-1C-eJe"/>
                 <outlet property="nextBtn" destination="RI9-5o-FgF" id="FKl-Im-rdM"/>
                 <outlet property="textTopConstraint" destination="hxC-Ua-wXh" id="HiV-Yv-3Np"/>
+                <outlet property="titleLabel" destination="TMJ-rW-y8g" id="KD9-je-IeJ"/>
                 <outlet property="titleLeadingConstraint" destination="dM1-O6-ays" id="0vV-P6-yJl"/>
                 <outlet property="titleTopConstraint" destination="FTh-ag-zMB" id="lCg-pc-cdc"/>
                 <outlet property="titleTrailingConstraint" destination="UvK-t2-UwA" id="xv1-cP-JwS"/>

@@ -130,9 +130,12 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="btnBotConstraint" destination="ja2-Vi-f3C" id="eMF-e6-Avh"/>
+                <outlet property="detailLabel" destination="Ate-QB-L4D" id="5hx-Ae-Gda"/>
+                <outlet property="headLabel" destination="zOC-MS-pu6" id="Gbn-B4-1nf"/>
                 <outlet property="nextBtn" destination="LKi-Zb-1PV" id="XVe-Gd-Y5c"/>
                 <outlet property="secondSectionTopConstraint" destination="Llb-Jz-5ZL" id="Hpb-G9-PjF"/>
                 <outlet property="textTrailingConstraint" destination="7zh-u1-zGf" id="3TQ-sp-9qd"/>
+                <outlet property="titleLabel" destination="tv7-zN-kuu" id="3dW-eo-1RM"/>
                 <outlet property="titleLeadingConstraint" destination="I3O-9j-iSd" id="qoR-WW-LOe"/>
                 <outlet property="titleTopConstraint" destination="Iee-Lo-4v7" id="mPz-MS-GTP"/>
             </connections>

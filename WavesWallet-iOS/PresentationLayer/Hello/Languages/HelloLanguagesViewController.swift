@@ -7,29 +7,31 @@
 
 import UIKit
 
-class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol HelloLanguagesViewControllerDelegate: AnyObject {
+    func languageDidSelect(code: String)
+}
 
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var tableViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var continueBtn: UIButton!
+final class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let languages = DataManager.getLanguages()
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var tableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var continueBtn: UIButton!
 
-    var chosenIndexPath: IndexPath?
+    private var languages: [Language] = {
+        return Language.list
+    }()
+
+    private var chosenIndexPath: IndexPath?
+
+    weak var delegate: HelloLanguagesViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        Bundle.main.localizations
-        let languages = NSLocale.preferredLanguages
-
-        NSLocale.availableLocaleIdentifiers
-
-
         navigationController?.setNavigationBarHidden(true, animated: false)
         tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
         continueBtn.alpha = 0
+//        continueBtn.setTitle(Localizable., for: <#T##UIControlState#>)
     }
 
     @IBAction func continueWasPressed(_ sender: Any) {
@@ -47,8 +49,8 @@ class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCellIdentifier", for: indexPath) as! LanguageTableCell
 
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item["title"]
-        cell.iconLanguage.image = UIImage(named: item["icon"]!)
+        cell.labelTitle.text = item.title
+        cell.iconLanguage.image = UIImage(named: item.icon)
 
         if let index = chosenIndexPath, index == indexPath {
             cell.iconCheckmark.image = Images.on.image
@@ -61,11 +63,13 @@ class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         chosenIndexPath = indexPath
+        let item = languages[indexPath.row]
         tableView.reloadData()
 
         tableViewBottomConstraint.constant = 62
         UIView.animate(withDuration: 0.3) {
             self.continueBtn.alpha = 1.0
         }
+        delegate?.languageDidSelect(code: item.code)
     }
 }

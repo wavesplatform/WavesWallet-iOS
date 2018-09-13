@@ -72,14 +72,14 @@ class StoryboardManager {
     
     class func sendViewController(asset: AssetBalance) -> SendViewController {
         let vc = UIStoryboard(name: "Transfer", bundle: nil).instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
-        vc.selectedAccount = asset
+//        vc.selectedAccount = asset
         return vc
     }
     
     
     class func receiveViewController(asset: AssetBalance) -> ReceiveViewController {
         let vc = UIStoryboard(name: "Transfer", bundle: nil).instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
-        vc.selectedAccount = asset
+//        vc.selectedAccount = asset
         return vc
     }
 

@@ -286,18 +286,6 @@ class DataManager: NSObject {
         }
     }
     
-    class func getLanguages() -> [Dictionary<String, String>] {
-        
-        return [["title" : "English", "icon" : "flag18Britain", "id" : ""],
-                ["title" : "Русский", "icon" : "flag18Rus", "id" : ""],
-                ["title" : "中文(简体)", "icon" : "flag18China", "id" : ""],
-                ["title" : "한국어", "icon" : "flag18Korea", "id" : ""],
-                ["title" : "Türkçe", "icon" : "flag18Turkey", "id" : ""],
-                ["title" : "हिन्दी", "icon" : "flag18Hindi", "id" : ""],
-                ["title" : "Dansk", "icon" : "flag18Danish", "id" : ""],
-                ["title" : "Nederlands", "icon" : "flag18Nederland", "id" : ""]]
-    }
-    
     class func isUseTouchID() -> Bool {
         return UserDefaults.standard.bool(forKey: "isUseTouchID")
     }
