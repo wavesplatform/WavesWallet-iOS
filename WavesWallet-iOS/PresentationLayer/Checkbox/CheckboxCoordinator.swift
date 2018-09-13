@@ -22,6 +22,12 @@ final class CheckboxCoordinator {
 
 extension CheckboxCoordinator: CheckboxModuleOutput {
     
+    func showViewController(viewController: UIViewController) {
+        let navigationController = UINavigationController(rootViewController: viewController)
+        
+        checkboxViewController.present(navigationController, animated: true)
+    }
+    
 }
 
 extension CheckboxCoordinator: CheckboxModuleInput {
