@@ -16,7 +16,17 @@ private enum Constants {
 
 final class DexCreateOrderViewController: UIViewController {
 
-    var input: DexCreateOrder.DTO.Input!
+    var input: DexCreateOrder.DTO.Input! {
+        didSet {
+            order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset,
+                                             priceAsset: input.priceAsset,
+                                             type: input.type,
+                                             amount: 0,
+                                             price: 0,
+                                             total: 0,
+                                             expiration: DexCreateOrder.DTO.Expiration.expiration30d)
+        }
+    }
     
     @IBOutlet private weak var segmentedControl: DexCreateOrderSegmentedControl!
     @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
@@ -26,23 +36,20 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var labelExpiration: UILabel!
     @IBOutlet private weak var labelExpirationDays: UILabel!
     @IBOutlet private weak var buttonBuy: HighlightedButton!
-    
-    private var expirationTime = DexCreateOrder.ViewModel.ExpirationTime.expiration30d
 
-    private var amount: Double = 0
-    private var price: Double = 0
-    private var total: Double = 0
-    
     private var isValidOrder: Bool {
-        return amount > 0 && price > 0 && total > 0
+        guard order != nil else { return false }
+        return order.amount > 0 && order.price > 0 && order.total > 0
     }
+    
+    private var order: DexCreateOrder.DTO.Order!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupData()
         setupViews()
         setupLocalization()
-        setupData()
         setupButtonBuyState()
     }
 }
@@ -53,12 +60,12 @@ private extension DexCreateOrderViewController {
     
     @IBAction func changeExpiration(_ sender: UIButton) {
         
-        let values = [DexCreateOrder.ViewModel.ExpirationTime.expiration5m,
-                      DexCreateOrder.ViewModel.ExpirationTime.expiration30m,
-                      DexCreateOrder.ViewModel.ExpirationTime.expiration1h,
-                      DexCreateOrder.ViewModel.ExpirationTime.expiration1d,
-                      DexCreateOrder.ViewModel.ExpirationTime.expiration1w,
-                      DexCreateOrder.ViewModel.ExpirationTime.expiration30d]
+        let values = [DexCreateOrder.DTO.Expiration.expiration5m,
+                      DexCreateOrder.DTO.Expiration.expiration30m,
+                      DexCreateOrder.DTO.Expiration.expiration1h,
+                      DexCreateOrder.DTO.Expiration.expiration1d,
+                      DexCreateOrder.DTO.Expiration.expiration1w,
+                      DexCreateOrder.DTO.Expiration.expiration30d]
         
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: Localizable.DexCreateOrder.Button.cancel, style: .cancel, handler: nil)
@@ -67,8 +74,8 @@ private extension DexCreateOrderViewController {
         for value in values {
             let action = UIAlertAction(title: value.text, style: .default) { (action) in
                 
-                if self.expirationTime != value {
-                    self.expirationTime = value
+                if self.order.expiration != value {
+                    self.order.expiration = value
                     self.setupLabelExpiration()
                 }
             }
@@ -78,14 +85,14 @@ private extension DexCreateOrderViewController {
     }
     
     func setupLabelExpiration() {
-        labelExpirationDays.text = expirationTime.text
+        labelExpirationDays.text = order.expiration.text
     }
 }
 
 //MARK: - DexCreateOrderSegmentedControlDelegate
 extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
     func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType) {
-        debug (type)
+        order.type = type
     }
 }
 
@@ -94,16 +101,16 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double) {
         if inputView == inputAmount {
-            amount = value
+            order.amount = value
         }
         else if inputView == inputPrice {
-            price = value
+            order.price = value
         }
         else if inputView == inputTotal {
-            total = value
+            order.total = value
         }
-        
-//        print(classForCoder, #function)
+     
+        print(order.price)
         setupButtonBuyState()
     }
 }
@@ -131,6 +138,11 @@ private extension DexCreateOrderViewController {
         inputPrice.input = [.init(text: Localizable.DexCreateOrder.Button.bid, value: value1),
                             .init(text: Localizable.DexCreateOrder.Button.ask, value: value2),
                             .init(text: Localizable.DexCreateOrder.Button.last, value: value3)]
+        
+        if let price = input.price {
+            order.price = price.doubleValue
+            inputPrice.setupValue(price.doubleValue)
+        }
     }
     
     func setupViews() {

@@ -10,12 +10,11 @@ import Foundation
 
 enum DexCreateOrder {
     enum DTO {}
-    enum ViewModel {}
 }
 
-extension DexCreateOrder.ViewModel {
-    
-    enum ExpirationTime: Int {
+extension DexCreateOrder.DTO {
+  
+    enum Expiration: Int {
         case expiration5m = 5
         case expiration30m = 30
         case expiration1h = 60
@@ -23,9 +22,35 @@ extension DexCreateOrder.ViewModel {
         case expiration1w = 10080
         case expiration30d = 43200
     }
+    
+    enum OrderType {
+        case sell
+        case buy
+    }
+    
+    struct Input {
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
+        let type: OrderType
+        let price: Money?
+        let ask: Money?
+        let bid: Money?
+        let last: Money?
+    }
+    
+    struct Order {
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
+        var type: OrderType
+        var amount: Double
+        var price: Double
+        var total: Double
+        var expiration: Expiration
+    }
 }
 
-extension DexCreateOrder.ViewModel.ExpirationTime {
+
+extension DexCreateOrder.DTO.Expiration {
     
     var text: String {
         switch self {
@@ -40,31 +65,12 @@ extension DexCreateOrder.ViewModel.ExpirationTime {
             
         case .expiration1d:
             return "1" + " " + Localizable.DexCreateOrder.Button.day
-        
+            
         case .expiration1w:
             return "1" + " " + Localizable.DexCreateOrder.Button.week
             
         case .expiration30d:
             return "30" + " " + Localizable.DexCreateOrder.Button.days
         }
-    }
-}
-
-extension DexCreateOrder.DTO {
-  
-    enum OrderType {
-        case sell
-        case buy
-    }
-    
-    struct Input {
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
-        let type: OrderType
-        let price: Money
-    }
-    
-    struct Balance {
-        let totalMoney: Money
     }
 }

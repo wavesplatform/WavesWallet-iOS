@@ -28,6 +28,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     weak var delegate: DexCreateOrderInputViewDelegate?
   
     private var isShowInputScrollView = false {
+        
         didSet {
             if isShowInputScrollView {
                 showInputScrollView(animation: false)
@@ -60,6 +61,17 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         
         inputScrollView.inputDelegate = self
         textField.inputNumericDelegate = self
+        hideInputScrollView(animation: false)
+    }
+    
+    
+    //MARK: - Methods
+    func setupTitle(title: String) {
+        labelTitle.text = title
+    }
+    
+    func setupValue(_ value: Double) {
+        textField.setStringValue(value: String(value))
         hideInputScrollView(animation: false)
     }
 }
@@ -105,15 +117,6 @@ private extension DexCreateOrderInputView {
         if isShowInputScrollView {
             updateViewHeight(inputValue: textField.value)
         }
-    }
-}
-
-//MARK: - SetupUI
-
-extension DexCreateOrderInputView {
-    
-    func setupTitle(title: String) {
-        labelTitle.text = title
     }
 }
 

@@ -11,7 +11,5 @@ import RxSwift
 
 final class DexCreateOrderInteractorProtocolMock: DexCreateOrderInteractorProtocol {
     
-    func getTotalBalance() -> Observable<(DexCreateOrder.DTO.Balance)> {
-        return Observable.just(DexCreateOrder.DTO.Balance(totalMoney: Money(100, 0)))
-    }
+    
 }
