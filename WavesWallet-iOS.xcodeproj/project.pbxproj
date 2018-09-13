@@ -29,6 +29,7 @@
 		04892C7221497B4100339F33 /* Checkbox.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04892C7421497B4100339F33 /* Checkbox.strings */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
+		04A64B5A214ACAAC00587FC0 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A64B59214ACAAC00587FC0 /* BrowserViewController.swift */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
@@ -546,6 +547,7 @@
 		04892C7621497B4500339F33 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Checkbox.strings; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
+		04A64B59214ACAAC00587FC0 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
@@ -1196,6 +1198,14 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		04A64B58214ACA9800587FC0 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				04A64B59214ACAAC00587FC0 /* BrowserViewController.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
 		0A1DAD6020F37BA2004DA625 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1476,6 +1486,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				04A64B58214ACA9800587FC0 /* WebView */,
 				04892C55214845CE00339F33 /* Checkbox */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				04A2CFA12112100B00784FEC /* History */,
@@ -3382,6 +3393,7 @@
 				E90F152F2121209000C11124 /* DexMarketModuleOutput.swift in Sources */,
 				0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */,
 				0AE491F02107A4BD009223DB /* WalletCoordinator.swift in Sources */,
+				04A64B5A214ACAAC00587FC0 /* BrowserViewController.swift in Sources */,
 				0AF922C9212E1234003BA067 /* UIImage+Color.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
 			);

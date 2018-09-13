@@ -25,7 +25,7 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVL-1X-3EE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsg-5Z-eLv" userLabel="Box">
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsg-5Z-eLv" userLabel="Box">
                                         <rect key="frame" x="16" y="148.5" width="343" height="370"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYD-WC-dFv" userLabel="Content">
@@ -56,7 +56,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="Nxi-ul-cuW"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ab-cM-BoN">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ab-cM-BoN" customClass="TTTAttributedLabel">
                                                         <rect key="frame" x="38" y="112" width="257" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="W6P-J7-qoy"/>
@@ -76,7 +76,7 @@
                                                             <action selector="firstCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="nW5-pw-p2M"/>
                                                         </connections>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrI-1a-Njq">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrI-1a-Njq" customClass="TTTAttributedLabel">
                                                         <rect key="frame" x="38" y="160" width="257" height="36"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="fsc-ap-nYK"/>
@@ -108,7 +108,7 @@
                                                         </connections>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZW-zI-zMx">
-                                                        <rect key="frame" x="0.0" y="273.5" width="295" height="48"/>
+                                                        <rect key="frame" x="0.0" y="274" width="295" height="48"/>
                                                         <color key="backgroundColor" red="0.72941176470588232" green="0.792156862745098" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="5dt-KL-hry"/>
@@ -124,20 +124,18 @@
                                                             <action selector="buttonTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="O4b-ML-2Tx"/>
                                                         </connections>
                                                     </button>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="I have read, understood, and agree to the Terms of Use" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z00-7E-0UQ">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have read, understood, and agree to the Terms of Use" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbK-10-s33" customClass="TTTAttributedLabel">
                                                         <rect key="frame" x="38" y="220" width="257" height="24"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="t99-gs-i7X"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="e8u-VT-bVd"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                    </textView>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="z00-7E-0UQ" secondAttribute="trailing" id="1bG-gy-3LT"/>
                                                     <constraint firstItem="4ab-cM-BoN" firstAttribute="leading" secondItem="hap-zv-gPI" secondAttribute="trailing" constant="14" id="70C-Uq-NKg"/>
                                                     <constraint firstItem="hap-zv-gPI" firstAttribute="top" secondItem="w41-Qd-DOQ" secondAttribute="bottom" constant="24" id="Beg-Od-Q8A"/>
                                                     <constraint firstItem="nRU-J9-JPP" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="ECm-6v-qbu"/>
@@ -150,10 +148,12 @@
                                                     <constraint firstItem="VWl-Os-7v2" firstAttribute="top" secondItem="hap-zv-gPI" secondAttribute="bottom" constant="30" id="QY1-NO-J8H"/>
                                                     <constraint firstAttribute="bottom" secondItem="ZZW-zI-zMx" secondAttribute="bottom" id="RKx-me-7BR"/>
                                                     <constraint firstAttribute="trailing" secondItem="4ab-cM-BoN" secondAttribute="trailing" id="SCf-6o-KWd"/>
+                                                    <constraint firstItem="nbK-10-s33" firstAttribute="leading" secondItem="nRU-J9-JPP" secondAttribute="trailing" constant="14" id="Ug9-5B-dTp"/>
                                                     <constraint firstAttribute="trailing" secondItem="w41-Qd-DOQ" secondAttribute="trailing" id="UgT-ny-GWv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nbK-10-s33" secondAttribute="trailing" id="Xeq-KR-8aK"/>
                                                     <constraint firstItem="hap-zv-gPI" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="YGX-8C-Usp"/>
-                                                    <constraint firstItem="z00-7E-0UQ" firstAttribute="leading" secondItem="nRU-J9-JPP" secondAttribute="trailing" constant="14" id="ZVU-gQ-SfG"/>
                                                     <constraint firstAttribute="trailing" secondItem="nEz-u7-cDd" secondAttribute="trailing" id="Zko-yi-aRJ"/>
+                                                    <constraint firstItem="ZZW-zI-zMx" firstAttribute="top" secondItem="nbK-10-s33" secondAttribute="bottom" constant="30" id="aBd-gs-MV8"/>
                                                     <constraint firstItem="hrI-1a-Njq" firstAttribute="top" secondItem="4ab-cM-BoN" secondAttribute="bottom" constant="24" id="cNs-qx-nLp"/>
                                                     <constraint firstItem="58a-iO-pXP" firstAttribute="top" secondItem="MYD-WC-dFv" secondAttribute="top" id="d8H-co-nAh"/>
                                                     <constraint firstItem="hrI-1a-Njq" firstAttribute="leading" secondItem="VWl-Os-7v2" secondAttribute="trailing" constant="14" id="dZi-MW-FOV"/>
@@ -161,10 +161,9 @@
                                                     <constraint firstItem="w41-Qd-DOQ" firstAttribute="top" secondItem="nEz-u7-cDd" secondAttribute="bottom" constant="24" id="gIC-Qa-7Rh"/>
                                                     <constraint firstItem="nRU-J9-JPP" firstAttribute="top" secondItem="VWl-Os-7v2" secondAttribute="bottom" constant="30" id="gPu-Oe-NQV"/>
                                                     <constraint firstAttribute="trailing" secondItem="ZZW-zI-zMx" secondAttribute="trailing" id="i1V-pb-jIX"/>
-                                                    <constraint firstItem="ZZW-zI-zMx" firstAttribute="top" secondItem="z00-7E-0UQ" secondAttribute="bottom" constant="30" id="jds-Ik-x5D"/>
                                                     <constraint firstAttribute="trailing" secondItem="hrI-1a-Njq" secondAttribute="trailing" id="lAr-db-5iZ"/>
+                                                    <constraint firstItem="nbK-10-s33" firstAttribute="top" secondItem="hrI-1a-Njq" secondAttribute="bottom" constant="24" id="s29-F7-8J5"/>
                                                     <constraint firstItem="VWl-Os-7v2" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="yRL-wO-Ve6"/>
-                                                    <constraint firstItem="z00-7E-0UQ" firstAttribute="top" secondItem="hrI-1a-Njq" secondAttribute="bottom" constant="24" id="zu2-HQ-lBz"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -177,7 +176,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MYD-WC-dFv" secondAttribute="trailing" constant="24" id="3c6-eH-IyG"/>
                                             <constraint firstItem="MYD-WC-dFv" firstAttribute="leading" secondItem="Nsg-5Z-eLv" secondAttribute="leading" constant="24" id="9KH-vQ-zrR"/>
-                                            <constraint firstAttribute="height" constant="370" id="HOL-ed-Yza"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="370" id="HOL-ed-Yza"/>
                                             <constraint firstAttribute="bottom" secondItem="MYD-WC-dFv" secondAttribute="bottom" constant="24" id="HOs-bm-RVh"/>
                                             <constraint firstItem="MYD-WC-dFv" firstAttribute="top" secondItem="Nsg-5Z-eLv" secondAttribute="top" constant="24" id="WSV-e3-EhK"/>
                                             <constraint firstAttribute="width" constant="343" id="gLJ-6L-g6f"/>
@@ -205,6 +204,7 @@
                         <viewLayoutGuide key="safeArea" id="tso-YO-Hkj"/>
                     </view>
                     <connections>
+                        <outlet property="box" destination="Nsg-5Z-eLv" id="dQf-nI-DtW"/>
                         <outlet property="containerTopConstraint" destination="1U5-nt-VxJ" id="O8U-1D-ZVZ"/>
                         <outlet property="containerView" destination="lVL-1X-3EE" id="ASa-di-6Md"/>
                         <outlet property="firstCheckboxView" destination="hap-zv-gPI" id="5zK-5p-sHu"/>
@@ -214,7 +214,7 @@
                         <outlet property="secondCheckboxView" destination="VWl-Os-7v2" id="OdD-9T-cRw"/>
                         <outlet property="secondLabel" destination="hrI-1a-Njq" id="b3w-e0-Qzp"/>
                         <outlet property="thirdCheckboxView" destination="nRU-J9-JPP" id="IoP-HM-lkt"/>
-                        <outlet property="thirdTextView" destination="z00-7E-0UQ" id="hkf-xO-QjI"/>
+                        <outlet property="thirdLabel" destination="nbK-10-s33" id="ydo-dm-OvW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7I-VY-kBC" userLabel="First Responder" sceneMemberID="firstResponder"/>
