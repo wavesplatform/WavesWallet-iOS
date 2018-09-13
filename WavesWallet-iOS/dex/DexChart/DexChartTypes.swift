@@ -8,11 +8,6 @@
 
 import Foundation
 
-private enum Constants {
-    static let fiatDecimals = 2
-    static let defaultDecimals = 8
-}
-
 enum DexChart {
     enum DTO {}
     enum ViewModel {}
@@ -69,6 +64,24 @@ extension DexChart.DTO {
     }
 }
 
+extension DexChart.ViewModel {
+    
+    private static let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.usesGroupingSeparator = false
+        return numberFormatter
+    }()
+    
+    static func numberFormatter(pair: DexTraderContainer.DTO.Pair) -> NumberFormatter {
+        let formatter = numberFormatter
+        formatter.minimumFractionDigits = pair.priceAsset.decimals
+        formatter.maximumFractionDigits = pair.priceAsset.decimals
+        return formatter
+    }
+}
+
 extension DexChart.DTO.Candle {
     
     func formatterTime(timeFrame: DexChart.DTO.TimeFrameType) -> String{
@@ -82,27 +95,6 @@ extension DexChart.DTO.Candle {
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         return dateFormatter
     }()
-    
-    static let fiatFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.decimalSeparator = "."
-        formatter.usesGroupingSeparator = false
-        formatter.minimumFractionDigits = Constants.fiatDecimals
-        formatter.maximumFractionDigits = Constants.fiatDecimals
-        return formatter
-    }()
-    
-    static let defaultFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.decimalSeparator = "."
-        formatter.usesGroupingSeparator = false
-        formatter.minimumFractionDigits = Constants.defaultDecimals
-        formatter.maximumFractionDigits = Constants.defaultDecimals
-        return formatter
-    }()
-    
 }
 
 

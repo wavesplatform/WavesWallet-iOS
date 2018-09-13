@@ -12,6 +12,8 @@ import UIKit
 extension UIView {
 
     func addTableCellShadowStyle() {
+        
+        //TODO: - Optimize function
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 2)

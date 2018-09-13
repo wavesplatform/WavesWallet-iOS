@@ -32,12 +32,12 @@ final class DexChartHelper {
 extension DexChartHelper {
     
     
-    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle], isFiatPair: Bool) {
+    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         
         if !hasInitRightAxisWidth && candles.count > 0 {
             hasInitRightAxisWidth = true
             
-            let width = DexChartHelper.candleRightWidth(candles: candles, isFiatPair: isFiatPair) + Constants.deltaRightAxisWidth
+            let width = DexChartHelper.candleRightWidth(candles: candles, pair: pair) + Constants.deltaRightAxisWidth
             candleChartView.rightAxis.minWidth = width
             candleChartView.rightAxis.maxWidth = width
 
@@ -97,7 +97,7 @@ extension DexChartHelper {
 //MARK: - Setup UI
 extension DexChartHelper {
 
-    func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView, isFiatPair: Bool) {
+    func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView, pair: DexTraderContainer.DTO.Pair) {
         
         candleChartView.chartDescription?.enabled = false
         candleChartView.pinchZoomEnabled = false
@@ -125,7 +125,7 @@ extension DexChartHelper {
         candleChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         candleChartView.rightAxis.labelTextColor = Constants.Candle.RightAxis.labelTextColor
         candleChartView.rightAxis.labelFont = Constants.Candle.RightAxis.labelFont
-        candleChartView.rightAxis.valueFormatter = DexChartCandleRightAxisFormatter(isFiatPair: isFiatPair)
+        candleChartView.rightAxis.valueFormatter = DexChartCandleRightAxisFormatter(pair: pair)
         candleChartView.rightAxis.forceLabelsEnabled = true
         candleChartView.rightAxis.drawAxisLineEnabled = false
         
@@ -288,6 +288,7 @@ extension DexChartHelper {
                     positionY = position.y - highlightedView.frame.size.height / 2
                 }
                 
+                //TODO - Refactor, need get height from chart
                 let bottomAxisHeight: CGFloat = 28
                 let minimumTopPostition: CGFloat = 2
                 
@@ -303,12 +304,13 @@ extension DexChartHelper {
         return (positionY, title, price)
     }
     
-    static func candleRightWidth(candles: [DexChart.DTO.Candle], isFiatPair: Bool) -> CGFloat {
+    static func candleRightWidth(candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) -> CGFloat {
        
         if candles.count > 0 {
             let price = candles[0].close
-            let numberFormatter = isFiatPair ? DexChart.DTO.Candle.fiatFormatter : DexChart.DTO.Candle.defaultFormatter
-            
+
+            let numberFormatter = DexChart.ViewModel.numberFormatter(pair: pair)
+
             if let string = numberFormatter.string(from: NSNumber(value: price)) {
                 return string.maxWidth(font: DexChart.ChartContants.Candle.RightAxis.labelFont)
             }
