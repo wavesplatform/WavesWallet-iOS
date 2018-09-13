@@ -8,15 +8,22 @@
 import UIKit
 import Koloda
 
-class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
+protocol InfoPagesViewControllerDelegate: AnyObject {
+
+    func userFinishedReadPages()
+}
+
+final class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
     
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var kolodaView: KolodaView!
-    @IBOutlet weak var kolodaTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var kolodaBotConstraint: NSLayoutConstraint!
-    @IBOutlet weak var pageControlBotConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var pageControl: UIPageControl!
+    @IBOutlet private weak var kolodaView: KolodaView!
+    @IBOutlet private weak var kolodaTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var kolodaBotConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var pageControlBotConstraint: NSLayoutConstraint!
+
+    weak var delegate: InfoPagesViewControllerDelegate?
     
-    var pageViews: [UIView] {
+    private var pageViews: [UIView] {
         
         let firstView = FirstInfoPageView.loadView() as! FirstInfoPageView
         let secondView = SecondInfoPageView.loadView() as! SecondInfoPageView
@@ -49,15 +56,19 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
         super.viewDidLoad()
 
         addBgBlueImage()
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         setupConstraints()
-
+        navigationController?.setNavigationBarHidden(true, animated: false)
         kolodaView.countOfVisibleCards = 4
         kolodaView.delegate = self
         kolodaView.dataSource = self
         pageControl.numberOfPages = kolodaView.countOfCards
     }
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
+    //TODO: Changes
     private func setupConstraints() {
         if Platform.isIphone5 {
             kolodaTopConstraint.constant = 44
@@ -80,8 +91,7 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
         kolodaView.swipe(.left)
         pageControl.currentPage = kolodaView.currentCardIndex
     }
-    
-    
+
     //MARK: - KolodaViewDelegate, KolodaViewDataSource
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
@@ -97,9 +107,7 @@ class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewD
     }
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        
-        let controller = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController")
-        navigationController?.pushViewControllerAndSetLast(controller)
+        delegate?.userFinishedReadPages()
     }
     
     func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {

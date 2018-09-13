@@ -129,9 +129,12 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="btnBotConstraint" destination="agX-Uf-sGZ" id="u8Z-YN-ioX"/>
+                <outlet property="detailLabel" destination="M6H-k2-r7U" id="8Qc-I3-kz3"/>
+                <outlet property="headLabel" destination="LZD-Qc-cta" id="HdY-g6-Qqs"/>
                 <outlet property="nextBtn" destination="Fs2-Mu-0Wc" id="rTq-4j-0UR"/>
                 <outlet property="secondSectionTopConstraint" destination="UXV-MC-yp0" id="H6U-ut-s8Z"/>
                 <outlet property="textTrailingConstraint" destination="bi3-NI-L4d" id="7Gj-fh-iYn"/>
+                <outlet property="titleLabel" destination="HY1-Uc-PBl" id="goC-AP-i68"/>
                 <outlet property="titleLeadingConstraint" destination="2aN-4Y-Rgb" id="7L4-XW-y0S"/>
                 <outlet property="titleTopConstraint" destination="l4O-l3-R0N" id="Ld0-hf-PgE"/>
             </connections>
