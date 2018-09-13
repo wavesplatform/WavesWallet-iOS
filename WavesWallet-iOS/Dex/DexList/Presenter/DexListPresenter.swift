@@ -24,7 +24,8 @@ final class DexListPresenter: DexListPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexList.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexList.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -87,13 +88,13 @@ final class DexListPresenter: DexListPresenterProtocol {
         case .tapAssetPair(let pair):
             let amountAsset = DexTraderContainer.DTO.Asset(id: pair.amountAsset.id, name: pair.amountAsset.name, decimals: pair.amountAsset.decimals)
             let priceAsset = DexTraderContainer.DTO.Asset(id: pair.priceAsset.id, name: pair.priceAsset.name, decimals: pair.priceAsset.decimals)
-            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isHidden: pair.isHidden)
+            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isHidden: pair.isHidden, isFiat: pair.isFiat)
             moduleOutput?.showTradePairInfo(pair: tradePair)
             
             return state.changeAction(.none)
         }
     }
-        
+  
 }
 
 fileprivate extension DexList.State {
