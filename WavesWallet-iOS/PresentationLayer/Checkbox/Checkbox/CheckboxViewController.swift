@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import TTTAttributedLabel
 
 private enum Constants {
     static let containerTopConstraint: CGFloat = 20
+    static let termsAndConditionsUrl: String = "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf"
     
     enum Animation {
         static let durationTransition: TimeInterval = 0.4
@@ -20,6 +22,9 @@ private enum Constants {
 
 final class CheckboxViewController: UIViewController {
     
+    var documentViewer: UIDocumentInteractionController!
+    
+    @IBOutlet weak var box: UIView!
     @IBOutlet weak var grayView: UIView!
     @IBOutlet weak var containerView: UIView!
     
@@ -35,9 +40,9 @@ final class CheckboxViewController: UIViewController {
     var secondCheckboxValue: Bool = false
     var thirdCheckboxValue: Bool = false
     
-    @IBOutlet weak var firstLabel: UILabel!
-    @IBOutlet weak var secondLabel: UILabel!
-    @IBOutlet weak var thirdTextView: UITextView!
+    @IBOutlet weak var firstLabel: TTTAttributedLabel!
+    @IBOutlet weak var secondLabel: TTTAttributedLabel!
+    @IBOutlet weak var thirdLabel: TTTAttributedLabel!
     
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     var presenting: Bool = false
@@ -45,16 +50,18 @@ final class CheckboxViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        setupTextView()
+        setupBox()
         addGestureRecognizers()
         setupData()
+        fillLabels()
     }
     
-    private func setupTextView() {
-        thirdTextView.contentInset = .zero
-        thirdTextView.textContainerInset = .zero
-        thirdTextView.textContainer.lineFragmentPadding = 0
-        thirdTextView.isSelectable = false
+    private func setupBox() {
+        box.layer.shadowColor = UIColor(white: 0, alpha: 0.14).cgColor
+        box.layer.shadowOffset = .init(width: 0, height: 6)
+        box.layer.shadowRadius = 6
+        box.layer.shadowOpacity = 1
+        box.layer.masksToBounds = false
     }
     
     private func setupData() {
@@ -65,15 +72,7 @@ final class CheckboxViewController: UIViewController {
     }
     
     private func addGestureRecognizers() {
-        let firstTap = UIGestureRecognizer(target: self, action: #selector(firstCheckboxTap(_:)))
-        firstLabel.isUserInteractionEnabled = true
-        firstLabel.addGestureRecognizer(firstTap)
-        
-        let secondTap = UIGestureRecognizer(target: self, action: #selector(secondCheckboxTap(_:)))
-        secondLabel.addGestureRecognizer(secondTap)
-        
-        let thirdTap = UIGestureRecognizer(target: self, action: #selector(thirdCheckboxTap(_:)))
-        thirdTextView.addGestureRecognizer(thirdTap)
+ 
     }
     
     // MARK: - Actions
@@ -113,21 +112,28 @@ final class CheckboxViewController: UIViewController {
         firstLabel.text = Localizable.Checkbox.Box.first
         secondLabel.text = Localizable.Checkbox.Box.second
         
+        secondLabel.activeLinkAttributes = linkAttributes()
+        secondLabel.linkAttributes = linkAttributes()
+        firstLabel.activeLinkAttributes = linkAttributes()
+        firstLabel.linkAttributes = linkAttributes()
+ 
+        firstLabel.addLink(to: URL(string: "https://apple.com/"), with: .init(location: 0, length: firstLabel.text!.count))
+        secondLabel.addLink(to: URL(string: "https://apple.com/"), with: .init(location: 0, length: secondLabel.text!.count))
+        
         let termsString = Localizable.Checkbox.Box.termsOfUse
         let thirdString = Localizable.Checkbox.Box.third + " " + termsString
-        let attributedString = NSMutableAttributedString(string: thirdString)
+
+        thirdLabel.text = thirdString
+        
+        thirdLabel.linkAttributes = [NSAttributedStringKey.underlineColor.rawValue: UIColor.black.cgColor,
+            NSAttributedStringKey.underlineStyle.rawValue: true]
         
         let range = (thirdString as NSString).range(of: termsString)
-        
-        attributedString.addAttribute(NSAttributedStringKey.link, value: Localizable.Checkbox.Box.termsOfUse, range: range)
- 
-        
-        // так, оставь пока)
- 
-//        thirdTextView.linkTextAttributes = [kCTUnderlineStyleAttributeName as String: NSUnderlineStyle.styleSingle]
-        
-        thirdTextView.attributedText = attributedString
-  
+        thirdLabel.addLink(to: URL(string: Constants.termsAndConditionsUrl), with: range)
+    
+        firstLabel.delegate = self
+        secondLabel.delegate = self
+        thirdLabel.delegate = self
     }
     
     private func updateButton() {
@@ -212,6 +218,17 @@ extension CheckboxViewController: UIViewControllerAnimatedTransitioning {
         
     }
     
+    // Helpers
+    
+    private func linkAttributes() -> [AnyHashable: Any]{
+        return
+            [
+            NSAttributedStringKey.underlineColor.rawValue: UIColor.black.cgColor,
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.black.cgColor,
+            NSAttributedStringKey.underlineStyle.rawValue: false
+            ]
+    }
+    
 }
 
 extension CheckboxViewController: UITextViewDelegate {
@@ -221,3 +238,30 @@ extension CheckboxViewController: UITextViewDelegate {
     }
     
 }
+
+extension CheckboxViewController: TTTAttributedLabelDelegate {
+    
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        
+        if url.absoluteString == Constants.termsAndConditionsUrl {
+            let browser = BrowserViewController(url: url)
+            let navigationController = UINavigationController(rootViewController: browser)
+            
+            present(navigationController, animated: true)
+            return
+        }
+        
+        if label == firstLabel {
+            firstCheckboxTap(self)
+        } else if label == secondLabel {
+            secondCheckboxTap(self)
+        } else if label == thirdLabel {
+            thirdCheckboxTap(self)
+        }
+       
+        
+    }
+    
+}
+
+
