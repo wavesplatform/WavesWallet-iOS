@@ -24,7 +24,8 @@ final class DexSortPresenter: DexSortPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexSort.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexSort.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
