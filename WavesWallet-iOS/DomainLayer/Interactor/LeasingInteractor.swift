@@ -17,7 +17,7 @@ private struct Constants {
 }
 
 protocol LeasingInteractorProtocol {
-    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]>
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]>
 }
 
 final class LeasingInteractor: LeasingInteractorProtocol {
@@ -25,10 +25,10 @@ final class LeasingInteractor: LeasingInteractorProtocol {
     private let leasingTransactionLocal: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryLocal
     private let leasingTransactionRemote: LeasingTransactionRepositoryProtocol = FactoryRepositories.instance.leasingRepositoryRemote
 
-    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> AsyncObservable<[DomainLayer.DTO.LeasingTransaction]> {
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
 
             let local = leasingTransactionLocal.activeLeasingTransactions(by: accountAddress)
-            return local.flatMap(weak: self) { owner, transactions -> Observable<[DomainLayer.DTO.LeasingTransaction]> in
+            return local.flatMap(weak: self) { owner, transactions -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
                 let now = Date()
                 let isNeedForceUpdate = transactions.count == 0 || transactions.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds }  != nil || isNeedUpdate
@@ -44,8 +44,8 @@ final class LeasingInteractor: LeasingInteractorProtocol {
                 return owner
                     .leasingTransactionRemote
                     .activeLeasingTransactions(by: accountAddress)
-                    .flatMap(weak: owner, selector: { owner, transactions -> Observable<[DomainLayer.DTO.LeasingTransaction]> in
-                        return owner.leasingTransactionLocal.saveLeasingTransactions(transactions).map({ _ -> [DomainLayer.DTO.LeasingTransaction] in
+                    .flatMap(weak: owner, selector: { owner, transactions -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                        return owner.leasingTransactionLocal.saveLeasingTransactions(transactions).map({ _ -> [DomainLayer.DTO.LeaseTransaction] in
                             return transactions
                         })
                     })

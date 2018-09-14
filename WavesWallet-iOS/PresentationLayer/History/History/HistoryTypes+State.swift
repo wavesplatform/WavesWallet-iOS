@@ -30,7 +30,7 @@ extension HistoryTypes.State {
         return newState
     }
     
-    func setTransactions(transactions: [HistoryTypes.DTO.Transaction]) -> HistoryTypes.State {
+    func setTransactions(transactions: [DomainLayer.DTO.SmartTransaction]) -> HistoryTypes.State {
         var newState = self
         newState.transactions = transactions
         return newState

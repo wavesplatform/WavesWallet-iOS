@@ -32,7 +32,7 @@ enum DexOrderBook {
         var sections: [DexOrderBook.ViewModel.Section]
         var header: DexOrderBook.ViewModel.Header
         var hasFirstTimeLoad: Bool
-        var isAppeared: Bool
+        var isNeedRefreshing: Bool
     }
 }
 
@@ -130,7 +130,7 @@ extension DexOrderBook.State {
   
     static var initialState: DexOrderBook.State {
         let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
-        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isAppeared: false)
+        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false)
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {

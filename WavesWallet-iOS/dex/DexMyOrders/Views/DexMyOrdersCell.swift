@@ -25,7 +25,6 @@ final class DexMyOrdersCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         setupLocalization()
     }
-    
 }
 
 extension DexMyOrdersCell: ViewConfiguration {

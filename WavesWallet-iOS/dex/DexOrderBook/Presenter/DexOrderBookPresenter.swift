@@ -12,7 +12,6 @@ import RxFeedback
 import RxCocoa
 
 
-
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
     var interactor: DexOrderBookInteractorProtocol!
@@ -23,7 +22,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexOrderBook.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexOrderBook.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -33,7 +33,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         
        
         return react(query: { state -> Bool? in
-            return state.isAppeared ? true : nil
+            return state.isNeedRefreshing ? true : nil
             
         }, effects: { [weak self] ss -> Signal<DexOrderBook.Event> in
 
@@ -49,12 +49,14 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isAppeared = true
+                $0.isNeedRefreshing = true
             }.changeAction(.none)
             
         case .setDisplayData(let displayData):
             
             return state.mutate {
+                
+                $0.isNeedRefreshing = false
                 
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
@@ -84,14 +86,12 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid):
-            debug(bid)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
-            debug(ask)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:

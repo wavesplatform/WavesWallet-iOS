@@ -9,7 +9,7 @@
 import Foundation
 
 extension HistoryTypes.ViewModel {
-    struct Section: Hashable {
+    struct Section {
         var items: [Row]
         var header: String?
         
@@ -19,65 +19,49 @@ extension HistoryTypes.ViewModel {
         }
     }
     
-    enum Row: Hashable {
-        case transaction(HistoryTypes.DTO.Transaction)
+    enum Row {
+        case transaction(DomainLayer.DTO.SmartTransaction)
         case transactionSkeleton
     }
 }
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from transactions: [HistoryTypes.DTO.Transaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
+    static func filter(from transactions: [DomainLayer.DTO.SmartTransaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
         let filteredTransactions = transactions
-            .filter { filter.kinds.contains($0.kind) }
+            .filter { filter.isNeedTransaction(where: $0) }
         
         return sections(from: filteredTransactions)
     }
     
-    static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
+    static func map(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
         return sections(from: transactions)
     }
     
-    static func sections(from transactions: [HistoryTypes.DTO.Transaction]) -> [HistoryTypes.ViewModel.Section] {
-        
-        let transactions = transactions
-            .sorted(by: { (transaction1, transaction2) -> Bool in
-                return transaction1.date.timeIntervalSince1970 > transaction2.date.timeIntervalSince1970
-            })
-        
-        var sections: [NSMutableArray] = []
-        var lastSection: NSMutableArray = NSMutableArray()
-        var previousDay: Int? = 0
-        var previousMonth: Int? = 0
-        var previousYear: Int? = 0
-        
-        for transaction in transactions {
-            let calendar = NSCalendar.current
-            
-            let components = calendar.dateComponents([.day, .month, .year], from: transaction.date as Date)
-            
-            let year = components.year
-            let month = components.month
-            let day = components.day
-            
-            if day != previousDay || month != previousMonth || year != previousYear {
-                lastSection = NSMutableArray()
-                sections.append(lastSection)
-            }
-            
-            lastSection.add(transaction)
-            
-            previousDay = day
-            previousMonth = month
-            previousYear = year
+    static func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
+
+        let calendar = NSCalendar.current
+        let sections = transactions.reduce(into: [Date:  [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
+
+            let components = calendar.dateComponents([.day, .month, .year], from: tx.timestamp)
+            let date = calendar.date(from: components) ?? Date()
+            var list = result[date] ?? []
+            list.append(tx)
+            result[date] = list
         }
-        
-        let items = sections.map { (arr) -> [HistoryTypes.ViewModel.Row] in
-            return arr.map({ HistoryTypes.ViewModel.Row.transaction($0 as! HistoryTypes.DTO.Transaction) })
+
+        let sortedKeys = Array(sections.keys).sorted(by: { $0 > $1 })
+
+        let formatter = DateFormatter.sharedFormatter
+        //TODO: Constants
+        formatter.dateFormat = "MMM dd, yyyy"
+
+        return sortedKeys.map { key -> HistoryTypes.ViewModel.Section? in
+            guard let section = sections[key] else { return nil }
+            let rows = section.map { HistoryTypes.ViewModel.Row.transaction($0) }
+            return HistoryTypes.ViewModel.Section.init(items: rows,
+                                                       header: formatter.string(from: key))
         }
-        
-        let generalSections = items.map { HistoryTypes.ViewModel.Section(items: $0) }
-        
-        return generalSections
+        .compactMap { $0 }
     }
 }
