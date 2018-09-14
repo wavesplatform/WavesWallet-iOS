@@ -14,13 +14,13 @@ import RESideMenu
 private struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
-        var isShowHelloDisplay: Bool  = false
+        var isAlreadyShownHelloDisplay: Bool  = false
     }
 
     private static let key: String = "com.waves.application.settings"
 
     static var defaultValue: Settings {
-        return Settings(isShowHelloDisplay: false)
+        return Settings(isAlreadyShownHelloDisplay: false)
     }
 
     static var stringKey: String {
@@ -48,10 +48,10 @@ final class AppCoordinator: Coordinator {
             WalletManager.didLogin(toWallet: item)
         } else {
             let settings = Application.get()
-            if settings.isShowHelloDisplay {
-                showHelloDisplay()
-            } else {
+            if settings.isAlreadyShownHelloDisplay {
                 showStartController()
+            } else {
+                showHelloDisplay()
             }
         }
     }
@@ -105,7 +105,7 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 
     func userFinishedGreet() {
         var settings = Application.get()
-        settings.isShowHelloDisplay = true
+        settings.isAlreadyShownHelloDisplay = true
         Application.set(settings)
         showStartController()
     }

@@ -33,7 +33,7 @@ target 'WavesWallet-iOS' do
     pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
     
-    pod "Skeleton"
+    pod 'Skeleton'    
     
     pod 'Charts'
     pod 'Koloda'

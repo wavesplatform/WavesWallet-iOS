@@ -9,26 +9,74 @@
 import UIKit
 import UPCarouselFlowLayout
 import SwipeView
-import RESideMenu
 
-
-class EnterStartCollectionCell: UICollectionViewCell {
-    
+final class EnterStartCollectionCell: UICollectionViewCell {
     @IBOutlet weak var imageIcon: UIImageView!
 }
 
-class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, SwipeViewDelegate, SwipeViewDataSource {
-    
-    
-    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var collectionTopOffset: NSLayoutConstraint!
-    @IBOutlet weak var swipeView: SwipeView!
-    
-    @IBOutlet weak var swipeViewOffset: NSLayoutConstraint!
-    
-    @IBOutlet weak var buttonLanguage: UIButton!
-    
-    @IBOutlet weak var collectionView: UICollectionView!
+fileprivate enum Block {
+    case blockchain
+    case wallet
+    case exchange
+    case token
+}
+
+fileprivate extension Block {
+
+    var image: UIImage {
+        switch self {
+        case .blockchain:
+            return Images.userimgBlockchain80White.image
+        case .wallet:
+            return Images.userimgWallet80White.image
+        case .exchange:
+            return Images.userimgDex80White.image
+        case .token:
+            return Images.userimgToken80White.image
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .blockchain:
+            return Localizable.Enter.Block.Blockchain.title
+        case .wallet:
+            return Localizable.Enter.Block.Wallet.title
+        case .exchange:
+            return Localizable.Enter.Block.Exchange.title
+        case .token:
+            return Localizable.Enter.Block.Token.title
+        }
+    }
+
+    var text: String {
+        switch self {
+        case .blockchain:
+            return Localizable.Enter.Block.Blockchain.text
+        case .wallet:
+            return Localizable.Enter.Block.Wallet.text
+        case .exchange:
+            return Localizable.Enter.Block.Exchange.text
+        case .token:
+            return Localizable.Enter.Block.Token.text
+        }
+    }
+}
+
+final class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
+    @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var collectionTopOffset: NSLayoutConstraint!
+    @IBOutlet private weak var buttonLanguage: UIButton!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var detailLabel: UILabel!
+
+    private let blocks: [Block] = [.blockchain,
+                                   .wallet,
+                                   .exchange,
+                                   .token]
+
     let iconNames = ["userimgBlockchain80White", "userimgWallet80White", "userimgDex80White", "userimgToken80White"]
     var currentPage: Int = 0
 
@@ -39,10 +87,7 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        swipeView.delegate = self
-        swipeView.dataSource = self
-        
+
         addBgBlueImage()
         
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
@@ -51,13 +96,16 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
         if Platform.isIphone5 {
             collectionTopOffset.constant = 0
             collectionViewHeight.constant = 80
-            swipeViewOffset.constant = 24
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     @IBAction func changeLanguage(_ sender: Any) {
@@ -87,42 +135,8 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBAction func showMenu(_ sender: Any) {
          AppDelegate.shared().menuController.presentLeftMenuViewController()
     }
-    
-    //MARK: - SwipeView
-    
-    //MARK: - SwipeViewDelegate
-    
-    
-    func swipeViewCurrentItemIndexDidChange(_ swipeView: SwipeView!) {
 
-        if currentPage != swipeView.currentPage {
-            currentPage = swipeView.currentPage
-            collectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
-        }
-    }
-    
-    func numberOfItems(in swipeView: SwipeView!) -> Int {
-        return items.count
-    }
-    
-    func swipeView(_ swipeView: SwipeView!, viewForItemAt index: Int, reusing view: UIView!) -> UIView! {
-        
-        var contentView : EnterStartView! = view as? EnterStartView
-        
-        if contentView == nil {
-            contentView = EnterStartView.loadView() as? EnterStartView
-            contentView.frame = swipeView.bounds
-            contentView.labelTitle.textColor = .white
-            contentView.labelDescription.textColor = .white
-        }
-        
-        let item = items[index]
-        contentView.labelTitle.text = item["title"]
-        contentView.labelDescription.text = item["text"]
-        
-        return contentView
-    }
-    
+
     //MARK: - UICollectionView
     
     fileprivate var collectionPageSize: CGSize {
@@ -141,13 +155,14 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return iconNames.count
+        return blocks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EnterStartCollectionCell", for: indexPath) as! EnterStartCollectionCell
-        
-        cell.imageIcon.image = UIImage(named: iconNames[indexPath.row])
+
+        let block = blocks[indexPath.row]
+        cell.imageIcon.image = block.image
         
         return cell
     }
@@ -157,18 +172,21 @@ class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICo
         if indexPath.row != currentPage {
             currentPage = indexPath.row
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            swipeView.scroll(toPage: currentPage, duration: 0.35)
+            let block = blocks[indexPath.row]
+            titleLabel.text = block.title
+            detailLabel.text = block.text
         }
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == collectionView {
             let newPage = Int(floor((scrollView.contentOffset.x - collectionPageSize.width / 2) / collectionPageSize.width) + 1)
             if currentPage != newPage {
                 currentPage = newPage
-                swipeView.scroll(toPage: currentPage, duration: 0.35)
+                let block = blocks[currentPage]
+                titleLabel.text = block.title
+                detailLabel.text = block.text
             }
         }
     }
-    
 }
