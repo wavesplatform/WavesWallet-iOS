@@ -12,7 +12,7 @@ import RxSwift
 protocol AssetInteractorProtocol {
 
     func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]>
-    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]>
+    func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]>
     func refreshAssets(by ids: [String])
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool)
 }

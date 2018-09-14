@@ -24,7 +24,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     weak var delegate : ChartViewControllerDelegate?
     
     var timeframe = DataManager.getCandleTimeFrame()
-    var candles = NSMutableArray()
+    var candles: [CandleModel] = []
     
     var dateFrom = Date()
     var dateTo = Date()
@@ -52,6 +52,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
         setupChartsStyle()
         
         candleChartView.isHidden = true
@@ -158,7 +159,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         if candleChartView.highlighted.first != nil && candles.count > 0 {
             let highlighted = candleChartView.highlighted.first
 
-            for model in candles as! [CandleModel] {
+            for model in candles {
                 if model.timestamp == highlighted?.x {
                     
                     labelCandleInfo.text = String(format: "%@, %@, %@\nO: %0.8f, H: %0.8f, L: %0.8f, C: %0.8f\nV: %0.6f", valueTitle!, nameFromTimeFrame(timeframe), model.getFormatterDateTime(timeFrame: timeframe), model.open, model.high, model.low, model.close, model.volume)
@@ -193,7 +194,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         dateFrom = Date()
         
         let prevCount = self.candles.count
-        self.candles.removeAllObjects()
+        self.candles.removeAll()
         setupLabelCandleInfo()
         
         candleChartView.clear()
@@ -337,18 +338,16 @@ class ChartViewController: UIViewController, ChartViewDelegate {
             model.setupModel(item as! NSDictionary, timeFrame: timeframe)
     
             if model.volume > 0 {
-                candles.add(model)
+                candles.append(model)
             }
-            
         }
         
-        candles.sort(using: [NSSortDescriptor.init(key: "timestamp", ascending: true)])
+        candles.sort(by: {$0.timestamp < $1.timestamp})
         
         let candleYVals = NSMutableArray()
         let barYVals = NSMutableArray()
 
-        for _model in candles {
-            let model = _model as! CandleModel
+        for model in candles {
             
             candleYVals.add(CandleChartDataEntry(x: model.timestamp, shadowH:model.high , shadowL:model.low , open:model.open, close: model.close))
             barYVals.add(BarChartDataEntry.init(x: model.timestamp, y: model.volume))
@@ -439,7 +438,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         if candles.count > 10 {
             
             let value = round(candleChartView.lowestVisibleX)
-            let model = candles.firstObject as! CandleModel
+            let model = candles[0]
             
             if value == model.timestamp && !isLoading {
                 

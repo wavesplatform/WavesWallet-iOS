@@ -12,6 +12,9 @@ import RESideMenu
 import RxSwift
 import SVProgressHUD
 import UIKit
+import Moya
+import RealmSwift
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,14 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        UserDefaults.standard.set(true, forKey: "isTestEnvironment")
+        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
 
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .network]
+        SweetLogger.current.visibleLevels = [.debug, .error]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         IQKeyboardManager.shared.enable = true
@@ -38,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.showStartController()
 
         self.window?.makeKeyAndVisible()
+
         return true
     }
 
@@ -88,5 +92,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // TODO: Remove
 extension AppDelegate: AssetModuleOutput {
+    func showHistory(by assetId: String) {
+        
+    }
 
+    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+
+    }
 }

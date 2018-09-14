@@ -25,7 +25,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
         newFeedbacks.append(searchModelsQuery())
 
         Driver.system(initialState: DexMarket.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexMarket.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)

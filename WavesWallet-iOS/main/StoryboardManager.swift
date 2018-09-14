@@ -87,7 +87,6 @@ class StoryboardManager {
         
         let menuController = MainStoryboard().instantiateViewController(withIdentifier: "MenuViewController")
         let sideMenuViewController = RESideMenu(contentViewController: MainTabBarController(), leftMenuViewController: menuController, rightMenuViewController: nil)!
-        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
         sideMenuViewController.contentViewShadowOffset = CGSize(width: 0, height: 10)
         sideMenuViewController.contentViewShadowOpacity = 0.2
         sideMenuViewController.contentViewShadowRadius = 15
@@ -96,6 +95,7 @@ class StoryboardManager {
         sideMenuViewController.interactivePopGestureRecognizerEnabled = false
         sideMenuViewController.panFromEdge = false
         sideMenuViewController.interactivePopGestureRecognizerEnabled = true
+        sideMenuViewController.view.backgroundColor = menuController.view.backgroundColor
         AppDelegate.shared().window?.rootViewController = sideMenuViewController
     }
     
