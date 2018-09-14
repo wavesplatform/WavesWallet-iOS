@@ -9,6 +9,7 @@ import UIKit
 
 protocol HelloLanguagesViewControllerDelegate: AnyObject {
     func languageDidSelect(code: String)
+    func userFinishedChangeLanguage()
 }
 
 final class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -31,12 +32,10 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         navigationController?.setNavigationBarHidden(true, animated: false)
         tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
         continueBtn.alpha = 0
-//        continueBtn.setTitle(Localizable., for: <#T##UIControlState#>)
     }
 
     @IBAction func continueWasPressed(_ sender: Any) {
-        let nextVC = StoryboardManager.HelloStoryboard().instantiateViewController(withIdentifier: "InfoPagesViewController") as! InfoPagesViewController
-        navigationController?.pushViewController(nextVC, animated: true)
+        delegate?.userFinishedChangeLanguage()
     }
 
     // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -62,14 +61,16 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        chosenIndexPath = indexPath
-        let item = languages[indexPath.row]
+        chosenIndexPath = indexPath        
         tableView.reloadData()
 
         tableViewBottomConstraint.constant = 62
         UIView.animate(withDuration: 0.3) {
             self.continueBtn.alpha = 1.0
         }
-        delegate?.languageDidSelect(code: item.code)
+
+        let item = languages[indexPath.row]
+        delegate?.languageDidSelect(code: item.code)        
+        continueBtn.setTitle(Localizable.Hello.Button.continue, for: .normal)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class SeventhInfoPageView: UIView {
-    @IBOutlet private weak var nextBtn: UIButton!
+    @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet private weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var titleLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var textTrailingConstraint: NSLayoutConstraint!
@@ -24,7 +24,10 @@ final class SeventhInfoPageView: UIView {
     }
 
     func setupLanguages() {
-
+        headLabel.text = Localizable.Hello.Page.Info.head
+        titleLabel.text = Localizable.Hello.Page.Info.Seven.title
+        detailLabel.text = Localizable.Hello.Page.Info.Seven.detail
+        nextBtn.setTitle(Localizable.Hello.Page.Info.Button.next, for: .normal)
     }
 
     func setupConstraints() {
