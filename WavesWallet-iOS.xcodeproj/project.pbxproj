@@ -1267,6 +1267,37 @@
 			path = Mapper;
 			sourceTree = "<group>";
 		};
+		0A14CFDC214B3EBE00C3A4D5 /* NewAccount */ = {
+			isa = PBXGroup;
+			children = (
+				E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */,
+				E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */,
+				E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */,
+			);
+			path = NewAccount;
+			sourceTree = "<group>";
+		};
+		0A14CFDD214B3EC700C3A4D5 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
+				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
+				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */ = {
+			isa = PBXGroup;
+			children = (
+				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
+				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
+				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
+				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
+			);
+			path = ConfirmBackup;
+			sourceTree = "<group>";
+		};
 		0A1DAD6020F37BA2004DA625 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2548,18 +2579,11 @@
 				E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */,
 				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
-				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
-				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
-				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
-				E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */,
-				E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */,
-				E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */,
+				0A14CFDD214B3EC700C3A4D5 /* Import */,
+				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
 				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
-				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
-				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
-				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
-				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
+				0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
