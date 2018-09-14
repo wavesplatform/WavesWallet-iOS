@@ -34,6 +34,8 @@
 		0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */; };
 		0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */; };
 		0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */; };
+		0A14CFD5214B135F00C3A4D5 /* Hello.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A14CFD7214B135F00C3A4D5 /* Hello.strings */; };
+		0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFDA214B227D00C3A4D5 /* TSUD.swift */; };
 		0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
@@ -142,7 +144,6 @@
 		0A61B596214AC90C00EC60FC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61B595214AC90C00EC60FC /* Coordinator.swift */; };
 		0A61B59A214ACFD500EC60FC /* Languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A61B599214ACFD500EC60FC /* Languages.json */; };
 		0A61B59C214AD51700EC60FC /* JSONDecoder+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61B59B214AD51700EC60FC /* JSONDecoder+JSON.swift */; };
-		0A61B59E214ADA3F00EC60FC /* Hello.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A61B59D214ADA3F00EC60FC /* Hello.strings */; };
 		0A61B5A0214ADB6A00EC60FC /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61B59F214ADB6A00EC60FC /* Language.swift */; };
 		0A61F0A9214976260002C53B /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61F0A8214976260002C53B /* HelloCoordinator.swift */; };
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
@@ -605,6 +606,10 @@
 		0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Assistants.swift"; sourceTree = "<group>"; };
 		0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
 		0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+Limit.swift"; sourceTree = "<group>"; };
+		0A14CFD6214B135F00C3A4D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Hello.strings; sourceTree = "<group>"; };
+		0A14CFD8214B136000C3A4D5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Hello.strings; sourceTree = "<group>"; };
+		0A14CFD9214B136200C3A4D5 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Hello.strings; sourceTree = "<group>"; };
+		0A14CFDA214B227D00C3A4D5 /* TSUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSUD.swift; sourceTree = "<group>"; };
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
@@ -702,7 +707,6 @@
 		0A61B595214AC90C00EC60FC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0A61B599214ACFD500EC60FC /* Languages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Languages.json; sourceTree = "<group>"; };
 		0A61B59B214AD51700EC60FC /* JSONDecoder+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+JSON.swift"; sourceTree = "<group>"; };
-		0A61B59D214ADA3F00EC60FC /* Hello.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Hello.strings; sourceTree = "<group>"; };
 		0A61B59F214ADB6A00EC60FC /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		0A61F0A8214976260002C53B /* HelloCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
@@ -1634,6 +1638,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9F984A720E5266800D2CB4D /* Enter */,
 				E9E7129B20DC058F00B95669 /* Hello */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				04A2CFA12112100B00784FEC /* History */,
@@ -1890,7 +1895,6 @@
 			isa = PBXGroup;
 			children = (
 				F7C683971EA93A4000C87DAF /* crypto */,
-				0AF92253212E1233003BA067 /* Utils */,
 				0AF92272212E1233003BA067 /* Protocols */,
 				0AF92261212E1233003BA067 /* Type */,
 				0AF92257212E1233003BA067 /* ActivityIndicator.swift */,
@@ -1950,16 +1954,10 @@
 			path = extensions;
 			sourceTree = "<group>";
 		};
-		0AF92253212E1233003BA067 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		0AF92261212E1233003BA067 /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				0A14CFDA214B227D00C3A4D5 /* TSUD.swift */,
 				F755C0FE1EAA8319008A938F /* DateUtil.swift */,
 				F755C0FF1EAA8319008A938F /* Either.swift */,
 				E902ADCE212E1EB8000C289A /* Money.swift */,
@@ -2471,7 +2469,7 @@
 				0A49AA2B214AE1CB00BEC9C3 /* InfoPages */,
 				E9E7129C20DC05A900B95669 /* Hello.storyboard */,
 				0A61F0A8214976260002C53B /* HelloCoordinator.swift */,
-				0A61B59D214ADA3F00EC60FC /* Hello.strings */,
+				0A14CFD7214B135F00C3A4D5 /* Hello.strings */,
 			);
 			path = Hello;
 			sourceTree = "<group>";
@@ -2767,7 +2765,6 @@
 				F73553741F03D94000ADC449 /* Dex */,
 				F72EECFE1EAD1207002BBA26 /* settings */,
 				E9193B8120D7E26500F5D983 /* Profile */,
-				E9F984A720E5266800D2CB4D /* Enter */,
 				F7E954E71EA8FE0700A804DE /* AppDelegate.swift */,
 				0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */,
 				F7E954F51EA8FE0700A804DE /* Info.plist */,
@@ -2896,7 +2893,7 @@
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
-				0A61B59E214ADA3F00EC60FC /* Hello.strings in Resources */,
+				0A14CFD5214B135F00C3A4D5 /* Hello.strings in Resources */,
 				E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */,
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */,
@@ -2973,7 +2970,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf $PROJECT_DIR/WavesWallet-iOS/Generated/\nmkdir $PROJECT_DIR/WavesWallet-iOS/Generated\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Storyboards.swift $PROJECT_DIR/WavesWallet-iOS/\n\n\nSTRINGS=\"\"\nfor i in $(find . -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\nfi\ndone\n\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings -t structured-swift4 --param enumName=Localizable -o $PROJECT_DIR/WavesWallet-iOS/Generated/Localizable.swift $STRINGS\n\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Images.swift --param enumName=Images $PROJECT_DIR/WavesWallet-iOS/Resources/Assets.xcassets\n\n";
+			shellScript = "rm -rf $PROJECT_DIR/WavesWallet-iOS/Generated/\nmkdir $PROJECT_DIR/WavesWallet-iOS/Generated\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Storyboards.swift $PROJECT_DIR/WavesWallet-iOS/\n\n\nSTRINGS=\"\"\nfor i in $(find . -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\nfi\ndone\n\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $PROJECT_DIR/WavesWallet-iOS/Generated/Localizable.swift $STRINGS\n\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Images.swift --param enumName=Images $PROJECT_DIR/WavesWallet-iOS/Resources/Assets.xcassets\n\n";
 		};
 		A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3567,6 +3564,7 @@
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,
 				E95FD574212CD0F300D73E18 /* DexLastTradesHeaderView.swift in Sources */,
 				E9CFBC392124D5ED00CE7413 /* DexChartModuleBuilder.swift in Sources */,
+				0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
@@ -3604,6 +3602,16 @@
 				04C1BF5B211CA5F60095377D /* tr */,
 			);
 			name = History.strings;
+			sourceTree = "<group>";
+		};
+		0A14CFD7214B135F00C3A4D5 /* Hello.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A14CFD6214B135F00C3A4D5 /* en */,
+				0A14CFD8214B136000C3A4D5 /* ru */,
+				0A14CFD9214B136200C3A4D5 /* tr */,
+			);
+			name = Hello.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {

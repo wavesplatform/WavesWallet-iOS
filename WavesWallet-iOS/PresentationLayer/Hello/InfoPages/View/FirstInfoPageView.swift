@@ -9,7 +9,7 @@ import UIKit
 
 final class FirstInfoPageView: UIView {
 
-    @IBOutlet private weak var nextBtn: UIButton!
+    @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet private weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var titleLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var titleTrailingConstraint: NSLayoutConstraint!
@@ -24,7 +24,9 @@ final class FirstInfoPageView: UIView {
     }
 
     func setupLanguages() {
-        
+        titleLabel.text = Localizable.Hello.Page.Info.First.title
+        detailLabel.text = Localizable.Hello.Page.Info.First.detail
+        nextBtn.setTitle(Localizable.Hello.Page.Info.Button.next, for: .normal)
     }
 
     func setupConstraints() {
