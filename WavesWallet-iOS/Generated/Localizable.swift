@@ -65,6 +65,39 @@ internal enum Localizable {
       internal static var time: String { return Localizable.tr("DexLastTrades", "label.time") }
     }
   }
+  internal enum Enter {
+
+    internal enum Block {
+
+      internal enum Blockchain {
+        /// Become part of a fast-growing area of the crypto world. You are the only person who can access your crypto assets.
+        internal static var text: String { return Localizable.tr("Enter", "block.blockchain.text") }
+        /// Get Started with Blockchain
+        internal static var title: String { return Localizable.tr("Enter", "block.blockchain.title") }
+      }
+
+      internal enum Exchange {
+        /// Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.
+        internal static var text: String { return Localizable.tr("Enter", "block.exchange.text") }
+        /// Decentralised Exchange
+        internal static var title: String { return Localizable.tr("Enter", "block.exchange.title") }
+      }
+
+      internal enum Token {
+        /// Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.
+        internal static var text: String { return Localizable.tr("Enter", "block.token.text") }
+        /// Token Launcher
+        internal static var title: String { return Localizable.tr("Enter", "block.token.title") }
+      }
+
+      internal enum Wallet {
+        /// Store, manage and receive interest on your digital assets balance, easily and securely.
+        internal static var text: String { return Localizable.tr("Enter", "block.wallet.text") }
+        /// Wallet
+        internal static var title: String { return Localizable.tr("Enter", "block.wallet.title") }
+      }
+    }
+  }
   internal enum General {
 
     internal enum History {

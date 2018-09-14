@@ -10,15 +10,13 @@ import UIKit
 import TTTAttributedLabel
 import QRCodeReader
 
-class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate {
+final class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate {
 
     @IBOutlet weak var labelLog: TTTAttributedLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIApplication.shared.setStatusBarStyle(.default, animated: true)
-        
         title = "Import account"
         navigationController?.navigationBar.barTintColor = .white
         setupBigNavigationBar()
@@ -41,8 +39,13 @@ class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate 
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         hideTopBarLine()
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     @IBAction func enterManuallyTapped(_ sender: Any) {

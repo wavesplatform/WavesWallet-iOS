@@ -233,27 +233,55 @@
                                     <outlet property="delegate" destination="X6i-NZ-w1A" id="JEN-Hd-STs"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-fS-q3l" customClass="SwipeView">
-                                <rect key="frame" x="0.0" y="213" width="375" height="194"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3N5-pE-iqr">
+                                <rect key="frame" x="0.0" y="213" width="375" height="76"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Started with Blockchain" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OI-Wg-BTM">
+                                        <rect key="frame" x="14" y="0.0" width="347" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Become part of a fast-growing area of the crypto world. You are the only person who can access your crypto assets." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eP-sd-taR">
+                                        <rect key="frame" x="14" y="29" width="347" height="47"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.72941176470588232" green="0.792156862745098" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingDuration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="7eP-sd-taR" secondAttribute="trailing" constant="14" id="EHr-IT-U1P"/>
+                                    <constraint firstAttribute="trailing" secondItem="3OI-Wg-BTM" secondAttribute="trailing" constant="14" id="HrS-1I-XJ9"/>
+                                    <constraint firstAttribute="bottom" secondItem="7eP-sd-taR" secondAttribute="bottom" id="IaR-qr-0Ce"/>
+                                    <constraint firstItem="7eP-sd-taR" firstAttribute="leading" secondItem="3N5-pE-iqr" secondAttribute="leading" constant="14" id="Qvj-SG-LFC"/>
+                                    <constraint firstItem="7eP-sd-taR" firstAttribute="top" secondItem="3OI-Wg-BTM" secondAttribute="bottom" constant="8" id="fss-gE-gGZ"/>
+                                    <constraint firstItem="3OI-Wg-BTM" firstAttribute="leading" secondItem="3N5-pE-iqr" secondAttribute="leading" constant="14" id="hC6-UA-oMy"/>
+                                    <constraint firstItem="3OI-Wg-BTM" firstAttribute="top" secondItem="3N5-pE-iqr" secondAttribute="top" id="wjE-Gy-ckx"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hQv-Wk-0MS" firstAttribute="bottom" secondItem="hid-F4-dbi" secondAttribute="bottom" constant="24" id="3tb-VW-xzq"/>
+                            <constraint firstItem="3N5-pE-iqr" firstAttribute="leading" secondItem="hQv-Wk-0MS" secondAttribute="leading" id="5Ze-K3-eyH"/>
                             <constraint firstItem="21v-OZ-rTy" firstAttribute="top" secondItem="hQv-Wk-0MS" secondAttribute="top" constant="5" id="9dd-hE-Auz"/>
                             <constraint firstItem="oTb-jf-lRK" firstAttribute="centerY" secondItem="21v-OZ-rTy" secondAttribute="centerY" id="C4t-H1-gGj"/>
-                            <constraint firstItem="hCj-fS-q3l" firstAttribute="top" secondItem="zWW-QO-W8Z" secondAttribute="bottom" id="CCF-qN-uv2"/>
                             <constraint firstItem="zWW-QO-W8Z" firstAttribute="top" secondItem="21v-OZ-rTy" secondAttribute="bottom" constant="20" id="EoW-UA-cDX"/>
                             <constraint firstItem="21v-OZ-rTy" firstAttribute="leading" secondItem="hQv-Wk-0MS" secondAttribute="leading" constant="5" id="FT8-eA-tBM"/>
-                            <constraint firstItem="hQv-Wk-0MS" firstAttribute="trailing" secondItem="hCj-fS-q3l" secondAttribute="trailing" id="NvE-kk-7Wa"/>
                             <constraint firstItem="zWW-QO-W8Z" firstAttribute="leading" secondItem="hQv-Wk-0MS" secondAttribute="leading" id="PV9-0C-5b4"/>
                             <constraint firstItem="hQv-Wk-0MS" firstAttribute="trailing" secondItem="oTb-jf-lRK" secondAttribute="trailing" constant="5" id="T6d-Qx-YfK"/>
                             <constraint firstItem="hQv-Wk-0MS" firstAttribute="trailing" secondItem="zWW-QO-W8Z" secondAttribute="trailing" id="WAo-hs-GPE"/>
-                            <constraint firstItem="hCj-fS-q3l" firstAttribute="leading" secondItem="hQv-Wk-0MS" secondAttribute="leading" id="YAR-wA-VQ6"/>
-                            <constraint firstItem="hid-F4-dbi" firstAttribute="top" secondItem="hCj-fS-q3l" secondAttribute="bottom" id="fOK-UV-nAf"/>
+                            <constraint firstItem="3N5-pE-iqr" firstAttribute="top" secondItem="zWW-QO-W8Z" secondAttribute="bottom" id="azU-m6-Ofj"/>
+                            <constraint firstItem="3N5-pE-iqr" firstAttribute="trailing" secondItem="hQv-Wk-0MS" secondAttribute="trailing" id="dv0-FK-m2Q"/>
                             <constraint firstItem="hQv-Wk-0MS" firstAttribute="trailing" secondItem="hid-F4-dbi" secondAttribute="trailing" constant="16" id="hh8-io-yMI"/>
                             <constraint firstItem="hid-F4-dbi" firstAttribute="leading" secondItem="hQv-Wk-0MS" secondAttribute="leading" constant="16" id="hl1-cx-DOj"/>
+                            <constraint firstItem="hid-F4-dbi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3N5-pE-iqr" secondAttribute="bottom" id="yqm-IK-DeX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hQv-Wk-0MS"/>
                     </view>
@@ -262,8 +290,8 @@
                         <outlet property="collectionTopOffset" destination="EoW-UA-cDX" id="wUx-cj-Acv"/>
                         <outlet property="collectionView" destination="zWW-QO-W8Z" id="FEm-rH-wsl"/>
                         <outlet property="collectionViewHeight" destination="Xy9-3K-Zbg" id="To5-HQ-szA"/>
-                        <outlet property="swipeView" destination="hCj-fS-q3l" id="dH8-22-0Jq"/>
-                        <outlet property="swipeViewOffset" destination="CCF-qN-uv2" id="dT0-iq-WlB"/>
+                        <outlet property="detailLabel" destination="7eP-sd-taR" id="sAq-et-97S"/>
+                        <outlet property="titleLabel" destination="3OI-Wg-BTM" id="awh-4E-ffZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tlX-cJ-ExL" userLabel="First Responder" sceneMemberID="firstResponder"/>

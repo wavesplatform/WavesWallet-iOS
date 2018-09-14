@@ -16,6 +16,7 @@ PODS:
   - Kingfisher (4.8.1)
   - Koloda (4.4):
     - pop (~> 1.0)
+  - LTMorphingLabel (0.5.7)
   - MBProgressHUD (1.0.0)
   - MGSwipeTableCell (1.6.7)
   - Moya/Core (11.0.2):
@@ -86,6 +87,7 @@ DEPENDENCIES:
   - KeychainAccess
   - Kingfisher
   - Koloda
+  - LTMorphingLabel
   - MBProgressHUD (~> 1.0.0)
   - MGSwipeTableCell
   - Moya/RxSwift
@@ -126,6 +128,7 @@ SPEC REPOS:
     - KeychainAccess
     - Kingfisher
     - Koloda
+    - LTMorphingLabel
     - MBProgressHUD
     - MGSwipeTableCell
     - Moya
@@ -197,6 +200,7 @@ SPEC CHECKSUMS:
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
   Kingfisher: 868c1149679a7ab6869be118faa9b5aed154aaf0
   Koloda: 0f3c51580d9d547c66a5cd9e4771611afc3e259e
+  LTMorphingLabel: 9d1c38bd602fe505f264d3e9fdb780995142f275
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
   Moya: a725035953bc1c0eb1be505ab903984501d82440
@@ -229,6 +233,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 0a6a8cf2faa5327de0f0c7d40c77ae3c8b5194d5
+PODFILE CHECKSUM: a610afbd5c8e59339f606ce1dd53a8f78ff55564
 
 COCOAPODS: 1.5.3

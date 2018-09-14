@@ -83,6 +83,7 @@
 		0A485E9E2100AE9B00079B49 /* IssueTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9D2100AE9B00079B49 /* IssueTransaction.swift */; };
 		0A485EA02100B0BD00079B49 /* LeaseTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9F2100B0BD00079B49 /* LeaseTransaction.swift */; };
 		0A485EA22100C4FA00079B49 /* LeaseTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485EA12100C4FA00079B49 /* LeaseTransaction+Mapper.swift */; };
+		0A49AA2E214BCE9000BEC9C3 /* Enter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A49AA30214BCE9000BEC9C3 /* Enter.strings */; };
 		0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A2720ED443C0095A417 /* WalletPresenter.swift */; };
 		0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA020EE65800095A417 /* WalletItem.swift */; };
 		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
@@ -640,6 +641,9 @@
 		0A485E9D2100AE9B00079B49 /* IssueTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTransaction.swift; sourceTree = "<group>"; };
 		0A485E9F2100B0BD00079B49 /* LeaseTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseTransaction.swift; sourceTree = "<group>"; };
 		0A485EA12100C4FA00079B49 /* LeaseTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LeaseTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0A49AA2F214BCE9000BEC9C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Enter.strings; sourceTree = "<group>"; };
+		0A49AA31214BCE9200BEC9C3 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Enter.strings; sourceTree = "<group>"; };
+		0A49AA32214BCE9400BEC9C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Enter.strings; sourceTree = "<group>"; };
 		0A4C9A2720ED443C0095A417 /* WalletPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTypes.swift; sourceTree = "<group>"; };
 		0A4C9AA020EE65800095A417 /* WalletItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletItem.swift; sourceTree = "<group>"; };
@@ -2584,6 +2588,7 @@
 				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
 				0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */,
+				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
@@ -2966,6 +2971,7 @@
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				E91705F121238F50006CE9A5 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */,
+				0A49AA2E214BCE9000BEC9C3 /* Enter.strings in Resources */,
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 				E9C540E3212F8D5200253BDB /* DexMyOrders.strings in Resources */,
@@ -3014,6 +3020,7 @@
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
+				"${BUILT_PRODUCTS_DIR}/LTMorphingLabel/LTMorphingLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -3061,6 +3068,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LTMorphingLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -3636,6 +3644,16 @@
 				0A14CFD9214B136200C3A4D5 /* tr */,
 			);
 			name = Hello.strings;
+			sourceTree = "<group>";
+		};
+		0A49AA30214BCE9000BEC9C3 /* Enter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A49AA2F214BCE9000BEC9C3 /* en */,
+				0A49AA31214BCE9200BEC9C3 /* tr */,
+				0A49AA32214BCE9400BEC9C3 /* ru */,
+			);
+			name = Enter.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {
