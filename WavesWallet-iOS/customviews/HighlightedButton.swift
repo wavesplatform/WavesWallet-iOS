@@ -29,7 +29,7 @@ class HighlightedButton: UIButton {
     
     override var backgroundColor: UIColor? {
         didSet {
-            if defaultBackgroundColor == nil {
+            if backgroundColor != highlightedBackground {
                 defaultBackgroundColor = backgroundColor
             }
         }

@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="inputScrollView" destination="zCw-2D-0ha" id="eKN-DP-LPk"/>
+                <outlet property="labelError" destination="Ln6-k5-cx0" id="hPH-9H-6pH"/>
                 <outlet property="labelTitle" destination="GxR-Wf-tkp" id="ZlY-FH-bwX"/>
                 <outlet property="textField" destination="P6c-tW-oCz" id="nsk-ng-6eQ"/>
                 <outlet property="viewTextField" destination="JRl-dB-8bk" id="WnK-hQ-ezT"/>
@@ -89,14 +90,22 @@
                         <constraint firstAttribute="height" constant="30" id="aCO-QS-hkc"/>
                     </constraints>
                 </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not enough WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ln6-k5-cx0">
+                    <rect key="frame" x="240" y="0.5" width="119" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.93725490196078431" green="0.28235294117647058" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ln6-k5-cx0" secondAttribute="trailing" constant="16" id="9V4-aS-GAq"/>
                 <constraint firstItem="P6c-tW-oCz" firstAttribute="leading" secondItem="GxR-Wf-tkp" secondAttribute="leading" id="CxO-Bf-3pD"/>
                 <constraint firstItem="JRl-dB-8bk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Egd-T0-mhN"/>
                 <constraint firstItem="zCw-2D-0ha" firstAttribute="top" secondItem="JRl-dB-8bk" secondAttribute="bottom" constant="8" id="HeT-rX-uXH"/>
                 <constraint firstItem="GxR-Wf-tkp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="J3g-7g-JBh"/>
                 <constraint firstItem="GxR-Wf-tkp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Jk8-st-p5c"/>
+                <constraint firstItem="Ln6-k5-cx0" firstAttribute="centerY" secondItem="GxR-Wf-tkp" secondAttribute="centerY" id="Nql-Jb-Mjr"/>
                 <constraint firstItem="zCw-2D-0ha" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Uly-xg-5NV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zCw-2D-0ha" secondAttribute="trailing" id="ilp-wH-vrU"/>
                 <constraint firstAttribute="trailing" secondItem="JRl-dB-8bk" secondAttribute="trailing" id="jXY-zn-zGs"/>
