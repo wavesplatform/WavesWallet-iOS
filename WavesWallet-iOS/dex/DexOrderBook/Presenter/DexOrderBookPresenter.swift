@@ -92,19 +92,31 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             
         case .didTapBid(let bid):
             
-            moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset)
+            moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         ask: state.lastAsk?.price,
+                                         bid: state.lastBid?.price,
+                                         last: state.lastPrice?.price)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
-            moduleOutput?.didCreateOrderSellEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
+            moduleOutput?.didCreateOrderSellEmpty(amountAsset: amountAsset, priceAsset: priceAsset,
+                                                  ask: state.lastAsk?.price,
+                                                  bid: state.lastBid?.price,
+                                                  last: state.lastPrice?.price)
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
-            moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset)
+            moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         ask: state.lastAsk?.price,
+                                         bid: state.lastBid?.price,
+                                         last: state.lastPrice?.price)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            moduleOutput?.didCreateOrderBuyEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
+            moduleOutput?.didCreateOrderBuyEmpty(amountAsset: amountAsset, priceAsset: priceAsset,
+                                                 ask: state.lastAsk?.price,
+                                                 bid: state.lastBid?.price,
+                                                 last: state.lastPrice?.price)
             return state.changeAction(.none)
         }
     }

@@ -9,11 +9,11 @@
 import UIKit
 
 private enum Constants {
-    static let animationDuration: TimeInterval = 0.3
+    static let animationFrameDuration: TimeInterval = 0.3
+    static let animationErrorLabelDuration: TimeInterval = 0.3
 }
 
 protocol DexCreateOrderInputViewDelegate: AnyObject {
-    
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double)
 }
 
@@ -24,6 +24,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var textField: InputNumericTextField!
     @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
+    @IBOutlet private weak var labelError: UILabel!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
   
@@ -59,6 +60,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        labelError.alpha = 0
         inputScrollView.inputDelegate = self
         textField.inputNumericDelegate = self
         hideInputScrollView(animation: false)
@@ -66,13 +68,32 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     
     //MARK: - Methods
-    func setupTitle(title: String) {
+    func setupTitle(title: String, errorTitle: String?) {
         labelTitle.text = title
+        labelError.text = errorTitle
     }
     
     func setupValue(_ value: Double) {
         textField.setStringValue(value: String(value))
         hideInputScrollView(animation: false)
+    }
+    
+    func showErrorMessage(show: Bool) {
+        
+        if show {
+            if labelError.alpha == 0 {
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
+                    self.labelError.alpha = 1
+                }
+            }
+        }
+        else {
+            if labelError.alpha == 1 {
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
+                    self.labelError.alpha = 0
+                }
+            }
+        }
     }
 }
 
@@ -155,7 +176,7 @@ private extension DexCreateOrderInputView {
     
     func updateWithAnimationIfNeed(animation: Bool) {
         if animation {
-            UIView.animate(withDuration: Constants.animationDuration) {
+            UIView.animate(withDuration: Constants.animationFrameDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
             }
         }

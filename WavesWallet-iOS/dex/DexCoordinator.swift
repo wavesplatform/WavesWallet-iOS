@@ -70,14 +70,24 @@ extension DexCoordinator: DexLastTradesModuleOutput, DexOrderBookModuleOutput {
         let type: DexCreateOrder.DTO.OrderType = trade.type == .sell ? .sell : .buy
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
                                   price: trade.price, ask: nil, bid: nil, last: nil)
-
     }
     
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset) {
-        
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
         let type: DexCreateOrder.DTO.OrderType = bidAsk.orderType == .sell ? .sell : .buy
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                  price: bidAsk.price, ask: nil, bid: nil, last: nil)
+                                  price: bidAsk.price, ask: ask, bid: bid, last: last)
+    }
+    
+    func didCreateOrderBuyEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
+        
+        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
+                                  price: nil, ask: ask, bid: bid, last: last)
+    }
+    
+    func didCreateOrderSellEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
+       
+        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
+                                  price: nil, ask: ask, bid: bid, last: last)
     }
     
     func didCreateOrderSellEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset) {

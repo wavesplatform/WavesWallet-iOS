@@ -1957,6 +1957,9 @@ You do not have any orders</string>
                                                             <action selector="changeExpiration:" destination="vvR-I6-z9c" eventType="touchUpInside" id="cgv-FT-lRE"/>
                                                         </connections>
                                                     </button>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changearrows14Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="FeP-hh-QpS">
+                                                        <rect key="frame" x="224" y="19" width="14" height="14"/>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1968,12 +1971,14 @@ You do not have any orders</string>
                                                     <constraint firstItem="yuQ-7u-Mrc" firstAttribute="trailing" secondItem="VTj-qc-GaF" secondAttribute="trailing" constant="10" id="Cqn-em-G6c"/>
                                                     <constraint firstItem="3Ie-0S-Kpq" firstAttribute="leading" secondItem="VTj-qc-GaF" secondAttribute="leading" id="E0z-Bg-p21"/>
                                                     <constraint firstAttribute="bottom" secondItem="0Gq-ZM-SUQ" secondAttribute="bottom" id="R5t-Nw-QWI"/>
+                                                    <constraint firstItem="FeP-hh-QpS" firstAttribute="centerY" secondItem="3Ie-0S-Kpq" secondAttribute="centerY" id="UAH-CO-U0C"/>
                                                     <constraint firstItem="KzZ-Ku-aDF" firstAttribute="top" secondItem="NGu-X7-Wxc" secondAttribute="bottom" constant="2" id="UXA-xN-pUQ"/>
                                                     <constraint firstItem="KzZ-Ku-aDF" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="UwO-po-nia"/>
                                                     <constraint firstItem="NGu-X7-Wxc" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="WiB-Vt-M4d"/>
                                                     <constraint firstItem="3Ie-0S-Kpq" firstAttribute="centerY" secondItem="KzZ-Ku-aDF" secondAttribute="centerY" id="j9s-hz-FVn"/>
                                                     <constraint firstAttribute="bottom" secondItem="yuQ-7u-Mrc" secondAttribute="bottom" id="jCk-Ws-FsA"/>
                                                     <constraint firstItem="NGu-X7-Wxc" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="mNV-Os-pWa"/>
+                                                    <constraint firstItem="FeP-hh-QpS" firstAttribute="leading" secondItem="3Ie-0S-Kpq" secondAttribute="trailing" constant="4" id="s3P-e9-kBf"/>
                                                     <constraint firstItem="VTj-qc-GaF" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="sjz-CC-a2k"/>
                                                     <constraint firstItem="yuQ-7u-Mrc" firstAttribute="leading" secondItem="3Ie-0S-Kpq" secondAttribute="leading" constant="-10" id="xye-Fw-T4C"/>
                                                 </constraints>
@@ -2004,7 +2009,7 @@ You do not have any orders</string>
                                             <constraint firstItem="pCj-mR-Pg4" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="Sgs-2K-xQ5"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" constant="10" id="TAE-Gg-1Za"/>
                                             <constraint firstAttribute="trailing" secondItem="gNA-TX-wyo" secondAttribute="trailing" id="Va6-EY-vY5"/>
-                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="24" id="XBr-A6-ZeK"/>
+                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="10" id="XBr-A6-ZeK"/>
                                             <constraint firstItem="Zhj-r8-mHL" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="bHC-aE-Kmr"/>
                                             <constraint firstItem="1Sf-j0-xXd" firstAttribute="top" secondItem="gNA-TX-wyo" secondAttribute="bottom" constant="25" id="ggr-8c-UgQ"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="top" secondItem="pCj-mR-Pg4" secondAttribute="bottom" constant="25" id="jVT-rW-21n"/>
@@ -2023,7 +2028,7 @@ You do not have any orders</string>
                                     <constraint firstItem="y8x-pB-0Cg" firstAttribute="top" secondItem="Fhv-s2-xpD" secondAttribute="top" id="QcP-sl-cmC"/>
                                     <constraint firstAttribute="bottom" secondItem="y8x-pB-0Cg" secondAttribute="bottom" id="k4r-XL-2E0"/>
                                     <constraint firstAttribute="trailing" secondItem="y8x-pB-0Cg" secondAttribute="trailing" id="kbn-1W-MU9"/>
-                                    <constraint firstItem="y8x-pB-0Cg" firstAttribute="height" secondItem="Fhv-s2-xpD" secondAttribute="height" id="vhg-iA-zic"/>
+                                    <constraint firstItem="y8x-pB-0Cg" firstAttribute="height" secondItem="Fhv-s2-xpD" secondAttribute="height" priority="250" id="vhg-iA-zic"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -2036,14 +2041,20 @@ You do not have any orders</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonBuy" destination="Zhj-r8-mHL" id="tOk-ZJ-arD"/>
+                        <outlet property="buttonSellBuy" destination="Zhj-r8-mHL" id="P4R-7o-Wmh"/>
+                        <outlet property="buttonSellBuyBottomOffset" destination="23X-Sf-gFw" id="lli-tX-p4Z"/>
                         <outlet property="inputAmount" destination="pCj-mR-Pg4" id="hUO-EZ-uTn"/>
+                        <outlet property="inputAmountTopOffset" destination="6Th-RZ-Wco" id="730-hJ-HLc"/>
                         <outlet property="inputPrice" destination="nnp-g3-pO1" id="Pfl-Kd-CeJ"/>
+                        <outlet property="inputPriceTopOffset" destination="jVT-rW-21n" id="heM-nl-suA"/>
                         <outlet property="inputTotal" destination="gNA-TX-wyo" id="adJ-01-u6N"/>
+                        <outlet property="inputTotalTopOffset" destination="ycH-gE-8Fl" id="0nS-9h-3Ao"/>
                         <outlet property="labelExpiration" destination="VTj-qc-GaF" id="xHi-f8-nHq"/>
                         <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
                         <outlet property="labelFee" destination="NGu-X7-Wxc" id="smc-nm-g5h"/>
                         <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
+                        <outlet property="segmentedTopOffset" destination="TAE-Gg-1Za" id="UGz-vq-nSf"/>
+                        <outlet property="viewFeeTopOffset" destination="ggr-8c-UgQ" id="hKt-4G-m30"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8K-cx-MpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3791,6 +3802,7 @@ You do not have any orders</string>
     </scenes>
     <resources>
         <image name="arrow_green" width="11" height="6"/>
+        <image name="changearrows14Basic500" width="14" height="14"/>
         <image name="chartarrow22Success400" width="22" height="22"/>
         <image name="close" width="17" height="17"/>
         <image name="copy_address" width="18" height="18"/>

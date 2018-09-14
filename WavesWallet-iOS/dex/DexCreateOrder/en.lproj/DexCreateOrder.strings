@@ -17,4 +17,4 @@
 "label.fee" = "Fee";
 "label.Expiration" = "Expiration";
 "label.days" = "days";
-
+"label.notEnough" = "Not enough";

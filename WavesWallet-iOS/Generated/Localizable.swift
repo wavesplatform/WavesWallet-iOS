@@ -54,6 +54,8 @@ internal enum Localizable {
       internal static let fee = Localizable.tr("DexCreateOrder", "label.fee")
       /// Limit Price in
       internal static let limitPriceIn = Localizable.tr("DexCreateOrder", "label.limitPriceIn")
+      /// Not enough
+      internal static let notEnough = Localizable.tr("DexCreateOrder", "label.notEnough")
       /// Total in
       internal static let totalIn = Localizable.tr("DexCreateOrder", "label.totalIn")
     }

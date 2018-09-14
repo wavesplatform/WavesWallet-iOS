@@ -145,6 +145,12 @@ extension DexOrderBook.State {
         })?.items.last?.ask
     }
     
+    var lastPrice: DexOrderBook.DTO.LastPrice? {
+        return sections.first(where: {
+            $0.items.filter({$0.lastPrice != nil}).count > 0
+        })?.items.last?.lastPrice
+    }
+    
     var isNotEmpty: Bool {
         return sections.filter({$0.items.count > 0}).count > 0
     }
