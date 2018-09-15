@@ -134,31 +134,31 @@ extension TransactionHistoryTypes.DTO.Transaction.Kind {
 
 extension TransactionHistoryTypes.DTO.Transaction {
     
-    static func map(from transactions: [HistoryTypes.DTO.Transaction]) -> [TransactionHistoryTypes.DTO.Transaction] {
-        
-        var t: [TransactionHistoryTypes.DTO.Transaction] = []
-        
-        for transaction in transactions {
-            
-            let mock = TransactionHistoryTypes.DTO.Transaction(
-                balance:
-                Balance(currency: .init(title: "Waves", ticket: "Waves"), money: Money(10000, 0)),
-                conversionBalance:
-                Balance(currency: .init(title: "Dollar", ticket: "Dollar"), money: Money(20, 4)),
-                fee: Money(15, 4),
-                confirmations: 235235,
-                height: 2346,
-                timestamp: 321901305,
-                status: .completed,
-                kind: .viewSend(.init(to: .init(name: "Mr. Pit", address: "skjw34oijijosjdijo435o3k3o"))),
-                comment: "Это мой комментарий, он очень хорошиииий")
-            
-            t.append(mock)
-            
-        }
-        
-        return t
-        
-    }
+//    static func map(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [TransactionHistoryTypes.DTO.Transaction] {
+//        
+//        var t: [TransactionHistoryTypes.DTO.Transaction] = []
+//        
+//        for transaction in transactions {
+//            
+//            let mock = TransactionHistoryTypes.DTO.Transaction(
+//                balance:
+//                Balance(currency: .init(title: "Waves", ticket: "Waves"), money: Money(10000, 0)),
+//                conversionBalance:
+//                Balance(currency: .init(title: "Dollar", ticket: "Dollar"), money: Money(20, 4)),
+//                fee: Money(15, 4),
+//                confirmations: 235235,
+//                height: 2346,
+//                timestamp: 321901305,
+//                status: .completed,
+//                kind: .viewSend(.init(to: .init(name: "Mr. Pit", address: "skjw34oijijosjdijo435o3k3o"))),
+//                comment: "Это мой комментарий, он очень хорошиииий")
+//            
+//            t.append(mock)
+//            
+//        }
+//        
+//        return t
+//        
+//    }
     
 }

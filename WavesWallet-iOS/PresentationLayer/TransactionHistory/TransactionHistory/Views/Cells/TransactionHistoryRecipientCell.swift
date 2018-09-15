@@ -31,17 +31,17 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         var title = ""
         
         switch model.kind {
-        case .viewSend:
+        case .sent:
             title = "Sent to"
-        case .viewReceived:
+        case .receive:
             title = "Recieved from"
-        case .viewLeasing:
+        case .startedLeasing:
             title = "Leasing to"
         case .canceledLeasing:
             title = "From"
         case .incomingLeasing:
             title = "From"
-        case .massSend:
+        case .massSent:
             title = "Recipient"
         case .massReceived:
             title = "From"

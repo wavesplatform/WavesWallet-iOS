@@ -46,7 +46,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         }
     }
     
-    private static func initialState(transactions: [TransactionHistoryTypes.DTO.Transaction], currentIndex: Int) -> TransactionHistoryTypes.State {
+    private static func initialState(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) -> TransactionHistoryTypes.State {
         return TransactionHistoryTypes.State.initialState(transactions: transactions, currentIndex: currentIndex)
     }
     

@@ -83,6 +83,7 @@ internal enum Images {
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
   internal static let btnOrder = ImageAsset(name: "btn_order")
+  internal static let changearrows14Basic500 = ImageAsset(name: "changearrows14Basic500")
   internal static let chartArrowGreen = ImageAsset(name: "chart_arrow_green")
   internal static let chartArrowRed = ImageAsset(name: "chart_arrow_red")
   internal static let chartEmpty = ImageAsset(name: "chart_empty")
@@ -194,6 +195,7 @@ internal enum Images {
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
   internal static let shareAddress = ImageAsset(name: "share_address")
+  internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
   internal static let star = ImageAsset(name: "star")
   internal static let starBtn = ImageAsset(name: "star_btn")
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
@@ -291,6 +293,7 @@ internal enum Images {
     btnBack,
     btnBars,
     btnOrder,
+    changearrows14Basic500,
     chartArrowGreen,
     chartArrowRed,
     chartEmpty,
@@ -402,6 +405,7 @@ internal enum Images {
     sendBtn,
     settings,
     shareAddress,
+    sizefull14Basic500,
     star,
     starBtn,
     swipeLeft,

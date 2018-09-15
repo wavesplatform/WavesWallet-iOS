@@ -22,6 +22,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
             }
 
             let objects = realm.objects(Asset.self)
+                .filter("id in %@",ids)
                 .toArray()
                 .map { DomainLayer.DTO.Asset($0) }
 

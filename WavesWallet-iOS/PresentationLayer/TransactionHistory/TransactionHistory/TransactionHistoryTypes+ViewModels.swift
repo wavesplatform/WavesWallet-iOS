@@ -11,13 +11,13 @@ import RxDataSources
 
 extension TransactionHistoryTypes.ViewModel {
     struct General {
-        let kind: TransactionHistoryTypes.DTO.Transaction.Kind
+        let kind: DomainLayer.DTO.SmartTransaction.Kind
         let balance: Balance
         let currencyConversion: String?
     }
     
     struct Recipient {
-        let kind: TransactionHistoryTypes.DTO.Transaction.Kind
+        let kind: DomainLayer.DTO.SmartTransaction.Kind
         let name: String?
         let address: String
     }
@@ -73,78 +73,77 @@ extension TransactionHistoryTypes.ViewModel {
 
 extension TransactionHistoryTypes.ViewModel.Section {
     
-    static func map(from transaction: TransactionHistoryTypes.DTO.Transaction) -> [TransactionHistoryTypes.ViewModel.Section] {
+    static func map(from transaction: DomainLayer.DTO.SmartTransaction) -> [TransactionHistoryTypes.ViewModel.Section] {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         var kindRows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         switch transaction.kind {
-        case .viewReceived(let model):
+        case .receive(let model):
+            break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
+        case .sent(let model):
+            break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.to.name, address: model.to.address)))
             
-        case .viewSend(let model):
-            
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.to.name, address: model.to.address)))
-            
-        case .viewLeasing(let model):
-            
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.to.name, address: model.to.address)))
+        case .startedLeasing(let model):
+            break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.to.name, address: model.to.address)))
             
         case .exchange(let model):
+            break
+//            kindRows.append(.keyValue(.init(title: model.exchangeCurrency + " Price", value: model.exchangeBalance.formattedText())))
             
-            kindRows.append(.keyValue(.init(title: model.exchangeCurrency + " Price", value: model.exchangeBalance.formattedText())))
-            
-        case .selfTranserred(let model):
+        case .selfTransfer(let model):
             
             break
             
         case .tokenGeneration(let model):
-            
-            kindRows.append(.keyValue(.init(title: "ID", value: model.id, subvalue: model.reissuable ? "Reissuable" : "Not Reissuable")))
+            break
+//            kindRows.append(.keyValue(.init(title: "ID", value: model.id, subvalue: model.reissuable ? "Reissuable" : "Not Reissuable")))
             
         case .tokenReissue(let model):
+            break
+//            kindRows.append(.keyValue(.init(title: "ID", value: model.id, subvalue: model.reissuable ? "Reissuable" : "Not Reissuable")))
             
-            kindRows.append(.keyValue(.init(title: "ID", value: model.id, subvalue: model.reissuable ? "Reissuable" : "Not Reissuable")))
-            
-        case .tokenBurning(let model):
-            
-            kindRows.append(.keyValue(.init(title: "ID", value: model.id)))
+        case .tokenBurn(let model):
+            break
+//            kindRows.append(.keyValue(.init(title: "ID", value: model.id)))
             
         case .createdAlias(let model):
-            
             break
             
         case .canceledLeasing(let model):
-        
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
+        break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
             
         case .incomingLeasing(let model):
+            break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
-            
-        case .massSend(let model):
-            
-            for to in model.to {
-                 kindRows.append(.recipient(.init(kind: transaction.kind, name: to.name, address: to.address)))
-            }
+        case .massSent(let model):
+            break
+//            for to in model.to {
+//                 kindRows.append(.recipient(.init(kind: transaction.kind, name: to.name, address: to.address)))
+//            }
             
         case .massReceived(let model):
+            break
+//            for from in model.from {
+//                kindRows.append(.recipient(.init(kind: transaction.kind, name: from.name, address: from.address)))
+//            }
             
-            for from in model.from {
-                kindRows.append(.recipient(.init(kind: transaction.kind, name: from.name, address: from.address)))
-            }
+        case .spamReceive(let model):
+            break
+//            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
             
-        case .spamReceived(let model):
-            
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.from.name, address: model.from.address)))
-            
-        case .massSpamReceived(let model):
-            
-            for from in model.from {
-                kindRows.append(.recipient(.init(kind: transaction.kind, name: from.name, address: from.address)))
-            }
+        case .spamMassReceived(let model):
+            break
+//            for from in model.from {
+//                kindRows.append(.recipient(.init(kind: transaction.kind, name: from.name, address: from.address)))
+//            }
             
         case .data(let model):
  
@@ -156,36 +155,36 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         }
         
-        rows.append(
-            .general(.init(kind: transaction.kind,
-                  balance: transaction.balance,
-                  currencyConversion: "≈ " + transaction.conversionBalance.money.formattedText(defaultMinimumFractionDigits: false) +  transaction.conversionBalance.currency.title))
-        )
+//        rows.append(
+//            .general(.init(kind: transaction.kind,
+//                  balance: transaction.balance,
+//                  currencyConversion: "≈ " + transaction.conversionBalance.money.formattedText(defaultMinimumFractionDigits: false) +  transaction.conversionBalance.currency.title))
+//        )
         rows.append(contentsOf: kindRows)
 //        rows.append(.recipient(.init(kind: transaction.kind, name: transaction., address: "96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0")))
+//
+//        if let comment = transaction.comment {
+//            rows.append(.comment(.init(text: comment)))
+//        }
+//
         
-        if let comment = transaction.comment {
-            rows.append(.comment(.init(text: comment)))
-        }
-        
-        
-        rows.append(.keyValue(.init(title: "Fee", value: transaction.fee.formattedText(defaultMinimumFractionDigits: false) + " " + transaction.balance.currency.title)))
+//        rows.append(.keyValue(.init(title: "Fee", value: transaction.fee.formattedText(defaultMinimumFractionDigits: false) + " " + transaction.balance.currency.title)))
 
-        rows.append(.keysValues(
-            [
-                .init(title: "Confirmations", value: String(transaction.confirmations)),
-                .init(title: "Block", value: String(transaction.height))
-            ])
-        )
+//        rows.append(.keysValues(
+//            [
+//                .init(title: "Confirmations", value: String(transaction.confirmations)),
+//                .init(title: "Block", value: String(transaction.height))
+//            ])
+//        )
         
-        rows.append(.status(.init(timestamp: String(transaction.timestamp), status: transaction.status)))
+//        rows.append(.status(.init(timestamp: String(transaction.timestamp), status: transaction.status)))
         
         switch transaction.kind {
-        case .viewSend(_):
+        case .sent(_):
             rows.append(.resendButton(.init(type: .resend)))
-        case .massSend(_):
+        case .massSent(_):
             rows.append(.resendButton(.init(type: .resend)))
-        case .viewLeasing(_):
+        case .startedLeasing(_):
             rows.append(.resendButton(.init(type: .cancelLeasing)))
         default:
             break

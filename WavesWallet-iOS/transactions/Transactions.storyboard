@@ -12,7 +12,8 @@
         <!--Old Transaction History View Controller-->
         <scene sceneID="euB-Gl-RDY">
             <objects>
-                <viewController storyboardIdentifier="OldTransactionHistoryViewController" id="qqf-L2-lnO" customClass="OldTransactionHistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJf-po-n2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="qqf-L2-lnO" customClass="OldTransactionHistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IY9-oe-fbW"/>
                         <viewControllerLayoutGuide type="bottom" id="bhH-mh-YpM"/>
@@ -66,7 +67,6 @@
                         <outlet property="swipeView" destination="XHk-nB-ms0" id="z1f-2t-MmY"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bJf-po-n2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="50" y="-1243"/>
         </scene>

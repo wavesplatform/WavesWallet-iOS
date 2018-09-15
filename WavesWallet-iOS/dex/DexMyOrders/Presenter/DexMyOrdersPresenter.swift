@@ -23,14 +23,15 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         
         Driver.system(initialState: DexMyOrders.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event -> DexMyOrders.State in
+                        return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
+        
     }
     
     private func modelsQuery() -> Feedback {
-        
         
         return react(query: { state -> Bool? in
             return state.isAppeared ? true : nil
@@ -101,7 +102,6 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 }
              }
         }
-      
     }
 }
 

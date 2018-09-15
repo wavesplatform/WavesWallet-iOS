@@ -7,41 +7,43 @@
 //
 
 import Foundation
-import RxSwift
 import RxCocoa
 import RxFeedback
+import RxSwift
 
 protocol HistoryPresenterProtocol {
     typealias Feedback = (Driver<HistoryTypes.State>) -> Signal<HistoryTypes.Event>
-    
+
     func system(feedbacks: [Feedback])
 }
 
 final class HistoryPresenter: HistoryPresenterProtocol {
-    
+
     var interactor: HistoryInteractorProtocol!
     weak var moduleOutput: HistoryModuleOutput?
     let moduleInput: HistoryModuleInput
-    
+
     private let disposeBag: DisposeBag = DisposeBag()
-    
+
     init(input: HistoryModuleInput) {
         moduleInput = input
     }
-    
+
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAll())
-        
-        Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type), reduce: reduce, feedback: newFeedbacks)
+
+        Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type),
+                      reduce: reduce,
+                      feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
-    
+
     private func queryAll() -> Feedback {
         return react(query: { (state) -> Bool? in
 
-            if state.currentFilter == .all && state.isAppeared == true {
+            if state.isAppeared == true {
                 return true
             } else {
                 return nil
@@ -56,25 +58,25 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
-    
+
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         switch event {
         case .readyView:
             return state.setIsAppeared(true)
-        
+
         case .refresh:
             interactor.refreshTransactions()
-            
             return state.setIsRefreshing(true)
+
             
         case .tapCell(let indexPath):
             
-            let item =  state.sections[indexPath.section].items[indexPath.item]
+            let item = state.sections[indexPath.section].items[indexPath.item]
             var index = NSNotFound
             
             switch item {
             case .transaction(let transaction):
-                index = state.transactions.index(of: transaction) ?? NSNotFound
+                index = 0//state.transactions.index(of: transaction) ?? NSNotFound
             default: break
             }
             
@@ -83,14 +85,14 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             }
             
             return state
-            
+
         case .changeFilter(let filter):
             let sections = HistoryTypes.ViewModel.Section.filter(from: state.transactions, filter: filter)
             let newState = state.setSections(sections: sections).setFilter(filter: filter)
             return newState
-            
+
         case .responseAll(let response):
-            
+
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             let newState = state
                 .setTransactions(transactions: response)
@@ -99,13 +101,10 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 .setIsRefreshing(false)
 
             return newState
-            
-            
         }
     }
-    
+
     private static func initialState(historyType: HistoryType) -> HistoryTypes.State {
         return HistoryTypes.State.initialState(historyType: historyType)
     }
-    
 }

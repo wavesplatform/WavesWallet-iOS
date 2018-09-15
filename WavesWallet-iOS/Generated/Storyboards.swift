@@ -201,8 +201,6 @@ internal enum StoryboardScene {
     internal static let storyboardName = "Transactions"
 
     internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewController>(storyboard: Transactions.self, identifier: "AddAddressViewController")
-
-    internal static let oldTransactionHistoryViewController = SceneType<WavesWallet_iOS.OldTransactionHistoryViewController>(storyboard: Transactions.self, identifier: "OldTransactionHistoryViewController")
   }
   internal enum Transfer: StoryboardType {
     internal static let storyboardName = "Transfer"
