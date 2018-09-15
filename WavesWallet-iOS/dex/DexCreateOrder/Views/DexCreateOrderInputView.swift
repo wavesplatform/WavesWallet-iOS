@@ -20,16 +20,12 @@ protocol DexCreateOrderInputViewDelegate: AnyObject {
 
 final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
-    @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var textField: InputNumericTextField!
-    @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
-    @IBOutlet private weak var viewTextField: UIView!
-    @IBOutlet private weak var labelError: UILabel!
+    struct Input {
+        let text: String
+        let value: Double
+    }
     
-    weak var delegate: DexCreateOrderInputViewDelegate?
-  
     private var isShowInputScrollView = false {
-        
         didSet {
             if isShowInputScrollView {
                 showInputScrollView(animation: false)
@@ -40,9 +36,18 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         }
     }
     
-    struct Input {
-        let text: String
-        let value: Double
+    @IBOutlet private weak var labelTitle: UILabel!
+    @IBOutlet private weak var textField: InputNumericTextField!
+    @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
+    @IBOutlet private weak var viewTextField: UIView!
+    @IBOutlet private weak var labelError: UILabel!
+    
+    weak var delegate: DexCreateOrderInputViewDelegate?
+  
+    var maximumFractionDigits: Int = 0 {
+        didSet {
+            textField.maximumFractionDigits = maximumFractionDigits
+        }
     }
     
     var input: [Input] = [] {
@@ -74,7 +79,12 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     }
     
     func setupValue(_ value: Double) {
-        textField.setStringValue(value: String(value))
+          
+        let formatter = DexCreateOrder.ViewModel.numberFormatter(maximumFractionDigits: maximumFractionDigits)
+        
+        if let string = formatter.string(from: NSNumber(value: value)) {
+            textField.setStringValue(value: string)
+        }
         hideInputScrollView(animation: false)
     }
     
@@ -112,7 +122,12 @@ extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
         hideInputScrollView(animation: true)
         
         let value = input[index].value
-        textField.setStringValue(value: String(value))
+
+        let formatter = DexCreateOrder.ViewModel.numberFormatter(maximumFractionDigits: maximumFractionDigits)
+
+        if let string = formatter.string(from: NSNumber(value: value)) {
+            textField.setStringValue(value: string)
+        }
         
         textFieldDidChangeNewValue()
     }

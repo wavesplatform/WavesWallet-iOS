@@ -8,8 +8,30 @@
 
 import Foundation
 
+private enum Constanst {
+    static let orderFee = 300000
+}
+
 enum DexCreateOrder {
     enum DTO {}
+    enum ViewModel {}
+}
+
+extension DexCreateOrder.ViewModel {
+    
+    private static let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.usesGroupingSeparator = false
+        return numberFormatter
+    }()
+    
+    static func numberFormatter(maximumFractionDigits: Int = 20) -> NumberFormatter {
+        let formatter = numberFormatter
+        formatter.maximumFractionDigits = maximumFractionDigits
+        return formatter
+    }
 }
 
 extension DexCreateOrder.DTO {
@@ -46,6 +68,8 @@ extension DexCreateOrder.DTO {
         var price: Double
         var total: Double
         var expiration: Expiration
+        let fee: Int = Constanst.orderFee
+
     }
 }
 
