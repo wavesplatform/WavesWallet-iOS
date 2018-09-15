@@ -200,8 +200,13 @@ private extension DexCreateOrderViewController {
         segmentedControl.delegate = self
         
         inputAmount.delegate = self
+        inputAmount.maximumFractionDigits = input.amountAsset.decimals
+        
         inputPrice.delegate = self
+        inputPrice.maximumFractionDigits = input.priceAsset.decimals
+        
         inputTotal.delegate = self
+        inputTotal.maximumFractionDigits = input.priceAsset.decimals
     }
     
     func setupLocalization() {
