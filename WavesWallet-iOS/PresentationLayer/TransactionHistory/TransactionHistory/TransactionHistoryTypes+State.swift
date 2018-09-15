@@ -22,7 +22,7 @@ extension TransactionHistoryTypes.State {
         return newState
     }
     
-    func setTransactions(_ transactions: [TransactionHistoryTypes.DTO.Transaction]) -> TransactionHistoryTypes.State {
+    func setTransactions(_ transactions: [DomainLayer.DTO.SmartTransaction]) -> TransactionHistoryTypes.State {
         var newState = self
         newState.transactions = transactions
         return newState
@@ -33,7 +33,7 @@ extension TransactionHistoryTypes.State {
 
 extension TransactionHistoryTypes.State {
     
-    static func initialState(transactions: [TransactionHistoryTypes.DTO.Transaction], currentIndex: Int) -> TransactionHistoryTypes.State {
+    static func initialState(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) -> TransactionHistoryTypes.State {
         
         let displays = transactions.map { (transaction) -> TransactionHistoryTypes.State.DisplayState in
             

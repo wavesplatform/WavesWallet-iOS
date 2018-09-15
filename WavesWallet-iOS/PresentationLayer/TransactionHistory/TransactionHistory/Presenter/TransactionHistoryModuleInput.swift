@@ -10,7 +10,7 @@ import Foundation
 
 protocol TransactionHistoryModuleInput {
     
-    var transactions: [TransactionHistoryTypes.DTO.Transaction] { get }
+    var transactions: [DomainLayer.DTO.SmartTransaction] { get }
     var currentIndex: Int { get }
     
 }

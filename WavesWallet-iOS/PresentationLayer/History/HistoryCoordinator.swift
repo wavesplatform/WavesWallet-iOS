@@ -10,31 +10,23 @@ import UIKit
 
 final class HistoryCoordinator {
     
-    private lazy var historyViewController: UIViewController = {
-        return HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: .all))
-    }()
+    private weak var historyViewController: UIViewController?
     
     private var navigationController: UINavigationController!
     
-    func start(navigationController: UINavigationController) {
+    func start(navigationController: UINavigationController, historyType: HistoryType) {
         self.navigationController = navigationController
-        navigationController.pushViewController(historyViewController, animated: false)
+
+        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+        navigationController.pushViewController(historyViewController!, animated: true)
     }
     
 }
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
-    func showTransaction(transactions: [HistoryTypes.DTO.Transaction], index: Int) {
-//        let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "OldTransactionHistoryViewController") as! OldTransactionHistoryViewController
-//        controller.items = [NSDictionary()]
-//        controller.currentPage = 0
-        
-        TransactionHistoryCoordinator(transactions: TransactionHistoryTypes.DTO.Transaction.map(from: transactions), currentIndex: index).start()
-        
-        
-//        let popup = PopupViewController()
-//        popup.present(contentViewController: vc)
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+        TransactionHistoryCoordinator(transactions: transactions, currentIndex: index).start()
     }
 }
 
@@ -43,5 +35,4 @@ extension HistoryCoordinator: HistoryModuleInput {
     var type: HistoryType {
         return .all
     }
-    
 }

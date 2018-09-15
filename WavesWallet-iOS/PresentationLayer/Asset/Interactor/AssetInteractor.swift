@@ -9,23 +9,8 @@
 import Foundation
 import RxSwift
 
-final class AssetInteractorMock: AssetInteractorProtocol {
-
-    func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
-        return JSONDecoder.decode(type: [AssetTypes.DTO.Asset].self, json: "Assets").delay(8, scheduler: MainScheduler.asyncInstance)
-    }
-
-    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
-        return Observable.just([])
-    }
-
-    func refreshAssets(by ids: [String]) {
-
-    }
-
-    func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
-
-    }
+private enum Constants {
+    static let transactionLimit: Int = 10
 }
 
 final class AssetInteractor: AssetInteractorProtocol {
@@ -34,6 +19,7 @@ final class AssetInteractor: AssetInteractorProtocol {
     private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
     private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
+    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -53,25 +39,32 @@ final class AssetInteractor: AssetInteractorProtocol {
             .getPrivateKey()
             .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[AssetTypes.DTO.Asset]> in
 
-                return owner.accountBalanceInteractor
+                owner.accountBalanceInteractor
                     .balances(by: accountAddress,
                               privateKey: privateKey,
                               isNeedUpdate: false)
                     .map {
-                        $0.filter({ asset -> Bool in
-                            return ids.contains(asset.assetId)
-                        })
+                        $0.filter { asset -> Bool in
+                            ids.contains(asset.assetId)
+                        }
                     }
                     .map { $0.map { $0.mapToAsset() } }
-        }
+            }
     }
 
-    func transactions(by assetId: String) -> Observable<[AssetTypes.DTO.Transaction]> {
-        return Observable.just([AssetTypes.DTO.Transaction()])
+    func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
+
+        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
+        return transactionsInteractor.transactions(by: accountAddress,
+                                                   specifications: .init(page: .init(offset: 0,
+                                                                                     limit: Constants.transactionLimit),
+                                                                         assets: [assetId],
+                                                                         senders: [],
+                                                                         types: TransactionType.all))
     }
 
     func refreshAssets(by ids: [String]) {
-        
+
         assets(by: ids, isNeedUpdate: true)
             .take(1)
             .subscribe(weak: self, onNext: { owner, assets in

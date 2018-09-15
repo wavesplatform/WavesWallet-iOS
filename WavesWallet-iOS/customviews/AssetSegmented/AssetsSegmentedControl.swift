@@ -183,12 +183,10 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {            
-            self.sendActions(for: .valueChanged)
-        }
-        self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: true)
-        CATransaction.commit()
+
+        //TODO: i don't how detect completed animation. 
+        self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: false)
+        self.sendActions(for: .valueChanged)
     }
 
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {

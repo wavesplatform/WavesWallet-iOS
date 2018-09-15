@@ -1,4 +1,4 @@
-    //
+//
 //  WalletViewController.swift
 //  WavesWallet-iOS
 //

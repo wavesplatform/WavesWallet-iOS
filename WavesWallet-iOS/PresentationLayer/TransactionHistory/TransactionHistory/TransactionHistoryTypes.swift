@@ -16,7 +16,7 @@ enum TransactionHistoryTypes {
         
         var currentIndex: Int
         var displays: [DisplayState]
-        var transactions: [DTO.Transaction]
+        var transactions: [DomainLayer.DTO.SmartTransaction]
         
         struct DisplayState: Mutating {
             var sections: [ViewModel.Section]

@@ -34,26 +34,26 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         tagContainer.layer.cornerRadius = 2
     }
  
-    fileprivate func icon(for kind: TransactionHistoryTypes.DTO.Transaction.Kind) -> UIImage {
+    fileprivate func icon(for kind: DomainLayer.DTO.SmartTransaction.Kind) -> UIImage {
         
         var image: ImageAsset!
         
         switch kind {
-        case .viewSend:
+        case .sent:
             image = Images.tSend48
-        case .viewReceived:
+        case .receive:
             image = Images.assetReceive
-        case .viewLeasing:
+        case .startedLeasing:
             image = Images.walletStartLease
         case .exchange:
             image = Images.tExchange48
-        case .selfTranserred:
+        case .selfTransfer:
             image = Images.tSelftrans48
         case .tokenGeneration:
             image = Images.tTokengen48
         case .tokenReissue:
             image = Images.tTokenreis48
-        case .tokenBurning:
+        case .tokenBurn:
             image = Images.tTokenburn48
         case .createdAlias:
             image = Images.tAlias48
@@ -61,13 +61,13 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
             image = Images.tCloselease48
         case .incomingLeasing:
             image = Images.tIncominglease48
-        case .massSend:
+        case .massSent:
             image = Images.tMasstransfer48
         case .massReceived:
             image = Images.tMassreceived48
-        case .spamReceived:
+        case .spamReceive:
             image = Images.tSpamReceive48
-        case .massSpamReceived:
+        case .spamMassReceived:
             image = Images.tSpamReceive48
         case .data:
             image = Images.tData48
@@ -87,7 +87,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
         valueLabel.attributedText = .styleForBalance(text: model.balance.money.displayTextFull, font: valueLabel.font)
         
         iconImageView.image = icon(for: model.kind)
-        tagLabel.text = model.balance.currency.ticket
+        tagLabel.text = model.balance.currency.ticker
         currencyLabel.text = model.currencyConversion
         
         let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))

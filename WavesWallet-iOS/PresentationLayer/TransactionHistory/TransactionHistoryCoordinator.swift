@@ -10,10 +10,10 @@ import UIKit
 
 final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
     
-    var transactions: [TransactionHistoryTypes.DTO.Transaction]
+    var transactions: [DomainLayer.DTO.SmartTransaction]
     var currentIndex: Int
     
-    init(transactions: [TransactionHistoryTypes.DTO.Transaction], currentIndex: Int) {
+    init(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) {
         self.transactions = transactions
         self.currentIndex = currentIndex
     }

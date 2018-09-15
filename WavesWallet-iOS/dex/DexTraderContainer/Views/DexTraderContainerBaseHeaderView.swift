@@ -16,7 +16,7 @@ class DexTraderContainerBaseHeaderView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupCorners()
+        createTopCorners(radius: Constants.cornerRadius)
     }
     
     func setWhiteState() {
@@ -27,15 +27,5 @@ class DexTraderContainerBaseHeaderView: UIView {
     func setDefaultState() {
         backgroundColor = .basic50
         subviews.forEach{ $0.isHidden = false }
-    }
-}
-
-private extension DexTraderContainerBaseHeaderView {
-    
-    func setupCorners() {
-        let shadowPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: Constants.cornerRadius, height: Constants.cornerRadius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = shadowPath.cgPath
-        layer.mask = maskLayer
     }
 }

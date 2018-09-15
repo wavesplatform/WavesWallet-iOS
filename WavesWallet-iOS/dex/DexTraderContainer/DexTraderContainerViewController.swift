@@ -17,6 +17,7 @@ final class DexTraderContainerViewController: UIViewController {
     weak var moduleOutput: DexTraderContainerModuleOutput?
     
     private var viewControllers: [UIViewController] = []
+    private var scrolledPages: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,22 +28,27 @@ final class DexTraderContainerViewController: UIViewController {
         addBgBlueImage()
         addInfoButton()
         buildControllers()
+        setupScrollEnabled(currentPage: scrollView.currentPage)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: animated)
+        navigationItem.backgroundImage = UIImage()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.titleTextAttributes = nil
+        UIApplication.shared.setStatusBarStyle(.default, animated: animated)
+
+        navigationItem.backgroundImage = nil
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
     }
     
+ 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -53,8 +59,11 @@ final class DexTraderContainerViewController: UIViewController {
 }
 
 extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
-    func addViewController(_ viewController: UIViewController) {
+    func addViewController(_ viewController: UIViewController, isScrollEnabled: Bool) {
         viewControllers.append(viewController)
+        if let index = viewControllers.index(of: viewController), isScrollEnabled {
+            scrolledPages.append(index)
+        }
     }
 }
 
@@ -73,6 +82,7 @@ extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDe
     
     func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState) {
         scrollToPageIndex(state.rawValue)
+        setupScrollEnabled(currentPage: state.rawValue)
     }
 }
 
@@ -80,14 +90,18 @@ extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDe
 extension DexTraderContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
         segmentedControl.changeStateToScrollPage(scrollView.currentPage)
+        setupScrollEnabled(currentPage: scrollView.currentPage)
     }
 }
 
 
 //MARK: - Setup UI
 private extension DexTraderContainerViewController {
+    
+    func setupScrollEnabled(currentPage: Int) {
+        scrollView.isScrollEnabled = scrolledPages.contains(currentPage)
+    }
     
     func scrollToPageIndex(_ pageIndex: Int) {
         scrollView.setContentOffset(CGPoint(x: CGFloat(pageIndex) * scrollView.frame.size.width,
