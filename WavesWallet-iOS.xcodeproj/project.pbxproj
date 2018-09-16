@@ -51,6 +51,7 @@
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
+		04E80A12214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
 		04FB3F2521342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3F2421342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift */; };
@@ -659,6 +660,7 @@
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
+		04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
@@ -1483,6 +1485,7 @@
 			isa = PBXGroup;
 			children = (
 				0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */,
+				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -3327,6 +3330,7 @@
 				0449E5E7212DE3790068B5E3 /* TransactionHistoryTypes.swift in Sources */,
 				0A3AD40421492E0000F8A929 /* WalletTypes.swift in Sources */,
 				04598F97214D5ACD00A735B8 /* WalletTypes+DTO.swift in Sources */,
+				04E80A12214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				0A3AD40521492E3200F8A929 /* WalletTypes+ViewModels.swift in Sources */,

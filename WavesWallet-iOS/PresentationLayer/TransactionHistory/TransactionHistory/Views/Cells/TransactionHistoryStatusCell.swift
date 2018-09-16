@@ -9,6 +9,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let timestampDateFormat = "dd.MM.yyyy 'at' hh:mm"
+}
+
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -29,7 +33,10 @@ extension TransactionHistoryStatusCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Status) {
         
         titleLabel.text = "Timestamp"
-        valueLabel.text = model.timestamp
+        
+        let formatter = DateFormatter.sharedFormatter
+        formatter.dateFormat = Constants.timestampDateFormat
+        valueLabel.text = formatter.string(from: model.timestamp)
         
         statusLabel.text = model.status.rawValue
         
