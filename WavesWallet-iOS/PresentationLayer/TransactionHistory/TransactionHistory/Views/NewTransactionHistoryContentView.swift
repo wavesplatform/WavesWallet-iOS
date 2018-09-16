@@ -125,8 +125,8 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
             return TransactionHistoryButtonCell.cellHeight()
         case .status(_):
             return TransactionHistoryStatusCell.cellHeight()
-        case .general(_):
-            return TransactionHistoryGeneralCell.cellHeight()
+        case .general(let model):
+            return TransactionHistoryGeneralCell.viewHeight(model: model, width: tableView.bounds.width)
         }
         
     }

@@ -22,10 +22,6 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
     
    @IBOutlet weak var valueLabelXConstraint: NSLayoutConstraint!
     
-    class func cellHeight() -> CGFloat {
-        return 170
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -84,10 +80,12 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 extension TransactionHistoryGeneralCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.General) {
         
-        valueLabel.attributedText = .styleForBalance(text: model.balance.money.displayTextFull, font: valueLabel.font)
+        if let balance = model.balance {
+            valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true), font: valueLabel.font)
+            tagLabel.text = balance.currency.ticker
+        }
         
         iconImageView.image = icon(for: model.kind)
-        tagLabel.text = model.balance.currency.ticker
         currencyLabel.text = model.currencyConversion
         
         let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
@@ -103,8 +101,8 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
 extension TransactionHistoryGeneralCell: ViewCalculateHeight {
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.General, width: CGFloat) -> CGFloat {
-        if model.currencyConversion != nil {
-            return 148
+        if model.currencyConversion == nil {
+            return 146
         }
         
         return 170

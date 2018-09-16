@@ -37,22 +37,41 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addaddress24Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="dns-7C-v4h">
-                        <rect key="frame" x="339" y="42" width="24" height="24"/>
+                        <rect key="frame" x="339" y="43.5" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="Bf0-10-920"/>
                             <constraint firstAttribute="height" constant="24" id="bnw-pB-zRD"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyu-V9-tWO" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="12" y="80" width="351" height="0.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" id="Vvk-4K-Gcp"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                <color key="value" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="3"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="top" secondItem="t38-6W-U0R" secondAttribute="bottom" constant="2" id="DnG-xO-H6P"/>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="F9d-2V-Ajr"/>
+                    <constraint firstAttribute="bottom" secondItem="zyu-V9-tWO" secondAttribute="bottom" id="JKg-nS-mqe"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="U3w-oS-csW"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="top" secondItem="zca-qI-tzY" secondAttribute="bottom" constant="6" id="bj9-mx-tNv"/>
-                    <constraint firstAttribute="bottom" secondItem="dns-7C-v4h" secondAttribute="bottom" constant="14" id="cdx-Ab-doe"/>
+                    <constraint firstAttribute="bottom" secondItem="dns-7C-v4h" secondAttribute="bottom" constant="13" id="cdx-Ab-doe"/>
                     <constraint firstAttribute="trailing" secondItem="dns-7C-v4h" secondAttribute="trailing" constant="12" id="d4H-ZU-6eM"/>
+                    <constraint firstItem="zyu-V9-tWO" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="jxB-05-Mgo"/>
                     <constraint firstAttribute="trailing" secondItem="Goq-BE-4Z1" secondAttribute="trailing" constant="12" id="kLT-Nb-d5t"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="top" secondItem="ekU-SN-hJs" secondAttribute="top" constant="14" id="sEw-m4-6ia"/>
+                    <constraint firstAttribute="trailing" secondItem="zyu-V9-tWO" secondAttribute="trailing" constant="12" id="tWk-fK-yqV"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="yys-lA-61f"/>
                 </constraints>
             </tableViewCellContentView>
