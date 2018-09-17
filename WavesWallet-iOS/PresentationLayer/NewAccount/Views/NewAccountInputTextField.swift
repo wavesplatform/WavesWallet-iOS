@@ -44,13 +44,21 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
 
     var valueValidator: ((String?) -> String?)?
     var changedValue: ((Bool,String?) -> Void)?
-    private(set) var isValidValue: Bool = false
+    var textFieldShouldReturn: ((NewAccountInputTextField) -> Void)?
 
+    var returnKey: UIReturnKeyType? {
+        didSet {
+            textFieldValue.returnKeyType = returnKey ?? .done
+        }
+    }
+
+    private(set) var isValidValue: Bool = false
     private var kind: Kind?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         loadNibContent()
+        textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         textFieldValue.addTarget(self, action: #selector(textFieldEndChanged), for: .editingDidEnd)
@@ -102,6 +110,7 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     }
 }
 
+// MARK: ViewConfiguration
 extension NewAccountInputTextField: ViewConfiguration {
     func update(with model: NewAccountInputTextField.Model) {
         kind = model.kind
@@ -122,11 +131,22 @@ extension NewAccountInputTextField: ViewConfiguration {
                 if model.kind == .password {
                     textFieldValue.textContentType = .password
                 } else {
-                    textFieldValue.textContentType = UITextContentType.
+                    if #available(iOS 12.0, *) {
+                        textFieldValue.textContentType = .newPassword
+                    }
                 }
-            } 
+            }
             eyeButton.isHidden = false
             isSecureTextEntry = true
         }
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension NewAccountInputTextField: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldShouldReturn?(self)
+        return true
     }
 }

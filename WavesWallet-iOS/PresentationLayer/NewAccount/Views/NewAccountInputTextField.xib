@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,7 +49,7 @@
                     <state key="normal" image="eyeopen24Basic500"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmH-eB-M8D" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="666" width="375" height="0.5"/>
+                    <rect key="frame" x="0.0" y="666.5" width="375" height="0.5"/>
                     <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="COc-W5-aav"/>
@@ -66,6 +66,7 @@
                 <constraint firstItem="WmH-eB-M8D" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="18S-LH-zwT"/>
                 <constraint firstItem="TCk-LK-jwe" firstAttribute="centerY" secondItem="jaS-7N-Twt" secondAttribute="centerY" id="6de-gt-lMT"/>
                 <constraint firstAttribute="trailing" secondItem="WmH-eB-M8D" secondAttribute="trailing" id="8h6-Ne-Q06"/>
+                <constraint firstAttribute="trailing" secondItem="jaS-7N-Twt" secondAttribute="trailing" constant="40" id="9ZY-sL-thM"/>
                 <constraint firstItem="jaS-7N-Twt" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="AvH-c8-qrz"/>
                 <constraint firstItem="WmH-eB-M8D" firstAttribute="top" secondItem="jaS-7N-Twt" secondAttribute="bottom" id="FRC-mY-yaV"/>
                 <constraint firstAttribute="trailing" secondItem="TCk-LK-jwe" secondAttribute="trailing" id="LRQ-hY-bPb"/>
@@ -76,7 +77,6 @@
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="dSO-rI-sFd"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="mwl-4i-6Mj"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="qTY-9F-d3q"/>
-                <constraint firstItem="TCk-LK-jwe" firstAttribute="leading" secondItem="jaS-7N-Twt" secondAttribute="trailing" constant="16" id="tsq-gu-NNy"/>
             </constraints>
         </view>
     </objects>

@@ -30,15 +30,15 @@ final class HelloCoordinator: Coordinator {
 
     func start() {
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
-        vc.delegate = self
+        vc.output = self
         navigationController = UINavigationController(rootViewController: vc)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
 }
 
-// MARK: HelloLanguagesViewControllerDelegate
-extension HelloCoordinator: HelloLanguagesViewControllerDelegate {
+// MARK: HelloLanguagesModuleOutput
+extension HelloCoordinator: HelloLanguagesModuleOutput {
 
     func languageDidSelect(language: Language) {
         delegate?.userChangedLanguage(language)
@@ -46,13 +46,13 @@ extension HelloCoordinator: HelloLanguagesViewControllerDelegate {
 
     func userFinishedChangeLanguage() {
         let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
-        vc.delegate = self
+        vc.output = self
         navigationController.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: InfoPagesViewControllerDelegate
-extension HelloCoordinator: InfoPagesViewControllerDelegate {
+extension HelloCoordinator: InfoPagesViewModuleOutput {
     func userFinishedReadPages() {
         delegate?.userFinishedGreet()
         removeFromParentCoordinator()

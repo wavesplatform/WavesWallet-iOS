@@ -73,6 +73,9 @@
 		0A3FE8BF2137007500DBF4E1 /* AliasTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E7E211A3373005A7F09 /* AliasTransactionNode.swift */; };
 		0A3FE8C02137007500DBF4E1 /* DataTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */; };
 		0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E72211A3065005A7F09 /* IssueTransactionNode.swift */; };
+		0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A439963215045C40032E608 /* NewAccountCoordinator.swift */; };
+		0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4399652150465E0032E608 /* NewAccount.storyboard */; };
+		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
 		0A485E9021009DC700079B49 /* LeasingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8F21009DC700079B49 /* LeasingInteractor.swift */; };
@@ -635,6 +638,9 @@
 		0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTransactionCell.swift; sourceTree = "<group>"; };
 		0A3FE8AB2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContainersNode.swift; sourceTree = "<group>"; };
+		0A439963215045C40032E608 /* NewAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountCoordinator.swift; sourceTree = "<group>"; };
+		0A4399652150465E0032E608 /* NewAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccount.storyboard; sourceTree = "<group>"; };
+		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
 		0A485E8C20FFB02100079B49 /* LeaseTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseTransactionNode.swift; sourceTree = "<group>"; };
@@ -1289,19 +1295,10 @@
 				E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */,
 				E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */,
 				0A762D0E214FB6FD00BE9204 /* NewAccount.strings */,
+				0A439963215045C40032E608 /* NewAccountCoordinator.swift */,
+				0A4399652150465E0032E608 /* NewAccount.storyboard */,
 			);
 			path = NewAccount;
-			sourceTree = "<group>";
-		};
-		0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */ = {
-			isa = PBXGroup;
-			children = (
-				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
-				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
-				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
-				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
-			);
-			path = ConfirmBackup;
 			sourceTree = "<group>";
 		};
 		0A1DAD6020F37BA2004DA625 /* Models */ = {
@@ -1379,6 +1376,17 @@
 				0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */,
 			);
 			path = Transactions;
+			sourceTree = "<group>";
+		};
+		0A4399672150470E0032E608 /* ConfirmBackup */ = {
+			isa = PBXGroup;
+			children = (
+				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
+				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
+				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
+				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
+			);
+			path = ConfirmBackup;
 			sourceTree = "<group>";
 		};
 		0A485E962100A89400079B49 /* Transaction */ = {
@@ -1696,6 +1704,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A4399672150470E0032E608 /* ConfirmBackup */,
 				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E9E7129B20DC058F00B95669 /* Hello */,
@@ -2009,6 +2018,7 @@
 				0AF9226A212E1233003BA067 /* UIViewController+Rx.swift */,
 				0AF92266212E1233003BA067 /* UIViewController+SafeArea.swift */,
 				0A61B59B214AD51700EC60FC /* JSONDecoder+JSON.swift */,
+				0A43996821504CF60032E608 /* SideMenu.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2612,7 +2622,6 @@
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
 				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
-				0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
@@ -2964,6 +2973,7 @@
 				04C1BF57211CA5EF0095377D /* History.strings in Resources */,
 				E96038B720B599A800D303E8 /* TransactionHistoryAddressView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
+				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				E99C2C5621258B930029D819 /* DexOrderBookHeaderView.xib in Resources */,
 				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
@@ -3041,6 +3051,7 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IdentityImg/IdentityImg.framework",
 				"${BUILT_PRODUCTS_DIR}/InfiniteCollectionView/InfiniteCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
@@ -3088,6 +3099,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IdentityImg.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InfiniteCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
@@ -3402,9 +3414,11 @@
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
 				0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */,
+				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
 				E9983DF6211C80A0002349CA /* DexMarketModuleBuilder.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
+				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				E92611792107C5F400A9E793 /* DexListViewController.swift in Sources */,
 				0AF922B8212E1234003BA067 /* UIViewController+Additionals.swift in Sources */,
 				0AF922BD212E1234003BA067 /* UIResponder+Rx.swift in Sources */,

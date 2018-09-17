@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HelloLanguagesViewControllerDelegate: AnyObject {
+protocol HelloLanguagesModuleOutput: AnyObject {
     func languageDidSelect(language: Language)
     func userFinishedChangeLanguage()
 }
@@ -24,7 +24,7 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
 
     private var chosenIndexPath: IndexPath?
 
-    weak var delegate: HelloLanguagesViewControllerDelegate?
+    weak var output: HelloLanguagesModuleOutput?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     }
 
     @IBAction func continueWasPressed(_ sender: Any) {
-        delegate?.userFinishedChangeLanguage()
+        output?.userFinishedChangeLanguage()
     }
 
     // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -70,7 +70,7 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         }
 
         let item = languages[indexPath.row]
-        delegate?.languageDidSelect(language: item)        
+        output?.languageDidSelect(language: item)
         continueBtn.setTitle(Localizable.Hello.Button.continue, for: .normal)
     }
 }

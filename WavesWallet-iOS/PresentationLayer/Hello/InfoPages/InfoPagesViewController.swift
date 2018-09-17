@@ -8,8 +8,7 @@
 import UIKit
 import Koloda
 
-protocol InfoPagesViewControllerDelegate: AnyObject {
-
+protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
 }
 
@@ -21,7 +20,7 @@ final class InfoPagesViewController: UIViewController, KolodaViewDelegate, Kolod
     @IBOutlet private weak var kolodaBotConstraint: NSLayoutConstraint!
     @IBOutlet private weak var pageControlBotConstraint: NSLayoutConstraint!
 
-    weak var delegate: InfoPagesViewControllerDelegate?
+    weak var output: InfoPagesViewModuleOutput?
     
     private var pageViews: [UIView] {
         
@@ -107,7 +106,7 @@ final class InfoPagesViewController: UIViewController, KolodaViewDelegate, Kolod
     }
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        delegate?.userFinishedReadPages()
+        output?.userFinishedReadPages()
     }
     
     func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {

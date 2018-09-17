@@ -14,6 +14,21 @@ private struct Avatar {
     let index: Int
 }
 
+enum NewAccount {
+    enum DTO {
+        struct Account {
+            let seed: String
+            let hash: String
+            let password: String
+            let name: String
+        }
+    }
+}
+
+protocol NewAccountModuleOutput: AnyObject {
+    func userCompletedCreateAccount(_ account: NewAccount.DTO.Account)
+}
+
 final class NewAccountViewController: UIViewController {
 
     @IBOutlet private var avatars: [NewAccountAvatarView]!
@@ -25,8 +40,8 @@ final class NewAccountViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-
     private var currentAvatar: Avatar?
+    weak var output: NewAccountModuleOutput?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +53,10 @@ final class NewAccountViewController: UIViewController {
         setupBigNavigationBar()
         setupTopBarLine()
         setupAvatarsView()
-
         createBackButton()
 
         ifNeedDisableButtonContinue()
-
-         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -67,37 +80,49 @@ final class NewAccountViewController: UIViewController {
         passwordInput.update(with: NewAccountInputTextField.Model(title: "Create a password", kind: .password))
         confirmPasswordInput.update(with: NewAccountInputTextField.Model(title: "Confirm password", kind: .password))
 
-        accountNameInput.valueValidator = { value in
-            if value?.count == 0 {
-                return "at least 8 characters"
-            } else {
-                return nil
-            }
-        }
-
-        passwordInput.valueValidator = { value in
-            if (value?.count ?? 0) < 8 {
-                return "at least 8 characters"
-            } else {
-                return nil
-            }
-        }
-
-        confirmPasswordInput.valueValidator = { [weak self] value in
-            if self?.passwordInput.value != value {
-                return "Differnt password"
-            }
-
-            return nil
-        }
-
-        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
-            self?.ifNeedDisableButtonContinue()
-        }
-
-        accountNameInput.changedValue = changedValue
-        passwordInput.changedValue = changedValue
-        confirmPasswordInput.changedValue = changedValue
+//        accountNameInput.valueValidator = { value in
+//            if value?.count == 0 {
+//                return "at least 8 characters"
+//            } else {
+//                return nil
+//            }
+//        }
+//
+//        passwordInput.valueValidator = { value in
+//            if (value?.count ?? 0) < 8 {
+//                return "at least 8 characters"
+//            } else {
+//                return nil
+//            }
+//        }
+//
+//        confirmPasswordInput.valueValidator = { [weak self] value in
+//            if self?.passwordInput.value != value {
+//                return "Differnt password"
+//            }
+//
+//            return nil
+//        }
+//
+//        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
+//            self?.ifNeedDisableButtonContinue()
+//        }
+//
+//        accountNameInput.changedValue = changedValue
+//        passwordInput.changedValue = changedValue
+//        confirmPasswordInput.changedValue = changedValue
+//
+//        accountNameInput.returnKey = .next
+//        passwordInput.returnKey = .next
+//        confirmPasswordInput.returnKey = .done
+//
+//        accountNameInput.textFieldShouldReturn = { [weak self] _ in
+//            self?.passwordInput.becomeFirstResponder()
+//        }
+//
+//        passwordInput.textFieldShouldReturn = { [weak self] _ in
+//            self?.confirmPasswordInput.becomeFirstResponder()
+//        }
     }
 
     private func setupAvatarsView() {
@@ -107,6 +132,7 @@ final class NewAccountViewController: UIViewController {
             let index = object.offset
             let view = object.element
             let key = WordList.generatePhrase()
+            let decoded = Base58.decode(key)
 
             view.avatarDidTap = { [weak self] view, key in
                 self?.currentAvatar = Avatar(key: key, index: index)
@@ -140,8 +166,10 @@ final class NewAccountViewController: UIViewController {
     @IBAction func continueTapped(_ sender: Any) {
         guard isValidData else { return }
 
-        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
-        navigationController?.pushViewControllerAndSetLast(controller)
+
+//        output?.userCompletedCreateAccount(
+//        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
+//        navigationController?.pushViewControllerAndSetLast(controller)
     }
 
     private var isValidData: Bool {
