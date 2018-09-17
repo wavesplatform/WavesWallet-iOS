@@ -89,14 +89,20 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
             tagLabel.text = balance.currency.ticker
         }
         
-        tagContainer.isHidden = model.balance?.currency.ticker == nil
+        
         
         iconImageView.image = icon(for: model.kind)
         currencyLabel.text = model.currencyConversion
         
         let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
         
-        valueLabelXConstraint.constant = tagSize.width / -2
+        if model.balance?.currency.ticker == nil {
+            tagContainer.isHidden = true
+            valueLabelXConstraint.constant = 0
+        } else {
+            tagContainer.isHidden = false
+            valueLabelXConstraint.constant = tagSize.width / -2
+        }
         
         setNeedsUpdateConstraints()
         
