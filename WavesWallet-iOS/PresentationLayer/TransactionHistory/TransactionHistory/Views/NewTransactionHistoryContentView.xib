@@ -10,12 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewTransactionHistoryContentView" customModule="WavesWallet_iOS" customModuleProvider="target">
-            <connections>
-                <outlet property="copyAllDataButton" destination="Eqk-fn-bcQ" id="a0Z-rp-bVq"/>
-                <outlet property="copyTXButton" destination="5Uf-zR-kJ3" id="V9o-4h-ibZ"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewTransactionHistoryContentView" customModule="WavesWallet_iOS" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="buk-81-bE3" customClass="NewTransactionHistoryContentView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -35,7 +30,7 @@
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="copyTXTapped:" destination="-1" eventType="touchUpInside" id="QMT-Ro-s0z"/>
+                                <action selector="copyTXTapped:" destination="-1" eventType="touchUpInside" id="jcd-Qq-f07"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-fn-bcQ">
@@ -45,7 +40,7 @@
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="copyAllDataTapped:" destination="-1" eventType="touchUpInside" id="FGs-xy-G3F"/>
+                                <action selector="copyAllDataTapped:" destination="-1" eventType="touchUpInside" id="zeJ-5Q-BNU"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbe-ky-tgE">
@@ -85,7 +80,9 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="zIy-q0-vRV"/>
             <connections>
-                <outlet property="tableView" destination="Ehu-T4-J76" id="Obl-DZ-OII"/>
+                <outlet property="copyAllDataButton" destination="Eqk-fn-bcQ" id="duj-T9-d1w"/>
+                <outlet property="copyTXButton" destination="5Uf-zR-kJ3" id="BoI-Ls-MaV"/>
+                <outlet property="tableView" destination="Ehu-T4-J76" id="XgA-fc-9q0"/>
             </connections>
             <point key="canvasLocation" x="-210.5" y="-113.5"/>
         </view>
