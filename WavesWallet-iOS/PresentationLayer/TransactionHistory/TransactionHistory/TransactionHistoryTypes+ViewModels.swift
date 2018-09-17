@@ -14,6 +14,7 @@ extension TransactionHistoryTypes.ViewModel {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
         let balance: Balance?
         let sign: Balance.Sign?
+        let customTitle: String?
         let currencyConversion: String?
     }
     
@@ -82,6 +83,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var balance: Balance?
         var comment: String?
         var sign: Balance.Sign = .none
+        var customTitle: String?
         
         switch transaction.kind {
         case .receive(let model):
@@ -141,8 +143,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
             kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
             
-        case .createdAlias:
-            break
+        case .createdAlias(let model):
+            customTitle = model
         case .canceledLeasing(let model):
             balance = model.balance
 
@@ -188,7 +190,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             }
             
         case .data:
-            break
+            customTitle = "Data transaction"
         case .unrecognisedTransaction:
             break
         }
@@ -201,6 +203,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     kind: transaction.kind,
                     balance: balance,
                     sign: sign,
+                    customTitle: customTitle,
                     currencyConversion: nil
                 )
             )

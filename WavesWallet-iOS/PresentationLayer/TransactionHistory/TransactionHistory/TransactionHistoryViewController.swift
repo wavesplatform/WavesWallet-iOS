@@ -26,6 +26,8 @@ class TransactionHistoryViewController: UIViewController {
         swipeView.delegate = self
         swipeView.dataSource = self
         
+//        swipeView.currentPage = state.currentIndex
+        
         setupSystem()
     }
     
@@ -73,11 +75,9 @@ private extension TransactionHistoryViewController {
             guard let sself = self else { return }
             
             sself.displays = state.displays
-            
             sself.swipeView.reloadData()
-//            let contentView = sself.swipeView.currentItemView as! NewTransactionHistoryContentView
-//            contentView.relo
             
+            sself.swipeView.currentPage = state.currentIndex
         })
         
         return [subscriptionSections]

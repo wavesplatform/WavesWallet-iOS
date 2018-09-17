@@ -76,12 +76,14 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             
             switch item {
             case .transaction(let transaction):
-                index = 0//state.transactions.index(of: transaction) ?? NSNotFound
+                index = state.transactions.index(where: { (loopTransaction) -> Bool in
+                    return transaction.id == loopTransaction.id
+                }) ?? NSNotFound
             default: break
             }
             
             if (index != NSNotFound) {
-                moduleOutput?.showTransaction(transactions: state.transactions, index: 0)
+                moduleOutput?.showTransaction(transactions: state.transactions, index: index)
             }
             
             return state

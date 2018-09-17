@@ -33,10 +33,3 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
     
 }
 
-//extension TransactionHistoryCoordinator: TransactionHistoryModuleInput {
-//
-//    var transactions: [TransactionHistoryTypes.DTO.Transaction] { return transactions}
-//    var currentIndex: Int { return currentIndex }
-//
-//
-//}

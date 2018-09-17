@@ -80,10 +80,16 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 extension TransactionHistoryGeneralCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.General) {
         
-        if let balance = model.balance {
+        if let customTitle = model.customTitle {
+          
+            valueLabel.text = customTitle
+            
+        } else if let balance = model.balance {
             valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true), font: valueLabel.font)
             tagLabel.text = balance.currency.ticker
         }
+        
+        tagContainer.isHidden = model.balance?.currency.ticker == nil
         
         iconImageView.image = icon(for: model.kind)
         currencyLabel.text = model.currencyConversion
