@@ -20,13 +20,14 @@ class TransactionHistoryViewController: UIViewController {
     
     private var displays: [TransactionHistoryTypes.State.DisplayState] = []
     
+    let accountTap: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
+    let buttonTap: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         swipeView.delegate = self
         swipeView.dataSource = self
-        
-//        swipeView.currentPage = state.currentIndex
         
         setupSystem()
     }
@@ -94,6 +95,24 @@ extension TransactionHistoryViewController: SwipeViewDelegate {
     
 }
 
+extension TransactionHistoryViewController: TransactionHistoryContentViewDelegate {
+    
+    func contentViewDidPressButton(view: NewTransactionHistoryContentView) {
+        
+        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
+        buttonTap.onNext(transaction)
+        
+    }
+    
+    func contentViewDidPressAccount(view: NewTransactionHistoryContentView) {
+        
+        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
+        accountTap.onNext(transaction)
+        
+    }
+    
+}
+
 extension TransactionHistoryViewController: SwipeViewDataSource {
     
     func numberOfItems(in swipeView: SwipeView!) -> Int {
@@ -107,6 +126,7 @@ extension TransactionHistoryViewController: SwipeViewDataSource {
         let view = NewTransactionHistoryContentView.loadView() as! NewTransactionHistoryContentView 
         view.frame = swipeView.bounds
         view.setup(with: displayState)
+        view.delegate = self
         
         return view
         

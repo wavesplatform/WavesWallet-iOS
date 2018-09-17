@@ -12,10 +12,10 @@ extension TransactionHistoryTypes.DTO {
     
     struct Transaction: Mutating {
         
-        enum Status: String {
-            case activeNow = "ACTIVE NOW"
-            case unconfirmed = "UNCONFIRMED"
-            case completed = "COMPLETED"
+        enum Status {
+            case activeNow
+            case unconfirmed
+            case completed
         }
         
         enum Kind {

@@ -71,6 +71,7 @@ extension TransactionHistoryTypes.ViewModel {
     }
     
     struct Section {
+        var transaction: DomainLayer.DTO.SmartTransaction
         var items: [Row]
     }
 }
@@ -96,7 +97,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             sign = .plus
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.recipient.contact?.name ?? "mr. big",
+                    address: model.recipient.id)
+                ))
 
         case .sent(let model):
             balance = model.balance
@@ -104,13 +111,25 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             sign = .minus
 
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.recipient.contact?.name,
+                    address: model.recipient.id)
+                ))
             
         case .startedLeasing(let model):
             balance = model.balance
             asset = model.asset
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.account.contact?.name,
+                    address: model.account.id)
+                ))
             
         case .exchange(let model):
             
@@ -124,7 +143,12 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
             balance = model.total
             
-            kindRows.append(.keyValue(.init(title: model.price.currency.title + " Price", value: model.price.displayText)))
+            kindRows.append(
+                .keyValue(
+                .init(
+                    title: model.price.currency.title + " " + Localizable.TransactionHistory.Cell.price,
+                    value: model.price.displayText)
+                ))
             
         case .selfTransfer(let model):
             balance = model.balance
@@ -136,7 +160,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
             comment = model.description
             asset = model.asset
             
-            kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
+            kindRows.append(
+                .keyValue(
+                .init(
+                    title: Localizable.TransactionHistory.Cell.id,
+                    value: model.asset.id,
+                    subvalue: model.asset.isReusable ? Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                ))
             
         case .tokenReissue(let model):
             balance = model.balance
@@ -144,14 +174,27 @@ extension TransactionHistoryTypes.ViewModel.Section {
             sign = .plus
             asset = model.asset
             
-            kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
+            kindRows.append(
+                .keyValue(
+                .init(
+                    title: Localizable.TransactionHistory.Cell.id,
+                    value: model.asset.id,
+                    subvalue: model.asset.isReusable ?
+                        Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                ))
             
         case .tokenBurn(let model):
             balance = model.balance
             comment = model.description
             sign = .minus
             
-            kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
+            kindRows.append(
+                .keyValue(
+                .init(
+                    title: Localizable.TransactionHistory.Cell.id,
+                    value: model.asset.id,
+                    subvalue: model.asset.isReusable ? Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                ))
             
         case .createdAlias(let model):
             customTitle = model
@@ -159,15 +202,26 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             asset = model.asset
 
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
-
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.account.contact?.name,
+                    address: model.account.id)
+                ))
             
         case .incomingLeasing(let model):
             balance = model.balance
             asset = model.asset
             sign = .minus
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.account.contact?.name,
+                    address: model.account.id)
+                ))
             
         case .massSent(let model):
             comment = model.attachment
@@ -176,7 +230,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
             sign = .minus
             
             for transfer in model.transfers {
-                 kindRows.append(.recipient(.init(kind: transaction.kind, name: transfer.recipient.contact?.name, address: transfer.recipient.id)))
+                 kindRows.append(
+                    .recipient(
+                    .init(
+                        kind: transaction.kind,
+                        name: transfer.recipient.contact?.name,
+                        address: transfer.recipient.id)
+                    ))
             }
             
         case .massReceived(let model):
@@ -186,7 +246,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
             sign = .plus
 
             for transfer in model.transfers {
-                kindRows.append(.recipient(.init(kind: transaction.kind, name: transfer.recipient.contact?.name, address: transfer.recipient.id)))
+                kindRows.append(
+                    .recipient(
+                    .init(
+                        kind: transaction.kind,
+                        name: transfer.recipient.contact?.name,
+                        address: transfer.recipient.id)
+                    ))
             }
             
         case .spamReceive(let model):
@@ -195,7 +261,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             isSpam = true
             
-            kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
+            kindRows.append(
+                .recipient(
+                .init(
+                    kind: transaction.kind,
+                    name: model.recipient.contact?.name,
+                    address: model.recipient.id)
+                ))
             
         case .spamMassReceived(let model):
             comment = model.attachment
@@ -204,11 +276,17 @@ extension TransactionHistoryTypes.ViewModel.Section {
             isSpam = true
             
             for transfer in model.transfers {
-                kindRows.append(.recipient(.init(kind: transaction.kind, name: transfer.recipient.contact?.name, address: transfer.recipient.id)))
+                kindRows.append(
+                    .recipient(
+                    .init(
+                        kind: transaction.kind,
+                        name: transfer.recipient.contact?.name,
+                        address: transfer.recipient.id)
+                    ))
             }
             
         case .data:
-            customTitle = "Data transaction"
+            customTitle = Localizable.TransactionHistory.Cell.dataTransaction
         case .unrecognisedTransaction:
             break
         }
@@ -246,7 +324,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         // fee
         
         rows.append(.keyValue(
-            .init(title: "Fee",
+            .init(title: Localizable.TransactionHistory.Cell.fee,
                   value: transaction.totalFee.displayText))
         )
 
@@ -255,11 +333,11 @@ extension TransactionHistoryTypes.ViewModel.Section {
         rows.append(.keysValues(
             [
                 .init(
-                    title: "Confirmations",
+                    title: Localizable.TransactionHistory.Cell.confirmations,
                     value: String(transaction.confirmationHeight)
                 ),
                 .init(
-                    title: "Block",
+                    title: Localizable.TransactionHistory.Cell.block,
                     value: String(transaction.height)
                 )
             ])
@@ -287,7 +365,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             break
         }
         
-        let generalSection = TransactionHistoryTypes.ViewModel.Section(items: rows)
+        let generalSection = TransactionHistoryTypes.ViewModel.Section(transaction: transaction, items: rows)
         
         return [generalSection]
         

@@ -12,6 +12,10 @@ protocol TransactionHistoryButtonCellDelegate: class {
     func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell)
 }
 
+private enum Constants {
+    static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+}
+
 final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
     
     weak var delegate: TransactionHistoryButtonCellDelegate?
@@ -37,25 +41,31 @@ final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
 
 extension TransactionHistoryButtonCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.ResendButton) {
+        
         var title = ""
         var buttonBackground: UIColor?
         var icon: UIImage
         
         switch model.type {
         case .resend:
-            title = "Send again"
-            buttonBackground = UIColor(red: 248, green: 147, blue: 0)
+            
+            title = Localizable.TransactionHistory.Cell.Button.sendAgain
+            buttonBackground = UIColor.warning600
             icon = Images.resendIcon.image
+            
         case .cancelLeasing:
-            title = "Cancel leasing"
-            buttonBackground = UIColor(red: 229, green: 73, blue: 77)
+            
+            title = Localizable.TransactionHistory.Cell.Button.cancelLeasing
+            buttonBackground = UIColor.error400
             icon = Images.closeLeaseIcon.image
+            
         }
         
         button.setTitle(title, for: .normal)
         button.setImage(icon, for: .normal)
         button.backgroundColor = buttonBackground
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+        button.titleEdgeInsets = Constants.titleEdgeInsets
+        
     }
 }
 
