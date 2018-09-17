@@ -64,9 +64,9 @@ extension DexCreateOrder.DTO {
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         var type: OrderType
-        var amount: Double
-        var price: Double
-        var total: Double
+        var amount: Money
+        var price: Money
+        var total: Money
         var expiration: Expiration
         let fee: Int = Constanst.orderFee
 

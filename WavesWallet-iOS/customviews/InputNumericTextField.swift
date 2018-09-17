@@ -13,12 +13,12 @@ private enum Constants {
     static let buttonDotFontSize: CGFloat = 17
     static let systemDotSoundID: SystemSoundID = 1103
     
-    static let maximumDigits = 10
+    static let maximumInputDigits = 8
 }
 
 protocol InputNumericTextFieldDelegate: AnyObject {
 
-    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Double)
+    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Money)
 }
 
 final class InputNumericTextField: UITextField {
@@ -42,10 +42,15 @@ final class InputNumericTextField: UITextField {
     
     var isShakeView: Bool = true
     weak var inputNumericDelegate: InputNumericTextFieldDelegate?
-    var maximumFractionDigits: Int = 0
-    
-    var value: Double {
-        return (textString as NSString).doubleValue
+    var decimals: Int = 0
+
+    var value: Money {
+        
+        if let d = Decimal(string: textString, locale: Locale.current) {
+            return Money(Int64(truncating: d * Decimal(10 ^^ decimals) as NSNumber), decimals)
+        } else {
+            return Money(0)
+        }
     }
     
     override init(frame: CGRect) {
@@ -84,15 +89,20 @@ final class InputNumericTextField: UITextField {
     
     //MARK: - Methods
     
-    func setStringValue(value: String) {
-        setupAttributedText(text: value)
+    func setValue(value: Money) {
+        decimals = value.decimals
+        setupAttributedText(text: value.displayTextFull)
     }
+    
+//    func setStringValue(value: String) {
+//        setupAttributedText(text: value)
+//    }
     
     func addPlusValue() {
         
         let numberFormatter = NumberFormatter()
-        numberFormatter.maximumFractionDigits = maximumFractionDigits
-        numberFormatter.minimumIntegerDigits = maximumFractionDigits
+        numberFormatter.maximumFractionDigits = decimals
+        numberFormatter.minimumIntegerDigits = decimals
         numberFormatter.decimalSeparator = "."
         numberFormatter.usesGroupingSeparator = false
         
@@ -106,7 +116,7 @@ final class InputNumericTextField: UITextField {
         var value = textNSString.doubleValue
         value += deltaValue
 
-        let text = String(format: "%.0\(countDecimals)f", value)
+        let text = String(format: "%.0\(countInputDecimals)f", value)
         setupAttributedText(text: text)
     }
     
@@ -116,7 +126,7 @@ final class InputNumericTextField: UITextField {
         if value < 0 {
             value = 0
         }
-        let text = String(format: "%.0\(countDecimals)f", value)
+        let text = String(format: "%.0\(countInputDecimals)f", value)
         setupAttributedText(text: text)
     }
 }
@@ -207,7 +217,6 @@ private extension InputNumericTextField {
     
     @objc func addButtonDotToKeyboard() {
         
-        
         DispatchQueue.main.async {
             UIApplication.shared.windows.last?.addSubview(self.buttonDot)
         }
@@ -244,7 +253,10 @@ extension InputNumericTextField: UITextFieldDelegate {
             attributedText = nil
         }
         
-        let value = Double(textString) ?? 0
+//        print("displayText", value.displayTextNoGrouping)
+        print("int", value.amount)
+
+        
         inputNumericDelegate?.inputNumericTextField(self, didChangeValue: value)
     }
     
@@ -324,7 +336,7 @@ private extension InputNumericTextField {
         return textNSString.range(of: ".")
     }
     
-    var countDecimals: Int {
+    var countInputDecimals: Int {
         
         var decimals = 0
         
@@ -339,7 +351,7 @@ private extension InputNumericTextField {
     var deltaValue: Double {
         
         var deltaValue : Double = 1
-        for _ in 0..<countDecimals {
+        for _ in 0..<countInputDecimals {
             deltaValue *= 0.1
         }
         
@@ -362,7 +374,7 @@ private extension InputNumericTextField {
                 return false
             }
         }
-        else if countDecimals >= maximumFractionDigits && maximumFractionDigits > 0 && input.count > 0 {
+        else if countInputDecimals >= decimals && decimals > 0 && input.count > 0 {
             if inputRange.location > dotRange.location {
                 shakeTextFieldIfNeed()
                 return false

@@ -14,7 +14,7 @@ private enum Constants {
 }
 
 protocol DexCreateOrderInputViewDelegate: AnyObject {
-    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double)
+    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money)
 }
 
 
@@ -22,7 +22,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
     struct Input {
         let text: String
-        let value: Double
+        let value: Money
     }
     
     private var isShowInputScrollView = false {
@@ -46,7 +46,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
   
     var maximumFractionDigits: Int = 0 {
         didSet {
-            textField.maximumFractionDigits = maximumFractionDigits
+            textField.decimals = maximumFractionDigits
         }
     }
     
@@ -78,13 +78,8 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         labelError.text = errorTitle
     }
     
-    func setupValue(_ value: Double) {
-          
-        let formatter = DexCreateOrder.ViewModel.numberFormatter(maximumFractionDigits: maximumFractionDigits)
-        
-        if let string = formatter.string(from: NSNumber(value: value)) {
-            textField.setStringValue(value: string)
-        }
+    func setupValue(_ value: Money) {
+        textField.setValue(value: value)
         hideInputScrollView(animation: false)
     }
     
@@ -110,7 +105,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 //MARK: - InputNumericTextFieldDelegate
 extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
   
-    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Double) {
+    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
     }
 }
@@ -122,13 +117,7 @@ extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
         hideInputScrollView(animation: true)
         
         let value = input[index].value
-
-        let formatter = DexCreateOrder.ViewModel.numberFormatter(maximumFractionDigits: maximumFractionDigits)
-
-        if let string = formatter.string(from: NSNumber(value: value)) {
-            textField.setStringValue(value: string)
-        }
-        
+        textField.setValue(value: value)
         textFieldDidChangeNewValue()
     }
 }
@@ -159,14 +148,14 @@ private extension DexCreateOrderInputView {
 //MARK: - Change frame
 private extension DexCreateOrderInputView {
     
-    func updateViewHeight(inputValue: Double) {
+    func updateViewHeight(inputValue: Money) {
         
         if isShowInputScrollView {
-            if inputValue > 0 {
-                hideInputScrollView(animation: true)
+            if inputValue.isZero {
+                showInputScrollView(animation: true)
             }
             else {
-                showInputScrollView(animation: true)
+                hideInputScrollView(animation: true)
             }
         }
     }
