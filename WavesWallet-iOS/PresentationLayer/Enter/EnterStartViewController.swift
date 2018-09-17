@@ -154,9 +154,12 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     }
     
     @IBAction func createNewAccountTapped(_ sender: Any) {
-    
-        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountViewController") as! NewAccountViewController
-        navigationController?.pushViewController(controller, animated: true)
+
+        let account = NewAccountCoordinator(navigationController: navigationController!)
+
+        account.start()
+//        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountViewController") as! NewAccountViewController
+//        navigationController?.pushViewController(controller, animated: true)
     }
     
     @IBAction func showMenu(_ sender: Any) {
