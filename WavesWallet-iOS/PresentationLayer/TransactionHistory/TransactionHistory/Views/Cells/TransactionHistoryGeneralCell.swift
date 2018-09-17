@@ -8,6 +8,11 @@
 
 import UIKit
 
+private enum Constants {
+    static let spamColor = UIColor.basic100
+    static let spamTextColor = UIColor.basic500
+}
+
 final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 
     @IBOutlet weak var iconImageView: UIImageView!
@@ -80,23 +85,50 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 extension TransactionHistoryGeneralCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.General) {
         
+        // ставим кастомный тайтл без тэгов
         if let customTitle = model.customTitle {
           
             valueLabel.text = customTitle
             
         } else if let balance = model.balance {
-            valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true), font: valueLabel.font)
+            
+            if let asset = model.asset, balance.currency.ticker == nil, model.isSpam == false {
+                
+                valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true) + " " + asset.name, font: valueLabel.font)
+                
+            } else {
+                
+                valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true), font: valueLabel.font)
+                
+            }
+            
             tagLabel.text = balance.currency.ticker
+            
         }
-        
-        
         
         iconImageView.image = icon(for: model.kind)
         currencyLabel.text = model.currencyConversion
+    
+        updateTag(with: model)
+    }
+    
+    func updateTag(with model: TransactionHistoryTypes.ViewModel.General) {
+        
+        if model.isSpam == true {
+            tagLabel?.text = "SPAM"
+            
+            tagContainer.backgroundColor = Constants.spamColor
+            tagContainer.borderColor = Constants.spamColor
+            tagLabel.textColor = Constants.spamTextColor
+            tagContainer.isHidden = false
+        }
         
         let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
         
-        if model.balance?.currency.ticker == nil {
+        if model.isSpam == true {
+            tagContainer.isHidden = false
+            valueLabelXConstraint.constant = tagSize.width / -2
+        } else if model.balance?.currency.ticker == nil {
             tagContainer.isHidden = true
             valueLabelXConstraint.constant = 0
         } else {
