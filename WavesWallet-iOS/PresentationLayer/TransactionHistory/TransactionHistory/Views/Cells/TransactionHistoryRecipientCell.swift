@@ -12,9 +12,22 @@ private enum Constants {
     static let padding: UIEdgeInsets = Platform.isIphone5 ? UIEdgeInsets(top: 14, left: 12, bottom: 14, right: 12) : UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 16)
     static let titleToNameY: CGFloat = 6
     static let nameToAddressY: CGFloat = 2
+    
+    static let titleFont: UIFont = UIFont.systemFont(ofSize: 13)
+    static let nameFont: UIFont = UIFont.systemFont(ofSize: 13)
+    static let addressFont: UIFont = UIFont.systemFont(ofSize: 10)
+}
+
+protocol TransactionHistoryRecipientCellDelegate: class {
+    
+    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell)
+    
 }
 
 final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
+    
+    weak var delegate: TransactionHistoryRecipientCellDelegate?
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var valueLabel: UILabel!
@@ -22,9 +35,7 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     
     @IBOutlet weak var nameToKeyConstraint: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    @IBOutlet weak var contactButton: UIButton!
     
     fileprivate static func title(for model: TransactionHistoryTypes.ViewModel.Recipient) -> String {
      
@@ -32,25 +43,29 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         
         switch model.kind {
         case .sent:
-            title = "Sent to"
+            title = Localizable.TransactionHistory.Cell.sentTo
         case .receive:
-            title = "Recieved from"
+            title = Localizable.TransactionHistory.Cell.receivedFrom
         case .startedLeasing:
-            title = "Leasing to"
+            title = Localizable.TransactionHistory.Cell.leasingTo
         case .canceledLeasing:
-            title = "From"
+            title = Localizable.TransactionHistory.Cell.from
         case .incomingLeasing:
-            title = "From"
+            title = Localizable.TransactionHistory.Cell.from
         case .massSent:
-            title = "Recipient"
+            title = Localizable.TransactionHistory.Cell.recipient
         case .massReceived:
-            title = "From"
+            title = Localizable.TransactionHistory.Cell.recipient
         default:
             title = ""
         }
         
         return title
         
+    }
+    
+    @IBAction func contactPressed(_ sender: Any) {
+        delegate?.recipientCellDidPressContact(cell: self)
     }
     
 }
@@ -61,14 +76,18 @@ extension TransactionHistoryRecipientCell: ViewCalculateHeight {
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.Recipient, width: CGFloat) -> CGFloat {
         
-        let titleHeight = title(for: model).maxHeight(font: UIFont.systemFont(ofSize: 13), forWidth: width)
+        let titleHeight = title(for: model).maxHeight(font: Constants.titleFont, forWidth: width)
+        
+        let nameLabelText = model.name ?? model.address
+        let nameHeight = nameLabelText.maxHeight(font: Constants.nameFont, forWidth: width)
         
         let nameToAddressY: CGFloat = (model.name != nil) ? Constants.nameToAddressY : 0
         
-        let nameHeight = model.name?.maxHeight(font: UIFont.systemFont(ofSize: 13), forWidth: width) ?? 0
-        let addressHeight = model.address.maxHeight(font: UIFont.systemFont(ofSize: 10), forWidth: width)
+        let addressHeight = (model.name != nil) ? model.address.maxHeight(font: Constants.addressFont, forWidth: width) : 0
         
-        return Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + addressHeight + Constants.padding.bottom
+        let height = Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + addressHeight + Constants.padding.bottom
+        
+        return height
     }
     
 }
@@ -81,9 +100,11 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
         if model.name != nil {
             valueLabel.text = model.name
             keyLabel.text = model.address
+            contactButton.setImage(Images.editAddressIcon.image, for: .normal)
         } else {
             valueLabel.text = model.address
             keyLabel.text = ""
+            contactButton.setImage(Images.addAddressIcon.image, for: .normal)
         }
         
         nameToKeyConstraint.constant = model.name != nil ? Constants.nameToAddressY : 0

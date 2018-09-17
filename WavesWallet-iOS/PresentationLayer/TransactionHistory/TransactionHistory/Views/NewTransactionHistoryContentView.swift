@@ -8,7 +8,23 @@
 
 import UIKit
 
+private enum Constants {
+    static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+}
+
+protocol TransactionHistoryContentViewDelegate: class {
+    
+    func contentViewDidPressAccount(view: NewTransactionHistoryContentView)
+    func contentViewDidPressButton(view: NewTransactionHistoryContentView)
+    
+}
+
 class NewTransactionHistoryContentView: UIView {
+
+    weak var delegate: TransactionHistoryContentViewDelegate?
+    
+    @IBOutlet weak var copyTXButton: UIButton!
+    @IBOutlet weak var copyAllDataButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -27,6 +43,21 @@ class NewTransactionHistoryContentView: UIView {
         tableView.dataSource = self
     }
     
+    private func setupButtons() {
+        copyTXButton.titleEdgeInsets = Constants.titleEdgeInsets
+        copyAllDataButton.titleEdgeInsets = Constants.titleEdgeInsets
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func copyTXTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func copyAllDataTapped(_ sender: Any) {
+        
+    }
+
 }
 
 // MARK: - Content
@@ -137,8 +168,21 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
 extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate {
     
     func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell) {
-        print("нажатие")
+        
+        delegate?.contentViewDidPressButton(view: self)
+        
     }
     
 }
+
+extension NewTransactionHistoryContentView: TransactionHistoryRecipientCellDelegate {
+    
+    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell) {
+        
+        delegate?.contentViewDidPressAccount(view: self)
+        
+    }
+
+}
+
 

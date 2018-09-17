@@ -51,6 +51,7 @@
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
+		04E1DB07214FC13A00F760F1 /* TransactionHistory.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E1DB09214FC13A00F760F1 /* TransactionHistory.strings */; };
 		04E80A12214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
@@ -660,6 +661,9 @@
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
+		04E1DB08214FC13A00F760F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
+		04E1DB0A214FC13D00F760F1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
+		04E1DB0B214FC14200F760F1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
 		04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
@@ -1419,6 +1423,7 @@
 				04FB3F2421342CB60008CFF3 /* TransactionHistoryTypes+DTO.swift */,
 				04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */,
 				0424E30D212F5ED100B0909A /* TransactionHistoryTypes+ViewModels.swift */,
+				04E1DB09214FC13A00F760F1 /* TransactionHistory.strings */,
 			);
 			path = TransactionHistory;
 			sourceTree = "<group>";
@@ -3129,6 +3134,7 @@
 				E99C2C5621258B930029D819 /* DexOrderBookHeaderView.xib in Resources */,
 				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
+				04E1DB07214FC13A00F760F1 /* TransactionHistory.strings in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				0AF922F9212E1234003BA067 /* LastTraderHeaderView.xib in Resources */,
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
@@ -3854,6 +3860,16 @@
 				04C1BF5B211CA5F60095377D /* tr */,
 			);
 			name = History.strings;
+			sourceTree = "<group>";
+		};
+		04E1DB09214FC13A00F760F1 /* TransactionHistory.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E1DB08214FC13A00F760F1 /* en */,
+				04E1DB0A214FC13D00F760F1 /* ru */,
+				04E1DB0B214FC14200F760F1 /* tr */,
+			);
+			name = TransactionHistory.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {

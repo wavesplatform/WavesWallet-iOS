@@ -61,7 +61,7 @@ internal enum Images {
     internal static let walletScanner = ImageAsset(name: "wallet_scanner")
     internal static let walletSort = ImageAsset(name: "wallet_sort")
   }
-  internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
+  internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
   internal static let arrowLeft = ImageAsset(name: "arrow_left")
   internal static let arrowRed = ImageAsset(name: "arrow_red")
@@ -98,6 +98,7 @@ internal enum Images {
   internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
+  internal static let copy18Black = ImageAsset(name: "copy18Black")
   internal static let copyAddress = ImageAsset(name: "copy_address")
   internal static let copyBlack = ImageAsset(name: "copy_black")
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
@@ -271,7 +272,7 @@ internal enum Images {
     Wallet.walletArrowHeader,
     Wallet.walletScanner,
     Wallet.walletSort,
-    addaddress24Submit300,
+    addAddressIcon,
     arrowGreen,
     arrowLeft,
     arrowRed,
@@ -308,6 +309,7 @@ internal enum Images {
     checkmarkFillGray,
     close,
     closeLeaseIcon,
+    copy18Black,
     copyAddress,
     copyBlack,
     deladdress24Error400,

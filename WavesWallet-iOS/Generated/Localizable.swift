@@ -153,6 +153,60 @@ internal enum Localizable {
       internal static let orderbook = Localizable.tr("DexTraderContainer", "button.orderbook")
     }
   }
+  internal enum TransactionHistory {
+
+    internal enum Cell {
+      /// Block
+      internal static let block = Localizable.tr("TransactionHistory", "cell.block")
+      /// Confirmations
+      internal static let confirmations = Localizable.tr("TransactionHistory", "cell.confirmations")
+      /// Data Transaction
+      internal static let dataTransaction = Localizable.tr("TransactionHistory", "cell.dataTransaction")
+      /// Fee
+      internal static let fee = Localizable.tr("TransactionHistory", "cell.fee")
+      /// From
+      internal static let from = Localizable.tr("TransactionHistory", "cell.from")
+      /// ID
+      internal static let id = Localizable.tr("TransactionHistory", "cell.id")
+      /// Leasing to
+      internal static let leasingTo = Localizable.tr("TransactionHistory", "cell.leasingTo")
+      /// Not Reissuable
+      internal static let notReissuable = Localizable.tr("TransactionHistory", "cell.notReissuable")
+      /// Price
+      internal static let price = Localizable.tr("TransactionHistory", "cell.price")
+      /// Received from
+      internal static let receivedFrom = Localizable.tr("TransactionHistory", "cell.receivedFrom")
+      /// Recipient
+      internal static let recipient = Localizable.tr("TransactionHistory", "cell.recipient")
+      /// Reissuable
+      internal static let reissuable = Localizable.tr("TransactionHistory", "cell.reissuable")
+      /// Sent to
+      internal static let sentTo = Localizable.tr("TransactionHistory", "cell.sentTo")
+
+      internal enum Button {
+        /// Cancel Leasing
+        internal static let cancelLeasing = Localizable.tr("TransactionHistory", "cell.button.cancelLeasing")
+        /// Send again
+        internal static let sendAgain = Localizable.tr("TransactionHistory", "cell.button.sendAgain")
+      }
+
+      internal enum Status {
+        /// at
+        internal static let at = Localizable.tr("TransactionHistory", "cell.status.at")
+        /// Timestamp
+        internal static let timestamp = Localizable.tr("TransactionHistory", "cell.status.timestamp")
+
+        internal enum Button {
+          /// Active Now
+          internal static let activeNow = Localizable.tr("TransactionHistory", "cell.status.button.activeNow")
+          /// Completed
+          internal static let completed = Localizable.tr("TransactionHistory", "cell.status.button.completed")
+          /// Unconfirmed
+          internal static let unconfirmed = Localizable.tr("TransactionHistory", "cell.status.button.unconfirmed")
+        }
+      }
+    }
+  }
   internal enum DexChart {
 
     internal enum Button {

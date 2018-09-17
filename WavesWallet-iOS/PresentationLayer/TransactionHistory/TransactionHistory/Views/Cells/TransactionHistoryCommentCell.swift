@@ -11,16 +11,13 @@ import UIKit
 private enum Constants {
     static let padding: UIEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     static let boxPadding: UIEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+    static let fontSize: CGFloat = 13
 }
 
 final class TransactionHistoryCommentCell: UITableViewCell, NibReusable {
     
-    @IBOutlet weak var commentLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
+    @IBOutlet weak private(set) var commentLabel: UILabel!
+
 }
 
 extension TransactionHistoryCommentCell: ViewConfiguration {
@@ -38,9 +35,8 @@ extension TransactionHistoryCommentCell: ViewCalculateHeight {
         let boxPadding = Constants.boxPadding
         
         let modelHeight = model.text.maxHeight(
-            font: UIFont.systemFont(ofSize: 13),
+            font: UIFont.systemFont(ofSize: Constants.fontSize),
             forWidth: width - padding.left - padding.right - boxPadding.left - boxPadding.right)
-        print("height", modelHeight)
         
         return padding.top +
             padding.bottom +

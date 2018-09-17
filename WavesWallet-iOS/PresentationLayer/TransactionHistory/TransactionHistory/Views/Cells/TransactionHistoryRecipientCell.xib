@@ -36,13 +36,6 @@
                         <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addaddress24Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="dns-7C-v4h">
-                        <rect key="frame" x="339" y="43.5" width="24" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="24" id="Bf0-10-920"/>
-                            <constraint firstAttribute="height" constant="24" id="bnw-pB-zRD"/>
-                        </constraints>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyu-V9-tWO" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="12" y="80" width="351" height="0.5"/>
                         <constraints>
@@ -59,15 +52,26 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="3"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjL-rR-QpQ">
+                        <rect key="frame" x="339" y="42" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="1Nu-oW-QuV"/>
+                            <constraint firstAttribute="width" constant="24" id="Sj1-Mt-FAv"/>
+                        </constraints>
+                        <state key="normal" image="addaddress24Submit300"/>
+                        <connections>
+                            <action selector="contactPressed:" destination="8jT-UJ-Rdz" eventType="touchUpInside" id="5RX-lo-ZTd"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="top" secondItem="t38-6W-U0R" secondAttribute="bottom" constant="2" id="DnG-xO-H6P"/>
                     <constraint firstItem="Goq-BE-4Z1" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="F9d-2V-Ajr"/>
+                    <constraint firstAttribute="bottom" secondItem="CjL-rR-QpQ" secondAttribute="bottom" constant="14.5" id="Iqb-fk-heK"/>
                     <constraint firstAttribute="bottom" secondItem="zyu-V9-tWO" secondAttribute="bottom" id="JKg-nS-mqe"/>
+                    <constraint firstAttribute="trailing" secondItem="CjL-rR-QpQ" secondAttribute="trailing" constant="12" id="RSB-Gk-qhd"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="U3w-oS-csW"/>
                     <constraint firstItem="t38-6W-U0R" firstAttribute="top" secondItem="zca-qI-tzY" secondAttribute="bottom" constant="6" id="bj9-mx-tNv"/>
-                    <constraint firstAttribute="bottom" secondItem="dns-7C-v4h" secondAttribute="bottom" constant="13" id="cdx-Ab-doe"/>
-                    <constraint firstAttribute="trailing" secondItem="dns-7C-v4h" secondAttribute="trailing" constant="12" id="d4H-ZU-6eM"/>
                     <constraint firstItem="zyu-V9-tWO" firstAttribute="leading" secondItem="ekU-SN-hJs" secondAttribute="leading" constant="12" id="jxB-05-Mgo"/>
                     <constraint firstAttribute="trailing" secondItem="Goq-BE-4Z1" secondAttribute="trailing" constant="12" id="kLT-Nb-d5t"/>
                     <constraint firstItem="zca-qI-tzY" firstAttribute="top" secondItem="ekU-SN-hJs" secondAttribute="top" constant="14" id="sEw-m4-6ia"/>
@@ -76,6 +80,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="contactButton" destination="CjL-rR-QpQ" id="uxi-DQ-rvL"/>
                 <outlet property="keyLabel" destination="Goq-BE-4Z1" id="aWh-c1-7ab"/>
                 <outlet property="nameToKeyConstraint" destination="DnG-xO-H6P" id="RPv-dY-FBL"/>
                 <outlet property="titleLabel" destination="zca-qI-tzY" id="e2d-PF-2Nb"/>

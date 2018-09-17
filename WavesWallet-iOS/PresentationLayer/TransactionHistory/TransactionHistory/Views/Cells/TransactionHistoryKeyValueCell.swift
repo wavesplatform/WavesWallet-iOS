@@ -15,12 +15,6 @@ final class TransactionHistoryKeyValueCell: UITableViewCell, NibReusable {
     @IBOutlet weak var separator: SeparatorView!
     @IBOutlet weak var valueLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    
-    }
-    
-    
     class func cellHeight() -> CGFloat {
         return 62
     }
