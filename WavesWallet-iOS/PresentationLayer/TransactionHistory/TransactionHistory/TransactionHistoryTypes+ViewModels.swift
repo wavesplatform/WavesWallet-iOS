@@ -15,6 +15,8 @@ extension TransactionHistoryTypes.ViewModel {
         let balance: Balance?
         let sign: Balance.Sign?
         let customTitle: String?
+        let asset: DomainLayer.DTO.Asset?
+        let isSpam: Bool?
         let currencyConversion: String?
     }
     
@@ -83,12 +85,15 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var balance: Balance?
         var comment: String?
         var sign: Balance.Sign = .none
+        var asset: DomainLayer.DTO.Asset?
+        var isSpam: Bool?
         var customTitle: String?
         
         switch transaction.kind {
         case .receive(let model):
             balance = model.balance
             comment = model.attachment
+            asset = model.asset
             sign = .plus
             
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
@@ -96,12 +101,14 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .sent(let model):
             balance = model.balance
             comment = model.attachment
+            asset = model.asset
             sign = .minus
 
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
             
         case .startedLeasing(let model):
             balance = model.balance
+            asset = model.asset
             
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
             
@@ -122,10 +129,12 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .selfTransfer(let model):
             balance = model.balance
             comment = model.attachment
+            asset = model.asset
             
         case .tokenGeneration(let model):
             balance = model.balance
             comment = model.description
+            asset = model.asset
             
             kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
             
@@ -133,6 +142,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             comment = model.description
             sign = .plus
+            asset = model.asset
             
             kindRows.append(.keyValue(.init(title: "ID", value: model.asset.id, subvalue: model.asset.isReusable ? "Reissuable" : "Not Reissuable")))
             
@@ -147,12 +157,14 @@ extension TransactionHistoryTypes.ViewModel.Section {
             customTitle = model
         case .canceledLeasing(let model):
             balance = model.balance
+            asset = model.asset
 
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
 
             
         case .incomingLeasing(let model):
             balance = model.balance
+            asset = model.asset
             sign = .minus
             
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.account.contact?.name, address: model.account.id)))
@@ -160,6 +172,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .massSent(let model):
             comment = model.attachment
             balance = model.total
+            asset = model.asset
             sign = .minus
             
             for transfer in model.transfers {
@@ -169,6 +182,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .massReceived(let model):
             comment = model.attachment
             balance = model.total
+            asset = model.asset
             sign = .plus
 
             for transfer in model.transfers {
@@ -178,12 +192,16 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .spamReceive(let model):
             comment = model.attachment
             balance = model.balance
+            asset = model.asset
+            isSpam = true
             
             kindRows.append(.recipient(.init(kind: transaction.kind, name: model.recipient.contact?.name, address: model.recipient.id)))
             
         case .spamMassReceived(let model):
             comment = model.attachment
             balance = model.total
+            asset = model.asset
+            isSpam = true
             
             for transfer in model.transfers {
                 kindRows.append(.recipient(.init(kind: transaction.kind, name: transfer.recipient.contact?.name, address: transfer.recipient.id)))
@@ -204,6 +222,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     balance: balance,
                     sign: sign,
                     customTitle: customTitle,
+                    asset: asset,
+                    isSpam: isSpam,
                     currencyConversion: nil
                 )
             )

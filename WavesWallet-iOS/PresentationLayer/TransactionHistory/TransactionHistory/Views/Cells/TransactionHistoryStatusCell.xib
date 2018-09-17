@@ -61,6 +61,7 @@
                 <constraint firstAttribute="trailing" secondItem="rOM-uj-UQi" secondAttribute="trailing" constant="12" id="reA-Ci-PnV"/>
             </constraints>
             <connections>
+                <outlet property="statusContainer" destination="rOM-uj-UQi" id="HHC-0F-1Ph"/>
                 <outlet property="statusLabel" destination="UNz-Il-78U" id="jLj-Id-obO"/>
                 <outlet property="titleLabel" destination="LvJ-dT-iUY" id="0Pb-ZI-3lR"/>
                 <outlet property="valueLabel" destination="YCM-Ct-kKg" id="we9-jn-QDB"/>
