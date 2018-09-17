@@ -71,6 +71,11 @@ final class AppCoordinator: Coordinator {
 
     private func showSideMenuViewController(contentViewController: UIViewController) {
 
+        self.window.rootViewController = contentViewController
+
+        self.window.makeKeyAndVisible()
+        return
+
         let menuController = StoryboardScene.Main.menuViewController.instantiate()
         let sideMenuViewController = RESideMenu(contentViewController:contentViewController,
                                                 leftMenuViewController: menuController,

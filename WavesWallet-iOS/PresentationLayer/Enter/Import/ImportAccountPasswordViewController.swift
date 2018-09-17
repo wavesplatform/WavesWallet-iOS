@@ -8,23 +8,22 @@
 
 import UIKit
 
-class ImportAccountPasswordViewController: UIViewController, UIScrollViewDelegate {
+final class ImportAccountPasswordViewController: UIViewController {
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var buttonContinue: UIButton!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var buttonContinue: UIButton!
     
-    @IBOutlet weak var imageIcon: UIImageView!
-    @IBOutlet weak var labelAddress: UILabel!
+    @IBOutlet private weak var imageIcon: UIImageView!
+    @IBOutlet private weak var labelAddress: UILabel!
     
-    @IBOutlet weak var labelAccountName: UILabel!
-    @IBOutlet weak var labelCreatePassword: UILabel!
-    @IBOutlet weak var labelConfirmPassword: UILabel!
+    @IBOutlet private weak var labelAccountName: UILabel!
+    @IBOutlet private weak var labelCreatePassword: UILabel!
+    @IBOutlet private weak var labelConfirmPassword: UILabel!
     
-    @IBOutlet weak var textFieldAccountName: UITextField!
-    @IBOutlet weak var textFieldPassword: UITextField!
-    @IBOutlet weak var textFieldConfirmPassword: UITextField!
-    
-    
+    @IBOutlet private weak var textFieldAccountName: UITextField!
+    @IBOutlet private weak var textFieldPassword: UITextField!
+    @IBOutlet private weak var textFieldConfirmPassword: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,16 +43,6 @@ class ImportAccountPasswordViewController: UIViewController, UIScrollViewDelegat
         setupButtonContinue()
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        if scrollView.contentOffset.y >= 20 {
-            navigationController?.navigationBar.shadowImage = nil
-        }
-        else {
-            hideTopBarLine()
-        }
-    }
-    
     func setupButtonContinue() {
         if textFieldAccountName.text!.count > 0 && textFieldPassword.text!.count > 0 &&
             textFieldPassword.text == textFieldConfirmPassword.text {
@@ -78,12 +67,24 @@ class ImportAccountPasswordViewController: UIViewController, UIScrollViewDelegat
         setupButtonContinue()
         DataManager.setupTextFieldLabel(textField: textFieldConfirmPassword, placeHolderLabel: labelConfirmPassword)
     }
-    
-    
+
     @IBAction func continueTapped(_ sender: Any) {
         
         let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
         controller.isCreatePasswordMode = true
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension ImportAccountPasswordViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if scrollView.contentOffset.y >= 20 {
+            navigationController?.navigationBar.shadowImage = nil
+        }
+        else {
+            hideTopBarLine()
+        }
     }
 }

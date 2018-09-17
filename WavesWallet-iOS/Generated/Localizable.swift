@@ -7,14 +7,40 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
-  internal enum DexSort {
+          internal enum DexSort {
 
     internal enum Navigationbar {
       /// Sorting
       internal static var title: String { return Localizable.tr("DexSort", "navigationBar.title") }
     }
   }
-  internal enum DexList {
+          internal enum NewAccount {
+
+    internal enum Backup {
+
+      internal enum Navigation {
+        /// New Account
+        internal static var title: String { return Localizable.tr("NewAccount", "backup.navigation.title") }
+      }
+    }
+
+    internal enum Main {
+
+      internal enum Navigation {
+        /// New Account
+        internal static var title: String { return Localizable.tr("NewAccount", "main.navigation.title") }
+      }
+    }
+
+    internal enum Secret {
+
+      internal enum Navigation {
+        /// New Account
+        internal static var title: String { return Localizable.tr("NewAccount", "secret.navigation.title") }
+      }
+    }
+  }
+          internal enum DexList {
 
     internal enum Button {
       /// Add Markets
@@ -41,7 +67,7 @@ internal enum Localizable {
       internal static var title: String { return Localizable.tr("DexList", "navigationBar.title") }
     }
   }
-  internal enum DexLastTrades {
+          internal enum DexLastTrades {
 
     internal enum Button {
       /// BUY
@@ -65,7 +91,7 @@ internal enum Localizable {
       internal static var time: String { return Localizable.tr("DexLastTrades", "label.time") }
     }
   }
-  internal enum Enter {
+          internal enum Enter {
 
     internal enum Block {
 
@@ -124,8 +150,16 @@ internal enum Localizable {
         internal static var title: String { return Localizable.tr("Enter", "button.signIn.title") }
       }
     }
+
+    internal enum Language {
+
+      internal enum Navigation {
+        /// Change language
+        internal static var title: String { return Localizable.tr("Enter", "language.navigation.title") }
+      }
+    }
   }
-  internal enum General {
+          internal enum General {
 
     internal enum History {
 
@@ -189,7 +223,7 @@ internal enum Localizable {
       }
     }
   }
-  internal enum DexInfo {
+          internal enum DexInfo {
 
     internal enum Label {
       /// Amount Asset
@@ -200,7 +234,7 @@ internal enum Localizable {
       internal static var priceAsset: String { return Localizable.tr("DexInfo", "label.priceAsset") }
     }
   }
-  internal enum DexTraderContainer {
+          internal enum DexTraderContainer {
 
     internal enum Button {
       /// Chart
@@ -213,7 +247,7 @@ internal enum Localizable {
       internal static var orderbook: String { return Localizable.tr("DexTraderContainer", "button.orderbook") }
     }
   }
-  internal enum Hello {
+          internal enum Hello {
 
     internal enum Button {
       /// Continue
@@ -280,7 +314,7 @@ internal enum Localizable {
       }
     }
   }
-  internal enum DexMyOrders {
+          internal enum DexMyOrders {
 
     internal enum Label {
       /// Amount
@@ -308,13 +342,13 @@ internal enum Localizable {
       }
     }
   }
-  internal enum InfoPlist {
+          internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
     /// Authenticate with Face ID
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
   }
-  internal enum DexMarket {
+          internal enum DexMarket {
 
     internal enum Label {
       /// Loading markets…
@@ -331,7 +365,7 @@ internal enum Localizable {
       internal static var placeholder: String { return Localizable.tr("DexMarket", "searchBar.placeholder") }
     }
   }
-  internal enum History {
+          internal enum History {
 
     internal enum Navigationbar {
       /// History
@@ -357,7 +391,7 @@ internal enum Localizable {
       internal static var sent: String { return Localizable.tr("History", "segmentedControl.sent") }
     }
   }
-  internal enum WalletSort {
+          internal enum WalletSort {
 
     internal enum Button {
       /// Position
@@ -371,7 +405,7 @@ internal enum Localizable {
       internal static var title: String { return Localizable.tr("WalletSort", "navigationBar.title") }
     }
   }
-  internal enum Wallet {
+          internal enum Wallet {
 
     internal enum Button {
       /// Start Lease
@@ -432,7 +466,7 @@ internal enum Localizable {
       internal static var leasing: String { return Localizable.tr("Wallet", "segmentedControl.leasing") }
     }
   }
-  internal enum Asset {
+          internal enum Asset {
 
     internal enum Cell {
       /// View history
@@ -490,7 +524,7 @@ internal enum Localizable {
       internal static var notHaveTransactions: String { return Localizable.tr("Asset", "header.notHaveTransactions") }
     }
   }
-  internal enum DexOrderBook {
+          internal enum DexOrderBook {
 
     internal enum Button {
       /// BUY

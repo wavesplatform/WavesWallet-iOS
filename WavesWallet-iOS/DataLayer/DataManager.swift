@@ -262,11 +262,7 @@ class DataManager: NSObject {
         return ""
     }
     
-    //UI
-    
-    
-
-    
+    // TODO Remove
     class func setupTextFieldLabel(textField: UITextField, placeHolderLabel: UILabel) {
         let isShow = textField.text!.count > 0
         

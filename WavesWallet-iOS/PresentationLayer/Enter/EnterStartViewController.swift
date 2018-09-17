@@ -98,7 +98,9 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         }
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
         navigationItem.backgroundImage = UIImage()
-        navigationItem.shadowImage = UIImage()        
+        navigationItem.shadowImage = UIImage()
+        navigationItem.barTintColor = .white
+        navigationItem.tintColor = .white
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

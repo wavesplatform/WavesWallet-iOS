@@ -1,0 +1,11 @@
+/* 
+  NewAccount.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 17.09.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"main.navigation.title" = "New Account";
+"secret.navigation.title" = "New Account";
+"backup.navigation.title" = "New Account";
