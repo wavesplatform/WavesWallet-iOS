@@ -10,10 +10,8 @@ import UIKit
 import AudioToolbox
 
 private enum Constants {
-    static let buttonDotFontSize: CGFloat = 17
-    static let systemDotSoundID: SystemSoundID = 1103
-    
-    static let maximumInputDigits = 8
+    static let maximumInt64SizeDigits = 18
+    static let localeIdentifier = "es_US"
 }
 
 protocol InputNumericTextFieldDelegate: AnyObject {
@@ -33,6 +31,10 @@ final class InputNumericTextField: UITextField {
         return text ?? ""
     }
     
+    private var maximumInputDigits: Int {
+        return Constants.maximumInt64SizeDigits - decimals
+    }
+    
     override var delegate: UITextFieldDelegate? {
         didSet {
             externalDelegate = delegate
@@ -46,8 +48,8 @@ final class InputNumericTextField: UITextField {
 
     var value: Money {
         
-        if let d = Decimal(string: textString, locale: Locale.current) {
-            return Money(Int64(truncating: d * Decimal(10 ^^ decimals) as NSNumber), decimals)
+        if let decimal = Decimal(string: textString, locale: Locale(identifier: Constants.localeIdentifier)) {
+            return Money(Int64(truncating: decimal * Decimal(10 ^^ decimals) as NSNumber), decimals)
         } else {
             return Money(0)
         }
@@ -67,22 +69,9 @@ final class InputNumericTextField: UITextField {
         super.delegate = self
         placeholder = "0"
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        keyboardType = .numberPad
+        keyboardType = .decimalPad
     }
-    
-    private lazy var buttonDot: UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.frame = buttonDotFrame
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 10, 0)
-        button.addTarget(self, action: #selector(keyboardDotTouchDown), for: .touchDown)
-        button.addTarget(self, action: #selector(keyboardDotUpInside), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: Constants.buttonDotFontSize)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle(".", for: .normal)
-        return button
-    }()
-    
+   
     override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
         return nil
     }
@@ -91,43 +80,33 @@ final class InputNumericTextField: UITextField {
     
     func setValue(value: Money) {
         decimals = value.decimals
-        setupAttributedText(text: value.displayTextFull)
+        
+        let f = NumberFormatter()
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = decimals
+        f.minimumFractionDigits = countInputDecimals
+        f.usesGroupingSeparator = false
+        f.decimalSeparator = "."
+        
+        let result = f.string(from: Decimal(value.amount) / pow(10, decimals) as NSNumber) ?? ""
+        
+        setupAttributedText(text: result)
     }
-    
-//    func setStringValue(value: String) {
-//        setupAttributedText(text: value)
-//    }
     
     func addPlusValue() {
         
-        let numberFormatter = NumberFormatter()
-        numberFormatter.maximumFractionDigits = decimals
-        numberFormatter.minimumIntegerDigits = decimals
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.usesGroupingSeparator = false
+//        let text = String(format: "%.0\(countInputDecimals)f", value.decimalValue + deltaValue)
         
-        
-        let number = numberFormatter.number(from: textString)!
-        
-        print("number", number)
-        print("numberDouble", number.doubleValue)
-        print("value", textNSString.doubleValue)
-
-        var value = textNSString.doubleValue
-        value += deltaValue
-
-        let text = String(format: "%.0\(countInputDecimals)f", value)
-        setupAttributedText(text: text)
+        setValue(value: Money(value.decimalValue + deltaValue, decimals: decimals))
     }
     
     func addMinusValue() {
-        var value = textNSString.doubleValue
-        value -= deltaValue
-        if value < 0 {
-            value = 0
+        
+        var decimal = value.decimalValue + deltaValue
+        if decimal < 0 {
+            decimal = 0
         }
-        let text = String(format: "%.0\(countInputDecimals)f", value)
-        setupAttributedText(text: text)
+        setValue(value: Money(decimal, decimals: decimals))
     }
 }
 
@@ -147,58 +126,13 @@ private extension InputNumericTextField {
     }
 }
 
-//MARK: - ButtonDot
+//MARK: - Check after input
+
 private extension InputNumericTextField {
-    
-    @objc func keyboardDotTouchDown() {
-        AudioServicesPlaySystemSound(Constants.systemDotSoundID)
-    }
-    
-    @objc func keyboardDotUpInside() {
-        
-        if dotRange.location != NSNotFound {
-            shakeTextFieldIfNeed()
-        }
-        else {
-            if let selectedRange = selectedTextRange {
-                var string = textString
-
-                let rangePosition = offset(from: beginningOfDocument, to: selectedRange.start)
-                
-                let textBeforeDot = textNSString.substring(to: rangePosition)
-
-                let insertString = textBeforeDot.count == 0 ? "0." : "."
-                let rangeOffset = textBeforeDot.count == 0 ? 2 : 1
-                
-                string.insert(contentsOf: insertString, at: String.Index(encodedOffset: rangePosition))
-                setupAttributedText(text: string)
-                
-                if let range = selectedTextRange {
-                    if let from = position(from: range.start, offset: rangeOffset) {
-                        selectedTextRange = textRange(from: from, to: from)
-                    }
-                }
-            }
-        }
-    }
     
     func checkCorrectInputAfterRemoveText() {
         
-        func isEmptyDotAfterZero(text: String) -> Bool {
-            
-            if text.count > 1 {
-                
-                let firstCharacter = textNSString.substring(to: 1)
-                let secondCharacter = (textNSString.substring(from: 1) as NSString).substring(to: 1)
-                if firstCharacter == "0" && secondCharacter != "." {
-                    return true
-                }
-            }
-            return false
-        }
-        
-        
-        if dotRange.location != NSNotFound {
+        if isExistDot {
             
             let isEmptyFieldBeforeDot = textNSString.substring(to: dotRange.location).count == 0
             
@@ -206,6 +140,12 @@ private extension InputNumericTextField {
                 var string = textString
                 string.insert("0", at: String.Index(encodedOffset: 0))
                 setupAttributedText(text: string)
+                
+                if textString == "0." {
+                    if let range = selectedTextRange, let from = position(from: range.start, offset: 1) {
+                        selectedTextRange = textRange(from: from, to: from)
+                    }
+                }
             }
         }
         else if isEmptyDotAfterZero(text: textString) {
@@ -215,28 +155,17 @@ private extension InputNumericTextField {
         }
     }
     
-    @objc func addButtonDotToKeyboard() {
+    func isEmptyDotAfterZero(text: String) -> Bool {
         
-        DispatchQueue.main.async {
-            UIApplication.shared.windows.last?.addSubview(self.buttonDot)
+        if text.count > 1 {
+            
+            let firstCharacter = textNSString.substring(to: 1)
+            let secondCharacter = (textNSString.substring(from: 1) as NSString).substring(to: 1)
+            if firstCharacter == "0" && secondCharacter != "." {
+                return true
+            }
         }
-    }
-    
-    func removeButtonDotFromKeyboard() {
-        buttonDot.removeFromSuperview()
-    }
-    
-    var buttonDotFrame: CGRect {
-        
-        let deltaButtonWidth: CGFloat = -8
-        let bottomOffset : CGFloat = BiometricManager.type == .faceID ? 75 : 0
-        
-        let width = UIScreen.main.bounds.size.width / 3 + deltaButtonWidth
-        let height : CGFloat = 48
-        let topOffset: CGFloat = UIScreen.main.bounds.size.height - height - bottomOffset
-        let leftOffset: CGFloat = 5
-        
-        return CGRect(x: leftOffset, y: topOffset, width: width, height: height)
+        return false
     }
 }
 
@@ -246,14 +175,13 @@ extension InputNumericTextField: UITextFieldDelegate {
     @objc func textDidChange() {
         
         if textString.count > 0 {
-            setupAttributedText(text: textString)
+            setupAttributedText(text: textNSString.replacingOccurrences(of: ",", with: "."))
             checkCorrectInputAfterRemoveText()
         }
         else {
             attributedText = nil
         }
         
-//        print("displayText", value.displayTextNoGrouping)
         print("int", value.amount)
 
         
@@ -262,23 +190,15 @@ extension InputNumericTextField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         externalDelegate?.textFieldDidBeginEditing?(textField)
-       
-        NotificationCenter.default.addObserver(self, selector: #selector(addButtonDotToKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         externalDelegate?.textFieldDidEndEditing?(textField)
-
-        NotificationCenter.default.removeObserver(self)
-        removeButtonDotFromKeyboard()
     }
     
     @available(iOS 10.0, *)
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         externalDelegate?.textFieldDidEndEditing?(textField, reason: reason)
-        
-        NotificationCenter.default.removeObserver(self)
-        removeButtonDotFromKeyboard()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -302,7 +222,6 @@ extension InputNumericTextField: UITextFieldDelegate {
                 return externalDelegate.textFieldShouldReturn!(textField)
             }
         }
-        resignFirstResponder()
         return true
     }
     
@@ -336,11 +255,15 @@ private extension InputNumericTextField {
         return textNSString.range(of: ".")
     }
     
+    var isExistDot: Bool {
+        return dotRange.location != NSNotFound
+    }
+    
     var countInputDecimals: Int {
         
         var decimals = 0
         
-        if dotRange.location != NSNotFound {
+        if isExistDot {
             let substring = textNSString.substring(from: dotRange.location + 1)
             decimals = substring.count > 0 ? substring.count : 1
         }
@@ -348,9 +271,9 @@ private extension InputNumericTextField {
         return decimals
     }
     
-    var deltaValue: Double {
+    var deltaValue: Decimal {
         
-        var deltaValue : Double = 1
+        var deltaValue : Decimal = 1
         for _ in 0..<countInputDecimals {
             deltaValue *= 0.1
         }
@@ -365,14 +288,19 @@ private extension InputNumericTextField {
     func isValidInput(input: String, inputRange: NSRange) -> Bool {
         
         if dotRange.location == NSNotFound {
+            
             if textString.last == "0" && input == "0" && textString.count == 1 {
                 shakeTextFieldIfNeed()
                 return false
             }
-            else if textString.last == "0" && input != "." && textString.count == 1 {
+            else if textString.last == "0" && input != "." && input != "," && textString.count == 1 {
                 shakeTextFieldIfNeed()
                 return false
             }
+        }
+        else if (input == "," || input == ".") && isExistDot {
+            shakeTextFieldIfNeed()
+            return false
         }
         else if countInputDecimals >= decimals && decimals > 0 && input.count > 0 {
             if inputRange.location > dotRange.location {
@@ -394,7 +322,12 @@ private extension InputNumericTextField {
     
     func isValidInputBeforeDot(input: String, inputRange: NSRange) -> Bool {
         
-        if dotRange.location != NSNotFound && textString.count > 1 {
+        if isExistDot && textString.count > 1 {
+
+            if input == "0" && inputRange.location == 0 {
+                shakeTextFieldIfNeed()
+                return false
+            }
 
             let substring = textNSString.substring(to: dotRange.location + dotRange.length)
             
