@@ -45,6 +45,11 @@ extension Money {
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
         return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
     }
+    
+    init(_ value: Decimal, decimals: Int) {
+        self.decimals = decimals
+        self.amount = Int64(truncating: value * Decimal(10 ^^ decimals) as NSNumber)
+    }
 }
 
 extension Money {
@@ -60,7 +65,11 @@ extension Money {
     var displayTextFull: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
-
+    
+    var displayTextNoGrouping: String {
+        return MoneyUtil.formatNoGroupingAndZeros(amount, decimals: decimals)
+    }
+    
     var decimalValue: Decimal {
         return Decimal(amount) / pow(10, decimals)
     }

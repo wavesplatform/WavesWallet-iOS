@@ -20,8 +20,13 @@ final class DexCreateOrderViewController: UIViewController {
 
     var input: DexCreateOrder.DTO.Input! {
         didSet {
+            
+            //FIXME: - Update
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
-                                             type: input.type, amount: 0, price: 0, total: 0,
+                                             type: input.type,
+                                             amount: Money(0),
+                                             price: input.price ?? Money(0),
+                                             total: Money(0),
                                              expiration: DexCreateOrder.DTO.Expiration.expiration30d)
         }
     }
@@ -43,11 +48,11 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var buttonSellBuyBottomOffset: NSLayoutConstraint!
     
     private var isValidOrder: Bool {
-        return order.amount > 0 && order.price > 0 && order.total > 0
+        return !order.amount.isZero && !order.price.isZero && !order.total.isZero
     }
     
     private var order: DexCreateOrder.DTO.Order!
-    private var totalAmountBalance: Double = 123
+    private var totalAmountBalance = Money(0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,35 +111,42 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
 //MARK: - DexCreateOrderInputViewDelegate
 extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
-    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Double) {
+    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money) {
+        //FIXME: - Update
+
         if inputView == inputAmount {
             order.amount = value
-            inputView.showErrorMessage(show: value > totalAmountBalance)
+            inputView.showErrorMessage(show: value.decimalValue > totalAmountBalance.decimalValue)
             
-            if order.price > 0 && order.amount > 0 {
-                let total = order.price * order.amount
-                order.total = total
-                inputTotal.setupValue(total)
-            }
+//            if order.price > 0 && order.amount > 0 {
+//
+//                let total = order.price.decimalValue * order.amount.decimalValue
+//
+//                let value = Int64(truncating: total * Decimal(10 ^^ order.price.decimals) as NSNumber)
+//
+//                let money = Money.init(<#T##amount: Int64##Int64#>, order.price.decimals)
+//                order.total = total
+//                inputTotal.setupValue(total)
+//            }
         }
         else if inputView == inputPrice {
             order.price = value
             
-            if order.price > 0 && order.amount > 0 {
-                let total = order.price * order.amount
-                order.total = total
-                inputTotal.setupValue(total)
-            }
+//            if order.price > 0 && order.amount > 0 {
+//                let total = order.price * order.amount
+//                order.total = total
+//                inputTotal.setupValue(total)
+//            }
         }
         else if inputView == inputTotal {
             order.total = value
             
-            if order.total > 0 && order.price > 0 {
-                let amount = order.total * order.price
-                order.amount = amount
-                inputAmount.setupValue(amount)
-                inputAmount.showErrorMessage(show: amount > totalAmountBalance)
-            }
+//            if order.total > 0 && order.price > 0 {
+//                let amount = order.total * order.price
+//                order.amount = amount
+//                inputAmount.setupValue(amount)
+//                inputAmount.showErrorMessage(show: amount > totalAmountBalance)
+//            }
         }
      
         setupButtonSellBuy()
@@ -161,38 +173,40 @@ private extension DexCreateOrderViewController {
     
     func setupData() {
         
-        if totalAmountBalance > 0 {
-            
-            let value1 = totalAmountBalance * Double(Constants.percent50) / 100
-            let value2 = totalAmountBalance * Double(Constants.percent10) / 100
-            let value3 = totalAmountBalance * Double(Constants.percent5) / 100
-            
-            inputAmount.input = [.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountBalance),
-                                 .init(text: String(value1), value: value1),
-                                 .init(text: String(value2), value: value2),
-                                 .init(text: String(value3), value: value3)]
-        }
-  
-        var inputPriceValues: [DexCreateOrderInputView.Input] = []
-        
-        if let bid = input.bid {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.bid, value: bid.doubleValue))
-        }
-      
-        if let ask = input.ask {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.ask, value: ask.doubleValue))
-        }
-    
-        if let last = input.last {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.last, value: last.doubleValue))
-        }
-        
-        inputPrice.input = inputPriceValues
+        //FIXME: - Update
 
-        if let price = input.price {
-            order.price = price.doubleValue
-            inputPrice.setupValue(price.doubleValue)
-        }
+//        if !totalAmountBalance.isZero {
+//
+//            let value1 = totalAmountBalance * Double(Constants.percent50) / 100
+//            let value2 = totalAmountBalance * Double(Constants.percent10) / 100
+//            let value3 = totalAmountBalance * Double(Constants.percent5) / 100
+//
+//            inputAmount.input = [.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountBalance),
+//                                 .init(text: String(value1), value: value1),
+//                                 .init(text: String(value2), value: value2),
+//                                 .init(text: String(value3), value: value3)]
+//        }
+//
+//        var inputPriceValues: [DexCreateOrderInputView.Input] = []
+//
+//        if let bid = input.bid {
+//            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.bid, value: bid.doubleValue))
+//        }
+//
+//        if let ask = input.ask {
+//            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.ask, value: ask.doubleValue))
+//        }
+//
+//        if let last = input.last {
+//            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.last, value: last.doubleValue))
+//        }
+        
+//        inputPrice.input = inputPriceValues
+//
+//        if let price = input.price {
+//            order.price = price.doubleValue
+//            inputPrice.setupValue(price.doubleValue)
+//        }
     }
     
     func setupViews() {
