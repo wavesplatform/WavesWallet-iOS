@@ -14,12 +14,20 @@ struct Language: Codable {
     let code: String
 }
 
+
+extension Notification.Name {
+    /**
+        The notification object contained current Language
+    */
+    static let changedLanguage: Notification.Name = Notification.Name.init("com.waves.language.notification.changedLanguage")
+}
+
 private struct LanguageCode: TSUD {
 
     private static let key: String = "com.waves.language.code"
 
-    static var defaultValue: String {
-        return "en"
+    static var defaultValue: Language {
+        return Language.list.first(where: { $0.code == "en" })!
     }
 
     static var stringKey: String {
@@ -35,17 +43,25 @@ extension Language {
     }()
 
     static func load() {
-        let code = LanguageCode.get()
-        change(code: code)
+        let langauge = LanguageCode.get()
+        change(langauge, withoutNotification: true)
     }
 
-    static func change(code: String) {
-        guard let path = Bundle.main.path(forResource: code, ofType: "lproj"), let bundle = Bundle(path: path) else {
+    static var currentLanguage: Language {
+        return LanguageCode.get()
+    }
+
+    static func change(_ language: Language, withoutNotification: Bool = false) {
+        guard let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let bundle = Bundle(path: path) else {
             return
         }
 
-        LanguageCode.set(code)
-        Localizable.current.locale = Locale(identifier: code)
+        LanguageCode.set(language)
+        Localizable.current.locale = Locale(identifier: language.code)
         Localizable.current.bundle = bundle
+
+        if withoutNotification == false {
+            NotificationCenter.default.post(name: .changedLanguage, object: language)
+        }
     }
 }

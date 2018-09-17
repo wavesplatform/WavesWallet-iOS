@@ -15,15 +15,27 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
     
     private let languages = Language.list
 
-    private var selectedIndex = -1
+    private lazy var selectedIndex: Int = {
+        let current = Language.currentLanguage
+        return self.languages.index(where: { $0.code == current.code }) ?? 0
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupLanguage()
         addBgBlueImage()
         self.buttonConfirm.alpha = 0
     }
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
+    private func setupLanguage() {
+        buttonConfirm.setTitle(Localizable.Enter.Button.Confirm.title, for: .normal)
+    }
+
     @IBAction func confirmTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -44,6 +56,11 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
                 self.buttonConfirm.alpha = 1
             }
         }
+
+        // TODO Moved code to app coordinator
+        setupLanguage()
+        let language = languages[indexPath.row]
+        Language.change(language)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,10 +75,9 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
         cell.iconLanguage.image = UIImage(named: item.icon)
         
         if indexPath.row == selectedIndex {
-            cell.iconCheckmark.image = UIImage(named: "on")
-        }
-        else {
-            cell.iconCheckmark.image = UIImage(named: "off")
+            cell.iconCheckmark.image = Images.on.image
+        } else {
+            cell.iconCheckmark.image = Images.off.image 
         }
         
         return cell

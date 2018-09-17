@@ -11,6 +11,7 @@ import UIKit
 
 protocol HelloCoordinatorDelegate: AnyObject {
     func userFinishedGreet()
+    func userChangedLanguage(_ language: Language)
 }
 
 final class HelloCoordinator: Coordinator {
@@ -39,8 +40,8 @@ final class HelloCoordinator: Coordinator {
 // MARK: HelloLanguagesViewControllerDelegate
 extension HelloCoordinator: HelloLanguagesViewControllerDelegate {
 
-    func languageDidSelect(code: String) {
-        Language.change(code: code)
+    func languageDidSelect(language: Language) {
+        delegate?.userChangedLanguage(language)
     }
 
     func userFinishedChangeLanguage() {

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol HelloLanguagesViewControllerDelegate: AnyObject {
-    func languageDidSelect(code: String)
+    func languageDidSelect(language: Language)
     func userFinishedChangeLanguage()
 }
 
@@ -70,7 +70,7 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         }
 
         let item = languages[indexPath.row]
-        delegate?.languageDidSelect(code: item.code)        
+        delegate?.languageDidSelect(language: item)        
         continueBtn.setTitle(Localizable.Hello.Button.continue, for: .normal)
     }
 }
