@@ -34,6 +34,7 @@ class NewTransactionHistoryContentView: UIView {
         super.awakeFromNib()
         
         setupTableView()
+        setupButtons()
     }
 
     // MARK: - Setups
