@@ -15,6 +15,29 @@ extension UINavigationItem {
         static var backgroundImage = "backgroundImage"
         static var shadowImage = "shadowImage"
         static var barTintColor = "barTintColor"
+        static var tintColor = "tintColor"
+        static var isNavigationBarHidden = "isNavigationBarHidden"
+        static var titleTextAttributes = "titleTextAttributes"
+    }
+
+    @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
+        get {
+            return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.titleTextAttributes)
+        }
+    }
+
+    @objc var isNavigationBarHidden: Bool {
+        get {
+            return associatedObject(for: &AssociatedKeys.isNavigationBarHidden) ?? false
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.isNavigationBarHidden)
+        }
     }
 
     @objc var barTintColor: UIColor? {
@@ -24,6 +47,16 @@ extension UINavigationItem {
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.barTintColor)
+        }
+    }
+
+    @objc var tintColor: UIColor? {
+        get {
+            return associatedObject(for: &AssociatedKeys.tintColor) ?? nil
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.tintColor)
         }
     }
 
@@ -84,16 +117,23 @@ class CustomNavigationController: UINavigationController {
         }
     }
 
-    private func apperanceNavigationItemProperties(_ viewController: UIViewController) {
+    private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
         
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.shadowImage = viewController.navigationItem.shadowImage
         navigationBar.barTintColor = viewController.navigationItem.barTintColor
+        navigationBar.tintColor = viewController.navigationItem.tintColor
+        navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
+        setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
 
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
         }
+    }
+
+    override var childViewControllerForStatusBarStyle: UIViewController? {
+        return self.topViewController
     }
 }
 
@@ -120,7 +160,7 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
         prevViewContoller = viewController
 
-        apperanceNavigationItemProperties(viewController)
+        apperanceNavigationItemProperties(viewController, animated: animated)
 
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)

@@ -13,11 +13,11 @@ import RESideMenu
 extension UIViewController {
     
     func createBackWhiteButton() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image, style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image, style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createMenuButton(isWhite: Bool = false) {
@@ -29,7 +29,7 @@ extension UIViewController {
 
         navigationItem.leftBarButtonItem = item
     }
-    
+
     @objc func menuTapped() {
         let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()

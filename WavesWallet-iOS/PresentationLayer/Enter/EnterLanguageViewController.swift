@@ -22,10 +22,15 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupLanguage()
         addBgBlueImage()
         self.buttonConfirm.alpha = 0
+
+        navigationItem.backgroundImage = UIImage()
+        navigationItem.shadowImage = UIImage()
+        navigationItem.barTintColor = .white
+        navigationItem.tintColor = .white
+        navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,10 +38,15 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
     }
 
     private func setupLanguage() {
+        navigationItem.title = Localizable.Enter.Language.Navigation.title
         buttonConfirm.setTitle(Localizable.Enter.Button.Confirm.title, for: .normal)
+        createBackWhiteButton()
     }
 
     @IBAction func confirmTapped(_ sender: Any) {
+        // TODO Moved code to app coordinator
+        let language = languages[selectedIndex]
+        Language.change(language)
         navigationController?.popViewController(animated: true)
     }
     
@@ -56,11 +66,6 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
                 self.buttonConfirm.alpha = 1
             }
         }
-
-        // TODO Moved code to app coordinator
-        setupLanguage()
-        let language = languages[indexPath.row]
-        Language.change(language)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

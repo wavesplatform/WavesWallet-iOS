@@ -7,7 +7,6 @@
 //
 
 import Gloss
-import IQKeyboardManagerSwift
 import RESideMenu
 import RxSwift
 import SVProgressHUD
@@ -36,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SweetLogger.current.visibleLevels = [.debug, .error]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        IQKeyboardManager.shared.enable = true
+//        IQKeyboardManager.shared.enable = false
         self.window?.backgroundColor = AppColors.wavesColor
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
@@ -45,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
 
     func applicationWillResignActive(_ application: UIApplication) {}
 

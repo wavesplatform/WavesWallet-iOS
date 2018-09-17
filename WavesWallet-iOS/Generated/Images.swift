@@ -108,6 +108,8 @@ internal enum Images {
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
+  internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
+  internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
@@ -316,6 +318,8 @@ internal enum Images {
     down,
     dragElem,
     editaddress24Submit300,
+    eyeclsoe24Basic500,
+    eyeopen24Basic500,
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,

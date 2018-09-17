@@ -9,7 +9,7 @@
 import Foundation
 import Security
 
-class WordList {
+final class WordList {
     static private let wordList = ["abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access",
     "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action",
     "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance",
@@ -213,7 +213,6 @@ class WordList {
         return bits
    }
 
-    
     static func generatePhrase() -> String {
         let nbWords = 15;
         let len = nbWords / 3 * 4;
@@ -240,5 +239,4 @@ class WordList {
         
         return words.joined(separator: " ")
     }
-    
 }

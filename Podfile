@@ -35,18 +35,19 @@ target 'WavesWallet-iOS' do
     
     pod 'Skeleton'    
     
-    pod 'Charts'
+    pod 'Charts', '~> 3.1.1'
     pod 'Koloda'
     
     # Assisstant
     pod 'RxSwift'
-    pod "RxSwiftExt"
+    pod 'RxSwiftExt'
     pod 'RxGesture'
     pod 'RxFeedback'
     
-    pod 'IQKeyboardManagerSwift'
+#    pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
-    
+
+    pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'
     pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
     pod 'base58', :path => 'Vendors/Base58'
     pod 'keccak', :path => 'Vendors/Keccak'

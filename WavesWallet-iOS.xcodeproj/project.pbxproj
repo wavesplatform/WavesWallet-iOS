@@ -149,6 +149,11 @@
 		0A61F0A9214976260002C53B /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61F0A8214976260002C53B /* HelloCoordinator.swift */; };
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
+		0A762D0C214FB6FD00BE9204 /* NewAccount.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D0E214FB6FD00BE9204 /* NewAccount.strings */; };
+		0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */; };
+		0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */; };
+		0A762D15214FE3F300BE9204 /* NewAccountInputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D14214FE3F300BE9204 /* NewAccountInputTextField.xib */; };
+		0A762D17214FF1CD00BE9204 /* NewAccountInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D16214FF1CD00BE9204 /* NewAccountInputTextField.swift */; };
 		0A7643FA211874F400B633E1 /* FactoryInteractorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */; };
 		0A7643FE21187DF500B633E1 /* FactoryInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */; };
 		0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */; };
@@ -715,6 +720,11 @@
 		0A61F0A8214976260002C53B /* HelloCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
+		0A762D0D214FB6FD00BE9204 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NewAccount.strings; sourceTree = "<group>"; };
+		0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountAvatarView.swift; sourceTree = "<group>"; };
+		0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountAvatarView.xib; sourceTree = "<group>"; };
+		0A762D14214FE3F300BE9204 /* NewAccountInputTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountInputTextField.xib; sourceTree = "<group>"; };
+		0A762D16214FF1CD00BE9204 /* NewAccountInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountInputTextField.swift; sourceTree = "<group>"; };
 		0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractorsProtocol.swift; sourceTree = "<group>"; };
 		0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryRepositoriesProtocol.swift; sourceTree = "<group>"; };
 		0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
@@ -1274,21 +1284,13 @@
 		0A14CFDC214B3EBE00C3A4D5 /* NewAccount */ = {
 			isa = PBXGroup;
 			children = (
+				0A762D0F214FDF8800BE9204 /* Views */,
 				E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */,
 				E9C4134D20E8305C00AA044F /* NewAccountSecretPhraseViewController.swift */,
 				E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */,
+				0A762D0E214FB6FD00BE9204 /* NewAccount.strings */,
 			);
 			path = NewAccount;
-			sourceTree = "<group>";
-		};
-		0A14CFDD214B3EC700C3A4D5 /* Import */ = {
-			isa = PBXGroup;
-			children = (
-				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
-				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
-				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
-			);
-			path = Import;
 			sourceTree = "<group>";
 		};
 		0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */ = {
@@ -1642,6 +1644,27 @@
 			path = Mapper;
 			sourceTree = "<group>";
 		};
+		0A762D09214FB60400BE9204 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
+				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
+				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		0A762D0F214FDF8800BE9204 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */,
+				0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */,
+				0A762D16214FF1CD00BE9204 /* NewAccountInputTextField.swift */,
+				0A762D14214FE3F300BE9204 /* NewAccountInputTextField.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0A7E0CDC20F369E20010CA6C /* Environment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1673,6 +1696,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E9E7129B20DC058F00B95669 /* Hello */,
 				0AF921BE212E07B2003BA067 /* Asset */,
@@ -2045,26 +2069,27 @@
 		0AF92281212E1234003BA067 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
-				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
-				0AF92282212E1234003BA067 /* TickerView.xib */,
+				0AF9228D212E1234003BA067 /* AssetSegmented */,
+				0AF9229C212E1234003BA067 /* Dex */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
-				0AF92288212E1234003BA067 /* EmptyCell.swift */,
+				0AF92298212E1234003BA067 /* SegmentedControl */,
+				0AF92292212E1234003BA067 /* Skeleton */,
+				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
+				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
+				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				0AF92289212E1234003BA067 /* CustomSectionHeader.swift */,
-				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
 				0AF9228B212E1234003BA067 /* CustomUITextField.swift */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
-				0AF9228D212E1234003BA067 /* AssetSegmented */,
-				0AF92292212E1234003BA067 /* Skeleton */,
-				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
+				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
+				0AF92288212E1234003BA067 /* EmptyCell.swift */,
+				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
+				0AF922A3212E1234003BA067 /* GradientView.swift */,
+				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
+				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
+				0AF922A4212E1234003BA067 /* ScrollButton.swift */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
 				0AF92297212E1234003BA067 /* TickerView.swift */,
-				0AF92298212E1234003BA067 /* SegmentedControl */,
-				0AF9229C212E1234003BA067 /* Dex */,
-				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
-				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
-				0AF922A3212E1234003BA067 /* GradientView.swift */,
-				0AF922A4212E1234003BA067 /* ScrollButton.swift */,
-				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
+				0AF92282212E1234003BA067 /* TickerView.xib */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -2577,18 +2602,17 @@
 		E9F984A720E5266800D2CB4D /* Enter */ = {
 			isa = PBXGroup;
 			children = (
+				0A762D09214FB60400BE9204 /* Import */,
 				E9F984AC20E53A5300D2CB4D /* Views */,
 				E9F984A820E526DA00D2CB4D /* Enter.storyboard */,
 				E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */,
 				E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */,
 				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
+				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
-				0A14CFDD214B3EC700C3A4D5 /* Import */,
-				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
 				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
 				0A14CFDE214B3EE200C3A4D5 /* ConfirmBackup */,
-				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
@@ -2598,7 +2622,6 @@
 			children = (
 				E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */,
 				E9F984AF20E53A7200D2CB4D /* EnterStartView.xib */,
-				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2906,6 +2929,7 @@
 				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
 				E95993FF212F903E007C8DDA /* DexMyOrdersHeaderView.xib in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
+				0A762D15214FE3F300BE9204 /* NewAccountInputTextField.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
 				F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */,
 				F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */,
@@ -2954,11 +2978,13 @@
 				E95FD576212CD10E00D73E18 /* DexLastTradesHeaderView.xib in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */,
+				0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */,
 				E992404A2119E3C200E97414 /* DexList.strings in Resources */,
 				0AF92303212E1424003BA067 /* General.strings in Resources */,
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
 				0AF921F2212E07B3003BA067 /* AssetViewHistoryCell.xib in Resources */,
 				0AF921F0212E07B3003BA067 /* Assets.json in Resources */,
+				0A762D0C214FB6FD00BE9204 /* NewAccount.strings in Resources */,
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				E9619267211CAA03005E6D1E /* DexMarketPairs.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
@@ -3015,7 +3041,7 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/IdentityImg/IdentityImg.framework",
 				"${BUILT_PRODUCTS_DIR}/InfiniteCollectionView/InfiniteCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -3062,7 +3088,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IdentityImg.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InfiniteCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -3365,6 +3391,7 @@
 				E9F81B76212DF2CC00AF07C7 /* DexLastTradesPresenterProtocol.swift in Sources */,
 				E92611812107F4E600A9E793 /* DexListPresenter.swift in Sources */,
 				0A5E4BDD2138311C00E3C3C3 /* TransferTransaction+Mapper.swift in Sources */,
+				0A762D17214FF1CD00BE9204 /* NewAccountInputTextField.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				E988E8BB1F0D323E0013EAF6 /* ChartViewController.swift in Sources */,
@@ -3577,6 +3604,7 @@
 				0A5E4BBA21381E3400E3C3C3 /* DataTransaction.swift in Sources */,
 				0A61B593214AB4E700EC60FC /* AppCoordinator.swift in Sources */,
 				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,
+				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
 				0A5C3204213E93C700420004 /* UnrecognisedTransaction.swift in Sources */,
 				E9DAB6432128561800C2D552 /* DexTraderContainerModuleOutput.swift in Sources */,
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,
@@ -3652,6 +3680,14 @@
 				0A49AA32214BCE9400BEC9C3 /* ru */,
 			);
 			name = Enter.strings;
+			sourceTree = "<group>";
+		};
+		0A762D0E214FB6FD00BE9204 /* NewAccount.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A762D0D214FB6FD00BE9204 /* en */,
+			);
+			name = NewAccount.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {

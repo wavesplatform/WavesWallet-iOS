@@ -19,3 +19,5 @@
 "button.signIn.detail" = "to a saved account";
 "button.importAccount.title" = "Import account";
 "button.importAccount.detail" = "via paring code or manually";
+
+"language.navigation.title" = "Change language";

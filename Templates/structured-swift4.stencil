@@ -7,12 +7,12 @@ import Foundation
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
 {% macro parametersBlock types %}{% filter removeNewlines:"leading" %}
-  {% for type in types %}
+    {% for type in types %}
     _ p{{forloop.counter}}: {{type}}{% if not forloop.last %}, {% endif %}
   {% endfor %}
 {% endfilter %}{% endmacro %}
 {% macro argumentsBlock types %}{% filter removeNewlines:"leading" %}
-  {% for type in types %}
+    {% for type in types %}
     p{{forloop.counter}}{% if not forloop.last %}, {% endif %}
   {% endfor %}
 {% endfilter %}{% endmacro %}
@@ -43,8 +43,8 @@ import Foundation
 {{accessModifier}} enum {{enumName}} {
   {% if tables.count > 1 %}
   {% for table in tables %}
-  {{accessModifier}} enum {{table.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
-  	{% call recursiveBlock table.name table.levels "  " %}
+          {{accessModifier}} enum {{table.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+  	    {% call recursiveBlock table.name table.levels "  " %}
   }
   {% endfor %}
   {% else %}
