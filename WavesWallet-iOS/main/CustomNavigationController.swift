@@ -14,6 +14,17 @@ extension UINavigationItem {
         static var prefersLargeTitles = "prefersLargeTitles"
         static var backgroundImage = "backgroundImage"
         static var shadowImage = "shadowImage"
+        static var barTintColor = "barTintColor"
+    }
+
+    @objc var barTintColor: UIColor? {
+        get {
+            return associatedObject(for: &AssociatedKeys.barTintColor) ?? nil
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.barTintColor)
+        }
     }
 
     @objc var prefersLargeTitles: Bool {
@@ -78,6 +89,7 @@ class CustomNavigationController: UINavigationController {
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.shadowImage = viewController.navigationItem.shadowImage
+        navigationBar.barTintColor = viewController.navigationItem.barTintColor
 
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles

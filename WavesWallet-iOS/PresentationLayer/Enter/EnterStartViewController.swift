@@ -66,28 +66,27 @@ fileprivate extension Block {
 final class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
-    @IBOutlet private weak var collectionTopOffset: NSLayoutConstraint!
-    @IBOutlet private weak var buttonLanguage: UIButton!
+    @IBOutlet private weak var collectionTopOffset: NSLayoutConstraint!    
+    @IBOutlet private weak var signInTitleLabel: UILabel!
+    @IBOutlet private weak var signInDetailLabel: UILabel!
+    @IBOutlet private weak var importAccountTitleLabel: UILabel!
+    @IBOutlet private weak var importAccountDetailLabel: UILabel!
+    @IBOutlet private weak var createNewAccountButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var detailLabel: UILabel!
 
+    private var currentPage: Int  = 0
     private let blocks: [Block] = [.blockchain,
                                    .wallet,
                                    .exchange,
                                    .token]
 
-    let iconNames = ["userimgBlockchain80White", "userimgWallet80White", "userimgDex80White", "userimgToken80White"]
-    var currentPage: Int = 0
-
-    let items = [["title" : "Get Started with Blockchain", "text" : "Become part of a fast-growing area of the crypto world. You are the only person who can access your crypto assets."],
-                 ["title" : "Wallet", "text" : "Store, manage and receive interest on your digital assets balance, easily and securely."],
-                 ["title" : "Decentralised Exchange", "text" : "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange."],
-                 ["title" : "Token Launcher", "text" : "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program."]]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        createMenuButton(isWhite: true)
+        setupLanguage()
         addBgBlueImage()
         
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
@@ -97,17 +96,43 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             collectionTopOffset.constant = 0
             collectionViewHeight.constant = 80
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
+        navigationItem.backgroundImage = UIImage()
+        navigationItem.shadowImage = UIImage()        
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
+    private func setupLanguage() {
+        collectionView.reloadData()
+
+        let block = blocks[currentPage]
+        titleLabel.text = block.title
+        detailLabel.text = block.text
+
+        createNewAccountButton.setTitle(Localizable.Enter.Button.Createnewaccount.title, for: .normal)
+
+        signInTitleLabel.text = Localizable.Enter.Button.Signin.title
+        signInDetailLabel.text = Localizable.Enter.Button.Signin.detail
+        importAccountTitleLabel.text = Localizable.Enter.Button.Importaccount.title
+        importAccountDetailLabel.text = Localizable.Enter.Button.Importaccount.detail
+
+        let language = Language.currentLanguage
+        let item = UIBarButtonItem(title: language.code.uppercased(), style: .plain, target: self, action: #selector(changeLanguage(_:)))
+        item.tintColor = .white
+         navigationItem.rightBarButtonItem = item
+    }
+
+    // MARK: Notification Handler
+
+    @objc private  func changedLanguage(_ notification: NSNotification) {
+        setupLanguage()
+    }
+
+    // MARK: Action methods
+
     @IBAction func changeLanguage(_ sender: Any) {
     
         let controller = storyboard?.instantiateViewController(withIdentifier: "EnterLanguageViewController") as! EnterLanguageViewController
@@ -135,7 +160,6 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     @IBAction func showMenu(_ sender: Any) {
          AppDelegate.shared().menuController.presentLeftMenuViewController()
     }
-
 
     //MARK: - UICollectionView
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewAccountViewController: UIViewController {
+final class NewAccountViewController: UIViewController {
 
     @IBOutlet var avatarsSpaceConstraints: [NSLayoutConstraint]!
     

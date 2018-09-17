@@ -97,6 +97,33 @@ internal enum Localizable {
         internal static var title: String { return Localizable.tr("Enter", "block.wallet.title") }
       }
     }
+
+    internal enum Button {
+
+      internal enum Confirm {
+        /// Confirm
+        internal static var title: String { return Localizable.tr("Enter", "button.confirm.title") }
+      }
+
+      internal enum Createnewaccount {
+        /// Create a new account
+        internal static var title: String { return Localizable.tr("Enter", "button.createNewAccount.title") }
+      }
+
+      internal enum Importaccount {
+        /// via paring code or manually
+        internal static var detail: String { return Localizable.tr("Enter", "button.importAccount.detail") }
+        /// Import account
+        internal static var title: String { return Localizable.tr("Enter", "button.importAccount.title") }
+      }
+
+      internal enum Signin {
+        /// to a saved account
+        internal static var detail: String { return Localizable.tr("Enter", "button.signIn.detail") }
+        /// Sign in
+        internal static var title: String { return Localizable.tr("Enter", "button.signIn.title") }
+      }
+    }
   }
   internal enum General {
 

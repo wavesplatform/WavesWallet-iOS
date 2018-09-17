@@ -109,4 +109,8 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
         Application.set(settings)
         showStartController()
     }
+
+    func userChangedLanguage(_ language: Language) {
+        Language.change(language)
+    }
 }

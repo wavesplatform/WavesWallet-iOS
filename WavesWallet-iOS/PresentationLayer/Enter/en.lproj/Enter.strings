@@ -11,3 +11,11 @@
 
 "block.token.title" = "Token Launcher";
 "block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
+
+"button.confirm.title" = "Confirm";
+
+"button.createNewAccount.title" = "Create a new account";
+"button.signIn.title" = "Sign in";
+"button.signIn.detail" = "to a saved account";
+"button.importAccount.title" = "Import account";
+"button.importAccount.detail" = "via paring code or manually";

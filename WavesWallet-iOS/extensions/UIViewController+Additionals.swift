@@ -20,8 +20,14 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
     }
     
-    func createMenuButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
+    func createMenuButton(isWhite: Bool = false) {
+        let item = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
+
+        if isWhite {
+            item.tintColor = .white
+        }
+
+        navigationItem.leftBarButtonItem = item
     }
     
     @objc func menuTapped() {
