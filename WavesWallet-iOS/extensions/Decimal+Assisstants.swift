@@ -9,6 +9,20 @@
 import Foundation
 
 extension Decimal {
+    
+    func rounded(to: Int) -> Decimal {
+
+        let number = NSDecimalNumber(decimal: self)
+        let behavior = NSDecimalNumberHandler(roundingMode: .plain,
+                                              scale: Int16(to),
+                                              raiseOnExactness: false,
+                                              raiseOnOverflow: false,
+                                              raiseOnUnderflow: false,
+                                              raiseOnDivideByZero: false)
+        
+        return number.rounding(accordingToBehavior: behavior).decimalValue
+    }
+    
     var doubleValue:Double {
         return NSDecimalNumber(decimal:self).doubleValue
     }
