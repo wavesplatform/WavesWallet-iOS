@@ -23,7 +23,7 @@ extension Money {
  
     init(value: Decimal, _ decimals: Int) {
         self.decimals = decimals
-        self.amount = Int64(truncating: value * pow(10, decimals) as NSNumber)
+        self.amount = Int64(exactly: value * pow(10, decimals) as NSNumber) ?? 0
     }
     
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
@@ -46,7 +46,7 @@ extension Money {
     }
     
     var decimalValue: Decimal {
-        return (Decimal(amount) / pow(10, decimals)).rounded(to: decimals)
+        return Decimal(amount) / pow(10, decimals)
     }
 
     var doubleValue: Double {
