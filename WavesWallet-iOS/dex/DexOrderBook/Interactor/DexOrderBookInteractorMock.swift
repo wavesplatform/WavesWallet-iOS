@@ -50,8 +50,8 @@ private extension DexOrderBookInteractorMock {
         var bids: [DexOrderBook.DTO.BidAsk] = []
         var asks: [DexOrderBook.DTO.BidAsk] = []
 
-        var totalSumBid: Double = 0
-        var totalSumAsk: Double = 0
+        var totalSumBid: Decimal = 0
+        var totalSumAsk: Decimal = 0
         
         let maxAmount = (itemsAsks + itemsBids).map({$0["amount"].int64Value}).max() ?? 0
         let maxAmountValue = Money(maxAmount, pair.amountAsset.decimals).floatValue
@@ -61,13 +61,13 @@ private extension DexOrderBookInteractorMock {
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
             
-            totalSumBid += price.doubleValue * amount.doubleValue
+            totalSumBid += price.decimalValue * amount.decimalValue
             
             let percent: Float = 100 * amount.floatValue / maxAmountValue
 
             let bid = DexOrderBook.DTO.BidAsk(price: price,
                                               amount: amount,
-                                              sum: Money(totalSumBid),
+                                              sum: Money(value: totalSumBid, price.decimals),
                                               orderType: .sell,
                                               percentAmount: percent)
             bids.append(bid)
@@ -77,13 +77,13 @@ private extension DexOrderBookInteractorMock {
             let price = Money(item["price"].int64Value, pair.priceAsset.decimals)
             let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
             
-            totalSumAsk += price.doubleValue * amount.doubleValue
+            totalSumAsk += price.decimalValue * amount.decimalValue
 
             let percent: Float = 100 * amount.floatValue / maxAmountValue
 
             let ask = DexOrderBook.DTO.BidAsk(price: price,
                                               amount: amount,
-                                              sum: Money(totalSumAsk),
+                                              sum: Money(value: totalSumAsk, price.decimals),
                                               orderType: .buy,
                                               percentAmount: percent)
             asks.append(ask)
@@ -102,7 +102,7 @@ private extension DexOrderBookInteractorMock {
             }
             
             let type = priceInfo["type"].stringValue == "buy" ? DexOrderBook.DTO.OrderType.buy :  DexOrderBook.DTO.OrderType.sell
-            let price = Money(priceInfo["price"].doubleValue)
+            let price = Money(value: Decimal(priceInfo["price"].doubleValue), pair.priceAsset.decimals)
             
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }

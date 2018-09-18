@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 private enum Constants {
-    static let maximumInt64SizeDigits = 18
+    static let maximumInputDigits = 10
     static let localeIdentifier = "es_US"
 }
 
@@ -22,44 +22,32 @@ protocol InputNumericTextFieldDelegate: AnyObject {
 final class InputNumericTextField: UITextField {
 
     private var externalDelegate: UITextFieldDelegate?
-
-    private var textNSString: NSString {
-        return textString as NSString
-    }
-    
     private var textString: String {
         return text ?? ""
     }
-    
-    private var maximumInputDigits: Int {
-        return Constants.maximumInt64SizeDigits - decimals
+    private var textNSString: NSString {
+        return textString as NSString
     }
-    
+
     override var delegate: UITextFieldDelegate? {
         didSet {
             externalDelegate = delegate
             super.delegate = self
         }
     }
-    
-    var isShakeView: Bool = true
+
     weak var inputNumericDelegate: InputNumericTextFieldDelegate?
+    var isShakeView: Bool = true
     var decimals: Int = 0
 
     var value: Money {
-        
         if let decimal = Decimal(string: textString, locale: Locale(identifier: Constants.localeIdentifier)) {
-            return Money(Int64(truncating: decimal * Decimal(10 ^^ decimals) as NSNumber), decimals)
+            return Money(value: decimal, decimals)
         } else {
-            return Money(0)
+            return Money(0, decimals)
         }
     }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initialize()
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
@@ -71,42 +59,43 @@ final class InputNumericTextField: UITextField {
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         keyboardType = .decimalPad
     }
-   
-    override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
-        return nil
-    }
-    
-    //MARK: - Methods
-    
+}
+
+//MARK: - Methods
+
+extension InputNumericTextField {
     func setValue(value: Money) {
         decimals = value.decimals
         
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.maximumFractionDigits = decimals
-        f.minimumFractionDigits = countInputDecimals
-        f.usesGroupingSeparator = false
-        f.decimalSeparator = "."
-        
-        let result = f.string(from: Decimal(value.amount) / pow(10, decimals) as NSNumber) ?? ""
-        
-        setupAttributedText(text: result)
+        setupAttributedText(text: formattedStringFrom(value))
     }
     
     func addPlusValue() {
-        
-//        let text = String(format: "%.0\(countInputDecimals)f", value.decimalValue + deltaValue)
-        
-        setValue(value: Money(value.decimalValue + deltaValue, decimals: decimals))
+       
+        let additionalValue = Int64(deltaValue * pow(10, decimals).doubleValue)
+        let money = Money(value.amount + additionalValue, decimals)
+        setValue(value: money)
     }
     
     func addMinusValue() {
-        
-        var decimal = value.decimalValue + deltaValue
-        if decimal < 0 {
-            decimal = 0
+
+        let additionalValue = Int64(deltaValue * pow(10, decimals).doubleValue)
+        var amount = value.amount - additionalValue
+
+        if amount < 0 {
+            amount = 0
         }
-        setValue(value: Money(decimal, decimals: decimals))
+    
+        setValue(value: Money(amount, decimals))
+    }
+}
+
+
+//MARK: - Override
+extension InputNumericTextField {
+    
+    override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
+        return nil
     }
 }
 
@@ -181,9 +170,7 @@ extension InputNumericTextField: UITextFieldDelegate {
         else {
             attributedText = nil
         }
-        
-        print("int", value.amount)
-
+    
         
         inputNumericDelegate?.inputNumericTextField(self, didChangeValue: value)
     }
@@ -271,9 +258,9 @@ private extension InputNumericTextField {
         return decimals
     }
     
-    var deltaValue: Decimal {
+    var deltaValue: Double {
         
-        var deltaValue : Decimal = 1
+        var deltaValue : Double = 1
         for _ in 0..<countInputDecimals {
             deltaValue *= 0.1
         }
@@ -288,7 +275,6 @@ private extension InputNumericTextField {
     func isValidInput(input: String, inputRange: NSRange) -> Bool {
         
         if dotRange.location == NSNotFound {
-            
             if textString.last == "0" && input == "0" && textString.count == 1 {
                 shakeTextFieldIfNeed()
                 return false
@@ -298,27 +284,58 @@ private extension InputNumericTextField {
                 return false
             }
         }
-        else if (input == "," || input == ".") && isExistDot {
+
+        if (input == "," || input == ".") && isExistDot {
             shakeTextFieldIfNeed()
             return false
         }
-        else if countInputDecimals >= decimals && decimals > 0 && input.count > 0 {
-            if inputRange.location > dotRange.location {
-                shakeTextFieldIfNeed()
-                return false
-            }
-            else if !isValidInputBeforeDot(input: input, inputRange: inputRange) {
-                shakeTextFieldIfNeed()
-                return false
-            }
-        }
-        else if !isValidInputBeforeDot(input: input, inputRange: inputRange) {
+        
+        if !isValidInputAfterDot(input: input, inputRange: inputRange) {
             shakeTextFieldIfNeed()
             return false
         }
+        
+        if !isValidInputBeforeDot(input: input, inputRange: inputRange) {
+            shakeTextFieldIfNeed()
+            return false
+        }
+        
+        if !isValidBigNumber(input: input, inputRange: inputRange) {
+            shakeTextFieldIfNeed()
+            return false
+        }
+        
         return true
     }
     
+    func isValidInputAfterDot(input: String, inputRange: NSRange) -> Bool {
+        
+        if countInputDecimals >= decimals && decimals > 0 && input.count > 0 {
+            if inputRange.location > dotRange.location {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    func isValidBigNumber(input: String, inputRange: NSRange) -> Bool {
+        
+        if input == "." || input == "," {
+            return true
+        }
+        
+        if isExistDot {
+            if inputRange.location < dotRange.location {
+                let s = textNSString.substring(to: dotRange.location)
+                return s.count + input.count <= Constants.maximumInputDigits
+            }
+        }
+        else {
+            return textString.count + input.count <= Constants.maximumInputDigits
+        }
+        return true
+    }
     
     func isValidInputBeforeDot(input: String, inputRange: NSRange) -> Bool {
         
@@ -339,5 +356,25 @@ private extension InputNumericTextField {
             }
         }
         return true
+    }
+}
+
+//MARK: - NumberFormatter
+
+private extension InputNumericTextField {
+    
+    static func numberFormatter() -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = false
+        formatter.decimalSeparator = "."
+        return formatter
+    }
+    
+    func formattedStringFrom(_ value: Money) -> String {
+        let formatter = InputNumericTextField.numberFormatter()
+        formatter.maximumFractionDigits = decimals
+        formatter.minimumFractionDigits = countInputDecimals
+        return formatter.string(from: value.decimalValue as NSNumber) ?? ""
     }
 }

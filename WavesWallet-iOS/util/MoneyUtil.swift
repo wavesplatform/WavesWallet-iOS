@@ -32,15 +32,6 @@ class MoneyUtil {
         f.minimumFractionDigits = 0
         return f.string(from: amount as NSNumber)!
     }
-
-    class func formatNoGroupingAndZeros(_ amount: Int64, decimals: Int) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.groupingSeparator = ""
-        f.maximumFractionDigits = decimals
-        f.minimumFractionDigits = 0
-        return f.string(from: Decimal(amount) / pow(10, decimals) as NSNumber) ?? ""
-    }
     
     class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
         let f = NumberFormatter()
