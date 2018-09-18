@@ -12,7 +12,7 @@ import Foundation
 struct Money: Hashable, Codable {
     let amount: Int64
     let decimals: Int
-    
+        
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
@@ -46,7 +46,7 @@ extension Money {
     }
     
     var decimalValue: Decimal {
-        return Decimal(amount) / pow(10, decimals)
+        return (Decimal(amount) / pow(10, decimals)).rounded(to: decimals)
     }
 
     var doubleValue: Double {
