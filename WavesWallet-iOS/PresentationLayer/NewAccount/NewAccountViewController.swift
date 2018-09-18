@@ -8,17 +8,23 @@
 
 import UIKit
 import IdentityImg
+import IQKeyboardManagerSwift
+
+private enum Constants {
+    static let accountNameMinLimitSymbols: Int = 2
+    static let passwordMinLimitSymbols: Int = 2
+}
 
 private struct Avatar {
-    let key: String
+    let address: String
+    let privateKey: PrivateKeyAccount
     let index: Int
 }
 
 enum NewAccount {
     enum DTO {
         struct Account {
-            let seed: String
-            let hash: String
+            let privateKey: PrivateKeyAccount
             let password: String
             let name: String
         }
@@ -38,9 +44,14 @@ final class NewAccountViewController: UIViewController {
     @IBOutlet private weak var confirmPasswordInput: NewAccountInputTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var avatarTitleLabel: UILabel!
+    @IBOutlet private weak var avatarDetailLabel: UILabel!
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-    private var currentAvatar: Avatar?
+    private var isFirstChoiceAvatar: Bool = false
+    private var currentAvatar: Avatar? = nil
+
     weak var output: NewAccountModuleOutput?
 
     override func viewDidLoad() {
@@ -48,6 +59,11 @@ final class NewAccountViewController: UIViewController {
 
         scrollView.keyboardDismissMode = .onDrag
         title = Localizable.NewAccount.Main.Navigation.title
+        avatarTitleLabel.text = Localizable.NewAccount.Avatar.title
+        avatarDetailLabel.text = Localizable.NewAccount.Avatar.detail
+
+        buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
+        buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
 
         setupTextField()
         setupBigNavigationBar()
@@ -56,7 +72,19 @@ final class NewAccountViewController: UIViewController {
         createBackButton()
 
         ifNeedDisableButtonContinue()
-         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = false
+        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -76,53 +104,64 @@ final class NewAccountViewController: UIViewController {
     }
 
     private func setupTextField() {
-        accountNameInput.update(with: NewAccountInputTextField.Model(title: "Account name", kind: .text))
-        passwordInput.update(with: NewAccountInputTextField.Model(title: "Create a password", kind: .password))
-        confirmPasswordInput.update(with: NewAccountInputTextField.Model(title: "Confirm password", kind: .password))
+        accountNameInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title, kind: .text))
+        passwordInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title, kind: .password))
+        confirmPasswordInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title, kind: .newPassword))
 
-//        accountNameInput.valueValidator = { value in
-//            if value?.count == 0 {
-//                return "at least 8 characters"
-//            } else {
-//                return nil
-//            }
-//        }
-//
-//        passwordInput.valueValidator = { value in
-//            if (value?.count ?? 0) < 8 {
-//                return "at least 8 characters"
-//            } else {
-//                return nil
-//            }
-//        }
-//
-//        confirmPasswordInput.valueValidator = { [weak self] value in
-//            if self?.passwordInput.value != value {
-//                return "Differnt password"
-//            }
-//
-//            return nil
-//        }
-//
-//        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
-//            self?.ifNeedDisableButtonContinue()
-//        }
-//
-//        accountNameInput.changedValue = changedValue
-//        passwordInput.changedValue = changedValue
-//        confirmPasswordInput.changedValue = changedValue
-//
-//        accountNameInput.returnKey = .next
-//        passwordInput.returnKey = .next
-//        confirmPasswordInput.returnKey = .done
-//
-//        accountNameInput.textFieldShouldReturn = { [weak self] _ in
-//            self?.passwordInput.becomeFirstResponder()
-//        }
-//
-//        passwordInput.textFieldShouldReturn = { [weak self] _ in
-//            self?.confirmPasswordInput.becomeFirstResponder()
-//        }
+        accountNameInput.valueValidator = { value in
+            if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.accountNameMinLimitSymbols)
+            } else {
+                return nil
+            }
+        }
+
+        passwordInput.valueValidator = { value in
+            if (value?.count ?? 0) < Constants.passwordMinLimitSymbols {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.passwordMinLimitSymbols)
+            } else {
+                return nil
+            }
+        }
+
+        confirmPasswordInput.valueValidator = { [weak self] value in
+            if self?.passwordInput.value != value {
+                return Localizable.NewAccount.Textfield.Error.passwordnotmatch
+            }
+
+            return nil
+        }
+
+        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
+            self?.ifNeedDisableButtonContinue()
+        }
+
+        accountNameInput.changedValue = changedValue
+        passwordInput.changedValue = changedValue
+        confirmPasswordInput.changedValue = changedValue
+
+        accountNameInput.returnKey = .next
+        passwordInput.returnKey = .next
+        confirmPasswordInput.returnKey = .done
+
+        accountNameInput.textFieldShouldReturn = { [weak self] _ in
+            self?.passwordInput.becomeFirstResponder()
+        }
+
+        passwordInput.textFieldShouldReturn = { [weak self] _ in
+            self?.confirmPasswordInput.becomeFirstResponder()
+        }
+
+        confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in
+            self?.view.endEditing(true)
+            guard (self?.isValidData ?? false) else {
+                if self?.currentAvatar == nil {
+                    self?.avatars.forEach { $0.shake() }
+                }
+                return
+            }
+            self?.continueCreateAccount()
+        }
     }
 
     private func setupAvatarsView() {
@@ -131,21 +170,28 @@ final class NewAccountViewController: UIViewController {
 
             let index = object.offset
             let view = object.element
-            let key = WordList.generatePhrase()
-            let decoded = Base58.decode(key)
+            let seed = WordList.generatePhrase()
+            let privateKey = PrivateKeyAccount(seedStr: seed)
 
-            view.avatarDidTap = { [weak self] view, key in
-                self?.currentAvatar = Avatar(key: key, index: index)
+            view.avatarDidTap = { [weak self] view, address in
+
+                self?.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
                 self?.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
+                self?.ifNeedDisableButtonContinue()
+
+                if self?.isFirstChoiceAvatar == false {
+                    self?.isFirstChoiceAvatar = true
+                    self?.nextInputAfterChoiceAvatar()
+                }
             }
 
-            let image = identity.createImage(by: key, size: view.iconSize) ?? UIImage()
-            view.update(with: .init(icon: image, key: key))
+            let image = identity.createImage(by: privateKey.address, size: view.iconSize) ?? UIImage()
+            view.update(with: .init(icon: image, key: privateKey.address))
             view.state = .none
         }
 
-        if let currentAvatar = currentAvatar, let key = avatars[currentAvatar.index].key {
-            self.currentAvatar = Avatar(key: key, index: currentAvatar.index)
+        if let currentAvatar = currentAvatar, let address = avatars[currentAvatar.index].key {
+            self.currentAvatar = Avatar(address: address, privateKey: currentAvatar.privateKey, index: currentAvatar.index)
             self.avatars.enumerated().forEach {
                 if $0.offset != currentAvatar.index {
                     $0.element.state = .unselected
@@ -159,17 +205,28 @@ final class NewAccountViewController: UIViewController {
         }
     }
 
-    @objc func keyboardWillHide() {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    private func nextInputAfterChoiceAvatar() {
+        if accountNameInput.isValidValue == false {
+            accountNameInput.becomeFirstResponder()
+        } else if passwordInput.isValidValue == false {
+            passwordInput.becomeFirstResponder()
+        } else if passwordInput.isValidValue == false {
+            confirmPasswordInput.becomeFirstResponder()
+        } else {
+            continueCreateAccount()
+        }
     }
 
-    @IBAction func continueTapped(_ sender: Any) {
-        guard isValidData else { return }
+    private func continueCreateAccount() {
+        guard isValidData else {
+            return
+        }
+        guard let name = accountNameInput.value,
+            let password = passwordInput.value,
+            let avatar = currentAvatar else { return }
 
-
-//        output?.userCompletedCreateAccount(
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
-//        navigationController?.pushViewControllerAndSetLast(controller)
+        let account = NewAccount.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)
+        output?.userCompletedCreateAccount(account)
     }
 
     private var isValidData: Bool {
@@ -180,12 +237,18 @@ final class NewAccountViewController: UIViewController {
     }
 
     private func ifNeedDisableButtonContinue() {
+        buttonContinue.isEnabled = isValidData
+    }
 
-        if isValidData {
-            buttonContinue.setupButtonActiveState()
-        } else {
-            buttonContinue.setupButtonDeactivateState()
-        }
+    // MARK: Actions
+
+    @objc func keyboardWillHide() {
+        ifNeedDisableButtonContinue()
+        //        scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
+    }
+
+    @IBAction func continueTapped(_ sender: Any) {
+        continueCreateAccount()
     }
 }
 

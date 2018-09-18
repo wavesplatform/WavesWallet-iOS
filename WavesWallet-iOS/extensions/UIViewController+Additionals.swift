@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import RESideMenu
 
 extension UIViewController {
     
@@ -69,7 +68,8 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationItem.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationItem.largeTitleDisplayMode = .always
         }
     }
     

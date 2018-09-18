@@ -13,7 +13,7 @@
 "block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
 "button.confirm.title" = "Давай жми Макс";
 
-"button.createNewAccount.title" = "Создать клон Максим";
+"button.createNewAccount.title" = "Создать Максима";
 "button.signIn.title" = "Sign in";
 "button.signIn.detail" = "to a saved account";
 "button.importAccount.title" = "Импорт харастеристик Максима";

@@ -25,6 +25,7 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     @IBOutlet private var errorLabel: UILabel!
     @IBOutlet private var textFieldValue: UITextField!
     @IBOutlet private var eyeButton: UIButton!
+    private var secureText: String?
 
     var value: String? {
         return textFieldValue.text
@@ -34,6 +35,9 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     private var isSecureTextEntry: Bool = false {
         didSet {
             textFieldValue.isSecureTextEntry = isSecureTextEntry
+            if #available(iOS 10.0, *) {
+                textFieldValue.textContentType = UITextContentType("")
+            }
             if isSecureTextEntry {
                 eyeButton.setImage(Images.eyeopen24Basic500.image, for: .normal)
             } else {
@@ -61,15 +65,20 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
         textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        textFieldValue.addTarget(self, action: #selector(textFieldEndChanged), for: .editingDidEnd)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+    }
+
+    @discardableResult override func becomeFirstResponder() -> Bool {
+        return textFieldValue.becomeFirstResponder()
+    }
+
+    @objc func keyboardWillHide() {
+        checkValidValue()
     }
 
     @objc private func tapEyeButton() {
         isSecureTextEntry = !isSecureTextEntry
-    }
-
-    @objc private func textFieldEndChanged() {
-        checkValidValue()
     }
 
     @objc private func textFieldChanged() {
@@ -103,6 +112,10 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     }
 
     private func checkValidValue() {
+        checkValidValue(value)
+    }
+
+    private func checkValidValue(_ value: String?) {
         let error = valueValidator?(value)
         isValidValue = error == nil
         errorLabel.isHidden = isValidValue
@@ -119,25 +132,28 @@ extension NewAccountInputTextField: ViewConfiguration {
         titleLabel.isHidden = isHiddenTitleLabel
 
         checkValidValue()
+        
         switch model.kind {
         case .text:
+            isSecureTextEntry = false
+            eyeButton.isHidden = true
+            textFieldValue.autocorrectionType = .no
+            textFieldValue.autocapitalizationType = .words
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = .name
             }
-            eyeButton.isHidden = true
-            isSecureTextEntry = false
         case .password, .newPassword:
-            if #available(iOS 11.0, *) {
-                if model.kind == .password {
-                    textFieldValue.textContentType = .password
-                } else {
-                    if #available(iOS 12.0, *) {
-                        textFieldValue.textContentType = .newPassword
-                    }
-                }
+            if #available(iOS 12.0, *), model.kind == .newPassword {
+                textFieldValue.textContentType = UITextContentType("")
+            } else if #available(iOS 11.0, *), model.kind == .password {
+                textFieldValue.textContentType = UITextContentType("")
+            } else if #available(iOS 10.0, *) {
+                textFieldValue.textContentType = UITextContentType("")
             }
-            eyeButton.isHidden = false
             isSecureTextEntry = true
+            eyeButton.isHidden = false
+            textFieldValue.autocorrectionType = .no
+            textFieldValue.autocapitalizationType = .none
         }
     }
 }
@@ -146,7 +162,24 @@ extension NewAccountInputTextField: ViewConfiguration {
 extension NewAccountInputTextField: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textFieldShouldReturn?(self)
+
+        checkValidValue()
+        if isValidValue {
+            textFieldShouldReturn?(self)
+            return true
+        }
+
+        return false
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if let text = textField.text,
+            let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange,
+                                                       with: string)
+            checkValidValue(updatedText)
+        }
         return true
     }
 }
