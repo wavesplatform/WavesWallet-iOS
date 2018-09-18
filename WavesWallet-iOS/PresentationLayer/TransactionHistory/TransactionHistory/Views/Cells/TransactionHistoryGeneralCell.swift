@@ -146,10 +146,10 @@ extension TransactionHistoryGeneralCell: ViewCalculateHeight {
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.General, width: CGFloat) -> CGFloat {
         if model.currencyConversion == nil {
-            return 146
+            return 170
         }
         
-        return 170
+        return 192
     }
     
 }

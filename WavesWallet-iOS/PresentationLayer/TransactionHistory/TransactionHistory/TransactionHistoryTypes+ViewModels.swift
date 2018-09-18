@@ -89,6 +89,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var asset: DomainLayer.DTO.Asset?
         var isSpam: Bool?
         var customTitle: String?
+        var currencyConversion: String?
         
         switch transaction.kind {
         case .receive(let model):
@@ -302,7 +303,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     customTitle: customTitle,
                     asset: asset,
                     isSpam: isSpam,
-                    currencyConversion: nil
+                    currencyConversion: currencyConversion
                 )
             )
         )

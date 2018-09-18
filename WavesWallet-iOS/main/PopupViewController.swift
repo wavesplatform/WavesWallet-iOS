@@ -52,8 +52,8 @@ final class PopupViewController: UIViewController {
         setupGestures()
     }
     
-    func present(contentViewController: UIViewController) {
-    
+    func present(contentViewController: UIViewController, animated: Bool = true) {
+        
         let topController = getTopController()
         topController.view.addSubview(bgView)
         
@@ -69,17 +69,36 @@ final class PopupViewController: UIViewController {
         contentView.addSubview(contentViewController.view)
         
         view.frame.origin.y = view.frame.size.height
-        UIView.animate(withDuration: Constants.AnimationDuration) {
-            self.view.frame.origin.y = 0
-            self.bgView.alpha = Constants.BgAlpha
-        }
+        
+        showView(animated: animated)
     }
  
+    func present(contentView: UIView, animated: Bool) {
+        
+//        let topController = getTopController()
+//        topController.view.addSubview(bgView)
+        
+//        topController.addChildViewController(self)
+//        didMove(toParentViewController: topController)
+//        topController.view.addSubview(view)
+        
+//        view.addSubview(bgView)
+        
+        contentView.frame = CGRect(x: 0, y: Constants.ContainerOffsetOfDragPoint,
+                                                  width: contentView.frame.size.width,
+                                                  height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
+        self.contentView.addSubview(contentView)
+        
+        view.frame.origin.y = view.frame.size.height
+        
+        showView(animated: animated)
+    }
+    
     func dismissPopup() {
         UIView.animate(withDuration: Constants.AnimationDuration, animations: {
             self.view.frame.origin.y = self.view.frame.size.height
             self.bgView.alpha = 0
-        }) { (compelte) in
+        }) { (compeleted) in
             self.bgView.removeFromSuperview()
             self.view.removeFromSuperview()
             self.willMove(toParentViewController: nil)
@@ -87,16 +106,26 @@ final class PopupViewController: UIViewController {
         }
     }
     
-    func showView() {
-        UIView.animate(withDuration: Constants.AnimationDuration) {
+    func showView(animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: Constants.AnimationDuration) {
+                self.view.frame.origin.y = 0
+                self.bgView.alpha = Constants.BgAlpha
+            }
+        } else {
             self.view.frame.origin.y = 0
             self.bgView.alpha = Constants.BgAlpha
         }
     }
     
-    func hideView() {
-        UIView.animate(withDuration: Constants.AnimationDuration) {
-            self.view.frame.origin.y = self.view.frame.size.height
+    func hideView(animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: Constants.AnimationDuration) {
+                self.view.frame.origin.y = self.view.frame.height
+                self.bgView.alpha = 0
+            }
+        } else {
+            self.view.frame.origin.y = self.view.frame.height
             self.bgView.alpha = 0
         }
     }
@@ -198,10 +227,10 @@ private extension PopupViewController {
     
     func setupGestures() {
         let gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
-        view.addGestureRecognizer(gestureTap)
+//        view.addGestureRecognizer(gestureTap)
         
         let gesturePan = UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:)))
-        view.addGestureRecognizer(gesturePan)
+//        view.addGestureRecognizer(gesturePan)
     }
 }
 
