@@ -65,6 +65,9 @@ class TransactionHistoryViewController: UIViewController {
         
         view.addSubview(cv)
         
+        let gr = UIPanGestureRecognizer(target: self, action: #selector(pan(gr:)))
+        gr.delegate = self
+        view.addGestureRecognizer(gr)
     }
     
     override func viewWillLayoutSubviews() {
@@ -78,6 +81,36 @@ class TransactionHistoryViewController: UIViewController {
     
     @objc private func backgroundTap(sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+ 
+    @objc private func pan(gr: UIPanGestureRecognizer) {
+        
+        switch gr.state {
+        case .changed:
+            let velocity = gr.velocity(in: view)
+            let location = gr.location(ofTouch: 0, in: nil)
+            
+            if velocity.y > 0 && location.y < 120 && location.y > 60 {
+                print("up")
+                dismiss(animated: true, completion: nil)
+            } else {
+                print("down")
+            }
+            
+            print(velocity.y)
+            print()
+        default:
+            break
+        }
+        
+    }
+    
+}
+
+extension TransactionHistoryViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
 }
