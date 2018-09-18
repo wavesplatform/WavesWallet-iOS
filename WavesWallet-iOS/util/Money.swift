@@ -20,35 +20,14 @@ struct Money: Hashable, Codable {
 }
 
 extension Money {
-    
-    init(_ value: Double) {
-        
-        let number = NSNumber(value: value)
-        let resultString = number.stringValue
-        
-        let theScanner = Scanner(string: resultString)
-        let decimalPoint = "."
-        var unwanted: NSString?
-        
-        theScanner.scanUpTo(decimalPoint, into: &unwanted)
-        
-        var countDecimals = 0
-        
-        if let unwanted = unwanted {
-            countDecimals = ((resultString.count - unwanted.length) > 0) ? resultString.count - unwanted.length - 1 : 0
-        }
-        
-        decimals = countDecimals
-        amount = Int64(value * pow(10, decimals).doubleValue)
+ 
+    init(value: Decimal, _ decimals: Int) {
+        self.decimals = decimals
+        self.amount = Int64(truncating: value * pow(10, decimals) as NSNumber)
     }
     
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
         return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
-    }
-    
-    init(_ value: Decimal, decimals: Int) {
-        self.decimals = decimals
-        self.amount = Int64(truncating: value * Decimal(10 ^^ decimals) as NSNumber)
     }
 }
 
@@ -64,10 +43,6 @@ extension Money {
 
     var displayTextFull: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
-    }
-    
-    var displayTextNoGrouping: String {
-        return MoneyUtil.formatNoGroupingAndZeros(amount, decimals: decimals)
     }
     
     var decimalValue: Decimal {

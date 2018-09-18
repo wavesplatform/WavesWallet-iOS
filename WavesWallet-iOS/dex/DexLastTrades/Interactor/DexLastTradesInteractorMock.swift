@@ -49,14 +49,14 @@ private extension DexLastTradesInteractorMock {
                     let time = Date(timeIntervalSince1970: timestamp / 1000)
 
                     let type: DexLastTrades.DTO.TradeType = item["type"] == "sell" ? .sell : .buy
-                    let price = item["price"].doubleValue
-                    let amount = item["amount"].doubleValue
+                    let price = Decimal(item["price"].doubleValue)
+                    let amount = Decimal(item["amount"].doubleValue)
                     let sum = price * amount
                     
                     trades.append(DexLastTrades.DTO.Trade(time: time,
-                                                          price: Money(price),
-                                                          amount: Money(amount),
-                                                          sum: Money(sum),
+                                                          price: Money(value: price, self.pair.priceAsset.decimals),
+                                                          amount: Money(value: amount, self.pair.amountAsset.decimals),
+                                                          sum: Money(value: sum, self.pair.priceAsset.decimals),
                                                           type: type))
                 }
             }

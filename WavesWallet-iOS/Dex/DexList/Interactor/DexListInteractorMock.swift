@@ -29,47 +29,47 @@ final class DexListInteractorMock: DexListInteractorProtocol {
 
     private static var testModels : [DexList.DTO.Pair] = [
 
-        DexList.DTO.Pair.createPair(Money(123.0), Money(53.234234234234), "WAVES", "WAVES", 8,
+        DexList.DTO.Pair.createPair(Money(value: 123.0, 8), Money(value: 53.234234234234, 8), "WAVES", "WAVES", 8,
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8),
         
-        DexList.DTO.Pair.createPair(Money(314), Money(350), "WAVES", "WAVES", 8,
+        DexList.DTO.Pair.createPair(Money(value: 314.0, 8), Money(value: 350.0, 8), "WAVES", "WAVES", 8,
                                     "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 2),
         
-        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300), "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8,
+        DexList.DTO.Pair.createPair(Money(value: 20.0, 8), Money(value: 43.2300, 8), "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8,
                                     "WAVES", "WAVES", 8),
         
-        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234),
+        DexList.DTO.Pair.createPair(Money(value: 10.12, 8), Money(value: 44543.9442342348374823748830004234, 8),
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
                                     "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8),
         
-        DexList.DTO.Pair.createPair(Money(120.0), Money(434.15),
+        DexList.DTO.Pair.createPair(Money(value: 120.0, 8), Money(value: 434.15, 8),
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
                                     "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 2),        
         
-        DexList.DTO.Pair.createPair(Money(20.0), Money(43.2300),
+        DexList.DTO.Pair.createPair(Money(value: 20.0, 8), Money(value: 43.2300, 8),
                                     "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8,
                                     "WAVES", "WAVES",  8),
-        DexList.DTO.Pair.createPair(Money(10.12), Money(44543.9442342348374823748830004234),
+        DexList.DTO.Pair.createPair(Money(value: 10.12, 8), Money(value: 44543.9442342348374823748830004234, 8),
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
                                     "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu", "ETH", 8),
         
-        DexList.DTO.Pair.createPair(Money(120.0), Money(434.15),
+        DexList.DTO.Pair.createPair(Money(value: 120.0, 8), Money(value: 434.15, 8),
                                     "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", "BTC", 8,
                                     "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck", "USD", 8),
         
-        DexList.DTO.Pair.createPair(Money(120), Money(20.32423423423424235453643), "ETH Classic", "ETH Classic", 8,
+        DexList.DTO.Pair.createPair(Money(value: 120.0, 8), Money(value: 20.32423423423, 8), "ETH Classic", "ETH Classic", 8,
                                     "IOTA", "IOTA", 8),
         
-        DexList.DTO.Pair.createPair(Money(40), Money(20.32), "Monero", "Monero", 8,
+        DexList.DTO.Pair.createPair(Money(value: 40.0, 8), Money(value: 20.32, 8), "Monero", "Monero", 8,
                                     "ETH", "ETH", 8),
         
-        DexList.DTO.Pair.createPair(Money(100), Money(10.4), "BTC Cash", "BTC Cash", 8,
+        DexList.DTO.Pair.createPair(Money(value: 100.0, 8), Money(value: 10.4, 8), "BTC Cash", "BTC Cash", 8,
                                     "Waves", "Waves", 8),
-        DexList.DTO.Pair.createPair(Money(1034.31), Money(94.00003), "ZCash", "ZCash", 8,
+        DexList.DTO.Pair.createPair(Money(value: 1034.31, 8), Money(value: 94.00003, 8), "ZCash", "ZCash", 8,
                                     "ETH", "ETH", 8),
-        DexList.DTO.Pair.createPair(Money(20), Money(65.000), "Bitcoin", "Bitcoin", 8,
+        DexList.DTO.Pair.createPair(Money(value: 20.0, 8), Money(value: 65.000, 8), "Bitcoin", "Bitcoin", 8,
                                     "NEO", "NEO", 8),
-        DexList.DTO.Pair.createPair(Money(200.343), Money(96.34), "NEM", "NEM", 8,
+        DexList.DTO.Pair.createPair(Money(value: 200.343, 8), Money(value: 96.34, 8), "NEM", "NEM", 8,
                                     "BTC", "BTC", 8)]
  
     
@@ -94,8 +94,8 @@ private extension DexListInteractorMock {
             var newModels : [DexList.DTO.Pair] = []
             for model in DexListInteractorMock.testModels {
                 let newModel = model.mutate {
-                    $0.firstPrice = Money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
-                    $0.lastPrice = Money(Double(arc4random() % 200) + Double(arc4random() % 200) * 0.005 + 1)
+                    $0.firstPrice = Money(value: Decimal(arc4random() % 200) + Decimal(arc4random() % 200) * 0.005 + 1, $0.firstPrice.decimals)
+                    $0.lastPrice = Money(value: Decimal(arc4random() % 200) + Decimal(arc4random() % 200) * 0.005 + 1, $0.firstPrice.decimals)
                 }
                 newModels.append(newModel)
             }
