@@ -11,10 +11,13 @@ import SwipeView
 import RxCocoa
 import RxFeedback
 import RxSwift
- 
+
 class TransactionHistoryViewController: UIViewController {
     
-    @IBOutlet weak var swipeView: SwipeView!
+    fileprivate var presenting: Bool = false
+    
+    private(set) var backgroundView: UIControl!
+    private(set) var collectionView: UICollectionView!
     
     var presenter: TransactionHistoryPresenter!
     
@@ -26,10 +29,55 @@ class TransactionHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        swipeView.delegate = self
-        swipeView.dataSource = self
+        view.backgroundColor = .clear
+        
+        setupBackgroundView()
+        setupCollectionView()
         
         setupSystem()
+    }
+    
+    private func setupBackgroundView() {
+        backgroundView = UIControl()
+        backgroundView.backgroundColor = UIColor(red: 0 / 255, green: 26 / 255, blue: 57 / 255)
+        backgroundView.addTarget(self, action: #selector(backgroundTap(sender:)), for: .touchUpInside)
+        view.addSubview(backgroundView)
+    }
+    
+    private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        
+        let cv = TransactionHistoryCollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.touchInsets = TransactionHistoryPopupCell.Constants.popupInsets
+        cv.delegate = self
+        cv.dataSource = self
+        cv.register(TransactionHistoryPopupCell.self, forCellWithReuseIdentifier: "cell")
+        cv.alwaysBounceHorizontal = true
+        cv.backgroundColor = .clear
+        cv.allowsSelection = false
+        cv.delaysContentTouches = false
+//        cv.isPagingEnabled = true
+        cv.isOpaque = false
+        collectionView = cv
+        
+        view.addSubview(cv)
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        backgroundView.frame = view.bounds
+        collectionView.frame = view.bounds
+    }
+    
+    // MARK: - Action
+    
+    @objc private func backgroundTap(sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
 }
@@ -76,9 +124,10 @@ private extension TransactionHistoryViewController {
             guard let sself = self else { return }
             
             sself.displays = state.displays
-            sself.swipeView.reloadData()
             
-            sself.swipeView.currentPage = state.currentIndex
+            sself.collectionView.reloadData()
+            sself.collectionView.scrollToItem(at: IndexPath(item: state.currentIndex, section: 0), at: .left, animated: false)
+
         })
         
         return [subscriptionSections]
@@ -87,9 +136,58 @@ private extension TransactionHistoryViewController {
     
 }
 
-extension TransactionHistoryViewController: SwipeViewDelegate {
+extension TransactionHistoryViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return displays.count
+    }
     
-    func swipeViewCurrentItemIndexDidChange(_ swipeView: SwipeView!) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let display = displays[indexPath.item]
+        let cell: TransactionHistoryPopupCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TransactionHistoryPopupCell
+        
+        let popupView = TransactionHistoryPopupView()
+        popupView.contentView.setup(with: display)
+        popupView.contentView.delegate = self
+    
+        cell.fill(with: popupView)
+        
+        return cell
+        
+    }
+    
+}
+
+extension TransactionHistoryViewController: UICollectionViewDelegate {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        if fabs(velocity.x) < fabs(velocity.y) { return }
+        
+        targetContentOffset.pointee = scrollView.contentOffset
+        let pageWidth: CGFloat = CGFloat(view.bounds.width)
+        let minSpace: CGFloat = 10.0
+        var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace)) + (velocity.x < 0 ? -0.9 : 0.9)
+        
+        if cellToSwipe < 0 {
+            cellToSwipe = 0
+        } else if cellToSwipe >= Double(collectionView.numberOfItems(inSection: 0)) {
+            cellToSwipe = Double(collectionView.numberOfItems(inSection: 0)) - Double(1)
+        }
+        
+        let indexPath:IndexPath = IndexPath(row: Int(cellToSwipe), section:0)
+        collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
+        
+    }
+    
+}
+
+extension TransactionHistoryViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return collectionView.frame.size
         
     }
     
@@ -99,37 +197,81 @@ extension TransactionHistoryViewController: TransactionHistoryContentViewDelegat
     
     func contentViewDidPressButton(view: NewTransactionHistoryContentView) {
         
-        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
-        buttonTap.onNext(transaction)
+//        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
+//        buttonTap.onNext(transaction)
         
     }
     
     func contentViewDidPressAccount(view: NewTransactionHistoryContentView) {
         
-        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
-        accountTap.onNext(transaction)
+//        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
+//        accountTap.onNext(transaction)
         
     }
     
 }
 
-extension TransactionHistoryViewController: SwipeViewDataSource {
+extension TransactionHistoryViewController: UIViewControllerTransitioningDelegate {
     
-    func numberOfItems(in swipeView: SwipeView!) -> Int {
-        return displays.count
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.presenting = true
+        return self
     }
     
-    func swipeView(_ swipeView: SwipeView!, viewForItemAt index: Int, reusing view: UIView!) -> UIView! {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.presenting = false
+        return self
+    }
+    
+}
+
+extension TransactionHistoryViewController: UIViewControllerAnimatedTransitioning {
+    
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return presenting ? 0.4 : 0.3
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
+        let toView = transitionContext.view(forKey: .to)
         
-        let displayState = displays[index]
+        let containerFrame = containerView.frame
         
-        let view = NewTransactionHistoryContentView.loadView() as! NewTransactionHistoryContentView 
-        view.frame = swipeView.bounds
-        view.setup(with: displayState)
-        view.delegate = self
+        if let toView = toView {
+            containerView.addSubview(toView)
+            toView.frame = containerFrame
+        }
         
-        return view
+        if (presenting) {
+            backgroundView.alpha = 0
+            collectionView.alpha = 0
+            collectionView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.5)
+        }
         
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, options: [.curveEaseOut], animations: {
+            
+            if self.presenting {
+                
+                self.backgroundView.alpha = 0.2
+                self.collectionView.alpha = 1
+                self.collectionView.center = self.view.center
+                
+            } else {
+                
+                self.backgroundView.alpha = 0
+                self.collectionView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height * 1.5)
+                self.collectionView.alpha = 0
+                
+            }
+            
+        }, completion: { (success) in
+            if (!self.presenting && success) {
+                toView?.removeFromSuperview()
+            }
+            
+            transitionContext.completeTransition(success)
+        })
     }
     
 }

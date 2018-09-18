@@ -44,6 +44,7 @@
 		04861B4D2135D842006993A8 /* TransactionHistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
+		0487427C215121CC000D0B85 /* TransactionHistoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487427B215121CC000D0B85 /* TransactionHistoryCollectionView.swift */; };
 		0497A5662140140000C730A3 /* DottedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497A5652140140000C730A3 /* DottedView.swift */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
@@ -52,6 +53,8 @@
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
 		04E1DB07214FC13A00F760F1 /* TransactionHistory.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E1DB09214FC13A00F760F1 /* TransactionHistory.strings */; };
+		04E1DB0D2150252300F760F1 /* TransactionHistoryPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1DB0C2150252300F760F1 /* TransactionHistoryPopupView.swift */; };
+		04E1DB11215032E300F760F1 /* TransactionHistoryPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1DB10215032E300F760F1 /* TransactionHistoryPopupCell.swift */; };
 		04E80A12214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
@@ -651,6 +654,7 @@
 		04861B4C2135D842006993A8 /* TransactionHistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+State.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
+		0487427B215121CC000D0B85 /* TransactionHistoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCollectionView.swift; sourceTree = "<group>"; };
 		0487B4FE214187A9008712DF /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		0497A5652140140000C730A3 /* DottedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedView.swift; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
@@ -664,6 +668,8 @@
 		04E1DB08214FC13A00F760F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
 		04E1DB0A214FC13D00F760F1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
 		04E1DB0B214FC14200F760F1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/TransactionHistory.strings; sourceTree = "<group>"; };
+		04E1DB0C2150252300F760F1 /* TransactionHistoryPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPopupView.swift; sourceTree = "<group>"; };
+		04E1DB10215032E300F760F1 /* TransactionHistoryPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPopupCell.swift; sourceTree = "<group>"; };
 		04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
@@ -1386,7 +1392,10 @@
 		04FB3F2621343F280008CFF3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04E1DB0C2150252300F760F1 /* TransactionHistoryPopupView.swift */,
+				04E1DB10215032E300F760F1 /* TransactionHistoryPopupCell.swift */,
 				04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */,
+				0487427B215121CC000D0B85 /* TransactionHistoryCollectionView.swift */,
 				042B32DC21389FED00F4EFB9 /* NewTransactionHistoryContentView.xib */,
 				042B32F221394D0400F4EFB9 /* Cells */,
 			);
@@ -3414,6 +3423,7 @@
 				0AE6572D21062EC7003D2DB8 /* Models.swift in Sources */,
 				E9F5E4852134D555001FC87A /* DexChartPresenter.swift in Sources */,
 				E9983DC0211C7117002349CA /* DexMarketViewController.swift in Sources */,
+				04E1DB0D2150252300F760F1 /* TransactionHistoryPopupView.swift in Sources */,
 				0AF922B9212E1234003BA067 /* ObservableType+SweetLogger.swift in Sources */,
 				0AF9222F212E0F1F003BA067 /* WalletAssetSkeletonCell.swift in Sources */,
 				E9CB908320D1DE24000E54AA /* ChooseAddressBookViewController.swift in Sources */,
@@ -3491,6 +3501,7 @@
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
+				04E1DB11215032E300F760F1 /* TransactionHistoryPopupCell.swift in Sources */,
 				0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */,
 				04FB3F3221347C2B0008CFF3 /* TransactionHistoryInteractor.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
@@ -3823,6 +3834,7 @@
 				E95FD574212CD0F300D73E18 /* DexLastTradesHeaderView.swift in Sources */,
 				E9CFBC392124D5ED00CE7413 /* DexChartModuleBuilder.swift in Sources */,
 				E959B5FB20BEE7FF00101A75 /* TransactionHistoryShowAllView.swift in Sources */,
+				0487427C215121CC000D0B85 /* TransactionHistoryCollectionView.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */,

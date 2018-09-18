@@ -26,11 +26,7 @@ final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
     @IBOutlet weak var statusLabel: UILabel!
     
     @IBOutlet weak var statusContainer: UIView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-    
+
     class func cellHeight() -> CGFloat {
         return 62
     }

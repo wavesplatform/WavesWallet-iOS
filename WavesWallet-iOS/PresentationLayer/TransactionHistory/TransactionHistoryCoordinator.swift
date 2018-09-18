@@ -10,21 +10,27 @@ import UIKit
 
 final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
     
-    var transactions: [DomainLayer.DTO.SmartTransaction]
-    var currentIndex: Int
+    let transactions: [DomainLayer.DTO.SmartTransaction]
+    let currentIndex: Int
+    let rootViewController: UIViewController
     
-    init(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) {
+    init(transactions: [DomainLayer.DTO.SmartTransaction],
+         currentIndex: Int,
+         rootViewController: UIViewController) {
+        
+        self.rootViewController = rootViewController
         self.transactions = transactions
         self.currentIndex = currentIndex
     }
     
-    private lazy var transactionHistoryViewController: UIViewController = {
-        return TransactionHistoryModuleBuilder(output: self).build(input: self)
+    private lazy var transactionHistoryViewController: TransactionHistoryViewController = {
+        return TransactionHistoryModuleBuilder(output: self).build(input: self) as! TransactionHistoryViewController
     }()
     
     func start() {
-        let popupViewController = PopupViewController()
-        popupViewController.present(contentViewController: transactionHistoryViewController)
+        transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
+        transactionHistoryViewController.modalPresentationStyle = .custom
+        rootViewController.present(transactionHistoryViewController, animated: true, completion: nil)
     }
     
 }
