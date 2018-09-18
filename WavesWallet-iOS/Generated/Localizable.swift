@@ -16,6 +16,13 @@ internal enum Localizable {
   }
           internal enum NewAccount {
 
+    internal enum Avatar {
+      /// This avatar is unique. You cannot change it later.
+      internal static var detail: String { return Localizable.tr("NewAccount", "avatar.detail") }
+      /// Choose your address avatar
+      internal static var title: String { return Localizable.tr("NewAccount", "avatar.title") }
+    }
+
     internal enum Backup {
 
       internal enum Navigation {
@@ -37,6 +44,33 @@ internal enum Localizable {
       internal enum Navigation {
         /// New Account
         internal static var title: String { return Localizable.tr("NewAccount", "secret.navigation.title") }
+      }
+    }
+
+    internal enum Textfield {
+
+      internal enum Accountname {
+        /// Account name
+        internal static var title: String { return Localizable.tr("NewAccount", "textfield.accountName.title") }
+      }
+
+      internal enum Confirmpassword {
+        /// Confirm password
+        internal static var title: String { return Localizable.tr("NewAccount", "textfield.confirmpassword.title") }
+      }
+
+      internal enum Createpassword {
+        /// Create a password
+        internal static var title: String { return Localizable.tr("NewAccount", "textfield.createpassword.title") }
+      }
+
+      internal enum Error {
+        /// at least %d characters
+        internal static func atleastcharacters(_ p1: Int) -> String {
+          return Localizable.tr("NewAccount", "textfield.error.atleastcharacters", p1)
+        }
+        /// password not match
+        internal static var passwordnotmatch: String { return Localizable.tr("NewAccount", "textfield.error.passwordnotmatch") }
       }
     }
   }
@@ -464,6 +498,40 @@ internal enum Localizable {
       internal static var assets: String { return Localizable.tr("Wallet", "segmentedControl.assets") }
       /// Leasing
       internal static var leasing: String { return Localizable.tr("Wallet", "segmentedControl.leasing") }
+    }
+  }
+          internal enum Backup {
+
+    internal enum Infobackup {
+
+      internal enum Button {
+        /// I understand
+        internal static var iunderstand: String { return Localizable.tr("Backup", "infobackup.button.iunderstand") }
+      }
+
+      internal enum Label {
+        /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
+        internal static var detail: String { return Localizable.tr("Backup", "infobackup.label.detail") }
+        /// Treat your backup phrase with care!
+        internal static var title: String { return Localizable.tr("Backup", "infobackup.label.title") }
+      }
+    }
+
+    internal enum Needbackup {
+
+      internal enum Button {
+        /// Back Up Now
+        internal static var backupnow: String { return Localizable.tr("Backup", "needbackup.button.backupnow") }
+        /// Do it later
+        internal static var doitlater: String { return Localizable.tr("Backup", "needbackup.button.doitlater") }
+      }
+
+      internal enum Label {
+        /// You must save the secret phrase. It is crucial for accessing your account.
+        internal static var detail: String { return Localizable.tr("Backup", "needbackup.label.detail") }
+        /// No Backup, No Money
+        internal static var title: String { return Localizable.tr("Backup", "needbackup.label.title") }
+      }
     }
   }
           internal enum Asset {

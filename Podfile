@@ -34,9 +34,11 @@ target 'WavesWallet-iOS' do
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
 
     pod 'Skeleton'
-
     pod 'Charts', '~> 3.1.1'
     pod 'Koloda'
+
+    pod 'IQKeyboardManagerSwift'
+    pod 'TPKeyboardAvoiding'
 
     # Assisstant
     pod 'RxSwift'
@@ -44,9 +46,11 @@ target 'WavesWallet-iOS' do
     pod 'RxGesture'
     pod 'RxFeedback'
 
-   pod 'IQKeyboardManagerSwift'
-    pod 'TPKeyboardAvoiding'
+    # External Service
+    pod 'Firebase/Core'
 
+
+    # Helperrs
     pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'
     pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
     pod 'base58', :path => 'Vendors/Base58'

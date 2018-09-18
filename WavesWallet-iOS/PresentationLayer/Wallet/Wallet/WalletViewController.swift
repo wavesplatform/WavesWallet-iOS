@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import RESideMenu
 import RxCocoa
 import RxDataSources
 import RxFeedback

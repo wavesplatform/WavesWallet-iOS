@@ -34,7 +34,7 @@ final class AppCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let window: UIWindow
-    private var sideMenu: RESideMenu?
+    private var sideMenu: SideMenu?
 
     init(_ window: UIWindow) {
         self.window = window
@@ -77,7 +77,7 @@ final class AppCoordinator: Coordinator {
 //        return
 
         let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        let sideMenuViewController = RESideMenu(contentViewController:contentViewController,
+        let sideMenuViewController = SideMenu(contentViewController:contentViewController,
                                                 leftMenuViewController: menuController,
                                                 rightMenuViewController: nil)!
         sideMenuViewController.contentViewShadowEnabled = true

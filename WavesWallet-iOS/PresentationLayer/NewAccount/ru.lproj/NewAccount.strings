@@ -6,11 +6,11 @@
   Copyright © 2018 Waves Platform. All rights reserved.
 */
 
-"main.navigation.title" = "New Account";
-"avatar.title" = "Choose your address avatar";
-"avatar.detail" = "This avatar is unique. You cannot change it later.";
+"main.navigation.title" = "Новый Максим";
+"avatar.title" = "Выбери своего Максима";
+"avatar.detail" = "Этот Максим уникальный. Вы не сможете изменить его.";
 
-"textfield.accountName.title" = "Account name";
+"textfield.accountName.title" = "Имя Максима";
 "textfield.createpassword.title" = "Create a password";
 "textfield.confirmpassword.title" = "Confirm password";
 
