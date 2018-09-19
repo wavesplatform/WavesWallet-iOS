@@ -8,27 +8,42 @@
 
 import UIKit
 
-class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewDelegate, ConfirmBackupStackInputViewDelegate {
+protocol ConfirmBackupOutput: AnyObject {
+    func userConfirmBackup()
+}
 
-    @IBOutlet weak var stackListView: ConfirmBackupStackListView!
-    @IBOutlet weak var stackTopView: ConfirmBackupStackInputView!
-    
-    @IBOutlet weak var labelTapWord: UILabel!
-    
-    let words = ["nigga", "wanna", "too", "get", "tothe", "close", "utmost", "but", "igot", "stacks", "that'll", "attack", "any", "wack", "host"]
-    var inputWords : [String] = []
-    
-    @IBOutlet weak var stackListViewHeight: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var buttonConfirm: UIButton!
-    @IBOutlet weak var labelError: UILabel!
-    
+struct ConfirmBackupInput {
+    let seed: [String]
+}
+
+final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewDelegate, ConfirmBackupStackInputViewDelegate {
+
+    @IBOutlet private weak var stackListView: ConfirmBackupStackListView!
+    @IBOutlet private weak var stackTopView: ConfirmBackupStackInputView!
+    @IBOutlet private weak var labelTapWord: UILabel!
+    @IBOutlet private weak var stackListViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var buttonConfirm: UIButton!
+    @IBOutlet private weak var labelError: UILabel!
+
+    private var inputWords : [String] = []
+    private var words: [String] {
+         return input?.seed ?? []
+    }
+    var input: ConfirmBackupInput?
+    weak var output: ConfirmBackupOutput?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = Localizable.Backup.Confirmbackup.Navigation.title
+        labelTapWord.text = Localizable.Backup.Confirmbackup.Info.label
+        labelError.text = Localizable.Backup.Confirmbackup.Error.label
+        buttonConfirm.setTitle(Localizable.Backup.Confirmbackup.Info.label, for: .normal)
+
+        buttonConfirm.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
+        buttonConfirm.setBackgroundImage(UIColor.submit400.image, for: .normal)
+
         createBackButton()
-        title = "Confirm backup"
         setupBigNavigationBar()
         hideTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
@@ -44,10 +59,7 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
     }
     
     @IBAction func confirmTapped(_ sender: Any) {
-        
-        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
-        controller.isCreatePasswordMode = true
-        navigationController?.pushViewController(controller, animated: true)
+        output?.userConfirmBackup()
     }
     
     //MARK: - ConfirmBackupStackListViewDelegate
@@ -71,8 +83,7 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
                     self.stackListView.alpha = 0
                     self.buttonConfirm.alpha = 1
                 }
-            }
-            else {
+            } else {
                 stackTopView.errorMode = true
                 stackTopView.setNeedsDisplay()
                 UIView.animate(withDuration: 0.3) {
@@ -80,7 +91,7 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
                     self.stackListView.alpha = 0
                 }
             }
-        }
+        }        
     }
     
     
@@ -93,6 +104,12 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
             stackTopView.errorMode = false
             stackTopView.setNeedsDisplay()
         }
+
+        if stackTopView.words.count == 0 {
+            UIView.animate(withDuration: 0.3) {
+                self.labelTapWord.alpha = 1
+            }
+        }
         
         if labelError.alpha == 1 {
             UIView.animate(withDuration: 0.3) {
@@ -101,6 +118,4 @@ class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewD
             }
         }
     }
-
-    
 }

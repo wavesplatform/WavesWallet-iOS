@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BackupInfoViewModuleOutput: AnyObject {
-    func userCompletedInteract()
+    func userReadedBackupInfo()
 }
 
 final class BackupInfoViewController: UIViewController {
@@ -28,6 +28,9 @@ final class BackupInfoViewController: UIViewController {
             topLogoOffset.constant = 80
         }
 
+        iUnderstandButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
+        iUnderstandButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
+
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()
         titleLabel.text = Localizable.Backup.Infobackup.Label.title
@@ -36,6 +39,6 @@ final class BackupInfoViewController: UIViewController {
     }
 
     @IBAction func understandTapped(_ sender: Any) {
-        output?.userCompletedInteract()
+        output?.userReadedBackupInfo()
     }
 }

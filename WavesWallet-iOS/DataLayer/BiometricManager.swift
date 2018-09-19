@@ -9,19 +9,28 @@
 import Foundation
 import LocalAuthentication
 
-final class BiometricManager {
-    
-    enum BiometricType {
-        case none
-        case touchID
-        case faceID
+enum BiometricType {
+    case none
+    case touchID
+    case faceID
+
+    var title: String? {
+        switch self {
+        case .none:
+            return nil
+
+        case .touchID:
+            return Localizable.General.Biometric.Touchid.title
+
+        case .faceID:
+            return Localizable.General.Biometric.Faceid.title
+        }
     }
-    
-    static var touchIDTypeText: String {
-        return type == .faceID ? "Face ID" : "Touch ID"
-    }
-    
-    static var type: BiometricType {
+}
+
+extension BiometricType {
+
+    static var current: BiometricType {
         get {
             let context = LAContext()
 
@@ -38,6 +47,19 @@ final class BiometricManager {
             } else {
                 return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? .touchID : .none
             }
+        }
+    }
+}
+
+final class BiometricManager {
+
+    static var touchIDTypeText: String {
+        return type == .faceID ? "Face ID" : "Touch ID"
+    }
+    
+    static var type: BiometricType {
+        get {
+            return BiometricType.current
         }
     }
 }

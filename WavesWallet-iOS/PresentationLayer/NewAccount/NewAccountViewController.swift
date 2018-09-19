@@ -145,22 +145,15 @@ final class NewAccountViewController: UIViewController {
         confirmPasswordInput.returnKey = .done
 
         accountNameInput.textFieldShouldReturn = { [weak self] _ in
-            self?.passwordInput.becomeFirstResponder()
+            self?.nextInputAfterChoiceAvatar()
         }
 
         passwordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.confirmPasswordInput.becomeFirstResponder()
+            self?.nextInputAfterChoiceAvatar()
         }
 
-        confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.view.endEditing(true)
-            guard (self?.isValidData ?? false) else {
-                if self?.currentAvatar == nil {
-                    self?.avatars.forEach { $0.shake() }
-                }
-                return
-            }
-            self?.continueCreateAccount()
+        confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in    
+            self?.nextInputAfterChoiceAvatar()
         }
     }
 
@@ -210,8 +203,11 @@ final class NewAccountViewController: UIViewController {
             accountNameInput.becomeFirstResponder()
         } else if passwordInput.isValidValue == false {
             passwordInput.becomeFirstResponder()
-        } else if passwordInput.isValidValue == false {
+        } else if confirmPasswordInput.isValidValue == false {
             confirmPasswordInput.becomeFirstResponder()
+        } else if currentAvatar == nil {
+            self.view.endEditing(true)
+            self.avatars.forEach { $0.shake() }
         } else {
             continueCreateAccount()
         }
@@ -237,7 +233,7 @@ final class NewAccountViewController: UIViewController {
     }
 
     private func ifNeedDisableButtonContinue() {
-        buttonContinue.isEnabled = isValidData
+//        buttonContinue.isEnabled = isValidData
     }
 
     // MARK: Actions
@@ -248,7 +244,7 @@ final class NewAccountViewController: UIViewController {
     }
 
     @IBAction func continueTapped(_ sender: Any) {
-        continueCreateAccount()
+        nextInputAfterChoiceAvatar()
     }
 }
 
