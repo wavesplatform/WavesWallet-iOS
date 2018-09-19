@@ -138,8 +138,10 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
             if myOrder.kind == .sell {
                 sign = .plus
+                currencyConversion = myOrder.amount.displayText(sign: .minus, withoutCurrency: false)
             } else {
                 sign = .minus
+                currencyConversion = myOrder.amount.displayText(sign: .plus, withoutCurrency: false)
             }
             
             balance = model.total
