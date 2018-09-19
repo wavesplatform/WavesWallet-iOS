@@ -23,8 +23,8 @@ class NewTransactionHistoryContentView: UIView {
 
     weak var delegate: TransactionHistoryContentViewDelegate?
     
-    @IBOutlet weak var copyTXButton: UIButton!
-    @IBOutlet weak var copyAllDataButton: UIButton!
+    @IBOutlet weak var copyTXButton: WavesButton!
+    @IBOutlet weak var copyAllDataButton: WavesButton!
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -47,15 +47,65 @@ class NewTransactionHistoryContentView: UIView {
     private func setupButtons() {
         copyTXButton.titleEdgeInsets = Constants.titleEdgeInsets
         copyAllDataButton.titleEdgeInsets = Constants.titleEdgeInsets
+        
+        copyTXButton.normalTitle = "Copy TX ID"
+        copyTXButton.normalTitleColor = .black
+        copyTXButton.normalImage = Images.copy18Black.image
+        
+        copyTXButton.selectedTitle = "Copied"
+        copyTXButton.selectedTitleColor = .success400
+        copyTXButton.selectedImage = Images.checkSuccess.image
+        
+        copyAllDataButton.normalTitle = "Copy all data"
+        copyAllDataButton.normalTitleColor = .black
+        copyAllDataButton.normalImage = Images.copy18Black.image
+        
+        copyAllDataButton.selectedTitle = "Copied"
+        copyAllDataButton.selectedTitleColor = .success400
+        copyAllDataButton.selectedImage = Images.checkSuccess.image
     }
     
     // MARK: - Actions
     
     @IBAction func copyTXTapped(_ sender: Any) {
+    
+        guard let id = display?.sections.first?.transaction.id else {
+            return
+        }
+        
+        if copyTXButton.wavesState == .selected { return }
+        
+        UIPasteboard.general.string = id
+        copyTXButton.setState(.selected)
+        
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(t(timer:)), userInfo: ["id": "tx"], repeats: false)
         
     }
     
     @IBAction func copyAllDataTapped(_ sender: Any) {
+        
+        guard let id = display?.sections.first?.transaction.id else {
+            return
+        }
+        
+        if copyAllDataButton.wavesState == .selected { return }
+        
+        UIPasteboard.general.string = id + " and other data"
+        copyAllDataButton.setState(.selected)
+        
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(t(timer:)), userInfo: ["id": "all"], repeats: false)
+        
+    }
+    
+    @objc private func t(timer: Timer) {
+        
+        guard let userInfo = timer.userInfo as? [String: String], let id = userInfo["id"] else { return }
+        
+        if id == "tx" {
+            copyTXButton.setState(.normal)
+        } else if id == "all" {
+            copyAllDataButton.setState(.normal)
+        }
         
     }
 

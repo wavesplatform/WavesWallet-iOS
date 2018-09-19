@@ -49,6 +49,7 @@
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
+		04D13FBF2152844D00AA6522 /* WavesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D13FBE2152844D00AA6522 /* WavesButton.swift */; };
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
@@ -662,6 +663,7 @@
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
+		04D13FBE2152844D00AA6522 /* WavesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesButton.swift; sourceTree = "<group>"; };
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
@@ -1394,8 +1396,8 @@
 			children = (
 				04E1DB0C2150252300F760F1 /* TransactionHistoryPopupView.swift */,
 				04E1DB10215032E300F760F1 /* TransactionHistoryPopupCell.swift */,
-				04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */,
 				0487427B215121CC000D0B85 /* TransactionHistoryCollectionView.swift */,
+				04FB3F2721343FCF0008CFF3 /* NewTransactionHistoryContentView.swift */,
 				042B32DC21389FED00F4EFB9 /* NewTransactionHistoryContentView.xib */,
 				042B32F221394D0400F4EFB9 /* Cells */,
 			);
@@ -2069,6 +2071,7 @@
 				0AF9226C212E1233003BA067 /* StringExtension.swift */,
 				0AF92261212E1233003BA067 /* Type */,
 				0AF92241212E1233003BA067 /* UIButtonExtension.swift */,
+				04D13FBE2152844D00AA6522 /* WavesButton.swift */,
 				0AF92249212E1233003BA067 /* UIColor+Asset.swift */,
 				0AF9225D212E1233003BA067 /* UIColor+Colors.swift */,
 				0AF9224B212E1233003BA067 /* UIColor+Hex.swift */,
@@ -3338,6 +3341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D13FBF2152844D00AA6522 /* WavesButton.swift in Sources */,
 				04598F9A214D646A00A735B8 /* SmartTransactionDomainDTO.swift in Sources */,
 				04598F99214D5E0100A735B8 /* HistoryTypes.swift in Sources */,
 				04598F98214D5BF900A735B8 /* FactoryInteractors.swift in Sources */,

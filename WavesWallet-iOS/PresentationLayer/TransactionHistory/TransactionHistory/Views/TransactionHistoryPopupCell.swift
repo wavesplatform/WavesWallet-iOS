@@ -15,7 +15,7 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
     }
     
     var popupLineView: UIView!
-//    var shadowView: UIView!
+    var shadowView: UIView!
     var popupView: UIView?
     
     override init(frame: CGRect) {
@@ -33,12 +33,14 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         popupLineView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         popupLineView.layer.cornerRadius = 4
         
-//        shadowView = UIView()
-//        shadowView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-//        shadowView.layer.shadowRadius = 3
-//        shadowView.layer.shadowOffset = .init(width: 0, height: -2)
-//        shadowView.clipsToBounds = false
-//        contentView.addSubview(shadowView)
+        shadowView = UIView(frame: contentView.frame)
+        shadowView.backgroundColor = .white
+        shadowView.layer.cornerRadius = 10
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: -2)
+        shadowView.layer.shadowOpacity = 0.2
+        shadowView.layer.shadowRadius = 3
+        contentView.addSubview(shadowView)
     }
     
     override func layoutSubviews() {
@@ -48,7 +50,8 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         
         if let popupView = popupView {
             popupView.frame = CGRect(x: insets.left, y: insets.top, width: bounds.width - insets.left - insets.right, height: bounds.height - insets.top)
-//            shadowView.frame = bounds
+            shadowView.frame = popupView.frame
+//            shadowView.center = .init(x: shadowView.center.x, y: shadowView.center.y - 20)
         }
         
         popupView?.layer.clip(roundedRect: nil, byRoundingCorners: [.topLeft, .topRight], cornerRadius: 10, inverse: false)

@@ -20,7 +20,7 @@ final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
     
     weak var delegate: TransactionHistoryButtonCellDelegate?
     
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var button: HighlightedButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,6 +44,7 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
         
         var title = ""
         var buttonBackground: UIColor?
+        var buttonHighlightedBackground: UIColor?
         var icon: UIImage
         
         switch model.type {
@@ -51,12 +52,14 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
             
             title = Localizable.TransactionHistory.Cell.Button.sendAgain
             buttonBackground = UIColor.warning600
+            buttonHighlightedBackground = UIColor.warning400
             icon = Images.resendIcon.image
             
         case .cancelLeasing:
             
             title = Localizable.TransactionHistory.Cell.Button.cancelLeasing
             buttonBackground = UIColor.error400
+            buttonHighlightedBackground = UIColor.error700
             icon = Images.closeLeaseIcon.image
             
         }
@@ -64,6 +67,7 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
         button.setTitle(title, for: .normal)
         button.setImage(icon, for: .normal)
         button.backgroundColor = buttonBackground
+        button.highlightedBackground = buttonHighlightedBackground
         button.titleEdgeInsets = Constants.titleEdgeInsets
         
     }

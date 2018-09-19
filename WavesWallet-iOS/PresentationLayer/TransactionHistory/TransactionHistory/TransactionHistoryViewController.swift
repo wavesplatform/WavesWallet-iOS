@@ -12,8 +12,14 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
+private enum Constants {
+    static let backgroundAlpha: CGFloat = 0.2
+}
+
 class TransactionHistoryViewController: UIViewController {
     
+    fileprivate var collectionViewOffset: CGPoint = .zero
+    fileprivate var panningEnabled: Bool = false
     fileprivate var presenting: Bool = false
     
     private(set) var backgroundView: UIControl!
@@ -85,25 +91,79 @@ class TransactionHistoryViewController: UIViewController {
  
     @objc private func pan(gr: UIPanGestureRecognizer) {
         
+        var translation = gr.translation(in: view)
+        
         switch gr.state {
-        case .changed:
-            let velocity = gr.velocity(in: view)
-            let location = gr.location(ofTouch: 0, in: nil)
+        case .began:
             
-            if velocity.y > 0 && location.y < 120 && location.y > 60 {
-                print("up")
-                dismiss(animated: true, completion: nil)
-            } else {
-                print("down")
+            let location = gr.location(in: view)
+            
+            if location.y > 60 && location.y < 120 {
+                panningEnabled = true
+                collectionView.isUserInteractionEnabled = false
+                collectionViewOffset = collectionView.contentOffset
             }
             
-            print(velocity.y)
-            print()
+        case .changed:
+            
+            if !panningEnabled { return }
+            
+            collectionView.setContentOffset(collectionViewOffset, animated: false)
+ 
+            let cvCenter = collectionView.center
+            
+            let z: CGFloat = cvCenter.y - view.center.y
+            var w: CGFloat = 0
+
+            if z < 0 && translation.y < 0 {
+                translation.y /= 5
+            } else if (z > 0) {
+                w = z * Constants.backgroundAlpha / (view.bounds.height - view.center.y)
+            }
+            
+            backgroundView.alpha = Constants.backgroundAlpha - w / 2
+            
+            collectionView.center = CGPoint(x: cvCenter.x, y: cvCenter.y + translation.y)
+            
+//            if location.y < 120 && location.y > 60 {
+//                print("up")
+//                collectionView.center = CGPoint(x: collectionView.center.x, y: collectionView.center.y + translation.y)
+////                dismiss(animated: true, completion: nil)
+//
+//            } else {
+//                print("down")
+//            }
+            
+        case .ended:
+            
+            panningEnabled = false
+            collectionView.isUserInteractionEnabled = true
+            
+            let cvCenter = collectionView.center
+            
+            if cvCenter.y - view.center.y > 60 {
+                
+                dismiss(animated: true, completion: nil)
+                
+            } else {
+                
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.92, initialSpringVelocity: 15, options: .curveEaseInOut, animations: {
+                    
+                    self.collectionView.center = self.view.center
+                    self.backgroundView.alpha = Constants.backgroundAlpha
+                    
+                }, completion: nil)
+                
+            }
+            
         default:
             break
         }
         
+        gr.setTranslation(.zero, in: view)
+        
     }
+    
     
 }
 
@@ -286,7 +346,7 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
             
             if self.presenting {
                 
-                self.backgroundView.alpha = 0.2
+                self.backgroundView.alpha = Constants.backgroundAlpha
                 self.collectionView.alpha = 1
                 self.collectionView.center = self.view.center
                 
