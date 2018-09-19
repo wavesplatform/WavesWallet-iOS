@@ -35,8 +35,14 @@ final class PasscodeNumberButton: UIButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        setBackgroundImage(UIColor.basic50.image, for: .highlighted)
+        setTitleColor(.black, for: .highlighted)
         addTarget(self, action: #selector(buttonDidTap(_:)), for: .touchUpInside)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cornerRadius = Float(frame.height * 0.5)
     }
 
     private func update(by kind: Int) {
@@ -48,12 +54,26 @@ final class PasscodeNumberButton: UIButton {
         switch kind {
         case .minus:
             setImage(Images.backspace48Disabled900.image, for: .normal)
-
+            setTitle(nil, for: .normal)
+            
         case .biometric:
+            let current = BiometricType.current
+            isHidden = false
+
+            switch current {
+            case .touchID:
                 setImage(Images.touchid48Submit300.image, for: .normal)
 
+            case .faceID:
+                setImage(Images.faceid48Submit300.image, for: .normal)
+                
+            case .none:
+                isHidden = true
+            }
+            setTitle(nil, for: .normal)
+
         default:
-            setTitle("\(kind)", for: .normal)
+            setTitle("\(kind.rawValue)", for: .normal)
         }
     }
 

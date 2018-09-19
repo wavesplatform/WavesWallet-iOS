@@ -192,5 +192,53 @@
             </objects>
             <point key="canvasLocation" x="-15.199999999999999" y="1448.7256371814094"/>
         </scene>
+        <!--New Account Passcode View Controller-->
+        <scene sceneID="sP2-8z-8EK">
+            <objects>
+                <viewController storyboardIdentifier="NewAccountPasscodeViewController" id="9UN-aH-xLE" customClass="NewAccountPasscodeViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lez-y8-kiG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kda-35-aqg">
+                                <rect key="frame" x="118.5" y="617" width="138" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Kus-we-NOf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Use account password">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot passcode?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-Q7-dpD">
+                                <rect key="frame" x="133" y="609" width="109" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="250" placeholderIntrinsicHeight="250" translatesAutoresizingMaskIntoConstraints="NO" id="efb-IB-aDN" customClass="PasscodeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="62.5" y="48" width="250" height="250"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MAR-sa-g7y" firstAttribute="bottom" secondItem="PGo-Q7-dpD" secondAttribute="bottom" constant="42" id="Ig2-dO-mVn"/>
+                            <constraint firstItem="PGo-Q7-dpD" firstAttribute="centerX" secondItem="lez-y8-kiG" secondAttribute="centerX" id="JHc-qM-qRX"/>
+                            <constraint firstItem="efb-IB-aDN" firstAttribute="top" secondItem="MAR-sa-g7y" secondAttribute="top" constant="28" id="RJM-2K-No7"/>
+                            <constraint firstItem="efb-IB-aDN" firstAttribute="centerX" secondItem="MAR-sa-g7y" secondAttribute="centerX" id="Vaq-E1-0v5"/>
+                            <constraint firstItem="MAR-sa-g7y" firstAttribute="bottom" secondItem="Kda-35-aqg" secondAttribute="bottom" constant="10" id="gB1-Y2-91D"/>
+                            <constraint firstItem="Kda-35-aqg" firstAttribute="centerX" secondItem="lez-y8-kiG" secondAttribute="centerX" id="izl-4a-Ztx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MAR-sa-g7y"/>
+                    </view>
+                    <connections>
+                        <outlet property="passcodeView" destination="efb-IB-aDN" id="yX6-s8-6ou"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="62B-kw-mVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1660" y="-38"/>
+        </scene>
     </scenes>
 </document>
