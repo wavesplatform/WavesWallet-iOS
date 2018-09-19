@@ -25,8 +25,7 @@ class UseTouchIDViewController: UIViewController {
         navigationItem.hidesBackButton = true
         if Platform.isIphone5 {
             topLogoOffset.constant = 134
-        }
-        else if BiometricManager.type == .faceID {
+        } else if BiometricManager.type == .faceID {
             iconTouch.image = UIImage(named: "faceid48Submit300")
             labelTouchId.text = "Use Face ID to sign in?"
             labelDescription.text = "Use your Face ID for faster, easier access to your account"
