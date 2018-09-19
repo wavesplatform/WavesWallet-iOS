@@ -57,6 +57,7 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     }
 
     private(set) var isValidValue: Bool = false
+
     private var kind: Kind?
 
     override func awakeFromNib() {
@@ -116,10 +117,17 @@ final class NewAccountInputTextField: UIView, NibOwnerLoadable {
     }
 
     private func checkValidValue(_ value: String?) {
-        let error = valueValidator?(value)
-        isValidValue = error == nil
+        var error: String? = nil
+        var isValidValue: Bool = false
+
+        if let value = value, value.count > 0 {
+             error = valueValidator?(value)
+            isValidValue = error == nil
+        }
+
         errorLabel.isHidden = isValidValue
         errorLabel.text = error
+        self.isValidValue = isValidValue
     }
 }
 

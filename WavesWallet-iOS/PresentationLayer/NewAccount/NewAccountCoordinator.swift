@@ -10,17 +10,20 @@ import UIKit
 
 final class NewAccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    var parent: Coordinator?
+    weak var parent: Coordinator?
 
-    let navigationController: UINavigationController
+    private let navigationController: UINavigationController
+    private var account: NewAccount.DTO.Account?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start() {
-        let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
-        vc.output = self
+//        let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
+//        vc.output = self
+        let vc = StoryboardScene.Passcode.lightPasscodeViewController.instantiate()
+//        navigationController.pushViewControllerAndSetLast(vc)
         self.navigationController.pushViewController(vc, animated: true)
     }
 }
@@ -29,10 +32,10 @@ final class NewAccountCoordinator: Coordinator {
 extension NewAccountCoordinator: NewAccountModuleOutput {
     func userCompletedCreateAccount(_ account: NewAccount.DTO.Account) {
 
+        self.account = account
         let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
         vc.output = self
-        let custom = CustomNavigationController(rootViewController: vc)
-        navigationController.present(custom, animated: true, completion: nil)
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 
@@ -40,16 +43,31 @@ extension NewAccountCoordinator: NewAccountModuleOutput {
 extension NewAccountCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
-//        if skipBackup {
-//
-//        } else {
-//            navigationController.dismiss(animated: true, completion: nil)
-            let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
-            let custom = CustomNavigationController(rootViewController: vc)
-            navigationController.present(custom, animated: true, completion: nil)
-//        }
+        if skipBackup {
+            beginRegistration()
+        } else {
+            showBackupCoordinator()
+        }
     }
 }
+
+extension NewAccountCoordinator {
+
+    private func showBackupCoordinator() {
+        guard let account = account else { return }
+        let backup = BackupCoordinator(viewController: navigationController, seed: account.privateKey.words, completed: { [weak self] in
+            self?.beginRegistration()
+        })
+        addChildCoordinator(childCoordinator: backup)
+        backup.start()
+    }
+
+    private func beginRegistration() {
+
+
+    }
+}
+
 
 //        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
 //        navigationController?.pushViewControllerAndSetLast(controller)

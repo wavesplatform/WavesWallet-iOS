@@ -33,7 +33,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
                                                 <rect key="frame" x="24" y="268.5" width="327" height="171"/>
                                                 <string key="text">Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.
 
@@ -114,7 +114,6 @@ You should ONLY use the official Waves client.</string>
         <!--Need Backup View Controller-->
         <scene sceneID="Loq-YD-DFd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kkn-kj-k47" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="NeedBackupViewController" id="Pvm-AX-AZg" customClass="NeedBackupViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="10B-zW-0Qv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -199,11 +198,208 @@ You should ONLY use the official Waves client.</string>
                         <outlet property="topLogoOffset" destination="38e-xv-c7V" id="KcV-YX-SVY"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kkn-kj-k47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="673" y="1445"/>
         </scene>
+        <!--Save Backup Phrase View Controller-->
+        <scene sceneID="icJ-A3-Efw">
+            <objects>
+                <viewController storyboardIdentifier="SaveBackupPhraseViewController" id="g6L-Ir-URU" customClass="SaveBackupPhraseViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ImJ-Bk-kFa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Since only you control your money, you’ll need to save your backup phrase in case this app is deleted or go back" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCe-zY-gdV">
+                                <rect key="frame" x="16" y="44" width="343" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcL-qp-0eD" customClass="BorderButtView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="115" width="343" height="52.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G60-SR-fCd">
+                                        <rect key="frame" x="16" y="16" width="311" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="G60-SR-fCd" secondAttribute="bottom" constant="16" id="Bcz-wC-tKA"/>
+                                    <constraint firstItem="G60-SR-fCd" firstAttribute="leading" secondItem="ZcL-qp-0eD" secondAttribute="leading" constant="16" id="Pqg-y3-gW8"/>
+                                    <constraint firstAttribute="trailing" secondItem="G60-SR-fCd" secondAttribute="trailing" constant="16" id="Xq6-Xu-0OK"/>
+                                    <constraint firstItem="G60-SR-fCd" firstAttribute="top" secondItem="ZcL-qp-0eD" secondAttribute="top" constant="16" id="vUA-Lz-5mt"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please carefully write down these 15 words or copy them" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfa-K6-yiY">
+                                <rect key="frame" x="16" y="191.5" width="301" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lR-EG-8aK">
+                                <rect key="frame" x="330" y="187.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="ix7-uo-5k5"/>
+                                    <constraint firstAttribute="height" constant="40" id="zeE-gk-IhK"/>
+                                </constraints>
+                                <state key="normal" image="copy_address"/>
+                                <connections>
+                                    <action selector="copyTapped:" destination="g6L-Ir-URU" eventType="touchUpInside" id="Ruk-OI-H8L"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRe-Yu-vNE">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="FF1-ou-GGc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="I've written it down">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextTapped:" destination="g6L-Ir-URU" eventType="touchUpInside" id="Mum-tS-Img"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will confirm this phrase on the next screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlK-qW-yVe">
+                                <rect key="frame" x="16" y="555" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u2T-Fv-l9K" firstAttribute="bottom" secondItem="bRe-Yu-vNE" secondAttribute="bottom" constant="24" id="4tO-n6-V39"/>
+                            <constraint firstItem="Lfa-K6-yiY" firstAttribute="top" secondItem="ZcL-qp-0eD" secondAttribute="bottom" constant="24" id="8gI-ei-qiB"/>
+                            <constraint firstItem="u2T-Fv-l9K" firstAttribute="trailing" secondItem="Lfa-K6-yiY" secondAttribute="trailing" constant="58" id="9cP-Hl-hpd"/>
+                            <constraint firstItem="bRe-Yu-vNE" firstAttribute="leading" secondItem="u2T-Fv-l9K" secondAttribute="leading" constant="16" id="B8F-yl-Vp7"/>
+                            <constraint firstItem="Lfa-K6-yiY" firstAttribute="leading" secondItem="u2T-Fv-l9K" secondAttribute="leading" constant="16" id="EIP-dC-aM8"/>
+                            <constraint firstItem="0lR-EG-8aK" firstAttribute="centerY" secondItem="Lfa-K6-yiY" secondAttribute="centerY" id="Oc8-Oz-pc2"/>
+                            <constraint firstItem="u2T-Fv-l9K" firstAttribute="trailing" secondItem="ZcL-qp-0eD" secondAttribute="trailing" constant="16" id="TEJ-Zx-os4"/>
+                            <constraint firstItem="HCe-zY-gdV" firstAttribute="leading" secondItem="u2T-Fv-l9K" secondAttribute="leading" constant="16" id="TfS-eJ-bub"/>
+                            <constraint firstItem="bRe-Yu-vNE" firstAttribute="top" secondItem="WlK-qW-yVe" secondAttribute="bottom" constant="24" id="Uiq-UM-dTI"/>
+                            <constraint firstItem="ZcL-qp-0eD" firstAttribute="leading" secondItem="u2T-Fv-l9K" secondAttribute="leading" constant="16" id="Utf-ek-LB8"/>
+                            <constraint firstItem="u2T-Fv-l9K" firstAttribute="trailing" secondItem="0lR-EG-8aK" secondAttribute="trailing" constant="5" id="X3M-X9-18u"/>
+                            <constraint firstItem="u2T-Fv-l9K" firstAttribute="trailing" secondItem="WlK-qW-yVe" secondAttribute="trailing" constant="16" id="ast-9i-Lu5"/>
+                            <constraint firstItem="ZcL-qp-0eD" firstAttribute="top" secondItem="HCe-zY-gdV" secondAttribute="bottom" constant="24" id="brD-EY-w1n"/>
+                            <constraint firstAttribute="trailing" secondItem="bRe-Yu-vNE" secondAttribute="trailing" constant="16" id="eJo-m7-43m"/>
+                            <constraint firstItem="HCe-zY-gdV" firstAttribute="top" secondItem="u2T-Fv-l9K" secondAttribute="top" constant="24" id="n9X-MP-o3G"/>
+                            <constraint firstItem="WlK-qW-yVe" firstAttribute="leading" secondItem="u2T-Fv-l9K" secondAttribute="leading" constant="16" id="oPw-II-6KB"/>
+                            <constraint firstAttribute="trailing" secondItem="HCe-zY-gdV" secondAttribute="trailing" constant="16" id="xyM-SF-HeR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="u2T-Fv-l9K"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCopy" destination="0lR-EG-8aK" id="gcQ-sK-Sy4"/>
+                        <outlet property="infoLabel" destination="WlK-qW-yVe" id="3pY-kz-Hdr"/>
+                        <outlet property="labelWords" destination="G60-SR-fCd" id="mhN-I5-zln"/>
+                        <outlet property="nextButton" destination="bRe-Yu-vNE" id="LJd-xr-Ik8"/>
+                        <outlet property="titleForCopyLabel" destination="Lfa-K6-yiY" id="XZk-PP-jqd"/>
+                        <outlet property="titleLabel" destination="HCe-zY-gdV" id="EFz-0j-Az2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zIy-FI-kgT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-15" y="2132"/>
+        </scene>
+        <!--Confirm Backup View Controller-->
+        <scene sceneID="ENf-JV-g8H">
+            <objects>
+                <viewController storyboardIdentifier="ConfirmBackupViewController" id="hzt-bO-nXn" customClass="ConfirmBackupViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qfG-rj-AHM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKT-um-u87" customClass="ConfirmBackupStackListView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="543" width="343" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="TdT-HQ-2hE"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please, tap each word in the correct order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afN-tv-ihU">
+                                <rect key="frame" x="16" y="503" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2M-wK-5bO" customClass="ConfirmBackupStackInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="44" width="343" height="64"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="OCN-r9-FQT"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z06-vR-P76">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Bhz-Ds-eBy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="confirmTapped:" destination="hzt-bO-nXn" eventType="touchUpInside" id="bYF-MA-rfN"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong order, try again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3N9-6H-NN7">
+                                <rect key="frame" x="119.5" y="180" width="136" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="afN-tv-ihU" firstAttribute="leading" secondItem="Leh-li-AXV" secondAttribute="leading" constant="16" id="1gR-NQ-qb9"/>
+                            <constraint firstAttribute="bottom" secondItem="z06-vR-P76" secondAttribute="bottom" constant="24" id="4Mt-X2-kOQ"/>
+                            <constraint firstItem="Leh-li-AXV" firstAttribute="trailing" secondItem="z06-vR-P76" secondAttribute="trailing" constant="16" id="Ht1-Ig-6kG"/>
+                            <constraint firstItem="z06-vR-P76" firstAttribute="leading" secondItem="qfG-rj-AHM" secondAttribute="leading" constant="16" id="O5M-IY-H2B"/>
+                            <constraint firstItem="z2M-wK-5bO" firstAttribute="leading" secondItem="Leh-li-AXV" secondAttribute="leading" constant="16" id="PlK-cI-ngl"/>
+                            <constraint firstItem="MKT-um-u87" firstAttribute="leading" secondItem="Leh-li-AXV" secondAttribute="leading" constant="16" id="RER-ud-y6k"/>
+                            <constraint firstAttribute="trailing" secondItem="afN-tv-ihU" secondAttribute="trailing" constant="16" id="Ui8-FI-Emy"/>
+                            <constraint firstItem="MKT-um-u87" firstAttribute="top" secondItem="afN-tv-ihU" secondAttribute="bottom" constant="24" id="VcT-BN-n5q"/>
+                            <constraint firstItem="z2M-wK-5bO" firstAttribute="top" secondItem="Leh-li-AXV" secondAttribute="top" constant="24" id="dNo-sy-eqy"/>
+                            <constraint firstItem="3N9-6H-NN7" firstAttribute="top" secondItem="z2M-wK-5bO" secondAttribute="bottom" constant="72" id="ezq-YN-hIb"/>
+                            <constraint firstItem="3N9-6H-NN7" firstAttribute="centerX" secondItem="qfG-rj-AHM" secondAttribute="centerX" id="hWe-f1-dKM"/>
+                            <constraint firstItem="Leh-li-AXV" firstAttribute="trailing" secondItem="MKT-um-u87" secondAttribute="trailing" constant="16" id="mhu-yX-yZ2"/>
+                            <constraint firstItem="Leh-li-AXV" firstAttribute="bottom" secondItem="MKT-um-u87" secondAttribute="bottom" constant="24" id="sKu-i2-IFl"/>
+                            <constraint firstItem="Leh-li-AXV" firstAttribute="trailing" secondItem="z2M-wK-5bO" secondAttribute="trailing" constant="16" id="zL8-38-url"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Leh-li-AXV"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonConfirm" destination="z06-vR-P76" id="L34-bn-EGw"/>
+                        <outlet property="labelError" destination="3N9-6H-NN7" id="xQU-bV-FdU"/>
+                        <outlet property="labelTapWord" destination="afN-tv-ihU" id="R8N-5W-YK5"/>
+                        <outlet property="stackListView" destination="MKT-um-u87" id="YiD-uh-GnA"/>
+                        <outlet property="stackTopView" destination="z2M-wK-5bO" id="dQO-vp-wOs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UgX-Xg-Muz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="676" y="2132"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="copy_address" width="18" height="18"/>
         <image name="userimgBackupmoney80Submit400" width="80" height="80"/>
         <image name="userimgSeed80Submit400" width="80" height="80"/>
     </resources>

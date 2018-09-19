@@ -195,6 +195,19 @@ internal enum Localizable {
   }
           internal enum General {
 
+    internal enum Biometric {
+
+      internal enum Faceid {
+        /// Face ID
+        internal static var title: String { return Localizable.tr("General", "biometric.faceID.title") }
+      }
+
+      internal enum Touchid {
+        /// Touch ID
+        internal static var title: String { return Localizable.tr("General", "biometric.touchID.title") }
+      }
+    }
+
     internal enum History {
 
       internal enum Transaction {
@@ -502,6 +515,24 @@ internal enum Localizable {
   }
           internal enum Backup {
 
+    internal enum Confirmbackup {
+
+      internal enum Error {
+        /// Wrong order, try again
+        internal static var label: String { return Localizable.tr("Backup", "confirmbackup.error.label") }
+      }
+
+      internal enum Info {
+        /// Please, tap each word in the correct order
+        internal static var label: String { return Localizable.tr("Backup", "confirmbackup.info.label") }
+      }
+
+      internal enum Navigation {
+        /// Confirm backup
+        internal static var title: String { return Localizable.tr("Backup", "confirmbackup.navigation.title") }
+      }
+    }
+
     internal enum Infobackup {
 
       internal enum Button {
@@ -510,7 +541,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
+        /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n \n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n \nYou should ONLY use the official Waves client.
         internal static var detail: String { return Localizable.tr("Backup", "infobackup.label.detail") }
         /// Treat your backup phrase with care!
         internal static var title: String { return Localizable.tr("Backup", "infobackup.label.title") }
@@ -531,6 +562,40 @@ internal enum Localizable {
         internal static var detail: String { return Localizable.tr("Backup", "needbackup.label.detail") }
         /// No Backup, No Money
         internal static var title: String { return Localizable.tr("Backup", "needbackup.label.title") }
+      }
+    }
+
+    internal enum Savebackup {
+
+      internal enum Copy {
+
+        internal enum Label {
+          /// Please carefully write down these 15 words or copy them
+          internal static var title: String { return Localizable.tr("Backup", "savebackup.copy.label.title") }
+        }
+      }
+
+      internal enum Label {
+        /// Since only you control your money, you’ll need to save your backup phrase in case this app is deleted or go back
+        internal static var title: String { return Localizable.tr("Backup", "savebackup.label.title") }
+      }
+
+      internal enum Navigation {
+        /// Save backup phrase
+        internal static var title: String { return Localizable.tr("Backup", "savebackup.navigation.title") }
+      }
+
+      internal enum Next {
+
+        internal enum Button {
+          /// I've written it down
+          internal static var title: String { return Localizable.tr("Backup", "savebackup.next.button.title") }
+        }
+
+        internal enum Label {
+          /// You will confirm this phrase on the next screen
+          internal static var title: String { return Localizable.tr("Backup", "savebackup.next.label.title") }
+        }
       }
     }
   }

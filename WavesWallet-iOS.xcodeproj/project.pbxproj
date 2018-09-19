@@ -170,6 +170,11 @@
 		0A93FECE20FCA82F0058179E /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECD20FCA82F0058179E /* SpamService.swift */; };
 		0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FECF20FCA8610058179E /* AssetsSpamService.swift */; };
 		0A93FED320FCAADC0058179E /* WalletTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */; };
+		0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1C721518CE5005E148F /* BackupCoordinator.swift */; };
+		0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A96F1CB2151B392005E148F /* Passcode.storyboard */; };
+		0A96F1CE2151B699005E148F /* LightPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1CD2151B699005E148F /* LightPasscodeViewController.swift */; };
+		0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */; };
+		0A96F1D32151BD46005E148F /* PasscodeDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D22151BD46005E148F /* PasscodeDotsView.swift */; };
 		0A97975C210888B600407F67 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97975B210888B600407F67 /* Localizable.swift */; };
 		0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A97975F2108A11A00407F67 /* Wallet.storyboard */; };
 		0A9797612108A60000407F67 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979757210886EA00407F67 /* Storyboards.swift */; };
@@ -747,6 +752,11 @@
 		0A93FECD20FCA82F0058179E /* SpamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamService.swift; sourceTree = "<group>"; };
 		0A93FECF20FCA8610058179E /* AssetsSpamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
+		0A96F1C721518CE5005E148F /* BackupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCoordinator.swift; sourceTree = "<group>"; };
+		0A96F1CB2151B392005E148F /* Passcode.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Passcode.storyboard; sourceTree = "<group>"; };
+		0A96F1CD2151B699005E148F /* LightPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPasscodeViewController.swift; sourceTree = "<group>"; };
+		0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeNumberButton.swift; sourceTree = "<group>"; };
+		0A96F1D22151BD46005E148F /* PasscodeDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotsView.swift; sourceTree = "<group>"; };
 		0A979757210886EA00407F67 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		0A97975B210888B600407F67 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		0A97975F2108A11A00407F67 /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
@@ -1393,11 +1403,10 @@
 				E9A05C5520E924B400B0E0FA /* BackupInfoViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
 				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
-				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
-				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
-				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
+				0A96F1C921519965005E148F /* View */,
 				0AA8CAC821516077000D09E6 /* Backup.storyboard */,
 				0AA8CACF21516807000D09E6 /* Backup.strings */,
+				0A96F1C721518CE5005E148F /* BackupCoordinator.swift */,
 			);
 			path = Backup;
 			sourceTree = "<group>";
@@ -1717,6 +1726,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A96F1CA2151B388005E148F /* Passcode */,
 				0AA8CAC721515BD5000D09E6 /* SecretPhrase */,
 				0A4399672150470E0032E608 /* Backup */,
 				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
@@ -1728,6 +1738,35 @@
 				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
 			);
 			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		0A96F1C921519965005E148F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */,
+				E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */,
+				E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0A96F1CA2151B388005E148F /* Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				0A96F1CF2151B6A9005E148F /* View */,
+				0A96F1CB2151B392005E148F /* Passcode.storyboard */,
+				0A96F1CD2151B699005E148F /* LightPasscodeViewController.swift */,
+			);
+			path = Passcode;
+			sourceTree = "<group>";
+		};
+		0A96F1CF2151B6A9005E148F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */,
+				0A96F1D22151BD46005E148F /* PasscodeDotsView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0A97974F2108805100407F67 /* Generated */ = {
@@ -2256,11 +2295,11 @@
 		E9193B8120D7E26500F5D983 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */,
 				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
 				E9193B8420D8A98500F5D983 /* ProfileViewController.swift */,
 				E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */,
 				E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */,
-				E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */,
 				E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */,
 				E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */,
 				E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */,
@@ -2984,6 +3023,7 @@
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A14CFD5214B135F00C3A4D5 /* Hello.strings in Resources */,
 				E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */,
+				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */,
 				F96DFFDC20DD09340056BB52 /* ThirdIndoPageView.xib in Resources */,
@@ -3394,6 +3434,7 @@
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
 				F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */,
+				0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */,
 				0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */,
 				0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */,
 				E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */,
@@ -3482,6 +3523,7 @@
 				E9983DCB211C723E002349CA /* DexMarketInteractorMock.swift in Sources */,
 				0A485E9021009DC700079B49 /* LeasingInteractor.swift in Sources */,
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
+				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
 				0A7643FE21187DF500B633E1 /* FactoryInteractors.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
@@ -3504,6 +3546,7 @@
 				0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */,
 				0AF922DC212E1234003BA067 /* SkeletonAnimatable.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
+				0A96F1CE2151B699005E148F /* LightPasscodeViewController.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				F96DFFD620DD06350056BB52 /* SecondInfoPageView.swift in Sources */,
 				F96DFFD220DCECD90056BB52 /* FirstInfoPageView.swift in Sources */,
@@ -3621,6 +3664,7 @@
 				0AF922CA212E1234003BA067 /* UIViewController+SafeArea.swift in Sources */,
 				0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */,
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
+				0A96F1D32151BD46005E148F /* PasscodeDotsView.swift in Sources */,
 				E9592940211969EE007C06EA /* DexListModuleBuilder.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
 				0AF922DA212E1234003BA067 /* ViewCalculate.swift in Sources */,

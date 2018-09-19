@@ -33,12 +33,14 @@ final class NeedBackupViewController: UIViewController {
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()
         navigationItem.rightBarButtonItem = closeItem
-        navigationItem.leftBarButtonItem = nil
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
 
         titleLabel.text = Localizable.Backup.Needbackup.Label.title
         detailLabel.text = Localizable.Backup.Needbackup.Label.detail
         backUpNowButton.setTitle(Localizable.Backup.Needbackup.Button.backupnow, for: .normal)
         doItLaterButton.setTitle(Localizable.Backup.Needbackup.Button.doitlater, for: .normal)
+        backUpNowButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
+        backUpNowButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }
 
     @IBAction func closeTapped(_ sender: Any) {

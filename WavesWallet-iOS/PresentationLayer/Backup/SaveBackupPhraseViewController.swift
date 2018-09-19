@@ -8,45 +8,62 @@
 
 import UIKit
 
-class SaveBackupPhraseViewController: UIViewController {
+protocol SaveBackupPhraseOutput: AnyObject {
+    func userSavedBackupPhrase()
+}
 
-    @IBOutlet weak var labelWords: UILabel!
-    @IBOutlet weak var buttonCopy: UIButton!
-    
-    let words = ["nigga", "wanna", "too", "get", "tothe", "close", "utmost", "but", "igot", "stacks", "that'll", "attack", "any", "wack", "host"]
-    
+struct SaveBackupPhraseInput {
+    let seed: [String]
+}
+
+final class SaveBackupPhraseViewController: UIViewController {
+
+    @IBOutlet private weak var labelWords: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var titleForCopyLabel: UILabel!
+    @IBOutlet private weak var nextButton: UIButton!
+    @IBOutlet private weak var buttonCopy: UIButton!
+
+    var input: SaveBackupPhraseInput?
+    weak var output: SaveBackupPhraseOutput?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Save backup phrase"
+        title =  Localizable.Backup.Savebackup.Navigation.title
+        titleLabel.text = Localizable.Backup.Savebackup.Label.title
+        titleForCopyLabel.text = Localizable.Backup.Savebackup.Copy.Label.title
+        infoLabel.text = Localizable.Backup.Savebackup.Next.Label.title
+        buttonCopy.setTitle(Localizable.Backup.Savebackup.Next.Button.title, for: .normal)
+
         createBackButton()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
+        setupBigNavigationBar()
+        navigationItem.shadowImage = UIImage()
+        navigationItem.backgroundImage = UIImage()
+        nextButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
+        nextButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
         setupWords()
-    }
-    
-    override func backTapped() {
-        navigationController?.popToRootViewController(animated: true)
     }
 
     @IBAction func copyTapped(_ sender: Any) {
         buttonCopy.isUserInteractionEnabled = false
-        buttonCopy.setImage(UIImage(named: "check_success"), for: .normal)
-        
+        buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
+        UIPasteboard.general.string = (input?.seed ?? []).reduce(into: "", { $0 += $1 + " " })
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.buttonCopy.isUserInteractionEnabled = true
-            self.buttonCopy.setImage(UIImage(named: "copy_address"), for: .normal)
+            self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)
         }
     }
     
     @IBAction func nextTapped(_ sender: Any) {
-
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ConfirmBackupViewController") as! ConfirmBackupViewController
-        navigationController?.pushViewController(controller, animated: true)
+        output?.userSavedBackupPhrase()
     }
     
-    func setupWords() {
-        
+    private func setupWords() {
+
+        let words = input?.seed ?? []
+
         var text = ""
         
         for (index, word) in words.enumerated() {
