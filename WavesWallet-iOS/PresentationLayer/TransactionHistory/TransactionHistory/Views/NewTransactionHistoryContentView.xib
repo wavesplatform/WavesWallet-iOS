@@ -23,7 +23,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dU-VG-xpt">
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Uf-zR-kJ3">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Uf-zR-kJ3" customClass="WavesButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="-1" width="187.5" height="49"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="Copy TX ID" image="copy18Black">
@@ -33,7 +33,7 @@
                                 <action selector="copyTXTapped:" destination="-1" eventType="touchUpInside" id="jcd-Qq-f07"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-fn-bcQ">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-fn-bcQ" customClass="WavesButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="48"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="Copy All Data" image="copy18Black">
