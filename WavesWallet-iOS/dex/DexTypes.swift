@@ -19,4 +19,10 @@ extension Dex.DTO {
         let name: String
         let decimals: Int
     }
+
+    enum OrderType {
+        case sell
+        case buy
+    }
 }
+
