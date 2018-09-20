@@ -125,7 +125,7 @@ private extension DexCreateOrderViewController {
 //MARK: - DexCreateOrderSegmentedControlDelegate
 extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
     
-    func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType) {
+    func dexCreateOrderDidChangeType(_ type: Dex.DTO.OrderType) {
         order.type = type
         setupButtonSellBuy()
         setupValidationErrors()

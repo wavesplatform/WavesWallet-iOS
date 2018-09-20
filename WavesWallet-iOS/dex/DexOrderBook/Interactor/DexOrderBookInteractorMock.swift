@@ -108,7 +108,7 @@ private extension DexOrderBookInteractorMock {
                 percent = ((askValue - bidValue) * 100 / bidValue).floatValue
             }
             
-            let type = priceInfo["type"].stringValue == "buy" ? DexOrderBook.DTO.OrderType.buy :  DexOrderBook.DTO.OrderType.sell
+            let type = priceInfo["type"].stringValue == "buy" ? Dex.DTO.OrderType.buy :  Dex.DTO.OrderType.sell
             let price = Money(value: Decimal(priceInfo["price"].doubleValue), pair.priceAsset.decimals)
             
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)

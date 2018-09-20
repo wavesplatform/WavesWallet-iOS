@@ -59,23 +59,18 @@ extension DexLastTrades.ViewModel {
 
 
 extension DexLastTrades.DTO {
-    
-    enum TradeType {
-        case sell
-        case buy
-    }
-    
+   
     struct Trade {
         let time: Date
         let price: Money
         let amount: Money
         let sum: Money
-        let type: TradeType
+        let type: Dex.DTO.OrderType
     }
     
     struct SellBuyTrade {
         let price: Money
-        let type: TradeType
+        let type: Dex.DTO.OrderType
     }
     
     struct DisplayData {

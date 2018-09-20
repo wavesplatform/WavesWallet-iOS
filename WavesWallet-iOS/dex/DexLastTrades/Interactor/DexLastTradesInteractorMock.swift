@@ -58,7 +58,7 @@ private extension DexLastTradesInteractorMock {
                     let timestamp = item["timestamp"].doubleValue
                     let time = Date(timeIntervalSince1970: timestamp / 1000)
 
-                    let type: DexLastTrades.DTO.TradeType = item["type"] == "sell" ? .sell : .buy
+                    let type: Dex.DTO.OrderType = item["type"] == "sell" ? .sell : .buy
                     let price = Decimal(item["price"].doubleValue)
                     let amount = Decimal(item["amount"].doubleValue)
                     let sum = price * amount

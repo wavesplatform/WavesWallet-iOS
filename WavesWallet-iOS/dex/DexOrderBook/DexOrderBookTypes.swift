@@ -59,24 +59,18 @@ extension DexOrderBook.ViewModel {
 
 //MARK: - DTO
 extension DexOrderBook.DTO {
-
-    enum OrderType {
-        case none
-        case sell
-        case buy
-    }
     
     struct LastPrice {
         let price: Money
         let percent: Float
-        let orderType: OrderType
+        let orderType: Dex.DTO.OrderType?
     }
     
     struct BidAsk {
         let price: Money
         let amount: Money
         let sum: Money
-        let orderType: OrderType
+        let orderType: Dex.DTO.OrderType
         let percentAmount: Float
     }
     
@@ -125,7 +119,7 @@ extension DexOrderBook.ViewModel.Row {
 //MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
     static var empty: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: .none)
+        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: nil)
     }
 }
 
