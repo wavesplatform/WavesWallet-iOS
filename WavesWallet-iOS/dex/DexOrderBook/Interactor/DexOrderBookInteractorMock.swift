@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
+private enum Constanst {
+    static let priceAssetBalance: Int64 = 652333333240
+    static let amountAssetBalance: Int64 = 31433333240
+}
 
 final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
  
@@ -30,7 +34,10 @@ final class DexOrderBookInteractorMock: DexOrderBookInteractorProtocol {
                     })
                 }
                 else {
-                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [], header: header))
+                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [],
+                                                                  header: header,
+                                                                  availablePriceAssetBalance: Money(0 ,self.pair.priceAsset.decimals),
+                                                                  availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals)))
                 }
             })
             return Disposables.create()
@@ -107,7 +114,10 @@ private extension DexOrderBookInteractorMock {
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }
         
-        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header)
+        
+        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
+                                            availablePriceAssetBalance: Money(Constanst.priceAssetBalance ,self.pair.priceAsset.decimals),
+                                            availableAmountAssetBalance: Money(Constanst.amountAssetBalance, self.pair.amountAsset.decimals))
     }
     
     func getLastPriceInfo(_ complete:@escaping(_ lastPriceInfo: JSON?) -> Void) {
