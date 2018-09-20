@@ -9,7 +9,13 @@
 import Foundation
 
 protocol DexOrderBookModuleOutput: AnyObject {
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?)
-    func didCreateOrderSellEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?)
-    func didCreateOrderBuyEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?)
+    
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
+                        ask: Money?, bid: Money?, last: Money?,
+                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
+
+    func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
+                             orderType: DexOrderBook.DTO.OrderType,
+                             ask: Money?, bid: Money?, last: Money?,
+                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
 }

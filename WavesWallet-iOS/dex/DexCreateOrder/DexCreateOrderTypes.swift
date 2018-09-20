@@ -8,7 +8,7 @@
 
 import Foundation
 
-private enum Constanst {
+private enum Constansts {
     static let orderFee = 300000
 }
 
@@ -51,6 +51,13 @@ extension DexCreateOrder.DTO {
     }
     
     struct Input {
+        
+        
+        //FIXME: - Update balance
+//        var totalAmountAssetBalance = Money(31433333240, 8)
+//        private var totalPriceAssetBalance = Money(652333333240, 8)
+        
+        
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         let type: OrderType
@@ -58,6 +65,8 @@ extension DexCreateOrder.DTO {
         let ask: Money?
         let bid: Money?
         let last: Money?
+        let availableAmountAssetBalance: Money
+        let availablePriceAssetBalance: Money
     }
     
     struct Order {
@@ -68,7 +77,7 @@ extension DexCreateOrder.DTO {
         var price: Money
         var total: Money
         var expiration: Expiration
-        let fee: Int = Constanst.orderFee
+        let fee: Int = Constansts.orderFee
 
     }
 }

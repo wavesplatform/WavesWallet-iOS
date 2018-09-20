@@ -70,19 +70,34 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         case .didTapBuy(let buy):
             
-            moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset)
+            moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         availableAmountAssetBalance: Money(0, 0),
+                                         availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
-            moduleOutput?.didCreateOrderBuyEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
+            
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .buy,
+                                              availableAmountAssetBalance: Money(0, 0),
+                                              availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset,  priceAsset: priceAsset)
+            
+            moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         availableAmountAssetBalance: Money(0, 0),
+                                         availablePriceAssetBalance: Money(0, 0))
+
             return state.changeAction(.none)
             
         case .didTapEmptySell:
-            moduleOutput?.didCreateOrderSellEmpty(amountAsset: amountAsset, priceAsset: priceAsset)
+
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .sell,
+                                              availableAmountAssetBalance: Money(0, 0),
+                                              availablePriceAssetBalance: Money(0, 0))
+            
             return state.changeAction(.none)
         }
        
