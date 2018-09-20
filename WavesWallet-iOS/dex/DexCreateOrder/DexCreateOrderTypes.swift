@@ -69,6 +69,13 @@ extension DexCreateOrder.DTO {
         let fee: Int = Constansts.orderFee
 
     }
+    
+    struct Output {
+        let time: Date
+        let orderType: Dex.DTO.OrderType
+        let price: Money
+        let amount: Money
+    }
 }
 
 
