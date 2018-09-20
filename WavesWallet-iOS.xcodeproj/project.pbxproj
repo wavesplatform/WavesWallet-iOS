@@ -175,6 +175,11 @@
 		0A96F1CE2151B699005E148F /* NewAccountPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1CD2151B699005E148F /* NewAccountPasscodeViewController.swift */; };
 		0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */; };
 		0A96F1D32151BD46005E148F /* PasscodeTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D22151BD46005E148F /* PasscodeTopBarView.swift */; };
+		0A96F1D52152C80E005E148F /* NewAccountPasscodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D42152C80E005E148F /* NewAccountPasscodePresenter.swift */; };
+		0A96F1D82152CC09005E148F /* NewAccountTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D72152CC09005E148F /* NewAccountTypes.swift */; };
+		0A96F1DA2152CDB7005E148F /* NewAccountPasscodeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D92152CDB7005E148F /* NewAccountPasscodeTypes.swift */; };
+		0A96F1DC2152E05A005E148F /* NewAccountPasscodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1DB2152E05A005E148F /* NewAccountPasscodeInteractor.swift */; };
+		0A96F1DE2152E14D005E148F /* NewAccountPasscodeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1DD2152E14D005E148F /* NewAccountPasscodeBuilder.swift */; };
 		0A97975C210888B600407F67 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97975B210888B600407F67 /* Localizable.swift */; };
 		0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A97975F2108A11A00407F67 /* Wallet.storyboard */; };
 		0A9797612108A60000407F67 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979757210886EA00407F67 /* Storyboards.swift */; };
@@ -759,6 +764,11 @@
 		0A96F1CD2151B699005E148F /* NewAccountPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountPasscodeViewController.swift; sourceTree = "<group>"; };
 		0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeNumberButton.swift; sourceTree = "<group>"; };
 		0A96F1D22151BD46005E148F /* PasscodeTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeTopBarView.swift; sourceTree = "<group>"; };
+		0A96F1D42152C80E005E148F /* NewAccountPasscodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountPasscodePresenter.swift; sourceTree = "<group>"; };
+		0A96F1D72152CC09005E148F /* NewAccountTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountTypes.swift; sourceTree = "<group>"; };
+		0A96F1D92152CDB7005E148F /* NewAccountPasscodeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountPasscodeTypes.swift; sourceTree = "<group>"; };
+		0A96F1DB2152E05A005E148F /* NewAccountPasscodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountPasscodeInteractor.swift; sourceTree = "<group>"; };
+		0A96F1DD2152E14D005E148F /* NewAccountPasscodeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountPasscodeBuilder.swift; sourceTree = "<group>"; };
 		0A979757210886EA00407F67 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		0A97975B210888B600407F67 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		0A97975F2108A11A00407F67 /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
@@ -1314,12 +1324,13 @@
 		0A14CFDC214B3EBE00C3A4D5 /* NewAccount */ = {
 			isa = PBXGroup;
 			children = (
-				0A96F1CD2151B699005E148F /* NewAccountPasscodeViewController.swift */,
+				0A96F1D62152CBE3005E148F /* NewAccountPasscodePresenter */,
 				0A762D0F214FDF8800BE9204 /* Views */,
 				E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */,
 				0A4399652150465E0032E608 /* NewAccount.storyboard */,
 				0A439963215045C40032E608 /* NewAccountCoordinator.swift */,
 				0A762D0E214FB6FD00BE9204 /* NewAccount.strings */,
+				0A96F1D72152CC09005E148F /* NewAccountTypes.swift */,
 			);
 			path = NewAccount;
 			sourceTree = "<group>";
@@ -1758,13 +1769,12 @@
 		0A96F1CA2151B388005E148F /* Passcode */ = {
 			isa = PBXGroup;
 			children = (
-				0A96F1CF2151B6A9005E148F /* View */,
 				0A96F1CB2151B392005E148F /* Passcode.storyboard */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
 		};
-		0A96F1CF2151B6A9005E148F /* View */ = {
+		0A96F1CF2151B6A9005E148F /* Passcode */ = {
 			isa = PBXGroup;
 			children = (
 				0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */,
@@ -1772,7 +1782,19 @@
 				0AA8CAD12152763A000D09E6 /* PasscodeView.swift */,
 				0AA8CAD321527672000D09E6 /* PasscodeView.xib */,
 			);
-			path = View;
+			path = Passcode;
+			sourceTree = "<group>";
+		};
+		0A96F1D62152CBE3005E148F /* NewAccountPasscodePresenter */ = {
+			isa = PBXGroup;
+			children = (
+				0A96F1CD2151B699005E148F /* NewAccountPasscodeViewController.swift */,
+				0A96F1D42152C80E005E148F /* NewAccountPasscodePresenter.swift */,
+				0A96F1D92152CDB7005E148F /* NewAccountPasscodeTypes.swift */,
+				0A96F1DB2152E05A005E148F /* NewAccountPasscodeInteractor.swift */,
+				0A96F1DD2152E14D005E148F /* NewAccountPasscodeBuilder.swift */,
+			);
+			path = NewAccountPasscodePresenter;
 			sourceTree = "<group>";
 		};
 		0A97974F2108805100407F67 /* Generated */ = {
@@ -2146,6 +2168,7 @@
 		0AF92281212E1234003BA067 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				0A96F1CF2151B6A9005E148F /* Passcode */,
 				0AF9228D212E1234003BA067 /* AssetSegmented */,
 				0AF9229C212E1234003BA067 /* Dex */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
@@ -3283,6 +3306,7 @@
 				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
 				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
 				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
+				0A96F1DA2152CDB7005E148F /* NewAccountPasscodeTypes.swift in Sources */,
 				0AEB35A021165CBF00EDD63C /* AssetBalanceDomainDTO.swift in Sources */,
 				0A5E4BCA213820C500E3C3C3 /* MassTransferTransactionDomainDTO.swift in Sources */,
 				0A14CFC72141DA9800C3A4D5 /* SmartTransactionDomainDTO.swift in Sources */,
@@ -3337,6 +3361,7 @@
 				0A14CFC92144130500C3A4D5 /* Dictionary+Json.swift in Sources */,
 				0AF922CD212E1234003BA067 /* NSObject+AssociatedObject.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
+				0A96F1D82152CC09005E148F /* NewAccountTypes.swift in Sources */,
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
@@ -3491,6 +3516,7 @@
 				0AF922BC212E1234003BA067 /* ActivityIndicator.swift in Sources */,
 				0AF921F8212E07B3003BA067 /* AssetViewHistoryCell.swift in Sources */,
 				E9104D4F2109A900001222B8 /* DexSortCell.swift in Sources */,
+				0A96F1DE2152E14D005E148F /* NewAccountPasscodeBuilder.swift in Sources */,
 				E988E8B71F0D28A20013EAF6 /* DexContainerViewController.swift in Sources */,
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
@@ -3660,6 +3686,7 @@
 				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0AF922AD212E1234003BA067 /* UIFeedbackGenerator.swift in Sources */,
+				0A96F1DC2152E05A005E148F /* NewAccountPasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E9EDC6C72123A5F500C58E0D /* DexLastTradesViewController.swift in Sources */,
 				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
@@ -3730,6 +3757,7 @@
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				0AF922B1212E1234003BA067 /* UIColor+Hex.swift in Sources */,
+				0A96F1D52152C80E005E148F /* NewAccountPasscodePresenter.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */,
 				E9EDC6CC2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift in Sources */,

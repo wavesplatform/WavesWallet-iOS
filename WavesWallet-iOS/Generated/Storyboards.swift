@@ -175,12 +175,12 @@ internal enum StoryboardScene {
   internal enum NewAccount: StoryboardType {
     internal static let storyboardName = "NewAccount"
 
+    internal static let newAccountPasscodeViewController = SceneType<WavesWallet_iOS.NewAccountPasscodeViewController>(storyboard: NewAccount.self, identifier: "NewAccountPasscodeViewController")
+
     internal static let newAccountViewController = SceneType<WavesWallet_iOS.NewAccountViewController>(storyboard: NewAccount.self, identifier: "NewAccountViewController")
   }
   internal enum Passcode: StoryboardType {
     internal static let storyboardName = "Passcode"
-
-    internal static let lightPasscodeViewController = SceneType<WavesWallet_iOS.LightPasscodeViewController>(storyboard: Passcode.self, identifier: "LightPasscodeViewController")
   }
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"

@@ -43,7 +43,7 @@ protocol PasscodeViewDelegate: AnyObject {
 final class PasscodeView: UIView, NibOwnerLoadable {
 
     struct Model {
-        let numbers: [Int?]
+        let numbers: [Int]
         let text: String
     }
 

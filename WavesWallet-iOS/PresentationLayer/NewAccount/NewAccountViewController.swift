@@ -21,18 +21,8 @@ private struct Avatar {
     let index: Int
 }
 
-enum NewAccount {
-    enum DTO {
-        struct Account {
-            let privateKey: PrivateKeyAccount
-            let password: String
-            let name: String
-        }
-    }
-}
-
 protocol NewAccountModuleOutput: AnyObject {
-    func userCompletedCreateAccount(_ account: NewAccount.DTO.Account)
+    func userCompletedCreateAccount(_ account: NewAccountTypes.DTO.Account)
 }
 
 final class NewAccountViewController: UIViewController {
@@ -221,7 +211,7 @@ final class NewAccountViewController: UIViewController {
             let password = passwordInput.value,
             let avatar = currentAvatar else { return }
 
-        let account = NewAccount.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)
+        let account = NewAccountTypes.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)
         output?.userCompletedCreateAccount(account)
     }
 
