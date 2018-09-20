@@ -108,6 +108,6 @@ final class PasscodeTopBarView: UIView {
     }
 
     func stopLoadingIndicator() {
-        indicatorView.startAnimating()
+        indicatorView.stopAnimating()
     }
 }

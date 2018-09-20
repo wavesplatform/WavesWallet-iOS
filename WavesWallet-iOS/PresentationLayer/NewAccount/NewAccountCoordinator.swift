@@ -13,7 +13,7 @@ final class NewAccountCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let navigationController: UINavigationController
-    private var account: NewAccount.DTO.Account?
+    private var account: NewAccountTypes.DTO.Account?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -22,7 +22,8 @@ final class NewAccountCoordinator: Coordinator {
     func start() {
 //        let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
 //        vc.output = self
-        let vc = StoryboardScene.Passcode.lightPasscodeViewController.instantiate()
+        let vc = StoryboardScene.NewAccount.newAccountPasscodeViewController.instantiate()
+        vc.presenter = NewAccountPasscodePresenter()
 //        navigationController.pushViewControllerAndSetLast(vc)
         self.navigationController.pushViewController(vc, animated: true)
     }
@@ -30,7 +31,7 @@ final class NewAccountCoordinator: Coordinator {
 
 // MARK: NewAccountModuleOutput
 extension NewAccountCoordinator: NewAccountModuleOutput {
-    func userCompletedCreateAccount(_ account: NewAccount.DTO.Account) {
+    func userCompletedCreateAccount(_ account: NewAccountTypes.DTO.Account) {
 
         self.account = account
         let vc = StoryboardScene.Backup.needBackupViewController.instantiate()

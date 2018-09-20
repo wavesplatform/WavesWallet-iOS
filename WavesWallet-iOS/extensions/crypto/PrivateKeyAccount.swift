@@ -45,7 +45,7 @@ class Address {
     }
 }
 
-class PublicKeyAccount {
+class PublicKeyAccount: Hashable {
 
     let publicKey: [UInt8]
     let address: String
@@ -57,6 +57,14 @@ class PublicKeyAccount {
     
     func getPublicKeyStr() -> String {
         return Base58.encode(publicKey)
+    }
+
+    public var hashValue: Int {
+        return address.hashValue
+    }
+
+    public static func == (lhs: PublicKeyAccount, rhs: PublicKeyAccount) -> Bool {
+        return lhs.address == rhs.address
     }
 }
 
