@@ -8,11 +8,12 @@
 
 import Foundation
 
-
 struct Money: Hashable, Codable {
     let amount: Int64
     let decimals: Int
-        
+    
+    private var _isBigAmount = false
+    
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
@@ -22,8 +23,12 @@ struct Money: Hashable, Codable {
 extension Money {
  
     init(value: Decimal, _ decimals: Int) {
+        let decimalValue = (value * pow(10, decimals)).rounded()
+        let isValidDecimal = Decimal(Int64.max) >= decimalValue
+        
+        self.amount = isValidDecimal ? Int64(truncating: decimalValue as NSNumber) : 0
         self.decimals = decimals
-        self.amount = Int64(exactly: value * pow(10, decimals) as NSNumber) ?? 0
+        self._isBigAmount = self.amount == 0 && value > 0
     }
     
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
@@ -35,6 +40,10 @@ extension Money {
 
     var isZero: Bool {
         return amount == 0
+    }
+    
+    var isBigAmount: Bool {
+        return _isBigAmount
     }
 
     var displayText: String {

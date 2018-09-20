@@ -46,15 +46,13 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var viewFeeTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonSellBuyBottomOffset: NSLayoutConstraint!
     
-    private var isValidOrder: Bool {
-        return !order.amount.isZero && !order.price.isZero && !order.total.isZero
-    }
     
     private var order: DexCreateOrder.DTO.Order!
     
-    //FIXME: - Update
-    private var totalAmountBalance = Money(313240, 8)
-    
+    //FIXME: - Update balance
+    private var totalAmountAssetBalance = Money(31433333240, 8)
+    private var totalPriceAssetBalance = Money(652333333240, 8)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +64,32 @@ final class DexCreateOrderViewController: UIViewController {
     }
 }
 
+//MARK: - Validation
+private extension DexCreateOrderViewController {
+    
+    var isValidOrder: Bool {
+        return !order.amount.isZero &&
+            !order.price.isZero &&
+            !order.total.isZero &&
+            isValidAmountAssetBalance &&
+            isValidPriceAssetBalance
+    }
+    
+    var isValidAmountAssetBalance: Bool {
+        if order.type == .sell {
+            return order.amount.decimalValue <= totalAmountAssetBalance.decimalValue
+        }
+        return true
+    }
+    
+    
+    var isValidPriceAssetBalance: Bool {
+        if order.type == .buy {
+            return order.total.decimalValue <= totalPriceAssetBalance.decimalValue
+        }
+        return true
+    }
+}
 
 //MARK: - Actions
 private extension DexCreateOrderViewController {
@@ -103,9 +127,12 @@ private extension DexCreateOrderViewController {
 
 //MARK: - DexCreateOrderSegmentedControlDelegate
 extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
+    
     func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType) {
         order.type = type
         setupButtonSellBuy()
+        setupValidationErrors()
+        setupInputAmountData()
     }
 }
 
@@ -116,9 +143,8 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
         if inputView == inputAmount {
             order.amount = value
-            inputView.showErrorMessage(show: value.decimalValue > totalAmountBalance.decimalValue)
             
-            if order.price.amount > 0 && order.amount.amount > 0 {
+            if !order.price.isZero && !order.amount.isZero {
 
                 let total = order.price.decimalValue * order.amount.decimalValue
                 order.total = Money(value: total, order.total.decimals)
@@ -128,7 +154,7 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
         else if inputView == inputPrice {
             order.price = value
             
-            if order.price.amount > 0 && order.amount.amount > 0 {
+            if !order.price.isZero && !order.amount.isZero {
                 
                 let total = order.price.decimalValue * order.amount.decimalValue
                 order.total = Money(value: total, order.total.decimals)
@@ -137,21 +163,49 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
         }
         else if inputView == inputTotal {
             order.total = value
-            
-            if order.total.amount > 0 && order.price.amount > 0 {
-                let amount = order.total.decimalValue * order.price.decimalValue
+        
+            if !order.total.isZero && !order.price.isZero {
+                
+                let amount = order.total.decimalValue / order.price.decimalValue
                 order.amount = Money(value: amount, order.amount.decimals)
                 inputAmount.setupValue(order.amount)
-                inputAmount.showErrorMessage(show: order.amount.decimalValue > totalAmountBalance.decimalValue)
             }
         }
      
         setupButtonSellBuy()
+        setupValidationErrors()
     }
 }
 
 //MARK: - Setup
 private extension DexCreateOrderViewController {
+    
+    func setupValidationErrors() {
+        if order.type == .sell {
+            
+            inputAmount.showErrorMessage(message: Localizable.DexCreateOrder.Label.notEnough + " " + input.amountAsset.name,
+                                         isShow: !isValidAmountAssetBalance)
+            
+            inputTotal.showErrorMessage(message: Localizable.DexCreateOrder.Label.bigValue,
+                                        isShow: order.total.isBigAmount)
+        }
+        else {
+            
+            inputAmount.showErrorMessage(message: Localizable.DexCreateOrder.Label.bigValue,
+                                         isShow: order.amount.isBigAmount)
+            
+            var totalError = ""
+            if order.total.isBigAmount {
+                totalError = Localizable.DexCreateOrder.Label.bigValue
+            }
+            else if !isValidPriceAssetBalance {
+                totalError = Localizable.DexCreateOrder.Label.notEnough + " " + input.priceAsset.name
+            }
+            
+            inputTotal.showErrorMessage(message: totalError,
+                                        isShow: !isValidPriceAssetBalance || order.total.isBigAmount)
+        }
+    }
     
     func setupButtonSellBuy() {
         buttonSellBuy.isUserInteractionEnabled = isValidOrder
@@ -168,21 +222,56 @@ private extension DexCreateOrderViewController {
         }
     }
     
+    func setupInputAmountData() {
+        
+        var inputAmountValues: [DexCreateOrderInputView.Input] = []
+        
+        if order.type == .sell {
+            
+            guard !totalAmountAssetBalance.isZero else { return }
+            
+            let valuePercent50 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent50) / 100,
+                                       totalAmountAssetBalance.decimals)
+            
+            let valuePercent10 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent10) / 100,
+                                       totalAmountAssetBalance.decimals)
+            
+            let valuePercent5 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent5) / 100,
+                                      totalAmountAssetBalance.decimals)
+            
+            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountAssetBalance))
+            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
+            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
+            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+        }
+        else {
+            guard !totalPriceAssetBalance.isZero && !order.price.isZero else { return }
+            
+            let totalAmount = totalPriceAssetBalance.decimalValue / order.price.decimalValue
+            
+            let totalAmountMoney = Money(value: totalAmount, totalAmountAssetBalance.decimals)
+            
+            let valuePercent50 = Money(value: totalAmount * Decimal(Constants.percent50) / 100,
+                                       totalAmountAssetBalance.decimals)
+            
+            let valuePercent10 = Money(value: totalAmount * Decimal(Constants.percent10) / 100,
+                                       totalAmountAssetBalance.decimals)
+            
+            let valuePercent5 = Money(value: totalAmount * Decimal(Constants.percent5) / 100,
+                                      totalAmountAssetBalance.decimals)
+            
+            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountMoney))
+            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
+            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
+            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+        }
+        
+        inputAmount.input = inputAmountValues
+    }
+    
     func setupData() {
         
-        if !totalAmountBalance.isZero {
-
-            let value1 = Money(value: totalAmountBalance.decimalValue * Decimal(Constants.percent50) / 100, totalAmountBalance.decimals)
-            
-            let value2 = Money(value: totalAmountBalance.decimalValue * Decimal(Constants.percent10) / 100, totalAmountBalance.decimals)
-            
-            let value3 = Money(value: totalAmountBalance.decimalValue * Decimal(Constants.percent5) / 100, totalAmountBalance.decimals)
-
-            inputAmount.input = [.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountBalance),
-                                 .init(text: value1.displayText, value: value1),
-                                 .init(text: value2.displayText, value: value2),
-                                 .init(text: value3.displayText, value: value3)]
-        }
+        setupInputAmountData()
 
         var inputPriceValues: [DexCreateOrderInputView.Input] = []
 
@@ -226,13 +315,9 @@ private extension DexCreateOrderViewController {
         labelFee.text = Localizable.DexCreateOrder.Label.fee
         labelExpiration.text = Localizable.DexCreateOrder.Label.expiration
         
-        inputAmount.setupTitle(title: Localizable.DexCreateOrder.Label.amountIn + " " + input.amountAsset.name,
-                               errorTitle: Localizable.DexCreateOrder.Label.notEnough + " " + input.amountAsset.name)
-        
-        inputPrice.setupTitle(title: Localizable.DexCreateOrder.Label.limitPriceIn + " " + input.priceAsset.name,
-                              errorTitle: nil)
-        inputTotal.setupTitle(title: Localizable.DexCreateOrder.Label.totalIn + " " + input.priceAsset.name,
-                              errorTitle: nil)
+        inputAmount.setupTitle(title: Localizable.DexCreateOrder.Label.amountIn + " " + input.amountAsset.name)
+        inputPrice.setupTitle(title: Localizable.DexCreateOrder.Label.limitPriceIn + " " + input.priceAsset.name)
+        inputTotal.setupTitle(title: Localizable.DexCreateOrder.Label.totalIn + " " + input.priceAsset.name)
     }
 }
 
