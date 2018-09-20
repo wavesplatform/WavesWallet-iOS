@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+
 
 private enum Constants {
     static let percent50 = 50
@@ -20,7 +22,7 @@ final class DexCreateOrderViewController: UIViewController {
 
     var input: DexCreateOrder.DTO.Input! {
         didSet {
-            
+               
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
                                              type: input.type,
                                              amount: Money(0, input.amountAsset.decimals),
@@ -46,13 +48,8 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var viewFeeTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonSellBuyBottomOffset: NSLayoutConstraint!
     
-    
     private var order: DexCreateOrder.DTO.Order!
     
-    //FIXME: - Update balance
-    private var totalAmountAssetBalance = Money(31433333240, 8)
-    private var totalPriceAssetBalance = Money(652333333240, 8)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +74,7 @@ private extension DexCreateOrderViewController {
     
     var isValidAmountAssetBalance: Bool {
         if order.type == .sell {
-            return order.amount.decimalValue <= totalAmountAssetBalance.decimalValue
+            return order.amount.decimalValue <= input.availableAmountAssetBalance.decimalValue
         }
         return true
     }
@@ -85,7 +82,7 @@ private extension DexCreateOrderViewController {
     
     var isValidPriceAssetBalance: Bool {
         if order.type == .buy {
-            return order.total.decimalValue <= totalPriceAssetBalance.decimalValue
+            return order.total.decimalValue <= input.availablePriceAssetBalance.decimalValue
         }
         return true
     }
@@ -228,37 +225,37 @@ private extension DexCreateOrderViewController {
         
         if order.type == .sell {
             
-            guard !totalAmountAssetBalance.isZero else { return }
+            guard !input.availableAmountAssetBalance.isZero else { return }
             
-            let valuePercent50 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent50) / 100,
-                                       totalAmountAssetBalance.decimals)
+            let valuePercent50 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent50) / 100,
+                                       input.availableAmountAssetBalance.decimals)
             
-            let valuePercent10 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent10) / 100,
-                                       totalAmountAssetBalance.decimals)
+            let valuePercent10 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent10) / 100,
+                                       input.availableAmountAssetBalance.decimals)
             
-            let valuePercent5 = Money(value: totalAmountAssetBalance.decimalValue * Decimal(Constants.percent5) / 100,
-                                      totalAmountAssetBalance.decimals)
+            let valuePercent5 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent5) / 100,
+                                      input.availableAmountAssetBalance.decimals)
             
-            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountAssetBalance))
+            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: input.availableAmountAssetBalance))
             inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
             inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
         }
         else {
-            guard !totalPriceAssetBalance.isZero && !order.price.isZero else { return }
+            guard !input.availablePriceAssetBalance.isZero && !order.price.isZero else { return }
             
-            let totalAmount = totalPriceAssetBalance.decimalValue / order.price.decimalValue
+            let totalAmount = input.availablePriceAssetBalance.decimalValue / order.price.decimalValue
             
-            let totalAmountMoney = Money(value: totalAmount, totalAmountAssetBalance.decimals)
+            let totalAmountMoney = Money(value: totalAmount, input.availableAmountAssetBalance.decimals)
             
             let valuePercent50 = Money(value: totalAmount * Decimal(Constants.percent50) / 100,
-                                       totalAmountAssetBalance.decimals)
+                                       input.availableAmountAssetBalance.decimals)
             
             let valuePercent10 = Money(value: totalAmount * Decimal(Constants.percent10) / 100,
-                                       totalAmountAssetBalance.decimals)
+                                       input.availableAmountAssetBalance.decimals)
             
             let valuePercent5 = Money(value: totalAmount * Decimal(Constants.percent5) / 100,
-                                      totalAmountAssetBalance.decimals)
+                                      input.availableAmountAssetBalance.decimals)
             
             inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountMoney))
             inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))

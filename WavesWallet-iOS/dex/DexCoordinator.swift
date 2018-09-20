@@ -28,7 +28,9 @@ final class DexCoordinator {
             let priceAsset = Dex.DTO.Asset(id: "BTC", name: "BTC", decimals: 8)
 
             self.showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
-                                           price: nil, ask: nil, bid: nil, last: nil)
+                                           price: nil, ask: nil, bid: nil, last: nil,
+                availableAmountAssetBalance: Money(0, 0),
+                availablePriceAssetBalance: Money(0, 0))
         }
     }
 }
@@ -62,43 +64,53 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
 }
 
-//MARK: - DexLastTradesModuleOutput, DexOrderBookModuleOutput
-extension DexCoordinator: DexLastTradesModuleOutput, DexOrderBookModuleOutput {
+extension DexCoordinator: DexLastTradesModuleOutput {
     
-    func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset) {
+    func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
         
         let type: DexCreateOrder.DTO.OrderType = trade.type == .sell ? .sell : .buy
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                  price: trade.price, ask: nil, bid: nil, last: nil)
+                                  price: trade.price, ask: nil, bid: nil, last: nil,
+                                  availableAmountAssetBalance: availableAmountAssetBalance,
+                                  availablePriceAssetBalance: availablePriceAssetBalance)
     }
     
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
-        let type: DexCreateOrder.DTO.OrderType = bidAsk.orderType == .sell ? .sell : .buy
+    func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, orderType: DexLastTrades.DTO.TradeType, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
+        
+        let type: DexCreateOrder.DTO.OrderType = orderType == .sell ? .sell : .buy
+
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                  price: bidAsk.price, ask: ask, bid: bid, last: last)
-    }
-    
-    func didCreateOrderBuyEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
+                                  price: nil, ask: nil, bid: nil, last: nil,
+                                  availableAmountAssetBalance: availableAmountAssetBalance,
+                                  availablePriceAssetBalance: availablePriceAssetBalance)
         
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
-                                  price: nil, ask: ask, bid: bid, last: last)
     }
+}
+
+//MARK: - DexLastTradesModuleOutput, DexOrderBookModuleOutput
+extension DexCoordinator:  DexOrderBookModuleOutput {
     
-    func didCreateOrderSellEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?) {
-       
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
-                                  price: nil, ask: ask, bid: bid, last: last)
-    }
-    
-    func didCreateOrderSellEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset) {
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
         
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
-                                  price: nil, ask: nil, bid: nil, last: nil)
+        let type: DexCreateOrder.DTO.OrderType = bidAsk.orderType == .sell ? .sell : .buy
+        
+        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
+                                  price: bidAsk.price, ask: ask, bid: bid, last: last,
+                                  availableAmountAssetBalance: availableAmountAssetBalance,
+                                  availablePriceAssetBalance: availablePriceAssetBalance)
+
     }
     
-    func didCreateOrderBuyEmpty(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset) {
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .buy,
-                                  price: nil, ask: nil, bid: nil, last: nil)
+    
+    func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, orderType: DexOrderBook.DTO.OrderType, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
+        
+        let type: DexCreateOrder.DTO.OrderType = orderType == .sell ? .sell : .buy
+
+        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
+                                  price: nil, ask: ask, bid: bid, last: last,
+                                  availableAmountAssetBalance: availableAmountAssetBalance,
+                                  availablePriceAssetBalance: availablePriceAssetBalance)
+        
     }
 }
 
@@ -106,10 +118,13 @@ extension DexCoordinator: DexLastTradesModuleOutput, DexOrderBookModuleOutput {
 private extension DexCoordinator {
     
     func showCreateOrderController(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: DexCreateOrder.DTO.OrderType,
-                                   price: Money?, ask: Money?, bid: Money?, last: Money?) {
+                                   price: Money?, ask: Money?, bid: Money?, last: Money?,
+                                   availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
         
         let input = DexCreateOrder.DTO.Input(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                             price: price, ask: ask, bid: bid, last: last)
+                                             price: price, ask: ask, bid: bid, last: last,
+                                             availableAmountAssetBalance: availableAmountAssetBalance,
+                                             availablePriceAssetBalance: availablePriceAssetBalance)
        
         let controller = DexCreateOrderModuleBuilder().build(input: input)
         let popup = PopupViewController()

@@ -95,28 +95,39 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
-                                         last: state.lastPrice?.price)
+                                         last: state.lastPrice?.price,
+                                         availableAmountAssetBalance: Money(0, 0),
+                                         availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
-            moduleOutput?.didCreateOrderSellEmpty(amountAsset: amountAsset, priceAsset: priceAsset,
-                                                  ask: state.lastAsk?.price,
-                                                  bid: state.lastBid?.price,
-                                                  last: state.lastPrice?.price)
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .sell,
+                                              ask: state.lastAsk?.price,
+                                              bid: state.lastBid?.price,
+                                              last: state.lastPrice?.price,
+                                              availableAmountAssetBalance: Money(0, 0),
+                                              availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
             moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
-                                         last: state.lastPrice?.price)
+                                         last: state.lastPrice?.price,
+                                         availableAmountAssetBalance: Money(0, 0),
+                                         availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            moduleOutput?.didCreateOrderBuyEmpty(amountAsset: amountAsset, priceAsset: priceAsset,
-                                                 ask: state.lastAsk?.price,
-                                                 bid: state.lastBid?.price,
-                                                 last: state.lastPrice?.price)
+            
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .buy,
+                                              ask: state.lastAsk?.price,
+                                              bid: state.lastBid?.price,
+                                              last: state.lastPrice?.price,
+                                              availableAmountAssetBalance: Money(0, 0),
+                                              availablePriceAssetBalance: Money(0, 0))
             return state.changeAction(.none)
         }
     }
