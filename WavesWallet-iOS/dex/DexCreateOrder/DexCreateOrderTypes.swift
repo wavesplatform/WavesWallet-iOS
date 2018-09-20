@@ -52,12 +52,6 @@ extension DexCreateOrder.DTO {
     
     struct Input {
         
-        
-        //FIXME: - Update balance
-//        var totalAmountAssetBalance = Money(31433333240, 8)
-//        private var totalPriceAssetBalance = Money(652333333240, 8)
-        
-        
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         let type: OrderType
