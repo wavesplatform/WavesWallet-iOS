@@ -491,6 +491,7 @@
 		E9CFBC462124EB9D00CE7413 /* DexOrderBookInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CFBC452124EB9D00CE7413 /* DexOrderBookInteractorMock.swift */; };
 		E9CFBC482124EE2400CE7413 /* DexOrderBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CFBC472124EE2400CE7413 /* DexOrderBookCell.swift */; };
 		E9DAB6432128561800C2D552 /* DexTraderContainerModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */; };
+		E9DC80422154589E002A496B /* DexCompleteOrder.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9DC80442154589E002A496B /* DexCompleteOrder.strings */; };
 		E9DE1CEB2147FBA800D0898C /* DexCreateOrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE1CEA2147FBA800D0898C /* DexCreateOrderInputView.swift */; };
 		E9DE1CED2147FBC000D0898C /* DexCreateOrderInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DE1CEC2147FBC000D0898C /* DexCreateOrderInputView.xib */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
@@ -1110,6 +1111,9 @@
 		E9CFBC452124EB9D00CE7413 /* DexOrderBookInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookInteractorMock.swift; sourceTree = "<group>"; };
 		E9CFBC472124EE2400CE7413 /* DexOrderBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexOrderBookCell.swift; path = "WavesWallet-iOS/dex/DexOrderBook/Views/DexOrderBookCell.swift"; sourceTree = SOURCE_ROOT; };
 		E9DAB6422128561800C2D552 /* DexTraderContainerModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTraderContainerModuleOutput.swift; sourceTree = "<group>"; };
+		E9DC80432154589E002A496B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexCompleteOrder.strings; sourceTree = "<group>"; };
+		E9DC8045215458A2002A496B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexCompleteOrder.strings; sourceTree = "<group>"; };
+		E9DC8046215458A4002A496B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexCompleteOrder.strings; sourceTree = "<group>"; };
 		E9DE1CEA2147FBA800D0898C /* DexCreateOrderInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexCreateOrderInputView.swift; path = "WavesWallet-iOS/dex/DexCreateOrder/Views/DexCreateOrderInputView.swift"; sourceTree = SOURCE_ROOT; };
 		E9DE1CEC2147FBC000D0898C /* DexCreateOrderInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexCreateOrderInputView.xib; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
@@ -2407,6 +2411,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B58B0F21543DF90086BCDD /* DexCompleteOrderViewController.swift */,
+				E9DC80442154589E002A496B /* DexCompleteOrder.strings */,
 			);
 			path = DexCompleteOrder;
 			sourceTree = "<group>";
@@ -3024,6 +3029,7 @@
 				E9983DF0211C8027002349CA /* DexMarket.strings in Resources */,
 				E959B5FD20BEE80F00101A75 /* TransactionHistoryShowAllView.xib in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
+				E9DC80422154589E002A496B /* DexCompleteOrder.strings in Resources */,
 				0AF921E7212E07B3003BA067 /* Asset.strings in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
 				E965BEF9214749A000679E0D /* DexCreateOrderSegmentedControl.xib in Resources */,
@@ -3892,6 +3898,16 @@
 			name = DexMyOrders.strings;
 			path = "WavesWallet-iOS/dex/DexMyOrders";
 			sourceTree = SOURCE_ROOT;
+		};
+		E9DC80442154589E002A496B /* DexCompleteOrder.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9DC80432154589E002A496B /* en */,
+				E9DC8045215458A2002A496B /* ru */,
+				E9DC8046215458A4002A496B /* tr */,
+			);
+			name = DexCompleteOrder.strings;
+			sourceTree = "<group>";
 		};
 		E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */ = {
 			isa = PBXVariantGroup;

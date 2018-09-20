@@ -255,6 +255,28 @@ internal enum Localizable {
     /// Authenticate with Face ID
     internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
+  internal enum DexCompleteOrder {
+
+    internal enum Button {
+      /// Okay
+      internal static let okey = Localizable.tr("DexCompleteOrder", "button.okey")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexCompleteOrder", "label.amount")
+      /// Open
+      internal static let `open` = Localizable.tr("DexCompleteOrder", "label.open")
+      /// The order is created
+      internal static let orderIsCreated = Localizable.tr("DexCompleteOrder", "label.orderIsCreated")
+      /// Price
+      internal static let price = Localizable.tr("DexCompleteOrder", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexCompleteOrder", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexCompleteOrder", "label.time")
+    }
+  }
   internal enum DexMarket {
 
     internal enum Label {
