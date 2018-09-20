@@ -20,19 +20,6 @@ final class DexCoordinator {
         self.navigationController = navigationController
         navigationController.pushViewController(dexListViewContoller, animated: false)
     }
-    
-    init() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            
-            let amountAsset = Dex.DTO.Asset(id: "WAVES", name: "WAVES", decimals: 8)
-            let priceAsset = Dex.DTO.Asset(id: "BTC", name: "BTC", decimals: 8)
-
-            self.showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: .sell,
-                                           price: nil, ask: nil, bid: nil, last: nil,
-                availableAmountAssetBalance: Money(0, 0),
-                availablePriceAssetBalance: Money(0, 0))
-        }
-    }
 }
 
 
