@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
+private enum Constanst {
+    static let priceAssetBalance: Int64 = 652333333240
+    static let amountAssetBalance: Int64 = 31433333240
+}
 
 final class DexLastTradesInteractorMock: DexLastTradesInteractorProtocol {
     
@@ -21,7 +25,13 @@ final class DexLastTradesInteractorMock: DexLastTradesInteractorProtocol {
             
             self.getLastTrades({ (trades) in
                 self.getLastSellBuy({ (lastSell, lastBuy) in
-                    let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy)
+                    
+                    let availableAmountAssetBalance =  Money(Constanst.amountAssetBalance, self.pair.amountAsset.decimals)
+                    let availablePriceAssetBalance =  Money(Constanst.priceAssetBalance, self.pair.priceAsset.decimals)
+
+                    let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy,
+                                                                availableAmountAssetBalance: availableAmountAssetBalance,
+                                                                availablePriceAssetBalance: availablePriceAssetBalance)
                     subscribe.onNext(display)
                 })
             })
