@@ -29,9 +29,9 @@ final class NewAccountViewController: UIViewController {
 
     @IBOutlet private var avatars: [NewAccountAvatarView]!
     @IBOutlet private weak var labelAccountName: UILabel!
-    @IBOutlet private weak var accountNameInput: NewAccountInputTextField!
-    @IBOutlet private weak var passwordInput: NewAccountInputTextField!
-    @IBOutlet private weak var confirmPasswordInput: NewAccountInputTextField!
+    @IBOutlet private weak var accountNameInput: InputTextField!
+    @IBOutlet private weak var passwordInput: InputTextField!
+    @IBOutlet private weak var confirmPasswordInput: InputTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var contentView: UIView!
@@ -94,9 +94,15 @@ final class NewAccountViewController: UIViewController {
     }
 
     private func setupTextField() {
-        accountNameInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title, kind: .text))
-        passwordInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title, kind: .password))
-        confirmPasswordInput.update(with: NewAccountInputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title, kind: .newPassword))
+        accountNameInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
+                                                           kind: .text,
+                                                           placeholder: Localizable.NewAccount.Textfield.Accountname.title))
+        passwordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
+                                                        kind: .password,
+                                                        placeholder: Localizable.NewAccount.Textfield.Createpassword.title))
+        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+                                                               kind: .newPassword,
+                                                               placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
         accountNameInput.valueValidator = { value in
             if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {

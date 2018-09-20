@@ -15,11 +15,6 @@ final class NewAccountPasscodeViewController: UIViewController {
 
     fileprivate typealias Types = NewAccountPasscodeTypes
 
-//    enum State: Hashable {
-//        case newPassword
-//        case repeatPassword
-//    }
-
     @IBOutlet private var passcodeView: PasscodeView!
     private lazy var backButtonItem: UIBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backButtonDidTap))
 
@@ -78,10 +73,10 @@ private extension NewAccountPasscodeViewController {
 
         switch state.kind {
         case .newPassword:
-            passcodeView.update(with: .init(numbers: state.numbers, text: "newPassword"))
+            passcodeView.update(with: .init(numbers: state.numbers, text: "Create a passcode"))
 
         case .repeatPassword:
-            passcodeView.update(with: .init(numbers: state.numbers, text: "repeatPassword"))
+            passcodeView.update(with: .init(numbers: state.numbers, text: "Verify your passcode"))
         }
 
         if state.isHiddenBackButton {
@@ -97,6 +92,7 @@ private extension NewAccountPasscodeViewController {
             }
         }
 
+        passcodeView.isUserInteractionEnabled = !state.isLoading
         if state.isLoading {
             passcodeView.startLoadingIndicator()
         } else {

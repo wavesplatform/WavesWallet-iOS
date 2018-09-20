@@ -92,10 +92,6 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
         
-//        if Platform.isIphone5 {
-//            collectionTopOffset.constant = 0
-//            collectionViewHeight.constant = 80
-//        }
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
@@ -146,22 +142,15 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         let controller = storyboard?.instantiateViewController(withIdentifier: "EnterSelectAccountViewController") as! EnterSelectAccountViewController
         navigationController?.pushViewController(controller, animated: true)
     }
-    
+
+    lazy var importCoordinator = ImportCoordinator(navigationController: navigationController!)
     @IBAction func importAccount(_ sender: Any) {
-    
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ImportAccountViewController") as! ImportAccountViewController
-        navigationController?.pushViewController(controller, animated: true)
+        importCoordinator.start()
     }
 
     lazy var account = NewAccountCoordinator(navigationController: navigationController!)
-
     @IBAction func createNewAccountTapped(_ sender: Any) {
-
-
-
         account.start()
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountViewController") as! NewAccountViewController
-//        navigationController?.pushViewController(controller, animated: true)
     }
     
     @IBAction func showMenu(_ sender: Any) {

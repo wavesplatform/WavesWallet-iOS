@@ -20,11 +20,8 @@ final class NewAccountCoordinator: Coordinator {
     }
 
     func start() {
-//        let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
-//        vc.output = self
-        let vc = StoryboardScene.NewAccount.newAccountPasscodeViewController.instantiate()
-        vc.presenter = NewAccountPasscodePresenter()
-//        navigationController.pushViewControllerAndSetLast(vc)
+        let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
+        vc.output = self
         self.navigationController.pushViewController(vc, animated: true)
     }
 }
@@ -52,6 +49,7 @@ extension NewAccountCoordinator: NeedBackupModuleOutput {
     }
 }
 
+// MARK: Logic
 extension NewAccountCoordinator {
 
     private func showBackupCoordinator() {
@@ -65,8 +63,21 @@ extension NewAccountCoordinator {
 
     private func beginRegistration() {
 
+        guard let account = account else { return }
 
+
+        let vc = PasscodeModuleBuilder(output: self)
+            .build(input: .init(kind: .registration(.init(privateKey: account.privateKey,
+                                                          password: account.password,
+                                                          name: account.name))))
+
+        let customNavigationController = CustomNavigationController(rootViewController: vc)
+        self.navigationController.present(customNavigationController, animated: true, completion: nil)
     }
+}
+
+extension NewAccountCoordinator: NewAccountPasscodeOutput {
+
 }
 
 

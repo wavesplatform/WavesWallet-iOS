@@ -55,7 +55,7 @@ final class NewAccountPasscodePresenter: NewAccountPasscodePresenterProtocol {
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
                                        self?.reduce(state: state, event: event) ?? state
-                                   }, feedback: feedbacks)
+                                   }, feedback: newFeedbacks)
 
         system
             .drive()
@@ -93,7 +93,10 @@ private extension NewAccountPasscodePresenter {
 
         switch event {
         case .completedRegistration:
-                return state
+
+            return state.mutate(transform: { state in
+                state.action = nil
+            })
 
         case .completedInputNumbers(let numbers):
             return state.mutate { state in
@@ -126,6 +129,7 @@ private extension NewAccountPasscodePresenter {
             if let newPassword = newPassword, newPassword == numbers {
                 state.displayState.isLoading = true
                 state.displayState.isHiddenBackButton = true
+                state.action = .registration
             } else {
                 state.displayState.error = .incorrectPasscode
                 state.displayState.isHiddenBackButton = false

@@ -123,12 +123,6 @@ internal enum StoryboardScene {
 
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
 
-    internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: Enter.self, identifier: "ImportAccountPasswordViewController")
-
-    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Enter.self, identifier: "ImportAccountViewController")
-
-    internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Enter.self, identifier: "ImportWelcomeBackViewController")
-
     internal static let useTouchIDViewController = SceneType<WavesWallet_iOS.UseTouchIDViewController>(storyboard: Enter.self, identifier: "UseTouchIDViewController")
   }
   internal enum Hello: StoryboardType {
@@ -144,6 +138,15 @@ internal enum StoryboardScene {
     internal static let storyboardName = "History"
 
     internal static let newHistoryViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "NewHistoryViewController")
+  }
+  internal enum Import: StoryboardType {
+    internal static let storyboardName = "Import"
+
+    internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: Import.self, identifier: "ImportAccountPasswordViewController")
+
+    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
+
+    internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Import.self, identifier: "ImportWelcomeBackViewController")
   }
   internal enum LaunchScreen: StoryboardType {
     internal static let storyboardName = "LaunchScreen"

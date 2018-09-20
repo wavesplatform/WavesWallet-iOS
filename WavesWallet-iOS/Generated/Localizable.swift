@@ -683,6 +683,73 @@ internal enum Localizable {
       internal static var sum: String { return Localizable.tr("DexOrderBook", "label.sum") }
     }
   }
+          internal enum Import {
+
+    internal enum Account {
+
+      internal enum Button {
+
+        internal enum Enter {
+          /// Enter seed manually
+          internal static var title: String { return Localizable.tr("Import", "account.button.enter.title") }
+        }
+
+        internal enum Scan {
+          /// Scan pairing code
+          internal static var title: String { return Localizable.tr("Import", "account.button.scan.title") }
+        }
+      }
+
+      internal enum Label {
+
+        internal enum Info {
+
+          internal enum Step {
+
+            internal enum One {
+              /// Settings > Security > Pairing code
+              internal static var detail: String { return Localizable.tr("Import", "account.label.info.step.one.detail") }
+              /// Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com
+              internal static var title: String { return Localizable.tr("Import", "account.label.info.step.one.title") }
+            }
+
+            internal enum Two {
+              /// Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.
+              internal static var title: String { return Localizable.tr("Import", "account.label.info.step.two.title") }
+            }
+          }
+        }
+      }
+
+      internal enum Navigation {
+        /// Import account
+        internal static var title: String { return Localizable.tr("Import", "account.navigation.title") }
+      }
+    }
+
+    internal enum Welcome {
+
+      internal enum Button {
+        /// Continue
+        internal static var `continue`: String { return Localizable.tr("Import", "welcome.button.continue") }
+      }
+
+      internal enum Label {
+
+        internal enum Address {
+          /// Your seed is the 15 words you saved when creating your account
+          internal static var placeholder: String { return Localizable.tr("Import", "welcome.label.address.placeholder") }
+          /// Your account seed
+          internal static var title: String { return Localizable.tr("Import", "welcome.label.address.title") }
+        }
+      }
+
+      internal enum Navigation {
+        /// Welcome back
+        internal static var title: String { return Localizable.tr("Import", "welcome.navigation.title") }
+      }
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

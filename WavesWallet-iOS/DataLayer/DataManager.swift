@@ -272,8 +272,7 @@ class DataManager: NSObject {
                     placeHolderLabel.alpha = 1
                 }
             }
-        }
-        else {
+        } else {
             if placeHolderLabel.alpha > 0 {
                 UIView.animate(withDuration: 0.3) {
                     placeHolderLabel.alpha = 0

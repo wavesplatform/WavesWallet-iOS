@@ -103,21 +103,21 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-Kc-5mI">
                                                 <rect key="frame" x="16" y="165" width="343" height="386"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOQ-2W-6bg" customClass="NewAccountInputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOQ-2W-6bg" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="62" id="fXF-nT-nDF"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-Uk-xXL" customClass="NewAccountInputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-Uk-xXL" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="86" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="62" id="oFN-oY-luW"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wO-6w-uup" customClass="NewAccountInputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wO-6w-uup" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="172" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -218,7 +218,6 @@
                             </label>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="250" placeholderIntrinsicHeight="250" translatesAutoresizingMaskIntoConstraints="NO" id="efb-IB-aDN" customClass="PasscodeView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="62.5" y="48" width="250" height="250"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
