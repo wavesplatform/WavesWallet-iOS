@@ -463,6 +463,7 @@
 		E9B2E315211936EB0004E452 /* DexSortPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E314211936EB0004E452 /* DexSortPresenterProtocol.swift */; };
 		E9B2E317211937700004E452 /* DexListPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2E316211937700004E452 /* DexListPresenterProtocol.swift */; };
 		E9B3755421109141000BBF79 /* DexListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3755321109141000BBF79 /* DexListHeaderCell.swift */; };
+		E9B58B1021543DF90086BCDD /* DexCompleteOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58B0F21543DF90086BCDD /* DexCompleteOrderViewController.swift */; };
 		E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */; };
 		E9BB427121149C32006E39AB /* DexSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427021149C32006E39AB /* DexSortPresenter.swift */; };
 		E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB427221149C80006E39AB /* DexSortInteractor.swift */; };
@@ -1078,6 +1079,7 @@
 		E9B2E314211936EB0004E452 /* DexSortPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenterProtocol.swift; path = "WavesWallet-iOS/dex/DexSort/Presenter/DexSortPresenterProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E9B2E316211937700004E452 /* DexListPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexListPresenterProtocol.swift; path = "WavesWallet-iOS/dex/DexList/Presenter/DexListPresenterProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E9B3755321109141000BBF79 /* DexListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListHeaderCell.swift; sourceTree = "<group>"; };
+		E9B58B0F21543DF90086BCDD /* DexCompleteOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCompleteOrderViewController.swift; sourceTree = "<group>"; };
 		E9B75C0D21190F3A00C60999 /* DexSortTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DexSortTypes.swift; path = "WavesWallet-iOS/dex/DexSort/DexSortTypes.swift"; sourceTree = SOURCE_ROOT; };
 		E9BB427021149C32006E39AB /* DexSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexSortPresenter.swift; path = "WavesWallet-iOS/Dex/DexSort/Presenter/DexSortPresenter.swift"; sourceTree = SOURCE_ROOT; };
 		E9BB427221149C80006E39AB /* DexSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSortInteractor.swift; sourceTree = "<group>"; };
@@ -2401,6 +2403,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E9B58B0B21543D340086BCDD /* DexCompleteOrder */ = {
+			isa = PBXGroup;
+			children = (
+				E9B58B0F21543DF90086BCDD /* DexCompleteOrderViewController.swift */,
+			);
+			path = DexCompleteOrder;
+			sourceTree = "<group>";
+		};
 		E9B75C0F21190FAC00C60999 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2696,6 +2706,7 @@
 				E988E8B41F0C03170013EAF6 /* Dex.storyboard */,
 				E959293B211964C0007C06EA /* DexCoordinator.swift */,
 				E92D9BFC214866F5006D6D6B /* DexTypes.swift */,
+				E9B58B0B21543D340086BCDD /* DexCompleteOrder */,
 				E93D55342144687200F3ACC0 /* DexCreateOrder */,
 				E9EDC6C82123A5FB00C58E0D /* DexMyOrders */,
 				E9EDC6C52123A5DF00C58E0D /* DexLastTrades */,
@@ -3735,6 +3746,7 @@
 				F96DFFDE20DD0F4F0056BB52 /* FourthInfoPageView.swift in Sources */,
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,
 				0AF922D2212E1234003BA067 /* CALayer+RoundingCorners.swift in Sources */,
+				E9B58B1021543DF90086BCDD /* DexCompleteOrderViewController.swift in Sources */,
 				E9F984B220E53FE000D2CB4D /* EnterLanguageViewController.swift in Sources */,
 				0AF92230212E0F1F003BA067 /* WalletSegmentedControl.swift in Sources */,
 				E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */,
