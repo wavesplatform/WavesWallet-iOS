@@ -1,17 +1,15 @@
 //
-//  SkeletonCell.swift
+//  SkeletonView.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 17.07.2018.
+//  Created by mefilt on 20.09.2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Skeleton
 
-//TODO: Rename SkeletonTableCell
-class SkeletonCell: UITableViewCell, SkeletonAnimatable {
+class SkeletonView: UIView, SkeletonAnimatable {
 
     @IBOutlet var views: [GradientContainerView]!
 

@@ -10,19 +10,36 @@ import UIKit
 import TTTAttributedLabel
 import QRCodeReader
 
+protocol ImportAccountViewControllerDelegate: AnyObject {
+    func enterManuallyTapped()
+    func scanedSeed(_ seed: String)
+}
+
 final class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate {
 
-    @IBOutlet weak var labelLog: TTTAttributedLabel!
-    
+    @IBOutlet final weak var labelLog: TTTAttributedLabel!
+    @IBOutlet final weak var stepOneDetailLabel: UILabel!
+    @IBOutlet final weak var stepTwoTitleLabel: UILabel!
+    @IBOutlet final weak var scanParringButton: UIButton!
+    @IBOutlet final weak var enterSeedButton: UIButton!
+
+    weak var delegate: ImportAccountViewControllerDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Import account"
-        navigationController?.navigationBar.barTintColor = .white
+        title = Localizable.Import.Account.Navigation.title
+
+        stepOneDetailLabel.text = Localizable.Import.Account.Label.Info.Step.One.detail
+        stepTwoTitleLabel.text = Localizable.Import.Account.Label.Info.Step.Two.title
+        scanParringButton.setTitle(Localizable.Import.Account.Button.Scan.title, for: .normal)
+        enterSeedButton.setTitle(Localizable.Import.Account.Button.Enter.title, for: .normal)
+
+        navigationItem.barTintColor = .white
         setupBigNavigationBar()
         createBackButton()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
+        hideTopBarLine()
+
         var params = [kCTUnderlineStyleAttributeName as String : true,
                       kCTForegroundColorAttributeName as String : UIColor.black.cgColor] as [String : Any]
         
@@ -34,32 +51,24 @@ final class ImportAccountViewController: UIViewController, TTTAttributedLabelDel
         labelLog.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
         labelLog.delegate = self
         
-        let attr = NSAttributedString(string: "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com", attributes: [NSAttributedStringKey.font : labelLog.font])
+        let attr = NSAttributedString(string: Localizable.Import.Account.Label.Info.Step.One.title, attributes: [NSAttributedStringKey.font : labelLog.font])
         labelLog.setText(attr)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        hideTopBarLine()
-    }
-
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     @IBAction func enterManuallyTapped(_ sender: Any) {
-    
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ImportWelcomeBackViewController") as! ImportWelcomeBackViewController
-        navigationController?.pushViewController(controller, animated: true)
+        delegate?.enterManuallyTapped()
     }
-    
-    
+
     lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.showSwitchCameraButton = false
             $0.showTorchButton = true
             $0.reader = QRCodeReader()
+            $0.preferredStatusBarStyle = UIStatusBarStyle.lightContent
             $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
         }
         
@@ -69,27 +78,21 @@ final class ImportAccountViewController: UIViewController, TTTAttributedLabelDel
     @IBAction func scanTapped(_ sender: Any) {
     
         guard QRCodeReader.isAvailable() else { return }
-        
-        weak var weakSelf = self
-        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            if let address = result?.value {
-                UIApplication.shared.setStatusBarStyle(.default, animated: true)
-                AppDelegate.shared().menuController.setContentViewController(MainTabBarController(), animated: true)
-                weakSelf?.dismiss(animated: true, completion: nil)
+
+        readerVC.completionBlock = { [weak self] (result: QRCodeReaderResult?) in
+            if let seed = result?.value {
+                self?.delegate?.scanedSeed(seed)
+            } else {
+                self?.dismiss(animated: true, completion: nil)
             }
         }
-        
-        // Presents the readerVC as modal form sheet
+
         readerVC.modalPresentationStyle = .formSheet
-        present(readerVC, animated: true) {
-            UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        }
+        present(readerVC, animated: true) {}
     }
     
     //MARK: - TTTAttributedLabelDelegate
-    
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        
         UIApplication.shared.openURL(url)
     }
 }
