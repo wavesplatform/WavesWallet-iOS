@@ -15,7 +15,7 @@ private enum Constants {
 
 protocol DexCreateOrderSegmentedControlDelegate: AnyObject {
     
-    func dexCreateOrderDidChangeType(_ type: DexCreateOrder.DTO.OrderType)
+    func dexCreateOrderDidChangeType(_ type: Dex.DTO.OrderType)
 }
 
 final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
@@ -27,7 +27,7 @@ final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
     
     weak var delegate: DexCreateOrderSegmentedControlDelegate?
     
-    var type: DexCreateOrder.DTO.OrderType! {
+    var type: Dex.DTO.OrderType! {
         didSet {
             if type == .sell {
                 buttonSell.setTitleColor(.black, for: .normal)

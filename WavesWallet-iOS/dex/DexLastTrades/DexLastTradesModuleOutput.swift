@@ -13,7 +13,7 @@ protocol DexLastTradesModuleOutput: AnyObject {
                         availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
     
     func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
-                             orderType: DexLastTrades.DTO.TradeType,
+                             orderType: Dex.DTO.OrderType,
                              availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
     
 }

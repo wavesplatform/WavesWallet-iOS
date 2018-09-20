@@ -15,7 +15,7 @@ protocol DexOrderBookModuleOutput: AnyObject {
                         availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
 
     func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
-                             orderType: DexOrderBook.DTO.OrderType,
+                             orderType: Dex.DTO.OrderType,
                              ask: Money?, bid: Money?, last: Money?,
                              availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
 }

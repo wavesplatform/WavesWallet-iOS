@@ -45,16 +45,11 @@ extension DexCreateOrder.DTO {
         case expiration30d = 43200
     }
     
-    enum OrderType {
-        case sell
-        case buy
-    }
-    
     struct Input {
         
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
-        let type: OrderType
+        let type: Dex.DTO.OrderType
         let price: Money?
         let ask: Money?
         let bid: Money?
@@ -66,7 +61,7 @@ extension DexCreateOrder.DTO {
     struct Order {
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
-        var type: OrderType
+        var type: Dex.DTO.OrderType
         var amount: Money
         var price: Money
         var total: Money

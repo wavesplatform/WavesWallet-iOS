@@ -62,11 +62,6 @@ extension DexMyOrders.ViewModel {
 
 extension DexMyOrders.DTO {
     
-    enum OrderType {
-        case sell
-        case buy
-    }
-    
     enum Status {
         case accepted
         case partiallyFilled
@@ -79,7 +74,7 @@ extension DexMyOrders.DTO {
         let status: Status
         let price: Money
         let amount: Money
-        let type: OrderType
+        let type: Dex.DTO.OrderType
     }
 }
 
