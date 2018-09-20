@@ -46,6 +46,8 @@ internal enum Localizable {
     internal enum Label {
       /// Amount in
       internal static let amountIn = Localizable.tr("DexCreateOrder", "label.amountIn")
+      /// Value is too big
+      internal static let bigValue = Localizable.tr("DexCreateOrder", "label.bigValue")
       /// days
       internal static let days = Localizable.tr("DexCreateOrder", "label.days")
       /// Expiration

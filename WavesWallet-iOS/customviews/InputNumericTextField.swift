@@ -11,7 +11,7 @@ import AudioToolbox
 
 private enum Constants {
     static let maximumInputDigits = 10
-    static let localeIdentifier = "es_US"
+    static let locale = Locale(identifier: "en_US")
 }
 
 protocol InputNumericTextFieldDelegate: AnyObject {
@@ -41,7 +41,7 @@ final class InputNumericTextField: UITextField {
     var decimals: Int = 0
 
     var value: Money {
-        if let decimal = Decimal(string: textString, locale: Locale(identifier: Constants.localeIdentifier)) {
+        if let decimal = Decimal(string: textString, locale: Constants.locale) {
             return Money(value: decimal, decimals)
         } else {
             return Money(0, decimals)
@@ -62,17 +62,17 @@ final class InputNumericTextField: UITextField {
 }
 
 //MARK: - Methods
-
 extension InputNumericTextField {
     func setValue(value: Money) {
+
         decimals = value.decimals
-        
         setupAttributedText(text: formattedStringFrom(value))
     }
     
     func addPlusValue() {
-       
+      
         let additionalValue = Int64(deltaValue * pow(10, decimals).doubleValue)
+
         let money = Money(value.amount + additionalValue, decimals)
         setValue(value: money)
     }
@@ -85,7 +85,6 @@ extension InputNumericTextField {
         if amount < 0 {
             amount = 0
         }
-    
         setValue(value: Money(amount, decimals))
     }
 }
@@ -137,16 +136,16 @@ private extension InputNumericTextField {
                 }
             }
         }
-        else if isEmptyDotAfterZero(text: textString) {
+        else if isEmptyDotAfterZero() {
             var string = textString
             string.remove(at: String.Index(encodedOffset: 0))
             setupAttributedText(text: string)
         }
     }
     
-    func isEmptyDotAfterZero(text: String) -> Bool {
+    func isEmptyDotAfterZero() -> Bool {
         
-        if text.count > 1 {
+        if textString.count > 1 {
             
             let firstCharacter = textNSString.substring(to: 1)
             let secondCharacter = (textNSString.substring(from: 1) as NSString).substring(to: 1)
@@ -171,7 +170,6 @@ extension InputNumericTextField: UITextFieldDelegate {
             attributedText = nil
         }
     
-        
         inputNumericDelegate?.inputNumericTextField(self, didChangeValue: value)
     }
     

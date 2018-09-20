@@ -18,3 +18,4 @@
 "label.Expiration" = "Expiration";
 "label.days" = "days";
 "label.notEnough" = "Not enough";
+"label.bigValue" = "Value is too big";

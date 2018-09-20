@@ -27,12 +27,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     private var isShowInputScrollView = false {
         didSet {
-            if isShowInputScrollView {
-                showInputScrollView(animation: false)
-            }
-            else {
-                hideInputScrollView(animation: false)
-            }
+            updateViewHeight(inputValue: textField.value, animation: false)
         }
     }
     
@@ -73,19 +68,21 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     
     //MARK: - Methods
-    func setupTitle(title: String, errorTitle: String?) {
+    func setupTitle(title: String) {
         labelTitle.text = title
-        labelError.text = errorTitle
     }
+
     
     func setupValue(_ value: Money) {
         textField.setValue(value: value)
         hideInputScrollView(animation: false)
     }
     
-    func showErrorMessage(show: Bool) {
+    func showErrorMessage(message: String, isShow: Bool) {
         
-        if show {
+        if isShow {
+            labelError.text = message
+            
             if labelError.alpha == 0 {
                 UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
                     self.labelError.alpha = 1
@@ -94,9 +91,14 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         }
         else {
             if labelError.alpha == 1 {
-                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration, animations: {
                     self.labelError.alpha = 0
+                }) { (complete) in
+                    self.labelError.text = message
                 }
+            }
+            else {
+                labelError.text = message
             }
         }
     }
@@ -139,24 +141,25 @@ private extension DexCreateOrderInputView {
     func textFieldDidChangeNewValue() {
         
         delegate?.dexCreateOrder(inputView: self, didChangeValue: textField.value)
-        if isShowInputScrollView {
-            updateViewHeight(inputValue: textField.value)
-        }
+        updateViewHeight(inputValue: textField.value, animation: true)
     }
 }
 
 //MARK: - Change frame
 private extension DexCreateOrderInputView {
     
-    func updateViewHeight(inputValue: Money) {
+    func updateViewHeight(inputValue: Money, animation: Bool) {
         
         if isShowInputScrollView {
             if inputValue.isZero {
-                showInputScrollView(animation: true)
+                showInputScrollView(animation: animation)
             }
             else {
-                hideInputScrollView(animation: true)
+                hideInputScrollView(animation: animation)
             }
+        }
+        else {
+            hideInputScrollView(animation: animation)
         }
     }
     

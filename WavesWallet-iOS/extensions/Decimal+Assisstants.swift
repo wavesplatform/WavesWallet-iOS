@@ -40,6 +40,19 @@ extension Decimal {
         }
     }
     
+    func rounded() -> Decimal {
+        
+        let behavior = NSDecimalNumberHandler(roundingMode: .plain,
+                                              scale: 0,
+                                              raiseOnExactness: false,
+                                              raiseOnOverflow: false,
+                                              raiseOnUnderflow: false,
+                                              raiseOnDivideByZero: false)
+        
+        let number = NSDecimalNumber(decimal: self)
+        return number.rounding(accordingToBehavior: behavior).decimalValue
+    }
+    
     var doubleValue:Double {
         return NSDecimalNumber(decimal:self).doubleValue
     }
