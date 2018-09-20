@@ -64,6 +64,7 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
 }
 
+//MARK: - DexLastTradesModuleOutput
 extension DexCoordinator: DexLastTradesModuleOutput {
     
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
@@ -87,7 +88,7 @@ extension DexCoordinator: DexLastTradesModuleOutput {
     }
 }
 
-//MARK: - DexLastTradesModuleOutput, DexOrderBookModuleOutput
+//MARK: - DexOrderBookModuleOutput
 extension DexCoordinator:  DexOrderBookModuleOutput {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {

@@ -63,6 +63,7 @@ final class InputNumericTextField: UITextField {
 
 //MARK: - Methods
 extension InputNumericTextField {
+    
     func setValue(value: Money) {
 
         decimals = value.decimals
