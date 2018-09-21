@@ -10,10 +10,13 @@ import Foundation
 import RealmSwift
 
 class WalletItem: Object {
-    @objc dynamic var publicKey = ""
-    @objc dynamic var name = ""
-    @objc dynamic var isLoggedIn = false
-    @objc dynamic var isBackedUp = false
+    @objc dynamic var publicKey: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var isLoggedIn: Bool = false
+    @objc dynamic var isBackedUp: Bool = false
+    @objc dynamic var address: String = ""
+    @objc dynamic var secret: String = ""
+    @objc dynamic var hasBiometricEntrance: Bool = false
 
     public var identity: String {
         return "\(publicKey)"
@@ -22,9 +25,6 @@ class WalletItem: Object {
         return "publicKey"
     }
 
-    var address: String {
-        return publicKeyAccount.address
-    }
 
     var publicKeyAccount: PublicKeyAccount {
         return PublicKeyAccount(publicKey: Base58.decode(publicKey))

@@ -21,7 +21,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
         let assetsBalance = self.assetsBalance(by: accountAddress)
         let accountBalance = self.accountBalance(by: accountAddress)
         let matcherBalances = self.matcherBalances(by: accountAddress, privateKey: privateKey)
-
+        
         return Observable
             .zip(assetsBalance,
                  accountBalance,

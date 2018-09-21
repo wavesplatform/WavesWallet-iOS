@@ -48,6 +48,10 @@ target 'WavesWallet-iOS' do
 
     # External Service
     pod 'Firebase/Core'
+    pod 'Firebase/Database'
+
+    pod 'Fabric'
+    pod 'Crashlytics'
 
 
     # Helperrs
