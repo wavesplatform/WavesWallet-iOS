@@ -64,17 +64,16 @@ final class AppCoordinator: Coordinator {
     }
 
     private func showStartController() {
-        let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
-        let navigationController = CustomNavigationController(rootViewController: enter)
+
+        let navigationController = CustomNavigationController()
+
+        let enter = EnterCoordinator(navigationController: navigationController)
+        addChildCoordinator(childCoordinator: enter)
+        enter.start()
         showSideMenuViewController(contentViewController: navigationController)
     }
 
     private func showSideMenuViewController(contentViewController: UIViewController) {
-
-//        self.window.rootViewController = contentViewController
-//
-//        self.window.makeKeyAndVisible()
-//        return
 
         let menuController = StoryboardScene.Main.menuViewController.instantiate()
         let sideMenuViewController = SideMenu(contentViewController:contentViewController,

@@ -25,3 +25,5 @@
 "confirmbackup.navigation.title" = "Confirm backup";
 "confirmbackup.info.label" = "Please, tap each word in the correct order";
 "confirmbackup.error.label" = "Wrong order, try again";
+
+"confirmbackup.button.confirm" = "Confirm";

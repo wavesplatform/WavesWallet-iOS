@@ -11,17 +11,16 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
-final class NewAccountPasscodeViewController: UIViewController {
+final class PasscodeViewController: UIViewController {
 
-    fileprivate typealias Types = NewAccountPasscodeTypes
+    fileprivate typealias Types = PasscodeTypes
 
     @IBOutlet private var passcodeView: PasscodeView!
     private lazy var backButtonItem: UIBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backButtonDidTap))
-
+    
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-
-
-    var presenter: NewAccountPasscodePresenterProtocol!
+    
+    var presenter: PasscodePresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +41,11 @@ final class NewAccountPasscodeViewController: UIViewController {
 
 // MARK: RxFeedback
 
-private extension NewAccountPasscodeViewController {
+private extension PasscodeViewController {
 
     func setupSystem() {
 
-        let uiFeedback: NewAccountPasscodePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
+        let uiFeedback: PasscodePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
@@ -101,7 +100,7 @@ private extension NewAccountPasscodeViewController {
     }
 }
 
-extension NewAccountPasscodeViewController: PasscodeViewDelegate {
+extension PasscodeViewController: PasscodeViewDelegate {
 
     func completedInput(with numbers: [Int]) {
         eventInput.onNext(.completedInputNumbers(numbers))

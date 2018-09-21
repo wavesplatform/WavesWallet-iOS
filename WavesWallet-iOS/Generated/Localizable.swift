@@ -517,6 +517,11 @@ internal enum Localizable {
 
     internal enum Confirmbackup {
 
+      internal enum Button {
+        /// Confirm
+        internal static var confirm: String { return Localizable.tr("Backup", "confirmbackup.button.confirm") }
+      }
+
       internal enum Error {
         /// Wrong order, try again
         internal static var label: String { return Localizable.tr("Backup", "confirmbackup.error.label") }

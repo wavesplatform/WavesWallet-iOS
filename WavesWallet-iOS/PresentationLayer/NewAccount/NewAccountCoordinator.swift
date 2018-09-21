@@ -8,14 +8,18 @@
 
 import UIKit
 
+
 final class NewAccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
     private let navigationController: UINavigationController
     private var account: NewAccountTypes.DTO.Account?
-    
-    init(navigationController: UINavigationController) {
+
+    private let completed: ((NewAccountTypes.DTO.Account) -> Void)
+
+    init(navigationController: UINavigationController, completed: @escaping ((NewAccountTypes.DTO.Account) -> Void)) {
+        self.completed = completed
         self.navigationController = navigationController
     }
 
@@ -62,39 +66,11 @@ extension NewAccountCoordinator {
     }
 
     private func beginRegistration() {
-
         guard let account = account else { return }
-
-
-        let vc = PasscodeModuleBuilder(output: self)
-            .build(input: .init(kind: .registration(.init(privateKey: account.privateKey,
-                                                          password: account.password,
-                                                          name: account.name))))
-
-        let customNavigationController = CustomNavigationController(rootViewController: vc)
-        self.navigationController.present(customNavigationController, animated: true, completion: nil)
+        completed(account)
     }
 }
 
-extension NewAccountCoordinator: NewAccountPasscodeOutput {
+extension NewAccountCoordinator: PasscodeOutput {
 
 }
-
-
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountSecretPhraseViewController") as! NewAccountSecretPhraseViewController
-//        navigationController?.pushViewControllerAndSetLast(controller)
-
-
-
-
-
-//func showPassCode() {
-//    outlet
-//
-//    //        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
-//    //        controller.isCreatePasswordMode = true
-//    //        navigationController?.pushViewController(controller, animated: true)
-//    //        let controller = storyboard?.instantiateViewController(withIdentifier: "NewAccountBackupInfoViewController") as! NewAccountBackupInfoViewController
-//    //        navigationController?.pushViewController(controller, animated: true)
-//}
-//    

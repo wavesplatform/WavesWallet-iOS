@@ -26,10 +26,34 @@ final class BackupCoordinator: Coordinator {
     }
 
     func start()  {
-        let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
+
+        let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
         vc.output = self
+
         navigationController.viewControllers = [vc]
         viewController.present(navigationController, animated: true, completion: nil)
+    }
+
+    private func startBackup() {
+        let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
+        vc.output = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: NeedBackupModuleOutput
+
+extension BackupCoordinator: NeedBackupModuleOutput {
+
+    func userCompletedInteract(skipBackup: Bool) {
+
+        if skipBackup {
+            viewController.dismiss(animated: true) { [weak self] in
+                self?.completed()
+            }
+        } else {
+            startBackup()
+        }
     }
 }
 
@@ -60,9 +84,8 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-            completed()
+        viewController.dismiss(animated: true) { [weak self] in
+            self?.completed()
+        }
     }
 }
-
-//let controller = storyboard?.instantiateViewController(withIdentifier: "ConfirmBackupViewController") as! ConfirmBackupViewController
-//navigationController?.pushViewController(controller, animated: true)

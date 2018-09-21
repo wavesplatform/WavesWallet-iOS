@@ -11,39 +11,39 @@ import RxCocoa
 import RxSwift
 import RxFeedback
 
-protocol NewAccountPasscodeOutput: AnyObject {
+protocol PasscodeOutput: AnyObject {
     
 }
 
-protocol NewAccountPasscodeInput {
-    var kind: NewAccountPasscodeTypes.DTO.Kind { get }
+protocol PasscodeInput {
+    var kind: PasscodeTypes.DTO.Kind { get }
 }
 
-protocol NewAccountPasscodePresenterProtocol {
+protocol PasscodePresenterProtocol {
 
-    typealias Feedback = (Driver<NewAccountPasscodeTypes.State>) -> Signal<NewAccountPasscodeTypes.Event>
+    typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
 
-    var interactor: NewAccountPasscodeInteractor! { get set }
-    var input: NewAccountPasscodeInput! { get set }
-    var moduleOutput: NewAccountPasscodeOutput? { get set }
+    var interactor: PasscodeInteractor! { get set }
+    var input: PasscodeInput! { get set }
+    var moduleOutput: PasscodeOutput? { get set }
 
     func system(feedbacks: [Feedback])
 }
 
-final class NewAccountPasscodePresenter: NewAccountPasscodePresenterProtocol {
+final class PasscodePresenter: PasscodePresenterProtocol {
 
     private struct RegistationQuery: Hashable {
         let account: Types.DTO.Account
         let passcode: [Int]
     }
 
-    fileprivate typealias Types = NewAccountPasscodeTypes
+    fileprivate typealias Types = PasscodeTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    var interactor: NewAccountPasscodeInteractor!
-    var input: NewAccountPasscodeInput!
-    var moduleOutput: NewAccountPasscodeOutput?
+    var interactor: PasscodeInteractor!
+    var input: PasscodeInput!
+    var moduleOutput: PasscodeOutput?
 
     func system(feedbacks: [Feedback]) {
 
@@ -87,7 +87,7 @@ final class NewAccountPasscodePresenter: NewAccountPasscodePresenterProtocol {
 
 // MARK: Core State
 
-private extension NewAccountPasscodePresenter {
+private extension PasscodePresenter {
 
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
 
@@ -122,6 +122,7 @@ private extension NewAccountPasscodePresenter {
             state.displayState.kind = .repeatPassword
             state.displayState.numbers = []
             state.displayState.isHiddenBackButton = false
+            state.displayState.error = nil
 
         case .repeatPassword:
             state.displayState.numbers = numbers
@@ -140,9 +141,9 @@ private extension NewAccountPasscodePresenter {
 
 // MARK: UI State
 
-private extension NewAccountPasscodePresenter {
+private extension PasscodePresenter {
 
-    func initialState(kind: NewAccountPasscodeTypes.DTO.Kind) -> Types.State {
+    func initialState(kind: PasscodeTypes.DTO.Kind) -> Types.State {
         return Types.State(displayState: initialDisplayState(), kind: kind, action: nil, numbers: .init(), passcode: .init())
     }
 

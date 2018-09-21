@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="errorLabel" destination="t3C-1G-4ml" id="zsz-Kr-txl"/>
                 <outlet property="eyeButton" destination="TCk-LK-jwe" id="jLH-30-9Ns"/>
-                <outlet property="placeHolder" destination="D5i-mA-azP" id="MUQ-de-KVL"/>
                 <outlet property="textFieldValue" destination="jaS-7N-Twt" id="hGL-tM-i1k"/>
                 <outlet property="titleLabel" destination="hZ8-N8-83b" id="TZg-HD-CPI"/>
             </connections>
@@ -33,12 +32,6 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5i-mA-azP" userLabel="PlaceHolder">
-                    <rect key="frame" x="0.0" y="30" width="335" height="622.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jaS-7N-Twt" userLabel="Value">
@@ -79,13 +72,9 @@
                 <constraint firstAttribute="trailing" secondItem="TCk-LK-jwe" secondAttribute="trailing" id="LRQ-hY-bPb"/>
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="leading" secondItem="hZ8-N8-83b" secondAttribute="trailing" id="NFX-Rm-b0l"/>
                 <constraint firstAttribute="trailing" secondItem="t3C-1G-4ml" secondAttribute="trailing" id="Rhg-Yc-XUZ"/>
-                <constraint firstItem="D5i-mA-azP" firstAttribute="top" secondItem="hZ8-N8-83b" secondAttribute="bottom" constant="14" id="Tuu-fo-1wP"/>
                 <constraint firstItem="jaS-7N-Twt" firstAttribute="top" secondItem="hZ8-N8-83b" secondAttribute="bottom" constant="14" id="Tya-ZM-CM8"/>
-                <constraint firstItem="D5i-mA-azP" firstAttribute="bottom" secondItem="WmH-eB-M8D" secondAttribute="top" constant="-14" id="U0I-kL-7LU"/>
                 <constraint firstAttribute="bottom" secondItem="WmH-eB-M8D" secondAttribute="bottom" id="XAP-Zd-Ate"/>
-                <constraint firstItem="D5i-mA-azP" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="bth-en-gRa"/>
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="dSO-rI-sFd"/>
-                <constraint firstItem="D5i-mA-azP" firstAttribute="width" secondItem="jaS-7N-Twt" secondAttribute="width" id="l76-nh-ktz"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="mwl-4i-6Mj"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="qTY-9F-d3q"/>
             </constraints>
