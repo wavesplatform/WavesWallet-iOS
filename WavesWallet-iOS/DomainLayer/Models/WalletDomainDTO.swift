@@ -17,6 +17,7 @@ extension DomainLayer.DTO {
         let isLoggedIn: Bool
         let isBackedUp: Bool
         let hasBiometricEntrance: Bool
+        let id: String
     }
 
     struct WalletSeed {

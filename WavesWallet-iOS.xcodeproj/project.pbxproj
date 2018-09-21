@@ -59,6 +59,9 @@
 		0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */; };
 		0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8D215534E000B989A1 /* WalletSeedRepositoryLocal.swift */; };
 		0A218B90215546D900B989A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A218B8F215546D900B989A1 /* GoogleService-Info.plist */; };
+		0A218B922155498900B989A1 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A218B912155498900B989A1 /* Fabric-Info.plist */; };
+		0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */; };
+		0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */; };
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
 		0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */; };
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
@@ -678,6 +681,9 @@
 		0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSeedRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A218B8D215534E000B989A1 /* WalletSeedRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSeedRepositoryLocal.swift; sourceTree = "<group>"; };
 		0A218B8F215546D900B989A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0A218B912155498900B989A1 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
+		0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorFooter.xib; sourceTree = "<group>"; };
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
@@ -1851,6 +1857,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A218B912155498900B989A1 /* Fabric-Info.plist */,
 				0A218B8F215546D900B989A1 /* GoogleService-Info.plist */,
 				E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */,
 				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
@@ -1893,6 +1900,7 @@
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
 				0A5ABB9C21171A4F006A10A7 /* Assets */,
 				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
+				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1938,6 +1946,7 @@
 				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
 				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
 				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
+				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3015,6 +3024,7 @@
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
 				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
+				0A218B93215549BB00B989A1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3146,6 +3156,7 @@
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E9619265211CA845005E6D1E /* DexMarketVerifiedAssets.json in Resources */,
 				0AF92200212E07B3003BA067 /* AssetHistorySkeletonCell.xib in Resources */,
+				0A218B922155498900B989A1 /* Fabric-Info.plist in Resources */,
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
@@ -3172,6 +3183,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0A218B93215549BB00B989A1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APIKey=$(/usr/libexec/PlistBuddy -c \"Print :Fabric:APIKey\" \"$PROJECT_DIR/WavesWallet-iOS/Resources/Fabric-Info.plist\")\nKEY=$(/usr/libexec/PlistBuddy -c \"Print :Fabric:BuildSecret\" \"$PROJECT_DIR/WavesWallet-iOS/Resources/Fabric-Info.plist\")\n\n\"${PODS_ROOT}/Fabric/run\" $APIKey $KEY\n\n";
+		};
 		0A97974E21087D0400407F67 /* Gen Code */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3536,6 +3564,7 @@
 				0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */,
 				E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */,
 				0A61B59C214AD51700EC60FC /* JSONDecoder+JSON.swift in Sources */,
+				0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				0A1DAD7A20F3A9AE004DA625 /* TransactionApi.swift in Sources */,
 				0A93FECE20FCA82F0058179E /* SpamService.swift in Sources */,
 				0AF922C0212E1234003BA067 /* Observable+Types.swift in Sources */,
@@ -3659,6 +3688,7 @@
 				0AF922AF212E1234003BA067 /* UIColor+Asset.swift in Sources */,
 				0AF922C5212E1234003BA067 /* UINavigationController+Additionals.swift in Sources */,
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
+				0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */,
 				E95993FD212F902F007C8DDA /* DexMyOrdersHeaderView.swift in Sources */,
 				0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */,
 				E988E8BD1F0D32570013EAF6 /* LastTradersViewController.swift in Sources */,

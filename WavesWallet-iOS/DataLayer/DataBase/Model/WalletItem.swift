@@ -17,6 +17,7 @@ class WalletItem: Object {
     @objc dynamic var address: String = ""
     @objc dynamic var secret: String = ""
     @objc dynamic var hasBiometricEntrance: Bool = false
+    @objc dynamic var id: String = ""
 
     public var identity: String {
         return "\(publicKey)"
