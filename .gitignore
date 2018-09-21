@@ -45,3 +45,4 @@ Temp/
 
 # Ingore Google Service
 *.GoogleService-Info.plist
+*.Fabric-Info.plist
