@@ -179,12 +179,7 @@ extension MoneyTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let externalDelegate = externalDelegate {
-            if externalDelegate.responds(to: #selector(textField(_:shouldChangeCharactersIn:replacementString:))) {
-                return externalDelegate.textField!(textField, shouldChangeCharactersIn: range, replacementString: string)
-            }
-        }
-
+     
         if string == "" {
             return true
         }
