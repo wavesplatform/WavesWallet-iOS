@@ -16,10 +16,10 @@ private enum Constants {
 
 protocol InputNumericTextFieldDelegate: AnyObject {
 
-    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Money)
+    func inputNumericTextField(_ textField: MoneyTextField, didChangeValue value: Money)
 }
 
-final class InputNumericTextField: UITextField {
+final class MoneyTextField: UITextField {
 
     private var externalDelegate: UITextFieldDelegate?
     private var textString: String {
@@ -62,7 +62,7 @@ final class InputNumericTextField: UITextField {
 }
 
 //MARK: - Methods
-extension InputNumericTextField {
+extension MoneyTextField {
     
     func setValue(value: Money) {
 
@@ -72,27 +72,18 @@ extension InputNumericTextField {
     
     func addPlusValue() {
       
-        let additionalValue = Int64(deltaValue * pow(10, decimals).doubleValue)
-
-        let money = Money(value.amount + additionalValue, decimals)
-        setValue(value: money)
+        setValue(value: value.add(deltaValue))
     }
     
     func addMinusValue() {
 
-        let additionalValue = Int64(deltaValue * pow(10, decimals).doubleValue)
-        var amount = value.amount - additionalValue
-
-        if amount < 0 {
-            amount = 0
-        }
-        setValue(value: Money(amount, decimals))
+        setValue(value: value.minus(deltaValue))
     }
 }
 
 
 //MARK: - Override
-extension InputNumericTextField {
+extension MoneyTextField {
     
     override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
         return nil
@@ -100,7 +91,7 @@ extension InputNumericTextField {
 }
 
 //MARK: - UI
-private extension InputNumericTextField {
+private extension MoneyTextField {
     
     func setupAttributedText(text: String) {
         let range = selectedTextRange
@@ -117,7 +108,7 @@ private extension InputNumericTextField {
 
 //MARK: - Check after input
 
-private extension InputNumericTextField {
+private extension MoneyTextField {
     
     func checkCorrectInputAfterRemoveText() {
         
@@ -159,7 +150,7 @@ private extension InputNumericTextField {
 }
 
 //MARK: - UITextFieldDelegate
-extension InputNumericTextField: UITextFieldDelegate {
+extension MoneyTextField: UITextFieldDelegate {
     
     @objc func textDidChange() {
         
@@ -235,7 +226,7 @@ extension InputNumericTextField: UITextFieldDelegate {
 }
 
 //MARK: - Calculation
-private extension InputNumericTextField {
+private extension MoneyTextField {
     
     var dotRange: NSRange {
         return textNSString.range(of: ".")
@@ -269,7 +260,7 @@ private extension InputNumericTextField {
 }
 
 //MARK: - InputValidation
-private extension InputNumericTextField {
+private extension MoneyTextField {
     
     func isValidInput(input: String, inputRange: NSRange) -> Bool {
         
@@ -360,7 +351,7 @@ private extension InputNumericTextField {
 
 //MARK: - NumberFormatter
 
-private extension InputNumericTextField {
+private extension MoneyTextField {
     
     static func numberFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
@@ -371,7 +362,7 @@ private extension InputNumericTextField {
     }
     
     func formattedStringFrom(_ value: Money) -> String {
-        let formatter = InputNumericTextField.numberFormatter()
+        let formatter = MoneyTextField.numberFormatter()
         formatter.maximumFractionDigits = decimals
         formatter.minimumFractionDigits = countInputDecimals
         return formatter.string(from: value.decimalValue as NSNumber) ?? ""

@@ -378,7 +378,7 @@
 		E929D408214B1E1A008A37E0 /* DexCreateOrderAmountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D407214B1E1A008A37E0 /* DexCreateOrderAmountButton.swift */; };
 		E92D9BFD214866F5006D6D6B /* DexTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D9BFC214866F5006D6D6B /* DexTypes.swift */; };
 		E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */; };
-		E930BE3C2148E6E000B28540 /* InputNumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930BE3B2148E6E000B28540 /* InputNumericTextField.swift */; };
+		E930BE3C2148E6E000B28540 /* MoneyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930BE3B2148E6E000B28540 /* MoneyTextField.swift */; };
 		E93621551F3CAC01009F0459 /* DexSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93621541F3CAC01009F0459 /* DexSearchViewController.swift */; };
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
@@ -987,7 +987,7 @@
 		E929D407214B1E1A008A37E0 /* DexCreateOrderAmountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderAmountButton.swift; sourceTree = "<group>"; };
 		E92D9BFC214866F5006D6D6B /* DexTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexTypes.swift; sourceTree = "<group>"; };
 		E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputScrollButtonsView.swift; path = "WavesWallet-iOS/customviews/InputScrollButtonsView.swift"; sourceTree = SOURCE_ROOT; };
-		E930BE3B2148E6E000B28540 /* InputNumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumericTextField.swift; sourceTree = "<group>"; };
+		E930BE3B2148E6E000B28540 /* MoneyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTextField.swift; sourceTree = "<group>"; };
 		E93621541F3CAC01009F0459 /* DexSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSearchViewController.swift; sourceTree = "<group>"; };
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
@@ -2053,7 +2053,7 @@
 			isa = PBXGroup;
 			children = (
 				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
-				E930BE3B2148E6E000B28540 /* InputNumericTextField.swift */,
+				E930BE3B2148E6E000B28540 /* MoneyTextField.swift */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
@@ -3782,7 +3782,7 @@
 				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				0AF922B1212E1234003BA067 /* UIColor+Hex.swift in Sources */,
-				E930BE3C2148E6E000B28540 /* InputNumericTextField.swift in Sources */,
+				E930BE3C2148E6E000B28540 /* MoneyTextField.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				F96DFFEA20DD15A80056BB52 /* SeventhInfoPageView.swift in Sources */,
 				E9EDC6CC2123A74500C58E0D /* DexTraderContainerModuleBuilder.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-    static let cornerRadius: CGFloat = 3
+    static let cornerRadius: Float = 3
 }
 
 class HighlightedButton: UIButton {
@@ -50,7 +50,7 @@ class HighlightedButton: UIButton {
 private extension HighlightedButton {
     
     func initialize() {
-        layer.cornerRadius = Constants.cornerRadius
+        cornerRadius = Constants.cornerRadius
     }
     
     func setupBackgroundColor() {

@@ -30,6 +30,17 @@ extension Money {
         self.decimals = decimals
         self._isBigAmount = self.amount == 0 && value > 0
     }
+}
+
+
+extension Money {
+    var displayText: String {
+        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
+    }
+    
+    var displayTextFull: String {
+        return MoneyUtil.getScaledText(amount, decimals: decimals)
+    }
     
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
         return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
@@ -46,14 +57,7 @@ extension Money {
         return _isBigAmount
     }
 
-    var displayText: String {
-        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
-    }
-
-    var displayTextFull: String {
-        return MoneyUtil.getScaledText(amount, decimals: decimals)
-    }
-    
+   
     var decimalValue: Decimal {
         return Decimal(amount) / pow(10, decimals)
     }
@@ -64,5 +68,25 @@ extension Money {
 
     var floatValue: Float {
         return decimalValue.floatValue
+    }
+}
+
+
+extension Money {
+    
+    func add(_ value: Double) -> Money {
+        let additionalValue = Int64(value * pow(10, decimals).doubleValue)
+        return Money(amount + additionalValue, decimals)
+    }
+    
+    func minus(_ value: Double) -> Money {
+        
+        let additionalValue = Int64(value * pow(10, decimals).doubleValue)
+        var newAmount = amount - additionalValue
+        
+        if newAmount < 0 {
+            newAmount = 0
+        }
+        return Money(newAmount, decimals)
     }
 }

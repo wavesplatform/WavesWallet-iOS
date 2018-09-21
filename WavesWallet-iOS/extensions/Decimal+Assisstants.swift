@@ -10,6 +10,9 @@ import Foundation
 
 extension Decimal {
     
+    //We ovveride this methods because is Foundation framework Decimal has a bug when it init from (U)Int64
+    //  https://github.com/apple/swift/commit/2f4e70bf7f4eee43bfb2f24d6215eb1f63c05d01
+    
     public init(_ value: UInt64) {
         self = Decimal()
         if value == 0 {

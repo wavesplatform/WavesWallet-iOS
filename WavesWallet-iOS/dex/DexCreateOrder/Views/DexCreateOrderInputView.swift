@@ -25,32 +25,24 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         let value: Money
     }
     
-    private var isShowInputScrollView = false {
-        didSet {
-            updateViewHeight(inputValue: textField.value, animation: false)
-        }
-    }
+    private var isShowInputScrollView = false
+    private var input: [Input] = []
+    private var isHiddenErrorLabel = true
     
     @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var textField: InputNumericTextField!
+    @IBOutlet private weak var textField: MoneyTextField!
     @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var labelError: UILabel!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
-  
+    
     var maximumFractionDigits: Int = 0 {
         didSet {
             textField.decimals = maximumFractionDigits
         }
     }
     
-    var input: [Input] = [] {
-        didSet {
-            isShowInputScrollView = input.count > 0
-            inputScrollView.input = input.map({$0.text})
-        }
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -79,35 +71,47 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     }
     
     func showErrorMessage(message: String, isShow: Bool) {
-        
+    
         if isShow {
             labelError.text = message
             
-            if labelError.alpha == 0 {
+            if isHiddenErrorLabel {
+                isHiddenErrorLabel = false
                 UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
                     self.labelError.alpha = 1
                 }
             }
         }
         else {
-            if labelError.alpha == 1 {
-                UIView.animate(withDuration: Constants.animationErrorLabelDuration, animations: {
+            if !isHiddenErrorLabel {
+                isHiddenErrorLabel = true
+                
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
                     self.labelError.alpha = 0
-                }) { (complete) in
-                    self.labelError.text = message
                 }
             }
-            else {
-                labelError.text = message
-            }
         }
+    }
+}
+
+//MARK: - ViewConfiguration
+
+extension DexCreateOrderInputView: ViewConfiguration {
+
+    func update(with input: [Input]) {
+        
+        self.input = input
+        
+        isShowInputScrollView = input.count > 0
+        inputScrollView.update(with: input.map({$0.text}))
+        updateViewHeight(inputValue: textField.value, animation: false)
     }
 }
 
 //MARK: - InputNumericTextFieldDelegate
 extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
   
-    func inputNumericTextField(_ textField: InputNumericTextField, didChangeValue value: Money) {
+    func inputNumericTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
     }
 }

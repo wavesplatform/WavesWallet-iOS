@@ -25,12 +25,7 @@ final class InputScrollButtonsView: UIScrollView {
 
     weak var inputDelegate: InputScrollButtonsViewDelegate?
    
-    var input: [String] = [] {
-        
-        didSet {
-            setupView()
-        }
-    }
+    private var input: [String] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,6 +38,15 @@ final class InputScrollButtonsView: UIScrollView {
     
     private func initialize() {
         showsHorizontalScrollIndicator = false
+    }
+}
+
+extension InputScrollButtonsView: ViewConfiguration {
+    
+    func update(with input: [String]) {
+        
+        self.input = input
+        setupView()
     }
 }
 
