@@ -63,6 +63,12 @@ fileprivate extension Block {
     }
 }
 
+protocol EnterStartViewControllerDelegate: AnyObject {
+    func showSignInAccount()
+    func showImportCoordinator()
+    func showNewAccount()
+}
+
 final class EnterStartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
@@ -81,6 +87,8 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
                                    .wallet,
                                    .exchange,
                                    .token]
+
+    weak var delegate: EnterStartViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,29 +140,20 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     // MARK: Action methods
 
     @IBAction func changeLanguage(_ sender: Any) {
-    
         let controller = storyboard?.instantiateViewController(withIdentifier: "EnterLanguageViewController") as! EnterLanguageViewController
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    @IBAction func signInAccount(_ sender: Any) {
-    
-        let controller = storyboard?.instantiateViewController(withIdentifier: "EnterSelectAccountViewController") as! EnterSelectAccountViewController
-        navigationController?.pushViewController(controller, animated: true)
+    @IBAction func signInAccount(_ sender: Any) {        
+        delegate?.showSignInAccount()
     }
 
-    lazy var importCoordinator = ImportCoordinator(navigationController: navigationController!)
     @IBAction func importAccount(_ sender: Any) {
-        importCoordinator.start()
+        delegate?.showImportCoordinator()
     }
 
-    lazy var account = NewAccountCoordinator(navigationController: navigationController!)
     @IBAction func createNewAccountTapped(_ sender: Any) {
-        account.start()
-    }
-    
-    @IBAction func showMenu(_ sender: Any) {
-         AppDelegate.shared().menuController.presentLeftMenuViewController()
+        delegate?.showNewAccount()
     }
 
     //MARK: - UICollectionView

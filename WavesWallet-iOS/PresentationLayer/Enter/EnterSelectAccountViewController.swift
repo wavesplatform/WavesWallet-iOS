@@ -118,11 +118,11 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        UIApplication.shared.setStatusBarStyle(.default, animated: true)
-        
-        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
-        controller.isLoginMode = true
-        navigationController?.pushViewController(controller, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+//        
+//        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+//        controller.isLoginMode = true
+//        navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

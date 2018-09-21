@@ -8,25 +8,25 @@
 
 import UIKit
 
-final class InputTextField: UIView, NibOwnerLoadable {
+final class MultyTextView: UITextView {
 
-    enum Kind {
-        case password
-        case newPassword
-        case text
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        alignTextVerticallyInContainer()
     }
+}
+
+final class MultyTextField: UIView, NibOwnerLoadable {
 
     struct Model {
         let title: String
-        let kind: Kind
         let placeholder: String?
     }
 
     @IBOutlet private var placeHolder: UILabel!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var errorLabel: UILabel!
-    @IBOutlet private var textViewValue: UITextView!    
-    @IBOutlet private var eyeButton: UIButton!
+    @IBOutlet private var textViewValue: MultyTextView!
     private var originalText: String?
 
     var value: String? {
@@ -34,29 +34,10 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private var isHiddenTitleLabel: Bool = true
-    private var isSecureTextEntry: Bool = false {
-        didSet {
-            textViewValue.isSecureTextEntry = isSecureTextEntry
-            if #available(iOS 10.0, *) {
-                textViewValue.textContentType = UITextContentType("")
-            }
-            if isSecureTextEntry {
-                eyeButton.setImage(Images.eyeopen24Basic500.image, for: .normal)
-            } else {
-                eyeButton.setImage(Images.eyeclsoe24Basic500.image, for: .normal)
-            }
-            updateTextView(originalText)
-        }
-    }
 
-    var lineNumber: Int = 1 {
-        didSet {
-            textViewValue.textContainer.maximumNumberOfLines = lineNumber
-        }
-    }
     var valueValidator: ((String?) -> String?)?
     var changedValue: ((Bool,String?) -> Void)?
-    var textFieldShouldReturn: ((InputTextField) -> Void)?
+    var textFieldShouldReturn: ((MultyTextField) -> Void)?
 
     var returnKey: UIReturnKeyType? {
         didSet {
@@ -66,18 +47,19 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
     private(set) var isValidValue: Bool = false
 
-    private var kind: Kind?
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        loadNibContent()
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        loadNibContent()
         textViewValue.textContainerInset = .zero
         textViewValue.textContainer.lineFragmentPadding = 0
         textViewValue.delegate = self
-        eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
-
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
+
 
     @discardableResult override func becomeFirstResponder() -> Bool {
         return textViewValue.becomeFirstResponder()
@@ -85,10 +67,6 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
     @objc func keyboardWillHide() {
         checkValidValue()
-    }
-
-    @objc private func tapEyeButton() {
-        isSecureTextEntry = !isSecureTextEntry
     }
 
     @objc private func textFieldChanged() {
@@ -141,37 +119,14 @@ final class InputTextField: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
-extension InputTextField: ViewConfiguration {
-    func update(with model: InputTextField.Model) {
-        kind = model.kind
+extension MultyTextField: ViewConfiguration {
+    func update(with model: MultyTextField.Model) {
         titleLabel.text = model.title
         placeHolder.text = model.placeholder
         titleLabel.isHidden = isHiddenTitleLabel
-
         checkValidValue()
-        
-        switch model.kind {
-        case .text:
-            isSecureTextEntry = false
-            eyeButton.isHidden = true
-            textViewValue.autocorrectionType = .no
-            textViewValue.autocapitalizationType = .words
-            if #available(iOS 10.0, *) {
-                textViewValue.textContentType = .name
-            }
-        case .password, .newPassword:
-            if #available(iOS 12.0, *), model.kind == .newPassword {
-                textViewValue.textContentType = UITextContentType("")
-            } else if #available(iOS 11.0, *), model.kind == .password {
-                textViewValue.textContentType = UITextContentType("")
-            } else if #available(iOS 10.0, *) {
-                textViewValue.textContentType = UITextContentType("")
-            }
-            isSecureTextEntry = true
-            eyeButton.isHidden = false
-            textViewValue.autocorrectionType = .no
-            textViewValue.autocapitalizationType = .none
-        }
+        textViewValue.autocorrectionType = .no
+        textViewValue.autocapitalizationType = .none
     }
 }
 
@@ -179,6 +134,11 @@ private extension UITextView {
 
     func alignTextVerticallyInContainer() {
         guard let font = font else { return }
+
+        if self.contentSize.height < self.bounds.size.height {
+            return
+        }
+
         let text = (self.text.count == 0 ? "" : self.text) ?? ""
         let height = text.maxHeightMultiline(font: font, forWidth: self.bounds.size.width)
         var topCorrect = (self.bounds.size.height - height) / 2
@@ -189,30 +149,20 @@ private extension UITextView {
 
 // MARK: UITextViewDelegate
 
-extension InputTextField: UITextViewDelegate {
+extension MultyTextField: UITextViewDelegate {
 
     private func updateTextView(_ text: String?) {
         self.originalText = text
         checkValidValue(text)
         let count = text?.count ?? 0
         placeHolder.isHidden = count != 0
-
-        if isSecureTextEntry {
-            let secureText = text.enumerated().reduce(into: "") { result, element in
-                if element.offset == max(count - 1, 0) {
-                    result += String(element.element)
-                } else {
-                    result += ""
-                }
-            }
-            textViewValue.text = secureText
-        } else {
-            textViewValue.text = text
-        }
-//        textViewValue.alignTextVerticallyInContainer()
+        textViewValue.text = text
+        textViewValue.alignTextVerticallyInContainer()
         textFieldChanged()
-        textViewValue.layoutManager.allowsNonContiguousLayout = true
-//        textViewValue.textContainerInset = UIEdgeInsetsMake(0, 0, 0, -100)
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.alignTextVerticallyInContainer()
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -228,7 +178,6 @@ extension InputTextField: UITextViewDelegate {
         if let originalText = originalText,
             let textRange = Range(range, in: originalText) {
             let updatedText = originalText.replacingCharacters(in: textRange, with: text)
-
             updateTextView(updatedText)
         } else {
             updateTextView(text)

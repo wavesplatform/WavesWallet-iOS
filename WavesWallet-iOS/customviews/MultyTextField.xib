@@ -9,13 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MultyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="errorLabel" destination="t3C-1G-4ml" id="zsz-Kr-txl"/>
-                <outlet property="eyeButton" destination="TCk-LK-jwe" id="jLH-30-9Ns"/>
                 <outlet property="placeHolder" destination="D5i-mA-azP" id="MUQ-de-KVL"/>
-                <outlet property="textViewValue" destination="tTb-Xo-SRA" id="CFP-eS-57X"/>
-                <outlet property="titleLabel" destination="hZ8-N8-83b" id="TZg-HD-CPI"/>
+                <outlet property="textViewValue" destination="tTb-Xo-SRA" id="gk8-aH-sGE"/>
+                <outlet property="titleLabel" destination="hZ8-N8-83b" id="3QB-qL-vf7"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -35,8 +34,8 @@
                     <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTb-Xo-SRA">
-                    <rect key="frame" x="0.0" y="30" width="311" height="622.5"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTb-Xo-SRA" customClass="MultyTextView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="30" width="375" height="622.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <connections>
@@ -44,19 +43,11 @@
                     </connections>
                 </textView>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5i-mA-azP" userLabel="PlaceHolder">
-                    <rect key="frame" x="0.0" y="30" width="311" height="622.5"/>
+                    <rect key="frame" x="0.0" y="30" width="375" height="622.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCk-LK-jwe">
-                    <rect key="frame" x="351" y="329.5" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" id="PeJ-f0-31u"/>
-                        <constraint firstAttribute="width" constant="24" id="ofL-iI-a6e"/>
-                    </constraints>
-                    <state key="normal" image="eyeopen24Basic500"/>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmH-eB-M8D" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="666.5" width="375" height="0.5"/>
                     <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -76,25 +67,20 @@
                 <constraint firstItem="WmH-eB-M8D" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="18S-LH-zwT"/>
                 <constraint firstAttribute="trailing" secondItem="WmH-eB-M8D" secondAttribute="trailing" id="8h6-Ne-Q06"/>
                 <constraint firstItem="D5i-mA-azP" firstAttribute="trailing" secondItem="tTb-Xo-SRA" secondAttribute="trailing" id="Iy4-rE-p8d"/>
-                <constraint firstAttribute="trailing" secondItem="TCk-LK-jwe" secondAttribute="trailing" id="LRQ-hY-bPb"/>
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="leading" secondItem="hZ8-N8-83b" secondAttribute="trailing" id="NFX-Rm-b0l"/>
                 <constraint firstAttribute="trailing" secondItem="t3C-1G-4ml" secondAttribute="trailing" id="Rhg-Yc-XUZ"/>
                 <constraint firstItem="D5i-mA-azP" firstAttribute="top" secondItem="hZ8-N8-83b" secondAttribute="bottom" constant="14" id="Tuu-fo-1wP"/>
                 <constraint firstItem="D5i-mA-azP" firstAttribute="bottom" secondItem="WmH-eB-M8D" secondAttribute="top" constant="-14" id="U0I-kL-7LU"/>
                 <constraint firstAttribute="bottom" secondItem="WmH-eB-M8D" secondAttribute="bottom" id="XAP-Zd-Ate"/>
+                <constraint firstAttribute="trailing" secondItem="tTb-Xo-SRA" secondAttribute="trailing" id="agP-YT-nW0"/>
                 <constraint firstItem="D5i-mA-azP" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="bth-en-gRa"/>
-                <constraint firstItem="TCk-LK-jwe" firstAttribute="centerY" secondItem="tTb-Xo-SRA" secondAttribute="centerY" id="cv9-PV-AGq"/>
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="dSO-rI-sFd"/>
                 <constraint firstItem="tTb-Xo-SRA" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="gVC-2K-wOH"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="top" secondItem="QF6-GN-LAB" secondAttribute="top" id="mwl-4i-6Mj"/>
                 <constraint firstItem="hZ8-N8-83b" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="qTY-9F-d3q"/>
-                <constraint firstItem="TCk-LK-jwe" firstAttribute="leading" secondItem="tTb-Xo-SRA" secondAttribute="trailing" constant="40" id="vYD-fA-Qtm"/>
                 <constraint firstItem="WmH-eB-M8D" firstAttribute="top" secondItem="tTb-Xo-SRA" secondAttribute="bottom" constant="14" id="xYn-Ei-1Hr"/>
                 <constraint firstItem="D5i-mA-azP" firstAttribute="centerY" secondItem="tTb-Xo-SRA" secondAttribute="centerY" id="yUJ-Pn-N4k"/>
             </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="eyeopen24Basic500" width="24" height="24"/>
-    </resources>
 </document>

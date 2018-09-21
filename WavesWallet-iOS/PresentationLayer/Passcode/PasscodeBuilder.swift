@@ -10,17 +10,17 @@ import UIKit
 
 struct PasscodeModuleBuilder: ModuleBuilderOutput {
 
-    struct Input: NewAccountPasscodeInput {
-        var kind: NewAccountPasscodeTypes.DTO.Kind
+    struct Input: PasscodeInput {
+        var kind: PasscodeTypes.DTO.Kind
     }
 
-    var output: NewAccountPasscodeOutput
+    var output: PasscodeOutput
 
     func build(input: PasscodeModuleBuilder.Input) -> UIViewController {
 
-        let presenter = NewAccountPasscodePresenter()
+        let presenter = PasscodePresenter()
         let vc = StoryboardScene.NewAccount.newAccountPasscodeViewController.instantiate()
-        presenter.interactor = NewAccountPasscodeInteractor()
+        presenter.interactor = PasscodeInteractor()
         presenter.moduleOutput = output
         presenter.input = input
         vc.presenter = presenter

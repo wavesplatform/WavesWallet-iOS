@@ -38,7 +38,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         title = Localizable.Backup.Confirmbackup.Navigation.title
         labelTapWord.text = Localizable.Backup.Confirmbackup.Info.label
         labelError.text = Localizable.Backup.Confirmbackup.Error.label
-        buttonConfirm.setTitle(Localizable.Backup.Confirmbackup.Info.label, for: .normal)
+        buttonConfirm.setTitle(Localizable.Backup.Confirmbackup.Button.confirm, for: .normal)
 
         buttonConfirm.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         buttonConfirm.setBackgroundImage(UIColor.submit400.image, for: .normal)
@@ -47,7 +47,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         setupBigNavigationBar()
         hideTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
-        buttonConfirm.alpha = 0
+        buttonConfirm.alpha = 1
         labelError.alpha = 0
         
         var sortedSortds = words

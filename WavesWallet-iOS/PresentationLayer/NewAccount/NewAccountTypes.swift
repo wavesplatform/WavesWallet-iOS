@@ -17,5 +17,6 @@ extension NewAccountTypes.DTO {
             let privateKey: PrivateKeyAccount
             let password: String
             let name: String
+            var needBackup: Bool
         }
 }

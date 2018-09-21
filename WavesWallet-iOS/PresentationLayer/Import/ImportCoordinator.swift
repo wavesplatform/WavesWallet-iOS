@@ -14,9 +14,13 @@ final class ImportCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let navigationController: UINavigationController
+    private let completed: ((ImportTypes.DTO.Account) -> Void)
 
-    init(navigationController: UINavigationController) {
+    private var currentPrivateKeyAccount: PrivateKeyAccount?
+
+    init(navigationController: UINavigationController, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
         self.navigationController = navigationController
+        self.completed = completed
     }
 
     func start() {
@@ -26,25 +30,52 @@ final class ImportCoordinator: Coordinator {
     }
 }
 
+// MARK: ImportAccountViewControllerDelegate
 extension ImportCoordinator: ImportAccountViewControllerDelegate {
 
     func enterManuallyTapped() {
-
         let vc = StoryboardScene.Import.importWelcomeBackViewController.instantiate()
         vc.delegate = self
         navigationController.pushViewController(vc, animated: true)
     }
 
     func scanedSeed(_ seed: String) {
-
+        currentPrivateKeyAccount = PrivateKeyAccount(seedStr: seed)
+        showAccountPassword(currentPrivateKeyAccount!)
     }
 }
 
+// MARK: ImportWelcomeBackViewControllerDelegate
 extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount) {
-
-        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
-        navigationController.pushViewController(vc, animated: true)
-        
+        currentPrivateKeyAccount = keyAccount
+        showAccountPassword(keyAccount)
     }
+}
+
+private extension ImportCoordinator {
+
+    func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
+        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
+        vc.delegate = self
+        vc.address = keyAccount.address
+        navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: ImportAccountPasswordViewControllerDelegate
+extension ImportCoordinator:  ImportAccountPasswordViewControllerDelegate {
+    func userCompletedInputAccountData(password: String, name: String) {
+
+        guard let privateKeyAccount = currentPrivateKeyAccount else { return }
+
+        completed(.init(privateKey: privateKeyAccount,
+                        password: password,
+                        name: name))
+    }
+}
+
+// MARK: PasscodeViewDelegate
+extension ImportCoordinator:  PasscodeOutput {
+
 }

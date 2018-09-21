@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum NewAccountPasscodeTypes {
+enum PasscodeTypes {
     enum DTO { }
 }
 
-extension NewAccountPasscodeTypes.DTO {
+extension PasscodeTypes.DTO {
     
     enum Kind {
         case registration(Account)
@@ -25,7 +25,7 @@ extension NewAccountPasscodeTypes.DTO {
     }
 }
 
-extension NewAccountPasscodeTypes {
+extension PasscodeTypes {
 
     enum PasswordKind: Hashable {
         case newPassword
@@ -39,7 +39,7 @@ extension NewAccountPasscodeTypes {
         }
 
         var displayState: DisplayState
-        var kind: NewAccountPasscodeTypes.DTO.Kind
+        var kind: PasscodeTypes.DTO.Kind
         var action: Action?
         var numbers: [PasswordKind: [Int]]
         var passcode: [Int]

@@ -16,7 +16,7 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
 
 final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDelegate {
 
-    @IBOutlet private weak var textField: InputTextField!
+    @IBOutlet private weak var textField: MultyTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
 
@@ -43,8 +43,7 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
 
         textField.returnKey = .done
-        textField.update(with: InputTextField.Model(title: Localizable.Import.Welcome.Label.Address.title,
-                                                    kind: .text,
+        textField.update(with: MultyTextField.Model(title: Localizable.Import.Welcome.Label.Address.title,
                                                     placeholder: Localizable.Import.Welcome.Label.Address.placeholder))
 
         textField.valueValidator = { value in
@@ -91,6 +90,7 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
 
         let seed = WordList.generatePhrase()
         let privateKey = PrivateKeyAccount(seedStr: seed)
+        currentKeyAccount = privateKey
         iconImages.image = identity.createImage(by: privateKey.address, size: iconImages.frame.size)
         labelAddress.text = privateKey.address
     }
