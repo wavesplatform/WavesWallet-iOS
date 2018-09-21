@@ -57,6 +57,7 @@ class WalletManager {
 
     class func getWalletRealmConfig(waletItem: WalletItem) -> Realm.Configuration {
         var config = Realm.Configuration()
+        config.objectTypes = [WalletItem.self]
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(waletItem.address).realm")
         return config

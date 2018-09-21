@@ -42,3 +42,6 @@ Pods/
 
 # Temp
 Temp/
+
+# Ingore Google Service
+*.GoogleService-Info.plist

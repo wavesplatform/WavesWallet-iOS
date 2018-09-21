@@ -6,13 +6,19 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
+  - Crashlytics (3.10.7):
+    - Fabric (~> 1.7.11)
   - CSV.swift (2.2.1)
   - Differentiator (3.1.0)
+  - Fabric (1.7.11)
   - Firebase/Core (5.8.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.1.2)
   - Firebase/CoreOnly (5.8.0):
     - FirebaseCore (= 5.1.3)
+  - Firebase/Database (5.8.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (= 5.0.3)
   - FirebaseAnalytics (5.1.2):
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.2)
@@ -24,6 +30,9 @@ PODS:
     - nanopb (~> 0.3)
   - FirebaseCore (5.1.3):
     - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDatabase (5.0.3):
+    - FirebaseCore (~> 5.0)
+    - leveldb-library (~> 1.18)
   - FirebaseInstanceID (3.2.1):
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.2)
@@ -58,6 +67,7 @@ PODS:
   - Kingfisher (4.9.0)
   - Koloda (4.4):
     - pop (~> 1.0)
+  - leveldb-library (1.20)
   - MBProgressHUD (1.0.0)
   - MGSwipeTableCell (1.6.7)
   - Moya/Core (11.0.2):
@@ -125,8 +135,11 @@ DEPENDENCIES:
   - base58 (from `Vendors/Base58`)
   - blake2 (from `Vendors/Blake2`)
   - Charts (~> 3.1.1)
+  - Crashlytics
   - CSV.swift
+  - Fabric
   - Firebase/Core
+  - Firebase/Database
   - Gloss (= 2.0.0-beta.1)
   - "IdentityImg (from `git@github.com:wavesplatform/identity-img-swift.git`)"
   - "InfiniteCollectionView (from `git@github.com:wavesplatform/InfiniteCollectionView.git`)"
@@ -168,11 +181,14 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Charts
+    - Crashlytics
     - CSV.swift
     - Differentiator
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
+    - FirebaseDatabase
     - FirebaseInstanceID
     - Gloss
     - GoogleAppMeasurement
@@ -181,6 +197,7 @@ SPEC REPOS:
     - KeychainAccess
     - Kingfisher
     - Koloda
+    - leveldb-library
     - MBProgressHUD
     - MGSwipeTableCell
     - Moya
@@ -234,7 +251,7 @@ CHECKOUT OPTIONS:
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
     :git: "git@github.com:wavesplatform/25519.git"
   IdentityImg:
-    :commit: f83c6f462efb436dead0d2cc40faf1051cf54be9
+    :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
   InfiniteCollectionView:
     :commit: 0168a154821a80611dda2f524da143e3392328d6
@@ -249,11 +266,14 @@ SPEC CHECKSUMS:
   base58: b3862511216d07dbb10ec85f08902f51b674462f
   blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   CSV.swift: 5bf3338aff82371cb51cc6dc559d7b45a74bab14
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   Firebase: 25812f43e7a53b11ae2f0a5f4c6d12faeb1f7cd7
   FirebaseAnalytics: df15839e9c6ca6bd14d2e8ab6b0c672e6c49097e
   FirebaseCore: 27bd80e5bfaaf9552a1f5cacb4c7e8bb925bab22
+  FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
   GoogleAppMeasurement: fc4a4c3fe0144db9313cbf443ffe62e6b1d6268c
@@ -265,6 +285,7 @@ SPEC CHECKSUMS:
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
   Koloda: 0f3c51580d9d547c66a5cd9e4771611afc3e259e
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
   Moya: a725035953bc1c0eb1be505ab903984501d82440
@@ -298,6 +319,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 520a866beaa0f846e8a785b56ca0285ae9d4ba9c
+PODFILE CHECKSUM: 11b4011b2624ad95584b5f645c2f35ef9eb5b9b1
 
 COCOAPODS: 1.5.3
