@@ -352,7 +352,7 @@ private extension DexCreateOrderViewController {
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
         }
         
-        inputAmount.input = inputAmountValues
+        inputAmount.update(with: inputAmountValues)
     }
     
     func setupData() {
@@ -373,7 +373,7 @@ private extension DexCreateOrderViewController {
             inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.last, value: last))
         }
         
-        inputPrice.input = inputPriceValues
+        inputPrice.update(with: inputPriceValues)
 
         if let price = input.price {
             order.price = price
