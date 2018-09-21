@@ -32,15 +32,16 @@ final class EnterCoordinator: Coordinator {
 extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showSignInAccount() {
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "EnterSelectAccountViewController") as! EnterSelectAccountViewController
-//        navigationController?.pushViewController(controller, animated: true)
+        let vc = StoryboardScene.Enter.enterSelectAccountViewController.instantiate()
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func showImportCoordinator() {
         let coordinator = ImportCoordinator(navigationController: navigationController) { [weak self] account in
             self?.showPasscode(with: .init(privateKey: account.privateKey,
                                            password: account.password,
-                                           name: account.name))
+                                           name: account.name,
+                                           needBackup: false))
         }
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
@@ -48,10 +49,11 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showNewAccount() {
 
-        let coordinator = NewAccountCoordinator(navigationController: navigationController) { [weak self] account in
+        let coordinator = NewAccountCoordinator(navigationController: navigationController) { [weak self] account, needBackup  in
             self?.showPasscode(with: .init(privateKey: account.privateKey,
                                            password: account.password,
-                                           name: account.name))
+                                           name: account.name,
+                                           needBackup: needBackup))
         }
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()

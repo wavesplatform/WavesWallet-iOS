@@ -16,9 +16,9 @@ final class NewAccountCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private var account: NewAccountTypes.DTO.Account?
 
-    private let completed: ((NewAccountTypes.DTO.Account) -> Void)
+    private let completed: ((NewAccountTypes.DTO.Account,Bool) -> Void)
 
-    init(navigationController: UINavigationController, completed: @escaping ((NewAccountTypes.DTO.Account) -> Void)) {
+    init(navigationController: UINavigationController, completed: @escaping ((NewAccountTypes.DTO.Account,Bool) -> Void)) {
         self.completed = completed
         self.navigationController = navigationController
     }
@@ -35,9 +35,7 @@ extension NewAccountCoordinator: NewAccountModuleOutput {
     func userCompletedCreateAccount(_ account: NewAccountTypes.DTO.Account) {
 
         self.account = account
-        let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
-        vc.output = self
-        navigationController.pushViewController(vc, animated: true)
+        showBackupCoordinator()
     }
 }
 
@@ -46,9 +44,9 @@ extension NewAccountCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-            beginRegistration()
+            beginRegistration(needBackup: false)
         } else {
-            showBackupCoordinator()
+            beginRegistration(needBackup: true)
         }
     }
 }
@@ -58,16 +56,16 @@ extension NewAccountCoordinator {
 
     private func showBackupCoordinator() {
         guard let account = account else { return }
-        let backup = BackupCoordinator(viewController: navigationController, seed: account.privateKey.words, completed: { [weak self] in
-            self?.beginRegistration()
+        let backup = BackupCoordinator(viewController: navigationController, seed: account.privateKey.words, completed: { [weak self] needBackup in
+            self?.beginRegistration(needBackup: needBackup)
         })
         addChildCoordinator(childCoordinator: backup)
         backup.start()
     }
 
-    private func beginRegistration() {
+    private func beginRegistration(needBackup: Bool) {
         guard let account = account else { return }
-        completed(account)
+        completed(account, needBackup)
     }
 }
 

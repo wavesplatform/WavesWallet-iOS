@@ -41,11 +41,12 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCk-LK-jwe">
-                    <rect key="frame" x="351" y="329.5" width="24" height="24"/>
+                    <rect key="frame" x="335" y="321.5" width="56" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="24" id="PeJ-f0-31u"/>
-                        <constraint firstAttribute="width" constant="24" id="ofL-iI-a6e"/>
+                        <constraint firstAttribute="height" constant="40" id="PeJ-f0-31u"/>
+                        <constraint firstAttribute="width" constant="56" id="ofL-iI-a6e"/>
                     </constraints>
+                    <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                     <state key="normal" image="eyeopen24Basic500"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmH-eB-M8D" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -69,7 +70,7 @@
                 <constraint firstAttribute="trailing" secondItem="jaS-7N-Twt" secondAttribute="trailing" constant="40" id="9ZY-sL-thM"/>
                 <constraint firstItem="jaS-7N-Twt" firstAttribute="leading" secondItem="QF6-GN-LAB" secondAttribute="leading" id="AvH-c8-qrz"/>
                 <constraint firstItem="WmH-eB-M8D" firstAttribute="top" secondItem="jaS-7N-Twt" secondAttribute="bottom" constant="14" id="FRC-mY-yaV"/>
-                <constraint firstAttribute="trailing" secondItem="TCk-LK-jwe" secondAttribute="trailing" id="LRQ-hY-bPb"/>
+                <constraint firstAttribute="trailing" secondItem="TCk-LK-jwe" secondAttribute="trailing" constant="-16" id="LRQ-hY-bPb"/>
                 <constraint firstItem="t3C-1G-4ml" firstAttribute="leading" secondItem="hZ8-N8-83b" secondAttribute="trailing" id="NFX-Rm-b0l"/>
                 <constraint firstAttribute="trailing" secondItem="t3C-1G-4ml" secondAttribute="trailing" id="Rhg-Yc-XUZ"/>
                 <constraint firstItem="jaS-7N-Twt" firstAttribute="top" secondItem="hZ8-N8-83b" secondAttribute="bottom" constant="14" id="Tya-ZM-CM8"/>

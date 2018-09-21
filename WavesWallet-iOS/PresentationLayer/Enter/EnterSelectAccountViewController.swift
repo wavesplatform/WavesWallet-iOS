@@ -9,8 +9,7 @@
 import UIKit
 import MGSwipeTableCell
 
-
-class EnterSelectAccountCell: MGSwipeTableCell {
+final class EnterSelectAccountCell: MGSwipeTableCell, NibReusable {
     
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
@@ -18,19 +17,17 @@ class EnterSelectAccountCell: MGSwipeTableCell {
     
     
     override func awakeFromNib() {
-
         let view = UIView(frame: CGRect(x: 16, y: 4, width: Platform.ScreenWidth - 32, height: frame.size.height - 8))
         view.layer.cornerRadius = 3
         view.backgroundColor = .overlayDark
         insertSubview(view, at: 0)
     }
-
 }
 
-class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
+final class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewNoResult: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var viewNoResult: UIView!
     
     let accounts : [String] = ["Ol’ Dirty Bastard", "Some AccountName", "test account"]
     
@@ -38,16 +35,22 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
         super.viewDidLoad()
 
         addBgBlueImage()
-        
+
+        title = "Choose account"
+        navigationItem.barTintColor = .white
+        navigationItem.shadowImage = UIImage()
+        navigationItem.backgroundImage = UIImage()
+
+//        navigationItem
+
         viewNoResult.isHidden = accounts.count > 0
         tableView.isHidden = accounts.count == 0
         
         tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        navigationController?.setNavigationBarHidden(true, animated: true)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -90,10 +93,9 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
             }
 
             return false
-        }
-        else if index == 1 {
-            let controller = storyboard?.instantiateViewController(withIdentifier: "EditAccountNameViewController") as! EditAccountNameViewController
-            navigationController?.pushViewController(controller, animated: true)
+        } else if index == 1 {
+                let controller = storyboard?.instantiateViewController(withIdentifier: "EditAccountNameViewController") as! EditAccountNameViewController
+                navigationController?.pushViewController(controller, animated: true)
         }
 
         return true
@@ -117,12 +119,7 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
     //MARK: - UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        UIApplication.shared.setStatusBarStyle(.default, animated: true)
-//        
-//        let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
-//        controller.isLoginMode = true
-//        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,7 +127,7 @@ class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EnterSelectAccountCell") as! EnterSelectAccountCell
+        let cell: EnterSelectAccountCell = tableView.dequeueAndRegisterCell()
         cell.delegate = self
         cell.labelTitle.text = accounts[indexPath.row]
         return cell

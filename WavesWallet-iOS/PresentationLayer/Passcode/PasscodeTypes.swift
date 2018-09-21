@@ -22,6 +22,7 @@ extension PasscodeTypes.DTO {
         let privateKey: PrivateKeyAccount
         let password: String
         let name: String
+        let needBackup: Bool
     }
 }
 

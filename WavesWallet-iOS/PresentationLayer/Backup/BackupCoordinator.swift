@@ -15,10 +15,10 @@ final class BackupCoordinator: Coordinator {
 
     let viewController: UIViewController
     let navigationController: CustomNavigationController
-    let completed: (() -> Void)
+    let completed: ((Bool) -> Void)
     let seed: [String]
     
-    init(viewController: UIViewController, seed: [String], completed: @escaping (() -> Void)) {
+    init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
         self.seed = seed
         self.viewController = viewController
         self.completed = completed
@@ -49,7 +49,7 @@ extension BackupCoordinator: NeedBackupModuleOutput {
 
         if skipBackup {
             viewController.dismiss(animated: true) { [weak self] in
-                self?.completed()
+                self?.completed(true)
             }
         } else {
             startBackup()
@@ -85,7 +85,7 @@ extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
         viewController.dismiss(animated: true) { [weak self] in
-            self?.completed()
         }
+        completed(false)
     }
 }
