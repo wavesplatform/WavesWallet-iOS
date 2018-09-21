@@ -33,6 +33,9 @@ enum DexLastTrades {
         var lastBuy: DTO.SellBuyTrade?
         var hasFirstTimeLoad: Bool
         var isNeedRefreshing: Bool
+        var availableAmountAssetBalance: Money
+        var availablePriceAssetBalance: Money
+
     }
 }
 
@@ -56,36 +59,35 @@ extension DexLastTrades.ViewModel {
 
 
 extension DexLastTrades.DTO {
-    
-    enum TradeType {
-        case sell
-        case buy
-    }
-    
+   
     struct Trade {
         let time: Date
         let price: Money
         let amount: Money
         let sum: Money
-        let type: TradeType
+        let type: Dex.DTO.OrderType
     }
     
     struct SellBuyTrade {
         let price: Money
-        let type: TradeType
+        let type: Dex.DTO.OrderType
     }
     
     struct DisplayData {
         let trades: [Trade]
         let lastSell: SellBuyTrade?
         let lastBuy: SellBuyTrade?
+        let availableAmountAssetBalance: Money
+        let availablePriceAssetBalance: Money
     }
 }
 
 extension DexLastTrades.State {
     static var initialState: DexLastTrades.State {
         let section = DexLastTrades.ViewModel.Section(items: [])
-        return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false, isNeedRefreshing: false)
+        return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false, isNeedRefreshing: false,
+                                   availableAmountAssetBalance: Money(0, 0),
+                                   availablePriceAssetBalance: Money(0, 0))
     }
     
     var isNotEmpty: Bool {

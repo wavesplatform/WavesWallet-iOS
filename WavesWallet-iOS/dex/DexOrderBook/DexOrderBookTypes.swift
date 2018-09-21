@@ -33,6 +33,8 @@ enum DexOrderBook {
         var header: DexOrderBook.ViewModel.Header
         var hasFirstTimeLoad: Bool
         var isNeedRefreshing: Bool
+        var availablePriceAssetBalance: Money
+        var availableAmountAssetBalance: Money
     }
 }
 
@@ -57,24 +59,18 @@ extension DexOrderBook.ViewModel {
 
 //MARK: - DTO
 extension DexOrderBook.DTO {
-
-    enum OrderType {
-        case none
-        case sell
-        case buy
-    }
     
     struct LastPrice {
         let price: Money
         let percent: Float
-        let orderType: OrderType
+        let orderType: Dex.DTO.OrderType?
     }
     
     struct BidAsk {
         let price: Money
         let amount: Money
         let sum: Money
-        let orderType: OrderType
+        let orderType: Dex.DTO.OrderType
         let percentAmount: Float
     }
     
@@ -83,6 +79,8 @@ extension DexOrderBook.DTO {
         let lastPrice: LastPrice
         let bids: [BidAsk]
         let header: DexOrderBook.ViewModel.Header
+        let availablePriceAssetBalance: Money
+        let availableAmountAssetBalance: Money
     }
 }
 
@@ -121,7 +119,7 @@ extension DexOrderBook.ViewModel.Row {
 //MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
     static var empty: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: .none)
+        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: nil)
     }
 }
 
@@ -130,7 +128,9 @@ extension DexOrderBook.State {
   
     static var initialState: DexOrderBook.State {
         let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
-        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false)
+        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
+                                  availablePriceAssetBalance: Money(0, 0),
+                                  availableAmountAssetBalance: Money(0, 0))
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {
@@ -143,6 +143,12 @@ extension DexOrderBook.State {
         return sections.first(where: {
             $0.items.filter({$0.ask != nil}).count > 0
         })?.items.last?.ask
+    }
+    
+    var lastPrice: DexOrderBook.DTO.LastPrice? {
+        return sections.first(where: {
+            $0.items.filter({$0.lastPrice != nil}).count > 0
+        })?.items.last?.lastPrice
     }
     
     var isNotEmpty: Bool {

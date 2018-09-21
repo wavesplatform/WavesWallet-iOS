@@ -13,10 +13,15 @@ import RxCocoa
 
 
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
-
+    
     var interactor: DexOrderBookInteractorProtocol!
+    weak var moduleOutput: DexOrderBookModuleOutput?
+    
     private let disposeBag = DisposeBag()
- 
+
+    var priceAsset: Dex.DTO.Asset!
+    var amountAsset: Dex.DTO.Asset!
+    
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
@@ -57,7 +62,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.mutate {
                 
                 $0.isNeedRefreshing = false
-                
+                $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
+                $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
+
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
 
@@ -86,15 +93,43 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid):
+            
+            moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         ask: state.lastAsk?.price,
+                                         bid: state.lastBid?.price,
+                                         last: state.lastPrice?.price,
+                                         availableAmountAssetBalance: state.availableAmountAssetBalance,
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .sell,
+                                              ask: state.lastAsk?.price,
+                                              bid: state.lastBid?.price,
+                                              last: state.lastPrice?.price,
+                                              availableAmountAssetBalance: state.availableAmountAssetBalance,
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
+            moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
+                                         ask: state.lastAsk?.price,
+                                         bid: state.lastBid?.price,
+                                         last: state.lastPrice?.price,
+                                         availableAmountAssetBalance: state.availableAmountAssetBalance,
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
+            
+            moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
+                                              orderType: .buy,
+                                              ask: state.lastAsk?.price,
+                                              bid: state.lastBid?.price,
+                                              last: state.lastPrice?.price,
+                                              availableAmountAssetBalance: state.availableAmountAssetBalance,
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
             return state.changeAction(.none)
         }
     }

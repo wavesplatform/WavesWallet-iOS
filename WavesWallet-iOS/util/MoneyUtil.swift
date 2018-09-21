@@ -32,7 +32,7 @@ class MoneyUtil {
         f.minimumFractionDigits = 0
         return f.string(from: amount as NSNumber)!
     }
-
+    
     class func formatDecimalTrimZeros(_ amount: Decimal, decimals: Int) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
