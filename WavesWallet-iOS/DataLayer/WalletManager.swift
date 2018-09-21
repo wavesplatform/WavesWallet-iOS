@@ -96,18 +96,6 @@ class WalletManager {
         return Observable.just(currentWallet?.publicKeyAccount ?? PublicKeyAccount(publicKey: []))
     }
 
-    class func getWavesBalance() -> Observable<Int64> {
-        return getWavesAssetBalance().map { $0.balance }
-    }
-
-    class func getWavesAssetBalance() -> Observable<AssetBalance> {
-        let realm = try! Realm()
-        let rAccount = realm.object(ofType: AssetBalance.self, forPrimaryKey: "")
-
-        guard let waves = rAccount else { return Observable.just(AssetBalance()) }
-
-        return Observable.from(object: waves).distinctUntilChanged { $0 == $1 }
-    }
 
     class func getWalletsConfig() -> Realm.Configuration {
         var config = Realm.Configuration()

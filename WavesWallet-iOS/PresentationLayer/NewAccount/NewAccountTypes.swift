@@ -16,7 +16,6 @@ extension NewAccountTypes.DTO {
         struct Account {
             let privateKey: PrivateKeyAccount
             let password: String
-            let name: String
-            var needBackup: Bool
+            let name: String            
         }
 }

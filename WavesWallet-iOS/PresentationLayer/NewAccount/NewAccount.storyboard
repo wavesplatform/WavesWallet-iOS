@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,14 +15,14 @@
             <objects>
                 <viewController storyboardIdentifier="NewAccountViewController" id="ilz-3u-3rG" customClass="NewAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wsU-o9-QwC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" translatesAutoresizingMaskIntoConstraints="NO" id="KG0-Re-akM">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BL-6d-416" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="634.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your address avatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaM-Qj-2Ed">
                                                 <rect key="frame" x="16" y="24" width="214" height="20.5"/>
@@ -33,10 +37,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="udF-VO-Z7M">
-                                                <rect key="frame" x="16" y="74.5" width="568" height="54"/>
+                                                <rect key="frame" x="16" y="74.5" width="343" height="66.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKA-IS-8F7" customClass="NewAccountAvatarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                                        <rect key="frame" x="0.0" y="6.5" width="54" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="54" id="6cd-yr-9Mc"/>
@@ -44,7 +48,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRz-ug-43u" customClass="NewAccountAvatarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="128.5" y="0.0" width="54" height="54"/>
+                                                        <rect key="frame" x="72.5" y="6.5" width="54" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="54" id="BYw-l2-EWG"/>
@@ -52,7 +56,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCY-9o-bGK" customClass="NewAccountAvatarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="257" y="0.0" width="54" height="54"/>
+                                                        <rect key="frame" x="144.5" y="6.5" width="54" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="54" id="A6n-5b-J3a"/>
@@ -60,7 +64,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fk1-72-gDf" customClass="NewAccountAvatarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="385.5" y="0.0" width="54" height="54"/>
+                                                        <rect key="frame" x="217" y="6.5" width="54" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="54" id="DUE-GE-log"/>
@@ -68,7 +72,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88W-OB-NHO" customClass="NewAccountAvatarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="514" y="0.0" width="54" height="54"/>
+                                                        <rect key="frame" x="289" y="6.5" width="54" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="54" id="mob-DL-268"/>
@@ -78,7 +82,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-oN-PqS">
-                                                <rect key="frame" x="16" y="562.5" width="568" height="48"/>
+                                                <rect key="frame" x="16" y="575" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="YWa-t3-KQR"/>
@@ -97,31 +101,31 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-Kc-5mI">
-                                                <rect key="frame" x="16" y="152.5" width="568" height="386"/>
+                                                <rect key="frame" x="16" y="165" width="343" height="386"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOQ-2W-6bg" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="62"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="62" id="fXF-nT-nDF"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-Uk-xXL" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="86" width="568" height="62"/>
+                                                        <rect key="frame" x="0.0" y="86" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="62" id="oFN-oY-luW"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wO-6w-uup" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="172" width="568" height="62"/>
+                                                        <rect key="frame" x="0.0" y="172" width="343" height="62"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="62" id="7Kx-gx-ivy"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S6u-ze-UgA">
-                                                        <rect key="frame" x="0.0" y="258" width="568" height="128"/>
+                                                        <rect key="frame" x="0.0" y="258" width="343" height="128"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                 </subviews>
@@ -187,53 +191,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWH-g3-0GD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-15.199999999999999" y="1448.7256371814094"/>
-        </scene>
-        <!--Passcode View Controller-->
-        <scene sceneID="sP2-8z-8EK">
-            <objects>
-                <viewController storyboardIdentifier="NewAccountPasscodeViewController" id="9UN-aH-xLE" customClass="PasscodeViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lez-y8-kiG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kda-35-aqg">
-                                <rect key="frame" x="231" y="550" width="138" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Kus-we-NOf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Use account password">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot passcode?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-Q7-dpD">
-                                <rect key="frame" x="245.5" y="542" width="109" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="250" placeholderIntrinsicHeight="250" translatesAutoresizingMaskIntoConstraints="NO" id="efb-IB-aDN" customClass="PasscodeView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="175" y="48" width="250" height="250"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="MAR-sa-g7y" firstAttribute="bottom" secondItem="PGo-Q7-dpD" secondAttribute="bottom" constant="42" id="Ig2-dO-mVn"/>
-                            <constraint firstItem="PGo-Q7-dpD" firstAttribute="centerX" secondItem="lez-y8-kiG" secondAttribute="centerX" id="JHc-qM-qRX"/>
-                            <constraint firstItem="efb-IB-aDN" firstAttribute="top" secondItem="MAR-sa-g7y" secondAttribute="top" constant="28" id="RJM-2K-No7"/>
-                            <constraint firstItem="efb-IB-aDN" firstAttribute="centerX" secondItem="MAR-sa-g7y" secondAttribute="centerX" id="Vaq-E1-0v5"/>
-                            <constraint firstItem="MAR-sa-g7y" firstAttribute="bottom" secondItem="Kda-35-aqg" secondAttribute="bottom" constant="10" id="gB1-Y2-91D"/>
-                            <constraint firstItem="Kda-35-aqg" firstAttribute="centerX" secondItem="lez-y8-kiG" secondAttribute="centerX" id="izl-4a-Ztx"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="MAR-sa-g7y"/>
-                    </view>
-                    <connections>
-                        <outlet property="passcodeView" destination="efb-IB-aDN" id="yX6-s8-6ou"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="62B-kw-mVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1660" y="-38"/>
         </scene>
     </scenes>
 </document>
