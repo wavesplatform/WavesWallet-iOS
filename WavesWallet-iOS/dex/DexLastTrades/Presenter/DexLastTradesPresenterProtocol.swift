@@ -17,6 +17,4 @@ protocol DexLastTradesPresenterProtocol {
     var moduleOutput: DexLastTradesModuleOutput? { get set }
     var priceAsset: Dex.DTO.Asset! { get set }
     var amountAsset: Dex.DTO.Asset! { get set }
-    
-    
 }

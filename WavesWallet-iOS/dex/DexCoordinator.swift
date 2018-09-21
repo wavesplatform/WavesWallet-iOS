@@ -107,8 +107,16 @@ private extension DexCoordinator {
                                              availableAmountAssetBalance: availableAmountAssetBalance,
                                              availablePriceAssetBalance: availablePriceAssetBalance)
        
-        let controller = DexCreateOrderModuleBuilder().build(input: input)
+        let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
         let popup = PopupViewController()
         popup.present(contentViewController: controller)
+    }
+}
+
+extension DexCoordinator: DexCreateOrderModuleOutput {
+    func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output) {
+
+        let controller = DexCompleteOrderModuleBuilder().build(input: output)
+        navigationController.pushViewController(controller, animated: true)
     }
 }

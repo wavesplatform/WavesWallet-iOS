@@ -8,11 +8,22 @@
 
 import UIKit
 
-struct DexCreateOrderModuleBuilder: ModuleBuilder {
+struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
     
+    weak var output: DexCreateOrderModuleOutput?
+
     func build(input: DexCreateOrder.DTO.Input) -> UIViewController {
+        
+        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractorMock()
+        
+        var presenter: DexCreateOrderPresenterProtocol = DexCreateOrderPresenter()
+        presenter.interactor = interactor
+        presenter.moduleOutput = output
+        
         let vc = StoryboardScene.Dex.dexCreateOrderViewController.instantiate()
         vc.input = input
+        vc.presenter = presenter
+        
         return vc
     }
 }

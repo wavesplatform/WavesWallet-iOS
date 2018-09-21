@@ -8,6 +8,8 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import RxFeedback
 
 
 private enum Constants {
@@ -47,17 +49,91 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var inputTotalTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var viewFeeTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonSellBuyBottomOffset: NSLayoutConstraint!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     
     private var order: DexCreateOrder.DTO.Order!
+    private var isCreatingOrderState: Bool = false
     
+    var presenter: DexCreateOrderPresenterProtocol!
+    private let sendEvent: PublishRelay<DexCreateOrder.Event> = PublishRelay<DexCreateOrder.Event>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupFeedBack()
         setupData()
         setupViews()
         setupLocalization()
         setupButtonSellBuy()
         setupUIForIPhone5IfNeed()
+    }
+ 
+}
+
+//MARK: - UI State
+private extension DexCreateOrderViewController {
+ 
+    func setupCreatingOrderState() {
+        isCreatingOrderState = true
+        setupButtonSellBuy()
+        
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
+        view.isUserInteractionEnabled = false
+    }
+    
+    func setupDefaultState() {
+        isCreatingOrderState = false
+        setupButtonSellBuy()
+        activityIndicatorView.stopAnimating()
+        view.isUserInteractionEnabled = true
+    }
+}
+
+//MARK: - FeedBack
+private extension DexCreateOrderViewController {
+    
+    func setupFeedBack() {
+        
+        let feedback = bind(self) { owner, state -> Bindings<DexCreateOrder.Event> in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+        
+        presenter.system(feedbacks: [feedback])
+    }
+    
+    func events() -> [Signal<DexCreateOrder.Event>] {
+        return [sendEvent.asSignal()]
+    }
+    
+    func subscriptions(state: Driver<DexCreateOrder.State>) -> [Disposable] {
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] state in
+                
+                guard let strongSelf = self else { return }
+                switch state.action {
+                case .none:
+                    return
+                default:
+                    break
+                }
+                
+                switch state.action {
+                case .showCreatingOrderState:
+                    strongSelf.setupCreatingOrderState()
+                    
+                case .orderDidFailCreate(let error):
+                    strongSelf.setupDefaultState()
+                    
+                case .orderDidCreate:
+                    strongSelf.dismissController()
+                    
+                default:
+                    break
+                }
+            })
+        
+        return [subscriptionSections]
     }
 }
 
@@ -69,7 +145,8 @@ private extension DexCreateOrderViewController {
             !order.price.isZero &&
             !order.total.isZero &&
             isValidAmountAssetBalance &&
-            isValidPriceAssetBalance
+            isValidPriceAssetBalance &&
+            !isCreatingOrderState
     }
     
     var isValidAmountAssetBalance: Bool {
@@ -90,6 +167,16 @@ private extension DexCreateOrderViewController {
 
 //MARK: - Actions
 private extension DexCreateOrderViewController {
+    
+    func dismissController() {
+        if let parent = self.parent as? PopupViewController {
+            parent.dismissPopup()
+        }
+    }
+   
+    @IBAction func buttonSellBuyTapped(_ sender: UIButton) {
+        sendEvent.accept(.createOrder)
+    }
     
     @IBAction func changeExpiration(_ sender: UIButton) {
         
@@ -130,6 +217,7 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
         setupButtonSellBuy()
         setupValidationErrors()
         setupInputAmountData()
+        sendEvent.accept(.updateInputOrder(order))
     }
 }
 
@@ -171,6 +259,7 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
      
         setupButtonSellBuy()
         setupValidationErrors()
+        sendEvent.accept(.updateInputOrder(order))
     }
 }
 

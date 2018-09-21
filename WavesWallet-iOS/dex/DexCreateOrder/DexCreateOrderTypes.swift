@@ -15,22 +15,24 @@ private enum Constansts {
 enum DexCreateOrder {
     enum DTO {}
     enum ViewModel {}
-}
-
-extension DexCreateOrder.ViewModel {
     
-    private static let numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.usesGroupingSeparator = false
-        return numberFormatter
-    }()
+    enum Event {
+        case createOrder
+        case orderDidCreate(Responce<DTO.Output>)
+        case updateInputOrder(DTO.Order)
+    }
     
-    static func numberFormatter(maximumFractionDigits: Int = 20) -> NumberFormatter {
-        let formatter = numberFormatter
-        formatter.maximumFractionDigits = maximumFractionDigits
-        return formatter
+    struct State: Mutating {
+        enum Action {
+            case none
+            case showCreatingOrderState
+            case orderDidFailCreate(Error)
+            case orderDidCreate
+        }
+        
+        var isNeedCreateOrder: Bool
+        var order: DTO.Order?
+        var action: Action
     }
 }
 
@@ -46,7 +48,6 @@ extension DexCreateOrder.DTO {
     }
     
     struct Input {
-        
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         let type: Dex.DTO.OrderType
@@ -67,7 +68,7 @@ extension DexCreateOrder.DTO {
         var total: Money
         var expiration: Expiration
         let fee: Int = Constansts.orderFee
-
+        let time = Date()
     }
     
     struct Output {
