@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct DexMyOrdersModuleMuilder: ModuleBuilder {
+struct DexMyOrdersModuleBuilder: ModuleBuilder {
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
 

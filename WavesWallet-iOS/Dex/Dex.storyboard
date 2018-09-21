@@ -1995,7 +1995,13 @@ You do not have any orders</string>
                                                         <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="buttonSellBuyTapped:" destination="vvR-I6-z9c" eventType="touchUpInside" id="nN9-4L-nLb"/>
+                                                </connections>
                                             </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WN7-jS-yUQ">
+                                                <rect key="frame" x="319" y="589" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2009,11 +2015,13 @@ You do not have any orders</string>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" constant="10" id="TAE-Gg-1Za"/>
                                             <constraint firstAttribute="trailing" secondItem="gNA-TX-wyo" secondAttribute="trailing" id="Va6-EY-vY5"/>
                                             <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="10" id="XBr-A6-ZeK"/>
+                                            <constraint firstItem="WN7-jS-yUQ" firstAttribute="leading" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="-40" id="a55-GS-j3s"/>
                                             <constraint firstItem="Zhj-r8-mHL" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="bHC-aE-Kmr"/>
                                             <constraint firstItem="1Sf-j0-xXd" firstAttribute="top" secondItem="gNA-TX-wyo" secondAttribute="bottom" constant="25" id="ggr-8c-UgQ"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="top" secondItem="pCj-mR-Pg4" secondAttribute="bottom" constant="25" id="jVT-rW-21n"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="kRJ-Iv-X6h"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="orc-xH-ZeH"/>
+                                            <constraint firstItem="WN7-jS-yUQ" firstAttribute="centerY" secondItem="Zhj-r8-mHL" secondAttribute="centerY" id="pj0-QA-UVe"/>
                                             <constraint firstAttribute="trailing" secondItem="pCj-mR-Pg4" secondAttribute="trailing" id="rr0-Zt-O23"/>
                                             <constraint firstAttribute="trailing" secondItem="1Sf-j0-xXd" secondAttribute="trailing" constant="16" id="sTL-Jl-af1"/>
                                             <constraint firstAttribute="trailing" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="16" id="xBd-Te-x7T"/>
@@ -2040,6 +2048,7 @@ You do not have any orders</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="WN7-jS-yUQ" id="nZY-uA-qqc"/>
                         <outlet property="buttonSellBuy" destination="Zhj-r8-mHL" id="P4R-7o-Wmh"/>
                         <outlet property="buttonSellBuyBottomOffset" destination="23X-Sf-gFw" id="lli-tX-p4Z"/>
                         <outlet property="inputAmount" destination="pCj-mR-Pg4" id="hUO-EZ-uTn"/>

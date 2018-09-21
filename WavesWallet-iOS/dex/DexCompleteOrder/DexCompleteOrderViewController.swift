@@ -42,6 +42,7 @@ private extension DexCompleteOrderViewController {
 }
 
 //MARK: - Setup
+
 private extension DexCompleteOrderViewController {
     
     func setupInfo() {

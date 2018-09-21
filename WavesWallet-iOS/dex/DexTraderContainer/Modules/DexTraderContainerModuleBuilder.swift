@@ -22,7 +22,7 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
         vc.addViewController(DexOrderBookModuleBuilder(output: orderBookOutput).build(input: input), isScrollEnabled: true)
         vc.addViewController(DexChartModuleBuilder().build(input: input), isScrollEnabled: false)
         vc.addViewController(DexLastTradesModuleBuilder(output: lastTradesOutput).build(input: input), isScrollEnabled: true)
-        vc.addViewController(DexMyOrdersModuleMuilder().build(input: input), isScrollEnabled: true)
+        vc.addViewController(DexMyOrdersModuleBuilder().build(input: input), isScrollEnabled: true)
         return vc
     }
 }
