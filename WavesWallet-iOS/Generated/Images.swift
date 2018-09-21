@@ -166,6 +166,7 @@ internal enum Images {
   internal static let menuTel = ImageAsset(name: "menu_tel")
   internal static let menuTitleLogo = ImageAsset(name: "menu_title_logo")
   internal static let menuTwitter = ImageAsset(name: "menu_twitter")
+  internal static let minus18Disabled900 = ImageAsset(name: "minus18Disabled900")
   internal static let notStar = ImageAsset(name: "not_star")
   internal static let notStarBtn = ImageAsset(name: "not_star_btn")
   internal static let off = ImageAsset(name: "off")
@@ -174,6 +175,7 @@ internal enum Images {
   internal static let pVisa28 = ImageAsset(name: "pVisa28")
   internal static let pairNotSelected = ImageAsset(name: "pair-not-selected")
   internal static let pairSelected = ImageAsset(name: "pair-selected")
+  internal static let plus18Disabled900 = ImageAsset(name: "plus18Disabled900")
   internal static let qrcode = ImageAsset(name: "qrcode")
   internal static let qrcode24Basic500 = ImageAsset(name: "qrcode24Basic500")
   internal static let rBank14Basic500 = ImageAsset(name: "rBank14Basic500")
@@ -376,6 +378,7 @@ internal enum Images {
     menuTel,
     menuTitleLogo,
     menuTwitter,
+    minus18Disabled900,
     notStar,
     notStarBtn,
     off,
@@ -384,6 +387,7 @@ internal enum Images {
     pVisa28,
     pairNotSelected,
     pairSelected,
+    plus18Disabled900,
     qrcode,
     qrcode24Basic500,
     rBank14Basic500,

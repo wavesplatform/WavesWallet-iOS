@@ -48,7 +48,7 @@ extension DexList.ViewModel {
         var items: [Row]
     }
     
-    enum Row: Hashable {
+    enum Row {
         case header(Date)
         case skeleton
         case model(DexList.DTO.Pair)
@@ -66,18 +66,11 @@ extension DexList.ViewModel {
 
 extension DexList.DTO {
     
-    struct Asset: Hashable  {
-        let id: String
-        let name: String
-        let decimals: Int
-        let ticker: String
-    }
-    
-    struct Pair: Hashable, Mutating {
+    struct Pair: Mutating {
         var firstPrice: Money
         var lastPrice: Money
-        let amountAsset: Asset
-        let priceAsset: Asset
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
         let isHidden: Bool
         let isFiat: Bool
     }
