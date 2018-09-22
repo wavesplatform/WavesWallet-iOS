@@ -16,7 +16,7 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
     
     var popupLineView: UIView!
     var shadowView: UIView!
-    var popupView: UIView?
+    var popupView: TransactionHistoryPopupView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,6 +41,22 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         shadowView.layer.shadowOpacity = 0.2
         shadowView.layer.shadowRadius = 3
         contentView.addSubview(shadowView)
+        
+        setupPopupView()
+    }
+    
+    private func setupPopupView() {
+        popupView = TransactionHistoryPopupView()
+        
+        contentView.addSubview(popupView!)
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        
+        popupView?.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+        popupView?.layer.shadowRadius = 3
+        popupView?.layer.shadowOffset = .init(width: 0, height: -2)
+        
+        popupView?.addSubview(popupLineView)
     }
     
     override func layoutSubviews() {
@@ -49,30 +65,23 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         let insets = Constants.popupInsets
         
         if let popupView = popupView {
-            popupView.frame = CGRect(x: insets.left, y: insets.top, width: bounds.width - insets.left - insets.right, height: bounds.height - insets.top)
+            popupView.frame = CGRect(x: insets.left, y: topInset, width: bounds.width - insets.left - insets.right, height: bounds.height - topInset)
             shadowView.frame = popupView.frame
-//            shadowView.center = .init(x: shadowView.center.x, y: shadowView.center.y - 20)
         }
         
         popupView?.layer.clip(roundedRect: nil, byRoundingCorners: [.topLeft, .topRight], cornerRadius: 10, inverse: false)
-//        roundCorners(cornerRadius: 10.0)
         
         let popupLineSize = CGSize(width: 36, height: 4)
         popupLineView.frame = CGRect(x: (bounds.width - popupLineSize.width) / 2, y: 6, width: popupLineSize.width, height: popupLineSize.height)
     }
     
-    func fill(with popupView: UIView) {
-        self.popupView = popupView
+    var topInset: CGFloat {
         
-        contentView.addSubview(popupView)
-        contentView.backgroundColor = .clear
-        backgroundColor = .clear
+        if #available(iOS 11.0, *) {
+            return safeAreaInsets.top + 48
+        }
         
-                popupView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-                popupView.layer.shadowRadius = 3
-                popupView.layer.shadowOffset = .init(width: 0, height: -2)
-        
-        popupView.addSubview(popupLineView)
+        return Constants.popupInsets.top
     }
   
     func roundCorners(cornerRadius: Double) {

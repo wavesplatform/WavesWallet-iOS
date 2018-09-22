@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol TransactionHistoryGeneralCellDelegate: class {
+    func transactionGeneralCellDidPressNext(cell: TransactionHistoryGeneralCell)
+    func transactionGeneralCellDidPressPrevious(cell: TransactionHistoryGeneralCell)
+}
+
 private enum Constants {
     static let spamColor = UIColor.basic100
     static let spamTextColor = UIColor.basic500
@@ -15,13 +20,15 @@ private enum Constants {
 
 final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 
+    weak var delegate: TransactionHistoryGeneralCellDelegate?
+    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     
     @IBOutlet weak var tagContainer: UIView!
-    @IBOutlet weak var nextButtonPressed: UIButton!
-    @IBOutlet weak var previousButtonPressed: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var previousButton: UIButton!
     
     @IBOutlet weak var tagLabel: UILabel!
     
@@ -80,6 +87,13 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         
     }
     
+    @IBAction func previousButtonPressed(_ sender: Any) {
+        delegate?.transactionGeneralCellDidPressPrevious(cell: self)
+    }
+    
+    @IBAction func nextButtonPressed(_ sender: Any) {
+        delegate?.transactionGeneralCellDidPressNext(cell: self)
+    }
 }
 
 extension TransactionHistoryGeneralCell: ViewConfiguration {
@@ -92,7 +106,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
             
         } else if let balance = model.balance {
             
-            if let asset = model.asset, balance.currency.ticker == nil, model.isSpam == false {
+            if let asset = model.asset, balance.currency.ticker == nil, (model.isSpam == false || model.isSpam == nil) {
                 
                 valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true) + " " + asset.name, font: valueLabel.font)
                 
@@ -108,7 +122,9 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
         
         iconImageView.image = icon(for: model.kind)
         currencyLabel.text = model.currencyConversion
-    
+        nextButton.isHidden = model.canGoNext == false
+        previousButton.isHidden = model.canGoBack == false
+        
         updateTag(with: model)
     }
     

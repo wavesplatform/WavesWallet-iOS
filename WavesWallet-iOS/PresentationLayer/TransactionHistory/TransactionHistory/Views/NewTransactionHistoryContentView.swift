@@ -10,12 +10,15 @@ import UIKit
 
 private enum Constants {
     static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+    static let buttonsHeight: CGFloat = 48
 }
 
 protocol TransactionHistoryContentViewDelegate: class {
     
     func contentViewDidPressAccount(view: NewTransactionHistoryContentView)
     func contentViewDidPressButton(view: NewTransactionHistoryContentView)
+    func contentViewDidPressNext(view: NewTransactionHistoryContentView)
+    func contentViewDidPressPrevious(view: NewTransactionHistoryContentView)
     
 }
 
@@ -26,6 +29,7 @@ class NewTransactionHistoryContentView: UIView {
     @IBOutlet weak var copyTXButton: WavesButton!
     @IBOutlet weak var copyAllDataButton: WavesButton!
     
+    @IBOutlet weak var buttonContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
 
     private(set) var display: TransactionHistoryTypes.State.DisplayState?
@@ -63,6 +67,15 @@ class NewTransactionHistoryContentView: UIView {
         copyAllDataButton.selectedTitle = "Copied"
         copyAllDataButton.selectedTitleColor = .success400
         copyAllDataButton.selectedImage = Images.checkSuccess.image
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if #available(iOS 11.0, *) {
+            buttonContainerHeightConstraint.constant = Constants.buttonsHeight + safeAreaInsets.bottom
+        }
     }
     
     // MARK: - Actions
@@ -180,6 +193,7 @@ extension NewTransactionHistoryContentView: UITableViewDataSource {
             
             let cell: TransactionHistoryGeneralCell = tableView.dequeueAndRegisterCell()
             cell.update(with: model)
+            cell.delegate = self
             return cell
             
         }
@@ -222,6 +236,20 @@ extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate
         
         delegate?.contentViewDidPressButton(view: self)
         
+    }
+    
+}
+
+extension NewTransactionHistoryContentView: TransactionHistoryGeneralCellDelegate {
+    
+    func transactionGeneralCellDidPressNext(cell: TransactionHistoryGeneralCell) {
+        
+        delegate?.contentViewDidPressNext(view: self)
+        
+    }
+    
+    func transactionGeneralCellDidPressPrevious(cell: TransactionHistoryGeneralCell) {
+        delegate?.contentViewDidPressPrevious(view: self)
     }
     
 }

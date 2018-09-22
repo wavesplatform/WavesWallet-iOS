@@ -18,6 +18,8 @@ extension TransactionHistoryTypes.ViewModel {
         let asset: DomainLayer.DTO.Asset?
         let isSpam: Bool?
         let currencyConversion: String?
+        let canGoBack: Bool?
+        let canGoNext: Bool?
     }
     
     struct Recipient {
@@ -78,7 +80,7 @@ extension TransactionHistoryTypes.ViewModel {
 
 extension TransactionHistoryTypes.ViewModel.Section {
     
-    static func map(from transaction: DomainLayer.DTO.SmartTransaction) -> [TransactionHistoryTypes.ViewModel.Section] {
+    static func map(from transaction: DomainLayer.DTO.SmartTransaction, index: Int, count: Int) -> [TransactionHistoryTypes.ViewModel.Section] {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
         var kindRows: [TransactionHistoryTypes.ViewModel.Row] = []
@@ -305,7 +307,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     customTitle: customTitle,
                     asset: asset,
                     isSpam: isSpam,
-                    currencyConversion: currencyConversion
+                    currencyConversion: currencyConversion,
+                    canGoBack: index > 0,
+                    canGoNext: index < count - 1
                 )
             )
         )
