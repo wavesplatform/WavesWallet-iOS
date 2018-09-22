@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonBuy" destination="YbB-Dt-jNS" id="xYU-93-80w"/>
+                <outlet property="buttonSell" destination="HOy-Y9-9nd" id="e1J-r6-jVt"/>
+                <outlet property="viewPosition" destination="Wdv-B4-05k" id="qo8-JY-Je3"/>
+                <outlet property="viewPositionOffset" destination="B2K-il-Hp0" id="Dr6-uc-IiE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbB-Dt-jNS">
+                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Buy"/>
+                    <connections>
+                        <action selector="buyTapped:" destination="-1" eventType="touchUpInside" id="7IR-IV-8sX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOy-Y9-9nd">
+                    <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
+                    <state key="normal" title="Sell"/>
+                    <connections>
+                        <action selector="sellTapped:" destination="-1" eventType="touchUpInside" id="qOW-eO-omB"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-B4-05k" userLabel="view position">
+                    <rect key="frame" x="0.0" y="33" width="12" height="2"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="Mgm-7n-Z3c"/>
+                        <constraint firstAttribute="height" constant="2" id="SX5-S2-STe"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HOy-Y9-9nd" firstAttribute="bottom" secondItem="YbB-Dt-jNS" secondAttribute="bottom" id="8hf-WV-xvF"/>
+                <constraint firstItem="Wdv-B4-05k" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="B2K-il-Hp0"/>
+                <constraint firstAttribute="bottom" secondItem="Wdv-B4-05k" secondAttribute="bottom" constant="5" id="IgK-MI-20e"/>
+                <constraint firstItem="YbB-Dt-jNS" firstAttribute="width" secondItem="HOy-Y9-9nd" secondAttribute="width" id="T2C-RR-KiZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="YbB-Dt-jNS" secondAttribute="bottom" id="Xye-Ov-tfx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HOy-Y9-9nd" secondAttribute="trailing" id="aFR-pq-OIQ"/>
+                <constraint firstItem="YbB-Dt-jNS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="gou-Kn-Vgj"/>
+                <constraint firstItem="YbB-Dt-jNS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nXy-c6-SsV"/>
+                <constraint firstItem="HOy-Y9-9nd" firstAttribute="top" secondItem="YbB-Dt-jNS" secondAttribute="top" id="oUq-BU-O6Y"/>
+                <constraint firstItem="HOy-Y9-9nd" firstAttribute="leading" secondItem="YbB-Dt-jNS" secondAttribute="trailing" id="vYx-qo-jT8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </view>
+    </objects>
+</document>

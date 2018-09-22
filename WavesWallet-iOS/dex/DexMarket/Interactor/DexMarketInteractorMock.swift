@@ -112,13 +112,17 @@ private extension DexMarketInteractorMock {
         
         for item in items {
             
+            let amountDecimals = item["amountAssetInfo"]["decimals"].intValue
             let amountAsset = DexMarket.DTO.Asset(id: item["amountAsset"].stringValue,
                                                  name: item["amountAssetName"].stringValue,
-                                                 shortName: item["amountAssetName"].stringValue)
+                                                 shortName: item["amountAssetName"].stringValue,
+                                                 decimals: amountDecimals)
 
+            let priceDecimals = item["priceAssetInfo"]["decimals"].intValue
             let priceAsset = DexMarket.DTO.Asset(id: item["priceAsset"].stringValue,
                                                  name: item["priceAssetName"].stringValue,
-                                                 shortName: item["priceAssetName"].stringValue)
+                                                 shortName: item["priceAssetName"].stringValue,
+                                                 decimals: priceDecimals)
 
             pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isChecked: false, isHidden: false))
         }
