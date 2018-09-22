@@ -35,9 +35,13 @@ extension TransactionHistoryTypes.State {
     
     static func initialState(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) -> TransactionHistoryTypes.State {
         
+        var i = 0
+        
         let displays = transactions.map { (transaction) -> TransactionHistoryTypes.State.DisplayState in
             
-            return TransactionHistoryTypes.State.DisplayState(sections: TransactionHistoryTypes.ViewModel.Section.map(from: transaction))
+            i = i + 1
+            
+            return TransactionHistoryTypes.State.DisplayState(sections: TransactionHistoryTypes.ViewModel.Section.map(from: transaction, index: i - 1, count: transactions.count))
             
         }
         

@@ -23,8 +23,18 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dU-VG-xpt">
                     <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbe-ky-tgE">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <color key="backgroundColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="izf-mZ-QzN"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Uf-zR-kJ3" customClass="WavesButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="-1" width="187.5" height="49"/>
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="N81-FF-89H"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="Copy TX ID" image="copy18Black">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -35,6 +45,9 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-fn-bcQ" customClass="WavesButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="crG-BD-O2R"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="Copy All Data" image="copy18Black">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -43,24 +56,15 @@
                                 <action selector="copyAllDataTapped:" destination="-1" eventType="touchUpInside" id="zeJ-5Q-BNU"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbe-ky-tgE">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="izf-mZ-QzN"/>
-                            </constraints>
-                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="wbe-ky-tgE" firstAttribute="top" secondItem="7dU-VG-xpt" secondAttribute="top" id="1NZ-4J-ILu"/>
                         <constraint firstItem="Eqk-fn-bcQ" firstAttribute="top" secondItem="7dU-VG-xpt" secondAttribute="top" id="Cgy-Ce-1AT"/>
-                        <constraint firstAttribute="bottom" secondItem="Eqk-fn-bcQ" secondAttribute="bottom" id="DnR-2l-eDW"/>
                         <constraint firstItem="5Uf-zR-kJ3" firstAttribute="leading" secondItem="7dU-VG-xpt" secondAttribute="leading" id="Qd8-Ud-nb4"/>
                         <constraint firstItem="5Uf-zR-kJ3" firstAttribute="width" secondItem="Eqk-fn-bcQ" secondAttribute="width" id="R6j-hN-Ha9"/>
-                        <constraint firstAttribute="bottom" secondItem="5Uf-zR-kJ3" secondAttribute="bottom" id="UgY-DD-DRx"/>
                         <constraint firstAttribute="trailing" secondItem="Eqk-fn-bcQ" secondAttribute="trailing" id="VZ7-Sw-kxq"/>
-                        <constraint firstItem="5Uf-zR-kJ3" firstAttribute="top" secondItem="7dU-VG-xpt" secondAttribute="top" constant="-1" id="aSu-Wd-Dch"/>
+                        <constraint firstItem="5Uf-zR-kJ3" firstAttribute="top" secondItem="7dU-VG-xpt" secondAttribute="top" id="aSu-Wd-Dch"/>
                         <constraint firstItem="wbe-ky-tgE" firstAttribute="leading" secondItem="7dU-VG-xpt" secondAttribute="leading" id="dXm-dT-IAW"/>
                         <constraint firstAttribute="height" constant="48" id="n4h-kN-eKY"/>
                         <constraint firstItem="Eqk-fn-bcQ" firstAttribute="leading" secondItem="5Uf-zR-kJ3" secondAttribute="trailing" id="tUH-n9-mgm"/>
@@ -76,10 +80,11 @@
                 <constraint firstItem="zIy-q0-vRV" firstAttribute="top" secondItem="Ehu-T4-J76" secondAttribute="top" id="e8p-uX-X2b"/>
                 <constraint firstItem="Ehu-T4-J76" firstAttribute="leading" secondItem="zIy-q0-vRV" secondAttribute="leading" id="hN1-H6-jAP"/>
                 <constraint firstItem="7dU-VG-xpt" firstAttribute="leading" secondItem="zIy-q0-vRV" secondAttribute="leading" id="pN2-0h-x6T"/>
-                <constraint firstItem="zIy-q0-vRV" firstAttribute="bottom" secondItem="7dU-VG-xpt" secondAttribute="bottom" id="xMI-jE-rT5"/>
+                <constraint firstAttribute="bottom" secondItem="7dU-VG-xpt" secondAttribute="bottom" id="xMI-jE-rT5"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="zIy-q0-vRV"/>
             <connections>
+                <outlet property="buttonContainerHeightConstraint" destination="n4h-kN-eKY" id="iPd-hO-87K"/>
                 <outlet property="copyAllDataButton" destination="Eqk-fn-bcQ" id="duj-T9-d1w"/>
                 <outlet property="copyTXButton" destination="5Uf-zR-kJ3" id="BoI-Ls-MaV"/>
                 <outlet property="tableView" destination="Ehu-T4-J76" id="XgA-fc-9q0"/>
