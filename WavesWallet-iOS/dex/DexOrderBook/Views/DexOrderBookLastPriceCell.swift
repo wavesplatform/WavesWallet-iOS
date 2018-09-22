@@ -41,7 +41,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
         else if model.orderType == .buy {
             iconState.image = Images.chartarrow22Success400.image
         }
-        else if model.orderType == .none {
+        else {
             iconState.image = nil
         }
     }

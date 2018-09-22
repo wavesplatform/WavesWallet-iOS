@@ -14,15 +14,9 @@ enum DexTraderContainer {
 
 extension DexTraderContainer.DTO {
     
-    struct Asset {
-        let id: String
-        let name: String
-        let decimals: Int
-    }
-    
     struct Pair {
-        let amountAsset: Asset
-        let priceAsset: Asset
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
         let isHidden: Bool
         let isFiat: Bool
     }

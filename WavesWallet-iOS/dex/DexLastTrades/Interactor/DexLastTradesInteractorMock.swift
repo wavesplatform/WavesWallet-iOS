@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
+private enum Constanst {
+    static let priceAssetBalance: Int64 = 652333333240
+    static let amountAssetBalance: Int64 = 31433333240
+}
 
 final class DexLastTradesInteractorMock: DexLastTradesInteractorProtocol {
     
@@ -21,7 +25,13 @@ final class DexLastTradesInteractorMock: DexLastTradesInteractorProtocol {
             
             self.getLastTrades({ (trades) in
                 self.getLastSellBuy({ (lastSell, lastBuy) in
-                    let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy)
+                    
+                    let availableAmountAssetBalance =  Money(Constanst.amountAssetBalance, self.pair.amountAsset.decimals)
+                    let availablePriceAssetBalance =  Money(Constanst.priceAssetBalance, self.pair.priceAsset.decimals)
+
+                    let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy,
+                                                                availableAmountAssetBalance: availableAmountAssetBalance,
+                                                                availablePriceAssetBalance: availablePriceAssetBalance)
                     subscribe.onNext(display)
                 })
             })
@@ -48,15 +58,15 @@ private extension DexLastTradesInteractorMock {
                     let timestamp = item["timestamp"].doubleValue
                     let time = Date(timeIntervalSince1970: timestamp / 1000)
 
-                    let type: DexLastTrades.DTO.TradeType = item["type"] == "sell" ? .sell : .buy
-                    let price = item["price"].doubleValue
-                    let amount = item["amount"].doubleValue
+                    let type: Dex.DTO.OrderType = item["type"] == "sell" ? .sell : .buy
+                    let price = Decimal(item["price"].doubleValue)
+                    let amount = Decimal(item["amount"].doubleValue)
                     let sum = price * amount
                     
                     trades.append(DexLastTrades.DTO.Trade(time: time,
-                                                          price: Money(price),
-                                                          amount: Money(amount),
-                                                          sum: Money(sum),
+                                                          price: Money(value: price, self.pair.priceAsset.decimals),
+                                                          amount: Money(value: amount, self.pair.amountAsset.decimals),
+                                                          sum: Money(value: sum, self.pair.priceAsset.decimals),
                                                           type: type))
                 }
             }
@@ -71,11 +81,12 @@ private extension DexLastTradesInteractorMock {
             
             var sell: DexLastTrades.DTO.SellBuyTrade?
             var buy: DexLastTrades.DTO.SellBuyTrade?
-            
+
             if let items = items {
                 let info = JSON(items)
                 
                 if let bid = info["bids"].arrayValue.first {
+
                     sell = DexLastTrades.DTO.SellBuyTrade(price: Money((bid["price"]).int64Value, self.pair.priceAsset.decimals),
                                                           type: .sell)
                 }

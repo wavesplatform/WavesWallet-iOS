@@ -14,6 +14,54 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexSort", "navigationBar.title")
     }
   }
+  internal enum DexCreateOrder {
+
+    internal enum Button {
+      /// Ask
+      internal static let ask = Localizable.tr("DexCreateOrder", "button.ask")
+      /// Bid
+      internal static let bid = Localizable.tr("DexCreateOrder", "button.bid")
+      /// Buy
+      internal static let buy = Localizable.tr("DexCreateOrder", "button.buy")
+      /// Cancel
+      internal static let cancel = Localizable.tr("DexCreateOrder", "button.cancel")
+      /// day
+      internal static let day = Localizable.tr("DexCreateOrder", "button.day")
+      /// days
+      internal static let days = Localizable.tr("DexCreateOrder", "button.days")
+      /// hour
+      internal static let hour = Localizable.tr("DexCreateOrder", "button.hour")
+      /// Last
+      internal static let last = Localizable.tr("DexCreateOrder", "button.last")
+      /// minutes
+      internal static let minutes = Localizable.tr("DexCreateOrder", "button.minutes")
+      /// Sell
+      internal static let sell = Localizable.tr("DexCreateOrder", "button.sell")
+      /// Use total balance
+      internal static let useTotalBalanace = Localizable.tr("DexCreateOrder", "button.useTotalBalanace")
+      /// week
+      internal static let week = Localizable.tr("DexCreateOrder", "button.week")
+    }
+
+    internal enum Label {
+      /// Amount in
+      internal static let amountIn = Localizable.tr("DexCreateOrder", "label.amountIn")
+      /// Value is too big
+      internal static let bigValue = Localizable.tr("DexCreateOrder", "label.bigValue")
+      /// days
+      internal static let days = Localizable.tr("DexCreateOrder", "label.days")
+      /// Expiration
+      internal static let expiration = Localizable.tr("DexCreateOrder", "label.Expiration")
+      /// Fee
+      internal static let fee = Localizable.tr("DexCreateOrder", "label.fee")
+      /// Limit Price in
+      internal static let limitPriceIn = Localizable.tr("DexCreateOrder", "label.limitPriceIn")
+      /// Not enough
+      internal static let notEnough = Localizable.tr("DexCreateOrder", "label.notEnough")
+      /// Total in
+      internal static let totalIn = Localizable.tr("DexCreateOrder", "label.totalIn")
+    }
+  }
   internal enum DexList {
 
     internal enum Button {
@@ -260,6 +308,28 @@ internal enum Localizable {
     internal static let nsCameraUsageDescription = Localizable.tr("InfoPlist", "NSCameraUsageDescription")
     /// Authenticate with Face ID
     internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
+  }
+  internal enum DexCompleteOrder {
+
+    internal enum Button {
+      /// Okay
+      internal static let okey = Localizable.tr("DexCompleteOrder", "button.okey")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexCompleteOrder", "label.amount")
+      /// Open
+      internal static let `open` = Localizable.tr("DexCompleteOrder", "label.open")
+      /// The order is created
+      internal static let orderIsCreated = Localizable.tr("DexCompleteOrder", "label.orderIsCreated")
+      /// Price
+      internal static let price = Localizable.tr("DexCompleteOrder", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexCompleteOrder", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexCompleteOrder", "label.time")
+    }
   }
   internal enum DexMarket {
 
