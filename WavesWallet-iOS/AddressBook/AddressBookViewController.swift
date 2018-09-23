@@ -15,7 +15,9 @@ final class AddressBookViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchBar: SearchBarView!
-   
+    @IBOutlet private weak var labelNoInfo: UILabel!
+    @IBOutlet private weak var viewNoInfo: UIView!
+    
     weak var delegate: AddressBookModuleOutput?
     var isEditMode: Bool = false
     
@@ -27,11 +29,10 @@ final class AddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.AddressBook.Label.addressBook
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: Images.topbarAddaddress.image, style: .plain, target: self, action: #selector(addUserTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarAddaddress.image, style: .plain, target: self, action: #selector(addUserTapped))
+        setupLocalization()
         createBackButton()
         setupFeedBack()
-        
         tableView.keyboardDismissMode = .onDrag
         searchBar.delegate = self
     }
@@ -46,6 +47,22 @@ final class AddressBookViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isTranslucent = true
+    }
+}
+
+//MARK: - UI
+
+private extension AddressBookViewController {
+    
+    func setupLocalization() {
+        title = Localizable.AddressBook.Label.addressBook
+        labelNoInfo.text = Localizable.AddressBook.Label.noInfo
+    }
+
+    func setupUIState() {
+        viewNoInfo.isHidden = !modelSection.isEmpty
+        tableView.isHidden = modelSection.isEmpty
+        searchBar.isHidden = modelSection.isEmpty
     }
 }
 
@@ -86,6 +103,7 @@ private extension AddressBookViewController {
                 guard state.action != .none else { return }
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
+                strongSelf.setupUIState()
             })
         
         return [subscriptionSections]

@@ -519,6 +519,7 @@
 		E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
 		E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E7129C20DC05A900B95669 /* Hello.storyboard */; };
+		E9ED4F172157FC3200B7D82D /* SuccessSystemMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */; };
 		E9EDC6BA2123A38500C58E0D /* DexTraderContainer.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */; };
 		E9EDC6C12123A5A900C58E0D /* DexOrderBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDC6C02123A5A900C58E0D /* DexOrderBookViewController.swift */; };
 		E9EDC6C42123A5CE00C58E0D /* DexChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDC6C32123A5CE00C58E0D /* DexChartViewController.swift */; };
@@ -1160,6 +1161,7 @@
 		E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
 		E9E7129C20DC05A900B95669 /* Hello.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
+		E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSystemMessageView.swift; sourceTree = "<group>"; };
 		E9EDC6BB2123A38500C58E0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
 		E9EDC6BD2123A38700C58E0D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
 		E9EDC6BE2123A38B00C58E0D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
@@ -2079,6 +2081,7 @@
 				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
 				E930BE3B2148E6E000B28540 /* MoneyTextField.swift */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
+				E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
 				0AF92288212E1234003BA067 /* EmptyCell.swift */,
@@ -3430,6 +3433,7 @@
 				0A5E4BAD2137FC3B00E3C3C3 /* TransferSuccessViewController.swift in Sources */,
 				E9574836212D0B9F00452963 /* DexLastTradesTypes.swift in Sources */,
 				E9C540DB212F88F200253BDB /* DexMyOrdersInteractor.swift in Sources */,
+				E9ED4F172157FC3200B7D82D /* SuccessSystemMessageView.swift in Sources */,
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				0AE6572D21062EC7003D2DB8 /* Models.swift in Sources */,
 				E9F5E4852134D555001FC87A /* DexChartPresenter.swift in Sources */,
