@@ -65,7 +65,7 @@ final class MainTabBarController: RDVTabBarController {
         line.backgroundColor = UIColor(188, 188, 188)
         tabBar.addSubview(line)
         
-        selectedIndex = 0
+        selectedIndex = 4
     }
     
     func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {

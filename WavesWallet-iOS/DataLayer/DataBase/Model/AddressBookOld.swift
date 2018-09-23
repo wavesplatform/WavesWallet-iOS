@@ -3,7 +3,7 @@ import RealmSwift
 import Realm
 import RxDataSources
 
-class AddressBook: Object, IdentifiableType {
+class AddressBookOld: Object, IdentifiableType {
     @objc dynamic var address = ""
     @objc dynamic var name: String? = nil
     
@@ -15,6 +15,6 @@ class AddressBook: Object, IdentifiableType {
     }
 }
 
-func == (lhs: AddressBook, rhs: AddressBook) -> Bool {
+func == (lhs: AddressBookOld, rhs: AddressBookOld) -> Bool {
     return lhs.address == rhs.address
 }

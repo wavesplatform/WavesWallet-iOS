@@ -89,6 +89,13 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum AddressBook {
+
+    internal enum Label {
+      /// Address book
+      internal static let addressBook = Localizable.tr("AddressBook", "label.addressBook")
+    }
+  }
   internal enum DexLastTrades {
 
     internal enum Button {

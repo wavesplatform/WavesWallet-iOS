@@ -184,8 +184,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             else if indexPath.row == GeneralSection.addressBook.rawValue {
 
                 setupLastScrollCorrectOffset()
-                let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "ChooseAddressBookViewController") as! ChooseAddressBookViewController
-                controller.isEditMode = true
+                
+                let controller = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: true))
+                
                 navigationController?.pushViewController(controller, animated: true)
                 rdv_tabBarController.setTabBarHidden(true, animated: true)
             }
@@ -347,5 +348,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.labelTitle.text = otherNames[indexPath.row]
         }
         return cell
+    }
+}
+
+//MARK: - AddressBookModuleOutput
+
+extension ProfileViewController: AddressBookModuleOutput {
+    func addressBookDidEditUser(_ user: AddressBook.DTO.User) {
+        debug(user)
     }
 }

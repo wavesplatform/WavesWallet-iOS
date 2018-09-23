@@ -41,7 +41,7 @@ class TransactionCell: UITableViewCell {
         let realm = try! Realm()
         
         try! realm.write {
-            realm.create(AddressBook.self, value: [currentTransaction.counterParty, name], update: true)
+            realm.create(AddressBookOld.self, value: [currentTransaction.counterParty, name], update: true)
         }
     }
     

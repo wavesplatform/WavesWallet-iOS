@@ -114,7 +114,7 @@ fileprivate extension DexMarket.ViewModel.Row {
 fileprivate extension DexMarket.State {
     static var initialState: DexMarket.State {
         let section = DexMarket.ViewModel.Section(items: [])
-        return DexMarket.State(action: .update, section: section)
+        return DexMarket.State(action: .none, section: section)
     }
     
     func changeAction(_ action: DexMarket.State.Action) -> DexMarket.State {
