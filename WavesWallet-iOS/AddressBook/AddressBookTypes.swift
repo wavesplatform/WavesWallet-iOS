@@ -57,3 +57,10 @@ extension AddressBook.DTO {
         let address: String
     }    
 }
+
+extension AddressBook.ViewModel.Section {
+    
+    var isEmpty: Bool {
+        return items.count == 0
+    }
+}

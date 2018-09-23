@@ -88,31 +88,62 @@
                                     <constraint firstAttribute="height" constant="36" id="hcL-ZL-u3r"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ork-8W-EgS">
+                                <rect key="frame" x="0.0" y="266" width="375" height="135.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80Multi" translatesAutoresizingMaskIntoConstraints="NO" id="dm7-8m-rW4">
+                                        <rect key="frame" x="147.5" y="0.0" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YL-A1-ItF">
+                                        <rect key="frame" x="0.0" y="104" width="375" height="31.5"/>
+                                        <string key="text">Nothing Here…
+You can create new address</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="1YL-A1-ItF" secondAttribute="trailing" id="5jT-Gv-4TY"/>
+                                    <constraint firstItem="dm7-8m-rW4" firstAttribute="centerX" secondItem="ork-8W-EgS" secondAttribute="centerX" id="AVB-Fw-cri"/>
+                                    <constraint firstItem="1YL-A1-ItF" firstAttribute="leading" secondItem="ork-8W-EgS" secondAttribute="leading" id="Uco-vW-bQL"/>
+                                    <constraint firstAttribute="bottom" secondItem="1YL-A1-ItF" secondAttribute="bottom" id="Xgs-dV-hcZ"/>
+                                    <constraint firstItem="1YL-A1-ItF" firstAttribute="top" secondItem="dm7-8m-rW4" secondAttribute="bottom" constant="24" id="dTP-d4-EQk"/>
+                                    <constraint firstItem="dm7-8m-rW4" firstAttribute="top" secondItem="ork-8W-EgS" secondAttribute="top" id="t6O-iH-sKk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="oBc-8W-R4B" secondAttribute="bottom" id="4kZ-cg-X2m"/>
+                            <constraint firstItem="ork-8W-EgS" firstAttribute="leading" secondItem="kbV-45-Gcy" secondAttribute="leading" id="8G2-zP-Nxw"/>
                             <constraint firstItem="kbV-45-Gcy" firstAttribute="trailing" secondItem="fG3-qf-fnf" secondAttribute="trailing" id="8a7-28-cdd"/>
                             <constraint firstAttribute="trailing" secondItem="oBc-8W-R4B" secondAttribute="trailing" id="9Pu-WE-lEA"/>
+                            <constraint firstItem="ork-8W-EgS" firstAttribute="centerY" secondItem="VnP-0F-ckO" secondAttribute="centerY" id="EVg-zr-eMt"/>
                             <constraint firstItem="oBc-8W-R4B" firstAttribute="top" secondItem="fG3-qf-fnf" secondAttribute="bottom" id="SIe-UT-Rbo"/>
                             <constraint firstItem="fG3-qf-fnf" firstAttribute="top" secondItem="kbV-45-Gcy" secondAttribute="top" id="d0x-4b-BYn"/>
                             <constraint firstItem="oBc-8W-R4B" firstAttribute="leading" secondItem="kbV-45-Gcy" secondAttribute="leading" id="j5g-i8-ecQ"/>
                             <constraint firstItem="fG3-qf-fnf" firstAttribute="leading" secondItem="VnP-0F-ckO" secondAttribute="leading" id="laV-Za-pxC"/>
+                            <constraint firstItem="ork-8W-EgS" firstAttribute="trailing" secondItem="kbV-45-Gcy" secondAttribute="trailing" id="rRl-4u-wgq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kbV-45-Gcy"/>
                     </view>
                     <connections>
+                        <outlet property="labelNoInfo" destination="1YL-A1-ItF" id="aYT-6A-Cjt"/>
                         <outlet property="searchBar" destination="fG3-qf-fnf" id="jvo-Mg-CUN"/>
                         <outlet property="tableView" destination="oBc-8W-R4B" id="ZOt-uD-ePM"/>
+                        <outlet property="viewNoInfo" destination="ork-8W-EgS" id="eXj-TY-ARu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvZ-tl-Kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-140" y="122"/>
+            <point key="canvasLocation" x="-140" y="121.88905547226388"/>
         </scene>
     </scenes>
     <resources>
         <image name="editaddress24Submit300" width="24" height="24"/>
         <image name="off" width="24" height="24"/>
+        <image name="userimgEmpty80Multi" width="80" height="80"/>
     </resources>
 </document>
