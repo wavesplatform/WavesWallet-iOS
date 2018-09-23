@@ -37,7 +37,7 @@ public class BasicTransaction: Object, IdentifiableType {
     @available(*, deprecated, message: "need remove")
     @objc dynamic var asset: IssueTransaction?
     @available(*, deprecated, message: "need remove")
-    @objc dynamic var addressBook: AddressBook?
+    @objc dynamic var addressBook: AddressBookOld?
 
     @available(*, deprecated, message: "need remove")
     convenience init(tx: Transaction) {

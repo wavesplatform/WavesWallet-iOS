@@ -12,10 +12,10 @@ import RxRealm
 import RxSwift
 import RxCocoa
 
-class AddressBookViewController: UIViewController, UITableViewDelegate {
+class AddressBookViewControllerOld: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
 
-    let selectedAddress: Variable<AddressBook?> = Variable(nil)
+    let selectedAddress: Variable<AddressBookOld?> = Variable(nil)
     
     let disposeBag = DisposeBag()
     
@@ -27,7 +27,7 @@ class AddressBookViewController: UIViewController, UITableViewDelegate {
 
     func fetchAddresses() {
         let realm = try! Realm()
-        let rAddresses = realm.objects(AddressBook.self).filter("name != nil")
+        let rAddresses = realm.objects(AddressBookOld.self).filter("name != nil")
         
         let items = Observable.array(from: rAddresses)
         
@@ -43,7 +43,7 @@ class AddressBookViewController: UIViewController, UITableViewDelegate {
         
         
         tableView.rx
-            .modelSelected(AddressBook.self)
+            .modelSelected(AddressBookOld.self)
             .subscribe(onNext:  { value in
                 self.selectedAddress.value = value
                 print("Tapped `\(value)`")

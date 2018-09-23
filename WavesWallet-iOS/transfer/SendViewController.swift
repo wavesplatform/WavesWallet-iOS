@@ -178,7 +178,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let abVc = segue.destination as? AddressBookViewController {
+        if let abVc = segue.destination as? AddressBookViewControllerOld {
             abVc.selectedAddress.asObservable().skip(1).subscribe(onNext: { addr in
                 self.addressField.text = addr?.address
                 self.addressField.becomeFirstResponder()
@@ -251,7 +251,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         let bt = BasicTransaction(tx: tx)
         try! realm.write {
             realm.add(tx, update: true)
-            bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
+            bt.addressBook = realm.create(AddressBookOld.self, value: ["address": bt.counterParty], update: true)
             realm.add(bt, update: true)
         }
         return bt
