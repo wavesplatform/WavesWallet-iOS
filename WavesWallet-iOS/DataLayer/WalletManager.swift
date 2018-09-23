@@ -94,7 +94,7 @@ class WalletManager {
                     realm.add(txs, update: true)
                     realm.add(txs.map { tx in
                         let bt = BasicTransaction(tx: tx)
-                        bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
+                        bt.addressBook = realm.create(AddressBookOld.self, value: ["address": bt.counterParty], update: true)
                         return bt
                     }, update: true)
                 }
@@ -238,7 +238,7 @@ class WalletManager {
     }
 
     class func restorePrivateKeyFromRealm() -> Observable<PrivateKeyAccount> {
-        
+
         return AskManager.askForPassword().flatMap { pwd -> Observable<PrivateKeyAccount>in
             if let realm = getWalletSeedRealm(address: getAddress(), password: pwd) {
                 let item = realm.object(ofType: SeedItem.self, forPrimaryKey: currentWallet!.publicKeyStr)
