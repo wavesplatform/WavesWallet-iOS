@@ -17,6 +17,8 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
     private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
     private(set) lazy var transactions: TransactionsInteractorProtocol = TransactionsInteractor()
     private(set) lazy var accounts: AccountsInteractorProtocol = AccountsInteractorMock()
-    private(set) lazy var wallets: WalletsInteractorProtocol = WalletsInteractor()    
+    private(set) lazy var wallets: WalletsInteractorProtocol = WalletsInteractor()
+    private(set) lazy var authorization: AuthorizationInteractorProtocol = AuthorizationInteractor()
+
     fileprivate init() {}
 }

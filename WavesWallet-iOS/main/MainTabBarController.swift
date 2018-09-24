@@ -95,7 +95,7 @@ final class MainTabBarController: RDVTabBarController {
 
     func updateBadges() {
         let profileItem = tabBar.items[4] as! RDVTabBarItem
-        profileItem.badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
+//        profileItem.badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
     }
 
     func setupLastScrollCorrectOffset() {

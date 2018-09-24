@@ -35,47 +35,47 @@ class LoginViewController: UIViewController {
     
     
     func fetchWallets() {
-        rWallets = WalletManager.getWalletsRealm().objects(WalletItem.self)
-            
-        let items = Observable.collection(from: rWallets)
-        
-        items
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, item, cell) in
-                cell.textLabel?.text = item.name
-                cell.detailTextLabel?.text = item.address
-            }
-            .disposed(by: bag)
-        
-        tableView.rx
-            .modelSelected(WalletItem.self)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext:  { wallet in
-                WalletManager.didLogin(toWallet: wallet)
-            })
-            .disposed(by: bag)
-        
-        tableView.rx.itemDeleted.asObservable()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext:  { indexPath in
-                let wallet = self.rWallets[indexPath.row]
-                self.askForDeletion(wallet: wallet)
-            })
-            .disposed(by: bag)
+//        rWallets = WalletManager.getWalletsRealm().objects(WalletItem.self)
+//
+//        let items = Observable.collection(from: rWallets)
+//
+//        items
+//            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, item, cell) in
+//                cell.textLabel?.text = item.name
+//                cell.detailTextLabel?.text = item.address
+//            }
+//            .disposed(by: bag)
+//
+//        tableView.rx
+//            .modelSelected(WalletItem.self)
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext:  { wallet in
+//                WalletManager.didLogin(toWallet: wallet)
+//            })
+//            .disposed(by: bag)
+//
+//        tableView.rx.itemDeleted.asObservable()
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext:  { indexPath in
+//                let wallet = self.rWallets[indexPath.row]
+//                self.askForDeletion(wallet: wallet)
+//            })
+//            .disposed(by: bag)
 
     }
     
     func askForDeletion(wallet: WalletItem) {
-        let message = "Are you sure you want to delete \(wallet.name) wallet?"
-        let warning = "Please confirm you have backed up your wallet seed elsewhere otherwise any money in this wallet will be inaccessible!!! "
-        let alertView = UIAlertController(title: "Delete Wallet",
-                                          message: warning + message, preferredStyle:.alert)
-        let okAction = UIAlertAction(title: "Delete", style: .default) { _ in
-            WalletManager.deleteWallet(walletItem: wallet) }
-        alertView.addAction(okAction)
-        
-        let canceAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertView.addAction(canceAction)
-        self.present(alertView, animated: true, completion: nil)
+//        let message = "Are you sure you want to delete \(wallet.name) wallet?"
+//        let warning = "Please confirm you have backed up your wallet seed elsewhere otherwise any money in this wallet will be inaccessible!!! "
+//        let alertView = UIAlertController(title: "Delete Wallet",
+//                                          message: warning + message, preferredStyle:.alert)
+//        let okAction = UIAlertAction(title: "Delete", style: .default) { _ in
+//            WalletManager.deleteWallet(walletItem: wallet) }
+//        alertView.addAction(okAction)
+//        
+//        let canceAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        alertView.addAction(canceAction)
+//        self.present(alertView, animated: true, completion: nil)
 
     }
 

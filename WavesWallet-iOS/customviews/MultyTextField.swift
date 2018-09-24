@@ -8,6 +8,23 @@
 
 import UIKit
 
+private extension UITextView {
+
+    func alignTextVerticallyInContainer() {
+        guard let font = font else { return }
+
+        if self.contentSize.height < self.bounds.size.height {
+            return
+        }
+
+        let text = (self.text.count == 0 ? "" : self.text) ?? ""
+        let height = text.maxHeightMultiline(font: font, forWidth: self.bounds.size.width)
+        var topCorrect = (self.bounds.size.height - height) / 2
+        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
+        self.textContainerInset.top = topCorrect
+    }
+}
+
 final class MultyTextView: UITextView {
 
     override func layoutSubviews() {
@@ -127,23 +144,6 @@ extension MultyTextField: ViewConfiguration {
         checkValidValue()
         textViewValue.autocorrectionType = .no
         textViewValue.autocapitalizationType = .none
-    }
-}
-
-private extension UITextView {
-
-    func alignTextVerticallyInContainer() {
-        guard let font = font else { return }
-
-        if self.contentSize.height < self.bounds.size.height {
-            return
-        }
-
-        let text = (self.text.count == 0 ? "" : self.text) ?? ""
-        let height = text.maxHeightMultiline(font: font, forWidth: self.bounds.size.width)
-        var topCorrect = (self.bounds.size.height - height) / 2
-        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
-        self.textContainerInset.top = topCorrect
     }
 }
 

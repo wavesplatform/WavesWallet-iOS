@@ -9,14 +9,14 @@
 import Foundation
 extension DomainLayer.DTO {
 
-    struct Wallet {
+    struct Wallet: Mutating {
         let name: String
         let address: String
         let publicKey: String
         let secret: String
-        let isLoggedIn: Bool
-        let isBackedUp: Bool
-        let hasBiometricEntrance: Bool
+        var isLoggedIn: Bool
+        var isBackedUp: Bool
+        var hasBiometricEntrance: Bool
         let id: String
     }
 
