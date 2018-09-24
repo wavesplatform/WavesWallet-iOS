@@ -15,4 +15,5 @@ protocol FactoryInteractorsProtocol {
     var transactions: TransactionsInteractorProtocol { get }
     var accounts: AccountsInteractorProtocol { get }
     var wallets: WalletsInteractorProtocol { get }
+    var authorization: AuthorizationInteractorProtocol { get }
 }

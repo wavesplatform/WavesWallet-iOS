@@ -16,6 +16,7 @@ protocol PasscodeInteractorProtocol {
 final class PasscodeInteractor: PasscodeInteractorProtocol {
 
     private let walletsInteractor: WalletsInteractorProtocol = FactoryInteractors.instance.wallets
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool> {
 
@@ -26,9 +27,10 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
                                                password: account.password,
                                                passcode: passcode)
 
-        return walletsInteractor.registerWallet(query).map { wallet in
-            print(wallet)
-            return true
-        }
+        return walletsInteractor.registerWallet(query)
+            .flatMap({ [weak self] wallet -> Observable<Bool> in
+                guard let owner = self else {  return Observable.empty() }
+                return owner.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
+            })
     }
 }

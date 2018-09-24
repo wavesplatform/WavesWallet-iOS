@@ -85,6 +85,30 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         })
     }
 
+    func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]> {
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            do {
+                try realm.write {
+                    let walletItems = wallets.map { WalletItem(wallet: $0) }
+                    realm.add(walletItems, update: true)
+                }
+                observer.onNext(wallets)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            return Disposables.create()
+        })
+    }
+
     func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
@@ -110,6 +134,27 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
+
+            return Disposables.create()
+        })
+    }
+
+    func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[DomainLayer.DTO.Wallet]> {
+
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let objects = realm.objects(WalletItem.self)
+                .filter("isLoggedIn == %@", specifications.isLoggedIn)
+                .toArray()
+                .map { DomainLayer.DTO.Wallet(wallet: $0) }
+
+            observer.onNext(objects)
+            observer.onCompleted()
 
             return Disposables.create()
         })
