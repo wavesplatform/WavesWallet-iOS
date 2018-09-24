@@ -49,6 +49,7 @@ target 'WavesWallet-iOS' do
     # External Service
     pod 'Firebase/Core'
     pod 'Firebase/Database'
+    pod 'Firebase/Auth'
 
     pod 'Fabric'
     pod 'Crashlytics'
@@ -60,6 +61,7 @@ target 'WavesWallet-iOS' do
     pod 'base58', :path => 'Vendors/Base58'
     pod 'keccak', :path => 'Vendors/Keccak'
     pod 'blake2', :path => 'Vendors/Blake2'
+    pod 'CryptoSwift'
 
     pod 'KeychainAccess'
 

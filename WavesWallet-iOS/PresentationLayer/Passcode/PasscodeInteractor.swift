@@ -10,12 +10,25 @@ import Foundation
 import RxSwift
 
 protocol PasscodeInteractorProtocol {
-    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: [Int]) -> Observable<Bool>
+    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool>
 }
 
 final class PasscodeInteractor: PasscodeInteractorProtocol {
 
-    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: [Int]) -> Observable<Bool> {
-        return Observable.just(true)
+    private let walletsInteractor: WalletsInteractorProtocol = FactoryInteractors.instance.wallets
+
+    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool> {
+
+        let query = DomainLayer.DTO.WalletRegistation.init(name: account.name,
+                                               address: account.privateKey.address,
+                                               privateKey: account.privateKey,
+                                               isBackedUp: !account.needBackup,
+                                               password: account.password,
+                                               passcode: passcode)
+
+        return walletsInteractor.registerWallet(query).map { wallet in
+            print(wallet)
+            return true
+        }
     }
 }

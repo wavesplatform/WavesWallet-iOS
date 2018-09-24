@@ -62,11 +62,10 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         })
     }
 
-    func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+    func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
-                observer.onNext(false)
+            guard let realm = self?.realm else {                
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -75,10 +74,9 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 try realm.write {
                     realm.add(WalletItem(wallet: wallet), update: true)
                 }
-                observer.onNext(true)
+                observer.onNext(wallet)
                 observer.onCompleted()
             } catch _ {
-                observer.onNext(false)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
