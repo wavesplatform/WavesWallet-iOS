@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        backupAttentionLabel.isHidden = WalletManager.currentWallet?.isBackedUp ?? false
+//        backupAttentionLabel.isHidden = WalletManager.currentWallet?.isBackedUp ?? false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

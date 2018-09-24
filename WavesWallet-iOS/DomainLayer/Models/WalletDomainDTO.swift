@@ -25,4 +25,13 @@ extension DomainLayer.DTO {
         let seed: String
         let address: String
     }
+
+    struct WalletRegistation {
+        let name: String
+        let address: String
+        let privateKey: PrivateKeyAccount
+        let isBackedUp: Bool
+        let password: String
+        let passcode: String
+    }
 }

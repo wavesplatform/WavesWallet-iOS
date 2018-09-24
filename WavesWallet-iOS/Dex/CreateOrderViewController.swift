@@ -116,21 +116,21 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
             }
             else {
                 
-                if WalletManager.currentWallet?.matcherKeyAccount == nil {
-
-                    NetworkManager.getMatcherPublicKey(complete: { (key, errorMessage) in
-                        if errorMessage != nil {
-                            self.presentBasicAlertWithTitle(title: errorMessage!)
-                        }
-                        else {
-                            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key!))
-                            self.setupInfo(info)
-                        }
-                    })
-                }
-                else {
-                    self.setupInfo(info)
-                }
+//                if WalletManager.currentWallet?.matcherKeyAccount == nil {
+//
+//                    NetworkManager.getMatcherPublicKey(complete: { (key, errorMessage) in
+//                        if errorMessage != nil {
+//                            self.presentBasicAlertWithTitle(title: errorMessage!)
+//                        }
+//                        else {
+//                            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key!))
+//                            self.setupInfo(info)
+//                        }
+//                    })
+//                }
+//                else {
+//                    self.setupInfo(info)
+//                }
             }
         }
 

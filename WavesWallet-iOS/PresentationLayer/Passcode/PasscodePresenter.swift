@@ -34,7 +34,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 
     private struct RegistationQuery: Hashable {
         let account: Types.DTO.Account
-        let passcode: [Int]
+        let passcode: String
     }
 
     fileprivate typealias Types = PasscodeTypes
@@ -66,7 +66,8 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         return react(query: { state -> RegistationQuery? in
 
             if case let  .registration(account) = state.kind, let action = state.action, case .registration =  action {
-                return RegistationQuery(account: account, passcode: state.passcode)
+                let passcode = state.passcode.reduce(into: "", { $0 += "\($1)" })
+                return RegistationQuery(account: account, passcode: passcode)
             }
 
             return nil
@@ -123,6 +124,7 @@ private extension PasscodePresenter {
             state.displayState.numbers = []
             state.displayState.isHiddenBackButton = false
             state.displayState.error = nil
+            state.passcode = []
 
         case .repeatPassword:
             state.displayState.numbers = numbers
@@ -131,9 +133,11 @@ private extension PasscodePresenter {
                 state.displayState.isLoading = true
                 state.displayState.isHiddenBackButton = true
                 state.action = .registration
+                state.passcode = newPassword
             } else {
                 state.displayState.error = .incorrectPasscode
                 state.displayState.isHiddenBackButton = false
+                state.passcode = []
             }
         }
     }

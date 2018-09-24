@@ -11,6 +11,7 @@ import RxSwift
 
 enum AuthenticationRepositoryError: Error {
     case fail
+    case passcodeIncorrect
     case permissionDenied
     case attemptsEnded
 }

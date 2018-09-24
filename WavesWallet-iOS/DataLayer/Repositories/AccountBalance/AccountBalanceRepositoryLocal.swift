@@ -137,9 +137,14 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
 
         if let asset = balance.asset {
             self.asset = DomainLayer.DTO.Asset(asset)
+        } else {
+            self.asset  = nil
         }
+        
         if let settings = balance.settings {
             self.settings = .init(settings: settings)
+        } else {
+            self.settings  = nil
         }
     }
 }
