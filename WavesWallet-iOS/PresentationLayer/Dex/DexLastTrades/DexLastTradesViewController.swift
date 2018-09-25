@@ -25,7 +25,7 @@ final class DexLastTradesViewController: UIViewController {
     @IBOutlet private weak var buttonSell: DexTraderContainerButton!
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var labelEmptyData: UILabel!
-    @IBOutlet weak var labelLoading: UILabel!
+    @IBOutlet private weak var labelLoading: UILabel!
     
     var presenter: DexLastTradesPresenterProtocol!
     private let sendEvent: PublishRelay<DexLastTrades.Event> = PublishRelay<DexLastTrades.Event>()
