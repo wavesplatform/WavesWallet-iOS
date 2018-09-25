@@ -15,7 +15,7 @@ protocol AddAddressViewControllerDelegate: class {
     func addAddressViewControllerDidBack()
 }
 
-class AddAddressViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
+class AddAddressViewControllerOlds: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
 
     var delegate: AddAddressViewControllerDelegate?
     

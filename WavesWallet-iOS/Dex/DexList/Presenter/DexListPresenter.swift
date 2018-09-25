@@ -48,7 +48,9 @@ final class DexListPresenter: DexListPresenterProtocol {
     
         switch event {
         case .readyView:
-            return state.mutate { $0.isNeedRefreshing = true }
+            return state.mutate {
+                $0.isNeedRefreshing = true
+                }.changeAction(.update)
             
         case .setModels(let models):
             

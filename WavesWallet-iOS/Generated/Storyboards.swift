@@ -56,6 +56,8 @@ internal enum StoryboardScene {
   internal enum AddressBook: StoryboardType {
     internal static let storyboardName = "AddressBook"
 
+    internal static let addAddressBookViewController = SceneType<WavesWallet_iOS.AddAddressBookViewController>(storyboard: AddressBook.self, identifier: "AddAddressBookViewController")
+
     internal static let addressBookViewController = SceneType<WavesWallet_iOS.AddressBookViewController>(storyboard: AddressBook.self, identifier: "AddressBookViewController")
   }
   internal enum Asset: StoryboardType {
@@ -204,7 +206,7 @@ internal enum StoryboardScene {
   internal enum Transactions: StoryboardType {
     internal static let storyboardName = "Transactions"
 
-    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewController>(storyboard: Transactions.self, identifier: "AddAddressViewController")
+    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewControllerOlds>(storyboard: Transactions.self, identifier: "AddAddressViewController")
 
     internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: Transactions.self, identifier: "TransactionHistoryViewController")
   }

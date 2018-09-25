@@ -47,7 +47,7 @@ extension SuccessSystemMessageView {
         let view = SuccessSystemMessageView()
         view.setupMessage(message)
         view.animate()
-        view.addToSupperView()
+        AppDelegate.shared().window?.addSubview(view)
     }
 }
 
@@ -74,17 +74,6 @@ private extension SuccessSystemMessageView {
 }
 
 private extension SuccessSystemMessageView {
-    
-    func addToSupperView() {
-        
-        AppDelegate.shared().window?.subviews.forEach({
-            if $0.isKind(of: classForCoder) {
-                $0.removeFromSuperview()
-            }
-        })
-        
-        AppDelegate.shared().window?.addSubview(self)
-    }
     
     func animate() {
         alpha = 0

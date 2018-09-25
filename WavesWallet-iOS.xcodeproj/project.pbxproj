@@ -397,6 +397,7 @@
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E93D553821446B0C00F3ACC0 /* DexCreateOrderTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553721446B0C00F3ACC0 /* DexCreateOrderTypes.swift */; };
 		E93D553E2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */; };
+		E93DC64F2159BA70001C1041 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */; };
 		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
@@ -472,6 +473,9 @@
 		E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99ECC611F59A7B800ADB12D /* OrderConfirmView.xib */; };
 		E9A05C5620E924B400B0E0FA /* NewAccountBackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
+		E9A2268F21596700006E0CE1 /* BaseInputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9A2268D21596700006E0CE1 /* BaseInputTextField.xib */; };
+		E9A2269021596700006E0CE1 /* BaseInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2268E21596700006E0CE1 /* BaseInputTextField.swift */; };
+		E9A2269421596BC7006E0CE1 /* AddAddressTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2269321596BC7006E0CE1 /* AddAddressTextField.swift */; };
 		E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4681620E22B8300BD0E75 /* CreateAliasViewController.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
 		E9A4813120D9CA7500272C6D /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */; };
@@ -498,6 +502,8 @@
 		E9C540E3212F8D5200253BDB /* DexMyOrders.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9C540E5212F8D5200253BDB /* DexMyOrders.strings */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
+		E9C9A23621594319004876DC /* AddAddressBook.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9C9A23821594319004876DC /* AddAddressBook.strings */; };
+		E9C9A23D21595171004876DC /* AddAddressTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C9A23C21595171004876DC /* AddAddressTextField.xib */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
 		E9CFBC352124D31700CE7413 /* DexLastTradesModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CFBC342124D31700CE7413 /* DexLastTradesModuleBuilder.swift */; };
@@ -520,6 +526,7 @@
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
 		E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E7129C20DC05A900B95669 /* Hello.storyboard */; };
 		E9ED4F172157FC3200B7D82D /* SuccessSystemMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */; };
+		E9ED4F1B215810EB00B7D82D /* AddAddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED4F1A215810EB00B7D82D /* AddAddressBookViewController.swift */; };
 		E9EDC6BA2123A38500C58E0D /* DexTraderContainer.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */; };
 		E9EDC6C12123A5A900C58E0D /* DexOrderBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDC6C02123A5A900C58E0D /* DexOrderBookViewController.swift */; };
 		E9EDC6C42123A5CE00C58E0D /* DexChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDC6C32123A5CE00C58E0D /* DexChartViewController.swift */; };
@@ -558,7 +565,7 @@
 		E9FA5F532121B3D800F16889 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA5F522121B3D800F16889 /* SearchBarView.swift */; };
 		E9FA5F552121B3EA00F16889 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FA5F542121B3EA00F16889 /* SearchBarView.xib */; };
 		E9FA778020E9556B000B21D5 /* AccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA777F20E9556B000B21D5 /* AccountPasswordViewController.swift */; };
-		E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FCE79020C01CD200B6B588 /* AddAddressViewController.swift */; };
+		E9FCE79120C01CD200B6B588 /* AddAddressViewControllerOlds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
@@ -1020,6 +1027,7 @@
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E93D553721446B0C00F3ACC0 /* DexCreateOrderTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderTypes.swift; sourceTree = "<group>"; };
 		E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookModuleOutput.swift; sourceTree = "<group>"; };
+		E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressBookModuleBuilder.swift; sourceTree = "<group>"; };
 		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -1107,6 +1115,9 @@
 		E99ECC611F59A7B800ADB12D /* OrderConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderConfirmView.xib; sourceTree = "<group>"; };
 		E9A05C5520E924B400B0E0FA /* NewAccountBackupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBackupInfoViewController.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
+		E9A2268D21596700006E0CE1 /* BaseInputTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseInputTextField.xib; sourceTree = "<group>"; };
+		E9A2268E21596700006E0CE1 /* BaseInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseInputTextField.swift; sourceTree = "<group>"; };
+		E9A2269321596BC7006E0CE1 /* AddAddressTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressTextField.swift; sourceTree = "<group>"; };
 		E9A4681620E22B8300BD0E75 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9A4813020D9CA7500272C6D /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
@@ -1137,6 +1148,10 @@
 		E9C540E7212F8D5600253BDB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexMyOrders.strings; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
+		E9C9A23721594319004876DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddAddressBook.strings; sourceTree = "<group>"; };
+		E9C9A2392159431B004876DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddAddressBook.strings; sourceTree = "<group>"; };
+		E9C9A23A2159431C004876DC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/AddAddressBook.strings; sourceTree = "<group>"; };
+		E9C9A23C21595171004876DC /* AddAddressTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressTextField.xib; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E9CFBC342124D31700CE7413 /* DexLastTradesModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DexLastTradesModuleBuilder.swift; path = "WavesWallet-iOS/dex/DexLastTrades/DexLastTradesModuleBuilder.swift"; sourceTree = SOURCE_ROOT; };
@@ -1162,6 +1177,7 @@
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
 		E9E7129C20DC05A900B95669 /* Hello.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSystemMessageView.swift; sourceTree = "<group>"; };
+		E9ED4F1A215810EB00B7D82D /* AddAddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressBookViewController.swift; sourceTree = "<group>"; };
 		E9EDC6BB2123A38500C58E0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
 		E9EDC6BD2123A38700C58E0D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
 		E9EDC6BE2123A38B00C58E0D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/DexTraderContainer.strings; sourceTree = "<group>"; };
@@ -1208,7 +1224,7 @@
 		E9FA5F522121B3D800F16889 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		E9FA5F542121B3EA00F16889 /* SearchBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		E9FA777F20E9556B000B21D5 /* AccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordViewController.swift; sourceTree = "<group>"; };
-		E9FCE79020C01CD200B6B588 /* AddAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
+		E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewControllerOlds.swift; sourceTree = "<group>"; };
 		E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBackupPhraseViewController.swift; sourceTree = "<group>"; };
 		E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupViewController.swift; sourceTree = "<group>"; };
 		F71B77691EABA4F80096CA85 /* TransferRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequest.swift; sourceTree = "<group>"; };
@@ -2078,10 +2094,8 @@
 		0AF92281212E1234003BA067 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
-				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
-				E930BE3B2148E6E000B28540 /* MoneyTextField.swift */,
+				E9A2268B2159666E006E0CE1 /* UIKit */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
-				E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
 				0AF92288212E1234003BA067 /* EmptyCell.swift */,
@@ -2200,14 +2214,8 @@
 			isa = PBXGroup;
 			children = (
 				E904BC5B2155A86200A108B6 /* AddressBook.storyboard */,
-				E904BC6D2155B61D00A108B6 /* Interactor */,
-				E904BC6C2155B5FA00A108B6 /* Presenter */,
-				E904BC692155AEC600A108B6 /* Views */,
-				E904BC5F2155AA8F00A108B6 /* AddressBookViewController.swift */,
-				E904BC7B2155BA9200A108B6 /* AddressBookModuleBuilder.swift */,
-				E904BC7D215743D200A108B6 /* AddressBookModuleOutput.swift */,
-				E904BC792155B6CE00A108B6 /* AddressBookTypes.swift */,
-				E904BC662155ADCC00A108B6 /* AddressBook.strings */,
+				E9ED4F182158107E00B7D82D /* AddAddressBook */,
+				E9ED4F192158109300B7D82D /* AddressBook */,
 			);
 			path = AddressBook;
 			sourceTree = "<group>";
@@ -2473,6 +2481,26 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E9A2268B2159666E006E0CE1 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				E9A2268C21596700006E0CE1 /* BaseInputTextField */,
+				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
+				E930BE3B2148E6E000B28540 /* MoneyTextField.swift */,
+				E9ED4F162157FC3200B7D82D /* SuccessSystemMessageView.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		E9A2268C21596700006E0CE1 /* BaseInputTextField */ = {
+			isa = PBXGroup;
+			children = (
+				E9A2268D21596700006E0CE1 /* BaseInputTextField.xib */,
+				E9A2268E21596700006E0CE1 /* BaseInputTextField.swift */,
+			);
+			path = BaseInputTextField;
+			sourceTree = "<group>";
+		};
 		E9B2E308211918A40004E452 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2577,6 +2605,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E9C9A23B21595134004876DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9C9A23C21595171004876DC /* AddAddressTextField.xib */,
+				E9A2269321596BC7006E0CE1 /* AddAddressTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E9CFBC3A2124EA5400CE7413 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2647,6 +2684,32 @@
 				E96D1F7120DE5BA40061AD75 /* HelloLanguagesViewController.swift */,
 			);
 			path = Hello;
+			sourceTree = "<group>";
+		};
+		E9ED4F182158107E00B7D82D /* AddAddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				E9C9A23B21595134004876DC /* Views */,
+				E9ED4F1A215810EB00B7D82D /* AddAddressBookViewController.swift */,
+				E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */,
+				E9C9A23821594319004876DC /* AddAddressBook.strings */,
+			);
+			path = AddAddressBook;
+			sourceTree = "<group>";
+		};
+		E9ED4F192158109300B7D82D /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				E904BC6D2155B61D00A108B6 /* Interactor */,
+				E904BC6C2155B5FA00A108B6 /* Presenter */,
+				E904BC692155AEC600A108B6 /* Views */,
+				E904BC5F2155AA8F00A108B6 /* AddressBookViewController.swift */,
+				E904BC7B2155BA9200A108B6 /* AddressBookModuleBuilder.swift */,
+				E904BC7D215743D200A108B6 /* AddressBookModuleOutput.swift */,
+				E904BC792155B6CE00A108B6 /* AddressBookTypes.swift */,
+				E904BC662155ADCC00A108B6 /* AddressBook.strings */,
+			);
+			path = AddressBook;
 			sourceTree = "<group>";
 		};
 		E9EDC6BF2123A59300C58E0D /* DexOrderBook */ = {
@@ -2908,7 +2971,7 @@
 				F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */,
 				F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */,
 				E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */,
-				E9FCE79020C01CD200B6B588 /* AddAddressViewController.swift */,
+				E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */,
 				E96038AF20B597A700D303E8 /* Views */,
 			);
 			path = transactions;
@@ -3185,6 +3248,7 @@
 				E9619267211CAA03005E6D1E /* DexMarketPairs.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E9619265211CA845005E6D1E /* DexMarketVerifiedAssets.json in Resources */,
+				E9C9A23D21595171004876DC /* AddAddressTextField.xib in Resources */,
 				0AF92200212E07B3003BA067 /* AssetHistorySkeletonCell.xib in Resources */,
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
@@ -3194,6 +3258,7 @@
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				E91705F121238F50006CE9A5 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				F96DFFE820DD137F0056BB52 /* SixthInfoPageView.xib in Resources */,
+				E9C9A23621594319004876DC /* AddAddressBook.strings in Resources */,
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 				E9C540E3212F8D5200253BDB /* DexMyOrders.strings in Resources */,
@@ -3202,6 +3267,7 @@
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
 				E904BC5C2155A86200A108B6 /* AddressBook.storyboard in Resources */,
 				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
+				E9A2268F21596700006E0CE1 /* BaseInputTextField.xib in Resources */,
 				F96DFFD420DCED080056BB52 /* FirstInfoPageView.xib in Resources */,
 				E9F344DD21474FB700ADA4D9 /* DexCreateOrder.strings in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
@@ -3478,6 +3544,7 @@
 				0AF922FC212E1234003BA067 /* CenteringContentButton.swift in Sources */,
 				0A485E9E2100AE9B00079B49 /* IssueTransaction.swift in Sources */,
 				E9983DD1211C729F002349CA /* DexMarketTypes.swift in Sources */,
+				E9A2269421596BC7006E0CE1 /* AddAddressTextField.swift in Sources */,
 				0AF922D1212E1234003BA067 /* UIView+Shadow.swift in Sources */,
 				F7C683BF1EA93C5800C87DAF /* MainTabBarController.swift in Sources */,
 				0A20145F212EDD720004BDE8 /* DateFormatter+ISO.swift in Sources */,
@@ -3513,6 +3580,7 @@
 				0A5B6E6F211A2B6D005A7F09 /* TransactionNodeService.swift in Sources */,
 				E909B93B2154631400C3D171 /* DexCreateOrderInteractorMock.swift in Sources */,
 				F96DFFDA20DD092D0056BB52 /* ThirdIndoPageView.swift in Sources */,
+				E9ED4F1B215810EB00B7D82D /* AddAddressBookViewController.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
@@ -3554,6 +3622,7 @@
 				0AF922E3212E1234003BA067 /* HalfModalPresentationController.swift in Sources */,
 				E9FA5F532121B3D800F16889 /* SearchBarView.swift in Sources */,
 				0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */,
+				E9A2269021596700006E0CE1 /* BaseInputTextField.swift in Sources */,
 				0A1DAD7320F3A12B004DA625 /* AssetsNodeService.swift in Sources */,
 				E904BC732155B66B00A108B6 /* AddressBookInteractorProtocol.swift in Sources */,
 				E965BEF72147499300679E0D /* DexCreateOrderSegmentedControl.swift in Sources */,
@@ -3658,6 +3727,7 @@
 				0A7643FE21187DF500B633E1 /* FactoryInteractors.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
 				0A5E4BA92137FC3000E3C3C3 /* TransactionCell.swift in Sources */,
+				E93DC64F2159BA70001C1041 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E959293C211964C0007C06EA /* DexCoordinator.swift in Sources */,
 				E9EDC6CA2123A60C00C58E0D /* DexMyOrdersViewController.swift in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
@@ -3861,7 +3931,7 @@
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				F7D283DB1EAFFCB1005B05F7 /* BackupSeedWordsViewController.swift in Sources */,
 				0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */,
-				E9FCE79120C01CD200B6B588 /* AddAddressViewController.swift in Sources */,
+				E9FCE79120C01CD200B6B588 /* AddAddressViewControllerOlds.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				0AF922B1212E1234003BA067 /* UIColor+Hex.swift in Sources */,
 				E930BE3C2148E6E000B28540 /* MoneyTextField.swift in Sources */,
@@ -4030,6 +4100,16 @@
 			name = DexMyOrders.strings;
 			path = "WavesWallet-iOS/dex/DexMyOrders";
 			sourceTree = SOURCE_ROOT;
+		};
+		E9C9A23821594319004876DC /* AddAddressBook.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C9A23721594319004876DC /* en */,
+				E9C9A2392159431B004876DC /* ru */,
+				E9C9A23A2159431C004876DC /* tr */,
+			);
+			name = AddAddressBook.strings;
+			sourceTree = "<group>";
 		};
 		E9DC80442154589E002A496B /* DexCompleteOrder.strings */ = {
 			isa = PBXVariantGroup;
