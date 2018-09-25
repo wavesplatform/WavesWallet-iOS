@@ -81,6 +81,14 @@ extension BaseInputTextField {
     }
 }
 
+//MARK: - UITextFieldDelegate
+extension BaseInputTextField: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 //MARK: - Setup
 
 private extension BaseInputTextField {
