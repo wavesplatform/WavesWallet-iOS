@@ -10,7 +10,7 @@ import UIKit
 
 struct AddAddressBookModuleBuilder: ModuleBuilder {
         
-    func build(input: AddressBook.DTO.User?) -> UIViewController {
+    func build(input: DomainLayer.DTO.User?) -> UIViewController {
         
         let vc = StoryboardScene.AddressBook.addAddressBookViewController.instantiate()
         vc.user = input

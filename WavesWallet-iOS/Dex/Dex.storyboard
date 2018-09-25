@@ -3991,7 +3991,7 @@ You do not have any orders</string>
         <image name="delete22Error500" width="22" height="22"/>
         <image name="dex" width="25" height="23"/>
         <image name="icon-btc" width="30" height="30"/>
-        <image name="icon_waves" width="30" height="30"/>
+        <image name="icon_waves" width="60" height="60"/>
         <image name="information22Multy" width="24" height="24"/>
         <image name="on" width="24" height="24"/>
         <image name="pair-not-selected" width="40" height="28"/>

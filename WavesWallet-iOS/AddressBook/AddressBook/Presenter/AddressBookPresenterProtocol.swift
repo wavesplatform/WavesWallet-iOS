@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 
 protocol AddressBookPresenterProtocol {
-    typealias Feedback = (Driver<AddressBook.State>) -> Signal<AddressBook.Event>
+    typealias Feedback = (Driver<AddressBookTypes.State>) -> Signal<AddressBookTypes.Event>
     var interactor: AddressBookInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
 }

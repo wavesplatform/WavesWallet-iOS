@@ -8,14 +8,12 @@
 
 import Foundation
 
-enum AddressBook {
-    enum DTO {}
+enum AddressBookTypes {
     enum ViewModel {}
-    
     
     enum Event {
         case readyView
-        case setUsers([DTO.User])
+        case setUsers([DomainLayer.DTO.User])
         case tapCheckEdit(index: Int)
         case searchTextChange(text: String)
     }
@@ -28,20 +26,20 @@ enum AddressBook {
         
         var isAppeared: Bool
         var action: Action
-        var section: AddressBook.ViewModel.Section
+        var section: AddressBookTypes.ViewModel.Section
     }
 }
 
-extension AddressBook.ViewModel {
+extension AddressBookTypes.ViewModel {
 
     struct Section: Mutating {
         var items: [Row]
     }
     
     enum Row {
-        case user(AddressBook.DTO.User)
+        case user(DomainLayer.DTO.User)
         
-        var user: AddressBook.DTO.User {
+        var user: DomainLayer.DTO.User {
             switch self {
             case .user(let user):
                 return user
@@ -50,15 +48,7 @@ extension AddressBook.ViewModel {
     }
 }
 
-extension AddressBook.DTO {
-
-    struct User {
-        let name: String
-        let address: String
-    }    
-}
-
-extension AddressBook.ViewModel.Section {
+extension AddressBookTypes.ViewModel.Section {
     
     var isEmpty: Bool {
         return items.count == 0

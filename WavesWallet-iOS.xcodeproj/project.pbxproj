@@ -400,6 +400,7 @@
 		E93DC64F2159BA70001C1041 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */; };
 		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
+		E94A6E9F215AD53E001814F7 /* UserDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */; };
 		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
 		E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D0AF920B719DF0068A1C4 /* TransactionCommentView.swift */; };
 		E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */; };
@@ -572,7 +573,7 @@
 		F72EED001EAD123C002BBA26 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */; };
 		F73553761F03D9FC00ADC449 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73553751F03D9FC00ADC449 /* Order.swift */; };
 		F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738094D1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift */; };
-		F74240B61EAB8D1600C3B84D /* AddressBookOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B11EAB8D1600C3B84D /* AddressBookOld.swift */; };
+		F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B11EAB8D1600C3B84D /* AddressBook.swift */; };
 		F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B21EAB8D1600C3B84D /* AssetBalance.swift */; };
 		F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B31EAB8D1600C3B84D /* Transaction.swift */; };
 		F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B41EAB8D1600C3B84D /* NodeManager.swift */; };
@@ -1031,6 +1032,7 @@
 		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainDTO.swift; sourceTree = "<group>"; };
 		E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E94D0AF920B719DF0068A1C4 /* TransactionCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCommentView.swift; sourceTree = "<group>"; };
 		E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
@@ -1231,7 +1233,7 @@
 		F72EECFF1EAD123C002BBA26 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F73553751F03D9FC00ADC449 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F738094D1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPairDetailsViewController.swift; sourceTree = "<group>"; };
-		F74240B11EAB8D1600C3B84D /* AddressBookOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookOld.swift; sourceTree = "<group>"; };
+		F74240B11EAB8D1600C3B84D /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		F74240B21EAB8D1600C3B84D /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		F74240B31EAB8D1600C3B84D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		F74240B41EAB8D1600C3B84D /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
@@ -1834,6 +1836,7 @@
 			isa = PBXGroup;
 			children = (
 				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
+				E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */,
 				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
 				0A5E4BBB213820C500E3C3C3 /* Transactions */,
 			);
@@ -2928,7 +2931,7 @@
 			children = (
 				0A485E962100A89400079B49 /* Transaction */,
 				0A5C919B20F3E7DD00443CE6 /* Asset.swift */,
-				F74240B11EAB8D1600C3B84D /* AddressBookOld.swift */,
+				F74240B11EAB8D1600C3B84D /* AddressBook.swift */,
 				F74240B21EAB8D1600C3B84D /* AssetBalance.swift */,
 				E963CF861F1E3602001494FD /* CandleModel.swift */,
 				0A4C9AA020EE65800095A417 /* WalletItem.swift */,
@@ -3473,6 +3476,7 @@
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
+				E94A6E9F215AD53E001814F7 /* UserDomainDTO.swift in Sources */,
 				0A3FE8B92137007500DBF4E1 /* ReissueTransactionNode.swift in Sources */,
 				0A5E4BE12138378500E3C3C3 /* LeaseCancelTransaction+Mapper.swift in Sources */,
 				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
@@ -3790,7 +3794,7 @@
 				0AF922A9212E1234003BA067 /* UIView+Layer.swift in Sources */,
 				0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */,
 				0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */,
-				F74240B61EAB8D1600C3B84D /* AddressBookOld.swift in Sources */,
+				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				E9C540D7212F88AC00253BDB /* DexMyOrdersPresenter.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				0A580E6E2135FE1400C62549 /* HighlightedButton.swift in Sources */,

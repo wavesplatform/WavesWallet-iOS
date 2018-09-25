@@ -47,7 +47,7 @@ class AddressBookManager {
         let realm = try! Realm()
         
         try! realm.write {
-            realm.create(AddressBookOld.self, value: [address, name], update: true)
+            realm.create(AddressBook.self, value: [address, name], update: true)
         }
     }
     
@@ -66,7 +66,7 @@ class AddressBookManager {
     class func deleteAddressBook(address: String) {
         let realm = try! Realm()
         try! realm.write {
-            realm.create(AddressBookOld.self, value: [address, nil], update: true)
+            realm.create(AddressBook.self, value: [address, nil], update: true)
         }
     }
     

@@ -31,7 +31,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     
     var text: String {
         set (newValue) {
-            addressTextField.updateText(newValue)
+            addressTextField.setupText(newValue)
             setupButtonsState(animation: false)
         }
         get {
@@ -75,7 +75,7 @@ private extension AddAddressTextField {
 
     
     @IBAction func deleteTapped(_ sender: Any) {
-        addressTextField.updateText("", animation: true)
+        addressTextField.setupText("", animation: true)
         setupButtonsState(animation: true)
         delegate?.addAddressTextField(self, didChange: text)
     }
@@ -134,7 +134,7 @@ private extension AddAddressTextField {
             
             if let address = result?.value {
                 
-                self.addressTextField.updateText(address, animation: true)
+                self.addressTextField.setupText(address, animation: true)
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
             }

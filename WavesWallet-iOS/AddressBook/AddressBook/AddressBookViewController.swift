@@ -22,9 +22,9 @@ final class AddressBookViewController: UIViewController {
     var isEditMode: Bool = false
     
     var presenter: AddressBookPresenterProtocol!
-    private var modelSection = AddressBook.ViewModel.Section(items: [])
+    private var modelSection = AddressBookTypes.ViewModel.Section(items: [])
     private var isSearchMode: Bool = false
-    private let sendEvent: PublishRelay<AddressBook.Event> = PublishRelay<AddressBook.Event>()
+    private let sendEvent: PublishRelay<AddressBookTypes.Event> = PublishRelay<AddressBookTypes.Event>()
     
     
     override func viewDidLoad() {
@@ -74,7 +74,6 @@ private extension AddressBookViewController {
     @objc func addUserTapped() {
         
         let controller = AddAddressBookModuleBuilder().build(input: nil)
-
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -85,22 +84,22 @@ private extension AddressBookViewController {
     
     func setupFeedBack() {
         
-        let feedback = bind(self) { owner, state -> Bindings<AddressBook.Event> in
+        let feedback = bind(self) { owner, state -> Bindings<AddressBookTypes.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
         
         let readyViewFeedback: AddressBookPresenter.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in AddressBook.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.rx.viewWillAppear.take(1).map { _ in AddressBookTypes.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
     
-    func events() -> [Signal<AddressBook.Event>] {
+    func events() -> [Signal<AddressBookTypes.Event>] {
         return [sendEvent.asSignal()]
     }
     
-    func subscriptions(state: Driver<AddressBook.State>) -> [Disposable] {
+    func subscriptions(state: Driver<AddressBookTypes.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
@@ -156,10 +155,12 @@ extension AddressBookViewController: UITableViewDataSource {
 extension AddressBookViewController: AddressBookCellDelegate {
     
     func addressBookCellDidTapEdit(_ cell: AddressBookCell) {
+        
         if let indexPath = tableView.indexPath(for: cell) {
             
             let user = modelSection.items[indexPath.row].user
-            delegate?.addressBookDidEditUser(user)
+            let controller = AddAddressBookModuleBuilder().build(input: user)
+            navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
