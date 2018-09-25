@@ -251,7 +251,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
         let bt = BasicTransaction(tx: tx)
         try! realm.write {
             realm.add(tx, update: true)
-            bt.addressBook = realm.create(AddressBookOld.self, value: ["address": bt.counterParty], update: true)
+            bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
             realm.add(bt, update: true)
         }
         return bt

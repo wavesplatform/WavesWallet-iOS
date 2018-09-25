@@ -8,15 +8,19 @@
 
 import UIKit
 
+private enum Constants {
+    static let buttonSaveBottomEditModeOffset: CGFloat = 95
+}
+
 final class AddAddressBookViewController: UIViewController {
 
     @IBOutlet private weak var textFieldAddress: AddAddressTextField!
     @IBOutlet private weak var textFieldName: BaseInputTextField!
     @IBOutlet private weak var buttonSave: HighlightedButton!
     @IBOutlet private weak var buttonDelete: UIButton!
-   
+    @IBOutlet private weak var buttonSaveBottomOffset: NSLayoutConstraint!
     
-    var user: AddressBook.DTO.User?
+    var user: DomainLayer.DTO.User?
     
     private var isValidInput: Bool {
         return textFieldAddress.trimmingText.count > 0 &&
@@ -25,13 +29,12 @@ final class AddAddressBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        title = user != nil ? Localizable.AddAddressBook.Label.edit : Localizable.AddAddressBook.Label.add
         createBackButton()
-        title = Localizable.AddAddressBook.Label.add
         setupNavBarUI()
         setupTextFields()
-        
-        textFieldAddress.text = "dasd"
+        setupEditUserMode()
         setupButtonSaveState()
     }
 
@@ -39,7 +42,6 @@ final class AddAddressBookViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationItem.backgroundImage = nil
     }
-
 }
 
 //MARK: - Actions
@@ -52,6 +54,14 @@ private extension AddAddressBookViewController {
     
     @IBAction func deleteTapped(_ sender: Any) {
     
+        let controller = UIAlertController(title: Localizable.AddAddressBook.Button.deleteAddress, message: Localizable.AddAddressBook.Label.deleteAlertMessage, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: Localizable.AddAddressBook.Button.cancel, style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: Localizable.AddAddressBook.Button.delete, style: .destructive) { (action) in
+            
+        }
+        controller.addAction(cancel)
+        controller.addAction(delete)
+        present(controller, animated: true, completion: nil)
     }
 }
 
@@ -59,7 +69,6 @@ private extension AddAddressBookViewController {
 extension AddAddressBookViewController: AddAddressTextFieldDelegate {
     
     func addAddressTextField(_ textField: AddAddressTextField, didChange text: String) {
-        print(text)
         setupButtonSaveState()
     }
 }
@@ -68,7 +77,6 @@ extension AddAddressBookViewController: AddAddressTextFieldDelegate {
 extension AddAddressBookViewController: BaseInputTextFieldDelegate {
 
     func baseInputTextField(_ textField: BaseInputTextField, didChange text: String) {
-        print(text)
         setupButtonSaveState()
     }
 }
@@ -77,6 +85,7 @@ private extension AddAddressBookViewController {
     
     func setupButtonSaveState() {
         buttonSave.backgroundColor = isValidInput ? .submit400 : .submit200
+        buttonSave.isUserInteractionEnabled = isValidInput ? true : false
     }
     
     func setupTextFields() {
@@ -86,12 +95,24 @@ private extension AddAddressBookViewController {
     }
     
     func setupLocalization() {
+        buttonDelete.setTitle(Localizable.AddAddressBook.Button.deleteAddress, for: .normal)
         buttonSave.setTitle(Localizable.AddAddressBook.Button.save, for: .normal)
-        
     }
+    
     func setupNavBarUI() {
         navigationItem.backgroundImage = UIImage()
         setupBigNavigationBar()
         hideTopBarLine()
+    }
+    
+    func setupEditUserMode() {
+        
+        buttonDelete.isHidden = user == nil
+        
+        if let user = self.user {
+            textFieldName.setupText(user.name)
+            textFieldAddress.text = user.address
+            buttonSaveBottomOffset.constant = Constants.buttonSaveBottomEditModeOffset
+        }
     }
 }

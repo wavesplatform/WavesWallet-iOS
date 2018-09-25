@@ -185,7 +185,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                 setupLastScrollCorrectOffset()
                 
-                let controller = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: true))
+                let controller = AddressBookModuleBuilder(output: nil).build(input: .init(isEditMode: true))
                 
 //                let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewControllerOlds
 //                controller.isAddMode = true
@@ -351,13 +351,5 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.labelTitle.text = otherNames[indexPath.row]
         }
         return cell
-    }
-}
-
-//MARK: - AddressBookModuleOutput
-
-extension ProfileViewController: AddressBookModuleOutput {
-    func addressBookDidEditUser(_ user: AddressBook.DTO.User) {
-        debug(user)
     }
 }

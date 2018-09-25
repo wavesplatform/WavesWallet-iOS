@@ -23,8 +23,8 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         newFeedbacks.append(searchModelsQuery())
         
-        Driver.system(initialState: AddressBook.State.initialState,
-                      reduce: { [weak self] state, event -> AddressBook.State in
+        Driver.system(initialState: AddressBookTypes.State.initialState,
+                      reduce: { [weak self] state, event -> AddressBookTypes.State in
                         return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
@@ -34,7 +34,7 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Bool? in
             return true
-        }, effects: { [weak self] _ -> Signal<AddressBook.Event> in
+        }, effects: { [weak self] _ -> Signal<AddressBookTypes.Event> in
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
@@ -45,7 +45,7 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
     private func searchModelsQuery() -> Feedback {
         return react(query: { state -> Bool? in
             return state.isAppeared ? true : nil
-        }, effects: { [weak self] _ -> Signal<AddressBook.Event> in
+        }, effects: { [weak self] _ -> Signal<AddressBookTypes.Event> in
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
@@ -54,7 +54,7 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
         })
     }
     
-    private func reduce(state: AddressBook.State, event: AddressBook.Event) -> AddressBook.State {
+    private func reduce(state: AddressBookTypes.State, event: AddressBookTypes.Event) -> AddressBookTypes.State {
         
         switch event {
         case .readyView:
@@ -65,8 +65,8 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
         case .setUsers(let users):
             return state.mutate {
                 
-                let items = users.map { AddressBook.ViewModel.Row.user($0) }
-                let section = AddressBook.ViewModel.Section(items: items)
+                let items = users.map { AddressBookTypes.ViewModel.Row.user($0) }
+                let section = AddressBookTypes.ViewModel.Section(items: items)
                 $0.section = section
                 
             }.changeAction(.update)
@@ -82,14 +82,14 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
     }
 }
 
-fileprivate extension AddressBook.State {
+fileprivate extension AddressBookTypes.State {
     
-    static var initialState: AddressBook.State {
-        let section = AddressBook.ViewModel.Section(items: [])
-        return AddressBook.State(isAppeared: false, action: .none, section: section)
+    static var initialState: AddressBookTypes.State {
+        let section = AddressBookTypes.ViewModel.Section(items: [])
+        return AddressBookTypes.State(isAppeared: false, action: .none, section: section)
     }
     
-    func changeAction(_ action: AddressBook.State.Action) -> AddressBook.State {
+    func changeAction(_ action: AddressBookTypes.State.Action) -> AddressBookTypes.State {
         
         return mutate { state in
             state.action = action

@@ -75,7 +75,7 @@ extension BaseInputTextField {
         textFieldRightOffset.constant = offset 
     }
     
-    func updateText(_ text: String, animation: Bool = false) {
+    func setupText(_ text: String, animation: Bool = false) {
         textField.text = text
         setupTopLabel(animation: animation)
     }

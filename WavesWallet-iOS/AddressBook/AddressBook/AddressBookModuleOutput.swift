@@ -9,17 +9,5 @@
 import Foundation
 
 protocol AddressBookModuleOutput: AnyObject {
-    func addressBookDidSelectUser(_ user: AddressBook.DTO.User)
-    func addressBookDidEditUser(_ user: AddressBook.DTO.User)
-}
-
-extension AddressBookModuleOutput {
-   
-    func addressBookDidSelectUser(_ user: AddressBook.DTO.User) {
-
-    }
-
-    func addressBookDidEditUser(_ user: AddressBook.DTO.User) {
-
-    }
+    func addressBookDidSelectUser(_ user: DomainLayer.DTO.User)
 }

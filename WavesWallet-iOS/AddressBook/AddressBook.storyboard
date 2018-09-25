@@ -244,6 +244,7 @@ You can create new address</string>
                     <connections>
                         <outlet property="buttonDelete" destination="1cV-e8-3vs" id="ywI-EA-Nbv"/>
                         <outlet property="buttonSave" destination="ceQ-LA-iGi" id="7d1-z5-DWu"/>
+                        <outlet property="buttonSaveBottomOffset" destination="kUP-gQ-FYp" id="aDC-XV-dl5"/>
                         <outlet property="textFieldAddress" destination="U87-Qb-lNK" id="m2L-jz-xXp"/>
                         <outlet property="textFieldName" destination="i7J-R4-htP" id="oov-ET-7XJ"/>
                     </connections>

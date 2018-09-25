@@ -29,7 +29,7 @@ final class AddressBookCell: UITableViewCell, Reusable {
 extension AddressBookCell: ViewConfiguration {
     
     struct Input {
-        let user: AddressBook.DTO.User
+        let user: DomainLayer.DTO.User
         let isEditMode: Bool
     }
     

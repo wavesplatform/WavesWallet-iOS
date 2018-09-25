@@ -11,11 +11,11 @@ import RxSwift
 
 final class AddressBookInteractor: AddressBookInteractorProtocol {
 
-    func getAllUsers() -> Observable<[AddressBook.DTO.User]> {
+    func getAllUsers() -> Observable<[DomainLayer.DTO.User]> {
         return Observable.empty()
     }
     
-    func getSearchUsers() -> Observable<[AddressBook.DTO.User]> {
+    func getSearchUsers() -> Observable<[DomainLayer.DTO.User]> {
         return Observable.empty()
     }
     
