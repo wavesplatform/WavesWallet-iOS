@@ -74,8 +74,3 @@ extension ImportCoordinator:  ImportAccountPasswordViewControllerDelegate {
                         name: name))
     }
 }
-
-// MARK: PasscodeViewDelegate
-extension ImportCoordinator:  PasscodeOutput {
-
-}

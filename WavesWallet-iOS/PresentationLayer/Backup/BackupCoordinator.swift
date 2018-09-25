@@ -48,9 +48,12 @@ extension BackupCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-            viewController.dismiss(animated: true) { [weak self] in
-                self?.completed(true)
-            }
+//            viewController.dismiss(animated: true) { [weak self] in
+//                self?.completed(false)
+//                self?.removeFromParentCoordinator()
+//            }
+            completed(false)
+            removeFromParentCoordinator()
         } else {
             startBackup()
         }
@@ -84,8 +87,7 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-        viewController.dismiss(animated: true) { [weak self] in
-        }
         completed(false)
+        removeFromParentCoordinator()
     }
 }

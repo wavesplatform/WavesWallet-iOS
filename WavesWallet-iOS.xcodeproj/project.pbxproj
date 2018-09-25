@@ -389,6 +389,8 @@
 		0AFBCA9A21132F9300285BCB /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA9921132F9300285BCB /* Images.swift */; };
 		0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFEFB5721126E0E00B50F85 /* WalletSort.strings */; };
 		0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFEFB5C211276F000B50F85 /* Wallet.strings */; };
+		0AFF5C75215A6DA000B82940 /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C74215A6DA000B82940 /* MainTabBarCoordinator.swift */; };
+		0AFF5C77215A790F00B82940 /* PasscodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */; };
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
@@ -1016,6 +1018,8 @@
 		0AFEFB5821126E5300B50F85 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WalletSort.strings; sourceTree = "<group>"; };
 		0AFEFB5B211276F000B50F85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Wallet.strings; sourceTree = "<group>"; };
 		0AFEFB5D211276F100B50F85 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Wallet.strings; sourceTree = "<group>"; };
+		0AFF5C74215A6DA000B82940 /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
+		0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCoordinator.swift; sourceTree = "<group>"; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1800,6 +1804,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
 				0A762D09214FB60400BE9204 /* Import */,
 				0A96F1CA2151B388005E148F /* Passcode */,
 				0A4399672150470E0032E608 /* Backup */,
@@ -1834,6 +1839,7 @@
 				0A96F1DD2152E14D005E148F /* PasscodeBuilder.swift */,
 				0A110CBC2153D598002A8FD7 /* Passcode.strings */,
 				0A96F1CB2151B392005E148F /* Passcode.storyboard */,
+				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
@@ -2321,6 +2327,16 @@
 				0AFBCA902113274B00285BCB /* WalletSortInteractorProtocol.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		0AFF5C73215A6ABE00B82940 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F7C683BB1EA93C5800C87DAF /* MainTabBarController.swift */,
+				0AFF5C74215A6DA000B82940 /* MainTabBarCoordinator.swift */,
+			);
+			name = MainTabBar;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		18CFECE732E67CAF8666D2C9 /* Frameworks */ = {
@@ -2925,7 +2941,6 @@
 			children = (
 				F7C683B91EA93C5800C87DAF /* AppSettings.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
-				F7C683BB1EA93C5800C87DAF /* MainTabBarController.swift */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
 				F7C683D51EA943E700C87DAF /* StoryboardManager.swift */,
 				F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */,
@@ -3408,6 +3423,7 @@
 				0A485EA02100B0BD00079B49 /* LeaseTransaction.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
+				0AFF5C75215A6DA000B82940 /* MainTabBarCoordinator.swift in Sources */,
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
@@ -3712,6 +3728,7 @@
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
 				0AF922A9212E1234003BA067 /* UIView+Layer.swift in Sources */,
 				0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */,
+				0AFF5C77215A790F00B82940 /* PasscodeCoordinator.swift in Sources */,
 				0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				E9C540D7212F88AC00253BDB /* DexMyOrdersPresenter.swift in Sources */,

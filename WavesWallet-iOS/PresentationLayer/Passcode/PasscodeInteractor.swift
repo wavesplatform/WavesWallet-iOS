@@ -31,6 +31,6 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .flatMap({ [weak self] wallet -> Observable<Bool> in
                 guard let owner = self else {  return Observable.empty() }
                 return owner.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
-            })
+            }).sweetDebug("ALA")
     }
 }

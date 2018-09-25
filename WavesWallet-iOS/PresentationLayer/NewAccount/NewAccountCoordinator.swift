@@ -68,7 +68,3 @@ extension NewAccountCoordinator {
         completed(account, needBackup)
     }
 }
-
-extension NewAccountCoordinator: PasscodeOutput {
-
-}

@@ -12,7 +12,7 @@ import RxSwift
 import RxFeedback
 
 protocol PasscodeOutput: AnyObject {
-    
+    func authorizationCompleted() -> Void
 }
 
 protocol PasscodeInput {
@@ -95,6 +95,7 @@ private extension PasscodePresenter {
         switch event {
         case .completedRegistration:
 
+            self.moduleOutput?.authorizationCompleted()
             return state.mutate(transform: { state in
                 state.action = nil
             })

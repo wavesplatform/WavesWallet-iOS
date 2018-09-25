@@ -26,6 +26,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
                     return Disposables.create()
                 }
 
+                
                 if let object = realm.object(ofType: SeedItem.self, forPrimaryKey: publicKey) {
                     observer.onNext(DomainLayer.DTO.WalletSeed(seed: object))
                     observer.onCompleted()
