@@ -23,8 +23,9 @@ final class AddressBookViewController: UIViewController {
     
     var presenter: AddressBookPresenterProtocol!
     private var modelSection = AddressBook.ViewModel.Section(items: [])
+    private var isSearchMode: Bool = false
     private let sendEvent: PublishRelay<AddressBook.Event> = PublishRelay<AddressBook.Event>()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +42,12 @@ final class AddressBookViewController: UIViewController {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.backgroundImage = UIImage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = true
+        navigationItem.backgroundImage = nil
     }
 }
 
@@ -60,9 +61,10 @@ private extension AddressBookViewController {
     }
 
     func setupUIState() {
-        viewNoInfo.isHidden = !modelSection.isEmpty
-        tableView.isHidden = modelSection.isEmpty
-        searchBar.isHidden = modelSection.isEmpty
+        let isEmpty = modelSection.isEmpty && !isSearchMode
+        viewNoInfo.isHidden = !isEmpty
+        tableView.isHidden = isEmpty
+        searchBar.isHidden = isEmpty
     }
 }
 
@@ -71,6 +73,9 @@ private extension AddressBookViewController {
     
     @objc func addUserTapped() {
         
+        let controller = AddAddressBookModuleBuilder().build(input: nil)
+
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -115,6 +120,7 @@ private extension AddressBookViewController {
 extension AddressBookViewController: SearchBarViewDelegate {
     
     func searchBarDidChangeText(_ searchText: String) {
+        isSearchMode = searchText.count > 0
         sendEvent.accept(.searchTextChange(text: searchText))
     }
 }
