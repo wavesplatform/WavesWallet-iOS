@@ -51,7 +51,9 @@ final class WalletsInteractor: WalletsInteractorProtocol {
         let id = UUID().uuidString
         let keyForPassword = UUID().uuidString.sha512()
 
-        guard let secret: String = wallet.password.sha512().aesEncrypt(withKey: keyForPassword) else { return Observable.error(WalletsInteractorError.invalid) }
+        let password = wallet.password.sha512()
+
+        guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else { return Observable.error(WalletsInteractorError.invalid) }
 
         return self.remoteAuthenticationRepository.registration(with: id,
                                                                 keyForPassword: keyForPassword,
@@ -63,7 +65,7 @@ final class WalletsInteractor: WalletsInteractorProtocol {
                 let saveSeed = owner.localWalletSeedRepository.saveSeed(for: .init(publicKey: wallet.privateKey.getPublicKeyStr(),
                                                                                    seed: wallet.privateKey.wordsStr,
                                                                                    address: wallet.privateKey.address),
-                                                                        password: wallet.password.sha512())
+                                                                        password: password)
 
                 let saveWallet = owner.localWalletRepository.saveWallet(model)
                 return saveSeed.flatMap({ _ -> Observable<DomainLayer.DTO.Wallet> in

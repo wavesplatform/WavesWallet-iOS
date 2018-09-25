@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EnterCoordinatorDelegate: AnyObject {
+    func userCompletedLogIn()
+}
+
 final class EnterCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -16,6 +20,8 @@ final class EnterCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private var account: NewAccountTypes.DTO.Account?
 
+    weak var delegate: EnterCoordinatorDelegate?
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -23,7 +29,7 @@ final class EnterCoordinator: Coordinator {
     func start() {
         let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
         enter.delegate = self
-        navigationController.pushViewController(enter, animated: true)
+        navigationController.pushViewController(enter, animated: true)        
     }
 }
 
@@ -58,20 +64,23 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
-}
-
-fileprivate extension EnterCoordinator {
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
 
-        let vc = PasscodeModuleBuilder(output: self)
-            .build(input: .init(kind: .registration(account)))
+        let passcodeCoordinator = PasscodeCoordinator(viewController: navigationController,
+                                                      kind: .registration(account))
+        passcodeCoordinator.delegate = self
 
-        let nv = CustomNavigationController(rootViewController: vc)
-        navigationController.present(nv, animated: true, completion: nil)
+        addChildCoordinator(childCoordinator: passcodeCoordinator)
+        passcodeCoordinator.start()
     }
 }
 
-extension EnterCoordinator: PasscodeOutput {
+// MARK: PasscodeCoordinatorDelegate
+extension EnterCoordinator: PasscodeCoordinatorDelegate {
 
+    func userAuthorizationCompleted() {
+        removeFromParentCoordinator()
+        delegate?.userCompletedLogIn()
+    }
 }

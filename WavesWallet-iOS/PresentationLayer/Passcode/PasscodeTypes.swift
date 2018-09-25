@@ -16,6 +16,7 @@ extension PasscodeTypes.DTO {
     
     enum Kind {
         case registration(Account)
+        case logIn(DomainLayer.DTO.Wallet)
     }
 
     struct Account: Hashable {
