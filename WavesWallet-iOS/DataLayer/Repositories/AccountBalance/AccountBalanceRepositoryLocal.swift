@@ -12,8 +12,8 @@ import RxRealm
 import RxSwift
 
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
-
-    func balances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    
+    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? Realm() else {

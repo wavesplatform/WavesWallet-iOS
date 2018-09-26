@@ -35,3 +35,7 @@ class WalletItem: Object {
         return Wallet(name: name, publicKeyAccount: publicKeyAccount, isBackedUp: isBackedUp)
     }
 }
+
+func == (lhs: WalletItem, rhs: WalletItem) -> Bool {
+    return lhs.publicKey == rhs.publicKey
+}

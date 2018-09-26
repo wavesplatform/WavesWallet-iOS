@@ -48,7 +48,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         hideTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
         buttonConfirm.alpha = 1
-        labelError.alpha = 0
+        labelError.alpha = 1
         
         var sortedSortds = words
         sortedSortds.shuffle()

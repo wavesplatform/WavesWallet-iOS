@@ -15,7 +15,7 @@ extension Node.Service {
          Response:
          - [Node.Model.AccountAssetsBalance].self
          */
-        case getAssetsBalance(accountId: String)
+        case getAssetsBalance(walletAddress: String)
     }
 }
 

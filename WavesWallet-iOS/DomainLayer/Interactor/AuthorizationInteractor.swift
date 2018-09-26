@@ -15,19 +15,6 @@ enum AuthorizationType {
     case biometric
 }
 
-//protocol SigningDataInteractorProtocol {
-//    func sign(input: [UInt8]) -> [UInt8]
-//}
-//
-//final class SigningDataInteractor: SigningDataInteractorProtocol {
-//
-//    private let privateKey: PrivateKeyAccount
-//
-//    func sign(input: [UInt8]) -> [UInt8] {
-//        return .init()
-//    }
-//}
-
 enum AuthorizationInteractorError: Error {
     case fail
     case passcodeIncorrect
@@ -43,10 +30,14 @@ protocol AuthorizationInteractorProtocol {
 
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
+    // Return AuthorizationInteractorError
     func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+
     func logout(publicKey: String) -> Observable<Bool>
     func logout() -> Observable<Bool>
-//    func sign(input: [UInt8])
+
+    // Return AuthorizationInteractorError permissionDenied
+    func authorizedWallet() -> Observable<DomainLayer.DTO.Wallet>
 }
 
 
@@ -80,6 +71,8 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     private let localWalletRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
     private let localWalletSeedRepository: WalletSeedRepositoryProtocol = FactoryRepositories.instance.walletSeedRepositoryLocal
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol = FactoryRepositories.instance.authenticationRepositoryRemote
+
+    //TODO: Mutex
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
 
     func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
@@ -130,6 +123,17 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         return Observable.just(seedRepositoryMemory.hasSeed(wallet.publicKey))
     }
 
+    func authorizedWallet() -> Observable<DomainLayer.DTO.Wallet> {
+        return lastWalletLoggedIn()
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+
+                guard let owner = self else { return Observable.never() }
+                guard let wallet = wallet else { return Observable.error(AuthorizationInteractorError.permissionDenied) }
+
+                return owner.isAuthorizedWallet(wallet).map { _ in wallet }
+            })
+    }
+
 
     func logout() -> Observable<Bool> {
         return walletsLoggedIn().flatMap(weak: self, selector: { $0.logout })
@@ -156,6 +160,9 @@ private extension AuthorizationInteractor {
             .flatMap({ [weak self] seed -> Observable<Bool> in
                 guard let owner = self else { return Observable.empty() }
                 owner.seedRepositoryMemory.append(seed)
+
+                
+                WalletManager.currentWallet = Wallet.init(name: "Test", publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)), isBackedUp: true)
                 return owner.setIsLoggedIn(wallet: wallet)
             })
     }
@@ -218,5 +225,16 @@ private extension AuthorizationInteractor {
         }
 
         return AuthorizationInteractorError.fail
+    }
+}
+
+// MARK: SigningWalletsProtocol
+extension AuthorizationInteractor: SigningWalletsProtocol {
+
+    func sign(input: [UInt8], kind: [SigningKind], publicKey: String) throws -> [UInt8] {
+
+        guard let seed = seedRepositoryMemory.seed(publicKey) else { throw SigningWalletsError.notSigned }
+        let privateKey = PrivateKeyAccount(seedStr: seed.seed)
+        return Hash.sign(input, privateKey.privateKey)
     }
 }

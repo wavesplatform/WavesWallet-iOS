@@ -35,21 +35,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="250" placeholderIntrinsicHeight="250" translatesAutoresizingMaskIntoConstraints="NO" id="tmE-8B-rQS" customClass="PasscodeView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="62.5" y="48" width="250" height="250"/>
+                                <rect key="frame" x="62.5" y="178.5" width="250" height="250"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iwj-VO-QeJ" firstAttribute="bottom" secondItem="PbK-uY-lmw" secondAttribute="bottom" constant="10" id="0dQ-hd-Cfm"/>
                             <constraint firstItem="iwj-VO-QeJ" firstAttribute="bottom" secondItem="rvj-9X-egG" secondAttribute="bottom" constant="42" id="JQb-a6-aa1"/>
-                            <constraint firstItem="tmE-8B-rQS" firstAttribute="top" secondItem="iwj-VO-QeJ" secondAttribute="top" constant="28" id="OJH-cF-Ldk"/>
                             <constraint firstItem="rvj-9X-egG" firstAttribute="centerX" secondItem="OVH-Tq-7Sy" secondAttribute="centerX" id="QN3-Nz-M14"/>
                             <constraint firstItem="tmE-8B-rQS" firstAttribute="centerX" secondItem="iwj-VO-QeJ" secondAttribute="centerX" id="p13-xb-H8i"/>
+                            <constraint firstItem="tmE-8B-rQS" firstAttribute="centerY" secondItem="iwj-VO-QeJ" secondAttribute="centerY" constant="-40" id="psM-v0-8i3"/>
                             <constraint firstItem="PbK-uY-lmw" firstAttribute="centerX" secondItem="OVH-Tq-7Sy" secondAttribute="centerX" id="zIG-is-EnM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iwj-VO-QeJ"/>
                     </view>
                     <connections>
+                        <outlet property="logInByPasswordButton" destination="PbK-uY-lmw" id="Ego-DF-zhz"/>
+                        <outlet property="logInByPasswordTitle" destination="rvj-9X-egG" id="y9z-pA-Zpj"/>
                         <outlet property="passcodeView" destination="tmE-8B-rQS" id="KAL-5L-WZs"/>
                     </connections>
                 </viewController>

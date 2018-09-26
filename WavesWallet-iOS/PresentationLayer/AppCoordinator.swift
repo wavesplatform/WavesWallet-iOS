@@ -30,9 +30,9 @@ private struct Application: TSUD {
 }
 
 private enum Display {
-    case start
-    case hello
+    case start(withHelloDisplay: Bool)
     case mainTabBar
+    case mainWithPasscode(DomainLayer.DTO.Wallet)
     case passcode(DomainLayer.DTO.Wallet)
 }
 
@@ -41,20 +41,34 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private var slideMenuViewController: SlideMenu?
+    private var slideMenuViewController: SlideMenu = {
+
+        let menuController = StoryboardScene.Main.menuViewController.instantiate()
+        let slideMenuViewController = SlideMenu(contentViewController: UIViewController(),
+                                                leftMenuViewController: menuController,
+                                                rightMenuViewController: nil)!
+        return slideMenuViewController
+    }()
+
     private let window: UIWindow
 
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
+    private var isActiveApp: Bool = false
+    private var needShowMainDisplayAfterAuth: Bool = false
 
     init(_ window: UIWindow) {
         self.window = window
     }
 
     func start() {
+        self.isActiveApp = true
+        self.window.rootViewController = slideMenuViewController
+        self.window.makeKeyAndVisible()
 
         authoAuthorizationInteractor
             .lastWalletLoggedIn()
+            .take(1)
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribe(weak: self, onNext: { $0.showDisplay })
             .disposed(by: disposeBag)
@@ -67,9 +81,9 @@ final class AppCoordinator: Coordinator {
         } else {
             let settings = Application.get()
             if settings.isAlreadyShownHelloDisplay {
-                return Observable.just(Display.start)
+                return Observable.just(Display.start(withHelloDisplay: false))
             } else {
-                return Observable.just(Display.hello)
+                return Observable.just(Display.start(withHelloDisplay: true))
             }
         }
     }
@@ -82,7 +96,7 @@ final class AppCoordinator: Coordinator {
                 if isAuthorizedWallet {
                     return .mainTabBar
                 } else {
-                    return .passcode(wallet)
+                    return .mainWithPasscode(wallet)
                 }
             }
     }
@@ -102,7 +116,6 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
         var settings = Application.get()
         settings.isAlreadyShownHelloDisplay = true
         Application.set(settings)
-        showStartController()
     }
 
     func userChangedLanguage(_ language: Language) {
@@ -124,52 +137,57 @@ extension AppCoordinator {
 
     private func showDisplay(_ display: Display) {
         switch display {
-        case .hello:
-            showHelloDisplay()
-
-        case .start:
-            showStartController()
+        case .start(let withHelloDisplay):
+            showStartController(withHelloDisplay: withHelloDisplay)
 
         case .mainTabBar:
             showMainTabBarDisplay()
 
         case .passcode(let wallet):
             showPasscode(wallet: wallet)
+
+        case .mainWithPasscode(let wallet):
+            needShowMainDisplayAfterAuth = true
+
+            showPasscode(wallet: wallet, animated: false)
         }
     }
 
     private func showMainTabBarDisplay() {
-
-        guard let slideMenuViewController = slideMenuViewController else { return }
 
         let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController)
         addChildCoordinator(childCoordinator: mainTabBarController)
         mainTabBarController.start()
     }
 
-    private func showHelloDisplay() {
-        let helloCoordinator = HelloCoordinator(window)
-        helloCoordinator.delegate = self
-        addChildCoordinator(childCoordinator: helloCoordinator)
-        helloCoordinator.start()
-    }
+    private func showStartController(withHelloDisplay: Bool) {
 
-    private func showStartController() {
+        if withHelloDisplay {
+            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController)
+            helloCoordinator.delegate = self
+            addChildCoordinator(childCoordinator: helloCoordinator)
+            helloCoordinator.start()
+        }
 
         let customNavigationController = CustomNavigationController()
-        showSideMenuViewController(contentViewController: customNavigationController)
+        slideMenuViewController.contentViewController = customNavigationController
 
         let enter = EnterCoordinator(navigationController: customNavigationController)
         enter.delegate = self
-
         addChildCoordinator(childCoordinator: enter)
         enter.start()
     }
 
-    private func showPasscode(wallet: DomainLayer.DTO.Wallet) {
+    private func showPasscode(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
+
+        //TODO: Нужно придумать другой способ
+        if childCoordinators.first(where: { $0 is PasscodeCoordinator }) != nil {
+            return
+        }
 
         let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
                                                       kind: .logIn(wallet))
+        passcodeCoordinator.animated = animated
         passcodeCoordinator.delegate = self
 
 
@@ -195,5 +213,27 @@ extension AppCoordinator {
             self.window.rootViewController = slideMenuViewController
         }
         self.window.makeKeyAndVisible()
+    }
+}
+
+// MARK: Lifecycle application
+extension AppCoordinator {
+
+    func applicationDidEnterBackground() {
+        self.isActiveApp = false
+        authoAuthorizationInteractor.logout().subscribe().disposed(by: disposeBag)
+    }
+
+    func applicationDidBecomeActive() {
+        if isActiveApp {
+            return
+        }
+
+        authoAuthorizationInteractor
+            .lastWalletLoggedIn()
+            .take(1)
+            .flatMap(weak: self, selector: { $0.currentDisplay })
+            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .disposed(by: disposeBag)
     }
 }

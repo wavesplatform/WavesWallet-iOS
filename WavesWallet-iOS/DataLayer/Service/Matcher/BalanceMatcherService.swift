@@ -17,7 +17,7 @@ extension Matcher.Service {
          Response:
          - [AssetId: Balance] as [String: Int64]
          */
-        case getReservedBalances(PrivateKeyAccount)
+        case getReservedBalances(TimestampSignature)
     }
 }
 
@@ -60,7 +60,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch self {
-        case .getReservedBalances(let privateKey):
+        case .getReservedBalances(let signature):
             let signature = TimestampSignature(privateKey: privateKey)
             headers.merge(signature.parameters) { a, _ in a }
         }

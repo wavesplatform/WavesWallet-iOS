@@ -9,7 +9,7 @@
 import Foundation
 extension DomainLayer.DTO {
 
-    struct Wallet: Mutating {
+    struct Wallet: Mutating, Hashable {
         let name: String
         let address: String
         let publicKey: String
@@ -33,5 +33,24 @@ extension DomainLayer.DTO {
         let isBackedUp: Bool
         let password: String
         let passcode: String
+    }
+
+    final class SignedWallet {
+
+        let wallet: DomainLayer.DTO.Wallet!
+        let publicKey: PublicKeyAccount
+
+        private weak var signingWallets: SigningWalletsProtocol?
+
+        init(wallet: Wallet, publicKey: PublicKeyAccount, signingWallets: SigningWalletsProtocol) {
+            self.wallet = wallet
+            self.signingWallets = signingWallets
+            self.publicKey = publicKey
+        }
+
+        func sign(input: [UInt8], kind: [SigningKind]) throws -> [UInt8] {
+            guard let signingWallets = signingWallets else { throw SigningWalletsError.accessDenied }
+            return try signingWallets.sign(input: input, kind: kind, publicKey: wallet.publicKey)
+        }
     }
 }

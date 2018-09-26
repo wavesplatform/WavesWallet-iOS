@@ -24,6 +24,7 @@ final class PasscodeCoordinator: Coordinator {
     private let window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
     
     weak var delegate: PasscodeCoordinatorDelegate?
+    var animated: Bool = true
 
     init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
         self.viewController = viewController
@@ -40,7 +41,7 @@ final class PasscodeCoordinator: Coordinator {
         if let presentedViewController = viewController.presentedViewController {
             presentedViewController.present(navigationController, animated: true, completion: nil)
         } else {
-            viewController.present(navigationController, animated: true, completion: nil)
+            viewController.present(navigationController, animated: animated, completion: nil)
         }
     }
 }

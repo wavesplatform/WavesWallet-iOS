@@ -64,7 +64,7 @@ private extension ImportCoordinator {
 }
 
 // MARK: ImportAccountPasswordViewControllerDelegate
-extension ImportCoordinator:  ImportAccountPasswordViewControllerDelegate {
+extension ImportCoordinator: ImportAccountPasswordViewControllerDelegate {
     func userCompletedInputAccountData(password: String, name: String) {
 
         guard let privateKeyAccount = currentPrivateKeyAccount else { return }

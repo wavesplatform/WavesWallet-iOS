@@ -16,6 +16,9 @@ final class PasscodeViewController: UIViewController {
     fileprivate typealias Types = PasscodeTypes
 
     @IBOutlet private var passcodeView: PasscodeView!
+    @IBOutlet private var logInByPasswordButton: UIButton!
+    @IBOutlet private var logInByPasswordTitle: UILabel!
+
     private lazy var backButtonItem: UIBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backButtonDidTap))
     
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
@@ -71,11 +74,14 @@ private extension PasscodeViewController {
     func updateView(with state: Types.DisplayState) {
 
         switch state.kind {
-        case .newPassword:
+        case .newPasscode:
             passcodeView.update(with: .init(numbers: state.numbers, text: "Create a passcode"))
 
-        case .repeatPassword:
+        case .repeatPasscode:
             passcodeView.update(with: .init(numbers: state.numbers, text: "Verify your passcode"))
+
+        case .enterPasscode:
+            passcodeView.update(with: .init(numbers: state.numbers, text: "Enter passcode"))
         }
 
         if state.isHiddenBackButton {
@@ -83,6 +89,9 @@ private extension PasscodeViewController {
         } else {
             navigationItem.leftBarButtonItem = backButtonItem
         }
+
+        self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
+        self.logInByPasswordButton.isHidden = state.isHiddenLogInByPassword
 
         if let error = state.error {
             switch error {
