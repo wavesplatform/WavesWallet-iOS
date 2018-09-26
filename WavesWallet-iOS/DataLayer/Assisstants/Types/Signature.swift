@@ -16,28 +16,31 @@ private enum Constants {
 protocol SignatureProtocol {
     associatedtype Variable: CustomStringConvertible
 
-    var privateKey: PrivateKeyAccount { get }
+    var signedWallet: DomainLayer.DTO.SignedWallet
+
     var variable: Variable { get }
-    var toSign: [UInt8] { get }
-    var signature: [UInt8] { get }
     var variableKey: String { get }
+
+    var toSign: [UInt8] { get }
     var parameters: [String: String] { get }
+
+    func signature() throws -> [UInt8]
+
 }
 
 extension SignatureProtocol {
     var toSign: [UInt8] {
-        let s1 = privateKey.publicKey
+        let s1 = signedWallet.publicKey.publicKey
         let s2 = toByteArray(variable)
         return s1 + s2
     }
 
-    var signature: [UInt8] {
-        let b = toSign
-        return Hash.sign(b, privateKey.privateKey)
+    func signature() throws -> [UInt8] {
+        signedWallet.sign(input: toSign, kind: [.none])
     }
 
     var parameters: [String: String] {
-        return [Constants.senderPublicKey: Base58.encode(privateKey.publicKey),
+        return [Constants.senderPublicKey: Base58.encode(signedWallet.publicKey.publicKey),
                 variableKey: "\(variable)",
                 Constants.signature: Base58.encode(signature)]
     }

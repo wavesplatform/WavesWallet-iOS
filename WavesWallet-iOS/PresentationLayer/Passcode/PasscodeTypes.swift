@@ -29,26 +29,31 @@ extension PasscodeTypes.DTO {
 
 extension PasscodeTypes {
 
-    enum PasswordKind: Hashable {
-        case newPassword
-        case repeatPassword
+    enum PasscodeKind: Hashable {
+        case newPasscode
+        case repeatPasscode
+        case enterPasscode
     }
 
     struct State: Mutating {
 
         enum Action {
             case registration
+            case logIn
         }
 
         var displayState: DisplayState
         var kind: PasscodeTypes.DTO.Kind
         var action: Action?
-        var numbers: [PasswordKind: [Int]]
-        var passcode: [Int]
+        var numbers: [PasscodeKind: [Int]]
+        var passcode: String
     }
 
     enum Event {
         case completedRegistration
+        case completedLogIn        
+        case tapLogInByPassword
+        case handlerError(PasscodeInteractorError)
         case tapBack
         case completedInputNumbers([Int])
     }
@@ -59,10 +64,11 @@ extension PasscodeTypes {
             case incorrectPasscode
         }
 
-        var kind: PasswordKind
+        var kind: PasscodeKind
         var numbers: [Int]
         var isLoading: Bool
         var isHiddenBackButton: Bool
+        var isHiddenLogInByPassword: Bool
         var error: Error?
     }
 }

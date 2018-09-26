@@ -21,19 +21,18 @@ final class HelloCoordinator: Coordinator {
 
     weak var delegate: HelloCoordinatorDelegate?
 
-    private var window: UIWindow
+    private var viewController: UIViewController
     private var navigationController: UINavigationController!
 
-    init(_ window: UIWindow) {
-        self.window = window
+    init(viewController: UIViewController) {
+        self.viewController = viewController
     }
 
     func start() {
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
         vc.output = self
         navigationController = UINavigationController(rootViewController: vc)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        viewController.present(navigationController, animated: false, completion: nil)
     }
 }
 
@@ -54,7 +53,9 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
 // MARK: InfoPagesViewControllerDelegate
 extension HelloCoordinator: InfoPagesViewModuleOutput {
     func userFinishedReadPages() {
-        delegate?.userFinishedGreet()
-        removeFromParentCoordinator()
+        viewController.dismiss(animated: true) {
+            self.delegate?.userFinishedGreet()
+            self.removeFromParentCoordinator()
+        }
     }
 }

@@ -120,13 +120,13 @@ extension ImportAccountPasswordViewController {
             return nil
         }
 
-        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
-            self?.ifNeedDisableButtonContinue()
-        }
-
-        accountTextField.changedValue = changedValue
-        passwordTextField.changedValue = changedValue
-        confirmPasswordTextField.changedValue = changedValue
+//        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
+//            self?.ifNeedDisableButtonContinue()
+//        }
+//
+//        accountTextField.changedValue = changedValue
+//        passwordTextField.changedValue = changedValue
+//        confirmPasswordTextField.changedValue = changedValue
 
         accountTextField.returnKey = .next
         passwordTextField.returnKey = .next
@@ -172,10 +172,10 @@ extension ImportAccountPasswordViewController {
             && passwordTextField.isValidValue
             && confirmPasswordTextField.isValidValue
     }
-
-    private func ifNeedDisableButtonContinue() {
-        //        buttonContinue.isEnabled = isValidData
-    }
+//
+//    private func ifNeedDisableButtonContinue() {
+//        //        buttonContinue.isEnabled = isValidData
+//    }
 }
 
 extension ImportAccountPasswordViewController: UIScrollViewDelegate {

@@ -21,6 +21,6 @@ final class MainTabBarCoordinator: Coordinator {
     }
 
     func start() {
-
+        self.slideMenuViewController.contentViewController = MainTabBarController()
     }
 }

@@ -34,14 +34,12 @@ struct Wallet {
     }
 }
 
-func == (lhs: WalletItem, rhs: WalletItem) -> Bool {
-    return lhs.publicKey == rhs.publicKey
-}
-
+@available(*, deprecated, message: "need remove")
 public enum WalletError: Error {
     case Generic(String)
 }
 
+@available(*, deprecated, message: "need remove")
 extension WalletError: LocalizedError {
     public var errorDescription: String? {
         switch self {
@@ -50,6 +48,7 @@ extension WalletError: LocalizedError {
     }
 }
 
+@available(*, deprecated, message: "need remove")
 class WalletManager {
     static var bag = DisposeBag()
 

@@ -82,9 +82,8 @@ final class ImportAccountViewController: UIViewController, TTTAttributedLabelDel
         readerVC.completionBlock = { [weak self] (result: QRCodeReaderResult?) in
             if let seed = result?.value {
                 self?.delegate?.scanedSeed(seed)
-            } else {
-                self?.dismiss(animated: true, completion: nil)
             }
+            self?.dismiss(animated: true, completion: nil)
         }
 
         readerVC.modalPresentationStyle = .formSheet

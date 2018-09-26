@@ -36,8 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
-
-
         Language.load()
         UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
@@ -89,57 +87,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    @objc func megaButton1() -> Void {
-        self.authenticationRepositoryRemote.auth(with: "Geka", passcode: "2222").sweetDebug("auth").subscribe()
-    }
-
-    @objc func megaButton2() -> Void {
-        self.authenticationRepositoryRemote.auth(with: "Geka", passcode: "3333").sweetDebug("auth").subscribe()
-    }
-
-
-    @objc func megaButton3() -> Void {
-        self.authenticationRepositoryRemote.changePasscode(with: "Geka", oldPasscode: "2222", passcode: "3333").subscribe()
-    }
-
-    @objc func megaButton() -> Void {
-        authenticationRepositoryRemote.registration(with: "Geka", keyForPassword: "666666", passcode: "2222").sweetDebug("NewAccount").subscribe(onNext: { (_) in
-
-        })
-
-//        self.authenticationRepositoryRemote.auth(with: "Geka", passcode: "1111").sweetDebug("auth").subscribe()
-
-
-//            database.observeSingleEvent(of: .value, with: { (data) in
-//
-//            }) { (cancel) in
-//
-//            }
-
-//        let value = database.value(forKey: "Test")
-//
-//        print(value)
-
-//        database.child("Test").observe(.value) { (data, value) in
-//            print("asd")
-//        }
-//
-//        database.child("Test").observeSingleEvent(of: .value, andPreviousSiblingKeyWith: { (data, _) in
-//
-//        })
-//
-//  
-    }
-
     func applicationWillResignActive(_ application: UIApplication) {}
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         WalletManager.clearPrivateMemoryKey()
+        appCoordinator.applicationDidEnterBackground()
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {}
+    func applicationWillEnterForeground(_ application: UIApplication) {
 
-    func applicationDidBecomeActive(_ application: UIApplication) {}
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        appCoordinator.applicationDidBecomeActive()
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {}
 

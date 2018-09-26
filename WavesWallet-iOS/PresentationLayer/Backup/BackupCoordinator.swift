@@ -87,7 +87,7 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-        completed(false)
+        completed(true)
         removeFromParentCoordinator()
     }
 }

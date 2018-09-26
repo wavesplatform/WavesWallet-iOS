@@ -16,11 +16,12 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    func balances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        let assetsBalance = self.assetsBalance(by: accountAddress)
-        let accountBalance = self.accountBalance(by: accountAddress)
-        let matcherBalances = self.matcherBalances(by: accountAddress, privateKey: privateKey)
+        let walletAddress = wallet.wallet.address
+        let assetsBalance = self.assetsBalance(by: walletAddress)
+        let accountBalance = self.accountBalance(by: walletAddress)
+        let matcherBalances = self.matcherBalances(by: walletAddress, wallet: wallet)
         
         return Observable
             .zip(assetsBalance,
@@ -54,7 +55,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
 private extension AccountBalanceRepositoryRemote {
 
-    func matcherBalances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[String: Int64]> {
+    func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
         return self.matcherBalanceProvider
             .rx
             .request(.getReservedBalances(privateKey), callbackQueue: DispatchQueue.global(qos: .background))
@@ -63,18 +64,18 @@ private extension AccountBalanceRepositoryRemote {
             .catchErrorJustReturn([String: Int64]())
     }
 
-    func assetsBalance(by accountAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
+    func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
         return self.assetsProvider
             .rx
-            .request(.getAssetsBalance(accountId: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.getAssetsBalance(walletAddress: walletAddress), callbackQueue: DispatchQueue.global(qos: .background))
             .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
     }
 
-    func accountBalance(by accountAddress: String) -> Observable<Node.DTO.AccountBalance> {
+    func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {
         return self.addressesProvider
             .rx
-            .request(.getAccountBalance(id: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.getAccountBalance(id: walletAddress), callbackQueue: DispatchQueue.global(qos: .background))
             .map(Node.DTO.AccountBalance.self)
             .asObservable()
     }

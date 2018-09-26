@@ -15,6 +15,7 @@ private enum Constants {
 
 final class AssetInteractor: AssetInteractorProtocol {
 
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
@@ -33,15 +34,13 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetTypes.DTO.Asset]> {
 
-        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
-
-        return WalletManager
-            .getPrivateKey()
-            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[AssetTypes.DTO.Asset]> in
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap(weak: self) { owner, wallet -> AsyncObservable<[AssetTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
-                    .balances(by: accountAddress,
-                              privateKey: privateKey,
+                    .balances(by: wallet.address,
+                              privateKey: PrivateKeyAccount.init(seed: []),
                               isNeedUpdate: false)
                     .map {
                         $0.filter { asset -> Bool in

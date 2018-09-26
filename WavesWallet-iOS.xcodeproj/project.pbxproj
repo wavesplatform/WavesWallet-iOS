@@ -27,6 +27,8 @@
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB74282113335B004A065B /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
+		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
+		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
 		0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CB72153CE31002A8FD7 /* Import.storyboard */; };
 		0A110CBB2153CE5A002A8FD7 /* ImportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */; };
 		0A110CBD2153D598002A8FD7 /* Passcode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CBC2153D598002A8FD7 /* Passcode.strings */; };
@@ -646,6 +648,8 @@
 		04EB742521133318004A065B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
+		0A071E40215AEF61007D9750 /* AccountPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountPassword.storyboard; sourceTree = "<group>"; };
+		0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		0A110CB72153CE31002A8FD7 /* Import.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Import.storyboard; sourceTree = "<group>"; };
 		0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCoordinator.swift; sourceTree = "<group>"; };
 		0A110CBC2153D598002A8FD7 /* Passcode.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Passcode.strings; sourceTree = "<group>"; };
@@ -1361,6 +1365,15 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		0A071E3D215AEF03007D9750 /* AccountPasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
+				0A071E40215AEF61007D9750 /* AccountPassword.storyboard */,
+			);
+			path = AccountPasswordViewController;
+			sourceTree = "<group>";
+		};
 		0A14CFCD2144157A00C3A4D5 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1619,6 +1632,7 @@
 				0AD2B57E20F64738007EE076 /* Array+Hashable.swift */,
 				0AD2B58020F64760007EE076 /* Optional+Hashable.swift */,
 				E950AA46211226A500BFE872 /* String+Escaped.swift */,
+				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -1755,7 +1769,6 @@
 			children = (
 				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
 				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
-				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
 				0A110CB72153CE31002A8FD7 /* Import.storyboard */,
 				0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */,
 				0A110CC22153D850002A8FD7 /* Import.strings */,
@@ -1804,6 +1817,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A071E3D215AEF03007D9750 /* AccountPasswordViewController */,
 				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
 				0A762D09214FB60400BE9204 /* Import */,
 				0A96F1CA2151B388005E148F /* Passcode */,
@@ -3129,6 +3143,7 @@
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A14CFD5214B135F00C3A4D5 /* Hello.strings in Resources */,
 				E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */,
+				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
 				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
 				E988E8B51F0C03170013EAF6 /* Dex.storyboard in Resources */,
 				0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */,
@@ -3536,6 +3551,7 @@
 				0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				E91705EE21238F2B006CE9A5 /* DexTraderContainerSegmentedControl.swift in Sources */,
+				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
