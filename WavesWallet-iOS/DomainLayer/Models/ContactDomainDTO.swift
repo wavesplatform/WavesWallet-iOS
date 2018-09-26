@@ -9,7 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct User {
+    struct Contact {
         let name: String
         let address: String
     }

@@ -457,12 +457,9 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
 
 //MARK: - AddressBookModuleOutput
 extension WavesSendViewController: AddressBookModuleOutput {
-    func addressBookDidSelectUser(_ user: DomainLayer.DTO.User) {
-        textFieldReceipt.text = user.address
+   
+    func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
+        textFieldReceipt.text = contact.address
         updateRecipientAddressFillState()
-    }
-    
-    func addressBookDidEditUser(_ user: DomainLayer.DTO.User) {
-        
     }
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol AddressBookModuleOutput: AnyObject {
-    func addressBookDidSelectUser(_ user: DomainLayer.DTO.User)
+    func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact)
 }

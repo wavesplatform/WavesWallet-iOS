@@ -29,13 +29,13 @@ final class AddressBookCell: UITableViewCell, Reusable {
 extension AddressBookCell: ViewConfiguration {
     
     struct Input {
-        let user: DomainLayer.DTO.User
+        let contact: DomainLayer.DTO.Contact
         let isEditMode: Bool
     }
     
     func update(with model: Input) {
-        labelName.text = model.user.name
-        labelAddress.text = model.user.address
+        labelName.text = model.contact.name
+        labelAddress.text = model.contact.address
         buttonEdit.isHidden = !model.isEditMode
         iconCheckmark.isHidden = model.isEditMode
     }
