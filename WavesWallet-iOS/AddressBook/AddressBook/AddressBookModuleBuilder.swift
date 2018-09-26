@@ -18,7 +18,7 @@ struct AddressBookModuleBuilder: ModuleBuilderOutput {
     
     func build(input: Input) -> UIViewController {
         
-        let interactor: AddressBookInteractorProtocol = AddressBookInteractorMock()
+        let interactor: AddressBookInteractorProtocol = AddressBookInteractor()
         
         var presenter: AddressBookPresenterProtocol = AddressBookPresenter()
         presenter.interactor = interactor

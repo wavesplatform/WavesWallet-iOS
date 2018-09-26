@@ -13,8 +13,7 @@ enum AddressBookTypes {
     
     enum Event {
         case readyView
-        case setUsers([DomainLayer.DTO.User])
-        case tapCheckEdit(index: Int)
+        case setContacts([DomainLayer.DTO.Contact])
         case searchTextChange(text: String)
     }
     
@@ -23,7 +22,7 @@ enum AddressBookTypes {
             case none
             case update
         }
-        
+
         var isAppeared: Bool
         var action: Action
         var section: AddressBookTypes.ViewModel.Section
@@ -37,12 +36,12 @@ extension AddressBookTypes.ViewModel {
     }
     
     enum Row {
-        case user(DomainLayer.DTO.User)
+        case contact(DomainLayer.DTO.Contact)
         
-        var user: DomainLayer.DTO.User {
+        var contact: DomainLayer.DTO.Contact {
             switch self {
-            case .user(let user):
-                return user
+            case .contact(let contact):
+                return contact
             }
         }
     }

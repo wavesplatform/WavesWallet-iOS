@@ -10,8 +10,7 @@ import Foundation
 import RxSwift
 
 protocol AddressBookInteractorProtocol {
- 
-    func getAllUsers() -> Observable<[DomainLayer.DTO.User]>
-    func getSearchUsers() -> Observable<[DomainLayer.DTO.User]>
+
+    func users() -> Observable<[DomainLayer.DTO.Contact]>
     func searchUser(searchText: String)
 }

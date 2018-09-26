@@ -26,7 +26,6 @@ final class AddressBookViewController: UIViewController {
     private var isSearchMode: Bool = false
     private let sendEvent: PublishRelay<AddressBookTypes.Event> = PublishRelay<AddressBookTypes.Event>()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,7 +72,7 @@ private extension AddressBookViewController {
     
     @objc func addUserTapped() {
         
-        let controller = AddAddressBookModuleBuilder().build(input: nil)
+        let controller = AddAddressBookModuleBuilder(output: self).build(input: nil)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -130,8 +129,8 @@ extension AddressBookViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard isEditMode == false else { return }
-        let user = modelSection.items[indexPath.row].user
-        delegate?.addressBookDidSelectUser(user)
+        let contact = modelSection.items[indexPath.row].contact
+        delegate?.addressBookDidSelectContact(contact)
     }
 }
 
@@ -145,12 +144,14 @@ extension AddressBookViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueCell() as AddressBookCell
-        let user = modelSection.items[indexPath.row].user
-        cell.update(with: .init(user: user, isEditMode: isEditMode))
+        let contact = modelSection.items[indexPath.row].contact
+        cell.update(with: .init(contact: contact, isEditMode: isEditMode))
         cell.delegate = self
         return cell
     }
 }
+
+//MARK: - AddressBookCellDelegate
 
 extension AddressBookViewController: AddressBookCellDelegate {
     
@@ -158,9 +159,16 @@ extension AddressBookViewController: AddressBookCellDelegate {
         
         if let indexPath = tableView.indexPath(for: cell) {
             
-            let user = modelSection.items[indexPath.row].user
-            let controller = AddAddressBookModuleBuilder().build(input: user)
+            let contact = modelSection.items[indexPath.row].contact
+            let controller = AddAddressBookModuleBuilder(output: self).build(input: contact)
             navigationController?.pushViewController(controller, animated: true)
         }
+    }
+}
+
+extension AddressBookViewController: AddAddressBookModuleOutput {
+       
+    func addAddressBookDidDelete(contact: DomainLayer.DTO.Contact) {
+        SuccessSystemMessageView.showWithMessage(Localizable.AddressBook.Label.addressDeleted)
     }
 }

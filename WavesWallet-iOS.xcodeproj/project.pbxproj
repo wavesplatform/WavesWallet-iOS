@@ -345,8 +345,7 @@
 		E904BC6F2155B63600A108B6 /* AddressBookPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC6E2155B63600A108B6 /* AddressBookPresenterProtocol.swift */; };
 		E904BC712155B65000A108B6 /* AddressBookPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC702155B65000A108B6 /* AddressBookPresenter.swift */; };
 		E904BC732155B66B00A108B6 /* AddressBookInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC722155B66B00A108B6 /* AddressBookInteractorProtocol.swift */; };
-		E904BC752155B68600A108B6 /* AddressBookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC742155B68600A108B6 /* AddressBookInteractor.swift */; };
-		E904BC772155B69C00A108B6 /* AddressBookInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC762155B69C00A108B6 /* AddressBookInteractorMock.swift */; };
+		E904BC772155B69C00A108B6 /* AddressBookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC762155B69C00A108B6 /* AddressBookInteractor.swift */; };
 		E904BC7A2155B6CE00A108B6 /* AddressBookTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC792155B6CE00A108B6 /* AddressBookTypes.swift */; };
 		E904BC7C2155BA9200A108B6 /* AddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC7B2155BA9200A108B6 /* AddressBookModuleBuilder.swift */; };
 		E904BC7E215743D200A108B6 /* AddressBookModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC7D215743D200A108B6 /* AddressBookModuleOutput.swift */; };
@@ -367,7 +366,7 @@
 		E93DC64F2159BA70001C1041 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */; };
 		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
-		E94A6E9F215AD53E001814F7 /* UserDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */; };
+		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
 		E94A6F76215AE4FE001814F7 /* DexChart.strings in Resources */ = {isa = PBXBuildFile; fileRef = E94A6EA2215AE4FD001814F7 /* DexChart.strings */; };
 		E94A6F77215AE4FE001814F7 /* DexChartTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6EA4215AE4FD001814F7 /* DexChartTypes.swift */; };
 		E94A6F78215AE4FE001814F7 /* DexChartConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6EA5215AE4FD001814F7 /* DexChartConstants.swift */; };
@@ -508,6 +507,8 @@
 		E94A6FFF215AE4FE001814F7 /* DexSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6F73215AE4FE001814F7 /* DexSortInteractor.swift */; };
 		E94A7000215AE4FE001814F7 /* DexSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6F74215AE4FE001814F7 /* DexSortInteractorProtocol.swift */; };
 		E94A7001215AE4FE001814F7 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6F75215AE4FE001814F7 /* DexSortInteractorMock.swift */; };
+		E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */; };
+		E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */; };
 		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
 		E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D0AF920B719DF0068A1C4 /* TransactionCommentView.swift */; };
 		E94D0AFC20B719EA0068A1C4 /* TransactionCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */; };
@@ -562,6 +563,7 @@
 		E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */; };
 		E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */; };
 		E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */; };
+		E9F551BD215AF68A00F98F1C /* AddAddressBookModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F551BC215AF68A00F98F1C /* AddAddressBookModuleOutput.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */; };
@@ -980,8 +982,7 @@
 		E904BC6E2155B63600A108B6 /* AddressBookPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookPresenterProtocol.swift; sourceTree = "<group>"; };
 		E904BC702155B65000A108B6 /* AddressBookPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookPresenter.swift; sourceTree = "<group>"; };
 		E904BC722155B66B00A108B6 /* AddressBookInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookInteractorProtocol.swift; sourceTree = "<group>"; };
-		E904BC742155B68600A108B6 /* AddressBookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookInteractor.swift; sourceTree = "<group>"; };
-		E904BC762155B69C00A108B6 /* AddressBookInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookInteractorMock.swift; sourceTree = "<group>"; };
+		E904BC762155B69C00A108B6 /* AddressBookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookInteractor.swift; sourceTree = "<group>"; };
 		E904BC792155B6CE00A108B6 /* AddressBookTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookTypes.swift; sourceTree = "<group>"; };
 		E904BC7B2155BA9200A108B6 /* AddressBookModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookModuleBuilder.swift; sourceTree = "<group>"; };
 		E904BC7D215743D200A108B6 /* AddressBookModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookModuleOutput.swift; sourceTree = "<group>"; };
@@ -1003,7 +1004,7 @@
 		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
-		E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainDTO.swift; sourceTree = "<group>"; };
+		E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
 		E94A6EA3215AE4FD001814F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DexChart.strings; sourceTree = "<group>"; };
 		E94A6EA4215AE4FD001814F7 /* DexChartTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexChartTypes.swift; sourceTree = "<group>"; };
 		E94A6EA5215AE4FD001814F7 /* DexChartConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexChartConstants.swift; sourceTree = "<group>"; };
@@ -1166,6 +1167,8 @@
 		E94A6F73215AE4FE001814F7 /* DexSortInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractor.swift; sourceTree = "<group>"; };
 		E94A6F74215AE4FE001814F7 /* DexSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E94A6F75215AE4FE001814F7 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorMock.swift; sourceTree = "<group>"; };
+		E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
 		E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E94D0AF920B719DF0068A1C4 /* TransactionCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCommentView.swift; sourceTree = "<group>"; };
 		E94D0AFB20B719EA0068A1C4 /* TransactionCommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
@@ -1222,6 +1225,7 @@
 		E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveCardViewController.swift; sourceTree = "<group>"; };
 		E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveBankViewController.swift; sourceTree = "<group>"; };
 		E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
+		E9F551BC215AF68A00F98F1C /* AddAddressBookModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressBookModuleOutput.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
 		E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartView.swift; sourceTree = "<group>"; };
@@ -1781,6 +1785,7 @@
 		0A979775210A19B400407F67 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E94A7005215AEAFB001814F7 /* AddressBook */,
 				0A5ABBA9211735CE006A10A7 /* LeaseTransaction */,
 				0A5E4BD72138274A00E3C3C3 /* Transactions */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
@@ -1825,6 +1830,7 @@
 		0AEB358A2115DB1D00EDD63C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E94A7002215AEA2A001814F7 /* AddressBook */,
 				0A5E4BD62138242C00E3C3C3 /* Transactions */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
 				0AEB35922115E44A00EDD63C /* Assets */,
@@ -1837,7 +1843,7 @@
 			isa = PBXGroup;
 			children = (
 				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
-				E94A6E9E215AD53E001814F7 /* UserDomainDTO.swift */,
+				E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */,
 				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
 				0A5E4BBB213820C500E3C3C3 /* Transactions */,
 			);
@@ -2245,8 +2251,7 @@
 			isa = PBXGroup;
 			children = (
 				E904BC722155B66B00A108B6 /* AddressBookInteractorProtocol.swift */,
-				E904BC742155B68600A108B6 /* AddressBookInteractor.swift */,
-				E904BC762155B69C00A108B6 /* AddressBookInteractorMock.swift */,
+				E904BC762155B69C00A108B6 /* AddressBookInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -2745,6 +2750,22 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		E94A7002215AEA2A001814F7 /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */,
+			);
+			path = AddressBook;
+			sourceTree = "<group>";
+		};
+		E94A7005215AEAFB001814F7 /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */,
+			);
+			path = AddressBook;
+			sourceTree = "<group>";
+		};
 		E96038AF20B597A700D303E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2829,6 +2850,7 @@
 				E9C9A23B21595134004876DC /* Views */,
 				E9ED4F1A215810EB00B7D82D /* AddAddressBookViewController.swift */,
 				E93DC64E2159BA70001C1041 /* AddAddressBookModuleBuilder.swift */,
+				E9F551BC215AF68A00F98F1C /* AddAddressBookModuleOutput.swift */,
 				E9C9A23821594319004876DC /* AddAddressBook.strings */,
 			);
 			path = AddAddressBook;
@@ -3481,7 +3503,7 @@
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
-				E94A6E9F215AD53E001814F7 /* UserDomainDTO.swift in Sources */,
+				E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */,
 				0A3FE8B92137007500DBF4E1 /* ReissueTransactionNode.swift in Sources */,
 				E94A6FD0215AE4FE001814F7 /* DexLastTradesTypes.swift in Sources */,
 				0A5E4BE12138378500E3C3C3 /* LeaseCancelTransaction+Mapper.swift in Sources */,
@@ -3495,6 +3517,7 @@
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				E94A6FAA215AE4FE001814F7 /* DexTraderContainerSegmentedControl.swift in Sources */,
 				E904BC6F2155B63600A108B6 /* AddressBookPresenterProtocol.swift in Sources */,
+				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
 				0AFBCA932113275900285BCB /* WalletSortPresenterProtocol.swift in Sources */,
 				0AC573892134121800B5EBA5 /* UITableView+Skeleton.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
@@ -3513,6 +3536,7 @@
 				0AF9222F212E0F1F003BA067 /* WalletAssetSkeletonCell.swift in Sources */,
 				0AF922C8212E1234003BA067 /* Locale+Test.swift in Sources */,
 				0AF922B7212E1234003BA067 /* JSONDecoder+Rx.swift in Sources */,
+				E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */,
 				E94A6F93215AE4FE001814F7 /* DexOrderBookInteractorProtocol.swift in Sources */,
 				F762B3A41EABB6C000EAD7FF /* SendViewModel.swift in Sources */,
 				E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */,
@@ -3669,7 +3693,7 @@
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
 				0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
-				E904BC772155B69C00A108B6 /* AddressBookInteractorMock.swift in Sources */,
+				E904BC772155B69C00A108B6 /* AddressBookInteractor.swift in Sources */,
 				E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */,
 				E94A6FCD215AE4FE001814F7 /* DexLastTradesModuleBuilder.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
@@ -3800,6 +3824,7 @@
 				0A5ABBA421173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				E94A6F92215AE4FE001814F7 /* DexOrderBookInteractor.swift in Sources */,
+				E9F551BD215AF68A00F98F1C /* AddAddressBookModuleOutput.swift in Sources */,
 				F7C683D61EA943E700C87DAF /* StoryboardManager.swift in Sources */,
 				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
 				04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */,
@@ -3899,7 +3924,6 @@
 				E94A6F9D215AE4FE001814F7 /* DexInfoViewController.swift in Sources */,
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
-				E904BC752155B68600A108B6 /* AddressBookInteractor.swift in Sources */,
 				F763B9AA1EABD52A00FA3701 /* TransferConfirmViewController.swift in Sources */,
 				E94A6FF5215AE4FE001814F7 /* DexMarketInteractorProtocol.swift in Sources */,
 				E94A6FDF215AE4FE001814F7 /* DexMyOrdersCell.swift in Sources */,

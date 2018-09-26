@@ -94,6 +94,8 @@ internal enum Localizable {
     internal enum Label {
       /// Address book
       internal static let addressBook = Localizable.tr("AddressBook", "label.addressBook")
+      /// Address deleted
+      internal static let addressDeleted = Localizable.tr("AddressBook", "label.addressDeleted")
       /// Nothing Here…\nYou can create new address
       internal static let noInfo = Localizable.tr("AddressBook", "label.noInfo")
     }

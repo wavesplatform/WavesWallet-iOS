@@ -20,7 +20,11 @@ final class AddAddressBookViewController: UIViewController {
     @IBOutlet private weak var buttonDelete: UIButton!
     @IBOutlet private weak var buttonSaveBottomOffset: NSLayoutConstraint!
     
-    var user: DomainLayer.DTO.User?
+    private let repository = AddressBookRepository()
+
+    var contact: DomainLayer.DTO.Contact?
+    weak var delegate: AddAddressBookModuleOutput?
+    
     
     private var isValidInput: Bool {
         return textFieldAddress.trimmingText.count > 0 &&
@@ -30,7 +34,7 @@ final class AddAddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = user != nil ? Localizable.AddAddressBook.Label.edit : Localizable.AddAddressBook.Label.add
+        title = contact != nil ? Localizable.AddAddressBook.Label.edit : Localizable.AddAddressBook.Label.add
         createBackButton()
         setupNavBarUI()
         setupTextFields()
@@ -50,6 +54,18 @@ private extension AddAddressBookViewController {
     
     @IBAction func saveTapped(_ sender: Any) {
     
+        let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText, address: textFieldAddress.trimmingText)
+
+        if let contact = self.contact {
+            repository.edit(contact: contact, newContact: newContact)
+            delegate?.addAddressBookDidEdit(contact: contact, newContact: newContact)
+        }
+        else {
+            repository.create(contact: newContact)
+            delegate?.addAddressBookDidCreate(contact: newContact)
+        }
+
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func deleteTapped(_ sender: Any) {
@@ -57,7 +73,11 @@ private extension AddAddressBookViewController {
         let controller = UIAlertController(title: Localizable.AddAddressBook.Button.deleteAddress, message: Localizable.AddAddressBook.Label.deleteAlertMessage, preferredStyle: .alert)
         let cancel = UIAlertAction(title: Localizable.AddAddressBook.Button.cancel, style: .cancel, handler: nil)
         let delete = UIAlertAction(title: Localizable.AddAddressBook.Button.delete, style: .destructive) { (action) in
-            
+            if let contact = self.contact {
+                self.repository.delete(contact: contact)
+                self.delegate?.addAddressBookDidDelete(contact: contact)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
         controller.addAction(cancel)
         controller.addAction(delete)
@@ -107,11 +127,11 @@ private extension AddAddressBookViewController {
     
     func setupEditUserMode() {
         
-        buttonDelete.isHidden = user == nil
+        buttonDelete.isHidden = contact == nil
         
-        if let user = self.user {
-            textFieldName.setupText(user.name)
-            textFieldAddress.text = user.address
+        if let contact = self.contact {
+            textFieldName.setupText(contact.name)
+            textFieldAddress.text = contact.address
             buttonSaveBottomOffset.constant = Constants.buttonSaveBottomEditModeOffset
         }
     }
