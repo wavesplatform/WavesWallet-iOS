@@ -58,6 +58,7 @@ final class InfoPagesViewController: UIViewController, KolodaViewDelegate, Kolod
         setupConstraints()
         navigationController?.setNavigationBarHidden(true, animated: false)
         kolodaView.countOfVisibleCards = 4
+        kolodaView.appearanceAnimationDuration = 0.3
         kolodaView.delegate = self
         kolodaView.dataSource = self
         pageControl.numberOfPages = kolodaView.countOfCards

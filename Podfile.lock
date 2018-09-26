@@ -121,6 +121,9 @@ PODS:
   - RxGesture (1.2.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
+  - RxOptional (3.5.0):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxRealm (0.7.5):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
@@ -175,6 +178,7 @@ DEPENDENCIES:
   - RxDataSources
   - RxFeedback
   - RxGesture
+  - RxOptional
   - RxRealm
   - RxSwift
   - RxSwiftExt
@@ -232,6 +236,7 @@ SPEC REPOS:
     - RxDataSources
     - RxFeedback
     - RxGesture
+    - RxOptional
     - RxRealm
     - RxSwift
     - RxSwiftExt
@@ -325,6 +330,7 @@ SPEC CHECKSUMS:
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxFeedback: 0b032eb82a4cf858b3b97fb8eb30a895f837fbda
   RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
+  RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
   RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
@@ -340,6 +346,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: c842c4f367a40dd28a2bef2de8b14edb36165eb9
+PODFILE CHECKSUM: 62261766a94c662285326ce03768b45f5634523f
 
 COCOAPODS: 1.5.3

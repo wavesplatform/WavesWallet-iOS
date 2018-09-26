@@ -11,7 +11,7 @@ import UIKit
 import UPCarouselFlowLayout
 import InfiniteCollectionView
 
-private enum Constants {
+fileprivate enum Constants {
     static let spacing: CGFloat = 24
     static let scaleCell: CGFloat = 0.7
 }

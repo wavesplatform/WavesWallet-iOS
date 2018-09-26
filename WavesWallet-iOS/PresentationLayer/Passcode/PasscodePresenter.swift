@@ -13,6 +13,8 @@ import RxFeedback
 
 protocol PasscodeOutput: AnyObject {
     func authorizationCompleted() -> Void
+    func userLogouted()
+    func logInByPassword()
 }
 
 protocol PasscodeInput {
@@ -26,10 +28,8 @@ protocol PasscodePresenterProtocol {
     var interactor: PasscodeInteractor! { get set }
     var input: PasscodeInput! { get set }
     var moduleOutput: PasscodeOutput? { get set }
-
     func system(feedbacks: [Feedback])
 }
-
 
 private struct RegistationQuery: Hashable {
     let account: PasscodeTypes.DTO.Account
@@ -39,6 +39,10 @@ private struct RegistationQuery: Hashable {
 private struct LogInQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
     let passcode: String
+}
+
+private struct LogoutQuery: Hashable {
+    let wallet: DomainLayer.DTO.Wallet
 }
 
 final class PasscodePresenter: PasscodePresenterProtocol {
@@ -56,6 +60,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(registration())
         newFeedbacks.append(logIn())
+        newFeedbacks.append(logout())
 
         let initialState = self.initialState(kind: input.kind)
 
@@ -80,21 +85,23 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
                 .interactor.registrationAccount(query.account,
                                                 passcode: query.passcode)
                 .map { _ in .completedRegistration }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+                })
         })
     }
 
     private func logIn() -> Feedback {
         return react(query: { state -> LogInQuery? in
 
-            if case let  .logIn(wallet) = state.kind, let action = state.action, case .logIn =  action {
+            if case let .logIn(wallet) = state.kind, let action = state.action, case .logIn =  action {
                 return LogInQuery(wallet: wallet, passcode: state.passcode)
             }
 
@@ -107,6 +114,30 @@ final class PasscodePresenter: PasscodePresenterProtocol {
             return strongSelf
                 .interactor.logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { _ in .completedRegistration }
+                .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+                })
+        })
+    }
+
+    private func logout() -> Feedback {
+        return react(query: { state -> LogoutQuery? in
+
+            if case let .logIn(wallet) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor.logout(wallet: query.wallet)
+                .map { _ in .completedLogout }
                 .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
                     guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
@@ -147,8 +178,19 @@ private extension PasscodePresenter {
 //            }
 
         case .tapLogInByPassword:
+            moduleOutput?.logInByPassword()
             return state
-            break
+
+        case .tapLogoutButton:
+
+            return state.mutate { state in
+                state.displayState.isLoading = true
+                state.action = .logout
+            }
+
+        case .completedLogout:
+            moduleOutput?.userLogouted()
+            return state
 
         case .completedInputNumbers(let numbers):
             return state.mutate { state in
@@ -237,11 +279,25 @@ private extension PasscodePresenter {
     func initialDisplayState(kind: PasscodeTypes.DTO.Kind) -> Types.DisplayState {
 
         switch kind {
-        case .logIn:
-            return .init(kind: .enterPasscode, numbers: .init(), isLoading: false, isHiddenBackButton: true, isHiddenLogInByPassword: false, error: nil)
+        case .logIn(let wallet):
+            return .init(kind: .enterPasscode,
+                         numbers: .init(),
+                         isLoading: false,
+                         isHiddenBackButton: true,
+                         isHiddenLogInByPassword: false,
+                         isHiddenLogoutButton: false,
+                         error: nil,
+                         detailLabel: wallet.address)
 
         case .registration:
-            return .init(kind: .newPasscode, numbers: .init(), isLoading: false, isHiddenBackButton: true, isHiddenLogInByPassword: true, error: nil)
+            return .init(kind: .newPasscode,
+                         numbers: .init(),
+                         isLoading: false,
+                         isHiddenBackButton: true,
+                         isHiddenLogInByPassword: true,
+                         isHiddenLogoutButton: true,
+                         error: nil,
+                         detailLabel: nil)
         }
     }
 }

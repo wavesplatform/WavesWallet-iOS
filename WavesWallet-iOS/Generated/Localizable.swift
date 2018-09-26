@@ -389,6 +389,31 @@ internal enum Localizable {
       }
     }
   }
+          internal enum AccountPassword {
+
+    internal enum Button {
+
+      internal enum Signin {
+        /// Sign In
+        internal static var title: String { return Localizable.tr("AccountPassword", "button.signIn.title") }
+      }
+    }
+
+    internal enum Textfield {
+
+      internal enum Error {
+        /// at least %d characters
+        internal static func atleastcharacters(_ p1: Int) -> String {
+          return Localizable.tr("AccountPassword", "textfield.error.atleastcharacters", p1)
+        }
+      }
+
+      internal enum Password {
+        /// Account password
+        internal static var placeholder: String { return Localizable.tr("AccountPassword", "textfield.password.placeholder") }
+      }
+    }
+  }
           internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }

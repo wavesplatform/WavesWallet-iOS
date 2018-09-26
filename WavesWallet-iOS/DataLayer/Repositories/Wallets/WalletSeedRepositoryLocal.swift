@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RealmSwift
 
-private enum Constants {
+fileprivate enum Constants {
     static let schemaVersion: UInt64 = 2
 }
 
@@ -161,11 +161,14 @@ private extension WalletSeedRepositoryLocal {
             return realm
         } catch let error as Realm.Error {
 
-            if case Realm.Error.filePermissionDenied = error {
+            switch error {
+            case Realm.Error.fileAccess, Realm.Error.filePermissionDenied:
                 throw WalletSeedRepositoryError.permissionDenied
-            } else {
+
+            default:
                 throw WalletSeedRepositoryError.fail
             }
+
         } catch _ {
             throw WalletSeedRepositoryError.fail
         }

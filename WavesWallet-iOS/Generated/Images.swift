@@ -229,6 +229,7 @@ internal enum Images {
   internal static let topbarFlashOff = ImageAsset(name: "topbarFlashOff")
   internal static let topbarFlashOn = ImageAsset(name: "topbarFlashOn")
   internal static let topbarInfowhite = ImageAsset(name: "topbarInfowhite")
+  internal static let topbarLogout = ImageAsset(name: "topbarLogout")
   internal static let topbarMenuwhite = ImageAsset(name: "topbarMenuwhite")
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
@@ -439,6 +440,7 @@ internal enum Images {
     topbarFlashOff,
     topbarFlashOn,
     topbarInfowhite,
+    topbarLogout,
     topbarMenuwhite,
     topbarSort,
     touchid48Submit300,

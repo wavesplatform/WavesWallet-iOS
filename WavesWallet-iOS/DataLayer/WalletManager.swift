@@ -6,6 +6,7 @@ import RxCocoa
 import RxRealm
 import RxSwift
 
+@available(*, deprecated, message: "need remove")
 struct Wallet {
     let name: String
     let publicKeyAccount: PublicKeyAccount
@@ -349,18 +350,18 @@ class WalletManager {
     }
 }
 
-extension WalletManager {
-    class func getPrivateKey() -> Observable<PrivateKeyAccount> {
-        return Observable.create { event -> Disposable in
-
-            WalletManager.getPrivateKey(complete: { account in
-                event.onNext(account)
-                event.onCompleted()
-            }, fail: { error in
-                event.onError(WalletError.Generic(error))
-            })
-
-            return Disposables.create()
-        }
-    }
-}
+//extension WalletManager {
+//    class func getPrivateKey() -> Observable<PrivateKeyAccount> {
+//        return Observable.create { event -> Disposable in
+//
+//            WalletManager.getPrivateKey(complete: { account in
+//                event.onNext(account)
+//                event.onCompleted()
+//            }, fail: { error in
+//                event.onError(WalletError.Generic(error))
+//            })
+//
+//            return Disposables.create()
+//        }
+//    }
+//}

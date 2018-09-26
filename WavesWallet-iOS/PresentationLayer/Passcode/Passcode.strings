@@ -6,3 +6,9 @@
   Copyright © 2018 Waves Platform. All rights reserved.
 */
 
+"label.forgotPasscode.title" = "Forgot passcode?";
+"button.forgotPasscode.title" = "Use account password";
+
+"label.passcode.create" = "Create a passcode";
+"label.passcode.verify" = "Verify your passcode";
+"label.passcode.enter" = "Enter Passcode";

@@ -56,9 +56,11 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 private extension AccountBalanceRepositoryRemote {
 
     func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
+
+        let signature = TimestampSignature(signedWallet: wallet)
         return self.matcherBalanceProvider
             .rx
-            .request(.getReservedBalances(privateKey), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.getReservedBalances(signature), callbackQueue: DispatchQueue.global(qos: .background))
             .map([String: Int64].self)
             .asObservable()
             .catchErrorJustReturn([String: Int64]())

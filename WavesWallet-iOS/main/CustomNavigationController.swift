@@ -91,7 +91,7 @@ extension UINavigationItem {
     }
 }
 
-private enum Constants {
+fileprivate enum Constants {
     static var prefersLargeTitles = "prefersLargeTitles"
     static var backgroundImage = "backgroundImage"
     static var shadowImage = "shadowImage"

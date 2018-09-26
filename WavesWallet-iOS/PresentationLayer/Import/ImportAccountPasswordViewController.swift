@@ -10,9 +10,8 @@ import UIKit
 import IQKeyboardManagerSwift
 import IdentityImg
 
-private enum Constants {
+fileprivate enum Constants {
     static let accountNameMinLimitSymbols: Int = 2
-    static let passwordMinLimitSymbols: Int = 2
 }
 
 protocol ImportAccountPasswordViewControllerDelegate: AnyObject  {
@@ -105,8 +104,8 @@ extension ImportAccountPasswordViewController {
         }
 
         passwordTextField.valueValidator = { value in
-            if (value?.count ?? 0) < Constants.passwordMinLimitSymbols {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.passwordMinLimitSymbols)
+            if (value?.count ?? 0) < Settings.minLengthPassword {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
             } else {
                 return nil
             }
@@ -161,9 +160,8 @@ extension ImportAccountPasswordViewController {
         guard isValidData else {
             return
         }
-        guard let name = accountTextField.value,
-            let password = passwordTextField.value else { return }
 
+        guard let name = accountTextField.value?.value, let password = passwordTextField.value?.value else { return }
         delegate?.userCompletedInputAccountData(password: password, name: name)
     }
 

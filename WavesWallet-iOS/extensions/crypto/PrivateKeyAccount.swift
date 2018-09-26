@@ -54,6 +54,10 @@ class PublicKeyAccount: Hashable {
         self.publicKey = publicKey
         self.address = Address.addressFromPublicKey(publicKey: publicKey)
     }
+
+    convenience init(publicKey: String) {
+        self.init(publicKey: Base58.decode(publicKey))
+    }
     
     func getPublicKeyStr() -> String {
         return Base58.encode(publicKey)

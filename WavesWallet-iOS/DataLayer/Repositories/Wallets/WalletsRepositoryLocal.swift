@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RealmSwift
 
-private enum Constants {
+fileprivate enum Constants {
     static let schemaVersion: UInt64 = 2
 }
 
@@ -44,13 +44,13 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
     func wallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
 
-        return Observable.create({ (observer) -> Disposable in
+        return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = self?.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
-
+            
             if let object = realm.object(ofType: WalletItem.self, forPrimaryKey: publicKey) {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()

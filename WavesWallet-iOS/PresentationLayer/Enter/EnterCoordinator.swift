@@ -83,4 +83,6 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn()
     }
+
+    func userLogouted() {}
 }

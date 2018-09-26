@@ -23,6 +23,7 @@ final class PasscodeDotView: UIView {
 final class PasscodeTopBarView: UIView {
 
     @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var detailLabel: UILabel!
     @IBOutlet private var dots: [PasscodeDotView]!
     @IBOutlet private var indicatorView: UIActivityIndicatorView!
 
@@ -84,6 +85,10 @@ final class PasscodeTopBarView: UIView {
         cancelInvalidateState()
         counter = 0
         updateColorsForDots()
+    }
+
+    func changeDetail(_ text: String?) {
+        detailLabel.text = text
     }
 
     func changeText(_ text: String) {

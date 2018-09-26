@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let padding: CGFloat = 16
     static let pictureSize: CGFloat = 28
     static let paddingPictureRight: CGFloat = 14

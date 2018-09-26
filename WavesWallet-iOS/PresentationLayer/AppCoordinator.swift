@@ -32,6 +32,7 @@ private struct Application: TSUD {
 private enum Display {
     case start(withHelloDisplay: Bool)
     case mainTabBar
+    case enter
     case mainWithPasscode(DomainLayer.DTO.Wallet)
     case passcode(DomainLayer.DTO.Wallet)
 }
@@ -72,6 +73,10 @@ final class AppCoordinator: Coordinator {
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribe(weak: self, onNext: { $0.showDisplay })
             .disposed(by: disposeBag)
+    }
+
+    private var isMainTabDisplayed: Bool {
+        return childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil
     }
 
     private func currentDisplay(wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
@@ -129,6 +134,10 @@ extension AppCoordinator: PasscodeCoordinatorDelegate {
     func userAuthorizationCompleted() {
         showDisplay(.mainTabBar)
     }
+
+    func userLogouted() {
+        showDisplay(.enter)
+    }
 }
 
 // MARK: Methods for showing differnt displays
@@ -136,6 +145,7 @@ extension AppCoordinator {
 
 
     private func showDisplay(_ display: Display) {
+
         switch display {
         case .start(let withHelloDisplay):
             showStartController(withHelloDisplay: withHelloDisplay)
@@ -148,13 +158,20 @@ extension AppCoordinator {
 
         case .mainWithPasscode(let wallet):
             needShowMainDisplayAfterAuth = true
-
             showPasscode(wallet: wallet, animated: false)
+
+        case .enter:
+
+            showEnter()
         }
     }
 
     private func showMainTabBarDisplay() {
 
+        if isMainTabDisplayed {
+            return
+        }
+        
         let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController)
         addChildCoordinator(childCoordinator: mainTabBarController)
         mainTabBarController.start()
@@ -169,13 +186,22 @@ extension AppCoordinator {
             helloCoordinator.start()
         }
 
+        showEnter()
+    }
+
+    private func showEnter() {
+
+        //TODO: Нужно придумать другой способ
+        let mainTabBarCoordinator = childCoordinators.first(where: { $0 is MainTabBarCoordinator })
+        mainTabBarCoordinator?.removeFromParentCoordinator()
+
         let customNavigationController = CustomNavigationController()
-        slideMenuViewController.contentViewController = customNavigationController
 
         let enter = EnterCoordinator(navigationController: customNavigationController)
         enter.delegate = self
         addChildCoordinator(childCoordinator: enter)
         enter.start()
+        slideMenuViewController.contentViewController = customNavigationController
     }
 
     private func showPasscode(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
@@ -221,19 +247,25 @@ extension AppCoordinator {
 
     func applicationDidEnterBackground() {
         self.isActiveApp = false
-        authoAuthorizationInteractor.logout().subscribe().disposed(by: disposeBag)
+        authoAuthorizationInteractor
+            .revokeAuth()
+            .flatMap { [weak self] _ -> Observable<Display> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return owner.authoAuthorizationInteractor
+                    .lastWalletLoggedIn()
+                    .take(1)
+                    .flatMap(weak: owner, selector: { $0.currentDisplay })
+            }
+            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .disposed(by: disposeBag)
     }
 
     func applicationDidBecomeActive() {
         if isActiveApp {
             return
         }
-
-        authoAuthorizationInteractor
-            .lastWalletLoggedIn()
-            .take(1)
-            .flatMap(weak: self, selector: { $0.currentDisplay })
-            .subscribe(weak: self, onNext: { $0.showDisplay })
-            .disposed(by: disposeBag)
+        isActiveApp = true
     }
 }

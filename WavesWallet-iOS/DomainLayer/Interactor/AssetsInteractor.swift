@@ -17,8 +17,8 @@ protocol AssetsInteractorProtocol {
     func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]>
 }
 
-private struct Constants {
-        static let durationInseconds: Double =  320
+fileprivate enum Constants {
+    static let durationInseconds: Double =  320
 }
 
 final class AssetsInteractor: AssetsInteractorProtocol {

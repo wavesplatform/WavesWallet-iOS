@@ -63,7 +63,7 @@ extension Reactive where Base: DatabaseReference {
     }
 }
 
-private enum Constants {
+fileprivate enum Constants {
     static let rootPath: String = "pincodes-ios-dev"
 }
 
@@ -101,7 +101,46 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
     }
 
     func auth(with id: String, passcode: String) -> Observable<String> {
-        return self.auth(with: id, passcode: passcode, numerTry: 3)
+
+        return Observable.create { observer -> Disposable in
+
+            let database: DatabaseReference = Database.database()
+                .reference()
+                .child("pincodes-ios-dev")
+                .child(id)
+
+            let value = self.lastTry(database: database)
+                .flatMap({ nTry -> Observable<String> in
+                    
+                    let changeLastTry = self.changeLastTry(database: database, nTry: nTry + 1)
+                    let inputTry = self.inputPasscode(database: database,
+                                                      passcode: passcode,
+                                                      nTry: nTry + 1)
+
+                    return Observable.zip([changeLastTry, inputTry])
+                        .flatMap({ _ -> Observable<String>  in
+                            return self.keyForPassword(database: database, passcode: passcode)
+                                .flatMap({ keyForPassword -> Observable<String> in
+                                    return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
+                                })
+                        })
+                })
+                .subscribe(onNext: { keyForPassword in
+                    observer.onNext(keyForPassword)
+                }, onError: { error in
+                    observer.onError(error)
+                })
+
+            return Disposables.create([value])
+        }
+    }
+
+    func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
+        return auth(with: id, passcode: oldPasscode)
+            .flatMap({ [weak self] keyForPassword -> Observable<Bool> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
+            })
     }
 
     private func lastTry(database: DatabaseReference) -> Observable<Int> {
@@ -158,49 +197,6 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 } else {
                     return Observable.error(AuthenticationRepositoryError.passcodeIncorrect)
                 }
-            })
-    }
-
-    func auth(with id: String, passcode: String, numerTry: Int) -> Observable<String> {
-
-        return Observable.create { observer -> Disposable in
-
-            let database: DatabaseReference = Database.database()
-                .reference()
-                .child("pincodes-ios-dev")
-                .child(id)
-
-            let value = self.lastTry(database: database)
-                .flatMap({ nTry -> Observable<String> in
-                    
-                    let changeLastTry = self.changeLastTry(database: database, nTry: nTry + 1)
-                    let inputTry = self.inputPasscode(database: database,
-                                                      passcode: passcode,
-                                                      nTry: nTry + 1)
-
-                    return Observable.zip([changeLastTry, inputTry])
-                        .flatMap({ _ -> Observable<String>  in
-                            return self.keyForPassword(database: database, passcode: passcode)
-                                .flatMap({ keyForPassword -> Observable<String> in
-                                    return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
-                                })
-                        })
-                })
-                .subscribe(onNext: { keyForPassword in
-                    observer.onNext(keyForPassword)
-                }, onError: { error in
-                    observer.onError(error)
-                })
-
-            return Disposables.create([value])
-        }
-    }
-
-    func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
-        return auth(with: id, passcode: oldPasscode)
-            .flatMap({ [weak self] keyForPassword -> Observable<Bool> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
             })
     }
 }

@@ -12,7 +12,7 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
-private enum Constants {
+fileprivate enum Constants {
     static let durationInseconds: Double = 6000
 }
 
@@ -48,8 +48,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 }
                 guard isNeedForceUpdate == true else { return Observable.just(balances) }
 
-                return owner.remoteBalances(by: wallet,
-                                            isNeedUpdate: isNeedForceUpdate)
+                return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
             }
             .share()
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))

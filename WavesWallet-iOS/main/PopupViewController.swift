@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     
     //MARK: - UI Settings
     static let BgAlpha: CGFloat = 0.4

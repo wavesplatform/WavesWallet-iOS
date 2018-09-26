@@ -27,6 +27,9 @@
                                 <state key="normal" title="Use account password">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="logInByPasswordDidTap" destination="xmX-e2-k3d" eventType="touchUpInside" id="wGD-0c-Enn"/>
+                                </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot passcode?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvj-9X-egG">
                                 <rect key="frame" x="133" y="609" width="109" height="16"/>

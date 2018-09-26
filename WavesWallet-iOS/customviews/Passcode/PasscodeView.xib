@@ -35,7 +35,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="281" height="81"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ez-wH-ZMa">
-                            <rect key="frame" x="67" y="0.0" width="147" height="45"/>
+                            <rect key="frame" x="67" y="0.0" width="147" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -122,16 +122,26 @@
                                 <constraint firstItem="f0F-mg-TtT" firstAttribute="leading" secondItem="mer-7O-Gn0" secondAttribute="trailing" constant="24" id="xkP-X9-LuB"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-Q4-uzA">
+                            <rect key="frame" x="67" y="33" width="147" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="f9w-80-C3s" secondAttribute="bottom" id="G72-os-K3r"/>
+                        <constraint firstItem="nhY-Q4-uzA" firstAttribute="centerX" secondItem="7Ez-wH-ZMa" secondAttribute="centerX" id="P7V-n8-evZ"/>
                         <constraint firstItem="7Ez-wH-ZMa" firstAttribute="top" secondItem="7eT-ZN-m7X" secondAttribute="top" id="cPR-fv-e00"/>
+                        <constraint firstItem="f9w-80-C3s" firstAttribute="top" secondItem="nhY-Q4-uzA" secondAttribute="bottom" constant="24" id="d5U-Ml-bkS"/>
+                        <constraint firstItem="nhY-Q4-uzA" firstAttribute="top" secondItem="7Ez-wH-ZMa" secondAttribute="bottom" constant="4" id="gsP-9T-9aB"/>
                         <constraint firstItem="f9w-80-C3s" firstAttribute="centerX" secondItem="7eT-ZN-m7X" secondAttribute="centerX" id="hbc-Wq-3rg"/>
-                        <constraint firstItem="f9w-80-C3s" firstAttribute="top" secondItem="7Ez-wH-ZMa" secondAttribute="bottom" constant="24" id="kol-ve-CNZ"/>
+                        <constraint firstItem="f9w-80-C3s" firstAttribute="top" secondItem="7Ez-wH-ZMa" secondAttribute="bottom" priority="500" constant="24" id="kol-ve-CNZ"/>
                         <constraint firstItem="7Ez-wH-ZMa" firstAttribute="centerX" secondItem="7eT-ZN-m7X" secondAttribute="centerX" id="oPe-Vf-3uo"/>
                     </constraints>
                     <connections>
+                        <outlet property="detailLabel" destination="nhY-Q4-uzA" id="Guf-ff-0yB"/>
                         <outlet property="indicatorView" destination="jCH-m5-tfL" id="atL-aG-G3I"/>
                         <outlet property="titleLabel" destination="7Ez-wH-ZMa" id="7RD-rW-ILu"/>
                         <outletCollection property="dots" destination="f0F-mg-TtT" collectionClass="NSMutableArray" id="U57-mm-78W"/>
@@ -418,14 +428,15 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="f9w-80-C3s" secondAttribute="trailing" priority="750" constant="16" id="0pt-PG-q1G"/>
+                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="f9w-80-C3s" secondAttribute="trailing" priority="250" constant="16" id="0pt-PG-q1G"/>
                 <constraint firstItem="7eT-ZN-m7X" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3FY-01-4CL"/>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="7Ez-wH-ZMa" secondAttribute="trailing" constant="16" id="8AN-DU-gze"/>
+                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="7Ez-wH-ZMa" secondAttribute="trailing" priority="750" constant="16" id="8AN-DU-gze"/>
                 <constraint firstItem="fYx-vV-9mc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DkI-4t-Zp2"/>
                 <constraint firstAttribute="trailing" secondItem="7eT-ZN-m7X" secondAttribute="trailing" id="Ktk-5h-cS1"/>
                 <constraint firstItem="7eT-ZN-m7X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LRQ-OW-3Lh"/>
                 <constraint firstAttribute="bottom" secondItem="fYx-vV-9mc" secondAttribute="bottom" id="bNf-rB-sH6"/>
                 <constraint firstAttribute="trailing" secondItem="fYx-vV-9mc" secondAttribute="trailing" id="gMf-h5-Cvc"/>
+                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="nhY-Q4-uzA" secondAttribute="trailing" constant="16" id="gqU-Kv-NdU"/>
                 <constraint firstItem="fYx-vV-9mc" firstAttribute="top" secondItem="7eT-ZN-m7X" secondAttribute="bottom" constant="44" id="n7n-IN-ehk"/>
                 <constraint firstItem="jCH-m5-tfL" firstAttribute="centerY" secondItem="7eT-ZN-m7X" secondAttribute="centerY" id="vnM-DE-xUC"/>
             </constraints>

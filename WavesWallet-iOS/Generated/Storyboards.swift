@@ -56,7 +56,7 @@ internal enum StoryboardScene {
   internal enum AccountPassword: StoryboardType {
     internal static let storyboardName = "AccountPassword"
 
-    internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: AccountPassword.self, identifier: "ImportAccountPasswordViewController")
+    internal static let accountPasswordViewController = SceneType<WavesWallet_iOS.AccountPasswordViewController>(storyboard: AccountPassword.self, identifier: "AccountPasswordViewController")
   }
   internal enum Asset: StoryboardType {
     internal static let storyboardName = "Asset"

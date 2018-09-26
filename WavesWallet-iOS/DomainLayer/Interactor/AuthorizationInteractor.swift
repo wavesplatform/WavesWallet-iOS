@@ -35,34 +35,47 @@ protocol AuthorizationInteractorProtocol {
 
     func logout(publicKey: String) -> Observable<Bool>
     func logout() -> Observable<Bool>
+    func revokeAuth() -> Observable<Bool>
 
     // Return AuthorizationInteractorError permissionDenied
-    func authorizedWallet() -> Observable<DomainLayer.DTO.Wallet>
+    func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet>
 }
 
 
 private final class SeedRepositoryMemory {
 
     private static var map: [String: DomainLayer.DTO.WalletSeed] = .init()
+    //TODO: Change to OSSpinLockLock
+    private let serialQueue = DispatchQueue(label: "authorization.mutex")
 
     func append(_ seed: DomainLayer.DTO.WalletSeed) {
-        SeedRepositoryMemory.map[seed.publicKey] = seed
+        serialQueue.sync {
+            SeedRepositoryMemory.map[seed.publicKey] = seed
+        }
     }
 
     func remove(_ publicKey: String) {
-        SeedRepositoryMemory.map.removeValue(forKey: publicKey)
+        _ = serialQueue.sync {
+            SeedRepositoryMemory.map.removeValue(forKey: publicKey)
+        }
     }
 
     func seed(_ publicKey: String) -> DomainLayer.DTO.WalletSeed? {
-        return SeedRepositoryMemory.map[publicKey]
+        return serialQueue.sync {
+            return SeedRepositoryMemory.map[publicKey]
+        }
     }
 
     func hasSeed(_ publicKey: String) -> Bool {
-        return seed(publicKey) != nil
+        return serialQueue.sync {
+            return SeedRepositoryMemory.map[publicKey] != nil
+        }
     }
 
     func removeAll() {
-        SeedRepositoryMemory.map.removeAll()
+        serialQueue.sync {
+            SeedRepositoryMemory.map.removeAll()
+        }
     }
 }
 
@@ -94,7 +107,14 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
 
         case .password(let password):
-            return authWithPassword(password, wallet: wallet)
+            
+            return Crypto
+                .rx
+                .sha512(password)
+                .flatMap { [weak self] password -> Observable<Bool> in
+                    guard let owner = self else { return Observable.empty() }
+                    return owner.authWithPassword(password, wallet: wallet)
+                }
                 .catchError({ [weak self] error -> Observable<Bool> in
                     guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                     return Observable.error(owner.handlerError(error))
@@ -123,32 +143,56 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         return Observable.just(seedRepositoryMemory.hasSeed(wallet.publicKey))
     }
 
-    func authorizedWallet() -> Observable<DomainLayer.DTO.Wallet> {
+    func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet> {
         return lastWalletLoggedIn()
-            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.SignedWallet> in
 
                 guard let owner = self else { return Observable.never() }
                 guard let wallet = wallet else { return Observable.error(AuthorizationInteractorError.permissionDenied) }
-
-                return owner.isAuthorizedWallet(wallet).map { _ in wallet }
+                guard let seed = owner.seedRepositoryMemory.seed(wallet.publicKey) else { return Observable.error(AuthorizationInteractorError.permissionDenied) }
+                return Observable.just(DomainLayer.DTO.SignedWallet.init(wallet: wallet,
+                                                                         publicKey: PublicKeyAccount(publicKey: seed.publicKey),
+                                                                         signingWallets: owner))
             })
     }
-
 
     func logout() -> Observable<Bool> {
         return walletsLoggedIn().flatMap(weak: self, selector: { $0.logout })
     }
 
+    func revokeAuth() -> Observable<Bool> {
+
+        return Observable.create({ [weak self] observer -> Disposable in
+            self?.seedRepositoryMemory.removeAll()
+            WalletManager.clearPrivateMemoryKey()
+            observer.onNext(true)
+            observer.onCompleted()
+            return Disposables.create()
+        })
+    }
+
     func logout(publicKey: String) -> Observable<Bool> {
         return Observable.create({ [weak self] observer -> Disposable in
 
-            self?.seedRepositoryMemory.remove(publicKey)
+            guard let owner = self else { return Disposables.create() }
 
-            observer.onNext(true)
-            observer.onCompleted()
+            let disposable = owner
+                .localWalletRepository
+                .wallet(by: publicKey)
+                .flatMap({ wallet -> Observable<Bool> in
+                    let newWallet = wallet.mutate(transform: { $0.isLoggedIn = false })
+                    return owner
+                        .localWalletRepository
+                        .saveWallet(newWallet)
+                        .map { _ in true }
+                })
+                .subscribe(onNext: { completed in
+                    observer.onNext(completed)
+                    observer.onCompleted()
+                })
 
-            return Disposables.create()
-        })
+            return Disposables.create([disposable])
+        }).sweetDebug("Test")
     }
 }
 
@@ -162,12 +206,17 @@ private extension AuthorizationInteractor {
                 owner.seedRepositoryMemory.append(seed)
 
                 
-                WalletManager.currentWallet = Wallet.init(name: "Test", publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)), isBackedUp: true)
+                var oldWallet = Wallet.init(name: "Test",
+                                           publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
+                                           isBackedUp: true)
+                oldWallet.privateKey = PrivateKeyAccount(seedStr: seed.seed)
+                WalletManager.currentWallet = oldWallet
                 return owner.setIsLoggedIn(wallet: wallet)
             })
     }
 
-    private func setIsLoggedIn(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+    private func setIsLoggedIn(wallet: DomainLayer.DTO.Wallet,
+                               isLoggedIn: Bool = true) -> Observable<Bool> {
         return localWalletRepository
             .wallets(specifications: .init(isLoggedIn: true))
             .flatMap({ [weak self] wallets -> Observable<Bool> in
@@ -177,7 +226,7 @@ private extension AuthorizationInteractor {
                     wallet.isLoggedIn = false
                 })
                 let currentWallet = wallet.mutate(transform: { wallet in
-                    wallet.isLoggedIn = true
+                    wallet.isLoggedIn = isLoggedIn
                 })
 
                 newWallets.append(currentWallet)

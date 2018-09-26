@@ -40,6 +40,7 @@ extension PasscodeTypes {
         enum Action {
             case registration
             case logIn
+            case logout
         }
 
         var displayState: DisplayState
@@ -50,11 +51,13 @@ extension PasscodeTypes {
     }
 
     enum Event {
+        case completedLogout
         case completedRegistration
         case completedLogIn        
         case tapLogInByPassword
         case handlerError(PasscodeInteractorError)
         case tapBack
+        case tapLogoutButton
         case completedInputNumbers([Int])
     }
 
@@ -69,6 +72,8 @@ extension PasscodeTypes {
         var isLoading: Bool
         var isHiddenBackButton: Bool
         var isHiddenLogInByPassword: Bool
+        var isHiddenLogoutButton: Bool
         var error: Error?
+        var detailLabel: String?
     }
 }
