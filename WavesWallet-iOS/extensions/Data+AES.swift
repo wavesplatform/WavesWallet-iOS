@@ -9,7 +9,7 @@
 import CryptoSwift
 import Foundation
 
-private enum Constants {
+fileprivate enum Constants {
     static let iterations: Int = 5000
     static let keyLength: Int = 32
 }

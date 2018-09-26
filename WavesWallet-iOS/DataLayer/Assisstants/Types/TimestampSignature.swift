@@ -8,13 +8,15 @@
 
 import Foundation
 
-private enum Constants {
+fileprivate enum Constants {
     static let timestamp = "timestamp"
 }
 
 struct TimestampSignature: SignatureProtocol {
+
     typealias Variable = Int64
-    
+
+    private(set) var signedWallet: DomainLayer.DTO.SignedWallet
     private(set) var variable: Variable
     
     var variableKey: String {

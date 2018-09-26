@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-private enum Constants {
+fileprivate enum Constants {
     static let limitTransactions = 10000
 }
 

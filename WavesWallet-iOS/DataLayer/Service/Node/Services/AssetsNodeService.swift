@@ -24,7 +24,7 @@ extension Node.Service.Assets: NodeTargetType {
         return String.self
     }
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let assets = "assets"
         static let balance = "balance"
     }

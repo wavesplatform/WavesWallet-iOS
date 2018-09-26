@@ -8,7 +8,7 @@
 
 import Foundation
 
-private enum Constants {
+fileprivate enum Constants {
     static let senderPublicKey = "senderPublicKey"
     static let signature = "signature"
 }
@@ -16,7 +16,7 @@ private enum Constants {
 protocol SignatureProtocol {
     associatedtype Variable: CustomStringConvertible
 
-    var signedWallet: DomainLayer.DTO.SignedWallet
+    var signedWallet: DomainLayer.DTO.SignedWallet { get }
 
     var variable: Variable { get }
     var variableKey: String { get }
@@ -24,24 +24,28 @@ protocol SignatureProtocol {
     var toSign: [UInt8] { get }
     var parameters: [String: String] { get }
 
-    func signature() throws -> [UInt8]
-
+    func signature() -> [UInt8]
 }
 
 extension SignatureProtocol {
+
+    var publicKey: PublicKeyAccount {
+        return signedWallet.publicKey
+    }
+
     var toSign: [UInt8] {
         let s1 = signedWallet.publicKey.publicKey
         let s2 = toByteArray(variable)
         return s1 + s2
     }
 
-    func signature() throws -> [UInt8] {
-        signedWallet.sign(input: toSign, kind: [.none])
+    func signature() -> [UInt8] {
+        return (try? signedWallet.sign(input: toSign, kind: [.none])) ?? []
     }
 
     var parameters: [String: String] {
         return [Constants.senderPublicKey: Base58.encode(signedWallet.publicKey.publicKey),
                 variableKey: "\(variable)",
-                Constants.signature: Base58.encode(signature)]
+                Constants.signature: Base58.encode(signature())]
     }
 }

@@ -40,6 +40,14 @@ final class PasscodeViewController: UIViewController {
     @objc private func backButtonDidTap() {
         eventInput.onNext(.tapBack)
     }
+
+    @objc private func logoutButtonDidTap() {
+        eventInput.onNext(.tapLogoutButton)
+    }
+
+    @IBAction func logInByPasswordDidTap() {
+        eventInput.onNext(.tapLogInByPassword)
+    }
 }
 
 // MARK: RxFeedback
@@ -73,21 +81,23 @@ private extension PasscodeViewController {
 
     func updateView(with state: Types.DisplayState) {
 
-        switch state.kind {
-        case .newPasscode:
-            passcodeView.update(with: .init(numbers: state.numbers, text: "Create a passcode"))
-
-        case .repeatPasscode:
-            passcodeView.update(with: .init(numbers: state.numbers, text: "Verify your passcode"))
-
-        case .enterPasscode:
-            passcodeView.update(with: .init(numbers: state.numbers, text: "Enter passcode"))
-        }
+        passcodeView.update(with: .init(numbers: state.numbers,
+                                        text: state.kind.title,
+                                        detail: state.detailLabel))
 
         if state.isHiddenBackButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem()
         } else {
             navigationItem.leftBarButtonItem = backButtonItem
+        }
+
+        if state.isHiddenLogoutButton {
+            navigationItem.rightBarButtonItem = nil
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image,
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(logoutButtonDidTap))
         }
 
         self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
@@ -116,4 +126,20 @@ extension PasscodeViewController: PasscodeViewDelegate {
     }
 
     func biometricButtonDidTap() { }
+}
+
+fileprivate extension PasscodeTypes.PasscodeKind {
+
+    var title: String {
+        switch self {
+        case .newPasscode:
+            return  "Create a passcode"
+
+        case .repeatPasscode:
+            return "Verify your passcode"
+
+        case .enterPasscode:
+            return  "Enter passcode"
+        }
+    }
 }

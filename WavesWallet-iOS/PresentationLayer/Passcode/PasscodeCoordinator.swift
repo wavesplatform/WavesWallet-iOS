@@ -10,6 +10,7 @@ import UIKit
 
 protocol PasscodeCoordinatorDelegate: AnyObject {
     func userAuthorizationCompleted()
+    func userLogouted()
 }
 
 final class PasscodeCoordinator: Coordinator {
@@ -32,7 +33,6 @@ final class PasscodeCoordinator: Coordinator {
         self.kind = kind
     }
 
-
     func start() {
         let vc = PasscodeModuleBuilder(output: self)
             .build(input: .init(kind: kind))
@@ -44,20 +44,38 @@ final class PasscodeCoordinator: Coordinator {
             viewController.present(navigationController, animated: animated, completion: nil)
         }
     }
+
+    private func dissmiss() {
+        self.viewController.dismiss(animated: true, completion: nil)
+        removeFromParentCoordinator()
+    }
 }
 
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeOutput {
 
     func authorizationCompleted() -> Void {
+        dissmiss()
+        delegate?.userAuthorizationCompleted()
+    }
 
-//        if let presentedViewController = viewController.presentedViewController {
-//            ыудаю
-//        } else {
-//            viewController.present(navigationController, animated: true, completion: nil)
-//        }
-        self.viewController.dismiss(animated: true, completion: nil)
-        removeFromParentCoordinator()
+    func userLogouted() {
+        dissmiss()
+        delegate?.userLogouted()
+    }
+
+    func logInByPassword() {
+        if case .logIn(let wallet) = kind {
+            let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
+            navigationController.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+// MARK: AccountPasswordModuleOutput
+extension PasscodeCoordinator: AccountPasswordModuleOutput {
+    func authorizationByPasswordCompleted() {
+        dissmiss()
         delegate?.userAuthorizationCompleted()
     }
 }

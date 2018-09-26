@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let titleFontSize: CGFloat = 10
     static let subTitleFontSize: CGFloat = 13
     static let lineSpacing: CGFloat = 3

@@ -12,12 +12,12 @@ import RxSwift
 protocol PasscodeInteractorProtocol {
     func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool>
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool>
+    func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 }
 
 enum PasscodeInteractorError: Error {
     case fail
     case passcodeIncorrect
-    case passwordIncorrect
     case permissionDenied
     case attemptsEnded
 }
@@ -44,6 +44,8 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .catchError(weak: self, handler: { (owner, error) -> Observable<Bool> in
                 return Observable.error(owner.handlerError(error))
             })
+            .share()
+            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
@@ -54,6 +56,10 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             })
     }
 
+    func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return authorizationInteractor.logout(publicKey: wallet.publicKey)
+    }
+
     private func handlerError(_ error: Error) -> PasscodeInteractorError {
 
         switch error {
@@ -62,23 +68,17 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             case .attemptsEnded:
                 return PasscodeInteractorError.attemptsEnded
 
-            case .fail:
-                return PasscodeInteractorError.fail
-
-            case .passwordIncorrect:
-                return PasscodeInteractorError.passwordIncorrect
-
             case .passcodeIncorrect:
                 return PasscodeInteractorError.passcodeIncorrect
 
             case .permissionDenied:
                 return PasscodeInteractorError.permissionDenied
+            default:
+                return PasscodeInteractorError.fail
             }
 
         default:
-            break
-        }
-
-        return PasscodeInteractorError.fail
+            return PasscodeInteractorError.fail
+        }        
     }
 }

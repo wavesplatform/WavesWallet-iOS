@@ -13,7 +13,7 @@ import RxFeedback
 import RxSwift
 import SwiftDate
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
 }
 
