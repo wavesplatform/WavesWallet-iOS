@@ -227,6 +227,7 @@ private extension WalletViewController {
 
     func setupTableView() {
         displayData.delegate = self
+        displayData.balanceCellDelegate = self
     }
 
     func setupSegmetedControl() {
@@ -234,6 +235,15 @@ private extension WalletViewController {
         segmentedControl
             .segmentedControl
             .update(with: buttons, animated: true)
+    }
+}
+
+//MARK: - WalletLeasingBalanceCellDelegate
+extension WalletViewController: WalletLeasingBalanceCellDelegate {
+    
+    func walletLeasingBalanceCellDidTapStartLease() {
+        let controller = StoryboardScene.StartLeasing.startLeasingViewController.instantiate()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
