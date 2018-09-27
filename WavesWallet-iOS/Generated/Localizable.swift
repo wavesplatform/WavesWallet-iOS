@@ -89,6 +89,17 @@ internal enum Localizable {
       internal static let title = Localizable.tr("DexList", "navigationBar.title")
     }
   }
+  internal enum AddressBook {
+
+    internal enum Label {
+      /// Address book
+      internal static let addressBook = Localizable.tr("AddressBook", "label.addressBook")
+      /// Address deleted
+      internal static let addressDeleted = Localizable.tr("AddressBook", "label.addressDeleted")
+      /// Nothing Here…\nYou can create new address
+      internal static let noInfo = Localizable.tr("AddressBook", "label.noInfo")
+    }
+  }
   internal enum DexLastTrades {
 
     internal enum Button {
@@ -255,45 +266,6 @@ internal enum Localizable {
     /// Authenticate with Face ID
     internal static let nsFaceIDUsageDescription = Localizable.tr("InfoPlist", "NSFaceIDUsageDescription")
   }
-  internal enum DexCompleteOrder {
-
-    internal enum Button {
-      /// Okay
-      internal static let okey = Localizable.tr("DexCompleteOrder", "button.okey")
-    }
-
-    internal enum Label {
-      /// Amount
-      internal static let amount = Localizable.tr("DexCompleteOrder", "label.amount")
-      /// Open
-      internal static let `open` = Localizable.tr("DexCompleteOrder", "label.open")
-      /// The order is created
-      internal static let orderIsCreated = Localizable.tr("DexCompleteOrder", "label.orderIsCreated")
-      /// Price
-      internal static let price = Localizable.tr("DexCompleteOrder", "label.price")
-      /// Status
-      internal static let status = Localizable.tr("DexCompleteOrder", "label.status")
-      /// Time
-      internal static let time = Localizable.tr("DexCompleteOrder", "label.time")
-    }
-  }
-  internal enum DexMarket {
-
-    internal enum Label {
-      /// Loading markets…
-      internal static let loadingMarkets = Localizable.tr("DexMarket", "label.loadingMarkets")
-    }
-
-    internal enum Navigationbar {
-      /// Markets
-      internal static let title = Localizable.tr("DexMarket", "navigationBar.title")
-    }
-
-    internal enum Searchbar {
-      /// Search
-      internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
-    }
-  }
   internal enum History {
 
     internal enum Navigationbar {
@@ -318,6 +290,32 @@ internal enum Localizable {
       internal static let received = Localizable.tr("History", "segmentedControl.received")
       /// Sent
       internal static let sent = Localizable.tr("History", "segmentedControl.sent")
+    }
+  }
+  internal enum AddAddressBook {
+
+    internal enum Button {
+      /// Cancel
+      internal static let cancel = Localizable.tr("AddAddressBook", "button.cancel")
+      /// Delete
+      internal static let delete = Localizable.tr("AddAddressBook", "button.delete")
+      /// Delete address
+      internal static let deleteAddress = Localizable.tr("AddAddressBook", "button.deleteAddress")
+      /// Save
+      internal static let save = Localizable.tr("AddAddressBook", "button.save")
+    }
+
+    internal enum Label {
+      /// Add
+      internal static let add = Localizable.tr("AddAddressBook", "label.add")
+      /// Address
+      internal static let address = Localizable.tr("AddAddressBook", "label.address")
+      /// Are you sure you want to delete address form address book?
+      internal static let deleteAlertMessage = Localizable.tr("AddAddressBook", "label.deleteAlertMessage")
+      /// Edit
+      internal static let edit = Localizable.tr("AddAddressBook", "label.edit")
+      /// Name
+      internal static let name = Localizable.tr("AddAddressBook", "label.name")
     }
   }
   internal enum WalletSort {
@@ -395,6 +393,28 @@ internal enum Localizable {
       internal static let leasing = Localizable.tr("Wallet", "segmentedControl.leasing")
     }
   }
+  internal enum DexCompleteOrder {
+
+    internal enum Button {
+      /// Okay
+      internal static let okey = Localizable.tr("DexCompleteOrder", "button.okey")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("DexCompleteOrder", "label.amount")
+      /// Open
+      internal static let `open` = Localizable.tr("DexCompleteOrder", "label.open")
+      /// The order is created
+      internal static let orderIsCreated = Localizable.tr("DexCompleteOrder", "label.orderIsCreated")
+      /// Price
+      internal static let price = Localizable.tr("DexCompleteOrder", "label.price")
+      /// Status
+      internal static let status = Localizable.tr("DexCompleteOrder", "label.status")
+      /// Time
+      internal static let time = Localizable.tr("DexCompleteOrder", "label.time")
+    }
+  }
   internal enum Asset {
 
     internal enum Cell {
@@ -451,6 +471,23 @@ internal enum Localizable {
       internal static let lastTransactions = Localizable.tr("Asset", "header.lastTransactions")
       /// You do not have any transactions
       internal static let notHaveTransactions = Localizable.tr("Asset", "header.notHaveTransactions")
+    }
+  }
+  internal enum DexMarket {
+
+    internal enum Label {
+      /// Loading markets…
+      internal static let loadingMarkets = Localizable.tr("DexMarket", "label.loadingMarkets")
+    }
+
+    internal enum Navigationbar {
+      /// Markets
+      internal static let title = Localizable.tr("DexMarket", "navigationBar.title")
+    }
+
+    internal enum Searchbar {
+      /// Search
+      internal static let placeholder = Localizable.tr("DexMarket", "searchBar.placeholder")
     }
   }
   internal enum DexOrderBook {
