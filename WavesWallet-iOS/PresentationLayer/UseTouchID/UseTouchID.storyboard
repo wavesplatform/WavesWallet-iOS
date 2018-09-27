@@ -22,8 +22,8 @@
                                 <rect key="frame" x="163.5" y="196" width="48" height="48"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Touch ID to sign in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-Kx-zwM">
-                                <rect key="frame" x="95.5" y="284" width="184" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="92.5" y="284" width="190.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -70,10 +70,14 @@
                                     <action selector="notNowTapped:" destination="0Pb-XP-PBS" eventType="touchUpInside" id="eSU-nJ-PnJ"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="cuD-QS-q9R">
+                                <rect key="frame" x="184" y="537" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="V9j-9K-bED" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="16" id="4JR-Y3-BpZ"/>
+                            <constraint firstItem="cuD-QS-q9R" firstAttribute="centerX" secondItem="V9j-9K-bED" secondAttribute="centerX" id="5js-oL-1jr"/>
                             <constraint firstAttribute="trailing" secondItem="HtR-Tw-vMq" secondAttribute="trailing" constant="16" id="AwH-gk-EK9"/>
                             <constraint firstItem="HtR-Tw-vMq" firstAttribute="top" secondItem="V9j-9K-bED" secondAttribute="bottom" constant="24" id="Bb7-uf-Azx"/>
                             <constraint firstItem="8Hl-X7-TVG" firstAttribute="top" secondItem="W7g-Bz-dil" secondAttribute="top" constant="176" id="Qtg-94-Se3"/>
@@ -85,6 +89,7 @@
                             <constraint firstItem="Mr8-iN-y2Y" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="24" id="s0N-z0-9a4"/>
                             <constraint firstItem="Mr8-iN-y2Y" firstAttribute="top" secondItem="xiI-Kx-zwM" secondAttribute="bottom" constant="8" id="s7I-bT-Sne"/>
                             <constraint firstItem="HtR-Tw-vMq" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="16" id="wbO-sI-eyd"/>
+                            <constraint firstItem="cuD-QS-q9R" firstAttribute="centerY" secondItem="V9j-9K-bED" secondAttribute="centerY" id="xUe-mI-wss"/>
                             <constraint firstAttribute="trailing" secondItem="V9j-9K-bED" secondAttribute="trailing" constant="16" id="y6u-Ts-tJw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="W7g-Bz-dil"/>
@@ -93,6 +98,7 @@
                         <outlet property="buttonNotNow" destination="HtR-Tw-vMq" id="sFN-GR-R0q"/>
                         <outlet property="buttonUseTouchId" destination="V9j-9K-bED" id="wca-aS-qX5"/>
                         <outlet property="iconTouch" destination="8Hl-X7-TVG" id="dIF-P8-hwJ"/>
+                        <outlet property="indicator" destination="cuD-QS-q9R" id="ahY-23-X7R"/>
                         <outlet property="labelDescription" destination="Mr8-iN-y2Y" id="Lse-fY-zlN"/>
                         <outlet property="labelTouchId" destination="xiI-Kx-zwM" id="r7q-CX-4BH"/>
                         <outlet property="topLogoOffset" destination="Qtg-94-Se3" id="wYC-Pc-fpE"/>

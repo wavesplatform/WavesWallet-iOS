@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .error]
+        SweetLogger.current.visibleLevels = [.debug, .error, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = AppColors.wavesColor

@@ -26,6 +26,9 @@ final class InputTextField: UIView, NibOwnerLoadable {
     @IBOutlet private var errorLabel: UILabel!
     @IBOutlet private var textFieldValue: UITextField!
     @IBOutlet private var eyeButton: UIButton!
+
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                                 action: #selector(handlerTapGesture(recognizer:)))
     private var secureText: String?
 
     var value: String? {
@@ -64,6 +67,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         loadNibContent()
+        addGestureRecognizer(tapGesture)
         textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
@@ -73,6 +77,10 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
     @discardableResult override func becomeFirstResponder() -> Bool {
         return textFieldValue.becomeFirstResponder()
+    }
+
+    @objc private func handlerTapGesture(recognizer: UITapGestureRecognizer) {
+        becomeFirstResponder()
     }
 
     @objc func keyboardWillHide() {

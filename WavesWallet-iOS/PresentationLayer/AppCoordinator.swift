@@ -171,7 +171,7 @@ extension AppCoordinator {
         if isMainTabDisplayed {
             return
         }
-        
+
         let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController)
         addChildCoordinator(childCoordinator: mainTabBarController)
         mainTabBarController.start()

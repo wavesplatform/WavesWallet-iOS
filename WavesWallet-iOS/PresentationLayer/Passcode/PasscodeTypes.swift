@@ -40,6 +40,7 @@ extension PasscodeTypes {
         enum Action {
             case registration
             case logIn
+            case logInBiometric
             case logout
         }
 
@@ -52,13 +53,15 @@ extension PasscodeTypes {
 
     enum Event {
         case completedLogout
-        case completedRegistration
-        case completedLogIn        
+        case completedRegistration(DomainLayer.DTO.Wallet)
+        case completedLogIn(DomainLayer.DTO.Wallet)
         case tapLogInByPassword
         case handlerError(PasscodeInteractorError)
         case tapBack
         case tapLogoutButton
+        case tapBiometricButton
         case completedInputNumbers([Int])
+        case viewDidAppear
     }
 
     struct DisplayState: Mutating {
@@ -73,6 +76,7 @@ extension PasscodeTypes {
         var isHiddenBackButton: Bool
         var isHiddenLogInByPassword: Bool
         var isHiddenLogoutButton: Bool
+        var isHiddenBiometricButton: Bool
         var error: Error?
         var titleLabel: String
         var detailLabel: String?

@@ -296,7 +296,6 @@
 		0AF92230212E0F1F003BA067 /* WalletSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92223212E0F1F003BA067 /* WalletSegmentedControl.swift */; };
 		0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF92224212E0F1F003BA067 /* WalletHeaderView.xib */; };
 		0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92240212E1233003BA067 /* CALayer+Shadow.swift */; };
-		0AF922A7212E1234003BA067 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92241212E1233003BA067 /* UIButtonExtension.swift */; };
 		0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92242212E1233003BA067 /* ControlEvent+ScrollView.swift */; };
 		0AF922A9212E1234003BA067 /* UIView+Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92243212E1233003BA067 /* UIView+Layer.swift */; };
 		0AF922AA212E1234003BA067 /* CGFloat+Min.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92244212E1233003BA067 /* CGFloat+Min.swift */; };
@@ -404,6 +403,7 @@
 		0AFF5C87215BEEBF00B82940 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C86215BEEBF00B82940 /* RXCrypto+SHA.swift */; };
 		0AFF5C89215BF39200B82940 /* UIButton+WithoutAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */; };
 		0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8A215BF54600B82940 /* Settings.swift */; };
+		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
@@ -932,7 +932,6 @@
 		0AF92223212E0F1F003BA067 /* WalletSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSegmentedControl.swift; sourceTree = "<group>"; };
 		0AF92224212E0F1F003BA067 /* WalletHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletHeaderView.xib; sourceTree = "<group>"; };
 		0AF92240212E1233003BA067 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
-		0AF92241212E1233003BA067 /* UIButtonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		0AF92242212E1233003BA067 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		0AF92243212E1233003BA067 /* UIView+Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layer.swift"; sourceTree = "<group>"; };
 		0AF92244212E1233003BA067 /* CGFloat+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -1050,6 +1049,7 @@
 		0AFF5C86215BEEBF00B82940 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
 		0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+WithoutAnimation.swift"; sourceTree = "<group>"; };
 		0AFF5C8A215BF54600B82940 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDModuleBuilder.swift; sourceTree = "<group>"; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1411,6 +1411,7 @@
 				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				0A071E63215C65D2007D9750 /* UseTouchID.storyboard */,
 				0A071E6E215C6B6F007D9750 /* UseTouchID.strings */,
+				0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */,
 			);
 			path = UseTouchID;
 			sourceTree = "<group>";
@@ -2197,7 +2198,6 @@
 				0A14CFCB2144156400C3A4D5 /* String+NormalizeAssetId.swift */,
 				0AF9226C212E1233003BA067 /* StringExtension.swift */,
 				0A580E652135F7B800C62549 /* Thread+Assisstants.swift */,
-				0AF92241212E1233003BA067 /* UIButtonExtension.swift */,
 				0AF92249212E1233003BA067 /* UIColor+Asset.swift */,
 				0AF9225D212E1233003BA067 /* UIColor+Colors.swift */,
 				0AF9224B212E1233003BA067 /* UIColor+Hex.swift */,
@@ -3501,7 +3501,6 @@
 				0A3FE8C02137007500DBF4E1 /* DataTransactionNode.swift in Sources */,
 				E9599401212F98C8007C8DDA /* DexMyOrdersTypes.swift in Sources */,
 				E9B75C0E21190F3B00C60999 /* DexSortTypes.swift in Sources */,
-				0AF922A7212E1234003BA067 /* UIButtonExtension.swift in Sources */,
 				E9EDC6D22123AF1A00C58E0D /* DexOrderBookTypes.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
@@ -3671,6 +3670,7 @@
 				0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
 				E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */,
+				0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */,
 				F7E955011EA9109000A804DE /* LaunchViewController.swift in Sources */,
 				0A580E662135F7B800C62549 /* Thread+Assisstants.swift in Sources */,
 				0AF922C2212E1234003BA067 /* UIColor+Colors.swift in Sources */,

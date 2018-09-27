@@ -48,10 +48,6 @@ extension BackupCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-//            viewController.dismiss(animated: true) { [weak self] in
-//                self?.completed(false)
-//                self?.removeFromParentCoordinator()
-//            }
             completed(false)
             removeFromParentCoordinator()
         } else {

@@ -8,6 +8,12 @@
 
 import Foundation
 import RxSwift
+import KeychainAccess
+import LocalAuthentication
+
+private enum Constants {
+    static let service = "com.wavesplatform.wallets"
+}
 
 enum AuthorizationType {
     case passcode(String)
@@ -21,6 +27,7 @@ enum AuthorizationInteractorError: Error {
     case passwordIncorrect
     case permissionDenied
     case attemptsEnded
+    case biometricDisable
 }
 
 protocol AuthorizationInteractorProtocol {
@@ -31,7 +38,10 @@ protocol AuthorizationInteractorProtocol {
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
     // Return AuthorizationInteractorError
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
+
+    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
+    func removeBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
 
     func logout(publicKey: String) -> Observable<Bool>
     func logout() -> Observable<Bool>
@@ -88,19 +98,19 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     //TODO: Mutex
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
 
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
 
         switch type {
         case .passcode(let passcode):
             return remoteAuthenticationRepository
                 .auth(with: wallet.id, passcode: passcode)
-                .flatMap { [weak self] keyForPassword -> Observable<Bool> in
+                .flatMap { [weak self] keyForPassword -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.empty() }
                     guard let password: String = wallet.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.empty() }
 
                     return owner.authWithPassword(password, wallet: wallet)
                 }
-                .catchError({ [weak self] error -> Observable<Bool> in
+                .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                     return Observable.error(owner.handlerError(error))
                 })
@@ -111,46 +121,16 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             return Crypto
                 .rx
                 .sha512(password)
-                .flatMap { [weak self] password -> Observable<Bool> in
+                .flatMap { [weak self] password -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.empty() }
                     return owner.authWithPassword(password, wallet: wallet)
                 }
-                .catchError({ [weak self] error -> Observable<Bool> in
-                    guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
-                    return Observable.error(owner.handlerError(error))
-                })
 
         case .biometric:
-            break
+            return authBiometric(wallet: wallet)
         }
-
-        return Observable.never()
     }
 
-
-//    class func createWalletInKeychain(wallet: WalletItem, seedBytes: [UInt8]) -> Observable<Void> {
-//        let seed = Base58.encode(seedBytes)
-//        let keychain = Keychain(service: "com.wavesplatform.wallets")
-//            .label("Waves wallet seeds")
-//            .accessibility(.whenUnlocked)
-//
-//        return Observable<Void>.create { observer -> Disposable in
-//            do {
-//                let policy = AuthenticationPolicy.userPresence
-//
-//                try keychain
-//                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
-//                    .accessibility(.whenUnlocked, authenticationPolicy: policy)
-//                    .set(seed, key: wallet.publicKey)
-//
-//            } catch let err {
-//                observer.onError(WalletError.Generic("Failed to store your seed in Keychain: " + err.localizedDescription))
-//            }
-//
-//            observer.onNext(())
-//            return Disposables.create()
-//            }.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-//        
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?> {
         return walletsLoggedIn()
             .flatMap({ wallets -> Observable<DomainLayer.DTO.Wallet?> in
@@ -216,34 +196,143 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 })
 
             return Disposables.create([disposable])
-        }).sweetDebug("Test")
+        })
+    }
+
+    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return auth(type: .passcode(passcode), wallet: wallet)
+            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .savePasscodeInKeychain(wallet: wallet, passcode: passcode)
+                    .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                        guard let owner = self else { return Observable.never() }
+                        return owner.setHasBiometricEntrance(wallet: wallet, hasBiometricEntrance: true)
+                    })
+            })
+    }
+
+    func removeBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return auth(type: .passcode(passcode), wallet: wallet)
+            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .removePasscodeInKeychain(wallet: wallet)
+                    .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                        guard let owner = self else { return Observable.never() }
+                        return owner.setHasBiometricEntrance(wallet: wallet, hasBiometricEntrance: false)
+                    })
+            })
     }
 }
 
 private extension AuthorizationInteractor {
 
-    private func authWithPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+    private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable<Bool>.create { observer -> Disposable in
+
+            let keychain = Keychain(service: Constants.service)
+                .accessibility(.whenUnlocked)
+
+            do {
+
+                try keychain
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                    .remove(wallet.publicKey)
+
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
+        return Observable<Bool>.create { observer -> Disposable in
+
+            let keychain = Keychain(service: Constants.service)
+                .label("Waves wallet seeds")
+                .accessibility(.whenUnlocked)
+
+            do {
+
+                try keychain
+                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                    .set(passcode, key: wallet.publicKey)
+
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    private func authBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return Observable<String>.create { observer -> Disposable in
+
+            let keychain = Keychain(service: Constants.service)
+
+            do {
+
+                guard let passcode = try keychain
+                    .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                    .get(wallet.publicKey) else
+                {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                    return Disposables.create()
+                }
+
+                observer.onNext(passcode)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.permissionDenied)
+            }
+
+            return Disposables.create()
+        }
+        .flatMap({ [weak self] passcode -> Observable<DomainLayer.DTO.Wallet> in
+            guard let owner = self else { return Observable.never() }
+            return owner.auth(type: .passcode(passcode), wallet: wallet)
+        })
+    }
+
+    private func authWithPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
         return localWalletSeedRepository
             .seed(for: wallet.address, publicKey: wallet.publicKey, password: password)
-            .flatMap({ [weak self] seed -> Observable<Bool> in
+            .flatMap({ [weak self] seed -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.empty() }
                 owner.seedRepositoryMemory.append(seed)
 
                 
-                var oldWallet = Wallet.init(name: "Test",
+                var oldWallet = Wallet.init(name: wallet.name,
                                            publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
                                            isBackedUp: true)
                 oldWallet.privateKey = PrivateKeyAccount(seedStr: seed.seed)
                 WalletManager.currentWallet = oldWallet
                 return owner.setIsLoggedIn(wallet: wallet)
             })
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
     }
 
     private func setIsLoggedIn(wallet: DomainLayer.DTO.Wallet,
-                               isLoggedIn: Bool = true) -> Observable<Bool> {
+                               isLoggedIn: Bool = true) -> Observable<DomainLayer.DTO.Wallet> {
         return localWalletRepository
             .wallets(specifications: .init(isLoggedIn: true))
-            .flatMap({ [weak self] wallets -> Observable<Bool> in
+            .flatMap({ [weak self] wallets -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.empty() }
 
                 var newWallets = wallets.mutate(transform: { wallet in
@@ -258,8 +347,18 @@ private extension AuthorizationInteractor {
                 return owner
                     .localWalletRepository
                     .saveWallets(newWallets)
-                    .map { _ in true }
+                    .map { _ in currentWallet }
             })
+    }
+
+    private func setHasBiometricEntrance(wallet: DomainLayer.DTO.Wallet, hasBiometricEntrance: Bool = true) -> Observable<DomainLayer.DTO.Wallet> {
+
+        let newWallet = wallet.mutate(transform: { $0.hasBiometricEntrance = hasBiometricEntrance })
+
+        return self
+            .localWalletRepository
+            .saveWallet(newWallet)
+            .map { _ in newWallet }
     }
 
     private func logout(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<Bool> {

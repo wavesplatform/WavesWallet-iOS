@@ -30,6 +30,7 @@ extension Reactive where Base: DatabaseReference {
 
             return Disposables.create()
         }
+        .sweetDebug("FB removeValue")
     }
 
     func setValue(_ value: Any?) -> Observable<DatabaseReference> {
@@ -47,6 +48,7 @@ extension Reactive where Base: DatabaseReference {
 
             return Disposables.create()
         }
+        .sweetDebug("FB setValue")
     }
 
     var value: Observable<Any?> {
@@ -60,6 +62,7 @@ extension Reactive where Base: DatabaseReference {
             })
             return Disposables.create()
         }
+        .sweetDebug("FB Value")
     }
 }
 
@@ -125,11 +128,8 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                                 })
                         })
                 })
-                .subscribe(onNext: { keyForPassword in
-                    observer.onNext(keyForPassword)
-                }, onError: { error in
-                    observer.onError(error)
-                })
+                .bind(to: observer)
+
 
             return Disposables.create([value])
         }
@@ -158,6 +158,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             .catchError({ error -> Observable<Int> in
                 return Observable.error(AuthenticationRepositoryError.fail)
             })
+            .sweetDebug("lastTry")
     }
 
     private func inputPasscode(database: DatabaseReference, passcode: String, nTry: Int) -> Observable<DatabaseReference> {

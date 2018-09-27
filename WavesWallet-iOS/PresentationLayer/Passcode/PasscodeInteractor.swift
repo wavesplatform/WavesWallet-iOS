@@ -10,9 +10,10 @@ import Foundation
 import RxSwift
 
 protocol PasscodeInteractorProtocol {
-    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool>
-    func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool>
+    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
+    func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
     func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func logInBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
 }
 
 enum PasscodeInteractorError: Error {
@@ -27,7 +28,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
     private let walletsInteractor: WalletsInteractorProtocol = FactoryInteractors.instance.wallets
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
-    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<Bool> {
+    func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
 
         let query = DomainLayer.DTO.WalletRegistation.init(name: account.name,
                                                address: account.privateKey.address,
@@ -37,21 +38,29 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
                                                passcode: passcode)
 
         return walletsInteractor.registerWallet(query)
-            .flatMap({ [weak self] wallet -> Observable<Bool> in
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else {  return Observable.empty() }
                 return owner.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
             })
-            .catchError(weak: self, handler: { (owner, error) -> Observable<Bool> in
+            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
                 return Observable.error(owner.handlerError(error))
             })
             .share()
             .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
-    func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
+    func logInBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+        return authorizationInteractor
+            .auth(type: .biometric, wallet: wallet)
+            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
         return authorizationInteractor
             .auth(type: .passcode(passcode), wallet: wallet)
-            .catchError(weak: self, handler: { (owner, error) -> Observable<Bool> in
+            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
                 return Observable.error(owner.handlerError(error))
             })
     }

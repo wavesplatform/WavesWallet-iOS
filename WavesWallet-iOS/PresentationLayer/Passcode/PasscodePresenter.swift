@@ -12,7 +12,7 @@ import RxSwift
 import RxFeedback
 
 protocol PasscodeOutput: AnyObject {
-    func authorizationCompleted() -> Void
+    func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
     func userLogouted()
     func logInByPassword()
 }
@@ -29,6 +29,11 @@ protocol PasscodePresenterProtocol {
     var input: PasscodeInput! { get set }
     var moduleOutput: PasscodeOutput? { get set }
     func system(feedbacks: [Feedback])
+}
+
+
+private struct LogInByBiometricQuery: Hashable {
+    let wallet: DomainLayer.DTO.Wallet
 }
 
 private struct RegistationQuery: Hashable {
@@ -61,6 +66,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(registration())
         newFeedbacks.append(logIn())
         newFeedbacks.append(logout())
+        newFeedbacks.append(logInBiometric())
 
         let initialState = self.initialState(kind: input.kind)
 
@@ -88,9 +94,35 @@ final class PasscodePresenter: PasscodePresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
-                .interactor.registrationAccount(query.account,
-                                                passcode: query.passcode)
-                .map { _ in .completedRegistration }
+                .interactor
+                .registrationAccount(query.account,
+                                     passcode: query.passcode)
+                .map { .completedRegistration($0) }
+                .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+                })
+        })
+    }
+
+    private func logInBiometric() -> Feedback {
+        return react(query: { state -> LogInByBiometricQuery? in
+
+            if case let .logIn(wallet) = state.kind, let action = state.action, case .logInBiometric =  action {
+                return LogInByBiometricQuery(wallet: wallet)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .logInBiometric(wallet: query.wallet)
+                .sweetDebug("Biometric")
+                .map { Types.Event.completedLogIn($0) }
                 .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
                     guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
@@ -112,8 +144,10 @@ final class PasscodePresenter: PasscodePresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
-                .interactor.logIn(wallet: query.wallet, passcode: query.passcode)
-                .map { _ in .completedRegistration }
+                .interactor
+                .logIn(wallet: query.wallet, passcode: query.passcode)
+                .sweetDebug("Passcode")
+                .map { Types.Event.completedLogIn($0) }
                 .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
                     guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
@@ -153,9 +187,16 @@ private extension PasscodePresenter {
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
 
         switch event {
-        case .completedRegistration, .completedLogIn:
+        case .completedLogIn(let wallet):
 
-            self.moduleOutput?.authorizationCompleted()
+            self.moduleOutput?.authorizationCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
+            return state.mutate(transform: { state in
+                state.action = nil
+            })
+
+        case .completedRegistration(let wallet):
+
+            self.moduleOutput?.authorizationCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: true)
             return state.mutate(transform: { state in
                 state.action = nil
             })
@@ -176,6 +217,19 @@ private extension PasscodePresenter {
 //            case .permissionDenied:
 //            case .fail:
 //            }
+        case .viewDidAppear:
+            return state.mutate { state in
+                if case .logIn(let wallet) = state.kind, wallet.hasBiometricEntrance {
+                    state.displayState.isLoading = true
+                    state.action = .logInBiometric
+                }
+            }
+
+        case .tapBiometricButton:
+            return state.mutate { state in
+                state.displayState.isLoading = true
+                state.action = .logInBiometric
+            }
 
         case .tapLogInByPassword:
             moduleOutput?.logInByPassword()
@@ -290,6 +344,7 @@ private extension PasscodePresenter {
                          isHiddenBackButton: true,
                          isHiddenLogInByPassword: false,
                          isHiddenLogoutButton: false,
+                         isHiddenBiometricButton: !wallet.hasBiometricEntrance,
                          error: nil,
                          titleLabel: kind.title(kind: .newPasscode),
                          detailLabel: wallet.address)
@@ -301,6 +356,7 @@ private extension PasscodePresenter {
                          isHiddenBackButton: true,
                          isHiddenLogInByPassword: true,
                          isHiddenLogoutButton: true,
+                         isHiddenBiometricButton: true,
                          error: nil,
                          titleLabel: kind.title(kind: .newPasscode),
                          detailLabel: nil)
@@ -313,7 +369,10 @@ fileprivate extension PasscodeTypes.DTO.Kind {
     func title(kind: PasscodeTypes.PasscodeKind) -> String {
 
         switch self {
-        case .logIn:
+        case .logIn(let wallet):
+            return wallet.name
+
+        case .registration:
             switch kind {
             case .newPasscode:
                 return  Localizable.Passcode.Label.Passcode.create
@@ -324,9 +383,6 @@ fileprivate extension PasscodeTypes.DTO.Kind {
             case .enterPasscode:
                 return  Localizable.Passcode.Label.Passcode.enter
             }
-
-        case .registration(let account):
-            return account.name
         }
     }
 }
