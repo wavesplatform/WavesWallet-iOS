@@ -53,6 +53,13 @@ internal extension UIViewController {
 
 // swiftlint:disable explicit_type_interface identifier_name line_length type_body_length type_name
 internal enum StoryboardScene {
+  internal enum AddressBook: StoryboardType {
+    internal static let storyboardName = "AddressBook"
+
+    internal static let addAddressBookViewController = SceneType<WavesWallet_iOS.AddAddressBookViewController>(storyboard: AddressBook.self, identifier: "AddAddressBookViewController")
+
+    internal static let addressBookViewController = SceneType<WavesWallet_iOS.AddressBookViewController>(storyboard: AddressBook.self, identifier: "AddressBookViewController")
+  }
   internal enum Asset: StoryboardType {
     internal static let storyboardName = "Asset"
 
@@ -199,7 +206,7 @@ internal enum StoryboardScene {
   internal enum Transactions: StoryboardType {
     internal static let storyboardName = "Transactions"
 
-    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewController>(storyboard: Transactions.self, identifier: "AddAddressViewController")
+    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewControllerOlds>(storyboard: Transactions.self, identifier: "AddAddressViewController")
 
     internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: Transactions.self, identifier: "TransactionHistoryViewController")
   }
@@ -225,8 +232,6 @@ internal enum StoryboardScene {
   }
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"
-
-    internal static let chooseAddressBookViewController = SceneType<WavesWallet_iOS.ChooseAddressBookViewController>(storyboard: Waves.self, identifier: "ChooseAddressBookViewController")
 
     internal static let chooseAssetViewController = SceneType<WavesWallet_iOS.ChooseAssetViewController>(storyboard: Waves.self, identifier: "ChooseAssetViewController")
 
