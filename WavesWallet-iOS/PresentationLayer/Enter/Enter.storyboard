@@ -273,97 +273,6 @@
             </objects>
             <point key="canvasLocation" x="8.8000000000000007" y="89.505247376311857"/>
         </scene>
-        <!--Use TouchID View Controller-->
-        <scene sceneID="ggj-ce-NiX">
-            <objects>
-                <viewController storyboardIdentifier="UseTouchIDViewController" id="caL-Ol-jcy" customClass="UseTouchIDViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bW4-nm-BFm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchid48Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="iEa-01-jlZ">
-                                <rect key="frame" x="163.66666666666666" y="220" width="48" height="48"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Touch ID to sign in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oq-py-zvU">
-                                <rect key="frame" x="95.666666666666686" y="308" width="184" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your Touch ID for faster, easier access to your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jha-L5-tdU">
-                                <rect key="frame" x="24" y="337" width="327" height="31.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sh-Fs-BLf">
-                                <rect key="frame" x="16" y="634" width="343" height="48"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="3gf-0N-RDb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <state key="normal" title="Use Touch ID">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="useTouchIdTapped:" destination="caL-Ol-jcy" eventType="touchUpInside" id="d0R-G3-lPk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8e-JT-0WG">
-                                <rect key="frame" x="16" y="706" width="343" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ErP-sl-S7T"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Not now">
-                                    <color key="titleColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="notNowTapped:" destination="caL-Ol-jcy" eventType="touchUpInside" id="ztH-a5-yCs"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="O8e-JT-0WG" secondAttribute="trailing" constant="16" id="3mb-vl-PeH"/>
-                            <constraint firstItem="jha-L5-tdU" firstAttribute="leading" secondItem="Irq-k3-hHT" secondAttribute="leading" constant="24" id="76a-e7-rj7"/>
-                            <constraint firstItem="4oq-py-zvU" firstAttribute="top" secondItem="iEa-01-jlZ" secondAttribute="bottom" constant="40" id="Al2-Um-IeG"/>
-                            <constraint firstItem="iEa-01-jlZ" firstAttribute="top" secondItem="Irq-k3-hHT" secondAttribute="top" constant="176" id="DXF-JZ-NNJ"/>
-                            <constraint firstItem="iEa-01-jlZ" firstAttribute="centerX" secondItem="bW4-nm-BFm" secondAttribute="centerX" id="K8R-75-qTF"/>
-                            <constraint firstItem="4oq-py-zvU" firstAttribute="centerX" secondItem="bW4-nm-BFm" secondAttribute="centerX" id="Ul1-QQ-4g4"/>
-                            <constraint firstItem="O8e-JT-0WG" firstAttribute="top" secondItem="3Sh-Fs-BLf" secondAttribute="bottom" constant="24" id="dVQ-Dw-CvJ"/>
-                            <constraint firstItem="jha-L5-tdU" firstAttribute="top" secondItem="4oq-py-zvU" secondAttribute="bottom" constant="8" id="gSK-9n-ywr"/>
-                            <constraint firstItem="Irq-k3-hHT" firstAttribute="bottom" secondItem="O8e-JT-0WG" secondAttribute="bottom" constant="24" id="jWq-rS-tRm"/>
-                            <constraint firstAttribute="trailing" secondItem="3Sh-Fs-BLf" secondAttribute="trailing" constant="16" id="lzQ-gj-Spp"/>
-                            <constraint firstItem="3Sh-Fs-BLf" firstAttribute="leading" secondItem="Irq-k3-hHT" secondAttribute="leading" constant="16" id="oIe-qT-aCS"/>
-                            <constraint firstItem="O8e-JT-0WG" firstAttribute="leading" secondItem="Irq-k3-hHT" secondAttribute="leading" constant="16" id="uXL-ri-dfd"/>
-                            <constraint firstItem="Irq-k3-hHT" firstAttribute="trailing" secondItem="jha-L5-tdU" secondAttribute="trailing" constant="24" id="upH-iI-mc2"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Irq-k3-hHT"/>
-                    </view>
-                    <connections>
-                        <outlet property="buttonUseTouchId" destination="3Sh-Fs-BLf" id="ZaS-3j-wSc"/>
-                        <outlet property="iconTouch" destination="iEa-01-jlZ" id="qBm-rZ-tXl"/>
-                        <outlet property="labelDescription" destination="jha-L5-tdU" id="mdb-TN-3l9"/>
-                        <outlet property="labelTouchId" destination="4oq-py-zvU" id="cQD-eF-cR5"/>
-                        <outlet property="topLogoOffset" destination="DXF-JZ-NNJ" id="zHF-YM-OtO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D3Q-pm-9Iy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2129" y="794"/>
-        </scene>
         <!--Enter Language View Controller-->
         <scene sceneID="kO3-39-nzy">
             <objects>
@@ -754,7 +663,6 @@ You do not have saved accounts</string>
         <image name="flag18Britain" width="18" height="18"/>
         <image name="on" width="24" height="24"/>
         <image name="topbarBackwhite" width="22" height="22"/>
-        <image name="touchid48Submit300" width="48" height="48"/>
         <image name="userimgEmpty80Multi" width="80" height="80"/>
     </resources>
 </document>

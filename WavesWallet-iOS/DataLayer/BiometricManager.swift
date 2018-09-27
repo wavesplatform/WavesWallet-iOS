@@ -13,19 +13,6 @@ enum BiometricType {
     case none
     case touchID
     case faceID
-
-    var title: String? {
-        switch self {
-        case .none:
-            return nil
-
-        case .touchID:
-            return Localizable.General.Biometric.Touchid.title
-
-        case .faceID:
-            return Localizable.General.Biometric.Faceid.title
-        }
-    }
 }
 
 extension BiometricType {

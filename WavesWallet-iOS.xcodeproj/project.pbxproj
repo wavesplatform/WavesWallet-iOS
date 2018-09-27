@@ -29,9 +29,12 @@
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
 		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
 		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
+		0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E63215C65D2007D9750 /* UseTouchID.storyboard */; };
+		0A071E65215C69B3007D9750 /* Passcode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E67215C69B3007D9750 /* Passcode.strings */; };
+		0A071E6C215C6B6F007D9750 /* UseTouchID.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E6E215C6B6F007D9750 /* UseTouchID.strings */; };
+		0A071E71215C6B95007D9750 /* BiometricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E70215C6B95007D9750 /* BiometricType.swift */; };
 		0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CB72153CE31002A8FD7 /* Import.storyboard */; };
 		0A110CBB2153CE5A002A8FD7 /* ImportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */; };
-		0A110CBD2153D598002A8FD7 /* Passcode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CBC2153D598002A8FD7 /* Passcode.strings */; };
 		0A110CC02153D850002A8FD7 /* Import.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CC22153D850002A8FD7 /* Import.strings */; };
 		0A110CC62153F36F002A8FD7 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CC52153F36F002A8FD7 /* SkeletonView.swift */; };
 		0A14CFC52141CEE300C3A4D5 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFC42141CEE300C3A4D5 /* Balance.swift */; };
@@ -658,9 +661,15 @@
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
 		0A071E40215AEF61007D9750 /* AccountPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountPassword.storyboard; sourceTree = "<group>"; };
 		0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
+		0A071E63215C65D2007D9750 /* UseTouchID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UseTouchID.storyboard; sourceTree = "<group>"; };
+		0A071E66215C69B3007D9750 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Passcode.strings; sourceTree = "<group>"; };
+		0A071E68215C69B5007D9750 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Passcode.strings; sourceTree = "<group>"; };
+		0A071E69215C69B6007D9750 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Passcode.strings; sourceTree = "<group>"; };
+		0A071E6D215C6B6F007D9750 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UseTouchID.strings; sourceTree = "<group>"; };
+		0A071E6F215C6B70007D9750 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/UseTouchID.strings; sourceTree = "<group>"; };
+		0A071E70215C6B95007D9750 /* BiometricType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricType.swift; sourceTree = "<group>"; };
 		0A110CB72153CE31002A8FD7 /* Import.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Import.storyboard; sourceTree = "<group>"; };
 		0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCoordinator.swift; sourceTree = "<group>"; };
-		0A110CBC2153D598002A8FD7 /* Passcode.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Passcode.strings; sourceTree = "<group>"; };
 		0A110CC12153D850002A8FD7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Import.strings; sourceTree = "<group>"; };
 		0A110CC32153D852002A8FD7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Import.strings; sourceTree = "<group>"; };
 		0A110CC42153D874002A8FD7 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Import.strings; sourceTree = "<group>"; };
@@ -1396,6 +1405,16 @@
 			path = AccountPassword;
 			sourceTree = "<group>";
 		};
+		0A071E62215C65BC007D9750 /* UseTouchID */ = {
+			isa = PBXGroup;
+			children = (
+				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
+				0A071E63215C65D2007D9750 /* UseTouchID.storyboard */,
+				0A071E6E215C6B6F007D9750 /* UseTouchID.strings */,
+			);
+			path = UseTouchID;
+			sourceTree = "<group>";
+		};
 		0A14CFCD2144157A00C3A4D5 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1840,6 +1859,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
 				0A762D09214FB60400BE9204 /* Import */,
@@ -1874,7 +1894,7 @@
 				0A96F1D92152CDB7005E148F /* PasscodeTypes.swift */,
 				0A96F1DB2152E05A005E148F /* PasscodeInteractor.swift */,
 				0A96F1DD2152E14D005E148F /* PasscodeBuilder.swift */,
-				0A110CBC2153D598002A8FD7 /* Passcode.strings */,
+				0A071E67215C69B3007D9750 /* Passcode.strings */,
 				0A96F1CB2151B392005E148F /* Passcode.storyboard */,
 				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
 			);
@@ -2207,6 +2227,7 @@
 				0A5D32FF2157D5EF0009CDF3 /* Data+AES.swift */,
 				0AFF5C86215BEEBF00B82940 /* RXCrypto+SHA.swift */,
 				0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */,
+				0A071E70215C6B95007D9750 /* BiometricType.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2823,7 +2844,6 @@
 				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
 				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
-				E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */,
 				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
 			);
 			path = Enter;
@@ -3191,13 +3211,14 @@
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
 				E99C2C5621258B930029D819 /* DexOrderBookHeaderView.xib in Resources */,
 				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
+				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				0AF922F9212E1234003BA067 /* LastTraderHeaderView.xib in Resources */,
 				0AFEFB5A211276F000B50F85 /* Wallet.strings in Resources */,
 				0AFEFB5521126E0E00B50F85 /* WalletSort.strings in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
-				0A110CBD2153D598002A8FD7 /* Passcode.strings in Resources */,
+				0A071E65215C69B3007D9750 /* Passcode.strings in Resources */,
 				0AFF5C82215BD6CA00B82940 /* AccountPassword.strings in Resources */,
 				E9FA5F552121B3EA00F16889 /* SearchBarView.xib in Resources */,
 				0AA8CACD21516807000D09E6 /* Backup.strings in Resources */,
@@ -3231,6 +3252,7 @@
 				E99ECC621F59A7B800ADB12D /* OrderConfirmView.xib in Resources */,
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 				E9C540E3212F8D5200253BDB /* DexMyOrders.strings in Resources */,
+				0A071E6C215C6B6F007D9750 /* UseTouchID.strings in Resources */,
 				E97CF06D2124FF04002A75DF /* DexOrderBook.strings in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
@@ -3429,6 +3451,7 @@
 				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
 				0A3AD40421492E0000F8A929 /* WalletTypes.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
+				0A071E71215C6B95007D9750 /* BiometricType.swift in Sources */,
 				0A3AD40521492E3200F8A929 /* WalletTypes+ViewModels.swift in Sources */,
 				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
 				0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */,
@@ -3956,6 +3979,25 @@
 				04C1BF5B211CA5F60095377D /* tr */,
 			);
 			name = History.strings;
+			sourceTree = "<group>";
+		};
+		0A071E67215C69B3007D9750 /* Passcode.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A071E66215C69B3007D9750 /* en */,
+				0A071E68215C69B5007D9750 /* ru */,
+				0A071E69215C69B6007D9750 /* tr */,
+			);
+			name = Passcode.strings;
+			sourceTree = "<group>";
+		};
+		0A071E6E215C6B6F007D9750 /* UseTouchID.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A071E6D215C6B6F007D9750 /* en */,
+				0A071E6F215C6B70007D9750 /* ru */,
+			);
+			name = UseTouchID.strings;
 			sourceTree = "<group>";
 		};
 		0A110CC22153D850002A8FD7 /* Import.strings */ = {

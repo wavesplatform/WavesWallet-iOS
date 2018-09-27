@@ -74,6 +74,7 @@ extension PasscodeTypes {
         var isHiddenLogInByPassword: Bool
         var isHiddenLogoutButton: Bool
         var error: Error?
+        var titleLabel: String
         var detailLabel: String?
     }
 }

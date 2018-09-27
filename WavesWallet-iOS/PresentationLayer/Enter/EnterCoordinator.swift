@@ -80,8 +80,12 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 extension EnterCoordinator: PasscodeCoordinatorDelegate {
 
     func userAuthorizationCompleted() {
-        removeFromParentCoordinator()
-        delegate?.userCompletedLogIn()
+
+
+//        UseTouchIDViewController.
+//        StoryboardScene.UseTouch
+//        removeFromParentCoordinator()
+//        delegate?.userCompletedLogIn()
     }
 
     func userLogouted() {}

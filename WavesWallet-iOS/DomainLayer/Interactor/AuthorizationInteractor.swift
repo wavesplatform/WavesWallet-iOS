@@ -127,6 +127,30 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         return Observable.never()
     }
 
+
+//    class func createWalletInKeychain(wallet: WalletItem, seedBytes: [UInt8]) -> Observable<Void> {
+//        let seed = Base58.encode(seedBytes)
+//        let keychain = Keychain(service: "com.wavesplatform.wallets")
+//            .label("Waves wallet seeds")
+//            .accessibility(.whenUnlocked)
+//
+//        return Observable<Void>.create { observer -> Disposable in
+//            do {
+//                let policy = AuthenticationPolicy.userPresence
+//
+//                try keychain
+//                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
+//                    .accessibility(.whenUnlocked, authenticationPolicy: policy)
+//                    .set(seed, key: wallet.publicKey)
+//
+//            } catch let err {
+//                observer.onError(WalletError.Generic("Failed to store your seed in Keychain: " + err.localizedDescription))
+//            }
+//
+//            observer.onNext(())
+//            return Disposables.create()
+//            }.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+//        
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?> {
         return walletsLoggedIn()
             .flatMap({ wallets -> Observable<DomainLayer.DTO.Wallet?> in
