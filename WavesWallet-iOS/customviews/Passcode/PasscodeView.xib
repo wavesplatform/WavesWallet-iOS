@@ -45,7 +45,7 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ym2-X2-lbK" userLabel="One" customClass="PasscodeDotView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
-                                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="WK5-33-msF"/>
                                         <constraint firstAttribute="width" constant="12" id="b7t-3I-Jby"/>
@@ -123,7 +123,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-Q4-uzA">
-                            <rect key="frame" x="67" y="33" width="147" height="12"/>
+                            <rect key="frame" x="127.5" y="33" width="26.5" height="12"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -142,7 +142,6 @@
                     </constraints>
                     <connections>
                         <outlet property="detailLabel" destination="nhY-Q4-uzA" id="Guf-ff-0yB"/>
-                        <outlet property="indicatorView" destination="jCH-m5-tfL" id="atL-aG-G3I"/>
                         <outlet property="titleLabel" destination="7Ez-wH-ZMa" id="7RD-rW-ILu"/>
                         <outletCollection property="dots" destination="f0F-mg-TtT" collectionClass="NSMutableArray" id="U57-mm-78W"/>
                         <outletCollection property="dots" destination="ym2-X2-lbK" collectionClass="NSMutableArray" id="raT-FU-TDU"/>
@@ -422,23 +421,16 @@
                         <constraint firstAttribute="trailing" secondItem="Nqe-rr-dfe" secondAttribute="trailing" id="pCi-g0-ZLz"/>
                     </constraints>
                 </view>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jCH-m5-tfL">
-                    <rect key="frame" x="230" y="30.5" width="20" height="20"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="f9w-80-C3s" secondAttribute="trailing" priority="250" constant="16" id="0pt-PG-q1G"/>
                 <constraint firstItem="7eT-ZN-m7X" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3FY-01-4CL"/>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="7Ez-wH-ZMa" secondAttribute="trailing" priority="750" constant="16" id="8AN-DU-gze"/>
                 <constraint firstItem="fYx-vV-9mc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DkI-4t-Zp2"/>
                 <constraint firstAttribute="trailing" secondItem="7eT-ZN-m7X" secondAttribute="trailing" id="Ktk-5h-cS1"/>
                 <constraint firstItem="7eT-ZN-m7X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LRQ-OW-3Lh"/>
                 <constraint firstAttribute="bottom" secondItem="fYx-vV-9mc" secondAttribute="bottom" id="bNf-rB-sH6"/>
                 <constraint firstAttribute="trailing" secondItem="fYx-vV-9mc" secondAttribute="trailing" id="gMf-h5-Cvc"/>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="leading" secondItem="nhY-Q4-uzA" secondAttribute="trailing" constant="16" id="gqU-Kv-NdU"/>
                 <constraint firstItem="fYx-vV-9mc" firstAttribute="top" secondItem="7eT-ZN-m7X" secondAttribute="bottom" constant="44" id="n7n-IN-ehk"/>
-                <constraint firstItem="jCH-m5-tfL" firstAttribute="centerY" secondItem="7eT-ZN-m7X" secondAttribute="centerY" id="vnM-DE-xUC"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

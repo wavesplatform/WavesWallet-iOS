@@ -54,9 +54,15 @@ final class PasscodeCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeOutput {
 
-    func authorizationCompleted() -> Void {
-        dissmiss()
-        delegate?.userAuthorizationCompleted()
+    func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
+
+        if isNewWallet {
+            let vc = UseTouchIDModuleBuilder(output: self).build(input: .init(passcode: passcode, wallet: wallet))
+            navigationController.present(vc, animated: true, completion: nil)
+        } else {
+            dissmiss()
+            delegate?.userAuthorizationCompleted()
+        }
     }
 
     func userLogouted() {
@@ -75,6 +81,20 @@ extension PasscodeCoordinator: PasscodeOutput {
 // MARK: AccountPasswordModuleOutput
 extension PasscodeCoordinator: AccountPasswordModuleOutput {
     func authorizationByPasswordCompleted() {
+        dissmiss()
+        delegate?.userAuthorizationCompleted()
+    }
+}
+
+// MARK: UseTouchIDModuleOutput
+extension PasscodeCoordinator: UseTouchIDModuleOutput {
+
+    func userSkipRegisterBiometric() {
+        dissmiss()
+        delegate?.userAuthorizationCompleted()
+    }
+
+    func userRegisteredBiometric() {
         dissmiss()
         delegate?.userAuthorizationCompleted()
     }

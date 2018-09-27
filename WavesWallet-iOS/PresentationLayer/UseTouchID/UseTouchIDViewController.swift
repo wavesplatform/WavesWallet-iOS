@@ -12,7 +12,13 @@ import RxSwift
 import RxOptional
 
 protocol UseTouchIDModuleOutput: AnyObject {
+    func userSkipRegisterBiometric()
+    func userRegisteredBiometric()
+}
 
+protocol UseTouchIDModuleInput {
+    var passcode: String { get }
+    var wallet: DomainLayer.DTO.Wallet { get }
 }
 
 final class UseTouchIDViewController: UIViewController {
@@ -23,8 +29,10 @@ final class UseTouchIDViewController: UIViewController {
     @IBOutlet private weak var labelDescription: UILabel!
     @IBOutlet private weak var buttonUseTouchId: UIButton!
     @IBOutlet private weak var buttonNotNow: UIButton!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
 
     weak var moduleOutput: UseTouchIDModuleOutput?
+    var input: UseTouchIDModuleInput?
 
     private var disposeBag: DisposeBag = DisposeBag()
     private var authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
@@ -32,36 +40,67 @@ final class UseTouchIDViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.hidesBackButton = true
+        setupSmallNavigationBar()
+        navigationItem.backgroundImage = UIImage()
+        navigationItem.shadowImage = UIImage()
+
+        setupUI()
+        setupButtonUseTouchId()
+    }
+
+    private func setupUI() {
 
         let biometricType = BiometricType.current
-        let biometricTitle = biometricType.title?.uppercased() ?? ""
+        let biometricTitle = biometricType.title ?? ""
         iconTouch.image = biometricType.icon
-
         labelTouchId.text = Localizable.UseTouchID.Label.Title.text(biometricTitle)
         labelDescription.text = Localizable.UseTouchID.Label.Detail.text(biometricTitle)
 
         buttonNotNow.setTitle(Localizable.UseTouchID.Button.Notnow.text, for: .normal)
-        buttonUseTouchId.setTitle(Localizable.UseTouchID.Button.Usebiometric.text(biometricTitle), for: .normal)
+
         buttonUseTouchId.setBackgroundImage(UIColor.submit200.image, for: .disabled)
+        buttonUseTouchId.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         buttonUseTouchId.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }
 
-    @IBAction func useTouchIdTapped(_ sender: Any) {
-        authorizationInteractor
-            .lastWalletLoggedIn()
-            .catchOnNil { Observable.never() }
-            .flatMap { wallet -> Observable<Bool> in
-                return self.authorizationInteractor.auth(type: .biometric, wallet: wallet)
-            }
-            .subscribe(weak: self, onNext: { owner, _ in
-
-            })
-            .disposed(by: disposeBag)
+    private func setupButtonUseTouchId() {
+        let biometricType = BiometricType.current
+        let biometricTitle = biometricType.title ?? ""
+        buttonUseTouchId.setTitle(Localizable.UseTouchID.Button.Usebiometric.text(biometricTitle), for: .normal)
     }
 
-    
-    @IBAction func notNowTapped(_ sender: Any) {
+    private func startIndicator() -> Void {
+        buttonUseTouchId.setTitle(nil, for: .normal)
+        buttonUseTouchId.isEnabled = false
+        buttonNotNow.isEnabled = false
+        indicator.startAnimating()
+    }
 
+    private func stopIndicator() -> Void {
+        setupButtonUseTouchId()
+        buttonUseTouchId.isEnabled = true
+        buttonNotNow.isEnabled = true
+        indicator.stopAnimating()
+    }
+
+    @IBAction func useTouchIdTapped(_ sender: Any) {
+
+        guard let input = input else { return }
+        startIndicator()
+
+        authorizationInteractor
+        .registerBiometric(wallet: input.wallet, passcode: input.passcode)
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            self?.stopIndicator()
+            self?.moduleOutput?.userRegisteredBiometric()
+        }, onError: { [weak self] error in
+            self?.stopIndicator()
+        })
+        .disposed(by: disposeBag)
+    }
+
+    @IBAction func notNowTapped(_ sender: Any) {
+        moduleOutput?.userSkipRegisterBiometric()
     }
 }

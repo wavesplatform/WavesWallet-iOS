@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let durationDotsAnimation: TimeInterval = 2.7
+}
+
 final class PasscodeDotView: UIView {
 
     enum Kind: Int {
@@ -25,10 +29,10 @@ final class PasscodeTopBarView: UIView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var detailLabel: UILabel!
     @IBOutlet private var dots: [PasscodeDotView]!
-    @IBOutlet private var indicatorView: UIActivityIndicatorView!
 
     private var counter: Int = 0
     private var isInvalidateState: Bool = false
+    private var isStartLoadingIndicator: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,7 +57,7 @@ final class PasscodeTopBarView: UIView {
 
     private func cancelInvalidateState() {
         guard isInvalidateState == true else { return }
-        isInvalidateState = false        
+        isInvalidateState = false
         updateColorsForDots()
     }
 
@@ -61,7 +65,7 @@ final class PasscodeTopBarView: UIView {
         counter = min(count, PasscodeDotView.Kind.four.rawValue)
 
         if animated {
-            UIView.animateKeyframes(withDuration: 0.24, delay: 0, options: .calculationModeCubicPaced, animations: {
+            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
                 self.updateColorsForDots()
             }, completion: nil)
         } else {
@@ -109,10 +113,73 @@ final class PasscodeTopBarView: UIView {
     }
 
     func startLoadingIndicator() {
-        indicatorView.startAnimating()
+        startAnimationDots()
     }
 
     func stopLoadingIndicator() {
-        indicatorView.stopAnimating()
+        layer.removeAllAnimations()
+        dots.forEach { view in
+            view.layer.removeAllAnimations()
+            self.updateColorsForDots()
+        }
+    }
+
+    private func startAnimationDots() {
+        let duration = Constants.durationDotsAnimation
+        let iterations = 7
+        UIView.animateKeyframes(withDuration: duration,
+                                delay: 0,
+                                options: [.beginFromCurrentState,
+                                          .overrideInheritedOptions,
+                                          .overrideInheritedDuration],
+                                animations: {
+
+                                    for row in 1...iterations {
+                                        let relativeDuration = (duration / Double(iterations)) / duration
+                                        let relativeStartTime = Double((row - 1)) * relativeDuration
+                                        self.animationDots(row: row,
+                                                           withRelativeStartTime: relativeStartTime,
+                                                           relativeDuration: relativeDuration)
+                                    }
+
+                                },
+                                completion: { completed in
+
+                                    if completed == false {
+                                        return
+                                    }
+                                    self.dots.forEach { view in
+                                        view.backgroundColor = UIColor.basic100
+                                    }
+                                    self.startAnimationDots()
+                                })
+    }
+
+    private func animationDots(row: Int,
+                               withRelativeStartTime: TimeInterval,
+                               relativeDuration: TimeInterval) {
+
+        UIView.addKeyframe(withRelativeStartTime: withRelativeStartTime, relativeDuration: relativeDuration) {
+            self.dots
+                .enumerated()
+                .forEach { view in
+
+                    let colorKey = row - view.element.kind
+
+                    switch colorKey {
+                    case 0:
+                        view.element.backgroundColor = UIColor.submit400
+
+                    case 1:
+                        view.element.backgroundColor = UIColor.submit400.withAlphaComponent(0.6)
+
+                    case 2:
+                        view.element.backgroundColor = UIColor.submit400.withAlphaComponent(0.6)
+
+                    default:
+                        view.element.backgroundColor = UIColor.basic100
+                    }
+                }
+        }
     }
 }

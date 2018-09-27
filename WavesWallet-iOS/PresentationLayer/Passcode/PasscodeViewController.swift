@@ -28,7 +28,6 @@ final class PasscodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        passcodeView.hiddenButton(by: .biometric, isHidden: true)
         passcodeView.delegate = self
 
         navigationItem.backgroundImage = UIImage()
@@ -60,7 +59,16 @@ private extension PasscodeViewController {
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
-        presenter.system(feedbacks: [uiFeedback])
+        let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewDidAppear
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.viewDidAppear }
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
     }
 
     func events() -> [Signal<Types.Event>] {
@@ -100,6 +108,8 @@ private extension PasscodeViewController {
                                                                 action: #selector(logoutButtonDidTap))
         }
 
+        passcodeView.hiddenButton(by: .biometric, isHidden: state.isHiddenBiometricButton)
+
         self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
         self.logInByPasswordButton.isHidden = state.isHiddenLogInByPassword
 
@@ -125,5 +135,7 @@ extension PasscodeViewController: PasscodeViewDelegate {
         eventInput.onNext(.completedInputNumbers(numbers))
     }
 
-    func biometricButtonDidTap() { }
+    func biometricButtonDidTap() {
+        eventInput.onNext(.tapBiometricButton)        
+    }
 }
