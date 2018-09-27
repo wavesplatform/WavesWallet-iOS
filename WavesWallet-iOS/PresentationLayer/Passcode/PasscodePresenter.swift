@@ -247,6 +247,10 @@ private extension PasscodePresenter {
         default:
             break
         }
+
+        defer {
+            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
+        }
     }
 
     private func handlerInputNumbersForLogIn(_ numbers: [Int], state: inout Types.State)  {
@@ -287,6 +291,7 @@ private extension PasscodePresenter {
                          isHiddenLogInByPassword: false,
                          isHiddenLogoutButton: false,
                          error: nil,
+                         titleLabel: kind.title(kind: .newPasscode),
                          detailLabel: wallet.address)
 
         case .registration:
@@ -297,7 +302,32 @@ private extension PasscodePresenter {
                          isHiddenLogInByPassword: true,
                          isHiddenLogoutButton: true,
                          error: nil,
+                         titleLabel: kind.title(kind: .newPasscode),
                          detailLabel: nil)
         }
     }
 }
+
+fileprivate extension PasscodeTypes.DTO.Kind {
+
+    func title(kind: PasscodeTypes.PasscodeKind) -> String {
+
+        switch self {
+        case .logIn:
+            switch kind {
+            case .newPasscode:
+                return  Localizable.Passcode.Label.Passcode.create
+
+            case .repeatPasscode:
+                return  Localizable.Passcode.Label.Passcode.verify
+
+            case .enterPasscode:
+                return  Localizable.Passcode.Label.Passcode.enter
+            }
+
+        case .registration(let account):
+            return account.name
+        }
+    }
+}
+

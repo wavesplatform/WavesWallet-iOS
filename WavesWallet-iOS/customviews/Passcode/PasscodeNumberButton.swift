@@ -61,11 +61,8 @@ final class PasscodeNumberButton: UIButton {
             isHidden = false
 
             switch current {
-            case .touchID:
-                setImage(Images.touchid48Submit300.image, for: .normal)
-
-            case .faceID:
-                setImage(Images.faceid48Submit300.image, for: .normal)
+            case .touchID, .faceID:
+                setImage(current.icon, for: .normal)
                 
             case .none:
                 isHidden = true

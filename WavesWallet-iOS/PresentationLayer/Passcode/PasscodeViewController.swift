@@ -82,7 +82,7 @@ private extension PasscodeViewController {
     func updateView(with state: Types.DisplayState) {
 
         passcodeView.update(with: .init(numbers: state.numbers,
-                                        text: state.kind.title,
+                                        text: state.titleLabel,
                                         detail: state.detailLabel))
 
         if state.isHiddenBackButton {
@@ -126,20 +126,4 @@ extension PasscodeViewController: PasscodeViewDelegate {
     }
 
     func biometricButtonDidTap() { }
-}
-
-fileprivate extension PasscodeTypes.PasscodeKind {
-
-    var title: String {
-        switch self {
-        case .newPasscode:
-            return  "Create a passcode"
-
-        case .repeatPasscode:
-            return "Verify your passcode"
-
-        case .enterPasscode:
-            return  "Enter passcode"
-        }
-    }
 }

@@ -7,6 +7,33 @@ import Foundation
 
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum Localizable {
+          internal enum Passcode {
+
+    internal enum Button {
+
+      internal enum Forgotpasscode {
+        /// Use account password
+        internal static var title: String { return Localizable.tr("Passcode", "button.forgotPasscode.title") }
+      }
+    }
+
+    internal enum Label {
+
+      internal enum Forgotpasscode {
+        /// Forgot passcode?
+        internal static var title: String { return Localizable.tr("Passcode", "label.forgotPasscode.title") }
+      }
+
+      internal enum Passcode {
+        /// Create a passcode
+        internal static var create: String { return Localizable.tr("Passcode", "label.passcode.create") }
+        /// Enter Passcode
+        internal static var enter: String { return Localizable.tr("Passcode", "label.passcode.enter") }
+        /// Verify your passcode
+        internal static var verify: String { return Localizable.tr("Passcode", "label.passcode.verify") }
+      }
+    }
+  }
           internal enum DexSort {
 
     internal enum Navigationbar {
@@ -292,6 +319,40 @@ internal enum Localizable {
       internal static var myOrders: String { return Localizable.tr("DexTraderContainer", "button.myOrders") }
       /// Orderbook
       internal static var orderbook: String { return Localizable.tr("DexTraderContainer", "button.orderbook") }
+    }
+  }
+          internal enum UseTouchID {
+
+    internal enum Button {
+
+      internal enum Notnow {
+        /// Not now
+        internal static var text: String { return Localizable.tr("UseTouchID", "button.notNow.text") }
+      }
+
+      internal enum Usebiometric {
+        /// Use %@
+        internal static func text(_ p1: String) -> String {
+          return Localizable.tr("UseTouchID", "button.useBiometric.text", p1)
+        }
+      }
+    }
+
+    internal enum Label {
+
+      internal enum Detail {
+        /// Use your %@ for faster, easier access to your account
+        internal static func text(_ p1: String) -> String {
+          return Localizable.tr("UseTouchID", "label.detail.text", p1)
+        }
+      }
+
+      internal enum Title {
+        /// Use %@ to sign in?
+        internal static func text(_ p1: String) -> String {
+          return Localizable.tr("UseTouchID", "label.title.text", p1)
+        }
+      }
     }
   }
           internal enum Hello {
