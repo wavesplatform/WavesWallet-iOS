@@ -18,23 +18,24 @@ final class AddressBookInteractor: AddressBookInteractorProtocol {
     func users() -> Observable<[DomainLayer.DTO.Contact]> {
                 
         let merge = Observable.merge([repository.list(), repository.listListener()])
-            .do(onNext: { users in
-                self._users = users
+            .do(onNext: { [weak self] users in
+                self?._users = users
             })
         
         let search = searchString
             .asObserver()
-            .map { searchString -> [DomainLayer.DTO.Contact] in
-                return self._users
+            .map { [weak self] searchString -> [DomainLayer.DTO.Contact] in
+                return self?._users ?? []
             }
         
         return Observable
             .merge([merge, search])
-            .map { users -> [DomainLayer.DTO.Contact] in
+            .map { [weak self] users -> [DomainLayer.DTO.Contact] in
                 
-                let searchText = (try? self.searchString.value()) ?? ""
+                let searchText = (try? self?.searchString.value() ?? "") ?? ""
+                
                 let newUsers = users.filter {
-                    self.isValidSearch(userName: $0.name, searchText: searchText)
+                    self?.isValidSearch(userName: $0.name, searchText: searchText) ?? false
                 }
                 return newUsers
             }
