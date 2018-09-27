@@ -384,7 +384,7 @@
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E93D553821446B0C00F3ACC0 /* DexCreateOrderTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553721446B0C00F3ACC0 /* DexCreateOrderTypes.swift */; };
 		E93D553E2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */; };
-		E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewController.swift */; };
+		E93E31D120A8785D0056032D /* StartLeasingViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
 		E94D0AFA20B719DF0068A1C4 /* TransactionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94D0AF920B719DF0068A1C4 /* TransactionCommentView.swift */; };
@@ -503,6 +503,11 @@
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
+		E9E26435215D57F800C9FBC6 /* StartLeasing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E26434215D57F800C9FBC6 /* StartLeasing.storyboard */; };
+		E9E26437215D5A2D00C9FBC6 /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E26436215D5A2D00C9FBC6 /* StartLeasingViewController.swift */; };
+		E9E2643A215D5A9500C9FBC6 /* StartLeasing.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9E2643C215D5A9500C9FBC6 /* StartLeasing.strings */; };
+		E9E26441215D81F300C9FBC6 /* StartLeasingGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E26440215D81F300C9FBC6 /* StartLeasingGeneratorView.swift */; };
+		E9E26443215D81FF00C9FBC6 /* StartLeasingGeneratorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E26442215D81FF00C9FBC6 /* StartLeasingGeneratorView.xib */; };
 		E9E2A90A1F4C42C40093782E /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */; };
 		E9E2A90C1F4C44960093782E /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
@@ -993,7 +998,7 @@
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E93D553721446B0C00F3ACC0 /* DexCreateOrderTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderTypes.swift; sourceTree = "<group>"; };
 		E93D553D2144725E00F3ACC0 /* DexOrderBookModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookModuleOutput.swift; sourceTree = "<group>"; };
-		E93E31D020A8785D0056032D /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
+		E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewControllerOld.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -1131,6 +1136,13 @@
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
+		E9E26434215D57F800C9FBC6 /* StartLeasing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLeasing.storyboard; sourceTree = "<group>"; };
+		E9E26436215D5A2D00C9FBC6 /* StartLeasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
+		E9E2643B215D5A9500C9FBC6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StartLeasing.strings; sourceTree = "<group>"; };
+		E9E2643D215D5A9700C9FBC6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/StartLeasing.strings; sourceTree = "<group>"; };
+		E9E2643E215D5A9700C9FBC6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/StartLeasing.strings; sourceTree = "<group>"; };
+		E9E26440215D81F300C9FBC6 /* StartLeasingGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingGeneratorView.swift; sourceTree = "<group>"; };
+		E9E26442215D81FF00C9FBC6 /* StartLeasingGeneratorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartLeasingGeneratorView.xib; sourceTree = "<group>"; };
 		E9E2A9091F4C42C40093782E /* MyOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
 		E9E2A90B1F4C44960093782E /* CreateOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
@@ -1685,6 +1697,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9E26433215D57EA00C9FBC6 /* StartLeasing */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				04A2CFA12112100B00784FEC /* History */,
 				0A97975E2108A10400407F67 /* Wallet */,
@@ -2569,6 +2582,26 @@
 			path = Send;
 			sourceTree = "<group>";
 		};
+		E9E26433215D57EA00C9FBC6 /* StartLeasing */ = {
+			isa = PBXGroup;
+			children = (
+				E9E2643F215D60E700C9FBC6 /* Views */,
+				E9E26434215D57F800C9FBC6 /* StartLeasing.storyboard */,
+				E9E26436215D5A2D00C9FBC6 /* StartLeasingViewController.swift */,
+				E9E2643C215D5A9500C9FBC6 /* StartLeasing.strings */,
+			);
+			path = StartLeasing;
+			sourceTree = "<group>";
+		};
+		E9E2643F215D60E700C9FBC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9E26440215D81F300C9FBC6 /* StartLeasingGeneratorView.swift */,
+				E9E26442215D81FF00C9FBC6 /* StartLeasingGeneratorView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E9E7129B20DC058F00B95669 /* Hello */ = {
 			isa = PBXGroup;
 			children = (
@@ -2851,7 +2884,7 @@
 				F79316351F856C54002D8636 /* AskManager.swift */,
 				E90E25F92093506600CDCE56 /* MyAddressViewController.swift */,
 				E9E6DAD920A620360081C71A /* AssetChartViewController.swift */,
-				E93E31D020A8785D0056032D /* StartLeasingViewController.swift */,
+				E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -3059,6 +3092,7 @@
 				F96DFFE420DD11640056BB52 /* FifthInfoPageView.xib in Resources */,
 				F96DFFE020DD0F630056BB52 /* FourthInfoPageView.xib in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
+				E9E26443215D81FF00C9FBC6 /* StartLeasingGeneratorView.xib in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
 				E9983DF0211C8027002349CA /* DexMarket.strings in Resources */,
 				E959B5FD20BEE80F00101A75 /* TransactionHistoryShowAllView.xib in Resources */,
@@ -3070,6 +3104,7 @@
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
 				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
 				F96DFFEC20DD15B70056BB52 /* SeventhInfoPageView.xib in Resources */,
+				E9E2643A215D5A9500C9FBC6 /* StartLeasing.strings in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
@@ -3108,6 +3143,7 @@
 				E992404A2119E3C200E97414 /* DexList.strings in Resources */,
 				0AF92303212E1424003BA067 /* General.strings in Resources */,
 				E9E7129D20DC05A900B95669 /* Hello.storyboard in Resources */,
+				E9E26435215D57F800C9FBC6 /* StartLeasing.storyboard in Resources */,
 				0AF921F2212E07B3003BA067 /* AssetViewHistoryCell.xib in Resources */,
 				0AF921F0212E07B3003BA067 /* Assets.json in Resources */,
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
@@ -3381,6 +3417,7 @@
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
 				F738094E1F7E8E2B00BD2EE9 /* AssetPairDetailsViewController.swift in Sources */,
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
+				E9E26441215D81F300C9FBC6 /* StartLeasingGeneratorView.swift in Sources */,
 				0AF922D3212E1234003BA067 /* ObservableType+Weak.swift in Sources */,
 				0AF922AA212E1234003BA067 /* CGFloat+Min.swift in Sources */,
 				0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */,
@@ -3670,6 +3707,7 @@
 				0A14CFCC2144156400C3A4D5 /* String+NormalizeAssetId.swift in Sources */,
 				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
 				0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */,
+				E9E26437215D5A2D00C9FBC6 /* StartLeasingViewController.swift in Sources */,
 				0AF922C4212E1234003BA067 /* ControlEvent+Signal.swift in Sources */,
 				E963CF871F1E3602001494FD /* CandleModel.swift in Sources */,
 				E9EDC6D02123AEDA00C58E0D /* DexOrderBookModuleBuilder.swift in Sources */,
@@ -3709,7 +3747,7 @@
 				E902ADCF212E1EB8000C289A /* Money.swift in Sources */,
 				E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */,
 				E997EE8521403908006907E1 /* DexChartCandlePriceView.swift in Sources */,
-				E93E31D120A8785D0056032D /* StartLeasingViewController.swift in Sources */,
+				E93E31D120A8785D0056032D /* StartLeasingViewControllerOld.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0AF922AD212E1234003BA067 /* UIFeedbackGenerator.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
@@ -3947,6 +3985,16 @@
 				E9DC8046215458A4002A496B /* tr */,
 			);
 			name = DexCompleteOrder.strings;
+			sourceTree = "<group>";
+		};
+		E9E2643C215D5A9500C9FBC6 /* StartLeasing.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9E2643B215D5A9500C9FBC6 /* en */,
+				E9E2643D215D5A9700C9FBC6 /* ru */,
+				E9E2643E215D5A9700C9FBC6 /* tr */,
+			);
+			name = StartLeasing.strings;
 			sourceTree = "<group>";
 		};
 		E9EDC6BC2123A38500C58E0D /* DexTraderContainer.strings */ = {

@@ -62,6 +62,32 @@ internal enum Localizable {
       internal static let totalIn = Localizable.tr("DexCreateOrder", "label.totalIn")
     }
   }
+  internal enum StartLeasing {
+
+    internal enum Button {
+      /// Choose from Address book
+      internal static let chooseFromAddressBook = Localizable.tr("StartLeasing", "button.chooseFromAddressBook")
+      /// Start Lease
+      internal static let startLease = Localizable.tr("StartLeasing", "button.startLease")
+      /// Use total balance
+      internal static let useTotalBalance = Localizable.tr("StartLeasing", "button.useTotalBalance")
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static let amount = Localizable.tr("StartLeasing", "label.amount")
+      /// Balance
+      internal static let balance = Localizable.tr("StartLeasing", "label.balance")
+      /// Generator
+      internal static let generator = Localizable.tr("StartLeasing", "label.generator")
+      /// Node address...
+      internal static let nodeAddress = Localizable.tr("StartLeasing", "label.nodeAddress")
+      /// Start leasing
+      internal static let startLeasing = Localizable.tr("StartLeasing", "label.startLeasing")
+      /// Transaction Fee
+      internal static let transactionFee = Localizable.tr("StartLeasing", "label.transactionFee")
+    }
+  }
   internal enum DexList {
 
     internal enum Button {

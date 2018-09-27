@@ -1,0 +1,10 @@
+"label.startLeasing" = "Start leasing";
+"label.balance" = "Balance";
+"label.generator" = "Generator";
+"label.nodeAddress" = "Node address...";
+"label.amount" = "Amount";
+"label.transactionFee" = "Transaction Fee";
+
+"button.chooseFromAddressBook" = "Choose from Address book";
+"button.useTotalBalance" = "Use total balance";
+"button.startLease" = "Start Lease";

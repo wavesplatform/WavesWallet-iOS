@@ -14,6 +14,11 @@ private enum Constants {
     static let statusBarMinSmallPercent: CGFloat = 2
 }
 
+protocol WalletLeasingBalanceCellDelegate: AnyObject {
+
+    func walletLeasingBalanceCellDidTapStartLease()
+}
+
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     @IBOutlet var viewContainer: UIView!
 
@@ -35,6 +40,8 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     private var leasedPercent: CGFloat = 0
     private var leasedInPercent: CGFloat = 0
 
+    weak var delegate: WalletLeasingBalanceCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -42,6 +49,8 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
         avaliableTitleLabel.text = Localizable.Wallet.Label.available
         leasedTitleLabel.text = Localizable.Wallet.Label.leased
         buttonStartLease.setTitle(Localizable.Wallet.Button.startLease, for: .normal)
+        
+        buttonStartLease.addTarget(self, action: #selector(startLease), for: .touchUpInside)
     }
 
     override func updateConstraints() {
@@ -55,6 +64,12 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
 
     class func cellHeight() -> CGFloat {
         return 326
+    }
+}
+
+private extension WalletLeasingBalanceCell {
+    @objc func startLease() {
+        delegate?.walletLeasingBalanceCellDidTapStartLease()
     }
 }
 
