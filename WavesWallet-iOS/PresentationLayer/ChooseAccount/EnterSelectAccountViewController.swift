@@ -9,22 +9,8 @@
 import UIKit
 import MGSwipeTableCell
 
-final class EnterSelectAccountCell: MGSwipeTableCell, NibReusable {
-    
-    @IBOutlet weak var imageIcon: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var labelAddress: UILabel!
-    
-    
-    override func awakeFromNib() {
-        let view = UIView(frame: CGRect(x: 16, y: 4, width: Platform.ScreenWidth - 32, height: frame.size.height - 8))
-        view.layer.cornerRadius = 3
-        view.backgroundColor = .overlayDark
-        insertSubview(view, at: 0)
-    }
-}
 
-final class EnterSelectAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
+final class ChooseAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var viewNoResult: UIView!
@@ -37,11 +23,12 @@ final class EnterSelectAccountViewController: UIViewController, UITableViewDeleg
         addBgBlueImage()
 
         title = "Choose account"
-        navigationItem.barTintColor = .white
-        navigationItem.shadowImage = UIImage()
+        createBackWhiteButton()
         navigationItem.backgroundImage = UIImage()
-
-//        navigationItem
+        navigationItem.shadowImage = UIImage()
+        navigationItem.barTintColor = .white
+        navigationItem.tintColor = .white
+        navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
 
         viewNoResult.isHidden = accounts.count > 0
         tableView.isHidden = accounts.count == 0

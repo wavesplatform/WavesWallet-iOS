@@ -74,6 +74,6 @@ final class HistoryInteractor: HistoryInteractorProtocol {
 
         return transactionsInteractor
             .transactions(by: accountAddress, specifications: specifications)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }

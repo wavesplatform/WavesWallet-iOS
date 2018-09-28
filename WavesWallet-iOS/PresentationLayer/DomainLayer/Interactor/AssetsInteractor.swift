@@ -51,6 +51,6 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 })
             }
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }

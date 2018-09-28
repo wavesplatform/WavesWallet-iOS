@@ -56,8 +56,7 @@ class WalletManager {
     static var currentWallet: Wallet?
 
     class func getWalletRealmConfig(waletItem: WalletItem) -> Realm.Configuration {
-        var config = Realm.Configuration()
-        config.objectTypes = [WalletItem.self]
+        var config = Realm.Configuration()        
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(waletItem.address).realm")
         return config
@@ -163,7 +162,8 @@ class WalletManager {
                 } else {
                     return Observable<PrivateKeyAccount>.error(err)
                 }
-            }.observeOn(MainScheduler.instance)
+            }
+            .subscribeOn(MainScheduler.instance)
     }
 
     class func removePrivateKey(publicKey: String) -> Error? {
@@ -187,7 +187,7 @@ class WalletManager {
             complete(key)
         } else {
             WalletManager.restorePrivateKey()
-                .observeOn(MainScheduler.instance)
+                .subscribeOn(MainScheduler.instance)
                 .subscribe(onNext: { pk in
                     WalletManager.currentWallet?.privateKey = pk
                     complete(pk)
@@ -304,7 +304,7 @@ class WalletManager {
                     return Observable<Void>.just(())
                 }
             }
-            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { _ in
                 saveToRealm(wallet: wallet)
                 didLogin(toWallet: wallet)

@@ -15,10 +15,10 @@ extension UIView {
 
         setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                    color: .black,
-                                   opacity: 0.12,
-                                   radius: 2,
+                                   opacity: 0.15,
+                                   radius: 4,
                                    shouldRasterize: true,
-                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))                
+                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))
     }
     
     class func loadView() -> UIView {

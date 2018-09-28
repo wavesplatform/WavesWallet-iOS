@@ -38,7 +38,7 @@ extension SkeletonAnimatable where Self: UIView {
     }
 
     private func startListener() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
 
     private func stopListener() {

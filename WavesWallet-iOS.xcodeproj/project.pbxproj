@@ -33,6 +33,15 @@
 		0A071E65215C69B3007D9750 /* Passcode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E67215C69B3007D9750 /* Passcode.strings */; };
 		0A071E6C215C6B6F007D9750 /* UseTouchID.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E6E215C6B6F007D9750 /* UseTouchID.strings */; };
 		0A071E71215C6B95007D9750 /* BiometricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E70215C6B95007D9750 /* BiometricType.swift */; };
+		0A071E73215D9B30007D9750 /* RunLoopThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */; };
+		0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */; };
+		0A071E77215DB07C007D9750 /* ChooseAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E76215DB07C007D9750 /* ChooseAccount.swift */; };
+		0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */; };
+		0A071E7C215DB14B007D9750 /* ChooseAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */; };
+		0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */; };
+		0A071E80215DB172007D9750 /* ChooseAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */; };
+		0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */; };
+		0A071E85215DB1B3007D9750 /* ChouseAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */; };
 		0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CB72153CE31002A8FD7 /* Import.storyboard */; };
 		0A110CBB2153CE5A002A8FD7 /* ImportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */; };
 		0A110CC02153D850002A8FD7 /* Import.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CC22153D850002A8FD7 /* Import.strings */; };
@@ -668,6 +677,15 @@
 		0A071E6D215C6B6F007D9750 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UseTouchID.strings; sourceTree = "<group>"; };
 		0A071E6F215C6B70007D9750 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/UseTouchID.strings; sourceTree = "<group>"; };
 		0A071E70215C6B95007D9750 /* BiometricType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricType.swift; sourceTree = "<group>"; };
+		0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopThreadScheduler.swift; sourceTree = "<group>"; };
+		0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseReference+Rx.swift"; sourceTree = "<group>"; };
+		0A071E76215DB07C007D9750 /* ChooseAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccount.swift; sourceTree = "<group>"; };
+		0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChooseAccount.storyboard; sourceTree = "<group>"; };
+		0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountInteractor.swift; sourceTree = "<group>"; };
+		0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountPresenter.swift; sourceTree = "<group>"; };
+		0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountCoordinator.swift; sourceTree = "<group>"; };
+		0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountModuleBuilder.swift; sourceTree = "<group>"; };
+		0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChouseAccountCell.swift; sourceTree = "<group>"; };
 		0A110CB72153CE31002A8FD7 /* Import.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Import.storyboard; sourceTree = "<group>"; };
 		0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCoordinator.swift; sourceTree = "<group>"; };
 		0A110CC12153D850002A8FD7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Import.strings; sourceTree = "<group>"; };
@@ -1416,6 +1434,30 @@
 			path = UseTouchID;
 			sourceTree = "<group>";
 		};
+		0A071E78215DB084007D9750 /* ChooseAccount */ = {
+			isa = PBXGroup;
+			children = (
+				0A071E83215DB1AB007D9750 /* Views */,
+				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
+				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
+				0A071E76215DB07C007D9750 /* ChooseAccount.swift */,
+				0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */,
+				0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */,
+				0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */,
+				0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */,
+				0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */,
+			);
+			path = ChooseAccount;
+			sourceTree = "<group>";
+		};
+		0A071E83215DB1AB007D9750 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0A14CFCD2144157A00C3A4D5 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1860,6 +1902,8 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A071E78215DB084007D9750 /* ChooseAccount */,
+				0A5C919520F3D7D700443CE6 /* DomainLayer */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
@@ -2228,6 +2272,8 @@
 				0AFF5C86215BEEBF00B82940 /* RXCrypto+SHA.swift */,
 				0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */,
 				0A071E70215C6B95007D9750 /* BiometricType.swift */,
+				0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */,
+				0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2841,8 +2887,6 @@
 				E9F984A820E526DA00D2CB4D /* Enter.storyboard */,
 				E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */,
 				E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */,
-				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
-				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
 				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
 			);
@@ -3038,7 +3082,6 @@
 				0AF9223F212E1233003BA067 /* extensions */,
 				0A97974F2108805100407F67 /* Generated */,
 				0A93FED120FCAAA30058179E /* PresentationLayer */,
-				0A5C919520F3D7D700443CE6 /* DomainLayer */,
 				F74240AF1EAB8D1600C3B84D /* DataLayer */,
 				F7C683B81EA93C5800C87DAF /* main */,
 				F7E954FD1EA90C4B00A804DE /* login */,
@@ -3258,6 +3301,7 @@
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
 				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
+				0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */,
 				F96DFFD420DCED080056BB52 /* FirstInfoPageView.xib in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
@@ -3482,6 +3526,7 @@
 				0A5E4BB721380B3300E3C3C3 /* BurnTransaction.swift in Sources */,
 				0A3FE8BF2137007500DBF4E1 /* AliasTransactionNode.swift in Sources */,
 				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
+				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */,
 				0A5E4BB32138046E00E3C3C3 /* AliasTransaction.swift in Sources */,
 				0A3FE8BE2137007500DBF4E1 /* LeaseCancelTransactionNode.swift in Sources */,
@@ -3490,6 +3535,7 @@
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				0AFF5C75215A6DA000B82940 /* MainTabBarCoordinator.swift in Sources */,
+				0A071E7C215DB14B007D9750 /* ChooseAccountInteractor.swift in Sources */,
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
@@ -3532,6 +3578,7 @@
 				0A14CFC92144130500C3A4D5 /* Dictionary+Json.swift in Sources */,
 				0AF922CD212E1234003BA067 /* NSObject+AssociatedObject.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
+				0A071E80215DB172007D9750 /* ChooseAccountCoordinator.swift in Sources */,
 				0A96F1D82152CC09005E148F /* NewAccountTypes.swift in Sources */,
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
 				F7E955051EA911EE00A804DE /* LoginViewController.swift in Sources */,
@@ -3612,6 +3659,7 @@
 				0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */,
 				F96DFFE620DD136F0056BB52 /* SixthInfoPageView.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
+				0A071E77215DB07C007D9750 /* ChooseAccount.swift in Sources */,
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				E96038B520B5999D00D303E8 /* TransactionHistoryAddressView.swift in Sources */,
@@ -3703,6 +3751,7 @@
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
 				0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */,
+				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
 				E9983DF6211C80A0002349CA /* DexMarketModuleBuilder.swift in Sources */,
@@ -3720,6 +3769,7 @@
 				0AFBCA912113274B00285BCB /* WalletSortInteractorProtocol.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
 				E9F81B7C212DF32000AF07C7 /* DexLastTradesInteractor.swift in Sources */,
+				0A071E73215D9B30007D9750 /* RunLoopThreadScheduler.swift in Sources */,
 				E9F81B7A212DF30B00AF07C7 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				0ABD1BE621469CE70027A7A2 /* AccountsInteractor.swift in Sources */,
 				E9BB427321149C80006E39AB /* DexSortInteractor.swift in Sources */,
@@ -3789,6 +3839,7 @@
 				E9983DCF211C7283002349CA /* DexMarketPresenter.swift in Sources */,
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
 				0AF922BB212E1234003BA067 /* SweetLogger.swift in Sources */,
+				0A071E85215DB1B3007D9750 /* ChouseAccountCell.swift in Sources */,
 				0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */,
 				0AF922D9212E1234003BA067 /* Mutating.swift in Sources */,
 				F96DFFCF20DCE7DA0056BB52 /* InfoPagesViewController.swift in Sources */,
@@ -3902,6 +3953,7 @@
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				E9574834212D0B6A00452963 /* DexLastTradesCell.swift in Sources */,
 				E9EDC6C12123A5A900C58E0D /* DexOrderBookViewController.swift in Sources */,
+				0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */,
 				0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */,
 				0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */,
 				0AF922C6212E1234003BA067 /* AssetLogo.swift in Sources */,

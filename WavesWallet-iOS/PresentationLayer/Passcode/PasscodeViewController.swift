@@ -36,6 +36,10 @@ final class PasscodeViewController: UIViewController {
         setupSystem()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     @objc private func backButtonDidTap() {
         eventInput.onNext(.tapBack)
     }
@@ -61,9 +65,18 @@ private extension PasscodeViewController {
 
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+
+
+            let applicationWillEnterForeground = NotificationCenter
+                .default
                 .rx
-                .viewDidAppear
+                .notification(.UIApplicationWillEnterForeground, object: nil)
+                .map { _ in true }
+                .sweetDebug("applicationDidBecomeActive")
+
+            return Observable<Bool>.merge([strongSelf.rx.viewDidAppear.asObservable(),
+                                           applicationWillEnterForeground])
+                .throttle(1, scheduler: MainScheduler.instance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidAppear }
         }

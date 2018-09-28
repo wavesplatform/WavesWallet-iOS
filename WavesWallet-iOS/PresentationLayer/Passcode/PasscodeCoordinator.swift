@@ -22,7 +22,6 @@ final class PasscodeCoordinator: Coordinator {
     private let navigationController: UINavigationController
 
     private let kind: PasscodeTypes.DTO.Kind
-    private let window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
     
     weak var delegate: PasscodeCoordinatorDelegate?
     var animated: Bool = true
@@ -46,13 +45,13 @@ final class PasscodeCoordinator: Coordinator {
     }
 
     private func dissmiss() {
-        self.viewController.dismiss(animated: true, completion: nil)
         removeFromParentCoordinator()
+        self.viewController.dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: PasscodeOutput
-extension PasscodeCoordinator: PasscodeOutput {
+extension PasscodeCoordinator: PasscodeModuleOutput {
 
     func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 

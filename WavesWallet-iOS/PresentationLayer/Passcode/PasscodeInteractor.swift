@@ -44,9 +44,9 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             })
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
                 return Observable.error(owner.handlerError(error))
-            })
+            })            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     func logInBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
@@ -55,6 +55,8 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
                 return Observable.error(owner.handlerError(error))
             })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
     }
 
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
@@ -63,10 +65,14 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
                 return Observable.error(owner.handlerError(error))
             })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
     }
 
     func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return authorizationInteractor.logout(publicKey: wallet.publicKey)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
     }
 
     private func handlerError(_ error: Error) -> PasscodeInteractorError {

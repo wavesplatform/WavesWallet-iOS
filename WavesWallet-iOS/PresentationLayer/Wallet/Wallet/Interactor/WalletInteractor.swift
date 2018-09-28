@@ -30,13 +30,13 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
 
-        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances.observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
 
         return Observable.merge(assets(isNeedUpdate: false),
                                 refreshAssetsSubject.asObserver(),
                                 mapAssets(listener))
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     func leasing() -> AsyncObservable<WalletTypes.DTO.Leasing> {

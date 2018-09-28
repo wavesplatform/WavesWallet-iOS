@@ -11,33 +11,6 @@ import RealmSwift
 import RxRealm
 import RxSwift
 
-
-
-//let observer1 = Observable<Int>.just(1)
-//
-//
-//func getContacts(by id: String) -> Observable<[String]> {
-//    return Observable.just(["Маша, Саша, Даша"])
-//}
-//
-//
-//let observerAddress = Observable<String>.just("123123123")
-//
-//let a = observerAddress.flatMap { address -> Observer<[String]> in
-//    return getContacts(by: address)
-//}.subscribe(onNext: { list in
-//
-//})
-//
-//
-//Observable.merge([observer1, observer2]).subscribe(onNext: { number in
-//
-//})
-//
-//Observable.zip([observer1, observer2]).subscribe(onNext: { list in
-//
-//})
-
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
@@ -127,7 +100,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             return Disposables.create {
                 collection.dispose()
             }
-        }
+        }.subscribeOn(RunLoopThreadScheduler.init(threadName: "Realm"))
     }()
 }
 
