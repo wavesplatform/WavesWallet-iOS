@@ -178,7 +178,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let abVc = segue.destination as? AddressBookViewController {
+        if let abVc = segue.destination as? AddressBookViewControllerOld {
             abVc.selectedAddress.asObservable().skip(1).subscribe(onNext: { addr in
                 self.addressField.text = addr?.address
                 self.addressField.becomeFirstResponder()

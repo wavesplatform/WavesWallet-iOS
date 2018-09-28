@@ -12,7 +12,7 @@ import TTTAttributedLabel
 import MessageUI
 
 
-class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, ChooseAssetViewControllerDelegate, ChooseAddressBookViewControllerDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate {
+class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, ChooseAssetViewControllerDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate {
 
     var hideTabBarOnBack = false
     
@@ -299,9 +299,9 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         let index = sender.tag
         
         if index == 0 {
-            let controller = storyboard?.instantiateViewController(withIdentifier: "ChooseAddressBookViewController") as! ChooseAddressBookViewController
-            controller.delegate = self
-            navigationController?.pushViewController(controller, animated: true)
+            
+            let vc = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
+            navigationController?.pushViewController(vc, animated: true)
         }
         else {
             
@@ -367,13 +367,6 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         else {
             UIApplication.shared.openURL(url)
         }
-    }
-    
-    //MARK: - ChooseAddressBookViewControllerDelegate
-    
-    func chooseAddressBookViewControllerDidChooseAddress(_ address: String) {
-        textFieldReceipt.text = address
-        updateRecipientAddressFillState()
     }
     
     //MARK: - ChooseAssetViewControllerDelegate
@@ -460,4 +453,13 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
         print(self.classForCoder, #function)
     }
     
+}
+
+//MARK: - AddressBookModuleOutput
+extension WavesSendViewController: AddressBookModuleOutput {
+   
+    func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
+        textFieldReceipt.text = contact.address
+        updateRecipientAddressFillState()
+    }
 }
