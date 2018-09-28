@@ -222,6 +222,7 @@ private extension PasscodePresenter {
                 if case .logIn(let wallet) = state.kind, wallet.hasBiometricEntrance {
                     state.displayState.isLoading = true
                     state.action = .logInBiometric
+                    state.displayState.error = nil
                 }
             }
 
@@ -229,6 +230,7 @@ private extension PasscodePresenter {
             return state.mutate { state in
                 state.displayState.isLoading = true
                 state.action = .logInBiometric
+                state.displayState.error = nil
             }
 
         case .tapLogInByPassword:
@@ -256,6 +258,7 @@ private extension PasscodePresenter {
                 state.displayState.kind = .newPasscode
                 state.displayState.numbers =  state.numbers[.newPasscode]  ?? []
                 state.displayState.isHiddenBackButton = true
+                state.displayState.error = nil
             }
         }
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-    static let durationDotsAnimation: TimeInterval = 2.7
+    static let durationDotsAnimation: TimeInterval = 0.6
 }
 
 final class PasscodeDotView: UIView {

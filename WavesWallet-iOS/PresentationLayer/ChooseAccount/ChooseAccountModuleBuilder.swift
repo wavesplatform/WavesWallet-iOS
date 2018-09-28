@@ -7,23 +7,23 @@
 //
 
 import Foundation
-
-struct ChooseAccountModuleBuilder: ModuleBuilderOutput {
-
-    struct Input: PasscodeInput {
-    }
-
-    var output: ChooseAccountModuleOutput
-
-    func build(input: ChooseAccountModuleBuilder.Input) -> UIViewController {
-
-        let presenter = ChooseAccountPresenter()
-        let vc = StoryboardScene.Passcode.passcodeViewController.instantiate()
-        presenter.interactor = ChooseAccountInteractor()
-        presenter.moduleOutput = output
-        presenter.input = input
-        vc.presenter = presenter
-
-        return vc
-    }
-}
+//
+//struct ChooseAccountModuleBuilder: ModuleBuilderOutput {
+//
+////    struct Input: ChooseAccount {
+////    }
+////
+////    var output: ChooseAccountModuleOutput
+////
+////    func build(input: ChooseAccountModuleBuilder.Input) -> UIViewController {
+////
+////        let presenter = ChooseAccountPresenter()
+////        let vc = StoryboardScene.Passcode.passcodeViewController.instantiate()
+////        presenter.interactor = ChooseAccountInteractor()
+////        presenter.moduleOutput = output
+////        presenter.input = input
+////        vc.presenter = presenter
+////
+////        return vc
+////    }
+//}

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Enter Select Account View Controller-->
+        <!--Choose Account View Controller-->
         <scene sceneID="GzO-rM-Dpc">
             <objects>
-                <viewController storyboardIdentifier="EnterSelectAccountViewController" id="drW-m4-jNX" customClass="EnterSelectAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseAccountViewController" id="drW-m4-jNX" customClass="ChooseAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O9M-cT-Iod">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -114,7 +114,7 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: EnterSelectAccountCell = tableView.dequeueAndRegisterCell()
+        let cell: ChouseAccountCell = tableView.dequeueAndRegisterCell()
         cell.delegate = self
         cell.labelTitle.text = accounts[indexPath.row]
         return cell
