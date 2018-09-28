@@ -10,7 +10,7 @@ import UIKit
 
 struct PasscodeModuleBuilder: ModuleBuilderOutput {
 
-    struct Input: PasscodeInput {
+    struct Input: PasscodeModuleInput {
         var kind: PasscodeTypes.DTO.Kind
     }
 

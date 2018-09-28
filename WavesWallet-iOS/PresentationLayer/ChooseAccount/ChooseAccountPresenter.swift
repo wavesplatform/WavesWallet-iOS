@@ -18,7 +18,7 @@ protocol ChooseAccountModuleInput {
 
 }
 
-protocol PasscodePresenterProtocol {
+protocol ChooseAccountPresenterProtocol {
 
     typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
 
@@ -28,7 +28,7 @@ protocol PasscodePresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
-final class ChooseAccountPresenter: PasscodePresenterProtocol {
+final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
 
     var interactor: PasscodeInteractor!
     var input: PasscodeModuleInput!

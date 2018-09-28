@@ -6,7 +6,7 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class ChooseAccountCoordinator: Coordinator {
 
@@ -15,17 +15,17 @@ final class ChooseAccountCoordinator: Coordinator {
 
     private let navigationController: UINavigationController
 
-    init(navigationController: UIViewController) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start() {
-        let vc = ChooseAccountModuleBuilder(output: self).build(input: .init(kind: kind))
-        navigationController.pushViewController(vc, animated: true)
-
-        if let presentedViewController = viewController.presentedViewController {
-            presentedViewController.present(navigationController, animated: true, completion: nil)
-        } else {
-            viewController.present(navigationController, animated: animated, completion: nil)
+//        let vc = ChooseAccountModuleBuilder(output: self).build(input: .init(kind: kind))
+//        navigationController.pushViewController(vc, animated: true)
+//
+//        if let presentedViewController = viewController.presentedViewController {
+//            presentedViewController.present(navigationController, animated: true, completion: nil)
+//        } else {
+//            viewController.present(navigationController, animated: animated, completion: nil)
         }
 }
