@@ -104,7 +104,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    name: model.recipient.contact?.name ?? "mr. big",
+                    name: model.recipient.contact?.name,
                     address: model.recipient.id)
                 ))
 

@@ -10,10 +10,10 @@ import UIKit
 
 final class TransactionHistoryKeysValuesCell: UITableViewCell, NibReusable {
     
-    @IBOutlet weak var firstTitleLabel: UILabel!
-    @IBOutlet weak var firstValueLabel: UILabel!
-    @IBOutlet weak var secondTitleLabel: UILabel!
-    @IBOutlet weak var secondValueLabel: UILabel!
+    @IBOutlet fileprivate weak var firstTitleLabel: UILabel!
+    @IBOutlet fileprivate weak var firstValueLabel: UILabel!
+    @IBOutlet fileprivate weak var secondTitleLabel: UILabel!
+    @IBOutlet fileprivate weak var secondValueLabel: UILabel!
     
     class func cellHeight() -> CGFloat {
         return 62

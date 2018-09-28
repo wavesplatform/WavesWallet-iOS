@@ -49,6 +49,7 @@
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
+		04C865FF215D91D400689B71 /* UIView+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C865FE215D91D400689B71 /* UIView+SafeArea.swift */; };
 		04D13FBF2152844D00AA6522 /* WavesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D13FBE2152844D00AA6522 /* WavesButton.swift */; };
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
@@ -685,6 +686,7 @@
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
+		04C865FE215D91D400689B71 /* UIView+SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SafeArea.swift"; sourceTree = "<group>"; };
 		04D13FBE2152844D00AA6522 /* WavesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesButton.swift; sourceTree = "<group>"; };
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
@@ -2119,7 +2121,6 @@
 				0AF9226C212E1233003BA067 /* StringExtension.swift */,
 				0AF92261212E1233003BA067 /* Type */,
 				0AF92241212E1233003BA067 /* UIButtonExtension.swift */,
-				04D13FBE2152844D00AA6522 /* WavesButton.swift */,
 				0AF92249212E1233003BA067 /* UIColor+Asset.swift */,
 				0AF9225D212E1233003BA067 /* UIColor+Colors.swift */,
 				0AF9224B212E1233003BA067 /* UIColor+Hex.swift */,
@@ -2141,6 +2142,7 @@
 				0AF9225A212E1233003BA067 /* UIViewController+Alert.swift */,
 				0AF9226A212E1233003BA067 /* UIViewController+Rx.swift */,
 				0AF92266212E1233003BA067 /* UIViewController+SafeArea.swift */,
+				04C865FE215D91D400689B71 /* UIView+SafeArea.swift */,
 				0AF92253212E1233003BA067 /* Utils */,
 				0A580E612135F17700C62549 /* UIScrollView+ContentInset.swift */,
 				0A580E632135F5CE00C62549 /* DateFormatter+Once.swift */,
@@ -2212,6 +2214,7 @@
 		0AF92281212E1234003BA067 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				04D13FBE2152844D00AA6522 /* WavesButton.swift */,
 				0A580E6D2135FE1400C62549 /* HighlightedButton.swift */,
 				E930BE3B2148E6E000B28540 /* MoneyTextField.swift */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
@@ -3615,6 +3618,7 @@
 				0AF922F8212E1234003BA067 /* LastTraderHeaderView.swift in Sources */,
 				0A5E4BAA2137FC3300E3C3C3 /* TransactionsViewController.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
+				04C865FF215D91D400689B71 /* UIView+SafeArea.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,

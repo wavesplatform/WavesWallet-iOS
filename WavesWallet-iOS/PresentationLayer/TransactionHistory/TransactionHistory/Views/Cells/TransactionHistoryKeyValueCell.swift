@@ -11,9 +11,9 @@ import UIKit
 
 final class TransactionHistoryKeyValueCell: UITableViewCell, NibReusable {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var separator: SeparatorView!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var separator: SeparatorView!
+    @IBOutlet fileprivate weak var valueLabel: UILabel!
     
     class func cellHeight() -> CGFloat {
         return 62

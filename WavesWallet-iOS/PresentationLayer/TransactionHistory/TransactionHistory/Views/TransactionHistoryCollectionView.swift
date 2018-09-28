@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionHistoryCollectionView: UICollectionView {
+final class TransactionHistoryCollectionView: UICollectionView {
     
     var touchInsets: UIEdgeInsets = .zero
     

@@ -12,11 +12,21 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
     
     enum Constants {
         static let popupInsets = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        static let popupLineColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+        static let popupLineCornerRadius: CGFloat = 4
+        static let popupLineSize: CGSize = CGSize(width: 36, height: 4)
+        
+        static let shadowViewCornerRadius: CGFloat = 10
+        static let shadowOffset: CGSize = CGSize(width: 0, height: -2)
+        static let shadowOpacity: CGFloat = 0.2
+        static let shadowRadius: CGFloat = 3
     }
     
-    var popupLineView: UIView!
-    var shadowView: UIView!
+    private var popupLineView: UIView!
+    private var shadowView: UIView!
     var popupView: TransactionHistoryPopupView!
+    
+    var navigationBarHeight: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,16 +40,16 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
     
     private func setup() {
         popupLineView = UIView()
-        popupLineView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        popupLineView.layer.cornerRadius = 4
+        popupLineView.backgroundColor = Constants.popupLineColor
+        popupLineView.layer.cornerRadius = Constants.popupLineCornerRadius
         
         shadowView = UIView(frame: contentView.frame)
         shadowView.backgroundColor = .white
-        shadowView.layer.cornerRadius = 10
+        shadowView.layer.cornerRadius = Constants.shadowViewCornerRadius
         shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0, height: -2)
-        shadowView.layer.shadowOpacity = 0.2
-        shadowView.layer.shadowRadius = 3
+        shadowView.layer.shadowOffset = Constants.shadowOffset
+        shadowView.layer.shadowOpacity = Float(Constants.shadowOpacity)
+        shadowView.layer.shadowRadius = Constants.shadowRadius
         contentView.addSubview(shadowView)
         
         setupPopupView()
@@ -52,9 +62,9 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         backgroundColor = .clear
         
-        popupView?.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-        popupView?.layer.shadowRadius = 3
-        popupView?.layer.shadowOffset = .init(width: 0, height: -2)
+//        popupView?.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+//        popupView?.layer.shadowRadius = 3
+//        popupView?.layer.shadowOffset = .init(width: 0, height: -2)
         
         popupView?.addSubview(popupLineView)
     }
@@ -71,14 +81,15 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         
         popupView?.layer.clip(roundedRect: nil, byRoundingCorners: [.topLeft, .topRight], cornerRadius: 10, inverse: false)
         
-        let popupLineSize = CGSize(width: 36, height: 4)
+        let popupLineSize = Constants.popupLineSize
         popupLineView.frame = CGRect(x: (bounds.width - popupLineSize.width) / 2, y: 6, width: popupLineSize.width, height: popupLineSize.height)
     }
     
     var topInset: CGFloat {
         
         if #available(iOS 11.0, *) {
-            return safeAreaInsets.top + 48
+ 
+            return safeAreaInsets.top + navigationBarHeight
         }
         
         return Constants.popupInsets.top

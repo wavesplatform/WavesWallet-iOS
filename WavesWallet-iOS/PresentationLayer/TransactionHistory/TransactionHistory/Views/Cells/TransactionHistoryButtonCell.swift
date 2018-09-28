@@ -20,7 +20,7 @@ final class TransactionHistoryButtonCell: UITableViewCell, NibReusable {
     
     weak var delegate: TransactionHistoryButtonCellDelegate?
     
-    @IBOutlet weak var button: HighlightedButton!
+    @IBOutlet fileprivate weak var button: HighlightedButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

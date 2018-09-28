@@ -21,6 +21,11 @@
 "cell.reissuable" = "Reissuable";
 "cell.notReissuable" = "Not Reissuable";
 
+"button.copyTXId" = "Copy TX ID";
+"button.copied" = "Copied";
+"button.copyAllData" = "Copy all data";
+
+
 "cell.status.timestamp" = "Timestamp";
 "cell.status.at" = "at";
 "cell.status.button.completed" = "Completed";
