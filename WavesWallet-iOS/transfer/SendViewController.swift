@@ -13,6 +13,7 @@ import RealmSwift
 import AVFoundation
 import QRCodeReader
 
+
 class SendViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {}
 //    @IBOutlet weak var selectAssetView: UIView!
 //    @IBOutlet weak var amountField: UITextField!

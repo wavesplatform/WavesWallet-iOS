@@ -8,10 +8,11 @@
 
 import Foundation
 
-
 struct Money: Hashable, Codable {
     let amount: Int64
     let decimals: Int
+    
+    private var _isBigAmount = false
     
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
@@ -20,26 +21,25 @@ struct Money: Hashable, Codable {
 }
 
 extension Money {
+ 
+    init(value: Decimal, _ decimals: Int) {
+        let decimalValue = (value * pow(10, decimals)).rounded()
+        let isValidDecimal = Decimal(Int64.max) >= decimalValue
+        
+        self.amount = isValidDecimal ? Int64(truncating: decimalValue as NSNumber) : 0
+        self.decimals = decimals
+        self._isBigAmount = self.amount == 0 && value > 0
+    }
+}
+
+
+extension Money {
+    var displayText: String {
+        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
+    }
     
-    init(_ value: Double) {
-        
-        let number = NSNumber(value: value)
-        let resultString = number.stringValue
-        
-        let theScanner = Scanner(string: resultString)
-        let decimalPoint = "."
-        var unwanted: NSString?
-        
-        theScanner.scanUpTo(decimalPoint, into: &unwanted)
-        
-        var countDecimals = 0
-        
-        if let unwanted = unwanted {
-            countDecimals = ((resultString.count - unwanted.length) > 0) ? resultString.count - unwanted.length - 1 : 0
-        }
-        
-        decimals = countDecimals
-        amount = Int64(value * pow(10, decimals).doubleValue)
+    var displayTextFull: String {
+        return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
     
     func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
@@ -52,15 +52,12 @@ extension Money {
     var isZero: Bool {
         return amount == 0
     }
-
-    var displayText: String {
-        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
+    
+    var isBigAmount: Bool {
+        return _isBigAmount
     }
 
-    var displayTextFull: String {
-        return MoneyUtil.getScaledText(amount, decimals: decimals)
-    }
-
+   
     var decimalValue: Decimal {
         return Decimal(amount) / pow(10, decimals)
     }
@@ -71,5 +68,25 @@ extension Money {
 
     var floatValue: Float {
         return decimalValue.floatValue
+    }
+}
+
+
+extension Money {
+    
+    func add(_ value: Double) -> Money {
+        let additionalValue = Int64(value * pow(10, decimals).doubleValue)
+        return Money(amount + additionalValue, decimals)
+    }
+    
+    func minus(_ value: Double) -> Money {
+        
+        let additionalValue = Int64(value * pow(10, decimals).doubleValue)
+        var newAmount = amount - additionalValue
+        
+        if newAmount < 0 {
+            newAmount = 0
+        }
+        return Money(newAmount, decimals)
     }
 }

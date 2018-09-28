@@ -184,8 +184,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             else if indexPath.row == GeneralSection.addressBook.rawValue {
 
                 setupLastScrollCorrectOffset()
-                let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "ChooseAddressBookViewController") as! ChooseAddressBookViewController
-                controller.isEditMode = true
+                
+                let controller = AddressBookModuleBuilder(output: nil).build(input: .init(isEditMode: true))
+                
+//                let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewControllerOlds
+//                controller.isAddMode = true
+                
                 navigationController?.pushViewController(controller, animated: true)
                 rdv_tabBarController.setTabBarHidden(true, animated: true)
             }

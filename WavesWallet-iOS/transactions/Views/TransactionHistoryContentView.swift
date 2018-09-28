@@ -191,7 +191,7 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
             popup.hideView()
         }
         
-        let changeNameController = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+        let changeNameController = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewControllerOlds
         changeNameController.isAddMode = isAddMode
         changeNameController.delegate = self
         changeNameController.showTabBarOnBack = true
