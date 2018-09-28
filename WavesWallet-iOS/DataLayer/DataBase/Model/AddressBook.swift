@@ -3,9 +3,9 @@ import RealmSwift
 import Realm
 import RxDataSources
 
-class AddressBook: Object, IdentifiableType {
+final class AddressBook: Object, IdentifiableType {
     @objc dynamic var address = ""
-    @objc dynamic var name: String? = nil
+    @objc dynamic var name = ""
     
     public var identity: String {
         return "\(address)"
