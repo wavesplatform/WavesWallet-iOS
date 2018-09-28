@@ -32,6 +32,7 @@ final class NeedBackupViewController: UIViewController {
         }
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()
+        navigationItem.isTranslucent = false
         navigationItem.rightBarButtonItem = closeItem
         navigationItem.leftBarButtonItem = UIBarButtonItem()
 

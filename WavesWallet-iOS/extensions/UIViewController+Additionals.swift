@@ -12,11 +12,11 @@ import UIKit
 extension UIViewController {
     
     func createBackWhiteButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
     
     func createMenuButton(isWhite: Bool = false) {
@@ -68,8 +68,8 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationItem.prefersLargeTitles = true
-            navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationItem.largeTitleDisplayMode = .always
+            navigationItem.largeTitleDisplayMode = .automatic
+//            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     
