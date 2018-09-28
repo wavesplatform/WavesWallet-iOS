@@ -14,7 +14,7 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
         var kind: PasscodeTypes.DTO.Kind
     }
 
-    var output: PasscodeOutput
+    var output: PasscodeModuleOutput
 
     func build(input: PasscodeModuleBuilder.Input) -> UIViewController {
 

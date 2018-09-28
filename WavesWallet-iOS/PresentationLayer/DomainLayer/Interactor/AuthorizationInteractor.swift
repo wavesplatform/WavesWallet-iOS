@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import KeychainAccess
 import LocalAuthentication
+import RealmSwift
 
 private enum Constants {
     static let service = "com.wavesplatform.wallets"
@@ -104,6 +105,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         case .passcode(let passcode):
             return remoteAuthenticationRepository
                 .auth(with: wallet.id, passcode: passcode)
+                .sweetDebug("remoteAuthenticationRepository")
                 .flatMap { [weak self] keyForPassword -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.empty() }
                     guard let password: String = wallet.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.empty() }
@@ -314,7 +316,7 @@ private extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.empty() }
                 owner.seedRepositoryMemory.append(seed)
 
-                
+                owner.setWalletRealmConfig(wallet: wallet)
                 var oldWallet = Wallet.init(name: wallet.name,
                                            publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
                                            isBackedUp: true)
@@ -326,6 +328,14 @@ private extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
+    }
+
+    func setWalletRealmConfig(wallet: DomainLayer.DTO.Wallet) {
+
+        var config = Realm.Configuration()
+        config.fileURL = config.fileURL!.deletingLastPathComponent()
+            .appendingPathComponent("\(wallet.address).realm")
+          Realm.Configuration.defaultConfiguration = config
     }
 
     private func setIsLoggedIn(wallet: DomainLayer.DTO.Wallet,

@@ -34,7 +34,7 @@ final class AccountPasswordInteractor: AccountPasswordInteractorProtocol {
                 return Observable.error(owner.handlerError(error))
             })
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     private func handlerError(_ error: Error) -> PasscodeInteractorError {

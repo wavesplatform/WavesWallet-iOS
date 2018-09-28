@@ -71,6 +71,8 @@ final class AppCoordinator: Coordinator {
             .lastWalletLoggedIn()
             .take(1)
             .flatMap(weak: self, selector: { $0.currentDisplay })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(weak: self, onNext: { $0.showDisplay })
             .disposed(by: disposeBag)
     }
@@ -258,6 +260,9 @@ extension AppCoordinator {
                     .take(1)
                     .flatMap(weak: owner, selector: { $0.currentDisplay })
             }
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(weak: self, onNext: { $0.showDisplay })
             .disposed(by: disposeBag)
     }

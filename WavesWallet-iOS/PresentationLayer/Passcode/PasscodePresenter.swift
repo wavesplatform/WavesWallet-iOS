@@ -11,13 +11,13 @@ import RxCocoa
 import RxSwift
 import RxFeedback
 
-protocol PasscodeOutput: AnyObject {
+protocol PasscodeModuleOutput: AnyObject {
     func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
     func userLogouted()
     func logInByPassword()
 }
 
-protocol PasscodeInput {
+protocol PasscodeModuleInput {
     var kind: PasscodeTypes.DTO.Kind { get }
 }
 
@@ -26,8 +26,8 @@ protocol PasscodePresenterProtocol {
     typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
 
     var interactor: PasscodeInteractor! { get set }
-    var input: PasscodeInput! { get set }
-    var moduleOutput: PasscodeOutput? { get set }
+    var input: PasscodeModuleInput! { get set }
+    var moduleOutput: PasscodeModuleOutput? { get set }
     func system(feedbacks: [Feedback])
 }
 
@@ -57,8 +57,8 @@ final class PasscodePresenter: PasscodePresenterProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     var interactor: PasscodeInteractor!
-    var input: PasscodeInput!
-    var moduleOutput: PasscodeOutput?
+    var input: PasscodeModuleInput!
+    weak var moduleOutput: PasscodeModuleOutput?
 
     func system(feedbacks: [Feedback]) {
 

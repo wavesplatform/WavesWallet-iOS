@@ -51,7 +51,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
             }
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }
 

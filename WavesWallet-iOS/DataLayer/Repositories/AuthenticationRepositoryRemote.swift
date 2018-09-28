@@ -6,65 +6,11 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
+import FirebaseAuth
+import FirebaseCore
+import FirebaseDatabase
 import Foundation
 import RxSwift
-import FirebaseDatabase
-import FirebaseCore
-import FirebaseAuth
-
-extension Reactive where Base: DatabaseReference {
-
-    func removeValue() -> Observable<DatabaseReference> {
-        return Observable.create {  observer -> Disposable in
-
-            self.base.removeValue { error, reference in
-
-                if let error = error {
-                    observer.onNext(reference)
-                    observer.onError(error)
-                } else {
-                    observer.onNext(reference)
-                    observer.onCompleted()
-                }
-            }
-
-            return Disposables.create()
-        }
-        .sweetDebug("FB removeValue")
-    }
-
-    func setValue(_ value: Any?) -> Observable<DatabaseReference> {
-        return Observable.create { observer -> Disposable in
-
-            self.base.setValue(value, withCompletionBlock: { error, reference in
-                if let error = error {
-                    observer.onNext(reference)
-                    observer.onError(error)
-                } else {
-                    observer.onNext(reference)
-                    observer.onCompleted()
-                }
-            })
-
-            return Disposables.create()
-        }
-        .sweetDebug("FB setValue")
-    }
-
-    var value: Observable<Any?> {
-        return Observable.create { observer -> Disposable in
-            self.base.observeSingleEvent(of: .value, andPreviousSiblingKeyWith: { snapshot, value in
-                observer.onNext(snapshot.value)
-                observer.onCompleted()
-            }, withCancel: { error in
-                observer.onError(error)
-                observer.onCompleted()
-            })
-            return Disposables.create()
-        }
-        .sweetDebug("FB Value")
-    }
-}
 
 fileprivate enum Constants {
     static let rootPath: String = "pincodes-ios-dev"
@@ -77,7 +23,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
         if passcode.count == 0 {
             return Observable.error(AuthenticationRepositoryError.fail)
         }
-        
+
         return Observable.create { (observer) -> Disposable in
 
             let database: DatabaseReference = Database.database().reference()
@@ -90,7 +36,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                     ref.rx.setValue(keyForPassword)
                 })
                 .catchError({ _ -> Observable<DatabaseReference> in
-                    return Observable.error(AuthenticationRepositoryError.fail)
+                    Observable.error(AuthenticationRepositoryError.fail)
                 })
                 .subscribe(onNext: { _ in
                     observer.onNext(true)
@@ -114,22 +60,21 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
             let value = self.lastTry(database: database)
                 .flatMap({ nTry -> Observable<String> in
-                    
+
                     let changeLastTry = self.changeLastTry(database: database, nTry: nTry + 1)
                     let inputTry = self.inputPasscode(database: database,
                                                       passcode: passcode,
                                                       nTry: nTry + 1)
 
                     return Observable.zip([changeLastTry, inputTry])
-                        .flatMap({ _ -> Observable<String>  in
-                            return self.keyForPassword(database: database, passcode: passcode)
-                                .flatMap({ keyForPassword -> Observable<String> in
-                                    return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
-                                })
-                        })
+                        .flatMap { _ -> Observable<String> in
+                            self.keyForPassword(database: database, passcode: passcode)
+                                .flatMap { keyForPassword -> Observable<String> in
+                                    self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
+                                }
+                        }
                 })
                 .bind(to: observer)
-
 
             return Disposables.create([value])
         }
@@ -137,10 +82,10 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
         return auth(with: id, passcode: oldPasscode)
-            .flatMap({ [weak self] keyForPassword -> Observable<Bool> in
+            .flatMap { [weak self] keyForPassword -> Observable<Bool> in
                 guard let owner = self else { return Observable.empty() }
                 return owner.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
-            })
+            }
     }
 
     private func lastTry(database: DatabaseReference) -> Observable<Int> {
@@ -155,8 +100,8 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                     return 0
                 }
             })
-            .catchError({ error -> Observable<Int> in
-                return Observable.error(AuthenticationRepositoryError.fail)
+            .catchError({ _ -> Observable<Int> in
+                Observable.error(AuthenticationRepositoryError.fail)
             })
             .sweetDebug("lastTry")
     }
@@ -166,12 +111,12 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             .child("try/try\(nTry)")
             .rx
             .setValue(passcode)
-            .catchError({ error -> Observable<DatabaseReference> in
+            .catchError { error -> Observable<DatabaseReference> in
                 if let error = error as NSError?, error.permissionDenied {
                     return Observable.error(AuthenticationRepositoryError.passcodeIncorrect)
                 }
                 return Observable.error(AuthenticationRepositoryError.fail)
-            })
+            }
     }
 
     private func changeLastTry(database: DatabaseReference, nTry: Int) -> Observable<DatabaseReference> {
@@ -179,12 +124,12 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             .child("lastTry")
             .rx
             .setValue(nTry)
-            .catchError({ error -> Observable<DatabaseReference> in
+            .catchError { error -> Observable<DatabaseReference> in
                 if let error = error as NSError?, error.permissionDenied {
                     return Observable.error(AuthenticationRepositoryError.attemptsEnded)
                 }
                 return Observable.error(AuthenticationRepositoryError.fail)
-            })
+            }
     }
 
     private func keyForPassword(database: DatabaseReference, passcode: String) -> Observable<String> {
@@ -192,19 +137,19 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             .child(passcode)
             .rx
             .value
-            .flatMap({ value -> Observable<String> in
+            .flatMap { value -> Observable<String> in
                 if let value = value as? String {
                     return Observable.just(value)
                 } else {
                     return Observable.error(AuthenticationRepositoryError.passcodeIncorrect)
                 }
-            })
+            }
     }
 }
 
 private extension NSError {
-    var authError:AuthErrorCode? {
-        return AuthErrorCode(rawValue: self.code)
+    var authError: AuthErrorCode? {
+        return AuthErrorCode(rawValue: code)
     }
 
     var firebaseError: NSError? {

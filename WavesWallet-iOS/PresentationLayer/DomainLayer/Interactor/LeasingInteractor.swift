@@ -51,6 +51,6 @@ final class LeasingInteractor: LeasingInteractorProtocol {
                     })
                 }
                 .share()
-                .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+                .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
         }
 }

@@ -82,7 +82,7 @@ final class WalletsInteractor: WalletsInteractorProtocol {
                 Observable.error(WalletsInteractorError.invalid)
             })
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
