@@ -87,4 +87,11 @@ extension UIView {
         isUserInteractionEnabled = false
         backgroundColor = .submit200
     }
+    
+    func createTopCorners(radius: CGFloat) {
+        let shadowPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = shadowPath.cgPath
+        layer.mask = maskLayer
+    }
 }

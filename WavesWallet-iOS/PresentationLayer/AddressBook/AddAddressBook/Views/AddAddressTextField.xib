@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddAddressTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="addressTextField" destination="jYG-x6-2l1" id="ZqM-wk-cgF"/>
+                <outlet property="buttonDelete" destination="agF-ZR-xGF" id="lOD-mc-Dhq"/>
+                <outlet property="buttonScan" destination="72X-pr-gf5" id="mcq-8I-wLW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYG-x6-2l1" customClass="BaseInputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agF-ZR-xGF">
+                    <rect key="frame" x="328" y="11" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="7VP-6m-aT9"/>
+                        <constraint firstAttribute="width" constant="40" id="r5i-sA-vik"/>
+                    </constraints>
+                    <state key="normal" image="deladdress24Error400"/>
+                    <connections>
+                        <action selector="deleteTapped:" destination="-1" eventType="touchUpInside" id="htL-qf-j9i"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72X-pr-gf5">
+                    <rect key="frame" x="328" y="11" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="BgD-4u-YPO"/>
+                        <constraint firstAttribute="height" constant="40" id="MDf-6F-iIy"/>
+                    </constraints>
+                    <state key="normal" image="qrcode24Basic500"/>
+                    <connections>
+                        <action selector="scanTapped:" destination="-1" eventType="touchUpInside" id="2gj-MY-7Fv"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="72X-pr-gf5" secondAttribute="trailing" constant="7" id="1K3-PJ-kOp"/>
+                <constraint firstItem="72X-pr-gf5" firstAttribute="centerY" secondItem="jYG-x6-2l1" secondAttribute="centerY" id="DuX-2h-gkg"/>
+                <constraint firstItem="agF-ZR-xGF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="GQ6-cF-81w"/>
+                <constraint firstItem="jYG-x6-2l1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Xyl-RE-XVf"/>
+                <constraint firstAttribute="bottom" secondItem="jYG-x6-2l1" secondAttribute="bottom" id="a2B-xf-Q3X"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="agF-ZR-xGF" secondAttribute="trailing" constant="7" id="eIN-nj-iX1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jYG-x6-2l1" secondAttribute="trailing" id="oFd-3J-VPb"/>
+                <constraint firstItem="jYG-x6-2l1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pTT-qo-2WW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="deladdress24Error400" width="24" height="24"/>
+        <image name="qrcode24Basic500" width="24" height="24"/>
+    </resources>
+</document>

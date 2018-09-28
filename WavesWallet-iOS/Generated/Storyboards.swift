@@ -58,6 +58,13 @@ internal enum StoryboardScene {
 
     internal static let accountPasswordViewController = SceneType<WavesWallet_iOS.AccountPasswordViewController>(storyboard: AccountPassword.self, identifier: "AccountPasswordViewController")
   }
+  internal enum AddressBook: StoryboardType {
+    internal static let storyboardName = "AddressBook"
+
+    internal static let addAddressBookViewController = SceneType<WavesWallet_iOS.AddAddressBookViewController>(storyboard: AddressBook.self, identifier: "AddAddressBookViewController")
+
+    internal static let addressBookViewController = SceneType<WavesWallet_iOS.AddressBookViewController>(storyboard: AddressBook.self, identifier: "AddressBookViewController")
+  }
   internal enum Asset: StoryboardType {
     internal static let storyboardName = "Asset"
 
@@ -92,7 +99,11 @@ internal enum StoryboardScene {
 
     internal static let dexChartViewController = SceneType<WavesWallet_iOS.DexChartViewController>(storyboard: Dex.self, identifier: "DexChartViewController")
 
+    internal static let dexCompleteOrderViewController = SceneType<WavesWallet_iOS.DexCompleteOrderViewController>(storyboard: Dex.self, identifier: "DexCompleteOrderViewController")
+
     internal static let dexContainerViewController = SceneType<WavesWallet_iOS.DexContainerViewController>(storyboard: Dex.self, identifier: "DexContainerViewController")
+
+    internal static let dexCreateOrderViewController = SceneType<WavesWallet_iOS.DexCreateOrderViewController>(storyboard: Dex.self, identifier: "DexCreateOrderViewController")
 
     internal static let dexInfoViewController = SceneType<WavesWallet_iOS.DexInfoViewController>(storyboard: Dex.self, identifier: "DexInfoViewController")
 
@@ -159,15 +170,6 @@ internal enum StoryboardScene {
 
     internal static let initialScene = InitialSceneType<UIViewController>(storyboard: LaunchScreen.self)
   }
-  internal enum Login: StoryboardType {
-    internal static let storyboardName = "Login"
-
-    internal static let initialScene = InitialSceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Login.self)
-
-    internal static let launchViewController = SceneType<WavesWallet_iOS.LaunchViewController>(storyboard: Login.self, identifier: "LaunchViewController")
-
-    internal static let navLaunchViewController = SceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Login.self, identifier: "NavLaunchViewController")
-  }
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
@@ -215,7 +217,7 @@ internal enum StoryboardScene {
   internal enum Transactions: StoryboardType {
     internal static let storyboardName = "Transactions"
 
-    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewController>(storyboard: Transactions.self, identifier: "AddAddressViewController")
+    internal static let addAddressViewController = SceneType<WavesWallet_iOS.AddAddressViewControllerOlds>(storyboard: Transactions.self, identifier: "AddAddressViewController")
 
     internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: Transactions.self, identifier: "TransactionHistoryViewController")
   }
@@ -245,8 +247,6 @@ internal enum StoryboardScene {
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"
 
-    internal static let chooseAddressBookViewController = SceneType<WavesWallet_iOS.ChooseAddressBookViewController>(storyboard: Waves.self, identifier: "ChooseAddressBookViewController")
-
     internal static let chooseAssetViewController = SceneType<WavesWallet_iOS.ChooseAssetViewController>(storyboard: Waves.self, identifier: "ChooseAssetViewController")
 
     internal static let wavesPopupViewController = SceneType<WavesWallet_iOS.WavesPopupViewController>(storyboard: Waves.self, identifier: "WavesPopupViewController")
@@ -274,9 +274,6 @@ internal enum StoryboardScene {
 internal enum StoryboardSegue {
   internal enum Dex: String, SegueType {
     case dexContainerViewController = "DexContainerViewController"
-  }
-  internal enum Login: String, SegueType {
-    case importWallet = "ImportWallet"
   }
   internal enum Transfer: String, SegueType {
     case chooseAddress = "ChooseAddress"

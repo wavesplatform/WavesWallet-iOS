@@ -88,6 +88,4 @@ extension UIViewController {
         
         view.insertSubview(imageView, at: 0)
     }
-    
-    
 }
