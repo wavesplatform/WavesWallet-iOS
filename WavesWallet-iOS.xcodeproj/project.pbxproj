@@ -35,7 +35,7 @@
 		0A071E71215C6B95007D9750 /* BiometricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E70215C6B95007D9750 /* BiometricType.swift */; };
 		0A071E73215D9B30007D9750 /* RunLoopThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */; };
 		0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */; };
-		0A071E77215DB07C007D9750 /* ChooseAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E76215DB07C007D9750 /* ChooseAccount.swift */; };
+		0A071E77215DB07C007D9750 /* ChooseAccountTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E76215DB07C007D9750 /* ChooseAccountTypes.swift */; };
 		0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */; };
 		0A071E7C215DB14B007D9750 /* ChooseAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */; };
 		0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */; };
@@ -412,7 +412,7 @@
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */; };
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
-		E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */; };
+		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
 		E904525C20B4F09500A490E5 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */; };
 		E904BC5C2155A86200A108B6 /* AddressBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E904BC5B2155A86200A108B6 /* AddressBook.storyboard */; };
@@ -734,7 +734,7 @@
 		0A071E70215C6B95007D9750 /* BiometricType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricType.swift; sourceTree = "<group>"; };
 		0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopThreadScheduler.swift; sourceTree = "<group>"; };
 		0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseReference+Rx.swift"; sourceTree = "<group>"; };
-		0A071E76215DB07C007D9750 /* ChooseAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccount.swift; sourceTree = "<group>"; };
+		0A071E76215DB07C007D9750 /* ChooseAccountTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountTypes.swift; sourceTree = "<group>"; };
 		0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChooseAccount.storyboard; sourceTree = "<group>"; };
 		0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountInteractor.swift; sourceTree = "<group>"; };
 		0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountPresenter.swift; sourceTree = "<group>"; };
@@ -1129,7 +1129,7 @@
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E902ADCE212E1EB8000C289A /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
-		E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSelectAccountViewController.swift; sourceTree = "<group>"; };
+		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
 		E904BC5B2155A86200A108B6 /* AddressBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddressBook.storyboard; sourceTree = "<group>"; };
@@ -1557,14 +1557,13 @@
 			isa = PBXGroup;
 			children = (
 				0A071E83215DB1AB007D9750 /* Views */,
-				E902F61420E5829B00A46335 /* EnterSelectAccountViewController.swift */,
-				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
-				0A071E76215DB07C007D9750 /* ChooseAccount.swift */,
-				0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */,
-				0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */,
+				E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */,
 				0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */,
-				0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */,
+				0A071E7B215DB14B007D9750 /* ChooseAccountInteractor.swift */,
 				0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */,
+				0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */,
+				0A071E76215DB07C007D9750 /* ChooseAccountTypes.swift */,
+				0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */,
 			);
 			path = ChooseAccount;
 			sourceTree = "<group>";
@@ -3266,6 +3265,7 @@
 				E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */,
 				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
 				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
+				0A49AA30214BCE9000BEC9C3 /* Enter.strings */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
@@ -3422,7 +3422,6 @@
 				0A93FED120FCAAA30058179E /* PresentationLayer */,
 				F74240AF1EAB8D1600C3B84D /* DataLayer */,
 				F7C683B81EA93C5800C87DAF /* main */,
-				F7E954FD1EA90C4B00A804DE /* login */,
 				F7A86B631EA9DE4A004DBE81 /* Wallet */,
 				E9DEECE620BEF90300F28C67 /* Waves */,
 				F763B9A01EABBFBE00FA3701 /* transactions */,
@@ -3436,13 +3435,6 @@
 				0A979752210885B500407F67 /* Resources */,
 			);
 			path = "WavesWallet-iOS";
-			sourceTree = "<group>";
-		};
-		F7E954FD1EA90C4B00A804DE /* login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = login;
 			sourceTree = "<group>";
 		};
 		F96DFFD020DCEBC80056BB52 /* View */ = {
@@ -4034,7 +4026,7 @@
 				0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */,
 				F96DFFE620DD136F0056BB52 /* SixthInfoPageView.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
-				0A071E77215DB07C007D9750 /* ChooseAccount.swift in Sources */,
+				0A071E77215DB07C007D9750 /* ChooseAccountTypes.swift in Sources */,
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				E96038B520B5999D00D303E8 /* TransactionHistoryAddressView.swift in Sources */,
@@ -4261,7 +4253,7 @@
 				E94A6FFE215AE4FE001814F7 /* DexSortCell.swift in Sources */,
 				0A93FED020FCA8610058179E /* AssetsSpamService.swift in Sources */,
 				0A14CFCC2144156400C3A4D5 /* String+NormalizeAssetId.swift in Sources */,
-				E902F61520E5829B00A46335 /* EnterSelectAccountViewController.swift in Sources */,
+				E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */,
 				E904BC7E215743D200A108B6 /* AddressBookModuleOutput.swift in Sources */,
 				0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */,
 				E94A6FFB215AE4FE001814F7 /* DexSortPresenterProtocol.swift in Sources */,

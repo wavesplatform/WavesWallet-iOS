@@ -41,6 +41,7 @@ final class SaveBackupPhraseViewController: UIViewController {
         setupBigNavigationBar()
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()
+        navigationItem.isTranslucent = false
         nextButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         nextButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
         setupWords()

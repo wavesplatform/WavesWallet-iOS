@@ -18,6 +18,7 @@ extension UINavigationItem {
         static var tintColor = "tintColor"
         static var isNavigationBarHidden = "isNavigationBarHidden"
         static var titleTextAttributes = "titleTextAttributes"
+        static var isTranslucent = "isTranslucent"
     }
 
     @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
@@ -67,6 +68,16 @@ extension UINavigationItem {
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.prefersLargeTitles)
+        }
+    }
+
+    @objc var isTranslucent: Bool {
+        get {
+            return associatedObject(for: &AssociatedKeys.isTranslucent) ?? true
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.isTranslucent)
         }
     }
 
@@ -121,6 +132,7 @@ class CustomNavigationController: UINavigationController {
         
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
+        navigationBar.isTranslucent = viewController.navigationItem.isTranslucent
         navigationBar.shadowImage = viewController.navigationItem.shadowImage
         navigationBar.barTintColor = viewController.navigationItem.barTintColor
         navigationBar.tintColor = viewController.navigationItem.tintColor

@@ -31,7 +31,6 @@ protocol PasscodePresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
-
 private struct LogInByBiometricQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
 }
@@ -299,6 +298,7 @@ private extension PasscodePresenter {
             } else {
                 state.displayState.error = .incorrectPasscode
                 state.displayState.isHiddenBackButton = false
+                state.displayState.numbers = []
                 state.passcode = ""
             }
         default:

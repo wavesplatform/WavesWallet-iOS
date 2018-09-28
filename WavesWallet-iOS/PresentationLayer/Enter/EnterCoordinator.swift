@@ -38,8 +38,9 @@ final class EnterCoordinator: Coordinator {
 extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showSignInAccount() {
-//        let vc = StoryboardScene.Enter.enterSelectAccountViewController.instantiate()
-//        navigationController.pushViewController(vc, animated: true)
+        let chooseAccountCoordinator = ChooseAccountCoordinator(navigationController: navigationController)
+        addChildCoordinator(childCoordinator: chooseAccountCoordinator)
+        chooseAccountCoordinator.start()
     }
 
     func showImportCoordinator() {
