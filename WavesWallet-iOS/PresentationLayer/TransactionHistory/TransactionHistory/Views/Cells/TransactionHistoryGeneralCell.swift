@@ -22,17 +22,17 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 
     weak var delegate: TransactionHistoryGeneralCellDelegate?
     
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet fileprivate weak var iconImageView: UIImageView!
+    @IBOutlet fileprivate weak var valueLabel: UILabel!
+    @IBOutlet fileprivate weak var currencyLabel: UILabel!
     
-    @IBOutlet weak var tagContainer: UIView!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet fileprivate weak var tagContainer: UIView!
+    @IBOutlet fileprivate weak var nextButton: UIButton!
+    @IBOutlet fileprivate weak var previousButton: UIButton!
     
-    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet fileprivate weak var tagLabel: UILabel!
     
-   @IBOutlet weak var valueLabelXConstraint: NSLayoutConstraint!
+   @IBOutlet fileprivate weak var valueLabelXConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

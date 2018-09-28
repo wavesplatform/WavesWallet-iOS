@@ -203,6 +203,15 @@ internal enum Localizable {
   }
   internal enum TransactionHistory {
 
+    internal enum Button {
+      /// Copied
+      internal static let copied = Localizable.tr("TransactionHistory", "button.copied")
+      /// Copy all data
+      internal static let copyAllData = Localizable.tr("TransactionHistory", "button.copyAllData")
+      /// Copy TX ID
+      internal static let copyTXId = Localizable.tr("TransactionHistory", "button.copyTXId")
+    }
+
     internal enum Cell {
       /// Block
       internal static let block = Localizable.tr("TransactionHistory", "cell.block")

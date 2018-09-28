@@ -10,7 +10,13 @@ import UIKit
 
 private enum Constants {
     static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+    static let сontentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
     static let buttonsHeight: CGFloat = 48
+    
+    static let buttonTimerInterval: TimeInterval = 3
+    static let buttonTXId: String = "buttonTx"
+    static let buttonAllId: String = "buttonAll"
+    
 }
 
 protocol TransactionHistoryContentViewDelegate: class {
@@ -22,15 +28,15 @@ protocol TransactionHistoryContentViewDelegate: class {
     
 }
 
-class NewTransactionHistoryContentView: UIView {
+final class NewTransactionHistoryContentView: UIView {
 
     weak var delegate: TransactionHistoryContentViewDelegate?
     
-    @IBOutlet weak var copyTXButton: WavesButton!
-    @IBOutlet weak var copyAllDataButton: WavesButton!
+    @IBOutlet private weak var copyTXButton: WavesButton!
+    @IBOutlet private weak var copyAllDataButton: WavesButton!
     
-    @IBOutlet weak var buttonContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var buttonContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var tableView: UITableView!
 
     private(set) var display: TransactionHistoryTypes.State.DisplayState?
     
@@ -46,25 +52,27 @@ class NewTransactionHistoryContentView: UIView {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInset = Constants.сontentInset
     }
     
     private func setupButtons() {
         copyTXButton.titleEdgeInsets = Constants.titleEdgeInsets
         copyAllDataButton.titleEdgeInsets = Constants.titleEdgeInsets
         
-        copyTXButton.normalTitle = "Copy TX ID"
+        copyTXButton.normalTitle = Localizable.TransactionHistory.Button.copyTXId
         copyTXButton.normalTitleColor = .black
         copyTXButton.normalImage = Images.copy18Black.image
         
-        copyTXButton.selectedTitle = "Copied"
+        copyTXButton.selectedTitle = Localizable.TransactionHistory.Button.copied
         copyTXButton.selectedTitleColor = .success400
         copyTXButton.selectedImage = Images.checkSuccess.image
         
-        copyAllDataButton.normalTitle = "Copy all data"
+        copyAllDataButton.normalTitle = Localizable.TransactionHistory.Button.copyAllData
         copyAllDataButton.normalTitleColor = .black
         copyAllDataButton.normalImage = Images.copy18Black.image
         
-        copyAllDataButton.selectedTitle = "Copied"
+        copyAllDataButton.selectedTitle = Localizable.TransactionHistory.Button.copied
         copyAllDataButton.selectedTitleColor = .success400
         copyAllDataButton.selectedImage = Images.checkSuccess.image
         
@@ -73,9 +81,8 @@ class NewTransactionHistoryContentView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if #available(iOS 11.0, *) {
-            buttonContainerHeightConstraint.constant = Constants.buttonsHeight + safeAreaInsets.bottom
-        }
+        buttonContainerHeightConstraint.constant = Constants.buttonsHeight + layoutInsets.bottom
+        
     }
     
     // MARK: - Actions
@@ -91,7 +98,7 @@ class NewTransactionHistoryContentView: UIView {
         UIPasteboard.general.string = id
         copyTXButton.setState(.selected)
         
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(t(timer:)), userInfo: ["id": "tx"], repeats: false)
+        Timer.scheduledTimer(timeInterval: Constants.buttonTimerInterval, target: self, selector: #selector(t(timer:)), userInfo: ["id": Constants.buttonTXId], repeats: false)
         
     }
     
@@ -106,7 +113,7 @@ class NewTransactionHistoryContentView: UIView {
         UIPasteboard.general.string = id + " and other data"
         copyAllDataButton.setState(.selected)
         
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(t(timer:)), userInfo: ["id": "all"], repeats: false)
+        Timer.scheduledTimer(timeInterval: Constants.buttonTimerInterval, target: self, selector: #selector(t(timer:)), userInfo: ["id": Constants.buttonAllId], repeats: false)
         
     }
     
@@ -114,9 +121,9 @@ class NewTransactionHistoryContentView: UIView {
         
         guard let userInfo = timer.userInfo as? [String: String], let id = userInfo["id"] else { return }
         
-        if id == "tx" {
+        if id == Constants.buttonTXId {
             copyTXButton.setState(.normal)
-        } else if id == "all" {
+        } else if id == Constants.buttonAllId {
             copyAllDataButton.setState(.normal)
         }
         

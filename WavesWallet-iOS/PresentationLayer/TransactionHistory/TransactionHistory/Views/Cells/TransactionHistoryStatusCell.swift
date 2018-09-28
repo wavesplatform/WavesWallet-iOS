@@ -21,11 +21,11 @@ private enum Constants {
 
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var valueLabel: UILabel!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
     
-    @IBOutlet weak var statusContainer: UIView!
+    @IBOutlet fileprivate weak var statusContainer: UIView!
 
     class func cellHeight() -> CGFloat {
         return 62

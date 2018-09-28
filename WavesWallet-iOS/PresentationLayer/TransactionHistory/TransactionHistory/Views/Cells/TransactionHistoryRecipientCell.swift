@@ -28,14 +28,14 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     
     weak var delegate: TransactionHistoryRecipientCellDelegate?
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
     
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var keyLabel: UILabel!
+    @IBOutlet fileprivate weak var valueLabel: UILabel!
+    @IBOutlet fileprivate weak var keyLabel: UILabel!
     
-    @IBOutlet weak var nameToKeyConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var nameToKeyConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var contactButton: UIButton!
+    @IBOutlet fileprivate weak var contactButton: UIButton!
     
     fileprivate static func title(for model: TransactionHistoryTypes.ViewModel.Recipient) -> String {
      

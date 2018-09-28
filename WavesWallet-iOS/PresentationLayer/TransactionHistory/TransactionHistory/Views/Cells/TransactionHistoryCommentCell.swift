@@ -16,7 +16,7 @@ private enum Constants {
 
 final class TransactionHistoryCommentCell: UITableViewCell, NibReusable {
     
-    @IBOutlet weak private(set) var commentLabel: UILabel!
+    @IBOutlet weak fileprivate var commentLabel: UILabel!
 
 }
 

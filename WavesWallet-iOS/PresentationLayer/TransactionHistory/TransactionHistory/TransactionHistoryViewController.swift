@@ -13,14 +13,24 @@ import RxFeedback
 import RxSwift
 
 private enum Constants {
-    static let backgroundAlpha: CGFloat = 0.2
+    static let collectionViewSpacing: CGFloat = 10
+    static let transitionDurationPresenting: TimeInterval = 0.4
+    static let transitionDurationDisappearing: TimeInterval = 0.3
+
+    // fallthrough tap
+    static let collectionViewTapY0: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top
+    static let collectionViewTapY1: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top * 2
+ 
 }
 
-class TransactionHistoryViewController: UIViewController {
+final class TransactionHistoryViewController: UIViewController {
     
     fileprivate var collectionViewOffset: CGPoint = .zero
     fileprivate var panningEnabled: Bool = false
     fileprivate var presenting: Bool = false
+    
+    fileprivate var currentSwipePage: Int = 0
+    var navigationBarHeight: CGFloat = 0
     
     private(set) var backgroundView: UIControl!
     private(set) var collectionView: UICollectionView!
@@ -45,31 +55,31 @@ class TransactionHistoryViewController: UIViewController {
     
     private func setupBackgroundView() {
         backgroundView = UIControl()
-        backgroundView.backgroundColor = UIColor(red: 0 / 255, green: 26 / 255, blue: 57 / 255)
+        backgroundView.backgroundColor = UIColor.overlayDark
         backgroundView.addTarget(self, action: #selector(backgroundTap(sender:)), for: .touchUpInside)
         view.addSubview(backgroundView)
     }
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = Constants.collectionViewSpacing
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
         
-        let cv = TransactionHistoryCollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView = cv
-        cv.touchInsets = TransactionHistoryPopupCell.Constants.popupInsets
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.shouldPassthroughTouch = true
         cv.delegate = self
-//        cv.panGestureRecognizer.delegate = self
         cv.dataSource = self
-        cv.register(TransactionHistoryPopupCell.self, forCellWithReuseIdentifier: "cell")
         cv.alwaysBounceHorizontal = true
         cv.backgroundColor = .clear
         cv.allowsSelection = false
         cv.delaysContentTouches = false
-//        cv.isPagingEnabled = true
+        cv.showsHorizontalScrollIndicator = false
         cv.isOpaque = false
         
+        cv.register(TransactionHistoryPopupCell.self, forCellWithReuseIdentifier: "cell")
+        
+        collectionView = cv
         view.addSubview(cv)
         
         let gr = UIPanGestureRecognizer(target: self, action: #selector(pan(gr:)))
@@ -82,6 +92,9 @@ class TransactionHistoryViewController: UIViewController {
         
         backgroundView.frame = view.bounds
         collectionView.frame = view.bounds
+        
+        let popupInsets = TransactionHistoryPopupCell.Constants.popupInsets
+        collectionView.passthroughFrame = CGRect(x: popupInsets.left, y: popupInsets.top, width: collectionView.frame.width - popupInsets.left - popupInsets.right, height: collectionView.frame.width - popupInsets.top - popupInsets.bottom)
     }
     
     // MARK: - Action
@@ -99,20 +112,14 @@ class TransactionHistoryViewController: UIViewController {
             
             let location = gr.location(in: view)
             
-            if location.y > 60 && location.y < 120 {
+            if location.y > Constants.collectionViewTapY0 && location.y < Constants.collectionViewTapY1 {
                 panningEnabled = true
-                collectionView.isUserInteractionEnabled = false
-                collectionView.isScrollEnabled = false
-                collectionViewOffset = collectionView.contentOffset
             }
             
         case .changed:
             
             if !panningEnabled { return }
-            
-            
-            collectionView.setContentOffset(collectionViewOffset, animated: false)
- 
+        
             let cvCenter = collectionView.center
             
             let z: CGFloat = cvCenter.y - view.center.y
@@ -121,31 +128,20 @@ class TransactionHistoryViewController: UIViewController {
             if z < 0 && translation.y < 0 {
                 translation.y /= 5
             } else if (z > 0) {
-                w = z * Constants.backgroundAlpha / (view.bounds.height - view.center.y)
+                w = z * 1 / (view.bounds.height - view.center.y)
             }
             
-            backgroundView.alpha = Constants.backgroundAlpha - w / 2
+            backgroundView.alpha = 1 - w / 2
             
             collectionView.center = CGPoint(x: cvCenter.x, y: cvCenter.y + translation.y)
             
-//            if location.y < 120 && location.y > 60 {
-//                print("up")
-//                collectionView.center = CGPoint(x: collectionView.center.x, y: collectionView.center.y + translation.y)
-////                dismiss(animated: true, completion: nil)
-//
-//            } else {
-//                print("down")
-//            }
-            
+
         case .ended:
             
             panningEnabled = false
-            collectionView.isScrollEnabled = true
-            collectionView.isUserInteractionEnabled = true
-            
             let cvCenter = collectionView.center
             
-            if cvCenter.y - view.center.y > 60 {
+            if cvCenter.y - view.center.y > Constants.collectionViewTapY0 {
                 
                 dismiss(animated: true, completion: nil)
                 
@@ -154,7 +150,7 @@ class TransactionHistoryViewController: UIViewController {
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.92, initialSpringVelocity: 15, options: .curveEaseInOut, animations: {
                     
                     self.collectionView.center = self.view.center
-                    self.backgroundView.alpha = Constants.backgroundAlpha
+                    self.backgroundView.alpha = 1
                     
                 }, completion: nil)
                 
@@ -173,7 +169,7 @@ class TransactionHistoryViewController: UIViewController {
     var currentPage: Int {
         let x = collectionView.contentOffset.x
         let pageWidth: CGFloat = CGFloat(view.bounds.width)
-        let minSpace: CGFloat = 10.0
+        let minSpace: CGFloat = Constants.collectionViewSpacing
         var page: Double = Double(CGFloat(x) / CGFloat(pageWidth + minSpace))
         
         if page < 0 {
@@ -189,19 +185,16 @@ class TransactionHistoryViewController: UIViewController {
 extension TransactionHistoryViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
         return true
-//        if gestureRecognizer == collectionView.panGestureRecognizer {
-//            return false
-//        } else {
-//            return true
-//        }
+        
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if collectionView == nil { return false }
+        
         if gestureRecognizer == collectionView.panGestureRecognizer {
             let location = touch.location(in: view)
-            return location.y > 120
+            return location.y > Constants.collectionViewTapY1
         }
         
         return true
@@ -276,12 +269,9 @@ extension TransactionHistoryViewController: UICollectionViewDataSource {
         
         cell.popupView.contentView.setup(with: display)
         cell.popupView.contentView.delegate = self
-//        let popupView = TransactionHistoryPopupView()
-//        popupView.contentView.setup(with: display)
-//        popupView.contentView.delegate = self
-    
+        cell.navigationBarHeight = navigationBarHeight
         
-        
+        print("inset: ", cell.navigationBarHeight)
         return cell
         
     }
@@ -296,8 +286,26 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
         
         targetContentOffset.pointee = scrollView.contentOffset
         let pageWidth: CGFloat = CGFloat(view.bounds.width)
-        let minSpace: CGFloat = 10.0
-        var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace)) + (velocity.x < 0 ? -0.9 : 0.9)
+        let minSpace: CGFloat = Constants.collectionViewSpacing
+        var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace))
+        
+        print(cellToSwipe, currentSwipePage, velocity.x)
+        // next
+        if cellToSwipe > Double(currentSwipePage) {
+            
+            if cellToSwipe - Double(currentSwipePage) > 0.1 && velocity.x >= 0 {
+                cellToSwipe += 1
+            }
+            
+        // previous
+        } else if cellToSwipe < Double(currentSwipePage) {
+            
+            if Double(currentSwipePage) - cellToSwipe > 0.1 && velocity.x <= 0 {
+                cellToSwipe -= 1
+                cellToSwipe = ceil(cellToSwipe)
+            }
+            
+        }
         
         if cellToSwipe < 0 {
             cellToSwipe = 0
@@ -305,6 +313,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
             cellToSwipe = Double(collectionView.numberOfItems(inSection: 0)) - Double(1)
         }
         
+        currentSwipePage = Int(cellToSwipe)
         let indexPath:IndexPath = IndexPath(row: Int(cellToSwipe), section:0)
         collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
         
@@ -349,6 +358,7 @@ extension TransactionHistoryViewController: TransactionHistoryContentViewDelegat
     func contentViewDidPressPrevious(view: NewTransactionHistoryContentView) {
         
         let page = self.currentPage - 1
+        
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
         
     }
@@ -372,10 +382,11 @@ extension TransactionHistoryViewController: UIViewControllerTransitioningDelegat
 extension TransactionHistoryViewController: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return presenting ? 0.4 : 0.3
+        return presenting ? Constants.transitionDurationPresenting : Constants.transitionDurationPresenting
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromVC = transitionContext.viewController(forKey: .from)
         let containerView = transitionContext.containerView
         let toView = transitionContext.view(forKey: .to)
         
@@ -387,6 +398,8 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
         }
         
         if (presenting) {
+            // TODO: fromVC: <RESideMenu: 0x106099600>, navigationController будет nil у него, убрать константу
+            navigationBarHeight = fromVC?.navigationController?.navigationBar.frame.height ?? 44
             backgroundView.alpha = 0
             collectionView.alpha = 0
             collectionView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.5)
@@ -397,7 +410,7 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
             
             if self.presenting {
                 
-                self.backgroundView.alpha = Constants.backgroundAlpha
+                self.backgroundView.alpha = 1
                 self.collectionView.alpha = 1
                 self.collectionView.center = self.view.center
                 
