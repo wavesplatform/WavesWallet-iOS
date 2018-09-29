@@ -42,17 +42,6 @@
                                                                     <constraint firstAttribute="width" constant="24" id="GyB-7O-75A"/>
                                                                     <constraint firstAttribute="height" constant="24" id="ZiE-Bs-sVt"/>
                                                                 </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="12"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                        <real key="value" value="0.5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                        <color key="value" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWO-ii-pEm">
                                                                 <rect key="frame" x="46" y="13.5" width="50.5" height="21"/>
@@ -82,17 +71,6 @@
                                                             <constraint firstItem="9B2-pu-JcC" firstAttribute="leading" secondItem="YWO-ii-pEm" secondAttribute="trailing" constant="4" id="vVo-0t-Swf"/>
                                                             <constraint firstAttribute="height" constant="48" id="zro-3K-lma"/>
                                                         </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="2"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,21 +84,31 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWH-rd-6Bn" customClass="StartLeasingGeneratorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="120" width="343" height="80"/>
+                                                <rect key="frame" x="0.0" y="120" width="375" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="AUd-uD-5hY"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-Zb-ncf" customClass="StartLeasingAmountView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="224" width="375" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="KJj-C9-r3q"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="d3N-X9-AfA" firstAttribute="top" secondItem="TFQ-eg-6Pz" secondAttribute="top" constant="24" id="1vb-mU-hBq"/>
-                                            <constraint firstItem="hWH-rd-6Bn" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" constant="16" id="50w-ED-AhL"/>
+                                            <constraint firstItem="hWH-rd-6Bn" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="50w-ED-AhL"/>
+                                            <constraint firstAttribute="trailing" secondItem="3mx-Zb-ncf" secondAttribute="trailing" id="8Dn-6u-I1O"/>
                                             <constraint firstItem="d3N-X9-AfA" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" constant="16" id="D7v-vd-4L1"/>
                                             <constraint firstItem="hWH-rd-6Bn" firstAttribute="top" secondItem="d3N-X9-AfA" secondAttribute="bottom" constant="24" id="HGB-Vo-Neo"/>
                                             <constraint firstAttribute="trailing" secondItem="d3N-X9-AfA" secondAttribute="trailing" constant="16" id="K7Z-Hs-Ehl"/>
-                                            <constraint firstAttribute="trailing" secondItem="hWH-rd-6Bn" secondAttribute="trailing" constant="16" id="qD7-16-7x9"/>
+                                            <constraint firstItem="3mx-Zb-ncf" firstAttribute="top" secondItem="hWH-rd-6Bn" secondAttribute="bottom" constant="24" id="hmp-4w-Pwl"/>
+                                            <constraint firstAttribute="trailing" secondItem="hWH-rd-6Bn" secondAttribute="trailing" id="qD7-16-7x9"/>
+                                            <constraint firstItem="3mx-Zb-ncf" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="wwP-xl-0Zm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -147,6 +135,9 @@
                         <viewLayoutGuide key="safeArea" id="R8C-b2-ffV"/>
                     </view>
                     <connections>
+                        <outlet property="addressGeneratorView" destination="hWH-rd-6Bn" id="5cQ-23-TuF"/>
+                        <outlet property="amountView" destination="3mx-Zb-ncf" id="OaR-Um-kq4"/>
+                        <outlet property="assetBgView" destination="ZdO-gm-oJe" id="0eQ-Pg-aX1"/>
                         <outlet property="iconAssetBalance" destination="1UJ-r7-zKT" id="28D-Bc-iUU"/>
                         <outlet property="iconFavourite" destination="9B2-pu-JcC" id="2Ah-z3-exD"/>
                         <outlet property="labelAssetAmount" destination="CyE-NT-qIQ" id="b76-It-maO"/>

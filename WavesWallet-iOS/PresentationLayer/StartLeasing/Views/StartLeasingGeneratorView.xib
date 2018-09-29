@@ -15,6 +15,7 @@
                 <outlet property="buttonDelete" destination="Ixr-3M-fAx" id="trM-NR-CnV"/>
                 <outlet property="buttonScan" destination="MNO-Gn-HoO" id="pr1-ag-fB7"/>
                 <outlet property="inputScrollView" destination="bCI-44-SuE" id="rSq-er-AHa"/>
+                <outlet property="inputScrollViewHeight" destination="biP-dW-mim" id="uoP-2r-FyL"/>
                 <outlet property="labelTitle" destination="Ixl-Il-vOb" id="4kd-8O-vxg"/>
                 <outlet property="textField" destination="n44-Iq-yZc" id="JV2-gM-pOK"/>
                 <outlet property="viewContentTextField" destination="zcy-MJ-IbT" id="R1g-QK-6OB"/>
@@ -26,22 +27,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixl-Il-vOb">
-                    <rect key="frame" x="0.0" y="0.0" width="61" height="16"/>
+                    <rect key="frame" x="16" y="0.0" width="61" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcy-MJ-IbT">
-                    <rect key="frame" x="0.0" y="24" width="375" height="48"/>
+                    <rect key="frame" x="16" y="24" width="343" height="48"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Node address..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n44-Iq-yZc">
-                            <rect key="frame" x="14" y="0.0" width="314.5" height="48"/>
+                            <rect key="frame" x="14" y="0.0" width="282.5" height="48"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            <connections>
+                                <action selector="addressDidChange:" destination="-1" eventType="editingChanged" id="qSb-w6-2At"/>
+                            </connections>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0Y-Bn-cJi">
-                            <rect key="frame" x="328.5" y="12" width="0.5" height="24"/>
+                            <rect key="frame" x="296.5" y="12" width="0.5" height="24"/>
                             <color key="backgroundColor" red="0.73725490199999999" green="0.73725490199999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="0.5" id="4q0-gy-Qyh"/>
@@ -49,14 +53,14 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ixr-3M-fAx">
-                            <rect key="frame" x="329" y="0.0" width="46" height="48"/>
+                            <rect key="frame" x="297" y="0.0" width="46" height="48"/>
                             <state key="normal" image="deladdress24Error400"/>
                             <connections>
                                 <action selector="deleteTapped:" destination="-1" eventType="touchUpInside" id="7ef-ba-VTx"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNO-Gn-HoO">
-                            <rect key="frame" x="329" y="0.0" width="46" height="48"/>
+                            <rect key="frame" x="297" y="0.0" width="46" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="UFP-CT-0Uu"/>
                             </constraints>
@@ -96,10 +100,10 @@
             <constraints>
                 <constraint firstItem="bCI-44-SuE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Ibn-o5-HVo"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bCI-44-SuE" secondAttribute="trailing" id="UeB-hr-yjQ"/>
-                <constraint firstItem="Ixl-Il-vOb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bd0-CX-Nzb"/>
-                <constraint firstItem="zcy-MJ-IbT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cIg-vC-JSO"/>
+                <constraint firstItem="Ixl-Il-vOb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="bd0-CX-Nzb"/>
+                <constraint firstItem="zcy-MJ-IbT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="cIg-vC-JSO"/>
                 <constraint firstItem="bCI-44-SuE" firstAttribute="top" secondItem="zcy-MJ-IbT" secondAttribute="bottom" constant="8" id="gno-yH-CFS"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zcy-MJ-IbT" secondAttribute="trailing" id="psq-NV-mMh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zcy-MJ-IbT" secondAttribute="trailing" constant="16" id="psq-NV-mMh"/>
                 <constraint firstItem="zcy-MJ-IbT" firstAttribute="top" secondItem="Ixl-Il-vOb" secondAttribute="bottom" constant="8" id="tyE-Bx-x5t"/>
                 <constraint firstItem="Ixl-Il-vOb" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="xMN-aX-aNL"/>
             </constraints>

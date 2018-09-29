@@ -70,6 +70,8 @@ internal enum Localizable {
       /// Start Lease
       internal static let startLease = Localizable.tr("StartLeasing", "button.startLease")
       /// Use total balance
+      internal static let useTotalBalanace = Localizable.tr("StartLeasing", "button.useTotalBalanace")
+      /// Use total balance
       internal static let useTotalBalance = Localizable.tr("StartLeasing", "button.useTotalBalance")
     }
 
@@ -82,6 +84,8 @@ internal enum Localizable {
       internal static let generator = Localizable.tr("StartLeasing", "label.generator")
       /// Node address...
       internal static let nodeAddress = Localizable.tr("StartLeasing", "label.nodeAddress")
+      /// Not enough
+      internal static let notEnough = Localizable.tr("StartLeasing", "label.notEnough")
       /// Start leasing
       internal static let startLeasing = Localizable.tr("StartLeasing", "label.startLeasing")
       /// Transaction Fee
