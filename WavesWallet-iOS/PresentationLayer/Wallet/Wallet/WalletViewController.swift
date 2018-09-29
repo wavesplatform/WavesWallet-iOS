@@ -72,6 +72,12 @@ final class WalletViewController: UIViewController {
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let controller = StartLeasingModuleBuilder().build()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -242,7 +248,7 @@ private extension WalletViewController {
 extension WalletViewController: WalletLeasingBalanceCellDelegate {
     
     func walletLeasingBalanceCellDidTapStartLease() {
-        let controller = StoryboardScene.StartLeasing.startLeasingViewController.instantiate()
+        let controller = StartLeasingModuleBuilder().build()
         navigationController?.pushViewController(controller, animated: true)
     }
 }

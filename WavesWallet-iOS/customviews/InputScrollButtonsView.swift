@@ -39,6 +39,7 @@ final class InputScrollButtonsView: UIScrollView {
     }
     
     private func initialize() {
+        clipsToBounds = true
         showsHorizontalScrollIndicator = false
     }
 }

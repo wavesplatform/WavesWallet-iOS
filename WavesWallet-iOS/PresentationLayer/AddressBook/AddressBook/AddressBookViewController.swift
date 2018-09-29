@@ -131,6 +131,7 @@ extension AddressBookViewController: UITableViewDelegate {
         guard isEditMode == false else { return }
         let contact = modelSection.items[indexPath.row].contact
         delegate?.addressBookDidSelectContact(contact)
+        navigationController?.popViewController(animated: true)
     }
 }
 

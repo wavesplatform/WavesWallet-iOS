@@ -4,7 +4,9 @@
 "label.nodeAddress" = "Node address...";
 "label.amount" = "Amount";
 "label.transactionFee" = "Transaction Fee";
+"label.notEnough" = "Not enough";
 
 "button.chooseFromAddressBook" = "Choose from Address book";
 "button.useTotalBalance" = "Use total balance";
 "button.startLease" = "Start Lease";
+"button.useTotalBalanace" = "Use total balance";

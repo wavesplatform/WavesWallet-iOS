@@ -109,9 +109,9 @@ extension DexCreateOrderInputView: ViewConfiguration {
 }
 
 //MARK: - InputNumericTextFieldDelegate
-extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
+extension DexCreateOrderInputView: MoneyTextFieldDelegate {
   
-    func inputNumericTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
+    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
     }
 }
