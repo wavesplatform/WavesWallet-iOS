@@ -117,6 +117,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 extension HistoryTypes.Filter {
 
+    func filtered(transactions: [DomainLayer.DTO.SmartTransaction]) -> [DomainLayer.DTO.SmartTransaction] {
+        
+        return transactions.filter({ (transaction) -> Bool in
+            isNeedTransaction(where: transaction)
+        })
+        
+    }
+    
     func isNeedTransaction(where kind: DomainLayer.DTO.SmartTransaction) -> Bool {
 
         switch self {

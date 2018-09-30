@@ -352,8 +352,6 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
         // previous
         } else if cellToSwipe < Double(currentSwipePage) {
             
-            print("velocity: ", velocity.x)
-            
             if Double(currentSwipePage) - cellToSwipe > 0.1 && velocity.x <= 0 {
                 cellToSwipe -= 1
                 cellToSwipe = ceil(cellToSwipe)
