@@ -62,35 +62,45 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         switch event {
         case .readyView:
+            
             return state.setIsAppeared(true)
 
         case .refresh:
+            
             interactor.refreshTransactions()
             return state.setIsRefreshing(true)
-
             
         case .tapCell(let indexPath):
             
             let item = state.sections[indexPath.section].items[indexPath.item]
             var index = NSNotFound
             
+            let filteredTransactions = state.currentFilter.filtered(transactions: state.transactions)
+            
             switch item {
             case .transaction(let transaction):
-                index = state.transactions.index(where: { (loopTransaction) -> Bool in
+                
+                index = filteredTransactions.index(where: { (loopTransaction) -> Bool in
                     return transaction.id == loopTransaction.id
                 }) ?? NSNotFound
-            default: break
+                
+            default:
+                break
             }
             
             if (index != NSNotFound) {
-                moduleOutput?.showTransaction(transactions: state.transactions, index: index)
+                
+                moduleOutput?.showTransaction(transactions: filteredTransactions, index: index)
             }
             
             return state
 
         case .changeFilter(let filter):
-            let sections = HistoryTypes.ViewModel.Section.filter(from: state.transactions, filter: filter)
+            
+            let filteredTransactions = filter.filtered(transactions: state.transactions)
+            let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
             let newState = state.setSections(sections: sections).setFilter(filter: filter)
+            
             return newState
 
         case .responseAll(let response):

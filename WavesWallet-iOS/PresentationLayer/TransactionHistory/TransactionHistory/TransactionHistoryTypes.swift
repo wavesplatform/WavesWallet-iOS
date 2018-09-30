@@ -29,9 +29,3 @@ enum TransactionHistoryTypes {
     }
 }
 
-extension TransactionHistoryTypes {
-    
-    
-    
-}
-

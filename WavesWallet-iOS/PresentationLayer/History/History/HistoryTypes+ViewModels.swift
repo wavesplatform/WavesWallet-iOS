@@ -27,18 +27,11 @@ extension HistoryTypes.ViewModel {
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func filter(from transactions: [DomainLayer.DTO.SmartTransaction], filter: HistoryTypes.Filter) -> [HistoryTypes.ViewModel.Section] {
-        let filteredTransactions = transactions
-            .filter { filter.isNeedTransaction(where: $0) }
-        
-        return sections(from: filteredTransactions)
-    }
-    
     static func map(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
         return sections(from: transactions)
     }
     
-    static func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
+    static private func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
 
         let calendar = NSCalendar.current
         let sections = transactions.reduce(into: [Date:  [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
