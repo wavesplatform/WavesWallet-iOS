@@ -10,6 +10,7 @@ import UIKit
 
 private enum Constants {
     static let animationFrameDuration: TimeInterval = 0.3
+    static let animationErrorLabelDuration: TimeInterval = 0.3
     static let scrollViewInputHeight: CGFloat = 30
 }
 
@@ -28,7 +29,8 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
     private var isHiddenErrorLabel = true
     private var input: [Input] = []
     
-    @IBOutlet private weak var labelAmount: UILabel!
+    @IBOutlet private weak var labelAmountLocalizable: UILabel!
+    @IBOutlet weak var labelAmount: UILabel!
     @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var scrollViewInput: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
@@ -50,12 +52,37 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        labelAmountLocalizable.text = Localizable.StartLeasing.Label.amount
         viewTextField.addTableCellShadowStyle()
         scrollViewInput.inputDelegate = self
-        labelError.alpha = 0
         textFieldMoney.inputNumericDelegate = self
+        labelError.alpha = 0
+    }
+    
+    
+    func showErrorMessage(message: String, isShow: Bool) {
+        if isShow {
+            labelError.text = message
+            
+            if isHiddenErrorLabel {
+                isHiddenErrorLabel = false
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
+                    self.labelError.alpha = 1
+                }
+            }
+        }
+        else {
+            if !isHiddenErrorLabel {
+                isHiddenErrorLabel = true
+                
+                UIView.animate(withDuration: Constants.animationErrorLabelDuration) {
+                    self.labelError.alpha = 0
+                }
+            }
+        }
     }
 }
+
 
 //MARK: - MoneyTextFieldDelegate
 extension StartLeasingAmountView: MoneyTextFieldDelegate {

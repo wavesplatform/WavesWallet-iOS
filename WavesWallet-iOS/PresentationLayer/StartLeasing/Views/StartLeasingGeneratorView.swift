@@ -125,6 +125,10 @@ private extension StartLeasingGeneratorView {
    
     @IBAction func deleteTapped(_ sender: Any) {
         setupText("", animation: true)
+        
+        if let text = textField.text {
+            delegate?.startLeasingGeneratorViewDidChangeAddress(text)
+        }
     }
     
     @IBAction func scanTapped(_ sender: Any) {

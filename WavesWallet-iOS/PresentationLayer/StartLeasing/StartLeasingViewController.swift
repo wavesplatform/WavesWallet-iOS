@@ -33,9 +33,21 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var addressGeneratorView: StartLeasingGeneratorView!
     @IBOutlet private weak var assetBgView: UIView!
     @IBOutlet private weak var amountView: StartLeasingAmountView!
+    @IBOutlet private weak var buttonStartLease: HighlightedButton!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var labelTransactionFee: UILabel!
     
+    
+    var order = StartLeasing.DTO.Order(assetId: "", address: "", amount: Money(0, 8))
+    
+    private var isCreatingOrderState = false
+
     private var isValidLease: Bool {
-        return false
+        return order.address.count > 0 && !isNotEnoughAmount && order.amount.amount > 0
+    }
+    
+    private var isNotEnoughAmount: Bool {
+        return order.amount.decimalValue > availableAmountAssetBalance.decimalValue
     }
     
     private let availableAmountAssetBalance = Money(value: 113.34, 8)
@@ -54,6 +66,17 @@ final class StartLeasingViewController: UIViewController {
         setupBigNavigationBar()
         hideTopBarLine()
     }
+ 
+    @IBAction private func startLeaseTapped(_ sender: Any) {
+        setupButtonAnimationState()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isCreatingOrderState = false
+            self.view.isUserInteractionEnabled = true
+            self.activityIndicator.stopAnimating()
+            self.setupButtonState()
+        }
+    }
 }
 
 //MARK: - Setup
@@ -61,6 +84,7 @@ private extension StartLeasingViewController {
     func setupLocalization() {
         title = Localizable.StartLeasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.StartLeasing.Label.balance
+        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + "0.001 WAVES"
     }
     
     func setupData() {
@@ -83,6 +107,7 @@ private extension StartLeasingViewController {
         
         amountView.update(with: inputAmountValues)
         
+        
         let list = AddressBookRepository().list()
         list.subscribe(onNext: { (contacts) in
             self.addressGeneratorView.update(with: contacts)
@@ -102,13 +127,38 @@ private extension StartLeasingViewController {
         assetBgView.layer.borderWidth = Constants.borderWidth
         assetBgView.layer.borderColor = UIColor.overlayDark.cgColor
         
+        setupButtonState()
+    }
+    
+    func setupButtonState() {
+        buttonStartLease.isUserInteractionEnabled = isValidLease
+        buttonStartLease.backgroundColor = isValidLease ? .submit400 : .submit200
+
+//        func setupCreatingOrderState() {
+//            isCreatingOrderState = true
+//            setupButtonSellBuy()
+//
+//            activityIndicatorView.isHidden = false
+//            activityIndicatorView.startAnimating()
+//            view.isUserInteractionEnabled = false
+//        }
+    }
+    
+    func setupButtonAnimationState() {
+        isCreatingOrderState = true
+        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        view.isUserInteractionEnabled = false
     }
 }
 
 //MARK: - StartLeasingAmountViewDelegate
 extension StartLeasingViewController: StartLeasingAmountViewDelegate {
     func startLeasingAmountView(didChangeValue value: Money) {
-        print(value)
+        order.amount = value
+        setupButtonState()
+        amountView.showErrorMessage(message: Localizable.StartLeasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
     }
 }
 
@@ -116,7 +166,8 @@ extension StartLeasingViewController: StartLeasingAmountViewDelegate {
 extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
 
     func startLeasingGeneratorViewDidSelect(_ contact: DomainLayer.DTO.Contact) {
-
+        order.address = contact.address
+        setupButtonState()
     }
     
     func startLeasingGeneratorViewDidSelectAddressBook() {
@@ -126,14 +177,17 @@ extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
     }
     
     func startLeasingGeneratorViewDidChangeAddress(_ address: String) {
-        
+        order.address = address
+        setupButtonState()
     }
 }
 
 //MARK: - AddressBookModuleBuilderOutput
 extension StartLeasingViewController: AddressBookModuleOutput {
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
+        order.address = contact.address
         addressGeneratorView.setupText(contact.name, animation: false)
+        setupButtonState()
     }
 }
 
