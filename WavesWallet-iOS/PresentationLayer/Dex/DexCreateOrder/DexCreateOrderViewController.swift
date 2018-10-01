@@ -67,7 +67,6 @@ final class DexCreateOrderViewController: UIViewController {
         setupButtonSellBuy()
         setupUIForIPhone5IfNeed()
     }
- 
 }
 
 //MARK: - UI State

@@ -414,6 +414,7 @@
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
+		E9D0B38E215FDDC30037B654 /* StartLeasingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0B38D215FDDC30037B654 /* StartLeasingTypes.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
@@ -1062,6 +1063,7 @@
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E9D0B38D215FDDC30037B654 /* StartLeasingTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingTypes.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
@@ -2421,6 +2423,7 @@
 				E9E26434215D57F800C9FBC6 /* StartLeasing.storyboard */,
 				E9E26436215D5A2D00C9FBC6 /* StartLeasingViewController.swift */,
 				E9A23191215FA6B40069839C /* StartLeasingModuleBuilder.swift */,
+				E9D0B38D215FDDC30037B654 /* StartLeasingTypes.swift */,
 				E9E2643C215D5A9500C9FBC6 /* StartLeasing.strings */,
 			);
 			path = StartLeasing;
@@ -2447,6 +2450,8 @@
 		E9E26445215E94CB00C9FBC6 /* Dex */ = {
 			isa = PBXGroup;
 			children = (
+				E9E2645E215E94CB00C9FBC6 /* DexCoordinator.swift */,
+				E9E26474215E94CB00C9FBC6 /* DexTypes.swift */,
 				E9E26479215E94CB00C9FBC6 /* Dex.storyboard */,
 				E9E264EC215E94CB00C9FBC6 /* DexCompleteOrder */,
 				E9E264AE215E94CB00C9FBC6 /* DexCreateOrder */,
@@ -2459,8 +2464,6 @@
 				E9E2650A215E94CB00C9FBC6 /* DexSort */,
 				E9E264F4215E94CB00C9FBC6 /* DexMarket */,
 				E9E26495215E94CB00C9FBC6 /* DexList */,
-				E9E2645E215E94CB00C9FBC6 /* DexCoordinator.swift */,
-				E9E26474215E94CB00C9FBC6 /* DexTypes.swift */,
 				E9E26475215E94CB00C9FBC6 /* CreateOrderViewController.swift */,
 				E9E26476215E94CB00C9FBC6 /* Order.swift */,
 				E9E26477215E94CB00C9FBC6 /* OrderConfirmView.xib */,
@@ -3758,6 +3761,7 @@
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
 				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
 				E9E2657A215E94CB00C9FBC6 /* DexLastTradesInteractor.swift in Sources */,
+				E9D0B38E215FDDC30037B654 /* StartLeasingTypes.swift in Sources */,
 				E9E26571215E94CB00C9FBC6 /* DexLastTradesModuleOutput.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				0AF922D8212E1234003BA067 /* ViewConfiguration.swift in Sources */,

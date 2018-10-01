@@ -12,7 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StartLeasingAmountView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="labelAmount" destination="Azq-mb-M9m" id="9EW-nm-RJa"/>
+                <outlet property="labelAmount" destination="rp4-sv-dfK" id="EaZ-Jq-cH9"/>
+                <outlet property="labelAmountLocalizable" destination="Azq-mb-M9m" id="PWC-vt-b6h"/>
                 <outlet property="labelError" destination="ElF-2R-wVR" id="TkZ-7l-Byu"/>
                 <outlet property="scrollViewInput" destination="9Lq-Sz-a5q" id="sJs-vF-87i"/>
                 <outlet property="scrollViewInputHeight" destination="ljw-cl-0kb" id="7oj-mW-3GB"/>
@@ -47,19 +48,27 @@
                     <rect key="frame" x="16" y="24" width="343" height="44"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Val-9J-OWT" customClass="MoneyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="16" y="0.0" width="327" height="44"/>
+                            <rect key="frame" x="16" y="0.0" width="273" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="B6h-cr-Iid"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rp4-sv-dfK">
+                            <rect key="frame" x="289" y="14" width="40" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Val-9J-OWT" secondAttribute="trailing" id="4Ot-Tr-ocp"/>
                         <constraint firstItem="Val-9J-OWT" firstAttribute="top" secondItem="HU5-Yi-oUL" secondAttribute="top" id="6tC-H0-d9z"/>
                         <constraint firstAttribute="bottom" secondItem="Val-9J-OWT" secondAttribute="bottom" id="AEW-cg-3ow"/>
                         <constraint firstItem="Val-9J-OWT" firstAttribute="leading" secondItem="HU5-Yi-oUL" secondAttribute="leading" constant="16" id="I5B-OQ-qOh"/>
+                        <constraint firstItem="rp4-sv-dfK" firstAttribute="centerY" secondItem="HU5-Yi-oUL" secondAttribute="centerY" id="IFj-He-ngh"/>
+                        <constraint firstItem="rp4-sv-dfK" firstAttribute="leading" secondItem="Val-9J-OWT" secondAttribute="trailing" id="fOK-36-v7b"/>
+                        <constraint firstAttribute="trailing" secondItem="rp4-sv-dfK" secondAttribute="trailing" constant="14" id="hii-0i-36w"/>
                     </constraints>
                 </view>
             </subviews>
