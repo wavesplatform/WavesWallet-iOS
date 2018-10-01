@@ -23,6 +23,23 @@ final class ChooseAccountCoordinator: Coordinator {
         let vc = ChooseAccountModuleBuilder(output: self).build(input: .init())
         navigationController.pushViewController(vc, animated: true)
     }
+
+    private func showPasscode(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
+
+        //TODO: Нужно придумать другой способ
+        if childCoordinators.first(where: { $0 is PasscodeCoordinator }) != nil {
+            return
+        }
+
+//        let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
+//                                                      kind: .logIn(wallet))
+//        passcodeCoordinator.animated = animated
+//        passcodeCoordinator.delegate = self
+//
+//
+//        addChildCoordinator(childCoordinator: passcodeCoordinator)
+//        passcodeCoordinator.start()
+    }
 }
 
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {

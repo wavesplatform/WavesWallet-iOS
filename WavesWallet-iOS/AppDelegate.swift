@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
+
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(-100, -100), for: .defaultPrompt)
+        UIBarButtonItem.appearance().tintColor = UIColor.black
+
         Language.load()
         UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
@@ -48,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = AppColors.wavesColor
-        UIBarButtonItem.appearance().tintColor = UIColor.black
+
 
 
 //        let button1 = UIButton.init(frame: CGRect.init(x: 10, y: 500, width: 100, height: 100))

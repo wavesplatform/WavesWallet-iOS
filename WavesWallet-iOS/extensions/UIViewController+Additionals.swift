@@ -12,11 +12,18 @@ import UIKit
 extension UIViewController {
     
     func createBackWhiteButton() {
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
+
+        navigationItem.backIndicatorImage = Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal)
+        navigationItem.backIndicatorTransitionMaskImage = Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+
     }
     
     func createBackButton() {
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
+
+        navigationItem.backIndicatorImage = Images.btnBack.image.withRenderingMode(.alwaysOriginal)
+        navigationItem.backIndicatorTransitionMaskImage = Images.btnBack.image.withRenderingMode(.alwaysOriginal)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
     
     func createMenuButton(isWhite: Bool = false) {
