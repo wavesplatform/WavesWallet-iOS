@@ -23,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    lazy var database: DatabaseReference = Database.database().reference().child("/pincodes-ios-dev/")
 
-    lazy var authenticationRepositoryRemote = AuthenticationRepositoryRemote()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -36,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
-
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(-100, -100), for: .defaultPrompt)
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
         Language.load()
@@ -54,37 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = AppColors.wavesColor
 
 
-
-//        let button1 = UIButton.init(frame: CGRect.init(x: 10, y: 500, width: 100, height: 100))
-//        button1.addTarget(self, action: #selector(megaButton), for: .touchUpInside)
-//
-//        button1.backgroundColor = .orange
-//        button1.setTitle("Reg 2222", for: .normal)
-//
-//        let button2 = UIButton.init(frame: CGRect.init(x: 200, y: 500, width: 100, height: 100))
-//        button2.addTarget(self, action: #selector(megaButton2), for: .touchUpInside)
-//        button2.backgroundColor = .green
-//        button2.setTitle("Auth 3333", for: .normal)
-//
-//        let button3 = UIButton.init(frame: CGRect.init(x: 200, y: 650, width: 100, height: 100))
-//        button3.addTarget(self, action: #selector(megaButton3), for: .touchUpInside)
-//        button3.backgroundColor = .green
-//        button3.setTitle("Change password to 3333", for: .normal)
-//        
-//
-//        let button = UIButton.init(frame: CGRect.init(x: 10, y: 100, width: 300, height: 300))
-//        button.addTarget(self, action: #selector(megaButton1), for: .touchUpInside)
-//        button.setTitle("Auth 2222", for: .normal)
-//        button.backgroundColor = .red
-
-//        FactoryInteractors.instance.wallets.registerWallet(DomainLayer.DTO.WalletRegistation.init(name: "test", address: "323 ", privateKey: PrivateKeyAccount.init(seed: []), isBackedUp: true, password: "3", passcode: "3")).subscribe()
-
-//        window!.rootViewController = UIViewController()
-//        window!.rootViewController?.view!.addSubview(button)
-//        window!.rootViewController?.view!.addSubview(button1)
-//        window!.rootViewController?.view!.addSubview(button2)
-//        window!.rootViewController?.view!.addSubview(button3)
-//        window!.makeKeyAndVisible()
         appCoordinator = AppCoordinator(window!)
         appCoordinator.start()
 

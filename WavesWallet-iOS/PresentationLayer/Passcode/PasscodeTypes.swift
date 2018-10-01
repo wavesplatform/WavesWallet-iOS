@@ -45,10 +45,11 @@ extension PasscodeTypes {
         }
 
         var displayState: DisplayState
+        var hasBackButton: Bool
         var kind: PasscodeTypes.DTO.Kind
         var action: Action?
         var numbers: [PasscodeKind: [Int]]
-        var passcode: String
+        var passcode: String        
     }
 
     enum Event {

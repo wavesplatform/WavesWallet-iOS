@@ -28,6 +28,7 @@ final class PasscodeTopBarView: UIView {
 
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var detailLabel: UILabel!
+    @IBOutlet private var dotsView: UIView!
     @IBOutlet private var dots: [PasscodeDotView]!
 
     private var counter: Int = 0
@@ -106,7 +107,7 @@ final class PasscodeTopBarView: UIView {
         isInvalidateState = true
         updateColorsForDots()
         ImpactFeedbackGenerator.impactOccurredOrVibrate()
-        dots.forEach { $0.shake() }
+        dotsView.shake()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.cancelInvalidateState()
         }
@@ -117,7 +118,6 @@ final class PasscodeTopBarView: UIView {
     }
 
     func stopLoadingIndicator() {
-        layer.removeAllAnimations()
         dots.forEach { view in
             view.layer.removeAllAnimations()
             self.updateColorsForDots()

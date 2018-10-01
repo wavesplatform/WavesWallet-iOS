@@ -34,6 +34,7 @@ protocol WalletsInteractorProtocol {
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
     func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet>
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 }
 
 private struct RegisterData {
@@ -86,6 +87,12 @@ final class WalletsInteractor: WalletsInteractorProtocol {
     }
 
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable.zip([localWalletRepository.removeWallet(wallet),
+                               localWalletSeedRepository.deleteSeed(for: wallet.address)])
+            .map { _ in true }
+    }
+
+    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable.never()
     }
 }

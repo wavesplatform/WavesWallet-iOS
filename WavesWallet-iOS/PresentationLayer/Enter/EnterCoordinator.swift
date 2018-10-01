@@ -39,6 +39,7 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showSignInAccount() {
         let chooseAccountCoordinator = ChooseAccountCoordinator(navigationController: navigationController)
+        chooseAccountCoordinator.delegate = self
         addChildCoordinator(childCoordinator: chooseAccountCoordinator)
         chooseAccountCoordinator.start()
     }
@@ -86,4 +87,13 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
     }
 
     func userLogouted() {}
+}
+
+// MARK: PasscodeCoordinatorDelegate
+extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
+
+    func userChooseCompleted() {
+        removeFromParentCoordinator()
+        delegate?.userCompletedLogIn()
+    }    
 }

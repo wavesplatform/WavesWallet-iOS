@@ -184,6 +184,35 @@ internal enum Localizable {
       internal static var time: String { return Localizable.tr("DexLastTrades", "label.time") }
     }
   }
+          internal enum ChooseAccount {
+
+    internal enum Alert {
+
+      internal enum Button {
+        /// Cancel
+        internal static var no: String { return Localizable.tr("ChooseAccount", "alert.button.no") }
+        /// Yes
+        internal static var ok: String { return Localizable.tr("ChooseAccount", "alert.button.ok") }
+      }
+
+      internal enum Delete {
+        /// Are you sure you want to delete this account?
+        internal static var message: String { return Localizable.tr("ChooseAccount", "alert.delete.message") }
+        /// Delete account
+        internal static var title: String { return Localizable.tr("ChooseAccount", "alert.delete.title") }
+      }
+    }
+
+    internal enum Label {
+      /// Nothing Here…\nYou do not have saved accounts
+      internal static var nothingWallets: String { return Localizable.tr("ChooseAccount", "label.nothingWallets") }
+    }
+
+    internal enum Navigation {
+      /// Choose account
+      internal static var title: String { return Localizable.tr("ChooseAccount", "navigation.title") }
+    }
+  }
           internal enum Enter {
 
     internal enum Block {

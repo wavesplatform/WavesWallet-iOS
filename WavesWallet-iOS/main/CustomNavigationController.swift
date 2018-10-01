@@ -21,6 +21,17 @@ extension UINavigationItem {
         static var isTranslucent = "isTranslucent"
         static var backIndicatorImage = "backIndicatorImage"
         static var backIndicatorTransitionMaskImage = "backIndicatorTransitionMaskImage"
+        static var largeTitleTextAttributes = "largeTitleTextAttributes"
+    }
+
+    @objc var largeTitleTextAttributes: [NSAttributedString.Key : Any]? {
+        get {
+            return associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.largeTitleTextAttributes)
+        }
     }
 
     @objc var backIndicatorImage: UIImage? {
@@ -128,6 +139,14 @@ fileprivate enum Constants {
     static var prefersLargeTitles = "prefersLargeTitles"
     static var backgroundImage = "backgroundImage"
     static var shadowImage = "shadowImage"
+    static var barTintColor = "barTintColor"
+    static var tintColor = "tintColor"
+    static var isNavigationBarHidden = "isNavigationBarHidden"
+    static var titleTextAttributes = "titleTextAttributes"
+    static var isTranslucent = "isTranslucent"
+    static var backIndicatorImage = "backIndicatorImage"
+    static var backIndicatorTransitionMaskImage = "backIndicatorTransitionMaskImage"
+    static var largeTitleTextAttributes = "largeTitleTextAttributes"
 }
 
 class CustomNavigationController: UINavigationController {
@@ -159,14 +178,11 @@ class CustomNavigationController: UINavigationController {
         navigationBar.barTintColor = viewController.navigationItem.barTintColor
         navigationBar.tintColor = viewController.navigationItem.tintColor
         navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
+        if #available(iOS 11.0, *) {
+            navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
+        } 
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
 
-        navigationBar.backIndicatorImage = viewController.navigationItem.backIndicatorImage
-        navigationBar.backIndicatorTransitionMaskImage = viewController.navigationItem.backIndicatorTransitionMaskImage
-
-        let item = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
-        item.setBackButtonTitlePositionAdjustment(UIOffsetMake(-100, 100), for: .default)
-        viewController.navigationItem.backBarButtonItem = item
 
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
@@ -210,6 +226,14 @@ extension CustomNavigationController: UINavigationControllerDelegate {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.prefersLargeTitles)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.barTintColor)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.tintColor)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isNavigationBarHidden)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.titleTextAttributes)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isTranslucent)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorImage)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.largeTitleTextAttributes)
         }
 
         prevViewContoller = viewController
@@ -219,6 +243,16 @@ extension CustomNavigationController: UINavigationControllerDelegate {
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
+
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.barTintColor, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.tintColor, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.isNavigationBarHidden, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.titleTextAttributes, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.isTranslucent, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorImage, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage, options: [.new, .old], context: nil)
+
+        viewController.navigationItem.addObserver(self, forKeyPath: Constants.largeTitleTextAttributes, options: [.new, .old], context: nil)
         
         self.transitionCoordinator?.notifyWhenInteractionEnds({ [weak self] context in
             guard context.isCancelled else { return }

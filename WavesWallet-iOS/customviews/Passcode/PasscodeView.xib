@@ -142,6 +142,7 @@
                     </constraints>
                     <connections>
                         <outlet property="detailLabel" destination="nhY-Q4-uzA" id="Guf-ff-0yB"/>
+                        <outlet property="dotsView" destination="f9w-80-C3s" id="Th9-D7-jkN"/>
                         <outlet property="titleLabel" destination="7Ez-wH-ZMa" id="7RD-rW-ILu"/>
                         <outletCollection property="dots" destination="f0F-mg-TtT" collectionClass="NSMutableArray" id="U57-mm-78W"/>
                         <outletCollection property="dots" destination="ym2-X2-lbK" collectionClass="NSMutableArray" id="raT-FU-TDU"/>

@@ -12,6 +12,7 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
 
     struct Input: PasscodeModuleInput {
         var kind: PasscodeTypes.DTO.Kind
+        var hasBackButton: Bool
     }
 
     var output: PasscodeModuleOutput

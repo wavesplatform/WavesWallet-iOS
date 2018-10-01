@@ -15,10 +15,12 @@ protocol PasscodeModuleOutput: AnyObject {
     func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
     func userLogouted()
     func logInByPassword()
+    func tapBackButton()
 }
 
 protocol PasscodeModuleInput {
     var kind: PasscodeTypes.DTO.Kind { get }
+    var hasBackButton: Bool { get }
 }
 
 protocol PasscodePresenterProtocol {
@@ -67,7 +69,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
 
-        let initialState = self.initialState(kind: input.kind)
+        let initialState = self.initialState(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
@@ -208,7 +210,7 @@ private extension PasscodePresenter {
                 state.action = nil
                 state.displayState.error = .incorrectPasscode
             })
-//                         TODO: Error
+//   TODO: Error
 //            switch error {
 //            case .attemptsEnded:
 //            case .passcodeIncorrect:
@@ -234,7 +236,11 @@ private extension PasscodePresenter {
 
         case .tapLogInByPassword:
             moduleOutput?.logInByPassword()
-            return state
+            return state.mutate { state in
+                state.displayState.isLoading = false
+                state.action = nil
+                state.displayState.error = nil
+            }
 
         case .tapLogoutButton:
 
@@ -253,11 +259,21 @@ private extension PasscodePresenter {
             }
 
         case .tapBack:
-            return state.mutate { state in
-                state.displayState.kind = .newPasscode
-                state.displayState.numbers =  state.numbers[.newPasscode]  ?? []
-                state.displayState.isHiddenBackButton = true
-                state.displayState.error = nil
+
+
+            switch state.kind {
+            case .logIn:
+                moduleOutput?.tapBackButton()
+                return state
+
+            case .registration:
+                return state.mutate { state in
+                    state.displayState.kind = .newPasscode
+                    state.displayState.numbers = []
+                    state.displayState.isHiddenBackButton = !state.hasBackButton
+                    state.displayState.error = nil
+                    state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
+                }
             }
         }
     }
@@ -319,7 +335,7 @@ private extension PasscodePresenter {
         case .enterPasscode:
             state.displayState.isLoading = true
             state.displayState.numbers = numbers
-            state.displayState.isHiddenBackButton = true
+            state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = nil
             state.passcode = numbers.reduce(into: "", { $0 += "\($1)" })
             state.action = .logIn
@@ -333,35 +349,40 @@ private extension PasscodePresenter {
 
 private extension PasscodePresenter {
 
-    func initialState(kind: PasscodeTypes.DTO.Kind) -> Types.State {
-        return Types.State(displayState: initialDisplayState(kind: kind), kind: kind, action: nil, numbers: .init(), passcode: "")
+    func initialState(input: PasscodeModuleInput) -> Types.State {
+        return Types.State(displayState: initialDisplayState(input: input),
+                           hasBackButton: input.hasBackButton,
+                           kind: input.kind,
+                           action: nil,
+                           numbers: .init(),
+                           passcode: "")
     }
 
-    func initialDisplayState(kind: PasscodeTypes.DTO.Kind) -> Types.DisplayState {
+    func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
 
-        switch kind {
+        switch input.kind {
         case .logIn(let wallet):
             return .init(kind: .enterPasscode,
                          numbers: .init(),
                          isLoading: false,
-                         isHiddenBackButton: true,
+                         isHiddenBackButton: !input.hasBackButton,
                          isHiddenLogInByPassword: false,
-                         isHiddenLogoutButton: false,
+                         isHiddenLogoutButton: input.hasBackButton,
                          isHiddenBiometricButton: !wallet.hasBiometricEntrance,
                          error: nil,
-                         titleLabel: kind.title(kind: .newPasscode),
+                         titleLabel: input.kind.title(kind: .newPasscode),
                          detailLabel: wallet.address)
 
         case .registration:
             return .init(kind: .newPasscode,
                          numbers: .init(),
                          isLoading: false,
-                         isHiddenBackButton: true,
+                         isHiddenBackButton: !input.hasBackButton,
                          isHiddenLogInByPassword: true,
                          isHiddenLogoutButton: true,
                          isHiddenBiometricButton: true,
                          error: nil,
-                         titleLabel: kind.title(kind: .newPasscode),
+                         titleLabel: input.kind.title(kind: .newPasscode),
                          detailLabel: nil)
         }
     }

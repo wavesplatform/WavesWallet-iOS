@@ -10,22 +10,16 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    
+
     func createBackWhiteButton() {
-
-        navigationItem.backIndicatorImage = Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal)
-        navigationItem.backIndicatorTransitionMaskImage = Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
-    
+
     func createBackButton() {
-
-        navigationItem.backIndicatorImage = Images.btnBack.image.withRenderingMode(.alwaysOriginal)
-        navigationItem.backIndicatorTransitionMaskImage = Images.btnBack.image.withRenderingMode(.alwaysOriginal)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
-    
+
+
     func createMenuButton(isWhite: Bool = false) {
         let item = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
 
@@ -76,7 +70,6 @@ extension UIViewController {
         if #available(iOS 11.0, *) {
             navigationItem.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .automatic
-//            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     
