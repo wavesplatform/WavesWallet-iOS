@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
+    
 private enum Constants {
+    static let timestampDateFormat = "MM/dd/yyyy hh:mm"
     static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
     static let сontentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
     static let buttonsHeight: CGFloat = 48
@@ -88,14 +89,10 @@ final class NewTransactionHistoryContentView: UIView {
     // MARK: - Actions
     
     @IBAction func copyTXTapped(_ sender: Any) {
-    
-        guard let id = display?.sections.first?.transaction.id else {
-            return
-        }
         
         if copyTXButton.wavesState == .selected { return }
         
-        UIPasteboard.general.string = id
+        copyTransactionId()
         copyTXButton.setState(.selected)
         
         Timer.scheduledTimer(timeInterval: Constants.buttonTimerInterval, target: self, selector: #selector(t(timer:)), userInfo: ["id": Constants.buttonTXId], repeats: false)
@@ -104,13 +101,9 @@ final class NewTransactionHistoryContentView: UIView {
     
     @IBAction func copyAllDataTapped(_ sender: Any) {
         
-        guard let id = display?.sections.first?.transaction.id else {
-            return
-        }
-        
         if copyAllDataButton.wavesState == .selected { return }
         
-        UIPasteboard.general.string = id + " and other data"
+        copyAllData()
         copyAllDataButton.setState(.selected)
         
         Timer.scheduledTimer(timeInterval: Constants.buttonTimerInterval, target: self, selector: #selector(t(timer:)), userInfo: ["id": Constants.buttonAllId], repeats: false)
@@ -127,6 +120,87 @@ final class NewTransactionHistoryContentView: UIView {
             copyAllDataButton.setState(.normal)
         }
         
+    }
+    
+    // MARK: - Content
+    
+    private func copyTransactionId() {
+        guard let id = display?.sections.first?.transaction.id else {
+            return
+        }
+        
+        UIPasteboard.general.string = id
+    }
+    
+    private func copyAllData() {
+        guard let transaction = display?.sections.first?.transaction else {
+            return
+        }
+        
+        let id = transaction.id
+        let kind = transaction.title
+        let sender = transaction.sender.id
+        
+        let formatter = DateFormatter.sharedFormatter
+        formatter.dateFormat = Constants.timestampDateFormat
+        let date = formatter.string(from: transaction.timestamp)
+        
+        var recipients = [String]()
+        var balance: Balance?
+        
+        switch transaction.kind {
+        case .receive(let model):
+            recipients.append(model.recipient.id)
+            balance = model.balance
+        case .sent(let model):
+            recipients.append(model.recipient.id)
+            balance = model.balance
+        case .exchange(let model):
+            balance = model.total
+        case .selfTransfer(let model):
+            balance = model.balance
+        case .tokenGeneration(let model):
+            balance = model.balance
+        case .tokenReissue(let model):
+            balance = model.balance
+        case .tokenBurn(let model):
+            balance = model.balance
+        case .startedLeasing(let model):
+            recipients.append(model.account.id)
+            balance = model.balance
+        case .canceledLeasing(let model):
+            recipients.append(model.account.id)
+            balance = model.balance
+        case .incomingLeasing(let model):
+            recipients.append(model.account.id)
+            balance = model.balance
+        case .spamReceive(let model):
+            recipients.append(model.recipient.id)
+            balance = model.balance
+        case .massSent(let model):
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            balance = model.total
+        case .massReceived(let model):
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            balance = model.total
+        default:
+            break
+        }
+        
+        let recipientsKeys = recipients.map { (recipient) -> [String: String] in
+            return [Localizable.TransactionHistory.Copy.recipient: recipient]
+        }
+        let amount = balance?.displayText
+        let fee = transaction.totalFee.displayText
+        
+        let keys: [[String: String]] = [[Localizable.TransactionHistory.Copy.transactionId: id], [Localizable.TransactionHistory.Copy.type: kind], [Localizable.TransactionHistory.Copy.date: date], [Localizable.TransactionHistory.Copy.sender: sender]] + recipientsKeys +
+            [[Localizable.TransactionHistory.Copy.amount: amount ?? ""], [Localizable.TransactionHistory.Copy.fee: fee]]
+        
+        UIPasteboard.general.string = keys.map({ (item) -> String in
+            let key = item.first!.key
+            let value = item.first!.value
+            return key + ": " + value
+        }).joined(separator: "\n")
     }
 
 }
