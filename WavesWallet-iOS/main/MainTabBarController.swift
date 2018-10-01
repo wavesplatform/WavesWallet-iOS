@@ -10,22 +10,18 @@ final class MainTabBarController: RDVTabBarController {
     override var viewControllers: [Any]! {
         didSet {
             let walletItem = tabBar.items[0] as! RDVTabBarItem
-            walletItem.title = Localizable.General.Tabbar.Title.wallet
             walletItem.setFinishedSelectedImage(Images.TabBar.tabBarWalletActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarWallet.image)
 
             let dexItem = tabBar.items[1] as! RDVTabBarItem
-            dexItem.title = Localizable.General.Tabbar.Title.dex
             dexItem.setFinishedSelectedImage(Images.TabBar.tabBarDexActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarDex.image)
 
             let plusItem = tabBar.items[2] as! RDVTabBarItem
             plusItem.setFinishedSelectedImage(Images.TabBar.tabBarPlusActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarPlus.image)
 
             let historyItem = tabBar.items[3] as! RDVTabBarItem
-            historyItem.title = Localizable.General.Tabbar.Title.history
             historyItem.setFinishedSelectedImage(Images.TabBar.tabBarHistoryActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarHistory.image)
 
             let profileItem = tabBar.items[4] as! RDVTabBarItem
-            profileItem.title = Localizable.General.Tabbar.Title.profile
             profileItem.setFinishedSelectedImage(Images.TabBar.tabBarProfileActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarProfile.image)
             
             for tabBarItem in tabBar.items {
