@@ -19,6 +19,28 @@ extension UINavigationItem {
         static var isNavigationBarHidden = "isNavigationBarHidden"
         static var titleTextAttributes = "titleTextAttributes"
         static var isTranslucent = "isTranslucent"
+        static var backIndicatorImage = "backIndicatorImage"
+        static var backIndicatorTransitionMaskImage = "backIndicatorTransitionMaskImage"
+    }
+
+    @objc var backIndicatorImage: UIImage? {
+        get {
+            return associatedObject(for: &AssociatedKeys.backIndicatorImage)
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.backIndicatorImage)
+        }
+    }
+    
+    @objc var backIndicatorTransitionMaskImage: UIImage? {
+        get {
+            return associatedObject(for: &AssociatedKeys.backIndicatorTransitionMaskImage)
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.backIndicatorTransitionMaskImage)
+        }
     }
 
     @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
@@ -139,6 +161,13 @@ class CustomNavigationController: UINavigationController {
         navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
 
+        navigationBar.backIndicatorImage = viewController.navigationItem.backIndicatorImage
+        navigationBar.backIndicatorTransitionMaskImage = viewController.navigationItem.backIndicatorTransitionMaskImage
+
+        let item = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        item.setBackButtonTitlePositionAdjustment(UIOffsetMake(-100, 100), for: .default)
+        viewController.navigationItem.backBarButtonItem = item
+
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
         }
@@ -146,6 +175,19 @@ class CustomNavigationController: UINavigationController {
 
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return self.topViewController
+    }
+}
+
+extension UIBarButtonItem {
+    class func itemWith(colorfulImage: UIImage?, target: AnyObject, action: Selector) -> UIBarButtonItem {
+        let button = UIButton(type: .custom)
+        button.setImage(colorfulImage, for: .normal)
+        button.frame = CGRect(x: 0.0, y: 0.0, width: 44.0, height: 44.0)
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0)
+        button.addTarget(target, action: action, for: .touchUpInside)
+
+        let barButtonItem = UIBarButtonItem(customView: button)
+        return barButtonItem
     }
 }
 
