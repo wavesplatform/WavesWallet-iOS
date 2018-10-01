@@ -204,6 +204,20 @@ internal enum Localizable {
       }
     }
 
+    internal enum Tabbar {
+
+      internal enum Title {
+        /// DEX
+        internal static let dex = Localizable.tr("General", "tabbar.title.dex")
+        /// History
+        internal static let history = Localizable.tr("General", "tabbar.title.history")
+        /// Profile
+        internal static let profile = Localizable.tr("General", "tabbar.title.profile")
+        /// Wallet
+        internal static let wallet = Localizable.tr("General", "tabbar.title.wallet")
+      }
+    }
+
     internal enum Ticker {
 
       internal enum Title {
