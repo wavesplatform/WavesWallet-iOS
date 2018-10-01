@@ -135,7 +135,7 @@ extension HistoryTransactionView: ViewConfiguration {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
+extension DomainLayer.DTO.SmartTransaction {
 
     var title: String {
 

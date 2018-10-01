@@ -19,7 +19,7 @@ extension TransactionHistoryTypes.ViewModel {
         let isSpam: Bool?
         let currencyConversion: String?
         let canGoBack: Bool?
-        let canGoNext: Bool?
+        let canGoForward: Bool?
     }
     
     struct Recipient {
@@ -83,7 +83,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
     static func map(from transaction: DomainLayer.DTO.SmartTransaction, index: Int, count: Int) -> [TransactionHistoryTypes.ViewModel.Section] {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
-        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = []
+        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = [] // lisichka
         
         var balance: Balance?
         var comment: String?
@@ -264,6 +264,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             comment = model.attachment
             balance = model.balance
             asset = model.asset
+            sign = .plus
             isSpam = true
             
             kindRows.append(
@@ -278,6 +279,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             comment = model.attachment
             balance = model.total
             asset = model.asset
+            sign = .plus
             isSpam = true
             
             for transfer in model.transfers {
@@ -299,19 +301,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         // general
         
         rows.append(
-            .general(
-                .init(
-                    kind: transaction.kind,
-                    balance: balance,
-                    sign: sign,
-                    customTitle: customTitle,
-                    asset: asset,
-                    isSpam: isSpam,
-                    currencyConversion: currencyConversion,
-                    canGoBack: index > 0,
-                    canGoNext: index < count - 1
-                )
-            )
+            transaction.generalRow(balance: balance, sign: sign, customTitle: customTitle, asset: asset, currencyConversion: currencyConversion, isSpam: isSpam, canGoBack: index > 0, canGoForward: index < count - 1)
         )
         
         // custom rows
@@ -320,61 +310,116 @@ extension TransactionHistoryTypes.ViewModel.Section {
 
         // optional comment
         
-        if (comment != nil) && comment!.count > 0 {
-            rows.append(
-                .comment(
-                    .init(text: comment!)
-                )
-            )
+        if let commentRow = transaction.commentRow(comment: comment) {
+            rows.append(commentRow)
         }
 
         // fee
         
-        rows.append(.keyValue(
-            .init(title: Localizable.TransactionHistory.Cell.fee,
-                  value: transaction.totalFee.displayText))
-        )
+        rows.append(transaction.feeRow())
 
         // confirmations/block
         
-        rows.append(.keysValues(
-            [
-                .init(
-                    title: Localizable.TransactionHistory.Cell.confirmations,
-                    value: String(transaction.confirmationHeight)
-                ),
-                .init(
-                    title: Localizable.TransactionHistory.Cell.block,
-                    value: String(transaction.height)
-                )
-            ])
-        )
+        rows.append(transaction.confirmationsBlockRow())
         
         // timestamp and status
         
-        rows.append(.status(
-            .init(
-                timestamp: transaction.timestamp,
-                status: .activeNow)
-            )
-        )
+        rows.append(transaction.statusRow())
         
         // button
         
-        switch transaction.kind {
-        case .sent(_):
-            rows.append(.resendButton(.init(type: .resend)))
-        case .massSent(_):
-            rows.append(.resendButton(.init(type: .resend)))
-        case .startedLeasing(_):
-            rows.append(.resendButton(.init(type: .cancelLeasing)))
-        default:
-            break
+        if let buttonRow = transaction.buttonRow() {
+            rows.append(buttonRow)
         }
         
         let generalSection = TransactionHistoryTypes.ViewModel.Section(transaction: transaction, items: rows)
         
         return [generalSection]
+        
+    }
+    
+    
+    
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
+    
+    func generalRow(balance: Balance?, sign: Balance.Sign?, customTitle: String?, asset: DomainLayer.DTO.Asset?, currencyConversion: String?, isSpam: Bool?, canGoBack: Bool?, canGoForward: Bool?) -> TransactionHistoryTypes.ViewModel.Row {
+        
+        return
+            .general(
+                .init(
+                    kind: kind,
+                    balance: balance,
+                    sign: sign,
+                    customTitle: customTitle,
+                    asset: asset,
+                    isSpam: isSpam,
+                    currencyConversion: currencyConversion,
+                    canGoBack: canGoBack,
+                    canGoForward: canGoForward
+                )
+            )
+        
+    }
+    
+    func commentRow(comment: String?) -> TransactionHistoryTypes.ViewModel.Row? {
+        
+        if (comment != nil) && comment!.count > 0 {
+            return
+                .comment(
+                    .init(text: comment!)
+                )
+        }
+        
+        return nil
+        
+    }
+    
+    func feeRow() -> TransactionHistoryTypes.ViewModel.Row {
+        return
+            .keyValue(
+                .init(title: Localizable.TransactionHistory.Cell.fee,
+                  value: totalFee.displayText)
+            )
+    }
+    
+    func confirmationsBlockRow() -> TransactionHistoryTypes.ViewModel.Row {
+        return .keysValues(
+            [
+                .init(
+                    title: Localizable.TransactionHistory.Cell.confirmations,
+                    value: String(confirmationHeight)
+                ),
+                .init(
+                    title: Localizable.TransactionHistory.Cell.block,
+                    value: String(height)
+                )
+            ])
+    }
+    
+    func statusRow() -> TransactionHistoryTypes.ViewModel.Row {
+        return .status(.init(
+            timestamp: timestamp,
+            status: .activeNow)
+        )
+    }
+    
+    
+    func buttonRow() -> TransactionHistoryTypes.ViewModel.Row? {
+        
+        switch kind {
+        case .sent(_):
+            return .resendButton(.init(type: .resend))
+        case .massSent(_):
+            return .resendButton(.init(type: .resend))
+        case .startedLeasing(_):
+            return .resendButton(.init(type: .cancelLeasing))
+        default:
+            break
+        }
+        
+        return nil
         
     }
     

@@ -27,7 +27,7 @@ final class TickerView: UIView, NibOwnerLoadable {
         let style: Style
     }
 
-    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private(set) var titleLabel: UILabel!
     private var style: Model.Style = .soft
 
     required init?(coder aDecoder: NSCoder) {
