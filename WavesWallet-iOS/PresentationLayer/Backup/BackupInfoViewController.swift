@@ -32,8 +32,7 @@ final class BackupInfoViewController: UIViewController {
         iUnderstandButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
         createBackButton()
         navigationItem.shadowImage = UIImage()
-        navigationItem.backgroundImage = UIImage()
-        navigationItem.isTranslucent = false
+        navigationItem.backgroundImage = UIImage()        
         titleLabel.text = Localizable.Backup.Infobackup.Label.title
         detailLabel.text = Localizable.Backup.Infobackup.Label.detail
         iUnderstandButton.setTitle(Localizable.Backup.Infobackup.Button.iunderstand, for: .normal)

@@ -107,11 +107,44 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
             return self?.saveSeed(for: seed, password: newPassword) ?? Observable.error(WalletSeedRepositoryError.fail)
         })
     }
+
+    func deleteSeed(for address: String) -> Observable<Bool> {
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            if self?.removeDB(address: address) ?? false {
+                observer.onNext(true)
+                observer.onCompleted()
+            } else {
+                observer.onError(WalletSeedRepositoryError.fail)
+            }
+
+            return Disposables.create()
+        })
+    }
 }
 
 
 // MARK: Realm
 private extension WalletSeedRepositoryLocal {
+
+    func removeDB(address: String) -> Bool {
+
+        guard let fileURL = try? Realm().configuration.fileURL else {
+            error("File Realm is nil")
+            return false
+        }
+
+        guard let path = fileURL?
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(address)_seed.realm") else { return false }
+
+        do {
+            try FileManager.default.removeItem(at: path)
+            return true
+        } catch _ {
+            return false
+        }
+    }
 
     func removeDB(realm: Realm) -> Bool {
         guard let fileURL = realm.configuration.fileURL else {

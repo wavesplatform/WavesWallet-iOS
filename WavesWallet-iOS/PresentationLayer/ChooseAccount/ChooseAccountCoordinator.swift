@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol ChooseAccountCoordinatorDelegate: AnyObject {
+    func userChooseCompleted()
+}
+
 final class ChooseAccountCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
+    weak var delegate: ChooseAccountCoordinatorDelegate?
     private let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
@@ -31,17 +36,30 @@ final class ChooseAccountCoordinator: Coordinator {
             return
         }
 
-//        let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
-//                                                      kind: .logIn(wallet))
-//        passcodeCoordinator.animated = animated
-//        passcodeCoordinator.delegate = self
-//
-//
-//        addChildCoordinator(childCoordinator: passcodeCoordinator)
-//        passcodeCoordinator.start()
+        let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
+                                                      kind: .logIn(wallet))
+        passcodeCoordinator.animated = animated
+        passcodeCoordinator.delegate = self
+
+
+        addChildCoordinator(childCoordinator: passcodeCoordinator)
+        passcodeCoordinator.start()
     }
 }
 
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
+    func userChoouseAccount(wallet: DomainLayer.DTO.Wallet) -> Void {
+        showPasscode(wallet: wallet)
+    }
+}
 
+extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
+
+    func userAuthorizationCompleted() {
+        delegate?.userChooseCompleted()
+    }
+
+    func userLogouted() {
+
+    }
 }

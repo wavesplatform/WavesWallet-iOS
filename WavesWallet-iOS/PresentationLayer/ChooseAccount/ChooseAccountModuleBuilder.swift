@@ -18,8 +18,7 @@ struct ChooseAccountModuleBuilder: ModuleBuilderOutput {
     func build(input: ChooseAccountModuleBuilder.Input) -> UIViewController {
 
         let presenter = ChooseAccountPresenter()
-        let vc = StoryboardScene.ChooseAccount.chooseAccountViewController.instantiate()
-        presenter.interactor = ChooseAccountInteractor()
+        let vc = StoryboardScene.ChooseAccount.chooseAccountViewController.instantiate()        
         presenter.moduleOutput = output
         presenter.input = input
         vc.presenter = presenter

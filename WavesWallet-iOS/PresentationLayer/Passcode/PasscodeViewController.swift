@@ -20,7 +20,9 @@ final class PasscodeViewController: UIViewController {
     @IBOutlet private var logInByPasswordTitle: UILabel!
 
     private lazy var backButtonItem: UIBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backButtonDidTap))
-    
+
+    private var isAppeared: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
+    private var disposeBag: DisposeBag = DisposeBag()
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     
     var presenter: PasscodePresenterProtocol!
@@ -28,8 +30,10 @@ final class PasscodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = " "
         passcodeView.delegate = self
 
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
 
@@ -38,6 +42,12 @@ final class PasscodeViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        isAppeared.onNext(true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isAppeared.onNext(false)
     }
     
     @objc private func backButtonDidTap() {
@@ -66,13 +76,17 @@ private extension PasscodeViewController {
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
 
-
-            let applicationWillEnterForeground = NotificationCenter
+            let applicationWillEnterForeground =  NotificationCenter
                 .default
                 .rx
                 .notification(.UIApplicationWillEnterForeground, object: nil)
-                .map { _ in true }
-                .sweetDebug("applicationDidBecomeActive")
+                .flatMap({ [weak self] _ -> Observable<Bool> in
+                    guard let strongSelf = self else { return Observable.empty() }
+                    let isAppeared = (try? strongSelf.isAppeared.value()) ?? false
+                    return Observable.just(isAppeared)
+                })
+                .ignoreWhen({ $0 == false })
+                .sweetDebug("UIApplicationWillEnterForeground")
 
             return Observable<Bool>.merge([strongSelf.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])

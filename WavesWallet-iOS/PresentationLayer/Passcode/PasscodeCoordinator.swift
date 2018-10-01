@@ -21,6 +21,7 @@ final class PasscodeCoordinator: Coordinator {
     private let viewController: UIViewController
     private let navigationController: UINavigationController
 
+    private let hasExternalNavigationController: Bool
     private let kind: PasscodeTypes.DTO.Kind
     
     weak var delegate: PasscodeCoordinatorDelegate?
@@ -30,28 +31,49 @@ final class PasscodeCoordinator: Coordinator {
         self.viewController = viewController
         self.navigationController = CustomNavigationController()
         self.kind = kind
+        self.hasExternalNavigationController = false
+    }
+
+    init(navigationController: UINavigationController, kind: PasscodeTypes.DTO.Kind) {
+        self.viewController = navigationController
+        self.navigationController = navigationController
+        self.kind = kind
+        self.hasExternalNavigationController = true
     }
 
     func start() {
+
         let vc = PasscodeModuleBuilder(output: self)
-            .build(input: .init(kind: kind))
+            .build(input: .init(kind: kind, hasBackButton: hasExternalNavigationController))
+        
         navigationController.pushViewController(vc, animated: true)
 
-        if let presentedViewController = viewController.presentedViewController {
-            presentedViewController.present(navigationController, animated: true, completion: nil)
-        } else {
-            viewController.present(navigationController, animated: animated, completion: nil)
+        if hasExternalNavigationController == false {
+            if let presentedViewController = viewController.presentedViewController {
+                presentedViewController.present(navigationController, animated: true, completion: nil)
+            } else {
+                viewController.present(navigationController, animated: animated, completion: nil)
+            }
         }
     }
 
     private func dissmiss() {
         removeFromParentCoordinator()
-        self.viewController.dismiss(animated: true, completion: nil)
+
+        if hasExternalNavigationController == false {
+            self.viewController.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController.popViewController(animated: true)
+        }
     }
 }
 
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeModuleOutput {
+
+    func tapBackButton() {
+        dissmiss()
+    }
 
     func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 

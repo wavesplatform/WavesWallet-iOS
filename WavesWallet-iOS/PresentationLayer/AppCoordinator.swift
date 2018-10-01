@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 import RESideMenu
-
+import RxOptional
 
 private struct Application: TSUD {
 
@@ -247,24 +247,28 @@ extension AppCoordinator {
 // MARK: Lifecycle application
 extension AppCoordinator {
 
-    func applicationDidEnterBackground() {
-        self.isActiveApp = false
+    private func revokeAuthAndOpenPasscode() {
         authoAuthorizationInteractor
             .revokeAuth()
-            .flatMap { [weak self] _ -> Observable<Display> in
+            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
 
                 guard let owner = self else { return Observable.never() }
 
                 return owner.authoAuthorizationInteractor
                     .lastWalletLoggedIn()
                     .take(1)
-                    .flatMap(weak: owner, selector: { $0.currentDisplay })
+                    .errorOnNil()
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
             .disposed(by: disposeBag)
+    }
+
+    func applicationDidEnterBackground() {
+        self.isActiveApp = false
+        revokeAuthAndOpenPasscode()
     }
 
     func applicationDidBecomeActive() {

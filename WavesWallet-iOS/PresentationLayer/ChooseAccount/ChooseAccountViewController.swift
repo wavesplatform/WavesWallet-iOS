@@ -19,6 +19,7 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var viewNoResult: UIView!
+    @IBOutlet private weak var noResultInfoLabel: UILabel!
 
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
@@ -30,32 +31,36 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Choose account"
-
-
-        navigationItem.backgroundImage = UIImage()
-        navigationItem.shadowImage = UIImage()
+        setupBigNavigationBar()
+        hideTopBarLine()
         navigationItem.barTintColor = .white
         navigationItem.tintColor = .white
         navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationItem.largeTitleTextAttributes = [.foregroundColor: UIColor.white]        
         setupSystem()
         addBgBlueImage()
-        setupBigNavigationBar()
         createBackWhiteButton()
-
-
-//        viewNoResult.isHidden = accounts.count > 0
-//        tableView.isHidden = accounts.count == 0
-//        tableView.contentInset = UIEdgeInsetsMake(18, 0, 0, 0)
+        navigationItem.title = Localizable.ChooseAccount.Navigation.title
+        noResultInfoLabel.text = Localizable.ChooseAccount.Label.nothingWallets
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+    private func showEmptyView() {
+        tableView.addSubview(viewNoResult)
+        viewNoResult.setNeedsLayout()
+        viewNoResult.frame.origin = CGPoint(x: (tableView.frame.width - viewNoResult.frame.width) * 0.5,
+                                            y: (tableView.frame.height - viewNoResult.frame.height - layoutInsets.top) * 0.5)
+        viewNoResult.alpha = 0
+        UIView.animate(withDuration: 0.24) {
+            self.viewNoResult.alpha = 1
+        }
+    }
+
+    private func hideEmptyView() {
+        viewNoResult.removeFromSuperview()
     }
 }
 
@@ -102,70 +107,82 @@ private extension ChooseAccountViewController {
     func updateView(with state: Types.DisplayState) {
 
         self.wallets = state.wallets
-        tableView.reloadData()
+
+        switch state.action {
+        case .reload:
+            tableView.reloadData()
+            if wallets.count > 0 {
+                hideEmptyView()
+            } else {
+                showEmptyView()
+            }
+
+        case .remove(let indexPath):
+
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                if self.wallets.count > 0 {
+                    self.hideEmptyView()
+                } else {
+                    self.showEmptyView()
+                }
+            }
+            tableView.beginUpdates()
+            if wallets.count == 0 {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            tableView.endUpdates()
+            CATransaction.commit()
+        default:
+            break
+        }
     }
+    
 }
 
+// MARK: - MGSwipeTableCellDelegate/ UITableViewDelegate/ UITableViewDatasource
 extension ChooseAccountViewController {
 
-    //MARK: - MGSwipeTableCellDelegate
+    func swipeTableCell(_ cell: MGSwipeTableCell, tappedButtonAt index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
 
-//    func swipeTableCell(_ cell: MGSwipeTableCell, tappedButtonAt index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
-//
-//        let indexPath = tableView.indexPath(for: cell)!
-//
-//        if index == 0 {
-//
-//            let isSeed = true
-//
-//            if isSeed {
-//                let controller = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "DeleteAccountViewController") as! DeleteAccountViewController
-//
-//                controller.deleteBlock = {
-//                    cell.hideSwipe(animated: true)
-//                }
-//                controller.cancelBlock = {
-//                    cell.hideSwipe(animated: true)
-//                }
-//                controller.showInController(self)
-//            }
-//            else {
-//                let controller = UIAlertController(title: "Delete account", message: "Are you sure you want to delete this account?", preferredStyle: .alert)
-//                let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-//                    cell.hideSwipe(animated: true)
-//                }
-//
-//                let yes = UIAlertAction(title: "Yes", style: .default) { (action) in
-//                    cell.hideSwipe(animated: true)
-//                }
-//                controller.addAction(cancel)
-//                controller.addAction(yes)
-//                present(controller, animated: true, completion: nil)
-//            }
-//
-//            return false
-//        } else if index == 1 {
-//            let controller = storyboard?.instantiateViewController(withIdentifier: "EditAccountNameViewController") as! EditAccountNameViewController
-//            navigationController?.pushViewController(controller, animated: true)
-//        }
-//
-//        return true
-//    }
-//
-//    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
-//
-//        if direction == .rightToLeft {
-//
+        guard let indexPath = tableView.indexPath(for: cell) else { return false }
+        let wallet = wallets[indexPath.row]
+
+        let alert = UIAlertController(title: Localizable.ChooseAccount.Alert.Delete.title,
+                                      message: Localizable.ChooseAccount.Alert.Delete.message,
+                                      preferredStyle: .alert)
+
+        let cancel = UIAlertAction(title: Localizable.ChooseAccount.Alert.Button.no, style: .cancel) { (action) in
+            cell.hideSwipe(animated: true)
+        }
+
+        let yes = UIAlertAction(title: Localizable.ChooseAccount.Alert.Button.ok, style: .default) { [weak self] (action) in
+            self?.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
+        }
+        alert.addAction(cancel)
+        alert.addAction(yes)
+        present(alert, animated: true, completion: nil)
+
+        return true
+    }
+
+    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+
+        if direction == .rightToLeft {
+
+            //TODO: Edit
 //            let edit = MGSwipeButton(title: "", icon: UIImage(named: "editaddress24Submit300"), backgroundColor: nil)
 //            edit.setEdgeInsets(UIEdgeInsetsMake(0, 15, 0, 0))
 //            edit.buttonWidth = 72
-//
-//            let delete = MGSwipeButton.init(title: "", icon: UIImage(named: "deladdress24Error400"), backgroundColor: nil)
-//            delete.buttonWidth = 72
-//            return [delete, edit]
-//        }
-//        return nil
-//    }
+
+            let delete = MGSwipeButton(title: "", icon: Images.deladdress24Error400.image, backgroundColor: nil)
+            delete.buttonWidth = 72
+            return [delete]
+        }
+        return nil
+    }
 
     //MARK: - UITableView
 
@@ -177,6 +194,10 @@ extension ChooseAccountViewController {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wallets.count
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

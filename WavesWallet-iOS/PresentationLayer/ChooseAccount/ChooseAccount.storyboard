@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YJl-CE-tYi">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChouseAccountCell" id="1RO-24-KyC" customClass="ChouseAccountCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -97,22 +97,55 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="YJl-CE-tYi" secondAttribute="bottom" id="0NS-1d-p9v"/>
                             <constraint firstItem="YJl-CE-tYi" firstAttribute="leading" secondItem="vf1-ey-QH9" secondAttribute="leading" id="h2u-Hk-JD8"/>
                             <constraint firstItem="vf1-ey-QH9" firstAttribute="trailing" secondItem="YJl-CE-tYi" secondAttribute="trailing" id="hnO-mK-hy8"/>
-                            <constraint firstItem="YJl-CE-tYi" firstAttribute="top" secondItem="O9M-cT-Iod" secondAttribute="top" id="kVD-AT-HUS"/>
+                            <constraint firstItem="YJl-CE-tYi" firstAttribute="top" secondItem="vf1-ey-QH9" secondAttribute="top" id="kVD-AT-HUS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vf1-ey-QH9"/>
                     </view>
                     <connections>
+                        <outlet property="noResultInfoLabel" destination="mqe-re-4KG" id="iZ1-8b-w1b"/>
                         <outlet property="tableView" destination="YJl-CE-tYi" id="dBI-mH-Lgi"/>
+                        <outlet property="viewNoResult" destination="4Qz-18-kNn" id="c6n-Tl-dbz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMm-Ly-2ac" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="4Qz-18-kNn">
+                    <rect key="frame" x="0.0" y="0.0" width="195.5" height="125.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqe-re-4KG" userLabel="Я">
+                            <rect key="frame" x="0.0" y="94" width="195.5" height="31.5"/>
+                            <string key="text">Nothing Here…
+You do not have saved accounts</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80Multi" translatesAutoresizingMaskIntoConstraints="NO" id="ES7-uw-85B">
+                            <rect key="frame" x="58" y="0.0" width="80" height="80"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="mqe-re-4KG" secondAttribute="bottom" id="CMi-T4-yhZ"/>
+                        <constraint firstAttribute="trailing" secondItem="mqe-re-4KG" secondAttribute="trailing" id="Fd7-qH-fvP"/>
+                        <constraint firstItem="mqe-re-4KG" firstAttribute="top" secondItem="ES7-uw-85B" secondAttribute="bottom" constant="14" id="Jxp-sS-BtB"/>
+                        <constraint firstItem="mqe-re-4KG" firstAttribute="leading" secondItem="4Qz-18-kNn" secondAttribute="leading" id="LcB-U2-avi"/>
+                        <constraint firstItem="mqe-re-4KG" firstAttribute="leading" secondItem="4Qz-18-kNn" secondAttribute="leading" id="g7i-aN-3rT"/>
+                        <constraint firstItem="ES7-uw-85B" firstAttribute="centerX" secondItem="4Qz-18-kNn" secondAttribute="centerX" id="oA1-W9-zMf"/>
+                        <constraint firstItem="ES7-uw-85B" firstAttribute="top" secondItem="4Qz-18-kNn" secondAttribute="top" id="rO0-Hq-0in"/>
+                        <constraint firstAttribute="trailing" secondItem="mqe-re-4KG" secondAttribute="trailing" id="vHJ-9N-vcj"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="7Gg-Ls-6Rd"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="1352" y="91"/>
+            <point key="canvasLocation" x="1351.2" y="90.404797601199405"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="userimgEmpty80Multi" width="80" height="80"/>
+    </resources>
 </document>

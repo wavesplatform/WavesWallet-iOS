@@ -31,8 +31,7 @@ final class NeedBackupViewController: UIViewController {
             topLogoOffset.constant = 118
         }
         navigationItem.shadowImage = UIImage()
-        navigationItem.backgroundImage = UIImage()
-        navigationItem.isTranslucent = false
+        navigationItem.backgroundImage = UIImage()        
         navigationItem.rightBarButtonItem = closeItem
         navigationItem.leftBarButtonItem = UIBarButtonItem()
 
