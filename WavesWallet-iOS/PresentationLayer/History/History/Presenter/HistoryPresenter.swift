@@ -68,9 +68,24 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             interactor.refreshTransactions()
             return state.setIsRefreshing(true)
 
-        case .tapCell:
-
-            moduleOutput?.showTransaction()
+            
+        case .tapCell(let indexPath):
+            
+            let item = state.sections[indexPath.section].items[indexPath.item]
+            var index = NSNotFound
+            
+            switch item {
+            case .transaction(let transaction):
+                index = state.transactions.index(where: { (loopTransaction) -> Bool in
+                    return transaction.id == loopTransaction.id
+                }) ?? NSNotFound
+            default: break
+            }
+            
+            if (index != NSNotFound) {
+                moduleOutput?.showTransaction(transactions: state.transactions, index: index)
+            }
+            
             return state
 
         case .changeFilter(let filter):

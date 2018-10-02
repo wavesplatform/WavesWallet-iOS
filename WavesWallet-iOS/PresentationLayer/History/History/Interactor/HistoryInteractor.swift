@@ -26,6 +26,7 @@ final class HistoryInteractor: HistoryInteractorProtocol {
     private var specifications: TransactionsSpecifications?
 
     private let disposeBag: DisposeBag = DisposeBag()
+    private let replay: PublishSubject<Bool> = PublishSubject<Bool>()
 
     func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 

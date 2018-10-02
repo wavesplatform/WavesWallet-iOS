@@ -2984,7 +2984,7 @@ If you don’t we can’t credit your account.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="addaddress24Submit300" width="24" height="24"/>
+        <image name="addaddress24Submit300" width="16" height="16"/>
         <image name="asset_change_arrows" width="14" height="14"/>
         <image name="asset_receive" width="48" height="48"/>
         <image name="bg-iphone8-top" width="375" height="64"/>
