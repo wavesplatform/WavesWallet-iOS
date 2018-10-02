@@ -55,8 +55,11 @@ extension WalletCoordinator: AssetModuleOutput {
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 
-    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
+        TransactionHistoryCoordinator(transactions: transactions,
+                                      currentIndex: index,
+                                      rootViewController: walletViewContoller).start()
     }
 }
 
