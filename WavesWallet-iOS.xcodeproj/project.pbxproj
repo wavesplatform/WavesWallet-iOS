@@ -679,7 +679,6 @@
 		E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */; };
 		E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F984AF20E53A7200D2CB4D /* EnterStartView.xib */; };
 		E9F984B220E53FE000D2CB4D /* EnterLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */; };
-		E9FCE79120C01CD200B6B588 /* AddAddressViewControllerOlds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
@@ -1441,7 +1440,6 @@
 		E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartView.swift; sourceTree = "<group>"; };
 		E9F984AF20E53A7200D2CB4D /* EnterStartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterStartView.xib; sourceTree = "<group>"; };
 		E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterLanguageViewController.swift; sourceTree = "<group>"; };
-		E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewControllerOlds.swift; sourceTree = "<group>"; };
 		E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBackupPhraseViewController.swift; sourceTree = "<group>"; };
 		E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupViewController.swift; sourceTree = "<group>"; };
 		F71B77691EABA4F80096CA85 /* TransferRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferRequest.swift; sourceTree = "<group>"; };
@@ -3434,7 +3432,6 @@
 				F7AF242B1F7CF0D10010C057 /* ExchangeTransactionViewController.swift */,
 				F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */,
 				E904525B20B4F09500A490E5 /* TransactionHistoryViewController.swift */,
-				E9FCE79020C01CD200B6B588 /* AddAddressViewControllerOlds.swift */,
 			);
 			path = transactions;
 			sourceTree = "<group>";
@@ -4470,7 +4467,6 @@
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */,
-				E9FCE79120C01CD200B6B588 /* AddAddressViewControllerOlds.swift in Sources */,
 				E9B087B12163886800937644 /* DexOrderBookInteractor.swift in Sources */,
 				0AE491F32107A51A009223DB /* WalletTypes+State.swift in Sources */,
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,
