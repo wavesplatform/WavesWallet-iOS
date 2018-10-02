@@ -10,12 +10,12 @@ import UIKit
 
 class WavesButton: UIButton {
     
-    enum State {
+    enum ButtonState {
         case normal
         case selected
     }
     
-    private(set) var wavesState: State = .normal
+    private(set) var wavesState: ButtonState = .normal
     
     var normalTitle: String?
     var selectedTitle: String?
@@ -26,7 +26,7 @@ class WavesButton: UIButton {
     var normalTitleColor: UIColor?
     var selectedTitleColor: UIColor?
     
-    func setState(_ state: State) {
+    func setState(_ state: ButtonState) {
         wavesState = state
         
         if state == .selected {

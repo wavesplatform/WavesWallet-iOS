@@ -13,7 +13,7 @@ import RxCocoa
 protocol AssetModuleOutput: AnyObject {
 
     func showHistory(by assetId: String)
-    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
 }
 
 protocol AssetModuleInput {
@@ -31,4 +31,3 @@ protocol AssetPresenterProtocol {
 
     func system(feedbacks: [Feedback])
 }
-
