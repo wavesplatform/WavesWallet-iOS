@@ -11,7 +11,6 @@ import UIKit
 private enum Constants {
     static let animationFrameDuration: TimeInterval = 0.3
     static let animationErrorLabelDuration: TimeInterval = 0.3
-    static let scrollViewInputHeight: CGFloat = 30
 }
 
 protocol StartLeasingAmountViewDelegate: AnyObject {
@@ -138,12 +137,11 @@ private extension StartLeasingAmountView {
     
     func showInputScrollView(animation: Bool) {
         
-        let height = scrollViewInput.frame.origin.y + Constants.scrollViewInputHeight
+        let height = scrollViewInput.frame.origin.y + scrollViewInput.frame.size.height
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
-        scrollViewInputHeight.constant = Constants.scrollViewInputHeight
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: true)
     }
     
     func hideInputScrollView(animation: Bool) {
@@ -152,15 +150,18 @@ private extension StartLeasingAmountView {
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
-        scrollViewInputHeight.constant = 0
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: false)
     }
     
-    func updateWithAnimationIfNeed(animation: Bool) {
+    func updateWithAnimationIfNeed(animation: Bool, isShowInputScrollView: Bool) {
         if animation {
             UIView.animate(withDuration: Constants.animationFrameDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
+                self.scrollViewInput.alpha = isShowInputScrollView ? 1 : 0
             }
+        }
+        else {
+            scrollViewInput.alpha = isShowInputScrollView ? 1 : 0
         }
     }
     

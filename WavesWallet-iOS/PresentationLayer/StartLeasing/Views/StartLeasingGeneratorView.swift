@@ -11,7 +11,6 @@ import QRCodeReader
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
-    static let inputScrollViewHeight: CGFloat = 30
 }
 
 protocol StartLeasingGeneratorViewDelegate: AnyObject {
@@ -188,8 +187,7 @@ private extension StartLeasingGeneratorView {
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
-        inputScrollViewHeight.constant = Constants.inputScrollViewHeight
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: true)
     }
     
     func hideInputScrollView(animation: Bool) {
@@ -198,15 +196,18 @@ private extension StartLeasingGeneratorView {
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
-        inputScrollViewHeight.constant = 0
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: false)
     }
     
-    func updateWithAnimationIfNeed(animation: Bool) {
+    func updateWithAnimationIfNeed(animation: Bool, isShowInputScrollView: Bool) {
         if animation {
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
+                self.inputScrollView.alpha = isShowInputScrollView ? 1 : 0
             }
+        }
+        else {
+            inputScrollView.alpha = isShowInputScrollView ? 1 : 0
         }
     }
     
