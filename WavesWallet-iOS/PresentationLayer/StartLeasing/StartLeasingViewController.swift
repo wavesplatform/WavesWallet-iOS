@@ -34,6 +34,7 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelTransactionFee: UILabel!
+    @IBOutlet private weak var scrollView: UIScrollView!
     
     private var order: StartLeasing.DTO.Order!
     private var isCreatingOrderState: Bool = false
@@ -175,6 +176,7 @@ private extension StartLeasingViewController {
     }
     
     func setupUI() {
+        scrollView.keyboardDismissMode = .onDrag
         addressGeneratorView.delegate = self
         amountView.delegate = self
         amountView.maximumFractionDigits = availableBalance.decimals
@@ -241,6 +243,10 @@ extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
         order.recipient = address
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
+    }
+    
+    func startLeasingGeneratorDidTapNext() {
+        amountView.activateTextField()
     }
 }
 
