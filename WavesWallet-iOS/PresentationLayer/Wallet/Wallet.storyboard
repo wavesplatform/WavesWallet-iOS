@@ -553,7 +553,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="styleInt">
                                                                     <integer key="value" value="0"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="NO"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>

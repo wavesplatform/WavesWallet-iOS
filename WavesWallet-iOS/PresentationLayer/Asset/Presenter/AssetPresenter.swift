@@ -89,7 +89,13 @@ private extension AssetPresenter {
 
         switch event {
         case .tapTransaction(let tx):
-            self.moduleOutput?.showTransaction(tx)
+            if case .transaction(let transactions) = state.transactionStatus {
+                let index = transactions.enumerated().first {
+                    $0.element.id == tx.id
+                }?.offset ?? 0
+
+                self.moduleOutput?.showTransaction(transactions: transactions, index: index)
+            }
 
         case .tapHistory:
             self.moduleOutput?.showHistory(by: state.displayState.currentAsset.id)

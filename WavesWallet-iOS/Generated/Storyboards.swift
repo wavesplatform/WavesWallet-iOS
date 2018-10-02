@@ -219,6 +219,11 @@ internal enum StoryboardScene {
 
     internal static let startLeasingViewController = SceneType<WavesWallet_iOS.StartLeasingViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingViewController")
   }
+  internal enum TransactionHistory: StoryboardType {
+    internal static let storyboardName = "TransactionHistory"
+
+    internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: TransactionHistory.self, identifier: "TransactionHistoryViewController")
+  }
   internal enum Transactions: StoryboardType {
     internal static let storyboardName = "Transactions"
 
