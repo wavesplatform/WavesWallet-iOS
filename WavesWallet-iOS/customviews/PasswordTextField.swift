@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class InputTextField: UIView, NibOwnerLoadable {
+final class PasswordTextField: UIView, NibOwnerLoadable {
 
     enum Kind {
         case password
@@ -52,7 +52,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
     var valueValidator: ((String?) -> String?)?
     var changedValue: ((Bool,String?) -> Void)?
-    var textFieldShouldReturn: ((InputTextField) -> Void)?
+    var textFieldShouldReturn: ((PasswordTextField) -> Void)?
 
     var returnKey: UIReturnKeyType? {
         didSet {
@@ -141,8 +141,8 @@ final class InputTextField: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
-extension InputTextField: ViewConfiguration {
-    func update(with model: InputTextField.Model) {
+extension PasswordTextField: ViewConfiguration {
+    func update(with model: PasswordTextField.Model) {
         kind = model.kind
         titleLabel.text = model.title
         textFieldValue.placeholder = model.placeholder
@@ -160,11 +160,7 @@ extension InputTextField: ViewConfiguration {
                 textFieldValue.textContentType = .name
             }
         case .password, .newPassword:
-            if #available(iOS 12.0, *), model.kind == .newPassword {
-                textFieldValue.textContentType = UITextContentType("")
-            } else if #available(iOS 11.0, *), model.kind == .password {
-                textFieldValue.textContentType = UITextContentType("")
-            } else if #available(iOS 10.0, *) {
+            if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = UITextContentType("")
             }
             isSecureTextEntry = true
@@ -176,7 +172,7 @@ extension InputTextField: ViewConfiguration {
 }
 
 // MARK: UITextFieldDelegate
-extension InputTextField: UITextFieldDelegate {
+extension PasswordTextField: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 

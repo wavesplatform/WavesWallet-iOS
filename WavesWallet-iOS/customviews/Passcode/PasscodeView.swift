@@ -8,30 +8,9 @@
 
 import UIKit
 
-public extension Int {
-
-    public var seconds: DispatchTimeInterval {
-        return DispatchTimeInterval.seconds(self)
-    }
-
-    public var second: DispatchTimeInterval {
-        return seconds
-    }
-
-    public var milliseconds: DispatchTimeInterval {
-        return DispatchTimeInterval.milliseconds(self)
-    }
-
-    public var millisecond: DispatchTimeInterval {
-        return milliseconds
-    }
-
-}
-
-public extension DispatchTimeInterval {
-    public var fromNow: DispatchTime {
-        return DispatchTime.now() + self
-    }
+private enum Constants {
+    static let delayRemovedNumberSmall: TimeInterval = 0.15
+    static let delayRemovedNumberMedium: TimeInterval = 0.2
 }
 
 protocol PasscodeViewDelegate: AnyObject {
@@ -82,7 +61,7 @@ final class PasscodeView: UIView, NibOwnerLoadable {
     }
 
     @objc func handlerTouchDownForMinusButton() {
-        perform(#selector(removedNumerWithDelay), with: nil, afterDelay: 0.2)
+        perform(#selector(removedNumerWithDelay), with: nil, afterDelay: Constants.delayRemovedNumberMedium)
     }
 
 
@@ -90,7 +69,7 @@ final class PasscodeView: UIView, NibOwnerLoadable {
 
         isLockedRemoveNumber = true
         updateState(by: .minus)
-        perform(#selector(removedNumerWithDelay), with: nil, afterDelay: 0.15)
+        perform(#selector(removedNumerWithDelay), with: nil, afterDelay: Constants.delayRemovedNumberSmall)
     }
 
     private func updateState(by kind: PasscodeNumberButton.Kind) {

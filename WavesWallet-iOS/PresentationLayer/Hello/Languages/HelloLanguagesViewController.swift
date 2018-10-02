@@ -7,6 +7,12 @@
 
 import UIKit
 
+private enum Constants {
+    static let contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
+    static let tableViewBottom: CGFloat = 62
+    static let animationDuration: TimeInterval = 0.24
+}
+
 protocol HelloLanguagesModuleOutput: AnyObject {
     func languageDidSelect(language: Language)
     func userFinishedChangeLanguage()
@@ -30,7 +36,7 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(true, animated: false)
-        tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
+        tableView.contentInset = Constants.contentInset
         continueBtn.alpha = 0
     }
 
@@ -64,8 +70,8 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         chosenIndexPath = indexPath        
         tableView.reloadData()
 
-        tableViewBottomConstraint.constant = 62
-        UIView.animate(withDuration: 0.3) {
+        tableViewBottomConstraint.constant = Constants.tableViewBottom
+        UIView.animate(withDuration: Constants.animationDuration) {
             self.continueBtn.alpha = 1.0
         }
 

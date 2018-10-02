@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constans {
+    static let animationDuration: TimeInterval = 0.24
+}
+
 private extension UITextView {
 
     func alignTextVerticallyInContainer() {
@@ -107,7 +111,7 @@ final class MultyTextField: UIView, NibOwnerLoadable {
             self.titleLabel.alpha = 1
         }
 
-        UIView.animate(withDuration: 0.24) {
+        UIView.animate(withDuration: Constans.animationDuration) {
             if self.isHiddenTitleLabel {
                 self.titleLabel.alpha = 0
             } else {

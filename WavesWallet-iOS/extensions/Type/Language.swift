@@ -25,9 +25,10 @@ extension Notification.Name {
 private struct LanguageCode: TSUD {
 
     private static let key: String = "com.waves.language.code"
+    private static let deffaultLanguageCode: String = "en"
 
     static var defaultValue: Language {
-        return Language.list.first(where: { $0.code == "en" })!
+        return Language.list.first(where: { $0.code == LanguageCode.deffaultLanguageCode })!
     }
 
     static var stringKey: String {
