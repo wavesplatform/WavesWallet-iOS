@@ -122,6 +122,9 @@ final class WalletPresenter: WalletPresenterProtocol {
             case .general:
                 guard let asset = section.items[indexPath.row].asset else { return state }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
+            case .transactions:
+                guard let leasingTransaction = section.items[indexPath.row].leasingTransaction else { return state }
+//                moduleOutput?.
             default:
                 break
             }

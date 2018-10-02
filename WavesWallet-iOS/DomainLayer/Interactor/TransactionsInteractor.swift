@@ -189,8 +189,7 @@ fileprivate extension TransactionsInteractor {
         let txs = Observable.just(query.transactions)
 
         let blockHeight = blockRepositoryRemote.height()
-//        let money = Money(0, 0)
-//        return Observable.just(DomainLayer.DTO.SmartTransaction(id: "sdd", kind: .createdAlias("as"), timestamp: Date(), totalFee: Balance(currency: Balance.Currency(title: "sd", ticker: nil, money: money), money: money), height: 32, confirmationHeight: 233, sender: DomainLayer.DTO.SmartTransaction.Account(id: "as", contact: nil, isMyAccount: true)))
+
         return Observable.zip(assets,
                               accounts,
                               txs,

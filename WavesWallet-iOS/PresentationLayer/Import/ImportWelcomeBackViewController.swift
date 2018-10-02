@@ -87,8 +87,7 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
     }
 
     private func createAccount(seed: String) {
-
-        let seed = WordList.generatePhrase()
+        
         let privateKey = PrivateKeyAccount(seedStr: seed)
         currentKeyAccount = privateKey
         iconImages.image = identity.createImage(by: privateKey.address, size: iconImages.frame.size)
