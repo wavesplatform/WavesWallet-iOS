@@ -292,6 +292,69 @@ internal enum Localizable {
       internal static var priceAsset: String { return Localizable.tr("DexInfo", "label.priceAsset") }
     }
   }
+          internal enum TransactionHistory {
+
+    internal enum Button {
+      /// Copied
+      internal static var copied: String { return Localizable.tr("TransactionHistory", "button.copied") }
+      /// Copy all data
+      internal static var copyAllData: String { return Localizable.tr("TransactionHistory", "button.copyAllData") }
+      /// Copy TX ID
+      internal static var copyTXId: String { return Localizable.tr("TransactionHistory", "button.copyTXId") }
+    }
+
+    internal enum Cell {
+      /// Block
+      internal static var block: String { return Localizable.tr("TransactionHistory", "cell.block") }
+      /// Confirmations
+      internal static var confirmations: String { return Localizable.tr("TransactionHistory", "cell.confirmations") }
+      /// Data Transaction
+      internal static var dataTransaction: String { return Localizable.tr("TransactionHistory", "cell.dataTransaction") }
+      /// Fee
+      internal static var fee: String { return Localizable.tr("TransactionHistory", "cell.fee") }
+      /// From
+      internal static var from: String { return Localizable.tr("TransactionHistory", "cell.from") }
+      /// ID
+      internal static var id: String { return Localizable.tr("TransactionHistory", "cell.id") }
+      /// Leasing to
+      internal static var leasingTo: String { return Localizable.tr("TransactionHistory", "cell.leasingTo") }
+      /// Not Reissuable
+      internal static var notReissuable: String { return Localizable.tr("TransactionHistory", "cell.notReissuable") }
+      /// Price
+      internal static var price: String { return Localizable.tr("TransactionHistory", "cell.price") }
+      /// Received from
+      internal static var receivedFrom: String { return Localizable.tr("TransactionHistory", "cell.receivedFrom") }
+      /// Recipient
+      internal static var recipient: String { return Localizable.tr("TransactionHistory", "cell.recipient") }
+      /// Reissuable
+      internal static var reissuable: String { return Localizable.tr("TransactionHistory", "cell.reissuable") }
+      /// Sent to
+      internal static var sentTo: String { return Localizable.tr("TransactionHistory", "cell.sentTo") }
+
+      internal enum Button {
+        /// Cancel Leasing
+        internal static var cancelLeasing: String { return Localizable.tr("TransactionHistory", "cell.button.cancelLeasing") }
+        /// Send again
+        internal static var sendAgain: String { return Localizable.tr("TransactionHistory", "cell.button.sendAgain") }
+      }
+
+      internal enum Status {
+        /// at
+        internal static var at: String { return Localizable.tr("TransactionHistory", "cell.status.at") }
+        /// Timestamp
+        internal static var timestamp: String { return Localizable.tr("TransactionHistory", "cell.status.timestamp") }
+
+        internal enum Button {
+          /// Active Now
+          internal static var activeNow: String { return Localizable.tr("TransactionHistory", "cell.status.button.activeNow") }
+          /// Completed
+          internal static var completed: String { return Localizable.tr("TransactionHistory", "cell.status.button.completed") }
+          /// Unconfirmed
+          internal static var unconfirmed: String { return Localizable.tr("TransactionHistory", "cell.status.button.unconfirmed") }
+        }
+      }
+    }
+  }
           internal enum DexTraderContainer {
 
     internal enum Button {
