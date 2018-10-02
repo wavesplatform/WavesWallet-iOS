@@ -19,3 +19,14 @@ extension Mutating {
         return value
     }
 }
+
+extension Array where Element: Mutating {
+
+    func mutate(transform: (inout Element) -> ()) -> [Element] {
+        return self.map({ element -> Element in
+            return element.mutate(transform: { ref in
+                transform(&ref)
+            })
+        })
+    }
+}

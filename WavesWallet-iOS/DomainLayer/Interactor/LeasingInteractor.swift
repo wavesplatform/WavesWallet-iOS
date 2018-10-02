@@ -12,7 +12,7 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
-private struct Constants {
+fileprivate enum Constants {
     static let durationInseconds: Double =  15
 }
 
@@ -51,6 +51,6 @@ final class LeasingInteractor: LeasingInteractorProtocol {
                     })
                 }
                 .share()
-                .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+                .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
         }
 }

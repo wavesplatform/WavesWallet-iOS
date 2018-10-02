@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import RESideMenu
 import RxCocoa
 import RxDataSources
 import RxFeedback
@@ -25,7 +24,7 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
 }
 
@@ -98,7 +97,7 @@ extension WalletViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
-                .viewWillAppear
+                .viewDidAppear
                 .take(1)
                 .map { _ in WalletTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())

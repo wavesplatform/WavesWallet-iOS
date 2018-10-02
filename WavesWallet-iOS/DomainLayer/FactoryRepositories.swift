@@ -26,5 +26,10 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var blockRemote: BlockRepositoryProtocol = BlockRepositoryRemote()
 
+    private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol = WalletsRepositoryLocal(environment: Environments.current)
+    private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
+
+    private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol = AuthenticationRepositoryRemote()
+
     fileprivate init() {}
 }

@@ -24,7 +24,7 @@ extension Node.Service.Leasing: NodeTargetType {
         return String.self
     }
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let leasing = "leasing"
         static let active = "active"
         static let address = "address"

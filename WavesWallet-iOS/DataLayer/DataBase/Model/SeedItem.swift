@@ -10,18 +10,15 @@ import Foundation
 import RealmSwift
 
 class SeedItem: Object {
-    @objc dynamic var publicKey = ""
-    @objc dynamic var seed = ""
+    @objc dynamic var publicKey: String = ""
+    @objc dynamic var seed: String = ""
+    @objc dynamic var address: String = ""
 
     public var identity: String {
         return "\(publicKey)"
     }
     override static func primaryKey() -> String? {
         return "publicKey"
-    }
-
-    var address: String {
-        return publicKeyAccount.address
     }
 
     var publicKeyAccount: PublicKeyAccount {

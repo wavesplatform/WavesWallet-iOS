@@ -32,4 +32,3 @@ class SkeletonCell: UITableViewCell, SkeletonAnimatable {
         return views.map { $0.gradientLayer }
     }
 }
-

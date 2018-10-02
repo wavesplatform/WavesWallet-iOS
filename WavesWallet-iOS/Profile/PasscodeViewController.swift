@@ -9,10 +9,9 @@
 import UIKit
 import AudioToolbox
 import LocalAuthentication
-import RESideMenu
 
 
-class PasscodeViewController: UIViewController, AccountPasswordViewControllerDelegate {
+final class PasscodeViewController: UIViewController, AccountPasswordViewControllerDelegate {
 
     
     @IBOutlet var dots: [UIView]!
