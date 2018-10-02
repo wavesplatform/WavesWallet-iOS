@@ -10,17 +10,13 @@ import UIKit
 import QRCodeReader
 
 private enum Constants {
-    static let animationFrameDuration: TimeInterval = 0.3
-    static let animationButtonsDuration: TimeInterval = 0.3
+    static let animationDuration: TimeInterval = 0.3
     static let inputScrollViewHeight: CGFloat = 30
-    static let addressBookIndex: Int = 0
 }
 
 protocol StartLeasingGeneratorViewDelegate: AnyObject {
     func startLeasingGeneratorViewDidSelectAddressBook()
-    func startLeasingGeneratorViewDidSelect(_ contact: DomainLayer.DTO.Contact)
     func startLeasingGeneratorViewDidChangeAddress(_ address: String)
-
 }
 
 final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
@@ -31,11 +27,13 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var buttonDelete: UIButton!
     @IBOutlet private weak var buttonScan: UIButton!
     @IBOutlet private weak var viewContentTextField: UIView!
+    @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var inputScrollViewHeight: NSLayoutConstraint!
     
     weak var delegate: StartLeasingGeneratorViewDelegate?
     private var lastContacts: [DomainLayer.DTO.Contact] = []
     private var isHiddenDeleteButton = true
+    private var isShowErrorLabel = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,11 +44,14 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         labelTitle.text = Localizable.StartLeasing.Label.generator
+        labelError.text = Localizable.StartLeasing.Label.addressIsNotValid
+        labelError.alpha = 0
         textField.placeholder = Localizable.StartLeasing.Label.nodeAddress
         viewContentTextField.addTableCellShadowStyle()
         inputScrollView.inputDelegate = self
         buttonDelete.alpha = 0
-        hideInputScrollView(animation: false)
+        showInputScrollView(animation: false)
+        inputScrollView.update(with: [Localizable.StartLeasing.Button.chooseFromAddressBook])
     }
     
     
@@ -72,25 +73,8 @@ extension StartLeasingGeneratorView {
     
     func setupText(_ text: String, animation: Bool) {
         textField.text = text
-        if text.count > 0 {
-            hideInputScrollView(animation: animation)
-        }
-        else {
-            showInputScrollView(animation: animation)
-        }
+        updateHeight(animation: animation)
         setupButtonsState()
-    }
-}
-
-//MARK: - ViewConfiguration
-extension StartLeasingGeneratorView: ViewConfiguration {
-    
-    func update(with lastContacts: [DomainLayer.DTO.Contact]) {
-        self.lastContacts = lastContacts
-        var names = lastContacts.map( {$0.name} )
-        names.insert(Localizable.StartLeasing.Button.chooseFromAddressBook, at: 0)
-        inputScrollView.update(with: names)
-        showInputScrollView(animation: false)
     }
 }
 
@@ -98,29 +82,44 @@ extension StartLeasingGeneratorView: ViewConfiguration {
 extension StartLeasingGeneratorView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
-        if index == Constants.addressBookIndex {
-            delegate?.startLeasingGeneratorViewDidSelectAddressBook()
-        }
-        else {
-            
-            let contact = lastContacts[index - 1]
-            delegate?.startLeasingGeneratorViewDidSelect(contact)
-            setupText(contact.name, animation: true)
-        }
+        delegate?.startLeasingGeneratorViewDidSelectAddressBook()
     }
 }
 
 
+//MARK: - UITextFieldDelegate
+extension StartLeasingGeneratorView: UITextFieldDelegate {
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text, text.count > 0 {
+            showLabelError(isShow: !Address.isValidAddress(address: text))
+        }
+        else {
+            showLabelError(isShow: false)
+        }
+    }
+    
+    private func showLabelError(isShow: Bool) {
+        guard isShowErrorLabel != isShow else { return }
+        isShowErrorLabel = isShow
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.labelError.alpha = isShow ? 1 : 0
+        }
+    }
+}
+
 //MARK: - Actions
 private extension StartLeasingGeneratorView {
     
-    
     @IBAction func addressDidChange(_ sender: Any) {
         setupButtonsState()
+        updateHeight(animation: true)
         
         if let text = textField.text {
             delegate?.startLeasingGeneratorViewDidChangeAddress(text)
         }
+        
+        showLabelError(isShow: false)
     }
    
     @IBAction func deleteTapped(_ sender: Any) {
@@ -129,6 +128,8 @@ private extension StartLeasingGeneratorView {
         if let text = textField.text {
             delegate?.startLeasingGeneratorViewDidChangeAddress(text)
         }
+        
+        showLabelError(isShow: false)
     }
     
     @IBAction func scanTapped(_ sender: Any) {
@@ -145,7 +146,7 @@ private extension StartLeasingGeneratorView {
             
             if isHiddenDeleteButton {
                isHiddenDeleteButton = false
-                UIView.animate(withDuration: Constants.animationButtonsDuration) {
+                UIView.animate(withDuration: Constants.animationDuration) {
                     self.buttonDelete.alpha = 1
                     self.buttonScan.alpha = 0
                 }
@@ -156,7 +157,7 @@ private extension StartLeasingGeneratorView {
         else {
             if !isHiddenDeleteButton {
                 isHiddenDeleteButton = true
-                UIView.animate(withDuration: Constants.animationButtonsDuration) {
+                UIView.animate(withDuration: Constants.animationDuration) {
                     self.buttonDelete.alpha = 0
                     self.buttonScan.alpha = 1
                 }
@@ -170,6 +171,16 @@ private extension StartLeasingGeneratorView {
 //MARK: - Change frame
 
 private extension StartLeasingGeneratorView {
+    
+    func updateHeight(animation: Bool) {
+        
+        if textField.text?.count ?? 0 > 0 {
+            hideInputScrollView(animation: animation)
+        }
+        else {
+            showInputScrollView(animation: animation)
+        }
+    }
     
     func showInputScrollView(animation: Bool) {
         
@@ -193,7 +204,7 @@ private extension StartLeasingGeneratorView {
     
     func updateWithAnimationIfNeed(animation: Bool) {
         if animation {
-            UIView.animate(withDuration: Constants.animationFrameDuration) {
+            UIView.animate(withDuration: Constants.animationDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
             }
         }

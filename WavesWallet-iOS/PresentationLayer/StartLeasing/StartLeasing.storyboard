@@ -115,7 +115,7 @@
                                                 </connections>
                                             </button>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qLZ-1x-s7x">
-                                                <rect key="frame" x="319" y="561" width="20" height="20"/>
+                                                <rect key="frame" x="177.5" y="561" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee 0.001 WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJd-Gm-oiA">
                                                 <rect key="frame" x="0.0" y="607" width="375" height="16"/>
@@ -136,7 +136,7 @@
                                             <constraint firstItem="hWH-rd-6Bn" firstAttribute="top" secondItem="d3N-X9-AfA" secondAttribute="bottom" constant="24" id="HGB-Vo-Neo"/>
                                             <constraint firstItem="YJd-Gm-oiA" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="IGc-5i-wvb"/>
                                             <constraint firstAttribute="trailing" secondItem="d3N-X9-AfA" secondAttribute="trailing" constant="16" id="K7Z-Hs-Ehl"/>
-                                            <constraint firstItem="qLZ-1x-s7x" firstAttribute="leading" secondItem="QHy-MN-LVW" secondAttribute="trailing" constant="-40" id="XXN-MP-uqK"/>
+                                            <constraint firstItem="qLZ-1x-s7x" firstAttribute="centerX" secondItem="QHy-MN-LVW" secondAttribute="centerX" id="hX7-7x-bp2"/>
                                             <constraint firstItem="3mx-Zb-ncf" firstAttribute="top" secondItem="hWH-rd-6Bn" secondAttribute="bottom" constant="24" id="hmp-4w-Pwl"/>
                                             <constraint firstAttribute="bottom" secondItem="YJd-Gm-oiA" secondAttribute="bottom" constant="24" id="olB-f4-29c"/>
                                             <constraint firstAttribute="trailing" secondItem="hWH-rd-6Bn" secondAttribute="trailing" id="qD7-16-7x9"/>

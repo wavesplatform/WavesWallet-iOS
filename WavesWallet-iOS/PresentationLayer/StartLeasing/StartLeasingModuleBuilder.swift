@@ -8,11 +8,22 @@
 
 import UIKit
 
-struct StartLeasingModuleBuilder: ModuleBuilder {
+struct StartLeasingModuleBuilder: ModuleBuilderOutput {
     
-    func build(input: Void) -> UIViewController {
+    var output: StartLeasingModuleOutput
+    
+    func build(input: Money) -> UIViewController {
+        
+        let interactor: StartLeasingInteractorProtocol = StartLeasingInteractorMock()
+        
+        var presenter: StartLeasingPresenterProtocol = StartLeasingPresenter()
+        presenter.interactor = interactor
+        presenter.moduleOutput = output
         
         let vc = StoryboardScene.StartLeasing.startLeasingViewController.instantiate()
+        vc.availableBalance = input
+        vc.presenter = presenter
+        
         return vc
     }
 }

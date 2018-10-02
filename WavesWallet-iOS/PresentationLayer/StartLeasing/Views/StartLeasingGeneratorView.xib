@@ -16,6 +16,7 @@
                 <outlet property="buttonScan" destination="MNO-Gn-HoO" id="pr1-ag-fB7"/>
                 <outlet property="inputScrollView" destination="bCI-44-SuE" id="rSq-er-AHa"/>
                 <outlet property="inputScrollViewHeight" destination="biP-dW-mim" id="uoP-2r-FyL"/>
+                <outlet property="labelError" destination="ZwO-bE-O2h" id="7qT-jo-sOf"/>
                 <outlet property="labelTitle" destination="Ixl-Il-vOb" id="4kd-8O-vxg"/>
                 <outlet property="textField" destination="n44-Iq-yZc" id="JV2-gM-pOK"/>
                 <outlet property="viewContentTextField" destination="zcy-MJ-IbT" id="R1g-QK-6OB"/>
@@ -42,6 +43,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             <connections>
                                 <action selector="addressDidChange:" destination="-1" eventType="editingChanged" id="qSb-w6-2At"/>
+                                <outlet property="delegate" destination="-1" id="3T9-ng-NGU"/>
                             </connections>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0Y-Bn-cJi">
@@ -95,10 +97,18 @@
                         <constraint firstAttribute="height" constant="30" id="biP-dW-mim"/>
                     </constraints>
                 </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address is not valid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwO-bE-O2h">
+                    <rect key="frame" x="241" y="0.0" width="118" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="ZwO-bE-O2h" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="7zr-vk-Yus"/>
                 <constraint firstItem="bCI-44-SuE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Ibn-o5-HVo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ZwO-bE-O2h" secondAttribute="trailing" constant="16" id="MHc-jq-LMC"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bCI-44-SuE" secondAttribute="trailing" id="UeB-hr-yjQ"/>
                 <constraint firstItem="Ixl-Il-vOb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="bd0-CX-Nzb"/>
                 <constraint firstItem="zcy-MJ-IbT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="cIg-vC-JSO"/>
