@@ -53,9 +53,18 @@ extension WalletTypes.ViewModel.Section: SectionModelType {
 extension WalletTypes.ViewModel.Row {
 
         var asset: WalletTypes.DTO.Asset? {
+            switch self {
+            case .asset(let asset):
+                return asset
+            default:
+                return nil
+            }
+        }
+
+    var leasingTransaction: WalletTypes.DTO.Leasing.Transaction? {
         switch self {
-        case .asset(let asset):
-            return asset
+        case .leasingTransaction(let tx):
+            return tx
         default:
             return nil
         }
