@@ -30,6 +30,7 @@ final class HelloCoordinator: Coordinator {
 
     func start() {
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
+//        let vc = StoryboardScene.Enter.enterStartViewController.instantiate()
         vc.output = self
         navigationController = UINavigationController(rootViewController: vc)
         viewController.present(navigationController, animated: false, completion: nil)

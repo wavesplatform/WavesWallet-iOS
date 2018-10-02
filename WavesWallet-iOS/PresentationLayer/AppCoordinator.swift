@@ -181,12 +181,12 @@ extension AppCoordinator {
 
     private func showStartController(withHelloDisplay: Bool) {
 
-        if withHelloDisplay {
-            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController)
-            helloCoordinator.delegate = self
-            addChildCoordinator(childCoordinator: helloCoordinator)
-            helloCoordinator.start()
-        }
+//        if withHelloDisplay {
+//            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController)
+//            helloCoordinator.delegate = self
+//            addChildCoordinator(childCoordinator: helloCoordinator)
+//            helloCoordinator.start()
+//        }
 
         showEnter()
     }

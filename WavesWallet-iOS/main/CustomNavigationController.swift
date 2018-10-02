@@ -24,7 +24,7 @@ extension UINavigationItem {
         static var largeTitleTextAttributes = "largeTitleTextAttributes"
     }
 
-    @objc var largeTitleTextAttributes: [NSAttributedString.Key : Any]? {
+    @objc var largeTitleTextAttributes: [NSAttributedStringKey : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
         }
@@ -54,6 +54,7 @@ extension UINavigationItem {
         }
     }
 
+    // TODO: COME B
     @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil

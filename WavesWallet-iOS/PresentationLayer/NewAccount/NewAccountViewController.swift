@@ -212,8 +212,9 @@ final class NewAccountViewController: UIViewController {
         guard isValidData else {
             return
         }
-        guard let name = accountNameInput.value?.value,
-            let password = passwordInput.value?.value,
+        // TODO: COME BACK
+        guard let name = accountNameInput.value,
+            let password = passwordInput.value,
             let avatar = currentAvatar else { return }
         
         let account = NewAccountTypes.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)

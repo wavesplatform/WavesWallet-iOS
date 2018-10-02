@@ -21,6 +21,8 @@
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
+		04D5CBAF21639752007B9DF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */; };
+		04D5CBB021639752007B9DF6 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */; };
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
@@ -70,7 +72,6 @@
 		0A218B892155221F00B989A1 /* Wallet+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B882155221F00B989A1 /* Wallet+Mapper.swift */; };
 		0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */; };
 		0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8D215534E000B989A1 /* WalletSeedRepositoryLocal.swift */; };
-		0A218B922155498900B989A1 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A218B912155498900B989A1 /* Fabric-Info.plist */; };
 		0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */; };
 		0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */; };
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
@@ -147,7 +148,6 @@
 		0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CC7215417DD002A8FD7 /* MultyTextField.xib */; };
 		0A5D32F9215461E90009CDF3 /* ImportTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D32F8215461E90009CDF3 /* ImportTypes.swift */; };
 		0A5D32FB21546A090009CDF3 /* EnterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */; };
-		0A5D32FE21558C4B0009CDF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A5D32FD21558C4B0009CDF3 /* GoogleService-Info.plist */; };
 		0A5D33002157D5EF0009CDF3 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D32FF2157D5EF0009CDF3 /* Data+AES.swift */; };
 		0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D3301215842860009CDF3 /* AuthorizationInteractor.swift */; };
 		0A5E4BA92137FC3000E3C3C3 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763B9A11EABBFBE00FA3701 /* TransactionCell.swift */; };
@@ -713,6 +713,8 @@
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
+		04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
@@ -773,7 +775,6 @@
 		0A218B882155221F00B989A1 /* Wallet+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+Mapper.swift"; sourceTree = "<group>"; };
 		0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSeedRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A218B8D215534E000B989A1 /* WalletSeedRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSeedRepositoryLocal.swift; sourceTree = "<group>"; };
-		0A218B912155498900B989A1 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
@@ -850,7 +851,6 @@
 		0A5C919B20F3E7DD00443CE6 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		0A5D32F8215461E90009CDF3 /* ImportTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTypes.swift; sourceTree = "<group>"; };
 		0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCoordinator.swift; sourceTree = "<group>"; };
-		0A5D32FD21558C4B0009CDF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A5D32FF2157D5EF0009CDF3 /* Data+AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+AES.swift"; sourceTree = "<group>"; };
 		0A5D3301215842860009CDF3 /* AuthorizationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractor.swift; sourceTree = "<group>"; };
 		0A5E4BAE213801C400E3C3C3 /* ReissueTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueTransaction.swift; sourceTree = "<group>"; };
@@ -2085,8 +2085,8 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0A5D32FD21558C4B0009CDF3 /* GoogleService-Info.plist */,
-				0A218B912155498900B989A1 /* Fabric-Info.plist */,
+				04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */,
+				04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */,
 				E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */,
 				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
 				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
@@ -3539,7 +3539,6 @@
 				0AF921E7212E07B3003BA067 /* Asset.strings in Resources */,
 				E94A6FA7215AE4FE001814F7 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
-				0A5D32FE21558C4B0009CDF3 /* GoogleService-Info.plist in Resources */,
 				E94A6FDD215AE4FE001814F7 /* DexMyOrdersHeaderView.xib in Resources */,
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
 				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
@@ -3549,6 +3548,7 @@
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A14CFD5214B135F00C3A4D5 /* Hello.strings in Resources */,
 				E9F984B020E53A7200D2CB4D /* EnterStartView.xib in Resources */,
+				04D5CBAF21639752007B9DF6 /* GoogleService-Info.plist in Resources */,
 				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
 				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
 				0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */,
@@ -3590,6 +3590,7 @@
 				0A071E65215C69B3007D9750 /* Passcode.strings in Resources */,
 				0AFF5C82215BD6CA00B82940 /* AccountPassword.strings in Resources */,
 				0AA8CACD21516807000D09E6 /* Backup.strings in Resources */,
+				04D5CBB021639752007B9DF6 /* Fabric-Info.plist in Resources */,
 				0A61B59A214ACFD500EC60FC /* Languages.json in Resources */,
 				E94A6FC4215AE4FE001814F7 /* DexCreateOrderInputView.xib in Resources */,
 				0A580E702137449100C62549 /* AllTransactionExample.json in Resources */,
@@ -3606,7 +3607,6 @@
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E9C9A23D21595171004876DC /* AddAddressTextField.xib in Resources */,
 				0AF92200212E07B3003BA067 /* AssetHistorySkeletonCell.xib in Resources */,
-				0A218B922155498900B989A1 /* Fabric-Info.plist in Resources */,
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E98A989920BA203A008FDB47 /* TransactionHistoryMassSendView.xib in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
