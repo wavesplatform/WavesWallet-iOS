@@ -6,6 +6,7 @@ import RxCocoa
 import RxRealm
 import RxSwift
 
+@available(*, deprecated, message: "need remove")
 struct Wallet {
     let name: String
     let publicKeyAccount: PublicKeyAccount
@@ -34,14 +35,12 @@ struct Wallet {
     }
 }
 
-func == (lhs: WalletItem, rhs: WalletItem) -> Bool {
-    return lhs.publicKey == rhs.publicKey
-}
-
+@available(*, deprecated, message: "need remove")
 public enum WalletError: Error {
     case Generic(String)
 }
 
+@available(*, deprecated, message: "need remove")
 extension WalletError: LocalizedError {
     public var errorDescription: String? {
         switch self {
@@ -50,13 +49,14 @@ extension WalletError: LocalizedError {
     }
 }
 
+@available(*, deprecated, message: "need remove")
 class WalletManager {
     static var bag = DisposeBag()
 
     static var currentWallet: Wallet?
 
     class func getWalletRealmConfig(waletItem: WalletItem) -> Realm.Configuration {
-        var config = Realm.Configuration()
+        var config = Realm.Configuration()        
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(waletItem.address).realm")
         return config
@@ -75,93 +75,6 @@ class WalletManager {
         currentWallet = toWallet.toWallet
         bag = DisposeBag()
         StoryboardManager.didEndLogin()
-//        autoUpdateFromNode()
-    }
-
-    class func updateTransactions(onComplete: (() -> Void)?) {
-        let load = Observable.from([NodeManager.loadTransaction(), NodeManager.loadPendingTransaction()])
-            .merge().toArray()
-            .map { Array($0.joined()) }
-
-        load
-            .catchError { err in
-                print(err)
-                return Observable.empty()
-            }
-            .subscribe(onNext: { txs in
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.add(txs, update: true)
-                    realm.add(txs.map { tx in
-                        let bt = BasicTransaction(tx: tx)
-                        bt.addressBook = realm.create(AddressBook.self, value: ["address": bt.counterParty], update: true)
-                        return bt
-                    }, update: true)
-                }
-                if let onComplete = onComplete {
-                    onComplete()
-                }
-            })
-            .disposed(by: bag)
-    }
-
-    class func autoUpdateFromNode() {
-        _ = Observable<Int>
-            .timer(30, period: 30, scheduler: MainScheduler.instance)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .subscribe(onNext: { _ in
-//                print(Date())
-                updateBalances(onComplete: nil)
-                updateTransactions(onComplete: nil)
-            })
-            .disposed(by: bag)
-    }
-
-    class func updateBalances(onComplete: (() -> Void)?) {
-        let load = Observable.from([NodeManager.loadWavesBalance(),
-                                    NodeManager.loadBalances()])
-            .merge().toArray()
-            .map { Array($0.joined()) }
-
-        load
-            .catchError { err in
-                print(err)
-                return Observable.empty()
-            }
-            .subscribe(onNext: { abs in
-                let realm = try! Realm()
-                try! realm.write {
-                    let oldHiddenIds = Array(realm
-                        .objects(AssetBalance.self)
-                        .filter("isHidden = true")
-                        .map { $0.assetId })
-                    realm.add(abs, update: true)
-
-                    let generalAssetsIds = Environments
-                        .current
-                        .generalAssetIds
-                        .map { $0.assetId }
-                    realm
-                        .objects(AssetBalance.self)
-                        .filter("assetId in %@", generalAssetsIds)
-                        .setValue(true, forKeyPath: "isGeneral")
-
-                    realm
-                        .objects(AssetBalance.self)
-                        .filter("assetId in %@", oldHiddenIds)
-                        .setValue(true, forKeyPath: "isHidden")
-
-                    let ids = abs.map { $0.assetId }
-                    let deleted = realm
-                        .objects(AssetBalance.self)
-                        .filter("isGeneral = false AND NOT (assetId in %@)", ids)
-                    realm.delete(deleted)
-                }
-                if let onComplete = onComplete {
-                    onComplete()
-                }
-            })
-            .disposed(by: bag)
     }
 
     class func didLogout() {
@@ -183,18 +96,6 @@ class WalletManager {
         return Observable.just(currentWallet?.publicKeyAccount ?? PublicKeyAccount(publicKey: []))
     }
 
-    class func getWavesBalance() -> Observable<Int64> {
-        return getWavesAssetBalance().map { $0.balance }
-    }
-
-    class func getWavesAssetBalance() -> Observable<AssetBalance> {
-        let realm = try! Realm()
-        let rAccount = realm.object(ofType: AssetBalance.self, forPrimaryKey: "")
-
-        guard let waves = rAccount else { return Observable.just(AssetBalance()) }
-
-        return Observable.from(object: waves).distinctUntilChanged { $0 == $1 }
-    }
 
     class func getWalletsConfig() -> Realm.Configuration {
         var config = Realm.Configuration()
@@ -238,7 +139,7 @@ class WalletManager {
     }
 
     class func restorePrivateKeyFromRealm() -> Observable<PrivateKeyAccount> {
-        
+
         return AskManager.askForPassword().flatMap { pwd -> Observable<PrivateKeyAccount>in
             if let realm = getWalletSeedRealm(address: getAddress(), password: pwd) {
                 let item = realm.object(ofType: SeedItem.self, forPrimaryKey: currentWallet!.publicKeyStr)
@@ -261,7 +162,8 @@ class WalletManager {
                 } else {
                     return Observable<PrivateKeyAccount>.error(err)
                 }
-            }.observeOn(MainScheduler.instance)
+            }
+            .subscribeOn(MainScheduler.instance)
     }
 
     class func removePrivateKey(publicKey: String) -> Error? {
@@ -285,7 +187,7 @@ class WalletManager {
             complete(key)
         } else {
             WalletManager.restorePrivateKey()
-                .observeOn(MainScheduler.instance)
+                .subscribeOn(MainScheduler.instance)
                 .subscribe(onNext: { pk in
                     WalletManager.currentWallet?.privateKey = pk
                     complete(pk)
@@ -402,7 +304,7 @@ class WalletManager {
                     return Observable<Void>.just(())
                 }
             }
-            .observeOn(MainScheduler.instance)
+            .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { _ in
                 saveToRealm(wallet: wallet)
                 didLogin(toWallet: wallet)
@@ -440,20 +342,26 @@ class WalletManager {
             realm.delete(walletItem)
         }
     }
-}
 
-extension WalletManager {
-    class func getPrivateKey() -> Observable<PrivateKeyAccount> {
-        return Observable.create { event -> Disposable in
-
-            WalletManager.getPrivateKey(complete: { account in
-                event.onNext(account)
-                event.onCompleted()
-            }, fail: { error in
-                event.onError(WalletError.Generic(error))
-            })
-
-            return Disposables.create()
-        }
+    static var isWalletLoggedIn: (isLoggedIn: Bool, item: WalletItem?) {
+        let realm = WalletManager.getWalletsRealm()
+        let w = realm.objects(WalletItem.self).filter("isLoggedIn == true")
+        return (isLoggedIn: w.count > 0, item: w.count > 0 ? w[0] : nil)
     }
 }
+
+//extension WalletManager {
+//    class func getPrivateKey() -> Observable<PrivateKeyAccount> {
+//        return Observable.create { event -> Disposable in
+//
+//            WalletManager.getPrivateKey(complete: { account in
+//                event.onNext(account)
+//                event.onCompleted()
+//            }, fail: { error in
+//                event.onError(WalletError.Generic(error))
+//            })
+//
+//            return Disposables.create()
+//        }
+//    }
+//}

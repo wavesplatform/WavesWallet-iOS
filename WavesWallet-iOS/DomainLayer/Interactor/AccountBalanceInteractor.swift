@@ -12,19 +12,18 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 
-private enum Constants {
+fileprivate enum Constants {
     static let durationInseconds: Double = 6000
 }
 
 protocol AccountBalanceInteractorProtocol {
 
-    func balances(by accountAddress: String,
-                  privateKey: PrivateKeyAccount,
-                  isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>    
+    func balances(by wallet: DomainLayer.DTO.SignedWallet, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
-
+    
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
 
@@ -33,12 +32,10 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func balances(by accountAddress: String,
-                  privateKey: PrivateKeyAccount,
-                  isNeedUpdate: Bool = false) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func balances(by wallet: DomainLayer.DTO.SignedWallet, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
         return self.balanceRepositoryLocal
-            .balances(by: accountAddress, privateKey: privateKey)
+            .balances(by: wallet)
             .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
 
                 let now = Date()
@@ -51,13 +48,10 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 }
                 guard isNeedForceUpdate == true else { return Observable.just(balances) }
 
-                return owner.remoteBalances(accountAddress: accountAddress,
-                                            privateKey: privateKey,
-                                            localBalance: balances,
-                                            isNeedUpdate: isNeedForceUpdate)
+                return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
             }
             .share()
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }
 
@@ -66,14 +60,14 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
 private extension AccountBalanceInteractor {
 
-    private func remoteBalances(accountAddress: String,
-                                privateKey: PrivateKeyAccount,
+    private func remoteBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                 localBalance: [DomainLayer.DTO.AssetBalance],
                                 isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        let balances = balanceRepositoryRemote.balances(by: accountAddress,
-                                                        privateKey: privateKey)
-        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: accountAddress, isNeedUpdate: isNeedUpdate)
+        let walletAddress = wallet.wallet.address
+        let balances = balanceRepositoryRemote.balances(by: wallet)
+        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: walletAddress, isNeedUpdate: isNeedUpdate)
+
 
         return Observable.zip(balances, activeTransactions)
             .map { balances, transactions -> [DomainLayer.DTO.AssetBalance] in
@@ -89,7 +83,7 @@ private extension AccountBalanceInteractor {
                 if let pair = newList.enumerated().first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
                     let newBalance = pair.element.mutate { balance in
                         balance.leasedBalance = transactions
-                            .filter { $0.sender == accountAddress }
+                            .filter { $0.sender == walletAddress }
                             .reduce(0) { $0 + $1.amount }
                     }
                     newList[pair.offset] = newBalance
@@ -101,7 +95,7 @@ private extension AccountBalanceInteractor {
                 let ids = balances.map { $0.assetId }
                 return owner
                     .assetsInteractor
-                    .assets(by: ids, accountAddress: accountAddress, isNeedUpdated: isNeedUpdate)
+                    .assets(by: ids, accountAddress: walletAddress, isNeedUpdated: isNeedUpdate)
                     .flatMap(weak: owner) { (owner, assets) -> Observable<[DomainLayer.DTO.AssetBalance]> in
                         let mapAssets = assets.reduce([String: DomainLayer.DTO.Asset]()) {
                             var map = $0

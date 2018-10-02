@@ -20,7 +20,7 @@ extension Node.Service {
 }
 
 extension Node.Service.Addresses: NodeTargetType {
-    private enum Constants {
+    fileprivate enum Constants {
         static let addresses = "addresses"
         static let balance = "balance"
     }

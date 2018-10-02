@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsetsMake(0, 16, 0, 16)
     static let height: CGFloat = 76
 }

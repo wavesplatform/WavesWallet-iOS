@@ -14,7 +14,7 @@ protocol TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
 }
 
-private struct Constants {
+fileprivate enum Constants {
     static let durationInseconds: Double = 15
     static let maxLimit: Int = 10000
     static let offset: Int = 50

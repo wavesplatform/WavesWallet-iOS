@@ -13,19 +13,21 @@ import RxFeedback
 import RxSwift
 import SwiftDate
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
 }
 
 final class HistoryViewController: UIViewController {
     
-    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var isRefreshing: Bool = false
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTextLabel: UILabel!
     
     var presenter: HistoryPresenterProtocol!
     
@@ -41,6 +43,7 @@ final class HistoryViewController: UIViewController {
         
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
+        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
         
         setupSegmentedControl()
         setupRefreshControl()

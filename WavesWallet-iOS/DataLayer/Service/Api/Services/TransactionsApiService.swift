@@ -20,7 +20,7 @@ extension API.Service {
 
 extension API.Service.Transactions: ApiTargetType {
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let assets = "asset"
     }
 
