@@ -69,14 +69,6 @@ final class Environments {
     }
 
     private static func parseJSON(json fileName: String) -> Environment? {
-        let decoder = JSONDecoder()
-        guard let path = Bundle.main.url(forResource: fileName, withExtension: "json") else {
-            return nil
-        }
-        guard let data = try? Data(contentsOf: path) else {
-            return nil
-        }
-
-        return try? decoder.decode(Environment.self, from: data)
+        return JSONDecoder.decode(json: fileName)
     }
 }

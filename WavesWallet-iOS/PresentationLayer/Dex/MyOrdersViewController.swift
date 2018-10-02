@@ -152,51 +152,51 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func deleteCancelTapped(sender: UIButton) {
         SVProgressHUD.show()
         
-        WalletManager.getPrivateKey(complete: { (privateKey) in
-          
-            let item = self.myOrders[sender.tag] as! NSMutableDictionary
-            
-            let req = CancelOrderRequest(sender: WalletManager.currentWallet!.publicKeyAccount, orderId: item["id"] as! String)
-            req.senderPrivateKey = privateKey
-            
-            if item["status"] as? String == "Filled" ||
-                item["status"] as? String == "Cancelled" {
-                
-                NetworkManager.deleteOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
-
-                    if errorMessage != nil {
-                        SVProgressHUD.dismiss()
-                        self.presentBasicAlertWithTitle(title: errorMessage!)
-                    }
-                    else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.loadInfo()
-                        }
-                    }
-                })
-            }
-            else if item["status"] as? String == "Accepted" ||
-                item["status"] as? String == "PartiallyFilled" {
-         
-                NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
-
-                    sender.isEnabled = true
-                    if errorMessage != nil {
-                        SVProgressHUD.dismiss()
-                        self.presentBasicAlertWithTitle(title: errorMessage!)
-                    }
-                    else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.loadInfo()
-                        }
-                    }
-                })
-            }
-            
-        }) { (errorMessage) in
-            SVProgressHUD.dismiss()
-            self.presentBasicAlertWithTitle(title: errorMessage)
-        }
+//        WalletManager.getPrivateKey(complete: { (privateKey) in
+//          
+//            let item = self.myOrders[sender.tag] as! NSMutableDictionary
+//            
+//            let req = CancelOrderRequest(sender: WalletManager.currentWallet!.publicKeyAccount, orderId: item["id"] as! String)
+//            req.senderPrivateKey = privateKey
+//            
+//            if item["status"] as? String == "Filled" ||
+//                item["status"] as? String == "Cancelled" {
+//                
+//                NetworkManager.deleteOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
+//
+//                    if errorMessage != nil {
+//                        SVProgressHUD.dismiss()
+//                        self.presentBasicAlertWithTitle(title: errorMessage!)
+//                    }
+//                    else {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                            self.loadInfo()
+//                        }
+//                    }
+//                })
+//            }
+//            else if item["status"] as? String == "Accepted" ||
+//                item["status"] as? String == "PartiallyFilled" {
+//         
+//                NetworkManager.cancelOrder(amountAsset: self.amountAsset, priceAsset: self.priceAsset, request: req, complete: { (errorMessage) in
+//
+//                    sender.isEnabled = true
+//                    if errorMessage != nil {
+//                        SVProgressHUD.dismiss()
+//                        self.presentBasicAlertWithTitle(title: errorMessage!)
+//                    }
+//                    else {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                            self.loadInfo()
+//                        }
+//                    }
+//                })
+//            }
+//            
+//        }) { (errorMessage) in
+//            SVProgressHUD.dismiss()
+//            self.presentBasicAlertWithTitle(title: errorMessage)
+//        }
         
     }
     

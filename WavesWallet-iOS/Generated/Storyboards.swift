@@ -53,6 +53,11 @@ internal extension UIViewController {
 
 // swiftlint:disable explicit_type_interface identifier_name line_length type_body_length type_name
 internal enum StoryboardScene {
+  internal enum AccountPassword: StoryboardType {
+    internal static let storyboardName = "AccountPassword"
+
+    internal static let accountPasswordViewController = SceneType<WavesWallet_iOS.AccountPasswordViewController>(storyboard: AccountPassword.self, identifier: "AccountPasswordViewController")
+  }
   internal enum AddressBook: StoryboardType {
     internal static let storyboardName = "AddressBook"
 
@@ -64,6 +69,22 @@ internal enum StoryboardScene {
     internal static let storyboardName = "Asset"
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
+  }
+  internal enum Backup: StoryboardType {
+    internal static let storyboardName = "Backup"
+
+    internal static let backupInfoViewController = SceneType<WavesWallet_iOS.BackupInfoViewController>(storyboard: Backup.self, identifier: "BackupInfoViewController")
+
+    internal static let confirmBackupViewController = SceneType<WavesWallet_iOS.ConfirmBackupViewController>(storyboard: Backup.self, identifier: "ConfirmBackupViewController")
+
+    internal static let needBackupViewController = SceneType<WavesWallet_iOS.NeedBackupViewController>(storyboard: Backup.self, identifier: "NeedBackupViewController")
+
+    internal static let saveBackupPhraseViewController = SceneType<WavesWallet_iOS.SaveBackupPhraseViewController>(storyboard: Backup.self, identifier: "SaveBackupPhraseViewController")
+  }
+  internal enum ChooseAccount: StoryboardType {
+    internal static let storyboardName = "ChooseAccount"
+
+    internal static let chooseAccountViewController = SceneType<WavesWallet_iOS.ChooseAccountViewController>(storyboard: ChooseAccount.self, identifier: "ChooseAccountViewController")
   }
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
@@ -115,31 +136,11 @@ internal enum StoryboardScene {
   internal enum Enter: StoryboardType {
     internal static let storyboardName = "Enter"
 
-    internal static let confirmBackupViewController = SceneType<WavesWallet_iOS.ConfirmBackupViewController>(storyboard: Enter.self, identifier: "ConfirmBackupViewController")
-
     internal static let editAccountNameViewController = SceneType<WavesWallet_iOS.EditAccountNameViewController>(storyboard: Enter.self, identifier: "EditAccountNameViewController")
 
     internal static let enterLanguageViewController = SceneType<WavesWallet_iOS.EnterLanguageViewController>(storyboard: Enter.self, identifier: "EnterLanguageViewController")
 
-    internal static let enterSelectAccountViewController = SceneType<WavesWallet_iOS.EnterSelectAccountViewController>(storyboard: Enter.self, identifier: "EnterSelectAccountViewController")
-
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
-
-    internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: Enter.self, identifier: "ImportAccountPasswordViewController")
-
-    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Enter.self, identifier: "ImportAccountViewController")
-
-    internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Enter.self, identifier: "ImportWelcomeBackViewController")
-
-    internal static let newAccountBackupInfoViewController = SceneType<WavesWallet_iOS.NewAccountBackupInfoViewController>(storyboard: Enter.self, identifier: "NewAccountBackupInfoViewController")
-
-    internal static let newAccountSecretPhraseViewController = SceneType<WavesWallet_iOS.NewAccountSecretPhraseViewController>(storyboard: Enter.self, identifier: "NewAccountSecretPhraseViewController")
-
-    internal static let newAccountViewController = SceneType<WavesWallet_iOS.NewAccountViewController>(storyboard: Enter.self, identifier: "NewAccountViewController")
-
-    internal static let saveBackupPhraseViewController = SceneType<WavesWallet_iOS.SaveBackupPhraseViewController>(storyboard: Enter.self, identifier: "SaveBackupPhraseViewController")
-
-    internal static let useTouchIDViewController = SceneType<WavesWallet_iOS.UseTouchIDViewController>(storyboard: Enter.self, identifier: "UseTouchIDViewController")
   }
   internal enum Hello: StoryboardType {
     internal static let storyboardName = "Hello"
@@ -155,19 +156,19 @@ internal enum StoryboardScene {
 
     internal static let newHistoryViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "NewHistoryViewController")
   }
+  internal enum Import: StoryboardType {
+    internal static let storyboardName = "Import"
+
+    internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: Import.self, identifier: "ImportAccountPasswordViewController")
+
+    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
+
+    internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Import.self, identifier: "ImportWelcomeBackViewController")
+  }
   internal enum LaunchScreen: StoryboardType {
     internal static let storyboardName = "LaunchScreen"
 
     internal static let initialScene = InitialSceneType<UIViewController>(storyboard: LaunchScreen.self)
-  }
-  internal enum Login: StoryboardType {
-    internal static let storyboardName = "Login"
-
-    internal static let initialScene = InitialSceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Login.self)
-
-    internal static let launchViewController = SceneType<WavesWallet_iOS.LaunchViewController>(storyboard: Login.self, identifier: "LaunchViewController")
-
-    internal static let navLaunchViewController = SceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Login.self, identifier: "NavLaunchViewController")
   }
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
@@ -181,6 +182,16 @@ internal enum StoryboardScene {
     internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: Main.self, identifier: "MyAddressViewController")
 
     internal static let startLeasingViewController = SceneType<WavesWallet_iOS.StartLeasingViewController>(storyboard: Main.self, identifier: "StartLeasingViewController")
+  }
+  internal enum NewAccount: StoryboardType {
+    internal static let storyboardName = "NewAccount"
+
+    internal static let newAccountViewController = SceneType<WavesWallet_iOS.NewAccountViewController>(storyboard: NewAccount.self, identifier: "NewAccountViewController")
+  }
+  internal enum Passcode: StoryboardType {
+    internal static let storyboardName = "Passcode"
+
+    internal static let passcodeViewController = SceneType<WavesWallet_iOS.PasscodeViewController>(storyboard: Passcode.self, identifier: "PasscodeViewController")
   }
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
@@ -219,9 +230,12 @@ internal enum StoryboardScene {
 
     internal static let receiveViewController = SceneType<WavesWallet_iOS.ReceiveViewController>(storyboard: Transfer.self, identifier: "ReceiveViewController")
 
-    internal static let selectAccountViewController = SceneType<WavesWallet_iOS.SelectAccountViewController>(storyboard: Transfer.self, identifier: "SelectAccountViewController")
-
     internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Transfer.self, identifier: "SendViewController")
+  }
+  internal enum UseTouchID: StoryboardType {
+    internal static let storyboardName = "UseTouchID"
+
+    internal static let useTouchIDViewController = SceneType<WavesWallet_iOS.UseTouchIDViewController>(storyboard: UseTouchID.self, identifier: "UseTouchIDViewController")
   }
   internal enum Wallet: StoryboardType {
     internal static let storyboardName = "Wallet"
@@ -260,9 +274,6 @@ internal enum StoryboardScene {
 internal enum StoryboardSegue {
   internal enum Dex: String, SegueType {
     case dexContainerViewController = "DexContainerViewController"
-  }
-  internal enum Login: String, SegueType {
-    case importWallet = "ImportWallet"
   }
   internal enum Transfer: String, SegueType {
     case chooseAddress = "ChooseAddress"

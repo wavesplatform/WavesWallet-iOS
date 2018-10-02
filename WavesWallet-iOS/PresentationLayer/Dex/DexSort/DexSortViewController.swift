@@ -12,7 +12,7 @@ import RxFeedback
 import RxSwift
 
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsetsMake(4, 0, 4, 0)
 }
 

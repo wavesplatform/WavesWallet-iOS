@@ -262,11 +262,7 @@ class DataManager: NSObject {
         return ""
     }
     
-    //UI
-    
-    
-
-    
+    // TODO Remove
     class func setupTextFieldLabel(textField: UITextField, placeHolderLabel: UILabel) {
         let isShow = textField.text!.count > 0
         
@@ -276,26 +272,13 @@ class DataManager: NSObject {
                     placeHolderLabel.alpha = 1
                 }
             }
-        }
-        else {
+        } else {
             if placeHolderLabel.alpha > 0 {
                 UIView.animate(withDuration: 0.3) {
                     placeHolderLabel.alpha = 0
                 }
             }
         }
-    }
-    
-    class func getLanguages() -> [Dictionary<String, String>] {
-        
-        return [["title" : "English", "icon" : "flag18Britain", "id" : ""],
-                ["title" : "Русский", "icon" : "flag18Rus", "id" : ""],
-                ["title" : "中文(简体)", "icon" : "flag18China", "id" : ""],
-                ["title" : "한국어", "icon" : "flag18Korea", "id" : ""],
-                ["title" : "Türkçe", "icon" : "flag18Turkey", "id" : ""],
-                ["title" : "हिन्दी", "icon" : "flag18Hindi", "id" : ""],
-                ["title" : "Dansk", "icon" : "flag18Danish", "id" : ""],
-                ["title" : "Nederlands", "icon" : "flag18Nederland", "id" : ""]]
     }
     
     class func isUseTouchID() -> Bool {

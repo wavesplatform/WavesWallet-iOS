@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 
-private enum Constants {
+fileprivate enum Constants {
     static let maxLimit: Int = 10000
 }
 

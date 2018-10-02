@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Use TouchID View Controller-->
+        <scene sceneID="La3-gO-xxj">
+            <objects>
+                <viewController storyboardIdentifier="UseTouchIDViewController" id="0Pb-XP-PBS" customClass="UseTouchIDViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uIf-A8-WZ5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchid48Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="8Hl-X7-TVG">
+                                <rect key="frame" x="163.5" y="196" width="48" height="48"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Touch ID to sign in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-Kx-zwM">
+                                <rect key="frame" x="92.5" y="284" width="190.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your Touch ID for faster, easier access to your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mr8-iN-y2Y">
+                                <rect key="frame" x="24" y="313" width="327" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9j-9K-bED">
+                                <rect key="frame" x="16" y="523" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="dud-rN-P0p"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Use Touch ID">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="useTouchIdTapped:" destination="0Pb-XP-PBS" eventType="touchUpInside" id="bsV-a9-ezw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HtR-Tw-vMq">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="9aM-n4-ZAD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Not now">
+                                    <color key="titleColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="notNowTapped:" destination="0Pb-XP-PBS" eventType="touchUpInside" id="eSU-nJ-PnJ"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="cuD-QS-q9R">
+                                <rect key="frame" x="184" y="537" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="V9j-9K-bED" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="16" id="4JR-Y3-BpZ"/>
+                            <constraint firstItem="cuD-QS-q9R" firstAttribute="centerX" secondItem="V9j-9K-bED" secondAttribute="centerX" id="5js-oL-1jr"/>
+                            <constraint firstAttribute="trailing" secondItem="HtR-Tw-vMq" secondAttribute="trailing" constant="16" id="AwH-gk-EK9"/>
+                            <constraint firstItem="HtR-Tw-vMq" firstAttribute="top" secondItem="V9j-9K-bED" secondAttribute="bottom" constant="24" id="Bb7-uf-Azx"/>
+                            <constraint firstItem="8Hl-X7-TVG" firstAttribute="top" secondItem="W7g-Bz-dil" secondAttribute="top" constant="176" id="Qtg-94-Se3"/>
+                            <constraint firstItem="W7g-Bz-dil" firstAttribute="bottom" secondItem="HtR-Tw-vMq" secondAttribute="bottom" constant="24" id="WRR-cU-c4l"/>
+                            <constraint firstItem="xiI-Kx-zwM" firstAttribute="top" secondItem="8Hl-X7-TVG" secondAttribute="bottom" constant="40" id="YUv-pV-8Lk"/>
+                            <constraint firstItem="xiI-Kx-zwM" firstAttribute="centerX" secondItem="uIf-A8-WZ5" secondAttribute="centerX" id="cCu-57-Xw2"/>
+                            <constraint firstItem="8Hl-X7-TVG" firstAttribute="centerX" secondItem="uIf-A8-WZ5" secondAttribute="centerX" id="jJ7-ax-45w"/>
+                            <constraint firstItem="W7g-Bz-dil" firstAttribute="trailing" secondItem="Mr8-iN-y2Y" secondAttribute="trailing" constant="24" id="jjY-gK-kRu"/>
+                            <constraint firstItem="Mr8-iN-y2Y" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="24" id="s0N-z0-9a4"/>
+                            <constraint firstItem="Mr8-iN-y2Y" firstAttribute="top" secondItem="xiI-Kx-zwM" secondAttribute="bottom" constant="8" id="s7I-bT-Sne"/>
+                            <constraint firstItem="HtR-Tw-vMq" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="16" id="wbO-sI-eyd"/>
+                            <constraint firstItem="cuD-QS-q9R" firstAttribute="centerY" secondItem="V9j-9K-bED" secondAttribute="centerY" id="xUe-mI-wss"/>
+                            <constraint firstAttribute="trailing" secondItem="V9j-9K-bED" secondAttribute="trailing" constant="16" id="y6u-Ts-tJw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="W7g-Bz-dil"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonNotNow" destination="HtR-Tw-vMq" id="sFN-GR-R0q"/>
+                        <outlet property="buttonUseTouchId" destination="V9j-9K-bED" id="wca-aS-qX5"/>
+                        <outlet property="iconTouch" destination="8Hl-X7-TVG" id="dIF-P8-hwJ"/>
+                        <outlet property="indicator" destination="cuD-QS-q9R" id="ahY-23-X7R"/>
+                        <outlet property="labelDescription" destination="Mr8-iN-y2Y" id="Lse-fY-zlN"/>
+                        <outlet property="labelTouchId" destination="xiI-Kx-zwM" id="r7q-CX-4BH"/>
+                        <outlet property="topLogoOffset" destination="Qtg-94-Se3" id="wYC-Pc-fpE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="62L-MN-Z1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="794"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="touchid48Submit300" width="48" height="48"/>
+    </resources>
+</document>
