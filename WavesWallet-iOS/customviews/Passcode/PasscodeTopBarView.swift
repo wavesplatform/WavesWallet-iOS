@@ -10,6 +10,7 @@ import UIKit
 
 private enum Constants {
     static let durationDotsAnimation: TimeInterval = 0.6
+    static let durationDotsError: TimeInterval = 0.5
 }
 
 final class PasscodeDotView: UIView {
@@ -66,7 +67,7 @@ final class PasscodeTopBarView: UIView {
         counter = min(count, PasscodeDotView.Kind.four.rawValue)
 
         if animated {
-            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: UIView.fastDurationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
                 self.updateColorsForDots()
             }, completion: nil)
         } else {
@@ -98,7 +99,7 @@ final class PasscodeTopBarView: UIView {
 
     func changeText(_ text: String) {
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: .transitionCrossDissolve, animations: {
+        UIView.animate(withDuration: UIView.fastDurationAnimation, delay: 0, options: .transitionCrossDissolve, animations: {
             self.titleLabel.text = text
         }, completion: nil)
     }
@@ -108,7 +109,7 @@ final class PasscodeTopBarView: UIView {
         updateColorsForDots()
         ImpactFeedbackGenerator.impactOccurredOrVibrate()
         dotsView.shake()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.durationDotsError) {
             self.cancelInvalidateState()
         }
     }

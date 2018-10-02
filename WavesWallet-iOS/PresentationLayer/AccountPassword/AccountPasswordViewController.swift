@@ -23,7 +23,7 @@ final class AccountPasswordViewController: UIViewController {
     fileprivate typealias Types = AccountPasswordTypes
 
     @IBOutlet private weak var buttonSignIn: UIButton!
-    @IBOutlet private weak var passwordTextField: InputTextField!
+    @IBOutlet private weak var passwordTextField: PasswordTextField!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var addressLabel: UILabel!

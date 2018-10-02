@@ -11,7 +11,7 @@ import RxSwift
 import RealmSwift
 import RxRealm
 
-fileprivate enum Constants {
+private enum Constants {
     static let stepSize: Float = 0.000000001
 }
 

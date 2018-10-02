@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let unselectedIconAlpha: CGFloat = 0.3
+}
+
 final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
 
     enum State {
@@ -46,7 +50,7 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
             case .unselected:
                 isHiddenDottedLine = true
                 iconImageView.backgroundColor = UIColor.basic200
-                iconImageView.alpha = 0.3
+                iconImageView.alpha = Constants.unselectedIconAlpha
             }
         }
     }

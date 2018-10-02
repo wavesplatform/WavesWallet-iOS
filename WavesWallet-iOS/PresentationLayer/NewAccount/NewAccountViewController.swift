@@ -28,9 +28,9 @@ final class NewAccountViewController: UIViewController {
 
     @IBOutlet private var avatars: [NewAccountAvatarView]!
     @IBOutlet private weak var labelAccountName: UILabel!
-    @IBOutlet private weak var accountNameInput: InputTextField!
-    @IBOutlet private weak var passwordInput: InputTextField!
-    @IBOutlet private weak var confirmPasswordInput: InputTextField!
+    @IBOutlet private weak var accountNameInput: PasswordTextField!
+    @IBOutlet private weak var passwordInput: PasswordTextField!
+    @IBOutlet private weak var confirmPasswordInput: PasswordTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var contentView: UIView!
@@ -93,13 +93,13 @@ final class NewAccountViewController: UIViewController {
     }
 
     private func setupTextField() {
-        accountNameInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
+        accountNameInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
                                                            kind: .text,
                                                            placeholder: Localizable.NewAccount.Textfield.Accountname.title))
-        passwordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
+        passwordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
                                                         kind: .password,
                                                         placeholder: Localizable.NewAccount.Textfield.Createpassword.title))
-        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+        confirmPasswordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
                                                                kind: .newPassword,
                                                                placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
