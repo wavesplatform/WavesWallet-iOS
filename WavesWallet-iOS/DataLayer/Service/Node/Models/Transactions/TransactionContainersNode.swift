@@ -65,46 +65,53 @@ extension Node.DTO {
                         continue
                     }
 
-                    switch type {
-                    case .issue:
-                        let tx = try listArray.decode(Node.DTO.IssueTransaction.self)
-                        transactions.append(.issue(tx))
+                    do {
+                        switch type {
+                        case .issue:
+                            let tx = try listArray.decode(Node.DTO.IssueTransaction.self)
+                            transactions.append(.issue(tx))
 
-                    case .transfer:
-                        let tx = try listArray.decode(Node.DTO.TransferTransaction.self)
-                        transactions.append(.transfer(tx))
+                        case .transfer:
+                            let tx = try listArray.decode(Node.DTO.TransferTransaction.self)
+                            transactions.append(.transfer(tx))
 
-                    case .reissue:
-                        let tx = try listArray.decode(Node.DTO.ReissueTransaction.self)
-                        transactions.append(.reissue(tx))
+                        case .reissue:
+                            let tx = try listArray.decode(Node.DTO.ReissueTransaction.self)
+                            transactions.append(.reissue(tx))
 
-                    case .burn:
-                        let tx = try listArray.decode(Node.DTO.BurnTransaction.self)
-                        transactions.append(.burn(tx))
+                        case .burn:
+                            let tx = try listArray.decode(Node.DTO.BurnTransaction.self)
+                            transactions.append(.burn(tx))
 
-                    case .exchange:
-                        let tx = try listArray.decode(Node.DTO.ExchangeTransaction.self)
-                        transactions.append(.exchange(tx))
+                        case .exchange:
+                            let tx = try listArray.decode(Node.DTO.ExchangeTransaction.self)
+                            transactions.append(.exchange(tx))
 
-                    case .lease:
-                        let tx = try listArray.decode(Node.DTO.LeaseTransaction.self)
-                        transactions.append(.lease(tx))
+                        case .lease:
+                            let tx = try listArray.decode(Node.DTO.LeaseTransaction.self)
+                            transactions.append(.lease(tx))
 
-                    case .leaseCancel:
-                        let tx = try listArray.decode(Node.DTO.LeaseCancelTransaction.self)
-                        transactions.append(.leaseCancel(tx))
+                        case .leaseCancel:
+                            let tx = try listArray.decode(Node.DTO.LeaseCancelTransaction.self)
+                            transactions.append(.leaseCancel(tx))
 
-                    case .alias:
-                        let tx = try listArray.decode(Node.DTO.AliasTransaction.self)
-                        transactions.append(.alias(tx))
+                        case .alias:
+                            let tx = try listArray.decode(Node.DTO.AliasTransaction.self)
+                            transactions.append(.alias(tx))
 
-                    case .massTransfer:
-                        let tx = try listArray.decode(Node.DTO.MassTransferTransaction.self)
-                        transactions.append(.massTransfer(tx))
+                        case .massTransfer:
+                            let tx = try listArray.decode(Node.DTO.MassTransferTransaction.self)
+                            transactions.append(.massTransfer(tx))
 
-                    case .data:
-                        let tx = try listArray.decode(Node.DTO.DataTransaction.self)
-                        transactions.append(.data(tx))
+                        case .data:
+                            let tx = try listArray.decode(Node.DTO.DataTransaction.self)
+                            transactions.append(.data(tx))
+                        }
+                    } catch let e {
+                        error(e)
+                        if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
+                            transactions.append(.unrecognised(tx))
+                        }
                     }
                 }
 
