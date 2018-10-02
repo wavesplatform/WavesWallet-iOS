@@ -56,8 +56,7 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
         scrollViewInput.inputDelegate = self
         textFieldMoney.inputNumericDelegate = self
         labelError.alpha = 0
-    }
-    
+   }
     
     func showErrorMessage(message: String, isShow: Bool) {
         if isShow {
@@ -79,6 +78,10 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
                 }
             }
         }
+    }
+    
+    func activateTextField() {
+        textFieldMoney.becomeFirstResponder()
     }
 }
 

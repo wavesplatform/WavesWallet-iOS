@@ -16,6 +16,8 @@ private enum Constants {
 protocol StartLeasingGeneratorViewDelegate: AnyObject {
     func startLeasingGeneratorViewDidSelectAddressBook()
     func startLeasingGeneratorViewDidChangeAddress(_ address: String)
+    func startLeasingGeneratorDidTapNext()
+
 }
 
 final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
@@ -60,6 +62,7 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
             $0.showTorchButton = true
             $0.reader = QRCodeReader()
             $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
+            $0.preferredStatusBarStyle = .lightContent
         }
         
         return QRCodeReaderViewController(builder: builder)
@@ -89,6 +92,11 @@ extension StartLeasingGeneratorView: InputScrollButtonsViewDelegate {
 //MARK: - UITextFieldDelegate
 extension StartLeasingGeneratorView: UITextFieldDelegate {
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        delegate?.startLeasingGeneratorDidTapNext()
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text, text.count > 0 {
             showLabelError(isShow: !Address.isValidAddress(address: text))
@@ -228,9 +236,7 @@ private extension StartLeasingGeneratorView {
         
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            
-            UIApplication.shared.setStatusBarStyle(.default, animated: true)
-            
+                        
             if let address = result?.value {
                 
                 self.setupText(address, animation: false)
@@ -243,8 +249,6 @@ private extension StartLeasingGeneratorView {
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
         
-        firstAvailableViewController().present(readerVC, animated: true) {
-            UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        }
+        firstAvailableViewController().present(readerVC, animated: true)
     }
 }

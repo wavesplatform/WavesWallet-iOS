@@ -2914,10 +2914,10 @@
 		E95B47E121638B11004D4E39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */,
 				E95B47E321638B11004D4E39 /* StartLeasingGeneratorView.xib */,
 				E95B47E421638B11004D4E39 /* StartLeasingGeneratorView.swift */,
 				E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */,
+				E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
