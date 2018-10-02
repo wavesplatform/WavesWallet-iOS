@@ -1,0 +1,12 @@
+"label.receive" = "Receive";
+"label.asset" = "Asset";
+"label.amount" = "Amount";
+"label.amountIn" = "Amount in";
+
+"button.cryptocurrency" = "Сryptocurrency";
+"button.invoice" = "Invoice";
+"button.card" = "Card";
+"button.continue" = "Continue";
+"button.selectYourAsset" = "Select your asset";
+"button.useTotalBalance" = "Use total balance";
+

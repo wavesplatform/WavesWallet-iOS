@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Receive Container View Controller-->
+        <scene sceneID="DUN-9v-MjD">
+            <objects>
+                <viewController storyboardIdentifier="ReceiveContainerViewController" id="S6v-Hn-QKn" customClass="ReceiveContainerViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="19u-da-GNX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQY-dd-juI">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vf-pW-rYp">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="0vf-pW-rYp" firstAttribute="width" secondItem="RQY-dd-juI" secondAttribute="width" id="CDO-5k-BbL"/>
+                                    <constraint firstItem="0vf-pW-rYp" firstAttribute="leading" secondItem="RQY-dd-juI" secondAttribute="leading" id="FTP-cl-iM2"/>
+                                    <constraint firstAttribute="trailing" secondItem="0vf-pW-rYp" secondAttribute="trailing" id="LA0-nL-JaV"/>
+                                    <constraint firstAttribute="bottom" secondItem="0vf-pW-rYp" secondAttribute="bottom" id="LkX-h5-cNk"/>
+                                    <constraint firstItem="0vf-pW-rYp" firstAttribute="height" secondItem="RQY-dd-juI" secondAttribute="height" id="gtk-FT-wHK"/>
+                                    <constraint firstItem="0vf-pW-rYp" firstAttribute="top" secondItem="RQY-dd-juI" secondAttribute="top" id="ujL-IB-9Sk"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="she-RY-44Y" firstAttribute="trailing" secondItem="RQY-dd-juI" secondAttribute="trailing" id="Knw-6M-isZ"/>
+                            <constraint firstItem="RQY-dd-juI" firstAttribute="leading" secondItem="she-RY-44Y" secondAttribute="leading" id="daf-Mr-8BL"/>
+                            <constraint firstItem="RQY-dd-juI" firstAttribute="top" secondItem="she-RY-44Y" secondAttribute="top" id="j1W-7X-6pc"/>
+                            <constraint firstItem="she-RY-44Y" firstAttribute="bottom" secondItem="RQY-dd-juI" secondAttribute="bottom" id="k8T-fw-UDW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="she-RY-44Y"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AE6-IM-WI4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-153" y="156"/>
+        </scene>
+        <!--Receive Cryptocurrency View Controller-->
+        <scene sceneID="RpA-8N-FWd">
+            <objects>
+                <viewController storyboardIdentifier="ReceiveCryptocurrencyViewController" id="2OW-ud-MVI" customClass="ReceiveCryptocurrencyViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zyB-FX-nlK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="g5W-6f-0t5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AKR-BU-kh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="519" y="151"/>
+        </scene>
+        <!--Receive Invoice View Controller-->
+        <scene sceneID="Ntb-QA-EYH">
+            <objects>
+                <viewController storyboardIdentifier="ReceiveInvoiceViewController" id="1G5-iq-WcJ" customClass="ReceiveInvoiceViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qbi-yg-5Wy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="agx-T2-0gS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FZ5-90-jim" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1252" y="155"/>
+        </scene>
+        <!--Receive Card View Controller-->
+        <scene sceneID="poa-uF-CxG">
+            <objects>
+                <viewController storyboardIdentifier="ReceiveCardViewController" id="e7F-Ai-9Sa" customClass="ReceiveCardViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Odh-w3-8Ec">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="W4d-WK-4f0"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BlA-8a-1nQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2007" y="155"/>
+        </scene>
+    </scenes>
+</document>
