@@ -110,6 +110,8 @@ internal enum Images {
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
+  internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
+  internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
@@ -232,6 +234,7 @@ internal enum Images {
   internal static let topbarFlashOff = ImageAsset(name: "topbarFlashOff")
   internal static let topbarFlashOn = ImageAsset(name: "topbarFlashOn")
   internal static let topbarInfowhite = ImageAsset(name: "topbarInfowhite")
+  internal static let topbarLogout = ImageAsset(name: "topbarLogout")
   internal static let topbarMenuwhite = ImageAsset(name: "topbarMenuwhite")
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
@@ -323,6 +326,8 @@ internal enum Images {
     down,
     dragElem,
     editaddress24Submit300,
+    eyeclsoe24Basic500,
+    eyeopen24Basic500,
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
@@ -445,6 +450,7 @@ internal enum Images {
     topbarFlashOff,
     topbarFlashOn,
     topbarInfowhite,
+    topbarLogout,
     topbarMenuwhite,
     topbarSort,
     touchid48Submit300,

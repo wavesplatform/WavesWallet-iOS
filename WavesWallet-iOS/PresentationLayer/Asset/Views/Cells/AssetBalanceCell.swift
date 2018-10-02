@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let heightViewWithoutBalances: CGFloat = 188
     static let heightViewWithBalance: CGFloat = 208
     static let heightBalanceView: CGFloat = 42

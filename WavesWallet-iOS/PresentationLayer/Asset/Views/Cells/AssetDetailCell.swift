@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let issueDateFormat = "dd.MM.yyyy 'at' hh:mm"
     static let height: CGFloat = 314
     static let pictureSize: CGFloat = 40

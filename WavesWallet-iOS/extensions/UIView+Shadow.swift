@@ -74,10 +74,11 @@ extension UIView {
         }
 
         if prevBounds != bounds {
-            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
             if let mask = layer.mask {
                 mask.shadowPath = UIBezierPath(roundedRect: mask.bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
             }
+            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+
         }
 
         prevBounds = bounds

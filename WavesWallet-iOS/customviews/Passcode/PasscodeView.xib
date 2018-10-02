@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="topBarView" destination="7eT-ZN-m7X" id="Boa-Yr-Efq"/>
+                <outletCollection property="buttons" destination="tNf-0J-RFd" collectionClass="NSMutableArray" id="bxN-jX-H8A"/>
+                <outletCollection property="buttons" destination="d31-TX-9MW" collectionClass="NSMutableArray" id="cId-Qy-RvS"/>
+                <outletCollection property="buttons" destination="xwo-MI-jDD" collectionClass="NSMutableArray" id="aEo-cU-AIj"/>
+                <outletCollection property="buttons" destination="Mfy-DL-RYE" collectionClass="NSMutableArray" id="mM2-tn-2HO"/>
+                <outletCollection property="buttons" destination="yfW-Yb-xPg" collectionClass="NSMutableArray" id="pDz-sv-RBC"/>
+                <outletCollection property="buttons" destination="lRK-MH-uU1" collectionClass="NSMutableArray" id="0Id-7m-y1b"/>
+                <outletCollection property="buttons" destination="KS5-Xr-tJa" collectionClass="NSMutableArray" id="0Rg-iR-H97"/>
+                <outletCollection property="buttons" destination="V7c-Jh-zHE" collectionClass="NSMutableArray" id="aes-OB-vyw"/>
+                <outletCollection property="buttons" destination="M32-gl-9di" collectionClass="NSMutableArray" id="Q52-A6-KMc"/>
+                <outletCollection property="buttons" destination="WXv-rA-t6O" collectionClass="NSMutableArray" id="57p-9b-Fwg"/>
+                <outletCollection property="buttons" destination="A3k-Wc-ChF" collectionClass="NSMutableArray" id="2vG-B6-3ei"/>
+                <outletCollection property="buttons" destination="ZqQ-Tf-u1x" collectionClass="NSMutableArray" id="tn6-eo-ysp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="425"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7eT-ZN-m7X" userLabel="TopBar" customClass="PasscodeTopBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="281" height="81"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ez-wH-ZMa">
+                            <rect key="frame" x="67" y="0.0" width="147" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-80-C3s" userLabel="Dots">
+                            <rect key="frame" x="80.5" y="69" width="120" height="12"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ym2-X2-lbK" userLabel="One" customClass="PasscodeDotView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
+                                    <color key="backgroundColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="WK5-33-msF"/>
+                                        <constraint firstAttribute="width" constant="12" id="b7t-3I-Jby"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBB-QW-QUX" userLabel="Two" customClass="PasscodeDotView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="36" y="0.0" width="12" height="12"/>
+                                    <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="12" id="aI4-63-Q0o"/>
+                                        <constraint firstAttribute="height" constant="12" id="mLa-SB-rmX"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mer-7O-Gn0" userLabel="Three" customClass="PasscodeDotView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="72" y="0.0" width="12" height="12"/>
+                                    <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="3Hj-Rz-in8"/>
+                                        <constraint firstAttribute="width" constant="12" id="el8-go-Vod"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-mg-TtT" userLabel="Four" customClass="PasscodeDotView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="108" y="0.0" width="12" height="12"/>
+                                    <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="12" id="2kf-Vh-K7N"/>
+                                        <constraint firstAttribute="height" constant="12" id="qAD-eG-EUy"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="f0F-mg-TtT" secondAttribute="trailing" id="2xM-eY-Gkk"/>
+                                <constraint firstItem="mer-7O-Gn0" firstAttribute="top" secondItem="f9w-80-C3s" secondAttribute="top" id="3No-fr-IgR"/>
+                                <constraint firstAttribute="height" constant="12" id="5RJ-bk-zIR"/>
+                                <constraint firstItem="nBB-QW-QUX" firstAttribute="top" secondItem="f9w-80-C3s" secondAttribute="top" id="9Xf-1y-wPc"/>
+                                <constraint firstItem="ym2-X2-lbK" firstAttribute="leading" secondItem="f9w-80-C3s" secondAttribute="leading" id="Af3-sS-wmv"/>
+                                <constraint firstItem="nBB-QW-QUX" firstAttribute="leading" secondItem="ym2-X2-lbK" secondAttribute="trailing" constant="24" id="NAK-Tl-ICb"/>
+                                <constraint firstItem="f0F-mg-TtT" firstAttribute="top" secondItem="f9w-80-C3s" secondAttribute="top" id="QIh-Wr-2nL"/>
+                                <constraint firstItem="ym2-X2-lbK" firstAttribute="top" secondItem="f9w-80-C3s" secondAttribute="top" id="Rsr-B3-P3E"/>
+                                <constraint firstItem="mer-7O-Gn0" firstAttribute="leading" secondItem="nBB-QW-QUX" secondAttribute="trailing" constant="24" id="kco-Em-2YC"/>
+                                <constraint firstItem="f0F-mg-TtT" firstAttribute="leading" secondItem="mer-7O-Gn0" secondAttribute="trailing" constant="24" id="xkP-X9-LuB"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-Q4-uzA">
+                            <rect key="frame" x="127.5" y="33" width="26.5" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="f9w-80-C3s" secondAttribute="bottom" id="G72-os-K3r"/>
+                        <constraint firstItem="nhY-Q4-uzA" firstAttribute="centerX" secondItem="7Ez-wH-ZMa" secondAttribute="centerX" id="P7V-n8-evZ"/>
+                        <constraint firstItem="7Ez-wH-ZMa" firstAttribute="top" secondItem="7eT-ZN-m7X" secondAttribute="top" id="cPR-fv-e00"/>
+                        <constraint firstItem="f9w-80-C3s" firstAttribute="top" secondItem="nhY-Q4-uzA" secondAttribute="bottom" constant="24" id="d5U-Ml-bkS"/>
+                        <constraint firstItem="nhY-Q4-uzA" firstAttribute="top" secondItem="7Ez-wH-ZMa" secondAttribute="bottom" constant="4" id="gsP-9T-9aB"/>
+                        <constraint firstItem="f9w-80-C3s" firstAttribute="centerX" secondItem="7eT-ZN-m7X" secondAttribute="centerX" id="hbc-Wq-3rg"/>
+                        <constraint firstItem="f9w-80-C3s" firstAttribute="top" secondItem="7Ez-wH-ZMa" secondAttribute="bottom" priority="500" constant="24" id="kol-ve-CNZ"/>
+                        <constraint firstItem="7Ez-wH-ZMa" firstAttribute="centerX" secondItem="7eT-ZN-m7X" secondAttribute="centerX" id="oPe-Vf-3uo"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="detailLabel" destination="nhY-Q4-uzA" id="Guf-ff-0yB"/>
+                        <outlet property="dotsView" destination="f9w-80-C3s" id="Th9-D7-jkN"/>
+                        <outlet property="titleLabel" destination="7Ez-wH-ZMa" id="7RD-rW-ILu"/>
+                        <outletCollection property="dots" destination="f0F-mg-TtT" collectionClass="NSMutableArray" id="U57-mm-78W"/>
+                        <outletCollection property="dots" destination="ym2-X2-lbK" collectionClass="NSMutableArray" id="raT-FU-TDU"/>
+                        <outletCollection property="dots" destination="nBB-QW-QUX" collectionClass="NSMutableArray" id="Jm1-Nw-iqY"/>
+                        <outletCollection property="dots" destination="mer-7O-Gn0" collectionClass="NSMutableArray" id="ccb-QD-hem"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYx-vV-9mc">
+                    <rect key="frame" x="0.0" y="125" width="281" height="300"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rp1-vF-UVg" userLabel="Line One">
+                            <rect key="frame" x="0.0" y="0.0" width="281" height="75"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d31-TX-9MW" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="75" id="Y2O-Dv-9n3"/>
+                                        <constraint firstAttribute="height" constant="75" id="tDe-gx-x0O"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="1">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwo-MI-jDD" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="103" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="2">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfy-DL-RYE" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="206" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="3">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Mfy-DL-RYE" firstAttribute="top" secondItem="Rp1-vF-UVg" secondAttribute="top" id="1FG-Kz-dd0"/>
+                                <constraint firstItem="Mfy-DL-RYE" firstAttribute="leading" secondItem="xwo-MI-jDD" secondAttribute="trailing" constant="28" id="2AU-Zq-laj"/>
+                                <constraint firstAttribute="bottom" secondItem="xwo-MI-jDD" secondAttribute="bottom" id="7fY-Oi-WJA"/>
+                                <constraint firstItem="xwo-MI-jDD" firstAttribute="top" secondItem="Rp1-vF-UVg" secondAttribute="top" id="8qA-8d-XYW"/>
+                                <constraint firstItem="Mfy-DL-RYE" firstAttribute="height" secondItem="d31-TX-9MW" secondAttribute="height" id="KF8-z0-T8Q"/>
+                                <constraint firstItem="d31-TX-9MW" firstAttribute="top" secondItem="Rp1-vF-UVg" secondAttribute="top" id="KvF-Yn-gtj"/>
+                                <constraint firstItem="xwo-MI-jDD" firstAttribute="width" secondItem="d31-TX-9MW" secondAttribute="width" id="MOg-0r-qEV"/>
+                                <constraint firstAttribute="bottom" secondItem="d31-TX-9MW" secondAttribute="bottom" id="NuM-Rg-7kc"/>
+                                <constraint firstAttribute="trailing" secondItem="Mfy-DL-RYE" secondAttribute="trailing" id="OYg-Tq-eBw"/>
+                                <constraint firstAttribute="bottom" secondItem="Mfy-DL-RYE" secondAttribute="bottom" id="VvI-eV-qHu"/>
+                                <constraint firstItem="xwo-MI-jDD" firstAttribute="leading" secondItem="d31-TX-9MW" secondAttribute="trailing" constant="28" id="YDD-S6-6zW"/>
+                                <constraint firstItem="xwo-MI-jDD" firstAttribute="height" secondItem="d31-TX-9MW" secondAttribute="height" id="ZJU-sF-HtD"/>
+                                <constraint firstItem="Mfy-DL-RYE" firstAttribute="width" secondItem="d31-TX-9MW" secondAttribute="width" id="iLI-aI-x9E"/>
+                                <constraint firstItem="d31-TX-9MW" firstAttribute="leading" secondItem="Rp1-vF-UVg" secondAttribute="leading" id="qB1-RG-p3p"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-rr-dfe" userLabel="Line Two">
+                            <rect key="frame" x="0.0" y="75" width="281" height="75"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7c-Jh-zHE" userLabel="4" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="75" id="1De-Mw-xT6"/>
+                                        <constraint firstAttribute="height" constant="75" id="jm0-xD-UGx"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="4">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M32-gl-9di" userLabel="5" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="103" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="5">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfW-Yb-xPg" userLabel="6" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="206" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="6">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="yfW-Yb-xPg" secondAttribute="trailing" id="5I2-uT-Npe"/>
+                                <constraint firstItem="yfW-Yb-xPg" firstAttribute="width" secondItem="V7c-Jh-zHE" secondAttribute="width" id="5tP-9M-tcB"/>
+                                <constraint firstItem="M32-gl-9di" firstAttribute="width" secondItem="V7c-Jh-zHE" secondAttribute="width" id="AwB-wH-GeS"/>
+                                <constraint firstItem="V7c-Jh-zHE" firstAttribute="leading" secondItem="Nqe-rr-dfe" secondAttribute="leading" id="RNR-8j-TuA"/>
+                                <constraint firstItem="yfW-Yb-xPg" firstAttribute="leading" secondItem="M32-gl-9di" secondAttribute="trailing" constant="28" id="Ss4-wD-Yxq"/>
+                                <constraint firstAttribute="bottom" secondItem="yfW-Yb-xPg" secondAttribute="bottom" id="a9U-hc-ahK"/>
+                                <constraint firstItem="M32-gl-9di" firstAttribute="height" secondItem="V7c-Jh-zHE" secondAttribute="height" id="dVk-GQ-NPg"/>
+                                <constraint firstItem="V7c-Jh-zHE" firstAttribute="top" secondItem="Nqe-rr-dfe" secondAttribute="top" id="f8l-5B-Hnt"/>
+                                <constraint firstItem="yfW-Yb-xPg" firstAttribute="height" secondItem="V7c-Jh-zHE" secondAttribute="height" id="hgY-r0-iZy"/>
+                                <constraint firstItem="M32-gl-9di" firstAttribute="top" secondItem="Nqe-rr-dfe" secondAttribute="top" id="hry-Rf-LmU"/>
+                                <constraint firstAttribute="bottom" secondItem="V7c-Jh-zHE" secondAttribute="bottom" id="itl-Z9-dIm"/>
+                                <constraint firstItem="M32-gl-9di" firstAttribute="leading" secondItem="V7c-Jh-zHE" secondAttribute="trailing" constant="28" id="jgq-63-E4Y"/>
+                                <constraint firstAttribute="bottom" secondItem="M32-gl-9di" secondAttribute="bottom" id="qeS-rq-LGg"/>
+                                <constraint firstItem="yfW-Yb-xPg" firstAttribute="top" secondItem="Nqe-rr-dfe" secondAttribute="top" id="zDW-gH-IrI"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kez-YH-KkJ" userLabel="Line Three">
+                            <rect key="frame" x="0.0" y="150" width="281" height="75"/>
+                            <subviews>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-rA-t6O" userLabel="7" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="103" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="7">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="7"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3k-Wc-ChF" userLabel="8" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="206" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="8">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRK-MH-uU1" userLabel="9" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="75" id="3TL-Or-3VZ"/>
+                                        <constraint firstAttribute="height" constant="75" id="EGW-pG-9eU"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="9">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="9"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="A3k-Wc-ChF" secondAttribute="bottom" id="0m1-sw-Hjg"/>
+                                <constraint firstItem="WXv-rA-t6O" firstAttribute="width" secondItem="lRK-MH-uU1" secondAttribute="width" id="6Mm-US-H1d"/>
+                                <constraint firstItem="A3k-Wc-ChF" firstAttribute="width" secondItem="lRK-MH-uU1" secondAttribute="width" id="6i6-bD-agu"/>
+                                <constraint firstItem="A3k-Wc-ChF" firstAttribute="top" secondItem="kez-YH-KkJ" secondAttribute="top" id="Acb-2Y-CJ2"/>
+                                <constraint firstItem="A3k-Wc-ChF" firstAttribute="height" secondItem="lRK-MH-uU1" secondAttribute="height" id="D9D-nv-a7e"/>
+                                <constraint firstItem="lRK-MH-uU1" firstAttribute="top" secondItem="kez-YH-KkJ" secondAttribute="top" id="Z3l-LT-ren"/>
+                                <constraint firstAttribute="bottom" secondItem="WXv-rA-t6O" secondAttribute="bottom" id="c55-bH-I0S"/>
+                                <constraint firstItem="WXv-rA-t6O" firstAttribute="height" secondItem="lRK-MH-uU1" secondAttribute="height" id="crb-Oh-66r"/>
+                                <constraint firstItem="lRK-MH-uU1" firstAttribute="leading" secondItem="kez-YH-KkJ" secondAttribute="leading" id="eth-Qf-wMa"/>
+                                <constraint firstItem="WXv-rA-t6O" firstAttribute="top" secondItem="kez-YH-KkJ" secondAttribute="top" id="jM5-gm-Qkc"/>
+                                <constraint firstAttribute="trailing" secondItem="A3k-Wc-ChF" secondAttribute="trailing" id="jSi-Vk-4oP"/>
+                                <constraint firstItem="A3k-Wc-ChF" firstAttribute="leading" secondItem="WXv-rA-t6O" secondAttribute="trailing" constant="28" id="oPg-rm-aqn"/>
+                                <constraint firstAttribute="bottom" secondItem="lRK-MH-uU1" secondAttribute="bottom" id="su7-hh-vX1"/>
+                                <constraint firstItem="WXv-rA-t6O" firstAttribute="leading" secondItem="lRK-MH-uU1" secondAttribute="trailing" constant="28" id="uK5-q8-VX7"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeU-Nl-bUu" userLabel="Line Four">
+                            <rect key="frame" x="0.0" y="225" width="281" height="75"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KS5-Xr-tJa" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="75" id="jUr-GS-T3X"/>
+                                        <constraint firstAttribute="height" constant="75" id="ooe-bO-PlM"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="-2">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="-2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqQ-Tf-u1x" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="103" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <state key="normal" title="0">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="0"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNf-0J-RFd" customClass="PasscodeNumberButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="206" y="0.0" width="75" height="75"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="-1">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="kind">
+                                            <integer key="value" value="-1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="ZqQ-Tf-u1x" secondAttribute="bottom" id="4po-YS-0Rz"/>
+                                <constraint firstAttribute="trailing" secondItem="tNf-0J-RFd" secondAttribute="trailing" id="AuX-10-IN0"/>
+                                <constraint firstItem="KS5-Xr-tJa" firstAttribute="top" secondItem="DeU-Nl-bUu" secondAttribute="top" id="CYm-SB-mhH"/>
+                                <constraint firstItem="tNf-0J-RFd" firstAttribute="width" secondItem="KS5-Xr-tJa" secondAttribute="width" id="EPl-Ae-glN"/>
+                                <constraint firstItem="ZqQ-Tf-u1x" firstAttribute="width" secondItem="KS5-Xr-tJa" secondAttribute="width" id="ETW-jW-yIF"/>
+                                <constraint firstItem="tNf-0J-RFd" firstAttribute="top" secondItem="DeU-Nl-bUu" secondAttribute="top" id="GDj-z4-I0c"/>
+                                <constraint firstAttribute="bottom" secondItem="tNf-0J-RFd" secondAttribute="bottom" id="Guz-Je-EdS"/>
+                                <constraint firstItem="tNf-0J-RFd" firstAttribute="leading" secondItem="ZqQ-Tf-u1x" secondAttribute="trailing" constant="28" id="QLC-yE-dqT"/>
+                                <constraint firstItem="ZqQ-Tf-u1x" firstAttribute="height" secondItem="KS5-Xr-tJa" secondAttribute="height" id="SuN-ca-o6n"/>
+                                <constraint firstItem="ZqQ-Tf-u1x" firstAttribute="top" secondItem="DeU-Nl-bUu" secondAttribute="top" id="XSr-Fd-uXk"/>
+                                <constraint firstAttribute="bottom" secondItem="KS5-Xr-tJa" secondAttribute="bottom" id="Yfi-b3-CER"/>
+                                <constraint firstItem="ZqQ-Tf-u1x" firstAttribute="leading" secondItem="KS5-Xr-tJa" secondAttribute="trailing" constant="28" id="m5m-MI-Sv2"/>
+                                <constraint firstItem="KS5-Xr-tJa" firstAttribute="leading" secondItem="DeU-Nl-bUu" secondAttribute="leading" id="zkI-9j-gAf"/>
+                                <constraint firstItem="tNf-0J-RFd" firstAttribute="height" secondItem="KS5-Xr-tJa" secondAttribute="height" id="zzK-vk-MJY"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="DeU-Nl-bUu" firstAttribute="leading" secondItem="fYx-vV-9mc" secondAttribute="leading" id="444-PE-mz0"/>
+                        <constraint firstItem="Rp1-vF-UVg" firstAttribute="leading" secondItem="fYx-vV-9mc" secondAttribute="leading" id="Cbf-U9-UeF"/>
+                        <constraint firstAttribute="trailing" secondItem="DeU-Nl-bUu" secondAttribute="trailing" id="Eeo-7b-MU3"/>
+                        <constraint firstAttribute="trailing" secondItem="DeU-Nl-bUu" secondAttribute="trailing" id="H8R-Xk-3sR"/>
+                        <constraint firstItem="Nqe-rr-dfe" firstAttribute="top" secondItem="Rp1-vF-UVg" secondAttribute="bottom" id="IJi-Fn-gp8"/>
+                        <constraint firstItem="Nqe-rr-dfe" firstAttribute="leading" secondItem="fYx-vV-9mc" secondAttribute="leading" id="IwO-kY-xfe"/>
+                        <constraint firstItem="Rp1-vF-UVg" firstAttribute="top" secondItem="fYx-vV-9mc" secondAttribute="top" id="Kys-Cn-toJ"/>
+                        <constraint firstItem="DeU-Nl-bUu" firstAttribute="leading" secondItem="fYx-vV-9mc" secondAttribute="leading" id="Nsu-rQ-D4h"/>
+                        <constraint firstItem="kez-YH-KkJ" firstAttribute="top" secondItem="Nqe-rr-dfe" secondAttribute="bottom" id="Ou0-PS-bmg"/>
+                        <constraint firstAttribute="bottom" secondItem="DeU-Nl-bUu" secondAttribute="bottom" id="SX9-bf-evN"/>
+                        <constraint firstAttribute="trailing" secondItem="kez-YH-KkJ" secondAttribute="trailing" id="Ssz-MA-p48"/>
+                        <constraint firstItem="kez-YH-KkJ" firstAttribute="leading" secondItem="fYx-vV-9mc" secondAttribute="leading" id="amS-lV-7ae"/>
+                        <constraint firstItem="DeU-Nl-bUu" firstAttribute="top" secondItem="kez-YH-KkJ" secondAttribute="bottom" id="cUJ-Rd-ttV"/>
+                        <constraint firstAttribute="trailing" secondItem="Rp1-vF-UVg" secondAttribute="trailing" id="cgs-1q-dpC"/>
+                        <constraint firstAttribute="trailing" secondItem="Nqe-rr-dfe" secondAttribute="trailing" id="pCi-g0-ZLz"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7eT-ZN-m7X" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3FY-01-4CL"/>
+                <constraint firstItem="fYx-vV-9mc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DkI-4t-Zp2"/>
+                <constraint firstAttribute="trailing" secondItem="7eT-ZN-m7X" secondAttribute="trailing" id="Ktk-5h-cS1"/>
+                <constraint firstItem="7eT-ZN-m7X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LRQ-OW-3Lh"/>
+                <constraint firstAttribute="bottom" secondItem="fYx-vV-9mc" secondAttribute="bottom" id="bNf-rB-sH6"/>
+                <constraint firstAttribute="trailing" secondItem="fYx-vV-9mc" secondAttribute="trailing" id="gMf-h5-Cvc"/>
+                <constraint firstItem="fYx-vV-9mc" firstAttribute="top" secondItem="7eT-ZN-m7X" secondAttribute="bottom" constant="44" id="n7n-IN-ehk"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-13.6" y="46.326836581709152"/>
+        </view>
+    </objects>
+</document>

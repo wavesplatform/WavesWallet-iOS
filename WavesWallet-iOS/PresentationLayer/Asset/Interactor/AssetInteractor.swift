@@ -9,12 +9,13 @@
 import Foundation
 import RxSwift
 
-private enum Constants {
+fileprivate enum Constants {
     static let transactionLimit: Int = 10
 }
 
 final class AssetInteractor: AssetInteractorProtocol {
 
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
@@ -33,15 +34,12 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetTypes.DTO.Asset]> {
 
-        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
-
-        return WalletManager
-            .getPrivateKey()
-            .flatMap(weak: self) { owner, privateKey -> AsyncObservable<[AssetTypes.DTO.Asset]> in
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap(weak: self) { owner, wallet -> AsyncObservable<[AssetTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
-                    .balances(by: accountAddress,
-                              privateKey: privateKey,
+                    .balances(by: wallet,
                               isNeedUpdate: false)
                     .map {
                         $0.filter { asset -> Bool in
@@ -54,13 +52,19 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
-        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.empty() }
-        return transactionsInteractor.transactions(by: accountAddress,
-                                                   specifications: .init(page: .init(offset: 0,
-                                                                                     limit: Constants.transactionLimit),
-                                                                         assets: [assetId],
-                                                                         senders: [],
-                                                                         types: TransactionType.all))
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return owner.transactionsInteractor.transactions(by: wallet.wallet.address,
+                                                                 specifications: .init(page: .init(offset: 0,
+                                                                                            limit: Constants.transactionLimit),
+                                                                                assets: [assetId],
+                                                                                senders: [],
+                                                                                types: TransactionType.all))
+            }
     }
 
     func refreshAssets(by ids: [String]) {

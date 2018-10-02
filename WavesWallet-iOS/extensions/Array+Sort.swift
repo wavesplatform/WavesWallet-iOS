@@ -11,7 +11,7 @@ import Foundation
 
 extension Array {
     mutating func shuffle() {
-        for i in 0 ..< (count - 1) {
+        for i in 0 ..< Swift.max((count - 1), 0) {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
             swapAt(i, j)
         }

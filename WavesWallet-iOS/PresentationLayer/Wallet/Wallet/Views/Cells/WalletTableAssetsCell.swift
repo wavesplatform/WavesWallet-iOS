@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-private enum Constants {
+fileprivate enum Constants {
     static let icon: CGSize = CGSize(width: 48,
                                      height: 48)
 }
