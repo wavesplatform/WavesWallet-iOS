@@ -38,9 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
         Language.load()
-        UserDefaults.standard.set(false, forKey: "isTestEnvironment")
-        UserDefaults.standard.synchronize()
-
+        
         Swizzle(initializers: [UIView.passtroughInit,
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
@@ -48,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SweetLogger.current.visibleLevels = [.debug, .error, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = AppColors.wavesColor
+//        self.window?.backgroundColor = AppColors.wavesColor
 
 
         appCoordinator = AppCoordinator(window!)

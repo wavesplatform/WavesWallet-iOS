@@ -214,6 +214,11 @@ internal enum StoryboardScene {
 
     internal static let profileViewController = SceneType<WavesWallet_iOS.ProfileViewController>(storyboard: Profile.self, identifier: "ProfileViewController")
   }
+  internal enum Support: StoryboardType {
+    internal static let storyboardName = "Support"
+
+    internal static let supportViewController = SceneType<WavesWallet_iOS.SupportViewController>(storyboard: Support.self, identifier: "SupportViewController")
+  }
   internal enum TransactionHistory: StoryboardType {
     internal static let storyboardName = "TransactionHistory"
 
