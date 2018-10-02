@@ -23,7 +23,24 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vf-pW-rYp">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWd-e2-slm" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="0.0" width="343" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="8p0-Ag-05O"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="segmentedDidChange:" destination="S6v-Hn-QKn" eventType="valueChanged" id="36p-RP-DJO"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="FWd-e2-slm" secondAttribute="trailing" constant="16" id="6g6-YU-XRq"/>
+                                            <constraint firstItem="FWd-e2-slm" firstAttribute="leading" secondItem="0vf-pW-rYp" secondAttribute="leading" constant="16" id="ow7-o8-6lt"/>
+                                            <constraint firstItem="FWd-e2-slm" firstAttribute="top" secondItem="0vf-pW-rYp" secondAttribute="top" id="ymh-jV-Tj1"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -34,9 +51,12 @@
                                     <constraint firstItem="0vf-pW-rYp" firstAttribute="height" secondItem="RQY-dd-juI" secondAttribute="height" id="gtk-FT-wHK"/>
                                     <constraint firstItem="0vf-pW-rYp" firstAttribute="top" secondItem="RQY-dd-juI" secondAttribute="top" id="ujL-IB-9Sk"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="S6v-Hn-QKn" id="tuK-I8-c0W"/>
+                                </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="she-RY-44Y" firstAttribute="trailing" secondItem="RQY-dd-juI" secondAttribute="trailing" id="Knw-6M-isZ"/>
                             <constraint firstItem="RQY-dd-juI" firstAttribute="leading" secondItem="she-RY-44Y" secondAttribute="leading" id="daf-Mr-8BL"/>
@@ -45,6 +65,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="she-RY-44Y"/>
                     </view>
+                    <connections>
+                        <outlet property="segmentedControl" destination="FWd-e2-slm" id="HJ0-rc-Cw8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AE6-IM-WI4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

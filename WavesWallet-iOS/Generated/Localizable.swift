@@ -103,7 +103,28 @@ internal enum Localizable {
   }
           internal enum Receive {
 
+    internal enum Button {
+      /// Card
+      internal static var card: String { return Localizable.tr("Receive", "button.card") }
+      /// Continue
+      internal static var `continue`: String { return Localizable.tr("Receive", "button.continue") }
+      /// Сryptocurrency
+      internal static var cryptocurrency: String { return Localizable.tr("Receive", "button.cryptocurrency") }
+      /// Invoice
+      internal static var invoice: String { return Localizable.tr("Receive", "button.invoice") }
+      /// Select your asset
+      internal static var selectYourAsset: String { return Localizable.tr("Receive", "button.selectYourAsset") }
+      /// Use total balance
+      internal static var useTotalBalance: String { return Localizable.tr("Receive", "button.useTotalBalance") }
+    }
+
     internal enum Label {
+      /// Amount
+      internal static var amount: String { return Localizable.tr("Receive", "label.amount") }
+      /// Amount in
+      internal static var amountIn: String { return Localizable.tr("Receive", "label.amountIn") }
+      /// Asset
+      internal static var asset: String { return Localizable.tr("Receive", "label.asset") }
       /// Receive
       internal static var receive: String { return Localizable.tr("Receive", "label.receive") }
     }
