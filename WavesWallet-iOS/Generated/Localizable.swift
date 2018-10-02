@@ -246,25 +246,7 @@ internal enum Localizable {
       }
     }
 
-<<<<<<< HEAD
     internal enum Button {
-=======
-    internal enum Tabbar {
-
-      internal enum Title {
-        /// DEX
-        internal static let dex = Localizable.tr("General", "tabbar.title.dex")
-        /// History
-        internal static let history = Localizable.tr("General", "tabbar.title.history")
-        /// Profile
-        internal static let profile = Localizable.tr("General", "tabbar.title.profile")
-        /// Wallet
-        internal static let wallet = Localizable.tr("General", "tabbar.title.wallet")
-      }
-    }
-
-    internal enum Ticker {
->>>>>>> develop
 
       internal enum Confirm {
         /// Confirm
@@ -755,6 +737,20 @@ internal enum Localizable {
       internal enum Title {
         /// / My Asset
         internal static var myasset: String { return Localizable.tr("General", "label.title.myasset") }
+      }
+    }
+
+    internal enum Tabbar {
+
+      internal enum Title {
+        /// DEX
+        internal static var dex: String { return Localizable.tr("General", "tabbar.title.dex") }
+        /// History
+        internal static var history: String { return Localizable.tr("General", "tabbar.title.history") }
+        /// Profile
+        internal static var profile: String { return Localizable.tr("General", "tabbar.title.profile") }
+        /// Wallet
+        internal static var wallet: String { return Localizable.tr("General", "tabbar.title.wallet") }
       }
     }
 

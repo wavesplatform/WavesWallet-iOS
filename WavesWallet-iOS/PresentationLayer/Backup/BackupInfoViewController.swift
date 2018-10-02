@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let topLogoOffset: CGFloat = 80
+}
+
 protocol BackupInfoViewModuleOutput: AnyObject {
     func userReadedBackupInfo()
 }
@@ -25,7 +29,7 @@ final class BackupInfoViewController: UIViewController {
         super.viewDidLoad()
 
         if Platform.isIphone5 {
-            topLogoOffset.constant = 80
+            topLogoOffset.constant = Constants.topLogoOffset
         }
 
         iUnderstandButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)

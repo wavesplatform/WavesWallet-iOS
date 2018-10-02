@@ -10,6 +10,10 @@ import UIKit
 import UPCarouselFlowLayout
 import SwipeView
 
+private enum Constants {
+    static let layoutSpacing: CGFloat = 24
+}
+
 final class EnterStartCollectionCell: UICollectionViewCell {
     @IBOutlet weak var imageIcon: UIImageView!
 }
@@ -98,7 +102,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         addBgBlueImage()
         
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 24)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.layoutSpacing)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
         navigationItem.backgroundImage = UIImage()
