@@ -5,8 +5,10 @@
 "label.amount" = "Amount";
 "label.transactionFee" = "Transaction Fee";
 "label.notEnough" = "Not enough";
+"label.addressIsNotValid" = "Address is not valid";
 
 "button.chooseFromAddressBook" = "Choose from Address book";
 "button.useTotalBalance" = "Use total balance";
 "button.startLease" = "Start Lease";
 "button.useTotalBalanace" = "Use total balance";
+"button.startLease" = "Start Lease";

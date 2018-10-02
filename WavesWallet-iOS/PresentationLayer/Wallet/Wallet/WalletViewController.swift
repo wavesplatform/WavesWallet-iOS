@@ -74,10 +74,10 @@ final class WalletViewController: UIViewController {
         }
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let controller = StartLeasingModuleBuilder().build()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            let controller = StartLeasingModuleBuilder().build()
+//            self.navigationController?.pushViewController(controller, animated: true)
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -247,9 +247,9 @@ private extension WalletViewController {
 //MARK: - WalletLeasingBalanceCellDelegate
 extension WalletViewController: WalletLeasingBalanceCellDelegate {
     
-    func walletLeasingBalanceCellDidTapStartLease() {
-        let controller = StartLeasingModuleBuilder().build()
-        navigationController?.pushViewController(controller, animated: true)
+    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
+        
+        sendEvent.accept(.showStartLease(availableMoney))
     }
 }
 

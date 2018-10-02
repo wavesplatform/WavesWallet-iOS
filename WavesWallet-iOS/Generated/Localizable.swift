@@ -76,6 +76,8 @@ internal enum Localizable {
     }
 
     internal enum Label {
+      /// Address is not valid
+      internal static let addressIsNotValid = Localizable.tr("StartLeasing", "label.addressIsNotValid")
       /// Amount
       internal static let amount = Localizable.tr("StartLeasing", "label.amount")
       /// Balance

@@ -16,7 +16,7 @@ private enum Constants {
 
 protocol WalletLeasingBalanceCellDelegate: AnyObject {
 
-    func walletLeasingBalanceCellDidTapStartLease()
+    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money)
 }
 
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
@@ -40,6 +40,8 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     private var leasedPercent: CGFloat = 0
     private var leasedInPercent: CGFloat = 0
 
+    private var availableMoney: Money!
+    
     weak var delegate: WalletLeasingBalanceCellDelegate?
     
     override func awakeFromNib() {
@@ -69,12 +71,15 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
 
 private extension WalletLeasingBalanceCell {
     @objc func startLease() {
-        delegate?.walletLeasingBalanceCellDidTapStartLease()
+        delegate?.walletLeasingBalanceCellDidTapStartLease(availableMoney: availableMoney)
     }
 }
 
 extension WalletLeasingBalanceCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Leasing.Balance) {
+        
+        availableMoney = model.avaliableMoney
+        
         labelBalance.attributedText = .styleForBalance(text: model.totalMoney.displayTextFull,
                                                        font: labelAvaliableBalance.font)
         labelAvaliableBalance.attributedText = .styleForBalance(text: model.avaliableMoney.displayTextFull,
