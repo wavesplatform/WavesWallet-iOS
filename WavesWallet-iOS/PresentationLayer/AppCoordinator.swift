@@ -268,7 +268,7 @@ extension AppCoordinator {
 
     func applicationDidEnterBackground() {
         self.isActiveApp = false
-//        revokeAuthAndOpenPasscode()
+        revokeAuthAndOpenPasscode()
     }
 
     func applicationDidBecomeActive() {
