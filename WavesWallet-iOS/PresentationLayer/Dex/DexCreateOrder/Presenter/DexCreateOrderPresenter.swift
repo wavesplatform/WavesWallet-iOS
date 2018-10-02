@@ -54,6 +54,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             
             return state.mutate {
                 $0.isNeedCreateOrder = true
+                $0.order?.time = Date()
             }.changeAction(.showCreatingOrderState)
             
         case .orderDidCreate(let responce):

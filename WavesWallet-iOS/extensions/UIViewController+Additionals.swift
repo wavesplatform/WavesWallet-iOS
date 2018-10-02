@@ -8,23 +8,28 @@
 
 import Foundation
 import UIKit
-import RESideMenu
 
 extension UIViewController {
-    
+
     func createBackWhiteButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image, style: .plain, target: self, action: #selector(backTapped))
-        navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.topbarBackwhite.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
-    
+
     func createBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_back"), style: .plain, target: self, action: #selector(backTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
     }
-    
-    func createMenuButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
+
+
+    func createMenuButton(isWhite: Bool = false) {
+        let item = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
+
+        if isWhite {
+            item.tintColor = .white
+        }
+
+        navigationItem.leftBarButtonItem = item
     }
-    
+
     @objc func menuTapped() {
         let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()
@@ -64,7 +69,7 @@ extension UIViewController {
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationItem.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+            navigationItem.largeTitleDisplayMode = .automatic
         }
     }
     

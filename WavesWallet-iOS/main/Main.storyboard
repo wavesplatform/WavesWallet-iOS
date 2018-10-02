@@ -1861,14 +1861,6 @@
             </objects>
             <point key="canvasLocation" x="2404" y="545"/>
         </scene>
-        <!--SelectAccountViewController-->
-        <scene sceneID="X25-lj-oGO">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Transfer" referencedIdentifier="SelectAccountViewController" id="ttK-8U-znz" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LSc-TR-ULt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2209" y="-560"/>
-        </scene>
     </scenes>
     <resources>
         <image name="asset_change_arrows" width="14" height="14"/>

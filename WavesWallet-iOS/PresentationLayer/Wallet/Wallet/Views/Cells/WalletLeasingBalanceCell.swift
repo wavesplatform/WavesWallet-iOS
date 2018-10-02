@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let statusBarPadding: CGFloat = 32
     static let statusBarMinMediumPercent: CGFloat = 3.5
     static let statusBarMinSmallPercent: CGFloat = 2

@@ -68,7 +68,7 @@ extension DexCreateOrder.DTO {
         var total: Money
         var expiration: Expiration
         let fee: Int = Constansts.orderFee
-        let time = Date()
+        var time: Date
     }
     
     struct Output {

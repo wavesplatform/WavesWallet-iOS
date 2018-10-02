@@ -16,7 +16,7 @@ final class AssetPresenter: AssetPresenterProtocol {
     private var disposeBag: DisposeBag = DisposeBag()
     
     var interactor: AssetInteractorProtocol!
-    var moduleOutput: AssetModuleOutput?
+    weak var moduleOutput: AssetModuleOutput?
 
     let input: AssetModuleInput
 

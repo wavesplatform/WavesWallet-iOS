@@ -11,7 +11,7 @@ import RxFeedback
 import RxSwift
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let heightForFooter: CGFloat = 23
     static let contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
 }

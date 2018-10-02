@@ -38,9 +38,9 @@ enum StartLeasing {
 extension StartLeasing.DTO {
     
     struct Order {
-        var address: String
+        var recipient: String
         var amount: Money
-        let assetId: String = "WAVES"
         let fee = Constansts.fee
+        var time: Date
     }
 }

@@ -42,3 +42,9 @@ Pods/
 
 # Temp
 Temp/
+
+# Ingore Google Service
+*.GoogleService-Info.plist
+*.Fabric-Info.plist
+WavesWallet-iOS/Resources/Fabric-Info.plist
+WavesWallet-iOS/Resources/GoogleService-Info.plist

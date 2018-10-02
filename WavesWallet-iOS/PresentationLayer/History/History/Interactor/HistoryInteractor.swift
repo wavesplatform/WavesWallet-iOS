@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-private enum Constants {
+fileprivate enum Constants {
     static let limitTransactions = 10000
 }
 
@@ -74,6 +74,6 @@ final class HistoryInteractor: HistoryInteractorProtocol {
 
         return transactionsInteractor
             .transactions(by: accountAddress, specifications: specifications)
-            .observeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }

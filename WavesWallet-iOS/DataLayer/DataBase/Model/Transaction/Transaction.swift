@@ -82,15 +82,17 @@ public class Transaction: Object, IdentifiableType, Gloss.Decodable {
      WARNING: This is an internal initializer not intended for public use.
      :nodoc:
      */
+    @available(*, deprecated, message: "need remove")
     public required init(realm: RLMRealm, schema: RLMObjectSchema) {
         super.init(realm: realm, schema: schema)
     }
-
+    @available(*, deprecated, message: "need remove")
     public required init(value: Any, schema: RLMSchema) {
         super.init(value: value, schema: schema)
     }
 }
 
+@available(*, deprecated, message: "need remove")
 // equatable, this is needed to detect changes
 func == (lhs: Transaction, rhs: Transaction) -> Bool {
     return lhs.id == rhs.id

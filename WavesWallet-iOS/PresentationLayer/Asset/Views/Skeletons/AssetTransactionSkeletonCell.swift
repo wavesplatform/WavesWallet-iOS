@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static var height: CGFloat = 76
 }
 

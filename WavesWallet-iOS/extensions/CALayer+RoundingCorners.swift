@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let maskName = "calayer.mask.clip.name"
 }
 
@@ -32,9 +32,13 @@ extension CALayer {
               inverse: Bool = false) {
         
         self.mask = {
+
+            var roundedRect = rect ?? bounds
+            
+
             let mask = CAShapeLayer()
             mask.name = Constants.maskName
-            let path = UIBezierPath(roundedRect: rect ?? bounds,
+            let path = UIBezierPath(roundedRect: roundedRect,
                                     byRoundingCorners: corners,
                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
             if inverse {
@@ -42,7 +46,7 @@ extension CALayer {
                 mask.fillRule = kCAFillRuleEvenOdd
             }
 
-            mask.frame = bounds
+            mask.frame = roundedRect
             mask.path = path.cgPath
 
             mask.shadowColor = self.shadowColor

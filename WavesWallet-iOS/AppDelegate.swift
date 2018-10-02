@@ -7,21 +7,37 @@
 //
 
 import Gloss
-import IQKeyboardManagerSwift
 import RESideMenu
 import RxSwift
-import SVProgressHUD
+import IQKeyboardManagerSwift
 import UIKit
 import Moya
 import RealmSwift
-
+import FirebaseCore
+import FirebaseDatabase
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    var appCoordinator: AppCoordinator!
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: path) {
+
+            FirebaseApp.configure(options: options)
+            Database.database().isPersistenceEnabled = false
+            Fabric.with([Crashlytics.self])
+        }
+
+        IQKeyboardManager.shared.enable = true
+        UIBarButtonItem.appearance().tintColor = UIColor.black
+
+        Language.load()
         UserDefaults.standard.set(false, forKey: "isTestEnvironment")
         UserDefaults.standard.synchronize()
 
@@ -29,50 +45,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                UIView.roundedInit,
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .error]
+        SweetLogger.current.visibleLevels = [.debug, .error, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        IQKeyboardManager.shared.enable = true
-        SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0, 40))
-        SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.setDefaultMaskType(.clear)
-        UIBarButtonItem.appearance().tintColor = UIColor.black
+        self.window?.backgroundColor = AppColors.wavesColor
 
-        self.showStartController()
 
-        self.window?.makeKeyAndVisible()
+        appCoordinator = AppCoordinator(window!)
+        appCoordinator.start()
 
         return true
     }
 
-    func showStartController() {
-        self.window?.backgroundColor = AppColors.wavesColor
-        let realm = WalletManager.getWalletsRealm()
-        let w = realm.objects(WalletItem.self).filter("isLoggedIn == true")
-        if w.count > 0 {
-            WalletManager.didLogin(toWallet: w[0])
-        } else {
-            self.window!.rootViewController = StoryboardManager.launchViewController()
-        }
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
+    func applicationWillResignActive(_ application: UIApplication) {}
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         WalletManager.clearPrivateMemoryKey()
+        appCoordinator.applicationDidEnterBackground()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        appCoordinator.applicationDidBecomeActive()
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
+    func applicationWillTerminate(_ application: UIApplication) {}
 
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ application: UIApplication,
+                     open url: URL,
+                     sourceApplication: String?,
+                     annotation: Any) -> Bool {
         if let urlScheme = url.scheme, urlScheme == "waves" {
             OpenUrlManager.openUrl = url
             return true
@@ -80,6 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
+}
+
+extension AppDelegate {
 
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -87,16 +95,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var menuController: RESideMenu {
         return self.window?.rootViewController as! RESideMenu
-    }
-}
-
-// TODO: Remove
-extension AppDelegate: AssetModuleOutput {
-    func showHistory(by assetId: String) {
-        
-    }
-
-    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
-
     }
 }
