@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let topLogoOffset: CGFloat = 118
+}
+
 protocol NeedBackupModuleOutput: AnyObject {
     func userCompletedInteract(skipBackup: Bool)
 }
@@ -28,7 +32,7 @@ final class NeedBackupViewController: UIViewController {
         super.viewDidLoad()
 
         if Platform.isIphone5 {
-            topLogoOffset.constant = 118
+            topLogoOffset.constant = Constants.topLogoOffset
         }
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()        

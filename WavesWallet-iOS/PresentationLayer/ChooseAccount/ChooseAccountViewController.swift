@@ -13,6 +13,10 @@ import RxSwift
 import RxFeedback
 import MGSwipeTableCell
 
+private enum Constants {
+    static let swipeButtonWidth: CGFloat = 72
+}
+
 final class ChooseAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
 
     fileprivate typealias Types = ChooseAccountTypes
@@ -54,7 +58,7 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
         viewNoResult.frame.origin = CGPoint(x: (tableView.frame.width - viewNoResult.frame.width) * 0.5,
                                             y: (tableView.frame.height - viewNoResult.frame.height - layoutInsets.top) * 0.5)
         viewNoResult.alpha = 0
-        UIView.animate(withDuration: 0.24) {
+        UIView.animate(withDuration: UIView.fastDurationAnimation) {
             self.viewNoResult.alpha = 1
         }
     }
@@ -178,7 +182,7 @@ extension ChooseAccountViewController {
 //            edit.buttonWidth = 72
 
             let delete = MGSwipeButton(title: "", icon: Images.deladdress24Error400.image, backgroundColor: nil)
-            delete.buttonWidth = 72
+            delete.buttonWidth = Constants.swipeButtonWidth
             return [delete]
         }
         return nil

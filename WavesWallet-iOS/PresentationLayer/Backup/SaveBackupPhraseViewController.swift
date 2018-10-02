@@ -16,6 +16,11 @@ struct SaveBackupPhraseInput {
     let seed: [String]
 }
 
+private enum Constants {
+    static let copyDelay: TimeInterval = 2
+    static let lineSpacingForWords: CGFloat = 10
+}
+
 final class SaveBackupPhraseViewController: UIViewController {
 
     @IBOutlet private weak var labelWords: UILabel!
@@ -50,7 +55,7 @@ final class SaveBackupPhraseViewController: UIViewController {
         buttonCopy.isUserInteractionEnabled = false
         buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
         UIPasteboard.general.string = (input?.seed ?? []).reduce(into: "", { $0 += $1 + " " })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.copyDelay) {
             self.buttonCopy.isUserInteractionEnabled = true
             self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)
         }
@@ -75,7 +80,7 @@ final class SaveBackupPhraseViewController: UIViewController {
         }
         
         let paragraph = NSMutableParagraphStyle()
-        paragraph.lineSpacing = 10
+        paragraph.lineSpacing = Constants.lineSpacingForWords
         paragraph.alignment = .center
         let params = [NSAttributedStringKey.paragraphStyle : paragraph]
         let attributed = NSMutableAttributedString(string: text, attributes: params)

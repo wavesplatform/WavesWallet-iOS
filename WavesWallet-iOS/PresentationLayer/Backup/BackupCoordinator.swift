@@ -13,10 +13,10 @@ final class BackupCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    let viewController: UIViewController
-    let navigationController: CustomNavigationController
-    let completed: ((Bool) -> Void)
-    let seed: [String]
+    private let viewController: UIViewController
+    private let navigationController: CustomNavigationController
+    private let completed: ((Bool) -> Void)
+    private let seed: [String]
     
     init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
         self.seed = seed

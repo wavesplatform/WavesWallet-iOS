@@ -9,7 +9,7 @@
 import Gloss
 import RESideMenu
 import RxSwift
-import SVProgressHUD
+import IQKeyboardManagerSwift
 import UIKit
 import Moya
 import RealmSwift
@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
+        IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
         Language.load()

@@ -68,7 +68,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         stackTopView.addWord(word)
         
         if labelTapWord.alpha == 1 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: UIView.fastDurationAnimation) {
                 self.labelTapWord.alpha = 0
             }
         }
@@ -79,14 +79,14 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         if isFullyFilled {
             if isCorrectFilled {
                 stackTopView.isUserInteractionEnabled = false
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: UIView.fastDurationAnimation) {
                     self.stackListView.alpha = 0
                     self.buttonConfirm.alpha = 1
                 }
             } else {
                 stackTopView.errorMode = true
                 stackTopView.setNeedsDisplay()
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: UIView.fastDurationAnimation) {
                     self.labelError.alpha = 1
                     self.stackListView.alpha = 0
                 }
@@ -106,13 +106,13 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         }
 
         if stackTopView.words.count == 0 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: UIView.fastDurationAnimation) {
                 self.labelTapWord.alpha = 1
             }
         }
         
         if labelError.alpha == 1 {
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: UIView.fastDurationAnimation) {
                 self.labelError.alpha = 0
                 self.stackListView.alpha = 1
             }

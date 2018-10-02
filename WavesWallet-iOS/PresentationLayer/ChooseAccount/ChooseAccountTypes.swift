@@ -14,10 +14,6 @@ enum ChooseAccountTypes {
     enum DTO { }
 }
 
-extension ChooseAccountTypes.DTO {
-
-}
-
 extension ChooseAccountTypes {
 
     enum Action {

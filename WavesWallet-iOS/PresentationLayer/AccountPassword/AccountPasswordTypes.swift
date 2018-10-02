@@ -12,16 +12,7 @@ enum AccountPasswordTypes {
     enum DTO { }
 }
 
-extension AccountPasswordTypes.DTO {
-
-}
-
 extension AccountPasswordTypes {
-
-    enum Kind {
-
-    }
-
 
     struct State: Mutating {
 

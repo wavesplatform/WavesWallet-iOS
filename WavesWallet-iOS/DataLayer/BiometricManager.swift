@@ -41,7 +41,7 @@ extension BiometricType {
 final class BiometricManager {
 
     static var touchIDTypeText: String {
-        return type == .faceID ? "Face ID" : "Touch ID"
+        return type == .faceID ? Localizable.General.Biometric.Faceid.title : Localizable.General.Biometric.Touchid.title
     }
     
     static var type: BiometricType {
