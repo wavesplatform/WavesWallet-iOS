@@ -10,7 +10,7 @@ import Kingfisher
 import RxSwift
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let height: CGFloat = 56
     static let icon: CGSize = CGSize(width: 28,
                                      height: 28)

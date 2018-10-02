@@ -12,7 +12,7 @@ import RxFeedback
 import RxSwift
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let segmentedControlHeight: CGFloat = 100
     static let segmentedControlTopPading: CGFloat = 11
     static let segmentedControlBottomPading: CGFloat = 24

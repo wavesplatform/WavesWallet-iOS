@@ -52,6 +52,7 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
             
             return state.mutate {
                 $0.isNeedCreateOrder = true
+                $0.order?.time = Date()
                 }.changeAction(.showCreatingOrderState)
             
         case .orderDidCreate(let responce):

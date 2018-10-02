@@ -1,0 +1,20 @@
+
+
+"block.blockchain.title" = "Это Blockchain детка";
+"block.blockchain.text" = "Become part of a fast-growing area of the crypto world. You are the only person who can access your crypto assets.";
+
+"block.wallet.title" = "Wallet";
+"block.wallet.text" = "Store, manage and receive interest on your digital assets balance, easily and securely.";
+
+"block.exchange.title" = "Decentralised Exchange";
+"block.exchange.text" = "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.";
+
+"block.token.title" = "Token Launcher";
+"block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
+"button.confirm.title" = "Давай жми Макс";
+
+"button.createNewAccount.title" = "Создать Максима";
+"button.signIn.title" = "Sign in";
+"button.signIn.detail" = "to a saved account";
+"button.importAccount.title" = "Импорт харастеристик Максима";
+"button.importAccount.detail" = "via paring code or manually";

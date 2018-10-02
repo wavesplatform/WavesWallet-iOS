@@ -44,7 +44,10 @@ final class StartLeasingViewController: UIViewController {
     var availableBalance: Money! {
         didSet {
             
-            order = StartLeasing.DTO.Order(address: "", amount: Money(0, availableBalance.decimals))
+            
+            order = StartLeasing.DTO.Order(recipient: "",
+                                           amount: Money(0, availableBalance.decimals),
+                                           time: Date())
             
             if !availableBalance.isZero {
                 let amountWithFee = availableBalance.amount - order.fee
@@ -127,10 +130,10 @@ private extension StartLeasingViewController {
 private extension StartLeasingViewController {
     
     var isValidOrder: Bool {
-        return order.address.count > 0 &&
+        return order.recipient.count > 0 &&
             !isNotEnoughAmount &&
             order.amount.amount > 0 &&
-            Address.isValidAddress(address: order.address) &&
+            Address.isValidAddress(address: order.recipient) &&
             !isCreatingOrderState
     }
     
@@ -235,7 +238,7 @@ extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
     }
     
     func startLeasingGeneratorViewDidChangeAddress(_ address: String) {
-        order.address = address
+        order.recipient = address
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
     }
@@ -244,8 +247,8 @@ extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
 //MARK: - AddressBookModuleBuilderOutput
 extension StartLeasingViewController: AddressBookModuleOutput {
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
-        order.address = contact.address
-        addressGeneratorView.setupText(order.address, animation: false)
+        order.recipient = contact.address
+        addressGeneratorView.setupText(order.recipient, animation: false)
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
     }

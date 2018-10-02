@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     
     //MARK: - UI Settings
     static let BgAlpha: CGFloat = 0.4
@@ -17,8 +17,8 @@ private enum Constants {
     static let AnimationDuration: TimeInterval = 0.3
 
     //MARK: Container Settings
-    static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricManager.BiometricType.faceID ? 150 : 64
-    static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricManager.BiometricType.faceID ? 30 : 0
+    static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 150 : 64
+    static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 30 : 0
     static let ContainerOffsetOfDragPoint: CGFloat = 20
     
     //MARK: - Gesture Settings

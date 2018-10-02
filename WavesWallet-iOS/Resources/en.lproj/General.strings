@@ -37,3 +37,6 @@
 "history.transaction.title.data" = "Data transaction";
 "history.transaction.value.data" = "Entry in blockchain";
 
+"biometric.faceID.title" = "Face ID";
+"biometric.touchID.title" = "Touch ID";
+

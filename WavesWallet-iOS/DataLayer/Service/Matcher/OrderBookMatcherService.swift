@@ -15,11 +15,11 @@ extension Matcher.Service {
          Response:
          - Not implementation
          */
-        case getOrderHistory(PrivateKeyAccount, isActiveOnly: Bool)
+        case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
     }
 }
 extension Matcher.Service.OrderBook: MatcherTargetType {
-    private enum Constants {
+    fileprivate enum Constants {
         static let matcher = "matcher"
         static let orderbook = "orderbook"
         static let activeOnly = "activeOnly"
@@ -27,12 +27,12 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
 
     var path: String {
         switch self {
-        case .getOrderHistory(let privateKey, _):
+        case .getOrderHistory(let signature, _):
             return Constants.matcher
                 + "/"
                 + Constants.orderbook
                 + "/"
-                + "\(privateKey.getPublicKeyStr())".urlEscaped
+                + "\(signature.publicKey.getPublicKeyStr())".urlEscaped
         }
     }
 
@@ -57,8 +57,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch self {
-        case .getOrderHistory(let privateKey, _):
-            let signature = TimestampSignature(privateKey: privateKey)
+        case .getOrderHistory(let signature, _):            
             headers.merge(signature.parameters) { a, _ in a }
         }
 

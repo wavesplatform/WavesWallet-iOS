@@ -116,21 +116,21 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
             }
             else {
                 
-                if WalletManager.currentWallet?.matcherKeyAccount == nil {
-
-                    NetworkManager.getMatcherPublicKey(complete: { (key, errorMessage) in
-                        if errorMessage != nil {
-                            self.presentBasicAlertWithTitle(title: errorMessage!)
-                        }
-                        else {
-                            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key!))
-                            self.setupInfo(info)
-                        }
-                    })
-                }
-                else {
-                    self.setupInfo(info)
-                }
+//                if WalletManager.currentWallet?.matcherKeyAccount == nil {
+//
+//                    NetworkManager.getMatcherPublicKey(complete: { (key, errorMessage) in
+//                        if errorMessage != nil {
+//                            self.presentBasicAlertWithTitle(title: errorMessage!)
+//                        }
+//                        else {
+//                            WalletManager.currentWallet?.matcherKeyAccount = PublicKeyAccount(publicKey: Base58.decode(key!))
+//                            self.setupInfo(info)
+//                        }
+//                    })
+//                }
+//                else {
+//                    self.setupInfo(info)
+//                }
             }
         }
 
@@ -298,32 +298,32 @@ class CreateOrderViewController: UITableViewController, UITextFieldDelegate, Ord
     }
     
     func executeSellBuyAction() {
-        WalletManager.getPrivateKey(complete: { (privateKey) in
-            SVProgressHUD.show()
-            
-            let publicKey = WalletManager.currentWallet!.publicKeyAccount
-            let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
-            
-            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
-            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
-            
-            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: self.orderType, price: price, amount: amount)
-            order.senderPrivateKey = privateKey
-            
-            NetworkManager.buySellOrder(order: order, complete: { (errorMessage) in
-                SVProgressHUD.dismiss()
-                
-                if errorMessage != nil {
-                    self.presentBasicAlertWithTitle(title: errorMessage!)
-                }
-                else {
-                    self.presentSuccessAlert()
-                }
-            })
-        }) { (errorMessage) in
-            self.presentBasicAlertWithTitle(title: errorMessage)
-        }
-        
+//        WalletManager.getPrivateKey(complete: { (privateKey) in
+//            SVProgressHUD.show()
+//
+//            let publicKey = WalletManager.currentWallet!.publicKeyAccount
+//            let matcherKey =  WalletManager.currentWallet!.matcherKeyAccount!
+//
+//            let price = MoneyUtil.parseUnscaled(self.textFieldPrice.text!, 8 + self.priceAssetDecimal - self.amountAssetDecimal)!
+//            let amount = MoneyUtil.parseUnscaled(self.textFieldAmount.text!, self.amountAssetDecimal)!
+//
+//            let order = Order(senderPublicKey: publicKey, matcherPublicKey: matcherKey, assetPair: self.getAssetPair(), orderType: self.orderType, price: price, amount: amount)
+//            order.senderPrivateKey = privateKey
+//
+//            NetworkManager.buySellOrder(order: order, complete: { (errorMessage) in
+//                SVProgressHUD.dismiss()
+//
+//                if errorMessage != nil {
+//                    self.presentBasicAlertWithTitle(title: errorMessage!)
+//                }
+//                else {
+//                    self.presentSuccessAlert()
+//                }
+//            })
+//        }) { (errorMessage) in
+//            self.presentBasicAlertWithTitle(title: errorMessage)
+//        }
+
     }
     
     @IBAction func buySellTapped(_ sender: Any) {
