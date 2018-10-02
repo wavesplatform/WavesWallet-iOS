@@ -10,23 +10,19 @@ final class MainTabBarController: RDVTabBarController {
     override var viewControllers: [Any]! {
         didSet {
             let walletItem = tabBar.items[0] as! RDVTabBarItem
-            walletItem.title = "Wallet"
-            walletItem.setFinishedSelectedImage(UIImage(named: "tab_bar_wallet_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_wallet_gray"))
+            walletItem.setFinishedSelectedImage(Images.TabBar.tabBarWalletActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarWallet.image)
 
             let dexItem = tabBar.items[1] as! RDVTabBarItem
-            dexItem.title = "DEX"
-            dexItem.setFinishedSelectedImage(UIImage(named: "tab_bar_dex_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_dex_gray"))
+            dexItem.setFinishedSelectedImage(Images.TabBar.tabBarDexActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarDex.image)
 
             let plusItem = tabBar.items[2] as! RDVTabBarItem
-            plusItem.setFinishedSelectedImage(UIImage(named: "tab_bar_plus"), withFinishedUnselectedImage: UIImage(named: "tab_bar_plus"))
+            plusItem.setFinishedSelectedImage(Images.TabBar.tabBarPlusActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarPlus.image)
 
             let historyItem = tabBar.items[3] as! RDVTabBarItem
-            historyItem.title = "History"
-            historyItem.setFinishedSelectedImage(UIImage(named: "tab_bar_history_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_history_gray"))
+            historyItem.setFinishedSelectedImage(Images.TabBar.tabBarHistoryActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarHistory.image)
 
             let profileItem = tabBar.items[4] as! RDVTabBarItem
-            profileItem.title = "Profile"
-            profileItem.setFinishedSelectedImage(UIImage(named: "tab_bar_profile_black"), withFinishedUnselectedImage: UIImage(named: "tab_bar_profile_gray"))
+            profileItem.setFinishedSelectedImage(Images.TabBar.tabBarProfileActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarProfile.image)
             
             for tabBarItem in tabBar.items {
                 setupTabBarItem(tabBarItem as! RDVTabBarItem)

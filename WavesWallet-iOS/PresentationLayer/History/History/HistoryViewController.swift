@@ -19,13 +19,15 @@ fileprivate enum Constants {
 
 final class HistoryViewController: UIViewController {
     
-    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var isRefreshing: Bool = false
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTextLabel: UILabel!
     
     var presenter: HistoryPresenterProtocol!
     
@@ -41,6 +43,7 @@ final class HistoryViewController: UIViewController {
         
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
+        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
         
         setupSegmentedControl()
         setupRefreshControl()

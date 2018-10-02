@@ -45,15 +45,16 @@ internal struct ColorAsset {
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
   internal enum TabBar {
-    internal static let tabBarDexBlack = ImageAsset(name: "tab_bar_dex_black")
-    internal static let tabBarDexGray = ImageAsset(name: "tab_bar_dex_gray")
-    internal static let tabBarHistoryBlack = ImageAsset(name: "tab_bar_history_black")
-    internal static let tabBarHistoryGray = ImageAsset(name: "tab_bar_history_gray")
+    internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
+    internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
+    internal static let tabBarHistory = ImageAsset(name: "tab_bar_history")
+    internal static let tabBarHistoryActive = ImageAsset(name: "tab_bar_history_active")
     internal static let tabBarPlus = ImageAsset(name: "tab_bar_plus")
-    internal static let tabBarProfileBlack = ImageAsset(name: "tab_bar_profile_black")
-    internal static let tabBarProfileGray = ImageAsset(name: "tab_bar_profile_gray")
-    internal static let tabBarWalletBlack = ImageAsset(name: "tab_bar_wallet_black")
-    internal static let tabBarWalletGray = ImageAsset(name: "tab_bar_wallet_gray")
+    internal static let tabBarPlusActive = ImageAsset(name: "tab_bar_plus_active")
+    internal static let tabBarProfile = ImageAsset(name: "tab_bar_profile")
+    internal static let tabBarProfileActive = ImageAsset(name: "tab_bar_profile_active")
+    internal static let tabBarWallet = ImageAsset(name: "tab_bar_wallet")
+    internal static let tabBarWalletActive = ImageAsset(name: "tab_bar_wallet_active")
   }
   internal enum Wallet {
     internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
@@ -263,15 +264,16 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
-    TabBar.tabBarDexBlack,
-    TabBar.tabBarDexGray,
-    TabBar.tabBarHistoryBlack,
-    TabBar.tabBarHistoryGray,
+    TabBar.tabBarDex,
+    TabBar.tabBarDexActive,
+    TabBar.tabBarHistory,
+    TabBar.tabBarHistoryActive,
     TabBar.tabBarPlus,
-    TabBar.tabBarProfileBlack,
-    TabBar.tabBarProfileGray,
-    TabBar.tabBarWalletBlack,
-    TabBar.tabBarWalletGray,
+    TabBar.tabBarPlusActive,
+    TabBar.tabBarProfile,
+    TabBar.tabBarProfileActive,
+    TabBar.tabBarWallet,
+    TabBar.tabBarWalletActive,
     Wallet.walletArrowGreen,
     Wallet.walletArrowHeader,
     Wallet.walletScanner,
