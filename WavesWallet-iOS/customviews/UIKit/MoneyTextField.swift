@@ -14,9 +14,9 @@ private enum Constants {
     static let locale = Locale(identifier: "en_US")
 }
 
-protocol InputNumericTextFieldDelegate: AnyObject {
+protocol MoneyTextFieldDelegate: AnyObject {
 
-    func inputNumericTextField(_ textField: MoneyTextField, didChangeValue value: Money)
+    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
 }
 
 final class MoneyTextField: UITextField {
@@ -36,7 +36,7 @@ final class MoneyTextField: UITextField {
         }
     }
 
-    weak var inputNumericDelegate: InputNumericTextFieldDelegate?
+    weak var inputNumericDelegate: MoneyTextFieldDelegate?
     var isShakeView: Bool = true
     var decimals: Int = 0
 
@@ -162,7 +162,7 @@ extension MoneyTextField: UITextFieldDelegate {
             attributedText = nil
         }
     
-        inputNumericDelegate?.inputNumericTextField(self, didChangeValue: value)
+        inputNumericDelegate?.moneyTextField(self, didChangeValue: value)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

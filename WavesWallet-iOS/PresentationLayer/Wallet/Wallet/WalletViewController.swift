@@ -72,6 +72,12 @@ final class WalletViewController: UIViewController {
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            let controller = StartLeasingModuleBuilder().build()
+//            self.navigationController?.pushViewController(controller, animated: true)
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -212,6 +218,7 @@ private extension WalletViewController {
 
     func setupTableView() {
         displayData.delegate = self
+        displayData.balanceCellDelegate = self
     }
 
     func setupSegmetedControl() {
@@ -219,6 +226,15 @@ private extension WalletViewController {
         segmentedControl
             .segmentedControl
             .update(with: buttons, animated: true)
+    }
+}
+
+//MARK: - WalletLeasingBalanceCellDelegate
+extension WalletViewController: WalletLeasingBalanceCellDelegate {
+    
+    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
+        
+        sendEvent.accept(.showStartLease(availableMoney))
     }
 }
 

@@ -18,10 +18,13 @@ protocol WalletDisplayDataDelegate: AnyObject {
 
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
+
     private var sections: [Section] = []
     private weak var tableView: UITableView!
 
     weak var delegate: WalletDisplayDataDelegate?
+    weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
+
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
@@ -59,7 +62,7 @@ extension WalletDisplayData: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let item = sections[indexPath.section].items[indexPath.row]
-
+    
         switch item {
         case .historySkeleton:
             return tableView.dequeueCell() as WalletHistorySkeletonCell
@@ -73,6 +76,7 @@ extension WalletDisplayData: UITableViewDataSource {
         case .balance(let balance):
             let cell: WalletLeasingBalanceCell = tableView.dequeueCell()
             cell.update(with: balance)
+            cell.delegate = balanceCellDelegate
             return cell
 
         case .leasingTransaction(let transaction):

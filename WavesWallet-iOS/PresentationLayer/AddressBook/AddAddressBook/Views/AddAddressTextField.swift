@@ -144,7 +144,7 @@ private extension AddAddressTextField {
         
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
-        
+
         firstAvailableViewController().present(readerVC, animated: true) {
             UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         }

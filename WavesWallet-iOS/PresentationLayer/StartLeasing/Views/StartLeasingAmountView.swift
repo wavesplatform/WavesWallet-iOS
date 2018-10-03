@@ -1,8 +1,8 @@
 //
-//  DexCreateInputView.swift
+//  StartLeasingAmountView.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 9/11/18.
+//  Created by Pavel Gubin on 9/29/18.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
@@ -13,36 +13,36 @@ private enum Constants {
     static let animationErrorLabelDuration: TimeInterval = 0.3
 }
 
-protocol DexCreateOrderInputViewDelegate: AnyObject {
-    func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money)
+protocol StartLeasingAmountViewDelegate: AnyObject {
+    func startLeasingAmountView(didChangeValue value: Money)
 }
 
-
-final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
-
+final class StartLeasingAmountView: UIView, NibOwnerLoadable {
+    
     struct Input {
         let text: String
         let value: Money
     }
     
     private var isShowInputScrollView = false
-    private var input: [Input] = []
     private var isHiddenErrorLabel = true
+    private var input: [Input] = []
     
-    @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var textField: MoneyTextField!
-    @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
+    @IBOutlet private weak var labelAmountLocalizable: UILabel!
+    @IBOutlet weak var labelAmount: UILabel!
+    @IBOutlet private weak var textFieldMoney: MoneyTextField!
+    @IBOutlet private weak var scrollViewInput: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
+    @IBOutlet private weak var scrollViewInputHeight: NSLayoutConstraint!
     @IBOutlet private weak var labelError: UILabel!
     
-    weak var delegate: DexCreateOrderInputViewDelegate?
+    weak var delegate: StartLeasingAmountViewDelegate?
     
     var maximumFractionDigits: Int = 0 {
         didSet {
-            textField.decimals = maximumFractionDigits
+            textFieldMoney.decimals = maximumFractionDigits
         }
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -51,27 +51,14 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        labelAmountLocalizable.text = Localizable.StartLeasing.Label.amount
+        viewTextField.addTableCellShadowStyle()
+        scrollViewInput.inputDelegate = self
+        textFieldMoney.inputNumericDelegate = self
         labelError.alpha = 0
-        inputScrollView.inputDelegate = self
-        textField.inputNumericDelegate = self
-        hideInputScrollView(animation: false)
-    }
-    
-    
-    //MARK: - Methods
-    func setupTitle(title: String) {
-        labelTitle.text = title
-    }
-
-    
-    func setupValue(_ value: Money) {
-        textField.setValue(value: value)
-        hideInputScrollView(animation: false)
-    }
+   }
     
     func showErrorMessage(message: String, isShow: Bool) {
-    
         if isShow {
             labelError.text = message
             
@@ -92,65 +79,49 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
             }
         }
     }
-}
-
-//MARK: - ViewConfiguration
-
-extension DexCreateOrderInputView: ViewConfiguration {
-
-    func update(with input: [Input]) {
-        
-        self.input = input
-        
-        isShowInputScrollView = input.count > 0
-        inputScrollView.update(with: input.map({$0.text}))
-        updateViewHeight(inputValue: textField.value, animation: false)
+    
+    func activateTextField() {
+        textFieldMoney.becomeFirstResponder()
     }
 }
 
-//MARK: - InputNumericTextFieldDelegate
-extension DexCreateOrderInputView: MoneyTextFieldDelegate {
-  
+
+//MARK: - MoneyTextFieldDelegate
+extension StartLeasingAmountView: MoneyTextFieldDelegate {
+    
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        textFieldDidChangeNewValue()
+        delegate?.startLeasingAmountView(didChangeValue: value)
+        updateViewHeight(inputValue: value, animation: true)
+    }
+}
+
+//MARK: - ViewConfiguration
+extension StartLeasingAmountView: ViewConfiguration {
+    
+    func update(with input: [Input]) {
+        
+        self.input = input
+        isShowInputScrollView = input.count > 0
+        scrollViewInput.update(with: input.map({$0.text}))
+        updateViewHeight(inputValue: textFieldMoney.value, animation: false)
     }
 }
 
 //MARK: - InputScrollButtonsViewDelegate
-extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
+extension StartLeasingAmountView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
-        hideInputScrollView(animation: true)
         
         let value = input[index].value
-        textField.setValue(value: value)
-        textFieldDidChangeNewValue()
+        textFieldMoney.setValue(value: value)
+        delegate?.startLeasingAmountView(didChangeValue: value)
+        updateViewHeight(inputValue: value, animation: true)
     }
 }
 
-//MARK: - Actions
-private extension DexCreateOrderInputView {
-   
-    @IBAction func plusTapped(_ sender: Any) {
-        textField.addPlusValue()
-        
-        textFieldDidChangeNewValue()
-    }
-    
-    @IBAction func minusTapped(_ sender: Any) {
-        textField.addMinusValue()
-        textFieldDidChangeNewValue()
-    }
-    
-    func textFieldDidChangeNewValue() {
-        
-        delegate?.dexCreateOrder(inputView: self, didChangeValue: textField.value)
-        updateViewHeight(inputValue: textField.value, animation: true)
-    }
-}
 
 //MARK: - Change frame
-private extension DexCreateOrderInputView {
+private extension StartLeasingAmountView {
     
     func updateViewHeight(inputValue: Money, animation: Bool) {
         
@@ -169,7 +140,7 @@ private extension DexCreateOrderInputView {
     
     func showInputScrollView(animation: Bool) {
         
-        let height = inputScrollView.frame.origin.y + inputScrollView.frame.size.height
+        let height = scrollViewInput.frame.origin.y + scrollViewInput.frame.size.height
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
@@ -180,7 +151,7 @@ private extension DexCreateOrderInputView {
         
         let height = viewTextField.frame.origin.y + viewTextField.frame.size.height
         guard heightConstraint.constant != height else { return }
-
+        
         heightConstraint.constant = height
         updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: false)
     }
@@ -189,11 +160,11 @@ private extension DexCreateOrderInputView {
         if animation {
             UIView.animate(withDuration: Constants.animationFrameDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
-                self.inputScrollView.alpha = isShowInputScrollView ? 1 : 0
+                self.scrollViewInput.alpha = isShowInputScrollView ? 1 : 0
             }
         }
         else {
-            inputScrollView.alpha = isShowInputScrollView ? 1 : 0
+            scrollViewInput.alpha = isShowInputScrollView ? 1 : 0
         }
     }
     
