@@ -149,6 +149,38 @@ internal enum Localizable {
       internal static var totalIn: String { return Localizable.tr("DexCreateOrder", "label.totalIn") }
     }
   }
+          internal enum StartLeasing {
+
+    internal enum Button {
+      /// Choose from Address book
+      internal static var chooseFromAddressBook: String { return Localizable.tr("StartLeasing", "button.chooseFromAddressBook") }
+      /// Start Lease
+      internal static var startLease: String { return Localizable.tr("StartLeasing", "button.startLease") }
+      /// Use total balance
+      internal static var useTotalBalanace: String { return Localizable.tr("StartLeasing", "button.useTotalBalanace") }
+      /// Use total balance
+      internal static var useTotalBalance: String { return Localizable.tr("StartLeasing", "button.useTotalBalance") }
+    }
+
+    internal enum Label {
+      /// Address is not valid
+      internal static var addressIsNotValid: String { return Localizable.tr("StartLeasing", "label.addressIsNotValid") }
+      /// Amount
+      internal static var amount: String { return Localizable.tr("StartLeasing", "label.amount") }
+      /// Balance
+      internal static var balance: String { return Localizable.tr("StartLeasing", "label.balance") }
+      /// Generator
+      internal static var generator: String { return Localizable.tr("StartLeasing", "label.generator") }
+      /// Node address...
+      internal static var nodeAddress: String { return Localizable.tr("StartLeasing", "label.nodeAddress") }
+      /// Not enough
+      internal static var notEnough: String { return Localizable.tr("StartLeasing", "label.notEnough") }
+      /// Start leasing
+      internal static var startLeasing: String { return Localizable.tr("StartLeasing", "label.startLeasing") }
+      /// Transaction Fee
+      internal static var transactionFee: String { return Localizable.tr("StartLeasing", "label.transactionFee") }
+    }
+  }
           internal enum AddressBook {
 
     internal enum Label {

@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-protocol WalletDisplayDataDelegate {
+protocol WalletDisplayDataDelegate: AnyObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
 
     func tableViewDidSelect(indexPath: IndexPath)
@@ -19,11 +19,13 @@ protocol WalletDisplayDataDelegate {
 
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
-    var delegate: WalletDisplayDataDelegate?
+    weak var delegate: WalletDisplayDataDelegate?
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    private lazy var configureCell: ConfigureCell<Section> = { _, tableView, _, item in
+    weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
+    
+    private lazy var configureCell: ConfigureCell<Section> = { [weak self] _, tableView, _, item in
 
         switch item {
         case .historySkeleton:
@@ -38,6 +40,7 @@ final class WalletDisplayData: NSObject {
         case .balance(let balance):
             let cell: WalletLeasingBalanceCell = tableView.dequeueCell()
             cell.update(with: balance)
+            cell.delegate = self?.balanceCellDelegate
             return cell
 
         case .leasingTransaction(let transaction):

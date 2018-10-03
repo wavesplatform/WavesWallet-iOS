@@ -27,6 +27,8 @@ final class InputScrollButtonsView: UIScrollView {
    
     private var input: [String] = []
     
+    var startOffset: CGFloat = Constants.startOffset
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -37,6 +39,7 @@ final class InputScrollButtonsView: UIScrollView {
     }
     
     private func initialize() {
+        clipsToBounds = true
         showsHorizontalScrollIndicator = false
     }
 }
@@ -55,7 +58,7 @@ private extension InputScrollButtonsView {
     func setupView() {
         subviews.forEach( {$0.removeFromSuperview()})
         
-        var scrollWidth: CGFloat = Constants.startOffset
+        var scrollWidth: CGFloat = startOffset
         
         for (index, value) in input.enumerated() {
             let button = createButton(title: value)
