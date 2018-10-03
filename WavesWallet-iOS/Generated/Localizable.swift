@@ -112,8 +112,6 @@ internal enum Localizable {
       internal static var cryptocurrency: String { return Localizable.tr("Receive", "button.cryptocurrency") }
       /// Invoice
       internal static var invoice: String { return Localizable.tr("Receive", "button.invoice") }
-      /// Select your asset
-      internal static var selectYourAsset: String { return Localizable.tr("Receive", "button.selectYourAsset") }
       /// Use total balance
       internal static var useTotalBalance: String { return Localizable.tr("Receive", "button.useTotalBalance") }
     }
@@ -127,6 +125,8 @@ internal enum Localizable {
       internal static var asset: String { return Localizable.tr("Receive", "label.asset") }
       /// Receive
       internal static var receive: String { return Localizable.tr("Receive", "label.receive") }
+      /// Select your asset
+      internal static var selectYourAsset: String { return Localizable.tr("Receive", "label.selectYourAsset") }
     }
   }
           internal enum DexCreateOrder {

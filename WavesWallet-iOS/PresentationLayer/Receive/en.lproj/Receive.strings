@@ -2,11 +2,11 @@
 "label.asset" = "Asset";
 "label.amount" = "Amount";
 "label.amountIn" = "Amount in";
+"label.selectYourAsset" = "Select your asset";
 
 "button.cryptocurrency" = "Сryptocurrency";
 "button.invoice" = "Invoice";
 "button.card" = "Card";
 "button.continue" = "Continue";
-"button.selectYourAsset" = "Select your asset";
 "button.useTotalBalance" = "Use total balance";
 

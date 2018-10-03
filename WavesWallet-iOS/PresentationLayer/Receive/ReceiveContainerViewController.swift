@@ -63,9 +63,7 @@ private extension ReceiveContainerViewController {
     }
     
     @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
-        
-        debug(#function)
-        
+                
         if gesture.direction == .left {
 
             let index = segmentedControl.selectedIndex + 1
@@ -116,6 +114,7 @@ private extension ReceiveContainerViewController {
         swipeLeft.direction = .left
         scrollViewContainer.addGestureRecognizer(swipeLeft)
     }
+
     
     func setupSegmentedControl() {
         

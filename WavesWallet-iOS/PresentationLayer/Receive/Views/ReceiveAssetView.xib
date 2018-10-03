@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReceiveAssetView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelAssetLocalization" destination="9dU-Pm-lms" id="gpO-r5-h1t"/>
+                <outlet property="labelSelectAsset" destination="ZyM-hx-YX5" id="9FI-8q-B62"/>
+                <outlet property="viewContainer" destination="R6M-IK-Z8L" id="7ST-SL-3Mk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Asset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dU-Pm-lms">
+                    <rect key="frame" x="16" y="0.0" width="34" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6M-IK-Z8L">
+                    <rect key="frame" x="16" y="24" width="343" height="48"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changearrows14Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="swX-PX-8qH">
+                            <rect key="frame" x="315" y="17" width="14" height="14"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your asset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZyM-hx-YX5">
+                            <rect key="frame" x="14" y="13.5" width="132" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="swX-PX-8qH" secondAttribute="trailing" constant="14" id="EUc-Ba-6qU"/>
+                        <constraint firstAttribute="height" constant="48" id="dKG-hg-Jc0"/>
+                        <constraint firstItem="ZyM-hx-YX5" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="lyW-lL-K8e"/>
+                        <constraint firstItem="swX-PX-8qH" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="r8F-5q-7ra"/>
+                        <constraint firstItem="ZyM-hx-YX5" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" constant="14" id="xp0-3k-KVd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="9dU-Pm-lms" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CYo-gL-f9W"/>
+                <constraint firstItem="R6M-IK-Z8L" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="K6V-4B-1c8"/>
+                <constraint firstItem="R6M-IK-Z8L" firstAttribute="top" secondItem="9dU-Pm-lms" secondAttribute="bottom" constant="8" id="Z2b-cp-as2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="R6M-IK-Z8L" secondAttribute="trailing" constant="16" id="ccq-Kq-Sy5"/>
+                <constraint firstItem="9dU-Pm-lms" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="vKu-EU-VMA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="138.40000000000001" y="172.71364317841082"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="changearrows14Basic500" width="14" height="14"/>
+    </resources>
+</document>
