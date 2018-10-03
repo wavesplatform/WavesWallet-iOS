@@ -40,7 +40,7 @@
                             <rect key="frame" x="14" y="0.0" width="282.5" height="48"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                             <connections>
                                 <action selector="addressDidChange:" destination="-1" eventType="editingChanged" id="qSb-w6-2At"/>
                                 <outlet property="delegate" destination="-1" id="3T9-ng-NGU"/>

@@ -58,6 +58,10 @@ final class AppCoordinator: Coordinator {
     private var isActiveApp: Bool = false
     private var needShowMainDisplayAfterAuth: Bool = false
 
+    #if DEBUG
+        private var isTest: Bool = true
+    #endif
+
     init(_ window: UIWindow) {
         self.window = window
     }
@@ -67,14 +71,13 @@ final class AppCoordinator: Coordinator {
         self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
 
-        authoAuthorizationInteractor
-            .lastWalletLoggedIn()
-            .take(1)
-            .flatMap(weak: self, selector: { $0.currentDisplay })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showDisplay })
-            .disposed(by: disposeBag)
+        #if DEBUG
+            let vc = StoryboardScene.Support.supportViewController.instantiate()
+            vc.delegate = self
+            self.window.rootViewController!.present(vc, animated: true, completion: nil)
+        #else
+            logInApplication()
+        #endif
     }
 
     private var isMainTabDisplayed: Bool {
@@ -106,6 +109,49 @@ final class AppCoordinator: Coordinator {
                     return .mainWithPasscode(wallet)
                 }
             }
+    }
+
+    private func logInApplication() {
+        authoAuthorizationInteractor
+            .lastWalletLoggedIn()
+            .take(1)
+            .flatMap(weak: self, selector: { $0.currentDisplay })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .disposed(by: disposeBag)
+    }
+
+    private func revokeAuthAndOpenPasscode() {
+        authoAuthorizationInteractor
+            .revokeAuth()
+            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return owner.authoAuthorizationInteractor
+                    .lastWalletLoggedIn()
+                    .take(1)
+                    .errorOnNil()
+            }
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: SupportViewControllerDelegate
+extension AppCoordinator: SupportViewControllerDelegate  {
+    func closeSupportView() {
+
+        #if DEBUG
+        isTest = false        
+        #endif
+        self.window.rootViewController?.dismiss(animated: true, completion: {
+            self.logInApplication()
+        })
     }
 }
 
@@ -159,11 +205,9 @@ extension AppCoordinator {
             showPasscode(wallet: wallet)
 
         case .mainWithPasscode(let wallet):
-            needShowMainDisplayAfterAuth = true
             showPasscode(wallet: wallet, animated: false)
 
         case .enter:
-
             showEnter()
         }
     }
@@ -247,28 +291,16 @@ extension AppCoordinator {
 // MARK: Lifecycle application
 extension AppCoordinator {
 
-    private func revokeAuthAndOpenPasscode() {
-        authoAuthorizationInteractor
-            .revokeAuth()
-            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
-
-                guard let owner = self else { return Observable.never() }
-
-                return owner.authoAuthorizationInteractor
-                    .lastWalletLoggedIn()
-                    .take(1)
-                    .errorOnNil()
-            }
-            .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
-            .disposed(by: disposeBag)
-    }
-
     func applicationDidEnterBackground() {
         self.isActiveApp = false
-        revokeAuthAndOpenPasscode()
+
+        #if DEBUG
+            if isTest == false {
+                revokeAuthAndOpenPasscode()
+            }
+        #else
+            revokeAuthAndOpenPasscode()
+        #endif
     }
 
     func applicationDidBecomeActive() {
