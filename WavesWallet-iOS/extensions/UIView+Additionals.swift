@@ -16,9 +16,9 @@ extension UIView {
         setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                    color: .black,
                                    opacity: 0.15,
-                                   radius: 4,
-                                   shouldRasterize: true,
-                                   path: UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath))
+                                   shadowRadius: 4,
+                                   cornerRadius: 2,
+                                   shouldRasterize: true))
     }
     
     class func loadView() -> UIView {
