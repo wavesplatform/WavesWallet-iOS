@@ -21,8 +21,8 @@ extension DomainLayer.DTO {
 
         let signature: String?
         let recipient: String
-        var assetId: String?
-        let feeAssetId: String?
+        var assetId: String
+        let feeAssetId: String
         let feeAsset: String?
         let amount: Int64
         let attachment: String?

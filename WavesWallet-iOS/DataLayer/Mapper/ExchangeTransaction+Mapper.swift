@@ -135,8 +135,8 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         expiration = order.expiration
         matcherFee = order.matcherFee
         signature = order.signature
-        assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair.amountAsset,
-                                                                  priceAsset: order.assetPair.priceAsset)
+        assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair.amountAsset.normalizeAssetId,
+                                                                  priceAsset: order.assetPair.priceAsset.normalizeAssetId)
     }
 
     init(order: ExchangeTransactionOrder) {
@@ -151,8 +151,13 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         expiration = order.expiration
         matcherFee = order.matcherFee
         signature = order.signature
-        assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair?.amountAsset ?? "",
-                                                                  priceAsset: order.assetPair?.priceAsset ?? "")
+
+        let amountAssetId = order.assetPair?.amountAsset
+        let priceAssetId = order.assetPair?.priceAsset
+        
+
+        assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAssetId.normalizeAssetId,
+                                                                  priceAsset: priceAssetId.normalizeAssetId)
     }
 }
 
