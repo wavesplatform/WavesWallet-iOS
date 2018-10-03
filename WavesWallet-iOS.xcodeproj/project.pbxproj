@@ -701,6 +701,8 @@
 		E9BCF48121636DAC00FA6502 /* ReponceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C540E3212F8D5200253BDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		E9C5732921652094002FB6E4 /* ReceiveAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C5732821652094002FB6E4 /* ReceiveAssetView.swift */; };
+		E9C5732B216520B7002FB6E4 /* ReceiveAssetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5732A216520B7002FB6E4 /* ReceiveAssetView.xib */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */; };
@@ -1508,6 +1510,8 @@
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponceTypes.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
+		E9C5732821652094002FB6E4 /* ReceiveAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAssetView.swift; sourceTree = "<group>"; };
+		E9C5732A216520B7002FB6E4 /* ReceiveAssetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAssetView.xib; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CB908020D1756B000E54AA /* ChooseAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAssetViewController.swift; sourceTree = "<group>"; };
@@ -2981,12 +2985,13 @@
 		E95B48162163A3DE004D4E39 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
+				E9C5732721652082002FB6E4 /* Views */,
 				E95B48232163A5DB004D4E39 /* Card */,
 				E95B48202163A5B7004D4E39 /* Invoice */,
 				E95B481D2163A582004D4E39 /* Сryptocurrency */,
-				E95B481B2163A489004D4E39 /* Receive.storyboard */,
 				E95B48172163A44F004D4E39 /* ReceiveContainerViewController.swift */,
 				E95B48192163A463004D4E39 /* ReceiveContainerModuleBuilder.swift */,
+				E95B481B2163A489004D4E39 /* Receive.storyboard */,
 				E95B482A2163A7C3004D4E39 /* Receive.strings */,
 			);
 			path = Receive;
@@ -3575,6 +3580,15 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		E9C5732721652082002FB6E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9C5732821652094002FB6E4 /* ReceiveAssetView.swift */,
+				E9C5732A216520B7002FB6E4 /* ReceiveAssetView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E9DEECE620BEF90300F28C67 /* Waves */ = {
 			isa = PBXGroup;
 			children = (
@@ -3900,6 +3914,7 @@
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E96C0B65215E98C3003F0278 /* (null) in Resources */,
 				E9B087F82163886800937644 /* DexMyOrders.strings in Resources */,
+				E9C5732B216520B7002FB6E4 /* ReceiveAssetView.xib in Resources */,
 				0AF922FA212E1234003BA067 /* MyOrderHeaderView.xib in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				0A762D7621639FA60019D447 /* TransactionHistory.strings in Resources */,
@@ -4736,6 +4751,7 @@
 				0A5E4BB5213805B400E3C3C3 /* MassTransferTransaction.swift in Sources */,
 				0A5E4BBA21381E3400E3C3C3 /* DataTransaction.swift in Sources */,
 				0A61B593214AB4E700EC60FC /* AppCoordinator.swift in Sources */,
+				E9C5732921652094002FB6E4 /* ReceiveAssetView.swift in Sources */,
 				E95B480421638BE9004D4E39 /* TransactionCommentView.swift in Sources */,
 				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,
 				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
