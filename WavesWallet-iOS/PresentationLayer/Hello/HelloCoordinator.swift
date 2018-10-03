@@ -24,15 +24,18 @@ final class HelloCoordinator: Coordinator {
     private var viewController: UIViewController
     private var navigationController: UINavigationController!
 
-    init(viewController: UIViewController) {
+    private let presentCompletion: (() -> Void)
+
+    init(viewController: UIViewController, presentCompletion: @escaping (() -> Void)) {
         self.viewController = viewController
+        self.presentCompletion = presentCompletion
     }
 
     func start() {
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
         vc.output = self
         navigationController = UINavigationController(rootViewController: vc)
-        viewController.present(navigationController, animated: false, completion: nil)
+        viewController.present(navigationController, animated: false, completion: presentCompletion)
     }
 }
 
