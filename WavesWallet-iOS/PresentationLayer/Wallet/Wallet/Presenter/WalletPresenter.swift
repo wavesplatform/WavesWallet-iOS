@@ -156,6 +156,10 @@ final class WalletPresenter: WalletPresenterProtocol {
                 $0.displayState = $0.displayState.updateDisplay(kind: .leasing,
                                                                 sections: sections)
             }
+            
+        case .showStartLease(let money):
+            moduleOutput?.showStartLease(availableMoney: money)
+            return state
         }
     }
 
