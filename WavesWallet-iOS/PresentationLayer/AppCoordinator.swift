@@ -58,10 +58,6 @@ final class AppCoordinator: Coordinator {
     private var isActiveApp: Bool = false
     private var needShowMainDisplayAfterAuth: Bool = false
 
-    #if DEBUG
-        private var isTest: Bool = true
-    #endif
-
     init(_ window: UIWindow) {
         self.window = window
     }
@@ -70,13 +66,10 @@ final class AppCoordinator: Coordinator {
         self.isActiveApp = true
         self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
+        logInApplication()
 
         #if DEBUG
-            let vc = StoryboardScene.Support.supportViewController.instantiate()
-            vc.delegate = self
-            self.window.rootViewController!.present(vc, animated: true, completion: nil)
-        #else
-            logInApplication()
+            addTapGestureForSupportDisplay()
         #endif
     }
 
@@ -139,19 +132,6 @@ final class AppCoordinator: Coordinator {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: SupportViewControllerDelegate
-extension AppCoordinator: SupportViewControllerDelegate  {
-    func closeSupportView() {
-
-        #if DEBUG
-        isTest = false        
-        #endif
-        self.window.rootViewController?.dismiss(animated: true, completion: {
-            self.logInApplication()
-        })
     }
 }
 
@@ -226,13 +206,16 @@ extension AppCoordinator {
     private func showStartController(withHelloDisplay: Bool) {
 
         if withHelloDisplay {
-            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController)
+            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController, presentCompletion: {
+                self.showEnter()
+            })
+
             helloCoordinator.delegate = self
             addChildCoordinator(childCoordinator: helloCoordinator)
             helloCoordinator.start()
+        } else {
+            showEnter()
         }
-
-        showEnter()
     }
 
     private func showEnter() {
@@ -294,13 +277,7 @@ extension AppCoordinator {
     func applicationDidEnterBackground() {
         self.isActiveApp = false
 
-        #if DEBUG
-            if isTest == false {
-                revokeAuthAndOpenPasscode()
-            }
-        #else
-            revokeAuthAndOpenPasscode()
-        #endif
+        revokeAuthAndOpenPasscode()
     }
 
     func applicationDidBecomeActive() {
@@ -310,3 +287,40 @@ extension AppCoordinator {
         isActiveApp = true
     }
 }
+
+
+#if DEBUG
+
+// MARK: Support
+extension AppCoordinator {
+
+    func addTapGestureForSupportDisplay() {
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
+        tapGesture.numberOfTouchesRequired = 2
+        tapGesture.numberOfTapsRequired = 2
+        self.window.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func tapGesture(tap: UITapGestureRecognizer) {
+        let vc = StoryboardScene.Support.supportViewController.instantiate()
+        vc.delegate = self
+        self.window.rootViewController!.present(vc, animated: true, completion: nil)
+    }
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+// MARK: SupportViewControllerDelegate
+extension AppCoordinator: SupportViewControllerDelegate  {
+    func closeSupportView() {
+
+        self.window.rootViewController?.dismiss(animated: true, completion: {
+            self.logInApplication()
+        })
+    }
+}
+
+#endif

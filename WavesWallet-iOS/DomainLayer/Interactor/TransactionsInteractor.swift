@@ -11,7 +11,9 @@ import Moya
 import RxSwift
 
 protocol TransactionsInteractorProtocol {
-    func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
+    func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]>
+
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartTransaction]>
 }
 
 fileprivate enum Constants {
@@ -40,7 +42,11 @@ fileprivate typealias InitialTransactionsQuery = (accountAddress: String,
     isHasTransactions: Bool)
 
 
-fileprivate typealias SmartTransactionsQuery = (accountAddress: String, transactions: [DomainLayer.DTO.AnyTransaction])
+fileprivate struct SmartTransactionsQuery {
+    let accountAddress: String
+    let transactions: [DomainLayer.DTO.AnyTransaction]
+}
+
 fileprivate typealias AnyTransactionsQuery = (accountAddress: String, specifications: TransactionsSpecifications)
 
 final class TransactionsInteractor: TransactionsInteractorProtocol {
@@ -66,6 +72,17 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             .flatMap(weak: self, selector: { $0.initialTransaction })
     }
 
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> SmartTransactionsObservable {
+
+        let remote = transactionsRepositoryRemote.activeLeasingTransactions(by: accountAddress)
+
+        return remote.flatMap(weak: self) { owner, transactions -> SmartTransactionsObservable in
+            let txs = transactions.map({ lease -> DomainLayer.DTO.AnyTransaction in
+                return DomainLayer.DTO.AnyTransaction.lease(lease)
+            })
+            return owner.smartTransactions(SmartTransactionsQuery(accountAddress: accountAddress, transactions: txs))
+        }
+    }
 }
 
 // MARK: Main Logic download/save transactions
@@ -144,10 +161,8 @@ fileprivate extension TransactionsInteractor {
 
     private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> AsyncObservable<Bool> {
 
-        let newTxs = normalizeTransactions(transactions)
-
         return transactionsRepositoryLocal
-            .saveTransactions(newTxs)
+            .saveTransactions(transactions)
     }
 
     private func smartTransactionsFromAnyTransactions(_ query: AnyTransactionsQuery) -> SmartTransactionsObservable {
@@ -163,34 +178,39 @@ fileprivate extension TransactionsInteractor {
             .transactions(by: query.accountAddress, specifications: query.specifications)
     }
 
+    private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
+        let assets = assetsInteractors
+            .assets(by: ids,
+                    accountAddress: accountAddress,
+                    isNeedUpdated: false)
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
+                list[asset.id] = asset
+            })
+        }
+        return assets
+    }
+
+    private func accounts(by ids: [String]) -> Observable<[String: DomainLayer.DTO.Account]> {
+        let accounts = accountsInteractors
+            .accounts(by: ids)
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
+                list[account.id] = account
+            })
+        }
+        return accounts
+    }
+
     private func smartTransactions(_ query: SmartTransactionsQuery) -> SmartTransactionsObservable {
 
         guard query.transactions.count != 0 else { return Observable.just([]) }
         let assetsIds = query.transactions.assetsIds
         let accountsIds = query.transactions.accountsIds
 
-
-        let assets = assetsInteractors
-            .assets(by: assetsIds,
-                  accountAddress: query.accountAddress,
-                  isNeedUpdated: false)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
-                    list[asset.id] = asset
-                })
-            }
-        
-        let accounts = accountsInteractors
-            .accounts(by: accountsIds)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
-                    list[account.id] = account
-                })
-            }
-
+        let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
+        let accounts = self.accounts(by: accountsIds)
         let txs = Observable.just(query.transactions)
-
         let blockHeight = blockRepositoryRemote.height()
-//        let money = Money(0, 0)
-//        return Observable.just(DomainLayer.DTO.SmartTransaction(id: "sdd", kind: .createdAlias("as"), timestamp: Date(), totalFee: Balance(currency: Balance.Currency(title: "sd", ticker: nil, money: money), money: money), height: 32, confirmationHeight: 233, sender: DomainLayer.DTO.SmartTransaction.Account(id: "as", contact: nil, isMyAccount: true)))
+
         return Observable.zip(assets,
                               accounts,
                               txs,
@@ -202,40 +222,6 @@ fileprivate extension TransactionsInteractor {
             }
     }
 
-
-    private func normalizeTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> [DomainLayer.DTO.AnyTransaction] {
-
-        var newTransactions: [DomainLayer.DTO.AnyTransaction] = .init()
-
-        for tx in transactions {
-            switch tx {
-
-            case .transfer(let tx):
-                let newTx = tx.mutate { $0.assetId = $0.assetId.normalizeAssetId }
-                newTransactions.append(.transfer(newTx))
-            case .massTransfer(let tx):
-                let newTx = tx.mutate { $0.assetId = $0.assetId.normalizeAssetId }
-                newTransactions.append(.massTransfer(newTx))
-            case .exchange(let tx):
-
-                let newTx = tx.mutate {
-                    $0.order1 = $0.order1.mutate {
-                        $0.assetPair.amountAsset = $0.assetPair.amountAsset.normalizeAssetId
-                        $0.assetPair.priceAsset = $0.assetPair.priceAsset.normalizeAssetId
-                    }
-                    $0.order2 = $0.order2.mutate {
-                        $0.assetPair.amountAsset = $0.assetPair.amountAsset.normalizeAssetId
-                        $0.assetPair.priceAsset = $0.assetPair.priceAsset.normalizeAssetId
-                    }
-                }
-                newTransactions.append(.exchange(newTx))
-            default:
-                newTransactions.append(tx)
-            }
-        }
-
-        return newTransactions
-    }
 }
 
 
@@ -281,7 +267,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId]
 
         case .transfer(let tx):
-            guard let assetId = tx.assetId else { return [] }
+            let assetId = tx.assetId
             return [assetId]
 
         case .reissue(let tx):
@@ -291,9 +277,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId]
 
         case .exchange(let tx):
-            guard let amountAssetId = tx.order1.assetPair.amountAsset else { return [] }
-            guard let priceAssetId = tx.order1.assetPair.priceAsset else { return [] }
-            return [amountAssetId, priceAssetId]
+            return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
         case .lease:
             return [Environments.Constants.wavesAssetId]
@@ -305,8 +289,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [Environments.Constants.wavesAssetId]
 
         case .massTransfer(let tx):
-            guard let assetId = tx.assetId else { return [] }
-            return [assetId]
+            return [tx.assetId]
 
         case .data:
             return [Environments.Constants.wavesAssetId]

@@ -55,7 +55,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         height = transaction.height
         modified = Date()
 
-        assetId = transaction.assetId
+        assetId = transaction.assetId.normalizeAssetId
         attachment = transaction.attachment
         transferCount = transaction.transferCount
         totalAmount = transaction.totalAmount
@@ -78,7 +78,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         height = transaction.height
         modified = transaction.modified
 
-        assetId = transaction.assetId
+        assetId = transaction.assetId.normalizeAssetId
         attachment = transaction.attachment
         transferCount = transaction.transferCount
         totalAmount = transaction.totalAmount

@@ -25,6 +25,7 @@ final class WalletCoordinator {
 }
 
 extension WalletCoordinator: WalletModuleOutput {
+
     func showWalletSort() {
         let vc = WalletSortModuleBuilder().build()
         navigationController.pushViewController(vc, animated: true)
@@ -52,6 +53,12 @@ extension WalletCoordinator: WalletModuleOutput {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationController.pushViewController(controller, animated: true)
+    }
+
+    func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+        TransactionHistoryCoordinator(transactions: transactions,
+                                      currentIndex: index,
+                                      rootViewController: walletViewContoller).start()
     }
 }
 

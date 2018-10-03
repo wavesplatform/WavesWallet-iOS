@@ -13,20 +13,56 @@ import UIKit
 
 protocol WalletDisplayDataDelegate: AnyObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
-
     func tableViewDidSelect(indexPath: IndexPath)
 }
 
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
+
+    private var sections: [Section] = []
+    private weak var tableView: UITableView!
+
     weak var delegate: WalletDisplayDataDelegate?
+    weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
+
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
-    
-    private lazy var configureCell: ConfigureCell<Section> = { [weak self] _, tableView, _, item in
+    init(tableView: UITableView) {
+        super.init()
+        self.tableView = tableView
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
 
+    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType) {
+        self.sections = sections
+
+        switch animateType {
+        case .refresh:
+            tableView.reloadData()
+
+        case .collapsed(let index):
+            tableView.beginUpdates()
+            tableView.reloadSections([index], animationStyle: .fade)
+            tableView.endUpdates()
+
+        case .expanded(let index):
+            tableView.beginUpdates()
+            tableView.reloadSections([index], animationStyle: .fade)
+            tableView.endUpdates()
+            break
+        }
+    }
+}
+
+// MARK: UITableViewDelegate
+extension WalletDisplayData: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let item = sections[indexPath.section].items[indexPath.row]
+    
         switch item {
         case .historySkeleton:
             return tableView.dequeueCell() as WalletHistorySkeletonCell
@@ -40,7 +76,7 @@ final class WalletDisplayData: NSObject {
         case .balance(let balance):
             let cell: WalletLeasingBalanceCell = tableView.dequeueCell()
             cell.update(with: balance)
-            cell.delegate = self?.balanceCellDelegate
+            cell.delegate = balanceCellDelegate
             return cell
 
         case .leasingTransaction(let transaction):
@@ -64,50 +100,29 @@ final class WalletDisplayData: NSObject {
         }
     }
 
-    private lazy var dataSource = RxTableViewAnimatedDataSource(configureCell: configureCell)
-
-    private var disposeBag: DisposeBag = DisposeBag()
-
-    func bind(tableView: UITableView,
-              event: Driver<[WalletTypes.ViewModel.Section]>) {
-
-        dataSource.completedReload = { [weak self] in
-            self?.completedReload?()
-        }
-
-        tableView
-            .rx
-            .setDelegate(self)
-            .disposed(by: disposeBag)
-
-        event
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
     }
 
-    func collapsed(tableView: UITableView,
-                   event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
-        dataSource.tableView(tableView, reloadSection: event.map { .init(sections: $0, index: $1) })
-    }
-
-    func expanded(tableView: UITableView,
-                  event: Driver<(sections: [WalletTypes.ViewModel.Section], index: Int)>) {
-        dataSource.tableView(tableView, reloadSection: event.map { .init(sections: $0, index: $1) })
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].items.count
     }
 }
 
-// MARK: UITableViewDelegate
-
 extension WalletDisplayData: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let item = dataSource[indexPath]
+
+        let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case .historySkeleton:
             let skeletonCell: WalletHistorySkeletonCell = cell as! WalletHistorySkeletonCell
             skeletonCell.startAnimation()
+
         case .assetSkeleton:
             let skeletonCell: WalletAssetSkeletonCell = cell as! WalletAssetSkeletonCell
             skeletonCell.startAnimation()
+
         case .balanceSkeleton:
             let skeletonCell: WalletLeasingBalanceSkeletonCell = cell as! WalletLeasingBalanceSkeletonCell
             skeletonCell.startAnimation()
@@ -117,7 +132,7 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let model = dataSource[section]
+        let model = sections[section]
 
         if let header = model.header {
             let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
@@ -134,7 +149,7 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let model = dataSource[section]
+        let model = sections[section]
         if model.header != nil {
             return WalletHeaderView.viewHeight()
         }
@@ -155,25 +170,33 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let row = dataSource[indexPath]
+        let row = sections[indexPath.section].items[indexPath.row]
 
         switch row {
         case .historySkeleton:
             return WalletHistorySkeletonCell.cellHeight()
+
         case .balanceSkeleton:
             return WalletLeasingBalanceSkeletonCell.cellHeight()
+
         case .asset:
             return WalletTableAssetsCell.cellHeight()
+
         case .assetSkeleton:
             return WalletAssetSkeletonCell.cellHeight()
+
         case .balance:
             return WalletLeasingBalanceCell.cellHeight()
+
         case .leasingTransaction:
             return WalletLeasingCell.cellHeight()
+
         case .allHistory:
             return WalletHistoryCell.cellHeight()
+
         case .hidden:
             return CGFloat.minValue
+
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
         }
