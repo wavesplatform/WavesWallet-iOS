@@ -47,6 +47,12 @@ extension WalletCoordinator: WalletModuleOutput {
     func showHistoryForLeasing() {
         historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
     }
+    
+    func showStartLease(availableMoney: Money) {
+        
+        let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 extension WalletCoordinator: AssetModuleOutput {
@@ -63,6 +69,13 @@ extension WalletCoordinator: AssetModuleOutput {
     }
 }
 
+//MARK: - StartLeasingModuleOutput
+extension WalletCoordinator: StartLeasingModuleOutput {
+    
+    func startLeasingDidCreateOrder() {
+        
+    }
+}
 
 fileprivate extension AssetModuleBuilder.Input {
 
