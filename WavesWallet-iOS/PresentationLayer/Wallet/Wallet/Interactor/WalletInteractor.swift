@@ -126,7 +126,16 @@ fileprivate extension WalletInteractor {
                 }
                 .compactMap { $0 }
 
-                let startedLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
+                let startedLeasingTxsBase = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction? in
+                    if case .startedLeasing = tx.kind {
+                        return tx
+                    } else {
+                        return nil
+                    }
+                }
+                .compactMap { $0 }
+
+                let startedLeasingTxs = startedLeasingTxsBase.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
                     if case .startedLeasing(let leasing) = tx.kind {
                         return leasing
                     } else {
@@ -159,7 +168,7 @@ fileprivate extension WalletInteractor {
                                      leasedInMoney: leasedInMoney)
 
                 return WalletTypes.DTO.Leasing(balance: leasingBalance,
-                                               transactions: leasing.transaction)
+                                               transactions: startedLeasingTxsBase)
             }
     }
 }
