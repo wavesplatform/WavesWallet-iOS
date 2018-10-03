@@ -155,7 +155,6 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         let amountAssetId = order.assetPair?.amountAsset
         let priceAssetId = order.assetPair?.priceAsset
         
-
         assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAssetId.normalizeAssetId,
                                                                   priceAsset: priceAssetId.normalizeAssetId)
     }

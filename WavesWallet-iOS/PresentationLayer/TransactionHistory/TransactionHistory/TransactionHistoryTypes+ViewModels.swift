@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxDataSources
 
 extension TransactionHistoryTypes.ViewModel {
     struct General {

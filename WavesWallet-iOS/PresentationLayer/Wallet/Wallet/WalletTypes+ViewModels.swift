@@ -7,24 +7,24 @@
 //
 
 import Foundation
-import RxDataSources
+//import RxDataSources
 
 // MARK: ViewModel for UITableView
 
 extension WalletTypes.ViewModel {
-    enum Row: Hashable {
+    enum Row {
         case hidden
         case asset(WalletTypes.DTO.Asset)
         case assetSkeleton
         case balanceSkeleton
         case historySkeleton
         case balance(WalletTypes.DTO.Leasing.Balance)
-        case leasingTransaction(WalletTypes.DTO.Leasing.Transaction)
+        case leasingTransaction(DomainLayer.DTO.SmartTransaction)
         case allHistory
         case quickNote
     }
 
-    struct Section: Hashable {
+    struct Section {
 
         enum Kind {
             case skeleton
@@ -43,13 +43,6 @@ extension WalletTypes.ViewModel {
     }
 }
 
-extension WalletTypes.ViewModel.Section: SectionModelType {
-    init(original: WalletTypes.ViewModel.Section, items: [WalletTypes.ViewModel.Row]) {
-        self = original
-        self.items = items
-    }
-}
-
 extension WalletTypes.ViewModel.Row {
 
         var asset: WalletTypes.DTO.Asset? {
@@ -61,7 +54,7 @@ extension WalletTypes.ViewModel.Row {
             }
         }
 
-    var leasingTransaction: WalletTypes.DTO.Leasing.Transaction? {
+    var leasingTransaction: DomainLayer.DTO.SmartTransaction? {
         switch self {
         case .leasingTransaction(let tx):
             return tx
