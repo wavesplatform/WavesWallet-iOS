@@ -180,8 +180,6 @@ internal enum StoryboardScene {
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
 
     internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: Main.self, identifier: "MyAddressViewController")
-
-    internal static let startLeasingViewControllerOld = SceneType<WavesWallet_iOS.StartLeasingViewControllerOld>(storyboard: Main.self, identifier: "StartLeasingViewControllerOld")
   }
   internal enum NewAccount: StoryboardType {
     internal static let storyboardName = "NewAccount"

@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum SelectedState: Int {
+private enum ReceiveState: Int {
     case cryptoCurrency
     case invoive
     case card
@@ -19,58 +19,95 @@ final class ReceiveContainerViewController: UIViewController {
     private var viewControllers: [UIViewController] = []
     
     @IBOutlet private weak var segmentedControl: SegmentedControl!
+    @IBOutlet private weak var scrollViewContainer: UIScrollView!
     
-    private var selectedState = SelectedState.cryptoCurrency
+    private var selectedState = ReceiveState.cryptoCurrency
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = Localizable.Receive.Label.receive
         createBackButton()
+        setupControllers()
         setupSegmentedControl()
-        
+        setupSwipeGestures()
     }
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        for view in scrollViewContainer.subviews {
+            view.frame.size.width = scrollViewContainer.frame.size.width
+            view.frame.size.height = scrollViewContainer.frame.size.height
+        }
+    }
 }
 
 //MARK: - Actions
 private extension ReceiveContainerViewController {
     
+    func scrollToPage(_ page: Int) {
+        let offset = CGPoint(x: CGFloat(page) * scrollViewContainer.frame.size.width, y: 0)
+        scrollViewContainer.setContentOffset(offset, animated: true)
+    }
+    
     @IBAction func segmentedDidChange(_ sender: Any) {
-        
-//        selectedIndex = segmentedControl.selectedIndex
-//        print(selectedIndex)
+        guard let state = ReceiveState(rawValue: segmentedControl.selectedIndex) else { return }
+        selectedState = state
+        scrollToPage(selectedState.rawValue)
     }
     
     @objc func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         
-//        if gesture.direction == .left {
-//
-//            let index = segmentedControl.selectedIndex + 1
-//            if index <= SelectedState.card.rawValue {
-//                segmentedControl.selectedIndex = index
-//                selectedSegmentIndex = ReceiveState(rawValue: index)!
-//                setupButtons(selectedButton: activeButton, animation: true)
-//            }
-//        }
-//        else if gesture.direction == .right {
-//
-//            let index = selectedSegmentIndex.rawValue - 1
-//            if index >= 0 {
-//                selectedSegmentIndex = ReceiveState(rawValue: index)!
-//                setupButtons(selectedButton: activeButton, animation: true)
-//            }
-//        }
+        debug(#function)
+        
+        if gesture.direction == .left {
+
+            let index = segmentedControl.selectedIndex + 1
+            if index <= ReceiveState.card.rawValue {
+                guard let state = ReceiveState(rawValue: index) else { return }
+                selectedState = state
+                segmentedControl.setSelectedIndex(state.rawValue, animation: true)
+                scrollToPage(state.rawValue)
+            }
+        }
+        else if gesture.direction == .right {
+
+            let index = selectedState.rawValue - 1
+            if index >= 0 {
+                guard let state = ReceiveState(rawValue: index) else { return }
+                selectedState = state
+                segmentedControl.setSelectedIndex(state.rawValue, animation: true)
+                scrollToPage(state.rawValue)
+            }
+        }
     }
 }
 
 //MARK: - SetupUI
 private extension ReceiveContainerViewController {
 
+    func setupControllers() {
+        
+        let scrollWidth = UIScreen.main.bounds.size.width
+        
+        for (index, viewController) in viewControllers.enumerated() {
+            scrollViewContainer.addSubview(viewController.view)
+            viewController.view.frame.origin.x = CGFloat(index) * scrollWidth
+            addChildViewController(viewController)
+            viewController.didMove(toParentViewController: self)
+        }
+        
+        scrollViewContainer.contentSize = CGSize(width: CGFloat(viewControllers.count) * scrollWidth,
+                                                 height: scrollViewContainer.contentSize.height)
+
+    }
+    
     func setupSwipeGestures() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
         scrollViewContainer.addGestureRecognizer(swipeRight)

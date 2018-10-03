@@ -96,17 +96,7 @@ end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
-        
-# need to remove .plist file from Compile Sources
-        if target.name == 'UPCarouselFlowLayout'
-            source_files = target.source_build_phase.files
-            dummy = source_files.find do |file|
-                file.file_ref.name == 'info.plist'
-            end
-            source_files.delete dummy
-        end
-        
-        
+                
         target.build_configurations.each do |config|
 
             swift3_2pods = [

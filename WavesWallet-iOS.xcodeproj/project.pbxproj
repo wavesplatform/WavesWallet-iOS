@@ -460,7 +460,6 @@
 		E930BE3C2148E6E000B28540 /* MoneyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E930BE3B2148E6E000B28540 /* MoneyTextField.swift */; };
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
-		E93E31D120A8785D0056032D /* StartLeasingViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
 		E94A6FEA215AE4FE001814F7 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -1238,7 +1237,6 @@
 		E930BE3B2148E6E000B28540 /* MoneyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTextField.swift; sourceTree = "<group>"; };
 		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
-		E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingViewControllerOld.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
@@ -3695,7 +3693,6 @@
 				F79316351F856C54002D8636 /* AskManager.swift */,
 				E90E25F92093506600CDCE56 /* MyAddressViewController.swift */,
 				E9E6DAD920A620360081C71A /* AssetChartViewController.swift */,
-				E93E31D020A8785D0056032D /* StartLeasingViewControllerOld.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -3863,10 +3860,6 @@
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				E9B088182163886800937644 /* DexSort.strings in Resources */,
-				E96038BF20B5A17400D303E8 /* TransactionHistoryContentView.xib in Resources */,
-				E94A6FA1215AE4FE001814F7 /* DexTraderContainer.strings in Resources */,
-				E94A6F76215AE4FE001814F7 /* DexChart.strings in Resources */,
-				E94A6FCB215AE4FE001814F7 /* DexLastTrades.strings in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
 				E9B086B52163883000937644 /* AddressBook.strings in Resources */,
@@ -4211,7 +4204,6 @@
 				0ABD1BED2146C2760027A7A2 /* BlocksNodeService.swift in Sources */,
 				0ABD1BEC2146BFEE0027A7A2 /* BlockNode.swift in Sources */,
 				E9B087CC2163886800937644 /* DexListPresenterProtocol.swift in Sources */,
-				E94A6F81215AE4FE001814F7 /* DexChartHeaderView.swift in Sources */,
 				0A762DA22163AD1A0019D447 /* SupportViewController.swift in Sources */,
 				0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */,
 				E9B0880D2163886800937644 /* DexMarketPresenterProtocol.swift in Sources */,
@@ -4682,7 +4674,6 @@
 				E902ADCF212E1EB8000C289A /* Money.swift in Sources */,
 				E9B086B42163883000937644 /* AddressBookModuleOutput.swift in Sources */,
 				E9CB908120D1756B000E54AA /* ChooseAssetViewController.swift in Sources */,
-				E93E31D120A8785D0056032D /* StartLeasingViewControllerOld.swift in Sources */,
 				0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0AF922AD212E1234003BA067 /* UIFeedbackGenerator.swift in Sources */,
