@@ -34,8 +34,8 @@ extension DomainLayer.DTO {
         }
 
         struct AssetPair: Decodable, Mutating {
-            var amountAsset: String?
-            var priceAsset: String?
+            var amountAsset: String
+            var priceAsset: String
         }
         
         let type: Int

@@ -2101,19 +2101,9 @@
 			children = (
 				0A762D4821639FA50019D447 /* TransactionHistoryCoordinator.swift */,
 				0A762D4921639FA50019D447 /* TransactionHistory.storyboard */,
-				0A762D4A21639FA50019D447 /* Presenter */,
 				0A762D4B21639FA50019D447 /* TransactionHistory */,
-				0A762D7121639FA50019D447 /* Views */,
-				0A762D7321639FA50019D447 /* Interactor */,
 			);
 			path = TransactionHistory;
-			sourceTree = "<group>";
-		};
-		0A762D4A21639FA50019D447 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		0A762D4B21639FA50019D447 /* TransactionHistory */ = {
@@ -2181,28 +2171,6 @@
 			isa = PBXGroup;
 			children = (
 				0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		0A762D7121639FA50019D447 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D7221639FA50019D447 /* Cells */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0A762D7221639FA50019D447 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		0A762D7321639FA50019D447 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -3610,13 +3578,6 @@
 			path = Send;
 			sourceTree = "<group>";
 		};
-		E9E26444215E94B500C9FBC6 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		E9EE18D720D475D8001913C6 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
@@ -3762,7 +3723,6 @@
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
-				E9E26444215E94B500C9FBC6 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

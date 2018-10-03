@@ -24,9 +24,12 @@ final class WalletLeasingCell: UITableViewCell, NibReusable {
 }
 
 extension WalletLeasingCell: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Leasing.Transaction) {
+    func update(with model: DomainLayer.DTO.SmartTransaction) {
         labelTitle.text = Localizable.Wallet.Label.startedLeasing
-        labelMoney.attributedText = .styleForBalance(text: model.balance.displayTextFull,
-                                                     font: labelMoney.font)
+
+        if case .startedLeasing(let lease) = model.kind {
+            labelMoney.attributedText = .styleForBalance(text: lease.balance.money.displayTextFull,
+                                                         font: labelMoney.font)
+        }
     }
 }

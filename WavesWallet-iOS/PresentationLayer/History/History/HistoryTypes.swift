@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxDataSources
 
 enum HistoryTypes {
     enum DTO {}
