@@ -28,7 +28,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
 
     private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
-    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
+    private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -66,29 +66,41 @@ private extension AccountBalanceInteractor {
 
         let walletAddress = wallet.wallet.address
         let balances = balanceRepositoryRemote.balances(by: wallet)
-        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: walletAddress, isNeedUpdate: isNeedUpdate)
-
+        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
+                                                                             isNeedUpdate: isNeedUpdate)
 
         return Observable.zip(balances, activeTransactions)
             .map { balances, transactions -> [DomainLayer.DTO.AssetBalance] in
 
                 let generalBalances = Environments.current.generalAssetIds.map { DomainLayer.DTO.AssetBalance(info: $0) }
-                var newList = balances
+                var newBalances = balances
                 for generalBalance in generalBalances {
                     if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
-                        newList.append(generalBalance)
+                        newBalances.append(generalBalance)
                     }
                 }
 
-                if let pair = newList.enumerated().first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
-                    let newBalance = pair.element.mutate { balance in
-                        balance.leasedBalance = transactions
-                            .filter { $0.sender == walletAddress }
-                            .reduce(0) { $0 + $1.amount }
-                    }
-                    newList[pair.offset] = newBalance
+                if let wavesAssetBalance = newBalances
+                    .enumerated()
+                    .first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
+
+                    let leasedBalance: Int64 = transactions
+                        .filter { $0.sender.id == walletAddress }
+                        .reduce(into: 0, { result, tx in
+                            if case .startedLeasing(let txLease) = tx.kind {
+                                result = result + txLease.balance.money.amount
+                            }
+                        })
+
+                    let newWavesAssetBalance = wavesAssetBalance
+                        .element
+                        .mutate { balance in
+                            balance.leasedBalance = leasedBalance
+                        }
+
+                    newBalances[wavesAssetBalance.offset] = newWavesAssetBalance
                 }
-                return newList
+                return newBalances
             }
             .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
 

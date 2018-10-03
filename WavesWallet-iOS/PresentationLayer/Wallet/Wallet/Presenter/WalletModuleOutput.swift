@@ -13,5 +13,5 @@ protocol WalletModuleOutput: AnyObject {
     func showMyAddress()
     func showHistoryForLeasing()
     func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset])
-//    func showTransaction(with transaction: )
+    func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
 }

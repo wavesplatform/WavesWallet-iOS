@@ -11,7 +11,7 @@ import RxSwift
 
 private struct Leasing {
     let balance: DomainLayer.DTO.AssetBalance
-    let transaction: [DomainLayer.DTO.LeaseTransaction]
+    let transaction: [DomainLayer.DTO.SmartTransaction]
     let walletAddress: String
 }
 
@@ -21,7 +21,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
-    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
+    private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
     private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
@@ -116,18 +116,29 @@ fileprivate extension WalletInteractor {
             .map { leasing -> WalletTypes.DTO.Leasing in
 
                 let precision = leasing.balance.asset!.precision
-                let inTransactions = leasing.transaction.filter { $0.sender != leasing.walletAddress }
-                let myTransactions = leasing.transaction.filter { $0.sender == leasing.walletAddress }
 
-                let leaseAmount: Int64 = myTransactions
-                    .reduce(0) { $0 + $1.amount }
-                let leaseInAmount: Int64 = inTransactions
-                    .reduce(0) { $0 + $1.amount }
+                let incomingLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
+                    if case .incomingLeasing(let leasing) = tx.kind {
+                        return leasing
+                    } else {
+                        return nil
+                    }
+                }
+                .compactMap { $0 }
 
-                let transaction: [WalletTypes.DTO.Leasing.Transaction] = myTransactions
-                    .map { .init(id: $0.id,
-                                 balance: .init($0.amount,
-                                                precision)) }
+                let startedLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
+                    if case .startedLeasing(let leasing) = tx.kind {
+                        return leasing
+                    } else {
+                        return nil
+                    }
+                }
+                .compactMap { $0 }
+
+                let leaseAmount: Int64 = startedLeasingTxs
+                    .reduce(0) { $0 + $1.balance.money.amount }
+                let leaseInAmount: Int64 = incomingLeasingTxs
+                    .reduce(0) { $0 + $1.balance.money.amount }
 
                 let balance = leasing.balance
                 let totalMoney: Money = .init(balance.balance,
@@ -148,7 +159,7 @@ fileprivate extension WalletInteractor {
                                      leasedInMoney: leasedInMoney)
 
                 return WalletTypes.DTO.Leasing(balance: leasingBalance,
-                                               transactions: transaction)
+                                               transactions: leasing.transaction)
             }
     }
 }

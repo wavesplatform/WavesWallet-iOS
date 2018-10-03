@@ -107,7 +107,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             switch section.kind {
             case .balance:
                 let row = section.items[indexPath.row]
-                if row == .allHistory {
+                if case .allHistory = row {
                     moduleOutput?.showHistoryForLeasing()
                 }
 
@@ -123,8 +123,11 @@ final class WalletPresenter: WalletPresenterProtocol {
                 guard let asset = section.items[indexPath.row].asset else { return state }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
             case .transactions:
-                guard let leasingTransaction = section.items[indexPath.row].leasingTransaction else { return state }
-//                moduleOutput?.
+                let leasingTransactions = section
+                    .items
+                    .map { $0.leasingTransaction }
+                    .compactMap { $0 }
+                moduleOutput?.showLeasingTransaction(transactions: leasingTransactions, index: indexPath.row)
             default:
                 break
             }

@@ -11,7 +11,9 @@ import Moya
 import RxSwift
 
 protocol TransactionsInteractorProtocol {
-    func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
+    func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]>
+
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartTransaction]>
 }
 
 fileprivate enum Constants {
@@ -40,7 +42,11 @@ fileprivate typealias InitialTransactionsQuery = (accountAddress: String,
     isHasTransactions: Bool)
 
 
-fileprivate typealias SmartTransactionsQuery = (accountAddress: String, transactions: [DomainLayer.DTO.AnyTransaction])
+fileprivate struct SmartTransactionsQuery {
+    let accountAddress: String
+    let transactions: [DomainLayer.DTO.AnyTransaction]
+}
+
 fileprivate typealias AnyTransactionsQuery = (accountAddress: String, specifications: TransactionsSpecifications)
 
 final class TransactionsInteractor: TransactionsInteractorProtocol {
@@ -66,24 +72,17 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             .flatMap(weak: self, selector: { $0.initialTransaction })
     }
 
-//    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> SmartTransactionsObservable {
-//
-////        let remote = transactionsRepositoryRemote.activeLeasingTransactions(by: accountAddress)
-////        return remote.flatMap(weak: self) { owner, transactions -> SmartTransactionsObservable in
-////            transactions.map({ (lease) -> T in
-////                lease.transaction(
-////            })
-////        }
-//
-////            .flatMap(weak: self, selector: { $0.saveTransactions })
-////            .map { _ in AnyTransactionsQuery(accountAddress: accountAddress, specifications: specifications) }
-////            .flatMap(weak: self, selector: { $0.smartTransactionsFromAnyTransactions })
-//
-////        func transaction(by accountAddress: String,
-////                         assets: [String: DomainLayer.DTO.Asset],
-////                         accounts: [String: DomainLayer.DTO.Account],
-////                         totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
-//    }
+    func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool = false) -> SmartTransactionsObservable {
+
+        let remote = transactionsRepositoryRemote.activeLeasingTransactions(by: accountAddress)
+
+        return remote.flatMap(weak: self) { owner, transactions -> SmartTransactionsObservable in
+            let txs = transactions.map({ lease -> DomainLayer.DTO.AnyTransaction in
+                return DomainLayer.DTO.AnyTransaction.lease(lease)
+            })
+            return owner.smartTransactions(SmartTransactionsQuery(accountAddress: accountAddress, transactions: txs))
+        }
+    }
 }
 
 // MARK: Main Logic download/save transactions
@@ -179,31 +178,37 @@ fileprivate extension TransactionsInteractor {
             .transactions(by: query.accountAddress, specifications: query.specifications)
     }
 
+    private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
+        let assets = assetsInteractors
+            .assets(by: ids,
+                    accountAddress: accountAddress,
+                    isNeedUpdated: false)
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
+                list[asset.id] = asset
+            })
+        }
+        return assets
+    }
+
+    private func accounts(by ids: [String]) -> Observable<[String: DomainLayer.DTO.Account]> {
+        let accounts = accountsInteractors
+            .accounts(by: ids)
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
+                list[account.id] = account
+            })
+        }
+        return accounts
+    }
+
     private func smartTransactions(_ query: SmartTransactionsQuery) -> SmartTransactionsObservable {
 
         guard query.transactions.count != 0 else { return Observable.just([]) }
         let assetsIds = query.transactions.assetsIds
         let accountsIds = query.transactions.accountsIds
 
-
-        let assets = assetsInteractors
-            .assets(by: assetsIds,
-                  accountAddress: query.accountAddress,
-                  isNeedUpdated: false)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
-                    list[asset.id] = asset
-                })
-            }
-        
-        let accounts = accountsInteractors
-            .accounts(by: accountsIds)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
-                    list[account.id] = account
-                })
-            }
-
+        let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
+        let accounts = self.accounts(by: accountsIds)
         let txs = Observable.just(query.transactions)
-
         let blockHeight = blockRepositoryRemote.height()
 
         return Observable.zip(assets,
