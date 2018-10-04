@@ -110,7 +110,7 @@ fileprivate extension DexListViewController {
 private extension DexListViewController {
 
     func setupLocalization() {
-        title = Localizable.DexList.Navigationbar.title
+        navigationItem.title = Localizable.DexList.Navigationbar.title
         labelNoItemsTitle.text = Localizable.DexList.Label.decentralisedExchange
         labelNoItemsDescription.text = Localizable.DexList.Label.description
         buttonAddMarkets.setTitle(Localizable.DexList.Button.addMarkets, for: .normal)

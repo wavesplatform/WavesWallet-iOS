@@ -39,7 +39,7 @@ final class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Localizable.History.Navigationbar.title
+        navigationItem.title = Localizable.History.Navigationbar.title
         
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
@@ -57,9 +57,9 @@ final class HistoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         setupTopBarLine()
         setupBigNavigationBar()
-        if rdv_tabBarController.isTabBarHidden {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
-        }
+//        if rdv_tabBarController.isTabBarHidden {
+//            rdv_tabBarController.setTabBarHidden(false, animated: true)
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

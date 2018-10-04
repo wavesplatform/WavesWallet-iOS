@@ -69,10 +69,10 @@ final class WalletViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if rdv_tabBarController.isTabBarHidden {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
-        }
-        
+//        if rdv_tabBarController.isTabBarHidden {
+//            rdv_tabBarController.setTabBarHidden(false, animated: true)
+//        }
+
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //            let controller = StartLeasingModuleBuilder().build()

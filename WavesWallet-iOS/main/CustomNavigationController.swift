@@ -169,6 +169,20 @@ class CustomNavigationController: UINavigationController {
         }
     }
 
+    override func popViewController(animated: Bool) -> UIViewController? {
+
+        if viewControllers.count == 2 {
+            self.viewControllers.first?.hidesBottomBarWhenPushed = false
+        }
+
+        return super.popViewController(animated: animated)
+    }
+
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        self.viewControllers.first?.hidesBottomBarWhenPushed = true
+        super.pushViewController(viewController, animated: animated)
+    }
+
     private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
         
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
@@ -182,7 +196,6 @@ class CustomNavigationController: UINavigationController {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
         } 
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
-
 
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
@@ -206,6 +219,7 @@ extension CustomNavigationController: UIGestureRecognizerDelegate {
 // MARK: UINavigationControllerDelegate
 
 extension CustomNavigationController: UINavigationControllerDelegate {
+
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 
