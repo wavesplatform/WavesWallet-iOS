@@ -12,8 +12,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReceiveAssetView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="iconAssetLogo" destination="jnZ-lD-bCR" id="bC9-dq-Dez"/>
+                <outlet property="iconFav" destination="wji-xq-3oT" id="VPs-oy-rTx"/>
+                <outlet property="iconGateway" destination="o55-w5-cd8" id="abh-mw-R5E"/>
+                <outlet property="labelAmount" destination="YUD-VD-wL1" id="hNh-4s-vbo"/>
                 <outlet property="labelAssetLocalization" destination="9dU-Pm-lms" id="gpO-r5-h1t"/>
+                <outlet property="labelAssetName" destination="yUu-fr-JTB" id="iav-Sq-oR5"/>
                 <outlet property="labelSelectAsset" destination="ZyM-hx-YX5" id="9FI-8q-B62"/>
+                <outlet property="viewAsset" destination="DZc-Tc-VFP" id="9uP-Dv-bV4"/>
                 <outlet property="viewContainer" destination="R6M-IK-Z8L" id="7ST-SL-3Mk"/>
             </connections>
         </placeholder>
@@ -40,13 +46,70 @@
                             <color key="textColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZc-Tc-VFP">
+                            <rect key="frame" x="14" y="0.0" width="293" height="48"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoBitcoin48" translatesAutoresizingMaskIntoConstraints="NO" id="jnZ-lD-bCR">
+                                    <rect key="frame" x="0.0" y="12" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="934-Ym-inw"/>
+                                        <constraint firstAttribute="width" constant="24" id="fMT-4g-a38"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="identifiergateway14Ocean" translatesAutoresizingMaskIntoConstraints="NO" id="o55-w5-cd8">
+                                    <rect key="frame" x="-3" y="25" width="14" height="14"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUu-fr-JTB">
+                                    <rect key="frame" x="32" y="13.5" width="53" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favoriteMini14Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="wji-xq-3oT">
+                                    <rect key="frame" x="89" y="17" width="14" height="14"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00000000.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUD-VD-wL1">
+                                    <rect key="frame" x="160" y="16" width="133" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="yUu-fr-JTB" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="0hN-ma-QKH"/>
+                                <constraint firstItem="jnZ-lD-bCR" firstAttribute="leading" secondItem="DZc-Tc-VFP" secondAttribute="leading" id="FwJ-Jd-of6"/>
+                                <constraint firstItem="yUu-fr-JTB" firstAttribute="leading" secondItem="jnZ-lD-bCR" secondAttribute="trailing" constant="8" id="IIA-BZ-1gn"/>
+                                <constraint firstItem="YUD-VD-wL1" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="UW1-qL-TlX"/>
+                                <constraint firstItem="jnZ-lD-bCR" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="Yho-gg-7Iz"/>
+                                <constraint firstItem="wji-xq-3oT" firstAttribute="leading" secondItem="yUu-fr-JTB" secondAttribute="trailing" constant="4" id="e3e-Uk-dQV"/>
+                                <constraint firstItem="o55-w5-cd8" firstAttribute="leading" secondItem="jnZ-lD-bCR" secondAttribute="leading" constant="-3" id="eyE-pD-AKs"/>
+                                <constraint firstAttribute="trailing" secondItem="YUD-VD-wL1" secondAttribute="trailing" id="grb-PS-SvS"/>
+                                <constraint firstItem="o55-w5-cd8" firstAttribute="bottom" secondItem="jnZ-lD-bCR" secondAttribute="bottom" constant="3" id="pLP-5C-8j3"/>
+                                <constraint firstItem="wji-xq-3oT" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="yWg-NY-3Oo"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUL-2y-7ZO">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="48"/>
+                            <connections>
+                                <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="qON-sa-3kU"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="DZc-Tc-VFP" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="6wg-Bz-5Mn"/>
+                        <constraint firstAttribute="bottom" secondItem="DZc-Tc-VFP" secondAttribute="bottom" id="85C-fe-M15"/>
                         <constraint firstAttribute="trailing" secondItem="swX-PX-8qH" secondAttribute="trailing" constant="14" id="EUc-Ba-6qU"/>
+                        <constraint firstItem="DZc-Tc-VFP" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" constant="14" id="TMF-yO-fVr"/>
+                        <constraint firstAttribute="trailing" secondItem="eUL-2y-7ZO" secondAttribute="trailing" id="VyN-CH-fa9"/>
                         <constraint firstAttribute="height" constant="48" id="dKG-hg-Jc0"/>
+                        <constraint firstItem="eUL-2y-7ZO" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" id="hKF-gC-LwD"/>
+                        <constraint firstAttribute="bottom" secondItem="eUL-2y-7ZO" secondAttribute="bottom" id="kaj-Di-zYd"/>
+                        <constraint firstItem="swX-PX-8qH" firstAttribute="leading" secondItem="DZc-Tc-VFP" secondAttribute="trailing" constant="8" id="kzW-af-HFv"/>
                         <constraint firstItem="ZyM-hx-YX5" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="lyW-lL-K8e"/>
                         <constraint firstItem="swX-PX-8qH" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="r8F-5q-7ra"/>
+                        <constraint firstItem="eUL-2y-7ZO" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="wI9-cD-gPf"/>
                         <constraint firstItem="ZyM-hx-YX5" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" constant="14" id="xp0-3k-KVd"/>
                     </constraints>
                 </view>
@@ -66,5 +129,8 @@
     </objects>
     <resources>
         <image name="changearrows14Basic500" width="14" height="14"/>
+        <image name="favoriteMini14Submit300" width="14" height="14"/>
+        <image name="identifiergateway14Ocean" width="14" height="14"/>
+        <image name="logoBitcoin48" width="48" height="48"/>
     </resources>
 </document>

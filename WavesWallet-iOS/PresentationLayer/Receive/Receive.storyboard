@@ -89,12 +89,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crypto bottom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eN-zl-lP4">
-                                <rect key="frame" x="133" y="646" width="109" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zl8-wN-mmJ" customClass="ReceiveAssetView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="72"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -102,21 +96,129 @@
                                     <constraint firstAttribute="height" constant="72" id="LkE-2g-unO"/>
                                 </constraints>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF6-ax-zF8">
+                                <rect key="frame" x="16" y="116" width="343" height="53.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="anI-4p-u2F">
+                                        <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The minimum amount of deposit is 0.001 BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZz-wN-tfl">
+                                        <rect key="frame" x="32" y="0.0" width="311" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you will send less than 0.001 BTC, you will lose that money." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKn-1Z-ZcV">
+                                        <rect key="frame" x="32" y="22" width="311" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="nKn-1Z-ZcV" firstAttribute="top" secondItem="iZz-wN-tfl" secondAttribute="bottom" constant="6" id="G1a-1E-Ktt"/>
+                                    <constraint firstItem="iZz-wN-tfl" firstAttribute="leading" secondItem="GF6-ax-zF8" secondAttribute="leading" constant="32" id="MoP-OQ-kId"/>
+                                    <constraint firstItem="iZz-wN-tfl" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="top" id="STb-6t-vtv"/>
+                                    <constraint firstItem="nKn-1Z-ZcV" firstAttribute="trailing" secondItem="iZz-wN-tfl" secondAttribute="trailing" id="Vpa-E2-WOs"/>
+                                    <constraint firstItem="nKn-1Z-ZcV" firstAttribute="leading" secondItem="iZz-wN-tfl" secondAttribute="leading" id="hon-ee-A87"/>
+                                    <constraint firstAttribute="bottom" secondItem="nKn-1Z-ZcV" secondAttribute="bottom" id="neH-TR-5Eg"/>
+                                    <constraint firstItem="anI-4p-u2F" firstAttribute="leading" secondItem="GF6-ax-zF8" secondAttribute="leading" id="vdI-z0-IGR"/>
+                                    <constraint firstItem="anI-4p-u2F" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="top" id="wQq-hq-aFf"/>
+                                    <constraint firstAttribute="trailing" secondItem="iZz-wN-tfl" secondAttribute="trailing" id="ywV-m1-CvX"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxC-X3-Fsf">
+                                <rect key="frame" x="16" y="183.5" width="343" height="67.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning18Disabled500" translatesAutoresizingMaskIntoConstraints="NO" id="wfa-kf-8b7">
+                                        <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send only BTC to this deposit address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5g-FS-0FS">
+                                        <rect key="frame" x="32" y="0.0" width="311" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending any other currency to this address may result in the loss of your deposit." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4u-MQ-lod">
+                                        <rect key="frame" x="32" y="22" width="311" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iPI-mc-QMP" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="66.5" width="343" height="1"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="to4-Sb-G2a"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wfa-kf-8b7" firstAttribute="leading" secondItem="cxC-X3-Fsf" secondAttribute="leading" id="1oR-fD-7Yb"/>
+                                    <constraint firstItem="wfa-kf-8b7" firstAttribute="top" secondItem="cxC-X3-Fsf" secondAttribute="top" id="BjK-wN-Yog"/>
+                                    <constraint firstAttribute="bottom" secondItem="b4u-MQ-lod" secondAttribute="bottom" constant="14" id="CAG-Kz-0Sa"/>
+                                    <constraint firstAttribute="trailing" secondItem="I5g-FS-0FS" secondAttribute="trailing" id="CbE-mG-pXy"/>
+                                    <constraint firstAttribute="bottom" secondItem="iPI-mc-QMP" secondAttribute="bottom" id="MeY-Kz-vpZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="iPI-mc-QMP" secondAttribute="trailing" id="PUx-kY-RTA"/>
+                                    <constraint firstItem="b4u-MQ-lod" firstAttribute="top" secondItem="I5g-FS-0FS" secondAttribute="bottom" constant="6" id="RJR-EZ-bSc"/>
+                                    <constraint firstItem="b4u-MQ-lod" firstAttribute="trailing" secondItem="I5g-FS-0FS" secondAttribute="trailing" id="Sve-Z7-MUl"/>
+                                    <constraint firstItem="iPI-mc-QMP" firstAttribute="leading" secondItem="cxC-X3-Fsf" secondAttribute="leading" id="ahM-UW-gSQ"/>
+                                    <constraint firstItem="b4u-MQ-lod" firstAttribute="leading" secondItem="I5g-FS-0FS" secondAttribute="leading" id="eVR-1x-wqn"/>
+                                    <constraint firstItem="I5g-FS-0FS" firstAttribute="top" secondItem="cxC-X3-Fsf" secondAttribute="top" id="f0Y-v0-f5I"/>
+                                    <constraint firstItem="I5g-FS-0FS" firstAttribute="leading" secondItem="cxC-X3-Fsf" secondAttribute="leading" constant="32" id="yxu-LZ-tmV"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNf-XO-nk5" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="595" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="daw-Vr-xqz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Continue"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                        <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueTapped:" destination="2OW-ud-MVI" eventType="touchUpInside" id="mdw-Ky-8BM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="g5W-6f-0t5" firstAttribute="trailing" secondItem="Zl8-wN-mmJ" secondAttribute="trailing" id="75G-FA-Kim"/>
+                            <constraint firstItem="g5W-6f-0t5" firstAttribute="trailing" secondItem="NNf-XO-nk5" secondAttribute="trailing" constant="16" id="CId-nV-sY4"/>
                             <constraint firstItem="Zl8-wN-mmJ" firstAttribute="top" secondItem="g5W-6f-0t5" secondAttribute="top" id="D3C-Ss-0CD"/>
+                            <constraint firstItem="GF6-ax-zF8" firstAttribute="leading" secondItem="g5W-6f-0t5" secondAttribute="leading" constant="16" id="RGj-Yb-XNk"/>
+                            <constraint firstItem="g5W-6f-0t5" firstAttribute="trailing" secondItem="GF6-ax-zF8" secondAttribute="trailing" constant="16" id="Ugm-AC-pb4"/>
+                            <constraint firstItem="NNf-XO-nk5" firstAttribute="leading" secondItem="zyB-FX-nlK" secondAttribute="leading" constant="16" id="Xcg-Bz-sa2"/>
                             <constraint firstItem="Zl8-wN-mmJ" firstAttribute="leading" secondItem="g5W-6f-0t5" secondAttribute="leading" id="fbz-4h-2Wz"/>
-                            <constraint firstItem="5eN-zl-lP4" firstAttribute="centerX" secondItem="zyB-FX-nlK" secondAttribute="centerX" id="pUf-gI-eGe"/>
-                            <constraint firstItem="g5W-6f-0t5" firstAttribute="bottom" secondItem="5eN-zl-lP4" secondAttribute="bottom" id="yJE-un-g0e"/>
+                            <constraint firstItem="g5W-6f-0t5" firstAttribute="trailing" secondItem="cxC-X3-Fsf" secondAttribute="trailing" constant="16" id="hHi-m7-SHF"/>
+                            <constraint firstItem="cxC-X3-Fsf" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="bottom" constant="14" id="n5y-v3-An0"/>
+                            <constraint firstItem="g5W-6f-0t5" firstAttribute="bottom" secondItem="NNf-XO-nk5" secondAttribute="bottom" constant="24" id="nEw-dn-sye"/>
+                            <constraint firstItem="cxC-X3-Fsf" firstAttribute="leading" secondItem="zyB-FX-nlK" secondAttribute="leading" constant="16" id="rdn-Rc-2dH"/>
+                            <constraint firstItem="GF6-ax-zF8" firstAttribute="top" secondItem="Zl8-wN-mmJ" secondAttribute="bottom" constant="24" id="wRe-fu-PJf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g5W-6f-0t5"/>
                     </view>
+                    <connections>
+                        <outlet property="assetView" destination="Zl8-wN-mmJ" id="r6Q-Ar-m2B"/>
+                        <outlet property="buttonCotinue" destination="NNf-XO-nk5" id="Grp-SC-5ES"/>
+                        <outlet property="labelTitleMinimumAmount" destination="iZz-wN-tfl" id="mXT-dC-DuE"/>
+                        <outlet property="labelTitleSendOnlyDeposit" destination="I5g-FS-0FS" id="Dxe-r8-jow"/>
+                        <outlet property="labelWarningMinimumAmount" destination="nKn-1Z-ZcV" id="kTt-SM-UTQ"/>
+                        <outlet property="labelWarningSendOnlyDeposit" destination="b4u-MQ-lod" id="ZxV-8p-l7M"/>
+                        <outlet property="viewWarningMinimumAmount" destination="GF6-ax-zF8" id="gac-UN-cRu"/>
+                        <outlet property="viewWarningSendOnlyDeposit" destination="cxC-X3-Fsf" id="Ofx-sS-gWw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AKR-BU-kh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519" y="151"/>
+            <point key="canvasLocation" x="548" y="154.27286356821591"/>
         </scene>
         <!--Receive Invoice View Controller-->
         <scene sceneID="Ntb-QA-EYH">
@@ -189,4 +291,8 @@
             <point key="canvasLocation" x="2007" y="155"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="info18Warning600" width="18" height="18"/>
+        <image name="warning18Disabled500" width="18" height="18"/>
+    </resources>
 </document>

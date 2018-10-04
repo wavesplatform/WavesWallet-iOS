@@ -718,6 +718,8 @@
 		E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */; };
 		E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */; };
 		E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */; };
+		E9F0C82B21655CEA002DC804 /* ReceiveTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F0C82A21655CEA002DC804 /* ReceiveTypes.swift */; };
+		E9F0C82E216567B7002DC804 /* ReceiveCryptocurrency.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9F0C830216567B7002DC804 /* ReceiveCryptocurrency.strings */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984AE20E53A6300D2CB4D /* EnterStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */; };
@@ -1527,6 +1529,10 @@
 		E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveCardViewController.swift; sourceTree = "<group>"; };
 		E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveBankViewController.swift; sourceTree = "<group>"; };
 		E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
+		E9F0C82A21655CEA002DC804 /* ReceiveTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveTypes.swift; sourceTree = "<group>"; };
+		E9F0C82F216567B7002DC804 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
+		E9F0C831216567B9002DC804 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
+		E9F0C832216567BB002DC804 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
 		E9F984AD20E53A6300D2CB4D /* EnterStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartView.swift; sourceTree = "<group>"; };
@@ -2959,6 +2965,7 @@
 				E95B481D2163A582004D4E39 /* Сryptocurrency */,
 				E95B48172163A44F004D4E39 /* ReceiveContainerViewController.swift */,
 				E95B48192163A463004D4E39 /* ReceiveContainerModuleBuilder.swift */,
+				E9F0C82A21655CEA002DC804 /* ReceiveTypes.swift */,
 				E95B481B2163A489004D4E39 /* Receive.storyboard */,
 				E95B482A2163A7C3004D4E39 /* Receive.strings */,
 			);
@@ -2969,6 +2976,7 @@
 			isa = PBXGroup;
 			children = (
 				E95B481E2163A59A004D4E39 /* ReceiveCryptocurrencyViewController.swift */,
+				E9F0C830216567B7002DC804 /* ReceiveCryptocurrency.strings */,
 			);
 			path = "Сryptocurrency";
 			sourceTree = "<group>";
@@ -3879,6 +3887,7 @@
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
 				0A762D7621639FA60019D447 /* TransactionHistory.strings in Resources */,
 				E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */,
+				E9F0C82E216567B7002DC804 /* ReceiveCryptocurrency.strings in Resources */,
 				04C1BF57211CA5EF0095377D /* History.strings in Resources */,
 				E95B47CC21638A9F004D4E39 /* SixthInfoPageView.xib in Resources */,
 				E96C0B5F215E98C3003F0278 /* (null) in Resources */,
@@ -4455,6 +4464,7 @@
 				0AF922C1212E1234003BA067 /* UIView+Borders.swift in Sources */,
 				E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */,
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
+				E9F0C82B21655CEA002DC804 /* ReceiveTypes.swift in Sources */,
 				0A5D32FB21546A090009CDF3 /* EnterCoordinator.swift in Sources */,
 				0A762D8521639FA60019D447 /* TransactionHistoryRecipientCell.swift in Sources */,
 				E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */,
@@ -5073,6 +5083,16 @@
 				E9B0878E2163886800937644 /* ru */,
 			);
 			name = DexSort.strings;
+			sourceTree = "<group>";
+		};
+		E9F0C830216567B7002DC804 /* ReceiveCryptocurrency.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9F0C82F216567B7002DC804 /* en */,
+				E9F0C831216567B9002DC804 /* tr */,
+				E9F0C832216567BB002DC804 /* ru */,
+			);
+			name = ReceiveCryptocurrency.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -739,6 +739,25 @@ internal enum Localizable {
       internal static var sum: String { return Localizable.tr("DexOrderBook", "label.sum") }
     }
   }
+          internal enum ReceiveCryptocurrency {
+
+    internal enum Label {
+      /// The minimum amount of deposit is %@
+      internal static func minumumAmountOfDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.minumumAmountOfDeposit", p1)
+      }
+      /// Send only %@ to this deposit address
+      internal static func sendOnlyOnThisDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.sendOnlyOnThisDeposit", p1)
+      }
+      /// If you will send less than %@, you will lose that money.
+      internal static func warningMinimumAmountOfDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.warningMinimumAmountOfDeposit", p1)
+      }
+      /// Sending any other currency to this address may result in the loss of your deposit.
+      internal static var warningSendOnlyOnThisDeposit: String { return Localizable.tr("ReceiveCryptocurrency", "label.warningSendOnlyOnThisDeposit") }
+    }
+  }
           internal enum DexList {
 
     internal enum Button {
