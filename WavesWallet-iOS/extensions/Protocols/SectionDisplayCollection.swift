@@ -13,12 +13,12 @@ protocol SectionBase {
     var rows: [Row] { get set }
 }
 
-protocol StateDisplayBase {
+protocol DataSourceProtocol {
     associatedtype Section: SectionBase
     var sections: [Section] { get set }
 }
 
-extension StateDisplayBase {
+extension DataSourceProtocol {
     subscript(indexPath: IndexPath) -> Section.Row {
         return sections[indexPath.section].rows[indexPath.row]
     }

@@ -28,7 +28,7 @@ extension CALayer {
         if shouldRasterize {
             rasterizationScale = UIScreen.main.scale
         }
-        cornerRadius = CGFloat(options.cornerRadius)
+//        cornerRadius = CGFloat(options.cornerRadius)
     }
 
     func removeShadow() {

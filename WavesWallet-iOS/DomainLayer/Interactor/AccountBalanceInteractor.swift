@@ -55,7 +55,6 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     }
 }
 
-
 // MARK: Privet methods
 
 private extension AccountBalanceInteractor {

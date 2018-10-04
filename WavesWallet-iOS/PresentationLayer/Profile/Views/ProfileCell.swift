@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileTableCell: UITableViewCell {
+final class ProfileValueCell: UITableViewCell {
 
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var containerView: UIView!

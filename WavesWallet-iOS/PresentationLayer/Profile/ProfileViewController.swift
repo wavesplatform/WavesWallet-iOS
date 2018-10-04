@@ -7,45 +7,51 @@
 //
 
 import UIKit
+import RxFeedback
+import RxSwift
+import RxCocoa
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
-    enum GeneralSection: Int {
-        case addressesAndKeys = 0
-        case addressBook
-        case push
-        case language
-    }
-    
-    enum SecuritySection: Int {
-        case backupPhrase = 0
-        case changePassword
-        case changePasscode
-        case touchID
-        case network
-    }
-    
-    enum OtherSection: Int {
-        case rateApp = 0
-        case feedback
-        case supportWavesplatform
-        case bottomRow
-    }
-    
-    
-    enum ProfileSection: Int {
-        case general = 0
-        case security
-        case other
-    }
-    
-    let generalNames = ["Addresses and keys", "Address book", "Push Notifications", "Language"]
-    let securityNames = ["Backup phrase", "Change password", "Change passcode", "Touch ID", "Network"]
-    let otherNames = ["Rate app", "Feedback", "Support Wavesplatform", ""]
-    
-
+    fileprivate typealias Types = ProfileTypes
+//    enum GeneralSection: Int {
+//        case addressesAndKeys = 0
+//        case addressBook
+//        case push
+//        case language
+//    }
+//
+//    enum SecuritySection: Int {
+//        case backupPhrase = 0
+//        case changePassword
+//        case changePasscode
+//        case touchID
+//        case network
+//    }
+//
+//    enum OtherSection: Int {
+//        case rateApp = 0
+//        case feedback
+//        case supportWavesplatform
+//        case bottomRow
+//    }
+//
+//
+//    enum ProfileSection: Int {
+//        case general = 0
+//        case security
+//        case other
+//    }
+//
+//    let generalNames = ["Addresses and keys", "Address book", "Push Notifications", "Language"]
+//    let securityNames = ["Backup phrase", "Change password", "Change passcode", "Touch ID", "Network"]
+//    let otherNames = ["Rate app", "Feedback", "Support Wavesplatform", ""]
 
     @IBOutlet private weak var tableView: UITableView!
+    private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
+
+    var presenter: ProfilePresenterProtocol!
+    private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,25 +59,198 @@ class ProfileViewController: UIViewController {
         createMenuButton()
         setupBigNavigationBar()
 
-        title = "Profile"
+
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
+        setupSystem()
+        setupLanguages()
+        setupTableview()
     }
 
+}
 
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupBigNavigationBar()
-        navigationController?.navigationBar.barTintColor = nil
-        navigationController?.setNavigationBarHidden(false, animated: true)
-//    
-//        if rdv_tabBarController.isTabBarHidden {
-//            rdv_tabBarController.setTabBarHidden(false, animated: true)
-//        }
+// MARK: Setup Methods
+
+private extension ProfileViewController {
+
+    private func setupLanguages() {
+        navigationItem.title = "Profile"
+    }
+
+    private func setupTableview() {
+
     }
 }
 
+// MARK: RxFeedback
 
+private extension ProfileViewController {
+
+    func setupSystem() {
+
+        let uiFeedback: ProfilePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+
+        let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf.rx.viewDidAppear.asObservable()
+                .throttle(1, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.viewDidAppear }
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+    }
+
+    func events() -> [Signal<Types.Event>] {
+        return [eventInput.asSignal(onErrorSignalWith: Signal.empty())]
+    }
+
+    func subscriptions(state: Driver<Types.State>) -> [Disposable] {
+
+        let subscriptionSections = state.drive(onNext: { [weak self] state in
+
+            guard let strongSelf = self else { return }
+
+            strongSelf.updateView(with: state.displayState)
+        })
+
+        return [subscriptionSections]
+    }
+
+    func updateView(with state: Types.DisplayState) {
+
+        self.sections = state.sections
+        tableView.reloadData()
+    }
+}
+
+// MARK: UITableViewDataSource
+
+extension ProfileViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let row = sections[indexPath]
+
+        let cell: ProfileValueCell = tableView.dequeueCell()
+
+        return cell
+
+        switch row {
+        case .addressesKeys:
+            break
+
+        case .addressbook:
+            break
+
+        case .pushNotifications:
+            break
+
+        case .language:
+            break
+
+        case .backupPhrase:
+            break
+
+        case .changePassword:
+            break
+
+        case .changePasscode:
+            break
+
+        case .biometric:
+            break
+
+        case .network:
+            break
+
+        case .rateApp:
+            break
+
+        case .feedback:
+            break
+
+        case .supportWavesplatform:
+            break
+            
+        case .info:
+            break
+        }
+
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].rows.count
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+}
+
+// MARK: UITableViewDelegate
+
+extension ProfileViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        let row = sections[indexPath]
+
+       return 56
+
+        switch row {
+        case .addressesKeys:
+            break
+
+        case .addressbook:
+            break
+
+        case .pushNotifications:
+            break
+
+        case .language:
+            break
+
+        case .backupPhrase:
+            break
+
+        case .changePassword:
+            break
+
+        case .changePasscode:
+            break
+
+        case .biometric:
+            break
+
+        case .network:
+            break
+
+        case .rateApp:
+            break
+
+        case .feedback:
+            break
+
+        case .supportWavesplatform:
+            break
+
+        case .info:
+            break
+        }
+    }
+}
+
+// MARK: UIScrollViewDelegate
+
+extension ProfileViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
+    }
+}
 //@objc func logoutTapped() {
 //
 //    let enter = StoryboardManager.EnterStoryboard().instantiateViewController(withIdentifier: "EnterStartViewController") as! EnterStartViewController

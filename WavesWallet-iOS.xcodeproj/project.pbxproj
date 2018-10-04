@@ -226,6 +226,9 @@
 		0A762D9D2163A2100019D447 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
 		0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D9F2163AD0F0019D447 /* Support.storyboard */; };
 		0A762DA22163AD1A0019D447 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DA12163AD1A0019D447 /* SupportViewController.swift */; };
+		0A762DA821661AB30019D447 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DA721661AB30019D447 /* ProfileCoordinator.swift */; };
+		0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */; };
+		0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DAB21661B000019D447 /* ProfilePresenter.swift */; };
 		0A7643FA211874F400B633E1 /* FactoryInteractorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */; };
 		0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */; };
 		0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */; };
@@ -262,7 +265,7 @@
 		0AAB15C321655BDB00F1F7BC /* ProfileBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C221655BDB00F1F7BC /* ProfileBottomCell.swift */; };
 		0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */; };
 		0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */; };
-		0AAB15C921655C1800F1F7BC /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C821655C1800F1F7BC /* ProfileTableCell.swift */; };
+		0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */; };
 		0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
 		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
@@ -297,6 +300,7 @@
 		0AEB35A221165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB35A121165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift */; };
 		0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB35A321165E1300EDD63C /* AccountBalanceRepositoryRemote.swift */; };
 		0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB35A521165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift */; };
+		0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED6BB9216620F000481B42 /* ProfileTypes.swift */; };
 		0AF921E7212E07B3003BA067 /* Asset.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AF921BF212E07B2003BA067 /* Asset.strings */; };
 		0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */; };
 		0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C2212E07B2003BA067 /* AssetInteractor.swift */; };
@@ -983,6 +987,9 @@
 		0A762D9621639FCC0019D447 /* WavesButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WavesButton.swift; sourceTree = "<group>"; };
 		0A762D9F2163AD0F0019D447 /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
 		0A762DA12163AD1A0019D447 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		0A762DA721661AB30019D447 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
+		0A762DAB21661B000019D447 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractorsProtocol.swift; sourceTree = "<group>"; };
 		0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryRepositoriesProtocol.swift; sourceTree = "<group>"; };
 		0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
@@ -1023,7 +1030,7 @@
 		0AAB15C221655BDB00F1F7BC /* ProfileBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBottomCell.swift; sourceTree = "<group>"; };
 		0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackupPhraseCell.swift; sourceTree = "<group>"; };
 		0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePushTableCell.swift; sourceTree = "<group>"; };
-		0AAB15C821655C1800F1F7BC /* ProfileTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
+		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
 		0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsInteractor.swift; sourceTree = "<group>"; };
@@ -1056,6 +1063,7 @@
 		0AEB35A121165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AEB35A321165E1300EDD63C /* AccountBalanceRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryRemote.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0AEB35A521165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryLocal.swift; sourceTree = "<group>"; };
+		0AED6BB9216620F000481B42 /* ProfileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypes.swift; sourceTree = "<group>"; };
 		0AF921C0212E07B2003BA067 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Asset.strings; sourceTree = "<group>"; };
 		0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF921C2212E07B2003BA067 /* AssetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetInteractor.swift; sourceTree = "<group>"; };
@@ -2178,13 +2186,25 @@
 			isa = PBXGroup;
 			children = (
 				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
-				0AAB15C221655BDB00F1F7BC /* ProfileBottomCell.swift */,
 				E9193B8420D8A98500F5D983 /* ProfileViewController.swift */,
-				0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */,
-				0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */,
-				0AAB15C821655C1800F1F7BC /* ProfileTableCell.swift */,
+				0A762DA721661AB30019D447 /* ProfileCoordinator.swift */,
+				0A762DAB21661B000019D447 /* ProfilePresenter.swift */,
+				0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */,
+				0A762DA621661A810019D447 /* Views */,
+				0AED6BB9216620F000481B42 /* ProfileTypes.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		0A762DA621661A810019D447 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AAB15C221655BDB00F1F7BC /* ProfileBottomCell.swift */,
+				0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */,
+				0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */,
+				0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0A7E0CDC20F369E20010CA6C /* Environment */ = {
@@ -4156,6 +4176,7 @@
 				E9B087BC2163886800937644 /* DexInfoViewController.swift in Sources */,
 				0A3FE8BF2137007500DBF4E1 /* AliasTransactionNode.swift in Sources */,
 				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
+				0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */,
 				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */,
 				0A5E4BB32138046E00E3C3C3 /* AliasTransaction.swift in Sources */,
@@ -4235,6 +4256,7 @@
 				E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */,
 				E9B0881A2163886800937644 /* DexSortPresenterProtocol.swift in Sources */,
 				E95B47C621638A9F004D4E39 /* ThirdIndoPageView.swift in Sources */,
+				0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */,
 				0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */,
 				E9B087B62163886800937644 /* Order.swift in Sources */,
 				0AE491E621078CCE009223DB /* WalletSortCell.swift in Sources */,
@@ -4281,7 +4303,7 @@
 				0AFBCA9A21132F9300285BCB /* Images.swift in Sources */,
 				0AF922B4212E1234003BA067 /* UITableView+Animation.swift in Sources */,
 				E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */,
-				0AAB15C921655C1800F1F7BC /* ProfileTableCell.swift in Sources */,
+				0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */,
 				E9B087DE2163886800937644 /* DexCreateOrderViewController.swift in Sources */,
 				0AF922D7212E1234003BA067 /* ModuleBuilder.swift in Sources */,
 				0AF922CB212E1234003BA067 /* CGSize+Hashable.swift in Sources */,
@@ -4507,6 +4529,7 @@
 				0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */,
 				0AFF5C77215A790F00B82940 /* PasscodeCoordinator.swift in Sources */,
 				E9B087D62163886800937644 /* DexListInteractor.swift in Sources */,
+				0A762DA821661AB30019D447 /* ProfileCoordinator.swift in Sources */,
 				0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
@@ -4559,6 +4582,7 @@
 				0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */,
 				0AFF5C87215BEEBF00B82940 /* RXCrypto+SHA.swift in Sources */,
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
+				0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */,
 				F79C43CE1EAEA9F4006057B0 /* TransferTransactionViewController.swift in Sources */,
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
 				0A5E4BDB21382C2200E3C3C3 /* IssueTransaction+Mapper.swift in Sources */,

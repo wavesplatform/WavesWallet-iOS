@@ -33,9 +33,8 @@ extension CALayer {
         
         self.mask = {
 
-            var roundedRect = rect ?? bounds
+            let roundedRect = rect ?? bounds
             
-
             let mask = CAShapeLayer()
             mask.name = Constants.maskName
             let path = UIBezierPath(roundedRect: roundedRect,
@@ -48,14 +47,6 @@ extension CALayer {
 
             mask.frame = roundedRect
             mask.path = path.cgPath
-
-            mask.shadowColor = self.shadowColor
-            mask.shadowOffset = self.shadowOffset
-            mask.shadowOpacity = self.shadowOpacity
-            mask.shadowRadius = self.shadowRadius
-            mask.shadowPath = self.shadowPath
-            mask.shouldRasterize = self.shouldRasterize
-            mask.rasterizationScale = self.rasterizationScale
 
             return mask
         }()
@@ -80,13 +71,6 @@ extension CALayer {
             mask.path = UIBezierPath(roundedRect: rect,
                                      byRoundingCorners: corners,
                                      cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-            mask.shadowColor = self.shadowColor
-            mask.shadowOffset = self.shadowOffset
-            mask.shadowOpacity = self.shadowOpacity
-            mask.shadowRadius = self.shadowRadius
-            mask.shadowPath = self.shadowPath
-            mask.shouldRasterize = self.shouldRasterize
-            mask.rasterizationScale = self.rasterizationScale
 
             return mask
         }()

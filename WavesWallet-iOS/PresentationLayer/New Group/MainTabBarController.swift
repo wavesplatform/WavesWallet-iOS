@@ -7,6 +7,7 @@ final class MainTabBarController: UITabBarController {
     let walletCoordinator: WalletCoordinator = WalletCoordinator()
     let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
     let dexListCoordinator: DexCoordinator = DexCoordinator()
+    var profileCoordinator: ProfileCoordinator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +30,9 @@ final class MainTabBarController: UITabBarController {
         navDex.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, -16, 0)
 
-        let profile = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "ProfileViewController")
-        let navProfile = CustomNavigationController(rootViewController: profile)
+        let navProfile = CustomNavigationController()
+        profileCoordinator = ProfileCoordinator(navigationController: navProfile)
+        profileCoordinator.start()
         navProfile.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
         navProfile.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
         navProfile.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, -16, 0)
