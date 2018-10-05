@@ -29,6 +29,7 @@ protocol ProfilePresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
+//BlockRepositoryRemote
 final class ProfilePresenter: ProfilePresenterProtocol {
 
     fileprivate typealias Types = ProfileTypes
@@ -54,6 +55,32 @@ final class ProfilePresenter: ProfilePresenterProtocol {
             .drive()
             .disposed(by: disposeBag)
     }
+
+
+    private func registration() -> Feedback {
+        return react(query: { state -> RegistationQuery? in
+
+            if case let  .registration(account) = state.kind, let action = state.action, case .registration =  action {
+                return RegistationQuery(account: account, passcode: state.passcode)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .registrationAccount(query.account,
+                                     passcode: query.passcode)
+                .map { .completedRegistration($0) }
+                .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+                })
+        })
+    }
 }
 
 // MARK: Core State
@@ -61,6 +88,23 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 private extension ProfilePresenter {
 
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
+
+        switch event {
+        case .viewDidAppear:
+            break
+
+        case .tapRow(let row):
+            break
+
+        case .setEnabledBiometric(let isOn):
+            break
+
+        case .tapLogout:
+            break
+
+        case .tapDelete:
+            break
+        }
         return state
     }
 }
@@ -75,18 +119,21 @@ private extension ProfilePresenter {
 
     func initialDisplayState() -> Types.DisplayState {
 
-        let generalSettings = Types.ViewModel.Section(rows: [.addressesKeys, .addressbook, .pushNotifications, .language])
+        let generalSettings = Types.ViewModel.Section(rows: [.addressesKeys,
+                                                             .addressbook,
+                                                             .pushNotifications,
+                                                             .language(Language.currentLanguage)], kind: .general)
 
-        let security = Types.ViewModel.Section(rows: [.backupPhrase,
+        let security = Types.ViewModel.Section(rows: [.backupPhrase(isBackedUp: true),
                                                       .changePassword,
                                                       .changePasscode,
-                                                      .biometric,
-                                                      .network])
-
+                                                      .biometric(isOn: true),
+                                                      .network], kind: .security)
 
         let other = Types.ViewModel.Section(rows: [.rateApp,
-                                                      .feedback,
-                                                      .supportWavesplatform])
+                                                   .feedback,
+                                                   .supportWavesplatform,
+                                                   .info(version: "2.0.2 (13)", height: nil)], kind: .other)
 
         return Types.DisplayState(sections: [generalSettings,
                                              security,

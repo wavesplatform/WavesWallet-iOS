@@ -981,6 +981,120 @@ internal enum Localizable {
       internal static var sent: String { return Localizable.tr("History", "segmentedControl.sent") }
     }
   }
+          internal enum Profile {
+
+    internal enum Button {
+
+      internal enum Delete {
+        /// Delete account from device
+        internal static var title: String { return Localizable.tr("Profile", "button.delete.title") }
+      }
+
+      internal enum Logout {
+        /// Logout of account
+        internal static var title: String { return Localizable.tr("Profile", "button.logout.title") }
+      }
+    }
+
+    internal enum Cell {
+
+      internal enum Addressbook {
+        /// Address book
+        internal static var title: String { return Localizable.tr("Profile", "cell.addressbook.title") }
+      }
+
+      internal enum Addresses {
+        /// Addresses, keys
+        internal static var title: String { return Localizable.tr("Profile", "cell.addresses.title") }
+      }
+
+      internal enum Backupphrase {
+        /// Backup phrase
+        internal static var title: String { return Localizable.tr("Profile", "cell.backupphrase.title") }
+      }
+
+      internal enum Changepasscode {
+        /// Change passcode
+        internal static var title: String { return Localizable.tr("Profile", "cell.changepasscode.title") }
+      }
+
+      internal enum Changepassword {
+        /// Change password
+        internal static var title: String { return Localizable.tr("Profile", "cell.changepassword.title") }
+      }
+
+      internal enum Currentheight {
+        /// Current height
+        internal static var title: String { return Localizable.tr("Profile", "cell.currentheight.title") }
+      }
+
+      internal enum Feedback {
+        /// Feedback
+        internal static var title: String { return Localizable.tr("Profile", "cell.feedback.title") }
+      }
+
+      internal enum Info {
+
+        internal enum Currentheight {
+          /// Current height
+          internal static var title: String { return Localizable.tr("Profile", "cell.info.currentheight.title") }
+        }
+
+        internal enum Version {
+          /// Version
+          internal static var title: String { return Localizable.tr("Profile", "cell.info.version.title") }
+        }
+      }
+
+      internal enum Language {
+        /// Language
+        internal static var title: String { return Localizable.tr("Profile", "cell.language.title") }
+      }
+
+      internal enum Network {
+        /// Network
+        internal static var title: String { return Localizable.tr("Profile", "cell.network.title") }
+      }
+
+      internal enum Pushnotifications {
+        /// Push Notifications
+        internal static var title: String { return Localizable.tr("Profile", "cell.pushnotifications.title") }
+      }
+
+      internal enum Rateapp {
+        /// Rate app
+        internal static var title: String { return Localizable.tr("Profile", "cell.rateApp.title") }
+      }
+
+      internal enum Supportwavesplatform {
+        /// Support Wavesplatform
+        internal static var title: String { return Localizable.tr("Profile", "cell.supportwavesplatform.title") }
+      }
+    }
+
+    internal enum Header {
+
+      internal enum General {
+        /// General settings
+        internal static var title: String { return Localizable.tr("Profile", "header.general.title") }
+      }
+
+      internal enum Other {
+        /// Other
+        internal static var title: String { return Localizable.tr("Profile", "header.other.title") }
+      }
+
+      internal enum Security {
+        /// Security
+        internal static var title: String { return Localizable.tr("Profile", "header.security.title") }
+      }
+    }
+
+    internal enum Navigation {
+      /// Profile
+      internal static var title: String { return Localizable.tr("Profile", "navigation.title") }
+    }
+  }
           internal enum Asset {
 
     internal enum Cell {

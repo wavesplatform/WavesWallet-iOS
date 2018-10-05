@@ -28,26 +28,6 @@ extension UIView {
                         swizzled: #selector(swizzled_shadow_layoutSubviews))
     }
 
-    private var prevBounds: CGRect? {
-
-        get {
-            if let value: NSValue = associatedObject(for: &AssociatedKeys.prevBounds) {
-                return value.cgRectValue
-            }
-            return nil
-        }
-
-        set {
-
-            if let newValue = newValue {
-                setAssociatedObject(NSValue(cgRect: newValue), for: &AssociatedKeys.prevBounds)
-            } else {
-                let value: NSValue? = nil
-                setAssociatedObject(value, for: &AssociatedKeys.prevBounds)
-            }
-        }
-    }
-
     private var shadowOptions: ShadowOptions? {
         get {
             return associatedObject(for: &AssociatedKeys.shadowOptions) ?? nil
@@ -58,18 +38,6 @@ extension UIView {
         }
     }
 
-    private var isInvalidatePath: Bool {
-
-        get {
-            return associatedObject(for: &AssociatedKeys.isInvalidatePath) ?? false
-        }
-
-        set {
-            setAssociatedObject(newValue, for: &AssociatedKeys.isInvalidatePath)
-        }
-    }
-
-
     @IBInspectable var cornerRadius: Float {
 
         get {
@@ -79,6 +47,7 @@ extension UIView {
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.cornerRadius)
             update()
+            
         }
     }
 
@@ -95,55 +64,29 @@ extension UIView {
 
 extension UIView {
 
-    private var isNeedUpdateLayout: Bool {
-        get {
-            return (cornerRadius != Constants.deffaultCornerRadius) || shadowOptions != nil
-        }
-    }
-
     private func update() {
-        if cornerRadius != Constants.deffaultCornerRadius {
-            layer.clip(cornerRadius: CGFloat(cornerRadius))
-        } else {
-            layer.removeClip()
+        if let shadowOptions = shadowOptions {
+            layer.setupShadow(options: shadowOptions)
         }
 
-        if let shadowOptions = shadowOptions {
-            if let mask = layer.mask  {
-                mask.setupShadow(options: shadowOptions)
-                layer.mask = mask
+        if self.cornerRadius != Constants.deffaultCornerRadius {
+            layer.cornerRadius = CGFloat(self.cornerRadius)
+            layer.shouldRasterize = true
+            layer.rasterizationScale = UIScreen.main.scale
+            if layer.masksToBounds == false {
+                warning("Corner radius dont work, need enable mask to bounds")
             }
-//            layer.setupShadow(options: shadowOptions)
-        } else {
-            if let mask = layer.mask  {
-                mask.removeShadow()
-            }
-            layer.removeShadow()
         }
-        isInvalidatePath = true
     }
 
     @objc private func swizzled_shadow_layoutSubviews() {
         swizzled_shadow_layoutSubviews()
 
-        if isNeedUpdateLayout == false {
-            return
-        }
-
-//        if prevBounds != bounds || isInvalidatePath {
-//            isInvalidatePath = false
-
+        if self.shadowOptions != nil {
             let path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
-            if let mask = layer.mask {
-                mask.shadowPath = path
-            }
-            if let mask = layer.mask as? CAShapeLayer {
-                mask.frame = bounds
-                mask.path = path
-            }
             layer.shadowPath = path
-//        }
-
-//        prevBounds = bounds
+        } else {
+            layer.shadowPath = nil
+        }
     }
 }

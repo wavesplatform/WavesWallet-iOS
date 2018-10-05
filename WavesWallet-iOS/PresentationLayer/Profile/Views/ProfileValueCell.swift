@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 56
+}
+
 final class ProfileValueCell: UITableViewCell, Reusable {
 
     struct Model {
@@ -20,19 +24,11 @@ final class ProfileValueCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        containerView.addTableCellShadowStyle()
-
-        containerView.setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
-                                    color: .black,
-                                   opacity: 0.15,
-                                   shadowRadius: 4,
-                                   cornerRadius: 2,
-                                   shouldRasterize: true))
-        contentView.backgroundColor = .clear
+        containerView.addTableCellShadowStyle()        
     }
 
     class func cellHeight() -> CGFloat {
-        return 56
+        return Constants.height
     }
 }
 

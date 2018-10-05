@@ -11,41 +11,13 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 
+private enum Constants {
+    static let contentInset = UIEdgeInsetsMake(0, 0, 24, 0)
+}
+
 final class ProfileViewController: UIViewController {
 
     fileprivate typealias Types = ProfileTypes
-//    enum GeneralSection: Int {
-//        case addressesAndKeys = 0
-//        case addressBook
-//        case push
-//        case language
-//    }
-//
-//    enum SecuritySection: Int {
-//        case backupPhrase = 0
-//        case changePassword
-//        case changePasscode
-//        case touchID
-//        case network
-//    }
-//
-//    enum OtherSection: Int {
-//        case rateApp = 0
-//        case feedback
-//        case supportWavesplatform
-//        case bottomRow
-//    }
-//
-//
-//    enum ProfileSection: Int {
-//        case general = 0
-//        case security
-//        case other
-//    }
-//
-//    let generalNames = ["Addresses and keys", "Address book", "Push Notifications", "Language"]
-//    let securityNames = ["Backup phrase", "Change password", "Change passcode", "Touch ID", "Network"]
-//    let otherNames = ["Rate app", "Feedback", "Support Wavesplatform", ""]
 
     @IBOutlet private weak var tableView: UITableView!
     private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
@@ -58,7 +30,6 @@ final class ProfileViewController: UIViewController {
 
         createMenuButton()
         setupBigNavigationBar()
-
 
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
         setupSystem()
@@ -73,11 +44,12 @@ final class ProfileViewController: UIViewController {
 private extension ProfileViewController {
 
     private func setupLanguages() {
-        navigationItem.title = "Profile"
+        navigationItem.title = Localizable.Profile.Navigation.title
     }
 
     private func setupTableview() {
-
+        self.tableView.contentInset = Constants.contentInset
+        self.tableView.scrollIndicatorInsets = Constants.contentInset
     }
 }
 
@@ -134,49 +106,76 @@ extension ProfileViewController: UITableViewDataSource {
 
         let row = sections[indexPath]
 
-        let cell: ProfileValueCell = tableView.dequeueCell()
-
-        return cell
-
         switch row {
         case .addressesKeys:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Addresses.title))
+            return cell
 
         case .addressbook:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Addressbook.title))
+            return cell
 
         case .pushNotifications:
-            break
+            let cell: ProfilePushTableCell = tableView.dequeueCell()
+            return cell
 
-        case .language:
-            break
+        case .language(let language):
+            let cell: ProfileLanguageCell = tableView.dequeueCell()
+            cell.update(with: .init(languageIcon: UIImage(named: language.icon) ?? UIImage()))
+            return cell
 
-        case .backupPhrase:
-            break
+        case .backupPhrase(let isBackedUp):
+            let cell: ProfileBackupPhraseCell = tableView.dequeueCell()
+            cell.update(with: .init(isBackedUp: isBackedUp))
+            return cell
 
         case .changePassword:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Changepassword.title))
+            return cell
 
         case .changePasscode:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Changepasscode.title))
+            return cell
 
-        case .biometric:
-            break
+        case .biometric(let isOn):
+            let cell: ProfileBiometricCell = tableView.dequeueCell()
+            cell.update(with: .init(isOnBiometric: isOn))
+            cell.switchChangedValue = { [weak self] isOn in
+                self?.eventInput.onNext(.setEnabledBiometric(isOn))
+            }
+            return cell
 
         case .network:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Network.title))
+            return cell
 
         case .rateApp:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Rateapp.title))
+            return cell
 
         case .feedback:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Feedback.title))
+            return cell
 
         case .supportWavesplatform:
-            break
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Profile.Cell.Supportwavesplatform.title))
+            return cell
             
-        case .info:
-            break
+        case .info(let version, let height):
+            let cell: ProfileInfoCell = tableView.dequeueCell()
+
+            cell.update(with: ProfileInfoCell.Model.init(version: version,
+                                                         height: height,
+                                                         isLoadingHeight: height == nil))
+            return cell
         }
 
     }
@@ -194,51 +193,65 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let row = sections[indexPath]
+        eventInput.onNext(.tapRow(row))
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return ProfileHeaderView.viewHeight()
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let view: ProfileHeaderView = tableView.dequeueAndRegisterHeaderFooter()
+
+        let section = sections[section]
+
+        switch section.kind {
+        case .general:
+            view.update(with: Localizable.Profile.Header.General.title)
+
+        case .security:
+            view.update(with: Localizable.Profile.Header.Security.title)
+
+        case .other:
+            view.update(with: Localizable.Profile.Header.Other.title)
+
+        }
+       
+        return view
+    }
+
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let row = sections[indexPath]
 
-       return 56
-
         switch row {
-        case .addressesKeys:
-            break
-
-        case .addressbook:
-            break
-
-        case .pushNotifications:
-            break
-
-        case .language:
-            break
+        case .addressesKeys,
+             .addressbook,
+             .changePassword,
+             .changePasscode,
+             .biometric,
+             .network,
+             .rateApp,
+             .feedback,
+             .supportWavesplatform:
+            return ProfileValueCell.cellHeight()
 
         case .backupPhrase:
-            break
+            return ProfileBackupPhraseCell.cellHeight()
 
-        case .changePassword:
-            break
+        case .pushNotifications:
+            return ProfilePushTableCell.cellHeight()
 
-        case .changePasscode:
-            break
-
-        case .biometric:
-            break
-
-        case .network:
-            break
-
-        case .rateApp:
-            break
-
-        case .feedback:
-            break
-
-        case .supportWavesplatform:
-            break
+        case .language:
+            return ProfileLanguageCell.cellHeight()
 
         case .info:
-            break
+            return ProfileInfoCell.cellHeight()
         }
     }
 }

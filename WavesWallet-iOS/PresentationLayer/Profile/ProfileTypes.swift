@@ -19,12 +19,32 @@ extension ProfileTypes.DTO {
 
 extension ProfileTypes {
 
+    enum Query: Hashable {
+        case showAddressesKeys
+        case showAddressBook
+        case showLanguage
+        case showBackupPhrase
+        case showChangePassword
+        case showChangePasscode
+        case showNetwork
+        case showRateApp
+        case showFeedback
+        case showSupport
+        case setEnabledBiometric(Bool)        
+        case tapLogout
+        case tapDelete
+    }
+
     struct State: Mutating {
         var displayState: DisplayState
     }
 
     enum Event {
         case viewDidAppear
+        case tapRow(ProfileTypes.ViewModel.Row)
+        case setEnabledBiometric(Bool)
+        case tapLogout
+        case tapDelete
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
@@ -38,19 +58,27 @@ extension ProfileTypes.ViewModel {
         case addressesKeys
         case addressbook
         case pushNotifications
-        case language
-        case backupPhrase
+        case language(Language)
+        case backupPhrase(isBackedUp: Bool)
         case changePassword
         case changePasscode
-        case biometric
+        case biometric(isOn: Bool)
         case network
         case rateApp
         case feedback
         case supportWavesplatform
-        case info
+        case info(version: String, height: String?)
     }
 
     struct Section: SectionBase {
-         var rows: [Row]
+
+        enum Kind {
+            case general
+            case security
+            case other
+        }
+        
+        var rows: [Row]
+        var kind: Kind
     }
 }

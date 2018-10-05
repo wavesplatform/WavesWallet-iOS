@@ -1,0 +1,38 @@
+/* 
+  Profile.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 05/10/2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"navigation.title" = "Profile";
+
+"header.general.title" = "General settings";
+"header.security.title" = "Security";
+"header.other.title" = "Other";
+
+"cell.addresses.title" = "Addresses, keys";
+"cell.addressbook.title" = "Address book";
+"cell.pushnotifications.title" = "Push Notifications";
+"cell.language.title" = "Language";
+"cell.backupphrase.title" = "Backup phrase";
+
+"cell.changepassword.title" = "Change password";
+"cell.changepasscode.title" = "Change passcode";
+
+"cell.network.title" = "Network";
+"cell.rateApp.title" = "Rate app";
+"cell.feedback.title" = "Feedback";
+"cell.supportwavesplatform.title" = "Support Wavesplatform";
+"cell.currentheight.title" = "Current height";
+
+"cell.info.currentheight.title" = "Current height";
+"cell.info.version.title" = "Version";
+
+"button.delete.title" = "Delete account from device";
+"button.logout.title" = "Logout of account";
+
+
+
+
