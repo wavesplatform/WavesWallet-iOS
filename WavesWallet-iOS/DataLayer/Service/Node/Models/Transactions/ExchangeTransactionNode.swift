@@ -23,7 +23,7 @@ extension Node.DTO {
             let timestamp: Int64
             let expiration: Int64
             let matcherFee: Int64
-            let signature: String
+            let signature: String?
         }
 
         struct AssetPair: Decodable {
@@ -39,7 +39,7 @@ extension Node.DTO {
         let timestamp: Int64
         let height: Int64
 
-        let signature: String
+        let signature: String?
         let order1: Order
         let order2: Order
         let price: Int64

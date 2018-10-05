@@ -12,7 +12,7 @@ import RealmSwift
 final class BurnTransaction: Transaction {
 
     @objc dynamic var assetId: String = ""
-    @objc dynamic var signature: String = ""
+    @objc dynamic var signature: String? = nil
     @objc dynamic var chainId: String? = nil
     @objc dynamic var amount: Int64 = 0
 }

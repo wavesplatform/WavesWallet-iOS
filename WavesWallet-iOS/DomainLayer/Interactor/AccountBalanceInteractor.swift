@@ -49,7 +49,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 guard isNeedForceUpdate == true else { return Observable.just(balances) }
 
                 return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
-            }
+            }.sweetDebug("Balance I")
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }

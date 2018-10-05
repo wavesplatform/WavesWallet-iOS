@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 final class LeaseCancelTransaction: Transaction {
-    @objc dynamic var signature: String = ""
+    @objc dynamic var signature: String? = nil
     @objc dynamic var chainId: String? = nil
     @objc dynamic var leaseId: String = ""
     @objc dynamic var lease: LeaseTransaction?
