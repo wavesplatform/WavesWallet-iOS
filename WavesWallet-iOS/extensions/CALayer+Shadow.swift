@@ -38,6 +38,6 @@ extension CALayer {
         shadowRadius = 0
         shouldRasterize = false
         rasterizationScale = 1
-        shadowPath = nil
+        cornerRadius = 0
     }
 }

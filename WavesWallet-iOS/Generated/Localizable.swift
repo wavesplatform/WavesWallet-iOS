@@ -482,6 +482,15 @@ internal enum Localizable {
     /// Authenticate with Face ID
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
   }
+          internal enum AssetList {
+
+    internal enum Label {
+      /// Assets
+      internal static var assets: String { return Localizable.tr("AssetList", "label.assets") }
+      /// Loading assets…
+      internal static var loadingAssets: String { return Localizable.tr("AssetList", "label.loadingAssets") }
+    }
+  }
           internal enum Wallet {
 
     internal enum Button {

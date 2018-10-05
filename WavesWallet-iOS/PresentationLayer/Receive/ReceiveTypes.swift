@@ -10,16 +10,18 @@ import Foundation
 
 enum Receive {
     enum DTO {}
+    enum ViewModel {}
+}
+
+extension Receive.ViewModel {
+    
+    enum State: Int {
+        case cryptoCurrency
+        case invoice
+        case card
+    }
 }
 
 extension Receive.DTO {
-    
-    struct Asset {
-        let id: String
-        let name: String
-        let ticker: String?
-        let isGateway: Bool
-        let isFavourite: Bool
-        let amount: Money
-    }
+ 
 }

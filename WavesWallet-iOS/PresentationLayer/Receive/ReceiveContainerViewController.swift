@@ -8,20 +8,16 @@
 
 import UIKit
 
-private enum ReceiveState: Int {
-    case cryptoCurrency
-    case invoive
-    case card
-}
-
 final class ReceiveContainerViewController: UIViewController {
 
     private var viewControllers: [UIViewController] = []
-    
+    private var states: [Receive.ViewModel.State] = []
+    private var selectedState: Receive.ViewModel.State!
+
     @IBOutlet private weak var segmentedControl: SegmentedControl!
     @IBOutlet private weak var scrollViewContainer: UIScrollView!
     
-    private var selectedState = ReceiveState.cryptoCurrency
+    var asset: DomainLayer.DTO.AssetBalance?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +42,7 @@ final class ReceiveContainerViewController: UIViewController {
             view.frame.size.height = scrollViewContainer.frame.size.height
         }
     }
+    
 }
 
 //MARK: - Actions
@@ -57,7 +54,7 @@ private extension ReceiveContainerViewController {
     }
     
     @IBAction func segmentedDidChange(_ sender: Any) {
-        guard let state = ReceiveState(rawValue: segmentedControl.selectedIndex) else { return }
+        guard let state = Receive.ViewModel.State(rawValue: segmentedControl.selectedIndex) else { return }
         selectedState = state
         scrollToPage(selectedState.rawValue)
     }
@@ -67,8 +64,8 @@ private extension ReceiveContainerViewController {
         if gesture.direction == .left {
 
             let index = segmentedControl.selectedIndex + 1
-            if index <= ReceiveState.card.rawValue {
-                guard let state = ReceiveState(rawValue: index) else { return }
+            if index <= Receive.ViewModel.State.card.rawValue {
+                guard let state = Receive.ViewModel.State(rawValue: index) else { return }
                 selectedState = state
                 segmentedControl.setSelectedIndex(state.rawValue, animation: true)
                 scrollToPage(state.rawValue)
@@ -78,7 +75,7 @@ private extension ReceiveContainerViewController {
 
             let index = selectedState.rawValue - 1
             if index >= 0 {
-                guard let state = ReceiveState(rawValue: index) else { return }
+                guard let state = Receive.ViewModel.State(rawValue: index) else { return }
                 selectedState = state
                 segmentedControl.setSelectedIndex(state.rawValue, animation: true)
                 scrollToPage(state.rawValue)
@@ -118,18 +115,25 @@ private extension ReceiveContainerViewController {
     
     func setupSegmentedControl() {
         
-        let buttons: [SegmentedControl.Button] = [.init(name: Localizable.Receive.Button.cryptocurrency,
-                                                        icon: .init(normal: Images.rGateway14Basic500.image,
-                                                                    selected: Images.rGateway14White.image)),
-                                                  
-                                                  .init(name: Localizable.Receive.Button.invoice,
-                                                        icon: .init(normal: Images.rInwaves14Basic500.image,
-                                                                    selected: Images.rInwaves14White.image)),
-                                                  
-                                                  .init(name: Localizable.Receive.Button.card,
-                                                        icon: .init(normal: Images.rCard14Basic500.image,
-                                                                    selected: Images.rCard14White.image))]
+        var buttons: [SegmentedControl.Button] = []
         
+        for state in states {
+            if state == .cryptoCurrency {
+                buttons.append(.init(name: Localizable.Receive.Button.cryptocurrency,
+                                     icon: .init(normal: Images.rGateway14Basic500.image,
+                                                 selected: Images.rGateway14White.image)))
+            }
+            else if state == .invoice {
+                buttons.append(.init(name: Localizable.Receive.Button.invoice,
+                                     icon: .init(normal: Images.rInwaves14Basic500.image,
+                                                 selected: Images.rInwaves14White.image)))
+            }
+            else if state == .card {
+                buttons.append(.init(name: Localizable.Receive.Button.card,
+                                     icon: .init(normal: Images.rCard14Basic500.image,
+                                                 selected: Images.rCard14White.image)))
+            }
+        }
         
         segmentedControl.update(with: buttons)
     }
@@ -146,7 +150,10 @@ extension ReceiveContainerViewController: UIScrollViewDelegate {
 //MARK: - Methods
 extension ReceiveContainerViewController {
     
-    func add(_ viewController: UIViewController) {
+    func add(_ viewController: UIViewController, state: Receive.ViewModel.State) {
         viewControllers.append(viewController)
+        states.append(state)
+        
+        selectedState = states[0]
     }
 }

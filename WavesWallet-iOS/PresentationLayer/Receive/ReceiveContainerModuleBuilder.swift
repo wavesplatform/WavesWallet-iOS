@@ -10,14 +10,20 @@ import UIKit
 
 struct ReceiveContainerModuleBuilder: ModuleBuilder {
     
-    func build(input: Void) -> UIViewController {
+    func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
 
-        vc.add(StoryboardScene.Receive.receiveCryptocurrencyViewController.instantiate())
-        vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate())
-        vc.add(StoryboardScene.Receive.receiveCardViewController.instantiate())
-
+        if let asset = input {
+            
+        }
+        else {
+            vc.add(StoryboardScene.Receive.receiveCryptocurrencyViewController.instantiate(), state: .cryptoCurrency)
+            vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
+            vc.add(StoryboardScene.Receive.receiveCardViewController.instantiate(), state: .card)
+        }
+        
+        
         return vc
         
     }

@@ -70,6 +70,11 @@ internal enum StoryboardScene {
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
   }
+  internal enum AssetList: StoryboardType {
+    internal static let storyboardName = "AssetList"
+
+    internal static let assetListViewController = SceneType<WavesWallet_iOS.AssetListViewController>(storyboard: AssetList.self, identifier: "AssetListViewController")
+  }
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"
 
@@ -268,8 +273,6 @@ internal enum StoryboardScene {
   }
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"
-
-    internal static let chooseAssetViewController = SceneType<WavesWallet_iOS.ChooseAssetViewController>(storyboard: Waves.self, identifier: "ChooseAssetViewController")
 
     internal static let wavesPopupViewController = SceneType<WavesWallet_iOS.WavesPopupViewController>(storyboard: Waves.self, identifier: "WavesPopupViewController")
 

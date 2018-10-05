@@ -32,7 +32,8 @@ class WavesPopupViewController: UIViewController {
     
     @IBAction func receiveTapped(_ sender: Any) {
         
-        let vc = ReceiveContainerModuleBuilder().build()
+//        let types: [Receive.ViewModel.State] = [.cryptoCurrency]
+        let vc = ReceiveContainerModuleBuilder().build(input: nil)
         
         let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController

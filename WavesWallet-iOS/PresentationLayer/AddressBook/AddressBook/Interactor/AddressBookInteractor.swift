@@ -23,7 +23,7 @@ final class AddressBookInteractor: AddressBookInteractorProtocol {
             })
         
         let search = searchString
-            .asObserver()
+            .asObserver().skip(1)
             .map { [weak self] searchString -> [DomainLayer.DTO.Contact] in
                 return self?._users ?? []
             }

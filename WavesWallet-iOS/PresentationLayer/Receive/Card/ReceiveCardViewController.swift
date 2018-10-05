@@ -10,10 +10,14 @@ import UIKit
 
 final class ReceiveCardViewController: UIViewController {
 
+    @IBOutlet private weak var assetView: AssetSelectView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        assetView.isSelectedAssetMode = false
+        assetView.setupAssetWavesMode()
     }
 
 }

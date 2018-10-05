@@ -8,24 +8,23 @@
 
 import UIKit
 
-
 final class ReceiveCryptocurrencyViewController: UIViewController {
 
-    @IBOutlet private weak var assetView: ReceiveAssetView!
+    @IBOutlet private weak var assetView: AssetSelectView!
     
-    @IBOutlet private weak var viewWarningMinimumAmount: UIView!
-    @IBOutlet private weak var viewWarningSendOnlyDeposit: UIView!
+    @IBOutlet private weak var viewWarning: UIView!
+    
     @IBOutlet private weak var labelTitleMinimumAmount: UILabel!
     @IBOutlet private weak var labelWarningMinimumAmount: UILabel!
     @IBOutlet private weak var labelTitleSendOnlyDeposit: UILabel!
     @IBOutlet private weak var labelWarningSendOnlyDeposit: UILabel!
-    @IBOutlet weak var buttonCotinue: HighlightedButton!
+    @IBOutlet private weak var buttonCotinue: HighlightedButton!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     
-    
-    private var asset: Receive.DTO.Asset?
+    private var selectedAsset: DomainLayer.DTO.AssetBalance?
 
     private var canContinueAction: Bool {
-        return asset != nil
+        return selectedAsset != nil
     }
     
     override func viewDidLoad() {
@@ -34,21 +33,25 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         assetView.delegate = self
         setupLocalization()
         setupButtonState()
+        setupViewState()
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
-    
+        
     }
 }
 
 //MARK: - SetupUI
 private extension ReceiveCryptocurrencyViewController {
     
+    func setupViewState() {
+        viewWarning.isHidden = !canContinueAction
+    }
+    
     func setupButtonState() {
         buttonCotinue.isUserInteractionEnabled = canContinueAction
         buttonCotinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
-    
     
     func setupLocalization() {
         labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit("0.001 BTC")
@@ -61,9 +64,21 @@ private extension ReceiveCryptocurrencyViewController {
 }
 
 //MARK: - ReceiveAssetViewDelegate
-extension ReceiveCryptocurrencyViewController: ReceiveAssetViewDelegate {
+extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
     
-    func receiveAssetViewDidTapChangeAsset() {
+    func assetViewDidTapChangeAsset() {
+        
+        let vc = AssetListModuleBuilder(output: self).build(input: .init(filters: [.all], selectedAsset: selectedAsset))
+        navigationController?.pushViewController(vc, animated: true)
 //        delegate?.receiveCryptocurrencyViewControllerDidChangeAsset(asset)
+    }
+}
+
+extension ReceiveCryptocurrencyViewController: AssetListModuleOutput {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+        selectedAsset = asset
+        assetView.update(with: asset)
+        setupButtonState()
+        setupViewState()
     }
 }
