@@ -1,0 +1,25 @@
+//
+//  ReceiveCryptocurrencyModuleBuilder.swift
+//  WavesWallet-iOS
+//
+//  Created by Pavel Gubin on 10/6/18.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import UIKit
+
+struct ReceiveCryptocurrencyModuleBuilder: ModuleBuilder {
+    
+    func build(input: Void) -> UIViewController {
+        
+        let interactor: ReceiveCryptocurrencyInteractorProtocol = ReceiveCryptocurrencyInteractorMock()
+        
+        var presenter: ReceiveCryptocurrencyPresenterProtocol = ReceiveCryptocurrencyPresenter()
+        presenter.interactor = interactor
+        
+        let vc = StoryboardScene.Receive.receiveCryptocurrencyViewController.instantiate()
+        vc.presenter = presenter
+        
+        return vc
+    }
+}

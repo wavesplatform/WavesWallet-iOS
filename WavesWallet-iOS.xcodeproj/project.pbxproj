@@ -715,6 +715,13 @@
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
+		E9CD828C2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD828B2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift */; };
+		E9CD82902167B5C200BF937D /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD828F2167B5C200BF937D /* ReceiveCryptocurrencyPresenterProtocol.swift */; };
+		E9CD82922167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82912167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift */; };
+		E9CD82942167B5EC00BF937D /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82932167B5EC00BF937D /* ReceiveCryptocurrencyInteractorProtocol.swift */; };
+		E9CD82962167B60200BF937D /* ReceiveCryptocurrencyInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82952167B60200BF937D /* ReceiveCryptocurrencyInteractorMock.swift */; };
+		E9CD82982167B61900BF937D /* ReceiveCryptocurrencyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82972167B61900BF937D /* ReceiveCryptocurrencyInteractor.swift */; };
+		E9CD829A2168ECF900BF937D /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82992168ECF900BF937D /* ReceiveCryptocurrencyModuleBuilder.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
@@ -1538,6 +1545,13 @@
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E9CD828B2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTapes.swift; sourceTree = "<group>"; };
+		E9CD828F2167B5C200BF937D /* ReceiveCryptocurrencyPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyPresenterProtocol.swift; sourceTree = "<group>"; };
+		E9CD82912167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyPresenter.swift; sourceTree = "<group>"; };
+		E9CD82932167B5EC00BF937D /* ReceiveCryptocurrencyInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractorProtocol.swift; sourceTree = "<group>"; };
+		E9CD82952167B60200BF937D /* ReceiveCryptocurrencyInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractorMock.swift; sourceTree = "<group>"; };
+		E9CD82972167B61900BF937D /* ReceiveCryptocurrencyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractor.swift; sourceTree = "<group>"; };
+		E9CD82992168ECF900BF937D /* ReceiveCryptocurrencyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyModuleBuilder.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
@@ -3040,7 +3054,11 @@
 		E95B481D2163A582004D4E39 /* Сryptocurrency */ = {
 			isa = PBXGroup;
 			children = (
+				E9CD828E2167B5AE00BF937D /* Presenter */,
+				E9CD828D2167B5A700BF937D /* Interactor */,
 				E95B481E2163A59A004D4E39 /* ReceiveCryptocurrencyViewController.swift */,
+				E9CD828B2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift */,
+				E9CD82992168ECF900BF937D /* ReceiveCryptocurrencyModuleBuilder.swift */,
 				E9F0C830216567B7002DC804 /* ReceiveCryptocurrency.strings */,
 			);
 			path = "Сryptocurrency";
@@ -3628,6 +3646,25 @@
 				E9C5732A216520B7002FB6E4 /* AssetSelectView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E9CD828D2167B5A700BF937D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E9CD82932167B5EC00BF937D /* ReceiveCryptocurrencyInteractorProtocol.swift */,
+				E9CD82952167B60200BF937D /* ReceiveCryptocurrencyInteractorMock.swift */,
+				E9CD82972167B61900BF937D /* ReceiveCryptocurrencyInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E9CD828E2167B5AE00BF937D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E9CD828F2167B5C200BF937D /* ReceiveCryptocurrencyPresenterProtocol.swift */,
+				E9CD82912167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		E9DEECE620BEF90300F28C67 /* Waves */ = {
@@ -4223,6 +4260,7 @@
 				E90417CD2166B37C00EE8B7C /* AssetListPresenter.swift in Sources */,
 				0A762D9A2163A0660019D447 /* SmartTransactionDomainDTO.swift in Sources */,
 				0A762D982163A0570019D447 /* WalletTypes.swift in Sources */,
+				E9CD82962167B60200BF937D /* ReceiveCryptocurrencyInteractorMock.swift in Sources */,
 				0A3AD40521492E3200F8A929 /* WalletTypes+ViewModels.swift in Sources */,
 				0A16784820FD3E4F00AA5980 /* WalletTypes+DisplayState.swift in Sources */,
 				0A762D9D2163A2100019D447 /* SmartTransactionDomain+Assistants.swift in Sources */,
@@ -4240,6 +4278,7 @@
 				E95B480521638BE9004D4E39 /* TransactionHistoryContentView.swift in Sources */,
 				0A5C918520F3CD0500443CE6 /* ApiServiceTypes.swift in Sources */,
 				0A3AD40621492E5D00F8A929 /* WalletSortSeparatorFooter.swift in Sources */,
+				E9CD829A2168ECF900BF937D /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
 				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
@@ -4415,6 +4454,7 @@
 				E9B087A22163886800937644 /* DexChartInteractorMock.swift in Sources */,
 				E95B481F2163A59A004D4E39 /* ReceiveCryptocurrencyViewController.swift in Sources */,
 				E9B087F72163886800937644 /* DexMyOrdersViewController.swift in Sources */,
+				E9CD82942167B5EC00BF937D /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */,
 				0AFBCA9A21132F9300285BCB /* Images.swift in Sources */,
 				0AF922B4212E1234003BA067 /* UITableView+Animation.swift in Sources */,
 				E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */,
@@ -4465,6 +4505,7 @@
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */,
+				E9CD82902167B5C200BF937D /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */,
 				0AF922AE212E1234003BA067 /* NSAttributedString+Styles.swift in Sources */,
 				0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */,
 				E9B087F32163886800937644 /* DexLastTradesHeaderView.swift in Sources */,
@@ -4612,6 +4653,7 @@
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				0A96F1CE2151B699005E148F /* PasscodeViewController.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
+				E9CD82982167B61900BF937D /* ReceiveCryptocurrencyInteractor.swift in Sources */,
 				0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */,
 				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */,
@@ -4767,6 +4809,7 @@
 				0AF922DD212E1234003BA067 /* UICollectionView+Reusable.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
+				E9CD82922167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				E95B480821638BE9004D4E39 /* TransactionHistoryAddressView.swift in Sources */,
 				0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */,
 				0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */,
@@ -4786,6 +4829,7 @@
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
 				E9B087FD2163886800937644 /* DexMyOrdersHeaderView.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
+				E9CD828C2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
 				0AF922E0212E1234003BA067 /* NibLoadable.swift in Sources */,

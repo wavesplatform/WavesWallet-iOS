@@ -14,7 +14,7 @@ import RxFeedback
 final class AssetListPresenter: AssetListPresenterProtocol {
     
     var interactor: AssetListInteractorProtocol!
-    var filters: [AssetList.DTO.Filter] = []
+    var filters: [AssetList.DTO.Filter]!
     
     weak var moduleOutput: AssetListModuleOutput?
     

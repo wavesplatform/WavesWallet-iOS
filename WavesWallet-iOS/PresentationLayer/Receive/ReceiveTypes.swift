@@ -11,6 +11,8 @@ import Foundation
 enum Receive {
     enum DTO {}
     enum ViewModel {}
+    
+    
 }
 
 extension Receive.ViewModel {

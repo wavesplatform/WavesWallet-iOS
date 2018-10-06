@@ -26,17 +26,17 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                 return owner.accountBalanceInteractor.balances(by: wallet, isNeedUpdate: false)
             })
         
-        let merge = Observable.merge([assets])
-            .do(onNext: { [weak self] assets in
-                
-                if filters.contains(.all) {
-                    self?._assets = assets
-                }
-                else {
-                    self?.filterAssets(filters: filters, assets: assets)
-                }
-            })
-        
+        let merge = Observable.merge([assets]).map { [weak self] assets -> [DomainLayer.DTO.AssetBalance] in
+            
+            if filters.contains(.all) {
+                self?._assets = assets
+            }
+            else {
+                self?.filterAssets(filters: filters, assets: assets)
+            }
+            return self?._assets ?? []
+        }
+      
         let search = searchString
             .asObserver().skip(1)
             .map { [weak self] searchString -> [DomainLayer.DTO.AssetBalance] in
@@ -88,7 +88,7 @@ private extension AssetListInteractor {
                     
                     return asset.isFiat == true &&
                         asset.isWavesToken == false &&
-                        asset.isGateway == false &&
+                        asset.isGateway == true &&
                         asset.isWaves == false}))
         }
         
@@ -113,7 +113,7 @@ private extension AssetListInteractor {
                         asset.isGateway == false &&
                         asset.isWaves == false}))
         }
-        
+        _assets.removeAll()
         _assets.append(contentsOf: filterAssets)
     }
     

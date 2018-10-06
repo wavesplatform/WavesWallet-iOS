@@ -18,7 +18,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
             
         }
         else {
-            vc.add(StoryboardScene.Receive.receiveCryptocurrencyViewController.instantiate(), state: .cryptoCurrency)
+            vc.add(ReceiveCryptocurrencyModuleBuilder().build(), state: .cryptoCurrency)
             vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
             vc.add(StoryboardScene.Receive.receiveCardViewController.instantiate(), state: .card)
         }
