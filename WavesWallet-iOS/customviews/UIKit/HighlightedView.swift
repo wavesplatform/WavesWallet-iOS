@@ -13,16 +13,6 @@ class HighlightedView: UIControl {
     @IBInspectable var highlightedBackground: UIColor = UIColor.basic50
     private var defaultBackgroundColor: UIColor?
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initialize()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initialize()
-    }
-    
     override var backgroundColor: UIColor? {
         didSet {
             if backgroundColor != highlightedBackground {
@@ -46,9 +36,6 @@ class HighlightedView: UIControl {
 
 private extension HighlightedView {
     
-    func initialize() {
-        
-    }
     
     func setupBackgroundColor() {
         backgroundColor = isHighlighted ? highlightedBackground : defaultBackgroundColor

@@ -10,6 +10,10 @@ import UIKit
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
+    static let shadowOpacity: Float = 0.1
+    static let shadowOffset = CGSize(width: 0, height: 4)
+    static let shadowRadius: Float = 4
+    static let shadowColor: UIColor = .black
 }
 
 protocol EnterStartViewControllerDelegate: AnyObject {
@@ -117,10 +121,10 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             
             let shadowOptions =
                 ShadowOptions(
-                    offset: CGSize(width: 0, height: 4),
-                    color: .black,
-                    opacity: 0.1,
-                    radius: 4,
+                    offset: Constants.shadowOffset,
+                    color: Constants.shadowColor,
+                    opacity: Constants.shadowOpacity,
+                    radius: Constants.shadowRadius,
                     shouldRasterize: true,
                     path: UIBezierPath(roundedRect: signInView.bounds, cornerRadius: CGFloat(Constants.cornerRadius)).cgPath
             )

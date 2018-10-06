@@ -36,13 +36,13 @@ private enum Constants {
     }()
 }
 
-class EnterStartBlockCell: UICollectionViewCell, NibReusable {
+final class EnterStartBlockCell: UICollectionViewCell, NibReusable {
     
-    @IBOutlet weak var textLabelConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var textLabelConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var textLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,13 +50,6 @@ class EnterStartBlockCell: UICollectionViewCell, NibReusable {
         
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        let height = textLabel.attributedText?.boundingRect(with: .init(width: bounds.width - 24 - 24, height: CGFloat.greatestFiniteMagnitude)).height
-//        textLabelConstraint.constant = height
-    }
-
     class func cellHeight(model: EnterStartTypes.Block, width: CGFloat)-> CGFloat {
         let insets = Constants.contentInset
         let imageSize = Constants.imageSize

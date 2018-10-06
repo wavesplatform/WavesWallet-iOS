@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LanguageCoordinator: Coordinator {
+final class LanguageCoordinator: Coordinator {
  
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
