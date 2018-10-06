@@ -185,11 +185,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                 setupLastScrollCorrectOffset()
                 
-                let controller = AddressBookModuleBuilder(output: nil).build(input: .init(isEditMode: true))
-                
-//                let controller = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewControllerOlds
-//                controller.isAddMode = true
-                
+                let controller = AddressBookModuleBuilder(output: nil).build(input: .init(isEditMode: true))                
                 navigationController?.pushViewController(controller, animated: true)
                 rdv_tabBarController.setTabBarHidden(true, animated: true)
             }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -233,10 +233,10 @@
             </objects>
             <point key="canvasLocation" x="-468" y="-117"/>
         </scene>
-        <!--Start Leasing View Controller-->
+        <!--Start Leasing View Controller Old-->
         <scene sceneID="SrY-Hh-GL7">
             <objects>
-                <viewController storyboardIdentifier="StartLeasingViewController" id="i9j-wg-CrY" customClass="StartLeasingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartLeasingViewControllerOld" id="i9j-wg-CrY" customClass="StartLeasingViewControllerOld" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0xA-pN-ko6"/>
                         <viewControllerLayoutGuide type="bottom" id="4Ep-1f-Y9Q"/>
@@ -605,7 +605,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4P-Sw-kKt">
-                                                <rect key="frame" x="115" y="340" width="91" height="17"/>
+                                                <rect key="frame" x="114.5" y="340" width="91" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -830,7 +830,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="huP-c1-NX5">
-                                                            <rect key="frame" x="210.5" y="50" width="37.5" height="16"/>
+                                                            <rect key="frame" x="210.5" y="50.5" width="37.5" height="16"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 196" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ny3-Je-MRt">
                                                                     <rect key="frame" x="5" y="2" width="27.5" height="12"/>
@@ -862,10 +862,10 @@
                                                             <rect key="frame" x="0.0" y="211" width="96" height="94"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_send" translatesAutoresizingMaskIntoConstraints="NO" id="orl-e9-vKQ">
-                                                                    <rect key="frame" x="34.5" y="24" width="28" height="28"/>
+                                                                    <rect key="frame" x="34" y="24" width="28" height="28"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUg-jh-2ot">
-                                                                    <rect key="frame" x="33" y="60" width="31" height="16"/>
+                                                                    <rect key="frame" x="32.5" y="60" width="31" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -899,10 +899,10 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_receive" translatesAutoresizingMaskIntoConstraints="NO" id="sxZ-Tv-6O1">
-                                                                    <rect key="frame" x="33.5" y="24" width="28" height="28"/>
+                                                                    <rect key="frame" x="34" y="24" width="28" height="28"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B79-1Y-ZwO">
-                                                                    <rect key="frame" x="-0.5" y="0.0" width="96.5" height="94"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="96" height="94"/>
                                                                     <connections>
                                                                         <action selector="receiveTapped:" destination="w2P-Nl-QQz" eventType="touchUpInside" id="TiU-ze-2KG"/>
                                                                     </connections>
@@ -933,7 +933,7 @@
                                                                     <rect key="frame" x="34" y="24" width="28" height="28"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-uZ-kYu">
-                                                                    <rect key="frame" x="-0.5" y="0.0" width="96" height="94"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="96" height="94"/>
                                                                     <connections>
                                                                         <action selector="exchangeTapped:" destination="w2P-Nl-QQz" eventType="touchUpInside" id="LNg-ek-XMR"/>
                                                                     </connections>
@@ -1170,10 +1170,10 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart_empty" translatesAutoresizingMaskIntoConstraints="NO" id="M9b-Om-EqQ">
-                                                            <rect key="frame" x="103.5" y="79" width="80" height="80"/>
+                                                            <rect key="frame" x="104" y="79" width="80" height="80"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No chart data available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1SX-7k-SbD">
-                                                            <rect key="frame" x="89" y="173" width="111.5" height="12"/>
+                                                            <rect key="frame" x="88.5" y="173" width="111.5" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" red="0.60784313725490191" green="0.65098039220000004" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1228,7 +1228,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-8L-lud">
-                                                    <rect key="frame" x="16" y="0.0" width="304" height="449"/>
+                                                    <rect key="frame" x="16" y="0.0" width="304" height="449.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36d-G3-WER" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="10" width="288" height="1"/>
@@ -1415,7 +1415,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXs-Ao-HMw">
-                                        <rect key="frame" x="121" y="101" width="79.5" height="16"/>
+                                        <rect key="frame" x="120.5" y="100.5" width="79.5" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1653,7 +1653,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krW-V3-5wj">
-                                <rect key="frame" x="186" y="176" width="130" height="28"/>
+                                <rect key="frame" x="186" y="176.5" width="130" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="7M1-EM-qlY"/>
                                 </constraints>
@@ -1677,7 +1677,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3a0-ih-KFO">
-                                <rect key="frame" x="16" y="223" width="144.5" height="85"/>
+                                <rect key="frame" x="16" y="223" width="144" height="85"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="6WW-Oa-dtY">
                                         <rect key="frame" x="24" y="31.5" width="22" height="22"/>

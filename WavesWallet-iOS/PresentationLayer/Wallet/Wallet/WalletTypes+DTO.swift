@@ -31,12 +31,7 @@ extension WalletTypes.DTO {
         let sortLevel: Float        
     }
 
-    struct Leasing: Hashable {
-
-        struct Transaction: Hashable {
-            let id: String
-            let balance: Money
-        }
+    struct Leasing {
 
         struct Balance: Hashable {
             let totalMoney: Money
@@ -46,6 +41,6 @@ extension WalletTypes.DTO {
         }
 
         let balance: Balance
-        let transactions: [Transaction]
+        let transactions: [DomainLayer.DTO.SmartTransaction]
     }
 }

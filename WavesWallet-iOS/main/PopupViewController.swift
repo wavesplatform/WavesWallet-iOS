@@ -227,10 +227,10 @@ private extension PopupViewController {
     
     func setupGestures() {
         let gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
-//        view.addGestureRecognizer(gestureTap)
+        view.addGestureRecognizer(gestureTap)
         
         let gesturePan = UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:)))
-//        view.addGestureRecognizer(gesturePan)
+        view.addGestureRecognizer(gesturePan)
     }
 }
 

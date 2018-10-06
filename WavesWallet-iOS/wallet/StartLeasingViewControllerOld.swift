@@ -10,7 +10,7 @@ import UIKit
 import QRCodeReader
 import AVFoundation
 
-class StartLeasingViewController: BaseAmountViewController, UIScrollViewDelegate {
+class StartLeasingViewControllerOld: BaseAmountViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var textFieldAddress: UITextField!
     @IBOutlet weak var scrollViewGenerator: UIScrollView!
