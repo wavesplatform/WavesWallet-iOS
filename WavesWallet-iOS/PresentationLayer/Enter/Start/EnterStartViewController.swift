@@ -146,8 +146,10 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             collectionTopOffsetConstraint.constant = 64
         } else if Platform.isIphonePlus {
             collectionTopOffsetConstraint.constant = 48
-        } else {
+        } else if Platform.isIphone7 {
             collectionTopOffsetConstraint.constant = 24
+        } else {
+            collectionTopOffsetConstraint.constant = 64
         }
     }
     
