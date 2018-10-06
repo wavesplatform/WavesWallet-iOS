@@ -66,15 +66,11 @@ final class AppCoordinator: Coordinator {
         self.isActiveApp = true
         self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
+        logInApplication()
 
-        authoAuthorizationInteractor
-            .lastWalletLoggedIn()
-            .take(1)
-            .flatMap(weak: self, selector: { $0.currentDisplay })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showDisplay })
-            .disposed(by: disposeBag)
+        #if DEBUG
+            addTapGestureForSupportDisplay()
+        #endif
     }
 
     private var isMainTabDisplayed: Bool {
@@ -106,6 +102,36 @@ final class AppCoordinator: Coordinator {
                     return .mainWithPasscode(wallet)
                 }
             }
+    }
+
+    private func logInApplication() {
+        authoAuthorizationInteractor
+            .lastWalletLoggedIn()
+            .take(1)
+            .flatMap(weak: self, selector: { $0.currentDisplay })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .disposed(by: disposeBag)
+    }
+
+    private func revokeAuthAndOpenPasscode() {
+        authoAuthorizationInteractor
+            .revokeAuth()
+            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return owner.authoAuthorizationInteractor
+                    .lastWalletLoggedIn()
+                    .take(1)
+                    .errorOnNil()
+            }
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -159,11 +185,9 @@ extension AppCoordinator {
             showPasscode(wallet: wallet)
 
         case .mainWithPasscode(let wallet):
-            needShowMainDisplayAfterAuth = true
             showPasscode(wallet: wallet, animated: false)
 
         case .enter:
-
             showEnter()
         }
     }
@@ -181,14 +205,17 @@ extension AppCoordinator {
 
     private func showStartController(withHelloDisplay: Bool) {
 
-        if withHelloDisplay {
-            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController)
-            helloCoordinator.delegate = self
-            addChildCoordinator(childCoordinator: helloCoordinator)
-            helloCoordinator.start()
-        }
-
-        showEnter()
+//        if withHelloDisplay {
+//            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController, presentCompletion: {
+//                self.showEnter()
+//            })
+//
+//            helloCoordinator.delegate = self
+//            addChildCoordinator(childCoordinator: helloCoordinator)
+//            helloCoordinator.start()
+//        } else {
+            showEnter()
+//        }
     }
 
     private func showEnter() {
@@ -247,27 +274,9 @@ extension AppCoordinator {
 // MARK: Lifecycle application
 extension AppCoordinator {
 
-    private func revokeAuthAndOpenPasscode() {
-        authoAuthorizationInteractor
-            .revokeAuth()
-            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
-
-                guard let owner = self else { return Observable.never() }
-
-                return owner.authoAuthorizationInteractor
-                    .lastWalletLoggedIn()
-                    .take(1)
-                    .errorOnNil()
-            }
-            .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
-            .disposed(by: disposeBag)
-    }
-
     func applicationDidEnterBackground() {
         self.isActiveApp = false
+
         revokeAuthAndOpenPasscode()
     }
 
@@ -278,3 +287,40 @@ extension AppCoordinator {
         isActiveApp = true
     }
 }
+
+
+#if DEBUG
+
+// MARK: Support
+extension AppCoordinator {
+
+    func addTapGestureForSupportDisplay() {
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
+        tapGesture.numberOfTouchesRequired = 2
+        tapGesture.numberOfTapsRequired = 2
+        self.window.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func tapGesture(tap: UITapGestureRecognizer) {
+        let vc = StoryboardScene.Support.supportViewController.instantiate()
+        vc.delegate = self
+        self.window.rootViewController!.present(vc, animated: true, completion: nil)
+    }
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+// MARK: SupportViewControllerDelegate
+extension AppCoordinator: SupportViewControllerDelegate  {
+    func closeSupportView() {
+
+        self.window.rootViewController?.dismiss(animated: true, completion: {
+            self.logInApplication()
+        })
+    }
+}
+
+#endif

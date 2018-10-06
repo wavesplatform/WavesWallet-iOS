@@ -210,6 +210,7 @@ extension ChooseAccountViewController {
         let wallet = wallets[indexPath.row]
         cell.delegate = self
         cell.labelTitle.text = wallet.name
+        cell.labelAddress.text = wallet.address
         cell.imageIcon.image = identity.createImage(by: wallet.address, size: cell.imageIcon.frame.size)
         return cell
     }

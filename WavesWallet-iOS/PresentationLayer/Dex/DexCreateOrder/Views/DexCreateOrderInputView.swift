@@ -109,9 +109,9 @@ extension DexCreateOrderInputView: ViewConfiguration {
 }
 
 //MARK: - InputNumericTextFieldDelegate
-extension DexCreateOrderInputView: InputNumericTextFieldDelegate {
+extension DexCreateOrderInputView: MoneyTextFieldDelegate {
   
-    func inputNumericTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
+    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
     }
 }
@@ -173,7 +173,7 @@ private extension DexCreateOrderInputView {
         guard heightConstraint.constant != height else { return }
         
         heightConstraint.constant = height
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: true)
     }
     
     func hideInputScrollView(animation: Bool) {
@@ -182,14 +182,18 @@ private extension DexCreateOrderInputView {
         guard heightConstraint.constant != height else { return }
 
         heightConstraint.constant = height
-        updateWithAnimationIfNeed(animation: animation)
+        updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: false)
     }
     
-    func updateWithAnimationIfNeed(animation: Bool) {
+    func updateWithAnimationIfNeed(animation: Bool, isShowInputScrollView: Bool) {
         if animation {
             UIView.animate(withDuration: Constants.animationFrameDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
+                self.inputScrollView.alpha = isShowInputScrollView ? 1 : 0
             }
+        }
+        else {
+            inputScrollView.alpha = isShowInputScrollView ? 1 : 0
         }
     }
     

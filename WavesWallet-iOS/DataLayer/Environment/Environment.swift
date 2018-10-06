@@ -41,30 +41,15 @@ final class Environments {
         fileprivate static let test = "Environment-Test"
     }
 
-    private static var _current: Environment?
-
     static let Testnet: Environment = parseJSON(json: Constants.test)!
     static let Mainnet: Environment = parseJSON(json: Constants.main)!
     static var current: Environment {
         get {
-            if let cur = _current {
-                return cur
+            if UserDefaults.standard.bool(forKey: "isTestEnvironment") {
+                return Testnet
             } else {
-                if UserDefaults.standard.bool(forKey: "isTestEnvironment") {
-                    _current = Testnet
-                } else {
-                    _current = Mainnet
-                }
-                return _current!
+                return Mainnet
             }
-        }
-        set {
-            if newValue.name == "Testnet" {
-                UserDefaults.standard.set(true, forKey: "isTestEnvironment")
-            } else {
-                UserDefaults.standard.removeObject(forKey: "isTestEnvironment")
-            }
-            _current = newValue
         }
     }
 

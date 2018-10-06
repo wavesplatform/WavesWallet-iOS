@@ -121,7 +121,7 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.total, sign: .plus)
 
         case .massReceived(let tx):
-            update(with: tx.asset, balance: tx.total, sign: .minus)
+            update(with: tx.asset, balance: tx.total, sign: .plus)
 
         case .spamReceive(let tx):
             update(with: tx.asset, balance: tx.balance, sign: .plus)
@@ -131,18 +131,6 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .data:
             labelValue.text = Localizable.General.History.Transaction.Value.data
-        }
-    }
-}
-
-fileprivate extension DomainLayer.DTO.SmartTransaction.Exchange {
-    var myOrder: Order {
-        if order1.sender.isMyAccount && order2.sender.isMyAccount {
-            return order1.timestamp > order2.timestamp ? order1 : order2
-        } else if order1.sender.isMyAccount {
-            return order1
-        } else {
-            return order2
         }
     }
 }

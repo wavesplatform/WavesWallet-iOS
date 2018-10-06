@@ -9,5 +9,5 @@
 import Foundation
 
 protocol HistoryModuleOutput: class {
-    func showTransaction()
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-    static let cornerRadius: CGFloat = 2
+    static let cornerRadius: Float = 2
     static let shadowOpacity: Float = 0.1
     static let shadowOffset = CGSize(width: 0, height: 4)
     static let shadowRadius: Float = 4
@@ -124,13 +124,13 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
                     offset: Constants.shadowOffset,
                     color: Constants.shadowColor,
                     opacity: Constants.shadowOpacity,
-                    radius: Constants.shadowRadius,
-                    shouldRasterize: true,
-                    path: UIBezierPath(roundedRect: signInView.bounds, cornerRadius: CGFloat(Constants.cornerRadius)).cgPath
+                    shadowRadius: Constants.shadowRadius,
+                    cornerRadius: Constants.cornerRadius,
+                    shouldRasterize: true
             )
             
-            signInView.layer.cornerRadius = Constants.cornerRadius
-            importAccountView.layer.cornerRadius = Constants.cornerRadius
+//            signInView.layer.cornerRadius = Constants.cornerRadius
+//            importAccountView.layer.cornerRadius = Constants.cornerRadius
             
             signInView.setupShadow(options: shadowOptions)
             importAccountView.setupShadow(options: shadowOptions)

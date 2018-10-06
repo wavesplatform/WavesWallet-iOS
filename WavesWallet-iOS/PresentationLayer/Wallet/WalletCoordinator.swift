@@ -25,6 +25,7 @@ final class WalletCoordinator {
 }
 
 extension WalletCoordinator: WalletModuleOutput {
+
     func showWalletSort() {
         let vc = WalletSortModuleBuilder().build()
         navigationController.pushViewController(vc, animated: true)
@@ -47,6 +48,18 @@ extension WalletCoordinator: WalletModuleOutput {
     func showHistoryForLeasing() {
         historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
     }
+    
+    func showStartLease(availableMoney: Money) {
+        
+        let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
+        navigationController.pushViewController(controller, animated: true)
+    }
+
+    func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+        TransactionHistoryCoordinator(transactions: transactions,
+                                      currentIndex: index,
+                                      rootViewController: walletViewContoller).start()
+    }
 }
 
 extension WalletCoordinator: AssetModuleOutput {
@@ -55,11 +68,21 @@ extension WalletCoordinator: AssetModuleOutput {
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 
-    func showTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
+        TransactionHistoryCoordinator(transactions: transactions,
+                                      currentIndex: index,
+                                      rootViewController: walletViewContoller).start()
     }
 }
 
+//MARK: - StartLeasingModuleOutput
+extension WalletCoordinator: StartLeasingModuleOutput {
+    
+    func startLeasingDidCreateOrder() {
+        
+    }
+}
 
 fileprivate extension AssetModuleBuilder.Input {
 

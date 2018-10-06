@@ -45,4 +45,5 @@ extension Balance {
     var displayTextWithoutCurrencyName: String {
         return money.displayTextFull
     }
+
 }

@@ -61,5 +61,6 @@ extension WalletTypes {
         case tapSortButton
         case tapAddressButton
         case changeDisplay(DisplayState.Kind)
+        case showStartLease(Money)
     }
 }

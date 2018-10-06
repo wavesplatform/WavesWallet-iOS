@@ -32,9 +32,9 @@ final class WalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
+    private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let displayData: WalletDisplayData = WalletDisplayData()
     private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing]
 
     //It flag need for fix bug "jump" UITableView when activate "refresh control'
@@ -56,6 +56,7 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        displayData = WalletDisplayData(tableView: tableView)
         navigationItem.title = Localizable.Wallet.Navigationbar.title
         setupBigNavigationBar()
         createMenuButton()
@@ -71,6 +72,12 @@ final class WalletViewController: UIViewController {
         if rdv_tabBarController.isTabBarHidden {
             rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            let controller = StartLeasingModuleBuilder().build()
+//            self.navigationController?.pushViewController(controller, animated: true)
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -86,7 +93,7 @@ extension WalletViewController {
 
         let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
 
-            let subscriptions = owner.uiSubscriptions(state: state.map { $0.displayState })
+            let subscriptions = owner.subscriptions(state: state)
             let events = owner.events()
 
             return Bindings(subscriptions: subscriptions,
@@ -149,54 +156,39 @@ extension WalletViewController {
                 recieverEvents]
     }
 
-    func uiSubscriptions(state: Driver<WalletTypes.DisplayState>) -> [Disposable] {
 
-        let refreshState = state
-            .filter { $0.currentDisplay.animateType.isRefresh }
-            .map { $0.currentDisplay.visibleSections }
+    func subscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
 
-        let collapsedSection = state
-            .filter { $0.currentDisplay.animateType.isCollapsed }
-            .map { (sections: $0.visibleSections,
-                    index: $0.animateType.sectionIndex ?? 0) }
+        let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-        let expandedSection = state
-            .filter { $0.currentDisplay.animateType.isExpanded }
-            .map { (sections: $0.visibleSections,
-                    index: $0.animateType.sectionIndex ?? 0) }
+            guard let strongSelf = self else { return }
 
-        displayData.bind(tableView: tableView, event: refreshState)
-        displayData.collapsed(tableView: tableView, event: collapsedSection)
-        displayData.expanded(tableView: tableView, event: expandedSection)
+            strongSelf.updateView(with: state.displayState)
+        })
 
-        let refreshControl = state
-            .map { $0.currentDisplay.isRefreshing }
-            .do(onNext: { [weak self] flag in
-                guard let owner = self else { return }
-                if flag {
-                    if owner.isRefreshing == false {
-                        owner.isRefreshing = true
-                       owner.refreshControl.beginRefreshing()
-                    }
-                } else {
-                    if owner.isRefreshing == true {
-                        owner.isRefreshing = false
-                        owner.displayData.completedReload = {
-                            DispatchQueue.main.async {
-                                owner.refreshControl.endRefreshing()
-                            }
-                        }
+        return [subscriptionSections]
+    }
+
+    func updateView(with state: WalletTypes.DisplayState) {
+
+        displayData.apply(sections: state.visibleSections, animateType: state.animateType)
+
+        if state.isRefreshing {
+            if self.isRefreshing == false {
+                self.isRefreshing = true
+                self.refreshControl.beginRefreshing()
+            }
+        } else {
+            if self.isRefreshing == true {
+                self.isRefreshing = false
+                self.displayData.completedReload = {
+                    DispatchQueue.main.async {
+                        self.refreshControl.endRefreshing()
                     }
                 }
-            }).asObservable().subscribe()
-
-        let segmentedControl = state
-            .map { $0.kind }
-            .drive(onNext: { [weak self] kind in
-                self?.setupRightButons(kind: kind)
-            })
-
-        return [segmentedControl, refreshControl]
+            }
+        }
+        setupRightButons(kind: state.kind)
     }
 }
 
@@ -226,6 +218,7 @@ private extension WalletViewController {
 
     func setupTableView() {
         displayData.delegate = self
+        displayData.balanceCellDelegate = self
     }
 
     func setupSegmetedControl() {
@@ -233,6 +226,15 @@ private extension WalletViewController {
         segmentedControl
             .segmentedControl
             .update(with: buttons, animated: true)
+    }
+}
+
+//MARK: - WalletLeasingBalanceCellDelegate
+extension WalletViewController: WalletLeasingBalanceCellDelegate {
+    
+    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
+        
+        sendEvent.accept(.showStartLease(availableMoney))
     }
 }
 

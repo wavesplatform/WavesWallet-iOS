@@ -46,7 +46,7 @@ struct TransactionsSpecifications {
         let limit: Int
     }
 
-    let page: Page
+    let page: Page?
     let assets: [String]
     let senders: [String]
     let types: [TransactionType]
@@ -56,7 +56,8 @@ protocol TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
-
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 
+    
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool>
 
     func isHasTransaction(by id: String) -> Observable<Bool>
