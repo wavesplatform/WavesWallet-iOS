@@ -29,12 +29,15 @@
 		04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1CD2151B699005E148F /* PasscodeViewController.swift */; };
 		04831F7F21692246006D1ED6 /* BaseInputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04831F7D21692245006D1ED6 /* BaseInputTextField.xib */; };
 		04831F8021692246006D1ED6 /* BaseInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F7E21692246006D1ED6 /* BaseInputTextField.swift */; };
+		04831F8421697A4F006D1ED6 /* CustomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F8321697A4F006D1ED6 /* CustomGradientView.swift */; };
+		04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F86216A363E006D1ED6 /* LanguageTableCell.swift */; };
+		04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04831F88216A3EBF006D1ED6 /* LanguageTableCell.xib */; };
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
-		04A4031E2164A99300652F21 /* LanguageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4031D2164A99300652F21 /* LanguageCoordinator.swift */; };
+		04A4031E2164A99300652F21 /* EnterLanguageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */; };
 		04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A403212164D80200652F21 /* EnterStartTypes.swift */; };
 		04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A403232164D89700652F21 /* EnterStartBlockCell.swift */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
@@ -768,13 +771,16 @@
 		04831F6121691429006D1ED6 /* SuccessSystemMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessSystemMessageView.swift; sourceTree = "<group>"; };
 		04831F7D21692245006D1ED6 /* BaseInputTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BaseInputTextField.xib; path = "WavesWallet-iOS/customviews/UIKit/BaseInputTextField/BaseInputTextField.xib"; sourceTree = SOURCE_ROOT; };
 		04831F7E21692246006D1ED6 /* BaseInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseInputTextField.swift; path = "WavesWallet-iOS/customviews/UIKit/BaseInputTextField/BaseInputTextField.swift"; sourceTree = SOURCE_ROOT; };
+		04831F8321697A4F006D1ED6 /* CustomGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientView.swift; sourceTree = "<group>"; };
+		04831F86216A363E006D1ED6 /* LanguageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableCell.swift; sourceTree = "<group>"; };
+		04831F88216A3EBF006D1ED6 /* LanguageTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageTableCell.xib; sourceTree = "<group>"; };
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
 		0490AB9F21655A2400DC09A5 /* HighlightedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedView.swift; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
-		04A4031D2164A99300652F21 /* LanguageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCoordinator.swift; sourceTree = "<group>"; };
+		04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterLanguageCoordinator.swift; sourceTree = "<group>"; };
 		04A403212164D80200652F21 /* EnterStartTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartTypes.swift; sourceTree = "<group>"; };
 		04A403232164D89700652F21 /* EnterStartBlockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartBlockCell.swift; sourceTree = "<group>"; };
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
@@ -1604,6 +1610,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		04831F85216A3627006D1ED6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04831F86216A363E006D1ED6 /* LanguageTableCell.swift */,
+				04831F88216A3EBF006D1ED6 /* LanguageTableCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		048684F02124A77F00D12189 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1678,7 +1693,8 @@
 			isa = PBXGroup;
 			children = (
 				E9F984B120E53FE000D2CB4D /* EnterLanguageViewController.swift */,
-				04A4031D2164A99300652F21 /* LanguageCoordinator.swift */,
+				04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */,
+				04831F85216A3627006D1ED6 /* Views */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -2727,6 +2743,7 @@
 				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
 				0AF922A4212E1234003BA067 /* ScrollButton.swift */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
+				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
 				0AF92297212E1234003BA067 /* TickerView.swift */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
 			);
@@ -3868,6 +3885,7 @@
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
+				04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */,
 				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
@@ -4198,6 +4216,7 @@
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				E95B480621638BE9004D4E39 /* TransactionHistoryShowAllView.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
+				04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */,
 				E9B087CD2163886800937644 /* DexListPresenter.swift in Sources */,
 				0AFF5C75215A6DA000B82940 /* MainTabBarCoordinator.swift in Sources */,
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
@@ -4304,6 +4323,7 @@
 				0AF9222B212E0F1F003BA067 /* WalletLeasingCell.swift in Sources */,
 				0AF922AB212E1234003BA067 /* Array+Sort.swift in Sources */,
 				F755C1011EAA8319008A938F /* DateUtil.swift in Sources */,
+				04831F8421697A4F006D1ED6 /* CustomGradientView.swift in Sources */,
 				0AF922D6212E1234003BA067 /* ModuleBuilderOutput.swift in Sources */,
 				E9B087E02163886800937644 /* DexCreateOrderPresenter.swift in Sources */,
 				E9B087A22163886800937644 /* DexChartInteractorMock.swift in Sources */,
@@ -4333,7 +4353,7 @@
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,
 				E9B087AC2163886800937644 /* DexOrderBookModuleBuilder.swift in Sources */,
 				0A5B6E6F211A2B6D005A7F09 /* TransactionNodeService.swift in Sources */,
-				04A4031E2164A99300652F21 /* LanguageCoordinator.swift in Sources */,
+				04A4031E2164A99300652F21 /* EnterLanguageCoordinator.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,

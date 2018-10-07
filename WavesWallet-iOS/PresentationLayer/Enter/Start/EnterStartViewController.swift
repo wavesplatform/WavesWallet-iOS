@@ -74,7 +74,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     private func setupLanguage() {
         collectionView.reloadData()
-        createNewAccountButton.setTitle(Localizable.Enter.Button.Createnewaccount.title, for: .normal)
+    createNewAccountButton.setTitle(Localizable.Enter.Button.Createnewaccount.title, for: .normal)
         
         signInTitleLabel.text = Localizable.Enter.Button.Signin.title
         signInDetailLabel.text = Localizable.Enter.Button.Signin.detail
@@ -128,9 +128,6 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
                     cornerRadius: Constants.cornerRadius,
                     shouldRasterize: true
             )
-            
-//            signInView.layer.cornerRadius = Constants.cornerRadius
-//            importAccountView.layer.cornerRadius = Constants.cornerRadius
             
             signInView.setupShadow(options: shadowOptions)
             importAccountView.setupShadow(options: shadowOptions)

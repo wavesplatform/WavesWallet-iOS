@@ -8,8 +8,11 @@
 
 import UIKit
 
-final class EnterLanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+final class EnterLanguageViewController: UIViewController {
+    
+    @IBOutlet weak private var gradientView: CustomGradientView!
+    private var gradientLayer: CAGradientLayer!
+    
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var buttonConfirm: UIButton!
     
@@ -20,71 +23,74 @@ final class EnterLanguageViewController: UIViewController, UITableViewDelegate, 
         return self.languages.index(where: { $0.code == current.code }) ?? 0
     }()
     
+    // MARK: - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupLanguage()
-        addBgBlueImage()
-        self.buttonConfirm.alpha = 0
-
-        navigationItem.backgroundImage = UIImage()
-        navigationItem.shadowImage = UIImage()
-        navigationItem.barTintColor = .white
-        navigationItem.tintColor = .white
-        navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    
+    // MARK: - Setups
 
     private func setupLanguage() {
-        navigationItem.title = Localizable.Enter.Language.Navigation.title
         buttonConfirm.setTitle(Localizable.Enter.Button.Confirm.title, for: .normal)
-        createBackWhiteButton()
     }
+    
+    // MARK: - Actions
 
     @IBAction func confirmTapped(_ sender: Any) {
-        // TODO Moved code to app coordinator
         let language = languages[selectedIndex]
         Language.change(language)
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func backTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    //MARK: - UITableView
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
-        tableView.reloadData()
         
-        if tableView.contentInset.bottom == 0 {
-            UIView.animate(withDuration: 0.3) {
-                tableView.contentInset.bottom = 75
-                self.buttonConfirm.alpha = 1
-            }
-        }
+        setupLanguage()
+        dismissController()
     }
+
+}
+
+extension EnterLanguageViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCell", for: indexPath) as! LanguageTableCell
+        
+        let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
         
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item.title
-        cell.iconLanguage.image = UIImage(named: item.icon)
         
-        if indexPath.row == selectedIndex {
-            cell.iconCheckmark.image = Images.on.image
-        } else {
-            cell.iconCheckmark.image = Images.off.image 
-        }
+        cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: indexPath.row == selectedIndex))
         
         return cell
     }
+    
+}
+
+extension EnterLanguageViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return LanguageTableCell.cellHeight()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectedIndex = indexPath.row
+        tableView.reloadData()
+ 
+    }
+    
+}
+
+extension EnterLanguageViewController {
+ 
+    func dismissController() {
+        if let parent = self.parent as? PopupViewController {
+            parent.dismissPopup()
+        }
+    }
+    
 }

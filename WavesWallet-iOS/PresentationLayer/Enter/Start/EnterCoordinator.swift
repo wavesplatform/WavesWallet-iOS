@@ -78,7 +78,7 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
     
     func showLanguageCoordinator() {
-        let languageCoordinator = LanguageCoordinator(parentController: navigationController)
+        let languageCoordinator = EnterLanguageCoordinator(parentController: navigationController)
         addChildCoordinator(childCoordinator: languageCoordinator)
         languageCoordinator.start()
     }
