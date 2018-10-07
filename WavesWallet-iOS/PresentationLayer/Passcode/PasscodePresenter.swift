@@ -145,6 +145,10 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 
             if case let .logIn(wallet) = state.kind, let action = state.action, case .logInBiometric =  action {
                 return LogInByBiometricQuery(wallet: wallet)
+            } else if case let .setEnableBiometric(_, wallet) = state.kind,
+                let action = state.action,
+                case .logInBiometric = action {
+                return LogInByBiometricQuery(wallet: wallet)
             }
 
             return nil
@@ -255,6 +259,10 @@ private extension PasscodePresenter {
         case .viewDidAppear:
             return state.mutate { state in
                 if case .logIn(let wallet) = state.kind, wallet.hasBiometricEntrance {
+                    state.displayState.isLoading = true
+                    state.action = .logInBiometric
+                    state.displayState.error = nil
+                } else if case .setEnableBiometric(_, let wallet) = state.kind, wallet.hasBiometricEntrance {
                     state.displayState.isLoading = true
                     state.action = .logInBiometric
                     state.displayState.error = nil
