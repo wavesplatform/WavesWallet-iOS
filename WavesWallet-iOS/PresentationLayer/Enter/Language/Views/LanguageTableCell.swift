@@ -19,10 +19,12 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
     @IBOutlet fileprivate weak var iconLanguage: UIImageView!
     @IBOutlet fileprivate weak var labelTitle: UILabel!
     @IBOutlet fileprivate weak var iconCheckmark: UIImageView!
+
     @IBOutlet fileprivate weak var leftConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var rightConstraint: NSLayoutConstraint!
 
     // TODO: Add constant
+
     class func cellHeight() -> CGFloat {
         return 60
     }
@@ -32,11 +34,11 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
         super.awakeFromNib()
 
         // TODO: Add constant and remove Platform
+
         if Platform.isIphone5 {
             leftConstraint.constant = 16
             rightConstraint.constant = 16
-        }
-
+        }    
     }
 }
 
