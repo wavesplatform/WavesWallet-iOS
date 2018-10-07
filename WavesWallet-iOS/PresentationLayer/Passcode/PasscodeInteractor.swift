@@ -14,6 +14,7 @@ protocol PasscodeInteractorProtocol {
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
     func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
     func logInBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
+    func setEnableBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String, isOn: Bool) -> Observable<DomainLayer.DTO.Wallet>
 }
 
 enum PasscodeInteractorError: Error {
@@ -69,8 +70,27 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .share()
     }
 
+    func setEnableBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String, isOn: Bool) -> Observable<DomainLayer.DTO.Wallet> {
+
+        var biometric: Observable<DomainLayer.DTO.Wallet>!
+
+        if isOn {
+            biometric = authorizationInteractor.registerBiometric(wallet: wallet, passcode: passcode)
+        } else {
+            biometric = authorizationInteractor.removeBiometric(wallet: wallet, passcode: passcode)
+        }
+
+        return biometric
+            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
+                return Observable.error(owner.handlerError(error))
+            })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
+    }
+
     func logout(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
-        return authorizationInteractor.logout(publicKey: wallet.publicKey)
+        return authorizationInteractor.logout(wallet: wallet.publicKey)
+            .map { _ in return true }
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
     }

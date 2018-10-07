@@ -74,6 +74,7 @@ extension UIView {
             layer.shouldRasterize = true
             layer.rasterizationScale = UIScreen.main.scale
             if layer.masksToBounds == false {
+                layer.masksToBounds = true
                 warning("Corner radius dont work, need enable mask to bounds")
             }
         }

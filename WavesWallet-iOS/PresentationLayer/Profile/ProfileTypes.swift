@@ -30,25 +30,40 @@ extension ProfileTypes {
         case showRateApp
         case showFeedback
         case showSupport
-        case setEnabledBiometric(Bool)        
-        case tapLogout
-        case tapDelete
+        case setEnabledBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
+        case logoutAccount
+        case deleteAccount
     }
 
     struct State: Mutating {
+        var query: Query?
+        var wallet: DomainLayer.DTO.Wallet?
+        var block: Int64?
         var displayState: DisplayState
     }
 
     enum Event {
         case viewDidAppear
+        case viewDidDisappear
         case tapRow(ProfileTypes.ViewModel.Row)
         case setEnabledBiometric(Bool)
+        case setBlock(Int64)
+        case setWallet(DomainLayer.DTO.Wallet)
         case tapLogout
         case tapDelete
+        case none
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
+
+        enum Action {
+            case none
+            case update
+        }
+
         var sections: [ViewModel.Section]
+        var isAppeared: Bool
+        var action: Action?
     }
 }
 
@@ -70,7 +85,7 @@ extension ProfileTypes.ViewModel {
         case info(version: String, height: String?)
     }
 
-    struct Section: SectionBase {
+    struct Section: SectionBase, Mutating {
 
         enum Kind {
             case general

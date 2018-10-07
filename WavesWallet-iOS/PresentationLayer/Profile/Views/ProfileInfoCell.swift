@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-    static let height: CGFloat = 208
+    static let height: CGFloat = 258
 }
 
 final class ProfileInfoCell: UITableViewCell, Reusable {

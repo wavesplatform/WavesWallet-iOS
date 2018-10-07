@@ -72,7 +72,16 @@ private extension ProfileViewController {
                 .map { _ in Types.Event.viewDidAppear }
         }
 
-        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+        let viewDidDisappear: ProfilePresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf.rx.viewDidDisappear.asObservable()
+                .throttle(1, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.viewDidDisappear }
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewDidDisappear])
     }
 
     func events() -> [Signal<Types.Event>] {
@@ -94,7 +103,14 @@ private extension ProfileViewController {
     func updateView(with state: Types.DisplayState) {
 
         self.sections = state.sections
-        tableView.reloadData()
+        if let action = state.action {
+            switch action {
+            case .update:
+                tableView.reloadData()
+            case .none:
+                break
+            }
+        }
     }
 }
 
@@ -175,6 +191,12 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: ProfileInfoCell.Model.init(version: version,
                                                          height: height,
                                                          isLoadingHeight: height == nil))
+            cell.deleteButtonDidTap = { [weak self] in
+                self?.eventInput.onNext(.tapDelete)
+            }
+            cell.logoutButtonDidTap = { [weak self] in
+                self?.eventInput.onNext(.tapLogout)
+            }
             return cell
         }
 

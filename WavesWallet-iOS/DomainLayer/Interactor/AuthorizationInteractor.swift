@@ -44,8 +44,8 @@ protocol AuthorizationInteractorProtocol {
     func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
     func removeBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
 
-    func logout(publicKey: String) -> Observable<Bool>
-    func logout() -> Observable<Bool>
+    func logout(wallet publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
+    func logout() -> Observable<DomainLayer.DTO.Wallet>
     func revokeAuth() -> Observable<Bool>
 
     // Return AuthorizationInteractorError permissionDenied
@@ -135,6 +135,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?> {
         return walletsLoggedIn()
+            .sweetDebug("Last Wallet walletsLoggedIn")
             .flatMap({ wallets -> Observable<DomainLayer.DTO.Wallet?> in
                 return Observable.just(wallets.first)
             })
@@ -162,7 +163,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             })
     }
 
-    func logout() -> Observable<Bool> {
+    func logout() -> Observable<DomainLayer.DTO.Wallet> {
         return walletsLoggedIn().flatMap(weak: self, selector: { $0.logout })
     }
 
@@ -177,7 +178,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         })
     }
 
-    func logout(publicKey: String) -> Observable<Bool> {
+    func logout(wallet publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
         return Observable.create({ [weak self] observer -> Disposable in
 
             guard let owner = self else { return Disposables.create() }
@@ -185,12 +186,11 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             let disposable = owner
                 .localWalletRepository
                 .wallet(by: publicKey)
-                .flatMap({ wallet -> Observable<Bool> in
+                .flatMap({ wallet -> Observable<DomainLayer.DTO.Wallet> in
                     let newWallet = wallet.mutate(transform: { $0.isLoggedIn = false })
                     return owner
                         .localWalletRepository
                         .saveWallet(newWallet)
-                        .map { _ in true }
                 })
                 .subscribe(onNext: { completed in
                     observer.onNext(completed)
@@ -371,8 +371,8 @@ private extension AuthorizationInteractor {
             .map { _ in newWallet }
     }
 
-    private func logout(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<Bool> {
-        return Observable.merge(wallets.map { logout(publicKey: $0.publicKey) })
+    private func logout(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<DomainLayer.DTO.Wallet> {
+        return Observable.merge(wallets.map { logout(wallet: $0.publicKey) })
     }
 
     private func handlerError(_ error: Error) -> AuthorizationInteractorError {

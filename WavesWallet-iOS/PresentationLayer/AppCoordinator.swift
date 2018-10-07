@@ -107,6 +107,7 @@ final class AppCoordinator: Coordinator {
     private func logInApplication() {
         authoAuthorizationInteractor
             .lastWalletLoggedIn()
+            .sweetDebug("Last Wallet")
             .take(1)
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
@@ -118,19 +119,24 @@ final class AppCoordinator: Coordinator {
     private func revokeAuthAndOpenPasscode() {
         authoAuthorizationInteractor
             .revokeAuth()
-            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
 
                 guard let owner = self else { return Observable.never() }
 
                 return owner.authoAuthorizationInteractor
                     .lastWalletLoggedIn()
                     .take(1)
-                    .errorOnNil()
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
+            .subscribe(weak: self, onNext: { owner, wallet in
+                if let wallet = wallet {
+                    owner.showPasscode(wallet: wallet)
+                } else {
+                    owner.showEnter()
+                }
+            })
             .disposed(by: disposeBag)
     }
 }

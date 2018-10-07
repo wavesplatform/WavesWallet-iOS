@@ -25,5 +25,58 @@ final class ProfileCoordinator: Coordinator {
 }
 
 extension ProfileCoordinator: ProfileModuleOutput {
+    func showAddressesKeys() {
 
+    }
+
+    func showAddressBook() {
+
+    }
+
+    func showLanguage() {
+
+    }
+
+    func showBackupPhrase() {
+
+    }
+
+    func showChangePassword() {
+
+    }
+
+    func showChangePasscode() {
+
+    }
+
+    func showNetwork() {
+
+    }
+
+    func showRateApp() {
+
+    }
+
+    func showFeedback() {
+
+    }
+
+    func showSupport() {
+
+    }
+
+    func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
+        let passcode = PasscodeCoordinator.init(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        addChildCoordinator(childCoordinator: passcode)
+        passcode.start()
+
+    }
+
+    func userLogouted() {
+
+    }
+
+    func useerDeteedAccount() {
+
+    }
 }

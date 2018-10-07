@@ -27,7 +27,7 @@ protocol PasscodePresenterProtocol {
 
     typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
 
-    var interactor: PasscodeInteractor! { get set }
+    var interactor: PasscodeInteractorProtocol! { get set }
     var input: PasscodeModuleInput! { get set }
     var moduleOutput: PasscodeModuleOutput? { get set }
     func system(feedbacks: [Feedback])
@@ -51,13 +51,19 @@ private struct LogoutQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
 }
 
+private struct SetEnableBiometricQuery: Hashable {
+    let wallet: DomainLayer.DTO.Wallet
+    let passcode: String
+    let isOn: Bool
+}
+
 final class PasscodePresenter: PasscodePresenterProtocol {
 
     fileprivate typealias Types = PasscodeTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    var interactor: PasscodeInteractor!
+    var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
     weak var moduleOutput: PasscodeModuleOutput?
 
@@ -68,6 +74,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logIn())
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
+        newFeedbacks.append(changeEnableBiometric())        
 
         let initialState = self.initialState(input: input)
 
@@ -99,6 +106,33 @@ final class PasscodePresenter: PasscodePresenterProtocol {
                 .registrationAccount(query.account,
                                      passcode: query.passcode)
                 .map { .completedRegistration($0) }
+                .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+                })
+        })
+    }
+
+    private func changeEnableBiometric() -> Feedback {
+        return react(query: { state -> SetEnableBiometricQuery? in
+
+            if case let .setEnableBiometric(isOn, wallet) = state.kind,
+                let action = state.action,
+                case .setEnableBiometric =  action {
+                return SetEnableBiometricQuery(wallet: wallet, passcode: state.passcode, isOn: isOn)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .setEnableBiometric(wallet: query.wallet, passcode: query.passcode, isOn: query.isOn)
+                .sweetDebug("Biometric")
+                .map { Types.Event.completedLogIn($0) }
                 .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
                     guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
@@ -260,9 +294,8 @@ private extension PasscodePresenter {
 
         case .tapBack:
 
-
             switch state.kind {
-            case .logIn:
+            case .logIn, .setEnableBiometric:
                 moduleOutput?.tapBackButton()
                 return state
 
@@ -276,6 +309,7 @@ private extension PasscodePresenter {
                 }
             }
         }
+        return state
     }
 
     private func handlerInputNumbers(_ numbers: [Int], state: inout Types.State)  {
@@ -286,6 +320,9 @@ private extension PasscodePresenter {
 
         case .registration:
             handlerInputNumbersForRegistration(numbers, state: &state)
+
+        case .setEnableBiometric(let isOn, let wallet):
+            handlerInputNumbersForChangeBiometric(numbers, state: &state, isOnBiomentric: isOn, wallet: wallet)
         }
     }
 
@@ -343,6 +380,26 @@ private extension PasscodePresenter {
             break
         }
     }
+
+    private func handlerInputNumbersForChangeBiometric(_ numbers: [Int],
+                                                       state: inout Types.State,
+                                                       isOnBiomentric: Bool, wallet: DomainLayer.DTO.Wallet)  {
+
+        let kind = state.displayState.kind
+        state.numbers[kind] = numbers
+
+        switch kind {
+        case .enterPasscode:
+            state.displayState.isLoading = true
+            state.displayState.numbers = numbers
+            state.displayState.isHiddenBackButton = !state.hasBackButton
+            state.displayState.error = nil
+            state.passcode = numbers.reduce(into: "", { $0 += "\($1)" })
+            state.action = .setEnableBiometric
+        default:
+            break
+        }
+    }
 }
 
 // MARK: UI State
@@ -361,6 +418,18 @@ private extension PasscodePresenter {
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
 
         switch input.kind {
+        case .setEnableBiometric(_, let wallet):
+            return .init(kind: .enterPasscode,
+                         numbers: .init(),
+                         isLoading: false,
+                         isHiddenBackButton: !input.hasBackButton,
+                         isHiddenLogInByPassword: true,
+                         isHiddenLogoutButton: input.hasBackButton,
+                         isHiddenBiometricButton: !wallet.hasBiometricEntrance,
+                         error: nil,
+                         titleLabel: input.kind.title(kind: .enterPasscode),
+                         detailLabel: nil)
+
         case .logIn(let wallet):
             return .init(kind: .enterPasscode,
                          numbers: .init(),
@@ -393,6 +462,9 @@ fileprivate extension PasscodeTypes.DTO.Kind {
     func title(kind: PasscodeTypes.PasscodeKind) -> String {
 
         switch self {
+        case .setEnableBiometric(_, let wallet):
+            return  Localizable.Passcode.Label.Passcode.enter
+
         case .logIn(let wallet):
             return wallet.name
 

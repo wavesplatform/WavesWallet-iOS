@@ -17,6 +17,7 @@ extension PasscodeTypes.DTO {
     enum Kind {
         case registration(Account)
         case logIn(DomainLayer.DTO.Wallet)
+        case setEnableBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
     }
 
     struct Account: Hashable {
@@ -42,6 +43,7 @@ extension PasscodeTypes {
             case logIn
             case logInBiometric
             case logout
+            case setEnableBiometric
         }
 
         var displayState: DisplayState

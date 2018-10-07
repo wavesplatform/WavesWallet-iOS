@@ -159,6 +159,29 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
             return Disposables.create()
         })
     }
+
+    func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let result = realm.objects(WalletItem.self)
+
+            let collection = Observable.collection(from: result)
+            let disposable = collection.flatMap({ items -> Observable<DomainLayer.DTO.Wallet> in
+                if let item = items.toArray().first {
+                     return Observable.just(DomainLayer.DTO.Wallet(wallet: item))
+                }
+                return Observable.empty()
+            })
+            .bind(to: observer)
+            return Disposables.create([disposable])
+        })
+    }
 }
 
 private extension WalletsRepositoryLocal {
