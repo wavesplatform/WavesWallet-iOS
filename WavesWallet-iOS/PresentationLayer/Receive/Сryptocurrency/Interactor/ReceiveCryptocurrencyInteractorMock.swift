@@ -17,7 +17,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 let info = ReceiveCryptocurrency.DTO.DisplayInfo(address: "dsakdaskldaslkdj",
-                                                                 assetFullName: "Bitcoin",
+                                                                 assetName: "Bitcoin",
                                                                  assetTicker: "BTC",
                                                                  fee: "0.0001")
                 

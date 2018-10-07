@@ -722,6 +722,31 @@ internal enum Localizable {
       }
     }
   }
+          internal enum ReceiveCard {
+
+    internal enum Button {
+      /// Cancel
+      internal static var cancel: String { return Localizable.tr("ReceiveCard", "button.cancel") }
+    }
+
+    internal enum Label {
+      /// Change currency
+      internal static var changeCurrency: String { return Localizable.tr("ReceiveCard", "label.changeCurrency") }
+      /// The minimum is %@, the maximum is %@
+      internal static func minimunAmountInfo(_ p1: String, _ p2: String) -> String {
+        return Localizable.tr("ReceiveCard", "label.minimunAmountInfo", p1, p2)
+      }
+      /// For making a payment from your card you will be redirected to the merchant's website
+      internal static var warningInfo: String { return Localizable.tr("ReceiveCard", "label.warningInfo") }
+    }
+  }
+          internal enum ReceiveInvoice {
+
+    internal enum Label {
+      /// US Dollar
+      internal static var dollar: String { return Localizable.tr("ReceiveInvoice", "label.dollar") }
+    }
+  }
           internal enum DexOrderBook {
 
     internal enum Button {
@@ -1035,6 +1060,17 @@ internal enum Localizable {
       internal static var received: String { return Localizable.tr("History", "segmentedControl.received") }
       /// Sent
       internal static var sent: String { return Localizable.tr("History", "segmentedControl.sent") }
+    }
+  }
+          internal enum ReceiveGenerate {
+
+    internal enum Label {
+      /// Generate…
+      internal static var generate: String { return Localizable.tr("ReceiveGenerate", "label.generate") }
+      /// Your %@ address
+      internal static func yourAddress(_ p1: String) -> String {
+        return Localizable.tr("ReceiveGenerate", "label.yourAddress", p1)
+      }
     }
   }
           internal enum Asset {

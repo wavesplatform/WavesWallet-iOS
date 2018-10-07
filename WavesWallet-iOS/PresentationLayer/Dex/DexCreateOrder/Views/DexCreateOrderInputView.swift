@@ -54,7 +54,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         
         labelError.alpha = 0
         inputScrollView.inputDelegate = self
-        textField.inputNumericDelegate = self
+        textField.moneyDelegate = self
         hideInputScrollView(animation: false)
     }
     

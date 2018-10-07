@@ -9,10 +9,7 @@
 import Foundation
 
 enum Receive {
-    enum DTO {}
     enum ViewModel {}
-    
-    
 }
 
 extension Receive.ViewModel {
@@ -22,8 +19,4 @@ extension Receive.ViewModel {
         case invoice
         case card
     }
-}
-
-extension Receive.DTO {
- 
 }

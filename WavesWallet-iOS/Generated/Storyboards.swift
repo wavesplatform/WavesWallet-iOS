@@ -226,6 +226,8 @@ internal enum StoryboardScene {
 
     internal static let receiveCryptocurrencyViewController = SceneType<WavesWallet_iOS.ReceiveCryptocurrencyViewController>(storyboard: Receive.self, identifier: "ReceiveCryptocurrencyViewController")
 
+    internal static let receiveGenerateAddressViewController = SceneType<WavesWallet_iOS.ReceiveGenerateAddressViewController>(storyboard: Receive.self, identifier: "ReceiveGenerateAddressViewController")
+
     internal static let receiveInvoiceViewController = SceneType<WavesWallet_iOS.ReceiveInvoiceViewController>(storyboard: Receive.self, identifier: "ReceiveInvoiceViewController")
   }
   internal enum StartLeasing: StoryboardType {

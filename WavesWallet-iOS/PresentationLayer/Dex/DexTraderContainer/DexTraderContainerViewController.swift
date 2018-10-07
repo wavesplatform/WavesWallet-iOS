@@ -37,7 +37,7 @@ final class DexTraderContainerViewController: UIViewController {
         hideTopBarLine()
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: animated)
         navigationItem.backgroundImage = UIImage()
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,7 +45,7 @@ final class DexTraderContainerViewController: UIViewController {
         UIApplication.shared.setStatusBarStyle(.default, animated: animated)
 
         navigationItem.backgroundImage = nil
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
+        navigationItem.titleTextAttributes = nil
     }
     
  

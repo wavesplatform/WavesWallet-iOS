@@ -43,6 +43,10 @@ extension UIViewController {
         navigationItem.shadowImage = UIImage()
     }
 
+    func showTopBarLine() {
+        navigationItem.shadowImage = nil
+    }
+    
     // TODO: Меня смущает проверка (<= 44) в showImage.
     func setupTopBarLine() {
         

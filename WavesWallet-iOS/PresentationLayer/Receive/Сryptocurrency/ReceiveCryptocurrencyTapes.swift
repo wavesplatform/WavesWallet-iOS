@@ -21,9 +21,6 @@ enum ReceiveCryptocurrency {
             case none
             case addressDidGenerate(DTO.DisplayInfo)
             case addressDidFailGenerate(Error)
-//            case addressDidFailGenerate(Error)
-//            case orderDidFailCreate(Error)
-//            case orderDidCreate
         }
         
         var isNeedGenerateAddress: Bool
@@ -38,7 +35,7 @@ extension ReceiveCryptocurrency.DTO {
     
     struct DisplayInfo {
         let address: String
-        let assetFullName: String
+        let assetName: String
         let assetTicker: String
         let fee: String
     }

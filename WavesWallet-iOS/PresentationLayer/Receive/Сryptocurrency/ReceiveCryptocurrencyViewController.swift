@@ -43,6 +43,9 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
         
+        guard let info = displayInfo else { return }
+        let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryproCurrency(info))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

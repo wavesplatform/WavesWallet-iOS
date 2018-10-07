@@ -36,7 +36,7 @@ final class MoneyTextField: UITextField {
         }
     }
 
-    weak var inputNumericDelegate: MoneyTextFieldDelegate?
+    weak var moneyDelegate: MoneyTextFieldDelegate?
     var isShakeView: Bool = true
     var decimals: Int = 0
 
@@ -162,7 +162,7 @@ extension MoneyTextField: UITextFieldDelegate {
             attributedText = nil
         }
     
-        inputNumericDelegate?.moneyTextField(self, didChangeValue: value)
+        moneyDelegate?.moneyTextField(self, didChangeValue: value)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
