@@ -44,6 +44,8 @@
                 <outlet property="iconCheckmark" destination="pf5-WF-BZm" id="96f-FE-KLZ"/>
                 <outlet property="iconLanguage" destination="pQA-9Q-2Zs" id="TE1-Ji-98V"/>
                 <outlet property="labelTitle" destination="hrI-N0-SSA" id="5rF-Yb-UEg"/>
+                <outlet property="leftConstraint" destination="ty7-Zo-Whk" id="5gk-uY-P4c"/>
+                <outlet property="rightConstraint" destination="qMp-sz-0U3" id="bFE-Yx-fPC"/>
             </connections>
             <point key="canvasLocation" x="-14.5" y="-110"/>
         </tableViewCell>
