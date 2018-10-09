@@ -13,11 +13,12 @@ import RxSwift
 import RxOptional
 
 protocol AccountPasswordModuleInput {
+    
     var wallet: DomainLayer.DTO.Wallet { get }
 }
 
 protocol AccountPasswordModuleOutput: AnyObject {
-    func authorizationByPasswordCompleted()
+    func authorizationByPasswordCompleted(wallet: DomainLayer.DTO.Wallet, password: String)
 }
 
 protocol AccountPasswordPresenterProtocol {
@@ -79,7 +80,8 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
-                .interactor.logIn(wallet: query.wallet, password: query.password)
+                .interactor
+                .logIn(wallet: query.wallet, password: query.password)
                 .map { _ in .completedLogIn }
                 .asSignal(onErrorRecover: { (error) -> Signal<Types.Event> in
                     guard let error = error as? AccountPasswordInteractorError else { return Signal.just(.handlerError(.fail)) }
@@ -95,8 +97,8 @@ private extension AccountPasswordPresenter {
 
     func handlerAction(action: Types.State.Action) {
         switch action {
-        case .authorizationCompleted:
-            moduleOutput?.authorizationByPasswordCompleted()
+        case .authorizationCompleted(let wallet, let password):
+            moduleOutput?.authorizationByPasswordCompleted(wallet: wallet, password: password)
 
         default:
             break
@@ -109,12 +111,14 @@ private extension AccountPasswordPresenter {
         case .tapLogIn(let password):
             return state.mutate { state in
                 state.action = .logIn(password: password)
+                state.password = password
                 state.displayState.isLoading = true
             }
 
         case .completedLogIn:
             return state.mutate { state in
-                state.action = .authorizationCompleted
+                guard let password = state.password else { return }
+                state.action = .authorizationCompleted(state.wallet, password)
                 state.displayState.isLoading = false
             }
 
@@ -123,7 +127,7 @@ private extension AccountPasswordPresenter {
             return state.mutate { state in
                 state.action = nil
                 state.displayState.error = .incorrectPassword
-                state.displayState.isLoading = false
+                state.displayState.isLoading = false                
             }
         }
     }
@@ -136,7 +140,8 @@ private extension AccountPasswordPresenter {
     func initialState(wallet: DomainLayer.DTO.Wallet) -> Types.State {
         return Types.State(displayState: initialDisplayState(wallet: wallet),
                            wallet: wallet,
-                           action: nil)
+                           action: nil,
+                           password: nil)
     }
 
     func initialDisplayState(wallet: DomainLayer.DTO.Wallet) -> Types.DisplayState {

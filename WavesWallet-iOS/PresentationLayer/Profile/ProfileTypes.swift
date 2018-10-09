@@ -24,8 +24,8 @@ extension ProfileTypes {
         case showAddressBook
         case showLanguage
         case showBackupPhrase
-        case showChangePassword
-        case showChangePasscode
+        case showChangePassword(wallet: DomainLayer.DTO.Wallet)
+        case showChangePasscode(wallet: DomainLayer.DTO.Wallet)
         case showNetwork
         case showRateApp
         case showFeedback

@@ -29,6 +29,12 @@ final class AccountPasswordInteractor: AccountPasswordInteractorProtocol {
 
         return authorizationInteractor
             .auth(type: .password(password), wallet: wallet)
+            .filter({ status -> Bool in
+                if case .completed = status {
+                    return true
+                }
+                return false
+            })
             .map { _ in true }
             .catchError(weak: self, handler: { (owner, error) -> Observable<Bool> in
                 return Observable.error(owner.handlerError(error))

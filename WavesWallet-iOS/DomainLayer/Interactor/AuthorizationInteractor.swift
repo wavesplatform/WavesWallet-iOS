@@ -16,42 +16,82 @@ private enum Constants {
     static let service = "com.wavesplatform.wallets"
 }
 
-enum AuthorizationType {
-    case passcode(String)
-    case password(String)
-    case biometric
+private extension DomainLayer.DTO.Wallet {
+
+    init(id: String, secret: String, query: DomainLayer.DTO.WalletRegistation) {
+
+        self.name = query.name
+        self.address = query.privateKey.address
+        self.publicKey = query.privateKey.getPublicKeyStr()
+        self.secret = secret
+        self.isLoggedIn = false
+        self.isBackedUp = query.isBackedUp
+        self.hasBiometricEntrance = false
+        self.id = id
+    }
 }
 
-enum AuthorizationInteractorError: Error {
-    case fail
-    case passcodeIncorrect
-    case passwordIncorrect
-    case permissionDenied
-    case attemptsEnded
-    case biometricDisable
+private extension AuthorizationInteractor {
+
+    func registerData(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<RegisterData> {
+
+        return Observable.create { observer -> Disposable in
+
+            let id = UUID().uuidString
+            let keyForPassword = UUID().uuidString.sha512()
+            let password = wallet.password.sha512()
+            guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
+
+            observer.onNext(RegisterData(id: id,
+                                         keyForPassword: keyForPassword,
+                                         password: password,
+                                         secret: secret))
+            observer.onCompleted()
+            return Disposables.create()
+        }
+    }
+
+    func changePasscodeData(_ wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<ChangePasscodeData> {
+
+        return Observable.create { observer -> Disposable in
+
+            let keyForPassword = UUID().uuidString.sha512()
+            let password = password.sha512()
+            guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
+
+            var newWallet = wallet
+            newWallet.secret = secret
+
+            observer.onNext(ChangePasscodeData(wallet: newWallet,
+                                               keyForPassword: keyForPassword,
+                                               password: password))
+
+            observer.onCompleted()
+            return Disposables.create()
+        }
+    }
 }
 
-protocol AuthorizationInteractorProtocol {
 
-    func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?>
-    func walletsLoggedIn() -> Observable<[DomainLayer.DTO.Wallet]>
-
-    func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
-
-    // Return AuthorizationInteractorError
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
-
-    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
-    func removeBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
-
-    func logout(wallet publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
-    func logout() -> Observable<DomainLayer.DTO.Wallet>
-    func revokeAuth() -> Observable<Bool>
-
-    // Return AuthorizationInteractorError permissionDenied
-    func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet>
+private struct ChangePasscodeData {
+    let wallet: DomainLayer.DTO.Wallet
+    let keyForPassword: String
+    let password: String
 }
 
+
+private struct RegisterData {
+    let id: String
+    let keyForPassword: String
+    let password: String
+    let secret: String
+}
 
 private final class SeedRepositoryMemory {
 
@@ -95,38 +135,33 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     private let localWalletRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
     private let localWalletSeedRepository: WalletSeedRepositoryProtocol = FactoryRepositories.instance.walletSeedRepositoryLocal
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol = FactoryRepositories.instance.authenticationRepositoryRemote
+    
 
     //TODO: Mutex
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
 
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationBiometricStatus> {
 
         switch type {
         case .passcode(let passcode):
-            return remoteAuthenticationRepository
-                .auth(with: wallet.id, passcode: passcode)
-                .sweetDebug("remoteAuthenticationRepository")
-                .flatMap { [weak self] keyForPassword -> Observable<DomainLayer.DTO.Wallet> in
-                    guard let owner = self else { return Observable.empty() }
-                    guard let password: String = wallet.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.empty() }
 
-                    return owner.authWithPassword(password, wallet: wallet)
-                }
-                .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
-                    guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
-                    return Observable.error(owner.handlerError(error))
-                })
+            let remote = authWithPasscode(passcode, wallet: wallet)
+                .map { AuthorizationBiometricStatus.completed($0) }
 
+            return Observable.merge(Observable.just(AuthorizationBiometricStatus.waiting), remote)
 
         case .password(let password):
             
-            return Crypto
+            let remote = Crypto
                 .rx
                 .sha512(password)
                 .flatMap { [weak self] password -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.empty() }
                     return owner.authWithPassword(password, wallet: wallet)
                 }
+                .map { AuthorizationBiometricStatus.completed($0) }
+
+            return Observable.merge(Observable.just(AuthorizationBiometricStatus.waiting), remote)
 
         case .biometric:
             return authBiometric(wallet: wallet)
@@ -144,6 +179,10 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     func walletsLoggedIn() -> Observable<[DomainLayer.DTO.Wallet]> {
         return localWalletRepository
             .wallets(specifications: .init(isLoggedIn: true))
+            .catchError({ [weak self] error -> Observable<[DomainLayer.DTO.Wallet]> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
     }
 
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
@@ -162,6 +201,116 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                                                                          signingWallets: owner))
             })
     }
+
+    func changePasscode(wallet: DomainLayer.DTO.Wallet, oldPasscode: String, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+        return remoteAuthenticationRepository
+            .changePasscode(with: wallet.id, oldPasscode: oldPasscode, passcode: passcode)
+            .map { _ in wallet }
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)
+            })
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func changePasscodeByPassword(wallet: DomainLayer.DTO.Wallet, passcode: String, password: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return self
+            .changePasscodeData(wallet, password: password)
+            .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
+
+                guard let owner = self else { return Observable.never() }
+                let wallet = data.wallet
+
+                return owner.remoteAuthenticationRepository
+                    .registration(with: wallet.id,
+                                  keyForPassword: data.keyForPassword,
+                                  passcode: passcode)
+                    .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+
+                        guard let owner = self else { return Observable.never() }
+                        return owner.localWalletRepository.saveWallet(wallet)
+                    })
+                    .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                        guard let owner = self else { return Observable.never() }
+                        return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)
+                    })
+            })
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+}
+
+
+// MARK: Wallets methods
+extension AuthorizationInteractor {
+
+    func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
+        return self
+            .localWalletRepository
+            .wallets()
+            .catchError({ [weak self] error -> Observable<[DomainLayer.DTO.Wallet]> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return self.registerData(wallet)
+            .flatMap({ [weak self] (data) -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner.remoteAuthenticationRepository.registration(with: data.id,
+                                                                         keyForPassword: data.keyForPassword,
+                                                                         passcode: wallet.passcode)
+                    .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                        guard let owner = self else { return Observable.never() }
+                        let model = DomainLayer.DTO.Wallet(id: data.id, secret: data.secret, query: wallet)
+
+                        let saveSeed = owner
+                            .localWalletSeedRepository
+                            .saveSeed(for: .init(publicKey: wallet.privateKey.getPublicKeyStr(),
+                                                 seed: wallet.privateKey.wordsStr,
+                                                 address: wallet.privateKey.address),
+                                      password: data.password)
+
+                        let saveWallet = owner.localWalletRepository.saveWallet(model)
+                        return saveSeed.flatMap { _ -> Observable<DomainLayer.DTO.Wallet> in
+                            saveWallet
+                        }
+                }
+            })
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+    }
+
+    func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable.zip([localWalletRepository.removeWallet(wallet),
+                               localWalletSeedRepository.deleteSeed(for: wallet.address)])
+            .map { _ in true }
+            .catchError({ [weak self] error -> Observable<Bool> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable.never()
+    }
+}
+
+// MARK: Logout methods
+
+extension AuthorizationInteractor {
 
     func logout() -> Observable<DomainLayer.DTO.Wallet> {
         return walletsLoggedIn().flatMap(weak: self, selector: { $0.logout })
@@ -192,6 +341,10 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                         .localWalletRepository
                         .saveWallet(newWallet)
                 })
+                .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                    guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                    return Observable.error(owner.handlerError(error))
+                })
                 .subscribe(onNext: { completed in
                     observer.onNext(completed)
                     observer.onCompleted()
@@ -200,35 +353,95 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             return Disposables.create([disposable])
         })
     }
+}
 
-    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+// MARK: Biometric methods
 
-        return auth(type: .passcode(passcode), wallet: wallet)
-            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+extension AuthorizationInteractor {
+
+    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationBiometricStatus> {
+
+        let auth = authWithPasscode(passcode, wallet: wallet)
+            .flatMap({ [weak self] wallet -> Observable<AuthorizationBiometricStatus>  in
+
                 guard let owner = self else { return Observable.never() }
-                return owner
+
+                let savePasscode = owner
                     .savePasscodeInKeychain(wallet: wallet, passcode: passcode)
                     .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
                         guard let owner = self else { return Observable.never() }
                         return owner.setHasBiometricEntrance(wallet: wallet, hasBiometricEntrance: true)
                     })
+                    .map { AuthorizationBiometricStatus.completed($0) }
+
+                return Observable.merge(.just(AuthorizationBiometricStatus.detectBiometric), savePasscode)
             })
+
+        return Observable.merge(.just(AuthorizationBiometricStatus.waiting), auth)
     }
 
-    func removeBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+    func unregisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationBiometricStatus> {
 
-        return auth(type: .passcode(passcode), wallet: wallet)
-            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+        let auth = authWithPasscode(passcode, wallet: wallet)
+            .flatMap({ [weak self] status -> Observable<AuthorizationBiometricStatus> in
                 guard let owner = self else { return Observable.never() }
                 return owner
                     .removePasscodeInKeychain(wallet: wallet)
-                    .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                    .flatMap({ [weak self] _ -> Observable<AuthorizationBiometricStatus> in
                         guard let owner = self else { return Observable.never() }
-                        return owner.setHasBiometricEntrance(wallet: wallet, hasBiometricEntrance: false)
+
+                        let removeBiometric = owner
+                            .setHasBiometricEntrance(wallet: wallet, hasBiometricEntrance: false)
+                            .map { AuthorizationBiometricStatus.completed($0) }
+
+                        return Observable.merge(.just(AuthorizationBiometricStatus.detectBiometric), removeBiometric)
                     })
             })
+
+        return Observable.merge(.just(AuthorizationBiometricStatus.waiting), auth)
+    }
+
+    func unregisterBiometricUsingBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationBiometricStatus> {
+
+        let passcode = passcodeFromKeychain(wallet: wallet)
+            .flatMap { [weak self] passcode -> Observable<AuthorizationBiometricStatus> in
+                guard let owner = self else { return Observable.never() }
+                return owner.unregisterBiometric(wallet: wallet, passcode: passcode)
+        }
+
+        return Observable.merge(.just(AuthorizationBiometricStatus.detectBiometric), passcode)
+    }
+
+    private func reRegisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        if wallet.hasBiometricEntrance {
+            return registerBiometric(wallet: wallet, passcode: passcode)
+                .filter({ status -> Bool in
+                    if case .completed = status {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+                .flatMap({ status -> Observable<DomainLayer.DTO.Wallet> in
+                    if case .completed(let wallet) = status {
+                        return Observable.just(wallet)
+                    }
+                    return Observable.empty()
+                })
+                .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                    guard let owner = self else { return Observable.never() }
+                    var newWallet = wallet
+                    newWallet.hasBiometricEntrance = false
+                    return owner.localWalletRepository.saveWallet(newWallet)
+                })
+        } else {
+            return Observable.just(wallet)
+        }
     }
 }
+
+// MARK: Keychain methods
 
 private extension AuthorizationInteractor {
 
@@ -270,7 +483,7 @@ private extension AuthorizationInteractor {
 
                 observer.onNext(true)
                 observer.onCompleted()
-            } catch _ {
+            } catch let error {
                 observer.onError(AuthorizationInteractorError.biometricDisable)
             }
 
@@ -278,7 +491,7 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func authBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+    private func passcodeFromKeychain(wallet: DomainLayer.DTO.Wallet) -> Observable<String> {
 
         return Observable<String>.create { observer -> Disposable in
 
@@ -303,15 +516,56 @@ private extension AuthorizationInteractor {
 
             return Disposables.create()
         }
-        .flatMap({ [weak self] passcode -> Observable<DomainLayer.DTO.Wallet> in
-            guard let owner = self else { return Observable.never() }
-            return owner.auth(type: .passcode(passcode), wallet: wallet)
-        })
+    }
+}
+
+// MARK: Auth methods
+
+private extension AuthorizationInteractor {
+
+    private func authBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationBiometricStatus> {
+
+        let auth = passcodeFromKeychain(wallet: wallet)
+            .flatMap({ [weak self] passcode -> Observable<AuthorizationBiometricStatus> in
+                guard let owner = self else { return Observable.never() }
+                return owner.auth(type: .passcode(passcode), wallet: wallet)
+            })
+
+        return Observable.merge(Observable.just(AuthorizationBiometricStatus.detectBiometric), auth)
+    }
+
+    private func getPasswordByPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<String> {
+
+        return remoteAuthenticationRepository
+            .auth(with: wallet.id, passcode: passcode)
+            .sweetDebug("getPasswordByPasscode")
+            .flatMap { keyForPassword -> Observable<String> in
+                guard let password: String = wallet.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.just(password)
+            }
+            .catchError({ [weak self] error -> Observable<String> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    private func authWithPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+
+        return getPasswordByPasscode(passcode, wallet: wallet)
+            .flatMap { [weak self] password -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.authWithPassword(password, wallet: wallet)
+            }
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
     }
 
     private func authWithPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
         return localWalletSeedRepository
             .seed(for: wallet.address, publicKey: wallet.publicKey, password: password)
+            .sweetDebug("Local Seed")
             .flatMap({ [weak self] seed -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.empty() }
                 owner.seedRepositoryMemory.append(seed)
@@ -324,6 +578,7 @@ private extension AuthorizationInteractor {
                 WalletManager.currentWallet = oldWallet
                 return owner.setIsLoggedIn(wallet: wallet)
             })
+            .sweetDebug("authWithPassword")
             .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))

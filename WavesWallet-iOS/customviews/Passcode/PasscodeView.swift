@@ -123,13 +123,24 @@ final class PasscodeView: UIView, NibOwnerLoadable {
         topBarView.showInvalidateState()
     }
 
+    var startLoadingIndicatorVar: Bool = false
+
     func startLoadingIndicator() {
-        topBarView.startLoadingIndicator()
+
+        if startLoadingIndicatorVar == false {
+            startLoadingIndicatorVar = true
+            print("startLoadingIndicator")
+            topBarView.startLoadingIndicator()
+        }
     }
 
     func stopLoadingIndicator() {
-        print("stopLoadingIndicator")
-        topBarView.stopLoadingIndicator()
+
+        if startLoadingIndicatorVar {
+            startLoadingIndicatorVar = false
+            print("stopLoadingIndicator")
+            topBarView.stopLoadingIndicator()
+        }
     }
 }
 

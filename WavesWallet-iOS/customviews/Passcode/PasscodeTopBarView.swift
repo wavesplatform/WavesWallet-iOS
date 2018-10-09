@@ -105,13 +105,13 @@ final class PasscodeTopBarView: UIView {
     }
 
     func showInvalidateState() {
-        isInvalidateState = true
-        updateColorsForDots()
-        ImpactFeedbackGenerator.impactOccurredOrVibrate()
-        dotsView.shake()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.durationDotsError) {
-            self.cancelInvalidateState()
-        }
+//        isInvalidateState = true
+//        updateColorsForDots()
+//        ImpactFeedbackGenerator.impactOccurredOrVibrate()
+//        dotsView.shake()
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.durationDotsError) {
+//            self.cancelInvalidateState()
+//        }
     }
 
     func startLoadingIndicator() {
@@ -131,7 +131,6 @@ final class PasscodeTopBarView: UIView {
         UIView.animateKeyframes(withDuration: duration,
                                 delay: 0,
                                 options: [.beginFromCurrentState,
-                                          .overrideInheritedOptions,
                                           .overrideInheritedDuration],
                                 animations: {
 

@@ -148,6 +148,12 @@ private extension PasscodeViewController {
             }
         }
 
+        if state.isLoading {
+            debug("state.isLoading true")
+        } else {
+            debug("state.isLoading false")
+        }
+        
         passcodeView.isUserInteractionEnabled = !state.isLoading
         if state.isLoading {
             passcodeView.startLoadingIndicator()

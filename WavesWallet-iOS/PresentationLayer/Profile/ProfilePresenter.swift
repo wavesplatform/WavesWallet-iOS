@@ -21,8 +21,8 @@ protocol ProfileModuleOutput: AnyObject {
     func showAddressBook()
     func showLanguage()
     func showBackupPhrase()
-    func showChangePassword()
-    func showChangePasscode()
+    func showChangePassword(wallet: DomainLayer.DTO.Wallet)
+    func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
     func showNetwork()
     func showRateApp()
     func showFeedback()
@@ -63,7 +63,6 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     private let blockRepository: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsInteractor: WalletsInteractorProtocol = FactoryInteractors.instance.wallets
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
 //    var interactor: PasscodeInteractor!
@@ -92,9 +91,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     }
 
-    fileprivate static func needQuery(_ query: Types.Query?) -> Types.Query? {
+    fileprivate static func needQuery(_ state: Types.State) -> Types.Query? {
 
-        guard let query = query else { return nil }
+        guard let query = state.query else { return nil }
 
         switch query {
         case .showAddressesKeys,
@@ -132,11 +131,11 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         case .showBackupPhrase:
             owner.moduleOutput?.showBackupPhrase()
 
-        case .showChangePassword:
-            owner.moduleOutput?.showChangePassword()
+        case .showChangePassword(let wallet):
+            owner.moduleOutput?.showChangePassword(wallet: wallet)
 
-        case .showChangePasscode:
-            owner.moduleOutput?.showChangePasscode()
+        case .showChangePasscode(let wallet):
+            owner.moduleOutput?.showChangePasscode(wallet: wallet)
 
         case .showNetwork:
             owner.moduleOutput?.showNetwork()
@@ -165,7 +164,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     func reactQuries() -> Feedback {
         return reactQuery(owner: self, query: { state -> Types.Query? in
-            return ProfilePresenter.needQuery(state.query)
+            return ProfilePresenter.needQuery(state)
         }) { owner, query in
             ProfilePresenter.handlerQuery(owner: owner, query: query)
         }
@@ -275,7 +274,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
                 .flatMap({ [weak self] wallet -> Observable<Types.Event> in
                     guard let strongSelf = self else { return Observable.empty() }
                     return strongSelf
-                        .walletsInteractor
+                        .authorizationInteractor
                         .deleteWallet(wallet)
                         .map { _ in
                             return Types.Event.none
@@ -307,7 +306,8 @@ private extension ProfilePresenter {
 
         switch event {
         case .viewDidDisappear:
-            state.displayState.isAppeared = true
+            state.displayState.isAppeared = false
+            state.query = nil
 
         case .viewDidAppear:
             state.displayState.isAppeared = true
@@ -337,6 +337,9 @@ private extension ProfilePresenter {
             state.displayState.action = .update
 
         case .tapRow(let row):
+
+            guard let wallet = state.wallet else { return }
+
             switch row {
             case .addressbook:
                 state.query = .showAddressBook
@@ -351,10 +354,10 @@ private extension ProfilePresenter {
                 state.query = Types.Query.showBackupPhrase
 
             case .changePassword:
-                state.query = Types.Query.showChangePassword
+                state.query = Types.Query.showChangePassword(wallet: wallet)
 
             case .changePasscode:
-                state.query = Types.Query.showChangePasscode
+                state.query = Types.Query.showChangePasscode(wallet: wallet)
 
             case .network:
                 state.query = Types.Query.showNetwork

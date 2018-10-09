@@ -63,7 +63,7 @@ final class PasscodeCoordinator: Coordinator {
         if hasExternalNavigationController == false {
             self.viewController.dismiss(animated: true, completion: nil)
         } else {
-            self.navigationController.popViewController(animated: true)
+            self.navigationController.popToRootViewController(animated: true)
         }
     }
 }
@@ -93,17 +93,31 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
 
     func logInByPassword() {
         if case .logIn(let wallet) = kind {
-            let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
-            navigationController.pushViewController(vc, animated: true)
+            showAccountPassword(wallet: wallet)
+        } else if case .changePasscode(let wallet) = kind {
+            showAccountPassword(wallet: wallet)
         }
+    }
+
+    func showAccountPassword(wallet: DomainLayer.DTO.Wallet) {
+        let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: AccountPasswordModuleOutput
 extension PasscodeCoordinator: AccountPasswordModuleOutput {
-    func authorizationByPasswordCompleted() {
-        dissmiss()
-        delegate?.userAuthorizationCompleted()
+    func authorizationByPasswordCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
+
+        if case .changePasscode(let wallet) = kind {
+            let vc = PasscodeModuleBuilder(output: self)
+                .build(input: .init(kind: .changePasscodeByPassword(wallet, password: password),
+                                    hasBackButton: hasExternalNavigationController))
+            navigationController.pushViewController(vc, animated: true)
+        } else {
+            dissmiss()
+            delegate?.userAuthorizationCompleted()
+        }
     }
 }
 

@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit,                               
                                UIView.shadowInit]).start()
 
-        SweetLogger.current.visibleLevels = [.debug, .error, .network]
+        SweetLogger.current.visibleLevels = [.error, .network]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
 //        self.window?.backgroundColor = AppColors.wavesColor

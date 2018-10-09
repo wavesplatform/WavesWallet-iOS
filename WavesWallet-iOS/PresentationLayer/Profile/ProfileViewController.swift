@@ -20,23 +20,27 @@ final class ProfileViewController: UIViewController {
     fileprivate typealias Types = ProfileTypes
 
     @IBOutlet private weak var tableView: UITableView!
+    private let logoutItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
     private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
 
     var presenter: ProfilePresenterProtocol!
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
         createMenuButton()
         setupBigNavigationBar()
 
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
+
         setupSystem()
         setupLanguages()
         setupTableview()
     }
 
+    @objc func logoutTapped() {
+
+    }
 }
 
 // MARK: Setup Methods
@@ -106,6 +110,7 @@ private extension ProfileViewController {
         if let action = state.action {
             switch action {
             case .update:
+                navigationItem.rightBarButtonItem = logoutItem
                 tableView.reloadData()
             case .none:
                 break

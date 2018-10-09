@@ -77,6 +77,7 @@
 		0A2B7D37216038540098438D /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D36216038540098438D /* HalfModalInteractiveTransition.swift */; };
 		0A2B7D39216038A80098438D /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D38216038A80098438D /* SpamService.swift */; };
 		0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D3A216038F70098438D /* AssetsSpamService.swift */; };
+		0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
 		0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */; };
 		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
@@ -847,6 +848,7 @@
 		0A2B7D36216038540098438D /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		0A2B7D38216038A80098438D /* SpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpamService.swift; sourceTree = "<group>"; };
 		0A2B7D3A216038F70098438D /* AssetsSpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
+		0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
 		0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedBackupViewController.swift; sourceTree = "<group>"; };
 		0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupInfoViewController.swift; sourceTree = "<group>"; };
 		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
@@ -1748,6 +1750,7 @@
 				0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */,
 				0A218B822155192600B989A1 /* WalletsInteractor.swift */,
 				0A5D3301215842860009CDF3 /* AuthorizationInteractor.swift */,
+				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4512,6 +4515,7 @@
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				0A96F1CE2151B699005E148F /* PasscodeViewController.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
+				0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */,
 				0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */,
 				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */,

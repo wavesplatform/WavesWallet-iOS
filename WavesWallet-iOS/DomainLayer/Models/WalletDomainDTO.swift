@@ -13,7 +13,7 @@ extension DomainLayer.DTO {
         let name: String
         let address: String
         let publicKey: String
-        let secret: String
+        var secret: String
         var isLoggedIn: Bool
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool

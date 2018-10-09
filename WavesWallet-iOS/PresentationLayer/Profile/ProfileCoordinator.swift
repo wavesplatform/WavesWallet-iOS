@@ -41,13 +41,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     }
 
-    func showChangePassword() {
 
-    }
-
-    func showChangePasscode() {
-
-    }
 
     func showNetwork() {
 
@@ -69,7 +63,18 @@ extension ProfileCoordinator: ProfileModuleOutput {
         let passcode = PasscodeCoordinator.init(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
+    }
 
+    func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
+        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .changePasscode(wallet))
+        addChildCoordinator(childCoordinator: passcode)
+        passcode.start()
+    }
+
+    func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
+
+        let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func userLogouted() {
@@ -77,6 +82,12 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func useerDeteedAccount() {
+
+    }
+}
+
+extension ProfileCoordinator: AccountPasswordModuleOutput {
+    func authorizationByPasswordCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
 
     }
 }

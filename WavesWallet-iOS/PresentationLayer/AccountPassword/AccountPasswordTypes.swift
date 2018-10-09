@@ -12,18 +12,25 @@ enum AccountPasswordTypes {
     enum DTO { }
 }
 
+extension AccountPasswordTypes.DTO {
+    enum Kind {
+        case logIn(DomainLayer.DTO.Wallet)        
+    }
+}
+
 extension AccountPasswordTypes {
 
     struct State: Mutating {
 
         enum Action {
             case logIn(password: String)
-            case authorizationCompleted
+            case authorizationCompleted(DomainLayer.DTO.Wallet, String)
         }
 
         var displayState: DisplayState
         var wallet: DomainLayer.DTO.Wallet
         var action: Action?
+        var password: String?
     }
 
     enum Event {

@@ -29,6 +29,8 @@ internal enum Localizable {
         internal static var create: String { return Localizable.tr("Passcode", "label.passcode.create") }
         /// Enter Passcode
         internal static var enter: String { return Localizable.tr("Passcode", "label.passcode.enter") }
+        /// Enter old Passcode
+        internal static var old: String { return Localizable.tr("Passcode", "label.passcode.old") }
         /// Verify your passcode
         internal static var verify: String { return Localizable.tr("Passcode", "label.passcode.verify") }
       }
