@@ -36,6 +36,10 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         acceptGeneratingAddress()
     }
    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -75,7 +79,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
             title = Localizable.ReceiveGenerate.Label.yourAddress(info.assetName)
             
         case .invoice(let info):
-            guard let name = info.balanceAsset.asset?.name else { return }
+            guard let name = info.balanceAsset.asset?.displayName else { return }
             title = Localizable.ReceiveGenerate.Label.yourAddress(name)
         }
     }

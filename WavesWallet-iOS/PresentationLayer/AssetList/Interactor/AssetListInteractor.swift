@@ -11,7 +11,6 @@ import RxSwift
 
 final class AssetListInteractor: AssetListInteractorProtocol {
     
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
@@ -19,12 +18,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 
     func assets(filters: [AssetList.DTO.Filter]) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         
-        let assets = authorizationInteractor
-            .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.accountBalanceInteractor.balances(by: wallet, isNeedUpdate: false)
-            })
+        let assets = accountBalanceInteractor.balances(isNeedUpdate: false)
         
         let merge = Observable.merge([assets]).map { [weak self] assets -> [DomainLayer.DTO.AssetBalance] in
             
@@ -51,7 +45,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                 
                 let newAssets = assets.filter {
                     guard let asset = $0.asset else { return false }
-                    return self?.isValidSearch(name: asset.name, searchText: searchText) ?? false
+                    return self?.isValidSearch(name: asset.displayName, searchText: searchText) ?? false
                 }
                 return newAssets
         }
@@ -69,6 +63,17 @@ private extension AssetListInteractor {
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.AssetBalance]) {
         
         var filterAssets: [DomainLayer.DTO.AssetBalance] = []
+                
+        if filters.contains(.waves) {
+            
+            filterAssets.append(contentsOf: assets.filter({
+                guard let asset = $0.asset else { return false }
+                
+                return asset.isFiat == false &&
+                    asset.isWavesToken == false &&
+                    asset.isGateway == false &&
+                    asset.isWaves == true}))
+        }
         
         if filters.contains(.cryptoCurrency) {
             
@@ -90,17 +95,6 @@ private extension AssetListInteractor {
                         asset.isWavesToken == false &&
                         asset.isGateway == true &&
                         asset.isWaves == false}))
-        }
-        
-        if filters.contains(.waves) {
-            
-                filterAssets.append(contentsOf: assets.filter({
-                    guard let asset = $0.asset else { return false }
-                    
-                    return asset.isFiat == false &&
-                        asset.isWavesToken == false &&
-                        asset.isGateway == false &&
-                        asset.isWaves == true}))
         }
         
         if filters.contains(.wavesToken) {

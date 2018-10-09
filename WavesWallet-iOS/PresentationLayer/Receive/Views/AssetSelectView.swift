@@ -90,13 +90,14 @@ extension AssetSelectView: ViewConfiguration {
         guard let asset = model.asset else { return }
         
         viewAsset.isHidden = false
+        labelAmount.isHidden = false
         labelSelectAsset.isHidden = true
-        
-        labelAssetName.text = asset.name
+
+        labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
         iconFav.isHidden = !(model.settings?.isFavorite ?? false)
        
-        loadIcon(name: asset.ticker ?? asset.name)
+        loadIcon(name: asset.ticker ?? asset.displayName)
         let money = Money(model.balance, asset.precision)
         labelAmount.text = money.displayTextFull
     }

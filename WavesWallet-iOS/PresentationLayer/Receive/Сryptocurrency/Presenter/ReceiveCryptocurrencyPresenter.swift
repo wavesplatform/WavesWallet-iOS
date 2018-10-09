@@ -38,7 +38,9 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
         }, effects: { [weak self] state -> Signal<ReceiveCryptocurrency.Event> in
             
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.generateAddress(ticker: state.ticker, generalTicker: state.generalTicker)
+            guard let asset = state.asset else { return Signal.empty() }
+            
+            return strongSelf.interactor.generateAddress(asset: asset)
                 .map { .addressDidGenerate($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -47,11 +49,10 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
         
         switch event {
        
-        case .generateAddress(let ticker, let generalTicker):
+        case .generateAddress(let asset):
             return state.mutate {
                 $0.displayInfo = nil
-                $0.ticker = ticker
-                $0.generalTicker = generalTicker
+                $0.asset = asset
                 $0.isNeedGenerateAddress = true
             }.changeAction(.none)
             
@@ -78,7 +79,7 @@ fileprivate extension ReceiveCryptocurrency.State {
     
     static var initialState: ReceiveCryptocurrency.State {
     
-        return ReceiveCryptocurrency.State(isNeedGenerateAddress: false, action: .none, displayInfo: nil, ticker: "", generalTicker: "")
+        return ReceiveCryptocurrency.State(isNeedGenerateAddress: false, action: .none, displayInfo: nil, asset: nil)
     }
     
     func changeAction(_ action: ReceiveCryptocurrency.State.Action) -> ReceiveCryptocurrency.State {

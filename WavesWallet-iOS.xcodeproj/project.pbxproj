@@ -709,6 +709,7 @@
 		E9B088202163886800937644 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087942163886800937644 /* DexSortInteractorMock.swift */; };
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
 		E9BCF48121636DAC00FA6502 /* ReponceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */; };
+		E9BE2C7E216D5502001C9914 /* ReceiveCardModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE2C7D216D5502001C9914 /* ReceiveCardModuleBuilder.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C540E3212F8D5200253BDB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E9C5732921652094002FB6E4 /* AssetSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C5732821652094002FB6E4 /* AssetSelectView.swift */; };
@@ -1560,6 +1561,7 @@
 		E9B087942163886800937644 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorMock.swift; sourceTree = "<group>"; };
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponceTypes.swift; sourceTree = "<group>"; };
+		E9BE2C7D216D5502001C9914 /* ReceiveCardModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardModuleBuilder.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C5732821652094002FB6E4 /* AssetSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectView.swift; sourceTree = "<group>"; };
 		E9C5732A216520B7002FB6E4 /* AssetSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetSelectView.xib; sourceTree = "<group>"; };
@@ -3079,6 +3081,7 @@
 		E95B48162163A3DE004D4E39 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
+				E9BE2C7F216D5B47001C9914 /* Address */,
 				E9CD82A321693D1C00BF937D /* ReceiveGenerate */,
 				E9C5732721652082002FB6E4 /* Views */,
 				E95B48232163A5DB004D4E39 /* Card */,
@@ -3122,6 +3125,7 @@
 				E9D354B0216A366100CA5F3F /* Presenter */,
 				E9D354AF216A365B00CA5F3F /* Interactor */,
 				E95B48242163A5E8004D4E39 /* ReceiveCardViewController.swift */,
+				E9BE2C7D216D5502001C9914 /* ReceiveCardModuleBuilder.swift */,
 				E9D354AD216A347B00CA5F3F /* ReceiveCardTypes.swift */,
 				E9607145216A2E10008253BF /* ReceiveCard.strings */,
 			);
@@ -3685,6 +3689,13 @@
 				E9B087942163886800937644 /* DexSortInteractorMock.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E9BE2C7F216D5B47001C9914 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Address;
 			sourceTree = "<group>";
 		};
 		E9C5732721652082002FB6E4 /* Views */ = {
@@ -4709,6 +4720,7 @@
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
 				0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
+				E9BE2C7E216D5502001C9914 /* ReceiveCardModuleBuilder.swift in Sources */,
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,

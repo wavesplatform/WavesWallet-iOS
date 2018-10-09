@@ -62,7 +62,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
         //TODO: Remove labelCryptoName
         labelCryptoName.isHidden = true
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.name,
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.ticker ?? model.name,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 22),
                                                                           border: nil)) { [weak self] image in

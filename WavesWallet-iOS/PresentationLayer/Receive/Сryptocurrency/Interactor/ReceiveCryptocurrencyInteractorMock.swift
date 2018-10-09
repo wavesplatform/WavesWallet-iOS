@@ -8,30 +8,54 @@
 
 import Foundation
 import RxSwift
+import SwiftyJSON
 
 final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractorProtocol {
     
-    func generateAddress(ticker: String, generalTicker: String) -> Observable<Responce<ReceiveCryptocurrency.DTO.DisplayInfo>> {
+    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<Responce<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         return Observable.create({ (subscribe) -> Disposable in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let info = ReceiveCryptocurrency.DTO.DisplayInfo(address: "dsakdaskldaslkdj",
-                                                                 assetName: "Bitcoin",
-                                                                 assetTicker: "BTC",
-                                                                 fee: "0.0001")
+
+            let params = ["currency_from" : asset.gatewayId ?? "",
+                          "currency_to" : asset.wavesId ?? "",
+                          "wallet_to" : WalletManager.currentWallet?.address ?? ""]
+            
+            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: "https://coinomat.com/api/v1/create_tunnel.php", complete: { (info, errorMessage) in
                 
-                subscribe.onNext(Responce(output: info, error: nil))
-                subscribe.onCompleted()
-            }
-          
+                guard let info = info else {
+                    subscribe.onNext(Responce(output: nil, error: NSError(domain: "", code: 0, userInfo: nil)))
+                    return
+                }
+                
+                let tunnel = JSON(info)
+
+                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
+                              "k1" : tunnel["k1"].stringValue,
+                              "k2": tunnel["k2"].stringValue,
+                              "history" : 0] as [String: Any]
+                
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: "https://coinomat.com/api/v1/get_tunnel.php", complete: { (info, errorMessage) in
+                    
+                    guard let info = info else {
+                        subscribe.onNext(Responce(output: nil, error: NSError(domain: "", code: 0, userInfo: nil)))
+                        return
+                    }
+                    
+                    let json = JSON(info)["tunnel"]
+                    
+                    let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: json["wallet_from"].stringValue,
+                                                                            assetName: asset.displayName,
+                                                                            assetTicker: json["currency_from_txt"].stringValue,
+                                                                            fee: json["in_min"].doubleValue)
+                    
+                    subscribe.onNext(Responce(output: displayInfo, error: nil))
+                })
+                
+               
+            })
+            
             return Disposables.create()
         })
-        
-//        example of request to coinmat.com
-        
-//        https://coinomat.com/api/v1/create_tunnel.php?currency_from=BTC&currency_to=WBTC&wallet_to=3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj
-        
-//        https://coinomat.com/api/v1/get_tunnel.php?xt_id=370624&k1=0b4d92046dba9dc4454f5d1e951794ca&k2=ca8b6c0aa9914541a2e7f2e186e88e16&history=0&lang=ru_RU
-}
+    }
 }

@@ -28,7 +28,8 @@ extension WalletTypes.DTO {
         let isSpam: Bool
         let isFiat: Bool
         let isGateway: Bool
-        let sortLevel: Float        
+        let sortLevel: Float
+        let ticker: String?
     }
 
     struct Leasing {

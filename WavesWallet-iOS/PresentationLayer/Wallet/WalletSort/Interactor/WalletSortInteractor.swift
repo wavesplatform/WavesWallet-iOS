@@ -26,7 +26,7 @@ private extension WalletSort.DTO.Asset {
         let isHidden = balance.settings?.isHidden ?? false
         let sortLevel = balance.settings?.sortLevel ?? Float.greatestFiniteMagnitude
         return WalletSort.DTO.Asset(id: balance.assetId,
-                                    name: balance.asset?.name ?? "",
+                                    name: balance.asset?.displayName ?? "",
                                     isLock: isLock,
                                     isMyWavesToken: isMyWavesToken,
                                     isFavorite: isFavorite,

@@ -604,8 +604,8 @@
                         <viewLayoutGuide key="safeArea" id="W4d-WK-4f0"/>
                     </view>
                     <connections>
-                        <outlet property="acitivityIndicator" destination="4Mq-eg-U13" id="Ddg-Uz-uCL"/>
-                        <outlet property="activityIndicatorView" destination="dA8-6b-XEy" id="GnA-K2-AqD"/>
+                        <outlet property="acitivityIndicatorAmount" destination="dA8-6b-XEy" id="ic5-HA-llV"/>
+                        <outlet property="acitivityIndicatorWarning" destination="4Mq-eg-U13" id="fSk-QP-nGQ"/>
                         <outlet property="assetView" destination="ypY-VO-Olm" id="It6-uX-PDS"/>
                         <outlet property="buttonContinue" destination="zrZ-xV-OTi" id="StO-pE-gHW"/>
                         <outlet property="labelAmountIn" destination="kIE-pO-zgW" id="mDW-YG-e6m"/>

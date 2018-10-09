@@ -41,6 +41,7 @@ extension ReceiveCard.DTO {
     }
     
     struct Info {
+        let asset: DomainLayer.DTO.AssetBalance
         let minimumAmount: Money
         let maximumAmount: Money
     }

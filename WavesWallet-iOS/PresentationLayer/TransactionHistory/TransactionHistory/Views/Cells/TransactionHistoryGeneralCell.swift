@@ -108,7 +108,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
             
             if let asset = model.asset, balance.currency.ticker == nil, (model.isSpam == false || model.isSpam == nil) {
                 
-                valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true) + " " + asset.name, font: valueLabel.font)
+                valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true) + " " + asset.displayName, font: valueLabel.font)
                 
             } else {
                 

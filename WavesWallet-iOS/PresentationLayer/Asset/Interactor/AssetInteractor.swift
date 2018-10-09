@@ -119,7 +119,7 @@ private extension DomainLayer.DTO.AssetBalance {
 
         let id = asset?.id ?? ""
         let issuer = asset?.sender ?? ""
-        let name = asset?.name ?? ""
+        let name = asset?.displayName ?? ""
         let description = asset?.description ?? ""
         let issueDate = asset?.timestamp ?? Date()
         let isReusable = asset?.isReusable ?? false

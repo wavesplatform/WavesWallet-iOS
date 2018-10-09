@@ -42,14 +42,14 @@ extension AssetListTableViewCell: ViewConfiguration {
     
     func update(with model: Model) {
         
-        labelAssetName.text = model.asset.name
+        labelAssetName.text = model.asset.displayName
         iconGateway.isHidden = !model.asset.isGateway
         iconFav.isHidden = !model.isFavourite
         
         labelAmount.text = model.balance.displayTextFull
 
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.ticker ?? model.asset.name, style: style, completionHandler: { [weak self] (image) in
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.ticker ?? model.asset.displayName, style: style, completionHandler: { [weak self] (image) in
             self?.iconAsset.image = image
         })
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image

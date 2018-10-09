@@ -157,6 +157,7 @@ class CustomNavigationController: UINavigationController {
         super.viewDidLoad()
         delegate = self
         interactivePopGestureRecognizer?.delegate = self
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     override func observeValue(forKeyPath keyPath: String?,
@@ -170,7 +171,7 @@ class CustomNavigationController: UINavigationController {
     }
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
-        
+
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.isTranslucent = viewController.navigationItem.isTranslucent
@@ -189,6 +190,10 @@ class CustomNavigationController: UINavigationController {
         }
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.topViewController?.preferredStatusBarStyle ?? .default
+    }
+    
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return self.topViewController
     }

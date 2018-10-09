@@ -18,7 +18,7 @@ final class ReceiveGenerateInteractorMock: ReceiveGenerateInteractorProtocol {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 
-                let assetName = info.balanceAsset.asset?.name ?? ""
+                let assetName = info.balanceAsset.asset?.displayName ?? ""
                 let info = ReceiveInvoive.DTO.DisplayInfo(address: "dsadsafaf", invoiceLink: "gfsgsgsg", assetName: assetName)
                 subscribe.onNext(Responce(output: info, error: nil))
 

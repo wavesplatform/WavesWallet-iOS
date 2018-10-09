@@ -83,6 +83,8 @@ fileprivate extension DomainLayer.DTO.Asset {
     init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
+        self.wavesId = info?.wavesId
+        self.gatewayId = info?.gatewayId
         self.precision = asset.precision
         self.description = asset.description
         self.height = asset.height
@@ -96,18 +98,16 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isGeneral = false
         var isWaves = false
         var isFiat = false
-        var isGateway = false
+        let isGateway = info?.isGateway ?? false
         var name = asset.name
-
+        
         //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
             if info.assetId == Environments.Constants.wavesAssetId {
                 isWaves = true
-            } else {
-                isGateway = true
             }
-            name = info.name
+            name = info.displayName
             isFiat = info.isFiat
         }
 
@@ -116,7 +116,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isWaves = isWaves
         self.isFiat = isFiat
         self.isGateway = isGateway
-        self.name = name
+        self.displayName = name
     }
 }
 

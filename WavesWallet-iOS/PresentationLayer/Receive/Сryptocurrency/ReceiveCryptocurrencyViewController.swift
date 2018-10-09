@@ -124,7 +124,7 @@ private extension ReceiveCryptocurrencyViewController {
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
         
-        let displayFee = info.fee + " " + info.assetTicker
+        let displayFee = String(info.fee) + " " + info.assetTicker
         labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit(displayFee)
         labelWarningMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
         labelTitleSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.sendOnlyOnThisDeposit(info.assetTicker)
@@ -143,7 +143,6 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
         
         let vc = AssetListModuleBuilder(output: self).build(input: .init(filters: [.all], selectedAsset: selectedAsset))
         navigationController?.pushViewController(vc, animated: true)
-//        delegate?.receiveCryptocurrencyViewControllerDidChangeAsset(asset)
     }
 }
 
@@ -156,8 +155,8 @@ extension ReceiveCryptocurrencyViewController: AssetListModuleOutput {
         setupButtonState()
         
         //TODO: update when generalTicker will be adding to model
-        if let ticker = asset.asset?.ticker {
-            sendEvent.accept(.generateAddress(ticker: ticker, generalTicker: "WBTC"))
+        if let asset = asset.asset {
+            sendEvent.accept(.generateAddress(asset: asset))
         }
     }
 }

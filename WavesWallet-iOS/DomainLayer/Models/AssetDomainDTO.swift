@@ -11,7 +11,9 @@ import Foundation
 extension DomainLayer.DTO {
     struct Asset {
         let id: String
-        let name: String
+        let gatewayId: String?
+        let wavesId: String?
+        let displayName: String
         let precision: Int
         let description: String
         let height: Int64
