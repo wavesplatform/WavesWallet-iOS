@@ -19,20 +19,21 @@ private extension WalletSort.DTO.Asset {
 
     static func map(from balance: AssetBalance) -> WalletSort.DTO.Asset {
 
-        let isLock = balance.asset?.isWaves == true
+        let isLock = balance.asset.isWaves == true
         let isMyWavesToken = balance.asset?.isMyWavesToken ?? false
         let isFavorite = balance.settings?.isFavorite ?? false
         let isGateway = balance.asset?.isGateway ?? false
         let isHidden = balance.settings?.isHidden ?? false
         let sortLevel = balance.settings?.sortLevel ?? Float.greatestFiniteMagnitude
         return WalletSort.DTO.Asset(id: balance.assetId,
-                                    name: balance.asset?.displayName ?? "",
+                                    name: balance.asset.displayName,
                                     isLock: isLock,
                                     isMyWavesToken: isMyWavesToken,
                                     isFavorite: isFavorite,
                                     isGateway: isGateway,
                                     isHidden: isHidden,
-                                    sortLevel: sortLevel)
+                                    sortLevel: sortLevel,
+                                    icon: balance.asset.ticker ?? balance.asset.displayName)
     }
 }
 

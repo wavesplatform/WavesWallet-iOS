@@ -109,6 +109,7 @@ fileprivate extension AssetTypes.DTO.Asset.Info {
         isSpam = asset.isSpam
         isGateway = asset.isGateway
         sortLevel = asset.sortLevel
+        icon = asset.ticker ?? asset.name
     }
 }
 

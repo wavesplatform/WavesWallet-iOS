@@ -49,6 +49,16 @@ extension ReceiveCard.DTO {
 
 extension ReceiveCard.DTO.FiatType {
     
+    var id: String {
+        switch self {
+        case .eur:
+            return "EURO"
+            
+        case .usd:
+            return "USD"
+        }
+    }
+    
     var text: String {
         switch self {
         case .eur:

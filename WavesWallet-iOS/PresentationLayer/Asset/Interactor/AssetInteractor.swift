@@ -131,7 +131,8 @@ private extension DomainLayer.DTO.AssetBalance {
         let isSpam = asset?.isSpam ?? false
         let isGateway = asset?.isGateway ?? false
         let sortLevel = settings?.sortLevel ?? 0
-
+        let icon = asset?.ticker ?? name
+        
         return .init(id: id,
                      issuer: issuer,
                      name: name,
@@ -145,6 +146,7 @@ private extension DomainLayer.DTO.AssetBalance {
                      isFiat: isFiat,
                      isSpam: isSpam,
                      isGateway: isGateway,
-                     sortLevel: sortLevel)
+                     sortLevel: sortLevel,
+                     icon: icon)
     }
 }

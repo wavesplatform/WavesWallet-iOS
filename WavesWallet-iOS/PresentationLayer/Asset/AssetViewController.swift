@@ -516,6 +516,6 @@ extension AssetTypes.DTO.Asset.Info {
             kind = .wavesToken
         }
 
-        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind)
+        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind, icon: icon)
     }
 }

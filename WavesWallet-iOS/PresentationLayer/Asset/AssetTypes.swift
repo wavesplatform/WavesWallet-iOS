@@ -121,6 +121,7 @@ extension AssetTypes.DTO {
             let isSpam: Bool
             let isGateway: Bool
             let sortLevel: Float
+            let icon: String
         }
 
         struct Balance: Codable {

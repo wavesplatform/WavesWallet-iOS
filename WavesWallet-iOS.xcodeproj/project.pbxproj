@@ -521,7 +521,6 @@
 		E95B480B21638BE9004D4E39 /* TransactionHistoryShowAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */; };
 		E95B480C21638BE9004D4E39 /* TransactionHistoryMassSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B480221638BE9004D4E39 /* TransactionHistoryMassSendView.swift */; };
 		E95B480D21638BE9004D4E39 /* TransactionHistoryMassSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B480321638BE9004D4E39 /* TransactionHistoryMassSendView.xib */; };
-		E95B481321638FE1004D4E39 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95B481221638FE1004D4E39 /* Fabric-Info.plist */; };
 		E95B481521638FE8004D4E39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95B481421638FE8004D4E39 /* GoogleService-Info.plist */; };
 		E95B48182163A44F004D4E39 /* ReceiveContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B48172163A44F004D4E39 /* ReceiveContainerViewController.swift */; };
 		E95B481A2163A463004D4E39 /* ReceiveContainerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B48192163A463004D4E39 /* ReceiveContainerModuleBuilder.swift */; };
@@ -710,6 +709,7 @@
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
 		E9BCF48121636DAC00FA6502 /* ReponceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */; };
 		E9BE2C7E216D5502001C9914 /* ReceiveCardModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE2C7D216D5502001C9914 /* ReceiveCardModuleBuilder.swift */; };
+		E9BE2C83216E43F3001C9914 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9BE2C81216E43F3001C9914 /* Fabric-Info.plist */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C540E3212F8D5200253BDB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E9C5732921652094002FB6E4 /* AssetSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C5732821652094002FB6E4 /* AssetSelectView.swift */; };
@@ -1344,7 +1344,6 @@
 		E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryShowAllView.xib; sourceTree = "<group>"; };
 		E95B480221638BE9004D4E39 /* TransactionHistoryMassSendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryMassSendView.swift; sourceTree = "<group>"; };
 		E95B480321638BE9004D4E39 /* TransactionHistoryMassSendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryMassSendView.xib; sourceTree = "<group>"; };
-		E95B481221638FE1004D4E39 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		E95B481421638FE8004D4E39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95B48172163A44F004D4E39 /* ReceiveContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveContainerViewController.swift; sourceTree = "<group>"; };
 		E95B48192163A463004D4E39 /* ReceiveContainerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveContainerModuleBuilder.swift; sourceTree = "<group>"; };
@@ -1562,6 +1561,7 @@
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponceTypes.swift; sourceTree = "<group>"; };
 		E9BE2C7D216D5502001C9914 /* ReceiveCardModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardModuleBuilder.swift; sourceTree = "<group>"; };
+		E9BE2C81216E43F3001C9914 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C5732821652094002FB6E4 /* AssetSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectView.swift; sourceTree = "<group>"; };
 		E9C5732A216520B7002FB6E4 /* AssetSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetSelectView.xib; sourceTree = "<group>"; };
@@ -2374,8 +2374,8 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E9BE2C81216E43F3001C9914 /* Fabric-Info.plist */,
 				E95B481421638FE8004D4E39 /* GoogleService-Info.plist */,
-				E95B481221638FE1004D4E39 /* Fabric-Info.plist */,
 				E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */,
 				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
 				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
@@ -4117,6 +4117,7 @@
 				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
 				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
 				0444E7B2212C8057004C7DF2 /* HistoryTransactionView.xib in Resources */,
+				E9BE2C83216E43F3001C9914 /* Fabric-Info.plist in Resources */,
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
@@ -4185,7 +4186,6 @@
 				0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */,
 				E90417B92166AF9600EE8B7C /* AssetList.storyboard in Resources */,
 				E9A2268F21596700006E0CE1 /* BaseInputTextField.xib in Resources */,
-				E95B481321638FE1004D4E39 /* Fabric-Info.plist in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E94A6FEA215AE4FE001814F7 /* (null) in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,

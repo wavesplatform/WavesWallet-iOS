@@ -64,6 +64,7 @@ extension WalletSortCell: ViewConfiguration {
         let isVisibility: Bool
         let isHidden: Bool
         let isGateway: Bool
+        let icon: String
     }
 
     func update(with model: Model) {
@@ -74,7 +75,7 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isOn = !model.isHidden
         arrowGreen.isHidden = !model.isGateway
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 15),
                                                                           border: nil)) { [weak self] image in
