@@ -258,6 +258,7 @@
 		0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */; };
 		0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */; };
 		0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */; };
+		0A9D6B6A216E1C39006822C5 /* RxSwift+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */; };
 		0AA8CAA42151133D000D09E6 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */; };
 		0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA8CAC821516077000D09E6 /* Backup.storyboard */; };
 		0AA8CACD21516807000D09E6 /* Backup.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AA8CACF21516807000D09E6 /* Backup.strings */; };
@@ -1026,6 +1027,7 @@
 		0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
 		0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Scheduler.swift"; sourceTree = "<group>"; };
 		0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		0AA8CAC4215148E5000D09E6 /* WavesWallet-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS.entitlements"; sourceTree = "<group>"; };
 		0AA8CAC521515468000D09E6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NewAccount.strings; sourceTree = "<group>"; };
@@ -2638,6 +2640,7 @@
 				0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */,
 				0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */,
 				0A4BB02D2163718A0034796E /* DispatchTimeInterval.swift */,
+				0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -4716,6 +4719,7 @@
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,
 				0AF922F5212E1234003BA067 /* SegmentedControlScrollView.swift in Sources */,
 				0AF922D5212E1234003BA067 /* DateExtension.swift in Sources */,
+				0A9D6B6A216E1C39006822C5 /* RxSwift+Scheduler.swift in Sources */,
 				E9B087972163886800937644 /* DexChartConstants.swift in Sources */,
 				0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,

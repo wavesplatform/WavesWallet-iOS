@@ -55,11 +55,11 @@ extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
 
 extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
-    func userAuthorizationCompleted() {
+    func passcodeCoordinatorUserAuthorizationCompleted() {
         delegate?.userChooseCompleted()
     }
 
-    func userLogouted() {
+    func passcodeCoordinatorUserLogouted() {
 
     }
 }

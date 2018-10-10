@@ -9,8 +9,8 @@
 import UIKit
 
 protocol PasscodeCoordinatorDelegate: AnyObject {
-    func userAuthorizationCompleted()
-    func userLogouted()
+    func passcodeCoordinatorUserAuthorizationCompleted()
+    func passcodeCoordinatorUserLogouted()
 }
 
 final class PasscodeCoordinator: Coordinator {
@@ -28,6 +28,7 @@ final class PasscodeCoordinator: Coordinator {
     var animated: Bool = true
 
     init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
+
         self.viewController = viewController
         self.navigationController = CustomNavigationController()
         self.kind = kind
@@ -71,27 +72,27 @@ final class PasscodeCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeModuleOutput {
 
-    func tapBackButton() {
+    func passcodeTapBackButton() {
         dissmiss()
     }
 
-    func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
+    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 
         if isNewWallet {
             let vc = UseTouchIDModuleBuilder(output: self).build(input: .init(passcode: passcode, wallet: wallet))
             navigationController.present(vc, animated: true, completion: nil)
         } else {
             dissmiss()
-            delegate?.userAuthorizationCompleted()
+            delegate?.passcodeCoordinatorUserAuthorizationCompleted()
         }
     }
 
-    func userLogouted() {
+    func passcodeUserLogouted() {
         dissmiss()
-        delegate?.userLogouted()
+        delegate?.passcodeCoordinatorUserLogouted()
     }
 
-    func logInByPassword() {
+    func passcodeLogInByPassword() {
         if case .logIn(let wallet) = kind {
             showAccountPassword(wallet: wallet)
         } else if case .changePasscode(let wallet) = kind {
@@ -116,7 +117,7 @@ extension PasscodeCoordinator: AccountPasswordModuleOutput {
             navigationController.pushViewController(vc, animated: true)
         } else {
             dissmiss()
-            delegate?.userAuthorizationCompleted()
+            delegate?.passcodeCoordinatorUserAuthorizationCompleted()
         }
     }
 }
@@ -126,11 +127,11 @@ extension PasscodeCoordinator: UseTouchIDModuleOutput {
 
     func userSkipRegisterBiometric() {
         dissmiss()
-        delegate?.userAuthorizationCompleted()
+        delegate?.passcodeCoordinatorUserAuthorizationCompleted()
     }
 
     func userRegisteredBiometric() {
         dissmiss()
-        delegate?.userAuthorizationCompleted()
+        delegate?.passcodeCoordinatorUserAuthorizationCompleted()
     }
 }

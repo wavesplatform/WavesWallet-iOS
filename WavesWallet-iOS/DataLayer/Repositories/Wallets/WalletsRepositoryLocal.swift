@@ -173,7 +173,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             let collection = Observable.collection(from: result)
             let disposable = collection.flatMap({ items -> Observable<DomainLayer.DTO.Wallet> in
-                if let item = items.toArray().first {
+                if let item = items.toArray().first(where: { $0.publicKey == publicKey }) {
                      return Observable.just(DomainLayer.DTO.Wallet(wallet: item))
                 }
                 return Observable.empty()

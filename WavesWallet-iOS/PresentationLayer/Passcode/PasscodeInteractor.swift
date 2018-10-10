@@ -12,7 +12,6 @@ import RxSwift
 protocol PasscodeInteractorProtocol {
 
     func changePasscodeByPassword(wallet: DomainLayer.DTO.Wallet, passcode: String, password: String) -> Observable<DomainLayer.DTO.Wallet>
-
     func changePasscode(wallet: DomainLayer.DTO.Wallet, oldPasscode: String, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
     func registrationAccount(_ account: PasscodeTypes.DTO.Account, passcode: String) -> Observable<AuthorizationBiometricStatus>
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationBiometricStatus>

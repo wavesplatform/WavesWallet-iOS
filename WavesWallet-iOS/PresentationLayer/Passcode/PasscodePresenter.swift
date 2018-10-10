@@ -11,11 +11,15 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
+
 protocol PasscodeModuleOutput: AnyObject {
-    func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
-    func userLogouted()
-    func logInByPassword()
-    func tapBackButton()
+
+    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
+    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) -> Void
+
+    func passcodeUserLogouted()
+    func passcodeLogInByPassword()
+    func passcodeTapBackButton()
 }
 
 protocol PasscodeModuleInput {
@@ -265,6 +269,36 @@ extension PasscodePresenter {
         })
     }
 
+    private func verifyAccess() -> Feedback {
+        return react(query: { state -> LogInQuery? in
+
+            if let action = state.action, case .logIn = action {
+                if case .logIn(let wallet) = state.kind {
+                    return LogInQuery(wallet: wallet, passcode: state.passcode)
+
+                } else if case .changePasscode(let wallet) = state.kind {
+                    return LogInQuery(wallet: wallet, passcode: state.passcode)
+                }
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .logIn(wallet: query.wallet, passcode: query.passcode)
+                .sweetDebug("Passcode")
+                .map { Types.Event.completedLogIn($0) }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+            }
+        })
+    }
+
     private func logIn() -> Feedback {
         return react(query: { state -> LogInQuery? in
 
@@ -340,13 +374,13 @@ private extension PasscodePresenter {
         case .completedChangePasscode(let wallet):
             state.action = nil
             state.displayState.isLoading = false
-            moduleOutput?.authorizationCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
+            moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
 
         case .completedRegistration(let status):
 
             switch status {
             case .completed(let wallet):
-                moduleOutput?.authorizationCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: true)
+                moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: true)
                 state.action = nil
 
             case .detectBiometric:
@@ -389,7 +423,7 @@ private extension PasscodePresenter {
             state.displayState.error = nil
 
         case .tapLogInByPassword:
-            moduleOutput?.logInByPassword()
+            moduleOutput?.passcodeLogInByPassword()
             state.displayState.isLoading = false
             state.action = nil
             state.displayState.error = nil
@@ -399,7 +433,7 @@ private extension PasscodePresenter {
             state.action = .logout
 
         case .completedLogout:
-            moduleOutput?.userLogouted()
+            moduleOutput?.passcodeUserLogouted()
 
         case .completedInputNumbers(let numbers):
             reduceInputNumbers(numbers, state: &state)
@@ -427,7 +461,7 @@ private extension PasscodePresenter {
                 state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
 
             default:
-                moduleOutput?.authorizationCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
+                moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
             }
 
         case .detectBiometric:
@@ -446,13 +480,12 @@ private extension PasscodePresenter {
 
         case .logIn,
              .setEnableBiometric:
-            moduleOutput?.tapBackButton()
+            moduleOutput?.passcodeTapBackButton()
 
-        case .changePasscodeByPassword(let wallet, let password):
+        case .changePasscodeByPassword:
             switch state.displayState.kind {
-
             case .newPasscode:
-                moduleOutput?.tapBackButton()
+                moduleOutput?.passcodeTapBackButton()
 
             case .repeatPasscode:
                 state.displayState.kind = .newPasscode
@@ -467,7 +500,7 @@ private extension PasscodePresenter {
         case .changePasscode:
             switch state.displayState.kind {
             case .oldPasscode:
-                moduleOutput?.tapBackButton()
+                moduleOutput?.passcodeTapBackButton()
 
             case .newPasscode:
                 state.displayState.kind = .oldPasscode

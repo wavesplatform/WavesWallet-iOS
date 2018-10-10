@@ -165,11 +165,11 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 // MARK: PasscodeCoordinatorDelegate
 extension AppCoordinator: PasscodeCoordinatorDelegate {
 
-    func userAuthorizationCompleted() {
+    func passcodeCoordinatorUserAuthorizationCompleted() {
         showDisplay(.mainTabBar)
     }
 
-    func userLogouted() {
+    func passcodeCoordinatorUserLogouted() {
         showDisplay(.enter)
     }
 }

@@ -48,7 +48,7 @@ extension BackupCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-            completed(false)
+            completed(true)
             removeFromParentCoordinator()
         } else {
             startBackup()
@@ -83,7 +83,7 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-        completed(true)
+        completed(false)
         removeFromParentCoordinator()
     }
 }

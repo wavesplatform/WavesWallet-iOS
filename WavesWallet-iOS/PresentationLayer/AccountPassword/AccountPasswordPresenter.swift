@@ -13,7 +13,8 @@ import RxSwift
 import RxOptional
 
 protocol AccountPasswordModuleInput {
-    
+
+    // TODO: Need add Auth or logIn Kind 
     var wallet: DomainLayer.DTO.Wallet { get }
 }
 

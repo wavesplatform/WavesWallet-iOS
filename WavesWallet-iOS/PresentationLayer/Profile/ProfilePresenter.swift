@@ -20,7 +20,7 @@ protocol ProfileModuleOutput: AnyObject {
     func showAddressesKeys()
     func showAddressBook()
     func showLanguage()
-    func showBackupPhrase()
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: ((_ isBackedUp: Bool) -> Void))
     func showChangePassword(wallet: DomainLayer.DTO.Wallet)
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
     func showNetwork()
@@ -128,8 +128,10 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         case .showLanguage:
             owner.moduleOutput?.showLanguage()
 
-        case .showBackupPhrase:
-            owner.moduleOutput?.showBackupPhrase()
+        case .showBackupPhrase(let wallet):
+            owner.moduleOutput?.showBackupPhrase(wallet: wallet, completed: { (_) in
+
+            })
 
         case .showChangePassword(let wallet):
             owner.moduleOutput?.showChangePassword(wallet: wallet)
@@ -351,7 +353,7 @@ private extension ProfilePresenter {
                 state.query = Types.Query.showLanguage
 
             case .backupPhrase:
-                state.query = Types.Query.showBackupPhrase
+                state.query = Types.Query.showBackupPhrase(wallet: wallet)
 
             case .changePassword:
                 state.query = Types.Query.showChangePassword(wallet: wallet)
@@ -457,28 +459,4 @@ private extension ProfilePresenter {
     func initialDisplayState() -> Types.DisplayState {
         return Types.DisplayState(sections: [], isAppeared: false, action: nil)
     }
-
-//    func displayState(wallet: DomainLayer.DTO.Wallet) -> Types.DisplayState {
-//
-//        let generalSettings = Types.ViewModel.Section(rows: [.addressesKeys,
-//                                                             .addressbook,
-//                                                             .pushNotifications,
-//                                                             .language(Language.currentLanguage)], kind: .general)
-//
-//        let security = Types.ViewModel.Section(rows: [.backupPhrase(isBackedUp: wallet.isBackedUp),
-//                                                      .changePassword,
-//                                                      .changePasscode,
-//                                                      .biometric(isOn: wallet.hasBiometricEntrance),
-//                                                      .network], kind: .security)
-//
-//        let other = Types.ViewModel.Section(rows: [.rateApp,
-//                                                   .feedback,
-//                                                   .supportWavesplatform,
-//                                                   .info(version: "2.0.2 (13)", height: nil)], kind: .other)
-//
-//        return Types.DisplayState(sections: [generalSettings,
-//                                             security,
-//                                             other],
-//                                  isAppeared: false)
-//    }
 }

@@ -23,7 +23,7 @@ extension ProfileTypes {
         case showAddressesKeys
         case showAddressBook
         case showLanguage
-        case showBackupPhrase
+        case showBackupPhrase(wallet: DomainLayer.DTO.Wallet)
         case showChangePassword(wallet: DomainLayer.DTO.Wallet)
         case showChangePasscode(wallet: DomainLayer.DTO.Wallet)
         case showNetwork

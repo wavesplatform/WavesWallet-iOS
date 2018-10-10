@@ -15,6 +15,7 @@ enum PasscodeTypes {
 extension PasscodeTypes.DTO {
     
     enum Kind {
+        case verifyAccess(DomainLayer.DTO.Wallet)
         case registration(Account)
         case logIn(DomainLayer.DTO.Wallet)
         case changePasscode(DomainLayer.DTO.Wallet)

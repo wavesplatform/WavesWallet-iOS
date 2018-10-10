@@ -198,6 +198,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 guard let seed = owner.seedRepositoryMemory.seed(wallet.publicKey) else { return Observable.error(AuthorizationInteractorError.permissionDenied) }
                 return Observable.just(DomainLayer.DTO.SignedWallet.init(wallet: wallet,
                                                                          publicKey: PublicKeyAccount(publicKey: seed.publicKey),
+                                                                         privateKey: PrivateKeyAccount(seedStr: seed.seed),
                                                                          signingWallets: owner))
             })
     }
@@ -264,7 +265,9 @@ extension AuthorizationInteractor {
 
         return self.registerData(wallet)
             .flatMap({ [weak self] (data) -> Observable<DomainLayer.DTO.Wallet> in
+
                 guard let owner = self else { return Observable.never() }
+
                 return owner.remoteAuthenticationRepository.registration(with: data.id,
                                                                          keyForPassword: data.keyForPassword,
                                                                          passcode: wallet.passcode)
@@ -572,8 +575,8 @@ private extension AuthorizationInteractor {
 
                 owner.setWalletRealmConfig(wallet: wallet)
                 var oldWallet = Wallet.init(name: wallet.name,
-                                           publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
-                                           isBackedUp: true)
+                                            publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
+                                            isBackedUp: wallet.isBackedUp)
                 oldWallet.privateKey = PrivateKeyAccount(seedStr: seed.seed)
                 WalletManager.currentWallet = oldWallet
                 return owner.setIsLoggedIn(wallet: wallet)

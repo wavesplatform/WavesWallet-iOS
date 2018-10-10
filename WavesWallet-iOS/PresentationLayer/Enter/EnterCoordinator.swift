@@ -80,13 +80,13 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
 // MARK: PasscodeCoordinatorDelegate
 extension EnterCoordinator: PasscodeCoordinatorDelegate {
-
-    func userAuthorizationCompleted() {
+    
+    func passcodeCoordinatorUserAuthorizationCompleted() {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn()
     }
 
-    func userLogouted() {}
+    func passcodeCoordinatorUserLogouted() {}
 }
 
 // MARK: PasscodeCoordinatorDelegate

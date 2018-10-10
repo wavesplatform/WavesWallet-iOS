@@ -8,11 +8,16 @@
 
 import UIKit
 
+private enum State {
+    case backupPhrase
+}
+
 final class ProfileCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
-    let navigationController: UINavigationController
+    private let navigationController: UINavigationController
+    private var state: State?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -24,7 +29,20 @@ final class ProfileCoordinator: Coordinator {
     }
 }
 
+// MARK: ProfileModuleOutput
+
 extension ProfileCoordinator: ProfileModuleOutput {
+
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: ((_ isBackedUp: Bool) -> Void)) {
+
+        self.state = .backupPhrase
+        // TODO: Need add Auth Kind to passcode
+        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .logIn(wallet))
+        passcode.delegate = self
+        addChildCoordinator(childCoordinator: passcode)
+        passcode.start()
+    }
+
     func showAddressesKeys() {
 
     }
@@ -36,12 +54,6 @@ extension ProfileCoordinator: ProfileModuleOutput {
     func showLanguage() {
 
     }
-
-    func showBackupPhrase() {
-
-    }
-
-
 
     func showNetwork() {
 
@@ -60,7 +72,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
-        let passcode = PasscodeCoordinator.init(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
@@ -84,6 +96,30 @@ extension ProfileCoordinator: ProfileModuleOutput {
     func useerDeteedAccount() {
 
     }
+}
+
+
+// MARK: PasscodeCoordinatorDelegate
+extension ProfileCoordinator: PasscodeCoordinatorDelegate {
+
+    func passcodeCoordinatorUserAuthorizationCompleted() {
+
+        guard let state = state else { return }
+        switch state {
+        case .backupPhrase:
+
+            let backup = BackupCoordinator(viewController: navigationController, seed: ["Test"], completed: { [weak self] needBackup in
+//                self?.beginRegistration(needBackup: needBackup)
+            })
+            addChildCoordinator(childCoordinator: backup)
+            backup.start()
+
+        }
+
+        self.state = nil
+    }
+
+    func passcodeCoordinatorUserLogouted() {}
 }
 
 extension ProfileCoordinator: AccountPasswordModuleOutput {
