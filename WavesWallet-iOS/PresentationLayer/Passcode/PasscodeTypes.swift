@@ -44,6 +44,8 @@ extension PasscodeTypes {
         case registration
         case logIn
         case logInBiometric
+        case verifyAccess
+        case verifyAccessBiometric
         case logout
         case setEnableBiometric
         case disabledBiometricUsingBiometric
@@ -63,9 +65,10 @@ extension PasscodeTypes {
 
     enum Event {
         case completedLogout
-        case completedRegistration(AuthorizationBiometricStatus)
+        case completedRegistration(AuthorizationAuthStatus)
         case completedChangePasscode(DomainLayer.DTO.Wallet)
-        case completedLogIn(AuthorizationBiometricStatus)
+        case completedLogIn(AuthorizationAuthStatus)
+        case completedVerifyAccess(AuthorizationVerifyAccessStatus)
         case tapLogInByPassword
         case handlerError(PasscodeInteractorError)
         case tapBack

@@ -11,6 +11,7 @@ import RxSwift
 
 enum AuthorizationType {
     case passcode(String)
+    // The password by format sha512
     case password(String)
     case biometric
 }
@@ -24,10 +25,16 @@ enum AuthorizationInteractorError: Error {
     case biometricDisable
 }
 
-enum AuthorizationBiometricStatus {
+enum AuthorizationAuthStatus {
     case detectBiometric
     case waiting
     case completed(DomainLayer.DTO.Wallet)
+}
+
+enum AuthorizationVerifyAccessStatus {
+    case detectBiometric
+    case waiting
+    case completed(DomainLayer.DTO.SignedWallet)
 }
 
 protocol AuthorizationInteractorProtocol {
@@ -45,11 +52,12 @@ protocol AuthorizationInteractorProtocol {
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
     // Return AuthorizationInteractorError
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationBiometricStatus>
+    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus>
+    func verifyAccess(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationVerifyAccessStatus>
 
-    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationBiometricStatus>
-    func unregisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationBiometricStatus>
-    func unregisterBiometricUsingBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationBiometricStatus>
+    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
+    func unregisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
+    func unregisterBiometricUsingBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus>
 
     func logout(wallet publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func logout() -> Observable<DomainLayer.DTO.Wallet>

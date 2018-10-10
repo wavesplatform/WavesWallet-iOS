@@ -37,21 +37,22 @@ extension DomainLayer.DTO {
 
     final class SignedWallet {
 
-        let wallet: DomainLayer.DTO.Wallet!
+        let wallet: DomainLayer.DTO.Wallet
         let publicKey: PublicKeyAccount
         let privateKey: PrivateKeyAccount
+        let seed: WalletSeed
 
         private weak var signingWallets: SigningWalletsProtocol?
 
         init(wallet: Wallet,
-             publicKey: PublicKeyAccount,
-             privateKey: PrivateKeyAccount,
+             seed: WalletSeed,
              signingWallets: SigningWalletsProtocol) {
             
+            self.seed = seed
             self.wallet = wallet
             self.signingWallets = signingWallets
-            self.publicKey = publicKey
-            self.privateKey = privateKey
+            self.publicKey = PublicKeyAccount(publicKey: seed.publicKey)
+            self.privateKey = PrivateKeyAccount(seedStr: seed.seed)
         }
 
         func sign(input: [UInt8], kind: [SigningKind]) throws -> [UInt8] {

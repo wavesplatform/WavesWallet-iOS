@@ -72,6 +72,10 @@ final class PasscodeCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeModuleOutput {
 
+    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {
+
+    }
+
     func passcodeTapBackButton() {
         dissmiss()
     }
