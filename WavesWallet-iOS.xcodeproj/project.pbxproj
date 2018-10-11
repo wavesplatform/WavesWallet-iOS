@@ -270,6 +270,12 @@
 		0A9797682108BD9F00407F67 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797672108BD9F00407F67 /* WalletSortPresenter.swift */; };
 		0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */; };
 		0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */; };
+		0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
+		0A9D6B63216E0609006822C5 /* DomainLayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E942100A0D400079B49 /* DomainLayerTypes.swift */; };
+		0A9D6B64216E0622006822C5 /* HistoryTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */; };
+		0A9D6B66216E0639006822C5 /* Asset+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E22139502F00667E34 /* Asset+Message.swift */; };
+		0A9D6B67216E06BB006822C5 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F92107A531009223DB /* WalletInteractor.swift */; };
+		0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F12107A51A009223DB /* WalletTypes+State.swift */; };
 		0AA8CAA42151133D000D09E6 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */; };
 		0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA8CAC821516077000D09E6 /* Backup.storyboard */; };
 		0AA8CACD21516807000D09E6 /* Backup.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AA8CACF21516807000D09E6 /* Backup.strings */; };
@@ -4150,6 +4156,16 @@
 				E9B087B42163886800937644 /* DexTypes.swift in Sources */,
 				0A3AD40521492E3200F8A929 /* WalletTypes+ViewModels.swift in Sources */,
 				0A762D9D2163A2100019D447 /* SmartTransactionDomain+Assistants.swift in Sources */,
+				0A762D982163A0570019D447 /* WalletTypes.swift in Sources */,
+				0A9D6B63216E0609006822C5 /* DomainLayerTypes.swift in Sources */,
+				0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */,
+				0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */,
+				E9B088022163886800937644 /* DexMyOrdersTypes.swift in Sources */,
+				E9B087B42163886800937644 /* DexTypes.swift in Sources */,
+				0A762D9A2163A0660019D447 /* SmartTransactionDomainDTO.swift in Sources */,
+				0A3AD40521492E3200F8A929 /* WalletTypes+ViewModels.swift in Sources */,
+				0A762D9D2163A2100019D447 /* SmartTransactionDomain+Assistants.swift in Sources */,
+				0A762D992163A05A0019D447 /* WalletTypes+DTO.swift in Sources */,
 				0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */,
 				0A2B7D39216038A80098438D /* SpamService.swift in Sources */,
 				0A218B8721551E6600B989A1 /* WalletsRepositoryProtocol.swift in Sources */,
@@ -4644,6 +4660,7 @@
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0AF922AD212E1234003BA067 /* UIFeedbackGenerator.swift in Sources */,
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
+				0A9D6B67216E06BB006822C5 /* WalletInteractor.swift in Sources */,
 				0A762D7C21639FA60019D447 /* TransactionHistoryTypes+ViewModels.swift in Sources */,
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
@@ -4748,6 +4765,8 @@
 				0AE491F02107A4BD009223DB /* WalletCoordinator.swift in Sources */,
 				0AF922C9212E1234003BA067 /* UIImage+Color.swift in Sources */,
 				E9B088082163886800937644 /* DexContainerViewController.swift in Sources */,
+				0A9D6B66216E0639006822C5 /* Asset+Message.swift in Sources */,
+				0A9D6B64216E0622006822C5 /* HistoryTransactionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
