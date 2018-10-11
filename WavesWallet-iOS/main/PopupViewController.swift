@@ -33,6 +33,8 @@ final class PopupViewController: UIViewController {
     private let dragImage = UIImageView(frame: Constants.DragImageFrame)
     private var isDragMode = false
     
+    private var gestureTap: UITapGestureRecognizer!
+    
     // Use if screen is not have full size
     var contentHeight: CGFloat = 0 {
         didSet {
@@ -189,9 +191,7 @@ private extension PopupViewController {
     
     
     func isDragPoint(location: CGPoint) -> Bool {
-        return  location.x >= dragImage.frame.origin.x - 15 &&
-            location.x <= dragImage.frame.origin.x + dragImage.frame.size.width + 15 &&
-            location.y <= topContainerOffset + 30 && location.y >= topContainerOffset - 20
+        return location.y <= topContainerOffset + 20 && location.y >= topContainerOffset - 20
     }
     
 }
@@ -226,12 +226,44 @@ private extension PopupViewController {
     }
     
     func setupGestures() {
-        let gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
+        gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
+        gestureTap.delegate = self
         view.addGestureRecognizer(gestureTap)
         
         let gesturePan = UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:)))
+        gesturePan.delegate = self
         view.addGestureRecognizer(gesturePan)
     }
+}
+
+extension PopupViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if gestureRecognizer == gestureTap {
+            
+            let location = gestureTap.location(in: view)
+            
+            if location.y <= topContainerOffset || isDragPoint(location: location) {
+                return true
+            }
+            
+            return false
+            
+        }
+        
+        return true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == gestureTap {
+            return true
+        }
+        
+        return true
+    }
+    
 }
 
 //MARK: - Additional Methods
