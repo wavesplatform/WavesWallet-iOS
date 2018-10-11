@@ -39,7 +39,7 @@ final class ProfileViewController: UIViewController {
     }
 
     @objc func logoutTapped() {
-
+        eventInput.onNext(.tapLogout)
     }
 }
 

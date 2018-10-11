@@ -81,12 +81,14 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 // MARK: PasscodeCoordinatorDelegate
 extension EnterCoordinator: PasscodeCoordinatorDelegate {
     
-    func passcodeCoordinatorUserAuthorizationCompleted() {
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn()
     }
 
-    func passcodeCoordinatorUserLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {}
 }
 
 // MARK: PasscodeCoordinatorDelegate

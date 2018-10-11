@@ -37,6 +37,10 @@ private enum Display {
     case passcode(DomainLayer.DTO.Wallet)
 }
 
+protocol ApplicationCoordinatorProtocol: AnyObject {
+    func showEnterDisplay()
+}
+
 final class AppCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -141,6 +145,13 @@ final class AppCoordinator: Coordinator {
     }
 }
 
+// MARK: ApplicationCoordinatorProtocol
+extension AppCoordinator: ApplicationCoordinatorProtocol {
+    func showEnterDisplay() {
+        showEnter()
+    }
+}
+
 // MARK: EnterCoordinatorDelegate
 extension AppCoordinator: EnterCoordinatorDelegate  {
     func userCompletedLogIn() {
@@ -165,11 +176,13 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 // MARK: PasscodeCoordinatorDelegate
 extension AppCoordinator: PasscodeCoordinatorDelegate {
 
-    func passcodeCoordinatorUserAuthorizationCompleted() {
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.mainTabBar)
     }
 
-    func passcodeCoordinatorUserLogouted() {
+    func passcodeCoordinatorWalletLogouted() {
         showDisplay(.enter)
     }
 }
@@ -204,7 +217,8 @@ extension AppCoordinator {
             return
         }
 
-        let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController)
+        let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
+
         addChildCoordinator(childCoordinator: mainTabBarController)
         mainTabBarController.start()
     }

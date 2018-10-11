@@ -318,8 +318,14 @@ extension AuthorizationInteractor {
             })
     }
 
-    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
-        return Observable.never()
+    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+        return self
+            .localWalletRepository
+            .saveWallet(wallet)
+            .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
     }
 }
 

@@ -71,6 +71,8 @@
 		0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */; };
 		0A24E2D62109068000598548 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E2D52109068000598548 /* WalletSortInteractor.swift */; };
 		0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */; };
+		0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25B469216F69EC00638C93 /* Bundle+Version.swift */; };
+		0A25B46C216F763D00638C93 /* MailCompose+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25B46B216F763D00638C93 /* MailCompose+Support.swift */; };
 		0A2B7D30216036480098438D /* Observable+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D2F216036480098438D /* Observable+Types.swift */; };
 		0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B7D32216037FD0098438D /* AssetViewHistoryCell.xib */; };
 		0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D33216037FD0098438D /* AssetViewHistoryCell.swift */; };
@@ -843,6 +845,8 @@
 		0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A24E2D52109068000598548 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		0A24E2D7210918A300598548 /* WalletSortSeparatorFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorFooter.xib; sourceTree = "<group>"; };
+		0A25B469216F69EC00638C93 /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
+		0A25B46B216F763D00638C93 /* MailCompose+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MailCompose+Support.swift"; sourceTree = "<group>"; };
 		0A2B7D2F216036480098438D /* Observable+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Types.swift"; sourceTree = "<group>"; };
 		0A2B7D32216037FD0098438D /* AssetViewHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetViewHistoryCell.xib; sourceTree = "<group>"; };
 		0A2B7D33216037FD0098438D /* AssetViewHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetViewHistoryCell.swift; sourceTree = "<group>"; };
@@ -2641,6 +2645,8 @@
 				0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */,
 				0A4BB02D2163718A0034796E /* DispatchTimeInterval.swift */,
 				0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */,
+				0A25B469216F69EC00638C93 /* Bundle+Version.swift */,
+				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -4363,6 +4369,7 @@
 				E95B47F221638B11004D4E39 /* StartLeasingAmountView.swift in Sources */,
 				0AF921EA212E07B3003BA067 /* AssetTypes.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
+				0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */,
 				E9B088162163886800937644 /* ChartViewController.swift in Sources */,
 				E9B087C72163886800937644 /* DexTraderContainerBaseHeaderView.swift in Sources */,
 				0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */,
@@ -4745,6 +4752,7 @@
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,
 				0AF922D2212E1234003BA067 /* CALayer+RoundingCorners.swift in Sources */,
 				E9B088032163886800937644 /* LastTradersViewController.swift in Sources */,
+				0A25B46C216F763D00638C93 /* MailCompose+Support.swift in Sources */,
 				E9F984B220E53FE000D2CB4D /* EnterLanguageViewController.swift in Sources */,
 				0AF92230212E0F1F003BA067 /* WalletSegmentedControl.swift in Sources */,
 				E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */,

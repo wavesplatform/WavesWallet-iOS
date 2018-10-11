@@ -55,11 +55,13 @@ extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
 
 extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
-    func passcodeCoordinatorUserAuthorizationCompleted() {
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         delegate?.userChooseCompleted()
     }
 
-    func passcodeCoordinatorUserLogouted() {
+    func passcodeCoordinatorWalletLogouted() {
 
     }
 }

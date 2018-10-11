@@ -14,7 +14,6 @@ import IdentityImg
 import IQKeyboardManagerSwift
 
 protocol AccountPasswordViewControllerDelegate: class {
-    
     func accountPasswordViewControllerDidSuccessEnter()
 }
 

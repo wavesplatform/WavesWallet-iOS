@@ -14,7 +14,8 @@ enum AccountPasswordTypes {
 
 extension AccountPasswordTypes.DTO {
     enum Kind {
-        case logIn(DomainLayer.DTO.Wallet)        
+        case logIn(DomainLayer.DTO.Wallet)
+        case verifyAccess(DomainLayer.DTO.Wallet)
     }
 }
 
@@ -22,19 +23,21 @@ extension AccountPasswordTypes {
 
     struct State: Mutating {
 
-        enum Action {
-            case logIn(password: String)
+        enum Query {
+            case logIn(wallet: DomainLayer.DTO.Wallet, password: String)
+            case verifyAccess(wallet: DomainLayer.DTO.Wallet, password: String)
             case authorizationCompleted(DomainLayer.DTO.Wallet, String)
+            case verifyAccessCompleted(DomainLayer.DTO.SignedWallet, String)
         }
 
         var displayState: DisplayState
-        var wallet: DomainLayer.DTO.Wallet
-        var action: Action?
-        var password: String?
+        var kind: AccountPasswordTypes.DTO.Kind
+        var query: Query?        
     }
 
     enum Event {
-        case completedLogIn
+        case completedLogIn(DomainLayer.DTO.Wallet, password: String)
+        case completedVerifyAccess(DomainLayer.DTO.SignedWallet, password: String)
         case handlerError(AccountPasswordInteractorError)
         case tapLogIn(password: String)
     }

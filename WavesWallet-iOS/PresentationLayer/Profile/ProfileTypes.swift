@@ -31,6 +31,7 @@ extension ProfileTypes {
         case showFeedback
         case showSupport
         case setEnabledBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
+        case setBackedUp(Bool)
         case logoutAccount
         case deleteAccount
     }
@@ -49,6 +50,7 @@ extension ProfileTypes {
         case setEnabledBiometric(Bool)
         case setBlock(Int64)
         case setWallet(DomainLayer.DTO.Wallet)
+        case setBackedUp(Bool)
         case tapLogout
         case tapDelete
         case none

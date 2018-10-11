@@ -14,24 +14,37 @@ final class BackupCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let viewController: UIViewController
-    private let navigationController: CustomNavigationController
+    private let navigationController: UINavigationController
     private let completed: ((Bool) -> Void)
     private let seed: [String]
+    private let hasExternalNavigationController: Bool
     
     init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
         self.seed = seed
         self.viewController = viewController
         self.completed = completed
-        navigationController = CustomNavigationController()
+        self.navigationController = CustomNavigationController()
+        self.hasExternalNavigationController = false
+    }
+
+    init(navigationController: UINavigationController, seed: [String], completed: @escaping ((Bool) -> Void)) {
+        self.seed = seed
+        self.viewController = navigationController
+        self.navigationController = navigationController
+        self.completed = completed
+        self.hasExternalNavigationController = true
     }
 
     func start()  {
 
-        let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
-        vc.output = self
-
-        navigationController.viewControllers = [vc]
-        viewController.present(navigationController, animated: true, completion: nil)
+        if hasExternalNavigationController {
+            userReadedBackupInfo()
+        } else {
+            let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
+            vc.output = self
+            navigationController.viewControllers = [vc]
+            viewController.present(navigationController, animated: true, completion: nil)
+        }
     }
 
     private func startBackup() {

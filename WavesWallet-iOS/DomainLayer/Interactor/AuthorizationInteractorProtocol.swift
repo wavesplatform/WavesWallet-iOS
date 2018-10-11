@@ -42,7 +42,7 @@ protocol AuthorizationInteractorProtocol {
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
     func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet>
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
-    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
 
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?>
     func walletsLoggedIn() -> Observable<[DomainLayer.DTO.Wallet]>

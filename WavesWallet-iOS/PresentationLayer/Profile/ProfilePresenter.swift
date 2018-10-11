@@ -20,7 +20,7 @@ protocol ProfileModuleOutput: AnyObject {
     func showAddressesKeys()
     func showAddressBook()
     func showLanguage()
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: ((_ isBackedUp: Bool) -> Void))
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void))
     func showChangePassword(wallet: DomainLayer.DTO.Wallet)
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
     func showNetwork()
@@ -36,8 +36,6 @@ protocol ProfilePresenterProtocol {
 
     typealias Feedback = (Driver<ProfileTypes.State>) -> Signal<ProfileTypes.Event>
 
-//    var interactor: PasscodeInteractor! { get set }
-//    var input: ProfileModuleInput! { get set }
     var moduleOutput: ProfileModuleOutput? { get set }
     func system(feedbacks: [Feedback])
 }
@@ -53,8 +51,6 @@ public func reactQuery<State, Query: Equatable, Event, Owner: AnyObject>(owner: 
     })
 }
 
-
-//BlockRepositoryRemote
 final class ProfilePresenter: ProfilePresenterProtocol {
 
     fileprivate typealias Types = ProfileTypes
@@ -64,9 +60,8 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     private let blockRepository: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
-//    var interactor: PasscodeInteractor!
-//    var input: ProfileModuleInput!
     weak var moduleOutput: ProfileModuleOutput?
 
     func system(feedbacks: [Feedback]) {
@@ -77,7 +72,8 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         newFeedbacks.append(blockQuery())
         newFeedbacks.append(deleteAccountQuery())
         newFeedbacks.append(logoutAccountQuery())
-
+        newFeedbacks.append(handlerEvent())
+        newFeedbacks.append(setBackupQuery())
 
         let initialState = self.initialState()
 
@@ -87,9 +83,11 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         system
             .drive()
             .disposed(by: disposeBag)
-
-
     }
+}
+
+// MARK: - Feedbacks
+fileprivate extension ProfilePresenter {
 
     fileprivate static func needQuery(_ state: Types.State) -> Types.Query? {
 
@@ -129,9 +127,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
             owner.moduleOutput?.showLanguage()
 
         case .showBackupPhrase(let wallet):
-            owner.moduleOutput?.showBackupPhrase(wallet: wallet, completed: { (_) in
-
-            })
+            owner.moduleOutput?.showBackupPhrase(wallet: wallet) { [weak owner] isBackedUp in
+                owner?.eventInput.onNext(.setBackedUp(isBackedUp))
+            }
 
         case .showChangePassword(let wallet):
             owner.moduleOutput?.showChangePassword(wallet: wallet)
@@ -172,6 +170,43 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
 
+    func handlerEvent() -> Feedback {
+        return react(query: { state -> Bool? in
+            return true
+        }, effects: { [weak self] isOn -> Signal<Types.Event> in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.eventInput.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+
+    func setBackupQuery() -> Feedback {
+
+        return react(query: { state -> DomainLayer.DTO.Wallet? in
+
+            guard let query = state.query else { return nil }
+            guard let wallet = state.wallet else { return nil }
+            if case .setBackedUp(let isBackedUp) = query {
+                var newWallet = wallet
+                newWallet.isBackedUp = isBackedUp
+                return newWallet
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] wallet -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+            
+            return strongSelf
+                .authorizationInteractor
+                .changeWallet(wallet)
+                .map { $0.isBackedUp }
+                .map { Types.Event.setBackedUp($0)}
+                .asSignal(onErrorRecover: { _ in
+                    return Signal.empty()
+                })
+        })
+    }
 
     func profileQuery() -> Feedback {
 
@@ -330,7 +365,7 @@ private extension ProfilePresenter {
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
                                                        .supportWavesplatform,
-                                                       .info(version: "2.0.2 (13)", height: nil)], kind: .other)
+                                                       .info(version: Bundle.main.version, height: nil)], kind: .other)
 
             state.displayState.sections = [generalSettings,
                                            security,
@@ -353,8 +388,10 @@ private extension ProfilePresenter {
                 state.query = Types.Query.showLanguage
 
             case .backupPhrase:
-                state.query = Types.Query.showBackupPhrase(wallet: wallet)
-
+                if wallet.isBackedUp == false {
+                    state.query = Types.Query.showBackupPhrase(wallet: wallet)
+                }
+                
             case .changePassword:
                 state.query = Types.Query.showChangePassword(wallet: wallet)
 
@@ -401,9 +438,36 @@ private extension ProfilePresenter {
             state
                 .displayState
                 .sections[section.offset]
-                .rows[index.offset] = .info(version: "2.0.2 (13)", height: "\(block)")
+                .rows[index.offset] = .info(version: Bundle.main.version, height: "\(block)")
             state
                 .displayState.action = .update
+
+        case .setBackedUp(let isBackedUp):
+
+            guard let section = state
+                .displayState
+                .sections
+                .enumerated()
+                .first(where: { $0.element.kind == .security }) else { return }
+
+            guard let index = section
+                .element
+                .rows
+                .enumerated()
+                .first(where: { element in
+                    if case .backupPhrase = element.element {
+                        return true
+                    }
+                    return false
+                }) else {
+                    return
+            }
+            state
+                .displayState
+                .sections[section.offset]
+                .rows[index.offset] = .backupPhrase(isBackedUp: isBackedUp)
+            state.displayState.action = nil
+            state.query = .setBackedUp(isBackedUp)
 
         case .setEnabledBiometric(let isOn):
 

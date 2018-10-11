@@ -4,10 +4,25 @@ private class DUMPVC: UIViewController {}
 
 final class MainTabBarController: UITabBarController {
 
-    let walletCoordinator: WalletCoordinator = WalletCoordinator()
-    let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-    let dexListCoordinator: DexCoordinator = DexCoordinator()
-    var profileCoordinator: ProfileCoordinator!
+    private let walletCoordinator: WalletCoordinator = WalletCoordinator()
+    private let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
+    private let dexListCoordinator: DexCoordinator = DexCoordinator()
+    private var profileCoordinator: ProfileCoordinator!
+
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
+
+    convenience init() {
+        self.init(applicationCoordinator: nil)
+    }
+
+    init(applicationCoordinator: ApplicationCoordinatorProtocol?) {
+        self.applicationCoordinator = applicationCoordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +46,7 @@ final class MainTabBarController: UITabBarController {
         navDex.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, -16, 0)
 
         let navProfile = CustomNavigationController()
-        profileCoordinator = ProfileCoordinator(navigationController: navProfile)
+        profileCoordinator = ProfileCoordinator(navigationController: navProfile, applicationCoordinator: applicationCoordinator)
         profileCoordinator.start()
         navProfile.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
         navProfile.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
