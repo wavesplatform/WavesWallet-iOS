@@ -91,6 +91,7 @@
                                             <outlet property="iconGateway" destination="Qbs-JR-kOd" id="gCK-uf-Rtg"/>
                                             <outlet property="labelAmount" destination="4JE-kF-jGT" id="eY7-ty-LXT"/>
                                             <outlet property="labelAssetName" destination="ugF-xP-p8v" id="K58-qM-0gJ"/>
+                                            <outlet property="topTitleOffset" destination="eHD-hi-644" id="3OJ-ih-XOP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

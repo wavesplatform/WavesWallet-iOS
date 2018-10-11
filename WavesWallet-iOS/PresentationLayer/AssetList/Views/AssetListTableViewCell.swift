@@ -11,6 +11,7 @@ import Kingfisher
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
+    static let defaultTopTitleOffset: CGFloat = 10
 }
 
 final class AssetListTableViewCell: UITableViewCell, NibReusable {
@@ -21,6 +22,7 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var iconGateway: UIImageView!
     @IBOutlet private weak var iconCheckmark: UIImageView!
     @IBOutlet private weak var iconFav: UIImageView!
+    @IBOutlet private weak var topTitleOffset: NSLayoutConstraint!
     
     private var taskForAssetLogo: RetrieveImageDiskTask?
 
@@ -41,6 +43,10 @@ extension AssetListTableViewCell: ViewConfiguration {
     }
     
     func update(with model: Model) {
+        
+        let centerOffset = frame.size.height / 2 - labelAssetName.frame.size.height / 2
+        topTitleOffset.constant = model.balance.isZero ? centerOffset : Constants.defaultTopTitleOffset
+        labelAmount.isHidden = model.balance.isZero
         
         labelAssetName.text = model.asset.displayName
         iconGateway.isHidden = !model.asset.isGateway
