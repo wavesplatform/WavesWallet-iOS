@@ -44,6 +44,12 @@ internal struct ColorAsset {
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
+  internal enum Enter {
+    internal static let blockchain80 = ImageAsset(name: "blockchain80")
+    internal static let dex80 = ImageAsset(name: "dex80")
+    internal static let token80 = ImageAsset(name: "token80")
+    internal static let wallet80 = ImageAsset(name: "wallet80")
+  }
   internal enum TabBar {
     internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
     internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
@@ -265,6 +271,10 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
+    Enter.blockchain80,
+    Enter.dex80,
+    Enter.token80,
+    Enter.wallet80,
     TabBar.tabBarDex,
     TabBar.tabBarDexActive,
     TabBar.tabBarHistory,
