@@ -69,8 +69,8 @@ final class AccountPasswordViewController: UIViewController {
 
     private func completedInput() {
         view.endEditing(true)
-        // TODO: COME BACK
-        if let value = passwordTextField.value  {
+        
+        if let value = passwordTextField.value?.value  {
             eventInput.onNext(.tapLogIn(password: value))
         }
     }

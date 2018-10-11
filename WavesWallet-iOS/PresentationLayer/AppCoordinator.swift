@@ -205,17 +205,17 @@ extension AppCoordinator {
 
     private func showStartController(withHelloDisplay: Bool) {
 
-//        if withHelloDisplay {
-//            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController, presentCompletion: {
-//                self.showEnter()
-//            })
-//
-//            helloCoordinator.delegate = self
-//            addChildCoordinator(childCoordinator: helloCoordinator)
-//            helloCoordinator.start()
-//        } else {
+        if withHelloDisplay {
+            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController, presentCompletion: {
+                self.showEnter()
+            })
+
+            helloCoordinator.delegate = self
+            addChildCoordinator(childCoordinator: helloCoordinator)
+            helloCoordinator.start()
+        } else {
             showEnter()
-//        }
+        }
     }
 
     private func showEnter() {
