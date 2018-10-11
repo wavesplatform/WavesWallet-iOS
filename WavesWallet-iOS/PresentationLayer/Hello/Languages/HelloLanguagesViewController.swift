@@ -51,17 +51,16 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCellIdentifier", for: indexPath) as! LanguageTableCell
+        let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
 
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item.title
-        cell.iconLanguage.image = UIImage(named: item.icon)
-
+        
+        var isOn = false
         if let index = chosenIndexPath, index == indexPath {
-            cell.iconCheckmark.image = Images.on.image
-        } else {
-            cell.iconCheckmark.image = Images.off.image
+            isOn = true
         }
+        
+        cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: isOn))
 
         return cell
     }

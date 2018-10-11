@@ -212,6 +212,7 @@ final class NewAccountViewController: UIViewController {
         guard isValidData else {
             return
         }
+
         guard let name = accountNameInput.value?.value,
             let password = passwordInput.value?.value,
             let avatar = currentAvatar else { return }

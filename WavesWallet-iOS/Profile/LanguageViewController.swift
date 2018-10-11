@@ -8,12 +8,6 @@
 
 import UIKit
 
-final class LanguageTableCell: UITableViewCell {
-    @IBOutlet var iconLanguage: UIImageView!
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var iconCheckmark: UIImageView!
-}
-
 final class LanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private var tableView: UITableView!
@@ -44,17 +38,11 @@ final class LanguageViewController: UIViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCell") as! LanguageTableCell
+        let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
 
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item.title
-        cell.iconLanguage.image = UIImage(named: item.icon)
-        if indexPath.row == 0 {
-            cell.iconCheckmark.image = UIImage(named: "on")
-        }
-        else {
-            cell.iconCheckmark.image = UIImage(named: "off")
-        }
+        cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: indexPath.row == 0))
+        
         return cell
     }
 }
