@@ -11,11 +11,10 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
-
 final class ReceiveCardViewController: UIViewController {
 
     @IBOutlet private weak var assetView: AssetSelectView!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var labelAmountIn: UILabel!
     @IBOutlet private weak var labelChangeCurrency: UILabel!
     @IBOutlet private weak var labelTotalAmount: UILabel!
@@ -34,6 +33,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.AssetBalance?
+    private var amount: Decimal = 0
     
     private var hasLoadInfo = false
     
@@ -48,6 +48,7 @@ final class ReceiveCardViewController: UIViewController {
         assetView.isSelectedAssetMode = false
         assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
+        textFieldMoney.moneyDelegate = self
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
@@ -140,6 +141,13 @@ private extension ReceiveCardViewController {
     }
 }
 
+//MARK: - MoneyTextFieldDelegate
+extension ReceiveCardViewController: MoneyTextFieldDelegate {
+    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
+        amount = textField.decimalValue
+        setupButtonState()
+    }
+}
 
 //MARK: - UI
 private extension ReceiveCardViewController {
@@ -168,7 +176,7 @@ private extension ReceiveCardViewController {
         
         guard let asset = asset else { return }
         hasLoadInfo = true
-        
+
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
         assetView.update(with: asset)
@@ -185,11 +193,14 @@ private extension ReceiveCardViewController {
     }
     
     func showError(_ error: Error) {
-        activityIndicatorView.stopAnimating()
+        acitivityIndicatorAmount.stopAnimating()
+        acitivityIndicatorWarning.stopAnimating()
     }
     
     func setupButtonState() {
-        let canContinueAction = hasLoadInfo
+        
+        var canContinueAction = hasLoadInfo && amount > 0
+        
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }

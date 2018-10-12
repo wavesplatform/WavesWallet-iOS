@@ -33,7 +33,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     private func modelsQuery() -> Feedback {
         
         return react(query: { state -> ReceiveCard.State? in
-            return state
+            return state.isNeedLoadInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
             guard let strongSelf = self else { return Signal.empty() }
@@ -47,18 +47,21 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 
         case .getUSDAmountInfo:
             return state.mutate {
+                $0.isNeedLoadInfo = true
                 $0.fiatType = ReceiveCard.DTO.FiatType.usd
                 $0.action = .none
             }
 
         case .getEURAmountInfo:
             return state.mutate {
+                $0.isNeedLoadInfo = true
                 $0.fiatType = ReceiveCard.DTO.FiatType.eur
                 $0.action = .none
             }
         
         case .didGetInfo(let responce):
             return state.mutate {
+                $0.isNeedLoadInfo = false
 
                 switch responce.result {
                 case .success(let info):
@@ -86,6 +89,6 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 fileprivate extension ReceiveCard.State {
     
     static var initialState: ReceiveCard.State {
-        return ReceiveCard.State(fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil)
+        return ReceiveCard.State(isNeedLoadInfo: true, fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil)
     }
 }

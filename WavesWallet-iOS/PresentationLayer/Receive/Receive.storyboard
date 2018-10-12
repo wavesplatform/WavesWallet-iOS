@@ -613,6 +613,7 @@
                         <outlet property="labelTotalAmount" destination="eI4-Hc-a2q" id="EF1-W2-0qp"/>
                         <outlet property="labelWarningInfo" destination="45G-CV-gNf" id="Eqn-B8-dDR"/>
                         <outlet property="labelWarningMinimumAmount" destination="jdk-AP-RQy" id="2h9-cD-HlW"/>
+                        <outlet property="textFieldMoney" destination="EHZ-gd-e39" id="KF9-DX-N23"/>
                         <outlet property="viewContainer" destination="hWi-NR-AOY" id="KIC-Ml-Exk"/>
                         <outlet property="viewWarning" destination="cTj-be-qkW" id="qVx-SB-ZCF"/>
                     </connections>

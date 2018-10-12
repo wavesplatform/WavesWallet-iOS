@@ -24,6 +24,7 @@ enum ReceiveCard {
             case didFailGetInfo(Error)
         }
 
+        var isNeedLoadInfo: Bool
         var fiatType: DTO.FiatType
         var action: Action
         var link: String = ""
@@ -80,26 +81,5 @@ extension ReceiveCard.DTO.FiatType {
         case .usd:
             return "USD"
         }
-    }
-}
-
-extension ReceiveCard.DTO.AmountInfo: Equatable {
-    static func == (lhs: ReceiveCard.DTO.AmountInfo, rhs: ReceiveCard.DTO.AmountInfo) -> Bool {
-        return lhs.type == rhs.type &&
-        lhs.minAmount == rhs.minAmount &&
-        lhs.maxAmount == rhs.maxAmount &&
-        lhs.minAmountString == rhs.minAmountString &&
-        lhs.maxAmountString == rhs.maxAmountString
-    }
-}
-
-extension ReceiveCard.State: Equatable {
-    
-    static func == (lhs: ReceiveCard.State, rhs: ReceiveCard.State) -> Bool {
-
-        return lhs.fiatType == rhs.fiatType &&
-            lhs.link == rhs.link &&
-            lhs.amountUSDInfo == rhs.amountUSDInfo &&
-            lhs.amountEURInfo == rhs.amountEURInfo
     }
 }
