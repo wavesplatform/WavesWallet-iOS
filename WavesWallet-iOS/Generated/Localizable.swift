@@ -468,6 +468,8 @@ internal enum Localizable {
       internal static var available: String { return Localizable.tr("Wallet", "label.available") }
       /// Leased
       internal static var leased: String { return Localizable.tr("Wallet", "label.leased") }
+      /// Leased in
+      internal static var leasedIn: String { return Localizable.tr("Wallet", "label.leasedIn") }
       /// Started Leasing
       internal static var startedLeasing: String { return Localizable.tr("Wallet", "label.startedLeasing") }
       /// Total balance
@@ -1089,6 +1091,14 @@ internal enum Localizable {
       internal enum Security {
         /// Security
         internal static var title: String { return Localizable.tr("Profile", "header.security.title") }
+      }
+    }
+
+    internal enum Language {
+
+      internal enum Navigation {
+        /// Language
+        internal static var title: String { return Localizable.tr("Profile", "language.navigation.title") }
       }
     }
 

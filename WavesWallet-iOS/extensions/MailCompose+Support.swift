@@ -31,19 +31,10 @@ final class MailComposeCoordinator: NSObject, Coordinator, MFMailComposeViewCont
             vc.mailComposeDelegate = self
             viewController.present(vc, animated: true, completion: nil)
         } else {
-
-            let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Settings", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-                alert.dismiss(animated: true, completion: nil)
-                self.removeFromParentCoordinator()
-            }))
-
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (UIAlertAction) in
-                alert.dismiss(animated: true, completion: nil)
-                self.removeFromParentCoordinator()
-            }))
-
-            viewController.present(alert, animated: true, completion: nil)
+            let body = UIDevice.current.deviceDescription()
+            guard let encodedParams = "body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+            guard let url = URL.init(string: "mailto:\(email)?\(encodedParams)") else { return }
+            UIApplication.shared.openURLAsync(url)
         }
     }
 
@@ -51,17 +42,6 @@ final class MailComposeCoordinator: NSObject, Coordinator, MFMailComposeViewCont
         controller.dismiss(animated: true, completion: nil)
         removeFromParentCoordinator()
     }
-
-
-//    if #available(iOS 10.0, *)
-//    {
-//    UIApplication.sharedApplication().openURL(NSURL(string:"App-Prefs:root=SOMETHING")!)
-//    }
-//    else
-//    {
-//    UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=SOMETHING")!)
-//    }
-
 }
 
 

@@ -23,6 +23,8 @@ final class WalletLeasingCell: UITableViewCell, NibReusable {
     }
 }
 
+// MARK: ViewConfiguration
+
 extension WalletLeasingCell: ViewConfiguration {
     func update(with model: DomainLayer.DTO.SmartTransaction) {
         labelTitle.text = Localizable.Wallet.Label.startedLeasing

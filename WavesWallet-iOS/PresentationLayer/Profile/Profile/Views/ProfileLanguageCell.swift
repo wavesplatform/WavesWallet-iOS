@@ -26,7 +26,6 @@ final class ProfileLanguageCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         containerView.addTableCellShadowStyle()
-        labelTitle.text = Localizable.Profile.Cell.Language.title
     }
 
     class func cellHeight() -> CGFloat {
@@ -40,5 +39,6 @@ extension ProfileLanguageCell: ViewConfiguration {
 
     func update(with model: ProfileLanguageCell.Model) {
         iconLanguage.image = model.languageIcon
+        labelTitle.text = Localizable.Profile.Cell.Language.title
     }
 }

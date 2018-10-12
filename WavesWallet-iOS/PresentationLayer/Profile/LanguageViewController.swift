@@ -8,24 +8,34 @@
 
 import UIKit
 
+protocol LanguageViewControllerDelegate: AnyObject {
+    func languageViewChangedLanguage()
+}
+
 final class LanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private var tableView: UITableView!
-
     private let languages = Language.list
+
+    weak var delegate: LanguageViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = Localizable.Profile.Language.Navigation.title
+        navigationItem.barTintColor = .white
         createBackButton()
-        navigationController?.navigationBar.barTintColor = .white
-        title = "Language"
+        setupBigNavigationBar()
     }
 
     // MARK: - UITableView
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.popViewController(animated: true)
+        let language = languages[indexPath.row]
+        Language.change(language)
+        tableView.reloadData()
+        delegate?.languageViewChangedLanguage()
+//        navigationController?.popViewController(animated: true)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -39,9 +49,10 @@ final class LanguageViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
-
         let item = languages[indexPath.row]
-        cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: indexPath.row == 0))
+        let isOn = Language.currentLanguage.code == item.code
+
+        cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: isOn))
         
         return cell
     }

@@ -163,11 +163,14 @@ fileprivate extension ProfilePresenter {
     }
 
     func reactQuries() -> Feedback {
-        return reactQuery(owner: self, query: { state -> Types.Query? in
+
+        return react(query: { state -> Types.Query? in
             return ProfilePresenter.needQuery(state)
-        }) { owner, query in
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+            guard let owner = self else { return Signal.empty() }
             ProfilePresenter.handlerQuery(owner: owner, query: query)
-        }
+            return Signal.just(.completedQuery)
+        })
     }
 
     func handlerEvent() -> Feedback {
@@ -505,6 +508,9 @@ private extension ProfilePresenter {
 
         case .tapDelete:
             state.query = Types.Query.deleteAccount
+
+        case .completedQuery:
+            state.query = nil
 
         default:
             break

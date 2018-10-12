@@ -57,32 +57,26 @@ final class WalletViewController: UIViewController {
         super.viewDidLoad()
 
         displayData = WalletDisplayData(tableView: tableView)
-        navigationItem.title = Localizable.Wallet.Navigationbar.title
+        setupLanguages()
         setupBigNavigationBar()
         createMenuButton()
         setupSegmetedControl()
         setupTableView()
         setupRefreshControl()
         setupSystem()
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-//        if rdv_tabBarController.isTabBarHidden {
-//            rdv_tabBarController.setTabBarHidden(false, animated: true)
-//        }
-
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            let controller = StartLeasingModuleBuilder().build()
-//            self.navigationController?.pushViewController(controller, animated: true)
-//        }
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupTopBarLine()
+    }
+
+    @objc func changedLanguage() {
+        setupLanguages()
+        setupSegmetedControl()
+        tableView.reloadData()
     }
 }
 
@@ -195,6 +189,11 @@ extension WalletViewController {
 // MARK: Setup Methods
 
 private extension WalletViewController {
+
+    func setupLanguages() {
+        navigationItem.title = Localizable.Wallet.Navigationbar.title
+    }
+
     func setupRightButons(kind: WalletTypes.DisplayState.Kind) {
 
         switch kind {

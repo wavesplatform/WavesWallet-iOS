@@ -20,7 +20,7 @@ extension DomainLayer.DTO {
         let height: Int64
         
         let signature: String?
-        let chainId: String?
+        let chainId: Int?
         let assetId: String
         let amount: Int64
         var modified: Date

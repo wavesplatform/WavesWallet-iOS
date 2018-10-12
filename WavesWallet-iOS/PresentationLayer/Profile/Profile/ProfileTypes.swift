@@ -53,6 +53,7 @@ extension ProfileTypes {
         case setBackedUp(Bool)
         case tapLogout
         case tapDelete
+        case completedQuery
         case none
     }
 
