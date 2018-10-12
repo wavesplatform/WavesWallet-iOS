@@ -38,6 +38,7 @@
 		04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A403212164D80200652F21 /* EnterStartTypes.swift */; };
 		04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A403232164D89700652F21 /* EnterStartBlockCell.swift */; };
 		04C1BF57211CA5EF0095377D /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C1BF59211CA5EF0095377D /* History.strings */; };
+		04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D882BE21706FEF00EAAB90 /* InfoPagesCell.swift */; };
 		04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3552126157000C702BA /* HeaderSkeletonView.swift */; };
 		04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */; };
 		04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */; };
@@ -515,20 +516,10 @@
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
 		E95B47C121638A9F004D4E39 /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */; };
 		E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */; };
-		E95B47C321638A9F004D4E39 /* SecondInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47AF21638A9F004D4E39 /* SecondInfoPageView.swift */; };
-		E95B47C421638A9F004D4E39 /* SixthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B021638A9F004D4E39 /* SixthInfoPageView.swift */; };
-		E95B47C521638A9F004D4E39 /* FifthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B121638A9F004D4E39 /* FifthInfoPageView.swift */; };
-		E95B47C621638A9F004D4E39 /* ThirdIndoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B221638A9F004D4E39 /* ThirdIndoPageView.swift */; };
-		E95B47C721638A9F004D4E39 /* ThirdIndoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B321638A9F004D4E39 /* ThirdIndoPageView.xib */; };
-		E95B47C821638A9F004D4E39 /* SecondInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B421638A9F004D4E39 /* SecondInfoPageView.xib */; };
-		E95B47C921638A9F004D4E39 /* SeventhInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B521638A9F004D4E39 /* SeventhInfoPageView.swift */; };
-		E95B47CA21638A9F004D4E39 /* SeventhInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B621638A9F004D4E39 /* SeventhInfoPageView.xib */; };
-		E95B47CB21638A9F004D4E39 /* FourthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B721638A9F004D4E39 /* FourthInfoPageView.xib */; };
-		E95B47CC21638A9F004D4E39 /* SixthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B821638A9F004D4E39 /* SixthInfoPageView.xib */; };
-		E95B47CD21638A9F004D4E39 /* FirstInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B921638A9F004D4E39 /* FirstInfoPageView.swift */; };
-		E95B47CE21638A9F004D4E39 /* FirstInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47BA21638A9F004D4E39 /* FirstInfoPageView.xib */; };
-		E95B47CF21638A9F004D4E39 /* FourthInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47BB21638A9F004D4E39 /* FourthInfoPageView.swift */; };
-		E95B47D021638A9F004D4E39 /* FifthInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47BC21638A9F004D4E39 /* FifthInfoPageView.xib */; };
+		E95B47C621638A9F004D4E39 /* LongInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B221638A9F004D4E39 /* LongInfoPageView.swift */; };
+		E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */; };
+		E95B47CD21638A9F004D4E39 /* ShortInfoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47B921638A9F004D4E39 /* ShortInfoPageView.swift */; };
+		E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47BA21638A9F004D4E39 /* ShortInfoPageView.xib */; };
 		E95B47D121638A9F004D4E39 /* InfoPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47BD21638A9F004D4E39 /* InfoPagesViewController.swift */; };
 		E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47D221638AF2004D4E39 /* AccountPasswordViewController.swift */; };
 		E95B47EA21638B11004D4E39 /* StartLeasing.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95B47D521638B11004D4E39 /* StartLeasing.strings */; };
@@ -855,6 +846,9 @@
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
+		04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
+		04D882BE21706FEF00EAAB90 /* InfoPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPagesCell.swift; sourceTree = "<group>"; };
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
@@ -1366,20 +1360,10 @@
 		E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
 		E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloLanguagesViewController.swift; sourceTree = "<group>"; };
 		E95B47AC21638A9F004D4E39 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Hello.strings; sourceTree = "<group>"; };
-		E95B47AF21638A9F004D4E39 /* SecondInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47B021638A9F004D4E39 /* SixthInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SixthInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47B121638A9F004D4E39 /* FifthInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifthInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47B221638A9F004D4E39 /* ThirdIndoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdIndoPageView.swift; sourceTree = "<group>"; };
-		E95B47B321638A9F004D4E39 /* ThirdIndoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdIndoPageView.xib; sourceTree = "<group>"; };
-		E95B47B421638A9F004D4E39 /* SecondInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondInfoPageView.xib; sourceTree = "<group>"; };
-		E95B47B521638A9F004D4E39 /* SeventhInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeventhInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47B621638A9F004D4E39 /* SeventhInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeventhInfoPageView.xib; sourceTree = "<group>"; };
-		E95B47B721638A9F004D4E39 /* FourthInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FourthInfoPageView.xib; sourceTree = "<group>"; };
-		E95B47B821638A9F004D4E39 /* SixthInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SixthInfoPageView.xib; sourceTree = "<group>"; };
-		E95B47B921638A9F004D4E39 /* FirstInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47BA21638A9F004D4E39 /* FirstInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstInfoPageView.xib; sourceTree = "<group>"; };
-		E95B47BB21638A9F004D4E39 /* FourthInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthInfoPageView.swift; sourceTree = "<group>"; };
-		E95B47BC21638A9F004D4E39 /* FifthInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FifthInfoPageView.xib; sourceTree = "<group>"; };
+		E95B47B221638A9F004D4E39 /* LongInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongInfoPageView.swift; sourceTree = "<group>"; };
+		E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LongInfoPageView.xib; sourceTree = "<group>"; };
+		E95B47B921638A9F004D4E39 /* ShortInfoPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortInfoPageView.swift; sourceTree = "<group>"; };
+		E95B47BA21638A9F004D4E39 /* ShortInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShortInfoPageView.xib; sourceTree = "<group>"; };
 		E95B47BD21638A9F004D4E39 /* InfoPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPagesViewController.swift; sourceTree = "<group>"; };
 		E95B47BE21638A9F004D4E39 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Hello.strings; sourceTree = "<group>"; };
 		E95B47D221638AF2004D4E39 /* AccountPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPasswordViewController.swift; sourceTree = "<group>"; };
@@ -3183,20 +3167,11 @@
 		E95B47AE21638A9F004D4E39 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E95B47AF21638A9F004D4E39 /* SecondInfoPageView.swift */,
-				E95B47B021638A9F004D4E39 /* SixthInfoPageView.swift */,
-				E95B47B121638A9F004D4E39 /* FifthInfoPageView.swift */,
-				E95B47B221638A9F004D4E39 /* ThirdIndoPageView.swift */,
-				E95B47B321638A9F004D4E39 /* ThirdIndoPageView.xib */,
-				E95B47B421638A9F004D4E39 /* SecondInfoPageView.xib */,
-				E95B47B521638A9F004D4E39 /* SeventhInfoPageView.swift */,
-				E95B47B621638A9F004D4E39 /* SeventhInfoPageView.xib */,
-				E95B47B721638A9F004D4E39 /* FourthInfoPageView.xib */,
-				E95B47B821638A9F004D4E39 /* SixthInfoPageView.xib */,
-				E95B47B921638A9F004D4E39 /* FirstInfoPageView.swift */,
-				E95B47BA21638A9F004D4E39 /* FirstInfoPageView.xib */,
-				E95B47BB21638A9F004D4E39 /* FourthInfoPageView.swift */,
-				E95B47BC21638A9F004D4E39 /* FifthInfoPageView.xib */,
+				E95B47B221638A9F004D4E39 /* LongInfoPageView.swift */,
+				E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */,
+				E95B47B921638A9F004D4E39 /* ShortInfoPageView.swift */,
+				E95B47BA21638A9F004D4E39 /* ShortInfoPageView.xib */,
+				04D882BE21706FEF00EAAB90 /* InfoPagesCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4264,13 +4239,12 @@
 				E9B086B52163883000937644 /* AddressBook.strings in Resources */,
 				0A762D15214FE3F300BE9204 /* PasswordTextField.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
-				E95B47C821638A9F004D4E39 /* SecondInfoPageView.xib in Resources */,
 				E95B480B21638BE9004D4E39 /* TransactionHistoryShowAllView.xib in Resources */,
 				E9B087BF2163886800937644 /* SearchBarView.xib in Resources */,
 				0A762D8B21639FA60019D447 /* TransactionHistoryButtonCell.xib in Resources */,
 				0A762D8A21639FA60019D447 /* TransactionHistoryKeysValuesCell.xib in Resources */,
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
-				E95B47CE21638A9F004D4E39 /* FirstInfoPageView.xib in Resources */,
+				E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
@@ -4371,7 +4345,6 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
-				E95B47D021638A9F004D4E39 /* FifthInfoPageView.xib in Resources */,
 				E9B087952163886800937644 /* DexChart.strings in Resources */,
 				0A762D8821639FA60019D447 /* TransactionHistoryRecipientCell.xib in Resources */,
 				0A762D8721639FA60019D447 /* TransactionHistoryCommentCell.xib in Resources */,
@@ -4399,7 +4372,7 @@
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9D36DDB2175C755001E6DF0 /* ReceiveCardComplete.strings in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
-				E95B47C721638A9F004D4E39 /* ThirdIndoPageView.xib in Resources */,
+				E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4725,7 +4698,7 @@
 				E9B087A32163886800937644 /* DexChartInteractor.swift in Sources */,
 				E9B0881C2163886800937644 /* DexSortTypes.swift in Sources */,
 				E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */,
-				E95B47CD21638A9F004D4E39 /* FirstInfoPageView.swift in Sources */,
+				E95B47CD21638A9F004D4E39 /* ShortInfoPageView.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
 				0AFA0C772174A2300003FE3B /* LegalCoordinator.swift in Sources */,
 				0A071E80215DB172007D9750 /* ChooseAccountCoordinator.swift in Sources */,
@@ -4740,6 +4713,7 @@
 				E9B0881A2163886800937644 /* DexSortPresenterProtocol.swift in Sources */,
 				E95B47C621638A9F004D4E39 /* ThirdIndoPageView.swift in Sources */,
 				0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */,
+				E95B47C621638A9F004D4E39 /* LongInfoPageView.swift in Sources */,
 				0A5C919A20F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift in Sources */,
 				E9B087B62163886800937644 /* Order.swift in Sources */,
 				0AE491E621078CCE009223DB /* WalletSortCell.swift in Sources */,
@@ -4749,7 +4723,6 @@
 				E9B087B22163886800937644 /* DexOrderBookInteractorProtocol.swift in Sources */,
 				E9B087DC2163886800937644 /* DexCreateOrderModuleOutput.swift in Sources */,
 				0A5D33002157D5EF0009CDF3 /* Data+AES.swift in Sources */,
-				E95B47C421638A9F004D4E39 /* SixthInfoPageView.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				E9D36DE62175C755001E6DF0 /* ReceiveGenerateTypes.swift in Sources */,
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
@@ -4901,6 +4874,7 @@
 				F79316361F856C54002D8636 /* AskManager.swift in Sources */,
 				E9B087C52163886800937644 /* DexTraderContainerInputProtocol.swift in Sources */,
 				0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */,
+				04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,
 				E9B087982163886800937644 /* DexChartPresenterProtocol.swift in Sources */,
@@ -5092,7 +5066,6 @@
 				F7C6839B1EA93A4000C87DAF /* PrivateKeyAccount.swift in Sources */,
 				0A5E4BDB21382C2200E3C3C3 /* IssueTransaction+Mapper.swift in Sources */,
 				0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */,
-				E95B47C921638A9F004D4E39 /* SeventhInfoPageView.swift in Sources */,
 				0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */,
 				0A5E4BE521383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift in Sources */,
 				E9B0879D2163886800937644 /* DexChartViewController.swift in Sources */,
@@ -5205,7 +5178,6 @@
 				E9B088042163886800937644 /* DexViewController.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
-				E95B47CF21638A9F004D4E39 /* FourthInfoPageView.swift in Sources */,
 				E95B47EC21638B11004D4E39 /* StartLeasingPresenter.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,
@@ -5227,7 +5199,6 @@
 				0AF922B1212E1234003BA067 /* UIColor+Hex.swift in Sources */,
 				E9D36DF22175C755001E6DF0 /* AssetListPresenterProtocol.swift in Sources */,
 				0A96F1D52152C80E005E148F /* PasscodePresenter.swift in Sources */,
-				E95B47C321638A9F004D4E39 /* SecondInfoPageView.swift in Sources */,
 				0A110CBB2153CE5A002A8FD7 /* ImportCoordinator.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */,
