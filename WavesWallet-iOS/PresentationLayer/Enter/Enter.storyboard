@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -189,94 +189,6 @@
             </objects>
             <point key="canvasLocation" x="7.2000000000000002" y="88.669950738916256"/>
         </scene>
-        <!--Enter Language View Controller-->
-        <scene sceneID="kO3-39-nzy">
-            <objects>
-                <viewController storyboardIdentifier="EnterLanguageViewController" id="Yh1-g9-kpK" customClass="EnterLanguageViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QTo-yg-TWB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wHQ-5s-yxl">
-                                <rect key="frame" x="0.0" y="20" width="375" height="575"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Yh1-g9-kpK" id="Uln-1w-y5u"/>
-                                    <outlet property="delegate" destination="Yh1-g9-kpK" id="Xbh-61-tjD"/>
-                                </connections>
-                            </tableView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBX-Z3-zEc">
-                                <rect key="frame" x="24" y="595" width="327" height="48"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="UWV-nG-ycX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <state key="normal" title="Confirm">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="confirmTapped:" destination="Yh1-g9-kpK" eventType="touchUpInside" id="OZT-K0-zvY"/>
-                                </connections>
-                            </button>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jqn-pE-9B6" customClass="CustomGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="556" width="375" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="oLs-el-nBb"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="diagonalMode" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontalMode" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="jGL-9D-Y8V" firstAttribute="trailing" secondItem="wHQ-5s-yxl" secondAttribute="trailing" id="45b-GL-Az8"/>
-                            <constraint firstItem="jGL-9D-Y8V" firstAttribute="trailing" secondItem="IBX-Z3-zEc" secondAttribute="trailing" constant="24" id="5bh-Zf-eBd"/>
-                            <constraint firstItem="IBX-Z3-zEc" firstAttribute="leading" secondItem="jGL-9D-Y8V" secondAttribute="leading" constant="24" id="BRa-zs-F0S"/>
-                            <constraint firstItem="wHQ-5s-yxl" firstAttribute="leading" secondItem="jGL-9D-Y8V" secondAttribute="leading" id="Gzf-AQ-NfJ"/>
-                            <constraint firstItem="wHQ-5s-yxl" firstAttribute="top" secondItem="jGL-9D-Y8V" secondAttribute="top" id="SXl-g5-kH8"/>
-                            <constraint firstItem="jGL-9D-Y8V" firstAttribute="bottom" secondItem="IBX-Z3-zEc" secondAttribute="bottom" constant="24" id="TNf-Y6-m7P"/>
-                            <constraint firstItem="Jqn-pE-9B6" firstAttribute="leading" secondItem="jGL-9D-Y8V" secondAttribute="leading" id="gxL-Fh-CMG"/>
-                            <constraint firstItem="IBX-Z3-zEc" firstAttribute="top" secondItem="Jqn-pE-9B6" secondAttribute="bottom" id="uHB-jM-AA3"/>
-                            <constraint firstItem="jGL-9D-Y8V" firstAttribute="trailing" secondItem="Jqn-pE-9B6" secondAttribute="trailing" id="vbP-t5-sYC"/>
-                            <constraint firstItem="IBX-Z3-zEc" firstAttribute="top" secondItem="wHQ-5s-yxl" secondAttribute="bottom" id="xEB-KJ-a1H"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jGL-9D-Y8V"/>
-                    </view>
-                    <connections>
-                        <outlet property="buttonConfirm" destination="IBX-Z3-zEc" id="IAd-7S-SYV"/>
-                        <outlet property="gradientView" destination="Jqn-pE-9B6" id="5qW-A8-2at"/>
-                        <outlet property="tableView" destination="wHQ-5s-yxl" id="Ixa-Bc-YdY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="50y-bF-cnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="684" y="85.907046476761622"/>
-        </scene>
         <!--Edit Account Name View Controller-->
         <scene sceneID="Yac-AZ-fkG">
             <objects>
@@ -300,7 +212,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwz-SU-wmb">
-                                        <rect key="frame" x="148" y="32" width="80" height="21"/>
+                                        <rect key="frame" x="147.5" y="32" width="80" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>

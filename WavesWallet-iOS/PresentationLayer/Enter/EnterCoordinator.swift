@@ -78,11 +78,10 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
     
     func showLanguageCoordinator() {
-        let languageCoordinator = EnterLanguageCoordinator(parentController: navigationController)
+        let languageCoordinator = EnterLanguageViewCoordinator(parentController: navigationController)
         addChildCoordinator(childCoordinator: languageCoordinator)
         languageCoordinator.start()
     }
-    
 }
 
 // MARK: PasscodeCoordinatorDelegate

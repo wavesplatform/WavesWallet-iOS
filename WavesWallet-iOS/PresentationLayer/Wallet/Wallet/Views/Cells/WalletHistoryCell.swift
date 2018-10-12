@@ -8,12 +8,16 @@
 
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 56
+}
+
 final class WalletHistoryCell: UITableViewCell, NibReusable {
 
     typealias Model = Void
 
-    @IBOutlet var viewContainer: UIView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet private var viewContainer: UIView!
+    @IBOutlet private var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +26,7 @@ final class WalletHistoryCell: UITableViewCell, NibReusable {
     }
 
     class func cellHeight() -> CGFloat {
-        return 56
+        return Constants.height
     }
 }
 
