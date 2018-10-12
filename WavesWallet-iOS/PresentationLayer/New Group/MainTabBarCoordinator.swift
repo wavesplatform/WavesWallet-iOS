@@ -10,17 +10,19 @@ import Foundation
 
 final class MainTabBarCoordinator: Coordinator {
 
-
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
     private let slideMenuViewController: SlideMenu
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
-    init(slideMenuViewController: SlideMenu) {
+    init(slideMenuViewController: SlideMenu, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.slideMenuViewController = slideMenuViewController
+        self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
-        self.slideMenuViewController.contentViewController = MainTabBarController()
+        let mainTabBar = MainTabBarController(applicationCoordinator: applicationCoordinator)        
+        self.slideMenuViewController.contentViewController = mainTabBar
     }
 }

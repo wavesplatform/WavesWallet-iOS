@@ -257,11 +257,6 @@
                                                         <constraint firstItem="Akb-TU-oMl" firstAttribute="trailing" secondItem="13A-1j-MxJ" secondAttribute="trailing" id="rlv-Sq-udF"/>
                                                         <constraint firstItem="r81-tr-JyR" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="trailing" constant="8" id="vhR-5j-RXZ"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -294,7 +289,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A32-81-Gvp">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="36"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jR-d4-Csv" userLabel="Top" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jR-d4-Csv" userLabel="Top" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="70" y="18" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -307,7 +302,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eB-Fy-Axg" userLabel="Icon" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eB-Fy-Axg" userLabel="Icon" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="10" width="48" height="48"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -320,7 +315,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lv-wy-ZF1" userLabel="Bottom" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lv-wy-ZF1" userLabel="Bottom" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="70" y="38" width="144" height="12"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -333,7 +328,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoQ-aJ-Lp6" userLabel="RightBottom" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoQ-aJ-Lp6" userLabel="RightBottom" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="224" y="38" width="44" height="12"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -391,7 +386,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XK-X6-6E0">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="324"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvh-m9-vUL" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvh-m9-vUL" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="28" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -404,7 +399,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sy5-l8-1RR" userLabel="2" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sy5-l8-1RR" userLabel="2" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="50" width="166" height="12"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -417,7 +412,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHe-Kt-Vaq" userLabel="3" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHe-Kt-Vaq" userLabel="3" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="84" width="311" height="8"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -429,7 +424,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTU-wK-4A1" userLabel="2" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTU-wK-4A1" userLabel="2" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="192" y="50" width="64" height="12"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -442,7 +437,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FUs-t1-pOx" userLabel="4" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FUs-t1-pOx" userLabel="4" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="118" width="144" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -455,7 +450,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5r-hV-XhO" userLabel="5" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5r-hV-XhO" userLabel="5" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="263" y="118" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -468,7 +463,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LG4-5n-CI5" userLabel="6" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LG4-5n-CI5" userLabel="6" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="161" width="144" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -481,7 +476,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-gj-taL" userLabel="7" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-gj-taL" userLabel="7" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="263" y="161" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -494,7 +489,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joB-Jb-Ll0" userLabel="8" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joB-Jb-Ll0" userLabel="8" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="204" width="144" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -507,7 +502,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x61-4Z-etA" userLabel="10" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x61-4Z-etA" userLabel="10" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="263" y="204" width="64" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -580,7 +575,7 @@
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="3"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEl-nj-jke" userLabel="11" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEl-nj-jke" userLabel="11" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="255" width="311" height="48"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -672,7 +667,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>

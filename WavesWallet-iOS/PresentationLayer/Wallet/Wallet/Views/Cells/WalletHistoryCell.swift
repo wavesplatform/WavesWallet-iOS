@@ -8,17 +8,38 @@
 
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 56
+}
+
 final class WalletHistoryCell: UITableViewCell, NibReusable {
-    @IBOutlet var viewContainer: UIView!
-    @IBOutlet var titleLabel: UILabel!
+
+    typealias Model = Void
+
+    @IBOutlet private var viewContainer: UIView!
+    @IBOutlet private var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.text = Localizable.Wallet.Label.viewHistory
         viewContainer.addTableCellShadowStyle()
+        setupLocalization()
     }
 
     class func cellHeight() -> CGFloat {
-        return 56
+        return Constants.height
+    }
+}
+
+// MARK: ViewConfiguration
+extension WalletHistoryCell: ViewConfiguration {
+    func update(with model: Void) {
+        titleLabel.text = Localizable.Wallet.Label.viewHistory
+    }
+}
+
+// MARK: Localization
+extension WalletHistoryCell: Localization {
+    func setupLocalization() {
+        titleLabel.text = Localizable.Wallet.Label.viewHistory
     }
 }

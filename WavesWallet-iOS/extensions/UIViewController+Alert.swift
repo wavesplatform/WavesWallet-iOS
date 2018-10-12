@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    //TODO Languages
     public func presentBasicAlertWithTitle(title: String, message: String? = nil,
                                            completion: (() -> Void)? = nil) {
         if presentedViewController == nil {
@@ -34,5 +35,6 @@ extension UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
 
 }

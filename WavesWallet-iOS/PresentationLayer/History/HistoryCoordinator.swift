@@ -17,7 +17,7 @@ final class HistoryCoordinator {
     func start(navigationController: UINavigationController, historyType: HistoryType) {
         self.navigationController = navigationController
 
-        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))        
         navigationController.pushViewController(historyViewController!, animated: true)
     }
 }

@@ -120,18 +120,16 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             collectionViewHeightConstraint.constant = maxHeight
             
             let shadowOptions =
-                ShadowOptions(
-                    offset: Constants.shadowOffset,
-                    color: Constants.shadowColor,
-                    opacity: Constants.shadowOpacity,
-                    shadowRadius: Constants.shadowRadius,
-                    cornerRadius: Constants.cornerRadius,
-                    shouldRasterize: true
-            )
+                ShadowOptions(offset: Constants.shadowOffset,
+                              color: Constants.shadowColor,
+                              opacity: Constants.shadowOpacity,
+                              shadowRadius: Constants.shadowRadius,
+                              shouldRasterize: true)
             
             signInView.setupShadow(options: shadowOptions)
             importAccountView.setupShadow(options: shadowOptions)
-        
+            importAccountView.cornerRadius = Constants.cornerRadius
+            signInView.cornerRadius = Constants.cornerRadius
         }
         
     }

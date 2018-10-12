@@ -9,8 +9,9 @@
 import UIKit
 
 protocol PasscodeCoordinatorDelegate: AnyObject {
-    func userAuthorizationCompleted()
-    func userLogouted()
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet)
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet)
+    func passcodeCoordinatorWalletLogouted()
 }
 
 final class PasscodeCoordinator: Coordinator {
@@ -28,6 +29,7 @@ final class PasscodeCoordinator: Coordinator {
     var animated: Bool = true
 
     init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
+
         self.viewController = viewController
         self.navigationController = CustomNavigationController()
         self.kind = kind
@@ -63,7 +65,7 @@ final class PasscodeCoordinator: Coordinator {
         if hasExternalNavigationController == false {
             self.viewController.dismiss(animated: true, completion: nil)
         } else {
-            self.navigationController.popViewController(animated: true)
+            self.navigationController.popToRootViewController(animated: true)
         }
     }
 }
@@ -71,52 +73,82 @@ final class PasscodeCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeCoordinator: PasscodeModuleOutput {
 
-    func tapBackButton() {
+    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {
+        delegate?.passcodeCoordinatorVerifyAcccesCompleted(signedWallet: wallet)
+    }
+
+    func passcodeTapBackButton() {
         dissmiss()
     }
 
-    func authorizationCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
+    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 
         if isNewWallet {
             let vc = UseTouchIDModuleBuilder(output: self).build(input: .init(passcode: passcode, wallet: wallet))
             navigationController.present(vc, animated: true, completion: nil)
         } else {
             dissmiss()
-            delegate?.userAuthorizationCompleted()
+            delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
         }
     }
 
-    func userLogouted() {
+    func passcodeUserLogouted() {
         dissmiss()
-        delegate?.userLogouted()
+        delegate?.passcodeCoordinatorWalletLogouted()
     }
 
-    func logInByPassword() {
+    func passcodeLogInByPassword() {
         if case .logIn(let wallet) = kind {
-            let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
-            navigationController.pushViewController(vc, animated: true)
+            showAccountPassword(kind: .logIn(wallet))
+        } else if case .changePasscode(let wallet) = kind {
+            showAccountPassword(kind: .logIn(wallet))
+        } else if case .verifyAccess(let wallet) = kind {
+            showAccountPassword(kind: .verifyAccess(wallet))
         }
+    }
+
+    func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
+
+        let vc = AccountPasswordModuleBuilder(output: self)
+            .build(input: .init(kind: kind))
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: AccountPasswordModuleOutput
 extension PasscodeCoordinator: AccountPasswordModuleOutput {
-    func authorizationByPasswordCompleted() {
+
+    func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {
         dissmiss()
-        delegate?.userAuthorizationCompleted()
+        delegate?.passcodeCoordinatorVerifyAcccesCompleted(signedWallet: signedWallet)
+    }
+
+    func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
+
+        if case .changePasscode(let wallet) = kind {
+            let vc = PasscodeModuleBuilder(output: self)
+                .build(input: .init(kind: .changePasscodeByPassword(wallet, password: password),
+                                    hasBackButton: hasExternalNavigationController))
+            navigationController.pushViewController(vc, animated: true)
+        } else {
+            dissmiss()
+            delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
+        }
     }
 }
 
 // MARK: UseTouchIDModuleOutput
 extension PasscodeCoordinator: UseTouchIDModuleOutput {
 
-    func userSkipRegisterBiometric() {
+    func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet) {
+
         dissmiss()
-        delegate?.userAuthorizationCompleted()
+        delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
     }
 
-    func userRegisteredBiometric() {
+    func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet) {
+
         dissmiss()
-        delegate?.userAuthorizationCompleted()
+        delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
     }
 }
