@@ -12,16 +12,16 @@ private enum Constants {
     static let height: CGFloat = 56
 }
 
-final class ProfilePushTableCell: UITableViewCell, Reusable {
+final class ProfilePushTableCell: UITableViewCell, Reusable, ViewConfiguration {
+    typealias Model = Void
 
     @IBOutlet private weak var titleLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.text = Localizable.Profile.Cell.Pushnotifications.title
-    }
-
     class func cellHeight() -> CGFloat {
         return Constants.height
+    }
+
+    func update(with model: Void) {
+        titleLabel.text = Localizable.Profile.Cell.Pushnotifications.title
     }
 }

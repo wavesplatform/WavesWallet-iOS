@@ -85,7 +85,9 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
 
         case .allHistory:
-            return tableView.dequeueAndRegisterCell() as WalletHistoryCell
+            let cell = tableView.dequeueAndRegisterCell() as WalletHistoryCell
+            cell.update(with: ())
+            return cell
 
         case .hidden:
             return tableView.dequeueAndRegisterCell() as EmptyCell
@@ -150,11 +152,12 @@ extension WalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let model = sections[section]
-        if model.header != nil {
+
+        if model.header == nil {
+            return CGFloat.minValue
+        } else {
             return WalletHeaderView.viewHeight()
         }
-
-        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -214,5 +217,28 @@ extension WalletDisplayData: UITableViewDelegate {
 extension WalletDisplayData: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidScroll(scrollView)
+    }
+}
+
+fileprivate extension WalletTypes.ViewModel.Section {
+
+    var header: String? {
+
+        switch kind {
+        case .info:
+            return Localizable.Wallet.Section.quickNote
+
+        case .transactions:
+            return Localizable.Wallet.Section.activeNow(items.count)
+
+        case .spam:
+            return Localizable.Wallet.Section.spamAssets(items.count)
+
+        case .hidden:
+            return Localizable.Wallet.Section.hiddenAssets(items.count)
+
+        default:
+            return nil
+        }
     }
 }

@@ -21,7 +21,6 @@
 "tabbar.title.history" = "History";
 "tabbar.title.profile" = "Profile";
 
-
 "history.transaction.title.received" = "Received";
 "history.transaction.title.sent" = "Sent";
 "history.transaction.title.alias" = "Create Alias";

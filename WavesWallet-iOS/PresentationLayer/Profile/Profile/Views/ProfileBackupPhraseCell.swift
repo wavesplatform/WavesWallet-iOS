@@ -29,7 +29,6 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
         viewColorState.layer.mask = maskForColorState
-        labelTitle.text = Localizable.Profile.Cell.Backupphrase.title
     }
 
     override func layoutSubviews() {
@@ -50,6 +49,7 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
 extension ProfileBackupPhraseCell: ViewConfiguration {
 
     func update(with model: ProfileBackupPhraseCell.Model) {
+        labelTitle.text = Localizable.Profile.Cell.Backupphrase.title
         if model.isBackedUp {
             viewColorState.backgroundColor = .success400
             iconState.image = Images.check18Success400.image

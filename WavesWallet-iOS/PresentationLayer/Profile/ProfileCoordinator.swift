@@ -10,6 +10,11 @@ import UIKit
 import StoreKit
 import MessageUI
 
+private enum Constants {
+    static let supporURL = URL(string: "https://support.wavesplatform.com/")!
+    static let supportEmail = "mobileapp@wavesplatform.com"
+}
+
 private enum State {
     case backupPhrase(completed: ((_ isBackedUp: Bool) -> Void))
 }
@@ -57,7 +62,8 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showLanguage() {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+        let vc = StoryboardScene.Profile.languageViewController.instantiate()
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func showNetwork() {
@@ -65,30 +71,18 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showRateApp() {
-        //TODO Fifx Request Review
-        if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
-        } else {
-            DispatchQueue.main.async {
-                guard let url = URL(string: "https://itunes.apple.com/us/app/waves-wallet/id1233158971?mt=8") else { return }
-                UIApplication.shared.openURL(url)
-            }
-        }
+        RateApp.show()
     }
 
     func showFeedback() {
 
-        let coordinator = MailComposeCoordinator(viewController: navigationController, email: "mobileapp@wavesplatform.com")
+        let coordinator = MailComposeCoordinator(viewController: navigationController, email: Constants.supportEmail)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
 
     func showSupport() {
-
-        DispatchQueue.main.async {
-            guard let url = URL(string: "https://support.wavesplatform.com/") else { return }
-            UIApplication.shared.openURL(url)
-        }
+        UIApplication.shared.openURLAsync(Constants.supporURL)
     }
 
     func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
@@ -105,8 +99,6 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
         navigationController.presentBasicAlertWithTitle(title: "🐙")
-//        let vc = AccountPasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
-//        navigationController.pushViewController(vc, animated: true)
     }
 
     func userLogouted() {

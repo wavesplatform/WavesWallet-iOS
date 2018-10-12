@@ -293,6 +293,9 @@
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
 		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
 		0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */; };
+		0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */; };
+		0AB63C202170AC880056B17E /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C1F2170AC880056B17E /* RateApp.swift */; };
+		0AB63C222170ADD20056B17E /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */; };
 		0ABD1BE621469CE70027A7A2 /* AccountsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */; };
 		0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BE721469D2F0027A7A2 /* AccountDomainDTO.swift */; };
 		0ABD1BEC2146BFEE0027A7A2 /* BlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD1BEB2146BFEE0027A7A2 /* BlockNode.swift */; };
@@ -1065,6 +1068,8 @@
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
+		0AB63C1F2170AC880056B17E /* RateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
+		0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsInteractor.swift; sourceTree = "<group>"; };
 		0ABD1BE721469D2F0027A7A2 /* AccountDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDomainDTO.swift; sourceTree = "<group>"; };
 		0ABD1BE92146BEED0027A7A2 /* BlocksNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksNodeService.swift; sourceTree = "<group>"; };
@@ -2275,13 +2280,10 @@
 		0A762DA321650DA80019D447 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */,
 				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
-				E9193B8420D8A98500F5D983 /* ProfileViewController.swift */,
+				0AB63C292170CBF80056B17E /* Profile */,
 				0A762DA721661AB30019D447 /* ProfileCoordinator.swift */,
-				0A762DAB21661B000019D447 /* ProfilePresenter.swift */,
-				0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */,
-				0A762DA621661A810019D447 /* Views */,
-				0AED6BB9216620F000481B42 /* ProfileTypes.swift */,
 				0A58CEAC2167A42E000CEAD3 /* Profile.strings */,
 			);
 			path = Profile;
@@ -2333,7 +2335,6 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0AE491E221078CA1009223DB /* WalletSort */,
 				0A762DA321650DA80019D447 /* Profile */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
 				E95B47A521638A9F004D4E39 /* Hello */,
@@ -2422,6 +2423,7 @@
 		0A97975E2108A10400407F67 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				0AE491E221078CA1009223DB /* WalletSort */,
 				0AE491EF2107A4BD009223DB /* WalletCoordinator.swift */,
 				0A4C9A2620ED3A180095A417 /* Wallet */,
 				0A97975F2108A11A00407F67 /* Wallet.storyboard */,
@@ -2455,6 +2457,18 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		0AB63C292170CBF80056B17E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0A762DA621661A810019D447 /* Views */,
+				0AED6BB9216620F000481B42 /* ProfileTypes.swift */,
+				E9193B8420D8A98500F5D983 /* ProfileViewController.swift */,
+				0A762DAB21661B000019D447 /* ProfilePresenter.swift */,
+				0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		0AC573872134120600B5EBA5 /* Skeleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -2475,8 +2489,9 @@
 				E99950302092128B00A11E37 /* WalletSortViewController.swift */,
 				0AFBCA97211329A600285BCB /* WalletSortModuleBuilder.swift */,
 			);
-			path = WalletSort;
-			sourceTree = "<group>";
+			name = WalletSort;
+			path = "WavesWallet-iOS/PresentationLayer/WalletSort";
+			sourceTree = SOURCE_ROOT;
 		};
 		0AE657322106374E003D2DB8 /* Types */ = {
 			isa = PBXGroup;
@@ -2615,11 +2630,11 @@
 		0AF92215212E0F1F003BA067 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0AF92224212E0F1F003BA067 /* WalletHeaderView.xib */,
 				0AF92216212E0F1F003BA067 /* WalletHeaderView.swift */,
 				0AF92217212E0F1F003BA067 /* Cells */,
 				0AF9221F212E0F1F003BA067 /* Skeletons */,
 				0AF92223212E0F1F003BA067 /* WalletSegmentedControl.swift */,
-				0AF92224212E0F1F003BA067 /* WalletHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2627,9 +2642,9 @@
 		0AF92217212E0F1F003BA067 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0AF92218212E0F1F003BA067 /* WalletHistoryCell.swift */,
 				0AF92219212E0F1F003BA067 /* WalletTableAssetsCell.swift */,
 				0AF9221A212E0F1F003BA067 /* WalletLeasingBalanceCell.swift */,
+				0AF92218212E0F1F003BA067 /* WalletHistoryCell.swift */,
 				0AF9221B212E0F1F003BA067 /* WalletHistoryCell.xib */,
 				0AF9221C212E0F1F003BA067 /* WalletLeasingCell.xib */,
 				0AF9221D212E0F1F003BA067 /* WalletLeasingCell.swift */,
@@ -2719,6 +2734,8 @@
 				0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */,
 				0A25B469216F69EC00638C93 /* Bundle+Version.swift */,
 				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
+				0AB63C1F2170AC880056B17E /* RateApp.swift */,
+				0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2920,7 +2937,6 @@
 		E9193B8120D7E26500F5D983 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */,
 				E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */,
 				E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */,
 				E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */,
@@ -3886,6 +3902,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
 				E9B087CB2163886800937644 /* DexList.strings in Resources */,
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
@@ -4297,6 +4314,7 @@
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
+				0AB63C202170AC880056B17E /* RateApp.swift in Sources */,
 				0AFBCA932113275900285BCB /* WalletSortPresenterProtocol.swift in Sources */,
 				0AC573892134121800B5EBA5 /* UITableView+Skeleton.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
@@ -4615,6 +4633,7 @@
 				0AF922F4212E1234003BA067 /* TickerView.swift in Sources */,
 				0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */,
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
+				0AB63C222170ADD20056B17E /* UIApplication+OpenURL.swift in Sources */,
 				0A4BB02E2163718A0034796E /* DispatchTimeInterval.swift in Sources */,
 				0AF922A9212E1234003BA067 /* UIView+Layer.swift in Sources */,
 				E9B088172163886800937644 /* DexSortViewController.swift in Sources */,
@@ -5328,7 +5347,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = Development;
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Dev";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";

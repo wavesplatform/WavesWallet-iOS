@@ -23,7 +23,7 @@ extension LeaseCancelTransaction {
         modified = transaction.modified
 
         signature = transaction.signature
-        chainId = transaction.chainId
+        chainId.value = transaction.chainId
         leaseId = transaction.leaseId
         if let lease = transaction.lease {
             self.lease = LeaseTransaction(transaction: lease)
@@ -64,7 +64,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         modified = transaction.modified
 
         signature = transaction.signature
-        chainId = transaction.chainId
+        chainId = transaction.chainId.value
         leaseId = transaction.leaseId
         if let lease = transaction.lease {
             self.lease = DomainLayer.DTO.LeaseTransaction(transaction: lease)
