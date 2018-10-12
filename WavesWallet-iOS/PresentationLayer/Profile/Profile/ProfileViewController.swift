@@ -34,7 +34,6 @@ final class ProfileViewController: UIViewController {
         setupSystem()
         setupLanguages()
         setupTableview()
-
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
 

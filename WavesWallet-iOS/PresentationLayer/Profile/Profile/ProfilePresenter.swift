@@ -11,10 +11,6 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 
-protocol ProfileModuleInput {
-
-}
-
 protocol ProfileModuleOutput: AnyObject {
 
     func showAddressesKeys()
@@ -152,11 +148,6 @@ fileprivate extension ProfilePresenter {
         case .setEnabledBiometric(let isOn, let wallet):
             owner.moduleOutput?.userSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
-//        case .logoutAccount:
-//            owner.moduleOutput?.userTapLogout()
-//
-//        case .deleteAccount:
-//            owner.moduleOutput?.useTapDelete()
         default:
             break
         }

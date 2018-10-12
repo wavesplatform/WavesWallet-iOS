@@ -16,7 +16,6 @@ struct ProfileModuleBuilder: ModuleBuilderOutput {
 
         let vc = StoryboardScene.Profile.profileViewController.instantiate()
         let presenter = ProfilePresenter()
-//        presenter.interactor = WalletInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
 

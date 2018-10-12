@@ -62,8 +62,9 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showLanguage() {
-        let vc = StoryboardScene.Profile.languageViewController.instantiate()
-        navigationController.pushViewController(vc, animated: true)
+        let language = StoryboardScene.Language.languageViewController.instantiate()
+        language.delegate = self
+        navigationController.pushViewController(language, animated: true)
     }
 
     func showNetwork() {
@@ -111,6 +112,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
 }
 
 // MARK: PasscodeCoordinatorDelegate
+
 extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
@@ -134,5 +136,13 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
         }
 
         self.state = nil
+    }
+}
+
+// MARK: LanguageViewControllerDelegate
+
+extension ProfileCoordinator: LanguageViewControllerDelegate {
+    func languageViewChangedLanguage() {
+        navigationController.popViewController(animated: true)
     }
 }

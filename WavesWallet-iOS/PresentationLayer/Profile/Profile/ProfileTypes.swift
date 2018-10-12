@@ -9,12 +9,7 @@
 import Foundation
 
 enum ProfileTypes {
-    enum DTO { }
     enum ViewModel { }
-}
-
-extension ProfileTypes.DTO {
-
 }
 
 extension ProfileTypes {
@@ -66,7 +61,7 @@ extension ProfileTypes {
 
         var sections: [ViewModel.Section]
         var isAppeared: Bool
-        var action: Action?
+        var action: Action?        
     }
 }
 

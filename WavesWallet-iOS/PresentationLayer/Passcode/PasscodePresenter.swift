@@ -597,8 +597,11 @@ private extension PasscodePresenter {
         case .changePasscode:
             handlerInputNumbersForChangePasscode(numbers, state: &state)
 
-        case .logIn, .verifyAccess:
+        case .logIn:
             handlerInputNumbersForLogIn(numbers, state: &state)
+
+        case .verifyAccess:
+            handlerInputNumbersForVerifyAccess(numbers, state: &state)
 
         case .registration:
             handlerInputNumbersForRegistration(numbers, state: &state)
@@ -741,6 +744,26 @@ private extension PasscodePresenter {
         }
     }
 
+    // MARK: - Input Numbers For Verify Access
+
+    private func handlerInputNumbersForVerifyAccess(_ numbers: [Int], state: inout Types.State) {
+
+        let kind = state.displayState.kind
+        state.numbers[kind] = numbers
+
+        switch kind {
+        case .enterPasscode:
+            state.displayState.isLoading = true
+            state.displayState.numbers = numbers
+            state.displayState.isHiddenBackButton = !state.hasBackButton
+            state.displayState.error = nil
+            state.passcode = numbers.reduce(into: "") { $0 += "\($1)" }
+            state.action = .verifyAccess
+        default:
+            break
+        }
+    }
+
     // MARK: - Input Numbers For Log In
 
     private func handlerInputNumbersForLogIn(_ numbers: [Int], state: inout Types.State) {
@@ -803,11 +826,12 @@ private extension PasscodePresenter {
 
         case .changePasscodeByPassword,
              .setEnableBiometric,
-             .registration,
-             .verifyAccess:
+             .registration:
             return true
 
-        case .logIn, .changePasscode:
+        case .logIn,
+             .changePasscode,
+             .verifyAccess:
             return false
         }
     }
@@ -919,9 +943,4 @@ fileprivate extension PasscodeTypes.DTO.Kind {
             }
         }
     }
-}
-
-fileprivate extension PasscodeTypes.State {
-
-
 }

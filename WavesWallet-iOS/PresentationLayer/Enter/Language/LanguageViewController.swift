@@ -8,13 +8,16 @@
 
 import UIKit
 
-final class EnterLanguageViewController: UIViewController {
+protocol LanguageViewControllerDelegate: AnyObject {
+    func languageViewChangedLanguage()
+}
+
+final class LanguageViewController: UIViewController {
     
-    @IBOutlet weak private var gradientView: CustomGradientView!
-    private var gradientLayer: CAGradientLayer!
-    
+    @IBOutlet private weak var gradientView: CustomGradientView!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var buttonConfirm: UIButton!
+    private var gradientLayer: CAGradientLayer!
     
     private let languages = Language.list
 
@@ -22,12 +25,18 @@ final class EnterLanguageViewController: UIViewController {
         let current = Language.currentLanguage
         return self.languages.index(where: { $0.code == current.code }) ?? 0
     }()
+
+    weak var delegate: LanguageViewControllerDelegate?
     
     // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        navigationItem.barTintColor = .white
+        navigationItem.title = Localizable.Profile.Language.Navigation.title
+        createBackButton()
+        setupBigNavigationBar()
         setupLanguage()
     }
     
@@ -44,12 +53,14 @@ final class EnterLanguageViewController: UIViewController {
         Language.change(language)
         
         setupLanguage()
-        dismissController()
+        delegate?.languageViewChangedLanguage()
     }
 
 }
 
-extension EnterLanguageViewController: UITableViewDataSource {
+// MARK: UITableViewDataSource
+
+extension LanguageViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languages.count
@@ -68,7 +79,9 @@ extension EnterLanguageViewController: UITableViewDataSource {
     
 }
 
-extension EnterLanguageViewController: UITableViewDelegate {
+// MARK: UITableViewDelegate
+
+extension LanguageViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -77,20 +90,12 @@ extension EnterLanguageViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         selectedIndex = indexPath.row
         tableView.reloadData()
- 
     }
-    
-}
 
-extension EnterLanguageViewController {
- 
-    func dismissController() {
-        if let parent = self.parent as? PopupViewController {
-            parent.dismissPopup()
-        }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
     }
-    
 }
