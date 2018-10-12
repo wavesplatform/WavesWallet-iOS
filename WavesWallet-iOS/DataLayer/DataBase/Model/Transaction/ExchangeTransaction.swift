@@ -16,7 +16,7 @@ final class ExchangeTransaction: Transaction {
 
     @objc dynamic var amount: Int64 = 0
     @objc dynamic var price: Int64 = 0
-    @objc dynamic var signature: String = ""
+    @objc dynamic var signature: String? = nil
     @objc dynamic var buyMatcherFee: Int64 = 0
     @objc dynamic var sellMatcherFee: Int64 = 0
     @objc dynamic var order1: ExchangeTransactionOrder?
@@ -106,7 +106,7 @@ final class ExchangeTransactionOrder: Object {
     @objc dynamic var timestamp: Int64 = 0
     @objc dynamic var expiration: Int64 = 0
     @objc dynamic var matcherFee: Int64 = 0
-    @objc dynamic var signature: String = ""
+    @objc dynamic var signature: String? = nil
 }
 
 final class ExchangeTransactionAssetPair: Object {

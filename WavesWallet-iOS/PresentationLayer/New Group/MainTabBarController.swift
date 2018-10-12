@@ -1,106 +1,125 @@
 import UIKit
-import RDVTabBarController
+import RxSwift
+import RxCocoa
 
-final class MainTabBarController: RDVTabBarController {
+private enum Constants {
+    static let tabBarItemImageInset = UIEdgeInsetsMake(0, 0, -16, 0)
+}
+private class DUMPVC: UIViewController {}
 
-    let walletCoordinator: WalletCoordinator = WalletCoordinator()
-    let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-    let dexListCoordinator: DexCoordinator = DexCoordinator()
+final class MainTabBarController: UITabBarController {
 
-    override var viewControllers: [Any]! {
-        didSet {
-            let walletItem = tabBar.items[0] as! RDVTabBarItem
-            walletItem.setFinishedSelectedImage(Images.TabBar.tabBarWalletActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarWallet.image)
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
-            let dexItem = tabBar.items[1] as! RDVTabBarItem
-            dexItem.setFinishedSelectedImage(Images.TabBar.tabBarDexActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarDex.image)
+    private let walletCoordinator: WalletCoordinator = WalletCoordinator()
+    private let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
+    private let dexListCoordinator: DexCoordinator = DexCoordinator()
+    private var profileCoordinator: ProfileCoordinator!
 
-            let plusItem = tabBar.items[2] as! RDVTabBarItem
-            plusItem.setFinishedSelectedImage(Images.TabBar.tabBarPlusActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarPlus.image)
+    private let navWallet = CustomNavigationController()
+    private let navHistory = CustomNavigationController()
+    private let navDex = CustomNavigationController()
+    private let navProfile = CustomNavigationController()
 
-            let historyItem = tabBar.items[3] as! RDVTabBarItem
-            historyItem.setFinishedSelectedImage(Images.TabBar.tabBarHistoryActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarHistory.image)
+    private let disposeBag = DisposeBag()
 
-            let profileItem = tabBar.items[4] as! RDVTabBarItem
-            profileItem.setFinishedSelectedImage(Images.TabBar.tabBarProfileActive.image, withFinishedUnselectedImage: Images.TabBar.tabBarProfile.image)
-            
-            for tabBarItem in tabBar.items {
-                setupTabBarItem(tabBarItem as! RDVTabBarItem)
-            }
-        }
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
+
+    convenience init() {
+        self.init(applicationCoordinator: nil)
     }
- 
+
+    init(applicationCoordinator: ApplicationCoordinatorProtocol?) {
+        self.applicationCoordinator = applicationCoordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if Platform.isIphoneX {
-            tabBar.setHeight(83)
-        }
-        else {
-            tabBar.setHeight(50)
-        }
+        self.delegate = self
 
-        let navWallet = CustomNavigationController()
+        listenerWallet()
+
         walletCoordinator.start(navigationController: navWallet)
-        
-        let navHistory = CustomNavigationController()
+        navWallet.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
+        navWallet.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+        navWallet.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
+
         historyCoordinator.start(navigationController: navHistory, historyType: .all)
+        navHistory.tabBarItem.image = Images.TabBar.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
+        navHistory.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navHistory.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        let navDex = CustomNavigationController()
         dexListCoordinator.start(navigationController: navDex)
-        
-        
-        let profile = StoryboardManager.ProfileStoryboard().instantiateViewController(withIdentifier: "ProfileViewController")
-        let navProfile = CustomNavigationController(rootViewController: profile)
-        
-        viewControllers = [navWallet, navDex, UIViewController(), navHistory, navProfile]
+        navDex.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
+        navDex.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
+        navDex.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        tabBar.backgroundView.backgroundColor = UIColor.white
+        profileCoordinator = ProfileCoordinator(navigationController: navProfile, applicationCoordinator: applicationCoordinator)
+        profileCoordinator.start()
+        navProfile.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
+        navProfile.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
+        navProfile.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        let line = UIView(frame: CGRect(x: 0, y: 0, width: Platform.ScreenWidth, height: 0.5))
-        line.backgroundColor = UIColor(188, 188, 188)
-        tabBar.addSubview(line)
-        
-        selectedIndex = 0
+        let fake = DUMPVC()
+        fake.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
+        fake.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+        viewControllers = [navWallet, navDex, fake, navHistory, navProfile]
     }
-    
-    func setupTabBarItem(_ tabBarItem: RDVTabBarItem) {
-        tabBarItem.selectedTitleAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black,
-                                              NSAttributedStringKey.font : UIFont.systemFont(ofSize: 10)]
-        tabBarItem.unselectedTitleAttributes = [NSAttributedStringKey.foregroundColor : UIColor(153, 153, 153),
-                                                NSAttributedStringKey.font : UIFont.systemFont(ofSize: 10)]
-        tabBarItem.titlePositionAdjustment = UIOffsetMake(0, 3)
-        
-        if Platform.isIphoneX {
-            tabBarItem.imagePositionAdjustment = UIOffsetMake(0, -15)
-            tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -13)
+
+    private func addTabBarBadge() {
+        if #available(iOS 10.0, *) {
+            navProfile.tabBarItem.badgeColor = UIColor.clear
+            navProfile.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.foregroundColor.rawValue: UIColor.error400], for: .normal)
+            navProfile.tabBarItem.badgeValue = "●"
+        } else {
+            navProfile.tabBarItem.badgeValue = "●"
         }
     }
-    
-    override func tabBar(_ tabBar: RDVTabBar!, shouldSelectItemAt index: Int) -> Bool {
-        if index == 2 {
-            
+
+    private func removeTabBarBadge() {
+        navProfile.tabBarItem.badgeValue = nil
+    }
+
+    private func listenerWallet() {
+
+        authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let strongSelf = self else { return Observable.empty() }
+                return strongSelf.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+            })
+            .asDriver(onErrorRecover: { _ in Driver.empty() })
+            .drive(onNext: { [weak self] wallet in
+
+                guard let strongSelf = self else { return }
+
+                if wallet.isBackedUp {
+                    strongSelf.removeTabBarBadge()
+                } else {
+                    strongSelf.addTabBarBadge()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        if viewController is DUMPVC {
             let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesPopupViewController")
             let popup = PopupViewController()
             popup.contentHeight = 300
             popup.present(contentViewController: controller)
             return false
         }
-        return super.tabBar(tabBar, shouldSelectItemAt: index)
-    }
-
-    func updateBadges() {
-        let profileItem = tabBar.items[4] as! RDVTabBarItem
-//        profileItem.badgeValue = (WalletManager.currentWallet?.isBackedUp ?? false) ? nil : "1"
-    }
-
-    func setupLastScrollCorrectOffset() {
-//        let nav = selectedViewController as! UINavigationController
-//        for controller in nav.viewControllers {
-//            let selector = #selector(WalletViewController.setupLastScrollCorrectOffset)
-//            if controller.responds(to: selector) {
-//                controller.perform(selector)
-//            }
-//        }
+        return true
     }
 }

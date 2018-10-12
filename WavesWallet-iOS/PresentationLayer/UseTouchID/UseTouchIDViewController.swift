@@ -12,8 +12,8 @@ import RxSwift
 import RxOptional
 
 protocol UseTouchIDModuleOutput: AnyObject {
-    func userSkipRegisterBiometric()
-    func userRegisteredBiometric()
+    func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet)
+    func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet)
 }
 
 protocol UseTouchIDModuleInput {
@@ -91,9 +91,12 @@ final class UseTouchIDViewController: UIViewController {
         authorizationInteractor
         .registerBiometric(wallet: input.wallet, passcode: input.passcode)
         .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] _ in
-            self?.stopIndicator()
-            self?.moduleOutput?.userRegisteredBiometric()
+        .subscribe(onNext: { [weak self] status in
+
+            if case .completed(let wallet) = status {
+                self?.stopIndicator()
+                self?.moduleOutput?.userRegisteredBiometric(wallet: wallet)
+            }
         }, onError: { [weak self] error in
             self?.stopIndicator()
         })
@@ -101,6 +104,7 @@ final class UseTouchIDViewController: UIViewController {
     }
 
     @IBAction func notNowTapped(_ sender: Any) {
-        moduleOutput?.userSkipRegisterBiometric()
+        guard let wallet = self.input?.wallet else { return }
+        moduleOutput?.userSkipRegisterBiometric(wallet: wallet)
     }
 }

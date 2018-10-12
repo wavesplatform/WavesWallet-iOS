@@ -38,16 +38,14 @@ final class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = Localizable.History.Navigationbar.title
-        
+
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
-        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
-        
+        setupLocalization()
         setupSegmentedControl()
         setupRefreshControl()
         setupSystem()
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,15 +55,26 @@ final class HistoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         setupTopBarLine()
         setupBigNavigationBar()
-        if rdv_tabBarController.isTabBarHidden {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
-        }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         setupTopBarLine()
+    }
+
+    @objc func changedLanguage() {
+        setupLocalization()
+        setupSegmentedControl()
+        tableView.reloadData()
+    }
+}
+
+// MARK: Localization
+
+extension HistoryViewController: Localization {
+    func setupLocalization() {
+        navigationItem.title = Localizable.History.Navigationbar.title
+        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UILabel_Copyable
 
 class TransferTransactionViewController: BaseTransactionDetailViewController {
     @IBOutlet weak var toLabel: UILabel!
@@ -20,7 +19,6 @@ class TransferTransactionViewController: BaseTransactionDetailViewController {
             attachmentLabel.text = String(data: Data(Base58.decode(ttx.attachment ?? "")), encoding: .utf8)
         }
         
-        toLabel.copyingEnabled = true
-        attachmentLabel.copyingEnabled = true
+
     }
 }

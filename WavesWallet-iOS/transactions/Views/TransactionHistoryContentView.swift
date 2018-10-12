@@ -188,10 +188,10 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         let vc = AddAddressBookModuleBuilder(output: nil).build(input: nil)
         
         let menu = AppDelegate.shared().menuController
-        let mainTabBar = menu.contentViewController as! MainTabBarController
-        mainTabBar.setupLastScrollCorrectOffset()
-        let nav = mainTabBar.selectedViewController as! UINavigationController
-        nav.pushViewController(vc, animated: true)
+//        let mainTabBar = menu.contentViewController as! MainTabBarController
+//        mainTabBar.setupLastScrollCorrectOffset()
+//        let nav = mainTabBar.selectedViewController as! UINavigationController
+//        nav.pushViewController(vc, animated: true)
     }
     
     

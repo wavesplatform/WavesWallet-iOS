@@ -131,7 +131,6 @@ final class PasscodeTopBarView: UIView {
         UIView.animateKeyframes(withDuration: duration,
                                 delay: 0,
                                 options: [.beginFromCurrentState,
-                                          .overrideInheritedOptions,
                                           .overrideInheritedDuration],
                                 animations: {
 

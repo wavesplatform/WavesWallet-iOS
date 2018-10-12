@@ -11,7 +11,7 @@ import UIKit
 struct AccountPasswordModuleBuilder: ModuleBuilderOutput {
 
     struct Input: AccountPasswordModuleInput {
-        var wallet: DomainLayer.DTO.Wallet
+        var kind: AccountPasswordTypes.DTO.Kind
     }
 
     var output: AccountPasswordModuleOutput

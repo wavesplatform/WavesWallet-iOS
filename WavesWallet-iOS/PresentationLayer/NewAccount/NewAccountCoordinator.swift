@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 final class NewAccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?

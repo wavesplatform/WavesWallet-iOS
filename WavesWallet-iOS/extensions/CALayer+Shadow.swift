@@ -13,7 +13,6 @@ struct ShadowOptions {
     let color: UIColor
     let opacity: Float
     let shadowRadius: Float
-    let cornerRadius: Float
     let shouldRasterize: Bool
 }
 
@@ -27,8 +26,7 @@ extension CALayer {
         shouldRasterize = options.shouldRasterize
         if shouldRasterize {
             rasterizationScale = UIScreen.main.scale
-        }
-        cornerRadius = CGFloat(options.cornerRadius)
+        }        
     }
 
     func removeShadow() {

@@ -18,6 +18,7 @@
 "label.totalBalance" = "Total balance";
 "label.available" = "Available";
 "label.leased" = "Leased";
+"label.leasedIn" = "Leased in";
 "label.viewHistory" = "View history";
 "label.startedLeasing" = "Started Leasing";
 "label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";

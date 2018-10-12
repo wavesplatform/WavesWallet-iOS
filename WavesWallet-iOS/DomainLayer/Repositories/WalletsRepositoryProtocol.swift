@@ -26,4 +26,6 @@ protocol WalletsRepositoryProtocol {
     func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]>
     func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
     func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[DomainLayer.DTO.Wallet]>
+
+    func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
 }

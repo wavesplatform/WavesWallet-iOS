@@ -39,7 +39,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     var input: ChooseAccountModuleInput!
     weak var moduleOutput: ChooseAccountModuleOutput?
 
-    private var walletsInteractor: WalletsInteractorProtocol = FactoryInteractors.instance.wallets
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -67,7 +67,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
 
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
-                .walletsInteractor
+                .authorizationInteractor
                 .wallets()
                 .map { Types.Event.setWallets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
@@ -85,7 +85,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
 
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
-                .walletsInteractor
+                .authorizationInteractor
                 .deleteWallet(query.wallet)
                 .map { _ in Types.Event.completedDeleteWallet(indexPath: query.indexPath) }
                 .asSignal(onErrorSignalWith: Signal.empty())

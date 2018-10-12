@@ -23,62 +23,69 @@ extension Reactive where Base: DatabaseReference {
 
             self.base.removeValue { error, reference in
 
-                if let error = error {
-                    observer.onNext(reference)
-                    observer.onError(error)
-                } else {
-                    observer.onNext(reference)
-                    observer.onCompleted()
+                DispatchQueue.global().async {
+                    if let error = error {
+                        observer.onNext(reference)
+                        observer.onError(error)
+                    } else {
+                        observer.onNext(reference)
+                        observer.onCompleted()
+                    }
                 }
             }
 
             return Disposables.create()
-            }
-            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                          code: NSURLErrorTimedOut,
-                                          userInfo: nil))
-            .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
-            .sweetDebug("FB removeValue")
+        }
+        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                      code: NSURLErrorTimedOut,
+                                      userInfo: nil))
+        .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
+        .sweetDebug("FB removeValue")
     }
 
     func setValue(_ value: Any?) -> Observable<DatabaseReference> {
         return Observable.create { observer -> Disposable in
 
             self.base.setValue(value) { error, reference in
-                if let error = error {
-                    observer.onNext(reference)
-                    observer.onError(error)
-                } else {
-                    observer.onNext(reference)
-                    observer.onCompleted()
+                DispatchQueue.global().async {
+                    if let error = error {
+                        observer.onNext(reference)
+                        observer.onError(error)
+                    } else {
+                        observer.onNext(reference)
+                        observer.onCompleted()
+                    }
                 }
             }
 
             return Disposables.create()
-            }
-            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                          code: NSURLErrorTimedOut,
-                                          userInfo: nil))
-            .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
-            .sweetDebug("FB setValue")
+        }
+        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                      code: NSURLErrorTimedOut,
+                                      userInfo: nil))
+        .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
+        .sweetDebug("FB setValue")
     }
 
     var value: Observable<Any?> {
         return Observable.create { observer -> Disposable in
-            self.base.observeSingleEvent(of: .value, andPreviousSiblingKeyWith: { snapshot, _ in
-                observer.onNext(snapshot.value)
-                observer.onCompleted()
-            }, withCancel: { error in
-                observer.onError(error)
-                observer.onCompleted()
-            })
-            return Disposables.create()
+
+            DispatchQueue.global().async {
+                self.base.observeSingleEvent(of: .value, andPreviousSiblingKeyWith: { snapshot, _ in
+                    observer.onNext(snapshot.value)
+                    observer.onCompleted()
+                }, withCancel: { error in
+                    observer.onError(error)
+                    observer.onCompleted()
+                })
             }
-            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                          code: NSURLErrorTimedOut,
-                                          userInfo: nil))
-            .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
-            .sweetDebug("FB Value")
+            return Disposables.create()
+        }
+        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                        code: NSURLErrorTimedOut,
+                                        userInfo: nil))
+        .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
+        .sweetDebug("FB Value")
     }
 
 }

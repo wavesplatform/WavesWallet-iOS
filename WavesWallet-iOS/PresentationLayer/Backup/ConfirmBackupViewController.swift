@@ -47,8 +47,8 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         setupBigNavigationBar()
         hideTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
-        buttonConfirm.alpha = 1
-        labelError.alpha = 1
+        buttonConfirm.alpha = 0
+        labelError.alpha = 0
         
         var sortedSortds = words
         sortedSortds.shuffle()

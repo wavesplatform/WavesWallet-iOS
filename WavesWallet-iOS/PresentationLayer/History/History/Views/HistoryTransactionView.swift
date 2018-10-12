@@ -25,15 +25,8 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        viewContainer.addTableCellShadowStyle()
-        viewContainer.cornerRadius = 2
-    }
+    } 
 }
-
 
 fileprivate extension HistoryTransactionView {
 

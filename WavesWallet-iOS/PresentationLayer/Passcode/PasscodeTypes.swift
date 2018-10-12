@@ -15,8 +15,12 @@ enum PasscodeTypes {
 extension PasscodeTypes.DTO {
     
     enum Kind {
+        case verifyAccess(DomainLayer.DTO.Wallet)
         case registration(Account)
         case logIn(DomainLayer.DTO.Wallet)
+        case changePasscode(DomainLayer.DTO.Wallet)
+        case changePasscodeByPassword(DomainLayer.DTO.Wallet, password: String)
+        case setEnableBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
     }
 
     struct Account: Hashable {
@@ -30,19 +34,26 @@ extension PasscodeTypes.DTO {
 extension PasscodeTypes {
 
     enum PasscodeKind: Hashable {
+        case oldPasscode
         case newPasscode
         case repeatPasscode
         case enterPasscode
     }
 
-    struct State: Mutating {
+    enum Action {
+        case registration
+        case logIn
+        case logInBiometric
+        case verifyAccess
+        case verifyAccessBiometric
+        case logout
+        case setEnableBiometric
+        case disabledBiometricUsingBiometric
+        case changePasscode(oldPasscode: String)
+        case changePasscodeByPassword
+    }
 
-        enum Action {
-            case registration
-            case logIn
-            case logInBiometric
-            case logout
-        }
+    struct State: Mutating {
 
         var displayState: DisplayState
         var hasBackButton: Bool
@@ -54,8 +65,10 @@ extension PasscodeTypes {
 
     enum Event {
         case completedLogout
-        case completedRegistration(DomainLayer.DTO.Wallet)
-        case completedLogIn(DomainLayer.DTO.Wallet)
+        case completedRegistration(AuthorizationAuthStatus)
+        case completedChangePasscode(DomainLayer.DTO.Wallet)
+        case completedLogIn(AuthorizationAuthStatus)
+        case completedVerifyAccess(AuthorizationVerifyAccessStatus)
         case tapLogInByPassword
         case handlerError(PasscodeInteractorError)
         case tapBack

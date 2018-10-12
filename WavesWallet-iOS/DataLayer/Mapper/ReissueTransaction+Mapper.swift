@@ -24,7 +24,7 @@ extension ReissueTransaction {
 
         signature = transaction.signature
         assetId = transaction.assetId
-        chainId = transaction.chainId
+        chainId.value = transaction.chainId
         quantity = transaction.quantity
         reissuable = transaction.reissuable
     }
@@ -64,7 +64,7 @@ extension DomainLayer.DTO.ReissueTransaction {
 
         signature = transaction.signature
         assetId = transaction.assetId
-        chainId = transaction.chainId
+        chainId = transaction.chainId.value
         quantity = transaction.quantity
         reissuable = transaction.reissuable
     }

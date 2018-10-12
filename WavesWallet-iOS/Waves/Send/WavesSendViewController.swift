@@ -115,7 +115,7 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
     
     @IBAction func backTapped(_ sender: Any) {
         if !hideTabBarOnBack {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
+//            rdv_tabBarController.setTabBarHidden(false, animated: true)
         }
         navigationController?.popViewController(animated: true)
     }

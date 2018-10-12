@@ -21,11 +21,11 @@ class WavesPopupViewController: UIViewController {
 
         let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController
-        mainTabBar.setupLastScrollCorrectOffset()
+//        mainTabBar.setupLastScrollCorrectOffset()
         let nav = mainTabBar.selectedViewController as! UINavigationController
         nav.pushViewController(controller, animated: true)
-        mainTabBar.setTabBarHidden(true, animated: true)
-        
+//        mainTabBar.setTabBarHidden(true, animated: true)
+
         dismissTapped(sender)
     }
     
@@ -36,11 +36,11 @@ class WavesPopupViewController: UIViewController {
         
         let menu = AppDelegate.shared().menuController
         let mainTabBar = menu.contentViewController as! MainTabBarController
-        mainTabBar.setupLastScrollCorrectOffset()
+//        mainTabBar.setupLastScrollCorrectOffset()
         let nav = mainTabBar.selectedViewController as! UINavigationController
         nav.pushViewController(controller, animated: true)
-        mainTabBar.setTabBarHidden(true, animated: true)
-        
+//        mainTabBar.setTabBarHidden(true, animated: true)
+
         dismissTapped(sender)
     }
     
