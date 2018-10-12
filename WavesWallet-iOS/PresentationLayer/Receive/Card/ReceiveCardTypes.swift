@@ -13,17 +13,23 @@ enum ReceiveCard {
     
     enum Event {
         case didGetInfo(Responce<DTO.Info>)
+        case getUSDAmountInfo
+        case getEURAmountInfo
     }
     
     struct State: Mutating {
         enum Action {
             case none
-            case didGetInfo(DTO.Info)
+            case didGetInfo
             case didFailGetInfo(Error)
         }
 
-        var info: DTO.Info?
+        var fiatType: DTO.FiatType
         var action: Action
+        var link: String = ""
+        var amountUSDInfo: DTO.AmountInfo?
+        var amountEURInfo: DTO.AmountInfo?
+        var assetBalance: DomainLayer.DTO.AssetBalance?
     }
 }
 
@@ -40,10 +46,17 @@ extension ReceiveCard.DTO {
         let fiatType: FiatType
     }
     
+    struct AmountInfo {
+        let type: FiatType
+        let minAmount: Money
+        let maxAmount: Money
+        let minAmountString: String
+        let maxAmountString: String
+    }
+    
     struct Info {
         let asset: DomainLayer.DTO.AssetBalance
-        let minimumAmount: Money
-        let maximumAmount: Money
+        let amountInfo : AmountInfo
     }
 }
 
@@ -67,5 +80,26 @@ extension ReceiveCard.DTO.FiatType {
         case .usd:
             return "USD"
         }
+    }
+}
+
+extension ReceiveCard.DTO.AmountInfo: Equatable {
+    static func == (lhs: ReceiveCard.DTO.AmountInfo, rhs: ReceiveCard.DTO.AmountInfo) -> Bool {
+        return lhs.type == rhs.type &&
+        lhs.minAmount == rhs.minAmount &&
+        lhs.maxAmount == rhs.maxAmount &&
+        lhs.minAmountString == rhs.minAmountString &&
+        lhs.maxAmountString == rhs.maxAmountString
+    }
+}
+
+extension ReceiveCard.State: Equatable {
+    
+    static func == (lhs: ReceiveCard.State, rhs: ReceiveCard.State) -> Bool {
+
+        return lhs.fiatType == rhs.fiatType &&
+            lhs.link == rhs.link &&
+            lhs.amountUSDInfo == rhs.amountUSDInfo &&
+            lhs.amountEURInfo == rhs.amountEURInfo
     }
 }

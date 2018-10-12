@@ -31,8 +31,12 @@ final class ReceiveCardViewController: UIViewController {
     var presenter: ReceiveCardPresenterProtocol!
     
     private var selectedFiat = ReceiveCard.DTO.FiatType.usd
+    private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
+    private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
+    private var asset: DomainLayer.DTO.AssetBalance?
+    
     private var hasLoadInfo = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,14 +61,29 @@ final class ReceiveCardViewController: UIViewController {
         controller.addAction(.init(title: Localizable.ReceiveCard.Button.cancel, style: .cancel, handler: nil))
         
         let actionUSD = UIAlertAction(title: ReceiveCard.DTO.FiatType.usd.text, style: .default) { (action) in
+            
             self.selectedFiat = ReceiveCard.DTO.FiatType.usd
             self.setupFiatText()
+            if let amountInfo = self.amountUSDInfo {
+                self.setupAmountInfo(amountInfo)
+            }
+            else {
+                self.sendEvent.accept(.getUSDAmountInfo)
+                self.setupLoadingAmountInfo()
+            }
         }
         controller.addAction(actionUSD)
         
         let actionEUR = UIAlertAction(title: ReceiveCard.DTO.FiatType.eur.text, style: .default) { (action) in
             self.selectedFiat = ReceiveCard.DTO.FiatType.eur
             self.setupFiatText()
+            if let amountInfo = self.amountEURInfo {
+                self.setupAmountInfo(amountInfo)
+            }
+            else {
+                self.sendEvent.accept(.getEURAmountInfo)
+                self.setupLoadingAmountInfo()
+            }
         }
         controller.addAction(actionEUR)
         present(controller, animated: true, completion: nil)
@@ -100,13 +119,18 @@ private extension ReceiveCardViewController {
                     break
                 }
                 
+                strongSelf.amountUSDInfo = state.amountUSDInfo
+                strongSelf.amountEURInfo = state.amountEURInfo
+                strongSelf.asset = state.assetBalance
+                
                 switch state.action {
-                case .didGetInfo(let info):
-                    strongSelf.setupInfo(info)
                     
+                case .didGetInfo:
+                    strongSelf.setupInfo()
+
                 case .didFailGetInfo(let error):
                     strongSelf.showError(error)
-                    
+
                 default:
                     break
                 }
@@ -120,25 +144,44 @@ private extension ReceiveCardViewController {
 //MARK: - UI
 private extension ReceiveCardViewController {
     
+    func setupLoadingAmountInfo() {
+        acitivityIndicatorWarning.isHidden = false
+        acitivityIndicatorWarning.startAnimating()
+        viewWarning.isHidden = true
+    }
+    
     func setupFiatText() {
         labelAmountIn.text = Localizable.Receive.Label.amountIn + " " + selectedFiat.text
     }
     
-    func setupInfo(_ info: ReceiveCard.DTO.Info) {
+    func setupAmountInfo(_ amountInfo: ReceiveCard.DTO.AmountInfo) {
         
+        let minimum = amountInfo.minAmountString + " " + selectedFiat.text
+        let maximum = amountInfo.maxAmountString + " " + selectedFiat.text
+        
+        labelWarningMinimumAmount.text = Localizable.ReceiveCard.Label.minimunAmountInfo(minimum, maximum)
+        viewWarning.isHidden = false
+    }
+    
+    
+    func setupInfo() {
+        
+        guard let asset = asset else { return }
         hasLoadInfo = true
         
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
-        
-        let minimum = info.minimumAmount.displayText + " " + selectedFiat.text
-        let maximum = info.maximumAmount.displayText + " " + selectedFiat.text
-        
-        labelWarningMinimumAmount.text = Localizable.ReceiveCard.Label.minimunAmountInfo(minimum, maximum)
-        viewWarning.isHidden = false
+        assetView.update(with: asset)
         setupButtonState()
-        assetView.update(with: info.asset)
-    
+        
+        if selectedFiat == .usd {
+            guard let amountInfo = amountUSDInfo else { return }
+            setupAmountInfo(amountInfo)
+        }
+        else if selectedFiat == .eur {
+            guard let amountInfo = amountEURInfo else { return }
+            setupAmountInfo(amountInfo)
+        }
     }
     
     func showError(_ error: Error) {

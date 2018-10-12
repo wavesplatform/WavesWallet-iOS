@@ -470,6 +470,8 @@
 		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
+		E9492F9C216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492F9B216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift */; };
+		E9492F9E216FB649004A3727 /* ReceiveInvoiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492F9D216FB649004A3727 /* ReceiveInvoiceInteractor.swift */; };
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
 		E94A6FEA215AE4FE001814F7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */; };
@@ -730,11 +732,6 @@
 		E9CD82A821693DCD00BF937D /* ReceiveGenerate.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9CD82AA21693DCD00BF937D /* ReceiveGenerate.strings */; };
 		E9CD82AE21693E4F00BF937D /* ReceiveGenerateAddressModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82AD21693E4F00BF937D /* ReceiveGenerateAddressModuleBuilder.swift */; };
 		E9CD82B021693FC100BF937D /* ReceiveGenerateTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82AF21693FC100BF937D /* ReceiveGenerateTypes.swift */; };
-		E9CD82B4216953B900BF937D /* ReceiveGenerateInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82B3216953B900BF937D /* ReceiveGenerateInteractorProtocol.swift */; };
-		E9CD82B6216953CF00BF937D /* ReceiveGenerateInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82B5216953CF00BF937D /* ReceiveGenerateInteractorMock.swift */; };
-		E9CD82B8216953EA00BF937D /* ReceiveGenerateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82B7216953EA00BF937D /* ReceiveGenerateInteractor.swift */; };
-		E9CD82BA2169555800BF937D /* ReceiveGeneratePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82B92169555800BF937D /* ReceiveGeneratePresenterProtocol.swift */; };
-		E9CD82BC2169557200BF937D /* ReceiveGeneratePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD82BB2169557200BF937D /* ReceiveGeneratePresenter.swift */; };
 		E9D354AE216A347B00CA5F3F /* ReceiveCardTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D354AD216A347B00CA5F3F /* ReceiveCardTypes.swift */; };
 		E9D354B2216A367700CA5F3F /* ReceiveCardPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D354B1216A367700CA5F3F /* ReceiveCardPresenterProtocol.swift */; };
 		E9D354B4216A368800CA5F3F /* ReceiveCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D354B3216A368800CA5F3F /* ReceiveCardPresenter.swift */; };
@@ -1290,6 +1287,8 @@
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		E9492F9B216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveInvoiceInteractorProtocol.swift; sourceTree = "<group>"; };
+		E9492F9D216FB649004A3727 /* ReceiveInvoiceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveInvoiceInteractor.swift; sourceTree = "<group>"; };
 		E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
 		E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
@@ -1584,11 +1583,6 @@
 		E9CD82AC21693DCF00BF937D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveGenerate.strings; sourceTree = "<group>"; };
 		E9CD82AD21693E4F00BF937D /* ReceiveGenerateAddressModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateAddressModuleBuilder.swift; sourceTree = "<group>"; };
 		E9CD82AF21693FC100BF937D /* ReceiveGenerateTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateTypes.swift; sourceTree = "<group>"; };
-		E9CD82B3216953B900BF937D /* ReceiveGenerateInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9CD82B5216953CF00BF937D /* ReceiveGenerateInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateInteractorMock.swift; sourceTree = "<group>"; };
-		E9CD82B7216953EA00BF937D /* ReceiveGenerateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateInteractor.swift; sourceTree = "<group>"; };
-		E9CD82B92169555800BF937D /* ReceiveGeneratePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGeneratePresenterProtocol.swift; sourceTree = "<group>"; };
-		E9CD82BB2169557200BF937D /* ReceiveGeneratePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveGeneratePresenter.swift; sourceTree = "<group>"; };
 		E9D354AD216A347B00CA5F3F /* ReceiveCardTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardTypes.swift; sourceTree = "<group>"; };
 		E9D354B1216A367700CA5F3F /* ReceiveCardPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9D354B3216A368800CA5F3F /* ReceiveCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardPresenter.swift; sourceTree = "<group>"; };
@@ -2949,6 +2943,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E9492F96216FB5E9004A3727 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E9492F9B216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift */,
+				E9492F9D216FB649004A3727 /* ReceiveInvoiceInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
 		E94A7002215AEA2A001814F7 /* AddressBook */ = {
 			isa = PBXGroup;
 			children = (
@@ -3081,7 +3084,6 @@
 		E95B48162163A3DE004D4E39 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
-				E9BE2C7F216D5B47001C9914 /* Address */,
 				E9CD82A321693D1C00BF937D /* ReceiveGenerate */,
 				E9C5732721652082002FB6E4 /* Views */,
 				E95B48232163A5DB004D4E39 /* Card */,
@@ -3112,6 +3114,7 @@
 		E95B48202163A5B7004D4E39 /* Invoice */ = {
 			isa = PBXGroup;
 			children = (
+				E9492F96216FB5E9004A3727 /* Interactor */,
 				E95B48212163A5CB004D4E39 /* ReceiveInvoiceViewController.swift */,
 				E9CD82A121693BB300BF937D /* ReceiveInvoiveTypes.swift */,
 				E9CD829F216938F500BF937D /* ReceiveInvoice.strings */,
@@ -3691,13 +3694,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		E9BE2C7F216D5B47001C9914 /* Address */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Address;
-			sourceTree = "<group>";
-		};
 		E9C5732721652082002FB6E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3729,33 +3725,12 @@
 		E9CD82A321693D1C00BF937D /* ReceiveGenerate */ = {
 			isa = PBXGroup;
 			children = (
-				E9CD82B2216953A900BF937D /* Interactor */,
-				E9CD82B1216953A000BF937D /* Presenter */,
 				E9CD82A421693D4A00BF937D /* ReceiveGenerateAddressViewController.swift */,
 				E9CD82AD21693E4F00BF937D /* ReceiveGenerateAddressModuleBuilder.swift */,
 				E9CD82AF21693FC100BF937D /* ReceiveGenerateTypes.swift */,
 				E9CD82AA21693DCD00BF937D /* ReceiveGenerate.strings */,
 			);
 			path = ReceiveGenerate;
-			sourceTree = "<group>";
-		};
-		E9CD82B1216953A000BF937D /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				E9CD82B92169555800BF937D /* ReceiveGeneratePresenterProtocol.swift */,
-				E9CD82BB2169557200BF937D /* ReceiveGeneratePresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		E9CD82B2216953A900BF937D /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				E9CD82B3216953B900BF937D /* ReceiveGenerateInteractorProtocol.swift */,
-				E9CD82B7216953EA00BF937D /* ReceiveGenerateInteractor.swift */,
-				E9CD82B5216953CF00BF937D /* ReceiveGenerateInteractorMock.swift */,
-			);
-			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E9D354AF216A365B00CA5F3F /* Interactor */ = {
@@ -4431,6 +4406,7 @@
 				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
 				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
 				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
+				E9492F9E216FB649004A3727 /* ReceiveInvoiceInteractor.swift in Sources */,
 				0A96F1DA2152CDB7005E148F /* PasscodeTypes.swift in Sources */,
 				0AEB35A021165CBF00EDD63C /* AssetBalanceDomainDTO.swift in Sources */,
 				0A5E4BCA213820C500E3C3C3 /* MassTransferTransactionDomainDTO.swift in Sources */,
@@ -4559,7 +4535,6 @@
 				E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */,
 				E9B088072163886800937644 /* DexCompleteOrderModuleBuilder.swift in Sources */,
 				E9B086B22163883000937644 /* AddAddressBookModuleOutput.swift in Sources */,
-				E9CD82BC2169557200BF937D /* ReceiveGeneratePresenter.swift in Sources */,
 				E9B087F22163886800937644 /* DexLastTradesCell.swift in Sources */,
 				0AF9222B212E0F1F003BA067 /* WalletLeasingCell.swift in Sources */,
 				0AF922AB212E1234003BA067 /* Array+Sort.swift in Sources */,
@@ -4642,7 +4617,6 @@
 				0AF922E3212E1234003BA067 /* HalfModalPresentationController.swift in Sources */,
 				0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */,
 				E9A2269021596700006E0CE1 /* BaseInputTextField.swift in Sources */,
-				E9CD82B4216953B900BF937D /* ReceiveGenerateInteractorProtocol.swift in Sources */,
 				0A1DAD7320F3A12B004DA625 /* AssetsNodeService.swift in Sources */,
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
@@ -4785,7 +4759,6 @@
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
 				0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */,
 				0AF92203212E07B3003BA067 /* AssetBalanceSkeletonCell.swift in Sources */,
-				E9CD82B8216953EA00BF937D /* ReceiveGenerateInteractor.swift in Sources */,
 				0AEB35942115E45500EDD63C /* AssetsRepositoryRemote.swift in Sources */,
 				0AF922AF212E1234003BA067 /* UIColor+Asset.swift in Sources */,
 				0AF922C5212E1234003BA067 /* UINavigationController+Additionals.swift in Sources */,
@@ -4802,7 +4775,6 @@
 				0AF922D9212E1234003BA067 /* Mutating.swift in Sources */,
 				0AF922F4212E1234003BA067 /* TickerView.swift in Sources */,
 				E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */,
-				E9CD82BA2169555800BF937D /* ReceiveGeneratePresenterProtocol.swift in Sources */,
 				0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */,
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
 				0A4BB02E2163718A0034796E /* DispatchTimeInterval.swift in Sources */,
@@ -4860,11 +4832,11 @@
 				0A5C53E32139502F00667E34 /* Asset+Message.swift in Sources */,
 				0444E7B4212C81E1004C7DF2 /* HistoryTransactionView.swift in Sources */,
 				0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */,
+				E9492F9C216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift in Sources */,
 				0A5C53E32139502F00667E34 /* Asset+Message.swift in Sources */,
 				E9CD82AE21693E4F00BF937D /* ReceiveGenerateAddressModuleBuilder.swift in Sources */,
 				0444E7B4212C81E1004C7DF2 /* HistoryTransactionView.swift in Sources */,
 				0A762D9121639FA60019D447 /* TransactionHistoryCollectionView.swift in Sources */,
-				E9CD82B6216953CF00BF937D /* ReceiveGenerateInteractorMock.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */,
 				0AFF5C87215BEEBF00B82940 /* RXCrypto+SHA.swift in Sources */,

@@ -8,17 +8,12 @@
 
 import Foundation
 
-enum ReceiveInvoive {
+enum ReceiveInvoice {
     enum DTO {}
 }
 
-extension ReceiveInvoive.DTO {
+extension ReceiveInvoice.DTO {
 
-    struct GenerateInfo {
-        let balanceAsset: DomainLayer.DTO.AssetBalance
-        let amount: Money
-    }
-    
     struct DisplayInfo {
         let address: String
         let invoiceLink: String

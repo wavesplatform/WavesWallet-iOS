@@ -17,10 +17,12 @@ final class ReceiveInvoiceViewController: UIViewController {
     @IBOutlet private weak var buttonContinue: HighlightedButton!
     @IBOutlet private weak var viewAsset: AssetSelectView!
     
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
-    private var generateInfo: ReceiveInvoive.DTO.GenerateInfo?
-    private var amount: Money?
+    private let interator: ReceiveInvoiceInteractorProtocol = ReceiveInvoiceInteractor()
 
+    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var amount: Decimal = 0
+    private var displayInfo: ReceiveInvoice.DTO.DisplayInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,19 +35,28 @@ final class ReceiveInvoiceViewController: UIViewController {
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
-        guard let info = generateInfo else { return }
+        guard let info = displayInfo else { return }
         
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .invoice(info))
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func updateGenerateInfo() {
+    private func updateDisplayInfo() {
         
-        guard let balanceAsset = selectedAsset else { return }
-        guard let precision = balanceAsset.asset?.precision else { return }
+        displayInfo = nil
+        setupButtonState()
+        guard let asset = selectedAsset?.asset else { return }
+        guard amount != 0 else { return }
         
-        generateInfo = ReceiveInvoive.DTO.GenerateInfo.init(balanceAsset: balanceAsset,
-                                                            amount: amount ?? Money(0, precision))
+        let money = Money(value: amount, asset.precision)
+        
+        interator.displayInfo(asset: asset, amount: money).subscribe(onNext: { [weak self] displayInfo in
+            
+            guard let strongSelf = self else { return }
+            strongSelf.displayInfo = displayInfo
+            strongSelf.setupButtonState()
+
+        }).dispose()
     }
 }
 
@@ -62,8 +73,7 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
     
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         selectedAsset = asset
-        updateGenerateInfo()
-        setupButtonState()
+        updateDisplayInfo()
         viewAsset.update(with: asset)
         textFieldMoney.decimals = asset.asset?.precision ?? 0
     }
@@ -73,8 +83,8 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
 extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
 
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        amount = value
-        updateGenerateInfo()
+        amount = textField.decimalValue
+        updateDisplayInfo()
         calculateTotalDollar()
     }
 }
@@ -84,7 +94,7 @@ private extension ReceiveInvoiceViewController {
     
     
     func setupButtonState() {
-        let canContinueAction = generateInfo != nil
+        let canContinueAction = displayInfo != nil
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }

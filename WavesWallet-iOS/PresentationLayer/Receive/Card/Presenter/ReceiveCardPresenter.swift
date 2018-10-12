@@ -37,21 +37,44 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.getInfo().map {.didGetInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.getInfo(fiatType: state.fiatType).map {.didGetInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     static private func reduce(state: ReceiveCard.State, event: ReceiveCard.Event) -> ReceiveCard.State {
         
         switch event {
+
+        case .getUSDAmountInfo:
+            return state.mutate {
+                $0.fiatType = ReceiveCard.DTO.FiatType.usd
+                $0.action = .none
+            }
+
+        case .getEURAmountInfo:
+            return state.mutate {
+                $0.fiatType = ReceiveCard.DTO.FiatType.eur
+                $0.action = .none
+            }
+        
         case .didGetInfo(let responce):
-            
             return state.mutate {
 
                 switch responce.result {
                 case .success(let info):
-                    $0.action = .didGetInfo(info)
                     
+                    $0.assetBalance = info.asset
+                    
+                    switch info.amountInfo.type {
+                    case .eur:
+                        $0.amountEURInfo = info.amountInfo
+                
+                    case .usd:
+                        $0.amountUSDInfo = info.amountInfo
+                    }
+                    
+                    $0.action = .didGetInfo
+
                 case .error(let error):
                     $0.action = .didFailGetInfo(error)
                 }
@@ -63,6 +86,6 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 fileprivate extension ReceiveCard.State {
     
     static var initialState: ReceiveCard.State {
-        return ReceiveCard.State(info: nil, action: .none)
+        return ReceiveCard.State(fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil)
     }
 }

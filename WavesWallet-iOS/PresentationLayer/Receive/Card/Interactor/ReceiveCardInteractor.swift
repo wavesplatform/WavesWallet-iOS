@@ -11,8 +11,7 @@ import RxSwift
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
 
-    func getInfo() -> Observable<Responce<ReceiveCard.DTO.Info>> {
+    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<Responce<ReceiveCard.DTO.Info>> {
         return Observable.empty()
     }
-    
 }
