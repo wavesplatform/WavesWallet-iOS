@@ -15,10 +15,12 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
 
         if let asset = input {
-            
+            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency], selectedAsset: asset)), state: .cryptoCurrency)
+            vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
+            vc.add(ReceiveCardModuleBuilder().build(), state: .card)
         }
         else {
-            vc.add(ReceiveCryptocurrencyModuleBuilder().build(), state: .cryptoCurrency)
+            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency], selectedAsset: nil)), state: .cryptoCurrency)
             vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
             vc.add(ReceiveCardModuleBuilder().build(), state: .card)
         }

@@ -56,7 +56,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         
         guard let type = input else { return }
         switch type {
-        case .cryproCurrency(let displayInfo):
+        case .cryptoCurrency(let displayInfo):
             showCryptocurrencyAddressInfo(displayInfo)
         
         case .invoice(let displayInfo):
@@ -71,7 +71,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         guard let type = input else { return }
         
         switch type {
-        case .cryproCurrency(let info):
+        case .cryptoCurrency(let info):
             title = Localizable.ReceiveGenerate.Label.yourAddress(info.assetName)
             
         case .invoice(let info):
@@ -82,13 +82,29 @@ final class ReceiveGenerateAddressViewController: UIViewController {
     private func showCryptocurrencyAddressInfo(_ info: ReceiveCryptocurrency.DTO.DisplayInfo) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
-            print("showCryptocurrencyAddressInfo")
+            
+            let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
+                                                      address: info.address,
+                                                      icon: info.assetTicker ?? info.assetName,
+                                                      qrCode: info.address,
+                                                      invoiceLink: nil)
+            
+            let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     private func showInvoceAddressInfo(_ info: ReceiveInvoice.DTO.DisplayInfo) {
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
-            print("showInvoceAddressInfo")
+            
+            let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
+                                                      address: info.address,
+                                                      icon: info.assetTicker ?? info.assetName,
+                                                      qrCode: info.invoiceLink,
+                                                      invoiceLink: info.invoiceLink)
+            
+            let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

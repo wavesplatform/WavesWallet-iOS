@@ -24,12 +24,16 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var labelWarningSendOnlyDeposit: UILabel!
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-    
+  
+//    private var selectedAsset: Receive.DTO.Asset?
+
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
     
     private let sendEvent: PublishRelay<ReceiveCryptocurrency.Event> = PublishRelay<ReceiveCryptocurrency.Event>()
     var presenter: ReceiveCryptocurrencyPresenterProtocol!
+    
+    var input: AssetList.DTO.Input!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +43,28 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         setupButtonState()
         setupFeedBack()
         viewWarning.isHidden = true
+        
+        if let asset = input.selectedAsset {
+            setupAssetInfo(asset)
+        }
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
         
         guard let info = displayInfo else { return }
-        let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryproCurrency(info))
+        let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
+        selectedAsset = asset
+        assetView.update(with: asset)
+        setupLoadingState()
+        setupButtonState()
+        
+        if let asset = asset.asset {
+            sendEvent.accept(.generateAddress(asset: asset))
+        }
     }
 }
 
@@ -124,10 +143,10 @@ private extension ReceiveCryptocurrencyViewController {
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
         
-        let displayFee = String(info.fee) + " " + info.assetTicker
+        let displayFee = String(info.fee) + " " + info.assetShort
         labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit(displayFee)
         labelWarningMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
-        labelTitleSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.sendOnlyOnThisDeposit(info.assetTicker)
+        labelTitleSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
         labelWarningSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.warningSendOnlyOnThisDeposit
     }
     
@@ -141,7 +160,8 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
         
-        let vc = AssetListModuleBuilder(output: self).build(input: .init(filters: [.all], selectedAsset: selectedAsset))
+        let assetInput = AssetList.DTO.Input(filters: input.filters, selectedAsset: selectedAsset)
+        let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -149,14 +169,6 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
 extension ReceiveCryptocurrencyViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         displayInfo = nil
-        selectedAsset = asset
-        assetView.update(with: asset)
-        setupLoadingState()
-        setupButtonState()
-        
-        //TODO: update when generalTicker will be adding to model
-        if let asset = asset.asset {
-            sendEvent.accept(.generateAddress(asset: asset))
-        }
+        setupAssetInfo(asset)
     }
 }

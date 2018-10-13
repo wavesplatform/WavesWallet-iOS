@@ -54,6 +54,11 @@ extension AssetList.ViewModel {
 
 extension AssetList.DTO {
     
+    struct Input {
+        let filters: [AssetList.DTO.Filter]
+        let selectedAsset: DomainLayer.DTO.AssetBalance?
+    }
+    
     enum Filter {
         case all
         case cryptoCurrency

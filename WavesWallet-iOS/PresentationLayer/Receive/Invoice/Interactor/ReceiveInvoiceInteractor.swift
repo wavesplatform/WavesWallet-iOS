@@ -28,7 +28,7 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
             url.append("&")
             url.append("amount=" + String(amount.doubleValue))
             
-            let info = ReceiveInvoice.DTO.DisplayInfo(address: url, invoiceLink: "", assetName: asset.displayName)
+            let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.wallet.address, invoiceLink: url, assetName: asset.displayName, assetTicker: asset.ticker)
             return Observable.just(info)
         })
     }

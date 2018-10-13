@@ -15,7 +15,7 @@ enum ReceiveGenerate {
 extension ReceiveGenerate.DTO {
     
     enum GenerateType {
-        case cryproCurrency(ReceiveCryptocurrency.DTO.DisplayInfo)
+        case cryptoCurrency(ReceiveCryptocurrency.DTO.DisplayInfo)
         case invoice(ReceiveInvoice.DTO.DisplayInfo)
     }
 }

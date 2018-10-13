@@ -1,0 +1,9 @@
+"label.yourAddress" = "Your %@ address";
+"label.yourQRCode" = "Your QR Code";
+"label.linkToInvoice" = "Link to an Invoice";
+
+"button.copy" = "Copy";
+"button.share" = "Share";
+"button.cancel" = "Cancel";
+"button.copied" = "Сopied!";
+"button.close" = "Close";

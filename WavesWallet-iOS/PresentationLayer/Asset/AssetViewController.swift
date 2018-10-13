@@ -62,6 +62,16 @@ final class AssetViewController: UIViewController {
         super.viewWillDisappear(animated)
         resetSetupNavigationBar()
     }
+    
+    private func showSendController()  {
+//        AssetTypes.DTO.Asset.Info
+    }
+    
+    private func showReceiveController() {
+        
+        let vc = ReceiveContainerModuleBuilder().build(input: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: RxFeedback
@@ -298,6 +308,7 @@ private extension AssetViewController {
         navigationItem.shadowImage = UIImage()
         title = nil
     }
+    
 }
 
 extension AssetViewController: UIScrollViewDelegate {
@@ -327,6 +338,13 @@ extension AssetViewController: UITableViewDataSource {
         case .balance(let balance):
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
+            cell.receiveAction = { [weak self] in
+                self?.showReceiveController()
+            }
+            cell.sendAction = { [weak self] in
+                self?.showSendController()
+            }
+            
             return cell
 
         case .balanceSkeleton:

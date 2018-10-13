@@ -12,12 +12,7 @@ struct AssetListModuleBuilder: ModuleBuilderOutput {
     
     var output: AssetListModuleOutput
     
-    struct Input {
-        let filters: [AssetList.DTO.Filter]
-        let selectedAsset: DomainLayer.DTO.AssetBalance?
-    }
-    
-    func build(input: Input) -> UIViewController {
+    func build(input: AssetList.DTO.Input) -> UIViewController {
         
         let interactor: AssetListInteractorProtocol = AssetListInteractor()
         let presenter = AssetListPresenter()

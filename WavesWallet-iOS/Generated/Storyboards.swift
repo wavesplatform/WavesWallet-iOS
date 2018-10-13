@@ -220,6 +220,8 @@ internal enum StoryboardScene {
   internal enum Receive: StoryboardType {
     internal static let storyboardName = "Receive"
 
+    internal static let receiveAddressViewController = SceneType<WavesWallet_iOS.ReceiveAddressViewController>(storyboard: Receive.self, identifier: "ReceiveAddressViewController")
+
     internal static let receiveCardViewController = SceneType<WavesWallet_iOS.ReceiveCardViewController>(storyboard: Receive.self, identifier: "ReceiveCardViewController")
 
     internal static let receiveContainerViewController = SceneType<WavesWallet_iOS.ReceiveContainerViewController>(storyboard: Receive.self, identifier: "ReceiveContainerViewController")

@@ -13,7 +13,6 @@ import SwiftyJSON
 private enum Constants {
     static let baseUrl = "https://coinomat.com/"
     static let apiPath = "api/v2/indacoin/"
-    static let fiatDecimals = 2
 }
 
 final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
@@ -57,8 +56,8 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
                     if let info = info {
                         let json = JSON(info)
                         
-                        let minMoney = Money(value: Decimal(json["min"].intValue), Constants.fiatDecimals)
-                        let maxMoney = Money(value: Decimal(json["max"].intValue), Constants.fiatDecimals)
+                        let minMoney = Money(value: Decimal(json["min"].intValue), ReceiveCard.DTO.fiatDecimals)
+                        let maxMoney = Money(value: Decimal(json["max"].intValue), ReceiveCard.DTO.fiatDecimals)
                         let minString = json["min"].stringValue
                         let maxString = json["max"].stringValue
                         

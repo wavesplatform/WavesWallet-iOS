@@ -33,9 +33,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.AssetBalance?
-    private var amount: Decimal = 0
-    
-    private var hasLoadInfo = false
+    private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +47,7 @@ final class ReceiveCardViewController: UIViewController {
         assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
+        textFieldMoney.decimals = amount.decimals
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
@@ -65,6 +64,7 @@ final class ReceiveCardViewController: UIViewController {
             
             self.selectedFiat = ReceiveCard.DTO.FiatType.usd
             self.setupFiatText()
+            self.setupButtonState()
             if let amountInfo = self.amountUSDInfo {
                 self.setupAmountInfo(amountInfo)
             }
@@ -78,6 +78,7 @@ final class ReceiveCardViewController: UIViewController {
         let actionEUR = UIAlertAction(title: ReceiveCard.DTO.FiatType.eur.text, style: .default) { (action) in
             self.selectedFiat = ReceiveCard.DTO.FiatType.eur
             self.setupFiatText()
+            self.setupButtonState()
             if let amountInfo = self.amountEURInfo {
                 self.setupAmountInfo(amountInfo)
             }
@@ -144,7 +145,7 @@ private extension ReceiveCardViewController {
 //MARK: - MoneyTextFieldDelegate
 extension ReceiveCardViewController: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        amount = textField.decimalValue
+        amount = value
         setupButtonState()
     }
 }
@@ -175,7 +176,6 @@ private extension ReceiveCardViewController {
     func setupInfo() {
         
         guard let asset = asset else { return }
-        hasLoadInfo = true
 
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
@@ -199,8 +199,23 @@ private extension ReceiveCardViewController {
     
     func setupButtonState() {
         
-        var canContinueAction = hasLoadInfo && amount > 0
-        
+        var canContinueAction = false
+        if selectedFiat == .usd {
+            if let info = amountUSDInfo {
+                if amount.decimalValue >= info.minAmount.decimalValue &&
+                    amount.decimalValue <= info.maxAmount.decimalValue {
+                    canContinueAction = true
+                }
+            }
+        }
+        else if selectedFiat == .eur {
+            if let info = amountEURInfo {
+                if amount.decimalValue >= info.minAmount.decimalValue &&
+                    amount.decimalValue <= info.maxAmount.decimalValue {
+                    canContinueAction = true
+                }
+            }
+        }
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }

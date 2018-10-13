@@ -46,7 +46,8 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                     
                     let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: json["wallet_from"].stringValue,
                                                                             assetName: asset.displayName,
-                                                                            assetTicker: json["currency_from_txt"].stringValue,
+                                                                            assetTicker: asset.ticker,
+                                                                            assetShort: asset.gatewayId ?? asset.displayName,
                                                                             fee: json["in_min"].doubleValue)
                     
                     subscribe.onNext(Responce(output: displayInfo, error: nil))

@@ -472,6 +472,9 @@
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E9492F9C216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492F9B216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift */; };
 		E9492F9E216FB649004A3727 /* ReceiveInvoiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492F9D216FB649004A3727 /* ReceiveInvoiceInteractor.swift */; };
+		E9492FA421716DA0004A3727 /* ReceiveAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492FA321716DA0004A3727 /* ReceiveAddressViewController.swift */; };
+		E9492FA721716E3C004A3727 /* ReceiveAddress.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9492FA921716E3C004A3727 /* ReceiveAddress.strings */; };
+		E9492FAD21717165004A3727 /* ReceiveAddressModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9492FAC21717165004A3727 /* ReceiveAddressModuleBuilder.swift */; };
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
 		E94A6FEA215AE4FE001814F7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */; };
@@ -741,6 +744,7 @@
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
+		E9E5911F21720CB4003D31A9 /* ReceiveAddressTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5911E21720CB4003D31A9 /* ReceiveAddressTypes.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
 		E9E97A46216780D800F0B0BD /* AssetListModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E97A45216780D800F0B0BD /* AssetListModuleBuilder.swift */; };
 		E9E97A4821678F1700F0B0BD /* AssetListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E97A4721678F1700F0B0BD /* AssetListModuleOutput.swift */; };
@@ -1289,6 +1293,11 @@
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		E9492F9B216FB634004A3727 /* ReceiveInvoiceInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveInvoiceInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9492F9D216FB649004A3727 /* ReceiveInvoiceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveInvoiceInteractor.swift; sourceTree = "<group>"; };
+		E9492FA321716DA0004A3727 /* ReceiveAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressViewController.swift; sourceTree = "<group>"; };
+		E9492FA821716E3C004A3727 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveAddress.strings; sourceTree = "<group>"; };
+		E9492FAA21716E3D004A3727 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ReceiveAddress.strings; sourceTree = "<group>"; };
+		E9492FAB21716E3E004A3727 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveAddress.strings; sourceTree = "<group>"; };
+		E9492FAC21717165004A3727 /* ReceiveAddressModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressModuleBuilder.swift; sourceTree = "<group>"; };
 		E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
 		E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
@@ -1592,6 +1601,7 @@
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
+		E9E5911E21720CB4003D31A9 /* ReceiveAddressTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressTypes.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
 		E9E97A45216780D800F0B0BD /* AssetListModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetListModuleBuilder.swift; sourceTree = "<group>"; };
 		E9E97A4721678F1700F0B0BD /* AssetListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetListModuleOutput.swift; sourceTree = "<group>"; };
@@ -2952,6 +2962,17 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		E9492F9F21716D2F004A3727 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				E9492FA321716DA0004A3727 /* ReceiveAddressViewController.swift */,
+				E9492FAC21717165004A3727 /* ReceiveAddressModuleBuilder.swift */,
+				E9E5911E21720CB4003D31A9 /* ReceiveAddressTypes.swift */,
+				E9492FA921716E3C004A3727 /* ReceiveAddress.strings */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
 		E94A7002215AEA2A001814F7 /* AddressBook */ = {
 			isa = PBXGroup;
 			children = (
@@ -3084,7 +3105,8 @@
 		E95B48162163A3DE004D4E39 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
-				E9CD82A321693D1C00BF937D /* ReceiveGenerate */,
+				E9492F9F21716D2F004A3727 /* Address */,
+				E9CD82A321693D1C00BF937D /* Generate */,
 				E9C5732721652082002FB6E4 /* Views */,
 				E95B48232163A5DB004D4E39 /* Card */,
 				E95B48202163A5B7004D4E39 /* Invoice */,
@@ -3722,7 +3744,7 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		E9CD82A321693D1C00BF937D /* ReceiveGenerate */ = {
+		E9CD82A321693D1C00BF937D /* Generate */ = {
 			isa = PBXGroup;
 			children = (
 				E9CD82A421693D4A00BF937D /* ReceiveGenerateAddressViewController.swift */,
@@ -3730,7 +3752,7 @@
 				E9CD82AF21693FC100BF937D /* ReceiveGenerateTypes.swift */,
 				E9CD82AA21693DCD00BF937D /* ReceiveGenerate.strings */,
 			);
-			path = ReceiveGenerate;
+			path = Generate;
 			sourceTree = "<group>";
 		};
 		E9D354AF216A365B00CA5F3F /* Interactor */ = {
@@ -4030,6 +4052,7 @@
 				E9B088182163886800937644 /* DexSort.strings in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
+				E9492FA721716E3C004A3727 /* ReceiveAddress.strings in Resources */,
 				E9B086B52163883000937644 /* AddressBook.strings in Resources */,
 				0A762D15214FE3F300BE9204 /* PasswordTextField.xib in Resources */,
 				F7B713A91EABA0C300331E1B /* Transfer.storyboard in Resources */,
@@ -4472,6 +4495,7 @@
 				E9B088112163886800937644 /* DexMarketTypes.swift in Sources */,
 				E9B0881E2163886800937644 /* DexSortInteractor.swift in Sources */,
 				E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */,
+				E9492FAD21717165004A3727 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				F762B3A41EABB6C000EAD7FF /* SendViewModel.swift in Sources */,
 				E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */,
 				E90417CF2166B39700EE8B7C /* AssetListInteractorProtocol.swift in Sources */,
@@ -4907,6 +4931,7 @@
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
 				0AF922DD212E1234003BA067 /* UICollectionView+Reusable.swift in Sources */,
 				E9D354B8216A36B400CA5F3F /* ReceiveCardInteractor.swift in Sources */,
+				E9E5911F21720CB4003D31A9 /* ReceiveAddressTypes.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				E9CD82922167B5D300BF937D /* ReceiveCryptocurrencyPresenter.swift in Sources */,
@@ -4929,6 +4954,7 @@
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
 				E9B087FD2163886800937644 /* DexMyOrdersHeaderView.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
+				E9492FA421716DA0004A3727 /* ReceiveAddressViewController.swift in Sources */,
 				E9CD828C2167B58900BF937D /* ReceiveCryptocurrencyTapes.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
@@ -5152,6 +5178,16 @@
 				E90417C72166B2CE00EE8B7C /* tr */,
 			);
 			name = AssetList.strings;
+			sourceTree = "<group>";
+		};
+		E9492FA921716E3C004A3727 /* ReceiveAddress.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9492FA821716E3C004A3727 /* en */,
+				E9492FAA21716E3D004A3727 /* ru */,
+				E9492FAB21716E3E004A3727 /* tr */,
+			);
+			name = ReceiveAddress.strings;
 			sourceTree = "<group>";
 		};
 		E95B47A621638A9F004D4E39 /* Hello.strings */ = {

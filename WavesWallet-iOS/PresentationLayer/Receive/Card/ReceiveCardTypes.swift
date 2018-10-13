@@ -9,6 +9,7 @@
 import Foundation
 
 enum ReceiveCard {
+    
     enum DTO {}
     
     enum Event {
@@ -35,7 +36,10 @@ enum ReceiveCard {
 }
 
 extension ReceiveCard.DTO {
-
+    static var fiatDecimals: Int {
+        return 2
+    }
+    
     enum FiatType {
         case usd
         case eur

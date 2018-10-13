@@ -101,7 +101,7 @@ private extension ReceiveInvoiceViewController {
     
     
     func calculateTotalDollar() {
-        labelTotalDollar.text = "≈ " + "0" + " " + Localizable.ReceiveInvoice.Label.dollar
+        labelTotalDollar.text = "≈ " + "0" + " " + Environments.Constants.wavesAssetId.capitalized
     }
     
     func setupLocalication() {

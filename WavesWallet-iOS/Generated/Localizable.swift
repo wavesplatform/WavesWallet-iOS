@@ -448,6 +448,32 @@ internal enum Localizable {
       internal static var minutes: String { return Localizable.tr("DexChart", "label.minutes") }
     }
   }
+          internal enum ReceiveAddress {
+
+    internal enum Button {
+      /// Cancel
+      internal static var cancel: String { return Localizable.tr("ReceiveAddress", "button.cancel") }
+      /// Close
+      internal static var close: String { return Localizable.tr("ReceiveAddress", "button.close") }
+      /// Сopied!
+      internal static var copied: String { return Localizable.tr("ReceiveAddress", "button.copied") }
+      /// Copy
+      internal static var copy: String { return Localizable.tr("ReceiveAddress", "button.copy") }
+      /// Share
+      internal static var share: String { return Localizable.tr("ReceiveAddress", "button.share") }
+    }
+
+    internal enum Label {
+      /// Link to an Invoice
+      internal static var linkToInvoice: String { return Localizable.tr("ReceiveAddress", "label.linkToInvoice") }
+      /// Your %@ address
+      internal static func yourAddress(_ p1: String) -> String {
+        return Localizable.tr("ReceiveAddress", "label.yourAddress", p1)
+      }
+      /// Your QR Code
+      internal static var yourQRCode: String { return Localizable.tr("ReceiveAddress", "label.yourQRCode") }
+    }
+  }
           internal enum DexMyOrders {
 
     internal enum Label {
