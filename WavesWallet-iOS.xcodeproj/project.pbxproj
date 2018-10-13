@@ -457,6 +457,9 @@
 		E904BC5E2155AA3B00A108B6 /* AddressBookViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904BC5D2155AA3B00A108B6 /* AddressBookViewControllerOld.swift */; };
 		E906D2CC20D8BDB300AF2D3C /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */; };
 		E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E25F92093506600CDCE56 /* MyAddressViewController.swift */; };
+		E9126FBF21723D5400C20889 /* ReceiveInvoiceModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9126FBE21723D5400C20889 /* ReceiveInvoiceModuleBuilder.swift */; };
+		E9126FC22172755200C20889 /* ReceiveCardCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9126FC12172755200C20889 /* ReceiveCardCompleteViewController.swift */; };
+		E9126FC5217276C200C20889 /* ReceiveCardComplete.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9126FC7217276C200C20889 /* ReceiveCardComplete.strings */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E9193B8520D8A98500F5D983 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
 		E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */; };
@@ -1277,6 +1280,11 @@
 		E904BC5D2155AA3B00A108B6 /* AddressBookViewControllerOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookViewControllerOld.swift; sourceTree = "<group>"; };
 		E906D2CB20D8BDB300AF2D3C /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		E90E25F92093506600CDCE56 /* MyAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewController.swift; sourceTree = "<group>"; };
+		E9126FBE21723D5400C20889 /* ReceiveInvoiceModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveInvoiceModuleBuilder.swift; sourceTree = "<group>"; };
+		E9126FC12172755200C20889 /* ReceiveCardCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCardCompleteViewController.swift; sourceTree = "<group>"; };
+		E9126FC6217276C200C20889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCardComplete.strings; sourceTree = "<group>"; };
+		E9126FC8217276C400C20889 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ReceiveCardComplete.strings; sourceTree = "<group>"; };
+		E9126FC9217276C500C20889 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveCardComplete.strings; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
@@ -2927,6 +2935,15 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		E9126FC02172753D00C20889 /* CardComplete */ = {
+			isa = PBXGroup;
+			children = (
+				E9126FC12172755200C20889 /* ReceiveCardCompleteViewController.swift */,
+				E9126FC7217276C200C20889 /* ReceiveCardComplete.strings */,
+			);
+			path = CardComplete;
+			sourceTree = "<group>";
+		};
 		E9193B8120D7E26500F5D983 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -3105,6 +3122,7 @@
 		E95B48162163A3DE004D4E39 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
+				E9126FC02172753D00C20889 /* CardComplete */,
 				E9492F9F21716D2F004A3727 /* Address */,
 				E9CD82A321693D1C00BF937D /* Generate */,
 				E9C5732721652082002FB6E4 /* Views */,
@@ -3138,6 +3156,7 @@
 			children = (
 				E9492F96216FB5E9004A3727 /* Interactor */,
 				E95B48212163A5CB004D4E39 /* ReceiveInvoiceViewController.swift */,
+				E9126FBE21723D5400C20889 /* ReceiveInvoiceModuleBuilder.swift */,
 				E9CD82A121693BB300BF937D /* ReceiveInvoiveTypes.swift */,
 				E9CD829F216938F500BF937D /* ReceiveInvoice.strings */,
 			);
@@ -4050,6 +4069,7 @@
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				E9B088182163886800937644 /* DexSort.strings in Resources */,
+				E9126FC5217276C200C20889 /* ReceiveCardComplete.strings in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
 				E9492FA721716E3C004A3727 /* ReceiveAddress.strings in Resources */,
@@ -4483,6 +4503,7 @@
 				E9B087DB2163886800937644 /* DexSearchViewController.swift in Sources */,
 				0A14CFC52141CEE300C3A4D5 /* Balance.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
+				E9126FC22172755200C20889 /* ReceiveCardCompleteViewController.swift in Sources */,
 				0A5E4BAD2137FC3B00E3C3C3 /* TransferSuccessViewController.swift in Sources */,
 				E9ED4F172157FC3200B7D82D /* SuccessSystemMessageView.swift in Sources */,
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
@@ -4726,6 +4747,7 @@
 				0AF922B8212E1234003BA067 /* UIViewController+Additionals.swift in Sources */,
 				0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */,
 				0AF922BD212E1234003BA067 /* UIResponder+Rx.swift in Sources */,
+				E9126FBF21723D5400C20889 /* ReceiveInvoiceModuleBuilder.swift in Sources */,
 				E90417BF2166B08700EE8B7C /* AssetListTableViewCell.swift in Sources */,
 				0AF922CE212E1234003BA067 /* UIViewController+Rx.swift in Sources */,
 				0AF921ED212E07B3003BA067 /* AssetViewController.swift in Sources */,
@@ -5178,6 +5200,16 @@
 				E90417C72166B2CE00EE8B7C /* tr */,
 			);
 			name = AssetList.strings;
+			sourceTree = "<group>";
+		};
+		E9126FC7217276C200C20889 /* ReceiveCardComplete.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9126FC6217276C200C20889 /* en */,
+				E9126FC8217276C400C20889 /* ru */,
+				E9126FC9217276C500C20889 /* tr */,
+			);
+			name = ReceiveCardComplete.strings;
 			sourceTree = "<group>";
 		};
 		E9492FA921716E3C004A3727 /* ReceiveAddress.strings */ = {

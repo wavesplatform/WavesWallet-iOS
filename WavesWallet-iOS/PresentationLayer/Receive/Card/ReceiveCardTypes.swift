@@ -16,6 +16,7 @@ enum ReceiveCard {
         case didGetInfo(Responce<DTO.Info>)
         case getUSDAmountInfo
         case getEURAmountInfo
+        case updateAmount(Money)
     }
     
     struct State: Mutating {
@@ -23,6 +24,7 @@ enum ReceiveCard {
             case none
             case didGetInfo
             case didFailGetInfo(Error)
+            case changeUrl
         }
 
         var isNeedLoadInfo: Bool
@@ -32,6 +34,8 @@ enum ReceiveCard {
         var amountUSDInfo: DTO.AmountInfo?
         var amountEURInfo: DTO.AmountInfo?
         var assetBalance: DomainLayer.DTO.AssetBalance?
+        var amount: Money?
+        var address: String = ""
     }
 }
 
@@ -62,6 +66,7 @@ extension ReceiveCard.DTO {
     struct Info {
         let asset: DomainLayer.DTO.AssetBalance
         let amountInfo : AmountInfo
+        let address: String
     }
 }
 

@@ -147,6 +147,7 @@ private extension DomainLayer.DTO.AssetBalance {
                      isSpam: isSpam,
                      isGateway: isGateway,
                      sortLevel: sortLevel,
-                     icon: icon)
+                     icon: icon,
+                     assetBalance: self)
     }
 }

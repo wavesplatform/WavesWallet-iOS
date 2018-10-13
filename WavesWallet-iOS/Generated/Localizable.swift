@@ -604,6 +604,20 @@ internal enum Localizable {
       internal static var name: String { return Localizable.tr("AddAddressBook", "label.name") }
     }
   }
+          internal enum ReceiveCardComplete {
+
+    internal enum Button {
+      /// Okay
+      internal static var okay: String { return Localizable.tr("ReceiveCardComplete", "button.okay") }
+    }
+
+    internal enum Label {
+      /// After payment has been made your balance will be updated
+      internal static var afterPaymentUpdateBalance: String { return Localizable.tr("ReceiveCardComplete", "label.afterPaymentUpdateBalance") }
+      /// You have been redirected to «Indacoin»
+      internal static var redirectToIndacoin: String { return Localizable.tr("ReceiveCardComplete", "label.redirectToIndacoin") }
+    }
+  }
           internal enum WalletSort {
 
     internal enum Button {

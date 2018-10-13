@@ -64,13 +64,18 @@ final class AssetViewController: UIViewController {
     }
     
     private func showSendController()  {
-//        AssetTypes.DTO.Asset.Info
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.showSend(asset))
+        }
     }
     
     private func showReceiveController() {
         
-        let vc = ReceiveContainerModuleBuilder().build(input: nil)
-        navigationController?.pushViewController(vc, animated: true)
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {            
+            eventInput.onNext(.showReceive(asset))
+        }
     }
 }
 

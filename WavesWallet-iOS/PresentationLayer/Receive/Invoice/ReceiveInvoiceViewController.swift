@@ -23,6 +23,8 @@ final class ReceiveInvoiceViewController: UIViewController {
     private var amount: Decimal = 0
     private var displayInfo: ReceiveInvoice.DTO.DisplayInfo?
     
+    var input: AssetList.DTO.Input!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +34,11 @@ final class ReceiveInvoiceViewController: UIViewController {
         viewAsset.delegate = self
         setupButtonState()
         calculateTotalDollar()
+        
+        if let asset = input.selectedAsset {
+            viewAsset.isSelectedAssetMode = false
+            setupInfo(asset: asset)
+        }
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
@@ -41,12 +48,19 @@ final class ReceiveInvoiceViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func setupInfo(asset: DomainLayer.DTO.AssetBalance) {
+        selectedAsset = asset
+
+        updateDisplayInfo()
+        viewAsset.update(with: asset)
+        textFieldMoney.decimals = asset.asset?.precision ?? 0
+    }
+    
     private func updateDisplayInfo() {
         
         displayInfo = nil
         setupButtonState()
         guard let asset = selectedAsset?.asset else { return }
-        guard amount != 0 else { return }
         
         let money = Money(value: amount, asset.precision)
         
@@ -64,7 +78,8 @@ final class ReceiveInvoiceViewController: UIViewController {
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
-        let vc = AssetListModuleBuilder(output: self).build(input: .init(filters:[.all], selectedAsset: nil))
+        let assetInput = AssetList.DTO.Input(filters: input.filters, selectedAsset: selectedAsset)
+        let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -72,10 +87,7 @@ extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
 extension ReceiveInvoiceViewController: AssetListModuleOutput {
     
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
-        selectedAsset = asset
-        updateDisplayInfo()
-        viewAsset.update(with: asset)
-        textFieldMoney.decimals = asset.asset?.precision ?? 0
+        setupInfo(asset: asset)
     }
 }
 
@@ -101,7 +113,7 @@ private extension ReceiveInvoiceViewController {
     
     
     func calculateTotalDollar() {
-        labelTotalDollar.text = "≈ " + "0" + " " + Environments.Constants.wavesAssetId.capitalized
+        labelTotalDollar.text = "≈ " + "0" + " " + Localizable.ReceiveInvoice.Label.dollar
     }
     
     func setupLocalication() {

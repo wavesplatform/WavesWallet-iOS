@@ -25,8 +25,6 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
   
-//    private var selectedAsset: Receive.DTO.Asset?
-
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
     
@@ -45,6 +43,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         viewWarning.isHidden = true
         
         if let asset = input.selectedAsset {
+            assetView.isSelectedAssetMode = false
             setupAssetInfo(asset)
         }
     }
@@ -63,7 +62,9 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         setupButtonState()
         
         if let asset = asset.asset {
-            sendEvent.accept(.generateAddress(asset: asset))
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.sendEvent.accept(.generateAddress(asset: asset))
+            }
         }
     }
 }

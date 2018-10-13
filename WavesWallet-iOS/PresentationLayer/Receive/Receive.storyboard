@@ -401,6 +401,94 @@
             </objects>
             <point key="canvasLocation" x="533.60000000000002" y="823.53823088455783"/>
         </scene>
+        <!--Receive Card Complete View Controller-->
+        <scene sceneID="Gay-Sm-bGs">
+            <objects>
+                <viewController storyboardIdentifier="ReceiveCardCompleteViewController" id="3Dc-NI-mZi" customClass="ReceiveCardCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Nm-aU-BJ5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIX-Ps-Wsh">
+                                <rect key="frame" x="16" y="40" width="343" height="344.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-aI-vHo">
+                                        <rect key="frame" x="131.5" y="44" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSI-DY-lc2">
+                                        <rect key="frame" x="16" y="148" width="311" height="41"/>
+                                        <string key="text">You have been redirected
+to «Indacoin»</string>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckg-qj-jEb">
+                                        <rect key="frame" x="16" y="197" width="311" height="31.5"/>
+                                        <string key="text">After payment has been made your balance
+will be updated</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXP-Mn-XOs" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="272.5" width="311" height="48"/>
+                                        <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="UNJ-Bj-qfs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <state key="normal" title="Okay"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                                <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okeyTapped:" destination="3Dc-NI-mZi" eventType="touchUpInside" id="67T-ar-FDB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="IXP-Mn-XOs" secondAttribute="trailing" constant="16" id="0vl-Yk-Rhw"/>
+                                    <constraint firstItem="uSI-DY-lc2" firstAttribute="top" secondItem="Elm-aI-vHo" secondAttribute="bottom" constant="24" id="6Kv-Xv-Wmp"/>
+                                    <constraint firstAttribute="bottom" secondItem="IXP-Mn-XOs" secondAttribute="bottom" constant="24" id="ACI-CK-F5Y"/>
+                                    <constraint firstItem="IXP-Mn-XOs" firstAttribute="top" secondItem="ckg-qj-jEb" secondAttribute="bottom" constant="44" id="Nhc-YE-7jJ"/>
+                                    <constraint firstItem="ckg-qj-jEb" firstAttribute="top" secondItem="uSI-DY-lc2" secondAttribute="bottom" constant="8" id="VP2-cb-7Wr"/>
+                                    <constraint firstAttribute="trailing" secondItem="uSI-DY-lc2" secondAttribute="trailing" constant="16" id="Yzy-hm-C5W"/>
+                                    <constraint firstItem="Elm-aI-vHo" firstAttribute="top" secondItem="PIX-Ps-Wsh" secondAttribute="top" constant="44" id="Zai-3n-BW9"/>
+                                    <constraint firstAttribute="trailing" secondItem="ckg-qj-jEb" secondAttribute="trailing" constant="16" id="f9o-1y-Ivo"/>
+                                    <constraint firstItem="ckg-qj-jEb" firstAttribute="leading" secondItem="PIX-Ps-Wsh" secondAttribute="leading" constant="16" id="nNr-9U-y8W"/>
+                                    <constraint firstItem="uSI-DY-lc2" firstAttribute="leading" secondItem="PIX-Ps-Wsh" secondAttribute="leading" constant="16" id="pNl-yT-vgp"/>
+                                    <constraint firstItem="IXP-Mn-XOs" firstAttribute="leading" secondItem="PIX-Ps-Wsh" secondAttribute="leading" constant="16" id="rBO-r0-r5z"/>
+                                    <constraint firstItem="Elm-aI-vHo" firstAttribute="centerX" secondItem="PIX-Ps-Wsh" secondAttribute="centerX" id="tzM-HP-VkD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PIX-Ps-Wsh" firstAttribute="leading" secondItem="9Ix-zD-SJa" secondAttribute="leading" constant="16" id="9qN-D3-3Nt"/>
+                            <constraint firstItem="9Ix-zD-SJa" firstAttribute="trailing" secondItem="PIX-Ps-Wsh" secondAttribute="trailing" constant="16" id="hsb-r0-bC1"/>
+                            <constraint firstItem="PIX-Ps-Wsh" firstAttribute="top" secondItem="9Ix-zD-SJa" secondAttribute="top" constant="20" id="sNQ-Ii-cCX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9Ix-zD-SJa"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonOkey" destination="IXP-Mn-XOs" id="qep-q6-WmG"/>
+                        <outlet property="labelSubtitle" destination="ckg-qj-jEb" id="sCl-w7-CC4"/>
+                        <outlet property="labelTitle" destination="uSI-DY-lc2" id="5YG-Er-Xfo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HAS-jD-H3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1246" y="829"/>
+        </scene>
         <!--Receive Cryptocurrency View Controller-->
         <scene sceneID="RpA-8N-FWd">
             <objects>
@@ -902,6 +990,7 @@
         <image name="pMastercard28" width="28" height="28"/>
         <image name="pVisa28" width="28" height="28"/>
         <image name="share_address" width="18" height="18"/>
+        <image name="userimgDone80Success400" width="80" height="80"/>
         <image name="warning18Disabled500" width="18" height="18"/>
     </resources>
 </document>

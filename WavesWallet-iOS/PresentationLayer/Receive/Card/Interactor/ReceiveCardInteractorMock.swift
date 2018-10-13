@@ -33,6 +33,12 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
         })
     }
     
+    private func getAddress() -> Observable<String> {
+        let authAccount = FactoryInteractors.instance.authorization
+        return authAccount.authorizedWallet().flatMap { signedWallet -> Observable<String> in
+            return Observable.just(signedWallet.wallet.address)
+        }
+    }
     
     private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<Responce<ReceiveCard.DTO.AmountInfo>> {
        
@@ -80,12 +86,12 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
     
         let amount = getAmountInfo(fiat: fiatType)
         
-        return Observable.zip(getWavesBalance().take(1), amount).flatMap({ (assetBalance, amountInfo) ->  Observable<Responce<ReceiveCard.DTO.Info>> in
+        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<Responce<ReceiveCard.DTO.Info>> in
             debug("getInfo")
 
             switch amountInfo.result {
             case .success(let info):
-                let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info)
+                let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info, address: address)
                 return Observable.just(Responce(output: info, error: nil))
             
             case .error(let error):

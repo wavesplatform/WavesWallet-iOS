@@ -34,6 +34,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.AssetBalance?
     private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
+    private var urlLink = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,9 @@ final class ReceiveCardViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
+        print(urlLink)
+        let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
@@ -124,6 +128,7 @@ private extension ReceiveCardViewController {
                 strongSelf.amountUSDInfo = state.amountUSDInfo
                 strongSelf.amountEURInfo = state.amountEURInfo
                 strongSelf.asset = state.assetBalance
+                strongSelf.urlLink = state.link
                 
                 switch state.action {
                     
@@ -147,6 +152,7 @@ extension ReceiveCardViewController: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         amount = value
         setupButtonState()
+        sendEvent.accept(.updateAmount(value))
     }
 }
 

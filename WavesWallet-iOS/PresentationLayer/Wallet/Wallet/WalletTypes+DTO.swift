@@ -10,7 +10,7 @@ import Foundation
 
 extension WalletTypes.DTO {
 
-    struct Asset: Hashable {
+    struct Asset {
    
         let id: String
         let name: String
@@ -30,6 +30,7 @@ extension WalletTypes.DTO {
         let isGateway: Bool
         let sortLevel: Float
         let ticker: String?
+        let assetBalance: DomainLayer.DTO.AssetBalance
     }
 
     struct Leasing {

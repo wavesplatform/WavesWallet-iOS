@@ -15,13 +15,22 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
 
         if let asset = input {
-            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency], selectedAsset: asset)), state: .cryptoCurrency)
-            vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
-            vc.add(ReceiveCardModuleBuilder().build(), state: .card)
+            
+            if input?.assetId == Environments.Constants.wavesAssetId {
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+                vc.add(ReceiveCardModuleBuilder().build(), state: .card)
+            }
+            else if input?.asset?.isFiat == true {
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+            }
+            else {
+                vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .cryptoCurrency)
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+            }
         }
         else {
             vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency], selectedAsset: nil)), state: .cryptoCurrency)
-            vc.add(StoryboardScene.Receive.receiveInvoiceViewController.instantiate(), state: .invoice)
+            vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat], selectedAsset: nil)), state: .invoice)
             vc.add(ReceiveCardModuleBuilder().build(), state: .card)
         }
         

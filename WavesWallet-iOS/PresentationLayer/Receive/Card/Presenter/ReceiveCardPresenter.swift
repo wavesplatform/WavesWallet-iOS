@@ -11,6 +11,12 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 
+private enum Constants {
+    static let baseUrl = "https://coinomat.com/"
+    static let apiPath = "api/v2/indacoin/"
+    static let apiName = "buy.php"
+}
+
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     
     var interactor: ReceiveCardInteractorProtocol!
@@ -45,6 +51,27 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         
         switch event {
 
+        case .updateAmount(let money):
+            
+            return state.mutate {
+                $0.action = .changeUrl
+                $0.isNeedLoadInfo = false
+                
+                if let asset = state.assetBalance?.asset {
+                    
+                    var url = Constants.baseUrl + Constants.apiPath + Constants.apiName
+                    url.append("?")
+                    url.append("crypto=" + asset.wavesId)
+                    url.append("&")
+                    url.append("address=" + state.address)
+                    url.append("&")
+                    url.append("amount=\(money.decimalValue)")
+                    url.append("&")
+                    url.append("fiat=" + state.fiatType.id)
+                    $0.link = url
+                }
+            }
+            
         case .getUSDAmountInfo:
             return state.mutate {
                 $0.isNeedLoadInfo = true
@@ -62,16 +89,19 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         case .didGetInfo(let responce):
             return state.mutate {
                 $0.isNeedLoadInfo = false
-
+                
+//                https://coinomat.com/api/v2/indacoin/buy.php?crypto=WAVES&fiat=USD&address=3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj&amount=32
+                
                 switch responce.result {
                 case .success(let info):
                     
                     $0.assetBalance = info.asset
+                    $0.address = info.address
                     
                     switch info.amountInfo.type {
                     case .eur:
                         $0.amountEURInfo = info.amountInfo
-                
+                        
                     case .usd:
                         $0.amountUSDInfo = info.amountInfo
                     }
@@ -89,6 +119,6 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 fileprivate extension ReceiveCard.State {
     
     static var initialState: ReceiveCard.State {
-        return ReceiveCard.State(isNeedLoadInfo: true, fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil)
+        return ReceiveCard.State(isNeedLoadInfo: true, fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil, amount: nil, address: "")
     }
 }

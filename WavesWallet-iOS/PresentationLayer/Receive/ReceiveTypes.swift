@@ -10,17 +10,6 @@ import Foundation
 
 enum Receive {
     enum ViewModel {}
-    enum DTO {}
-}
-
-extension Receive.DTO {
-    
-    struct Asset {
-        let id: String
-        let name: String
-        let ticker: String
-        let money: Money
-    }
 }
 
 extension Receive.ViewModel {

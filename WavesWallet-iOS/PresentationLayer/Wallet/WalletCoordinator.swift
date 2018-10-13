@@ -64,6 +64,15 @@ extension WalletCoordinator: WalletModuleOutput {
 
 extension WalletCoordinator: AssetModuleOutput {
 
+    func showSend(asset: DomainLayer.DTO.AssetBalance) {
+        
+    }
+    
+    func showReceive(asset: DomainLayer.DTO.AssetBalance) {
+        let vc = ReceiveContainerModuleBuilder().build(input: asset)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func showHistory(by assetId: String) {
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
@@ -110,6 +119,7 @@ fileprivate extension AssetTypes.DTO.Asset.Info {
         isGateway = asset.isGateway
         sortLevel = asset.sortLevel
         icon = asset.ticker ?? asset.name
+        assetBalance = asset.assetBalance
     }
 }
 

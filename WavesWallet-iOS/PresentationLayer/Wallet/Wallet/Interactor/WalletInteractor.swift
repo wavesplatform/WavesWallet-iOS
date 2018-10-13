@@ -206,6 +206,7 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      isFiat: asset.isFiat,
                                      isGateway: asset.isGateway,                                     
                                      sortLevel: level,
-                                     ticker: asset.ticker)
+                                     ticker: asset.ticker,
+                                     assetBalance: balance)
     }
 }
