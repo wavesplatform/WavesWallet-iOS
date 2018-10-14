@@ -89,9 +89,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         case .didGetInfo(let responce):
             return state.mutate {
                 $0.isNeedLoadInfo = false
-                
-//                https://coinomat.com/api/v2/indacoin/buy.php?crypto=WAVES&fiat=USD&address=3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj&amount=32
-                
+                                
                 switch responce.result {
                 case .success(let info):
                     

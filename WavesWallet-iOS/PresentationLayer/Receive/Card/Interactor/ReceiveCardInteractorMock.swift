@@ -24,7 +24,6 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
         let accountBalance = FactoryInteractors.instance.accountBalance
         return accountBalance.balances(isNeedUpdate: true)
             .flatMap({ balances -> Observable<DomainLayer.DTO.AssetBalance> in
-                debug("getWavesBalance")
                 
                 guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
                     return Observable.empty()
@@ -57,7 +56,6 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
                               "fiat" : fiat.id]
                 
                 NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
-                    debug("getAmountInfo")
 
                     if let info = info {
                         let json = JSON(info)
@@ -87,7 +85,6 @@ final class ReceiveCardInteractorMock: ReceiveCardInteractorProtocol {
         let amount = getAmountInfo(fiat: fiatType)
         
         return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<Responce<ReceiveCard.DTO.Info>> in
-            debug("getInfo")
 
             switch amountInfo.result {
             case .success(let info):

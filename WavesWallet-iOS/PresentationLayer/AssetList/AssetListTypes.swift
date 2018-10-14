@@ -28,7 +28,7 @@ enum AssetList {
             case update
         }
         
-        var isNeedUpdate: Bool
+        var isAppeared: Bool
         var action: Action
         var section: ViewModel.Section
         var isMyList: Bool
@@ -73,7 +73,7 @@ extension AssetList.DTO {
 extension AssetList.State: Equatable {
     
      static func == (lhs: AssetList.State, rhs: AssetList.State) -> Bool {
-        return lhs.isNeedUpdate == rhs.isNeedUpdate &&
+        return lhs.isAppeared == rhs.isAppeared &&
                lhs.isMyList == rhs.isMyList
     }
 }

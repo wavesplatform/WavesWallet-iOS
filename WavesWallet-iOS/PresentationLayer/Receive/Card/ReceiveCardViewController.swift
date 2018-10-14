@@ -53,7 +53,7 @@ final class ReceiveCardViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
-        print(urlLink)
+        //TODO: - Need to show webView screen
         let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
         navigationController?.pushViewController(vc, animated: true)
     }
