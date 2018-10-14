@@ -30,6 +30,7 @@ final class AssetListViewController: UIViewController {
     var presenter: AssetListPresenterProtocol!
     
     private var isMyList = false
+    private var isNeedCheckAssetsBalance = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,6 @@ final class AssetListViewController: UIViewController {
         setupLoadingState()
         searchBar.delegate = self
         tableView.keyboardDismissMode = .onDrag
-        createButtonList()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +91,12 @@ private extension AssetListViewController {
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
+                if strongSelf.isNeedCheckAssetsBalance {
+                    strongSelf.isNeedCheckAssetsBalance = false
+                    if !state.section.isEmptyAssetsBalance {
+                        strongSelf.createButtonList()
+                    }
+                }
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
                 strongSelf.setupDefaultState()

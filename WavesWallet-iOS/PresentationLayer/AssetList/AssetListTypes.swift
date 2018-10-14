@@ -77,3 +77,9 @@ extension AssetList.State: Equatable {
                lhs.isMyList == rhs.isMyList
     }
 }
+
+extension AssetList.ViewModel.Section {
+    var isEmptyAssetsBalance: Bool {
+        return items.filter({$0.asset.balance > 0}).count == 0
+    }
+}
