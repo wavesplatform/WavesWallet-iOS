@@ -49,6 +49,7 @@ final class ReceiveContainerViewController: UIViewController {
 private extension ReceiveContainerViewController {
     
     func scrollToPage(_ page: Int) {
+        view.endEditing(true)
         let offset = CGPoint(x: CGFloat(page) * scrollViewContainer.frame.size.width, y: 0)
         scrollViewContainer.setContentOffset(offset, animated: true)
     }
