@@ -10,7 +10,7 @@ import UIKit
 
 
 private enum Constants {
-    static let minScrollOffsetOnKeyboardDismiss: CGFloat = -0.5
+    static let minScrollOffsetOnKeyboardDismiss: CGFloat = -0.3
 }
 
 final class ReceiveContainerViewController: UIViewController {
@@ -34,12 +34,14 @@ final class ReceiveContainerViewController: UIViewController {
         setupSegmentedControl()
         setupSwipeGestures()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        scrollView.delegate = self
     }
   
     @objc private func keyboardWillHide() {
         //TODO: - Need to find good solution to show big nav bar when it small on dismissKeyboard
-        scrollView.setContentOffset(CGPoint(x: 0, y: Constants.minScrollOffsetOnKeyboardDismiss), animated: true)
+        
+        if isShowNotFullBigNavigationBar {
+            scrollView.setContentOffset(CGPoint(x: 0, y: Constants.minScrollOffsetOnKeyboardDismiss), animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let smallNavBarHeight: CGFloat = 44
+    static let bigNavBarHeight: CGFloat = 96
+}
+
 extension UIViewController {
 
     func createBackWhiteButton() {
@@ -47,11 +52,15 @@ extension UIViewController {
         navigationItem.shadowImage = nil
     }
     
+    var isShowNotFullBigNavigationBar: Bool {
+        return navigationController?.navigationBar.frame.size.height.rounded(.down) ?? 0 < Constants.bigNavBarHeight
+    }
+    
     // TODO: Меня смущает проверка (<= 44) в showImage.
     func setupTopBarLine() {
         
         if let nav = navigationController {
-            let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= 44
+            let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
             if showImage {
                 if navigationItem.shadowImage != nil {
                     navigationItem.shadowImage = nil
