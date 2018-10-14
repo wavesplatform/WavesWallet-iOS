@@ -72,7 +72,10 @@ final class LegalViewController: UIViewController {
     }
     
     private func addGestureRecognizers() {
- 
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(thirdLabelTap(gr:)))
+        gesture.cancelsTouchesInView = false
+        gesture.delegate = self
+        thirdLabel.addGestureRecognizer(gesture)
     }
     
     // MARK: - Actions
@@ -96,6 +99,10 @@ final class LegalViewController: UIViewController {
         thirdCheckboxValue = thirdCheckboxView.on
         
         updateButton()
+    }
+    
+    @objc func thirdLabelTap(gr: UITapGestureRecognizer) {
+        thirdCheckboxTap(self)
     }
     
     @IBAction func buttonTap(_ sender: Any) {
@@ -137,10 +144,10 @@ final class LegalViewController: UIViewController {
     private func updateButton() {
         if firstCheckboxValue && secondCheckboxValue && thirdCheckboxValue {
             okButton.isEnabled = true
-            okButton.backgroundColor = UIColor(31, 90, 246)
+            okButton.backgroundColor = .submit400
         } else {
             okButton.isEnabled = false
-            okButton.backgroundColor = UIColor(186, 202, 244)
+            okButton.backgroundColor = .submit200
         }
     }
     
@@ -243,13 +250,24 @@ extension LegalViewController: TTTAttributedLabelDelegate {
             firstCheckboxTap(self)
         } else if label == secondLabel {
             secondCheckboxTap(self)
-        } else if label == thirdLabel {
-            thirdCheckboxTap(self)
         }
-       
         
     }
     
 }
 
+// MARK: - Gesture
 
+extension LegalViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if gestureRecognizer.view == thirdLabel {
+            return (thirdLabel.link(at: touch.location(in: thirdLabel)) == nil)
+        }
+        
+        return true
+        
+    }
+    
+}
