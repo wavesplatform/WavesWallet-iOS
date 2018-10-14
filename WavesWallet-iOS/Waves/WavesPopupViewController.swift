@@ -9,43 +9,36 @@
 import UIKit
 import RESideMenu
 
-class WavesPopupViewController: UIViewController {
+protocol WavesPopupModuleOutput: AnyObject {
+    func showSend()
+    func showReceive()
+    func showExchange()
+}
 
+final class WavesPopupViewController: UIViewController {
+
+    weak var moduleOutput: WavesPopupModuleOutput?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func sendTapped(_ sender: Any) {
 
-        let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
-
-        let menu = AppDelegate.shared().menuController
-        let mainTabBar = menu.contentViewController as! MainTabBarController
-//        mainTabBar.setupLastScrollCorrectOffset()
-        let nav = mainTabBar.selectedViewController as! UINavigationController
-        nav.pushViewController(controller, animated: true)
-//        mainTabBar.setTabBarHidden(true, animated: true)
-
+        moduleOutput?.showSend()
         dismissTapped(sender)
     }
     
     
     @IBAction func receiveTapped(_ sender: Any) {
         
-//        let types: [Receive.ViewModel.State] = [.cryptoCurrency]
-        let vc = ReceiveContainerModuleBuilder().build(input: nil)
-        
-        let menu = AppDelegate.shared().menuController
-        let mainTabBar = menu.contentViewController as! MainTabBarController
-//        mainTabBar.setupLastScrollCorrectOffset()
-        let nav = mainTabBar.selectedViewController as! UINavigationController
-        nav.pushViewController(vc, animated: true)
+        moduleOutput?.showReceive()
         dismissTapped(sender)
     }
     
     
     @IBAction func exchangeTapped(_ sender: Any) {
-    
+        moduleOutput?.showExchange()
     }
     
     
@@ -58,7 +51,7 @@ class WavesPopupViewController: UIViewController {
     
     
     deinit {
-        print(self.classForCoder, #function)
+        debug("WavesPopupViewController deinit")
     }
     
 }

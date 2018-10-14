@@ -73,6 +73,7 @@
                         <viewLayoutGuide key="safeArea" id="she-RY-44Y"/>
                     </view>
                     <connections>
+                        <outlet property="scrollView" destination="RQY-dd-juI" id="hYt-7d-mtB"/>
                         <outlet property="scrollViewContainer" destination="0XI-NP-tjn" id="7mw-1L-Yc1"/>
                         <outlet property="segmentedControl" destination="FWd-e2-slm" id="HJ0-rc-Cw8"/>
                     </connections>
