@@ -15,8 +15,11 @@ final class AssetListInteractor: AssetListInteractorProtocol {
     
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     private var _assets: [DomainLayer.DTO.AssetBalance] = []
-
-    func assets(filters: [AssetList.DTO.Filter]) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    private var _isMyList = false
+    
+    func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+        
+        _isMyList = isMyList
         
         let assets = accountBalanceInteractor.balances(isNeedUpdate: false)
         
@@ -28,26 +31,33 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             else {
                 self?.filterAssets(filters: filters, assets: assets)
             }
-            return self?._assets ?? []
+            
+            guard let strongSelf = self else { return [] }
+            return strongSelf.filterIsMyAsset(strongSelf._assets)
         }
       
         let search = searchString
             .asObserver().skip(1)
             .map { [weak self] searchString -> [DomainLayer.DTO.AssetBalance] in
-                return self?._assets ?? []
+                
+                guard let strongSelf = self else { return [] }
+                return strongSelf.filterIsMyAsset(strongSelf._assets)
         }
         
         return Observable
             .merge([merge, search])
             .map { [weak self] assets -> [DomainLayer.DTO.AssetBalance] in
                 
+                guard let strongSelf = self else { return [] }
+                
                 let searchText = (try? self?.searchString.value() ?? "") ?? ""
                 
                 let newAssets = assets.filter {
                     guard let asset = $0.asset else { return false }
-                    return self?.isValidSearch(name: asset.displayName, searchText: searchText) ?? false
+                    return strongSelf.isValidSearch(name: asset.displayName, searchText: searchText)
                 }
-                return newAssets
+                
+                return strongSelf.filterIsMyAsset(newAssets)
         }
         
     }
@@ -59,6 +69,10 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 
 
 private extension AssetListInteractor {
+    
+    func filterIsMyAsset(_ assets: [DomainLayer.DTO.AssetBalance]) -> [DomainLayer.DTO.AssetBalance] {
+        return _isMyList ? assets.filter({$0.balance > 0 }) : assets
+    }
     
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.AssetBalance]) {
         

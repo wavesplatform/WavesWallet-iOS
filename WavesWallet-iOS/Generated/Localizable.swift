@@ -510,6 +510,13 @@ internal enum Localizable {
   }
           internal enum AssetList {
 
+    internal enum Button {
+      /// All list
+      internal static var allList: String { return Localizable.tr("AssetList", "button.allList") }
+      /// My list
+      internal static var myList: String { return Localizable.tr("AssetList", "button.myList") }
+    }
+
     internal enum Label {
       /// Assets
       internal static var assets: String { return Localizable.tr("AssetList", "label.assets") }

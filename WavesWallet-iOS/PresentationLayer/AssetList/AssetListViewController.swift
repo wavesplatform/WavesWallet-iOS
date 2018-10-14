@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+private enum Constants {
+    static let buttonHeight: CGFloat = 40
+}
+
 final class AssetListViewController: UIViewController {
 
     @IBOutlet private weak var searchBar: SearchBarView!
@@ -25,6 +29,8 @@ final class AssetListViewController: UIViewController {
     var selectedAsset: DomainLayer.DTO.AssetBalance?
     var presenter: AssetListPresenterProtocol!
     
+    private var isMyList = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +40,7 @@ final class AssetListViewController: UIViewController {
         setupLoadingState()
         searchBar.delegate = self
         tableView.keyboardDismissMode = .onDrag
+        createButtonList()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +53,12 @@ final class AssetListViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationItem.backgroundImage = nil
+    }
+    
+    @objc private func updateMyListTapped() {
+        isMyList = !isMyList
+        createButtonList()
+        sendEvent.accept(.changeMyList(isMyList))
     }
 }
 
@@ -75,9 +88,9 @@ private extension AssetListViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                print(state)
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
+                
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
                 strongSelf.setupDefaultState()
@@ -131,6 +144,19 @@ extension AssetListViewController: UITableViewDataSource {
 
 //MARK: - SetupUI
 private extension AssetListViewController {
+    
+    private func createButtonList() {
+        
+        let font = UIFont.systemFont(ofSize: 17)
+        let title = isMyList ? Localizable.AssetList.Button.myList :  Localizable.AssetList.Button.allList
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font), height: Constants.buttonHeight)
+        button.titleLabel?.font = font
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(updateMyListTapped), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+    }
     
     func setupLocalization() {
         title = Localizable.AssetList.Label.assets

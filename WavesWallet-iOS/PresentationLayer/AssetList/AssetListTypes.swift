@@ -19,6 +19,7 @@ enum AssetList {
         case setAssets([DomainLayer.DTO.AssetBalance])
         case searchTextChange(text: String)
         case didSelectAsset(DomainLayer.DTO.AssetBalance)
+        case changeMyList(Bool)
     }
     
     struct State: Mutating {
@@ -27,9 +28,10 @@ enum AssetList {
             case update
         }
         
-        var isAppeared: Bool
+        var isNeedUpdate: Bool
         var action: Action
         var section: ViewModel.Section
+        var isMyList: Bool
     }
 }
 
@@ -65,5 +67,13 @@ extension AssetList.DTO {
         case fiat
         case waves
         case wavesToken
+    }
+}
+
+extension AssetList.State: Equatable {
+    
+     static func == (lhs: AssetList.State, rhs: AssetList.State) -> Bool {
+        return lhs.isNeedUpdate == rhs.isNeedUpdate &&
+               lhs.isMyList == rhs.isMyList
     }
 }

@@ -33,13 +33,13 @@ final class AssetListPresenter: AssetListPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
-            return state.isAppeared ? true : nil
-        }, effects: { [weak self] _ -> Signal<AssetList.Event> in
+        return react(query: { state -> AssetList.State? in
+            return state.isNeedUpdate ? state : nil
+        }, effects: { [weak self] state -> Signal<AssetList.Event> in
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.assets(filters: strongSelf.filters).map {.setAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf.interactor.assets(filters: strongSelf.filters, isMyList: state.isMyList).map {.setAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -48,7 +48,7 @@ final class AssetListPresenter: AssetListPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isAppeared = true
+                $0.isNeedUpdate = true
             }.changeAction(.none)
             
         case .setAssets(let assets):
@@ -60,13 +60,23 @@ final class AssetListPresenter: AssetListPresenterProtocol {
                 
             }.changeAction(.update)
             
+        case .changeMyList(let isMyList):
+            return state.mutate {
+                $0.isNeedUpdate = true
+                $0.isMyList = isMyList
+            }.changeAction(.none)
+            
         case .searchTextChange(let text):
                 interactor.searchAssets(searchText: text)
-            return state.changeAction(.none)
+            return state.mutate {
+                $0.isNeedUpdate = true
+            }.changeAction(.none)
             
         case .didSelectAsset(let asset):
                 moduleOutput?.assetListDidSelectAsset(asset)
-            return state.changeAction(.none)
+            return state.mutate {
+                $0.isNeedUpdate = true
+            }.changeAction(.none)
         }
     }
 }
@@ -75,7 +85,7 @@ fileprivate extension AssetList.State {
     
     static var initialState: AssetList.State {
         let section = AssetList.ViewModel.Section(items: [])
-        return AssetList.State(isAppeared: false, action: .none, section: section)
+        return AssetList.State(isNeedUpdate: false, action: .none, section: section, isMyList: false)
     }
     
     func changeAction(_ action: AssetList.State.Action) -> AssetList.State {
