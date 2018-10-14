@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UILabel_Copyable
 import Realm
 import RealmSwift
 

@@ -37,6 +37,10 @@ private enum Display {
     case passcode(DomainLayer.DTO.Wallet)
 }
 
+protocol ApplicationCoordinatorProtocol: AnyObject {
+    func showEnterDisplay()
+}
+
 final class AppCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -108,6 +112,7 @@ final class AppCoordinator: Coordinator {
     private func logInApplication() {
         authoAuthorizationInteractor
             .lastWalletLoggedIn()
+            .sweetDebug("Last Wallet")
             .take(1)
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
@@ -119,20 +124,32 @@ final class AppCoordinator: Coordinator {
     private func revokeAuthAndOpenPasscode() {
         authoAuthorizationInteractor
             .revokeAuth()
-            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
 
                 guard let owner = self else { return Observable.never() }
 
                 return owner.authoAuthorizationInteractor
                     .lastWalletLoggedIn()
                     .take(1)
-                    .errorOnNil()
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { $0.showPasscode(wallet: $1) })
+            .subscribe(weak: self, onNext: { owner, wallet in
+                if let wallet = wallet {
+                    owner.showPasscode(wallet: wallet)
+                } else {
+                    owner.showEnter()
+                }
+            })
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: ApplicationCoordinatorProtocol
+extension AppCoordinator: ApplicationCoordinatorProtocol {
+    func showEnterDisplay() {
+        showEnter()
     }
 }
 
@@ -160,11 +177,13 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 // MARK: PasscodeCoordinatorDelegate
 extension AppCoordinator: PasscodeCoordinatorDelegate {
 
-    func userAuthorizationCompleted() {
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.mainTabBar)
     }
 
-    func userLogouted() {
+    func passcodeCoordinatorWalletLogouted() {
         showDisplay(.enter)
     }
 }
@@ -199,7 +218,8 @@ extension AppCoordinator {
             return
         }
 
-        let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController)
+        let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
+
         addChildCoordinator(childCoordinator: mainTabBarController)
         mainTabBarController.start()
     }

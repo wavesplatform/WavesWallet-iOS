@@ -76,17 +76,25 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
         addChildCoordinator(childCoordinator: passcodeCoordinator)
         passcodeCoordinator.start()
     }
+    
+    func showLanguageCoordinator() {
+        let languageCoordinator = EnterLanguageViewCoordinator(parentController: navigationController)
+        addChildCoordinator(childCoordinator: languageCoordinator)
+        languageCoordinator.start()
+    }
 }
 
 // MARK: PasscodeCoordinatorDelegate
 extension EnterCoordinator: PasscodeCoordinatorDelegate {
+    
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
-    func userAuthorizationCompleted() {
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn()
     }
 
-    func userLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {}
 }
 
 // MARK: PasscodeCoordinatorDelegate

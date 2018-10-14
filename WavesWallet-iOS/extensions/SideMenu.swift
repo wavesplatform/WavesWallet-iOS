@@ -15,9 +15,26 @@ final class SlideMenu: RESideMenu {
         return self.contentViewController
     }
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    override init!(contentViewController: UIViewController!, leftMenuViewController: UIViewController!, rightMenuViewController: UIViewController!) {
+        super.init(contentViewController: contentViewController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+    }
 
+    private func setup() {
         contentViewShadowEnabled = true
         panGestureEnabled = false
         interactivePopGestureRecognizerEnabled = false
@@ -26,8 +43,6 @@ final class SlideMenu: RESideMenu {
         contentViewShadowOffset = CGSize(width: 0, height: 10)
         contentViewShadowOpacity = 0.2
         contentViewShadowRadius = 15
-
-        //        sideMenuViewController.contentViewScaleValue = 1
         contentViewInPortraitOffsetCenterX = 100
     }
 }

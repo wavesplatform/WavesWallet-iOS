@@ -56,7 +56,7 @@ extension AssetTypes {
         case showSend(DomainLayer.DTO.AssetBalance)
     }
 
-    struct DisplayState: StateDisplayBase, Mutating {
+    struct DisplayState: DataSourceProtocol, Mutating {
 
         enum Action {
             case none

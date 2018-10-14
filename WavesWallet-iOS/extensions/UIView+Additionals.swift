@@ -17,8 +17,8 @@ extension UIView {
                                    color: .black,
                                    opacity: 0.15,
                                    shadowRadius: 4,
-                                   cornerRadius: 2,
                                    shouldRasterize: true))
+        self.cornerRadius = 2
     }
     
     class func loadView() -> UIView {

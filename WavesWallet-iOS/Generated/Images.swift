@@ -44,6 +44,12 @@ internal struct ColorAsset {
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
+  internal enum Enter {
+    internal static let blockchain80 = ImageAsset(name: "blockchain80")
+    internal static let dex80 = ImageAsset(name: "dex80")
+    internal static let token80 = ImageAsset(name: "token80")
+    internal static let wallet80 = ImageAsset(name: "wallet80")
+  }
   internal enum TabBar {
     internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
     internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
@@ -68,6 +74,7 @@ internal enum Images {
   internal static let arrowRed = ImageAsset(name: "arrow_red")
   internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
+  internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
   internal static let assetReceive = ImageAsset(name: "asset_receive")
   internal static let assets = ImageAsset(name: "assets")
@@ -91,6 +98,7 @@ internal enum Images {
   internal static let chartarrow22Accent100 = ImageAsset(name: "chartarrow22Accent100")
   internal static let chartarrow22Error500 = ImageAsset(name: "chartarrow22Error500")
   internal static let chartarrow22Success400 = ImageAsset(name: "chartarrow22Success400")
+  internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
   internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
@@ -225,6 +233,7 @@ internal enum Images {
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
   internal static let tUndefined48 = ImageAsset(name: "tUndefined48")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
+  internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
@@ -267,6 +276,10 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
+    Enter.blockchain80,
+    Enter.dex80,
+    Enter.token80,
+    Enter.wallet80,
     TabBar.tabBarDex,
     TabBar.tabBarDexActive,
     TabBar.tabBarHistory,
@@ -287,6 +300,7 @@ internal enum Images {
     arrowRed,
     arrowRight,
     arrowTransfer,
+    arrowright14Basic200,
     assetChangeArrows,
     assetReceive,
     assets,
@@ -310,6 +324,7 @@ internal enum Images {
     chartarrow22Accent100,
     chartarrow22Error500,
     chartarrow22Success400,
+    check18Success400,
     checkMark,
     checkSuccess,
     checkmarkEmpty,
@@ -444,6 +459,7 @@ internal enum Images {
     tTokenreis48,
     tUndefined48,
     tabbarWavesActive,
+    tabbarWavesDefault,
     topbarAddaddress,
     topbarAddmarkets,
     topbarBackwhite,

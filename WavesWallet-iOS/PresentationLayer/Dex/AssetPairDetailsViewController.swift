@@ -1,6 +1,4 @@
 import UIKit
-import UILabel_Copyable
-
 
 class AssetPairDetailsViewController: UITableViewController, HalfModalPresentable {
 
@@ -36,11 +34,11 @@ class AssetPairDetailsViewController: UITableViewController, HalfModalPresentabl
         headerTitleLabel.text = "Asset Pair Details"
         tickerLabel.text = DataManager.shared.getTickersTitle(item: item)
         
-        amountAssetLabel.copyingEnabled = true
+
         amountAssetLabel.text = self.item["amountAsset"] as? String
         amountAssetNameLabel.text = item["amountAssetName"] as? String
         
-        priceAssetLabel.copyingEnabled = true
+        
         priceAssetLabel.text = item["priceAsset"] as? String
         priceAssetNameLabel.text = item["priceAssetName"] as? String
     }

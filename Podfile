@@ -18,8 +18,7 @@ target 'WavesWallet-iOS' do
     pod 'RxCocoa'
     pod 'RxDataSources'
 
-    pod 'TTTAttributedLabel'
-    pod 'UILabel+Copyable', '~> 1.0.0'
+    pod 'TTTAttributedLabel'    
     pod 'UITextView+Placeholder'
 
     pod 'SwipeView'
@@ -28,7 +27,6 @@ target 'WavesWallet-iOS' do
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SVProgressHUD'
 
-    pod 'RDVTabBarController'
     pod 'UPCarouselFlowLayout'
     pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'
     pod 'RESideMenu', :git => 'https://github.com/florianbuerger/RESideMenu.git'
@@ -54,7 +52,6 @@ target 'WavesWallet-iOS' do
 
     pod 'Fabric'
     pod 'Crashlytics'
-
 
     # Helperrs
     pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'

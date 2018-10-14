@@ -54,8 +54,9 @@ final class DexListViewController: UIViewController {
         }
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
@@ -65,8 +66,23 @@ final class DexListViewController: UIViewController {
         super.viewDidAppear(animated)
         setupTopBarLine()
     }
+
+    @objc func changedLanguage() {
+        setupLocalization()        
+        tableView.reloadData()
+    }
 }
 
+// MARK: Localization
+
+extension DexListViewController: Localization {
+    func setupLocalization() {
+        navigationItem.title = Localizable.DexList.Navigationbar.title
+        labelNoItemsTitle.text = Localizable.DexList.Label.decentralisedExchange
+        labelNoItemsDescription.text = Localizable.DexList.Label.description
+        buttonAddMarkets.setTitle(Localizable.DexList.Button.addMarkets, for: .normal)
+    }
+}
 
 // MARK: Feedback
 
@@ -109,13 +125,6 @@ fileprivate extension DexListViewController {
 
 private extension DexListViewController {
 
-    func setupLocalization() {
-        title = Localizable.DexList.Navigationbar.title
-        labelNoItemsTitle.text = Localizable.DexList.Label.decentralisedExchange
-        labelNoItemsDescription.text = Localizable.DexList.Label.description
-        buttonAddMarkets.setTitle(Localizable.DexList.Button.addMarkets, for: .normal)
-    }
-    
     func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
         if (loadingDataState) {
             setupViewNoItems(isHidden: true)

@@ -44,6 +44,7 @@ extension SeedItem {
         self.init()
         self.publicKey = seed.publicKey
         self.address = seed.address
+        self.seed = seed.seed
     }
 }
 

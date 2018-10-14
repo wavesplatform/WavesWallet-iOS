@@ -143,8 +143,6 @@ internal enum StoryboardScene {
 
     internal static let editAccountNameViewController = SceneType<WavesWallet_iOS.EditAccountNameViewController>(storyboard: Enter.self, identifier: "EditAccountNameViewController")
 
-    internal static let enterLanguageViewController = SceneType<WavesWallet_iOS.EnterLanguageViewController>(storyboard: Enter.self, identifier: "EnterLanguageViewController")
-
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
   }
   internal enum Hello: StoryboardType {
@@ -169,6 +167,11 @@ internal enum StoryboardScene {
     internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
 
     internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Import.self, identifier: "ImportWelcomeBackViewController")
+  }
+  internal enum Language: StoryboardType {
+    internal static let storyboardName = "Language"
+
+    internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Language.self, identifier: "LanguageViewController")
   }
   internal enum LaunchScreen: StoryboardType {
     internal static let storyboardName = "LaunchScreen"
@@ -199,19 +202,13 @@ internal enum StoryboardScene {
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
 
-    internal static let accountPasswordViewController = SceneType<WavesWallet_iOS.AccountPasswordViewController>(storyboard: Profile.self, identifier: "AccountPasswordViewController")
-
     internal static let changePasswordViewController = SceneType<WavesWallet_iOS.ChangePasswordViewController>(storyboard: Profile.self, identifier: "ChangePasswordViewController")
 
     internal static let createAliasViewController = SceneType<WavesWallet_iOS.CreateAliasViewController>(storyboard: Profile.self, identifier: "CreateAliasViewController")
 
     internal static let deleteAccountViewController = SceneType<WavesWallet_iOS.DeleteAccountViewController>(storyboard: Profile.self, identifier: "DeleteAccountViewController")
 
-    internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Profile.self, identifier: "LanguageViewController")
-
     internal static let networkViewController = SceneType<WavesWallet_iOS.NetworkViewController>(storyboard: Profile.self, identifier: "NetworkViewController")
-
-    internal static let passcodeViewController = SceneType<WavesWallet_iOS.PasscodeViewController>(storyboard: Profile.self, identifier: "PasscodeViewController")
 
     internal static let profileAddressKeyViewController = SceneType<WavesWallet_iOS.ProfileAddressKeyViewController>(storyboard: Profile.self, identifier: "ProfileAddressKeyViewController")
 

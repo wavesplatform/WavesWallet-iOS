@@ -128,7 +128,6 @@ final class PasscodeView: UIView, NibOwnerLoadable {
     }
 
     func stopLoadingIndicator() {
-        print("stopLoadingIndicator")
         topBarView.stopLoadingIndicator()
     }
 }

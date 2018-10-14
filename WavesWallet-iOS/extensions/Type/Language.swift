@@ -14,6 +14,9 @@ struct Language: Codable {
     let code: String
 }
 
+protocol Localization {
+    func setupLocalization()
+}
 
 extension Notification.Name {
     /**

@@ -24,7 +24,7 @@ extension BurnTransaction {
 
         assetId = transaction.assetId
         signature = transaction.signature
-        chainId = transaction.chainId
+        chainId.value = transaction.chainId
         amount = transaction.amount
     }
 }
@@ -62,7 +62,7 @@ extension DomainLayer.DTO.BurnTransaction {
 
         assetId = transaction.assetId        
         signature = transaction.signature
-        chainId = transaction.chainId
+        chainId = transaction.chainId.value
         amount = transaction.amount
     }
 }

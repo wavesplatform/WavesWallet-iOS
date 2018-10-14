@@ -23,7 +23,7 @@ extension Node.DTO {
             let senderPublicKey: String
             let fee: Int64
             let timestamp: Int64
-            let signature: String
+            let signature: String?
             let version: Int64
             let assetId: String
             let name: String

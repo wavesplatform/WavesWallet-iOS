@@ -135,6 +135,7 @@ extension SegmentedControlScrollView {
     }
 
     func removeAllButtons() {
+        buttons.forEach { $0.removeFromSuperview() }
         buttons.removeAll()
     }
 }

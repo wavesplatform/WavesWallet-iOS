@@ -20,6 +20,7 @@ final class WalletCoordinator {
 
     func start(navigationController: UINavigationController) {
         self.navigationController = navigationController
+
         navigationController.pushViewController(walletViewContoller, animated: false)
     }
 }
@@ -41,7 +42,7 @@ extension WalletCoordinator: WalletModuleOutput {
         let vc = AssetModuleBuilder(output: self)
             .build(input: .init(assets: assets,
                                 currentAsset: currentAsset))
-
+        
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -74,6 +75,7 @@ extension WalletCoordinator: AssetModuleOutput {
     }
     
     func showHistory(by assetId: String) {
+
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 

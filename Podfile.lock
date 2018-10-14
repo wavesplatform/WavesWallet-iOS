@@ -95,7 +95,6 @@ PODS:
   - pop (1.0.10)
   - QRCode (2.0)
   - QRCodeReader.swift (8.2.0)
-  - RDVTabBarController (1.1.9)
   - Realm (3.7.6):
     - Realm/Headers (= 3.7.6)
   - Realm/Headers (3.7.6)
@@ -140,7 +139,6 @@ PODS:
   - SwipeView (1.3.2)
   - TPKeyboardAvoiding (1.3.2)
   - TTTAttributedLabel (2.0.0)
-  - "UILabel+Copyable (1.0.1)"
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.1)
 
@@ -169,7 +167,6 @@ DEPENDENCIES:
   - Moya/RxSwift
   - QRCode
   - QRCodeReader.swift
-  - RDVTabBarController
   - RealmSwift
   - RESideMenu (from `https://github.com/florianbuerger/RESideMenu.git`)
   - Reveal-SDK
@@ -190,7 +187,6 @@ DEPENDENCIES:
   - SwipeView
   - TPKeyboardAvoiding
   - TTTAttributedLabel
-  - "UILabel+Copyable (~> 1.0.0)"
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
 
@@ -226,7 +222,6 @@ SPEC REPOS:
     - pop
     - QRCode
     - QRCodeReader.swift
-    - RDVTabBarController
     - Realm
     - RealmSwift
     - Result
@@ -248,7 +243,6 @@ SPEC REPOS:
     - SwipeView
     - TPKeyboardAvoiding
     - TTTAttributedLabel
-    - "UILabel+Copyable"
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
 
@@ -319,7 +313,6 @@ SPEC CHECKSUMS:
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 003eb32f18a5a675b936ec82ba0ff368cddbff45
-  RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
   RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
@@ -342,10 +335,9 @@ SPEC CHECKSUMS:
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
-  "UILabel+Copyable": 39749df0a0a7112db8091a2b15ac9140a64b45a8
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 95b9c1167ec331e0eccc1b2b8a10a29fc24df0b1
+PODFILE CHECKSUM: 257a2169a529f8e0844be7adab6ddcf8bb96f314
 
 COCOAPODS: 1.5.3
