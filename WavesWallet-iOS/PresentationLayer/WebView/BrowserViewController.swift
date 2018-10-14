@@ -60,8 +60,15 @@ final class BrowserViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        webView.frame = view.bounds
+        let y: CGFloat = (navigationController?.navigationBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
+        
+        webView.frame = CGRect(x: 0, y: y, width: view.bounds.width, height: view.bounds.height - y)
+        
+        let safeInsets = webView.scrollView.adjustedContentInsetAdapter
+        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeInsets.bottom, right: 0)
+
         loader.center = view.center
+        
     }
     
     // MARK: - Content
@@ -79,8 +86,6 @@ final class BrowserViewController: UIViewController {
 
 
 extension BrowserViewController: WKNavigationDelegate {
-    
- 
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         finishLoading()
