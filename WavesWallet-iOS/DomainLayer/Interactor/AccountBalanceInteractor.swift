@@ -18,6 +18,7 @@ fileprivate enum Constants {
 
 protocol AccountBalanceInteractorProtocol {
 
+    func balances(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
     func balances(by wallet: DomainLayer.DTO.SignedWallet, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
 }
 
@@ -32,6 +33,16 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    func balances(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                guard let owner = self else { return Observable.never() }
+                return owner.balances(by: wallet, isNeedUpdate: isNeedUpdate)
+            })
+    }
+    
     func balances(by wallet: DomainLayer.DTO.SignedWallet, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
         return self.balanceRepositoryLocal

@@ -54,7 +54,7 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
         labelAmountLocalizable.text = Localizable.StartLeasing.Label.amount
         viewTextField.addTableCellShadowStyle()
         scrollViewInput.inputDelegate = self
-        textFieldMoney.inputNumericDelegate = self
+        textFieldMoney.moneyDelegate = self
         labelError.alpha = 0
    }
     

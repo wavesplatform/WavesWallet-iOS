@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WavesReceiveCryptocurrencyViewController: UIViewController, ChooseAssetViewControllerDelegate {
+class WavesReceiveCryptocurrencyViewController: UIViewController {
 
     @IBOutlet weak var viewContainerAsset: UIView!
     
@@ -39,10 +39,7 @@ class WavesReceiveCryptocurrencyViewController: UIViewController, ChooseAssetVie
     }
     
     @IBAction func selectAssetTapped(_ sender: Any) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ChooseAssetViewController") as! ChooseAssetViewController
-        controller.delegate = self
-        controller.selectedAsset = selectedAsset
-        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     func setupAssetState() {

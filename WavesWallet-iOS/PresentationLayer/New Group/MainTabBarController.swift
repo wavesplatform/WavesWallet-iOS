@@ -114,12 +114,38 @@ extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
         if viewController is DUMPVC {
-            let controller = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesPopupViewController")
+            
+            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+            vc.moduleOutput = self
             let popup = PopupViewController()
             popup.contentHeight = 300
-            popup.present(contentViewController: controller)
+            popup.present(contentViewController: vc)
             return false
         }
         return true
+    }
+}
+
+//MARK: - WavesPopupModuleOutput
+extension MainTabBarController: WavesPopupModuleOutput {
+   
+    func showSend() {
+        
+        if let nav = selectedViewController as? CustomNavigationController {
+            let vc = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
+            nav.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func showReceive() {
+    
+        if let nav = selectedViewController as? CustomNavigationController {
+            let vc = ReceiveContainerModuleBuilder().build(input: nil)
+            nav.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func showExchange() {
+        
     }
 }

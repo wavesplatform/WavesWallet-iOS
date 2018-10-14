@@ -89,16 +89,14 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
 
 fileprivate extension StartLeasing.State {
     
+    static var initialState: StartLeasing.State {
+        return StartLeasing.State(isNeedCreateOrder: false, order: nil, action: .none)
+    }
+
     func changeAction(_ action: StartLeasing.State.Action) -> StartLeasing.State {
         
         return mutate { state in
             state.action = action
         }
-    }
-}
-
-fileprivate extension StartLeasing.State {
-    static var initialState: StartLeasing.State {
-        return StartLeasing.State(isNeedCreateOrder: false, order: nil, action: .none)
     }
 }

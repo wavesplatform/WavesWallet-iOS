@@ -62,6 +62,21 @@ final class AssetViewController: UIViewController {
         super.viewWillDisappear(animated)
         resetSetupNavigationBar()
     }
+    
+    private func showSendController()  {
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.showSend(asset))
+        }
+    }
+    
+    private func showReceiveController() {
+        
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {            
+            eventInput.onNext(.showReceive(asset))
+        }
+    }
 }
 
 // MARK: RxFeedback
@@ -298,6 +313,7 @@ private extension AssetViewController {
         navigationItem.shadowImage = UIImage()
         title = nil
     }
+    
 }
 
 extension AssetViewController: UIScrollViewDelegate {
@@ -327,6 +343,13 @@ extension AssetViewController: UITableViewDataSource {
         case .balance(let balance):
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
+            cell.receiveAction = { [weak self] in
+                self?.showReceiveController()
+            }
+            cell.sendAction = { [weak self] in
+                self?.showSendController()
+            }
+            
             return cell
 
         case .balanceSkeleton:
@@ -516,6 +539,6 @@ extension AssetTypes.DTO.Asset.Info {
             kind = .wavesToken
         }
 
-        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind)
+        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind, icon: icon)
     }
 }

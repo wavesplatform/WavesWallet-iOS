@@ -52,6 +52,8 @@ extension AssetTypes {
         case tapExchange
         case tapTransaction(DomainLayer.DTO.SmartTransaction)
         case tapHistory
+        case showReceive(DomainLayer.DTO.AssetBalance)
+        case showSend(DomainLayer.DTO.AssetBalance)
     }
 
     struct DisplayState: DataSourceProtocol, Mutating {
@@ -102,11 +104,34 @@ extension AssetTypes.ViewModel {
     }
 }
 
+extension AssetTypes.ViewModel.Section {
+    
+    var assetBalance: DomainLayer.DTO.AssetBalance? {
+        if let row = rows.first(where: {$0.asset != nil}) {
+            if let asset = row.asset {
+                return asset.assetBalance
+            }
+        }
+        return nil
+    }
+}
+extension AssetTypes.ViewModel.Row {
+    
+    var asset: AssetTypes.DTO.Asset.Info? {
+        switch self {
+        case .assetInfo(let info):
+            return info
+        default:
+            return nil
+        }
+    }
+}
+
 extension AssetTypes.DTO {
 
-    struct Asset: Codable {
+    struct Asset {
 
-        struct Info: Codable {
+        struct Info {
             let id: String
             let issuer: String
             let name: String
@@ -121,6 +146,8 @@ extension AssetTypes.DTO {
             let isSpam: Bool
             let isGateway: Bool
             let sortLevel: Float
+            let icon: String
+            let assetBalance: DomainLayer.DTO.AssetBalance
         }
 
         struct Balance: Codable {

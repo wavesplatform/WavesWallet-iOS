@@ -10,31 +10,36 @@
   "generalAssetIds": [
     {
       "assetId": "WAVES",
-      "name": "WAVES",
-      "quantity": 10000000000000000,
-      "decimals": 8,
-      "isFiat": false
+      "displayName": "Waves",
+      "isFiat": false,
+      "isGateway" : false,
+      "wavesId" : "WAVES",
+      "gatewayId": "WAVES"
     },
     {
       "assetId": "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe",
-      "name": "BTC",
-      "quantity": 2100000000000000,
-      "decimals": 8,
-      "isFiat": false
+      "displayName": "Bitcoin",
+      "isFiat": false,
+      "isGateway" : true,
+      "wavesId" : "WBTC",
+      "gatewayId": "BTC"
     },
     {
       "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",
-      "name": "USD",
-      "quantity": 100000000000,
-      "decimals": 2,
-      "isFiat": true
+      "displayName": "US Dollar",
+      "isFiat": true,
+      "isGateway" : true,
+      "wavesId" : "WUSD",
+      "gatewayId": "USD"
+
     },
     {
       "assetId": "2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux",
-      "name": "EUR",
-      "quantity": 100000000000,
-      "decimals": 2,
-      "isFiat": true
+      "displayName": "Euro",
+      "isFiat": true,
+      "isGateway" : true,
+      "wavesId" : "WEUR",
+      "gatewayId": "EUR"
     }
   ]
 }
