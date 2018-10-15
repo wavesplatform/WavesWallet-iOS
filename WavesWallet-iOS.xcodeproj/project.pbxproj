@@ -237,7 +237,6 @@
 		0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */; };
 		0A762D8F21639FA60019D447 /* NewTransactionHistoryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */; };
 		0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */; };
-		0A762D9121639FA60019D447 /* TransactionHistoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6D21639FA50019D447 /* TransactionHistoryCollectionView.swift */; };
 		0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */; };
 		0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */; };
 		0A762D9521639FBF0019D447 /* UIView+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D9421639FBF0019D447 /* UIView+SafeArea.swift */; };
@@ -4741,7 +4740,6 @@
 				0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */,
 				F76CBAD91EB3558600AD713A /* AddressBookManager.swift in Sources */,
 				0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */,
-				0A762D9121639FA60019D447 /* TransactionHistoryCollectionView.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */,
 				0AFF5C87215BEEBF00B82940 /* RXCrypto+SHA.swift in Sources */,
