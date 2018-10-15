@@ -48,31 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window?.backgroundColor = AppColors.wavesColor
 
 
-        let bgSched1 = SerialDispatchQueueScheduler(internalSerialQueueName: "Test")
-
-        let tx =   Observable.just("")
-            .do(onNext: { _ in
-                print("tx do on \(Thread.current)")
-            })
-
-        Observable.just(1)
-            .do(onNext: { _ in
-                print("subscribe on \(Thread.current)")
-            })
-            .flatMap({ _ -> Observable<String> in
-                print("flatMap on \(Thread.current)")
-                return tx
-            })
-            .subscribeOn(bgSched1)
-            .observeOn(MainScheduler.instance)
-            .subscribe({ _ in
-                print("map on \(Thread.current)")
-            })
-
-
         appCoordinator = AppCoordinator(window!)
         appCoordinator.start()
-
+        
         return true
     }
 
