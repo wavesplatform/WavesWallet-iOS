@@ -86,7 +86,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
         UIApplication.shared.openURLAsync(Constants.supporURL)
     }
 
-    func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
+    func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
@@ -102,11 +102,11 @@ extension ProfileCoordinator: ProfileModuleOutput {
         navigationController.presentBasicAlertWithTitle(title: "🐙")
     }
 
-    func userLogouted() {
+    func accountLogouted() {
         self.applicationCoordinator?.showEnterDisplay()
     }
 
-    func useerDeteedAccount() {
+    func accountDeleted() {
         self.applicationCoordinator?.showEnterDisplay()
     }
 }
