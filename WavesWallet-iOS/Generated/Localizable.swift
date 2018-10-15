@@ -388,6 +388,23 @@ internal enum Localizable {
         }
       }
     }
+
+    internal enum Copy {
+      /// Amount
+      internal static let amount = Localizable.tr("TransactionHistory", "copy.amount")
+      /// Date
+      internal static let date = Localizable.tr("TransactionHistory", "copy.date")
+      /// Fee
+      internal static let fee = Localizable.tr("TransactionHistory", "copy.fee")
+      /// Recipient
+      internal static let recipient = Localizable.tr("TransactionHistory", "copy.recipient")
+      /// Sender
+      internal static let sender = Localizable.tr("TransactionHistory", "copy.sender")
+      /// Transaction ID
+      internal static let transactionId = Localizable.tr("TransactionHistory", "copy.transactionId")
+      /// Type
+      internal static let type = Localizable.tr("TransactionHistory", "copy.type")
+    }
   }
           internal enum DexTraderContainer {
 

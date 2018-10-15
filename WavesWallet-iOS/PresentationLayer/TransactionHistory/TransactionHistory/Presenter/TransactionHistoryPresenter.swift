@@ -34,7 +34,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         let newFeedbacks = feedbacks
         
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex), reduce: reduce, feedback: newFeedbacks)
-        .drive()
+            .drive()
             .disposed(by: disposeBag)
         
     }

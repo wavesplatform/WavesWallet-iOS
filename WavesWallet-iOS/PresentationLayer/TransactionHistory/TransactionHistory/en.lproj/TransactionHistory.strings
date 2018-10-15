@@ -34,3 +34,12 @@
 
 "cell.button.sendAgain" = "Send again";
 "cell.button.cancelLeasing" = "Cancel Leasing";
+
+"copy.transactionId" = "Transaction ID";
+"copy.type" = "Type";
+"copy.date" = "Date";
+"copy.sender" = "Sender";
+"copy.recipient" = "Recipient";
+"copy.fee" = "Fee";
+"copy.amount" = "Amount";
+
