@@ -153,7 +153,7 @@ extension ImportAccountPasswordViewController {
             return
         }
 
-        guard let name = accountTextField.value, let password = passwordTextField.value else { return }
+        guard let name = accountTextField.value?.value, let password = passwordTextField.value?.value else { return }
         delegate?.userCompletedInputAccountData(password: password, name: name)
     }
 
