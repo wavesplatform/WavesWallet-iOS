@@ -10,24 +10,35 @@ import Foundation
 import RxSwift
 import Moya
 
-private enum Constants {
+fileprivate enum Constants {
     static let maxLimit: Int = 10000
 }
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
-    let transactions: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let transactions: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return transactions
             .rx
             .request(.list(accountAddress: accountAddress,
-                           limit: min(Constants.maxLimit, offset + limit)))
+                           limit: min(Constants.maxLimit, offset + limit)), callbackQueue: DispatchQueue.global(qos: .background))
             .map(Node.DTO.TransactionContainers.self)
             .map { $0.anyTransactions() }
             .asObservable()        
     }
+
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
+        return leasingProvider
+            .rx
+            .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+            .map([Node.DTO.LeaseTransaction].self)
+            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
+            .asObservable()
+    }
+
 
     func transactions(by accountAddress: String,
                       specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {

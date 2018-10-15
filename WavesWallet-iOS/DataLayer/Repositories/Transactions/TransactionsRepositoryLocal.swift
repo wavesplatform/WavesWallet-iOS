@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import RxRealm
 import RxSwift
+import RxOptional
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,
@@ -144,12 +145,18 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
 
-            let txs: [AnyTransaction] = realm
+            let txsResult = realm
                 .objects(AnyTransaction.self)
                 .sorted(byKeyPath: "timestamp", ascending: false)
                 .filter("type IN %@", types.map { $0.rawValue })
                 .filter(predicate)
-                .get(offset: specifications.page.offset, limit: specifications.page.limit)
+
+            var txs: [AnyTransaction] = []
+            if let page = specifications.page {
+                txs = txsResult.get(offset: page.offset, limit: page.limit)
+            } else {
+                txs = txsResult.toArray()
+            }
 
             var transactions = [DomainLayer.DTO.AnyTransaction]()
 
@@ -163,6 +170,25 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             observer.onCompleted()
             return Disposables.create()
         }
+    }
+
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
+        return self.transactions(by: accountAddress,
+                                 specifications: TransactionsSpecifications(page: nil,
+                                                                            assets: .init(),
+                                                                            senders: .init(),
+                                                                            types: [TransactionType.lease]))
+            .map({ txs -> [DomainLayer.DTO.LeaseTransaction] in
+                return txs.map({ tx -> DomainLayer.DTO.LeaseTransaction? in
+                    if case .lease(let leaseTx) = tx {
+                        return leaseTx
+                    } else {
+                        return nil
+                    }
+                })
+                .compactMap { $0 }
+            })
+
     }
 
     var isHasTransactions: Observable<Bool> {

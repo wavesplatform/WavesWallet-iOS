@@ -16,6 +16,10 @@
 "ticker.title.wavestoken" = "Waves Token";
 "ticker.title.cryptocurrency" = "Cryptocurrency";
 
+"tabbar.title.wallet" = "Wallet";
+"tabbar.title.dex" = "DEX";
+"tabbar.title.history" = "History";
+"tabbar.title.profile" = "Profile";
 
 "history.transaction.title.received" = "Received";
 "history.transaction.title.sent" = "Sent";
@@ -31,4 +35,7 @@
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
 "history.transaction.title.data" = "Data transaction";
 "history.transaction.value.data" = "Entry in blockchain";
+
+"biometric.faceID.title" = "Face ID";
+"biometric.touchID.title" = "Touch ID";
 

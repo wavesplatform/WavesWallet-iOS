@@ -10,7 +10,7 @@ import UIKit
 import RESideMenu
 
 
-class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelegate, AddAddressViewControllerDelegate {
+class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelegate {
 
     @IBOutlet weak var imageViewIcon: UIImageView!
     @IBOutlet weak var labelValue: UILabel!
@@ -177,12 +177,6 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
         }
     }
     
-    func addAddressViewControllerDidBack() {
-        if let popup = firstAvailableViewController().parent as? PopupViewController {
-            popup.showView()
-        }
-    }
-    
     //MARK: - TransactionHistoryAddressViewDelegate
     
     func transactionHistoryAddressViewChangeName(_ item: NSDictionary, isAddMode: Bool) {
@@ -191,18 +185,15 @@ class TransactionHistoryContentView: UIView, TransactionHistoryAddressViewDelega
             popup.hideView()
         }
         
-        let changeNameController = StoryboardManager.TransactionsStoryboard().instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
-        changeNameController.isAddMode = isAddMode
-        changeNameController.delegate = self
-        changeNameController.showTabBarOnBack = true
+        let vc = AddAddressBookModuleBuilder(output: nil).build(input: nil)
         
         let menu = AppDelegate.shared().menuController
-        let mainTabBar = menu.contentViewController as! MainTabBarController
-        mainTabBar.setupLastScrollCorrectOffset()
-        let nav = mainTabBar.selectedViewController as! UINavigationController
-        nav.pushViewController(changeNameController, animated: true)
-        mainTabBar.setTabBarHidden(true, animated: true)
+//        let mainTabBar = menu.contentViewController as! MainTabBarController
+//        mainTabBar.setupLastScrollCorrectOffset()
+//        let nav = mainTabBar.selectedViewController as! UINavigationController
+//        nav.pushViewController(vc, animated: true)
     }
     
     
 }
+

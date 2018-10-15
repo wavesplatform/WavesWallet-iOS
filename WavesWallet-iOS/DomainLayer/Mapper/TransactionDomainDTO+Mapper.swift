@@ -94,7 +94,7 @@ extension DomainLayer.DTO.TransferTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let assetId = self.assetId else { return nil }
+        let assetId = self.assetId
         guard let asset = assets[assetId] else { return nil }
         guard let recipient = accounts[self.recipient] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
@@ -201,8 +201,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let amountAssetId = order1.assetPair.amountAsset else { return nil }
-        guard let priceAssetId = order1.assetPair.priceAsset else { return nil }
+        let amountAssetId = order1.assetPair.amountAsset
+        let priceAssetId = order1.assetPair.priceAsset
         guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
         guard let amountAsset = assets[amountAssetId] else { return nil }
         guard let priceAsset = assets[priceAssetId] else { return nil }
@@ -352,7 +352,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let assetId = self.assetId else { return nil }
+        let assetId = self.assetId
         guard let asset = assets[assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 

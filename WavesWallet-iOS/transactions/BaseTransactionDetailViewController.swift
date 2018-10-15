@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-import UILabel_Copyable
 
 class BaseTransactionDetailViewController: UITableViewController, HalfModalPresentable {
     @IBOutlet weak var directionLabel: UILabel!
@@ -71,13 +70,12 @@ class BaseTransactionDetailViewController: UITableViewController, HalfModalPrese
         feeLabel?.text = "Transaction fee: \(MoneyUtil.getScaledTextTrimZeros(tx.fee, decimals: 8)) WAVES"
         dateLabel.text = DateUtil.formatFull(ts: tx.timestamp)
         fromLabel.text = tx.sender
-        fromLabel.copyingEnabled = true
+        
         assetIdLabel?.text = basicTx.assetId
         assetNameLabel.text = basicTx.asset?.name ?? "WAVES"
         txIdLabel.text = basicTx.id
 
-        txIdLabel.copyingEnabled = true
-        assetIdLabel?.copyingEnabled = true
+
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

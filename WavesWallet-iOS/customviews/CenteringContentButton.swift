@@ -10,7 +10,7 @@ import UIKit
 
 final class CenteringContentButton: UIButton {
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let titleTopPadding: CGFloat = 8
     }
 

@@ -45,11 +45,11 @@ extension DomainLayer.DTO.TransferTransaction {
         version = transaction.version
         height = transaction.height
         signature = transaction.signature
-        assetId = transaction.assetId
+        assetId = transaction.assetId.normalizeAssetId
         modified = Date()
 
         recipient = transaction.recipient
-        feeAssetId = transaction.feeAssetId        
+        feeAssetId = transaction.feeAssetId.normalizeAssetId
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
@@ -65,11 +65,11 @@ extension DomainLayer.DTO.TransferTransaction {
         version = transaction.version
         height = transaction.height
         signature = transaction.signature
-        assetId = transaction.assetId
+        assetId = transaction.assetId.normalizeAssetId
         modified = transaction.modified
 
         recipient = transaction.recipient
-        feeAssetId = transaction.feeAssetId
+        feeAssetId = transaction.feeAssetId.normalizeAssetId
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment

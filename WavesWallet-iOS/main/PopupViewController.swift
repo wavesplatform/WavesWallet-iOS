@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     
     //MARK: - UI Settings
     static let BgAlpha: CGFloat = 0.4
@@ -17,8 +17,8 @@ private enum Constants {
     static let AnimationDuration: TimeInterval = 0.3
 
     //MARK: Container Settings
-    static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricManager.BiometricType.faceID ? 150 : 64
-    static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricManager.BiometricType.faceID ? 30 : 0
+    static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 150 : 64
+    static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 30 : 0
     static let ContainerOffsetOfDragPoint: CGFloat = 20
     
     //MARK: - Gesture Settings
@@ -32,6 +32,8 @@ final class PopupViewController: UIViewController {
     private var topContainerOffset : CGFloat = Constants.DefaultTopContainerTopOffset
     private let dragImage = UIImageView(frame: Constants.DragImageFrame)
     private var isDragMode = false
+    
+    private var gestureTap: UITapGestureRecognizer!
     
     // Use if screen is not have full size
     var contentHeight: CGFloat = 0 {
@@ -52,8 +54,8 @@ final class PopupViewController: UIViewController {
         setupGestures()
     }
     
-    func present(contentViewController: UIViewController) {
-    
+    func present(contentViewController: UIViewController, animated: Bool = true) {
+        
         let topController = getTopController()
         topController.view.addSubview(bgView)
         
@@ -69,17 +71,36 @@ final class PopupViewController: UIViewController {
         contentView.addSubview(contentViewController.view)
         
         view.frame.origin.y = view.frame.size.height
-        UIView.animate(withDuration: Constants.AnimationDuration) {
-            self.view.frame.origin.y = 0
-            self.bgView.alpha = Constants.BgAlpha
-        }
+        
+        showView(animated: animated)
     }
  
+    func present(contentView: UIView, animated: Bool) {
+        
+//        let topController = getTopController()
+//        topController.view.addSubview(bgView)
+        
+//        topController.addChildViewController(self)
+//        didMove(toParentViewController: topController)
+//        topController.view.addSubview(view)
+        
+//        view.addSubview(bgView)
+        
+        contentView.frame = CGRect(x: 0, y: Constants.ContainerOffsetOfDragPoint,
+                                                  width: contentView.frame.size.width,
+                                                  height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
+        self.contentView.addSubview(contentView)
+        
+        view.frame.origin.y = view.frame.size.height
+        
+        showView(animated: animated)
+    }
+    
     func dismissPopup() {
         UIView.animate(withDuration: Constants.AnimationDuration, animations: {
             self.view.frame.origin.y = self.view.frame.size.height
             self.bgView.alpha = 0
-        }) { (compelte) in
+        }) { (compeleted) in
             self.bgView.removeFromSuperview()
             self.view.removeFromSuperview()
             self.willMove(toParentViewController: nil)
@@ -87,16 +108,26 @@ final class PopupViewController: UIViewController {
         }
     }
     
-    func showView() {
-        UIView.animate(withDuration: Constants.AnimationDuration) {
+    func showView(animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: Constants.AnimationDuration) {
+                self.view.frame.origin.y = 0
+                self.bgView.alpha = Constants.BgAlpha
+            }
+        } else {
             self.view.frame.origin.y = 0
             self.bgView.alpha = Constants.BgAlpha
         }
     }
     
-    func hideView() {
-        UIView.animate(withDuration: Constants.AnimationDuration) {
-            self.view.frame.origin.y = self.view.frame.size.height
+    func hideView(animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: Constants.AnimationDuration) {
+                self.view.frame.origin.y = self.view.frame.height
+                self.bgView.alpha = 0
+            }
+        } else {
+            self.view.frame.origin.y = self.view.frame.height
             self.bgView.alpha = 0
         }
     }
@@ -160,9 +191,7 @@ private extension PopupViewController {
     
     
     func isDragPoint(location: CGPoint) -> Bool {
-        return  location.x >= dragImage.frame.origin.x - 15 &&
-            location.x <= dragImage.frame.origin.x + dragImage.frame.size.width + 15 &&
-            location.y <= topContainerOffset + 30 && location.y >= topContainerOffset - 20
+        return location.y <= topContainerOffset + 20 && location.y >= topContainerOffset - 20
     }
     
 }
@@ -197,12 +226,44 @@ private extension PopupViewController {
     }
     
     func setupGestures() {
-        let gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
+        gestureTap = UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:)))
+        gestureTap.delegate = self
         view.addGestureRecognizer(gestureTap)
         
         let gesturePan = UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:)))
+        gesturePan.delegate = self
         view.addGestureRecognizer(gesturePan)
     }
+}
+
+extension PopupViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if gestureRecognizer == gestureTap {
+            
+            let location = gestureTap.location(in: view)
+            
+            if location.y <= topContainerOffset || isDragPoint(location: location) {
+                return true
+            }
+            
+            return false
+            
+        }
+        
+        return true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == gestureTap {
+            return true
+        }
+        
+        return true
+    }
+    
 }
 
 //MARK: - Additional Methods

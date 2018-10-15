@@ -5,3 +5,32 @@
   Created by mefilt on 20.08.2018.
   Copyright © 2018 Waves Platform. All rights reserved.
 */
+
+"cell.balance.avaliableBalance" = "Available balance";
+"cell.balance.inOrderBalance" = "In order";
+"cell.balance.totalBalance" = "Total";
+"cell.balance.leased" = "Leased";
+"cell.balance.button.send" = "Send";
+"cell.balance.button.receive" = "Receive";
+"cell.balance.button.exchange" = "Exchange";
+
+"header.lastTransactions" = "Last transactions";
+"header.lastTransactions" = "Last transactions";
+"header.notHaveTransactions" = "You do not have any transactions";
+
+"cell.viewHistory" = "View history";
+
+"cell.assetInfo.title" = "Asset Info";
+"cell.assetInfo.name" = "Name";
+"cell.assetInfo.issuer" = "Issuer";
+"cell.assetInfo.id" = "ID";
+"cell.assetInfo.issueDate" = "Issue date";
+"cell.assetInfo.description" = "Description";
+"cell.assetInfo.kind.title" = "Type";
+"cell.assetInfo.kind.reissuable" = "Reissuable";
+"cell.assetInfo.kind.notReissuable" = "Not reissuable";
+
+
+
+
+

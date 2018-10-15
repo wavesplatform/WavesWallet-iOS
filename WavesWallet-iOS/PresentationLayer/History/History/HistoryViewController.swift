@@ -13,19 +13,21 @@ import RxFeedback
 import RxSwift
 import SwiftDate
 
-private enum Constants {
+fileprivate enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
 }
 
 final class HistoryViewController: UIViewController {
     
-    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var isRefreshing: Bool = false
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTextLabel: UILabel!
     
     var presenter: HistoryPresenterProtocol!
     
@@ -36,15 +38,14 @@ final class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = Localizable.History.Navigationbar.title
-        
+
         tableView.contentInset = Constants.contentInset
         emptyView.isHidden = true
-        
+        setupLocalization()
         setupSegmentedControl()
         setupRefreshControl()
         setupSystem()
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,15 +55,26 @@ final class HistoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         setupTopBarLine()
         setupBigNavigationBar()
-        if rdv_tabBarController.isTabBarHidden {
-            rdv_tabBarController.setTabBarHidden(false, animated: true)
-        }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         setupTopBarLine()
+    }
+
+    @objc func changedLanguage() {
+        setupLocalization()
+        setupSegmentedControl()
+        tableView.reloadData()
+    }
+}
+
+// MARK: Localization
+
+extension HistoryViewController: Localization {
+    func setupLocalization() {
+        navigationItem.title = Localizable.History.Navigationbar.title
+        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
     }
 }
 

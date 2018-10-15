@@ -48,16 +48,23 @@ internal enum Images {
     internal static let checkboxOff = ImageAsset(name: "checkbox-off")
     internal static let checkboxOn = ImageAsset(name: "checkbox-on")
   }
+  internal enum Enter {
+    internal static let blockchain80 = ImageAsset(name: "blockchain80")
+    internal static let dex80 = ImageAsset(name: "dex80")
+    internal static let token80 = ImageAsset(name: "token80")
+    internal static let wallet80 = ImageAsset(name: "wallet80")
+  }
   internal enum TabBar {
-    internal static let tabBarDexBlack = ImageAsset(name: "tab_bar_dex_black")
-    internal static let tabBarDexGray = ImageAsset(name: "tab_bar_dex_gray")
-    internal static let tabBarHistoryBlack = ImageAsset(name: "tab_bar_history_black")
-    internal static let tabBarHistoryGray = ImageAsset(name: "tab_bar_history_gray")
+    internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
+    internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
+    internal static let tabBarHistory = ImageAsset(name: "tab_bar_history")
+    internal static let tabBarHistoryActive = ImageAsset(name: "tab_bar_history_active")
     internal static let tabBarPlus = ImageAsset(name: "tab_bar_plus")
-    internal static let tabBarProfileBlack = ImageAsset(name: "tab_bar_profile_black")
-    internal static let tabBarProfileGray = ImageAsset(name: "tab_bar_profile_gray")
-    internal static let tabBarWalletBlack = ImageAsset(name: "tab_bar_wallet_black")
-    internal static let tabBarWalletGray = ImageAsset(name: "tab_bar_wallet_gray")
+    internal static let tabBarPlusActive = ImageAsset(name: "tab_bar_plus_active")
+    internal static let tabBarProfile = ImageAsset(name: "tab_bar_profile")
+    internal static let tabBarProfileActive = ImageAsset(name: "tab_bar_profile_active")
+    internal static let tabBarWallet = ImageAsset(name: "tab_bar_wallet")
+    internal static let tabBarWalletActive = ImageAsset(name: "tab_bar_wallet_active")
   }
   internal enum Wallet {
     internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
@@ -65,11 +72,12 @@ internal enum Images {
     internal static let walletScanner = ImageAsset(name: "wallet_scanner")
     internal static let walletSort = ImageAsset(name: "wallet_sort")
   }
-  internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
+  internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
+  internal static let arrowLeft = ImageAsset(name: "arrow_left")
   internal static let arrowRed = ImageAsset(name: "arrow_red")
+  internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
-  internal static let arrowleft14Basic200 = ImageAsset(name: "arrowleft14Basic200")
   internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
   internal static let assetReceive = ImageAsset(name: "asset_receive")
@@ -94,6 +102,7 @@ internal enum Images {
   internal static let chartarrow22Accent100 = ImageAsset(name: "chartarrow22Accent100")
   internal static let chartarrow22Error500 = ImageAsset(name: "chartarrow22Error500")
   internal static let chartarrow22Success400 = ImageAsset(name: "chartarrow22Success400")
+  internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
   internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
@@ -101,6 +110,8 @@ internal enum Images {
   internal static let checkmarkFill = ImageAsset(name: "checkmark_fill")
   internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
   internal static let close = ImageAsset(name: "close")
+  internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
+  internal static let copy18Black = ImageAsset(name: "copy18Black")
   internal static let copyAddress = ImageAsset(name: "copy_address")
   internal static let copyBlack = ImageAsset(name: "copy_black")
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
@@ -112,7 +123,9 @@ internal enum Images {
   internal static let downChevron = ImageAsset(name: "down-chevron")
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
-  internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
+  internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
+  internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
+  internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
@@ -170,6 +183,7 @@ internal enum Images {
   internal static let menuTel = ImageAsset(name: "menu_tel")
   internal static let menuTitleLogo = ImageAsset(name: "menu_title_logo")
   internal static let menuTwitter = ImageAsset(name: "menu_twitter")
+  internal static let minus18Disabled900 = ImageAsset(name: "minus18Disabled900")
   internal static let notStar = ImageAsset(name: "not_star")
   internal static let notStarBtn = ImageAsset(name: "not_star_btn")
   internal static let off = ImageAsset(name: "off")
@@ -178,6 +192,7 @@ internal enum Images {
   internal static let pVisa28 = ImageAsset(name: "pVisa28")
   internal static let pairNotSelected = ImageAsset(name: "pair-not-selected")
   internal static let pairSelected = ImageAsset(name: "pair-selected")
+  internal static let plus18Disabled900 = ImageAsset(name: "plus18Disabled900")
   internal static let qrcode = ImageAsset(name: "qrcode")
   internal static let qrcode24Basic500 = ImageAsset(name: "qrcode24Basic500")
   internal static let rBank14Basic500 = ImageAsset(name: "rBank14Basic500")
@@ -191,6 +206,7 @@ internal enum Images {
   internal static let receive = ImageAsset(name: "receive")
   internal static let receiveBtn = ImageAsset(name: "receive_btn")
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
+  internal static let resendIcon = ImageAsset(name: "resend_icon")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -203,14 +219,12 @@ internal enum Images {
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
   internal static let swipeRight = ImageAsset(name: "swipe_right")
   internal static let tAlias48 = ImageAsset(name: "tAlias48")
-  internal static let tCloselease28 = ImageAsset(name: "tCloselease28")
   internal static let tCloselease48 = ImageAsset(name: "tCloselease48")
   internal static let tData48 = ImageAsset(name: "tData48")
   internal static let tExchange48 = ImageAsset(name: "tExchange48")
   internal static let tIncominglease48 = ImageAsset(name: "tIncominglease48")
   internal static let tMassreceived48 = ImageAsset(name: "tMassreceived48")
   internal static let tMasstransfer48 = ImageAsset(name: "tMasstransfer48")
-  internal static let tResend28 = ImageAsset(name: "tResend28")
   internal static let tSelftrans48 = ImageAsset(name: "tSelftrans48")
   internal static let tSend48 = ImageAsset(name: "tSend48")
   internal static let tSoonExchange28 = ImageAsset(name: "tSoonExchange28")
@@ -222,6 +236,7 @@ internal enum Images {
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
   internal static let tUndefined48 = ImageAsset(name: "tUndefined48")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
+  internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
@@ -233,6 +248,7 @@ internal enum Images {
   internal static let topbarFlashOff = ImageAsset(name: "topbarFlashOff")
   internal static let topbarFlashOn = ImageAsset(name: "topbarFlashOn")
   internal static let topbarInfowhite = ImageAsset(name: "topbarInfowhite")
+  internal static let topbarLogout = ImageAsset(name: "topbarLogout")
   internal static let topbarMenuwhite = ImageAsset(name: "topbarMenuwhite")
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
@@ -264,24 +280,30 @@ internal enum Images {
   internal static let allImages: [ImageAsset] = [
     Checkbox.checkboxOff,
     Checkbox.checkboxOn,
-    TabBar.tabBarDexBlack,
-    TabBar.tabBarDexGray,
-    TabBar.tabBarHistoryBlack,
-    TabBar.tabBarHistoryGray,
+    Enter.blockchain80,
+    Enter.dex80,
+    Enter.token80,
+    Enter.wallet80,
+    TabBar.tabBarDex,
+    TabBar.tabBarDexActive,
+    TabBar.tabBarHistory,
+    TabBar.tabBarHistoryActive,
     TabBar.tabBarPlus,
-    TabBar.tabBarProfileBlack,
-    TabBar.tabBarProfileGray,
-    TabBar.tabBarWalletBlack,
-    TabBar.tabBarWalletGray,
+    TabBar.tabBarPlusActive,
+    TabBar.tabBarProfile,
+    TabBar.tabBarProfileActive,
+    TabBar.tabBarWallet,
+    TabBar.tabBarWalletActive,
     Wallet.walletArrowGreen,
     Wallet.walletArrowHeader,
     Wallet.walletScanner,
     Wallet.walletSort,
-    addaddress24Submit300,
+    addAddressIcon,
     arrowGreen,
+    arrowLeft,
     arrowRed,
+    arrowRight,
     arrowTransfer,
-    arrowleft14Basic200,
     arrowright14Basic200,
     assetChangeArrows,
     assetReceive,
@@ -306,6 +328,7 @@ internal enum Images {
     chartarrow22Accent100,
     chartarrow22Error500,
     chartarrow22Success400,
+    check18Success400,
     checkMark,
     checkSuccess,
     checkmarkEmpty,
@@ -313,6 +336,8 @@ internal enum Images {
     checkmarkFill,
     checkmarkFillGray,
     close,
+    closeLeaseIcon,
+    copy18Black,
     copyAddress,
     copyBlack,
     deladdress24Error400,
@@ -324,7 +349,9 @@ internal enum Images {
     downChevron,
     down,
     dragElem,
-    editaddress24Submit300,
+    editAddressIcon,
+    eyeclsoe24Basic500,
+    eyeopen24Basic500,
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
@@ -382,6 +409,7 @@ internal enum Images {
     menuTel,
     menuTitleLogo,
     menuTwitter,
+    minus18Disabled900,
     notStar,
     notStarBtn,
     off,
@@ -390,6 +418,7 @@ internal enum Images {
     pVisa28,
     pairNotSelected,
     pairSelected,
+    plus18Disabled900,
     qrcode,
     qrcode24Basic500,
     rBank14Basic500,
@@ -403,6 +432,7 @@ internal enum Images {
     receive,
     receiveBtn,
     repeatBtn,
+    resendIcon,
     search,
     search24Basic500,
     send,
@@ -415,14 +445,12 @@ internal enum Images {
     swipeLeft,
     swipeRight,
     tAlias48,
-    tCloselease28,
     tCloselease48,
     tData48,
     tExchange48,
     tIncominglease48,
     tMassreceived48,
     tMasstransfer48,
-    tResend28,
     tSelftrans48,
     tSend48,
     tSoonExchange28,
@@ -434,6 +462,7 @@ internal enum Images {
     tTokenreis48,
     tUndefined48,
     tabbarWavesActive,
+    tabbarWavesDefault,
     topbarAddaddress,
     topbarAddmarkets,
     topbarBackwhite,
@@ -445,6 +474,7 @@ internal enum Images {
     topbarFlashOff,
     topbarFlashOn,
     topbarInfowhite,
+    topbarLogout,
     topbarMenuwhite,
     topbarSort,
     touchid48Submit300,

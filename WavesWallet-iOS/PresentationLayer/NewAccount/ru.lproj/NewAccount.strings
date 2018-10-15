@@ -1,0 +1,22 @@
+/* 
+  NewAccount.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 17.09.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"main.navigation.title" = "Новый Максим";
+"avatar.title" = "Выбери своего Максима";
+"avatar.detail" = "Этот Максим уникальный. Вы не сможете изменить его.";
+
+"textfield.accountName.title" = "Имя Максима";
+"textfield.createpassword.title" = "Create a password";
+"textfield.confirmpassword.title" = "Confirm password";
+
+"textfield.error.atleastcharacters" = "at least %d characters";
+"textfield.error.passwordnotmatch" = "password not match";
+
+"secret.navigation.title" = "New Account";
+"backup.navigation.title" = "New Account";
+
