@@ -17,12 +17,12 @@ extension Matcher.Service {
          Response:
          - [AssetId: Balance] as [String: Int64]
          */
-        case getReservedBalances(PrivateKeyAccount)
+        case getReservedBalances(TimestampSignature)
     }
 }
 
 extension Matcher.Service.Balance: MatcherTargetType {
-    private enum Constants {
+    fileprivate enum Constants {
         static let matcher = "matcher"
         static let balance = "balance"
         static let reserved = "reserved"
@@ -31,14 +31,14 @@ extension Matcher.Service.Balance: MatcherTargetType {
 
     var path: String {
         switch self {
-        case .getReservedBalances(let privateKey):
+        case .getReservedBalances(let signature):
             return Constants.matcher
                 + "/"
                 + Constants.balance
                 + "/"
                 + Constants.reserved
                 + "/"
-                + "\(privateKey.getPublicKeyStr())".urlEscaped
+                + "\(signature.publicKey.getPublicKeyStr())".urlEscaped
         }
     }
 
@@ -60,8 +60,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch self {
-        case .getReservedBalances(let privateKey):
-            let signature = TimestampSignature(privateKey: privateKey)
+        case .getReservedBalances(let signature):            
             headers.merge(signature.parameters) { a, _ in a }
         }
 

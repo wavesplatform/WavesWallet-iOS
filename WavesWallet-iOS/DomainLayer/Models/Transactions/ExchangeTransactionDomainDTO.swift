@@ -30,12 +30,12 @@ extension DomainLayer.DTO {
             let timestamp: Int64
             let expiration: Int64
             let matcherFee: Int64
-            let signature: String
+            let signature: String?
         }
 
         struct AssetPair: Decodable, Mutating {
-            var amountAsset: String?
-            var priceAsset: String?
+            var amountAsset: String
+            var priceAsset: String
         }
         
         let type: Int
@@ -46,7 +46,7 @@ extension DomainLayer.DTO {
         let timestamp: Int64
         let height: Int64
 
-        let signature: String
+        let signature: String?
         var order1: Order
         var order2: Order
         let price: Int64

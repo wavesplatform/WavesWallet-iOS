@@ -25,7 +25,7 @@ extension API.Service {
 }
 
 extension API.Service.Assets: ApiTargetType {
-    private enum Constants {
+    fileprivate enum Constants {
         static let assets = "assets"
         static let ids = "ids"
     }
@@ -41,15 +41,18 @@ extension API.Service.Assets: ApiTargetType {
 
     var method: Moya.Method {
         switch self {
-        case .getAssets, .getAsset:
+        case .getAsset:
             return .get
+        case .getAssets:
+            return .post
         }
     }
 
     var task: Task {
         switch self {
         case .getAssets(let ids):
-            return Task.requestParameters(parameters: [Constants.ids: ids], encoding: URLEncoding.default)
+            return Task.requestParameters(parameters: [Constants.ids: ids],
+                                          encoding: JSONEncoding.default)
         case .getAsset:
             return .requestPlain
         }

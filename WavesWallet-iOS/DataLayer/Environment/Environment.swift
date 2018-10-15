@@ -41,42 +41,19 @@ final class Environments {
         fileprivate static let test = "Environment-Test"
     }
 
-    private static var _current: Environment?
-
     static let Testnet: Environment = parseJSON(json: Constants.test)!
     static let Mainnet: Environment = parseJSON(json: Constants.main)!
     static var current: Environment {
         get {
-            if let cur = _current {
-                return cur
+            if UserDefaults.standard.bool(forKey: "isTestEnvironment") {
+                return Testnet
             } else {
-                if UserDefaults.standard.bool(forKey: "isTestEnvironment") {
-                    _current = Testnet
-                } else {
-                    _current = Mainnet
-                }
-                return _current!
+                return Mainnet
             }
-        }
-        set {
-            if newValue.name == "Testnet" {
-                UserDefaults.standard.set(true, forKey: "isTestEnvironment")
-            } else {
-                UserDefaults.standard.removeObject(forKey: "isTestEnvironment")
-            }
-            _current = newValue
         }
     }
 
     private static func parseJSON(json fileName: String) -> Environment? {
-        let decoder = JSONDecoder()
-        guard let path = Bundle.main.url(forResource: fileName, withExtension: "json") else {
-            return nil
-        }
-        guard let data = try? Data(contentsOf: path) else {
-            return nil
-        }
-
-        return try? decoder.decode(Environment.self, from: data)
+        return JSONDecoder.decode(json: fileName)
     }
 }

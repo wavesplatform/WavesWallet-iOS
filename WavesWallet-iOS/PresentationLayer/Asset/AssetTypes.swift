@@ -54,7 +54,7 @@ extension AssetTypes {
         case tapHistory
     }
 
-    struct DisplayState: StateDisplayBase, Mutating {
+    struct DisplayState: DataSourceProtocol, Mutating {
 
         enum Action {
             case none

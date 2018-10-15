@@ -19,8 +19,8 @@ extension DomainLayer.DTO {
         let version: Int
         let height: Int64
         
-        let signature: String
-        let chainId: String?
+        let signature: String?
+        let chainId: Int?
         let leaseId: String
         let lease: DomainLayer.DTO.LeaseTransaction?
         var modified: Date

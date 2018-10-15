@@ -8,10 +8,15 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let statusBarPadding: CGFloat = 32
     static let statusBarMinMediumPercent: CGFloat = 3.5
     static let statusBarMinSmallPercent: CGFloat = 2
+}
+
+protocol WalletLeasingBalanceCellDelegate: AnyObject {
+
+    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money)
 }
 
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
@@ -35,13 +40,15 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     private var leasedPercent: CGFloat = 0
     private var leasedInPercent: CGFloat = 0
 
+    private var availableMoney: Money!
+    
+    weak var delegate: WalletLeasingBalanceCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
-        totalBalanceTitleLabel.text = Localizable.Wallet.Label.totalBalance
-        avaliableTitleLabel.text = Localizable.Wallet.Label.available
-        leasedTitleLabel.text = Localizable.Wallet.Label.leased
-        buttonStartLease.setTitle(Localizable.Wallet.Button.startLease, for: .normal)
+        setupLocalization()
+        buttonStartLease.addTarget(self, action: #selector(startLease), for: .touchUpInside)
     }
 
     override func updateConstraints() {
@@ -56,10 +63,32 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
     class func cellHeight() -> CGFloat {
         return 326
     }
+
+    @objc func startLease() {
+        delegate?.walletLeasingBalanceCellDidTapStartLease(availableMoney: availableMoney)
+    }
 }
+
+// MARK: Localization
+
+extension WalletLeasingBalanceCell: Localization {
+    func setupLocalization() {
+        totalBalanceTitleLabel.text = Localizable.Wallet.Label.totalBalance
+        avaliableTitleLabel.text = Localizable.Wallet.Label.available
+        leasedTitleLabel.text = Localizable.Wallet.Label.leased
+        leasedInTitleLabel.text = Localizable.Wallet.Label.leasedIn
+        buttonStartLease.setTitle(Localizable.Wallet.Button.startLease, for: .normal)
+    }
+}
+
+// MARK: ViewConfiguration
 
 extension WalletLeasingBalanceCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Leasing.Balance) {
+
+        setupLocalization()
+        availableMoney = model.avaliableMoney
+        
         labelBalance.attributedText = .styleForBalance(text: model.totalMoney.displayTextFull,
                                                        font: labelAvaliableBalance.font)
         labelAvaliableBalance.attributedText = .styleForBalance(text: model.avaliableMoney.displayTextFull,

@@ -13,7 +13,7 @@ import RxSwift
 
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
-    func balances(by accountAddress: String, privateKey: PrivateKeyAccount) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? Realm() else {
@@ -100,7 +100,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             return Disposables.create {
                 collection.dispose()
             }
-        }
+        }.subscribeOn(RunLoopThreadScheduler.init(threadName: "Realm"))
     }()
 }
 
@@ -137,9 +137,14 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
 
         if let asset = balance.asset {
             self.asset = DomainLayer.DTO.Asset(asset)
+        } else {
+            self.asset  = nil
         }
+        
         if let settings = balance.settings {
             self.settings = .init(settings: settings)
+        } else {
+            self.settings  = nil
         }
     }
 }

@@ -29,7 +29,7 @@ extension Node.Service.Transaction: NodeTargetType {
         return String.self
     }
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let transactions = "transactions"
         static let limit = "limit"
         static let address = "address"

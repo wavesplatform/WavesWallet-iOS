@@ -1,0 +1,15 @@
+/* 
+  UseTouchID.strings
+  WavesWallet-iOS
+
+  Created by Prokofev Ruslan on 27/09/2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"label.title.text" = "Use %@ to sign in?";
+"label.detail.text" = "Use your %@ for faster, easier access to your account";
+
+"button.useBiometric.text" = "Use %@";
+"button.notNow.text" = "Not now";
+
+

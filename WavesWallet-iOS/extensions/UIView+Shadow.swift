@@ -8,12 +8,18 @@
 
 import UIKit
 
+fileprivate enum Constants {
+    static let deffaultCornerRadius: Float = -1
+}
+
 extension UIView {
 
     private enum AssociatedKeys {
-        static var isAutomaticShadowPathSetting = "isAutomaticShadowPathSetting"
-        static var isEnabledShadow = "isEnabledShadow"
+        static var cornerRadius = "cornerRadius"
+        static var maskLayer = "maskLayer"
         static var prevBounds = "prevBounds"
+        static var shadowOptions = "shadowOptions"
+        static var isInvalidatePath = "isInvalidatePath"
     }
 
     static func shadowInit() {
@@ -22,80 +28,66 @@ extension UIView {
                         swizzled: #selector(swizzled_shadow_layoutSubviews))
     }
 
-    private var prevBounds: CGRect? {
-
+    private var shadowOptions: ShadowOptions? {
         get {
-            if let value: NSValue = associatedObject(for: &AssociatedKeys.prevBounds) {
-                return value.cgRectValue
-            }
-            return nil
+            return associatedObject(for: &AssociatedKeys.shadowOptions) ?? nil
         }
 
         set {
-
-            if let newValue = newValue {
-                setAssociatedObject(NSValue(cgRect: newValue), for: &AssociatedKeys.prevBounds)
-            } else {
-                let value: NSValue? = nil
-                setAssociatedObject(value, for: &AssociatedKeys.prevBounds)
-            }
+            setAssociatedObject(newValue, for: &AssociatedKeys.shadowOptions)
         }
     }
 
-    private var isEnabledShadow: Bool {
+    @IBInspectable var cornerRadius: Float {
+
         get {
-            return associatedObject(for: &AssociatedKeys.isEnabledShadow) ?? false
+            return associatedObject(for: &AssociatedKeys.cornerRadius) ?? Constants.deffaultCornerRadius
         }
 
         set {
-            setAssociatedObject(newValue, for: &AssociatedKeys.isEnabledShadow)
+            setAssociatedObject(newValue, for: &AssociatedKeys.cornerRadius)
+            update()
+            
         }
     }
 
-    var isAutomaticShadowPathSetting: Bool {
-        get {
-            return associatedObject(for: &AssociatedKeys.isAutomaticShadowPathSetting) ?? true
+    func setupShadow(options: ShadowOptions) {
+        self.shadowOptions = options
+        update()
+    }
+
+    func removeShadow() {
+        self.shadowOptions = nil
+        update()
+    }
+}
+
+extension UIView {
+
+    private func update() {
+        if let shadowOptions = shadowOptions {
+            layer.setupShadow(options: shadowOptions)
         }
 
-        set {
-            setAssociatedObject(newValue, for: &AssociatedKeys.isAutomaticShadowPathSetting)
+        if self.cornerRadius != Constants.deffaultCornerRadius {
+            layer.cornerRadius = CGFloat(self.cornerRadius)
+            layer.shouldRasterize = true
+            layer.rasterizationScale = UIScreen.main.scale
+            if layer.masksToBounds == false {
+                layer.masksToBounds = true
+                warning("Corner radius dont work, need enable mask to bounds")
+            }
         }
     }
 
     @objc private func swizzled_shadow_layoutSubviews() {
         swizzled_shadow_layoutSubviews()
 
-        if isAutomaticShadowPathSetting == false {
-            return
+        if self.shadowOptions != nil {
+            let path = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
+            layer.shadowPath = path
+        } else {
+            layer.shadowPath = nil
         }
-
-        if isEnabledShadow == false {
-            return
-        }
-
-        if prevBounds != bounds {
-            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
-            if let mask = layer.mask {
-                mask.shadowPath = UIBezierPath(roundedRect: mask.bounds, cornerRadius: CGFloat(cornerRadius)).cgPath
-            }
-        }
-
-        prevBounds = bounds
-    }
-
-    func setupShadow(options: ShadowOptions) {
-        isEnabledShadow = true
-        if let mask = layer.mask  {
-            mask.setupShadow(options: options)
-        }
-        layer.setupShadow(options: options)
-    }
-
-    func removeShadow() {
-        isEnabledShadow = false
-        if let mask = layer.mask  {
-            mask.removeShadow()
-        }
-        layer.removeShadow()
     }
 }

@@ -11,11 +11,16 @@ import UIKit
 final class HistoryTransactionCell: UITableViewCell, Reusable {
 
     @IBOutlet private(set) var transactionView: HistoryTransactionView!
-    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        transactionView.addTableCellShadowStyle()
+        transactionView.cornerRadius = 4
+    }
+
     class func cellHeight() -> CGFloat {
         return 76
     }
-    
 }
 
 //TODO Model

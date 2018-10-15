@@ -8,7 +8,7 @@
 
 import UIKit
 
-private enum Constants {
+fileprivate enum Constants {
     static let padding: CGFloat = 16
     static let pictureSize: CGFloat = 28
     static let paddingPictureRight: CGFloat = 14
@@ -21,6 +21,8 @@ private enum Constants {
 
 final class WalletQuickNoteCell: UITableViewCell, Reusable {
 
+    typealias Model = Void
+
     @IBOutlet var viewContent: UIView!
     @IBOutlet var firstTitle: UILabel!
     @IBOutlet var secondTitle: UILabel!
@@ -30,9 +32,7 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         viewContent.backgroundColor = UIColor.basic50
         backgroundColor = UIColor.basic50
-        firstTitle.text = Localizable.Wallet.Label.Quicknote.Description.first
-        secondTitle.text = Localizable.Wallet.Label.Quicknote.Description.second
-        thirdTitle.text = Localizable.Wallet.Label.Quicknote.Description.third
+        setupLocalization()
     }
 
     class func cellHeight(with width: CGFloat) -> CGFloat {
@@ -48,5 +48,24 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingThirdTitleTop
         height += text3.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
         return height + Constants.paddingThirdTitleBottom
+    }
+}
+
+// MARK: Localization
+
+extension WalletQuickNoteCell: Localization {
+    func setupLocalization() {
+        firstTitle.text = Localizable.Wallet.Label.Quicknote.Description.first
+        secondTitle.text = Localizable.Wallet.Label.Quicknote.Description.second
+        thirdTitle.text = Localizable.Wallet.Label.Quicknote.Description.third
+    }
+}
+
+// MARK: ViewConfiguration
+
+extension WalletQuickNoteCell: ViewConfiguration {
+
+    func update(with model: Void) {
+        setupLocalization()
     }
 }
