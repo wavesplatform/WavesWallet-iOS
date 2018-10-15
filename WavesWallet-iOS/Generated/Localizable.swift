@@ -391,19 +391,19 @@ internal enum Localizable {
 
     internal enum Copy {
       /// Amount
-      internal static let amount = Localizable.tr("TransactionHistory", "copy.amount")
+      internal static var amount: String { return Localizable.tr("TransactionHistory", "copy.amount") }
       /// Date
-      internal static let date = Localizable.tr("TransactionHistory", "copy.date")
+      internal static var date: String { return Localizable.tr("TransactionHistory", "copy.date") }
       /// Fee
-      internal static let fee = Localizable.tr("TransactionHistory", "copy.fee")
+      internal static var fee: String { return Localizable.tr("TransactionHistory", "copy.fee") }
       /// Recipient
-      internal static let recipient = Localizable.tr("TransactionHistory", "copy.recipient")
+      internal static var recipient: String { return Localizable.tr("TransactionHistory", "copy.recipient") }
       /// Sender
-      internal static let sender = Localizable.tr("TransactionHistory", "copy.sender")
+      internal static var sender: String { return Localizable.tr("TransactionHistory", "copy.sender") }
       /// Transaction ID
-      internal static let transactionId = Localizable.tr("TransactionHistory", "copy.transactionId")
+      internal static var transactionId: String { return Localizable.tr("TransactionHistory", "copy.transactionId") }
       /// Type
-      internal static let type = Localizable.tr("TransactionHistory", "copy.type")
+      internal static var type: String { return Localizable.tr("TransactionHistory", "copy.type") }
     }
   }
           internal enum DexTraderContainer {
@@ -1003,6 +1003,28 @@ internal enum Localizable {
     }
   }
           internal enum Profile {
+
+    internal enum Alert {
+
+      internal enum Deleteaccount {
+        /// Are you sure you want to delete this account from device?
+        internal static var message: String { return Localizable.tr("Profile", "alert.deleteAccount.message") }
+        /// Delete account
+        internal static var title: String { return Localizable.tr("Profile", "alert.deleteAccount.title") }
+
+        internal enum Button {
+          /// Cancel
+          internal static var cancel: String { return Localizable.tr("Profile", "alert.deleteAccount.button.cancel") }
+          /// Delete
+          internal static var delete: String { return Localizable.tr("Profile", "alert.deleteAccount.button.delete") }
+        }
+
+        internal enum Withoutbackup {
+          /// Deleting an account will lead to its irretrievable loss!
+          internal static var message: String { return Localizable.tr("Profile", "alert.deleteAccount.withoutbackup.message") }
+        }
+      }
+    }
 
     internal enum Button {
 

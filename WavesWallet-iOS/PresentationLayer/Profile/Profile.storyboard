@@ -659,10 +659,10 @@
             </objects>
             <point key="canvasLocation" x="-65" y="724"/>
         </scene>
-        <!--Delete Account View Controller-->
+        <!--Alert Delete Account View Controller-->
         <scene sceneID="JIY-zL-ieS">
             <objects>
-                <viewController storyboardIdentifier="DeleteAccountViewController" id="ZqX-u0-0FE" customClass="DeleteAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AlertDeleteAccountViewController" id="ZqX-u0-0FE" customClass="AlertDeleteAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P1E-ff-4Nf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -817,6 +817,10 @@
                         <viewLayoutGuide key="safeArea" id="zhH-OL-iLz"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="dRP-Fn-nF9" id="aHh-cL-pFl"/>
+                        <outlet property="deleteButton" destination="bGi-5T-yV6" id="fl3-YC-YiF"/>
+                        <outlet property="messageLabel" destination="8rg-Ni-2pI" id="30G-OK-7S5"/>
+                        <outlet property="titleLabel" destination="jkg-P3-j5D" id="DDZ-AG-bQX"/>
                         <outlet property="viewContainer" destination="6FQ-WZ-oxU" id="sDr-FI-rYg"/>
                     </connections>
                 </viewController>
