@@ -10,7 +10,7 @@ import Foundation
 
 extension DateFormatter {
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let DateFormatterKey = "waves.dateFormatter"
     }
 

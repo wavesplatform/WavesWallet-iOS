@@ -25,7 +25,7 @@ extension API.Service {
 }
 
 extension API.Service.Assets: ApiTargetType {
-    private enum Constants {
+    fileprivate enum Constants {
         static let assets = "assets"
         static let ids = "ids"
     }

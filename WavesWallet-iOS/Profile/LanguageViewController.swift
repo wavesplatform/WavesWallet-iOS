@@ -8,21 +8,18 @@
 
 import UIKit
 
-
-class LanguageTableCell : UITableViewCell {
-    @IBOutlet weak var iconLanguage: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var iconCheckmark: UIImageView!
-    
+final class LanguageTableCell: UITableViewCell {
+    @IBOutlet var iconLanguage: UIImageView!
+    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var iconCheckmark: UIImageView!
 }
 
-class LanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class LanguageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tableView: UITableView!
-    
-    let languages = DataManager.getLanguages()
-    
-    
+    @IBOutlet private var tableView: UITableView!
+
+    private let languages = Language.list
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,27 +28,27 @@ class LanguageViewController: UIViewController, UITableViewDelegate, UITableView
         title = "Language"
     }
 
-    //MARK: - UITableView
-    
+    // MARK: - UITableView
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languages.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "LanguageTableCell") as! LanguageTableCell
-        
+
         let item = languages[indexPath.row]
-        cell.labelTitle.text = item["title"]
-        cell.iconLanguage.image = UIImage(named: item["icon"]!)
+        cell.labelTitle.text = item.title
+        cell.iconLanguage.image = UIImage(named: item.icon)
         if indexPath.row == 0 {
             cell.iconCheckmark.image = UIImage(named: "on")
         }

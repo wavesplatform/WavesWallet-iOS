@@ -20,7 +20,6 @@ final class HistoryCoordinator {
         historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
         navigationController.pushViewController(historyViewController!, animated: true)
     }
-    
 }
 
 

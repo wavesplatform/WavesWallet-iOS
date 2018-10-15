@@ -23,6 +23,11 @@ protocol FactoryRepositoriesProtocol {
     var transactionsRepositoryRemote: TransactionsRepositoryProtocol { get }
 
     var blockRemote: BlockRepositoryProtocol { get }
+
+    var walletsRepositoryLocal: WalletsRepositoryProtocol { get }
+    var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol { get }
+
+    var authenticationRepositoryRemote: AuthenticationRepositoryProtocol { get }
 }
 
 final class RepositoriesDuplex<R> {

@@ -24,7 +24,7 @@ extension Node.Service.Blocks: NodeTargetType {
         return String.self
     }
 
-    private enum Constants {
+    fileprivate enum Constants {
         static let blocks = "blocks"
         static let height = "height"
     }

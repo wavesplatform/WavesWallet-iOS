@@ -1,0 +1,21 @@
+/* 
+  Import.strings
+  WavesWallet-iOS
+
+  Created by mefilt on 20.09.2018.
+  Copyright © 2018 Waves Platform. All rights reserved.
+*/
+
+"account.navigation.title" = "Import account";
+
+"account.label.info.step.one.title" = "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com";
+"account.label.info.step.one.detail" = "Settings > Security > Pairing code";
+"account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
+"account.button.scan.title" = "Scan pairing code";
+"account.button.enter.title" = "Enter seed manually";
+
+
+"welcome.navigation.title" = "Welcome back";
+"welcome.label.address.title" = "Your account seed";
+"welcome.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"welcome.button.continue" = "Continue";

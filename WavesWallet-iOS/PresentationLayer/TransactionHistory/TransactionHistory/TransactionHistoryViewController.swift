@@ -20,7 +20,6 @@ private enum Constants {
     // fallthrough tap
     static let collectionViewTapY0: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top
     static let collectionViewTapY1: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top * 2
- 
 }
 
 final class TransactionHistoryViewController: UIViewController {
@@ -324,9 +323,8 @@ extension TransactionHistoryViewController: UICollectionViewDataSource {
         cell.popupView.contentView.setup(with: display)
         cell.popupView.contentView.delegate = self
         cell.navigationBarHeight = navigationBarHeight
-        
+
         return cell
-        
     }
     
 }
@@ -341,7 +339,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
         let pageWidth: CGFloat = CGFloat(view.bounds.width)
         let minSpace: CGFloat = Constants.collectionViewSpacing
         var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace))
-        
+
         // next
         if cellToSwipe > Double(currentSwipePage) {
             

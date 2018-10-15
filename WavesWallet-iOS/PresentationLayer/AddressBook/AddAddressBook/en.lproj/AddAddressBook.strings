@@ -1,0 +1,10 @@
+"label.add" = "Add";
+"label.edit" = "Edit";
+"label.address" = "Address";
+"label.name" = "Name";
+"label.deleteAlertMessage" = "Are you sure you want to delete address form address book?";
+
+"button.save" = "Save";
+"button.deleteAddress" = "Delete address";
+"button.delete" = "Delete";
+"button.cancel" = "Cancel";
