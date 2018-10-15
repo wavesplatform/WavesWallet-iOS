@@ -456,6 +456,15 @@
 		0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A4212E1234003BA067 /* ScrollButton.swift */; };
 		0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */; };
 		0AF92303212E1424003BA067 /* General.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AF92301212E1424003BA067 /* General.strings */; };
+		0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFA0C662174A2300003FE3B /* Checkbox.strings */; };
+		0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFA0C682174A2300003FE3B /* Legal.storyboard */; };
+		0AFA0C772174A2300003FE3B /* LegalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */; };
+		0AFA0C782174A2300003FE3B /* LegalModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C6B2174A2300003FE3B /* LegalModuleOutput.swift */; };
+		0AFA0C792174A2300003FE3B /* LegalModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C6C2174A2300003FE3B /* LegalModuleInput.swift */; };
+		0AFA0C7A2174A2300003FE3B /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C6D2174A2300003FE3B /* LegalViewController.swift */; };
+		0AFA0C7B2174A2300003FE3B /* CheckboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C712174A2300003FE3B /* CheckboxControl.swift */; };
+		0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */; };
+		0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C742174A2300003FE3B /* BrowserViewController.swift */; };
 		0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */; };
 		0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA832113173300285BCB /* InfoPlist.strings */; };
 		0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA892113254100285BCB /* WalletModuleBuilder.swift */; };
@@ -800,8 +809,6 @@
 		04C1BF58211CA5EF0095377D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5A211CA5F50095377D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/History.strings; sourceTree = "<group>"; };
 		04C1BF5B211CA5F60095377D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/History.strings; sourceTree = "<group>"; };
-		04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		04E1C3552126157000C702BA /* HeaderSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSkeletonView.swift; sourceTree = "<group>"; };
 		04E1C357212615CA00C702BA /* HeaderSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSkeletonView.xib; sourceTree = "<group>"; };
 		04E1C3592126B21A00C702BA /* HistoryTransactionSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionSkeletonCell.swift; sourceTree = "<group>"; };
@@ -1238,6 +1245,17 @@
 		0AF92302212E1424003BA067 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/General.strings; sourceTree = "<group>"; };
 		0AF92304212E142A003BA067 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/General.strings; sourceTree = "<group>"; };
 		0AF92305212E142C003BA067 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/General.strings; sourceTree = "<group>"; };
+		0AFA0C672174A2300003FE3B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Checkbox.strings; sourceTree = "<group>"; };
+		0AFA0C682174A2300003FE3B /* Legal.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Legal.storyboard; sourceTree = "<group>"; };
+		0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalCoordinator.swift; sourceTree = "<group>"; };
+		0AFA0C6B2174A2300003FE3B /* LegalModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalModuleOutput.swift; sourceTree = "<group>"; };
+		0AFA0C6C2174A2300003FE3B /* LegalModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalModuleInput.swift; sourceTree = "<group>"; };
+		0AFA0C6D2174A2300003FE3B /* LegalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
+		0AFA0C6E2174A2300003FE3B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Checkbox.strings; sourceTree = "<group>"; };
+		0AFA0C6F2174A2300003FE3B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Checkbox.strings; sourceTree = "<group>"; };
+		0AFA0C712174A2300003FE3B /* CheckboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxControl.swift; sourceTree = "<group>"; };
+		0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalModuleBuilder.swift; sourceTree = "<group>"; };
+		0AFA0C742174A2300003FE3B /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		0AFBCA7C2113068C00285BCB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/WalletSort.strings; sourceTree = "<group>"; };
 		0AFBCA7D2113068C00285BCB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Wallet.strings; sourceTree = "<group>"; };
 		0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1624,15 +1642,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04831F5D21684EF3006D1ED6 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				04D5CBAD21639752007B9DF6 /* GoogleService-Info.plist */,
-				04D5CBAE21639752007B9DF6 /* Fabric-Info.plist */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		04831F6B21691449006D1ED6 /* BaseInputTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -2331,6 +2340,8 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0AFA0C652174A2300003FE3B /* Legal */,
+				0AFA0C732174A2300003FE3B /* WebView */,
 				04A403202164B8E000652F21 /* Language */,
 				0A762DA321650DA80019D447 /* Profile */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
@@ -2879,6 +2890,45 @@
 				0AF922A0212E1234003BA067 /* MyOrderHeaderView.swift */,
 			);
 			path = Dex;
+			sourceTree = "<group>";
+		};
+		0AFA0C652174A2300003FE3B /* Legal */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA0C662174A2300003FE3B /* Checkbox.strings */,
+				0AFA0C682174A2300003FE3B /* Legal.storyboard */,
+				0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */,
+				0AFA0C6A2174A2300003FE3B /* Presenter */,
+				0AFA0C6D2174A2300003FE3B /* LegalViewController.swift */,
+				0AFA0C702174A2300003FE3B /* Views */,
+				0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */,
+			);
+			path = Legal;
+			sourceTree = "<group>";
+		};
+		0AFA0C6A2174A2300003FE3B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA0C6B2174A2300003FE3B /* LegalModuleOutput.swift */,
+				0AFA0C6C2174A2300003FE3B /* LegalModuleInput.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		0AFA0C702174A2300003FE3B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA0C712174A2300003FE3B /* CheckboxControl.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0AFA0C732174A2300003FE3B /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA0C742174A2300003FE3B /* BrowserViewController.swift */,
+			);
+			path = WebView;
 			sourceTree = "<group>";
 		};
 		0AFBCA94211327A100285BCB /* Presenter */ = {
@@ -3793,7 +3843,6 @@
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
-				04831F5D21684EF3006D1ED6 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3942,6 +3991,7 @@
 				E95B47CA21638A9F004D4E39 /* SeventhInfoPageView.xib in Resources */,
 				0A58CEAA2167A42E000CEAD3 /* Profile.strings in Resources */,
 				0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */,
+				0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */,
 				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
@@ -3960,6 +4010,7 @@
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				E95B47F321638B11004D4E39 /* StartLeasingGeneratorView.xib in Resources */,
+				0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */,
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
@@ -4307,6 +4358,7 @@
 				0A5E4BAF213801C400E3C3C3 /* ReissueTransaction.swift in Sources */,
 				0A5E4BDF213832A000E3C3C3 /* ReissueTransaction+Mapper.swift in Sources */,
 				0A3FE8C02137007500DBF4E1 /* DataTransactionNode.swift in Sources */,
+				0AFA0C782174A2300003FE3B /* LegalModuleOutput.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
 				0A762D7B21639FA60019D447 /* TransactionHistoryModuleInput.swift in Sources */,
 				0AFBCA98211329A600285BCB /* WalletSortModuleBuilder.swift in Sources */,
@@ -4350,6 +4402,7 @@
 				E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */,
 				E95B47CD21638A9F004D4E39 /* FirstInfoPageView.swift in Sources */,
 				F7AF242C1F7CF0D10010C057 /* ExchangeTransactionViewController.swift in Sources */,
+				0AFA0C772174A2300003FE3B /* LegalCoordinator.swift in Sources */,
 				0A071E80215DB172007D9750 /* ChooseAccountCoordinator.swift in Sources */,
 				0A96F1D82152CC09005E148F /* NewAccountTypes.swift in Sources */,
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
@@ -4504,6 +4557,7 @@
 				0A61B59C214AD51700EC60FC /* JSONDecoder+JSON.swift in Sources */,
 				0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				0A218B892155221F00B989A1 /* Wallet+Mapper.swift in Sources */,
+				0AFA0C7A2174A2300003FE3B /* LegalViewController.swift in Sources */,
 				0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */,
 				E904BC5E2155AA3B00A108B6 /* AddressBookViewControllerOld.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
@@ -4544,6 +4598,7 @@
 				0AFF5C89215BF39200B82940 /* UIButton+WithoutAnimation.swift in Sources */,
 				0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
+				0AFA0C792174A2300003FE3B /* LegalModuleInput.swift in Sources */,
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
@@ -4581,6 +4636,7 @@
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
 				E9B087B52163886800937644 /* CreateOrderViewController.swift in Sources */,
+				0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
 				0A5E4BA92137FC3000E3C3C3 /* TransactionCell.swift in Sources */,
@@ -4738,8 +4794,10 @@
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
 				0A762D7821639FA60019D447 /* TransactionHistoryTypes+DTO.swift in Sources */,
 				0AEB35912115E44300EDD63C /* AssetsRepositoryLocal.swift in Sources */,
+				0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */,
 				E9B087A02163886800937644 /* DexChartHeaderView.swift in Sources */,
 				0AF922CA212E1234003BA067 /* UIViewController+SafeArea.swift in Sources */,
+				0AFA0C7B2174A2300003FE3B /* CheckboxControl.swift in Sources */,
 				E9B087F42163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */,
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
@@ -4955,6 +5013,16 @@
 				0AF92305212E142C003BA067 /* tr */,
 			);
 			name = General.strings;
+			sourceTree = "<group>";
+		};
+		0AFA0C662174A2300003FE3B /* Checkbox.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AFA0C672174A2300003FE3B /* en */,
+				0AFA0C6E2174A2300003FE3B /* tr */,
+				0AFA0C6F2174A2300003FE3B /* ru */,
+			);
+			name = Checkbox.strings;
 			sourceTree = "<group>";
 		};
 		0AFBCA832113173300285BCB /* InfoPlist.strings */ = {

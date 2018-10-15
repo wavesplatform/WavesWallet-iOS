@@ -1232,6 +1232,19 @@ internal enum Localizable {
       }
     }
   }
+          internal enum Checkbox {
+
+    internal enum Box {
+      /// I understand that my funds are held securely on this device, not by a company
+      internal static var first: String { return Localizable.tr("Checkbox", "box.first") }
+      /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
+      internal static var second: String { return Localizable.tr("Checkbox", "box.second") }
+      /// Terms of Use
+      internal static var termsOfUse: String { return Localizable.tr("Checkbox", "box.termsOfUse") }
+      /// I have read, understood, and agree to the
+      internal static var third: String { return Localizable.tr("Checkbox", "box.third") }
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

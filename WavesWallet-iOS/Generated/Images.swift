@@ -44,6 +44,10 @@ internal struct ColorAsset {
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
+  internal enum Checkbox {
+    internal static let checkboxOff = ImageAsset(name: "checkbox-off")
+    internal static let checkboxOn = ImageAsset(name: "checkbox-on")
+  }
   internal enum Enter {
     internal static let blockchain80 = ImageAsset(name: "blockchain80")
     internal static let dex80 = ImageAsset(name: "dex80")
@@ -274,6 +278,8 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
+    Checkbox.checkboxOff,
+    Checkbox.checkboxOn,
     Enter.blockchain80,
     Enter.dex80,
     Enter.token80,
