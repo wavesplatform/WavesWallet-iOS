@@ -142,6 +142,14 @@ extension NewTransactionHistoryContentView {
         
     }
     
+    func disableScroll() {
+        tableView.isScrollEnabled = false
+    }
+    
+    func enableScroll() {
+        tableView.isScrollEnabled = true
+    }
+    
 }
 
 extension NewTransactionHistoryContentView: UITableViewDataSource {
