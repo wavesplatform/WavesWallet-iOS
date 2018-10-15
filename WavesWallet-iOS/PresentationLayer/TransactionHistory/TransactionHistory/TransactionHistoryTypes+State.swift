@@ -28,7 +28,6 @@ extension TransactionHistoryTypes.State {
         return newState
     }
     
-    
 }
 
 extension TransactionHistoryTypes.State {

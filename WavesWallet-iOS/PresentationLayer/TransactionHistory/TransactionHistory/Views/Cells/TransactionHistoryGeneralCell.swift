@@ -14,8 +14,7 @@ protocol TransactionHistoryGeneralCellDelegate: class {
 }
 
 private enum Constants {
-    static let spamColor = UIColor.basic100
-    static let spamTextColor = UIColor.basic500
+    static let tickerViewContentInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
 }
 
 final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
@@ -26,20 +25,17 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
     @IBOutlet fileprivate weak var valueLabel: UILabel!
     @IBOutlet fileprivate weak var currencyLabel: UILabel!
     
-    @IBOutlet fileprivate weak var tagContainer: UIView!
     @IBOutlet fileprivate weak var nextButton: UIButton!
     @IBOutlet fileprivate weak var previousButton: UIButton!
     
-    @IBOutlet fileprivate weak var tagLabel: UILabel!
+    @IBOutlet weak var tickerView: TickerView!
     
    @IBOutlet fileprivate weak var valueLabelXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tickerViewWidthConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        tagContainer.borderColor = UIColor(red: 121 , green: 149, blue:  185)
-        tagContainer.borderWidth = 0.5
-        tagContainer.layer.cornerRadius = 2
     }
  
     fileprivate func icon(for kind: DomainLayer.DTO.SmartTransaction.Kind) -> UIImage {
@@ -116,13 +112,13 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
                 
             }
             
-            tagLabel.text = balance.currency.ticker
+            tickerView.update(with: TickerView.Model(text: balance.currency.ticker ?? "", style: .normal))
             
         }
         
         iconImageView.image = icon(for: model.kind)
         currencyLabel.text = model.currencyConversion
-        nextButton.isHidden = model.canGoNext == false
+        nextButton.isHidden = model.canGoForward == false
         previousButton.isHidden = model.canGoBack == false
         
         updateTag(with: model)
@@ -131,25 +127,25 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
     func updateTag(with model: TransactionHistoryTypes.ViewModel.General) {
         
         if model.isSpam == true {
-            tagLabel?.text = "SPAM"
-            
-            tagContainer.backgroundColor = Constants.spamColor
-            tagContainer.borderColor = Constants.spamColor
-            tagLabel.textColor = Constants.spamTextColor
-            tagContainer.isHidden = false
+            tickerView.update(with: TickerView.Model(text: Localizable.General.Ticker.Title.spam, style: .soft))
+            tickerView.isHidden = false
         }
         
-        let tagSize = tagLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+        let tickerSize = tickerView.titleLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+        let tickerInsets = Constants.tickerViewContentInset
+        let tickerWidth = tickerSize.width + tickerInsets.left + tickerInsets.right
+        
+        tickerViewWidthConstraint.constant = tickerWidth
         
         if model.isSpam == true {
-            tagContainer.isHidden = false
-            valueLabelXConstraint.constant = tagSize.width / -2
+            tickerView.isHidden = false
+            valueLabelXConstraint.constant = tickerWidth / -2
         } else if model.balance?.currency.ticker == nil {
-            tagContainer.isHidden = true
+            tickerView.isHidden = true
             valueLabelXConstraint.constant = 0
         } else {
-            tagContainer.isHidden = false
-            valueLabelXConstraint.constant = tagSize.width / -2
+            tickerView.isHidden = false
+            valueLabelXConstraint.constant = tickerWidth / -2
         }
         
         setNeedsUpdateConstraints()

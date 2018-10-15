@@ -62,10 +62,6 @@ final class TransactionHistoryPopupCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         backgroundColor = .clear
         
-//        popupView?.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-//        popupView?.layer.shadowRadius = 3
-//        popupView?.layer.shadowOffset = .init(width: 0, height: -2)
-        
         popupView?.addSubview(popupLineView)
     }
     
