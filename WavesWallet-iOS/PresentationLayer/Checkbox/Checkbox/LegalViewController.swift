@@ -121,9 +121,13 @@ final class LegalViewController: UIViewController {
         secondLabel.linkAttributes = linkAttributes()
         firstLabel.activeLinkAttributes = linkAttributes()
         firstLabel.linkAttributes = linkAttributes()
- 
-        firstLabel.addLink(to: URL(string: "https://apple.com/"), with: .init(location: 0, length: firstLabel.text!.count))
-        secondLabel.addLink(to: URL(string: "https://apple.com/"), with: .init(location: 0, length: secondLabel.text!.count))
+
+
+        let firstCount = firstLabel.attributedText.string.count
+        let secondCount = secondLabel.attributedText.string.count
+
+        firstLabel.addLink(to: URL(string: "https://apple.com/"), with: NSRange.init(location: 0, length: firstCount))
+        secondLabel.addLink(to: URL(string: "https://apple.com/"), with: NSRange.init(location: 0, length: secondCount))
         
         let termsString = Localizable.Checkbox.Box.termsOfUse
         let thirdString = Localizable.Checkbox.Box.third + " " + termsString
