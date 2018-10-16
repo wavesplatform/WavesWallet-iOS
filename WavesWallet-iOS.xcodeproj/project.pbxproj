@@ -162,7 +162,7 @@
 		0A5E4BA92137FC3000E3C3C3 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763B9A11EABBFBE00FA3701 /* TransactionCell.swift */; };
 		0A5E4BAA2137FC3300E3C3C3 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F763B9A21EABBFBE00FA3701 /* TransactionsViewController.swift */; };
 		0A5E4BAB2137FC3600E3C3C3 /* BaseTransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77A920A1EB2005400C77439 /* BaseTransactionDetailViewController.swift */; };
-		0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762B3A01EABB6C000EAD7FF /* SendViewController.swift */; };
+		0A5E4BAC2137FC3800E3C3C3 /* SendViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762B3A01EABB6C000EAD7FF /* SendViewControllerOld.swift */; };
 		0A5E4BAD2137FC3B00E3C3C3 /* TransferSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762B3A21EABB6C000EAD7FF /* TransferSuccessViewController.swift */; };
 		0A5E4BAF213801C400E3C3C3 /* ReissueTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BAE213801C400E3C3C3 /* ReissueTransaction.swift */; };
 		0A5E4BB12138034500E3C3C3 /* LeaseCancelTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BB02138034500E3C3C3 /* LeaseCancelTransaction.swift */; };
@@ -1690,7 +1690,7 @@
 		F755C1001EAA8319008A938F /* MoneyUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyUtil.swift; sourceTree = "<group>"; };
 		F761428B1EAFC09300F4C749 /* ReceiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 		F761428D1EAFD6C500F4C749 /* OpenUrlManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenUrlManager.swift; sourceTree = "<group>"; };
-		F762B3A01EABB6C000EAD7FF /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		F762B3A01EABB6C000EAD7FF /* SendViewControllerOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewControllerOld.swift; sourceTree = "<group>"; };
 		F762B3A11EABB6C000EAD7FF /* SendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewModel.swift; sourceTree = "<group>"; };
 		F762B3A21EABB6C000EAD7FF /* TransferSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferSuccessViewController.swift; sourceTree = "<group>"; };
 		F763B9A11EABBFBE00FA3701 /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
@@ -4066,7 +4066,7 @@
 			isa = PBXGroup;
 			children = (
 				F7B713A51EABA0C300331E1B /* Transfer.storyboard */,
-				F762B3A01EABB6C000EAD7FF /* SendViewController.swift */,
+				F762B3A01EABB6C000EAD7FF /* SendViewControllerOld.swift */,
 				F762B3A11EABB6C000EAD7FF /* SendViewModel.swift */,
 				F762B3A21EABB6C000EAD7FF /* TransferSuccessViewController.swift */,
 				F71B77691EABA4F80096CA85 /* TransferRequest.swift */,
@@ -4898,7 +4898,7 @@
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
-				0A5E4BAC2137FC3800E3C3C3 /* SendViewController.swift in Sources */,
+				0A5E4BAC2137FC3800E3C3C3 /* SendViewControllerOld.swift in Sources */,
 				0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
