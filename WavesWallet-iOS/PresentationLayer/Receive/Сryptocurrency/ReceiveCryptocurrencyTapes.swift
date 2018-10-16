@@ -35,8 +35,8 @@ extension ReceiveCryptocurrency.DTO {
     struct DisplayInfo {
         let address: String
         let assetName: String
-        let assetTicker: String?
         let assetShort: String
         let fee: Double
+        let icon: String
     }
 }

@@ -18,6 +18,6 @@ extension ReceiveInvoice.DTO {
         let address: String
         let invoiceLink: String
         let assetName: String
-        let assetTicker: String?
+        let icon: String
     }
 }
