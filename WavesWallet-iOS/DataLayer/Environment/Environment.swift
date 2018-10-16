@@ -11,10 +11,11 @@ import Foundation
 struct Environment: Decodable {
     struct AssetInfo: Decodable {
         let assetId: String
-        let name: String
-        let quantity: Int64
-        let decimals: Int
+        let displayName: String
         let isFiat: Bool
+        let isGateway: Bool
+        let wavesId: String
+        let gatewayId: String
     }
 
     struct Servers: Decodable {

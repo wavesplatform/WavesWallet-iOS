@@ -63,6 +63,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
             $0.showTorchButton = true
             $0.reader = QRCodeReader()
             $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
+            $0.preferredStatusBarStyle = .lightContent
         }
         
         return QRCodeReaderViewController(builder: builder)
@@ -130,8 +131,6 @@ private extension AddAddressTextField {
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
-            UIApplication.shared.setStatusBarStyle(.default, animated: true)
-            
             if let address = result?.value {
                 
                 self.addressTextField.setupText(address, animation: true)
@@ -145,8 +144,6 @@ private extension AddAddressTextField {
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
 
-        firstAvailableViewController().present(readerVC, animated: true) {
-            UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        }
+        firstAvailableViewController().present(readerVC, animated: true)
     }
 }

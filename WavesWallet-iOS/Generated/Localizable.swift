@@ -103,6 +103,34 @@ internal enum Localizable {
       }
     }
   }
+          internal enum Receive {
+
+    internal enum Button {
+      /// Card
+      internal static var card: String { return Localizable.tr("Receive", "button.card") }
+      /// Continue
+      internal static var `continue`: String { return Localizable.tr("Receive", "button.continue") }
+      /// Сryptocurrency
+      internal static var cryptocurrency: String { return Localizable.tr("Receive", "button.cryptocurrency") }
+      /// Invoice
+      internal static var invoice: String { return Localizable.tr("Receive", "button.invoice") }
+      /// Use total balance
+      internal static var useTotalBalance: String { return Localizable.tr("Receive", "button.useTotalBalance") }
+    }
+
+    internal enum Label {
+      /// Amount
+      internal static var amount: String { return Localizable.tr("Receive", "label.amount") }
+      /// Amount in
+      internal static var amountIn: String { return Localizable.tr("Receive", "label.amountIn") }
+      /// Asset
+      internal static var asset: String { return Localizable.tr("Receive", "label.asset") }
+      /// Receive
+      internal static var receive: String { return Localizable.tr("Receive", "label.receive") }
+      /// Select your asset
+      internal static var selectYourAsset: String { return Localizable.tr("Receive", "label.selectYourAsset") }
+    }
+  }
           internal enum DexCreateOrder {
 
     internal enum Button {
@@ -149,38 +177,6 @@ internal enum Localizable {
       internal static var notEnough: String { return Localizable.tr("DexCreateOrder", "label.notEnough") }
       /// Total in
       internal static var totalIn: String { return Localizable.tr("DexCreateOrder", "label.totalIn") }
-    }
-  }
-          internal enum StartLeasing {
-
-    internal enum Button {
-      /// Choose from Address book
-      internal static var chooseFromAddressBook: String { return Localizable.tr("StartLeasing", "button.chooseFromAddressBook") }
-      /// Start Lease
-      internal static var startLease: String { return Localizable.tr("StartLeasing", "button.startLease") }
-      /// Use total balance
-      internal static var useTotalBalanace: String { return Localizable.tr("StartLeasing", "button.useTotalBalanace") }
-      /// Use total balance
-      internal static var useTotalBalance: String { return Localizable.tr("StartLeasing", "button.useTotalBalance") }
-    }
-
-    internal enum Label {
-      /// Address is not valid
-      internal static var addressIsNotValid: String { return Localizable.tr("StartLeasing", "label.addressIsNotValid") }
-      /// Amount
-      internal static var amount: String { return Localizable.tr("StartLeasing", "label.amount") }
-      /// Balance
-      internal static var balance: String { return Localizable.tr("StartLeasing", "label.balance") }
-      /// Generator
-      internal static var generator: String { return Localizable.tr("StartLeasing", "label.generator") }
-      /// Node address...
-      internal static var nodeAddress: String { return Localizable.tr("StartLeasing", "label.nodeAddress") }
-      /// Not enough
-      internal static var notEnough: String { return Localizable.tr("StartLeasing", "label.notEnough") }
-      /// Start leasing
-      internal static var startLeasing: String { return Localizable.tr("StartLeasing", "label.startLeasing") }
-      /// Transaction Fee
-      internal static var transactionFee: String { return Localizable.tr("StartLeasing", "label.transactionFee") }
     }
   }
           internal enum AddressBook {
@@ -245,6 +241,38 @@ internal enum Localizable {
     internal enum Navigation {
       /// Choose account
       internal static var title: String { return Localizable.tr("ChooseAccount", "navigation.title") }
+    }
+  }
+          internal enum StartLeasing {
+
+    internal enum Button {
+      /// Choose from Address book
+      internal static var chooseFromAddressBook: String { return Localizable.tr("StartLeasing", "button.chooseFromAddressBook") }
+      /// Start Lease
+      internal static var startLease: String { return Localizable.tr("StartLeasing", "button.startLease") }
+      /// Use total balance
+      internal static var useTotalBalanace: String { return Localizable.tr("StartLeasing", "button.useTotalBalanace") }
+      /// Use total balance
+      internal static var useTotalBalance: String { return Localizable.tr("StartLeasing", "button.useTotalBalance") }
+    }
+
+    internal enum Label {
+      /// Address is not valid
+      internal static var addressIsNotValid: String { return Localizable.tr("StartLeasing", "label.addressIsNotValid") }
+      /// Amount
+      internal static var amount: String { return Localizable.tr("StartLeasing", "label.amount") }
+      /// Balance
+      internal static var balance: String { return Localizable.tr("StartLeasing", "label.balance") }
+      /// Generator
+      internal static var generator: String { return Localizable.tr("StartLeasing", "label.generator") }
+      /// Node address...
+      internal static var nodeAddress: String { return Localizable.tr("StartLeasing", "label.nodeAddress") }
+      /// Not enough
+      internal static var notEnough: String { return Localizable.tr("StartLeasing", "label.notEnough") }
+      /// Start leasing
+      internal static var startLeasing: String { return Localizable.tr("StartLeasing", "label.startLeasing") }
+      /// Transaction Fee
+      internal static var transactionFee: String { return Localizable.tr("StartLeasing", "label.transactionFee") }
     }
   }
           internal enum Enter {
@@ -391,19 +419,19 @@ internal enum Localizable {
 
     internal enum Copy {
       /// Amount
-      internal static let amount = Localizable.tr("TransactionHistory", "copy.amount")
+      internal static var amount: String { return Localizable.tr("TransactionHistory", "copy.amount") }
       /// Date
-      internal static let date = Localizable.tr("TransactionHistory", "copy.date")
+      internal static var date: String { return Localizable.tr("TransactionHistory", "copy.date") }
       /// Fee
-      internal static let fee = Localizable.tr("TransactionHistory", "copy.fee")
+      internal static var fee: String { return Localizable.tr("TransactionHistory", "copy.fee") }
       /// Recipient
-      internal static let recipient = Localizable.tr("TransactionHistory", "copy.recipient")
+      internal static var recipient: String { return Localizable.tr("TransactionHistory", "copy.recipient") }
       /// Sender
-      internal static let sender = Localizable.tr("TransactionHistory", "copy.sender")
+      internal static var sender: String { return Localizable.tr("TransactionHistory", "copy.sender") }
       /// Transaction ID
-      internal static let transactionId = Localizable.tr("TransactionHistory", "copy.transactionId")
+      internal static var transactionId: String { return Localizable.tr("TransactionHistory", "copy.transactionId") }
       /// Type
-      internal static let type = Localizable.tr("TransactionHistory", "copy.type")
+      internal static var type: String { return Localizable.tr("TransactionHistory", "copy.type") }
     }
   }
           internal enum DexTraderContainer {
@@ -439,6 +467,32 @@ internal enum Localizable {
       internal static var minutes: String { return Localizable.tr("DexChart", "label.minutes") }
     }
   }
+          internal enum ReceiveAddress {
+
+    internal enum Button {
+      /// Cancel
+      internal static var cancel: String { return Localizable.tr("ReceiveAddress", "button.cancel") }
+      /// Close
+      internal static var close: String { return Localizable.tr("ReceiveAddress", "button.close") }
+      /// Сopied!
+      internal static var copied: String { return Localizable.tr("ReceiveAddress", "button.copied") }
+      /// Copy
+      internal static var copy: String { return Localizable.tr("ReceiveAddress", "button.copy") }
+      /// Share
+      internal static var share: String { return Localizable.tr("ReceiveAddress", "button.share") }
+    }
+
+    internal enum Label {
+      /// Link to an Invoice
+      internal static var linkToInvoice: String { return Localizable.tr("ReceiveAddress", "label.linkToInvoice") }
+      /// Your %@ address
+      internal static func yourAddress(_ p1: String) -> String {
+        return Localizable.tr("ReceiveAddress", "label.yourAddress", p1)
+      }
+      /// Your QR Code
+      internal static var yourQRCode: String { return Localizable.tr("ReceiveAddress", "label.yourQRCode") }
+    }
+  }
           internal enum DexMyOrders {
 
     internal enum Label {
@@ -472,6 +526,22 @@ internal enum Localizable {
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
     /// Authenticate with Face ID
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
+  }
+          internal enum AssetList {
+
+    internal enum Button {
+      /// All list
+      internal static var allList: String { return Localizable.tr("AssetList", "button.allList") }
+      /// My list
+      internal static var myList: String { return Localizable.tr("AssetList", "button.myList") }
+    }
+
+    internal enum Label {
+      /// Assets
+      internal static var assets: String { return Localizable.tr("AssetList", "label.assets") }
+      /// Loading assets…
+      internal static var loadingAssets: String { return Localizable.tr("AssetList", "label.loadingAssets") }
+    }
   }
           internal enum Wallet {
 
@@ -574,6 +644,20 @@ internal enum Localizable {
     internal enum Navigationbar {
       /// Sorting
       internal static var title: String { return Localizable.tr("WalletSort", "navigationBar.title") }
+    }
+  }
+          internal enum ReceiveCardComplete {
+
+    internal enum Button {
+      /// Okay
+      internal static var okay: String { return Localizable.tr("ReceiveCardComplete", "button.okay") }
+    }
+
+    internal enum Label {
+      /// After payment has been made your balance will be updated
+      internal static var afterPaymentUpdateBalance: String { return Localizable.tr("ReceiveCardComplete", "label.afterPaymentUpdateBalance") }
+      /// You have been redirected to «Indacoin»
+      internal static var redirectToIndacoin: String { return Localizable.tr("ReceiveCardComplete", "label.redirectToIndacoin") }
     }
   }
           internal enum DexCompleteOrder {
@@ -706,6 +790,31 @@ internal enum Localizable {
       }
     }
   }
+          internal enum ReceiveCard {
+
+    internal enum Button {
+      /// Cancel
+      internal static var cancel: String { return Localizable.tr("ReceiveCard", "button.cancel") }
+    }
+
+    internal enum Label {
+      /// Change currency
+      internal static var changeCurrency: String { return Localizable.tr("ReceiveCard", "label.changeCurrency") }
+      /// The minimum is %@, the maximum is %@
+      internal static func minimunAmountInfo(_ p1: String, _ p2: String) -> String {
+        return Localizable.tr("ReceiveCard", "label.minimunAmountInfo", p1, p2)
+      }
+      /// For making a payment from your card you will be redirected to the merchant's website
+      internal static var warningInfo: String { return Localizable.tr("ReceiveCard", "label.warningInfo") }
+    }
+  }
+          internal enum ReceiveInvoice {
+
+    internal enum Label {
+      /// US Dollar
+      internal static var dollar: String { return Localizable.tr("ReceiveInvoice", "label.dollar") }
+    }
+  }
           internal enum DexOrderBook {
 
     internal enum Button {
@@ -730,6 +839,25 @@ internal enum Localizable {
       internal static var spread: String { return Localizable.tr("DexOrderBook", "label.spread") }
       /// Sum
       internal static var sum: String { return Localizable.tr("DexOrderBook", "label.sum") }
+    }
+  }
+          internal enum ReceiveCryptocurrency {
+
+    internal enum Label {
+      /// The minimum amount of deposit is %@
+      internal static func minumumAmountOfDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.minumumAmountOfDeposit", p1)
+      }
+      /// Send only %@ to this deposit address
+      internal static func sendOnlyOnThisDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.sendOnlyOnThisDeposit", p1)
+      }
+      /// If you will send less than %@, you will lose that money.
+      internal static func warningMinimumAmountOfDeposit(_ p1: String) -> String {
+        return Localizable.tr("ReceiveCryptocurrency", "label.warningMinimumAmountOfDeposit", p1)
+      }
+      /// Sending any other currency to this address may result in the loss of your deposit.
+      internal static var warningSendOnlyOnThisDeposit: String { return Localizable.tr("ReceiveCryptocurrency", "label.warningSendOnlyOnThisDeposit") }
     }
   }
           internal enum DexList {
@@ -1002,6 +1130,75 @@ internal enum Localizable {
       internal static var sent: String { return Localizable.tr("History", "segmentedControl.sent") }
     }
   }
+          internal enum ReceiveGenerate {
+
+    internal enum Label {
+      /// Generate…
+      internal static var generate: String { return Localizable.tr("ReceiveGenerate", "label.generate") }
+      /// Your %@ address
+      internal static func yourAddress(_ p1: String) -> String {
+        return Localizable.tr("ReceiveGenerate", "label.yourAddress", p1)
+      }
+    }
+  }
+          internal enum Asset {
+
+    internal enum Cell {
+      /// View history
+      internal static var viewHistory: String { return Localizable.tr("Asset", "cell.viewHistory") }
+
+      internal enum Assetinfo {
+        /// Description
+        internal static var description: String { return Localizable.tr("Asset", "cell.assetInfo.description") }
+        /// ID
+        internal static var id: String { return Localizable.tr("Asset", "cell.assetInfo.id") }
+        /// Issue date
+        internal static var issueDate: String { return Localizable.tr("Asset", "cell.assetInfo.issueDate") }
+        /// Issuer
+        internal static var issuer: String { return Localizable.tr("Asset", "cell.assetInfo.issuer") }
+        /// Name
+        internal static var name: String { return Localizable.tr("Asset", "cell.assetInfo.name") }
+        /// Asset Info
+        internal static var title: String { return Localizable.tr("Asset", "cell.assetInfo.title") }
+
+        internal enum Kind {
+          /// Not reissuable
+          internal static var notReissuable: String { return Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable") }
+          /// Reissuable
+          internal static var reissuable: String { return Localizable.tr("Asset", "cell.assetInfo.kind.reissuable") }
+          /// Type
+          internal static var title: String { return Localizable.tr("Asset", "cell.assetInfo.kind.title") }
+        }
+      }
+
+      internal enum Balance {
+        /// Available balance
+        internal static var avaliableBalance: String { return Localizable.tr("Asset", "cell.balance.avaliableBalance") }
+        /// In order
+        internal static var inOrderBalance: String { return Localizable.tr("Asset", "cell.balance.inOrderBalance") }
+        /// Leased
+        internal static var leased: String { return Localizable.tr("Asset", "cell.balance.leased") }
+        /// Total
+        internal static var totalBalance: String { return Localizable.tr("Asset", "cell.balance.totalBalance") }
+
+        internal enum Button {
+          /// Exchange
+          internal static var exchange: String { return Localizable.tr("Asset", "cell.balance.button.exchange") }
+          /// Receive
+          internal static var receive: String { return Localizable.tr("Asset", "cell.balance.button.receive") }
+          /// Send
+          internal static var send: String { return Localizable.tr("Asset", "cell.balance.button.send") }
+        }
+      }
+    }
+
+    internal enum Header {
+      /// Last transactions
+      internal static var lastTransactions: String { return Localizable.tr("Asset", "header.lastTransactions") }
+      /// You do not have any transactions
+      internal static var notHaveTransactions: String { return Localizable.tr("Asset", "header.notHaveTransactions") }
+    }
+  }
           internal enum Profile {
 
     internal enum Button {
@@ -1122,64 +1319,6 @@ internal enum Localizable {
     internal enum Navigation {
       /// Profile
       internal static var title: String { return Localizable.tr("Profile", "navigation.title") }
-    }
-  }
-          internal enum Asset {
-
-    internal enum Cell {
-      /// View history
-      internal static var viewHistory: String { return Localizable.tr("Asset", "cell.viewHistory") }
-
-      internal enum Assetinfo {
-        /// Description
-        internal static var description: String { return Localizable.tr("Asset", "cell.assetInfo.description") }
-        /// ID
-        internal static var id: String { return Localizable.tr("Asset", "cell.assetInfo.id") }
-        /// Issue date
-        internal static var issueDate: String { return Localizable.tr("Asset", "cell.assetInfo.issueDate") }
-        /// Issuer
-        internal static var issuer: String { return Localizable.tr("Asset", "cell.assetInfo.issuer") }
-        /// Name
-        internal static var name: String { return Localizable.tr("Asset", "cell.assetInfo.name") }
-        /// Asset Info
-        internal static var title: String { return Localizable.tr("Asset", "cell.assetInfo.title") }
-
-        internal enum Kind {
-          /// Not reissuable
-          internal static var notReissuable: String { return Localizable.tr("Asset", "cell.assetInfo.kind.notReissuable") }
-          /// Reissuable
-          internal static var reissuable: String { return Localizable.tr("Asset", "cell.assetInfo.kind.reissuable") }
-          /// Type
-          internal static var title: String { return Localizable.tr("Asset", "cell.assetInfo.kind.title") }
-        }
-      }
-
-      internal enum Balance {
-        /// Available balance
-        internal static var avaliableBalance: String { return Localizable.tr("Asset", "cell.balance.avaliableBalance") }
-        /// In order
-        internal static var inOrderBalance: String { return Localizable.tr("Asset", "cell.balance.inOrderBalance") }
-        /// Leased
-        internal static var leased: String { return Localizable.tr("Asset", "cell.balance.leased") }
-        /// Total
-        internal static var totalBalance: String { return Localizable.tr("Asset", "cell.balance.totalBalance") }
-
-        internal enum Button {
-          /// Exchange
-          internal static var exchange: String { return Localizable.tr("Asset", "cell.balance.button.exchange") }
-          /// Receive
-          internal static var receive: String { return Localizable.tr("Asset", "cell.balance.button.receive") }
-          /// Send
-          internal static var send: String { return Localizable.tr("Asset", "cell.balance.button.send") }
-        }
-      }
-    }
-
-    internal enum Header {
-      /// Last transactions
-      internal static var lastTransactions: String { return Localizable.tr("Asset", "header.lastTransactions") }
-      /// You do not have any transactions
-      internal static var notHaveTransactions: String { return Localizable.tr("Asset", "header.notHaveTransactions") }
     }
   }
           internal enum Import {

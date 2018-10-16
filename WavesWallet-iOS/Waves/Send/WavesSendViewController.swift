@@ -12,7 +12,7 @@ import TTTAttributedLabel
 import MessageUI
 
 
-class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, ChooseAssetViewControllerDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate {
+class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate {
 
     var hideTabBarOnBack = false
     
@@ -146,10 +146,7 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, C
     }
     
     @IBAction func chooseAsset(_ sender: Any) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ChooseAssetViewController") as! ChooseAssetViewController
-        controller.delegate = self
-        controller.selectedAsset = selectedAsset
-        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     @IBAction func continueTapped(_ sender: Any) {

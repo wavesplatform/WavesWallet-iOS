@@ -173,7 +173,8 @@ extension WalletSortViewController: UITableViewDelegate {
                                                     isMyWavesToken: asset.isMyWavesToken,
                                                     isVisibility: status == .visibility,
                                                     isHidden: asset.isHidden,
-                                                    isGateway: asset.isGateway)
+                                                    isGateway: asset.isGateway,
+                                                    icon: asset.icon)
             cell.update(with: model)
             cell.buttonFav
                 .rx
@@ -196,7 +197,8 @@ extension WalletSortViewController: UITableViewDelegate {
             let model: WalletSortFavCell.Model = .init(name: asset.name,
                                                        isMyWavesToken: asset.isMyWavesToken,
                                                        isLock: asset.isLock,
-                                                       isGateway: asset.isGateway)
+                                                       isGateway: asset.isGateway,
+                                                       icon: asset.icon)
             cell.update(with: model)
             cell.buttonFav
                 .rx

@@ -15,7 +15,7 @@ extension DomainLayer.DTO.Asset {
     }
 
     func balance(_ amount: Int64, precision: Int) -> Balance {
-        return Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
+        return Balance(currency: .init(title: displayName, ticker: ticker), money: money(amount, precision: precision))
     }
 
     func money(_ amount: Int64, precision: Int) -> Money {
