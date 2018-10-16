@@ -533,8 +533,6 @@
 		E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */; };
 		E95B47F121638B11004D4E39 /* StartLeasingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */; };
 		E95B47F221638B11004D4E39 /* StartLeasingAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */; };
-		E95B47F321638B11004D4E39 /* StartLeasingGeneratorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47E321638B11004D4E39 /* StartLeasingGeneratorView.xib */; };
-		E95B47F421638B11004D4E39 /* StartLeasingGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E421638B11004D4E39 /* StartLeasingGeneratorView.swift */; };
 		E95B47F521638B11004D4E39 /* StartLeasingAmountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */; };
 		E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E721638B11004D4E39 /* StartLeasingInteractorProtocol.swift */; };
 		E95B47F721638B11004D4E39 /* StartLeasingInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E821638B11004D4E39 /* StartLeasingInteractorMock.swift */; };
@@ -782,6 +780,12 @@
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
+		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
+		E9EC5BAB2175F35900E5C29A /* Send.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B382175F35800E5C29A /* Send.strings */; };
+		E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3A2175F35800E5C29A /* SendViewController.swift */; };
+		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
+		E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5BA82175F35800E5C29A /* AddressInputView.swift */; };
+		E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5BA92175F35800E5C29A /* AddressInputView.xib */; };
 		E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
@@ -1381,8 +1385,6 @@
 		E95B47DF21638B11004D4E39 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/StartLeasing.strings; sourceTree = "<group>"; };
 		E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingTypes.swift; sourceTree = "<group>"; };
 		E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingAmountView.swift; sourceTree = "<group>"; };
-		E95B47E321638B11004D4E39 /* StartLeasingGeneratorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartLeasingGeneratorView.xib; sourceTree = "<group>"; };
-		E95B47E421638B11004D4E39 /* StartLeasingGeneratorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingGeneratorView.swift; sourceTree = "<group>"; };
 		E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartLeasingAmountView.xib; sourceTree = "<group>"; };
 		E95B47E721638B11004D4E39 /* StartLeasingInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingInteractorProtocol.swift; sourceTree = "<group>"; };
 		E95B47E821638B11004D4E39 /* StartLeasingInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingInteractorMock.swift; sourceTree = "<group>"; };
@@ -1673,6 +1675,14 @@
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
+		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
+		E9EC5B392175F35800E5C29A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Send.strings; sourceTree = "<group>"; };
+		E9EC5B3A2175F35800E5C29A /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendModuleBuilder.swift; sourceTree = "<group>"; };
+		E9EC5BA52175F35800E5C29A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Send.strings; sourceTree = "<group>"; };
+		E9EC5BA62175F35800E5C29A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Send.strings; sourceTree = "<group>"; };
+		E9EC5BA82175F35800E5C29A /* AddressInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInputView.swift; sourceTree = "<group>"; };
+		E9EC5BA92175F35800E5C29A /* AddressInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressInputView.xib; sourceTree = "<group>"; };
 		E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
@@ -2435,6 +2445,7 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9EC5B352175F35800E5C29A /* Send */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
 				E9D36D6B2175C754001E6DF0 /* Receive */,
 				0AFA0C652174A2300003FE3B /* Legal */,
@@ -3194,8 +3205,6 @@
 		E95B47E121638B11004D4E39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E95B47E321638B11004D4E39 /* StartLeasingGeneratorView.xib */,
-				E95B47E421638B11004D4E39 /* StartLeasingGeneratorView.swift */,
 				E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */,
 				E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */,
 			);
@@ -3985,6 +3994,35 @@
 			path = Send;
 			sourceTree = "<group>";
 		};
+		E9EC5B352175F35800E5C29A /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				E9EC5B362175F35800E5C29A /* Send.storyboard */,
+				E9EC5B372175F35800E5C29A /* Send */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		E9EC5B372175F35800E5C29A /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				E9EC5BA72175F35800E5C29A /* Views */,
+				E9EC5B382175F35800E5C29A /* Send.strings */,
+				E9EC5B3A2175F35800E5C29A /* SendViewController.swift */,
+				E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		E9EC5BA72175F35800E5C29A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9EC5BA82175F35800E5C29A /* AddressInputView.swift */,
+				E9EC5BA92175F35800E5C29A /* AddressInputView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E9EE18D720D475D8001913C6 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
@@ -4219,6 +4257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */,
 				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
 				E9B087CB2163886800937644 /* DexList.strings in Resources */,
@@ -4281,7 +4320,6 @@
 				E95B480921638BE9004D4E39 /* TransactionHistoryAddressView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
-				E95B47F321638B11004D4E39 /* StartLeasingGeneratorView.xib in Resources */,
 				0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */,
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
@@ -4292,6 +4330,7 @@
 				E9D36DF02175C755001E6DF0 /* AssetList.strings in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
+				E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */,
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E9B087DD2163886800937644 /* DexCreateOrder.strings in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
@@ -4315,6 +4354,7 @@
 				E95B481521638FE8004D4E39 /* GoogleService-Info.plist in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				0A110CC02153D850002A8FD7 /* Import.strings in Resources */,
+				E9EC5BAB2175F35900E5C29A /* Send.strings in Resources */,
 				04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */,
 				E9D36DE42175C755001E6DF0 /* ReceiveGenerate.strings in Resources */,
 				E9B087FC2163886800937644 /* DexMyOrdersHeaderView.xib in Resources */,
@@ -4803,6 +4843,7 @@
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */,
+				E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */,
 				0AF922AE212E1234003BA067 /* NSAttributedString+Styles.swift in Sources */,
 				0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */,
 				E9B087F32163886800937644 /* DexLastTradesHeaderView.swift in Sources */,
@@ -4917,7 +4958,6 @@
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
 				0A762D9B2163A0B60019D447 /* FactoryInteractors.swift in Sources */,
 				0AFBCA912113274B00285BCB /* WalletSortInteractorProtocol.swift in Sources */,
-				E95B47F421638B11004D4E39 /* StartLeasingGeneratorView.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
 				0A071E73215D9B30007D9750 /* RunLoopThreadScheduler.swift in Sources */,
 				0ABD1BE621469CE70027A7A2 /* AccountsInteractor.swift in Sources */,
@@ -4973,6 +5013,7 @@
 				0AF922C5212E1234003BA067 /* UINavigationController+Additionals.swift in Sources */,
 				E9BCF48121636DAC00FA6502 /* ReponceTypes.swift in Sources */,
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
+				E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */,
 				0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */,
 				0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */,
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
@@ -5180,6 +5221,7 @@
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
+				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
 				0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */,
 				E9B087B12163886800937644 /* DexOrderBookInteractor.swift in Sources */,
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,
@@ -5602,6 +5644,16 @@
 				E9D36DBF2175C755001E6DF0 /* ru */,
 			);
 			name = AssetList.strings;
+			sourceTree = "<group>";
+		};
+		E9EC5B382175F35800E5C29A /* Send.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9EC5B392175F35800E5C29A /* en */,
+				E9EC5BA52175F35800E5C29A /* tr */,
+				E9EC5BA62175F35800E5C29A /* ru */,
+			);
+			name = Send.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

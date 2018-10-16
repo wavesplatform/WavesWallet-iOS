@@ -343,6 +343,30 @@ internal enum Localizable {
       }
     }
   }
+          internal enum Send {
+
+    internal enum Button {
+      /// Choose from Address book
+      internal static var chooseFromAddressBook: String { return Localizable.tr("Send", "button.chooseFromAddressBook") }
+      /// Continue
+      internal static var `continue`: String { return Localizable.tr("Send", "button.continue") }
+    }
+
+    internal enum Label {
+      /// The address is not valid
+      internal static var addressNotValid: String { return Localizable.tr("Send", "label.addressNotValid") }
+      /// Amount
+      internal static var amount: String { return Localizable.tr("Send", "label.amount") }
+      /// Recipient
+      internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
+      /// Recipient address…
+      internal static var recipientAddress: String { return Localizable.tr("Send", "label.recipientAddress") }
+      /// Send
+      internal static var send: String { return Localizable.tr("Send", "label.send") }
+      /// Transaction Fee
+      internal static var transactionFee: String { return Localizable.tr("Send", "label.transactionFee") }
+    }
+  }
           internal enum DexInfo {
 
     internal enum Label {

@@ -28,7 +28,7 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var iconAssetBalance: UIImageView!
     @IBOutlet private weak var labelAssetAmount: UILabel!
     @IBOutlet private weak var iconFavourite: UIImageView!
-    @IBOutlet private weak var addressGeneratorView: StartLeasingGeneratorView!
+    @IBOutlet private weak var addressGeneratorView: AddressInputView!
     @IBOutlet private weak var assetBgView: UIView!
     @IBOutlet private weak var amountView: StartLeasingAmountView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
@@ -189,6 +189,14 @@ private extension StartLeasingViewController {
         assetBgView.layer.borderWidth = Constants.borderWidth
         assetBgView.layer.borderColor = UIColor.overlayDark.cgColor
         
+        let addressInput = AddressInputView.Input.init(title: Localizable.StartLeasing.Label.generator,
+                                                       error: Localizable.StartLeasing.Label.addressIsNotValid,
+                                                       placeHolder: Localizable.StartLeasing.Label.nodeAddress,
+                                                       contacts: [])
+        addressGeneratorView.update(with: addressInput)
+        addressGeneratorView.errorValidation = { text in
+            return Address.isValidAddress(address: text)
+        }
         setupButtonState()
     }
     
@@ -230,22 +238,23 @@ extension StartLeasingViewController: StartLeasingAmountViewDelegate {
 }
 
 //MARK: - StartLeasingGeneratorViewDelegate
-extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
+extension StartLeasingViewController: AddressInputViewDelegate {
 
-   
-    func startLeasingGeneratorViewDidSelectAddressBook() {
+    func addressInputViewDidSelectContactAtIndex(_ index: Int) {
         
+    }
+    
+    func addressInputViewDidSelectAddressBook() {
         let controller = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func startLeasingGeneratorViewDidChangeAddress(_ address: String) {
+    func addressInputViewDidChangeAddress(_ address: String) {
         order.recipient = address
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
     }
-    
-    func startLeasingGeneratorDidTapNext() {
+    func addressInputViewDidTapNext() {
         amountView.activateTextField()
     }
 }

@@ -131,7 +131,7 @@ extension MainTabBarController: WavesPopupModuleOutput {
     func showSend() {
         
         if let nav = selectedViewController as? CustomNavigationController {
-            let vc = StoryboardManager.WavesStoryboard().instantiateViewController(withIdentifier: "WavesSendViewController") as! WavesSendViewController
+            let vc = SendModuleBuilder().build(input: nil)
             nav.pushViewController(vc, animated: true)
         }
     }

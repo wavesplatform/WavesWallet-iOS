@@ -236,6 +236,11 @@ internal enum StoryboardScene {
 
     internal static let receiveInvoiceViewController = SceneType<WavesWallet_iOS.ReceiveInvoiceViewController>(storyboard: Receive.self, identifier: "ReceiveInvoiceViewController")
   }
+  internal enum Send: StoryboardType {
+    internal static let storyboardName = "Send"
+
+    internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Send.self, identifier: "SendViewController")
+  }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
 
@@ -265,7 +270,7 @@ internal enum StoryboardScene {
 
     internal static let receiveViewController = SceneType<WavesWallet_iOS.ReceiveViewController>(storyboard: Transfer.self, identifier: "ReceiveViewController")
 
-    internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewControllerOld>(storyboard: Transfer.self, identifier: "SendViewController")
+    internal static let sendViewControllerOld = SceneType<WavesWallet_iOS.SendViewControllerOld>(storyboard: Transfer.self, identifier: "SendViewControllerOld")
   }
   internal enum UseTouchID: StoryboardType {
     internal static let storyboardName = "UseTouchID"

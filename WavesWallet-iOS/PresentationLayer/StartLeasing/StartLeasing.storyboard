@@ -83,7 +83,7 @@
                                                     <constraint firstItem="5NV-3w-JNV" firstAttribute="top" secondItem="d3N-X9-AfA" secondAttribute="top" id="xHP-LM-Xdg"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWH-rd-6Bn" customClass="StartLeasingGeneratorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWH-rd-6Bn" customClass="AddressInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="120" width="375" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
