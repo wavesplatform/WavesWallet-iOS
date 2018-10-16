@@ -80,7 +80,7 @@ private extension ReceiveContainerViewController {
         if gesture.direction == .left {
 
             let index = segmentedControl.selectedIndex + 1
-            if index <= Receive.ViewModel.State.card.rawValue {
+            if index < viewControllers.count {
                 guard let state = Receive.ViewModel.State(rawValue: index) else { return }
                 selectedState = state
                 segmentedControl.setSelectedIndex(state.rawValue, animation: true)
