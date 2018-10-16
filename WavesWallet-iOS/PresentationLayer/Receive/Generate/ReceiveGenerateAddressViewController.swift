@@ -85,7 +85,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
             
             let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
                                                       address: info.address,
-                                                      icon: info.assetTicker ?? info.assetName,
+                                                      icon: info.icon,
                                                       qrCode: info.address,
                                                       invoiceLink: nil)
             
@@ -99,7 +99,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
             
             let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
                                                       address: info.address,
-                                                      icon: info.assetTicker ?? info.assetName,
+                                                      icon: info.icon,
                                                       qrCode: info.invoiceLink,
                                                       invoiceLink: info.invoiceLink)
             

@@ -55,7 +55,7 @@ extension AssetListTableViewCell: ViewConfiguration {
         labelAmount.text = model.balance.displayTextFull
 
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.ticker ?? model.asset.displayName, style: style, completionHandler: { [weak self] (image) in
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in
             self?.iconAsset.image = image
         })
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
