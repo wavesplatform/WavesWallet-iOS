@@ -53,6 +53,7 @@ final class ReceiveCardViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
+        debug(self.urlLink)
         //TODO: - Need to show webView screen
         let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
         navigationController?.pushViewController(vc, animated: true)
@@ -65,7 +66,7 @@ final class ReceiveCardViewController: UIViewController {
         controller.addAction(.init(title: Localizable.ReceiveCard.Button.cancel, style: .cancel, handler: nil))
         
         let actionUSD = UIAlertAction(title: ReceiveCard.DTO.FiatType.usd.text, style: .default) { (action) in
-            
+           
             self.selectedFiat = ReceiveCard.DTO.FiatType.usd
             self.setupFiatText()
             self.setupButtonState()

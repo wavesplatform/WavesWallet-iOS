@@ -16,7 +16,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
 
         if let asset = input {
             
-            if input?.assetId == Environments.Constants.wavesAssetId {
+            if input?.asset?.isWaves == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
                 vc.add(ReceiveCardModuleBuilder().build(), state: .card)
             }
