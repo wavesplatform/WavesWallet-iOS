@@ -7,40 +7,48 @@
 //
 
 import UIKit
+import RxCocoa
+import RxFeedback
+import RxSwift
 
 final class ChangePasswordViewController: UIViewController {
-    
-    @IBOutlet weak var buttonConfirm: UIButton!
-    
+
+    fileprivate typealias Types = ChangePasswordTypes
+
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var buttonConfirm: UIButton!
     @IBOutlet private weak var oldPasswordInput: PasswordTextField!
     @IBOutlet private weak var passwordInput: PasswordTextField!
     @IBOutlet private weak var confirmPasswordInput: PasswordTextField!
-    @IBOutlet private weak var scrollView: UIScrollView!
-    
+
+    private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
+
+    var presenter: ChangePasswordPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Change password"
+        buttonConfirm.setBackgroundImage(UIColor.submit200.image, for: .disabled)
+        buttonConfirm.setBackgroundImage(UIColor.submit400.image, for: .normal)
+        buttonConfirm.setTitle(Localizable.ChangePassword.Button.Confirm.title, for: .normal)
+
+        navigationItem.title = Localizable.ChangePassword.Navigation.title
+        navigationItem.barTintColor = .white
         createBackButton()
-        setupBigNavigationBar()        
-        navigationController?.navigationBar.barTintColor = .white
-
+        setupBigNavigationBar()
+        setupTextField()
+        setupSystem()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if #available(iOS 11.0, *) {
-//            navigationItem.largeTitleDisplayMode = .always
-        } else {
-            // Fallback on earlier versions
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        oldPasswordInput.becomeFirstResponder()
     }
 
-    
     private func setupTextField() {
         oldPasswordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
-                                                              kind: .text,
+                                                              kind: .password,
                                                               placeholder: Localizable.NewAccount.Textfield.Accountname.title))
         passwordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
                                                            kind: .password,
@@ -49,59 +57,109 @@ final class ChangePasswordViewController: UIViewController {
                                                                   kind: .newPassword,
                                                                   placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
-        oldPasswordInput.valueValidator = { value in
-//            if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {
-//                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.accountNameMinLimitSymbols)
-//            } else {
-//                return nil
-//            }
-            return nil
-        }
-
-        passwordInput.valueValidator = { value in
-            if (value?.count ?? 0) < Settings.minLengthPassword {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
-            } else {
-                return nil
-            }
-        }
-
-        confirmPasswordInput.valueValidator = { [weak self] value in
-            if self?.passwordInput.value != value {
-                return Localizable.NewAccount.Textfield.Error.passwordnotmatch
-            }
-
-            return nil
-        }
-
         oldPasswordInput.returnKey = .next
         passwordInput.returnKey = .next
         confirmPasswordInput.returnKey = .done
 
         oldPasswordInput.textFieldShouldReturn = { [weak self] _ in
-
+            self?.passwordInput.becomeFirstResponder()
         }
 
         passwordInput.textFieldShouldReturn = { [weak self] _ in
-
+            self?.confirmPasswordInput.becomeFirstResponder()
         }
 
         confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in
+            self?.continueChangePassword()
+        }
 
+        oldPasswordInput.changedValue = { [weak self] isValidData, text in
+            self?.eventInput.onNext(.input(.oldPassword, text))
+        }
+        passwordInput.changedValue = { [weak self] isValidData, text in
+            self?.eventInput.onNext(.input(.newPassword, text))
+        }
+        confirmPasswordInput.changedValue = { [weak self] isValidData, text in
+            self?.eventInput.onNext(.input(.confirmPassword, text))
         }
     }
 
+    private func continueChangePassword() {
+        eventInput.onNext(.tapContinue)
+    }
+
+    @IBAction func handlerConfirmButton() {
+        continueChangePassword()
+    }
 }
 
+// MARK: RxFeedback
+
+private extension ChangePasswordViewController {
+
+    func setupSystem() {
+
+        let uiFeedback: ChangePasswordPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+        }
+
+        let readyViewFeedback: ChangePasswordPresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .rx
+                .viewWillAppear
+                .asObservable()
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.readyView }
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+    }
+
+    func events() -> [Signal<Types.Event>] {
+        return [eventInput.asSignal(onErrorSignalWith: Signal.empty())]
+    }
+
+    func subscriptions(state: Driver<Types.State>) -> [Disposable] {
+
+        let subscriptionSections = state.drive(onNext: { [weak self] state in
+
+            guard let strongSelf = self else { return }
+
+            strongSelf.updateView(with: state.displayState)
+        })
+
+        return [subscriptionSections]
+    }
+
+    func updateView(with state: Types.DisplayState) {
+
+        if let textFiled = state.textFields[.oldPassword] {
+            oldPasswordInput.setError(textFiled.error)
+        } else {
+            oldPasswordInput.setError(nil)
+        }
+
+        if let textFiled = state.textFields[.newPassword] {
+            passwordInput.setError(textFiled.error)
+        } else {
+            passwordInput.setError(nil)
+        }
+
+        if let textFiled = state.textFields[.confirmPassword] {
+            confirmPasswordInput.setError(textFiled.error)
+        } else {
+            confirmPasswordInput.setError(nil)
+        }
+
+        buttonConfirm.isEnabled = state.isEnabledConfirmButton
+    }
+}
 
 // MARK: UIScrollViewDelegate
 extension ChangePasswordViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
-    }
-
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
-//        targetContentOffset.pointee = CGPoint(x: 0, y: -1)
     }
 }

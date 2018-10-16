@@ -10,10 +10,6 @@ import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
 
-fileprivate enum Constants {
-    static let accountNameMinLimitSymbols: Int = 2
-}
-
 private struct Avatar {
     let address: String
     let privateKey: PrivateKeyAccount
@@ -91,8 +87,8 @@ final class NewAccountViewController: UIViewController {
                                                                placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
         accountNameInput.valueValidator = { value in
-            if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.accountNameMinLimitSymbols)
+            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else {
                 return nil
             }

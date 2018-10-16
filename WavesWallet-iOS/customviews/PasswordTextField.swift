@@ -50,6 +50,8 @@ final class PasswordTextField: UIView, NibOwnerLoadable {
         }
     }
 
+    private var externalError: String?
+
     var valueValidator: ((String?) -> String?)?
     var changedValue: ((Bool,String?) -> Void)?
     var textFieldShouldReturn: ((PasswordTextField) -> Void)?
@@ -127,16 +129,26 @@ final class PasswordTextField: UIView, NibOwnerLoadable {
 
     private func checkValidValue(_ value: String?) {
         var error: String? = nil
-        var isValidValue: Bool = false
+        var isValidValue: Bool = true
 
-        if let value = value, value.count > 0 {
-             error = valueValidator?(value)
+        if let value = value, value.count > 0, let validator = valueValidator {
+            error = validator(value)
             isValidValue = error == nil
+        } else if let externalError = externalError {
+            error = externalError
+            isValidValue = false
+        } else {
+            isValidValue = (value?.count ?? 0) > 0
         }
 
         errorLabel.isHidden = isValidValue
         errorLabel.text = error
         self.isValidValue = isValidValue
+    }
+
+    func setError(_ error: String?) {
+        externalError = error
+        checkValidValue()
     }
 }
 

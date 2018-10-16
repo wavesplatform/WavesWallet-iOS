@@ -102,7 +102,7 @@ PODS:
     - Realm (= 3.7.6)
   - RESideMenu (4.0.7)
   - Result (3.2.4)
-  - Reveal-SDK (17)
+  - Reveal-SDK (18)
   - RxAlamofire (4.2.0):
     - RxAlamofire/Core (= 4.2.0)
   - RxAlamofire/Core (4.2.0):
@@ -317,7 +317,7 @@ SPEC CHECKSUMS:
   RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Reveal-SDK: a6df49f47319bd19a110c960c498af32df72c0af
+  Reveal-SDK: cce79388da3fd0bbb6ae19d769b906cfc3a33a89
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
