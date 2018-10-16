@@ -70,6 +70,11 @@ internal enum StoryboardScene {
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
   }
+  internal enum AssetList: StoryboardType {
+    internal static let storyboardName = "AssetList"
+
+    internal static let assetListViewController = SceneType<WavesWallet_iOS.AssetListViewController>(storyboard: AssetList.self, identifier: "AssetListViewController")
+  }
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"
 
@@ -188,8 +193,6 @@ internal enum StoryboardScene {
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
 
     internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: Main.self, identifier: "MyAddressViewController")
-
-    internal static let startLeasingViewControllerOld = SceneType<WavesWallet_iOS.StartLeasingViewControllerOld>(storyboard: Main.self, identifier: "StartLeasingViewControllerOld")
   }
   internal enum NewAccount: StoryboardType {
     internal static let storyboardName = "NewAccount"
@@ -215,6 +218,23 @@ internal enum StoryboardScene {
     internal static let profileAddressKeyViewController = SceneType<WavesWallet_iOS.ProfileAddressKeyViewController>(storyboard: Profile.self, identifier: "ProfileAddressKeyViewController")
 
     internal static let profileViewController = SceneType<WavesWallet_iOS.ProfileViewController>(storyboard: Profile.self, identifier: "ProfileViewController")
+  }
+  internal enum Receive: StoryboardType {
+    internal static let storyboardName = "Receive"
+
+    internal static let receiveAddressViewController = SceneType<WavesWallet_iOS.ReceiveAddressViewController>(storyboard: Receive.self, identifier: "ReceiveAddressViewController")
+
+    internal static let receiveCardCompleteViewController = SceneType<WavesWallet_iOS.ReceiveCardCompleteViewController>(storyboard: Receive.self, identifier: "ReceiveCardCompleteViewController")
+
+    internal static let receiveCardViewController = SceneType<WavesWallet_iOS.ReceiveCardViewController>(storyboard: Receive.self, identifier: "ReceiveCardViewController")
+
+    internal static let receiveContainerViewController = SceneType<WavesWallet_iOS.ReceiveContainerViewController>(storyboard: Receive.self, identifier: "ReceiveContainerViewController")
+
+    internal static let receiveCryptocurrencyViewController = SceneType<WavesWallet_iOS.ReceiveCryptocurrencyViewController>(storyboard: Receive.self, identifier: "ReceiveCryptocurrencyViewController")
+
+    internal static let receiveGenerateAddressViewController = SceneType<WavesWallet_iOS.ReceiveGenerateAddressViewController>(storyboard: Receive.self, identifier: "ReceiveGenerateAddressViewController")
+
+    internal static let receiveInvoiceViewController = SceneType<WavesWallet_iOS.ReceiveInvoiceViewController>(storyboard: Receive.self, identifier: "ReceiveInvoiceViewController")
   }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
@@ -262,23 +282,7 @@ internal enum StoryboardScene {
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"
 
-    internal static let chooseAssetViewController = SceneType<WavesWallet_iOS.ChooseAssetViewController>(storyboard: Waves.self, identifier: "ChooseAssetViewController")
-
     internal static let wavesPopupViewController = SceneType<WavesWallet_iOS.WavesPopupViewController>(storyboard: Waves.self, identifier: "WavesPopupViewController")
-
-    internal static let wavesReceiveBankViewController = SceneType<WavesWallet_iOS.WavesReceiveBankViewController>(storyboard: Waves.self, identifier: "WavesReceiveBankViewController")
-
-    internal static let wavesReceiveCardViewController = SceneType<WavesWallet_iOS.WavesReceiveCardViewController>(storyboard: Waves.self, identifier: "WavesReceiveCardViewController")
-
-    internal static let wavesReceiveCryptocurrencyViewController = SceneType<WavesWallet_iOS.WavesReceiveCryptocurrencyViewController>(storyboard: Waves.self, identifier: "WavesReceiveCryptocurrencyViewController")
-
-    internal static let wavesReceiveInvoiceViewController = SceneType<WavesWallet_iOS.WavesReceiveInvoiceViewController>(storyboard: Waves.self, identifier: "WavesReceiveInvoiceViewController")
-
-    internal static let wavesReceiveLoadingViewController = SceneType<WavesWallet_iOS.WavesReceiveLoadingViewController>(storyboard: Waves.self, identifier: "WavesReceiveLoadingViewController")
-
-    internal static let wavesReceiveRedirectViewController = SceneType<WavesWallet_iOS.WavesReceiveRedirectViewController>(storyboard: Waves.self, identifier: "WavesReceiveRedirectViewController")
-
-    internal static let wavesReceiveViewController = SceneType<WavesWallet_iOS.WavesReceiveViewController>(storyboard: Waves.self, identifier: "WavesReceiveViewController")
 
     internal static let wavesSendConfirmationViewController = SceneType<WavesWallet_iOS.WavesSendConfirmationViewController>(storyboard: Waves.self, identifier: "WavesSendConfirmationViewController")
 

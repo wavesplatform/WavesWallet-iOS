@@ -206,6 +206,10 @@ class CustomNavigationController: UINavigationController {
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.topViewController?.preferredStatusBarStyle ?? .default
+    }
 }
 
 // MARK: UIGestureRecognizerDelegate

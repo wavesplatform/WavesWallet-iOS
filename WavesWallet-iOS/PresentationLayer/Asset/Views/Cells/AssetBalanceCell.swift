@@ -43,12 +43,25 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     private var options: Options = Options(isHiddenLeased: false, isHiddenInOrder: false)
     private var isNeedsUpdateConstraints: Bool = false
 
+    var receiveAction: (() -> Void)?
+    var sendAction: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
-        backgroundColor = .basic50        
+        backgroundColor = .basic50
+        sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
+        receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
     }
 
+    @objc private func receiveTapped() {
+        receiveAction?()
+    }
+    
+    @objc private func sendTapped() {
+        sendAction?()
+    }
+    
     override func updateConstraints() {
 
         if isNeedsUpdateConstraints {
