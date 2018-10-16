@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WavesReceiveCardViewController: BaseAmountViewController, ChooseAssetViewControllerDelegate {
+class WavesReceiveCardViewController: BaseAmountViewController {
 
     @IBOutlet weak var viewContainerAsset: UIView!
     
@@ -75,10 +75,7 @@ class WavesReceiveCardViewController: BaseAmountViewController, ChooseAssetViewC
     
     
     @IBAction func selectAssetTapped(_ sender: Any) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ChooseAssetViewController") as! ChooseAssetViewController
-        controller.delegate = self
-        controller.selectedAsset = selectedAsset
-        navigationController?.pushViewController(controller, animated: true)
+      
     }
     
     func setupAssetState() {

@@ -161,6 +161,7 @@ internal enum Images {
   internal static let iconReceive = ImageAsset(name: "icon_receive")
   internal static let iconSend = ImageAsset(name: "icon_send")
   internal static let iconWaves = ImageAsset(name: "icon_waves")
+  internal static let identifiergateway14Ocean = ImageAsset(name: "identifiergateway14Ocean")
   internal static let info18Basic300 = ImageAsset(name: "info18Basic300")
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
@@ -272,6 +273,7 @@ internal enum Images {
   internal static let walletQuickNote = ImageAsset(name: "wallet_quick_note")
   internal static let walletStartLease = ImageAsset(name: "wallet_start_lease")
   internal static let warning18Black = ImageAsset(name: "warning18Black")
+  internal static let warning18Disabled500 = ImageAsset(name: "warning18Disabled500")
   internal static let warningAddress = ImageAsset(name: "warning_address")
 
   // swiftlint:disable trailing_comma
@@ -387,6 +389,7 @@ internal enum Images {
     iconReceive,
     iconSend,
     iconWaves,
+    identifiergateway14Ocean,
     info18Basic300,
     info18Error500,
     info18Warning600,
@@ -498,6 +501,7 @@ internal enum Images {
     walletQuickNote,
     walletStartLease,
     warning18Black,
+    warning18Disabled500,
     warningAddress,
   ]
   // swiftlint:enable trailing_comma

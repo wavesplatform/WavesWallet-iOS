@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WavesReceiveInvoiceViewController: BaseAmountViewController, ChooseAssetViewControllerDelegate {
+class WavesReceiveInvoiceViewController: BaseAmountViewController {
 
     @IBOutlet weak var viewContainerAsset: UIView!
     @IBOutlet weak var iconAsset: UIImageView!
@@ -40,10 +40,7 @@ class WavesReceiveInvoiceViewController: BaseAmountViewController, ChooseAssetVi
     }
     
     @IBAction func selectAssetTapped(_ sender: Any) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "ChooseAssetViewController") as! ChooseAssetViewController
-        controller.delegate = self
-        controller.selectedAsset = selectedAsset
-        navigationController?.pushViewController(controller, animated: true)
+
     }
     
     override func amountTapped(_ sender: UIButton) {

@@ -51,6 +51,7 @@ extension WalletSortFavCell: ViewConfiguration {
         let isMyWavesToken: Bool
         let isLock: Bool
         let isGateway: Bool
+        let icon: String
     }
 
     func update(with model: WalletSortFavCell.Model) {
@@ -59,7 +60,7 @@ extension WalletSortFavCell: ViewConfiguration {
         iconLock.isHidden = !model.isLock
         arrowGreen.isHidden = !model.isGateway
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: cryptoName,
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 15),
                                                                           border: nil)) { [weak self] image in

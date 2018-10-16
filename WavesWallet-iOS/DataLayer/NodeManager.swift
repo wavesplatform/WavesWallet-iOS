@@ -110,32 +110,29 @@ class NodeManager {
         try! Realm()
     }()
     
-    class func createGeneralBalance(_ id: String, bal: Int64, name: String, quantity: Int64, decimals: Int) -> AssetBalance {
+    class func createGeneralBalance(_ id: String, bal: Int64, name: String) -> AssetBalance {
         let ab = AssetBalance()
         ab.balance = bal
-        ab.quantity = quantity
         ab.isGeneral = true
         ab.assetId = id
         let issue = IssueTransaction()
         issue.id = id
         issue.name = name
-        issue.quantity = quantity
-        issue.decimals = decimals
         ab.issueTransaction = issue
         return ab
     }
     
     class func createWavesBalance(_ bal: Int64) -> AssetBalance {
-        return createGeneralBalance("", bal: bal, name: "WAVES", quantity: 10000000000000000, decimals: 8)
+        return createGeneralBalance("", bal: bal, name: "WAVES")
     }
     
-    class func addGeneralBalance(_ id: String, _ name: String, _ quantity: Int64, _ decimals: Int) {
+    class func addGeneralBalance(_ id: String, _ name: String) {
         let realm = try! Realm()
 
         let existing = realm.object(ofType: AssetBalance.self, forPrimaryKey: id)
         
         if existing == nil {
-            let ab = createGeneralBalance(id, bal: 0, name: name, quantity: quantity, decimals: decimals)
+            let ab = createGeneralBalance(id, bal: 0, name: name)
             try! realm.write {
                 realm.add(ab, update: true)
             }
@@ -143,7 +140,7 @@ class NodeManager {
     }
     
     class func addGeneralBalances() {
-        Environments.current.generalAssetIds.forEach{ addGeneralBalance($0.assetId, $0.name, $0.quantity, $0.decimals) }
+        Environments.current.generalAssetIds.forEach{ addGeneralBalance($0.assetId, $0.displayName) }
     }
     
     /*class func getGeneralBalances() -> [AssetBalance] {
