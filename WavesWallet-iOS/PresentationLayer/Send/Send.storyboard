@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Send View Controller-->
+        <scene sceneID="LfO-vG-3bZ">
+            <objects>
+                <viewController storyboardIdentifier="SendViewController" id="aEw-8s-rvB" customClass="SendViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CcP-yn-vtD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9I-OQ-j23">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-zy-nqY">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-Kq-mM9" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="72" id="0jB-IY-nUU"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7C-jx-v1E" customClass="AddressInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="96" width="375" height="80"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="ba1-5O-8Pf"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="f7C-jx-v1E" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="4NW-lg-XQk"/>
+                                            <constraint firstAttribute="trailing" secondItem="KUx-Kq-mM9" secondAttribute="trailing" id="WLb-iL-Iws"/>
+                                            <constraint firstItem="KUx-Kq-mM9" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="Xqt-Io-ej3"/>
+                                            <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
+                                            <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
+                                            <constraint firstItem="KUx-Kq-mM9" firstAttribute="top" secondItem="6P1-zy-nqY" secondAttribute="top" id="wW0-p3-g3z"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="6P1-zy-nqY" firstAttribute="width" secondItem="h9I-OQ-j23" secondAttribute="width" id="5XP-NM-LQG"/>
+                                    <constraint firstItem="6P1-zy-nqY" firstAttribute="height" secondItem="h9I-OQ-j23" secondAttribute="height" id="7vR-og-dJE"/>
+                                    <constraint firstAttribute="bottom" secondItem="6P1-zy-nqY" secondAttribute="bottom" id="914-Nr-U0B"/>
+                                    <constraint firstItem="6P1-zy-nqY" firstAttribute="top" secondItem="h9I-OQ-j23" secondAttribute="top" id="LEe-xg-0AK"/>
+                                    <constraint firstAttribute="trailing" secondItem="6P1-zy-nqY" secondAttribute="trailing" id="TCz-06-XUg"/>
+                                    <constraint firstItem="6P1-zy-nqY" firstAttribute="leading" secondItem="h9I-OQ-j23" secondAttribute="leading" id="dP9-u4-EGt"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="aEw-8s-rvB" id="yfX-gd-Wps"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0o9-e5-6xM" firstAttribute="bottom" secondItem="h9I-OQ-j23" secondAttribute="bottom" id="flJ-pC-b6C"/>
+                            <constraint firstItem="h9I-OQ-j23" firstAttribute="leading" secondItem="0o9-e5-6xM" secondAttribute="leading" id="kCS-Yn-0IV"/>
+                            <constraint firstItem="0o9-e5-6xM" firstAttribute="trailing" secondItem="h9I-OQ-j23" secondAttribute="trailing" id="wZv-7p-FGE"/>
+                            <constraint firstItem="h9I-OQ-j23" firstAttribute="top" secondItem="0o9-e5-6xM" secondAttribute="top" id="xnf-sq-eoc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0o9-e5-6xM"/>
+                    </view>
+                    <connections>
+                        <outlet property="assetView" destination="KUx-Kq-mM9" id="VaM-Zg-YJ6"/>
+                        <outlet property="recipientAddressView" destination="f7C-jx-v1E" id="WNg-3Y-7rk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dwq-iF-Xxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-223.19999999999999" y="148.87556221889056"/>
+        </scene>
+    </scenes>
+</document>

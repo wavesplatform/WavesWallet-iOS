@@ -13,15 +13,25 @@ private enum Constants {
     static let animationDuration: TimeInterval = 0.3
 }
 
-protocol StartLeasingGeneratorViewDelegate: AnyObject {
-    func startLeasingGeneratorViewDidSelectAddressBook()
-    func startLeasingGeneratorViewDidChangeAddress(_ address: String)
-    func startLeasingGeneratorDidTapNext()
-
+protocol AddressInputViewDelegate: AnyObject {
+    func addressInputViewDidSelectContactAtIndex(_ index: Int)
+    func addressInputViewDidSelectAddressBook()
+    func addressInputViewDidChangeAddress(_ address: String)
+    func addressInputViewDidTapNext()
+    
 }
 
-final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
-
+final class AddressInputView: UIView, NibOwnerLoadable {
+    
+    struct Input {
+        let title: String
+        let error: String
+        let placeHolder: String
+        let contacts: [String]
+    }
+    
+    var errorValidation:((String) -> Bool)?
+    
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
@@ -31,8 +41,7 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var inputScrollViewHeight: NSLayoutConstraint!
     
-    weak var delegate: StartLeasingGeneratorViewDelegate?
-    private var lastContacts: [DomainLayer.DTO.Contact] = []
+    weak var delegate: AddressInputViewDelegate?
     private var isHiddenDeleteButton = true
     private var isShowErrorLabel = false
     
@@ -40,19 +49,16 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelTitle.text = Localizable.StartLeasing.Label.generator
-        labelError.text = Localizable.StartLeasing.Label.addressIsNotValid
+      
         labelError.alpha = 0
-        textField.placeholder = Localizable.StartLeasing.Label.nodeAddress
         viewContentTextField.addTableCellShadowStyle()
         inputScrollView.inputDelegate = self
         buttonDelete.alpha = 0
         showInputScrollView(animation: false)
-        inputScrollView.update(with: [Localizable.StartLeasing.Button.chooseFromAddressBook])
     }
     
     
@@ -68,10 +74,45 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
         return QRCodeReaderViewController(builder: builder)
     }()
     
+    //MARK: - Actions
+    @IBAction private func addressDidChange(_ sender: Any) {
+        setupButtonsState()
+        updateHeight(animation: true)
+        
+        if let text = textField.text {
+            delegate?.addressInputViewDidChangeAddress(text)
+        }
+        
+        showLabelError(isShow: false)
+    }
+    
+    @IBAction private func deleteTapped(_ sender: Any) {
+        setupText("", animation: true)
+        
+        if let text = textField.text {
+            delegate?.addressInputViewDidChangeAddress(text)
+        }
+        
+        showLabelError(isShow: false)
+    }
+    
+    @IBAction private func scanTapped(_ sender: Any) {
+        showScanner()
+    }
+}
+
+extension AddressInputView: ViewConfiguration {
+
+    func update(with model: Input) {
+        labelTitle.text = model.title
+        labelError.text = model.error
+        textField.placeholder = model.placeHolder
+        inputScrollView.update(with: [Localizable.StartLeasing.Button.chooseFromAddressBook] + model.contacts)
+    }
 }
 
 //MARK: - Methods
-extension StartLeasingGeneratorView {
+extension AddressInputView {
     
     func setupText(_ text: String, animation: Bool) {
         textField.text = text
@@ -81,25 +122,36 @@ extension StartLeasingGeneratorView {
 }
 
 //MARK: - InputScrollButtonsViewDelegate
-extension StartLeasingGeneratorView: InputScrollButtonsViewDelegate {
+extension AddressInputView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
-        delegate?.startLeasingGeneratorViewDidSelectAddressBook()
+        if index == 0 {
+            delegate?.addressInputViewDidSelectAddressBook()
+        }
+        else {
+            delegate?.addressInputViewDidSelectContactAtIndex(index - 1)
+        }
     }
 }
 
 
 //MARK: - UITextFieldDelegate
-extension StartLeasingGeneratorView: UITextFieldDelegate {
-
+extension AddressInputView: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.startLeasingGeneratorDidTapNext()
+        delegate?.addressInputViewDidTapNext()
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text, text.count > 0 {
-            showLabelError(isShow: !Address.isValidAddress(address: text))
+            
+            var showError = false
+            if let validation = errorValidation {
+                showError = !validation(text)
+            }
+            
+            showLabelError(isShow: showError)
         }
         else {
             showLabelError(isShow: false)
@@ -115,44 +167,16 @@ extension StartLeasingGeneratorView: UITextFieldDelegate {
     }
 }
 
-//MARK: - Actions
-private extension StartLeasingGeneratorView {
-    
-    @IBAction func addressDidChange(_ sender: Any) {
-        setupButtonsState()
-        updateHeight(animation: true)
-        
-        if let text = textField.text {
-            delegate?.startLeasingGeneratorViewDidChangeAddress(text)
-        }
-        
-        showLabelError(isShow: false)
-    }
-   
-    @IBAction func deleteTapped(_ sender: Any) {
-        setupText("", animation: true)
-        
-        if let text = textField.text {
-            delegate?.startLeasingGeneratorViewDidChangeAddress(text)
-        }
-        
-        showLabelError(isShow: false)
-    }
-    
-    @IBAction func scanTapped(_ sender: Any) {
-        showScanner()
-    }
-}
 
 //MARK: - SetupUI
 
-private extension StartLeasingGeneratorView {
+private extension AddressInputView {
     
     func setupButtonsState() {
         if textField.text?.count ?? 0 > 0 {
             
             if isHiddenDeleteButton {
-               isHiddenDeleteButton = false
+                isHiddenDeleteButton = false
                 UIView.animate(withDuration: Constants.animationDuration) {
                     self.buttonDelete.alpha = 1
                     self.buttonScan.alpha = 0
@@ -177,7 +201,7 @@ private extension StartLeasingGeneratorView {
 
 //MARK: - Change frame
 
-private extension StartLeasingGeneratorView {
+private extension AddressInputView {
     
     func updateHeight(animation: Bool) {
         
@@ -199,7 +223,7 @@ private extension StartLeasingGeneratorView {
     }
     
     func hideInputScrollView(animation: Bool) {
-
+        
         let height = viewContentTextField.frame.origin.y + viewContentTextField.frame.size.height
         guard heightConstraint.constant != height else { return }
         
@@ -230,17 +254,17 @@ private extension StartLeasingGeneratorView {
 
 //MARK: - QRCodeReader
 
-private extension StartLeasingGeneratorView {
-
+private extension AddressInputView {
+    
     func showScanner() {
         
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-                        
+            
             if let address = result?.value {
                 
                 self.setupText(address, animation: false)
-                self.delegate?.startLeasingGeneratorViewDidChangeAddress(address)
+                self.delegate?.addressInputViewDidChangeAddress(address)
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
