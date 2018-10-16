@@ -14,7 +14,7 @@ import AVFoundation
 import QRCodeReader
 
 
-class SendViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {}
+class SendViewControllerOld: UITableViewController, UITextFieldDelegate, UITextViewDelegate {}
 //    @IBOutlet weak var selectAssetView: UIView!
 //    @IBOutlet weak var amountField: UITextField!
 //    @IBOutlet weak var addressField: UITextField!

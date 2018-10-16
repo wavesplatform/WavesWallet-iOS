@@ -70,8 +70,8 @@ class StoryboardManager {
         return vc;
     }
     
-    class func sendViewController(asset: AssetBalance) -> SendViewController {
-        let vc = UIStoryboard(name: "Transfer", bundle: nil).instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
+    class func sendViewController(asset: AssetBalance) -> SendViewControllerOld {
+        let vc = UIStoryboard(name: "Transfer", bundle: nil).instantiateViewController(withIdentifier: "SendViewController") as! SendViewControllerOld
 //        vc.selectedAccount = asset
         return vc
     }
