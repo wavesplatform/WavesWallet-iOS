@@ -12,7 +12,7 @@ struct ReceiveCardModuleBuilder: ModuleBuilder  {
     
     func build(input: Void) -> UIViewController {
         
-        let interactor: ReceiveCardInteractorProtocol = ReceiveCardInteractorMock()
+        let interactor: ReceiveCardInteractorProtocol = ReceiveCardInteractor()
         
         var presenter: ReceiveCardPresenterProtocol = ReceiveCardPresenter()
         presenter.interactor = interactor
