@@ -41,11 +41,13 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
         buttonContinue.setTitle(Localizable.Import.Welcome.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
-
+        buttonContinue.isEnabled = false
+        
         textField.returnKey = .done
         textField.update(with: MultyTextField.Model(title: Localizable.Import.Welcome.Label.Address.title,
                                                     placeholder: Localizable.Import.Welcome.Label.Address.placeholder))
 
+        
         textField.valueValidator = { value in
             return value?.count == 0 ? "" : nil
         }

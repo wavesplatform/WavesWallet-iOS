@@ -127,7 +127,7 @@ private extension AccountPasswordViewController {
             buttonSignIn.setTitleWithoutAnimated(nil, for: .normal)
         } else {
             indicatorView.stopAnimating()
-            buttonSignIn.isEnabled = true
+            buttonSignIn.isEnabled = passwordTextField.isValidValue
             buttonSignIn.setTitleWithoutAnimated(Localizable.AccountPassword.Button.Signin.title, for: .normal)
         }
 

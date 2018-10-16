@@ -117,6 +117,8 @@
 		0A3FE8C02137007500DBF4E1 /* DataTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */; };
 		0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E72211A3065005A7F09 /* IssueTransactionNode.swift */; };
 		0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */; };
+		0A41410B217603F800B1310E /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */; };
+		0A41410D2176040500B1310E /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41410C2176040500B1310E /* ChangePasswordTypes.swift */; };
 		0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A439963215045C40032E608 /* NewAccountCoordinator.swift */; };
 		0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4399652150465E0032E608 /* NewAccount.storyboard */; };
 		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
@@ -304,6 +306,9 @@
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
 		0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57E20F64738007EE076 /* Array+Hashable.swift */; };
 		0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B58020F64760007EE076 /* Optional+Hashable.swift */; };
+		0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6323821761F350047D467 /* GlobalConstants.swift */; };
+		0AD6323C217620DC0047D467 /* ChangePassword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6323E217620DC0047D467 /* ChangePassword.strings */; };
+		0AD63240217633C20047D467 /* ChangePasswordModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */; };
 		0ADD6C822167948500B06917 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD6C802167948400B06917 /* ProfileHeaderView.xib */; };
 		0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C812167948400B06917 /* ProfileHeaderView.swift */; };
 		0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */; };
@@ -889,6 +894,8 @@
 		0A3FE8AB2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContainersNode.swift; sourceTree = "<group>"; };
 		0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChangePassword.storyboard; sourceTree = "<group>"; };
+		0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
+		0A41410C2176040500B1310E /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangePasswordTypes.swift; path = "/Users/mefilt/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/PresentationLayer/ChangePassword/ChangePasswordTypes.swift"; sourceTree = "<absolute>"; };
 		0A439963215045C40032E608 /* NewAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountCoordinator.swift; sourceTree = "<group>"; };
 		0A4399652150465E0032E608 /* NewAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccount.storyboard; sourceTree = "<group>"; };
 		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -1085,6 +1092,9 @@
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
 		0AD2B57E20F64738007EE076 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 		0AD2B58020F64760007EE076 /* Optional+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Hashable.swift"; sourceTree = "<group>"; };
+		0AD6323821761F350047D467 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		0AD6323D217620DC0047D467 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ChangePassword.strings; sourceTree = "<group>"; };
+		0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordModuleBuilder.swift; sourceTree = "<group>"; };
 		0ADD6C802167948400B06917 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		0ADD6C812167948400B06917 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLanguageCell.swift; sourceTree = "<group>"; };
@@ -1921,8 +1931,12 @@
 		0A4140E72174F08600B1310E /* ChangePassword */ = {
 			isa = PBXGroup;
 			children = (
+				0A41410C2176040500B1310E /* ChangePasswordTypes.swift */,
 				E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */,
 				0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */,
+				0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */,
+				0AD6323E217620DC0047D467 /* ChangePassword.strings */,
+				0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */,
 			);
 			path = ChangePassword;
 			sourceTree = "<group>";
@@ -2764,6 +2778,7 @@
 				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
 				0AB63C1F2170AC880056B17E /* RateApp.swift */,
 				0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */,
+				0AD6323821761F350047D467 /* GlobalConstants.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -4030,6 +4045,7 @@
 				E95B47F321638B11004D4E39 /* StartLeasingGeneratorView.xib in Resources */,
 				0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */,
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
+				0AD6323C217620DC0047D467 /* ChangePassword.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
 				04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */,
@@ -4166,7 +4182,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-17/iOS/RevealServer.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-18/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -4505,6 +4521,7 @@
 				0A5B6E6F211A2B6D005A7F09 /* TransactionNodeService.swift in Sources */,
 				04A4031E2164A99300652F21 /* EnterLanguageViewCoordinator.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
+				0AD63240217633C20047D467 /* ChangePasswordModuleBuilder.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
@@ -4629,6 +4646,7 @@
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				0AF922B8212E1234003BA067 /* UIViewController+Additionals.swift in Sources */,
+				0A41410D2176040500B1310E /* ChangePasswordTypes.swift in Sources */,
 				04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */,
 				0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */,
 				0AF922BD212E1234003BA067 /* UIResponder+Rx.swift in Sources */,
@@ -4655,6 +4673,7 @@
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
 				E9B087B52163886800937644 /* CreateOrderViewController.swift in Sources */,
+				0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */,
 				0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
@@ -4855,6 +4874,7 @@
 				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
 				0AF922E0212E1234003BA067 /* NibLoadable.swift in Sources */,
 				0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */,
+				0A41410B217603F800B1310E /* ChangePasswordPresenter.swift in Sources */,
 				E95B47C521638A9F004D4E39 /* FifthInfoPageView.swift in Sources */,
 				0AF922B6212E1234003BA067 /* ArrayExtension.swift in Sources */,
 				E9B087C32163886800937644 /* DexTraderContainerModuleOutput.swift in Sources */,
@@ -5011,6 +5031,14 @@
 				0AA8CAD021516809000D09E6 /* ru */,
 			);
 			name = Backup.strings;
+			sourceTree = "<group>";
+		};
+		0AD6323E217620DC0047D467 /* ChangePassword.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD6323D217620DC0047D467 /* en */,
+			);
+			name = ChangePassword.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {

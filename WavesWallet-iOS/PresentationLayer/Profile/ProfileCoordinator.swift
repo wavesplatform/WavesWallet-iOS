@@ -99,7 +99,8 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+        let vc = ChangePasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        self.navigationController.pushViewController(vc, animated: true)
     }
 
     func accountLogouted() {
@@ -144,5 +145,13 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 extension ProfileCoordinator: LanguageViewControllerDelegate {
     func languageViewChangedLanguage() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+// MARK: ChangePasswordModuleOutput
+
+extension ProfileCoordinator: ChangePasswordModuleOutput {
+    func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
+        
     }
 }

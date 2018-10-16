@@ -21,6 +21,7 @@ extension PasscodeTypes.DTO {
         case changePasscode(DomainLayer.DTO.Wallet)
         case changePasscodeByPassword(DomainLayer.DTO.Wallet, password: String)
         case setEnableBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
+//        case changePassword(DomainLayer.DTO.Wallet, password: String, oldPassword: String)
     }
 
     struct Account: Hashable {

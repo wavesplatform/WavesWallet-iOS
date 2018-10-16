@@ -10,9 +10,6 @@ import UIKit
 import IQKeyboardManagerSwift
 import IdentityImg
 
-fileprivate enum Constants {
-    static let accountNameMinLimitSymbols: Int = 2
-}
 
 protocol ImportAccountPasswordViewControllerDelegate: AnyObject  {
     func userCompletedInputAccountData(password: String, name: String)
@@ -88,8 +85,8 @@ extension ImportAccountPasswordViewController {
                                                                placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
         accountTextField.valueValidator = { value in
-            if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.accountNameMinLimitSymbols)
+            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else {
                 return nil
             }
@@ -116,19 +113,19 @@ extension ImportAccountPasswordViewController {
         confirmPasswordTextField.returnKey = .done
 
         accountTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInputAfterChoiceAvatar()
+            self?.nextInput()
         }
 
         passwordTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInputAfterChoiceAvatar()
+            self?.nextInput()
         }
 
         confirmPasswordTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInputAfterChoiceAvatar()
+            self?.nextInput()
         }
     }
 
-    private func nextInputAfterChoiceAvatar() {
+    private func nextInput() {
         if accountTextField.isValidValue == false {
             accountTextField.becomeFirstResponder()
         } else if passwordTextField.isValidValue == false {
