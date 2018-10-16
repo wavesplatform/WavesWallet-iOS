@@ -74,16 +74,8 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        skeletonView.startAnimation()
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
+        skeletonView.startAnimation()        
         textField.becomeFirstResponder()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     private func createAccount(seed: String) {

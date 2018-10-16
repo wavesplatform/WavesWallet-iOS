@@ -68,13 +68,17 @@ final class AppCoordinator: Coordinator {
 
     func start() {
         self.isActiveApp = true
-        self.window.rootViewController = slideMenuViewController
-        self.window.makeKeyAndVisible()
-        logInApplication()
+        let vc = StoryboardScene.ChangePassword.changePasswordViewController.instantiate()
 
-        #if DEBUG
-            addTapGestureForSupportDisplay()
-        #endif
+        let nav = CustomNavigationController(rootViewController: vc)
+        self.window.rootViewController = nav
+//        self.window.rootViewController = slideMenuViewController
+        self.window.makeKeyAndVisible()
+//        logInApplication()
+//
+//        #if DEBUG
+//            addTapGestureForSupportDisplay()
+//        #endif
     }
 
     private var isMainTabDisplayed: Bool {
