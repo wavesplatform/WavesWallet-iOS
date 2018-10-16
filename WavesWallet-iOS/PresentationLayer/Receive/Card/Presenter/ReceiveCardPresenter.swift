@@ -59,16 +59,13 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
                 
                 if let asset = state.assetBalance?.asset {
                     
-                    var url = Constants.baseUrl + Constants.apiPath + Constants.apiName
-                    url.append("?")
-                    url.append("crypto=" + asset.wavesId)
-                    url.append("&")
-                    url.append("address=" + state.address)
-                    url.append("&")
-                    url.append("amount=\(money.decimalValue)")
-                    url.append("&")
-                    url.append("fiat=" + state.fiatType.id)
-                    $0.link = url
+                    let params = ["crypto" : asset.wavesId ?? "",
+                                 "address" : state.address,
+                                 "amount" : String(money.doubleValue),
+                                 "fiat" : state.fiatType.id]
+                    
+                    $0.link = Receive.DTO.urlFromPath(Constants.baseUrl + Constants.apiPath + Constants.apiName,
+                                                      params: params)
                 }
             }
             
@@ -112,6 +109,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             }
         }
     }
+
 }
 
 fileprivate extension ReceiveCard.State {

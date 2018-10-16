@@ -492,8 +492,6 @@
 		E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E25F92093506600CDCE56 /* MyAddressViewController.swift */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91DC0E120E0054A00BAB519 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */; };
-		E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F4EE420D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift */; };
-		E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F4EE620D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift */; };
 		E9283A7320E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */; };
 		E9283A7620E1AD5000BAD3B8 /* ProfileAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9283A7520E1AD5000BAD3B8 /* ProfileAliasView.swift */; };
 		E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9283A7720E1AD5D00BAD3B8 /* ProfileAliasView.xib */; };
@@ -746,8 +744,7 @@
 		E9D36DD52175C755001E6DF0 /* ReceiveCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D842175C754001E6DF0 /* ReceiveCardViewController.swift */; };
 		E9D36DD62175C755001E6DF0 /* ReceiveCardModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D852175C754001E6DF0 /* ReceiveCardModuleBuilder.swift */; };
 		E9D36DD72175C755001E6DF0 /* ReceiveCardInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D892175C754001E6DF0 /* ReceiveCardInteractorProtocol.swift */; };
-		E9D36DD82175C755001E6DF0 /* ReceiveCardInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractorMock.swift */; };
-		E9D36DD92175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D8B2175C754001E6DF0 /* ReceiveCardInteractor.swift */; };
+		E9D36DD82175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractor.swift */; };
 		E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */; };
 		E9D36DDB2175C755001E6DF0 /* ReceiveCardComplete.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9D36D8E2175C754001E6DF0 /* ReceiveCardComplete.strings */; };
 		E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D922175C754001E6DF0 /* ReceiveCardCompleteViewController.swift */; };
@@ -785,11 +782,6 @@
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
-		E9EE18D920D475E7001913C6 /* WavesReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18D820D475E7001913C6 /* WavesReceiveViewController.swift */; };
-		E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18DA20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift */; };
-		E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18DC20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift */; };
-		E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */; };
-		E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */; };
 		E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
@@ -1343,8 +1335,6 @@
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
-		E91F4EE420D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveLoadingViewController.swift; sourceTree = "<group>"; };
-		E91F4EE620D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveRedirectViewController.swift; sourceTree = "<group>"; };
 		E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddressKeyViewController.swift; sourceTree = "<group>"; };
 		E9283A7520E1AD5000BAD3B8 /* ProfileAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAliasView.swift; sourceTree = "<group>"; };
 		E9283A7720E1AD5D00BAD3B8 /* ProfileAliasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAliasView.xib; sourceTree = "<group>"; };
@@ -1634,8 +1624,7 @@
 		E9D36D862175C754001E6DF0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveCard.strings; sourceTree = "<group>"; };
 		E9D36D872175C754001E6DF0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ReceiveCard.strings; sourceTree = "<group>"; };
 		E9D36D892175C754001E6DF0 /* ReceiveCardInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCardInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCardInteractorMock.swift; sourceTree = "<group>"; };
-		E9D36D8B2175C754001E6DF0 /* ReceiveCardInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCardInteractor.swift; sourceTree = "<group>"; };
+		E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCardInteractor.swift; sourceTree = "<group>"; };
 		E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveTypes.swift; sourceTree = "<group>"; };
 		E9D36D8F2175C754001E6DF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCardComplete.strings; sourceTree = "<group>"; };
 		E9D36D902175C754001E6DF0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveCardComplete.strings; sourceTree = "<group>"; };
@@ -1684,11 +1673,6 @@
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
-		E9EE18D820D475E7001913C6 /* WavesReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveViewController.swift; sourceTree = "<group>"; };
-		E9EE18DA20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveCryptocurrencyViewController.swift; sourceTree = "<group>"; };
-		E9EE18DC20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveInvoiceViewController.swift; sourceTree = "<group>"; };
-		E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveCardViewController.swift; sourceTree = "<group>"; };
-		E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesReceiveBankViewController.swift; sourceTree = "<group>"; };
 		E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
@@ -3873,8 +3857,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D36D892175C754001E6DF0 /* ReceiveCardInteractorProtocol.swift */,
-				E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractorMock.swift */,
-				E9D36D8B2175C754001E6DF0 /* ReceiveCardInteractor.swift */,
+				E9D36D8A2175C754001E6DF0 /* ReceiveCardInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4005,13 +3988,6 @@
 		E9EE18D720D475D8001913C6 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
-				E9EE18D820D475E7001913C6 /* WavesReceiveViewController.swift */,
-				E9EE18DA20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift */,
-				E9EE18DC20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift */,
-				E9EE18DE20D55A67001913C6 /* WavesReceiveCardViewController.swift */,
-				E9EE18E020D55A78001913C6 /* WavesReceiveBankViewController.swift */,
-				E91F4EE420D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift */,
-				E91F4EE620D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -4644,7 +4620,7 @@
 				0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */,
 				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */,
-				E9D36DD82175C755001E6DF0 /* ReceiveCardInteractorMock.swift in Sources */,
+				E9D36DD82175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */,
 				0A5E4BB32138046E00E3C3C3 /* AliasTransaction.swift in Sources */,
 				0A3FE8BE2137007500DBF4E1 /* LeaseCancelTransactionNode.swift in Sources */,
 				0A5E4BB12138034500E3C3C3 /* LeaseCancelTransaction.swift in Sources */,
@@ -4732,7 +4708,6 @@
 				E9B087B62163886800937644 /* Order.swift in Sources */,
 				0AE491E621078CCE009223DB /* WalletSortCell.swift in Sources */,
 				0A5D32F9215461E90009CDF3 /* ImportTypes.swift in Sources */,
-				E9EE18D920D475E7001913C6 /* WavesReceiveViewController.swift in Sources */,
 				0AF921F6212E07B3003BA067 /* AssetBalanceCell.swift in Sources */,
 				0AAB15C321655BDB00F1F7BC /* ProfileInfoCell.swift in Sources */,
 				E9B087B22163886800937644 /* DexOrderBookInteractorProtocol.swift in Sources */,
@@ -4837,7 +4812,6 @@
 				0AF922F0212E1234003BA067 /* SkeletonTableHeaderFooterView.swift in Sources */,
 				048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */,
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
-				E9EE18DB20D48B5F001913C6 /* WavesReceiveCryptocurrencyViewController.swift in Sources */,
 				0AF922E5212E1234003BA067 /* HalfModalTransitionAnimator.swift in Sources */,
 				0AF922DE212E1234003BA067 /* Reusable.swift in Sources */,
 				E9B087A92163886800937644 /* DexOrderBookPresenterProtocol.swift in Sources */,
@@ -4881,7 +4855,6 @@
 				0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */,
 				E904BC5E2155AA3B00A108B6 /* AddressBookViewControllerOld.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
-				E91F4EE720D71F9900ED40A8 /* WavesReceiveRedirectViewController.swift in Sources */,
 				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
 				0AF922D8212E1234003BA067 /* ViewConfiguration.swift in Sources */,
@@ -4916,7 +4889,6 @@
 				0A5E4BDD2138311C00E3C3C3 /* TransferTransaction+Mapper.swift in Sources */,
 				E9B087C82163886800937644 /* DexTraderContainerButton.swift in Sources */,
 				0A762D17214FF1CD00BE9204 /* PasswordTextField.swift in Sources */,
-				E9D36DD92175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */,
 				F79C43DB1EAEB14D006057B0 /* HalfNavController.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				0AFF5C89215BF39200B82940 /* UIButton+WithoutAnimation.swift in Sources */,
@@ -4978,7 +4950,6 @@
 				E9283A7620E1AD5000BAD3B8 /* ProfileAliasView.swift in Sources */,
 				E9B0880F2163886800937644 /* DexMarketModuleOutput.swift in Sources */,
 				0A485E982100A8B000079B49 /* BasicTransaction.swift in Sources */,
-				E9EE18DF20D55A67001913C6 /* WavesReceiveCardViewController.swift in Sources */,
 				0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */,
 				0AF922DC212E1234003BA067 /* SkeletonAnimatable.swift in Sources */,
 				E9B088192163886800937644 /* DexSortPresenter.swift in Sources */,
@@ -5052,7 +5023,6 @@
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
 				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
-				E91F4EE520D6EF9900ED40A8 /* WavesReceiveLoadingViewController.swift in Sources */,
 				0AF922CF212E1234003BA067 /* UIView+Passtrough.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
 				0A14CFCC2144156400C3A4D5 /* String+NormalizeAssetId.swift in Sources */,
@@ -5091,7 +5061,6 @@
 				E9B087FA2163886800937644 /* DexMyOrdersPresenter.swift in Sources */,
 				E9B087AB2163886800937644 /* DexOrderBookModuleOutput.swift in Sources */,
 				0AF922DB212E1234003BA067 /* SectionDisplayCollection.swift in Sources */,
-				E9EE18E120D55A78001913C6 /* WavesReceiveBankViewController.swift in Sources */,
 				0A762D7421639FA60019D447 /* TransactionHistoryCoordinator.swift in Sources */,
 				0A762D7D21639FA60019D447 /* TransactionHistoryModuleBuilder.swift in Sources */,
 				0AF922B3212E1234003BA067 /* UITableView+HeaderView.swift in Sources */,
@@ -5186,7 +5155,6 @@
 				0A61B593214AB4E700EC60FC /* AppCoordinator.swift in Sources */,
 				E9D36DE72175C755001E6DF0 /* ReceiveGenerateAddressViewController.swift in Sources */,
 				E95B480421638BE9004D4E39 /* TransactionCommentView.swift in Sources */,
-				E9EE18DD20D559FF001913C6 /* WavesReceiveInvoiceViewController.swift in Sources */,
 				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
 				0A762D8221639FA60019D447 /* TransactionHistoryStatusCell.swift in Sources */,
 				0A5C3204213E93C700420004 /* UnrecognisedTransaction.swift in Sources */,
