@@ -29,6 +29,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             let id: String
             let name: String
             let kind: Kind
+            let icon: String
         }
 
         let assets: [Asset]
@@ -172,7 +173,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 
         let isHiddenArrow = asset.kind != .fiat || asset.kind != .gateway
 
-        let model = AssetsSegmentedCell.Model(icon: asset.name,
+        let model = AssetsSegmentedCell.Model(icon: asset.icon,
                                               isHiddenArrow: isHiddenArrow)
         cell.update(with: model)
 

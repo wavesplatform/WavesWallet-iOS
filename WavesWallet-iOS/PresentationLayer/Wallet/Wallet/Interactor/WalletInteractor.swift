@@ -183,7 +183,7 @@ fileprivate extension WalletTypes.DTO.Asset {
         let settings = balance.settings!
 
         let id = balance.assetId
-        let name = asset.name
+        let name = asset.displayName
         let balanceToken = Money(balance.avaliableBalance, Int(asset.precision))
         let level = settings.sortLevel
         // TODO: Fiat money
@@ -205,6 +205,8 @@ fileprivate extension WalletTypes.DTO.Asset {
                                      isSpam: asset.isSpam,
                                      isFiat: asset.isFiat,
                                      isGateway: asset.isGateway,                                     
-                                     sortLevel: level)
+                                     sortLevel: level,
+                                     icon: asset.icon,
+                                     assetBalance: balance)
     }
 }

@@ -110,7 +110,7 @@ class NetworkManager: NSObject
         return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, encoding: JSONEncoding.default, complete: complete)
     }
     
-    @discardableResult fileprivate class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
 
         return baseRequestWithPath(path: path, method: .get, parameters: parameters, headers:headers, customUrl: customUrl, complete: complete)
     }
