@@ -27,7 +27,10 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
             
             let url = Receive.DTO.urlFromPath(Constancts.baseUrl + Constancts.apiPath + asset.id, params: params)
             
-            let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.wallet.address, invoiceLink: url, assetName: asset.displayName, assetTicker: asset.ticker)
+            let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.wallet.address,
+                                                      invoiceLink: url,
+                                                      assetName: asset.displayName,
+                                                      icon: asset.icon)
             return Observable.just(info)
         })
     }
