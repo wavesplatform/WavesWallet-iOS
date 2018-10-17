@@ -41,11 +41,13 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
         buttonContinue.setTitle(Localizable.Import.Welcome.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
-
+        buttonContinue.isEnabled = false
+        
         textField.returnKey = .done
         textField.update(with: MultyTextField.Model(title: Localizable.Import.Welcome.Label.Address.title,
                                                     placeholder: Localizable.Import.Welcome.Label.Address.placeholder))
 
+        
         textField.valueValidator = { value in
             return value?.count == 0 ? "" : nil
         }
@@ -74,16 +76,8 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        skeletonView.startAnimation()
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
+        skeletonView.startAnimation()        
         textField.becomeFirstResponder()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     private func createAccount(seed: String) {

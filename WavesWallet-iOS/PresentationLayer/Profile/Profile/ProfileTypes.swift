@@ -80,7 +80,7 @@ extension ProfileTypes.ViewModel {
         case rateApp
         case feedback
         case supportWavesplatform
-        case info(version: String, height: String?)
+        case info(version: String, height: String?, isBackedUp: Bool)
     }
 
     struct Section: SectionBase, Mutating {

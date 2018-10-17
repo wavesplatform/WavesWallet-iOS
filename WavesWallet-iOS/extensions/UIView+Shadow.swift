@@ -73,7 +73,8 @@ extension UIView {
             layer.cornerRadius = CGFloat(self.cornerRadius)
             layer.shouldRasterize = true
             layer.rasterizationScale = UIScreen.main.scale
-            if layer.masksToBounds == false {
+            //TODO: Bad Code
+            if layer.masksToBounds == false && self is UIImageView {
                 layer.masksToBounds = true
                 warning("Corner radius dont work, need enable mask to bounds")
             }

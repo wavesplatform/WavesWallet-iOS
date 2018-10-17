@@ -18,7 +18,7 @@ private enum Constants {
 
 private extension DomainLayer.DTO.Wallet {
 
-    init(id: String, secret: String, query: DomainLayer.DTO.WalletRegistation) {
+    init(id: String, seedId: String, secret: String, query: DomainLayer.DTO.WalletRegistation) {
 
         self.name = query.name
         self.address = query.privateKey.address
@@ -28,6 +28,7 @@ private extension DomainLayer.DTO.Wallet {
         self.isBackedUp = query.isBackedUp
         self.hasBiometricEntrance = false
         self.id = id
+        self.seedId = seedId
     }
 }
 
@@ -38,6 +39,7 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let id = UUID().uuidString
+            let seedId = UUID().uuidString
             let keyForPassword = UUID().uuidString.sha512()
             let password = wallet.password.sha512()
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
@@ -46,6 +48,7 @@ private extension AuthorizationInteractor {
             }
 
             observer.onNext(RegisterData(id: id,
+                                         seedId: seedId,
                                          keyForPassword: keyForPassword,
                                          password: password,
                                          secret: secret))
@@ -54,7 +57,7 @@ private extension AuthorizationInteractor {
         }
     }
 
-    func changePasscodeData(_ wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<ChangePasscodeData> {
+    func changePasscodeByPasswordData(_ wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<ChangePasscodeByPasswordData> {
 
         return Observable.create { observer -> Disposable in
 
@@ -68,7 +71,32 @@ private extension AuthorizationInteractor {
             var newWallet = wallet
             newWallet.secret = secret
 
-            observer.onNext(ChangePasscodeData(wallet: newWallet,
+            observer.onNext(ChangePasscodeByPasswordData(wallet: newWallet,
+                                                         keyForPassword: keyForPassword,
+                                                         password: password))
+
+            observer.onCompleted()
+            return Disposables.create()
+        }
+    }
+
+
+    func changePasswordData(_ wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<ChangePasswordData> {
+
+        return Observable.create { observer -> Disposable in
+
+            let keyForPassword = UUID().uuidString.sha512()
+            let password = password.sha512()
+            guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
+
+            var newWallet = wallet
+            newWallet.secret = secret
+            newWallet.seedId = UUID().uuidString
+
+            observer.onNext(ChangePasswordData(wallet: newWallet,
                                                keyForPassword: keyForPassword,
                                                password: password))
 
@@ -78,16 +106,21 @@ private extension AuthorizationInteractor {
     }
 }
 
-
-private struct ChangePasscodeData {
+private struct ChangePasswordData {
     let wallet: DomainLayer.DTO.Wallet
     let keyForPassword: String
     let password: String
 }
 
+private struct ChangePasscodeByPasswordData {
+    let wallet: DomainLayer.DTO.Wallet
+    let keyForPassword: String
+    let password: String
+}
 
 private struct RegisterData {
     let id: String
+    let seedId: String
     let keyForPassword: String
     let password: String
     let secret: String
@@ -232,13 +265,14 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     func changePasscodeByPassword(wallet: DomainLayer.DTO.Wallet, passcode: String, password: String) -> Observable<DomainLayer.DTO.Wallet> {
 
         return self
-            .changePasscodeData(wallet, password: password)
+            .changePasscodeByPasswordData(wallet, password: password)
             .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
 
                 guard let owner = self else { return Observable.never() }
                 let wallet = data.wallet
 
-                return owner.remoteAuthenticationRepository
+                return owner
+                    .remoteAuthenticationRepository
                     .registration(with: wallet.id,
                                   keyForPassword: data.keyForPassword,
                                   passcode: passcode)
@@ -255,6 +289,49 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func changePassword(wallet: DomainLayer.DTO.Wallet,
+                        passcode: String,
+                        oldPassword: String,
+                        newPassword: String) -> Observable<DomainLayer.DTO.Wallet> {
+
+        let currentSeed = localWalletSeedRepository.seed(for: wallet.address,
+                                                  publicKey: wallet.publicKey,
+                                                  seedId: wallet.seedId,
+                                                  password: oldPassword.sha512())
+        let changeData = changePasswordData(wallet, password: newPassword)
+
+        let oldSeedId = wallet.seedId
+        return Observable
+            .zip(currentSeed, changeData)
+            .flatMap { [weak self] seed, data -> Observable<ChangePasswordData> in
+                guard let owner = self else { return Observable.never() }
+                let saveSeed = owner.localWalletSeedRepository.saveSeed(for: seed, seedId: data.wallet.seedId, password: data.password)
+                let saveWallet = owner.localWalletRepository.saveWallet(data.wallet)
+
+                return Observable.zip(saveSeed, saveWallet)
+                    .flatMap({ [weak self] seed, wallet -> Observable<ChangePasswordData> in
+                        guard let owner = self else { return Observable.never() }
+                        return owner
+                            .localWalletSeedRepository
+                            .deleteSeed(for: wallet.address, seedId: oldSeedId)
+                            .map { _ in data }
+                    })
+            }
+            .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .remoteAuthenticationRepository
+                    .registration(with: data.wallet.id,
+                                  keyForPassword: data.keyForPassword,
+                                  passcode: passcode)
+                    .map { _ in data.wallet }
+            })
+            .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)                    
             })
     }
 }
@@ -285,13 +362,17 @@ extension AuthorizationInteractor {
                                                                          passcode: wallet.passcode)
                     .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
                         guard let owner = self else { return Observable.never() }
-                        let model = DomainLayer.DTO.Wallet(id: data.id, secret: data.secret, query: wallet)
+                        let model = DomainLayer.DTO.Wallet(id: data.id,
+                                                           seedId: data.seedId,
+                                                           secret: data.secret,
+                                                           query: wallet)
 
                         let saveSeed = owner
                             .localWalletSeedRepository
                             .saveSeed(for: .init(publicKey: wallet.privateKey.getPublicKeyStr(),
                                                  seed: wallet.privateKey.wordsStr,
                                                  address: wallet.privateKey.address),
+                                      seedId: model.seedId,
                                       password: data.password)
 
                         let saveWallet = owner.localWalletRepository.saveWallet(model)
@@ -310,7 +391,7 @@ extension AuthorizationInteractor {
 
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable.zip([localWalletRepository.removeWallet(wallet),
-                               localWalletSeedRepository.deleteSeed(for: wallet.address)])
+                               localWalletSeedRepository.deleteSeed(for: wallet.address, seedId: wallet.seedId)])
             .map { _ in true }
             .catchError({ [weak self] error -> Observable<Bool> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
@@ -607,7 +688,7 @@ private extension AuthorizationInteractor {
 
     private func verifyAccessWalletUsingPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.SignedWallet> {
         return localWalletSeedRepository
-            .seed(for: wallet.address, publicKey: wallet.publicKey, password: password)
+            .seed(for: wallet.address, publicKey: wallet.publicKey, seedId: wallet.seedId, password: password)
             .sweetDebug("Local Seed")
             .flatMap({ [weak self] seed -> Observable<DomainLayer.DTO.SignedWallet> in
                 guard let owner = self else { return Observable.empty() }
