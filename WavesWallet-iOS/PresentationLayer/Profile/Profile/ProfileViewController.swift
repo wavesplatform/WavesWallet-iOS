@@ -195,14 +195,18 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Profile.Cell.Supportwavesplatform.title))
             return cell
             
-        case .info(let version, let height):
+        case .info(let version, let height, let isBackedUp):
             let cell: ProfileInfoCell = tableView.dequeueCell()
 
             cell.update(with: ProfileInfoCell.Model.init(version: version,
                                                          height: height,
                                                          isLoadingHeight: height == nil))
             cell.deleteButtonDidTap = { [weak self] in
-                self?.eventInput.onNext(.tapDelete)
+                if isBackedUp {
+                    self?.showAlertDeleteAccount()
+                } else {
+                    self?.showAlertDeleteAccountWithNeedBackup()
+                }
             }
             cell.logoutButtonDidTap = { [weak self] in
                 self?.eventInput.onNext(.tapLogout)
@@ -295,4 +299,42 @@ extension ProfileViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
+}
+
+// MARK: Private
+
+private extension ProfileViewController{
+
+    func showAlertDeleteAccountWithNeedBackup() {
+
+        let vc = StoryboardScene.Profile.alertDeleteAccountViewController.instantiate()
+        vc.deleteBlock = { [weak self] in
+            self?.eventInput.onNext(.tapDelete)
+        }
+        vc.showInController(self)
+    }
+
+    func showAlertDeleteAccount() {
+
+        let alert = UIAlertController(title: Localizable.Profile.Alert.Deleteaccount.title,
+                                      message: Localizable.Profile.Alert.Deleteaccount.Withoutbackup.message,
+                                      preferredStyle: .alert)
+
+        let delete = UIAlertAction(title: Localizable.Profile.Alert.Deleteaccount.Button.delete,
+                                   style: UIAlertActionStyle.default,
+                                   handler: { [weak self] _ in
+                                    self?.eventInput.onNext(.tapDelete)
+        })
+
+        let cancel = UIAlertAction(title: Localizable.Profile.Alert.Deleteaccount.Button.cancel,
+                                   style: UIAlertActionStyle.cancel,
+                                   handler: { [weak alert] _ in
+                                    alert?.dismiss(animated: true, completion: nil)
+        })
+
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+
 }

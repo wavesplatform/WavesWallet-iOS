@@ -23,9 +23,9 @@ protocol ProfileModuleOutput: AnyObject {
     func showRateApp()
     func showFeedback()
     func showSupport()
-    func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet)
-    func userLogouted()
-    func useerDeteedAccount()
+    func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet)
+    func accountLogouted()
+    func accountDeleted()
 }
 
 protocol ProfilePresenterProtocol {
@@ -146,7 +146,7 @@ fileprivate extension ProfilePresenter {
             owner.moduleOutput?.showSupport()
 
         case .setEnabledBiometric(let isOn, let wallet):
-            owner.moduleOutput?.userSetEnabledBiometric(isOn: isOn, wallet: wallet)
+            owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
         default:
             break
@@ -235,7 +235,7 @@ fileprivate extension ProfilePresenter {
 
         return react(query: { state -> Bool? in
 
-            if state.displayState.isAppeared == true {
+            if state.displayState.isAppeared == true, state.wallet != nil {
                 return true
             } else {
                 return nil
@@ -275,7 +275,7 @@ fileprivate extension ProfilePresenter {
                 .logout()
                 .do(onNext: { [weak self] _ in
                     self?.moduleOutput?
-                        .userLogouted()
+                        .accountLogouted()
                 })
                 .map { _ in
                     return Types.Event.none
@@ -312,7 +312,7 @@ fileprivate extension ProfilePresenter {
                         }
                 })
                 .do(onNext: { [weak self] _ in
-                    self?.moduleOutput?.useerDeteedAccount()
+                    self?.moduleOutput?.accountDeleted()
                 })
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()
@@ -359,7 +359,7 @@ private extension ProfilePresenter {
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
                                                        .supportWavesplatform,
-                                                       .info(version: Bundle.main.version, height: nil)], kind: .other)
+                                                       .info(version: Bundle.main.version, height: nil, isBackedUp: wallet.isBackedUp)], kind: .other)
 
             state.displayState.sections = [generalSettings,
                                            security,
@@ -410,29 +410,7 @@ private extension ProfilePresenter {
 
         case .setBlock(let block):
             state.block = block
-            guard let section = state
-                .displayState
-                .sections
-                .enumerated()
-                .first(where: { $0.element.kind == .other }) else { return }
-
-            guard let index = section
-                .element
-                .rows
-                .enumerated()
-                .first(where: { element in
-                    if case .info = element.element {
-                        return true
-                    }
-                    return false
-                }) else {
-                    return
-                }
-
-            state
-                .displayState
-                .sections[section.offset]
-                .rows[index.offset] = .info(version: Bundle.main.version, height: "\(block)")
+            updateInfo(state: &state, block: block, isBackedUp: state.wallet?.isBackedUp ?? false)
             state
                 .displayState.action = .update
 
@@ -507,7 +485,37 @@ private extension ProfilePresenter {
             break
         }
     }
+
+    static func updateInfo(state: inout Types.State, block: Int64, isBackedUp: Bool) {
+
+        guard let section = state
+            .displayState
+            .sections
+            .enumerated()
+            .first(where: { $0.element.kind == .other }) else { return }
+
+        guard let index = section
+            .element
+            .rows
+            .enumerated()
+            .first(where: { element in
+                if case .info = element.element {
+                    return true
+                }
+                return false
+            }) else {
+                return
+        }
+
+        state
+            .displayState
+            .sections[section.offset]
+            .rows[index.offset] = .info(version: Bundle.main.version,
+                                        height: "\(block)",
+                isBackedUp: isBackedUp)
+    }
 }
+
 
 // MARK: UI State
 

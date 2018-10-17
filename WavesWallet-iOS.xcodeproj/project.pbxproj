@@ -116,9 +116,12 @@
 		0A3FE8BF2137007500DBF4E1 /* AliasTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E7E211A3373005A7F09 /* AliasTransactionNode.swift */; };
 		0A3FE8C02137007500DBF4E1 /* DataTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E80211A33D9005A7F09 /* DataTransactionNode.swift */; };
 		0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B6E72211A3065005A7F09 /* IssueTransactionNode.swift */; };
+		0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */; };
+		0A41410B217603F800B1310E /* ChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */; };
 		0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A439963215045C40032E608 /* NewAccountCoordinator.swift */; };
 		0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4399652150465E0032E608 /* NewAccount.storyboard */; };
 		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
+		0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
 		0A485E9021009DC700079B49 /* LeasingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8F21009DC700079B49 /* LeasingInteractor.swift */; };
@@ -303,6 +306,9 @@
 		0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */; };
 		0AD2B57F20F64738007EE076 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B57E20F64738007EE076 /* Array+Hashable.swift */; };
 		0AD2B58120F64760007EE076 /* Optional+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2B58020F64760007EE076 /* Optional+Hashable.swift */; };
+		0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6323821761F350047D467 /* GlobalConstants.swift */; };
+		0AD6323C217620DC0047D467 /* ChangePassword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6323E217620DC0047D467 /* ChangePassword.strings */; };
+		0AD63240217633C20047D467 /* ChangePasswordModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */; };
 		0ADD6C822167948500B06917 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD6C802167948400B06917 /* ProfileHeaderView.xib */; };
 		0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C812167948400B06917 /* ProfileHeaderView.swift */; };
 		0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */; };
@@ -726,6 +732,7 @@
 		E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */; };
 		E9C0B4A22176C4A800669D1D /* SendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractor.swift */; };
 		E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A32176C4BE00669D1D /* SendTypes.swift */; };
+		E9C14E742177C88200ED96BD /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C14E732177C88200ED96BD /* ChangePasswordTypes.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
@@ -791,7 +798,6 @@
 		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
 		E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5BA82175F35800E5C29A /* AddressInputView.swift */; };
 		E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5BA92175F35800E5C29A /* AddressInputView.xib */; };
-		E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */; };
@@ -937,9 +943,12 @@
 		0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTransactionCell.swift; sourceTree = "<group>"; };
 		0A3FE8AB2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A3FE8AD2136E51900DBF4E1 /* TransactionContainersNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContainersNode.swift; sourceTree = "<group>"; };
+		0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChangePassword.storyboard; sourceTree = "<group>"; };
+		0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0A439963215045C40032E608 /* NewAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountCoordinator.swift; sourceTree = "<group>"; };
 		0A4399652150465E0032E608 /* NewAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccount.storyboard; sourceTree = "<group>"; };
 		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDeleteAccountViewController.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
 		0A485E8C20FFB02100079B49 /* LeaseTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseTransactionNode.swift; sourceTree = "<group>"; };
@@ -1133,6 +1142,9 @@
 		0AD2B57C20F63F8A007EE076 /* WalletDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
 		0AD2B57E20F64738007EE076 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 		0AD2B58020F64760007EE076 /* Optional+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Hashable.swift"; sourceTree = "<group>"; };
+		0AD6323821761F350047D467 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		0AD6323D217620DC0047D467 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ChangePassword.strings; sourceTree = "<group>"; };
+		0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordModuleBuilder.swift; sourceTree = "<group>"; };
 		0ADD6C802167948400B06917 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		0ADD6C812167948400B06917 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLanguageCell.swift; sourceTree = "<group>"; };
@@ -1611,6 +1623,7 @@
 		E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9C0B4A12176C4A800669D1D /* SendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractor.swift; sourceTree = "<group>"; };
 		E9C0B4A32176C4BE00669D1D /* SendTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTypes.swift; sourceTree = "<group>"; };
+		E9C14E732177C88200ED96BD /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTypes.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
@@ -1693,7 +1706,6 @@
 		E9EC5BA62175F35800E5C29A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Send.strings; sourceTree = "<group>"; };
 		E9EC5BA82175F35800E5C29A /* AddressInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInputView.swift; sourceTree = "<group>"; };
 		E9EC5BA92175F35800E5C29A /* AddressInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressInputView.xib; sourceTree = "<group>"; };
-		E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
 		E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
@@ -2022,6 +2034,27 @@
 				0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */,
 			);
 			path = Transactions;
+			sourceTree = "<group>";
+		};
+		0A4140E62174DFCD00B1310E /* AlertDeleteAccount */ = {
+			isa = PBXGroup;
+			children = (
+				0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */,
+			);
+			path = AlertDeleteAccount;
+			sourceTree = "<group>";
+		};
+		0A4140E72174F08600B1310E /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				E9C14E732177C88200ED96BD /* ChangePasswordTypes.swift */,
+				E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */,
+				0A4140EA2174F09C00B1310E /* ChangePassword.storyboard */,
+				0A41410A217603F800B1310E /* ChangePasswordPresenter.swift */,
+				0AD6323E217620DC0047D467 /* ChangePassword.strings */,
+				0AD6323F217633C20047D467 /* ChangePasswordModuleBuilder.swift */,
+			);
+			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		0A4399672150470E0032E608 /* Backup */ = {
@@ -2401,6 +2434,7 @@
 		0A762DA321650DA80019D447 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0A4140E62174DFCD00B1310E /* AlertDeleteAccount */,
 				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
 				0AB63C292170CBF80056B17E /* Profile */,
 				0A762DA721661AB30019D447 /* ProfileCoordinator.swift */,
@@ -2456,31 +2490,32 @@
 			isa = PBXGroup;
 			children = (
 				E9EC5B352175F35800E5C29A /* Send */,
+				0A4140E72174F08600B1310E /* ChangePassword */,
+				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
+				0A071E3D215AEF03007D9750 /* AccountPassword */,
+				E9B086902163882F00937644 /* AddressBook */,
+				0AF921BE212E07B2003BA067 /* Asset */,
+				0A4399672150470E0032E608 /* Backup */,
+				0A071E78215DB084007D9750 /* ChooseAccount */,
+				E9B086BF2163886800937644 /* Dex */,
+				E9F984A720E5266800D2CB4D /* Enter */,
+				E95B47A521638A9F004D4E39 /* Hello */,
+				04A2CFA12112100B00784FEC /* History */,
+				0A762D09214FB60400BE9204 /* Import */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
 				E9D36D6B2175C754001E6DF0 /* Receive */,
-				0AFA0C652174A2300003FE3B /* Legal */,
-				0AFA0C732174A2300003FE3B /* WebView */,
 				04A403202164B8E000652F21 /* Language */,
+				0AFA0C652174A2300003FE3B /* Legal */,
+				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
+				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
+				0A96F1CA2151B388005E148F /* Passcode */,
 				0A762DA321650DA80019D447 /* Profile */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
-				E95B47A521638A9F004D4E39 /* Hello */,
-				E9B086BF2163886800937644 /* Dex */,
-				E9B086902163882F00937644 /* AddressBook */,
 				0A762D9E2163ACE80019D447 /* Support */,
 				0A762D4721639FA50019D447 /* TransactionHistory */,
-				0A071E78215DB084007D9750 /* ChooseAccount */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
-				0A071E3D215AEF03007D9750 /* AccountPassword */,
-				0AFF5C73215A6ABE00B82940 /* MainTabBar */,
-				0A762D09214FB60400BE9204 /* Import */,
-				0A96F1CA2151B388005E148F /* Passcode */,
-				0A4399672150470E0032E608 /* Backup */,
-				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
-				E9F984A720E5266800D2CB4D /* Enter */,
-				0AF921BE212E07B2003BA067 /* Asset */,
-				04A2CFA12112100B00784FEC /* History */,
 				0A97975E2108A10400407F67 /* Wallet */,
-				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
+				0AFA0C732174A2300003FE3B /* WebView */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -2862,6 +2897,7 @@
 				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
 				0AB63C1F2170AC880056B17E /* RateApp.swift */,
 				0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */,
+				0AD6323821761F350047D467 /* GlobalConstants.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3102,9 +3138,7 @@
 		E9193B8120D7E26500F5D983 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */,
 				E91DC0E020E0054A00BAB519 /* NetworkViewController.swift */,
-				E9EFEF1F20E0AE4100F98E48 /* DeleteAccountViewController.swift */,
 				E9283A7220E196DA00BAD3B8 /* ProfileAddressKeyViewController.swift */,
 				E9A4681620E22B8300BD0E75 /* CreateAliasViewController.swift */,
 				E9283A7420E1AD3700BAD3B8 /* Views */,
@@ -4353,6 +4387,7 @@
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */,
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
+				0AD6323C217620DC0047D467 /* ChangePassword.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
 				04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */,
@@ -4365,6 +4400,7 @@
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E9B087DD2163886800937644 /* DexCreateOrder.strings in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
+				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				E95B480721638BE9004D4E39 /* TransactionCommentView.xib in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
@@ -4499,7 +4535,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-17/iOS/RevealServer.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-18/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -4807,7 +4843,6 @@
 				F7C683BF1EA93C5800C87DAF /* MainTabBarController.swift in Sources */,
 				0A20145F212EDD720004BDE8 /* DateFormatter+ISO.swift in Sources */,
 				E9B087D02163886800937644 /* DexListCell.swift in Sources */,
-				E9EFEF2020E0AE4100F98E48 /* DeleteAccountViewController.swift in Sources */,
 				E9D36DCA2175C755001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */,
 				E9B088072163886800937644 /* DexCompleteOrderModuleBuilder.swift in Sources */,
 				E9B086B22163883000937644 /* AddAddressBookModuleOutput.swift in Sources */,
@@ -4825,6 +4860,7 @@
 				E9D36DEE2175C755001E6DF0 /* ReceiveInvoiceInteractorProtocol.swift in Sources */,
 				0AF922B4212E1234003BA067 /* UITableView+Animation.swift in Sources */,
 				E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */,
+				0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */,
 				0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */,
 				E9B087DE2163886800937644 /* DexCreateOrderViewController.swift in Sources */,
 				0AF922D7212E1234003BA067 /* ModuleBuilder.swift in Sources */,
@@ -4851,11 +4887,13 @@
 				E9C0B4A22176C4A800669D1D /* SendInteractor.swift in Sources */,
 				04A4031E2164A99300652F21 /* EnterLanguageViewCoordinator.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
+				0AD63240217633C20047D467 /* ChangePasswordModuleBuilder.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
 				0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */,
+				E9C14E742177C88200ED96BD /* ChangePasswordTypes.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
 				0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */,
@@ -5007,6 +5045,7 @@
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
 				E9B087B52163886800937644 /* CreateOrderViewController.swift in Sources */,
+				0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */,
 				E9D36DCC2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift in Sources */,
 				0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
@@ -5223,6 +5262,7 @@
 				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
 				0AF922E0212E1234003BA067 /* NibLoadable.swift in Sources */,
 				0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */,
+				0A41410B217603F800B1310E /* ChangePasswordPresenter.swift in Sources */,
 				E95B47C521638A9F004D4E39 /* FifthInfoPageView.swift in Sources */,
 				0AF922B6212E1234003BA067 /* ArrayExtension.swift in Sources */,
 				E9B087C32163886800937644 /* DexTraderContainerModuleOutput.swift in Sources */,
@@ -5382,6 +5422,14 @@
 				0AA8CAD021516809000D09E6 /* ru */,
 			);
 			name = Backup.strings;
+			sourceTree = "<group>";
+		};
+		0AD6323E217620DC0047D467 /* ChangePassword.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD6323D217620DC0047D467 /* en */,
+			);
+			name = ChangePassword.strings;
 			sourceTree = "<group>";
 		};
 		0AF921BF212E07B2003BA067 /* Asset.strings */ = {

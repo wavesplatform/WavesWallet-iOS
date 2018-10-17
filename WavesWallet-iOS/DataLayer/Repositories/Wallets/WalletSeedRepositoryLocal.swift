@@ -16,12 +16,12 @@ fileprivate enum Constants {
 
 final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
 
-    func seed(for address: String, publicKey: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+    func seed(for address: String, publicKey: String, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             do {
-                guard let realm = try self?.realm(address: address, password: password) else {
+                guard let realm = try self?.realm(address: address, seedId: seedId, password: password) else {
                     observer.onError(WalletSeedRepositoryError.fail)
                     return Disposables.create()
                 }
@@ -42,12 +42,12 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
         })
     }
 
-    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             do {
-                guard let realm = try self?.realm(address: walletSeed.address, password: password) else {
+                guard let realm = try self?.realm(address: walletSeed.address, seedId: seedId, password: password) else {
                     observer.onError(WalletSeedRepositoryError.fail)
                     return Disposables.create()
                 }
@@ -70,48 +70,10 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
         })
     }
 
-    func changePassword(for address: String, publicKey: String, oldPassword: String, newPassword: String) -> Observable<DomainLayer.DTO.WalletSeed> {
-
+    func deleteSeed(for address: String, seedId: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let owner = self else {
-                observer.onError(WalletSeedRepositoryError.fail)
-                return Disposables.create()
-            }
-
-            do {
-                guard let realm = try owner.realm(address: address, password: oldPassword) else {
-                    observer.onError(WalletSeedRepositoryError.fail)
-                    return Disposables.create()
-                }
-
-                if let object = realm.object(ofType: SeedItem.self, forPrimaryKey: publicKey) {
-
-                    if owner.removeDB(realm: realm) {
-                        observer.onNext(DomainLayer.DTO.WalletSeed(seed: object))
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(WalletSeedRepositoryError.fail)
-                    }
-                } else {
-                    observer.onError(WalletSeedRepositoryError.fail)
-                }
-
-            } catch let error {
-                observer.onError(error)
-            }
-
-            return Disposables.create()
-        })
-        .flatMap({ [weak self] seed -> Observable<DomainLayer.DTO.WalletSeed> in
-            return self?.saveSeed(for: seed, password: newPassword) ?? Observable.error(WalletSeedRepositoryError.fail)
-        })
-    }
-
-    func deleteSeed(for address: String) -> Observable<Bool> {
-        return Observable.create({ [weak self] (observer) -> Disposable in
-
-            if self?.removeDB(address: address) ?? false {
+            if self?.removeDB(address: address, seedId: seedId) ?? false {
                 observer.onNext(true)
                 observer.onCompleted()
             } else {
@@ -123,11 +85,10 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
     }
 }
 
-
 // MARK: Realm
 private extension WalletSeedRepositoryLocal {
 
-    func removeDB(address: String) -> Bool {
+    func removeDB(address: String, seedId: String) -> Bool {
 
         guard let fileURL = try? Realm().configuration.fileURL else {
             error("File Realm is nil")
@@ -136,33 +97,24 @@ private extension WalletSeedRepositoryLocal {
 
         guard let path = fileURL?
             .deletingLastPathComponent()
+            .appendingPathComponent("\(address)_seed_\(seedId).realm") else { return false }
+
+        guard let oldPath = fileURL?
+            .deletingLastPathComponent()
             .appendingPathComponent("\(address)_seed.realm") else { return false }
 
         do {
             try FileManager.default.removeItem(at: path)
+            try? FileManager.default.removeItem(at: oldPath)
             return true
         } catch _ {
             return false
         }
     }
-
-    func removeDB(realm: Realm) -> Bool {
-        guard let fileURL = realm.configuration.fileURL else {
-            error("File Realm is nil")
-            return false
-        }
-
-        do {
-            try FileManager.default.removeItem(at: fileURL)
-            return true
-        } catch _ {
-            return false
-        }
-    }
-
 
     func realmConfig(address: String,
-                           password: String) -> Realm.Configuration? {
+                     password: String,
+                     seedId: String) -> Realm.Configuration? {
 
         var config = Realm.Configuration(encryptionKey: Data(bytes: Hash.sha512(Array(password.utf8))))
         config.objectTypes = [SeedItem.self]
@@ -175,7 +127,7 @@ private extension WalletSeedRepositoryLocal {
 
         config.fileURL = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("\(address)_seed.realm")
+            .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
         config.migrationBlock = { _, oldSchemaVersion in
             debug("Migration!!! \(oldSchemaVersion)")
@@ -184,10 +136,32 @@ private extension WalletSeedRepositoryLocal {
     }
 
     func realm(address: String,
+               seedId: String,
                password: String) throws -> Realm? {
 
+        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+
+            let oldUrl = fileURL
+                .deletingLastPathComponent()
+                .appendingPathComponent("\(address)_seed.realm")
+            
+            let newUrl = fileURL
+                .deletingLastPathComponent()
+                .appendingPathComponent("\(address)_seed_\(seedId).realm")
+
+            do {
+                if FileManager.default.fileExists(atPath: oldUrl.absoluteString) == true
+                    && FileManager.default.fileExists(atPath: newUrl.absoluteString) == false {
+                    try FileManager.default.moveItem(at: oldUrl, to: newUrl)
+                }
+            } catch let e {
+                error(e)
+            }
+        }
+
         guard let config = realmConfig(address: address,
-                                       password: password) else { return nil }
+                                       password: password,
+                                       seedId: seedId) else { return nil }
 
         do {
             let realm = try Realm(configuration: config)
@@ -202,7 +176,8 @@ private extension WalletSeedRepositoryLocal {
                 throw WalletSeedRepositoryError.fail
             }
 
-        } catch _ {
+        } catch let e {
+            error(e)
             throw WalletSeedRepositoryError.fail
         }
     }
