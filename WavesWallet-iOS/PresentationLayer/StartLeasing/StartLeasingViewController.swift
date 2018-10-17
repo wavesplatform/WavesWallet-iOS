@@ -180,8 +180,7 @@ private extension StartLeasingViewController {
         scrollView.keyboardDismissMode = .onDrag
         addressGeneratorView.delegate = self
         amountView.delegate = self
-        amountView.maximumFractionDigits = availableBalance.decimals
-
+        amountView.setDecimals(availableBalance.decimals, forceUpdateMoney: false)
         iconAssetBalance.layer.cornerRadius = iconAssetBalance.frame.size.width / 2
         iconAssetBalance.layer.borderWidth = Constants.borderWidth
         iconAssetBalance.layer.borderColor = UIColor.overlayDark.cgColor
