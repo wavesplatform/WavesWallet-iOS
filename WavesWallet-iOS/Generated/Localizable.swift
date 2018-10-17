@@ -790,6 +790,50 @@ internal enum Localizable {
       }
     }
   }
+          internal enum ChangePassword {
+
+    internal enum Button {
+
+      internal enum Confirm {
+        /// Confirm
+        internal static var title: String { return Localizable.tr("ChangePassword", "button.confirm.title") }
+      }
+    }
+
+    internal enum Navigation {
+      /// Changed password
+      internal static var title: String { return Localizable.tr("ChangePassword", "navigation.title") }
+    }
+
+    internal enum Textfield {
+
+      internal enum Confirmpassword {
+        /// Confirm password
+        internal static var title: String { return Localizable.tr("ChangePassword", "textfield.confirmpassword.title") }
+      }
+
+      internal enum Createpassword {
+        /// New password
+        internal static var title: String { return Localizable.tr("ChangePassword", "textfield.createpassword.title") }
+      }
+
+      internal enum Error {
+        /// at least %d characters
+        internal static func atleastcharacters(_ p1: Int) -> String {
+          return Localizable.tr("ChangePassword", "textfield.error.atleastcharacters", p1)
+        }
+        /// incorrect password
+        internal static var incorrectpassword: String { return Localizable.tr("ChangePassword", "textfield.error.incorrectpassword") }
+        /// password not match
+        internal static var passwordnotmatch: String { return Localizable.tr("ChangePassword", "textfield.error.passwordnotmatch") }
+      }
+
+      internal enum Oldpassword {
+        /// Old password
+        internal static var title: String { return Localizable.tr("ChangePassword", "textfield.oldpassword.title") }
+      }
+    }
+  }
           internal enum ReceiveCard {
 
     internal enum Button {
@@ -1200,6 +1244,28 @@ internal enum Localizable {
     }
   }
           internal enum Profile {
+
+    internal enum Alert {
+
+      internal enum Deleteaccount {
+        /// Are you sure you want to delete this account from device?
+        internal static var message: String { return Localizable.tr("Profile", "alert.deleteAccount.message") }
+        /// Delete account
+        internal static var title: String { return Localizable.tr("Profile", "alert.deleteAccount.title") }
+
+        internal enum Button {
+          /// Cancel
+          internal static var cancel: String { return Localizable.tr("Profile", "alert.deleteAccount.button.cancel") }
+          /// Delete
+          internal static var delete: String { return Localizable.tr("Profile", "alert.deleteAccount.button.delete") }
+        }
+
+        internal enum Withoutbackup {
+          /// Deleting an account will lead to its irretrievable loss!
+          internal static var message: String { return Localizable.tr("Profile", "alert.deleteAccount.withoutbackup.message") }
+        }
+      }
+    }
 
     internal enum Button {
 

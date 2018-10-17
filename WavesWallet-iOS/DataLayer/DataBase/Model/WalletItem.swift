@@ -18,6 +18,7 @@ class WalletItem: Object {
     @objc dynamic var secret: String = ""
     @objc dynamic var hasBiometricEntrance: Bool = false
     @objc dynamic var id: String = ""
+    @objc dynamic var seedId: String = ""
 
     public var identity: String {
         return "\(publicKey)"
@@ -25,7 +26,6 @@ class WalletItem: Object {
     override static func primaryKey() -> String? {
         return "publicKey"
     }
-
 
     var publicKeyAccount: PublicKeyAccount {
         return PublicKeyAccount(publicKey: Base58.decode(publicKey))

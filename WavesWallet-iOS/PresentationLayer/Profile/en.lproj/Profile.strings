@@ -33,4 +33,11 @@
 "button.delete.title" = "Delete account from device";
 "button.logout.title" = "Logout of account";
 
+"alert.deleteAccount.message" = "Are you sure you want to delete this account from device?";
+"alert.deleteAccount.withoutbackup.message" = "Deleting an account will lead to its irretrievable loss!";
+
+"alert.deleteAccount.title" = "Delete account";
+"alert.deleteAccount.button.cancel" = "Cancel";
+"alert.deleteAccount.button.delete" = "Delete";
+
 "language.navigation.title" = "Language";

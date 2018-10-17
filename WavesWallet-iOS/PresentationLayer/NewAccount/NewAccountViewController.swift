@@ -10,10 +10,6 @@ import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
 
-fileprivate enum Constants {
-    static let accountNameMinLimitSymbols: Int = 2
-}
-
 private struct Avatar {
     let address: String
     let privateKey: PrivateKeyAccount
@@ -60,20 +56,7 @@ final class NewAccountViewController: UIViewController {
         setupAvatarsView()
         createBackButton()
 
-        ifNeedDisableButtonContinue()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -104,8 +87,8 @@ final class NewAccountViewController: UIViewController {
                                                                placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
         accountNameInput.valueValidator = { value in
-            if (value?.count ?? 0) < Constants.accountNameMinLimitSymbols {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Constants.accountNameMinLimitSymbols)
+            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else {
                 return nil
             }
@@ -126,14 +109,6 @@ final class NewAccountViewController: UIViewController {
 
             return nil
         }
-
-        let changedValue: ((Bool,String?) -> Void) = { [weak self] _,_ in
-            self?.ifNeedDisableButtonContinue()
-        }
-
-        accountNameInput.changedValue = changedValue
-        passwordInput.changedValue = changedValue
-        confirmPasswordInput.changedValue = changedValue
 
         accountNameInput.returnKey = .next
         passwordInput.returnKey = .next
@@ -165,7 +140,6 @@ final class NewAccountViewController: UIViewController {
 
                 self?.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
                 self?.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
-                self?.ifNeedDisableButtonContinue()
 
                 if self?.isFirstChoiceAvatar == false {
                     self?.isFirstChoiceAvatar = true
@@ -189,7 +163,6 @@ final class NewAccountViewController: UIViewController {
             }
         } else {
             self.currentAvatar = nil
-            ifNeedDisableButtonContinue()
         }
     }
 
@@ -228,14 +201,10 @@ final class NewAccountViewController: UIViewController {
             && currentAvatar != nil
     }
 
-    private func ifNeedDisableButtonContinue() {
-//        buttonContinue.isEnabled = isValidData
-    }
-
     // MARK: Actions
 
     @objc func keyboardWillHide() {
-        ifNeedDisableButtonContinue()
+
         //        scrollView.setContentOffset(CGPoint(x: 0, y: -0.5), animated: true)
     }
 
