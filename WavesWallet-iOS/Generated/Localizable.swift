@@ -357,6 +357,8 @@ internal enum Localizable {
       internal static var addressNotValid: String { return Localizable.tr("Send", "label.addressNotValid") }
       /// Amount
       internal static var amount: String { return Localizable.tr("Send", "label.amount") }
+      /// US Dollar
+      internal static var dollar: String { return Localizable.tr("Send", "label.dollar") }
       /// Gateway fee is
       internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
       /// Recipient

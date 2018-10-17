@@ -7,6 +7,7 @@
 "label.gatewayFee" = "Gateway fee is";
 "label.warning.subtitle" = "We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.";  // We detected Bitcoin address and will send your money through Coinomat gateway to that address. Minimum amount is 0.001 BTC, maximum amount is 20 BTC.
 "label.warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";  // Do not withdraw Bitcoin to an ICO. We will not credit your account with tokens from that sale.
+"label.dollar" = "US Dollar";
 
 "button.chooseFromAddressBook" = "Choose from Address book";
 "button.continue" = "Continue";

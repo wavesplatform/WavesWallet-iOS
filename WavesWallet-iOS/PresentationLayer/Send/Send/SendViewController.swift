@@ -21,7 +21,9 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelWarningDescription: UILabel!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
-
+    @IBOutlet private weak var buttonContinue: HighlightedButton!
+    @IBOutlet private weak var labelTransactionFee: UILabel!
+    
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var amount: Money?
     
@@ -29,7 +31,7 @@ final class SendViewController: UIViewController {
     var presenter: SendPresenterProtocol!
 
     var input: AssetList.DTO.Input!
-
+    private var gatewayInfo: Send.DTO.GatewayInfo?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,8 @@ final class SendViewController: UIViewController {
         title = Localizable.Send.Label.send
         createBackButton()
         setupRecipientAddress()
+        setupLocalization()
+        setupButtonState()
         assetView.delegate = self
         amountView.delegate = self
         
@@ -58,8 +62,18 @@ final class SendViewController: UIViewController {
     
     private func calculateAmount() {
         
-//        let amountString = amo
-        amountView.setupRightLabelText("≈ 0 US Dollar")
+        //TODO: need update calculation
+        amountView.setupRightLabelText("≈" + "0" + Localizable.Send.Label.dollar)
+    }
+    
+    private func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
+        selectedAsset = asset
+        assetView.update(with: asset)
+        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
+    }
+
+    @IBAction private func continueTapped(_ sender: Any) {
+    
     }
 }
 
@@ -68,15 +82,14 @@ extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
+        calculateAmount()
     }
 }
 
 //MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
-        selectedAsset = asset
-        assetView.update(with: asset)
-        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+        setupAssetInfo(asset)
     }
 }
 
@@ -94,12 +107,17 @@ extension SendViewController: AssetSelectViewDelegate {
 //MARK: - UI
 private extension SendViewController {
     
-    
-    func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
-        selectedAsset = asset
-        assetView.update(with: asset)
+    func setupButtonState() {
+        let canContinueAction = gatewayInfo != nil
+        buttonContinue.isUserInteractionEnabled = canContinueAction
+        buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
-
+    
+    func setupLocalization() {
+        buttonContinue.setTitle(Localizable.Send.Button.continue, for: .normal)
+        labelTransactionFee.text = Localizable.Send.Label.transactionFee
+    }
+    
     func setupRecipientAddress() {
         
         let input = AddressInputView.Input(title: Localizable.Send.Label.recipient,
