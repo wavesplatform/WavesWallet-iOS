@@ -19,14 +19,17 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelWarningTitle: UILabel!
     @IBOutlet private weak var labelWarningSubtitle: UILabel!
     @IBOutlet private weak var labelWarningDescription: UILabel!
-    
+    @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
+
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
-    
+    private var amount: Decimal = 0
+
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
 
     var input: AssetList.DTO.Input!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,7 @@ final class SendViewController: UIViewController {
         createBackButton()
         setupRecipientAddress()
         assetView.delegate = self
+        amountView.delegate = self
         
         if let asset = input.selectedAsset {
             assetView.isSelectedAssetMode = false
@@ -51,6 +55,20 @@ final class SendViewController: UIViewController {
         guard let asset = selectedAsset?.asset else { return true }
         return Address.isValidAddress(address: address)
     }
+    
+    private func calculateAmount() {
+        
+//        let amountString = amo
+        amountView.setupRightLabelText("≈ 0 US Dollar")
+    }
+}
+
+//MARK: - MoneyTextFieldDelegate
+extension SendViewController: AmountInputViewDelegate {
+    
+    func amountInputView(didChangeValue decimalValue: Decimal) {
+        amount = decimalValue
+    }
 }
 
 //MARK: - AssetListModuleOutput
@@ -58,6 +76,10 @@ extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         selectedAsset = asset
         assetView.update(with: asset)
+        
+        
+        amountView.maximumFractionDigits = asset.asset?.precision ?? 0
+
     }
 }
 

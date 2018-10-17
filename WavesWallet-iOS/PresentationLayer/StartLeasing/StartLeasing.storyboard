@@ -90,7 +90,7 @@
                                                     <constraint firstAttribute="height" constant="80" id="AUd-uD-5hY"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-Zb-ncf" customClass="StartLeasingAmountView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-Zb-ncf" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="224" width="375" height="100"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

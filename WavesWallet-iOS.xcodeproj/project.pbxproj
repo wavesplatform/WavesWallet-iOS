@@ -532,8 +532,8 @@
 		E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47DD21638B11004D4E39 /* StartLeasing.storyboard */; };
 		E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */; };
 		E95B47F121638B11004D4E39 /* StartLeasingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */; };
-		E95B47F221638B11004D4E39 /* StartLeasingAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */; };
-		E95B47F521638B11004D4E39 /* StartLeasingAmountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */; };
+		E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E221638B11004D4E39 /* AmountInputView.swift */; };
+		E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47E521638B11004D4E39 /* AmountInputView.xib */; };
 		E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E721638B11004D4E39 /* StartLeasingInteractorProtocol.swift */; };
 		E95B47F721638B11004D4E39 /* StartLeasingInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E821638B11004D4E39 /* StartLeasingInteractorMock.swift */; };
 		E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E921638B11004D4E39 /* StartLeasingInteractor.swift */; };
@@ -1389,8 +1389,8 @@
 		E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E95B47DF21638B11004D4E39 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/StartLeasing.strings; sourceTree = "<group>"; };
 		E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingTypes.swift; sourceTree = "<group>"; };
-		E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingAmountView.swift; sourceTree = "<group>"; };
-		E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartLeasingAmountView.xib; sourceTree = "<group>"; };
+		E95B47E221638B11004D4E39 /* AmountInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountInputView.swift; sourceTree = "<group>"; };
+		E95B47E521638B11004D4E39 /* AmountInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountInputView.xib; sourceTree = "<group>"; };
 		E95B47E721638B11004D4E39 /* StartLeasingInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingInteractorProtocol.swift; sourceTree = "<group>"; };
 		E95B47E821638B11004D4E39 /* StartLeasingInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingInteractorMock.swift; sourceTree = "<group>"; };
 		E95B47E921638B11004D4E39 /* StartLeasingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingInteractor.swift; sourceTree = "<group>"; };
@@ -3215,8 +3215,8 @@
 		E95B47E121638B11004D4E39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E95B47E521638B11004D4E39 /* StartLeasingAmountView.xib */,
-				E95B47E221638B11004D4E39 /* StartLeasingAmountView.swift */,
+				E95B47E521638B11004D4E39 /* AmountInputView.xib */,
+				E95B47E221638B11004D4E39 /* AmountInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4375,7 +4375,7 @@
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				0A071E65215C69B3007D9750 /* Passcode.strings in Resources */,
 				0AFF5C82215BD6CA00B82940 /* AccountPassword.strings in Resources */,
-				E95B47F521638B11004D4E39 /* StartLeasingAmountView.xib in Resources */,
+				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
 				0AA8CACD21516807000D09E6 /* Backup.strings in Resources */,
 				0A61B59A214ACFD500EC60FC /* Languages.json in Resources */,
 				0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */,
@@ -4863,7 +4863,7 @@
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTapes.swift in Sources */,
-				E95B47F221638B11004D4E39 /* StartLeasingAmountView.swift in Sources */,
+				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
 				0AF921EA212E07B3003BA067 /* AssetTypes.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
 				0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */,

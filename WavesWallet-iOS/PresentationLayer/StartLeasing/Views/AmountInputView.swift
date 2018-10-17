@@ -13,11 +13,17 @@ private enum Constants {
     static let animationErrorLabelDuration: TimeInterval = 0.3
 }
 
-protocol StartLeasingAmountViewDelegate: AnyObject {
-    func startLeasingAmountView(didChangeValue value: Money)
+protocol AmountInputViewDelegate: AnyObject {
+    func amountInputView(didChangeValue value: Money)
+    func amountInputView(didChangeValue decimalValue: Decimal)
 }
 
-final class StartLeasingAmountView: UIView, NibOwnerLoadable {
+extension AmountInputViewDelegate {
+    func amountInputView(didChangeValue value: Money) {}
+    func amountInputView(didChangeValue decimalValue: Decimal) {}
+}
+
+final class AmountInputView: UIView, NibOwnerLoadable {
     
     struct Input {
         let text: String
@@ -29,14 +35,14 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
     private var input: [Input] = []
     
     @IBOutlet private weak var labelAmountLocalizable: UILabel!
-    @IBOutlet weak var labelAmount: UILabel!
+    @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var scrollViewInput: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var scrollViewInputHeight: NSLayoutConstraint!
     @IBOutlet private weak var labelError: UILabel!
     
-    weak var delegate: StartLeasingAmountViewDelegate?
+    weak var delegate: AmountInputViewDelegate?
     
     var maximumFractionDigits: Int = 0 {
         didSet {
@@ -83,20 +89,25 @@ final class StartLeasingAmountView: UIView, NibOwnerLoadable {
     func activateTextField() {
         textFieldMoney.becomeFirstResponder()
     }
+    
+    func setupRightLabelText(_ string: String) {
+        labelAmount.text = string
+    }
 }
 
 
 //MARK: - MoneyTextFieldDelegate
-extension StartLeasingAmountView: MoneyTextFieldDelegate {
+extension AmountInputView: MoneyTextFieldDelegate {
     
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        delegate?.startLeasingAmountView(didChangeValue: value)
+        delegate?.amountInputView(didChangeValue: value)
+        delegate?.amountInputView(didChangeValue: textField.decimalValue)
         updateViewHeight(inputValue: value, animation: true)
     }
 }
 
 //MARK: - ViewConfiguration
-extension StartLeasingAmountView: ViewConfiguration {
+extension AmountInputView: ViewConfiguration {
     
     func update(with input: [Input]) {
         
@@ -108,20 +119,20 @@ extension StartLeasingAmountView: ViewConfiguration {
 }
 
 //MARK: - InputScrollButtonsViewDelegate
-extension StartLeasingAmountView: InputScrollButtonsViewDelegate {
+extension AmountInputView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
         
         let value = input[index].value
         textFieldMoney.setValue(value: value)
-        delegate?.startLeasingAmountView(didChangeValue: value)
+        delegate?.amountInputView(didChangeValue: value)
         updateViewHeight(inputValue: value, animation: true)
     }
 }
 
 
 //MARK: - Change frame
-private extension StartLeasingAmountView {
+private extension AmountInputView {
     
     func updateViewHeight(inputValue: Money, animation: Bool) {
         

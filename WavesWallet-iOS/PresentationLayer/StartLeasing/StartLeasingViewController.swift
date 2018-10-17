@@ -30,7 +30,7 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var iconFavourite: UIImageView!
     @IBOutlet private weak var addressGeneratorView: AddressInputView!
     @IBOutlet private weak var assetBgView: UIView!
-    @IBOutlet private weak var amountView: StartLeasingAmountView!
+    @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelTransactionFee: UILabel!
@@ -148,13 +148,14 @@ private extension StartLeasingViewController {
         
         let fee = Money(order.fee, order.amount.decimals)
         labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + fee.displayText + " WAVES"
+        amountView.setupRightLabelText("Waves")
     }
     
     func setupData() {
         
         labelAssetAmount.text = availableBalance.displayTextFull
         
-        var inputAmountValues: [StartLeasingAmountView.Input] = []
+        var inputAmountValues: [AmountInputView.Input] = []
         
         if !availableBalance.isZero {
             let valuePercent50 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent50) / 100,
@@ -228,8 +229,9 @@ private extension StartLeasingViewController {
 }
 
 //MARK: - StartLeasingAmountViewDelegate
-extension StartLeasingViewController: StartLeasingAmountViewDelegate {
-    func startLeasingAmountView(didChangeValue value: Money) {
+extension StartLeasingViewController: AmountInputViewDelegate {
+    
+    func amountInputView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
         amountView.showErrorMessage(message: Localizable.StartLeasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
