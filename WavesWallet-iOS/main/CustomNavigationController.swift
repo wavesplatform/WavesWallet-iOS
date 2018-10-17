@@ -179,6 +179,16 @@ class CustomNavigationController: UINavigationController {
         return super.popViewController(animated: animated)
     }
 
+    override func popToRootViewController(animated: Bool) -> [UIViewController]? {
+
+        self.viewControllers.first?.hidesBottomBarWhenPushed = false
+        return super.popToRootViewController(animated: animated)
+    }
+
+    override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+        return super.popToViewController(viewController, animated: animated)
+    }
+
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         self.viewControllers.first?.hidesBottomBarWhenPushed = true
         super.pushViewController(viewController, animated: animated)

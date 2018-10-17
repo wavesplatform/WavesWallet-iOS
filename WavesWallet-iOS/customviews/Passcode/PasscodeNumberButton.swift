@@ -38,6 +38,7 @@ final class PasscodeNumberButton: UIButton {
         setBackgroundImage(UIColor.basic50.image, for: .highlighted)
         setTitleColor(.black, for: .highlighted)
         addTarget(self, action: #selector(buttonDidTap(_:)), for: .touchUpInside)
+        self.layer.masksToBounds = true
     }
 
     override func layoutSubviews() {

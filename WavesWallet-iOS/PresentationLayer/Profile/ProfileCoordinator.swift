@@ -86,7 +86,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
         UIApplication.shared.openURLAsync(Constants.supporURL)
     }
 
-    func userSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
+    func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
@@ -99,14 +99,15 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+        let vc = ChangePasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        self.navigationController.pushViewController(vc, animated: true)
     }
 
-    func userLogouted() {
+    func accountLogouted() {
         self.applicationCoordinator?.showEnterDisplay()
     }
 
-    func useerDeteedAccount() {
+    func accountDeleted() {
         self.applicationCoordinator?.showEnterDisplay()
     }
 }
@@ -144,5 +145,18 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 extension ProfileCoordinator: LanguageViewControllerDelegate {
     func languageViewChangedLanguage() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+// MARK: ChangePasswordModuleOutput
+
+extension ProfileCoordinator: ChangePasswordModuleOutput {
+    func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
+        let passcode = PasscodeCoordinator(navigationController: navigationController,
+                                           kind: .changePassword(wallet: wallet,
+                                                                 newPassword: newPassword,
+                                                                 oldPassword: oldPassword))
+        addChildCoordinator(childCoordinator: passcode)
+        passcode.start()
     }
 }

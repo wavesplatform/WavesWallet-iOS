@@ -51,15 +51,7 @@ final class AccountPasswordViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
         passwordTextField.becomeFirstResponder()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     @IBAction func signInTapped(_ sender: Any) {
@@ -135,7 +127,7 @@ private extension AccountPasswordViewController {
             buttonSignIn.setTitleWithoutAnimated(nil, for: .normal)
         } else {
             indicatorView.stopAnimating()
-            buttonSignIn.isEnabled = true
+            buttonSignIn.isEnabled = passwordTextField.isValidValue
             buttonSignIn.setTitleWithoutAnimated(Localizable.AccountPassword.Button.Signin.title, for: .normal)
         }
 
