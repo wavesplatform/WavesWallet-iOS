@@ -721,6 +721,11 @@
 		E9B088202163886800937644 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087942163886800937644 /* DexSortInteractorMock.swift */; };
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
 		E9BCF48121636DAC00FA6502 /* ReponceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */; };
+		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
+		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
+		E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */; };
+		E9C0B4A22176C4A800669D1D /* SendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractor.swift */; };
+		E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A32176C4BE00669D1D /* SendTypes.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
@@ -1601,6 +1606,11 @@
 		E9B087942163886800937644 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorMock.swift; sourceTree = "<group>"; };
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ReponceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponceTypes.swift; sourceTree = "<group>"; };
+		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
+		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
+		E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractorProtocol.swift; sourceTree = "<group>"; };
+		E9C0B4A12176C4A800669D1D /* SendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractor.swift; sourceTree = "<group>"; };
+		E9C0B4A32176C4BE00669D1D /* SendTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTypes.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
@@ -4006,10 +4016,13 @@
 		E9EC5B372175F35800E5C29A /* Send */ = {
 			isa = PBXGroup;
 			children = (
+				E9EC5C122176B2D700E5C29A /* Interactor */,
+				E9EC5C112176B2CD00E5C29A /* Presenter */,
 				E9EC5BA72175F35800E5C29A /* Views */,
 				E9EC5B382175F35800E5C29A /* Send.strings */,
 				E9EC5B3A2175F35800E5C29A /* SendViewController.swift */,
 				E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */,
+				E9C0B4A32176C4BE00669D1D /* SendTypes.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -4021,6 +4034,24 @@
 				E9EC5BA92175F35800E5C29A /* AddressInputView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E9EC5C112176B2CD00E5C29A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */,
+				E9C0B49D2176C48300669D1D /* SendPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E9EC5C122176B2D700E5C29A /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */,
+				E9C0B4A12176C4A800669D1D /* SendInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E9EE18D720D475D8001913C6 /* Receive */ = {
@@ -4599,6 +4630,7 @@
 				04831F712169161C006D1ED6 /* Assert+Message.swift in Sources */,
 				0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */,
 				0A2B7D39216038A80098438D /* SpamService.swift in Sources */,
+				E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */,
 				0A218B8721551E6600B989A1 /* WalletsRepositoryProtocol.swift in Sources */,
 				0A218B812155180C00B989A1 /* WalletDomainDTO.swift in Sources */,
 				E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */,
@@ -4816,6 +4848,7 @@
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,
 				E9B087AC2163886800937644 /* DexOrderBookModuleBuilder.swift in Sources */,
 				0A5B6E6F211A2B6D005A7F09 /* TransactionNodeService.swift in Sources */,
+				E9C0B4A22176C4A800669D1D /* SendInteractor.swift in Sources */,
 				04A4031E2164A99300652F21 /* EnterLanguageViewCoordinator.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
@@ -4941,6 +4974,7 @@
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
 				0A5E4BAC2137FC3800E3C3C3 /* SendViewControllerOld.swift in Sources */,
 				0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */,
+				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
@@ -4980,6 +5014,7 @@
 				0A5E4BA92137FC3000E3C3C3 /* TransactionCell.swift in Sources */,
 				E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */,
 				044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */,
+				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
@@ -5167,6 +5202,7 @@
 				E9D36DCF2175C755001E6DF0 /* ReceiveCryptocurrencyViewController.swift in Sources */,
 				0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */,
 				E9B088102163886800937644 /* DexMarketModuleBuilder.swift in Sources */,
+				E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */,
 				E9D36DDE2175C755001E6DF0 /* ReceiveContainerViewController.swift in Sources */,
 				E9B087992163886800937644 /* DexChartPresenter.swift in Sources */,
 				0AF922C6212E1234003BA067 /* AssetLogo.swift in Sources */,
