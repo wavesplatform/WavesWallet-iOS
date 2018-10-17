@@ -71,23 +71,16 @@ final class MoneyTextField: UITextField {
 //MARK: - Methods
 extension MoneyTextField {
     
-    func clearText() {
-        attributedText = nil
-    }
-    
     func setValue(value: Money) {
-
         decimals = value.decimals
         setupAttributedText(text: formattedStringFrom(value))
     }
     
     func addPlusValue() {
-      
         setValue(value: value.add(deltaValue))
     }
     
     func addMinusValue() {
-
         setValue(value: value.minus(deltaValue))
     }
 }

@@ -95,17 +95,27 @@
                                                     <constraint firstItem="DtX-5t-1eD" firstAttribute="leading" secondItem="0cq-3g-seR" secondAttribute="leading" constant="32" id="xVC-4i-V8Z"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHV-Q6-oxV" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="378" width="375" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="cN5-2N-yju"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="4NW-lg-XQk"/>
                                             <constraint firstItem="0cq-3g-seR" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" constant="16" id="4s2-LN-alD"/>
                                             <constraint firstAttribute="trailing" secondItem="0cq-3g-seR" secondAttribute="trailing" constant="16" id="6IO-JR-7kw"/>
+                                            <constraint firstItem="mHV-Q6-oxV" firstAttribute="top" secondItem="0cq-3g-seR" secondAttribute="bottom" constant="24" id="Hoa-HT-I3v"/>
+                                            <constraint firstAttribute="trailing" secondItem="mHV-Q6-oxV" secondAttribute="trailing" id="PdI-3I-989"/>
                                             <constraint firstAttribute="trailing" secondItem="KUx-Kq-mM9" secondAttribute="trailing" id="WLb-iL-Iws"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="Xqt-Io-ej3"/>
                                             <constraint firstItem="0cq-3g-seR" firstAttribute="top" secondItem="f7C-jx-v1E" secondAttribute="bottom" constant="24" id="ika-Ta-PMt"/>
                                             <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
+                                            <constraint firstItem="mHV-Q6-oxV" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="sne-CU-pDd"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="top" secondItem="6P1-zy-nqY" secondAttribute="top" id="wW0-p3-g3z"/>
                                         </constraints>
                                     </view>
@@ -133,6 +143,7 @@
                         <viewLayoutGuide key="safeArea" id="0o9-e5-6xM"/>
                     </view>
                     <connections>
+                        <outlet property="amountView" destination="mHV-Q6-oxV" id="kwN-uj-u1n"/>
                         <outlet property="assetView" destination="KUx-Kq-mM9" id="VaM-Zg-YJ6"/>
                         <outlet property="labelWarningDescription" destination="fga-Xj-NQk" id="jxw-4O-SmI"/>
                         <outlet property="labelWarningSubtitle" destination="SEO-1b-y33" id="XjU-jn-Gqg"/>
