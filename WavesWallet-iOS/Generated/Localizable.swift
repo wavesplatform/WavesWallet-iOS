@@ -257,7 +257,7 @@ internal enum Localizable {
     }
 
     internal enum Label {
-      /// Address is not valid
+      /// The address is not valid
       internal static var addressIsNotValid: String { return Localizable.tr("StartLeasing", "label.addressIsNotValid") }
       /// Amount
       internal static var amount: String { return Localizable.tr("StartLeasing", "label.amount") }
@@ -357,6 +357,8 @@ internal enum Localizable {
       internal static var addressNotValid: String { return Localizable.tr("Send", "label.addressNotValid") }
       /// Amount
       internal static var amount: String { return Localizable.tr("Send", "label.amount") }
+      /// Gateway fee is
+      internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
       /// Recipient
       internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
       /// Recipient address…
@@ -365,6 +367,17 @@ internal enum Localizable {
       internal static var send: String { return Localizable.tr("Send", "label.send") }
       /// Transaction Fee
       internal static var transactionFee: String { return Localizable.tr("Send", "label.transactionFee") }
+
+      internal enum Warning {
+        /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
+        internal static func description(_ p1: String) -> String {
+          return Localizable.tr("Send", "label.warning.description", p1)
+        }
+        /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
+        internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
+          return Localizable.tr("Send", "label.warning.subtitle", p1, p2, p3)
+        }
+      }
     }
   }
           internal enum DexInfo {

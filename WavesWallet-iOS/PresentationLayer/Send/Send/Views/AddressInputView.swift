@@ -119,6 +119,20 @@ extension AddressInputView {
         updateHeight(animation: animation)
         setupButtonsState()
     }
+    
+    func checkIfValidAddress() {
+        if let text = textField.text, text.count > 0 {
+            var showError = false
+            if let validation = errorValidation {
+                showError = !validation(text)
+            }
+            
+            showLabelError(isShow: showError)
+        }
+        else {
+            showLabelError(isShow: false)
+        }
+    }
 }
 
 //MARK: - InputScrollButtonsViewDelegate
@@ -137,25 +151,14 @@ extension AddressInputView: InputScrollButtonsViewDelegate {
 
 //MARK: - UITextFieldDelegate
 extension AddressInputView: UITextFieldDelegate {
-    
+  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.addressInputViewDidTapNext()
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text, text.count > 0 {
-            
-            var showError = false
-            if let validation = errorValidation {
-                showError = !validation(text)
-            }
-            
-            showLabelError(isShow: showError)
-        }
-        else {
-            showLabelError(isShow: false)
-        }
+        checkIfValidAddress()
     }
     
     private func showLabelError(isShow: Bool) {

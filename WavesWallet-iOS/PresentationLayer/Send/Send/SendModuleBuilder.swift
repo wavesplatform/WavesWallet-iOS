@@ -13,6 +13,7 @@ struct SendModuleBuilder: ModuleBuilder {
     func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
         
         let vc = StoryboardScene.Send.sendViewController.instantiate()
+        vc.input = .init(filters: [.all], selectedAsset: input)
         return vc
     }
 }

@@ -7,14 +7,27 @@
 //
 
 import UIKit
+import RxSwift
+import RxFeedback
+import RxCocoa
+
 
 final class SendViewController: UIViewController {
 
     @IBOutlet private weak var assetView: AssetSelectView!
-   
+    @IBOutlet private weak var viewWarning: UIView!
+    @IBOutlet private weak var labelWarningTitle: UILabel!
+    @IBOutlet private weak var labelWarningSubtitle: UILabel!
+    @IBOutlet private weak var labelWarningDescription: UILabel!
+    
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     
+    private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
+    var presenter: SendPresenterProtocol!
+
+    var input: AssetList.DTO.Input!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,14 +35,25 @@ final class SendViewController: UIViewController {
         createBackButton()
         setupRecipientAddress()
         assetView.delegate = self
+        
+        if let asset = input.selectedAsset {
+            assetView.isSelectedAssetMode = false
+            setupAssetInfo(asset)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
     }
+    
+    private func isValidAddress(_ address: String) -> Bool {
+        guard let asset = selectedAsset?.asset else { return true }
+        return Address.isValidAddress(address: address)
+    }
 }
 
+//MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         selectedAsset = asset
@@ -51,6 +75,12 @@ extension SendViewController: AssetSelectViewDelegate {
 //MARK: - UI
 private extension SendViewController {
     
+    
+    func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
+        selectedAsset = asset
+        assetView.update(with: asset)
+    }
+
     func setupRecipientAddress() {
         
         let input = AddressInputView.Input(title: Localizable.Send.Label.recipient,
@@ -59,13 +89,16 @@ private extension SendViewController {
                                            contacts: [])
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self
-        recipientAddressView.errorValidation = { text in
-            return Address.isValidAddress(address: text)
+        recipientAddressView.errorValidation = { [weak self] text in
+            return self?.isValidAddress(text) ?? false
         }
     }
 }
 
+//MARK: - AddressInputViewDelegate
+
 extension SendViewController: AddressInputViewDelegate {
+    
     func addressInputViewDidTapNext() {
         
     }
@@ -86,6 +119,9 @@ extension SendViewController: AddressInputViewDelegate {
     }
 }
 
+
+//MARK: - AddressBookModuleOutput
+
 extension SendViewController: AddressBookModuleOutput {
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
         
@@ -94,6 +130,7 @@ extension SendViewController: AddressBookModuleOutput {
         recipientAddressView.setupText(recipient, animation: false)
 //        setupButtonState()
 //        sendEvent.accept(.updateInputOrder(order))
+        recipientAddressView.checkIfValidAddress()
     }
 }
 

@@ -5,7 +5,7 @@
 "label.amount" = "Amount";
 "label.transactionFee" = "Transaction Fee";
 "label.notEnough" = "Not enough";
-"label.addressIsNotValid" = "Address is not valid";
+"label.addressIsNotValid" = "The address is not valid";
 
 "button.chooseFromAddressBook" = "Choose from Address book";
 "button.useTotalBalance" = "Use total balance";

@@ -266,6 +266,7 @@ extension StartLeasingViewController: AddressBookModuleOutput {
         addressGeneratorView.setupText(order.recipient, animation: false)
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
+        addressGeneratorView.checkIfValidAddress()
     }
 }
 

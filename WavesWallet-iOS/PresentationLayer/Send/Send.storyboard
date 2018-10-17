@@ -38,12 +38,72 @@
                                                     <constraint firstAttribute="height" constant="80" id="ba1-5O-8Pf"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="0cq-3g-seR">
+                                                <rect key="frame" x="16" y="200" width="343" height="154"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="P3B-sJ-ynd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Gateway fee is 0.001 BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtX-5t-1eD">
+                                                        <rect key="frame" x="32" y="0.0" width="311" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEO-1b-y33">
+                                                        <rect key="frame" x="32" y="22" width="311" height="62.5"/>
+                                                        <string key="text">We detected Bitcoin address and will send your money through Coinomat gateway to that address. Minimum amount is 0.001 BTC, maximum amount is 20 BTC.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_address" translatesAutoresizingMaskIntoConstraints="NO" id="eGb-3O-o36">
+                                                        <rect key="frame" x="0.0" y="98.5" width="18" height="18"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Do not withdraw Bitcoin to an ICO. We will not credit your account with tokens from that sale." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fga-Xj-NQk">
+                                                        <rect key="frame" x="32" y="98.5" width="311" height="31.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oKI-4J-4dN" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="153" width="343" height="1"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="2PV-zA-LsF"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="oKI-4J-4dN" firstAttribute="leading" secondItem="0cq-3g-seR" secondAttribute="leading" id="4bN-7K-ngU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="oKI-4J-4dN" secondAttribute="bottom" id="4bu-Uv-afk"/>
+                                                    <constraint firstAttribute="bottom" secondItem="fga-Xj-NQk" secondAttribute="bottom" constant="24" id="8Xx-Jd-P2n"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DtX-5t-1eD" secondAttribute="trailing" id="Kzq-eG-6DB"/>
+                                                    <constraint firstItem="fga-Xj-NQk" firstAttribute="leading" secondItem="SEO-1b-y33" secondAttribute="leading" id="NhI-Aj-w7p"/>
+                                                    <constraint firstItem="fga-Xj-NQk" firstAttribute="trailing" secondItem="SEO-1b-y33" secondAttribute="trailing" id="Npv-l4-ViY"/>
+                                                    <constraint firstItem="P3B-sJ-ynd" firstAttribute="top" secondItem="0cq-3g-seR" secondAttribute="top" id="PkE-RQ-fsE"/>
+                                                    <constraint firstItem="eGb-3O-o36" firstAttribute="top" secondItem="fga-Xj-NQk" secondAttribute="top" id="Sza-mm-YLh"/>
+                                                    <constraint firstItem="SEO-1b-y33" firstAttribute="leading" secondItem="DtX-5t-1eD" secondAttribute="leading" id="eTY-OS-8NW"/>
+                                                    <constraint firstItem="P3B-sJ-ynd" firstAttribute="leading" secondItem="0cq-3g-seR" secondAttribute="leading" id="gXC-36-O3g"/>
+                                                    <constraint firstAttribute="trailing" secondItem="oKI-4J-4dN" secondAttribute="trailing" id="gw2-JN-gXe"/>
+                                                    <constraint firstItem="eGb-3O-o36" firstAttribute="leading" secondItem="0cq-3g-seR" secondAttribute="leading" id="kbT-9S-M2W"/>
+                                                    <constraint firstItem="fga-Xj-NQk" firstAttribute="top" secondItem="SEO-1b-y33" secondAttribute="bottom" constant="14" id="nqI-Pk-Lcr"/>
+                                                    <constraint firstItem="SEO-1b-y33" firstAttribute="trailing" secondItem="DtX-5t-1eD" secondAttribute="trailing" id="oUs-Xh-2Fw"/>
+                                                    <constraint firstItem="DtX-5t-1eD" firstAttribute="top" secondItem="0cq-3g-seR" secondAttribute="top" id="pSy-lk-6s4"/>
+                                                    <constraint firstItem="SEO-1b-y33" firstAttribute="top" secondItem="DtX-5t-1eD" secondAttribute="bottom" constant="6" id="sG0-QK-RUX"/>
+                                                    <constraint firstItem="DtX-5t-1eD" firstAttribute="leading" secondItem="0cq-3g-seR" secondAttribute="leading" constant="32" id="xVC-4i-V8Z"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="4NW-lg-XQk"/>
+                                            <constraint firstItem="0cq-3g-seR" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" constant="16" id="4s2-LN-alD"/>
+                                            <constraint firstAttribute="trailing" secondItem="0cq-3g-seR" secondAttribute="trailing" constant="16" id="6IO-JR-7kw"/>
                                             <constraint firstAttribute="trailing" secondItem="KUx-Kq-mM9" secondAttribute="trailing" id="WLb-iL-Iws"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="Xqt-Io-ej3"/>
+                                            <constraint firstItem="0cq-3g-seR" firstAttribute="top" secondItem="f7C-jx-v1E" secondAttribute="bottom" constant="24" id="ika-Ta-PMt"/>
                                             <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="top" secondItem="6P1-zy-nqY" secondAttribute="top" id="wW0-p3-g3z"/>
@@ -74,7 +134,11 @@
                     </view>
                     <connections>
                         <outlet property="assetView" destination="KUx-Kq-mM9" id="VaM-Zg-YJ6"/>
+                        <outlet property="labelWarningDescription" destination="fga-Xj-NQk" id="jxw-4O-SmI"/>
+                        <outlet property="labelWarningSubtitle" destination="SEO-1b-y33" id="XjU-jn-Gqg"/>
+                        <outlet property="labelWarningTitle" destination="DtX-5t-1eD" id="Nxn-vb-bk8"/>
                         <outlet property="recipientAddressView" destination="f7C-jx-v1E" id="WNg-3Y-7rk"/>
+                        <outlet property="viewWarning" destination="0cq-3g-seR" id="AqC-gB-RoU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwq-iF-Xxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -82,4 +146,8 @@
             <point key="canvasLocation" x="-223.19999999999999" y="148.87556221889056"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="info18Warning600" width="18" height="18"/>
+        <image name="warning_address" width="18" height="18"/>
+    </resources>
 </document>
