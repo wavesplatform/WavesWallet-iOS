@@ -20,6 +20,7 @@ extension WalletItem {
         self.secret = wallet.secret
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.seedId = wallet.seedId
     }
 }
 
@@ -35,6 +36,7 @@ extension DomainLayer.DTO.Wallet {
         self.secret = wallet.secret
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.seedId = wallet.seedId
     }
 }
 

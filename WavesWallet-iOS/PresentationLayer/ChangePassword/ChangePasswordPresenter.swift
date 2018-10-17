@@ -27,6 +27,11 @@ protocol ChangePasswordPresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
+private struct CheckPasswordQuery: Hashable {
+    let wallet: DomainLayer.DTO.Wallet
+    let password: String
+}
+
 final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
 
     fileprivate typealias Types = ChangePasswordTypes
@@ -57,7 +62,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
     }
 
     private func checkOldFeedback() -> Feedback {
-        return react(query: { state -> String? in
+        return react(query: { state -> CheckPasswordQuery? in
 
             if state.isAppeared == false {
                 return nil
@@ -65,22 +70,17 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
 
             let password = state.textFields[.oldPassword]
 
-            if let password = password, ChangePasswordPresenter.isInValidPassword(password) == false {
-                return password
+            if let password = password, password.count > 0 {
+                return CheckPasswordQuery(wallet: state.wallet, password: password)
             }
 
             return nil
-        }, effects: { [weak self] password -> Signal<Types.Event> in
+        }, effects: { [weak self] query -> Signal<Types.Event> in
 
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .authorizationInteractor
-                .lastWalletLoggedIn()
-                .filterNil()
-                .flatMap({ [weak self] wallet -> Observable<AuthorizationAuthStatus> in
-                    guard let strongSelf = self else { return Observable.empty() }
-                    return strongSelf.authorizationInteractor.auth(type: .password(password), wallet: wallet)
-                })
+                .verifyAccess(type: .password(query.password), wallet: query.wallet)
                 .filter({ status -> Bool in
                     if case .completed = status {
                         return true
@@ -147,11 +147,7 @@ private extension ChangePasswordPresenter {
 
             switch kind {
             case .oldPassword:
-                if isInValidPassword(value) {
-                    textfield?.error = Localizable.ChangePassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-                } else {
-                    textfield?.error = nil
-                }
+                textfield?.error = nil
                 state.isValidOldPassword = false
 
             case .newPassword:
@@ -205,6 +201,7 @@ private extension ChangePasswordPresenter {
             guard let oldPassword = state.textFields[.oldPassword] else { return }
             guard let confirmPassword = state.textFields[.confirmPassword] else { return }
             state.query = .confirmPassword(wallet: state.wallet, old: oldPassword, new: confirmPassword)
+            
         case .completedQuery:
             state.query = nil
         }

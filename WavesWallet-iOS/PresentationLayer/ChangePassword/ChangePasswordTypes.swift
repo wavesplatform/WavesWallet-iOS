@@ -49,11 +49,6 @@ extension ChangePasswordTypes {
             var isEnabled: Bool
         }
 
-//        enum Error {
-//            case wrongOldPassword
-//        }
-//
-//        var error: Error?
         var textFields: [FieldKind: TextField] 
         var isEnabledConfirmButton: Bool
     }
