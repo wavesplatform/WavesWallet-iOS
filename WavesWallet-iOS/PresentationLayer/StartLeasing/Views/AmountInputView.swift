@@ -15,12 +15,6 @@ private enum Constants {
 
 protocol AmountInputViewDelegate: AnyObject {
     func amountInputView(didChangeValue value: Money)
-    func amountInputView(didChangeValue decimalValue: Decimal)
-}
-
-extension AmountInputViewDelegate {
-    func amountInputView(didChangeValue value: Money) {}
-    func amountInputView(didChangeValue decimalValue: Decimal) {}
 }
 
 final class AmountInputView: UIView, NibOwnerLoadable {
@@ -43,12 +37,6 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     
     weak var delegate: AmountInputViewDelegate?
-    
-    var maximumFractionDigits: Int = 0 {
-        didSet {
-            textFieldMoney.decimals = maximumFractionDigits
-        }
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -93,6 +81,10 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     func setupRightLabelText(_ string: String) {
         labelAmount.text = string
     }
+    
+    func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
+        textFieldMoney.setDecimals(decimals, forceUpdateMoney: forceUpdateMoney)
+    }
 }
 
 
@@ -101,7 +93,6 @@ extension AmountInputView: MoneyTextFieldDelegate {
     
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         delegate?.amountInputView(didChangeValue: value)
-        delegate?.amountInputView(didChangeValue: textField.decimalValue)
         updateViewHeight(inputValue: value, animation: true)
     }
 }

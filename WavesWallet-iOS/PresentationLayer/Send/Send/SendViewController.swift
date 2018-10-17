@@ -23,8 +23,8 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var recipientAddressView: AddressInputView!
 
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
-    private var amount: Decimal = 0
-
+    private var amount: Money?
+    
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
 
@@ -66,8 +66,8 @@ final class SendViewController: UIViewController {
 //MARK: - MoneyTextFieldDelegate
 extension SendViewController: AmountInputViewDelegate {
     
-    func amountInputView(didChangeValue decimalValue: Decimal) {
-        amount = decimalValue
+    func amountInputView(didChangeValue value: Money) {
+        amount = value
     }
 }
 
@@ -76,10 +76,7 @@ extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         selectedAsset = asset
         assetView.update(with: asset)
-        
-        
-        amountView.maximumFractionDigits = asset.asset?.precision ?? 0
-
+        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
     }
 }
 

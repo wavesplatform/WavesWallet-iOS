@@ -48,7 +48,7 @@ final class ReceiveCardViewController: UIViewController {
         assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
-        textFieldMoney.decimals = amount.decimals
+        textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
