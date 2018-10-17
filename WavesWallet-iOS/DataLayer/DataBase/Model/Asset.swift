@@ -11,7 +11,9 @@ import RealmSwift
 
 final class Asset: Object {
     @objc dynamic var id: String = ""
-    @objc dynamic var name: String = ""
+    @objc dynamic var wavesId: String?
+    @objc dynamic var gatewayId: String?
+    @objc dynamic var displayName: String = ""
     @objc dynamic var precision: Int = 0
     @objc dynamic var descriptionAsset: String = ""
     @objc dynamic var height: Int64 = 0
@@ -31,5 +33,9 @@ final class Asset: Object {
 
     override class func primaryKey() -> String? {
         return "id"
+    }
+    
+    var icon: String {
+        return ticker ?? displayName
     }
 }

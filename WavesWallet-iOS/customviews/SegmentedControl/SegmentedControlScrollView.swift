@@ -118,9 +118,9 @@ extension SegmentedControlScrollView {
         }
 
         if animated {
-            UIView.animate(withDuration: 0.24, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: [], animations: {
+            UIView.animate(withDuration: 0.3) {
                 self.selectedView.frame = selectedButton.frame
-            }) { _ in }
+            }
         } else {
             selectedView.frame = selectedButton.frame
         }

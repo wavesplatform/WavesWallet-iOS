@@ -13,7 +13,9 @@ extension Asset {
     convenience init(asset: DomainLayer.DTO.Asset) {
         self.init()
         self.id = asset.id
-        self.name = asset.name
+        self.wavesId = asset.wavesId
+        self.gatewayId = asset.gatewayId
+        self.displayName = asset.displayName
         self.precision = asset.precision
         self.descriptionAsset = asset.description
         self.height = asset.height
@@ -38,7 +40,9 @@ extension DomainLayer.DTO.Asset {
     init(_ asset: Asset) {
         self.modified = asset.modified
         self.id = asset.id
-        self.name = asset.name
+        self.wavesId = asset.wavesId
+        self.gatewayId = asset.gatewayId
+        self.displayName = asset.displayName
         self.precision = asset.precision
         self.description = asset.descriptionAsset
         self.height = asset.height

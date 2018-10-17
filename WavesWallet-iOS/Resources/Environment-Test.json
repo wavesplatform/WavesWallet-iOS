@@ -1,40 +1,45 @@
 {
-  "name": "Testnet",
-  "servers": {
-    "nodeUrl": "https://testnet1.wavesnodes.com",
-    "dataUrl": "https://api.testnet.wavesplatform.com",
-    "spamUrl": "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
-    "matcherUrl": "https://matcher.testnet.wavesnodes.com/matcher"
-  },
-  "scheme": "T",
-  "generalAssetIds": [
-    {
-      "assetId": "WAVES",
-      "name": "WAVES",
-      "quantity": 10000000000000000,
-      "decimals": 8,
-      "isFiat": false
+    "name": "Testnet",
+    "servers": {
+        "nodeUrl": "https://testnet1.wavesnodes.com",
+        "dataUrl": "https://api.testnet.wavesplatform.com",
+        "spamUrl": "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
+        "matcherUrl": "https://matcher.testnet.wavesnodes.com/matcher"
     },
-    {
-      "assetId": "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe",
-      "name": "BTC",
-      "quantity": 2100000000000000,
-      "decimals": 8,
-      "isFiat": false
-    },
-    {
-      "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",
-      "name": "USD",
-      "quantity": 100000000000,
-      "decimals": 2,
-      "isFiat": true
-    },
-    {
-      "assetId": "2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux",
-      "name": "EUR",
-      "quantity": 100000000000,
-      "decimals": 2,
-      "isFiat": true
-    }
-  ]
+    "scheme": "T",
+    "generalAssetIds": [
+        {
+            "assetId": "WAVES",
+            "displayName": "Waves",
+            "isFiat": false,
+            "isGateway" : false,
+            "wavesId" : "WAVES",
+            "gatewayId": "WAVES"
+        },
+        {
+            "assetId": "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe",
+            "displayName": "Bitcoin",
+            "isFiat": false,
+            "isGateway" : true,
+            "wavesId" : "WBTC",
+            "gatewayId": "BTC"
+        },
+        {
+            "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",
+            "displayName": "US Dollar",
+            "isFiat": true,
+            "isGateway" : true,
+            "wavesId" : "WUSD",
+            "gatewayId": "USD"
+            
+        },
+        {
+            "assetId": "2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux",
+            "displayName": "Euro",
+            "isFiat": true,
+            "isGateway" : true,
+            "wavesId" : "WEUR",
+            "gatewayId": "EUR"
+        }
+    ]
 }

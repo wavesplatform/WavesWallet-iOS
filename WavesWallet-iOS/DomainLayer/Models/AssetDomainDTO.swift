@@ -11,7 +11,9 @@ import Foundation
 extension DomainLayer.DTO {
     struct Asset {
         let id: String
-        let name: String
+        let gatewayId: String?
+        let wavesId: String?
+        let displayName: String
         let precision: Int
         let description: String
         let height: Int64
@@ -28,5 +30,12 @@ extension DomainLayer.DTO {
         let isGateway: Bool
         let isWaves: Bool
         let modified: Date
+    }
+}
+
+
+extension DomainLayer.DTO.Asset {
+    var icon: String {
+        return ticker ?? displayName
     }
 }

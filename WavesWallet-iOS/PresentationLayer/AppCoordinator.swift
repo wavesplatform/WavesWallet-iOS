@@ -52,6 +52,7 @@ final class AppCoordinator: Coordinator {
         let slideMenuViewController = SlideMenu(contentViewController: UIViewController(),
                                                 leftMenuViewController: menuController,
                                                 rightMenuViewController: nil)!
+        slideMenuViewController.panGestureEnabled = false
         return slideMenuViewController
     }()
 
@@ -68,10 +69,6 @@ final class AppCoordinator: Coordinator {
 
     func start() {
         self.isActiveApp = true
-        let vc = StoryboardScene.ChangePassword.changePasswordViewController.instantiate()
-
-//        let nav = CustomNavigationController(rootViewController: vc)
-//        self.window.rootViewController = nav
         self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
         logInApplication()

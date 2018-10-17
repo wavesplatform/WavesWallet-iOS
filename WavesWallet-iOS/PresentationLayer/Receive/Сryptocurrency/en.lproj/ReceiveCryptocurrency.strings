@@ -1,0 +1,4 @@
+"label.minumumAmountOfDeposit" = "The minimum amount of deposit is %@";
+"label.warningMinimumAmountOfDeposit" = "If you will send less than %@, you will lose that money.";
+"label.sendOnlyOnThisDeposit" = "Send only %@ to this deposit address";
+"label.warningSendOnlyOnThisDeposit" = "Sending any other currency to this address may result in the loss of your deposit.";
