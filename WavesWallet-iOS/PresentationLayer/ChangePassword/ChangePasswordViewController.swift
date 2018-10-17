@@ -47,15 +47,15 @@ final class ChangePasswordViewController: UIViewController {
     }
 
     private func setupTextField() {
-        oldPasswordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
+        oldPasswordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Oldpassword.title,
                                                               kind: .password,
-                                                              placeholder: Localizable.NewAccount.Textfield.Accountname.title))
-        passwordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
+                                                              placeholder: Localizable.ChangePassword.Textfield.Oldpassword.title))
+        passwordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Createpassword.title,
                                                            kind: .password,
-                                                           placeholder: Localizable.NewAccount.Textfield.Createpassword.title))
-        confirmPasswordInput.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+                                                           placeholder: Localizable.ChangePassword.Textfield.Createpassword.title))
+        confirmPasswordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Confirmpassword.title,
                                                                   kind: .newPassword,
-                                                                  placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
+                                                                  placeholder: Localizable.ChangePassword.Textfield.Confirmpassword.title))
 
         oldPasswordInput.returnKey = .next
         passwordInput.returnKey = .next

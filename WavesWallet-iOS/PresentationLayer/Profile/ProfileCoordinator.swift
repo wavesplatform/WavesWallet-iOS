@@ -152,6 +152,11 @@ extension ProfileCoordinator: LanguageViewControllerDelegate {
 
 extension ProfileCoordinator: ChangePasswordModuleOutput {
     func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
-        
+        let passcode = PasscodeCoordinator(navigationController: navigationController,
+                                           kind: .changePassword(wallet: wallet,
+                                                                 newPassword: newPassword,
+                                                                 oldPassword: oldPassword))
+        addChildCoordinator(childCoordinator: passcode)
+        passcode.start()
     }
 }

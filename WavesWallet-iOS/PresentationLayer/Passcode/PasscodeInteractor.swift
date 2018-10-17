@@ -11,6 +11,7 @@ import RxSwift
 
 protocol PasscodeInteractorProtocol {
 
+    func changePassword(wallet: DomainLayer.DTO.Wallet, passcode: String, oldPassword: String, newPassword: String) -> Observable<DomainLayer.DTO.Wallet>
     func changePasscodeByPassword(wallet: DomainLayer.DTO.Wallet, passcode: String, password: String) -> Observable<DomainLayer.DTO.Wallet>
     func changePasscode(wallet: DomainLayer.DTO.Wallet, oldPasscode: String, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
 
@@ -38,6 +39,16 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
 
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
+    func changePassword(wallet: DomainLayer.DTO.Wallet, passcode: String, oldPassword: String, newPassword: String) -> Observable<DomainLayer.DTO.Wallet> {
+        return authorizationInteractor
+            .changePassword(wallet: wallet, passcode: passcode, oldPassword: oldPassword, newPassword: newPassword)
+            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
+                return Observable.error(owner.handlerError(error))
+            })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
+    }
 
     func changePasscode(wallet: DomainLayer.DTO.Wallet, oldPasscode: String, passcode: String) -> Observable<DomainLayer.DTO.Wallet> {
         return authorizationInteractor
