@@ -31,21 +31,22 @@ final class DexTraderContainerViewController: UIViewController {
         setupScrollEnabled(currentPage: scrollView.currentPage)
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: animated)
         navigationItem.backgroundImage = UIImage()
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.setStatusBarStyle(.default, animated: animated)
-
         navigationItem.backgroundImage = nil
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
+        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
     }
     
  

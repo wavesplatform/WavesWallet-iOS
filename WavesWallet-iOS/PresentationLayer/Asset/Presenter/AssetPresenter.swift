@@ -203,6 +203,18 @@ private extension AssetPresenter {
                 $0.displayState.action = .changedFavorite
             }
 
+        case .showReceive(let assetBalance):
+            moduleOutput?.showReceive(asset: assetBalance)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
+            
+        case .showSend(let assetBalance):
+            moduleOutput?.showSend(asset: assetBalance)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
+            
         default:
             break
         }

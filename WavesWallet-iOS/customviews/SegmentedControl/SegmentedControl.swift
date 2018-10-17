@@ -65,6 +65,11 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: Constants.height)
     }
+    
+    func setSelectedIndex(_ index: Int, animation: Bool) {
+        guard selectedIndex != index else { return }
+        scrollView.selectedWith(index: index, animated: true)
+    }
 }
 
 // MARK: - ViewAnimatableConfiguration

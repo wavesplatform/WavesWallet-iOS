@@ -12,6 +12,8 @@ import RxCocoa
 
 protocol AssetModuleOutput: AnyObject {
 
+    func showSend(asset: DomainLayer.DTO.AssetBalance)
+    func showReceive(asset: DomainLayer.DTO.AssetBalance)
     func showHistory(by assetId: String)
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
 }
