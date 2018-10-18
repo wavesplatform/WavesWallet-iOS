@@ -11,7 +11,6 @@ import RxSwift
 import SwiftyJSON
 
 private enum Constants {
-    static let baseUrl = "https://coinomat.com/"
     static let apiPath = "api/v2/indacoin/"
     static let apiName = "limits.php"
 }
@@ -40,7 +39,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         }
     }
     
-    private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<Responce<ReceiveCard.DTO.AmountInfo>> {
+    private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<Response<ReceiveCard.DTO.AmountInfo>> {
        
         
         return Observable.create({ [weak self] subscribe -> Disposable in
@@ -50,7 +49,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
             let authAccount = FactoryInteractors.instance.authorization
             authAccount.authorizedWallet().subscribe(onNext: { signedWallet in
                 
-                let url = Constants.baseUrl + Constants.apiPath + Constants.apiName
+                let url = GlobalConstants.coinomatUrl + Constants.apiPath + Constants.apiName
                 
                 let params = ["crypto" : Environments.Constants.wavesAssetId,
                               "address" : signedWallet.wallet.address,
@@ -67,11 +66,11 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                         let maxString = json["max"].stringValue
                         
                         let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat, minAmount: minMoney, maxAmount: maxMoney, minAmountString: minString, maxAmountString: maxString)
-                        subscribe.onNext(Responce(output: amountInfo, error: nil))
+                        subscribe.onNext(Response(output: amountInfo, error: nil))
                         subscribe.onCompleted()
                     }
                     else if let errorMessage = errorMessage {
-                        subscribe.onNext(Responce(output: nil, error: NSError(domain: errorMessage, code: 0, userInfo: nil)))
+                        subscribe.onNext(Response(output: nil, error: errorMessage))
                         subscribe.onCompleted()
                     }
                 })
@@ -81,19 +80,19 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         })
     }
     
-    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<Responce<ReceiveCard.DTO.Info>> {
+    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<Response<ReceiveCard.DTO.Info>> {
     
         let amount = getAmountInfo(fiat: fiatType)
         
-        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<Responce<ReceiveCard.DTO.Info>> in
+        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<Response<ReceiveCard.DTO.Info>> in
 
             switch amountInfo.result {
             case .success(let info):
                 let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info, address: address)
-                return Observable.just(Responce(output: info, error: nil))
+                return Observable.just(Response(output: info, error: nil))
             
             case .error(let error):
-                return Observable.just(Responce(output: nil, error: NSError(domain: error.localizedDescription, code: 0, userInfo: nil)))
+                return Observable.just(Response(output: nil, error: error))
             }
         })
         

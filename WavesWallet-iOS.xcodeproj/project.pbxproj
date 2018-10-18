@@ -791,6 +791,7 @@
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */; };
+		E9FB6E382178265100FA13C1 /* SendInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractorMock.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
 		F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B77691EABA4F80096CA85 /* TransferRequest.swift */; };
@@ -1603,7 +1604,7 @@
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
 		E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9C0B4A12176C4A800669D1D /* SendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractor.swift; sourceTree = "<group>"; };
+		E9C0B4A12176C4A800669D1D /* SendInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractorMock.swift; sourceTree = "<group>"; };
 		E9C0B4A32176C4BE00669D1D /* SendTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTypes.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
@@ -4055,7 +4056,7 @@
 			isa = PBXGroup;
 			children = (
 				E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */,
-				E9C0B4A12176C4A800669D1D /* SendInteractor.swift */,
+				E9C0B4A12176C4A800669D1D /* SendInteractorMock.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4602,6 +4603,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9FB6E382178265100FA13C1 /* SendInteractorMock.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,

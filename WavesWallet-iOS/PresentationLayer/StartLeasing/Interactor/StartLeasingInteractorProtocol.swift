@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol StartLeasingInteractorProtocol {
-    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(Responce<Bool>)>
+    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(Response<Bool>)>
 }

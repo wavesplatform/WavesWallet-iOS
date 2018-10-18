@@ -13,14 +13,14 @@ enum ReceiveCryptocurrency {
     
     enum Event {
         case generateAddress(asset: DomainLayer.DTO.Asset)
-        case addressDidGenerate(Responce<DTO.DisplayInfo>)
+        case addressDidGenerate(Response<DTO.DisplayInfo>)
     }
     
     struct State: Mutating {
         enum Action {
             case none
             case addressDidGenerate(DTO.DisplayInfo)
-            case addressDidFailGenerate(Error)
+            case addressDidFailGenerate(String)
         }
         
         var isNeedGenerateAddress: Bool

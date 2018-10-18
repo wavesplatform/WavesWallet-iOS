@@ -12,7 +12,7 @@ import TTTAttributedLabel
 import MessageUI
 
 
-class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate {
+class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, TTTAttributedLabelDelegate, MFMailComposeViewControllerDelegate, AssetListModuleOutput {
 
     var hideTabBarOnBack = false
     
@@ -147,6 +147,12 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, T
     
     @IBAction func chooseAsset(_ sender: Any) {
 
+        let vc = AssetListModuleBuilder(output: self).build(input: .init(filters: [.all], selectedAsset: nil))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+        chooseAssetViewControllerDidSelectAsset("eth")
     }
     
     @IBAction func continueTapped(_ sender: Any) {

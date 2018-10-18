@@ -18,7 +18,7 @@ enum DexCreateOrder {
     
     enum Event {
         case createOrder
-        case orderDidCreate(Responce<DTO.Output>)
+        case orderDidCreate(Response<DTO.Output>)
         case updateInputOrder(DTO.Order)
     }
     
@@ -26,7 +26,7 @@ enum DexCreateOrder {
         enum Action {
             case none
             case showCreatingOrderState
-            case orderDidFailCreate(Error)
+            case orderDidFailCreate(String)
             case orderDidCreate
         }
         
