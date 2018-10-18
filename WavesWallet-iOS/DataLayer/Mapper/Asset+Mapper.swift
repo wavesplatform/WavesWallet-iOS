@@ -32,6 +32,7 @@ extension Asset {
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
         self.modified = asset.modified
+        self.regularExpression = asset.regularExpression
     }
 }
 
@@ -58,5 +59,6 @@ extension DomainLayer.DTO.Asset {
         self.isWavesToken = asset.isWavesToken
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
+        self.regularExpression = asset.regularExpression
     }
 }

@@ -22,7 +22,8 @@
             "isFiat": false,
             "isGateway" : true,
             "wavesId" : "WBTC",
-            "gatewayId": "BTC"
+            "gatewayId": "BTC",
+            "regularExpression" : "^[13][a-km-zA-HJ-NP-Z1-9]{33}"
         },
         {
             "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",

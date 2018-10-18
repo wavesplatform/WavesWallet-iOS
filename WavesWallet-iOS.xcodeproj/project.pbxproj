@@ -4023,7 +4023,6 @@
 			children = (
 				E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */,
 				E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */,
-				E9EE18D720D475D8001913C6 /* Receive */,
 				E9DEECE720BEF90F00F28C67 /* Send */,
 			);
 			path = Waves;
@@ -4086,13 +4085,6 @@
 				E9C0B4A12176C4A800669D1D /* SendInteractor.swift */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E9EE18D720D475D8001913C6 /* Receive */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Receive;
 			sourceTree = "<group>";
 		};
 		E9F984A720E5266800D2CB4D /* Enter */ = {
