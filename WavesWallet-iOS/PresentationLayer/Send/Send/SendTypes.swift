@@ -40,6 +40,9 @@ enum Send {
 extension Send.ViewModel {
     static var minimumAliasLength = 4
     static var maximumAliasLength = 30
+    
+    //TODO: Need change to real maximum length
+    static var maximumDescriptionLength = 50
 }
 
 extension Send.DTO {

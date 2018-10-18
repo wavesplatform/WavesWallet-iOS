@@ -217,7 +217,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqi-5b-exH">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="647"/>
+                                        <rect key="frame" x="16" y="20" width="343" height="627"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tSend48" translatesAutoresizingMaskIntoConstraints="NO" id="pYf-DT-ri9">
                                                 <rect key="frame" x="147.5" y="24" width="48" height="48"/>
@@ -305,6 +305,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="descriptionDidChange:" destination="imD-w0-9hQ" eventType="editingChanged" id="iWZ-Rr-omu"/>
+                                                        </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWu-pa-4CB">
                                                         <rect key="frame" x="0.0" y="83.5" width="311" height="0.5"/>
@@ -330,7 +333,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b6-2S-l2G" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="575" width="311" height="48"/>
+                                                <rect key="frame" x="16" y="555" width="311" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="YzG-1s-f4C"/>
@@ -342,6 +345,9 @@
                                                         <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="confirmTapped:" destination="imD-w0-9hQ" eventType="touchUpInside" id="7hO-qr-ivc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -375,9 +381,9 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Uqi-5b-exH" secondAttribute="trailing" constant="16" id="Cxf-fD-3dx"/>
-                                    <constraint firstItem="Uqi-5b-exH" firstAttribute="height" secondItem="6u6-aO-ZJ8" secondAttribute="height" id="H8n-1f-Ida"/>
+                                    <constraint firstItem="Uqi-5b-exH" firstAttribute="height" secondItem="6u6-aO-ZJ8" secondAttribute="height" priority="750" constant="-20" id="H8n-1f-Ida"/>
                                     <constraint firstItem="Uqi-5b-exH" firstAttribute="width" secondItem="6u6-aO-ZJ8" secondAttribute="width" constant="-32" id="I62-DG-RF6"/>
-                                    <constraint firstItem="Uqi-5b-exH" firstAttribute="top" secondItem="6u6-aO-ZJ8" secondAttribute="top" id="Ngh-Qq-b64"/>
+                                    <constraint firstItem="Uqi-5b-exH" firstAttribute="top" secondItem="6u6-aO-ZJ8" secondAttribute="top" constant="20" id="Ngh-Qq-b64"/>
                                     <constraint firstAttribute="bottom" secondItem="Uqi-5b-exH" secondAttribute="bottom" id="PEH-pI-J8U"/>
                                     <constraint firstItem="Uqi-5b-exH" firstAttribute="leading" secondItem="6u6-aO-ZJ8" secondAttribute="leading" constant="16" id="mTm-gW-qYB"/>
                                 </constraints>
