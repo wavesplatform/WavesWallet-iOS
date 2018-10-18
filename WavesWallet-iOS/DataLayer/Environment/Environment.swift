@@ -16,6 +16,7 @@ struct Environment: Decodable {
         let isGateway: Bool
         let wavesId: String
         let gatewayId: String
+        let regularExpression: String?
     }
 
     struct Servers: Decodable {
