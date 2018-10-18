@@ -88,8 +88,9 @@ class SendViewModel {
     }()
     
     lazy var walletPublicKey: Driver<PublicKeyAccount> = {
-        return WalletManager.getWalletPublicKey()
-            .asDriver(onErrorJustReturn: PublicKeyAccount(publicKey: []))
+        return Driver.never()
+//        return WalletManager.getWalletPublicKey()
+//            .asDriver(onErrorJustReturn: PublicKeyAccount(publicKey: []))
     }()
     
     lazy var transferRequest: Driver<Try<TransferRequest>> = {

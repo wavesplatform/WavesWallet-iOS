@@ -16,6 +16,12 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
         let walletAddress = wallet.wallet.address
@@ -86,7 +92,7 @@ private extension AccountBalanceRepositoryRemote {
 private extension DomainLayer.DTO.AssetBalance {
 
     init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
-        self.assetId = Environments.Constants.wavesAssetId
+        self.assetId = GlobalConstants.wavesAssetId
         self.balance = accountBalance.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
@@ -111,7 +117,7 @@ private extension DomainLayer.DTO.AssetBalance {
 
         let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
         let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-                                                          inOrderBalance: matcherBalances[Environments.Constants.wavesAssetId] ?? 0)
+                                                          inOrderBalance: matcherBalances[GlobalConstants.wavesAssetId] ?? 0)
 
         var list = [DomainLayer.DTO.AssetBalance]()
         list.append(contentsOf: assetsBalance)

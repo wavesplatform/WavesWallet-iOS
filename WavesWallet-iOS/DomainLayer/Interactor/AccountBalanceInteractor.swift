@@ -91,7 +91,7 @@ private extension AccountBalanceInteractor {
 
                 if let wavesAssetBalance = newBalances
                     .enumerated()
-                    .first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
+                    .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
 
                     let leasedBalance: Int64 = transactions
                         .filter { $0.sender.id == walletAddress }

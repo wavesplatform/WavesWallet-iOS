@@ -131,7 +131,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let wavesAssetId = Environments.Constants.wavesAssetId
+            let wavesAssetId = GlobalConstants.wavesAssetId
 
             let hasWaves = specifications.assets.contains(wavesAssetId)
 

@@ -10,4 +10,5 @@ import Foundation
 
 enum GlobalConstants {
     static let accountNameMinLimitSymbols: Int = 2
+    static let wavesAssetId = "WAVES"
 }
