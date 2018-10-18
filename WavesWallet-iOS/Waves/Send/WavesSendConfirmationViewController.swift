@@ -47,7 +47,6 @@ class WavesSendConfirmationViewController: UIViewController, UIScrollViewDelegat
         viewFinish.alpha = 0
         labelDescriptionError.isHidden = true
         
-        addBgBlueImage()
     }
     
     func setupButtonConfirm() {

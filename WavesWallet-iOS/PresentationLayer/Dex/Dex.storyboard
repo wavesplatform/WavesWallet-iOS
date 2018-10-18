@@ -576,7 +576,7 @@
                         <viewControllerLayoutGuide type="top" id="pvr-iy-fzE"/>
                         <viewControllerLayoutGuide type="bottom" id="Aky-Vh-ZNf"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xmf-yo-QhY">
+                    <view key="view" contentMode="scaleToFill" id="Xmf-yo-QhY" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2077,7 +2077,7 @@ You do not have any orders</string>
                         <viewControllerLayoutGuide type="top" id="gVr-pd-FhJ"/>
                         <viewControllerLayoutGuide type="bottom" id="aYT-CG-8AO"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8Yv-Zy-HXW">
+                    <view key="view" contentMode="scaleToFill" id="8Yv-Zy-HXW" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

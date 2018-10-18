@@ -57,6 +57,10 @@ final class SendViewController: UIViewController {
                 self.setupAssetInfo(asset)
             }
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.continueTapped(UIButton())
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +95,8 @@ final class SendViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
+        let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

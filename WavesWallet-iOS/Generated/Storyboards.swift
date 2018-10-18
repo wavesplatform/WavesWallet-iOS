@@ -250,6 +250,8 @@ internal enum StoryboardScene {
   internal enum Send: StoryboardType {
     internal static let storyboardName = "Send"
 
+    internal static let sendConfirmationViewController = SceneType<WavesWallet_iOS.SendConfirmationViewController>(storyboard: Send.self, identifier: "SendConfirmationViewController")
+
     internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Send.self, identifier: "SendViewController")
   }
   internal enum StartLeasing: StoryboardType {

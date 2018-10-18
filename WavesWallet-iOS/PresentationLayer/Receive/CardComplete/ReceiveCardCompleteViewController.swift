@@ -18,7 +18,6 @@ final class ReceiveCardCompleteViewController: UIViewController {
         super.viewDidLoad()
 
         setupLocalization()
-        addBgBlueImage()
         hideTopBarLine()
         navigationItem.backgroundImage = UIImage()
         navigationItem.hidesBackButton = true

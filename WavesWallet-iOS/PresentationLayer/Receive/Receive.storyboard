@@ -86,7 +86,7 @@
         <scene sceneID="9oI-u8-IYP">
             <objects>
                 <viewController storyboardIdentifier="ReceiveGenerateAddressViewController" id="FQk-Y3-fUg" customClass="ReceiveGenerateAddressViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QeA-st-pSv">
+                    <view key="view" contentMode="scaleToFill" id="QeA-st-pSv" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -134,7 +134,7 @@
         <scene sceneID="caL-6H-vCp">
             <objects>
                 <viewController storyboardIdentifier="ReceiveAddressViewController" id="Oys-9L-jOE" customClass="ReceiveAddressViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe">
+                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -406,7 +406,7 @@
         <scene sceneID="Gay-Sm-bGs">
             <objects>
                 <viewController storyboardIdentifier="ReceiveCardCompleteViewController" id="3Dc-NI-mZi" customClass="ReceiveCardCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8Nm-aU-BJ5">
+                    <view key="view" contentMode="scaleToFill" id="8Nm-aU-BJ5" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

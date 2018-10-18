@@ -18,7 +18,6 @@ class EditAccountNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addBgBlueImage()
         labelAccountName.alpha = 0
         textField.addTarget(self, action: #selector(nameDidChange), for: .editingChanged)
         buttonSave.setupButtonDeactivateState()
