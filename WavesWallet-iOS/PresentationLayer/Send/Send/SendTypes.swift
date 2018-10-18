@@ -13,20 +13,22 @@ enum Send {
     enum ViewModel {}
 
     enum Event {
-        case didGetInfo(Responce<DTO.GatewayInfo>)
+        case didGetGatewayInfo(Response<DTO.GatewayInfo>)
         case didChangeRecipient(String)
+        case didChangeAsset(DomainLayer.DTO.AssetBalance, isLoadInfo: Bool)
     }
     
     struct State: Mutating {
         enum Action {
             case none
-            case didGetInfo
-            case didFailGetInfo(Error)
+            case didGetInfo(DTO.GatewayInfo)
+            case didFailInfo(String)
         }
         
         var isNeedLoadInfo: Bool
         var action: Action
         var recipient: String = ""
+        var selectedAsset: DomainLayer.DTO.AssetBalance?
     }
 }
 
@@ -43,8 +45,17 @@ extension Send.DTO {
         let assetShortName: String
         let minAmount: Money
         let maxAmount: Money
-        let minAmountString: String
-        let maxAmountString: String
+        let fee: Money
+    }
+}
+
+extension Send.State: Equatable {
+    
+    static func == (lhs: Send.State, rhs: Send.State) -> Bool {
+        return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
+                lhs.recipient == rhs.recipient &&
+                lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId
+        
     }
 }
 

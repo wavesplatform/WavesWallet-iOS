@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct Responce <T> {
+struct Response <T> {
     let output: T?
-    let error: Error?
+    let error: String?
     
     enum Result {
         case success(T)
-        case error(Error)
+        case error(String)
     }
     
     var result: Result {
@@ -24,6 +24,6 @@ struct Responce <T> {
         else if let error = self.error {
             return Result.error(error)
         }
-        return Result.error(NSError())
+        return Result.error("Try again")
     }
 }

@@ -12,8 +12,15 @@ struct SendModuleBuilder: ModuleBuilder {
     
     func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
         
+        let interactor: SendInteractorProtocol = SendInteractorMock()
+        
+        var presenter: SendPresenterProtocol = SendPresenter()
+        presenter.interactor = interactor
+        
         let vc = StoryboardScene.Send.sendViewController.instantiate()
         vc.input = .init(filters: [.all], selectedAsset: input)
+        vc.presenter = presenter
+        
         return vc
     }
 }

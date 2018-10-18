@@ -12,7 +12,6 @@ import RxFeedback
 import RxCocoa
 
 private enum Constants {
-    static let baseUrl = "https://coinomat.com/"
     static let apiPath = "api/v2/indacoin/"
     static let apiName = "buy.php"
 }
@@ -64,7 +63,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
                                  "amount" : String(money.doubleValue),
                                  "fiat" : state.fiatType.id]
                     
-                    $0.link = Receive.DTO.urlFromPath(Constants.baseUrl + Constants.apiPath + Constants.apiName,
+                    $0.link = Receive.DTO.urlFromPath(GlobalConstants.coinomatUrl + Constants.apiPath + Constants.apiName,
                                                       params: params)
                 }
             }

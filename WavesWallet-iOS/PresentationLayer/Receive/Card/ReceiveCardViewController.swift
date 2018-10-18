@@ -199,7 +199,7 @@ private extension ReceiveCardViewController {
         }
     }
     
-    func showError(_ error: Error) {
+    func showError(_ error: String) {
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
     }

@@ -7,7 +7,11 @@
 //
 
 import Foundation
+import RxCocoa
 
 protocol SendPresenterProtocol {
-    
+
+    typealias Feedback = (Driver<Send.State>) -> Signal<Send.Event>
+    var interactor: SendInteractorProtocol! { get set }
+    func system(feedbacks: [Feedback])
 }

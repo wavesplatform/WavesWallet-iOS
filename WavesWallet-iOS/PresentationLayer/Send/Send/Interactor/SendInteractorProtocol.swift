@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol SendInteractorProtocol {
     
+    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance) -> Observable<Response<Send.DTO.GatewayInfo>>
 }

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractorProtocol {
     
-    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<Responce<ReceiveCryptocurrency.DTO.DisplayInfo>> {
+    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<Response<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         return Observable.create({ (subscribe) -> Disposable in
             
@@ -21,10 +21,11 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                           "currency_to" : asset.wavesId ?? "",
                           "wallet_to" : WalletManager.currentWallet?.address ?? ""]
             
-            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: "https://coinomat.com/api/v1/create_tunnel.php", complete: { (info, errorMessage) in
+            let url = GlobalConstants.coinomatUrl + "api/v1/create_tunnel.php"
+            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
                 
                 guard let info = info else {
-                    subscribe.onNext(Responce(output: nil, error: NSError(domain: "", code: 0, userInfo: nil)))
+                    subscribe.onNext(Response(output: nil, error: errorMessage))
                     return
                 }
                 
@@ -35,10 +36,11 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                               "k2": tunnel["k2"].stringValue,
                               "history" : 0] as [String: Any]
                 
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: "https://coinomat.com/api/v1/get_tunnel.php", complete: { (info, errorMessage) in
+                let url = GlobalConstants.coinomatUrl + "api/v1/get_tunnel.php"
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
                     
                     guard let info = info else {
-                        subscribe.onNext(Responce(output: nil, error: NSError(domain: "", code: 0, userInfo: nil)))
+                        subscribe.onNext(Response(output: nil, error: errorMessage))
                         return
                     }
                     
@@ -50,7 +52,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                                                                             fee: json["in_min"].doubleValue,
                                                                             icon: asset.icon)
                     
-                    subscribe.onNext(Responce(output: displayInfo, error: nil))
+                    subscribe.onNext(Response(output: displayInfo, error: nil))
                 })
                 
                

@@ -11,7 +11,7 @@ import RxSwift
 
 final class DexCreateOrderInteractorMock: DexCreateOrderInteractorProtocol {
    
-    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<(Responce<DexCreateOrder.DTO.Output>)> {
+    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<(Response<DexCreateOrder.DTO.Output>)> {
         
         return Observable.create({ (subscribe) -> Disposable in
             
@@ -22,7 +22,7 @@ final class DexCreateOrderInteractorMock: DexCreateOrderInteractorProtocol {
                                                        price: order.price,
                                                        amount: order.amount)
                 
-                subscribe.onNext(Responce<DexCreateOrder.DTO.Output>(output: output, error: nil))
+                subscribe.onNext(Response<DexCreateOrder.DTO.Output>(output: output, error: nil))
             })
            
             return Disposables.create()

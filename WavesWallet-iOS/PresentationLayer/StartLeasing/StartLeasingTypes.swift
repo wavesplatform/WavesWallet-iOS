@@ -17,7 +17,7 @@ enum StartLeasing {
     
     enum Event {
         case createOrder
-        case orderDidCreate(Responce<Bool>)
+        case orderDidCreate(Response<Bool>)
         case updateInputOrder(DTO.Order)
     }
     
@@ -25,7 +25,7 @@ enum StartLeasing {
         enum Action {
             case none
             case showCreatingOrderState
-            case orderDidFailCreate(Error)
+            case orderDidFailCreate(String)
             case orderDidCreate
         }
         
