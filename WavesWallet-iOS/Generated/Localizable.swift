@@ -1100,64 +1100,67 @@ internal enum Localizable {
     internal enum Button {
       /// Continue
       internal static var `continue`: String { return Localizable.tr("Hello", "button.continue") }
+      /// Next
+      internal static var next: String { return Localizable.tr("Hello", "button.next") }
+      /// I Understand
+      internal static var understand: String { return Localizable.tr("Hello", "button.understand") }
     }
 
     internal enum Page {
 
       internal enum Info {
-        /// What you need to know about your SEED
-        internal static var head: String { return Localizable.tr("Hello", "page.info.head") }
-
-        internal enum Button {
-          /// Next
-          internal static var next: String { return Localizable.tr("Hello", "page.info.button.next") }
-        }
 
         internal enum Fifth {
-          /// One of the most common forms of scamming is phishing, which is when scammers create fake communities on Facebook or other websites that look similar to the authentic ones.
-          internal static var detail: String { return Localizable.tr("Hello", "page.info.fifth.detail") }
           /// How To Protect Yourself from Phishers
           internal static var title: String { return Localizable.tr("Hello", "page.info.fifth.title") }
+
+          internal enum Detail {
+            /// Do not open emails or links from unknown senders.
+            internal static var first: String { return Localizable.tr("Hello", "page.info.fifth.detail.first") }
+            /// Do not access your wallet when using public Wi-Fi or someone else’s device.
+            internal static var fourth: String { return Localizable.tr("Hello", "page.info.fifth.detail.fourth") }
+            /// Regularly update your operating system.
+            internal static var second: String { return Localizable.tr("Hello", "page.info.fifth.detail.second") }
+            /// Use official security software. Do not install unknown software which could be hacked.
+            internal static var third: String { return Localizable.tr("Hello", "page.info.fifth.detail.third") }
+          }
         }
 
         internal enum First {
-          /// Please take some time to understand some important things for your own safety. 🙏\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+          /// Please take some time to understand some important things for your own safety. 🙏\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
           internal static var detail: String { return Localizable.tr("Hello", "page.info.first.detail") }
           /// Welcome to the Waves Platform!
           internal static var title: String { return Localizable.tr("Hello", "page.info.first.title") }
         }
 
         internal enum Fourth {
-          /// You cannot change your secret phrase. If you accidentally sent it to someone or suspect that scammers have taken it over, then create a new Waves wallet immediately and transfer your funds to it.
+          /// One of the most common forms of scamming is phishing, which is when scammers create fake communities on Facebook or other websites that look similar to the authentic ones.
           internal static var detail: String { return Localizable.tr("Hello", "page.info.fourth.detail") }
-          /// If you forget your password, you can easily create a new one by using the account recovery form via your secret phrase. If you lose your secret phrase, however, you will have no way to access your account.
+          /// How To Protect Yourself from Phishers
           internal static var title: String { return Localizable.tr("Hello", "page.info.fourth.title") }
         }
 
         internal enum Second {
           /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently:
           internal static var detail: String { return Localizable.tr("Hello", "page.info.second.detail") }
-        }
-
-        internal enum Seven {
-          /// Do not access your wallet when using public Wi-Fi or someone else’s device.
-          internal static var detail: String { return Localizable.tr("Hello", "page.info.seven.detail") }
-          /// Use official security software. Do not install unknown software which could be hacked.
-          internal static var title: String { return Localizable.tr("Hello", "page.info.seven.title") }
-        }
-
-        internal enum Sixth {
-          /// Regularly update your operating system.
-          internal static var detail: String { return Localizable.tr("Hello", "page.info.sixth.detail") }
-          /// Do not open emails or links from unknown senders.
-          internal static var title: String { return Localizable.tr("Hello", "page.info.sixth.title") }
+          /// What you need to know about your SEED
+          internal static var title: String { return Localizable.tr("Hello", "page.info.second.title") }
         }
 
         internal enum Third {
-          /// Your password protects your account when working on a certain device or browser. It is needed in order to ensure that your secret phrase is not saved in storage.
-          internal static var detail: String { return Localizable.tr("Hello", "page.info.third.detail") }
-          /// You use your wallet anonymously, meaning your account is not connected to an email account or any other identifying data.
+          /// What you need to know about your SEED
           internal static var title: String { return Localizable.tr("Hello", "page.info.third.title") }
+
+          internal enum Detail {
+            /// You use your wallet anonymously, meaning your account is not connected to an email account or any other identifying data.
+            internal static var first: String { return Localizable.tr("Hello", "page.info.third.detail.first") }
+            /// You cannot change your secret phrase. If you accidentally sent it to someone or suspect that scammers have taken it over, then create a new Waves wallet immediately and transfer your funds to it.
+            internal static var fourth: String { return Localizable.tr("Hello", "page.info.third.detail.fourth") }
+            /// Your password protects your account when working on a certain device or browser. It is needed in order to ensure that your secret phrase is not saved in storage.
+            internal static var second: String { return Localizable.tr("Hello", "page.info.third.detail.second") }
+            /// If you forget your password, you can easily create a new one by using the account recovery form via your secret phrase. If you lose your secret phrase, however, you will have no way to access your account.
+            internal static var third: String { return Localizable.tr("Hello", "page.info.third.detail.third") }
+          }
         }
       }
     }

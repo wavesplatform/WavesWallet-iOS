@@ -12,109 +12,256 @@ protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
 }
 
-final class InfoPagesViewController: UIViewController, KolodaViewDelegate, KolodaViewDataSource {
+final class InfoPagesViewController: UIViewController {
+    
+    @IBOutlet weak var toolbarView: UIView!
+    @IBOutlet weak var toolbarLabel: UILabel!
+    
+    @IBOutlet weak var gradientView: CustomGradientView!
     
     @IBOutlet private weak var pageControl: UIPageControl!
-    @IBOutlet private weak var kolodaView: KolodaView!
-    @IBOutlet private weak var kolodaTopConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var kolodaBotConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var pageControlBotConstraint: NSLayoutConstraint!
+    var collectionView: UICollectionView!
+
+    @IBOutlet private weak var toolbarLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var toolbarTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var toolbarBottomConstraint: NSLayoutConstraint!
 
     weak var output: InfoPagesViewModuleOutput?
     
-    private var pageViews: [UIView] {
+    private lazy var pageViews: [UIView] = {
         
-        let firstView = FirstInfoPageView.loadView() as! FirstInfoPageView
-        let secondView = SecondInfoPageView.loadView() as! SecondInfoPageView
-        let thirdView = ThirdIndoPageView.loadView() as! ThirdIndoPageView
-        let fourthView = FourthInfoPageView.loadView() as! FourthInfoPageView
-        let fifthView = FifthInfoPageView.loadView() as! FifthInfoPageView
-        let sixthView = SixthInfoPageView.loadView() as! SixthInfoPageView
-        let seventhView = SeventhInfoPageView.loadView() as! SeventhInfoPageView
-        
-        firstView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        secondView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        thirdView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        fourthView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        fifthView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        sixthView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        seventhView.nextBtn.addTarget(self, action: #selector(changePage), for: .touchUpInside)
-        
-        firstView.setupConstraints()
-        secondView.setupConstraints()
-        thirdView.setupConstraints()
-        fourthView.setupConstraints()
-        fifthView.setupConstraints()
-        sixthView.setupConstraints()
-        seventhView.setupConstraints()
+        let welcomeView = ShortInfoPageView.loadView() as! ShortInfoPageView
+        let needToKnowView = ShortInfoPageView.loadView() as! ShortInfoPageView
+        let needToKnowLongView = LongInfoPageView.loadView() as! LongInfoPageView
+        let protectView = ShortInfoPageView.loadView() as! ShortInfoPageView
+        let protectLongView = LongInfoPageView.loadView() as! LongInfoPageView
 
-        return [firstView, secondView, thirdView, fourthView, fifthView, sixthView, seventhView]
-    }
+        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView]
+    }()
+    
+    private lazy var pageModels: [Any] = {
+        
+        let welcome = ShortInfoPageView.Model(title: Localizable.Hello.Page.Info.First.title, detail: Localizable.Hello.Page.Info.First.detail, firstImage: nil, secondImage: nil, thirdImage: nil, fourthImage: nil)
+        
+        let needToKnow = ShortInfoPageView.Model(title: Localizable.Hello.Page.Info.Second.title, detail: Localizable.Hello.Page.Info.Second.detail, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        
+        let needToKnowLong = LongInfoPageView.Model(title: Localizable.Hello.Page.Info.Third.title, firstDetail: Localizable.Hello.Page.Info.Third.Detail.first, secondDetail: Localizable.Hello.Page.Info.Third.Detail.second, thirdDetail: Localizable.Hello.Page.Info.Third.Detail.third, fourthDetail: Localizable.Hello.Page.Info.Third.Detail.fourth, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        
+        let protect = ShortInfoPageView.Model(title: Localizable.Hello.Page.Info.Fourth.title, detail: Localizable.Hello.Page.Info.Fourth.detail, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        
+        let protectLong = LongInfoPageView.Model(title: Localizable.Hello.Page.Info.Fifth.title, firstDetail: Localizable.Hello.Page.Info.Fifth.Detail.first, secondDetail: Localizable.Hello.Page.Info.Fifth.Detail.second, thirdDetail: Localizable.Hello.Page.Info.Fifth.Detail.third, fourthDetail: Localizable.Hello.Page.Info.Fifth.Detail.fourth, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        
+        return [welcome, needToKnow, needToKnowLong, protect, protectLong]
+        
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        addBgBlueImage()
-        setupConstraints()
+        
+        view.backgroundColor = .basic50
         navigationController?.setNavigationBarHidden(true, animated: false)
-        kolodaView.countOfVisibleCards = 4
-        kolodaView.appearanceAnimationDuration = 0.3
-        kolodaView.delegate = self
-        kolodaView.dataSource = self
-        pageControl.numberOfPages = kolodaView.countOfCards
+
+        setupCollectionView()
+        setupPageControl()
+        
+        setupConstraints()
+        
+        gradientView.endColor = .basic50
+        toolbarView.layer.setupShadow(options: InfoPagesViewControllerConstants.toolbarShadowOptions)
+        toolbarView.cornerRadius = 2
+        
+    }
+    
+    // MARK: - Setup
+
+    private func setupPageControl() {
+        pageControl.numberOfPages = pageViews.count
+        pageControl.pageIndicatorTintColor = .basic200
+        pageControl.currentPageIndicatorTintColor = .black
+    }
+    
+    private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        
+        view.addSubview(collectionView)
+        view.sendSubview(toBack: collectionView)
+    }
+    
+    // MARK: - Layout
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        collectionView.frame = view.bounds
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    //TODO: Changes
     private func setupConstraints() {
         if Platform.isIphone5 {
-            kolodaTopConstraint.constant = 44
-            kolodaBotConstraint.constant = 34
-            pageControlBotConstraint.constant = 14
-        }
-        else if Platform.isIphoneX || Platform.isIphonePlus {
-            kolodaTopConstraint.constant = 84
-            kolodaBotConstraint.constant = 54
-            pageControlBotConstraint.constant = 24
-        }
-        else {
-            kolodaTopConstraint.constant = 44
-            kolodaBotConstraint.constant = 54
-            pageControlBotConstraint.constant = 24
+            toolbarBottomConstraint.constant = 14
+            toolbarLeadingConstraint.constant = 8
+            toolbarTrailingConstraint.constant = 8
+        } else if Platform.isIphoneX || Platform.isIphonePlus {
+            toolbarBottomConstraint.constant = 24
+            toolbarLeadingConstraint.constant = 14
+            toolbarTrailingConstraint.constant = 14
+        } else {
+            toolbarBottomConstraint.constant = 24
+            toolbarLeadingConstraint.constant = 14
+            toolbarTrailingConstraint.constant = 14
         }
     }
     
-    @objc func changePage() {
-        kolodaView.swipe(.left)
-        pageControl.currentPage = kolodaView.currentCardIndex
+    func nextPage() {
+        let page = pageControl.currentPage + 1
+        
+        if page < pageViews.count {
+            
+            collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
+            
+        } else {
+            output?.userFinishedReadPages()
+        }
+        
     }
+    
+}
 
-    //MARK: - KolodaViewDelegate, KolodaViewDataSource
+// MARK: - Actions
+
+extension InfoPagesViewController {
     
-    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        return pageViews[index]
+    @IBAction func nextPageTap(_ sender: Any) {
+        nextPage()
     }
     
-    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+}
+
+// MARK: - Collection
+
+extension InfoPagesViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return pageViews.count
+        
     }
     
-    func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
-        return .default
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: InfoPagesCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
+        
+        let pageView = pageViews[indexPath.item]
+        let pageModel = pageModels[indexPath.item]
+        
+        if let pageView = pageView as? ShortInfoPageView {
+            
+            pageView.update(with: pageModel as! ShortInfoPageView.Model)
+            
+        } else if let pageView = pageView as? LongInfoPageView {
+            
+            pageView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
+            pageView.update(with: pageModel as! LongInfoPageView.Model)
+            
+        }
+        
+        pageView.backgroundColor = .basic50
+        cell.update(with: pageView)
+        
+        return cell
     }
     
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        output?.userFinishedReadPages()
+}
+
+extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return collectionView.bounds.size
+        
     }
     
-    func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {
-        return true
+}
+
+extension InfoPagesViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let offsetY = scrollView.contentOffset.x
+        let size = scrollView.bounds.width
+        
+        if size == 0 { return }
+        
+        var page = Int((offsetY + size / 2) / size)
+        
+        page = max(min(pageViews.count - 1, page), 0)
+        pageControl.currentPage = page
+        
+        if page == pageViews.count - 1 {
+            toolbarLabel.text = Localizable.Hello.Button.understand
+        } else {
+            toolbarLabel.text = Localizable.Hello.Button.next
+        }
+        
     }
     
-    func koloda(_ koloda: KolodaView, shouldDragCardAt index: Int) -> Bool {
-        return false
-    }
+}
+
+enum InfoPagesViewControllerConstants {
+    
+    static let toolbarShadowOptions = ShadowOptions(offset: .init(width: 0, height: 4), color: .black, opacity: 0.1, shadowRadius: 4, shouldRasterize: false)
+    
+    static let titleAttributes: [NSAttributedStringKey: Any] = {
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 0
+        
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedStringKey.kern: 0.4,
+                          NSAttributedStringKey.foregroundColor: UIColor.black,
+                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        
+        return attributes
+        
+    }()
+    
+    static let subtitleAttributes: [NSAttributedStringKey: Any] = {
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 0
+        
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedStringKey.kern: 0.4,
+                          NSAttributedStringKey.foregroundColor: UIColor.black,
+                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        
+        return attributes
+        
+    }()
+    
+    
+    static let textAttributes: [NSAttributedStringKey: Any] = {
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 3
+        
+        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.kern: -0.1,
+                          NSAttributedStringKey.foregroundColor: UIColor.black,
+                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        
+        return attributes
+        
+    }()
+    
 }
