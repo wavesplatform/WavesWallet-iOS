@@ -29,15 +29,22 @@ final class SendPresenter: SendPresenterProtocol {
             .disposed(by: disposeBag)
     }
     
-      private func modelsQuery() -> Feedback {
+    
+    private func modelsQuery() -> Feedback {
         return react(query: { state -> Send.State? in
-            return state.isNeedLoadInfo ? state : nil
+            return state.isNeedLoadInfo || state.isNeedValidateAliase ? state : nil
         }, effects: { [weak self] state -> Signal<Send.Event> in
-            
             
             guard let strongSelf = self else { return Signal.empty() }
             guard let asset = state.selectedAsset else { return Signal.empty() }
-            return strongSelf.interactor.gateWayInfo(asset: asset).map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+    
+            if state.isNeedLoadInfo {
+                return strongSelf.interactor.gateWayInfo(asset: asset).map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
+            else if state.isNeedValidateAliase {
+                return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
+            return Signal.empty()
         })
     }
     
@@ -45,17 +52,25 @@ final class SendPresenter: SendPresenterProtocol {
 
         switch event {
         
-        case .didChangeAsset(let asset, let isLoadInfo):
-            
+        case .getGatewayInfo:
             return state.mutate {
                 $0.action = .none
-                $0.isNeedLoadInfo = isLoadInfo
-                $0.selectedAsset = asset
+                $0.isNeedLoadInfo = true
+                $0.isNeedValidateAliase = false
             }
             
+        case .didSelectAsset(let asset, let loadGatewayInfo):
+            return state.mutate {
+                $0.action = .none
+                $0.isNeedLoadInfo = loadGatewayInfo
+                $0.isNeedValidateAliase = false
+                $0.selectedAsset = asset
+            }
+    
         case .didChangeRecipient(let recipient):
             return state.mutate {
                 $0.isNeedLoadInfo = false
+                $0.isNeedValidateAliase = false
                 $0.recipient = recipient
                 $0.action = .none
             }
@@ -64,7 +79,8 @@ final class SendPresenter: SendPresenterProtocol {
             return state.mutate {
                 
                 $0.isNeedLoadInfo = false
-                
+                $0.isNeedValidateAliase = false
+
                 switch response.result {
                 case .success(let info):
                     $0.action = .didGetInfo(info)
@@ -73,6 +89,20 @@ final class SendPresenter: SendPresenterProtocol {
                     $0.action = .didFailInfo(error)
                 }
             }
+
+        case .checkValidationAlias:
+            return state.mutate {
+                $0.isNeedLoadInfo = false
+                $0.isNeedValidateAliase = true
+                $0.action = .none
+            }
+            
+        case .validationAliasDidComplete(let isValiadAlias):
+            return state.mutate {
+                $0.isNeedLoadInfo = false
+                $0.isNeedValidateAliase = false
+                $0.action = .aliasDidFinishCheckValidation(isValiadAlias)
+            }
         }
     }
 }
@@ -80,6 +110,6 @@ final class SendPresenter: SendPresenterProtocol {
 fileprivate extension Send.State {
     
     static var initialState: Send.State {
-        return Send.State(isNeedLoadInfo: false, action: .none, recipient: "", selectedAsset: nil)
+        return Send.State(isNeedLoadInfo: false, isNeedValidateAliase: false, action: .none, recipient: "", selectedAsset: nil)
     }
 }

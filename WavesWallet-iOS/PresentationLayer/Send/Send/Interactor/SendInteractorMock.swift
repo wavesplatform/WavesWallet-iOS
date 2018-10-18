@@ -14,6 +14,7 @@ import SwiftyJSON
 private enum Constasts {
     static let apiPath = "api/v1/"
     static let apiRate = "get_xrate.php"
+    static let aliasApi = "/v0/aliases/"
 }
 
 final class SendInteractorMock: SendInteractorProtocol {
@@ -22,10 +23,10 @@ final class SendInteractorMock: SendInteractorProtocol {
         return Observable.create({ (subscribe) -> Disposable in
         
             guard let asset = asset.asset else { return Disposables.create() }
-            
+        
             let params = ["f" : asset.wavesId ?? "",
                           "t" : asset.gatewayId ?? ""]
-
+            
             let url = GlobalConstants.coinomatUrl + Constasts.apiPath + Constasts.apiRate
             NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
                 
@@ -34,8 +35,8 @@ final class SendInteractorMock: SendInteractorProtocol {
                     
                     let min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
                     let max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
-                    let fee = Money(value: Decimal(json["fee"].doubleValue), asset.precision)
-                    
+                    let fee = Money(value: Decimal(json["fee_in"].doubleValue + json["fee_out"].doubleValue), asset.precision)
+
                     let shortName = asset.gatewayId ?? json["to_txt"].stringValue
                     
                     let info = Send.DTO.GatewayInfo(assetName: asset.displayName, assetShortName: shortName, minAmount: min, maxAmount: max, fee: fee)
@@ -46,6 +47,22 @@ final class SendInteractorMock: SendInteractorProtocol {
                 }
             })
             return Disposables.create()
+        })
+    }
+    
+    func validateAlis(alias: String) -> Observable<Bool> {
+        
+        return Observable.create({ (subscribe) -> Disposable in
+        
+            let url = Environments.Mainnet.servers.dataUrl.relativeString + Constasts.aliasApi + alias
+
+            let req = NetworkManager.getRequestWithPath(path: "", parameters: nil, customUrl: url, complete: { (info, errorMessage) in
+                subscribe.onNext(errorMessage == nil)
+            })
+            
+            return Disposables.create {
+                req.cancel()
+            }
         })
     }
 }

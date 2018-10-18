@@ -245,18 +245,35 @@ extension StartLeasingViewController: AddressInputViewDelegate {
         
     }
     
+    func addressInputViewDidEndEditing() {
+        addressGeneratorView.checkIfValidAddress()
+    }
+    
     func addressInputViewDidSelectAddressBook() {
         let controller = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    func addressInputViewDidDeleteAddress() {
+        acceptAddress("")
+    }
+    
+    func addressInputViewDidScanAddress(_ address: String) {
+        acceptAddress(address)
+    }
+    
     func addressInputViewDidChangeAddress(_ address: String) {
+        acceptAddress(address)
+    }
+    
+    func addressInputViewDidTapNext() {
+        amountView.activateTextField()
+    }
+    
+    private func acceptAddress(_ address: String) {
         order.recipient = address
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
-    }
-    func addressInputViewDidTapNext() {
-        amountView.activateTextField()
     }
 }
 
