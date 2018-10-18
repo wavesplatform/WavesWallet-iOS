@@ -35,8 +35,8 @@ final class SendViewController: UIViewController {
     var presenter: SendPresenterProtocol!
 
     var input: AssetList.DTO.Input!
-    private var gatewayInfo: Send.DTO.GatewayInfo?
-    private var isLoadingAssetGateWayInfo = false
+    private var isValidAlias: Bool = false
+    private var gateWayInfo: Send.DTO.GatewayInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,30 +47,21 @@ final class SendViewController: UIViewController {
         setupLocalization()
         setupButtonState()
         setupFeedBack()
-        hideGatewayInfo()
+        hideGatewayInfo(animation: false)
         assetView.delegate = self
         amountView.delegate = self
         
         if let asset = input.selectedAsset {
             assetView.isSelectedAssetMode = false
-            setupAssetInfo(asset)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.setupAssetInfo(asset)
+            }
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-    }
-    
-    private func isValidAddress(_ address: String) -> Bool {
-        guard let asset = selectedAsset?.asset else { return true }
-        if asset.isWaves || asset.isWavesToken || asset.isFiat {
-            return Address.isValidAddress(address: address)
-        }
-        else {
-            let isValidLocalAddress = Address.isValidAddress(address: address)
-            return isValidLocalAddress
-        }
     }
     
     private func calculateAmount() {
@@ -80,22 +71,21 @@ final class SendViewController: UIViewController {
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
+        gateWayInfo = nil
+        
         selectedAsset = assetBalance
         assetView.update(with: assetBalance)
         amountView.setDecimals(assetBalance.asset?.precision ?? 0, forceUpdateMoney: false)
         
-        guard let asset = assetBalance.asset else { return }
-        let isCryptocurrency = asset.isGateway && !asset.isFiat
-        
-        if isCryptocurrency {
+        setupButtonState()
+
+        let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
+        sendEvent.accept(.didSelectAsset(assetBalance, loadGatewayInfo: loadGateway))
+        if loadGateway {
             showLoadingGatewayInfo()
         }
         else {
-            hideGatewayInfo()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.sendEvent.accept(.didChangeAsset(assetBalance, isLoadInfo: isCryptocurrency))
+            hideGatewayInfo(animation: false)
         }
     }
 
@@ -135,11 +125,14 @@ private extension SendViewController {
                 
                 switch state.action {
                 case .didFailInfo(let error):
-                    strongSelf.hideGatewayInfo()
+                    strongSelf.hideGatewayInfo(animation: true)
             
                 case .didGetInfo(let info):
                     strongSelf.showGatewayInfo(info: info)
                     
+                case .aliasDidFinishCheckValidation(let isValidAlias):
+                    strongSelf.hideCheckingAliasState(isValidAlias: isValidAlias)
+
                 default:
                     break
                 }
@@ -164,6 +157,7 @@ extension SendViewController: AmountInputViewDelegate {
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         setupAssetInfo(asset)
+        validateAddress()
     }
 }
 
@@ -182,7 +176,12 @@ extension SendViewController: AssetSelectViewDelegate {
 private extension SendViewController {
     
     func setupButtonState() {
-        let canContinueAction = gatewayInfo != nil
+        
+        var isValidateGateway = true
+        if isValidCryptocyrrencyAddress && gateWayInfo == nil {
+            isValidateGateway = false
+        }
+        let canContinueAction = isValidateGateway && isValidAddress(recipientAddressView.text) && selectedAsset != nil
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
@@ -193,12 +192,28 @@ private extension SendViewController {
         activityIndicatorView.startAnimating()
     }
     
-    func hideGatewayInfo() {
+    func hideGatewayInfo(animation: Bool) {
+        if viewWarning.isHidden {
+            return
+        }
         viewWarning.isHidden = true
         activityIndicatorView.stopAnimating()
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func hideCheckingAliasState(isValidAlias: Bool) {
+        self.isValidAlias = isValidAlias
+        recipientAddressView.checkIfValidAddress()
+        recipientAddressView.hideLoadingState()
     }
     
     func showGatewayInfo(info: Send.DTO.GatewayInfo) {
+        
+        gateWayInfo = info
         
         labelWarningTitle.text = Localizable.Send.Label.gatewayFee + " " + info.fee.displayText + " " + info.assetShortName
         
@@ -216,6 +231,7 @@ private extension SendViewController {
             self.viewWarning.alpha = 1
             self.view.layoutIfNeeded()
         })
+        setupButtonState()
     }
     
     func setupLocalization() {
@@ -240,9 +256,21 @@ private extension SendViewController {
 //MARK: - AddressInputViewDelegate
 
 extension SendViewController: AddressInputViewDelegate {
-    
+  
     func addressInputViewDidTapNext() {
-        
+        amountView.activateTextField()
+    }
+    
+    func addressInputViewDidEndEditing() {
+        validateAddress()
+        if isValidCryptocyrrencyAddress {
+            if let info = gateWayInfo, viewWarning.isHidden {
+                showGatewayInfo(info: info)
+            }
+        }
+        else {
+            hideGatewayInfo(animation: true)
+        }
     }
     
     func addressInputViewDidSelectAddressBook() {
@@ -250,14 +278,34 @@ extension SendViewController: AddressInputViewDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    func addressInputViewDidScanAddress(_ address: String) {
+        acceptAddress(address)
+        
+        if !recipientAddressView.isKeyboardShow {
+            validateAddress()
+        }
+    }
+    
+    func addressInputViewDidDeleteAddress() {
+        acceptAddress("")
+        
+        if !recipientAddressView.isKeyboardShow {
+            hideGatewayInfo(animation: true)
+        }
+    }
+    
     func addressInputViewDidChangeAddress(_ address: String) {
-//        order.recipient = address
-//        setupButtonState()
-//        sendEvent.accept(.updateInputOrder(order))
+        acceptAddress(address)
     }
     
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
         
+    }
+    
+    private func acceptAddress(_ address: String) {
+        isValidAlias = false
+        setupButtonState()
+        sendEvent.accept(.didChangeRecipient(address))
     }
 }
 
@@ -265,14 +313,13 @@ extension SendViewController: AddressInputViewDelegate {
 //MARK: - AddressBookModuleOutput
 
 extension SendViewController: AddressBookModuleOutput {
+   
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
-        
-        let recipient = contact.address
-//        order.recipient = recipient
-        recipientAddressView.setupText(recipient, animation: false)
-//        setupButtonState()
-//        sendEvent.accept(.updateInputOrder(order))
-        recipientAddressView.checkIfValidAddress()
+        isValidAlias = false
+        recipientAddressView.setupText(contact.address, animation: false)
+        setupButtonState()
+        sendEvent.accept(.didChangeRecipient(contact.address))
+        validateAddress()
     }
 }
 
@@ -280,5 +327,86 @@ extension SendViewController: AddressBookModuleOutput {
 extension SendViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
+    }
+}
+
+//MARK: - AddressValidation
+private extension SendViewController {
+    
+    var canValidateAlias: Bool {
+        let alias = recipientAddressView.text
+        return alias.count >= Send.ViewModel.minimumAliasLength &&
+        alias.count <= Send.ViewModel.maximumAliasLength
+    }
+    
+    var isValidLocalAddress: Bool {
+        return Address.isValidAddress(address: recipientAddressView.text)
+    }
+    
+    var isValidCryptocyrrencyAddress: Bool {
+        let address = recipientAddressView.text
+        
+        if let regExp = selectedAsset?.asset?.regularExpression {
+            return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address)
+        }
+        return false
+    }
+    
+    func isValidAddress(_ address: String) -> Bool {
+        guard let asset = selectedAsset?.asset else { return true }
+        
+        if asset.isWaves || asset.isWavesToken || asset.isFiat {
+            return isValidLocalAddress || isValidAlias
+        }
+        else {
+            return isValidLocalAddress || isValidCryptocyrrencyAddress || isValidAlias
+        }
+    }
+ 
+    func validateAddress() {
+        let address = recipientAddressView.text
+        guard let asset = selectedAsset?.asset else { return }
+        
+        if address.count > 0 && address.count < Send.ViewModel.minimumAliasLength {
+            recipientAddressView.checkIfValidAddress()
+            return
+        }
+        
+        if asset.isWaves || asset.isWavesToken || asset.isFiat {
+            if !isValidLocalAddress && !isValidAlias && canValidateAlias {
+                sendEvent.accept(.checkValidationAlias)
+                recipientAddressView.showLoadingState()
+            }
+            else {
+                recipientAddressView.checkIfValidAddress()
+            }
+        }
+        else if asset.isGateway && !asset.isFiat {
+            if !isValidLocalAddress {
+                if isValidCryptocyrrencyAddress {
+                    if gateWayInfo == nil {
+                        sendEvent.accept(.getGatewayInfo)
+                        showLoadingGatewayInfo()
+                    }
+                    recipientAddressView.checkIfValidAddress()
+                }
+                else {
+                    if !isValidAlias && canValidateAlias {
+                        sendEvent.accept(.checkValidationAlias)
+                        recipientAddressView.showLoadingState()
+                    }
+                    else {
+                        recipientAddressView.checkIfValidAddress()
+                    }
+                }
+            }
+            else {
+                recipientAddressView.checkIfValidAddress()
+            }
+        }
+        else {
+            recipientAddressView.checkIfValidAddress()
+        }
+        
     }
 }

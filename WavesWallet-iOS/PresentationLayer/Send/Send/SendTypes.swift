@@ -13,9 +13,12 @@ enum Send {
     enum ViewModel {}
 
     enum Event {
-        case didGetGatewayInfo(Response<DTO.GatewayInfo>)
         case didChangeRecipient(String)
-        case didChangeAsset(DomainLayer.DTO.AssetBalance, isLoadInfo: Bool)
+        case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)
+        case getGatewayInfo
+        case didGetGatewayInfo(Response<DTO.GatewayInfo>)
+        case checkValidationAlias
+        case validationAliasDidComplete(Bool)
     }
     
     struct State: Mutating {
@@ -23,13 +26,20 @@ enum Send {
             case none
             case didGetInfo(DTO.GatewayInfo)
             case didFailInfo(String)
+            case aliasDidFinishCheckValidation(Bool)
         }
         
         var isNeedLoadInfo: Bool
+        var isNeedValidateAliase: Bool
         var action: Action
         var recipient: String = ""
         var selectedAsset: DomainLayer.DTO.AssetBalance?
     }
+}
+
+extension Send.ViewModel {
+    static var minimumAliasLength = 4
+    static var maximumAliasLength = 30
 }
 
 extension Send.DTO {
@@ -53,8 +63,10 @@ extension Send.State: Equatable {
     
     static func == (lhs: Send.State, rhs: Send.State) -> Bool {
         return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
+                lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
                 lhs.recipient == rhs.recipient &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId
+        
         
     }
 }

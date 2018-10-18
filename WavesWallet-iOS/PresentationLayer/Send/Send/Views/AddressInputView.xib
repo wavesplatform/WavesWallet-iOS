@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddressInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="Tbx-Q1-yqO" id="JT4-sb-13u"/>
                 <outlet property="buttonDelete" destination="437-0I-GV3" id="L5U-fH-S1x"/>
                 <outlet property="buttonScan" destination="Wgm-Z0-OwZ" id="HvG-LJ-fTJ"/>
                 <outlet property="inputScrollView" destination="L2W-Hi-mLF" id="Ygg-Zf-oWT"/>
@@ -71,15 +72,20 @@
                                 <action selector="scanTapped:" destination="-1" eventType="touchUpInside" id="M2u-jR-mBk"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Tbx-Q1-yqO">
+                            <rect key="frame" x="310" y="14" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Pe8-MA-V3B" firstAttribute="leading" secondItem="9WA-x9-jR5" secondAttribute="trailing" id="0la-G6-Re5"/>
                         <constraint firstItem="437-0I-GV3" firstAttribute="leading" secondItem="Pe8-MA-V3B" secondAttribute="trailing" id="4ct-Kv-Y1h"/>
                         <constraint firstItem="437-0I-GV3" firstAttribute="width" secondItem="Wgm-Z0-OwZ" secondAttribute="width" id="8at-cA-Npb"/>
+                        <constraint firstItem="Tbx-Q1-yqO" firstAttribute="centerX" secondItem="437-0I-GV3" secondAttribute="centerX" id="Byc-gd-3l2"/>
                         <constraint firstAttribute="trailing" secondItem="Pe8-MA-V3B" secondAttribute="trailing" constant="46" id="CMv-lq-NCT"/>
                         <constraint firstItem="9WA-x9-jR5" firstAttribute="leading" secondItem="vT1-NV-kvx" secondAttribute="leading" constant="14" id="H0y-DS-2wX"/>
                         <constraint firstAttribute="height" constant="48" id="I9q-hl-Gfm"/>
+                        <constraint firstItem="Tbx-Q1-yqO" firstAttribute="centerY" secondItem="437-0I-GV3" secondAttribute="centerY" id="LIh-px-Fhm"/>
                         <constraint firstAttribute="bottom" secondItem="9WA-x9-jR5" secondAttribute="bottom" id="RLp-va-yhX"/>
                         <constraint firstAttribute="trailing" secondItem="437-0I-GV3" secondAttribute="trailing" id="YDK-0K-8ka"/>
                         <constraint firstItem="437-0I-GV3" firstAttribute="centerX" secondItem="Wgm-Z0-OwZ" secondAttribute="centerX" id="d9d-gk-lam"/>

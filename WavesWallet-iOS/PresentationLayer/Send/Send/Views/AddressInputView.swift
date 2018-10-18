@@ -17,8 +17,10 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidSelectContactAtIndex(_ index: Int)
     func addressInputViewDidSelectAddressBook()
     func addressInputViewDidChangeAddress(_ address: String)
+    func addressInputViewDidDeleteAddress()
+    func addressInputViewDidScanAddress(_ address: String)
     func addressInputViewDidTapNext()
-    
+    func addressInputViewDidEndEditing()
 }
 
 final class AddressInputView: UIView, NibOwnerLoadable {
@@ -40,6 +42,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var viewContentTextField: UIView!
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var inputScrollViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     weak var delegate: AddressInputViewDelegate?
     private var isHiddenDeleteButton = true
@@ -50,6 +53,13 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
+    var text: String {
+        return textField.text ?? ""
+    }
+    
+    var isKeyboardShow: Bool {
+        return textField.isFirstResponder
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,6 +86,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     //MARK: - Actions
     @IBAction private func addressDidChange(_ sender: Any) {
+       
+        hideLoadingState()
         setupButtonsState()
         updateHeight(animation: true)
         
@@ -88,11 +100,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     @IBAction private func deleteTapped(_ sender: Any) {
         setupText("", animation: true)
-        
-        if let text = textField.text {
-            delegate?.addressInputViewDidChangeAddress(text)
-        }
-        
+        delegate?.addressInputViewDidDeleteAddress()
         showLabelError(isShow: false)
     }
     
@@ -113,6 +121,19 @@ extension AddressInputView: ViewConfiguration {
 
 //MARK: - Methods
 extension AddressInputView {
+    
+    func showLoadingState() {
+        buttonDelete.isHidden = true
+        buttonScan.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoadingState() {
+        buttonDelete.isHidden = false
+        buttonScan.isHidden = false
+        activityIndicator.stopAnimating()
+    }
     
     func setupText(_ text: String, animation: Bool) {
         textField.text = text
@@ -158,7 +179,7 @@ extension AddressInputView: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        checkIfValidAddress()
+        delegate?.addressInputViewDidEndEditing()
     }
     
     private func showLabelError(isShow: Bool) {
@@ -267,7 +288,7 @@ private extension AddressInputView {
             if let address = result?.value {
                 
                 self.setupText(address, animation: false)
-                self.delegate?.addressInputViewDidChangeAddress(address)
+                self.delegate?.addressInputViewDidScanAddress(address)
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
