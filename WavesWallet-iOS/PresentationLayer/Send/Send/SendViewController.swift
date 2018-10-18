@@ -58,9 +58,9 @@ final class SendViewController: UIViewController {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.continueTapped(UIButton())
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            self.continueTapped(UIButton())
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
