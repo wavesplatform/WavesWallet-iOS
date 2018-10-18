@@ -29,7 +29,7 @@ final class LanguageViewController: UIViewController {
     weak var delegate: LanguageViewControllerDelegate?
     
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,7 +61,7 @@ final class LanguageViewController: UIViewController {
 // MARK: UITableViewDataSource
 
 extension LanguageViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languages.count
     }
@@ -83,10 +83,8 @@ extension LanguageViewController: UITableViewDataSource {
 
 extension LanguageViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {        
         return LanguageTableCell.cellHeight()
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
