@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="ShortInfoPageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="343" height="545"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="act-ti-Wcz">
+                    <rect key="frame" x="24" y="183" width="295" height="233"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Please take some time to understand some important things for your own safety. ">
+                            <attributes>
+                                <font key="NSFont" metaFont="system"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="🙏">
+                            <attributes>
+                                <font key="NSFont" size="13" name=".AppleColorEmojiUI"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment>
+                            <string key="content">
+
+We cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).
+
+</string>
+                            <attributes>
+                                <font key="NSFont" metaFont="system"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment>
+                            <string key="content">By continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.</string>
+                            <attributes>
+                                <font key="NSFont" metaFont="system"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-rW-y8g">
+                    <rect key="frame" x="24" y="78" width="295" height="81.5"/>
+                    <string key="text">Welcome to the
+Waves Platform!</string>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iAnonim42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="YHC-ca-tEP">
+                    <rect key="frame" x="76" y="440" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="frP-38-ROf"/>
+                        <constraint firstAttribute="width" constant="28" id="lsD-sh-XY7"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iPassbrowser42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="0tp-7a-WSa">
+                    <rect key="frame" x="180" y="440" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="Ni5-qH-wgb"/>
+                        <constraint firstAttribute="width" constant="28" id="frS-TB-Uy0"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iBackup42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="ScY-GJ-gVg">
+                    <rect key="frame" x="128" y="440" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="JRi-G1-Dlj"/>
+                        <constraint firstAttribute="height" constant="28" id="lM5-sF-jhL"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iShredder42Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="uIn-jw-J1Q">
+                    <rect key="frame" x="24" y="440" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="EGK-h8-wsw"/>
+                        <constraint firstAttribute="width" constant="28" id="U3t-6F-OJd"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="act-ti-Wcz" firstAttribute="trailing" secondItem="TMJ-rW-y8g" secondAttribute="trailing" id="2Xh-IM-XK9"/>
+                <constraint firstItem="act-ti-Wcz" firstAttribute="top" secondItem="TMJ-rW-y8g" secondAttribute="bottom" constant="23.5" id="3a4-0p-6oE"/>
+                <constraint firstItem="TMJ-rW-y8g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="5og-b2-3fV"/>
+                <constraint firstItem="TMJ-rW-y8g" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="58" id="6do-wV-g6Y"/>
+                <constraint firstItem="0tp-7a-WSa" firstAttribute="leading" secondItem="ScY-GJ-gVg" secondAttribute="trailing" constant="24" id="CEl-x0-sxU"/>
+                <constraint firstItem="act-ti-Wcz" firstAttribute="leading" secondItem="TMJ-rW-y8g" secondAttribute="leading" id="HQo-Yy-32l"/>
+                <constraint firstItem="ScY-GJ-gVg" firstAttribute="leading" secondItem="YHC-ca-tEP" secondAttribute="trailing" constant="24" id="HpP-cm-lXE"/>
+                <constraint firstItem="ScY-GJ-gVg" firstAttribute="top" secondItem="act-ti-Wcz" secondAttribute="bottom" constant="24" id="b1y-dE-Jtw"/>
+                <constraint firstItem="0tp-7a-WSa" firstAttribute="top" secondItem="act-ti-Wcz" secondAttribute="bottom" constant="24" id="ep4-j3-XcX"/>
+                <constraint firstItem="uIn-jw-J1Q" firstAttribute="leading" secondItem="TMJ-rW-y8g" secondAttribute="leading" id="mb2-4f-nCv"/>
+                <constraint firstItem="YHC-ca-tEP" firstAttribute="leading" secondItem="uIn-jw-J1Q" secondAttribute="trailing" constant="24" id="nE2-ce-rJj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TMJ-rW-y8g" secondAttribute="trailing" constant="24" id="ocJ-SY-559"/>
+                <constraint firstItem="uIn-jw-J1Q" firstAttribute="top" secondItem="act-ti-Wcz" secondAttribute="bottom" constant="24" id="xA7-x5-1gI"/>
+                <constraint firstItem="YHC-ca-tEP" firstAttribute="top" secondItem="act-ti-Wcz" secondAttribute="bottom" constant="24" id="xIL-Pj-M5V"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="detailLabel" destination="act-ti-Wcz" id="kT6-1C-eJe"/>
+                <outlet property="firstImageView" destination="uIn-jw-J1Q" id="u0M-XV-gwg"/>
+                <outlet property="fourthImageView" destination="0tp-7a-WSa" id="skK-23-Vh7"/>
+                <outlet property="secondImageView" destination="YHC-ca-tEP" id="ta6-OT-Ke0"/>
+                <outlet property="thirdImageView" destination="ScY-GJ-gVg" id="m64-eE-YCk"/>
+                <outlet property="titleLabel" destination="TMJ-rW-y8g" id="KD9-je-IeJ"/>
+                <outlet property="titleLeadingConstraint" destination="5og-b2-3fV" id="0uz-Qs-sH1"/>
+                <outlet property="titleTopConstraint" destination="6do-wV-g6Y" id="g3o-iS-gM6"/>
+                <outlet property="titleTrailingConstraint" destination="ocJ-SY-559" id="34r-l4-e5U"/>
+            </connections>
+            <point key="canvasLocation" x="-113.5" y="44.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iAnonim42Submit400" width="28" height="28"/>
+        <image name="iBackup42Submit400" width="28" height="28"/>
+        <image name="iPassbrowser42Submit400" width="28" height="28"/>
+        <image name="iShredder42Submit400" width="28" height="28"/>
+    </resources>
+</document>
