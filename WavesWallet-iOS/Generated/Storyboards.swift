@@ -149,6 +149,8 @@ internal enum StoryboardScene {
     internal static let editAccountNameViewController = SceneType<WavesWallet_iOS.EditAccountNameViewController>(storyboard: Enter.self, identifier: "EditAccountNameViewController")
 
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
+
+    internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Enter.self, identifier: "LanguageViewController")
   }
   internal enum Hello: StoryboardType {
     internal static let storyboardName = "Hello"

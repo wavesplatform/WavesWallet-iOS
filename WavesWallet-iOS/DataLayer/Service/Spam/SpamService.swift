@@ -22,4 +22,8 @@ extension SpamTargetType {
     var headers: [String: String]? {
         return ContentType.applicationCsv.headers
     }
+
+    var environment: Environment {
+        return Environments.current
+    }
 }

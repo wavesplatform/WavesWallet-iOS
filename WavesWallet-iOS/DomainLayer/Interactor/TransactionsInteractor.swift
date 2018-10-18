@@ -12,7 +12,6 @@ import RxSwift
 
 protocol TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]>
-
     func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartTransaction]>
 }
 
@@ -59,7 +58,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     private var assetsInteractors: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
     private var accountsInteractors: AccountsInteractorProtocol = FactoryInteractors.instance.accounts
-
+    
     private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
 
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> SmartTransactionsObservable {
@@ -221,10 +220,7 @@ fileprivate extension TransactionsInteractor {
                     .compactMap { $0 }
             }
     }
-
 }
-
-
 
 extension Array where Element == DomainLayer.DTO.AnyTransaction {
 
@@ -261,7 +257,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
 
         switch self {
         case .unrecognised:
-            return [Environments.Constants.wavesAssetId]
+            return [GlobalConstants.wavesAssetId]
 
         case .issue(let tx):
             return [tx.assetId]
@@ -280,19 +276,19 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
         case .lease:
-            return [Environments.Constants.wavesAssetId]
+            return [GlobalConstants.wavesAssetId]
 
         case .leaseCancel:
-            return [Environments.Constants.wavesAssetId]
+            return [GlobalConstants.wavesAssetId]
 
         case .alias:
-            return [Environments.Constants.wavesAssetId]
+            return [GlobalConstants.wavesAssetId]
 
         case .massTransfer(let tx):
             return [tx.assetId]
 
         case .data:
-            return [Environments.Constants.wavesAssetId]
+            return [GlobalConstants.wavesAssetId]
         }
     }
 

@@ -19,6 +19,12 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     private let transactions: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return transactions

@@ -16,6 +16,12 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     private let apiProvider: MoyaProvider<API.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
         let spamAssets = spamProvider
@@ -36,11 +42,12 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             .asObservable()
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy =  .formatted(DateFormatter.iso())
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
 
         let assetsList = apiProvider
             .rx
-            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.getAssets(ids: ids),
+                     callbackQueue: DispatchQueue.global(qos: .background))
             .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
             .map { $0.data.map { $0.data } }
             .asObservable()
@@ -104,7 +111,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
-            if info.assetId == Environments.Constants.wavesAssetId {
+            if info.assetId == GlobalConstants.wavesAssetId {
                 isWaves = true
             }
             name = info.displayName

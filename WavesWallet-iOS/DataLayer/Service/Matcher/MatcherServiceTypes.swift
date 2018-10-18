@@ -20,4 +20,8 @@ protocol MatcherTargetType: BaseTargetType {}
 
 extension MatcherTargetType {
     var baseURL: URL { return Environments.current.servers.matcherUrl }
+
+    var environment: Environment {
+        return Environments.current
+    }
 }
