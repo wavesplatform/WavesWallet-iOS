@@ -84,14 +84,12 @@ internal enum Images {
   internal static let assets = ImageAsset(name: "assets")
   internal static let backChevron = ImageAsset(name: "back-chevron")
   internal static let backspace48Disabled900 = ImageAsset(name: "backspace48Disabled900")
-  internal static let bgIphone5Top = ImageAsset(name: "bg-iphone5-top")
   internal static let bgIphone5 = ImageAsset(name: "bg-iphone5")
-  internal static let bgIphone8Top = ImageAsset(name: "bg-iphone8-top")
   internal static let bgIphone8 = ImageAsset(name: "bg-iphone8")
-  internal static let bgIphone8plusTop = ImageAsset(name: "bg-iphone8plus-top")
   internal static let bgIphone8plus = ImageAsset(name: "bg-iphone8plus")
-  internal static let bgIphonexTop = ImageAsset(name: "bg-iphonex-top")
   internal static let bgIphonex = ImageAsset(name: "bg-iphonex")
+  internal static let bgIphonexr = ImageAsset(name: "bg-iphonexr")
+  internal static let bgIphonexsmax = ImageAsset(name: "bg-iphonexsmax")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
   internal static let btnOrder = ImageAsset(name: "btn_order")
@@ -312,14 +310,12 @@ internal enum Images {
     assets,
     backChevron,
     backspace48Disabled900,
-    bgIphone5Top,
     bgIphone5,
-    bgIphone8Top,
     bgIphone8,
-    bgIphone8plusTop,
     bgIphone8plus,
-    bgIphonexTop,
     bgIphonex,
+    bgIphonexr,
+    bgIphonexsmax,
     btnBack,
     btnBars,
     btnOrder,

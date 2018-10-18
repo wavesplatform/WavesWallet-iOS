@@ -39,7 +39,6 @@ final class ReceiveAddressViewController: UIViewController {
         navigationItem.hidesBackButton = true
         setupInfo()
         setupLocalization()
-        addBgBlueImage()
         createCancelButton()
     }
     

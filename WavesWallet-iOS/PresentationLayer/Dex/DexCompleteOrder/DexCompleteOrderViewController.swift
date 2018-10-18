@@ -27,7 +27,6 @@ final class DexCompleteOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addBgBlueImage()
         setupLocalization()
         setupInfo()
     }

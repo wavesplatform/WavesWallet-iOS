@@ -1190,6 +1190,30 @@ internal enum Localizable {
       }
     }
   }
+          internal enum SendConfirmation {
+
+    internal enum Button {
+      /// Confirm
+      internal static var confim: String { return Localizable.tr("SendConfirmation", "button.confim") }
+    }
+
+    internal enum Label {
+      /// Confirmation
+      internal static var confirmation: String { return Localizable.tr("SendConfirmation", "label.confirmation") }
+      /// Description
+      internal static var description: String { return Localizable.tr("SendConfirmation", "label.description") }
+      /// The description is too long
+      internal static var descriptionIsTooLong: String { return Localizable.tr("SendConfirmation", "label.descriptionIsTooLong") }
+      /// US Dollar
+      internal static var dollar: String { return Localizable.tr("SendConfirmation", "label.dollar") }
+      /// Fee
+      internal static var fee: String { return Localizable.tr("SendConfirmation", "label.fee") }
+      /// Write an optional message
+      internal static var optionalMessage: String { return Localizable.tr("SendConfirmation", "label.optionalMessage") }
+      /// Sent to
+      internal static var sentTo: String { return Localizable.tr("SendConfirmation", "label.sentTo") }
+    }
+  }
           internal enum History {
 
     internal enum Navigationbar {
