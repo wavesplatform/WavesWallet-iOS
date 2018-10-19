@@ -13,7 +13,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     static let instance: FactoryRepositories = FactoryRepositories()
 
     private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
-    private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: self.environmentRepository)
+    private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentInteractor: FactoryInteractors.instance.environment)
 
     private(set) lazy var leasingRepositoryLocal: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryLocal()
     private(set) lazy var leasingRepositoryRemote: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryRemote(environmentRepository: self.environmentRepository)
@@ -33,6 +33,6 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol = AuthenticationRepositoryRemote()
 
     private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = EnvironmentRepositoryRemote()
-
+    
     fileprivate init() {}
 }

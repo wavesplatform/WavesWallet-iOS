@@ -16,10 +16,10 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     private let apiProvider: MoyaProvider<API.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    private let environmentRepository: EnvironmentRepositoryProtocol
+    private let environmentInteractor: EnvironmentInteractorProtocol
 
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(environmentInteractor: EnvironmentInteractorProtocol) {
+        self.environmentInteractor = environmentInteractor
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
