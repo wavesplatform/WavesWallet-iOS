@@ -18,6 +18,7 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
     private(set) lazy var transactions: TransactionsInteractorProtocol = TransactionsInteractor()
     private(set) lazy var accounts: AccountsInteractorProtocol = AccountsInteractorMock()
     private(set) lazy var authorization: AuthorizationInteractorProtocol = AuthorizationInteractor()
+    private(set) lazy var environment: EnvironmentInteractorProtocol = EnvironmentInteractor()
 
     fileprivate init() {}
 }
