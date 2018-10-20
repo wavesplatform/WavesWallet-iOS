@@ -35,6 +35,7 @@ final class SendViewController: UIViewController {
     
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var amount: Money?
+    private let wavesFee = GlobalConstants.WavesTransactionFee
     
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
@@ -42,11 +43,7 @@ final class SendViewController: UIViewController {
     var input: AssetList.DTO.Input!
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
-    private var wavesAsset: DomainLayer.DTO.AssetBalance? {
-        didSet {
-            hideButtonLoadingWavesState()
-        }
-    }
+    private var wavesAsset: DomainLayer.DTO.AssetBalance?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,6 +154,7 @@ private extension SendViewController {
 
                 case .didGetWavesAsset(let asset):
                     strongSelf.wavesAsset = asset
+                    strongSelf.hideButtonLoadingWavesState()
                     
                 default:
                     break
@@ -203,13 +201,24 @@ private extension SendViewController {
     var inputAmountValues: [Money] {
         
         var values: [Money] = []
-        if let asset = selectedAsset, asset.balance > 0 {
+        if let assetBalance = selectedAsset, assetBalance.balance > 0 {
 
-            let decimals = asset.asset?.precision ?? 0
-            values.append(Money(asset.balance, decimals))
-            values.append(Money(asset.balance * Int64(Constants.percent50) / 100, decimals))
-            values.append(Money(asset.balance * Int64(Constants.percent10) / 100, decimals))
-            values.append(Money(asset.balance * Int64(Constants.percent5) / 100, decimals))
+            var balance: Int64 = 0
+            if assetBalance.asset?.isWaves == true {
+                balance = assetBalance.balance - wavesFee.amount
+            }
+            else if isValidCryptocyrrencyAddress {
+                balance = assetBalance.balance - (gateWayInfo?.fee.amount ?? 0)
+            }
+            else {
+                balance = assetBalance.balance
+            }
+            
+            let decimals = assetBalance.asset?.precision ?? 0
+            values.append(Money(balance, decimals))
+            values.append(Money(balance * Int64(Constants.percent50) / 100, decimals))
+            values.append(Money(balance * Int64(Constants.percent10) / 100, decimals))
+            values.append(Money(balance * Int64(Constants.percent5) / 100, decimals))
         }
         
         return values
@@ -307,7 +316,7 @@ private extension SendViewController {
     
     func setupLocalization() {
         buttonContinue.setTitle(Localizable.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Send.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.Send.Label.transactionFee + " " + wavesFee.displayText + " WAVES"
     }
     
     func setupRecipientAddress() {
@@ -403,29 +412,31 @@ extension SendViewController: UIScrollViewDelegate {
 
 //MARK: - AddressValidation
 private extension SendViewController {
-    
+
     var canValidateAlias: Bool {
         let alias = recipientAddressView.text
         return alias.count >= Send.ViewModel.minimumAliasLength &&
         alias.count <= Send.ViewModel.maximumAliasLength
     }
-    
+
     var isValidLocalAddress: Bool {
         return Address.isValidAddress(address: recipientAddressView.text)
     }
-    
+
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
-        
+
         if let regExp = selectedAsset?.asset?.regularExpression {
-            return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address)
+            return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
+                selectedAsset?.asset?.isGateway == true &&
+                selectedAsset?.asset?.isFiat == false
         }
         return false
     }
-    
+
     func isValidAddress(_ address: String) -> Bool {
         guard let asset = selectedAsset?.asset else { return true }
-        
+
         if asset.isWaves || asset.isWavesToken || asset.isFiat {
             return isValidLocalAddress || isValidAlias
         }
@@ -433,16 +444,16 @@ private extension SendViewController {
             return isValidLocalAddress || isValidCryptocyrrencyAddress || isValidAlias
         }
     }
- 
+
     func validateAddress() {
         let address = recipientAddressView.text
         guard let asset = selectedAsset?.asset else { return }
-        
+
         if address.count > 0 && address.count < Send.ViewModel.minimumAliasLength {
             recipientAddressView.checkIfValidAddress()
             return
         }
-        
+
         if asset.isWaves || asset.isWavesToken || asset.isFiat {
             if !isValidLocalAddress && !isValidAlias && canValidateAlias {
                 sendEvent.accept(.checkValidationAlias)
@@ -478,6 +489,6 @@ private extension SendViewController {
         else {
             recipientAddressView.checkIfValidAddress()
         }
-        
     }
 }
+
