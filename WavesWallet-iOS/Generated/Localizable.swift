@@ -350,6 +350,8 @@ internal enum Localizable {
       internal static var chooseFromAddressBook: String { return Localizable.tr("Send", "button.chooseFromAddressBook") }
       /// Continue
       internal static var `continue`: String { return Localizable.tr("Send", "button.continue") }
+      /// Use total balance
+      internal static var useTotalBalanace: String { return Localizable.tr("Send", "button.useTotalBalanace") }
     }
 
     internal enum Label {
