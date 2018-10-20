@@ -21,7 +21,7 @@ struct StartLeasingModuleBuilder: ModuleBuilderOutput {
         presenter.moduleOutput = output
         
         let vc = StoryboardScene.StartLeasing.startLeasingViewController.instantiate()
-        vc.availableBalance = input
+        vc.totalBalance = input
         vc.presenter = presenter
         
         return vc

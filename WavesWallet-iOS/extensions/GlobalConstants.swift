@@ -11,4 +11,5 @@ import Foundation
 enum GlobalConstants {
     static let accountNameMinLimitSymbols: Int = 2
     static let coinomatUrl = "https://coinomat.com/"
+    static let WavesTransactionFee = Money(100000, 8)
 }

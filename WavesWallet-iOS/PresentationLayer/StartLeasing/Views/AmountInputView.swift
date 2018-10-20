@@ -19,14 +19,8 @@ protocol AmountInputViewDelegate: AnyObject {
 
 final class AmountInputView: UIView, NibOwnerLoadable {
     
-    struct Input {
-        let text: String
-        let value: Money
-    }
-    
     private var isShowInputScrollView = false
     private var isHiddenErrorLabel = true
-    private var input: [Input] = []
     
     @IBOutlet private weak var labelAmountLocalizable: UILabel!
     @IBOutlet private weak var labelAmount: UILabel!
@@ -37,7 +31,8 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     
     weak var delegate: AmountInputViewDelegate?
-    
+    var input:(() -> [Money])?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -100,24 +95,25 @@ extension AmountInputView: MoneyTextFieldDelegate {
 //MARK: - ViewConfiguration
 extension AmountInputView: ViewConfiguration {
     
-    func update(with input: [Input]) {
-        
-        self.input = input
+    func update(with input: [String]) {
         isShowInputScrollView = input.count > 0
-        scrollViewInput.update(with: input.map({$0.text}))
+        scrollViewInput.update(with: input)
         updateViewHeight(inputValue: textFieldMoney.value, animation: false)
     }
 }
 
+
 //MARK: - InputScrollButtonsViewDelegate
 extension AmountInputView: InputScrollButtonsViewDelegate {
-    
+
     func inputScrollButtonsViewDidTapAt(index: Int) {
         
-        let value = input[index].value
-        textFieldMoney.setValue(value: value)
-        delegate?.amountInputView(didChangeValue: value)
-        updateViewHeight(inputValue: value, animation: true)
+        if let values = input {
+            let value = values()[index]
+            textFieldMoney.setValue(value: value)
+            delegate?.amountInputView(didChangeValue: value)
+            updateViewHeight(inputValue: value, animation: true)
+        }
     }
 }
 

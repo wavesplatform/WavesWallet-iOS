@@ -42,19 +42,19 @@ final class StartLeasingViewController: UIViewController {
     var presenter: StartLeasingPresenterProtocol!
     private let sendEvent: PublishRelay<StartLeasing.Event> = PublishRelay<StartLeasing.Event>()
     
-    var availableBalance: Money! {
+    var totalBalance: Money! {
         didSet {
-            
-            
             order = StartLeasing.DTO.Order(recipient: "",
-                                           amount: Money(0, availableBalance.decimals),
+                                           amount: Money(0, totalBalance.decimals),
                                            time: Date())
-            
-            if !availableBalance.isZero {
-                let amountWithFee = availableBalance.amount - order.fee
-                availableBalance = Money(amountWithFee < 0 ? 0 : amountWithFee, availableBalance.decimals)
-            }
         }
+    }
+    
+    private var availableBalance: Money {
+        if !totalBalance.isZero {
+            return Money(totalBalance.amount - order.fee, totalBalance.decimals)
+        }
+        return totalBalance
     }
     
     override func viewDidLoad() {
@@ -146,34 +146,43 @@ private extension StartLeasingViewController {
         title = Localizable.StartLeasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.StartLeasing.Label.balance
         
-        let fee = Money(order.fee, order.amount.decimals)
-        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + fee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
         amountView.setupRightLabelText("Waves")
+    }
+    
+    var inputAmountValues: [Money] {
+        var values: [Money] = []
+        if !availableBalance.isZero {
+        
+            values.append(availableBalance)
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent50) / 100,
+                                availableBalance.decimals))
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent10) / 100,
+                                availableBalance.decimals))
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent5) / 100,
+                                availableBalance.decimals))
+        }
+        return values
     }
     
     func setupData() {
         
-        labelAssetAmount.text = availableBalance.displayTextFull
+        labelAssetAmount.text = totalBalance.displayTextFull
         
-        var inputAmountValues: [AmountInputView.Input] = []
+        var fields: [String] = []
         
         if !availableBalance.isZero {
-            let valuePercent50 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent50) / 100,
-                                       availableBalance.decimals)
             
-            let valuePercent10 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent10) / 100,
-                                       availableBalance.decimals)
-            
-            let valuePercent5 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent5) / 100,
-                                      availableBalance.decimals)
-            
-            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: availableBalance))
-            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
-            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
-            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+            fields.append(contentsOf: [Localizable.DexCreateOrder.Button.useTotalBalanace,
+                                      String(Constants.percent50) + "%",
+                                      String(Constants.percent10) + "%",
+                                      String(Constants.percent5) + "%"])
         }
      
-        amountView.update(with: inputAmountValues)
+        amountView.update(with: fields)
+        amountView.input = { [weak self] in
+            return self?.inputAmountValues ?? []
+        }
     }
     
     func setupUI() {

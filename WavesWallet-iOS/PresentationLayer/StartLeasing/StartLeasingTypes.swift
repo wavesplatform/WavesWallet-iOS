@@ -8,10 +8,6 @@
 
 import Foundation
 
-private enum Constansts {
-    static let fee: Int64 = 100000
-}
-
 enum StartLeasing {
     enum DTO {}
     
@@ -40,7 +36,7 @@ extension StartLeasing.DTO {
     struct Order {
         var recipient: String
         var amount: Money
-        let fee = Constansts.fee
+        let fee = GlobalConstants.WavesTransactionFee.amount
         var time: Date
     }
 }
