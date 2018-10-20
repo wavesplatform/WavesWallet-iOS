@@ -139,6 +139,9 @@
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="42Y-VU-iOX">
                                                 <rect key="frame" x="177.5" y="279.5" width="20" height="20"/>
                                             </activityIndicatorView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="1Yy-qL-dYq">
+                                                <rect key="frame" x="177.5" y="559" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -154,11 +157,13 @@
                                             <constraint firstItem="Oif-AZ-b0k" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="OnN-4U-wlR"/>
                                             <constraint firstAttribute="trailing" secondItem="mHV-Q6-oxV" secondAttribute="trailing" id="PdI-3I-989"/>
                                             <constraint firstAttribute="trailing" secondItem="KUx-Kq-mM9" secondAttribute="trailing" id="WLb-iL-Iws"/>
+                                            <constraint firstItem="1Yy-qL-dYq" firstAttribute="centerX" secondItem="hb8-5S-GBV" secondAttribute="centerX" id="X2A-PG-9sP"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="Xqt-Io-ej3"/>
                                             <constraint firstAttribute="trailing" secondItem="hb8-5S-GBV" secondAttribute="trailing" constant="16" id="fe1-QK-L0e"/>
                                             <constraint firstItem="42Y-VU-iOX" firstAttribute="centerX" secondItem="Bio-ZP-ebk" secondAttribute="centerX" id="hzn-LL-mT3"/>
                                             <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
+                                            <constraint firstItem="1Yy-qL-dYq" firstAttribute="centerY" secondItem="hb8-5S-GBV" secondAttribute="centerY" id="qix-DH-6nw"/>
                                             <constraint firstItem="mHV-Q6-oxV" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="sne-CU-pDd"/>
                                             <constraint firstItem="mHV-Q6-oxV" firstAttribute="top" secondItem="Bio-ZP-ebk" secondAttribute="bottom" id="uWf-Md-sxt"/>
                                             <constraint firstItem="Bio-ZP-ebk" firstAttribute="top" secondItem="f7C-jx-v1E" secondAttribute="bottom" constant="24" id="vfx-BW-9u8"/>
@@ -189,6 +194,7 @@
                         <viewLayoutGuide key="safeArea" id="0o9-e5-6xM"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorButton" destination="1Yy-qL-dYq" id="EQj-u6-YaA"/>
                         <outlet property="activityIndicatorView" destination="42Y-VU-iOX" id="BcM-hy-OQl"/>
                         <outlet property="amountView" destination="mHV-Q6-oxV" id="kwN-uj-u1n"/>
                         <outlet property="assetView" destination="KUx-Kq-mM9" id="VaM-Zg-YJ6"/>

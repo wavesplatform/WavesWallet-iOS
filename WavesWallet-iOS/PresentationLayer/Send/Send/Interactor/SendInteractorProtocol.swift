@@ -11,6 +11,7 @@ import RxSwift
 
 protocol SendInteractorProtocol {
     
+    func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance>
     func gateWayInfo(asset: DomainLayer.DTO.AssetBalance) -> Observable<Response<Send.DTO.GatewayInfo>>
     func validateAlis(alias: String) -> Observable<Bool>
 

@@ -19,6 +19,7 @@ enum Send {
         case didGetGatewayInfo(Response<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
+        case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
     }
     
     struct State: Mutating {
@@ -27,10 +28,12 @@ enum Send {
             case didGetInfo(DTO.GatewayInfo)
             case didFailInfo(String)
             case aliasDidFinishCheckValidation(Bool)
+            case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
         }
         
         var isNeedLoadInfo: Bool
         var isNeedValidateAliase: Bool
+        var isNeedLoadWaves: Bool
         var action: Action
         var recipient: String = ""
         var selectedAsset: DomainLayer.DTO.AssetBalance?
@@ -85,8 +88,6 @@ extension Send.State: Equatable {
                 lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
                 lhs.recipient == rhs.recipient &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId
-        
-        
     }
 }
 

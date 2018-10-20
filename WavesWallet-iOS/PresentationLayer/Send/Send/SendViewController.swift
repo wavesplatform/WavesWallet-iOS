@@ -31,6 +31,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var buttonContinue: HighlightedButton!
     @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
     
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var amount: Money?
@@ -41,6 +42,11 @@ final class SendViewController: UIViewController {
     var input: AssetList.DTO.Input!
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
+    private var wavesAsset: DomainLayer.DTO.AssetBalance? {
+        didSet {
+            hideButtonLoadingWavesState()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +106,13 @@ final class SendViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
-        let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
-        navigationController?.pushViewController(vc, animated: true)
+        if wavesAsset == nil {
+            showButtonLoadingWavesState()
+        }
+        else {
+            let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -144,6 +155,9 @@ private extension SendViewController {
                 case .aliasDidFinishCheckValidation(let isValidAlias):
                     strongSelf.hideCheckingAliasState(isValidAlias: isValidAlias)
 
+                case .didGetWavesAsset(let asset):
+                    strongSelf.wavesAsset = asset
+                    
                 default:
                     break
                 }
@@ -218,6 +232,20 @@ private extension SendViewController {
         }
     }
     
+    func showButtonLoadingWavesState() {
+        buttonContinue.isUserInteractionEnabled = false
+        buttonContinue.backgroundColor = .submit200
+        buttonContinue.setTitle("", for: .normal)
+        activityIndicatorButton.isHidden = false
+        activityIndicatorButton.startAnimating()
+    }
+    
+    func hideButtonLoadingWavesState() {
+        setupButtonState()
+        setupLocalization()
+        activityIndicatorButton.stopAnimating()
+    }
+    
     func setupButtonState() {
         
         var isValidateGateway = true
@@ -279,7 +307,6 @@ private extension SendViewController {
     
     func setupLocalization() {
         buttonContinue.setTitle(Localizable.Send.Button.continue, for: .normal)
-        
         labelTransactionFee.text = Localizable.Send.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
     }
     
