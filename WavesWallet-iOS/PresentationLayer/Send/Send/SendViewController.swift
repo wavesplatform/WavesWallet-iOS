@@ -59,7 +59,7 @@ final class SendViewController: UIViewController {
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
-                self.setupAmountData()
+                self.updateAmountData()
             }
         }
         
@@ -186,27 +186,36 @@ extension SendViewController: AssetSelectViewDelegate {
 //MARK: - UI
 private extension SendViewController {
     
-    func setupAmountData() {
+    var inputAmountValues: [Money] {
         
-        var inputAmountValues: [AmountInputView.Input] = []
+        var values: [Money] = []
+        if let asset = selectedAsset, asset.balance > 0 {
 
-        if let asset = selectedAsset {
-            if asset.balance > 0 {
-                let decimals = asset.asset?.precision ?? 0
-                
-                let availableBalance = Money(asset.balance, decimals)
-                let valuePercent50 = Money(asset.balance * Int64(Constants.percent50) / 100, decimals)
-                let valuePercent10 = Money(asset.balance * Int64(Constants.percent10) / 100, decimals)
-                let valuePercent5 = Money(asset.balance * Int64(Constants.percent5) / 100, decimals)
-                
-                inputAmountValues.append(.init(text: Localizable.Send.Button.useTotalBalanace, value: availableBalance))
-                inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
-                inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
-                inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
-            }
+            let decimals = asset.asset?.precision ?? 0
+            values.append(Money(asset.balance, decimals))
+            values.append(Money(asset.balance * Int64(Constants.percent50) / 100, decimals))
+            values.append(Money(asset.balance * Int64(Constants.percent10) / 100, decimals))
+            values.append(Money(asset.balance * Int64(Constants.percent5) / 100, decimals))
         }
         
-        amountView.update(with: inputAmountValues)
+        return values
+    }
+    
+    func updateAmountData() {
+    
+        var fields: [String] = []
+        
+        if let asset = selectedAsset, asset.balance > 0 {
+            fields.append(contentsOf: [Localizable.Send.Button.useTotalBalanace,
+                                       String(Constants.percent50) + "%",
+                                       String(Constants.percent10) + "%",
+                                       String(Constants.percent5) + "%"])
+        }
+        
+        amountView.update(with: fields)
+        amountView.input = { [weak self] in
+            return self?.inputAmountValues ?? []
+        }
     }
     
     func setupButtonState() {
@@ -270,7 +279,8 @@ private extension SendViewController {
     
     func setupLocalization() {
         buttonContinue.setTitle(Localizable.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Send.Label.transactionFee
+        
+        labelTransactionFee.text = Localizable.Send.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
     }
     
     func setupRecipientAddress() {
