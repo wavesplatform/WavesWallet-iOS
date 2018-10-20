@@ -562,7 +562,6 @@
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
-		E98D4087217B508B004D2DEA /* SendModuleValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D4086217B508B004D2DEA /* SendModuleValidation.swift */; };
 		E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99950302092128B00A11E37 /* WalletSortViewController.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
 		E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4681620E22B8300BD0E75 /* CreateAliasViewController.swift */; };
@@ -1424,7 +1423,6 @@
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAmountViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
-		E98D4086217B508B004D2DEA /* SendModuleValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendModuleValidation.swift; sourceTree = "<group>"; };
 		E99950302092128B00A11E37 /* WalletSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortViewController.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
 		E9A4681620E22B8300BD0E75 /* CreateAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasViewController.swift; sourceTree = "<group>"; };
@@ -4079,7 +4077,6 @@
 				E9EC5BA72175F35800E5C29A /* Views */,
 				E9EC5B382175F35800E5C29A /* Send.strings */,
 				E9EC5B3A2175F35800E5C29A /* SendViewController.swift */,
-				E98D4086217B508B004D2DEA /* SendModuleValidation.swift */,
 				E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */,
 				E9C0B4A32176C4BE00669D1D /* SendTypes.swift */,
 			);
@@ -5298,7 +5295,6 @@
 				E9B088042163886800937644 /* DexViewController.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
-				E98D4087217B508B004D2DEA /* SendModuleValidation.swift in Sources */,
 				E95B47EC21638B11004D4E39 /* StartLeasingPresenter.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,
