@@ -60,6 +60,22 @@ extension Send.DTO {
         let maxAmount: Money
         let fee: Money
     }
+    
+//    struct Transaction {
+//        let type: Int = 4
+//        let id;
+//        "id" ~~> Base58.encode(id),
+//        "sender" ~~> senderPublicKey.address,
+//        "senderPublicKey" ~~> Base58.encode(senderPublicKey.publicKey),
+//        "fee" ~~> fee.amount,
+//        "timestamp" ~~> timestamp,
+//        "signature" ~~> Base58.encode(getSignature()),
+//        "recipient" ~~> recipient,
+//        "assetId" ~~> asset,
+//        "amount" ~~> amount.amount,
+//        "feeAsset" ~~> feeAsset,
+//        "attachment" ~
+//    }
 }
 
 extension Send.State: Equatable {

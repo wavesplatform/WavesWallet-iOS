@@ -12,14 +12,15 @@ import Kingfisher
 enum AssetLogo: String {
     case waves
     case usd
-    case monero
-    case litecoin
+    case monero = "xmr"
+    case litecoin = "ltc"
     case lira = "try"
     case eur
     case eth
     case dash
-    case bitcoinCash = "bitcoin cash"
+    case bitcoinCash = "bch"
     case bitcoin = "btc"
+    case zcash = "zec"
 }
 
 extension AssetLogo {
@@ -45,6 +46,8 @@ extension AssetLogo {
             return Images.logoBitcoin48.image
         case .bitcoinCash:
             return Images.logoBitcoincash48.image
+        case .zcash:
+            return Images.logoZec48.image
         }
     }
 }

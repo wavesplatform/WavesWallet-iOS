@@ -13,6 +13,10 @@ import RxCocoa
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
+    
+    static let percent50 = 50
+    static let percent10 = 10
+    static let percent5 = 5
 }
 
 final class SendViewController: UIViewController {
@@ -55,12 +59,13 @@ final class SendViewController: UIViewController {
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
+                self.setupAmountData()
             }
         }
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//            self.continueTapped(UIButton())
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.buttonContinue.isUserInteractionEnabled = true
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -180,6 +185,29 @@ extension SendViewController: AssetSelectViewDelegate {
 
 //MARK: - UI
 private extension SendViewController {
+    
+    func setupAmountData() {
+        
+        var inputAmountValues: [AmountInputView.Input] = []
+
+        if let asset = selectedAsset {
+            if asset.balance > 0 {
+                let decimals = asset.asset?.precision ?? 0
+                
+                let availableBalance = Money(asset.balance, decimals)
+                let valuePercent50 = Money(asset.balance * Int64(Constants.percent50) / 100, decimals)
+                let valuePercent10 = Money(asset.balance * Int64(Constants.percent10) / 100, decimals)
+                let valuePercent5 = Money(asset.balance * Int64(Constants.percent5) / 100, decimals)
+                
+                inputAmountValues.append(.init(text: Localizable.Send.Button.useTotalBalanace, value: availableBalance))
+                inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
+                inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
+                inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+            }
+        }
+        
+        amountView.update(with: inputAmountValues)
+    }
     
     func setupButtonState() {
         
