@@ -17,7 +17,20 @@ private enum Constasts {
     static let aliasApi = "/v0/aliases/"
 }
 
-final class SendInteractorMock: SendInteractorProtocol {
+final class SendInteractor: SendInteractorProtocol {
+    
+    func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance> {
+        
+        let accountBalance = FactoryInteractors.instance.accountBalance
+        return accountBalance.balances(isNeedUpdate: false)
+            .flatMap({ balances -> Observable<DomainLayer.DTO.AssetBalance> in
+                
+                guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
+                    return Observable.empty()
+                }
+                return Observable.just(wavesAsset)
+            })
+    }
     
     func gateWayInfo(asset: DomainLayer.DTO.AssetBalance) -> Observable<Response<Send.DTO.GatewayInfo>> {
         return Observable.create({ (subscribe) -> Disposable in

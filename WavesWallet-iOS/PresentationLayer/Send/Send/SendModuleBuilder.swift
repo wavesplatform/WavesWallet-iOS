@@ -15,7 +15,7 @@ struct SendModuleBuilder: ModuleBuilder {
         var asset = input
         asset?.balance = 12323131
         
-        let interactor: SendInteractorProtocol = SendInteractorMock()
+        let interactor: SendInteractorProtocol = SendInteractor()
         
         var presenter: SendPresenterProtocol = SendPresenter()
         presenter.interactor = interactor

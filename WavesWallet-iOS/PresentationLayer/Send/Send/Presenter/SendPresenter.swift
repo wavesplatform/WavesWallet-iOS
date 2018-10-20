@@ -20,7 +20,7 @@ final class SendPresenter: SendPresenterProtocol {
     func system(feedbacks: [SendPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
-        
+        newFeedbacks.append(modelsWavesQuery())
         Driver.system(initialState: Send.State.initialState,
                       reduce: { [weak self] state, event -> Send.State in
                         return self?.reduce(state: state, event: event) ?? state },
@@ -29,6 +29,15 @@ final class SendPresenter: SendPresenterProtocol {
             .disposed(by: disposeBag)
     }
     
+    private func modelsWavesQuery() -> Feedback {
+        return react(query: { state -> Bool? in
+            return state.isNeedLoadWaves ? true : nil
+        }, effects: {[weak self] state -> Signal<Send.Event> in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf.interactor.getWavesBalance().map {.didGetWavesAsset($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
     
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Send.State? in
@@ -52,6 +61,12 @@ final class SendPresenter: SendPresenterProtocol {
 
         switch event {
         
+        case .didGetWavesAsset(let asset):
+            return state.mutate {
+                $0.isNeedLoadWaves = false
+                $0.action = .didGetWavesAsset(asset)
+            }
+            
         case .getGatewayInfo:
             return state.mutate {
                 $0.action = .none
@@ -110,6 +125,9 @@ final class SendPresenter: SendPresenterProtocol {
 fileprivate extension Send.State {
     
     static var initialState: Send.State {
-        return Send.State(isNeedLoadInfo: false, isNeedValidateAliase: false, action: .none, recipient: "", selectedAsset: nil)
+        return Send.State(isNeedLoadInfo: false,
+                          isNeedValidateAliase: false,
+                          isNeedLoadWaves: true,
+                          action: .none, recipient: "", selectedAsset: nil)
     }
 }
