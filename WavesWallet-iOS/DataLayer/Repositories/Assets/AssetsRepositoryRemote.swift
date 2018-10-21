@@ -16,17 +16,26 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     private let apiProvider: MoyaProvider<API.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    private let environmentInteractor: EnvironmentInteractorProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
 
-    init(environmentInteractor: EnvironmentInteractorProtocol) {
-        self.environmentInteractor = environmentInteractor
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let spamAssets = spamProvider
-            .rx
-            .request(.getSpamList, callbackQueue: DispatchQueue.global(qos: .background))
+        let spamAssets = environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .spamProvider
+                    .rx
+                    .request(.init(kind: .getSpamList,
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map { response -> [String] in
 
                 guard let text = String(data: response.data, encoding: .utf8) else { return [] }
@@ -44,13 +53,21 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
 
-        let assetsList = apiProvider
-            .rx
-            .request(.getAssets(ids: ids),
-                     callbackQueue: DispatchQueue.global(qos: .background))
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
+        let assetsList = environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .apiProvider
+                    .rx
+                    .request(.init(kind: .getAssets(ids: ids), environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
+            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
             .map { $0.data.map { $0.data } }
             .asObservable()
+
 
         return Observable.zip(assetsList, spamAssets)
             .map { assets, spamAssets in

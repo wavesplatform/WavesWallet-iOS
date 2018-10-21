@@ -18,9 +18,5 @@ extension Node {
 protocol NodeTargetType: BaseTargetType {}
 
 extension NodeTargetType {
-    var baseURL: URL { return Environments.current.servers.nodeUrl }
-
-    var environment: Environment {
-        return Environments.current
-    }
+    var baseURL: URL { return environment.servers.nodeUrl }    
 }

@@ -10,12 +10,18 @@ import Foundation
 import Moya
 
 extension Node.Service {
-    enum Addresses {
-        /**
-         Response:
-         - Node.Model.AccountBalance.self
-         */
-        case getAccountBalance(id: String)
+
+    struct Addresses {
+        enum Kind {
+            /**
+             Response:
+             - Node.Model.AccountBalance.self
+             */
+            case getAccountBalance(id: String)
+        }
+
+        var kind: Kind
+        var environment: Environment
     }
 }
 
@@ -26,21 +32,21 @@ extension Node.Service.Addresses: NodeTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getAccountBalance(let id):
             return Constants.addresses + "/" + Constants.balance + "/" + "\(id)".urlEscaped
         }
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getAccountBalance:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getAccountBalance:
             return .requestPlain
         }

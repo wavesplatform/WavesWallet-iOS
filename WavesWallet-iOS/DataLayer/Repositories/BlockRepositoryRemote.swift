@@ -21,10 +21,16 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
     func height() -> Observable<Int64> {
 
-        return blockNode
-            .rx
-            .request(Node.Service.Blocks(environment: Environments.current,
-                                         kind: .height))
+        return environmentRepository
+            .environment()
+            .flatMap({ [weak self] environment -> Single<Response> in
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .blockNode
+                    .rx
+                    .request(Node.Service.Blocks(environment: environment,
+                                                 kind: .height))
+            })
             .map(Node.DTO.Block.self)
             .asObservable()
             .map { $0.height }        

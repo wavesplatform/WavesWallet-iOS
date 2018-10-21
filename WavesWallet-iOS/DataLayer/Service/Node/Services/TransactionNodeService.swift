@@ -10,17 +10,23 @@ import Foundation
 import Moya
 
 extension Node.Service {
-    enum Transaction {
-        /**
-         Response:
-         - Node.DTO.TransactionContainers.self
-         */
-        case list(accountAddress: String, limit: Int)
-        /**
-         Response:
-         - ?
-         */
-        case info(id: String)
+
+    struct Transaction {
+        enum Kind {
+            /**
+             Response:
+             - Node.DTO.TransactionContainers.self
+             */
+            case list(accountAddress: String, limit: Int)
+            /**
+             Response:
+             - ?
+             */
+            case info(id: String)
+        }
+
+        var kind: Kind
+        var environment: Environment
     }
 }
 
@@ -37,7 +43,7 @@ extension Node.Service.Transaction: NodeTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .list(let accountAddress, let limit):
             return Constants.transactions + "/" + Constants.address + "/" + "\(accountAddress)".urlEscaped + "/" + Constants.limit + "/" + "\(limit)".urlEscaped
             
@@ -47,14 +53,14 @@ extension Node.Service.Transaction: NodeTargetType {
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .list, .info:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .list, .info:
             return .requestPlain
         }

@@ -64,26 +64,56 @@ private extension AccountBalanceRepositoryRemote {
     func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
 
         let signature = TimestampSignature(signedWallet: wallet)
-        return self.matcherBalanceProvider
-            .rx
-            .request(.getReservedBalances(signature), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+
+                return owner
+                    .matcherBalanceProvider
+                    .rx
+                    .request(.init(kind: .getReservedBalances(signature),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map([String: Int64].self)
             .asObservable()
             .catchErrorJustReturn([String: Int64]())
     }
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
-        return self.assetsProvider
-            .rx
-            .request(.getAssetsBalance(walletAddress: walletAddress), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .assetsProvider
+                    .rx
+                    .request(.init(kind: .getAssetsBalance(walletAddress: walletAddress),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
     }
 
     func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {
-        return self.addressesProvider
-            .rx
-            .request(.getAccountBalance(id: walletAddress), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .addressesProvider
+                    .rx
+                    .request(.init(kind: .getAccountBalance(id: walletAddress),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map(Node.DTO.AccountBalance.self)
             .asObservable()
     }
