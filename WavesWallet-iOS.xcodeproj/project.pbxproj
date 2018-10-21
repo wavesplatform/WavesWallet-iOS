@@ -123,7 +123,7 @@
 		0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4399652150465E0032E608 /* NewAccount.storyboard */; };
 		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
 		0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */; };
-		0A4508FA2178938C00EBF669 /* EnvironmentsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F92178938C00EBF669 /* EnvironmentsInteractor.swift */; };
+		0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */; };
 		0A4508FC2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
@@ -263,6 +263,9 @@
 		0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */; };
 		0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */; };
 		0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */; };
+		0A88CC04217D27370083874C /* AccountSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */; };
+		0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */; };
+		0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */; };
 		0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */; };
 		0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */; };
 		0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1C721518CE5005E148F /* BackupCoordinator.swift */; };
@@ -935,7 +938,7 @@
 		0A4399652150465E0032E608 /* NewAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccount.storyboard; sourceTree = "<group>"; };
 		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDeleteAccountViewController.swift; sourceTree = "<group>"; };
-		0A4508F92178938C00EBF669 /* EnvironmentsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentsInteractor.swift; sourceTree = "<group>"; };
+		0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
@@ -1085,6 +1088,9 @@
 		0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsApiService.swift; sourceTree = "<group>"; };
 		0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTypes.swift; sourceTree = "<group>"; };
 		0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
+		0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
+		0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentRepository.swift; sourceTree = "<group>"; };
 		0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherServiceTypes.swift; sourceTree = "<group>"; };
 		0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcherService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
@@ -1936,7 +1942,6 @@
 				0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */,
 				0A5D3301215842860009CDF3 /* AuthorizationInteractor.swift */,
 				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
-				0A4508F92178938C00EBF669 /* EnvironmentsInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -2587,6 +2592,7 @@
 				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
 				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
 				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
+				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2679,6 +2685,7 @@
 		0AEB358A2115DB1D00EDD63C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */,
 				E94A7002215AEA2A001814F7 /* AddressBook */,
 				0A5E4BD62138242C00E3C3C3 /* Transactions */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
@@ -2687,6 +2694,7 @@
 				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
 				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
 				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
+				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2700,6 +2708,7 @@
 				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
 				0A5E4BBB213820C500E3C3C3 /* Transactions */,
 				0A218B802155180C00B989A1 /* WalletDomainDTO.swift */,
+				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4672,6 +4681,7 @@
 				0A5E4BB12138034500E3C3C3 /* LeaseCancelTransaction.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeaseTransaction.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
+				0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */,
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				E95B480621638BE9004D4E39 /* TransactionHistoryShowAllView.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
@@ -4845,6 +4855,7 @@
 				0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */,
 				E9B088162163886800937644 /* ChartViewController.swift in Sources */,
 				E9B087C72163886800937644 /* DexTraderContainerBaseHeaderView.swift in Sources */,
+				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */,
 				E9B087FB2163886800937644 /* DexMyOrdersModuleBuilder.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
@@ -5010,6 +5021,7 @@
 				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */,
 				0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */,
+				0A88CC04217D27370083874C /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				F7E9550B1EA917EF00A804DE /* WordList.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,
 				0A61B5A0214ADB6A00EC60FC /* Language.swift in Sources */,
@@ -5212,7 +5224,7 @@
 				0AE491E821078CF4009223DB /* WalletSortFavCell.swift in Sources */,
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E9B087EF2163886800937644 /* DexLastTradesTypes.swift in Sources */,
-				0A4508FA2178938C00EBF669 /* EnvironmentsInteractor.swift in Sources */,
+				0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */,
 				E9B088042163886800937644 /* DexViewController.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
