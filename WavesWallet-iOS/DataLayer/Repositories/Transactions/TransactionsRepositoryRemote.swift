@@ -27,19 +27,41 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
-        return transactions
-            .rx
-            .request(.list(accountAddress: accountAddress,
-                           limit: min(Constants.maxLimit, offset + limit)), callbackQueue: DispatchQueue.global(qos: .background))
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+
+                let limit = min(Constants.maxLimit, offset + limit)
+
+                return owner
+                    .transactions
+                    .rx
+                    .request(.init(kind: .list(accountAddress: accountAddress,
+                                               limit: limit),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map(Node.DTO.TransactionContainers.self)
             .map { $0.anyTransactions() }
             .asObservable()        
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
-        return leasingProvider
-            .rx
-            .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .leasingProvider
+                    .rx
+                    .request(.init(kind: .getActive(accountAddress: accountAddress),
+                                   environment: environment),
+                                   callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map([Node.DTO.LeaseTransaction].self)
             .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
             .asObservable()

@@ -20,9 +20,20 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
-        return leasingProvider
-            .rx
-            .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .environment()
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .leasingProvider
+                    .rx
+                    .request(.init(kind: .getActive(accountAddress: accountAddress),
+                                   environment: environment),
+                            callbackQueue: DispatchQueue.global(qos: .background))
+
+            }
             .map([Node.DTO.LeaseTransaction].self)
             .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
             .asObservable()

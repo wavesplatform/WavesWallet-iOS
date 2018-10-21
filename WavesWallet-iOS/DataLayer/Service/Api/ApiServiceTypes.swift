@@ -28,8 +28,4 @@ extension ApiTargetType {
     }
 
     var baseURL: URL { return URL(string: "\(apiUrl)\(apiVersion)")! }
-
-    var environment: Environment {
-        return Environments.current
-    }
 }

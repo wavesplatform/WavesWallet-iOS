@@ -345,12 +345,12 @@ class DexSearchViewController: UIViewController, UITextFieldDelegate, UITableVie
         
         self.textFieldSearch.resignFirstResponder()
         
-        let vc = StoryboardManager.assetPairDetailsViewController(item: item)
-        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: vc)
-        
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = self.halfModalTransitioningDelegate
-        self.present(vc, animated: true, completion: nil)
+//        let vc = StoryboardManager.assetPairDetailsViewController(item: item)
+//        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: vc)
+//
+//        vc.modalPresentationStyle = .custom
+//        vc.transitioningDelegate = self.halfModalTransitioningDelegate
+//        self.present(vc, animated: true, completion: nil)
         //self.tableView.deselectRow(at: indexPath, animated: true)
     }
     

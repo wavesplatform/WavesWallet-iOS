@@ -14,25 +14,4 @@ protocol EnvironmentRepositoryProtocol {
     func environment() -> Observable<Environment>
 }
 
-final class EnvironmentRepositoryLocal: EnvironmentRepositoryProtocol {
-    func environment() -> Observable<Environment> {
-        return Observable.just(Environments.Mainnet)
-    }
-}   
 
-final class EnvironmentRepositoryRemote: EnvironmentRepositoryProtocol {
-    func environment() -> Observable<Environment> {
-        return Observable.just(Environments.Mainnet)
-    }
-}
-
-protocol EnvironmentInteractorProtocol {
-    func environment() -> Observable<Environment>
-}
-
-final class EnvironmentInteractor: EnvironmentInteractorProtocol {
-    func environment() -> Observable<Environment> {
-        return Observable.just(Environments.Mainnet)
-    }
-
-}

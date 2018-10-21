@@ -13,12 +13,6 @@ protocol BaseTargetType: TargetType {
     var environment: Environment { get }
  }
 
-//extension BaseTargetType {
-//    var environment: Environment {
-//        return Environments.Mainnet
-//    }
-//}
-
 enum ContentType {
     case applicationJson
     case applicationCsv

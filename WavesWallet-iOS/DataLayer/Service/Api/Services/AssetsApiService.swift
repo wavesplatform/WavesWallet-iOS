@@ -10,17 +10,23 @@ import Foundation
 import Moya
 
 extension API.Service {
-    enum Assets {
-        /**
-         Response:
-         - API.Response<[API.Response<API.Model.Asset>]>.self
-         */
-        case getAssets(ids: [String])
-        /**
-         Response:
-         - API.Response<API.Model.Asset>.self
-         */
-        case getAsset(id: String)
+
+    struct Assets {
+        enum Kind {
+            /**
+             Response:
+             - API.Response<[API.Response<API.Model.Asset>]>.self
+             */
+            case getAssets(ids: [String])
+            /**
+             Response:
+             - API.Response<API.Model.Asset>.self
+             */
+            case getAsset(id: String)
+        }
+
+        let kind: Kind
+        let environment: Environment
     }
 }
 
@@ -31,7 +37,7 @@ extension API.Service.Assets: ApiTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getAsset(let id):
             return Constants.assets + "/" + "\(id)".urlEscaped
         case .getAssets:
@@ -40,7 +46,7 @@ extension API.Service.Assets: ApiTargetType {
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getAsset:
             return .get
         case .getAssets:
@@ -49,7 +55,7 @@ extension API.Service.Assets: ApiTargetType {
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getAssets(let ids):
             return Task.requestParameters(parameters: [Constants.ids: ids],
                                           encoding: JSONEncoding.default)

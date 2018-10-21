@@ -10,12 +10,18 @@ import Foundation
 import Moya
 
 extension Node.Service {
-    enum Leasing {
-        /**
-         Response:
-         - [Node.Model.LeasingTransaction].self
-         */
-        case getActive(accountAddress: String)
+
+    struct Leasing {
+        enum Kind {
+            /**
+             Response:
+             - [Node.Model.LeasingTransaction].self
+             */
+            case getActive(accountAddress: String)
+        }
+
+        var kind: Kind
+        var environment: Environment
     }
 }
 
@@ -31,21 +37,21 @@ extension Node.Service.Leasing: NodeTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getActive(let accountAddress):
             return Constants.leasing + "/" + Constants.active + "/" + "\(accountAddress)".urlEscaped
         }
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getActive:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getActive:
             return .requestPlain
         }
