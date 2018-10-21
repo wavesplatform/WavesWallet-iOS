@@ -26,13 +26,13 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var blockRemote: BlockRepositoryProtocol = BlockRepositoryRemote(environmentRepository: self.environmentRepository)
 
-    private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol = WalletsRepositoryLocal(environment: Environments.current)
+    private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol = WalletsRepositoryLocal()
 
     private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
 
     private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol = AuthenticationRepositoryRemote()
 
-    private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = EnvironmentRepositoryRemote()
+    private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = EnvironmentRepository()
     
     fileprivate init() {}
 }

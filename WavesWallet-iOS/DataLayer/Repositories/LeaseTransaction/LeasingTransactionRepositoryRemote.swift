@@ -22,7 +22,7 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
 
         return environmentRepository
-            .environment()
+            .environment(accountAddress: accountAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }

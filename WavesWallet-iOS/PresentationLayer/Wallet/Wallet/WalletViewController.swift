@@ -168,19 +168,9 @@ extension WalletViewController {
         displayData.apply(sections: state.visibleSections, animateType: state.animateType)
 
         if state.isRefreshing {
-            if self.isRefreshing == false {
-                self.isRefreshing = true
-                self.refreshControl.beginRefreshing()
-            }
+            self.refreshControl.beginRefreshing()
         } else {
-            if self.isRefreshing == true {
-                self.isRefreshing = false
-                self.displayData.completedReload = {
-                    DispatchQueue.main.async {
-                        self.refreshControl.endRefreshing()
-                    }
-                }
-            }
+            self.refreshControl.endRefreshing()
         }
         setupRightButons(kind: state.kind)
     }

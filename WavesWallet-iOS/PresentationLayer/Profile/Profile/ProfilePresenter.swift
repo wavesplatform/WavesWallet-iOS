@@ -233,21 +233,21 @@ fileprivate extension ProfilePresenter {
 
     func blockQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(query: { state -> String? in
 
             if state.displayState.isAppeared == true, state.wallet != nil {
-                return true
+                return state.wallet?.address
             } else {
                 return nil
             }
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        }, effects: { [weak self] address -> Signal<Types.Event> in
 
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
                 .blockRepository
-                .height()
+                .height(accountAddress: address)
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()

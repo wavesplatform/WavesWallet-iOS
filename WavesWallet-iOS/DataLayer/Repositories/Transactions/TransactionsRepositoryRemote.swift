@@ -28,7 +28,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return environmentRepository
-            .environment()
+            .environment(accountAddress: accountAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
@@ -51,7 +51,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
 
         return environmentRepository
-            .environment()
+            .environment(accountAddress: accountAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }

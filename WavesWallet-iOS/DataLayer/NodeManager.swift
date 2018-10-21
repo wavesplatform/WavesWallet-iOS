@@ -22,6 +22,7 @@ extension ApiError: LocalizedError {
 class NodeManager {
 
     class func broadcastTransfer(transferRequest: TransferRequest) -> Observable<TransferTransaction> {
+        //TODO: incorrect environment
         let u = Environments.current.servers.nodeUrl.appendingPathComponent("/assets/broadcast/transfer")
         return RxAlamofire.requestJSON(.post, u,
                                        parameters: transferRequest.toJSON(), encoding: JSONEncoding.default)
