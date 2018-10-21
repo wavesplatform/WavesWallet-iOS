@@ -18,6 +18,8 @@ private enum ReactQuery {
 
 final class WalletPresenter: WalletPresenterProtocol {
 
+    typealias Types = WalletTypes
+
     var interactor: WalletInteractorProtocol!
     weak var moduleOutput: WalletModuleOutput?
 
@@ -31,7 +33,9 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
-                    reduce: reduce,
+                    reduce: { [weak self] state, event -> Types.State in
+                        return self?.reduce(state: state, event: event) ?? state
+                    },
                     feedback: newFeedbacks)
 
             .drive()

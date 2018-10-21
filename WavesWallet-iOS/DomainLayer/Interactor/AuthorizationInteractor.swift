@@ -437,11 +437,16 @@ extension AuthorizationInteractor {
             let disposable = owner
                 .localWalletRepository
                 .wallet(by: publicKey)
-                .flatMap({ wallet -> Observable<DomainLayer.DTO.Wallet> in
+                .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                    guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                     let newWallet = wallet.mutate(transform: { $0.isLoggedIn = false })
                     return owner
                         .localWalletRepository
                         .saveWallet(newWallet)
+                })
+                .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Wallet> in
+                    guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                    return owner.revokeAuth().map { _ in wallet }
                 })
                 .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                     guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }

@@ -336,10 +336,22 @@ extension AppCoordinator {
 
 // MARK: SupportViewControllerDelegate
 extension AppCoordinator: SupportViewControllerDelegate  {
-    func closeSupportView() {
+    func closeSupportView(isTestNet: Bool) {
+
+
 
         self.window.rootViewController?.dismiss(animated: true, completion: {
-            self.logInApplication()
+            if Environments.isTestNet != isTestNet {
+
+                self.authoAuthorizationInteractor
+                    .logout()
+                    .sweetDebug("Logount Support")
+                    .subscribe(onCompleted: { [weak self] in
+                        Environments.isTestNet = isTestNet
+                        self?.showEnter()
+                    })
+                    .disposed(by: self.disposeBag)
+            }
         })
     }
 }
