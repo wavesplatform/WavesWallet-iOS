@@ -9,9 +9,16 @@
 import Foundation
 import RxSwift
 
+enum EnvironmentRepositoryError: Error {
+    case invalidURL
+    case invalidResponse
+}
 
 protocol EnvironmentRepositoryProtocol {
-    func environment() -> Observable<Environment>
+
+    func environment(accountAddress: String) -> Observable<Environment>
+
+    func setSpamURL(_ url: String) -> Observable<Bool>
 }
 
 

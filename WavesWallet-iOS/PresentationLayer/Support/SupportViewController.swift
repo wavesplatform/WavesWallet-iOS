@@ -21,7 +21,7 @@ final class SupportViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let on = UserDefaults.standard.bool(forKey: "isTestEnvironment")
+        let on = Environments.isTestNet
         testNetSwitch.setOn(on, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
@@ -33,8 +33,7 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction func actionTestNetSwitch(sender: Any) {
-        UserDefaults.standard.set(testNetSwitch.isOn, forKey: "isTestEnvironment")
-        UserDefaults.standard.synchronize()
+        Environments.isTestNet = testNetSwitch.isOn        
     }
 
     private func version() -> String {

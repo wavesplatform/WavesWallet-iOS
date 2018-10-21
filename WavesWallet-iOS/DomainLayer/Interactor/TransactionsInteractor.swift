@@ -208,7 +208,7 @@ fileprivate extension TransactionsInteractor {
         let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
         let accounts = self.accounts(by: accountsIds)
         let txs = Observable.just(query.transactions)
-        let blockHeight = blockRepositoryRemote.height()
+        let blockHeight = blockRepositoryRemote.height(accountAddress: query.accountAddress)
 
         return Observable.zip(assets,
                               accounts,

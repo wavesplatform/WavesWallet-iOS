@@ -24,37 +24,28 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let spamAssets = environmentRepository
-            .environment()
+
+        let environment = environmentRepository.environment(accountAddress: accountAddress)
+
+        let spamAssets = environment
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
                 return owner
                     .spamProvider
                     .rx
-                    .request(.init(kind: .getSpamList,
-                                   environment: environment),
+                    .request(.getSpamList(url: environment.servers.spamUrl),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
             .map { response -> [String] in
-
-                guard let text = String(data: response.data, encoding: .utf8) else { return [] }
-                guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { return [] }
-
-                var addresses = [String]()
-                while let row = csv.next() {
-                    guard let address = scamAddressFrom(row: row) else { continue }
-                    addresses.append(address)
-                }
-                return addresses
+                return (try? SpamCVC.addresses(from: response.data)) ?? []
             }
             .asObservable()
 
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
 
-        let assetsList = environmentRepository
-            .environment()
+        let assetsList = environment
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
@@ -69,10 +60,10 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             .asObservable()
 
 
-        return Observable.zip(assetsList, spamAssets)
-            .map { assets, spamAssets in
+        return Observable.zip(assetsList, spamAssets, environment)
+            .map { assets, spamAssets, environment in
 
-                let map = Environments.current.hashMapGeneralAssets()
+                let map = environment.hashMapGeneralAssets()
                 return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamAssets.contains($0.id),
@@ -142,18 +133,4 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isGateway = isGateway
         self.displayName = name
     }
-}
-
-fileprivate func scamAddressFrom(row: [String]) -> String? {
-    if row.count < 2 {
-        return nil
-    }
-    let address = row[0]
-    let type = row[1]
-
-    if type.lowercased() != "scam", address.count == 0 {
-        return nil
-    }
-
-    return address
 }

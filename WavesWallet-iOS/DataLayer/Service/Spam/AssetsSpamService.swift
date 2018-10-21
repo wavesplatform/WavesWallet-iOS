@@ -10,35 +10,46 @@ import Foundation
 import Moya
 
 extension Spam.Service {
-    struct Assets {
-        enum Kind {
-            /**
-             Response:
-             - Node.Model.AccountBalance.self
-             */
-            case getSpamList
-        }
-
-        let kind: Kind
-        let environment: Environment
+    enum Assets {
+        /**
+         Response:
+         - CSV
+         */
+        case getSpamList(url: URL)
     }
 }
 
-extension Spam.Service.Assets: SpamTargetType {
+extension Spam.Service.Assets: TargetType {
+
+    var baseURL: URL {
+
+        switch self {
+        case .getSpamList(let url):
+            return url
+        }
+    }
+
+    var headers: [String: String]? {
+        return ContentType.applicationCsv.headers
+    }
+
+    var sampleData: Data {
+        return Data()
+    }
 
     var path: String {
         return ""
     }
 
     var method: Moya.Method {
-        switch kind {
+        switch self {
         case .getSpamList:
             return .get
         }
     }
 
     var task: Task {
-        switch kind {
+        switch self {
         case .getSpamList:
             return .requestPlain
         }

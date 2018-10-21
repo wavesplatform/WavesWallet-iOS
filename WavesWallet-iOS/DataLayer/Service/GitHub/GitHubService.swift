@@ -17,6 +17,7 @@ extension GitHub {
 
 private enum Constants {
     static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/environment_mainnet.json")!
+    static let urlEnvironmentTestNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
 }
 
 extension GitHub.Service {
@@ -26,7 +27,7 @@ extension GitHub.Service {
              Response:
              - Environment
              */
-            case get
+            case get(isTestNet: Bool)
         }
 }
 
@@ -36,7 +37,15 @@ extension GitHub.Service.Environment: TargetType {
     }
 
     var baseURL: URL {
-        return Constants.urlEnvironmentMainNet }
+        switch self {
+        case .get(let isTestNet):
+            if isTestNet {
+                return Constants.urlEnvironmentTestNet
+            } else {
+                return Constants.urlEnvironmentMainNet
+            }
+        }
+    }
 
     var path: String {
         return ""

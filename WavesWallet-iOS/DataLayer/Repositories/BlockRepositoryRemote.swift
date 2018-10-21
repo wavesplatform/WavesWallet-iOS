@@ -19,10 +19,10 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
 
-    func height() -> Observable<Int64> {
+    func height(accountAddress: String) -> Observable<Int64> {
 
         return environmentRepository
-            .environment()
+            .environment(accountAddress: accountAddress)
             .flatMap({ [weak self] environment -> Single<Response> in
                 guard let owner = self else { return Single.never() }
                 return owner

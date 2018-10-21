@@ -7,3 +7,8 @@
 //
 
 import Foundation
+import RealmSwift
+
+class AccountEnvironment: Object {
+    @objc dynamic var isEnabledSpam: Bool = true
+}

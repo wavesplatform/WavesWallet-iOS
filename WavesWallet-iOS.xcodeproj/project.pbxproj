@@ -262,6 +262,7 @@
 		0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD520F2B9190010CA6C /* Environment-Main.json */; };
 		0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */; };
 		0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */; };
+		0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */; };
 		0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */; };
 		0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */; };
 		0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1C721518CE5005E148F /* BackupCoordinator.swift */; };
@@ -1083,6 +1084,7 @@
 		0A7E0CD520F2B9190010CA6C /* Environment-Main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Main.json"; sourceTree = "<group>"; };
 		0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsApiService.swift; sourceTree = "<group>"; };
 		0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTypes.swift; sourceTree = "<group>"; };
+		0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
 		0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherServiceTypes.swift; sourceTree = "<group>"; };
 		0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcherService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
@@ -2160,6 +2162,7 @@
 				0AD2B58020F64760007EE076 /* Optional+Hashable.swift */,
 				E950AA46211226A500BFE872 /* String+Escaped.swift */,
 				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
+				0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -4756,6 +4759,7 @@
 				0AAB15C321655BDB00F1F7BC /* ProfileInfoCell.swift in Sources */,
 				E9B087B22163886800937644 /* DexOrderBookInteractorProtocol.swift in Sources */,
 				E9B087DC2163886800937644 /* DexCreateOrderModuleOutput.swift in Sources */,
+				0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */,
 				0A5D33002157D5EF0009CDF3 /* Data+AES.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				E9D36DE62175C755001E6DF0 /* ReceiveGenerateTypes.swift in Sources */,
