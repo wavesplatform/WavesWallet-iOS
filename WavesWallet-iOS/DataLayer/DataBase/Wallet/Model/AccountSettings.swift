@@ -9,6 +9,6 @@
 import Foundation
 import RealmSwift
 
-class AccountEnvironment: Object {
+class AccountSettings: Object {
     @objc dynamic var isEnabledSpam: Bool = true
 }

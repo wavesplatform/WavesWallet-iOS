@@ -15,9 +15,7 @@ enum EnvironmentRepositoryError: Error {
 }
 
 protocol EnvironmentRepositoryProtocol {
-
     func environment(accountAddress: String) -> Observable<Environment>
-
     func setSpamURL(_ url: String) -> Observable<Bool>
 }
 
