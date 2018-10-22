@@ -732,7 +732,7 @@
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
-		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTapes.swift */; };
+		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */; };
 		E9D36DC82175C755001E6DF0 /* ReceiveCryptocurrency.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9D36D6E2175C754001E6DF0 /* ReceiveCryptocurrency.strings */; };
 		E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */; };
 		E9D36DCA2175C755001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D722175C754001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift */; };
@@ -793,6 +793,7 @@
 		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
 		E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5BA82175F35800E5C29A /* AddressInputView.swift */; };
 		E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5BA92175F35800E5C29A /* AddressInputView.xib */; };
+		E9F21F53217E4D6200FA6FD2 /* TestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F21F52217E4D6200FA6FD2 /* TestInteractor.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */; };
@@ -1622,7 +1623,7 @@
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTapes.swift; sourceTree = "<group>"; };
+		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTypes.swift; sourceTree = "<group>"; };
 		E9D36D6F2175C754001E6DF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
 		E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyModuleBuilder.swift; sourceTree = "<group>"; };
 		E9D36D722175C754001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -1700,6 +1701,7 @@
 		E9EC5BA62175F35800E5C29A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Send.strings; sourceTree = "<group>"; };
 		E9EC5BA82175F35800E5C29A /* AddressInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInputView.swift; sourceTree = "<group>"; };
 		E9EC5BA92175F35800E5C29A /* AddressInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressInputView.xib; sourceTree = "<group>"; };
+		E9F21F52217E4D6200FA6FD2 /* TestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInteractor.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
 		E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
@@ -3877,7 +3879,7 @@
 		E9D36D6C2175C754001E6DF0 /* Сryptocurrency */ = {
 			isa = PBXGroup;
 			children = (
-				E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTapes.swift */,
+				E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */,
 				E9D36D6E2175C754001E6DF0 /* ReceiveCryptocurrency.strings */,
 				E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */,
 				E9D36D712175C754001E6DF0 /* Presenter */,
@@ -4079,6 +4081,7 @@
 				E9EC5B3A2175F35800E5C29A /* SendViewController.swift */,
 				E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */,
 				E9C0B4A32176C4BE00669D1D /* SendTypes.swift */,
+				E9F21F52217E4D6200FA6FD2 /* TestInteractor.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -4718,6 +4721,7 @@
 				0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */,
 				E9B088202163886800937644 /* DexSortInteractorMock.swift in Sources */,
+				E9F21F53217E4D6200FA6FD2 /* TestInteractor.swift in Sources */,
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
@@ -4913,7 +4917,7 @@
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,
 				F71B776A1EABA4F80096CA85 /* TransferRequest.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
-				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTapes.swift in Sources */,
+				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
 				0AF921EA212E07B3003BA067 /* AssetTypes.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,

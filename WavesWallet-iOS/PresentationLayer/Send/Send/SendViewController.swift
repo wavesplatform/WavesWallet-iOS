@@ -45,6 +45,23 @@ final class SendViewController: UIViewController {
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var wavesAsset: DomainLayer.DTO.AssetBalance?
     
+    var availableBalance: Money {
+        
+        guard let asset = selectedAsset else { return Money(0, 0)}
+        
+        var balance: Int64 = 0
+        if asset.asset?.isWaves == true {
+            balance = asset.balance - wavesFee.amount
+        }
+        else if isValidCryptocyrrencyAddress {
+            balance = asset.balance - (gateWayInfo?.fee.amount ?? 0)
+        }
+        else {
+            balance = asset.balance
+        }
+        return Money(balance, asset.asset?.precision ?? 0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -203,22 +220,10 @@ private extension SendViewController {
         var values: [Money] = []
         if let assetBalance = selectedAsset, assetBalance.balance > 0 {
 
-            var balance: Int64 = 0
-            if assetBalance.asset?.isWaves == true {
-                balance = assetBalance.balance - wavesFee.amount
-            }
-            else if isValidCryptocyrrencyAddress {
-                balance = assetBalance.balance - (gateWayInfo?.fee.amount ?? 0)
-            }
-            else {
-                balance = assetBalance.balance
-            }
-            
-            let decimals = assetBalance.asset?.precision ?? 0
-            values.append(Money(balance, decimals))
-            values.append(Money(balance * Int64(Constants.percent50) / 100, decimals))
-            values.append(Money(balance * Int64(Constants.percent10) / 100, decimals))
-            values.append(Money(balance * Int64(Constants.percent5) / 100, decimals))
+            values.append(availableBalance)
+            values.append(Money(availableBalance.amount * Int64(Constants.percent50) / 100, availableBalance.decimals))
+            values.append(Money(availableBalance.amount * Int64(Constants.percent10) / 100, availableBalance.decimals))
+            values.append(Money(availableBalance.amount * Int64(Constants.percent5) / 100, availableBalance.decimals))
         }
         
         return values
@@ -261,7 +266,11 @@ private extension SendViewController {
         if isValidCryptocyrrencyAddress && gateWayInfo == nil {
             isValidateGateway = false
         }
-        let canContinueAction = isValidateGateway && isValidAddress(recipientAddressView.text) && selectedAsset != nil
+        let canContinueAction = isValidateGateway &&
+            isValidAddress(recipientAddressView.text) &&
+            selectedAsset != nil &&
+            isValidAmount
+        
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
@@ -410,9 +419,19 @@ extension SendViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - AddressValidation
+//MARK: - Validation
 private extension SendViewController {
 
+    var isValidAmount: Bool {
+        guard let amount = amount else { return false }
+        if selectedAsset?.asset?.isWaves == true {
+            return availableBalance.amount >= amount.amount
+        }
+        
+        return availableBalance.amount >= amount.amount &&
+        (wavesAsset?.balance ?? 0) >= wavesFee.amount
+    }
+    
     var canValidateAlias: Bool {
         let alias = recipientAddressView.text
         return alias.count >= Send.ViewModel.minimumAliasLength &&

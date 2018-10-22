@@ -71,7 +71,7 @@ final class SendInteractor: SendInteractorProtocol {
         
         return Observable.create({ (subscribe) -> Disposable in
         
-            let url = Environments.Mainnet.servers.dataUrl.relativeString + Constasts.aliasApi + alias
+            let url = Environments.current.servers.dataUrl.relativeString + Constasts.aliasApi + alias
 
             let req = NetworkManager.getRequestWithPath(path: "", parameters: nil, customUrl: url, complete: { (info, errorMessage) in
                 subscribe.onNext(errorMessage == nil)

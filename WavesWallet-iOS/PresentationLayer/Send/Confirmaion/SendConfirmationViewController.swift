@@ -56,7 +56,7 @@ final class SendConfirmationViewController: UIViewController {
     }
     
     @IBAction private func descriptionDidChange(_ sender: Any) {
-        showError(descriptionText.count > Send.ViewModel.maximumDescriptionLength)
+        showError(descriptionText.utf8.count > Send.ViewModel.maximumDescriptionLength)
     }
     
     private var descriptionText: String {
