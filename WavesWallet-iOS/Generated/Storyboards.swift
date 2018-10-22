@@ -214,17 +214,11 @@ internal enum StoryboardScene {
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
 
-    internal static let accountPasswordViewController = SceneType<WavesWallet_iOS.AccountPasswordViewController>(storyboard: Profile.self, identifier: "AccountPasswordViewController")
-
     internal static let alertDeleteAccountViewController = SceneType<WavesWallet_iOS.AlertDeleteAccountViewController>(storyboard: Profile.self, identifier: "AlertDeleteAccountViewController")
-
-    internal static let changePasswordViewController = SceneType<WavesWallet_iOS.ChangePasswordViewController>(storyboard: Profile.self, identifier: "ChangePasswordViewController")
 
     internal static let createAliasViewController = SceneType<WavesWallet_iOS.CreateAliasViewController>(storyboard: Profile.self, identifier: "CreateAliasViewController")
 
-    internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Profile.self, identifier: "LanguageViewController")
-
-    internal static let networkViewController = SceneType<WavesWallet_iOS.NetworkViewController>(storyboard: Profile.self, identifier: "NetworkViewController")
+    internal static let networkSettingsViewController = SceneType<WavesWallet_iOS.NetworkSettingsViewController>(storyboard: Profile.self, identifier: "NetworkSettingsViewController")
 
     internal static let profileAddressKeyViewController = SceneType<WavesWallet_iOS.ProfileAddressKeyViewController>(storyboard: Profile.self, identifier: "ProfileAddressKeyViewController")
 

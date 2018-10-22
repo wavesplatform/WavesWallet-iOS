@@ -12,17 +12,6 @@ import RealmSwift
 import RxRealm
 import RxSwift
 
-
-private extension String {
-
-    var isValidUrl: Bool {
-        let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
-        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-        let result = urlTest.evaluate(with: self)
-        return result
-    }
-}
-
 private struct EnvironmentKey: Hashable {
     let accountAddress: String
     let isTestNet: Bool
@@ -138,34 +127,6 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             return Disposables.create([disposable])
         })
     }
-
-
-//    let spamAssets = environment
-//        .flatMap { [weak self] environment -> Single<Response> in
-//
-//            guard let owner = self else { return Single.never() }
-//            return owner
-//                .spamProvider
-//                .rx
-//                .request(.init(kind: .getSpamList,
-//                               environment: environment),
-//                         callbackQueue: DispatchQueue.global(qos: .background))
-//        }
-//        .map { response -> [String] in
-//
-//            guard let text = String(data: response.data, encoding: .utf8) else { return [] }
-//            guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { return [] }
-//
-//            var addresses = [String]()
-//            while let row = csv.next() {
-//                guard let address = scamAddressFrom(row: row) else { continue }
-//                addresses.append(address)
-//            }
-//            return addresses
-//        }
-//        .asObservable()
-//    guard let text = String(data: response.data, encoding: .utf8) else { return [] }
-//    guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { return [] }
 
     private func localEnvironment(by key: EnvironmentKey) -> Environment? {
 

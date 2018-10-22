@@ -67,8 +67,9 @@ extension ProfileCoordinator: ProfileModuleOutput {
         navigationController.pushViewController(language, animated: true)
     }
 
-    func showNetwork() {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+    func showNetwork(wallet: DomainLayer.DTO.Wallet) {
+        let vc = NetworkSettingsModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func showRateApp() {
@@ -160,3 +161,11 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
         passcode.start()
     }
 }
+
+// MARK: NetworkSettingsModuleOutput
+
+extension ProfileCoordinator: NetworkSettingsModuleOutput {
+
+}
+
+
