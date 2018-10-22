@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class PasswordTextField: UIView, NibOwnerLoadable {
+final class InputTextField: UIView, NibOwnerLoadable {
 
     enum Kind {
         case password
@@ -32,7 +32,14 @@ final class PasswordTextField: UIView, NibOwnerLoadable {
     private var secureText: String?
 
     var value: String? {
-        return textFieldValue.text
+        set {
+            textFieldValue.text = newValue
+            checkValidValue()
+        }
+
+        get {
+            return textFieldValue.text
+        }
     }
 
     private var isHiddenTitleLabel: Bool = true
@@ -54,7 +61,7 @@ final class PasswordTextField: UIView, NibOwnerLoadable {
 
     var valueValidator: ((String?) -> String?)?
     var changedValue: ((Bool,String?) -> Void)?
-    var textFieldShouldReturn: ((PasswordTextField) -> Void)?
+    var textFieldShouldReturn: ((InputTextField) -> Void)?
 
     var returnKey: UIReturnKeyType? {
         didSet {
@@ -153,8 +160,8 @@ final class PasswordTextField: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
-extension PasswordTextField: ViewConfiguration {
-    func update(with model: PasswordTextField.Model) {
+extension InputTextField: ViewConfiguration {
+    func update(with model: InputTextField.Model) {
         kind = model.kind
         titleLabel.text = model.title
         textFieldValue.placeholder = model.placeholder
@@ -184,7 +191,7 @@ extension PasswordTextField: ViewConfiguration {
 }
 
 // MARK: UITextFieldDelegate
-extension PasswordTextField: UITextFieldDelegate {
+extension InputTextField: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 

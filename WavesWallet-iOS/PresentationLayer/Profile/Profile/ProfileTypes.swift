@@ -21,7 +21,7 @@ extension ProfileTypes {
         case showBackupPhrase(wallet: DomainLayer.DTO.Wallet)
         case showChangePassword(wallet: DomainLayer.DTO.Wallet)
         case showChangePasscode(wallet: DomainLayer.DTO.Wallet)
-        case showNetwork
+        case showNetwork(wallet: DomainLayer.DTO.Wallet)
         case showRateApp
         case showFeedback
         case showSupport

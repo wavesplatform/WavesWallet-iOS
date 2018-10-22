@@ -10,6 +10,6 @@ import Foundation
 import RxSwift
 
 protocol AccountSettingsRepositoryProtocol {
-    func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings>
-    func saveAccountSettings(accountAddress: String, environment: DomainLayer.DTO.AccountSettings) -> Observable<DomainLayer.DTO.AccountSettings>
+    func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?>
+    func saveAccountSettings(accountAddress: String, settings: DomainLayer.DTO.AccountSettings) -> Observable<DomainLayer.DTO.AccountSettings>
 }

@@ -18,9 +18,9 @@ final class ChangePasswordViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var buttonConfirm: UIButton!
-    @IBOutlet private weak var oldPasswordInput: PasswordTextField!
-    @IBOutlet private weak var passwordInput: PasswordTextField!
-    @IBOutlet private weak var confirmPasswordInput: PasswordTextField!
+    @IBOutlet private weak var oldPasswordInput: InputTextField!
+    @IBOutlet private weak var passwordInput: InputTextField!
+    @IBOutlet private weak var confirmPasswordInput: InputTextField!
 
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
@@ -47,13 +47,13 @@ final class ChangePasswordViewController: UIViewController {
     }
 
     private func setupTextField() {
-        oldPasswordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Oldpassword.title,
+        oldPasswordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Oldpassword.title,
                                                               kind: .password,
                                                               placeholder: Localizable.ChangePassword.Textfield.Oldpassword.title))
-        passwordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Createpassword.title,
+        passwordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Createpassword.title,
                                                            kind: .password,
                                                            placeholder: Localizable.ChangePassword.Textfield.Createpassword.title))
-        confirmPasswordInput.update(with: PasswordTextField.Model(title: Localizable.ChangePassword.Textfield.Confirmpassword.title,
+        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Confirmpassword.title,
                                                                   kind: .newPassword,
                                                                   placeholder: Localizable.ChangePassword.Textfield.Confirmpassword.title))
 

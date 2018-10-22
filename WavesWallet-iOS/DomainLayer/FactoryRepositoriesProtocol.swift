@@ -30,6 +30,8 @@ protocol FactoryRepositoriesProtocol {
     var authenticationRepositoryRemote: AuthenticationRepositoryProtocol { get }
 
     var environmentRepository: EnvironmentRepositoryProtocol { get }
+
+    var accountSettingsRepository: AccountSettingsRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

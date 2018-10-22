@@ -9,12 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-
     struct AccountSettings: Mutating {
-        var nodeUrl: String?
-        var dataUrl: String?
-        var spamUrl: String?
-        var matcherUrl: String?
+        var isEnabledSpam: Bool
     }
 }
-

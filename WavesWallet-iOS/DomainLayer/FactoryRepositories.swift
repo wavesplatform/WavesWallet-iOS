@@ -33,6 +33,8 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol = AuthenticationRepositoryRemote()
 
     private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = EnvironmentRepository()
-    
+
+    private(set) lazy var accountSettingsRepository: AccountSettingsRepositoryProtocol = AccountSettingsRepository()
+
     fileprivate init() {}
 }

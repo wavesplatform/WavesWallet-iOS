@@ -3,13 +3,10 @@ import RealmSwift
 import Realm
 import RxDataSources
 
-final class AddressBook: Object, IdentifiableType {
+final class AddressBook: Object {
     @objc dynamic var address = ""
     @objc dynamic var name = ""
     
-    public var identity: String {
-        return "\(address)"
-    }
     override static func primaryKey() -> String? {
         return "address"
     }
