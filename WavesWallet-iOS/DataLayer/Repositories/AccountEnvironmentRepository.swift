@@ -16,7 +16,8 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?> {
         return Observable.create({ observer -> Disposable in
 
-            let realm = try! Realm()
+            //TODO Error
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             let result = realm.objects(AccountSettings.self)
 
             if let settings = result.toArray().first {
@@ -34,7 +35,8 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func saveAccountSettings(accountAddress: String, settings: DomainLayer.DTO.AccountSettings) -> Observable<DomainLayer.DTO.AccountSettings> {
         return Observable.create({ observer -> Disposable in
 
-            let realm = try! Realm()
+            //TODO Error
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             try? realm.write {
                 realm.deleteAll()
                 realm.add(AccountSettings(settings))

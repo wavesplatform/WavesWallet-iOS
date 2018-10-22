@@ -266,6 +266,7 @@
 		0A88CC04217D27370083874C /* AccountSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */; };
 		0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */; };
 		0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */; };
+		0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC09217E80040083874C /* WalletRealmFactory.swift */; };
 		0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */; };
 		0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */; };
 		0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1C721518CE5005E148F /* BackupCoordinator.swift */; };
@@ -1096,6 +1097,7 @@
 		0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
 		0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentRepository.swift; sourceTree = "<group>"; };
+		0A88CC09217E80040083874C /* WalletRealmFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRealmFactory.swift; sourceTree = "<group>"; };
 		0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherServiceTypes.swift; sourceTree = "<group>"; };
 		0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcherService.swift; sourceTree = "<group>"; };
 		0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DTO.swift"; sourceTree = "<group>"; };
@@ -2656,6 +2658,7 @@
 		0AD8360B217A1DA4004413E9 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				0A88CC09217E80040083874C /* WalletRealmFactory.swift */,
 				F74240B01EAB8D1600C3B84D /* Model */,
 			);
 			path = Wallet;
@@ -4877,6 +4880,7 @@
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
 				0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */,
+				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
 				0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */,
