@@ -168,6 +168,8 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     private let localWalletRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
     private let localWalletSeedRepository: WalletSeedRepositoryProtocol = FactoryRepositories.instance.walletSeedRepositoryLocal
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol = FactoryRepositories.instance.authenticationRepositoryRemote
+
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
     
 
     //TODO: Mutex
@@ -352,34 +354,48 @@ extension AuthorizationInteractor {
 
     func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet> {
 
-        return self.registerData(wallet)
-            .flatMap({ [weak self] (data) -> Observable<DomainLayer.DTO.Wallet> in
+        return registerData(wallet)
+            .flatMap({ [weak self] (data) -> Observable<RegisterData> in
 
                 guard let owner = self else { return Observable.never() }
 
-                return owner.remoteAuthenticationRepository.registration(with: data.id,
-                                                                         keyForPassword: data.keyForPassword,
-                                                                         passcode: wallet.passcode)
-                    .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
-                        guard let owner = self else { return Observable.never() }
-                        let model = DomainLayer.DTO.Wallet(id: data.id,
-                                                           seedId: data.seedId,
-                                                           secret: data.secret,
-                                                           query: wallet)
+                return owner
+                    .remoteAuthenticationRepository
+                    .registration(with: data.id,
+                                  keyForPassword: data.keyForPassword,
+                                  passcode: wallet.passcode)
+                    .map { _ in data }
+            })
+            .flatMap { [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                let model = DomainLayer.DTO.Wallet(id: data.id,
+                                                   seedId: data.seedId,
+                                                   secret: data.secret,
+                                                   query: wallet)
 
-                        let saveSeed = owner
-                            .localWalletSeedRepository
-                            .saveSeed(for: .init(publicKey: wallet.privateKey.getPublicKeyStr(),
-                                                 seed: wallet.privateKey.wordsStr,
-                                                 address: wallet.privateKey.address),
-                                      seedId: model.seedId,
-                                      password: data.password)
+                let saveSeed = owner
+                    .localWalletSeedRepository
+                    .saveSeed(for: .init(publicKey: wallet.privateKey.getPublicKeyStr(),
+                                         seed: wallet.privateKey.wordsStr,
+                                         address: wallet.privateKey.address),
+                              seedId: model.seedId,
+                              password: data.password)
 
-                        let saveWallet = owner.localWalletRepository.saveWallet(model)
-                        return saveSeed.flatMap { _ -> Observable<DomainLayer.DTO.Wallet> in
-                            saveWallet
-                        }
-                }
+                return saveSeed.map { _ in  model }
+            }
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner.localWalletRepository.saveWallet(wallet)
+            })
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+
+                // Deffault setting for account
+                let settings = DomainLayer.DTO.AccountSettings(isEnabledSpam: true)
+                return owner.accountSettingsRepository
+                    .saveAccountSettings(accountAddress: wallet.address,
+                                         settings: settings)
+                    .map { _ in wallet }
             })
             .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }

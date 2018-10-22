@@ -77,6 +77,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let accountSettings = strongSelf.accountSettingsRepository
                 .accountSettings(accountAddress: address)
+                .sweetDebug("accountSettings")
 
             return Observable.zip(environment, accountSettings)
                 .map { Types.Event.setEnvironmets($0.0, $0.1) }
