@@ -42,6 +42,11 @@ extension String {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.width)
     }
+    
+    func arrayWithSize() -> [UInt8] {
+        let b: [UInt8] = Array(utf8)
+        return toByteArray(Int16(b.count)) + b
+    }
 }
 
 extension NSAttributedString {
