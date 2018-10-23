@@ -58,9 +58,9 @@ protocol TransactionsRepositoryProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 
     
-    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool>
+    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool>
 
-    func isHasTransaction(by id: String) -> Observable<Bool>
-    func isHasTransactions(by ids: [String]) -> Observable<Bool>
-    var isHasTransactions: Observable<Bool> { get }
+    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool>
+    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool>
+    func isHasTransactions(by accountAddress: String) -> Observable<Bool>
 }

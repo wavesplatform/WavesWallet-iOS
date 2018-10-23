@@ -143,7 +143,7 @@ private extension AccountBalanceInteractor {
                         newBalances = owner.initialSettings(for: newBalances)
                         return owner
                             .balanceRepositoryLocal
-                            .saveBalances(newBalances)
+                            .saveBalances(newBalances, accountAddress: walletAddress)
                             .map { _ in newBalances }
                     }
             }

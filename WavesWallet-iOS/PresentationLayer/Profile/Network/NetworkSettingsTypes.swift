@@ -20,7 +20,8 @@ extension NetworkSettingsTypes {
 
     struct State: Mutating {
         var wallet: DomainLayer.DTO.Wallet
-        var accountSetting: DomainLayer.DTO.AccountSettings?        
+        var accountSettings: DomainLayer.DTO.AccountSettings?
+        var environment: Environment?
         var displayState: DisplayState
         var query: Query?
         var isValidSpam: Bool        

@@ -79,14 +79,28 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
 
-        accountBalanceRepositoryLocal
-            .balance(by: id)
-            .flatMap { [weak self] balance -> Observable<Bool> in
+        authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
+                balance: DomainLayer.DTO.AssetBalance)> in
 
                 guard let owner = self else { return Observable.never() }
+                return owner
+                    .accountBalanceRepositoryLocal
+                    .balance(by: id, accountAddress: wallet.wallet.address)
+                    .map { (wallet: wallet.wallet, balance: $0) }
+            }
+            .flatMap { [weak self] data -> Observable<Bool> in
 
-                let newBalance = balance.mutate { $0.settings?.isFavorite = isFavorite }
-                return owner.accountBalanceRepositoryLocal.saveBalance(newBalance)
+                guard let owner = self else { return Observable.never() }
+                let newBalance = data
+                    .balance
+                    .mutate { $0.settings?.isFavorite = isFavorite }
+
+                return owner
+                    .accountBalanceRepositoryLocal
+                    .saveBalance(newBalance, accountAddress: data.wallet.address)
+                    .map { _ in return true }
             }
             .subscribe()
             .disposed(by: disposeBag)

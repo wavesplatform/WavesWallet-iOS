@@ -185,11 +185,11 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 let seed = signedWallet.seed
 
                 owner.seedRepositoryMemory.append(seed)
-                owner.setWalletRealmConfig(wallet: wallet)
+//                owner.setWalletRealmConfig(wallet: wallet)
 
-                var oldWallet = Wallet.init(name: wallet.name,
-                                            publicKeyAccount: PublicKeyAccount.init(publicKey: Base58.decode(seed.publicKey)),
-                                            isBackedUp: wallet.isBackedUp)
+                var oldWallet = Wallet(name: wallet.name,
+                                       publicKeyAccount: PublicKeyAccount(publicKey: Base58.decode(seed.publicKey)),
+                                       isBackedUp: wallet.isBackedUp)
                 oldWallet.privateKey = PrivateKeyAccount(seedStr: seed.seed)
                 WalletManager.currentWallet = oldWallet
 
@@ -391,7 +391,7 @@ extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.never() }
 
                 // Deffault setting for account
-                let settings = DomainLayer.DTO.AccountSettings(isEnabledSpam: true)
+                let settings = DomainLayer.DTO.AccountSettings(isEnabledSpam: false)
                 return owner.accountSettingsRepository
                     .saveAccountSettings(accountAddress: wallet.address,
                                          settings: settings)
@@ -756,15 +756,6 @@ fileprivate extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
-    }
-
-
-    func setWalletRealmConfig(wallet: DomainLayer.DTO.Wallet) {
-
-        var config = Realm.Configuration()
-        config.fileURL = config.fileURL!.deletingLastPathComponent()
-            .appendingPathComponent("\(wallet.address).realm")
-          Realm.Configuration.defaultConfiguration = config
     }
 
     private func setIsLoggedIn(wallet: DomainLayer.DTO.Wallet,

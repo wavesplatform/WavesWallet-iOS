@@ -10,10 +10,9 @@ import Foundation
 import RxSwift
 
 protocol AddressBookRepositoryProtocol {
-    
-    func create(contact: DomainLayer.DTO.Contact)
-    func edit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact)
-    func delete(contact: DomainLayer.DTO.Contact)
-    func list() -> Observable<[DomainLayer.DTO.Contact]>
-    func listListener() -> Observable<[DomainLayer.DTO.Contact]>
+        
+    func save(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool>
+    func delete(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool>
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]>
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]>
 }

@@ -74,22 +74,22 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         return Observable.never()
     }
 
-    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool> {
+    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    var isHasTransactions: Observable<Bool> {
-        assertVarDontSupported()
-        return Observable.never()
-    }
-
-    func isHasTransaction(by id: String) -> Observable<Bool> {
+    func isHasTransactions(by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func isHasTransactions(by ids: [String]) -> Observable<Bool> {
+    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
+
+    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

@@ -126,7 +126,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
         return Observable.create { (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -191,11 +191,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     }
 
-    var isHasTransactions: Observable<Bool> {
+    func isHasTransactions(by accountAddress: String) -> Observable<Bool> {
 
         return Observable.create { observer -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -207,11 +207,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 
-    func isHasTransaction(by id: String) -> Observable<Bool> {
+    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool> {
 
         return Observable.create { observer -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -223,10 +223,10 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 
-    func isHasTransactions(by ids: [String]) -> Observable<Bool> {
+    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -239,11 +239,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 
-    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool> {
+    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
 
         return Observable.create { observer -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }

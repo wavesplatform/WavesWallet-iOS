@@ -32,8 +32,8 @@ extension WalletTypes.ViewModel {
             case transactions
             case info
             case general
-            case spam
-            case hidden
+            case spam(count: Int)
+            case hidden(count: Int)
         }
 
         var kind: Kind
@@ -103,14 +103,14 @@ extension WalletTypes.ViewModel.Section {
         sections.append(generalSection)
 
         if hiddenItems.count > 0 {
-            let hiddenSection: WalletTypes.ViewModel.Section = .init(kind: .hidden,
+            let hiddenSection: WalletTypes.ViewModel.Section = .init(kind: .hidden(count: hiddenItems.count),
                                                                      items: hiddenItems,
                                                                      isExpanded: false)
             sections.append(hiddenSection)
         }
 
         if spamItems.count > 0 {
-            let spamSection: WalletTypes.ViewModel.Section = .init(kind: .spam,
+            let spamSection: WalletTypes.ViewModel.Section = .init(kind: .spam(count: spamItems.count),
                                                                    items: spamItems,
                                                                    isExpanded: false)
             sections.append(spamSection)

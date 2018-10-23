@@ -29,11 +29,11 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         if let enviroment = localEnvironment(by: .init(accountAddress: "", isTestNet: Environments.isTestNet)) {
             return Observable.just(enviroment)
         } else {
-            return remoteEnvironment()
+            return remoteEnvironment(accountAddress: accountAddress)
         }
     }
 
-    private func remoteEnvironment() -> Observable<Environment> {
+    private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
         return Observable.create { [weak self] observer -> Disposable in
 
             guard let owner = self else {
@@ -49,7 +49,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                 }
                 .asObservable()
 
-            let accountEnvironment = owner.accountEnvironment()
+            let accountEnvironment = owner.accountEnvironment(accountAddress: accountAddress)
 
             let disposable = Observable
                 .zip(remote, accountEnvironment)
@@ -74,7 +74,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         }
     }
 
-    func setSpamURL(_ url: String) -> Observable<Bool> {
+    func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let owner = self else {
@@ -109,7 +109,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                     guard let owner = self else {
                         return Observable.never()
                     }
-                    return owner.accountEnvironment()
+                    return owner.accountEnvironment(accountAddress: accountAddress)
                 })
                 .flatMap({ [weak self] account -> Observable<Bool> in
 
@@ -120,7 +120,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                     let newAccount = account ?? AccountEnvironment()
                     newAccount.spamUrl = url
 
-                    return owner.saveAccountEnvironment(newAccount)
+                    return owner.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
                 })
                 .subscribe(observer)
 
@@ -137,9 +137,9 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         return nil
     }
 
-    private func accountEnvironment() -> Observable<AccountEnvironment?> {
+    private func accountEnvironment(accountAddress: String) -> Observable<AccountEnvironment?> {
         return Observable.create { observer -> Disposable in
-            let realm = try! Realm()
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             let result = realm.objects(AccountEnvironment.self)
             observer.onNext(result.toArray().first)
@@ -149,9 +149,9 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         }
     }
 
-    private func saveAccountEnvironment(_ accountEnvironment: AccountEnvironment) -> Observable<Bool> {
+    private func saveAccountEnvironment(_ accountEnvironment: AccountEnvironment, accountAddress: String) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
-            let realm = try! Realm()
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             try? realm.write {
                 realm.deleteAll()

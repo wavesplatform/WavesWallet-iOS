@@ -44,10 +44,13 @@ final class LeasingInteractor: LeasingInteractorProtocol {
                 return owner
                     .leasingTransactionRemote
                     .activeLeasingTransactions(by: accountAddress)
-                    .flatMap(weak: owner, selector: { owner, transactions -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
-                        return owner.leasingTransactionLocal.saveLeasingTransactions(transactions).map({ _ -> [DomainLayer.DTO.LeaseTransaction] in
-                            return transactions
-                        })
+                    .flatMap(weak: self, selector: { owner, transactions -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                        return owner
+                            .leasingTransactionLocal
+                            .saveLeasingTransactions(transactions, by: accountAddress)
+                            .map({ _ -> [DomainLayer.DTO.LeaseTransaction] in
+                                return transactions
+                            })
                     })
                 }
                 .share()
