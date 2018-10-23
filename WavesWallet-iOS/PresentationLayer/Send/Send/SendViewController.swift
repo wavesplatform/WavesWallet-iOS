@@ -51,13 +51,13 @@ final class SendViewController: UIViewController {
         
         var balance: Int64 = 0
         if asset.asset?.isWaves == true {
-            balance = asset.balance - wavesFee.amount
+            balance = asset.avaliableBalance - wavesFee.amount
         }
         else if isValidCryptocyrrencyAddress {
-            balance = asset.balance - (gateWayInfo?.fee.amount ?? 0)
+            balance = asset.avaliableBalance - (gateWayInfo?.fee.amount ?? 0)
         }
         else {
-            balance = asset.balance
+            balance = asset.avaliableBalance
         }
         return Money(balance, asset.asset?.precision ?? 0)
     }
@@ -218,7 +218,7 @@ private extension SendViewController {
     var inputAmountValues: [Money] {
         
         var values: [Money] = []
-        if let assetBalance = selectedAsset, assetBalance.balance > 0 {
+        if let assetBalance = selectedAsset, assetBalance.avaliableBalance > 0 {
 
             values.append(availableBalance)
             values.append(Money(availableBalance.amount * Int64(Constants.percent50) / 100, availableBalance.decimals))
@@ -233,7 +233,7 @@ private extension SendViewController {
     
         var fields: [String] = []
         
-        if let asset = selectedAsset, asset.balance > 0 {
+        if let asset = selectedAsset, asset.avaliableBalance > 0 {
             fields.append(contentsOf: [Localizable.Send.Button.useTotalBalanace,
                                        String(Constants.percent50) + "%",
                                        String(Constants.percent10) + "%",
@@ -429,7 +429,7 @@ private extension SendViewController {
         }
         
         return availableBalance.amount >= amount.amount &&
-        (wavesAsset?.balance ?? 0) >= wavesFee.amount
+        (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
     }
     
     var canValidateAlias: Bool {

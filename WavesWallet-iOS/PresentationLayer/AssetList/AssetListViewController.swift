@@ -139,7 +139,7 @@ extension AssetListViewController: UITableViewDataSource {
         
         if let asset = assetBalance.asset {
             let isChecked = assetBalance.assetId == selectedAsset?.assetId
-            let money = Money(assetBalance.balance, asset.precision)
+            let money = Money(assetBalance.avaliableBalance, asset.precision)
             let isFavourite = assetBalance.settings?.isFavorite ?? false
             
             cell.update(with: .init(asset: asset, balance: money, isChecked: isChecked, isFavourite: isFavourite))

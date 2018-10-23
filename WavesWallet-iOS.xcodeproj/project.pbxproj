@@ -99,7 +99,6 @@
 		0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
 		0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */; };
-		0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */; };
 		0A3AD40621492E5D00F8A929 /* WalletSortSeparatorFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491E321078CB9009223DB /* WalletSortSeparatorFooter.swift */; };
 		0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7520F3A6A6004DA625 /* ExchangeFilters.swift */; };
 		0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */; };
@@ -935,7 +934,6 @@
 		0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
 		0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedBackupViewController.swift; sourceTree = "<group>"; };
 		0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupInfoViewController.swift; sourceTree = "<group>"; };
-		0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetBalance+Assisstants.swift"; sourceTree = "<group>"; };
 		0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetTransactionsCell.swift; sourceTree = "<group>"; };
 		0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetTransactionCell.xib; sourceTree = "<group>"; };
 		0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTransactionCell.swift; sourceTree = "<group>"; };
@@ -2007,7 +2005,6 @@
 		0A381EEF2106892700D250F1 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
-				0A381EED2106881800D250F1 /* AssetBalance+Assisstants.swift */,
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
 			);
 			path = Assisstants;
@@ -5107,7 +5104,6 @@
 				F7C683BD1EA93C5800C87DAF /* AppSettings.swift in Sources */,
 				E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */,
 				0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */,
-				0A381EEE2106881800D250F1 /* AssetBalance+Assisstants.swift in Sources */,
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
 				0AF922BB212E1234003BA067 /* SweetLogger.swift in Sources */,
 				0A071E85215DB1B3007D9750 /* ChouseAccountCell.swift in Sources */,
