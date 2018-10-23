@@ -100,7 +100,7 @@ extension AssetSelectView: ViewConfiguration {
         iconFav.isHidden = !(model.settings?.isFavorite ?? false)
        
         loadIcon(name: asset.ticker ?? asset.displayName)
-        let money = Money(model.balance, asset.precision)
+        let money = Money(model.avaliableBalance, asset.precision)
         labelAmount.text = money.displayTextFull
     }
     
