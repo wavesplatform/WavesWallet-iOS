@@ -32,6 +32,8 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
+    @IBOutlet private weak var viewAmountError: UIView!
+    @IBOutlet private weak var labelAmountError: UILabel!
     
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var amount: Money?
@@ -72,6 +74,8 @@ final class SendViewController: UIViewController {
         setupButtonState()
         setupFeedBack()
         hideGatewayInfo(animation: false)
+        updateAmountError(animation: false)
+
         assetView.delegate = self
         amountView.delegate = self
         
@@ -79,8 +83,11 @@ final class SendViewController: UIViewController {
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
-                self.updateAmountData()
+                self.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
             }
+        }
+        else {
+            updateAmountData()
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -104,8 +111,6 @@ final class SendViewController: UIViewController {
         
         selectedAsset = assetBalance
         assetView.update(with: assetBalance)
-        amountView.setDecimals(assetBalance.asset?.precision ?? 0, forceUpdateMoney: false)
-        
         setupButtonState()
 
         let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
@@ -116,6 +121,8 @@ final class SendViewController: UIViewController {
         else {
             hideGatewayInfo(animation: false)
         }
+        
+        updateAmountData()
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
@@ -162,16 +169,17 @@ private extension SendViewController {
                 switch state.action {
                 case .didFailInfo(let error):
                     strongSelf.hideGatewayInfo(animation: true)
-            
+
                 case .didGetInfo(let info):
                     strongSelf.showGatewayInfo(info: info)
-                    
+
                 case .aliasDidFinishCheckValidation(let isValidAlias):
                     strongSelf.hideCheckingAliasState(isValidAlias: isValidAlias)
 
                 case .didGetWavesAsset(let asset):
                     strongSelf.wavesAsset = asset
                     strongSelf.hideButtonLoadingWavesState()
+                    strongSelf.updateAmountError(animation: true)
                     
                 default:
                     break
@@ -190,6 +198,7 @@ extension SendViewController: AmountInputViewDelegate {
     func amountInputView(didChangeValue value: Money) {
         amount = value
         calculateAmount()
+        updateAmountError(animation: true)
     }
 }
 
@@ -197,6 +206,7 @@ extension SendViewController: AmountInputViewDelegate {
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
         setupAssetInfo(asset)
+        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
         validateAddress()
     }
 }
@@ -246,6 +256,49 @@ private extension SendViewController {
         }
     }
     
+    func updateAmountError(animation: Bool) {
+        
+        let isShow = selectedAsset != nil && !isValidAmount && (amount?.amount ?? 0) > 0
+        
+        if isShow {
+            if viewAmountError.isHidden {
+                viewAmountError.isHidden = false
+                if animation {
+                    viewAmountError.alpha = 0
+                    UIView.animate(withDuration: Constants.animationDuration) {
+                        self.viewAmountError.alpha = 1
+                    }
+                }
+            }
+            
+            if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress {
+                let wavesFeeText = wavesFee.displayText + " WAVES"
+                let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
+                labelAmountError.text = Localizable.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
+            }
+            else {
+                labelAmountError.text = Localizable.Send.Label.Error.notFundsFee
+            }
+        }
+        else {
+            if !viewAmountError.isHidden {
+                if animation {
+                    UIView.animate(withDuration: Constants.animationDuration, animations: {
+                        self.viewAmountError.alpha = 0
+                        
+                    }) { (complete) in
+                        self.viewAmountError.isHidden = true
+                    }
+                }
+                else {
+                    viewAmountError.isHidden = true
+                }
+               
+            }
+        }
+        amountView.showErrorMessage(message: Localizable.Send.Label.Error.insufficientFunds, isShow: isShow)
+    }
+    
     func showButtonLoadingWavesState() {
         buttonContinue.isUserInteractionEnabled = false
         buttonContinue.backgroundColor = .submit200
@@ -282,6 +335,8 @@ private extension SendViewController {
     }
     
     func hideGatewayInfo(animation: Bool) {
+        updateAmountError(animation: animation)
+        
         if viewWarning.isHidden {
             return
         }
@@ -321,6 +376,7 @@ private extension SendViewController {
             self.view.layoutIfNeeded()
         })
         setupButtonState()
+        updateAmountError(animation: true)
     }
     
     func setupLocalization() {

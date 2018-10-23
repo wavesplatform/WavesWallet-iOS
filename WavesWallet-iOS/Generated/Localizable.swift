@@ -363,14 +363,6 @@ internal enum Localizable {
       internal static var dollar: String { return Localizable.tr("Send", "label.dollar") }
       /// Gateway fee is
       internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
-      /// Insufficient funds
-      internal static var insufficientFunds: String { return Localizable.tr("Send", "label.insufficientFunds") }
-      /// You don't have enough funds to pay the required fees.
-      internal static var notFundsFee: String { return Localizable.tr("Send", "label.notFundsFee") }
-      /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
-      internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
-        return Localizable.tr("Send", "label.notFundsFeeGateway", p1, p2)
-      }
       /// Recipient
       internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
       /// Recipient address…
@@ -379,6 +371,17 @@ internal enum Localizable {
       internal static var send: String { return Localizable.tr("Send", "label.send") }
       /// Transaction Fee
       internal static var transactionFee: String { return Localizable.tr("Send", "label.transactionFee") }
+
+      internal enum Error {
+        /// Insufficient funds
+        internal static var insufficientFunds: String { return Localizable.tr("Send", "label.error.insufficientFunds") }
+        /// You don't have enough funds to pay the required fees.
+        internal static var notFundsFee: String { return Localizable.tr("Send", "label.error.notFundsFee") }
+        /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
+        internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Send", "label.error.notFundsFeeGateway", p1, p2)
+        }
+      }
 
       internal enum Warning {
         /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
