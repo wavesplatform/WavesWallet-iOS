@@ -16,9 +16,15 @@ enum SpamCVC {
     }
 
     static func scamAddressFrom(row: [String]) -> String? {
-        if row.count < 2 {
+
+        if row.count == 1 {
+            return row[0]
+        }
+
+        if row.count > 2 {
             return nil
         }
+
         let address = row[0]
         let type = row[1]
 

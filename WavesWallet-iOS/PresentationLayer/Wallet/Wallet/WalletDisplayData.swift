@@ -50,6 +50,7 @@ final class WalletDisplayData: NSObject {
         case .expanded(let index):
             tableView.beginUpdates()
             tableView.reloadSections([index], animationStyle: .fade)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             tableView.endUpdates()
             break
         }
@@ -231,11 +232,11 @@ fileprivate extension WalletTypes.ViewModel.Section {
         case .transactions:
             return Localizable.Wallet.Section.activeNow(items.count)
 
-        case .spam:
-            return Localizable.Wallet.Section.spamAssets(items.count)
+        case .spam(let count):
+            return Localizable.Wallet.Section.spamAssets(count)
 
-        case .hidden:
-            return Localizable.Wallet.Section.hiddenAssets(items.count)
+        case .hidden(let count):
+            return Localizable.Wallet.Section.hiddenAssets(count)
 
         default:
             return nil

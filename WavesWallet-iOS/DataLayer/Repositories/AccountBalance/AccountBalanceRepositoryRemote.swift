@@ -38,25 +38,31 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                                                     matcherBalances: $0.2) }
     }
 
-    func balance(by id: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance]) -> Observable<Bool> {
+    func balances(by accountAddress: String, specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveBalance(_ balance: DomainLayer.DTO.AssetBalance) -> Observable<Bool> {
+
+    func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    var listenerOfUpdatedBalances: Observable<[DomainLayer.DTO.AssetBalance]> = {
-        assertVarDontSupported()
+    func saveBalance(_ balance: DomainLayer.DTO.AssetBalance, accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
         return Observable.never()
-    }()
+    }
+
+    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
 }
 
 private extension AccountBalanceRepositoryRemote {

@@ -39,12 +39,12 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
             .asObservable()
     }
 
-    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction]) -> Observable<Bool> {
+    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction], by accountAddress: String) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }
     
-    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction) -> Observable<Bool> {
+    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction, by accountAddress: String) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }

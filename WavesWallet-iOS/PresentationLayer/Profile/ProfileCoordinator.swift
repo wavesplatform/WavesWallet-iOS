@@ -57,7 +57,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showAddressBook() {
-        let vc = AddressBookModuleBuilder.init(output: nil).build(input: .init(isEditMode: false))
+        let vc = AddressBookModuleBuilder.init(output: nil).build(input: .init(isEditMode: true))
         self.navigationController.pushViewController(vc, animated: true)
     }
 

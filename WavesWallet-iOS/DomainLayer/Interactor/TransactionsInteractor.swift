@@ -21,22 +21,29 @@ fileprivate enum Constants {
     static let offset: Int = 50
 }
 
-fileprivate typealias IsHasTransactionsQuery = (ids: [String], transactions: [DomainLayer.DTO.AnyTransaction])
+fileprivate typealias IsHasTransactionsQuery =
+    (accountAddress: String,
+    ids: [String],
+    transactions: [DomainLayer.DTO.AnyTransaction])
+
 fileprivate typealias IsHasTransactionsResult = (isHasTransactions: Bool, transactions: [DomainLayer.DTO.AnyTransaction])
 
-fileprivate typealias IfNeededLoadNextTransactionsQuery = (accountAddress: String,
+fileprivate typealias IfNeededLoadNextTransactionsQuery =
+    (accountAddress: String,
     specifications: TransactionsSpecifications,
     currentOffset: Int,
     currentLimit: Int)
 
-fileprivate typealias NextTransactionsQuery = (accountAddress: String,
+fileprivate typealias NextTransactionsQuery =
+    (accountAddress: String,
     specifications: TransactionsSpecifications,
     currentOffset: Int,
     currentLimit: Int,
     isHasTransactions: Bool,
     transactions: [DomainLayer.DTO.AnyTransaction])
 
-fileprivate typealias InitialTransactionsQuery = (accountAddress: String,
+fileprivate typealias InitialTransactionsQuery =
+    (accountAddress: String,
     specifications: TransactionsSpecifications,
     isHasTransactions: Bool)
 
@@ -64,7 +71,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> SmartTransactionsObservable {
 
         return transactionsRepositoryLocal
-            .isHasTransactions
+            .isHasTransactions(by: accountAddress)
             .map { InitialTransactionsQuery(accountAddress: accountAddress,
                                             specifications: specifications,
                                             isHasTransactions: $0) }
@@ -97,7 +104,7 @@ fileprivate extension TransactionsInteractor {
                                                           currentLimit: Constants.offset))
         } else {
             return firstTransactionsLoading(query.accountAddress,
-                                           specifications: query.specifications)
+                                            specifications: query.specifications)
         }
     }
 
@@ -106,7 +113,10 @@ fileprivate extension TransactionsInteractor {
 
         return transactionsRepositoryRemote
             .transactions(by: accountAddress, offset: 0, limit: Constants.maxLimit)
-            .flatMap(weak: self, selector: { $0.saveTransactions })
+            .flatMap({ [weak self] transactions -> Observable<Bool> in
+                guard let owner = self else { return Observable.never() }
+                return owner.saveTransactions(transactions, accountAddress: accountAddress)
+            })
             .map { _ in AnyTransactionsQuery(accountAddress: accountAddress, specifications: specifications) }
             .flatMap(weak: self, selector: { $0.smartTransactionsFromAnyTransactions })
     }
@@ -122,7 +132,7 @@ fileprivate extension TransactionsInteractor {
                     list.append(tx.id)
                 }
 
-                return IsHasTransactionsQuery(ids: ids, transactions: $0)
+                return IsHasTransactionsQuery(accountAddress: query.accountAddress, ids: ids, transactions: $0)
             }
             .flatMap(weak: self, selector: { $0.isHasTransactions })
             .map { NextTransactionsQuery(accountAddress: query.accountAddress,
@@ -141,7 +151,7 @@ fileprivate extension TransactionsInteractor {
             return smartTransactionsFromAnyTransactions(AnyTransactionsQuery(accountAddress: query.accountAddress,
                                                                              specifications: query.specifications))
         } else {
-            return saveTransactions(query.transactions)
+            return saveTransactions(query.transactions, accountAddress: query.accountAddress)
                 .map { _ in IfNeededLoadNextTransactionsQuery(accountAddress: query.accountAddress,
                                                          specifications: query.specifications,
                                                          currentOffset: query.currentOffset + query.currentLimit,
@@ -153,15 +163,15 @@ fileprivate extension TransactionsInteractor {
     private func isHasTransactions(_ query: IsHasTransactionsQuery) -> Observable<IsHasTransactionsResult> {
 
         return transactionsRepositoryLocal
-            .isHasTransactions(by: query.ids)
+            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress)
             .map { IsHasTransactionsResult(isHasTransactions: $0,
                                            transactions: query.transactions)}
     }
 
-    private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> AsyncObservable<Bool> {
+    private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> AsyncObservable<Bool> {
 
         return transactionsRepositoryLocal
-            .saveTransactions(transactions)
+            .saveTransactions(transactions, accountAddress: accountAddress)
     }
 
     private func smartTransactionsFromAnyTransactions(_ query: AnyTransactionsQuery) -> SmartTransactionsObservable {

@@ -32,6 +32,8 @@ protocol FactoryRepositoriesProtocol {
     var environmentRepository: EnvironmentRepositoryProtocol { get }
 
     var accountSettingsRepository: AccountSettingsRepositoryProtocol { get }
+
+    var addressBookRepository: AddressBookRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

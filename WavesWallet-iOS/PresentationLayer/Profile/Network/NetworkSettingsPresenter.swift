@@ -105,6 +105,8 @@ private extension NetworkSettingsPresenter {
             state.displayState.isAppeared = true
 
         case .setEnvironmets(let environment, let accountSettings):
+            state.environment = environment
+            state.accountSettings = accountSettings
             state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
             state.displayState.isSpam = accountSettings?.isEnabledSpam ?? false
 
@@ -140,7 +142,8 @@ private extension NetworkSettingsPresenter {
 
     func initialState(wallet: DomainLayer.DTO.Wallet) -> Types.State {
         return Types.State(wallet: wallet,
-                           accountSetting: nil,
+                           accountSettings: nil,
+                           environment: nil,
                            displayState: initialDisplayState(),
                            query: nil,
                            isValidSpam: false)
