@@ -48,7 +48,7 @@ final class SendPresenter: SendPresenterProtocol {
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
             if state.isNeedLoadInfo {
-                return strongSelf.interactor.gateWayInfo(asset: asset).map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+                return strongSelf.interactor.gateWayInfo(asset: asset, address: state.recipient).map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             else if state.isNeedValidateAliase {
                 return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())

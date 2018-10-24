@@ -144,9 +144,9 @@ private extension ReceiveCryptocurrencyViewController {
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
         
-        let displayFee = String(info.fee) + " " + info.assetShort
-        labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit(displayFee)
-        labelWarningMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
+        let displayMin = info.minAmount.displayText + " " + info.assetShort
+        labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit(displayMin)
+        labelWarningMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
         labelTitleSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
         labelWarningSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.warningSendOnlyOnThisDeposit
     }

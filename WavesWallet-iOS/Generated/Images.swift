@@ -73,6 +73,7 @@ internal enum Images {
     internal static let walletSort = ImageAsset(name: "wallet_sort")
   }
   internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
+  internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
   internal static let arrowLeft = ImageAsset(name: "arrow_left")
   internal static let arrowRed = ImageAsset(name: "arrow_red")
@@ -300,6 +301,7 @@ internal enum Images {
     Wallet.walletScanner,
     Wallet.walletSort,
     addAddressIcon,
+    addaddress24Submit300,
     arrowGreen,
     arrowLeft,
     arrowRed,

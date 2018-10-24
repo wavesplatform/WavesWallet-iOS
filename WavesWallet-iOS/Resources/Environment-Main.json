@@ -32,7 +32,7 @@
             "isGateway" : true,
             "wavesId" : "WETH",
             "gatewayId": "ETH",
-            "regularExpression" : "^0x[0-9a-f]{40}$"
+            "regularExpression" : "^0x[a-fA-F0-9]{40}$"
         },
         {
             "assetId": "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck",

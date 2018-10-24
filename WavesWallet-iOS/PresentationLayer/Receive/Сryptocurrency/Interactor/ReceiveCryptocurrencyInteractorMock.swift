@@ -46,10 +46,11 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                     
                     let json = JSON(info)["tunnel"]
                     
+                    let minAmount =  Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
                     let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: json["wallet_from"].stringValue,
                                                                             assetName: asset.displayName,
                                                                             assetShort: asset.gatewayId ?? asset.displayName,
-                                                                            fee: json["in_min"].doubleValue,
+                                                                            minAmount: minAmount,
                                                                             icon: asset.icon)
                     
                     subscribe.onNext(Response(output: displayInfo, error: nil))

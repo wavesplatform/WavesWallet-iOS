@@ -15,11 +15,22 @@ private enum Constants {
 
 final class SendConfirmationViewController: UIViewController {
 
+    struct Input {
+        let recipient: String
+        let fee: Money
+        let assetId: String
+        let amount: Money
+        let contactName: String?
+        let isAlias: Bool
+        var attachment: String
+    }
+    
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelBalance: UILabel!
     @IBOutlet private weak var labelTotalUsd: UILabel!
     @IBOutlet private weak var viewRecipient: SendConfirmationRecipientView!
     @IBOutlet private weak var labelFee: UILabel!
+    @IBOutlet private weak var labelFeeAmount: UILabel!
     @IBOutlet private weak var labelDescription: UILabel!
     @IBOutlet private weak var labelDescriptionError: UILabel!
     @IBOutlet private weak var textField: UITextField!
@@ -27,15 +38,17 @@ final class SendConfirmationViewController: UIViewController {
     
     private var isShowError = false
     
+    var input: Input!
+    weak var resultDelegate: SendResultDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewContainer.createTopCorners(radius: Constants.cornerRadius)
         createBackWhiteButton()
         setupLocalization()
-        setupButtonState()
+        setupData()
         labelDescriptionError.alpha = 0
-        viewRecipient.update(with: .init(name: nil, address: "dsadsadafa"))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +65,13 @@ final class SendConfirmationViewController: UIViewController {
     }
     
     @IBAction private func confirmTapped(_ sender: Any) {
+     
+        input.attachment = descriptionText
         
+        let vc = StoryboardScene.Send.sendLoadingViewController.instantiate()
+        vc.delegate = resultDelegate
+        vc.input = input
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction private func descriptionDidChange(_ sender: Any) {
@@ -88,12 +107,6 @@ private extension SendConfirmationViewController {
         }
     }
     
-    func setupButtonState() {
-        let canContinue = true
-        buttonConfirm.isUserInteractionEnabled = canContinue
-        buttonConfirm.backgroundColor = canContinue ? .submit400 : .submit200
-    }
-    
     func setupLocalization() {
         title = Localizable.SendConfirmation.Label.confirmation
         labelFee.text = Localizable.SendConfirmation.Label.fee
@@ -101,5 +114,11 @@ private extension SendConfirmationViewController {
         labelDescriptionError.text = Localizable.SendConfirmation.Label.descriptionIsTooLong
         textField.placeholder = Localizable.SendConfirmation.Label.optionalMessage
         buttonConfirm.setTitle(Localizable.SendConfirmation.Button.confim, for: .normal)
+    }
+    
+    func setupData() {
+        viewRecipient.update(with: .init(name: input.contactName, address: input.recipient))
+        labelFeeAmount.text = input.fee.displayText + " Waves"
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayTextFull, font: labelBalance.font)
     }
 }

@@ -343,56 +343,11 @@ internal enum Localizable {
       }
     }
   }
-          internal enum Send {
-
-    internal enum Button {
-      /// Choose from Address book
-      internal static var chooseFromAddressBook: String { return Localizable.tr("Send", "button.chooseFromAddressBook") }
-      /// Continue
-      internal static var `continue`: String { return Localizable.tr("Send", "button.continue") }
-      /// Use total balance
-      internal static var useTotalBalanace: String { return Localizable.tr("Send", "button.useTotalBalanace") }
-    }
+          internal enum SendLoading {
 
     internal enum Label {
-      /// The address is not valid
-      internal static var addressNotValid: String { return Localizable.tr("Send", "label.addressNotValid") }
-      /// Amount
-      internal static var amount: String { return Localizable.tr("Send", "label.amount") }
-      /// US Dollar
-      internal static var dollar: String { return Localizable.tr("Send", "label.dollar") }
-      /// Gateway fee is
-      internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
-      /// Recipient
-      internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
-      /// Recipient address…
-      internal static var recipientAddress: String { return Localizable.tr("Send", "label.recipientAddress") }
-      /// Send
-      internal static var send: String { return Localizable.tr("Send", "label.send") }
-      /// Transaction Fee
-      internal static var transactionFee: String { return Localizable.tr("Send", "label.transactionFee") }
-
-      internal enum Error {
-        /// Insufficient funds
-        internal static var insufficientFunds: String { return Localizable.tr("Send", "label.error.insufficientFunds") }
-        /// You don't have enough funds to pay the required fees.
-        internal static var notFundsFee: String { return Localizable.tr("Send", "label.error.notFundsFee") }
-        /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
-        internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
-          return Localizable.tr("Send", "label.error.notFundsFeeGateway", p1, p2)
-        }
-      }
-
-      internal enum Warning {
-        /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
-        internal static func description(_ p1: String) -> String {
-          return Localizable.tr("Send", "label.warning.description", p1)
-        }
-        /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
-        internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
-          return Localizable.tr("Send", "label.warning.subtitle", p1, p2, p3)
-        }
-      }
+      /// Sending...
+      internal static var sending: String { return Localizable.tr("SendLoading", "label.sending") }
     }
   }
           internal enum DexInfo {
@@ -570,6 +525,58 @@ internal enum Localizable {
         internal static var filled: String { return Localizable.tr("DexMyOrders", "label.status.filled") }
         /// Partial
         internal static var partiallyFilled: String { return Localizable.tr("DexMyOrders", "label.status.partiallyFilled") }
+      }
+    }
+  }
+          internal enum Send {
+
+    internal enum Button {
+      /// Choose from Address book
+      internal static var chooseFromAddressBook: String { return Localizable.tr("Send", "button.chooseFromAddressBook") }
+      /// Continue
+      internal static var `continue`: String { return Localizable.tr("Send", "button.continue") }
+      /// Use total balance
+      internal static var useTotalBalanace: String { return Localizable.tr("Send", "button.useTotalBalanace") }
+    }
+
+    internal enum Label {
+      /// The address is not valid
+      internal static var addressNotValid: String { return Localizable.tr("Send", "label.addressNotValid") }
+      /// Amount
+      internal static var amount: String { return Localizable.tr("Send", "label.amount") }
+      /// US Dollar
+      internal static var dollar: String { return Localizable.tr("Send", "label.dollar") }
+      /// Gateway fee is
+      internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
+      /// Recipient
+      internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
+      /// Recipient address…
+      internal static var recipientAddress: String { return Localizable.tr("Send", "label.recipientAddress") }
+      /// Send
+      internal static var send: String { return Localizable.tr("Send", "label.send") }
+      /// Transaction Fee
+      internal static var transactionFee: String { return Localizable.tr("Send", "label.transactionFee") }
+
+      internal enum Error {
+        /// Insufficient funds
+        internal static var insufficientFunds: String { return Localizable.tr("Send", "label.error.insufficientFunds") }
+        /// You don't have enough funds to pay the required fees.
+        internal static var notFundsFee: String { return Localizable.tr("Send", "label.error.notFundsFee") }
+        /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
+        internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Send", "label.error.notFundsFeeGateway", p1, p2)
+        }
+      }
+
+      internal enum Warning {
+        /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
+        internal static func description(_ p1: String) -> String {
+          return Localizable.tr("Send", "label.warning.description", p1)
+        }
+        /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
+        internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
+          return Localizable.tr("Send", "label.warning.subtitle", p1, p2, p3)
+        }
       }
     }
   }
@@ -1464,6 +1471,22 @@ internal enum Localizable {
     internal enum Navigation {
       /// Profile
       internal static var title: String { return Localizable.tr("Profile", "navigation.title") }
+    }
+  }
+          internal enum SendComplete {
+
+    internal enum Button {
+      /// Okay
+      internal static var okey: String { return Localizable.tr("SendComplete", "button.okey") }
+    }
+
+    internal enum Label {
+      /// Do you want to save this address?
+      internal static var saveThisAddress: String { return Localizable.tr("SendComplete", "label.saveThisAddress") }
+      /// Your transaction is on the way!
+      internal static var transactionIsOnWay: String { return Localizable.tr("SendComplete", "label.transactionIsOnWay") }
+      /// You have sent
+      internal static var youHaveSent: String { return Localizable.tr("SendComplete", "label.youHaveSent") }
     }
   }
           internal enum Import {

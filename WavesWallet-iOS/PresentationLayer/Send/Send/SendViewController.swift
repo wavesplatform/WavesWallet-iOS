@@ -46,6 +46,7 @@ final class SendViewController: UIViewController {
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var wavesAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedContact: DomainLayer.DTO.Contact?
     
     var availableBalance: Money {
         
@@ -75,7 +76,10 @@ final class SendViewController: UIViewController {
         setupFeedBack()
         hideGatewayInfo(animation: false)
         updateAmountError(animation: false)
-
+        amountView.input = { [weak self] in
+            return self?.inputAmountValues ?? []
+        }
+        
         assetView.delegate = self
         amountView.delegate = self
         
@@ -88,10 +92,6 @@ final class SendViewController: UIViewController {
         }
         else {
             updateAmountData()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.buttonContinue.isUserInteractionEnabled = true
         }
     }
 
@@ -131,12 +131,40 @@ final class SendViewController: UIViewController {
             showButtonLoadingWavesState()
         }
         else {
+            guard var amount = amount else { return }
+
+            var address = recipientAddressView.text
+            if let gateWay = gateWayInfo, isValidCryptocyrrencyAddress {
+                address = gateWay.address
+                
+                //Coinomate take fee from transaction
+                //in 'availableBalance' I substract fee from coinomate that user can input valid amount with fee.
+                amount = Money(amount.amount + gateWay.fee.amount, amount.decimals)
+            }
+            
             let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+            vc.resultDelegate = self
+            vc.input = .init(recipient: address,
+                             fee: wavesFee,
+                             assetId: selectedAsset?.assetId ?? "",
+                             amount: amount,
+                             contactName: selectedContact?.name,
+                             isAlias: isValidAlias,
+                             attachment: "")
+        
             navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
 
+extension SendViewController: SendResultDelegate {
+    func sendResultDidFail(_ error: String) {
+        
+       navigationController?.popToViewController(self, animated: true)
+        
+        //TODO: need show view with error
+    }
+}
 
 //MARK: - FeedBack
 private extension SendViewController {
@@ -172,7 +200,8 @@ private extension SendViewController {
 
                 case .didGetInfo(let info):
                     strongSelf.showGatewayInfo(info: info)
-
+                    strongSelf.updateAmountData()
+                    
                 case .aliasDidFinishCheckValidation(let isValidAlias):
                     strongSelf.hideCheckingAliasState(isValidAlias: isValidAlias)
 
@@ -199,6 +228,7 @@ extension SendViewController: AmountInputViewDelegate {
         amount = value
         calculateAmount()
         updateAmountError(animation: true)
+        setupButtonState()
     }
 }
 
@@ -228,7 +258,7 @@ private extension SendViewController {
     var inputAmountValues: [Money] {
         
         var values: [Money] = []
-        if let assetBalance = selectedAsset, assetBalance.avaliableBalance > 0 {
+        if availableBalance.amount > 0 {
 
             values.append(availableBalance)
             values.append(Money(availableBalance.amount * Int64(Constants.percent50) / 100, availableBalance.decimals))
@@ -243,7 +273,7 @@ private extension SendViewController {
     
         var fields: [String] = []
         
-        if let asset = selectedAsset, asset.avaliableBalance > 0 {
+        if availableBalance.amount > 0 {
             fields.append(contentsOf: [Localizable.Send.Button.useTotalBalanace,
                                        String(Constants.percent50) + "%",
                                        String(Constants.percent10) + "%",
@@ -251,9 +281,6 @@ private extension SendViewController {
         }
         
         amountView.update(with: fields)
-        amountView.input = { [weak self] in
-            return self?.inputAmountValues ?? []
-        }
     }
     
     func updateAmountError(animation: Bool) {
@@ -315,6 +342,7 @@ private extension SendViewController {
     
     func setupButtonState() {
         
+        
         var isValidateGateway = true
         if isValidCryptocyrrencyAddress && gateWayInfo == nil {
             isValidateGateway = false
@@ -322,7 +350,7 @@ private extension SendViewController {
         let canContinueAction = isValidateGateway &&
             isValidAddress(recipientAddressView.text) &&
             selectedAsset != nil &&
-            isValidAmount
+            isValidAmount && (amount?.amount ?? 0) > 0
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
@@ -429,6 +457,8 @@ extension SendViewController: AddressInputViewDelegate {
         if !recipientAddressView.isKeyboardShow {
             validateAddress()
         }
+        selectedContact = nil
+        clearGatewayAndUpdateInputAmount()
     }
     
     func addressInputViewDidDeleteAddress() {
@@ -437,10 +467,14 @@ extension SendViewController: AddressInputViewDelegate {
         if !recipientAddressView.isKeyboardShow {
             hideGatewayInfo(animation: true)
         }
+        selectedContact = nil
+        clearGatewayAndUpdateInputAmount()
     }
     
     func addressInputViewDidChangeAddress(_ address: String) {
         acceptAddress(address)
+        selectedContact = nil
+        clearGatewayAndUpdateInputAmount()
     }
     
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
@@ -452,6 +486,13 @@ extension SendViewController: AddressInputViewDelegate {
         setupButtonState()
         sendEvent.accept(.didChangeRecipient(address))
     }
+    
+    private func clearGatewayAndUpdateInputAmount() {
+        if gateWayInfo != nil {
+            gateWayInfo = nil
+            updateAmountData()
+        }
+    }
 }
 
 
@@ -460,11 +501,11 @@ extension SendViewController: AddressInputViewDelegate {
 extension SendViewController: AddressBookModuleOutput {
    
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
-        isValidAlias = false
         recipientAddressView.setupText(contact.address, animation: false)
-        setupButtonState()
-        sendEvent.accept(.didChangeRecipient(contact.address))
+        acceptAddress(contact.address)
         validateAddress()
+        selectedContact = contact
+        clearGatewayAndUpdateInputAmount()
     }
 }
 

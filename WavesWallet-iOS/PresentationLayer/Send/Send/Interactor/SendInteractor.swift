@@ -12,9 +12,12 @@ import SwiftyJSON
 
 
 private enum Constasts {
-    static let apiPath = "api/v1/"
-    static let apiRate = "get_xrate.php"
     static let aliasApi = "/v0/aliases/"
+
+    static let coinomatApiPath = "api/v1/"
+    
+    static let coinomatCreateTunnel = "create_tunnel.php"
+    static let coinomatGetTunnel = "get_tunnel.php"
 }
 
 final class SendInteractor: SendInteractorProtocol {
@@ -36,33 +39,60 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance) -> Observable<Response<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<Response<Send.DTO.GatewayInfo>> {
+       
         return Observable.create({ (subscribe) -> Disposable in
         
             guard let asset = asset.asset else { return Disposables.create() }
-        
-            let params = ["f" : asset.wavesId ?? "",
-                          "t" : asset.gatewayId ?? ""]
             
-            let url = GlobalConstants.coinomatUrl + Constasts.apiPath + Constasts.apiRate
+            let params = ["currency_from" : asset.gatewayId ?? "",
+                          "currency_to" : asset.wavesId ?? "",
+                          "wallet_to" : address]
+
+            let url = GlobalConstants.coinomatUrl + Constasts.coinomatApiPath + Constasts.coinomatCreateTunnel
+
             NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
+                guard let info = info else {
+                    subscribe.onNext(Response(output: nil, error: errorMessage))
+                    return
+                }
                 
-                if let info = info {
-                    let json = JSON(info)
+                let tunnel = JSON(info)
+                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
+                              "k1" : tunnel["k1"].stringValue,
+                              "k2": tunnel["k2"].stringValue,
+                              "history" : 0] as [String: Any]
+                
+                let url = GlobalConstants.coinomatUrl + Constasts.coinomatApiPath + Constasts.coinomatGetTunnel
+                
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
                     
+                    guard let info = info else {
+                        subscribe.onNext(Response(output: nil, error: errorMessage))
+                        return
+                    }
+                    
+                    let json = JSON(info)["tunnel"]
+                    let shortName = asset.gatewayId ?? json["to_txt"].stringValue
                     let min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
                     let max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
-                    let fee = Money(value: Decimal(json["fee_in"].doubleValue + json["fee_out"].doubleValue), asset.precision)
+                 
+                    //TODO: chacnge fee field
+                    let fee = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
 
-                    let shortName = asset.gatewayId ?? json["to_txt"].stringValue
+                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                           assetShortName: shortName,
+                                                           minAmount: min,
+                                                           maxAmount: max,
+                                                           fee: fee,
+                                                           address: json["wallet_from"].stringValue)
                     
-                    let info = Send.DTO.GatewayInfo(assetName: asset.displayName, assetShortName: shortName, minAmount: min, maxAmount: max, fee: fee)
-                    subscribe.onNext(.init(output: info, error: nil))
-                }
-                else {
-                    subscribe.onNext(.init(output: nil, error: errorMessage))
-                }
+                    subscribe.onNext(Response(output: gatewayInfo, error: nil))
+                })
+                
+                
             })
+            
             return Disposables.create()
         })
     }
@@ -80,6 +110,28 @@ final class SendInteractor: SendInteractorProtocol {
             return Disposables.create {
                 req.cancel()
             }
+        })
+    }
+    
+    
+    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Bool> {
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+            auth.authorizedWallet().subscribe(onNext: { signedWallet in
+                
+                let transaction = Send.DTO.Transaction(senderPublicKey: signedWallet.publicKey,
+                                                       senderPrivateKey: signedWallet.privateKey,
+                                                       fee: fee,
+                                                       recipient: recipient,
+                                                       assetId: assetId,
+                                                       amount: amount,
+                                                       attachment: attachment,
+                                                       isAlias: isAlias)
+                
+                
+            }).dispose()
+            return Disposables.create()
         })
     }
 }
