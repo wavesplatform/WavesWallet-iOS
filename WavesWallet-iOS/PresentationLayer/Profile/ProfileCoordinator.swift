@@ -166,6 +166,10 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
 
 extension ProfileCoordinator: NetworkSettingsModuleOutput {
 
+    func networkSettingSavedSetting() {
+        NotificationCenter.default.post(name: .changedSpamList, object: nil)
+        navigationController.popViewController(animated: true)
+    }
 }
 
 

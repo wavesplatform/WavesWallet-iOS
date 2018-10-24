@@ -133,12 +133,17 @@ extension WalletViewController {
             .map { WalletTypes.Event.tapSection($0) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
+        let changedSpamList = NotificationCenter.default.rx
+            .notification(.changedSpamList)
+            .map { _ in WalletTypes.Event.refresh }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> WalletTypes.Event in
 
                 let display = self?.displays[selectedIndex] ?? .assets
                 return .changeDisplay(display)
-        }
+            }
 
         let recieverEvents = sendEvent.asSignal()
 
@@ -147,7 +152,8 @@ extension WalletViewController {
                 changedDisplayEvent,
                 sortTapEvent,
                 addressTapEvent,
-                recieverEvents]
+                recieverEvents,
+                changedSpamList]
     }
 
 
@@ -165,13 +171,14 @@ extension WalletViewController {
 
     func updateView(with state: WalletTypes.DisplayState) {
 
-        displayData.apply(sections: state.visibleSections, animateType: state.animateType)
+        displayData.apply(sections: state.visibleSections, animateType: state.animateType, completed: { [weak self] in
+            if state.isRefreshing {
+                self?.refreshControl.beginRefreshing()
+            } else {
+                self?.refreshControl.endRefreshing()
+            }
+        })
 
-        if state.isRefreshing {
-            self.refreshControl.beginRefreshing()
-        } else {
-            self.refreshControl.endRefreshing()
-        }
         setupRightButons(kind: state.kind)
     }
 }

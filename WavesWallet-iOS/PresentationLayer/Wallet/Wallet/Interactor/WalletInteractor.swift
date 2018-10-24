@@ -77,7 +77,8 @@ final class WalletInteractor: WalletInteractorProtocol {
 fileprivate extension WalletInteractor {
 
     func mapAssets(_ observable: AsyncObservable<[DomainLayer.DTO.AssetBalance]>) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
-        return observable.map { $0.filter { $0.asset != nil || $0.settings != nil } }
+        return observable
+            .map { $0.filter { $0.asset != nil || $0.settings != nil } }
             .map {
                 $0.map { balance -> WalletTypes.DTO.Asset in
                     WalletTypes.DTO.Asset.map(from: balance)

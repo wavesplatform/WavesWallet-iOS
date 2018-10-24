@@ -116,7 +116,11 @@ private extension HistoryViewController {
             .map { _ in HistoryTypes.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        
+        let changedSpamList = NotificationCenter.default.rx
+            .notification(.changedSpamList)
+            .map { _ in HistoryTypes.Event.refresh }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
         let tap = tableView
             .rx
             .itemSelected
@@ -132,7 +136,7 @@ private extension HistoryViewController {
                 return .changeFilter(filter)
         }
         
-        return [changedDisplayEvent, refreshEvent, tap]
+        return [changedDisplayEvent, refreshEvent, tap, changedSpamList]
     }
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
