@@ -9,8 +9,8 @@
 import Foundation
 import CSV
 
-private enum Constants {
-    static private let keyAddress: String = "scam"
+fileprivate enum Constants {
+    static let keyAddress: String = "scam"
 }
 
 enum SpamCVC {
