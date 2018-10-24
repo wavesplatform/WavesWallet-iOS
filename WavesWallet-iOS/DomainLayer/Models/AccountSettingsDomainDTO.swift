@@ -9,7 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct AccountSettings: Mutating {
+    struct AccountSettings: Equatable, Mutating {
         var isEnabledSpam: Bool
     }
 }

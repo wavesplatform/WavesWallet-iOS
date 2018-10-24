@@ -79,7 +79,7 @@ private extension AccountBalanceInteractor {
         let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
                                                                              isNeedUpdate: isNeedUpdate)
 
-        let environment = environmentRepository.environment(accountAddress: wallet.wallet.address)
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address)
 
         return Observable.zip(balances, activeTransactions, environment)
             .map { balances, transactions, environment -> [DomainLayer.DTO.AssetBalance] in

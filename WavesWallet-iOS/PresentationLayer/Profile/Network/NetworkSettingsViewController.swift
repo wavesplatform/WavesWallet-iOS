@@ -68,9 +68,15 @@ extension NetworkSettingsViewController: UIScrollViewDelegate {
 extension NetworkSettingsViewController {
 
     private func setupTextField() {
-        spamUrlTextField.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Confirmpassword.title,
-                                                               kind: .text,
-                                                               placeholder: Localizable.ChangePassword.Textfield.Confirmpassword.title))
+
+        spamUrlTextField.keyboardType = .URL
+        spamUrlTextField.autocapitalizationType = .none
+        spamUrlTextField.clearButtonMode = .whileEditing
+
+
+        spamUrlTextField.update(with: InputTextField.Model(title: "Spam filter",
+                                                            kind: .text,
+                                                            placeholder: "http://wavesplatform.com"))
 
         spamUrlTextField.returnKey = .done
 
@@ -109,10 +115,20 @@ private extension NetworkSettingsViewController {
     func events() -> [Signal<Types.Event>] {
 
         let input = eventInput.asSignal(onErrorSignalWith: Signal.empty())
-        let tapSave = saveButton.rx.tap.map { Types.Event.tapSave }.asSignal(onErrorSignalWith: Signal.empty())
-        let tapSetDeffault = setDefaultButton.rx.tap.map { Types.Event.tapSetDeffault }.asSignal(onErrorSignalWith: Signal.empty())
 
-        return [input, tapSave, tapSetDeffault]
+        let tapSave = saveButton.rx.tap
+            .map { Types.Event.tapSave }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        let tapSetDeffault = setDefaultButton.rx.tap
+            .map { Types.Event.tapSetDeffault }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        let spamFilterSwitch = self.spamFilterSwitch.rx.value
+            .map { Types.Event.switchSpam($0) }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        return [input, tapSave, tapSetDeffault, spamFilterSwitch]
     }
 
     func subscriptions(state: Driver<Types.State>) -> [Disposable] {
@@ -134,6 +150,9 @@ private extension NetworkSettingsViewController {
         spamFilterSwitch.isOn = state.isSpam
         saveButton.isEnabled = state.isEnabledSaveButton
         setDefaultButton.isEnabled = state.isEnabledSetDeffaultButton
+
+        spamFilterSwitch.isUserInteractionEnabled = state.isEnabledSpamSwitch
+        spamUrlTextField.isUserInteractionEnabled = state.isEnabledSpamInput
 
         if state.isLoading {
             activityIndicatorView.startAnimating()

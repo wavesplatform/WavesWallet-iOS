@@ -14,5 +14,5 @@ class AccountEnvironment: Object {
     @objc dynamic var nodeUrl: String?
     @objc dynamic var dataUrl: String?
     @objc dynamic var spamUrl: String?
-    @objc dynamic var matcherUrl: String?    
+    @objc dynamic var matcherUrl: String?
 }

@@ -47,6 +47,11 @@ final class ChangePasswordViewController: UIViewController {
     }
 
     private func setupTextField() {
+
+        oldPasswordInput.autocapitalizationType = .none
+        passwordInput.autocapitalizationType = .none
+        confirmPasswordInput.autocapitalizationType = .none
+
         oldPasswordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Oldpassword.title,
                                                               kind: .password,
                                                               placeholder: Localizable.ChangePassword.Textfield.Oldpassword.title))

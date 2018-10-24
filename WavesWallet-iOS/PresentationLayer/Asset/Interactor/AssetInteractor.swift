@@ -19,7 +19,6 @@ final class AssetInteractor: AssetInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
-    private let leasingInteractor: LeasingInteractorProtocol = FactoryInteractors.instance.leasingInteractor
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
