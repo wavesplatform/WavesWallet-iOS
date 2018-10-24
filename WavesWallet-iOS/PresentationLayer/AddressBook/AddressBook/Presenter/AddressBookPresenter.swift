@@ -17,7 +17,7 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
     
     private let disposeBag = DisposeBag()
 
-    
+
     func system(feedbacks: [AddressBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())

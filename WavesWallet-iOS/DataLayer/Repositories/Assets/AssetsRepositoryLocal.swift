@@ -16,7 +16,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         return Observable.create({ (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AssetsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -33,10 +33,10 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
         })
     }
 
-    func saveAssets(_ assets:[DomainLayer.DTO.Asset]) -> Observable<Bool> {
+    func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onNext(false)
                 observer.onError(AssetsRepositoryError.fail)
                 return Disposables.create()
@@ -58,7 +58,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
         })
     }
 
-    func saveAsset(_ asset: DomainLayer.DTO.Asset) -> Observable<Bool> {
-        return saveAssets([asset])
+    func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
+        return saveAssets([asset], by: accountAddress)
     }
 }

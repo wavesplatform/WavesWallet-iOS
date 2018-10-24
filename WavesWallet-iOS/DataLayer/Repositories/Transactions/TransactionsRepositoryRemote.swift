@@ -19,21 +19,49 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     private let transactions: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
-        return transactions
-            .rx
-            .request(.list(accountAddress: accountAddress,
-                           limit: min(Constants.maxLimit, offset + limit)), callbackQueue: DispatchQueue.global(qos: .background))
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+
+                let limit = min(Constants.maxLimit, offset + limit)
+
+                return owner
+                    .transactions
+                    .rx
+                    .request(.init(kind: .list(accountAddress: accountAddress,
+                                               limit: limit),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map(Node.DTO.TransactionContainers.self)
             .map { $0.anyTransactions() }
             .asObservable()        
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
-        return leasingProvider
-            .rx
-            .request(.getActive(accountAddress: accountAddress), callbackQueue: DispatchQueue.global(qos: .background))
+
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .leasingProvider
+                    .rx
+                    .request(.init(kind: .getActive(accountAddress: accountAddress),
+                                   environment: environment),
+                                   callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map([Node.DTO.LeaseTransaction].self)
             .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
             .asObservable()
@@ -46,22 +74,22 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         return Observable.never()
     }
 
-    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction]) -> Observable<Bool> {
+    func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    var isHasTransactions: Observable<Bool> {
-        assertVarDontSupported()
-        return Observable.never()
-    }
-
-    func isHasTransaction(by id: String) -> Observable<Bool> {
+    func isHasTransactions(by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func isHasTransactions(by ids: [String]) -> Observable<Bool> {
+    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
+
+    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

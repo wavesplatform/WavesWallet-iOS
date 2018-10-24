@@ -7,17 +7,20 @@
 //
 
 import Foundation
-
-import Foundation
 import Moya
 
 extension Matcher.Service {
-    enum Balance {
-        /**
-         Response:
-         - [AssetId: Balance] as [String: Int64]
-         */
-        case getReservedBalances(TimestampSignature)
+    struct Balance {
+        enum Kind {
+            /**
+             Response:
+             - [AssetId: Balance] as [String: Int64]
+             */
+            case getReservedBalances(TimestampSignature)
+        }
+
+        var kind: Kind
+        var environment: Environment
     }
 }
 
@@ -30,7 +33,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getReservedBalances(let signature):
             return Constants.matcher
                 + "/"
@@ -43,14 +46,14 @@ extension Matcher.Service.Balance: MatcherTargetType {
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getReservedBalances:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getReservedBalances:
             return .requestPlain
         }
@@ -59,7 +62,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
     var headers: [String: String]? {
         var headers = ContentType.applicationJson.headers
 
-        switch self {
+        switch kind {
         case .getReservedBalances(let signature):            
             headers.merge(signature.parameters) { a, _ in a }
         }

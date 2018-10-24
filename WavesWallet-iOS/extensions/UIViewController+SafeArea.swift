@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
-extension UIViewController {
+protocol LayoutInsetsProvider: AnyObject {
+    var layoutInsets: UIEdgeInsets { get }
+}
+
+extension UIViewController: LayoutInsetsProvider {
 
     var layoutInsets: UIEdgeInsets {
         if #available(iOS 11.0, *) {

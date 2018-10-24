@@ -65,7 +65,8 @@ class NetworkManager: NSObject
 
     
     @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
-        
+
+        //TODO: incorrect environment
         var url = Environments.current.servers.nodeUrl.relativeString.appending("/")
 
         if customUrl != nil {

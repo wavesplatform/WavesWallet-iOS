@@ -9,67 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Choose recipient from Address Book-->
-        <scene sceneID="J3c-9n-9J3">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="lfQ-P4-Ahc" customClass="AddressBookViewControllerOld" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1Yj-Y9-3oZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="aIL-K6-RxR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="axM-hY-SB2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="8rg-fa-TTs">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="e2D-4b-qcN" detailTextLabel="sHm-mG-rgm" style="IBUITableViewCellStyleSubtitle" id="zzC-lM-u7l">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zzC-lM-u7l" id="QtJ-p4-A1O">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e2D-4b-qcN">
-                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sHm-mG-rgm">
-                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="8rg-fa-TTs" secondAttribute="trailing" id="adN-Ge-15N"/>
-                            <constraint firstItem="8rg-fa-TTs" firstAttribute="top" secondItem="1Yj-Y9-3oZ" secondAttribute="bottom" id="fps-kG-f1s"/>
-                            <constraint firstItem="8rg-fa-TTs" firstAttribute="leading" secondItem="axM-hY-SB2" secondAttribute="leading" id="k6i-Nn-8F0"/>
-                            <constraint firstItem="aIL-K6-RxR" firstAttribute="top" secondItem="8rg-fa-TTs" secondAttribute="bottom" id="tyI-yj-BpJ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Choose recipient from Address Book" id="c7d-tb-BwP"/>
-                    <connections>
-                        <outlet property="tableView" destination="8rg-fa-TTs" id="MUe-wM-K8k"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zhs-e3-b0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="206" y="-285"/>
-        </scene>
         <!--Transfer Success View Controller-->
         <scene sceneID="k1g-L9-dbA">
             <objects>
@@ -407,9 +346,6 @@
                                                     <state key="normal" image="disclosure">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
-                                                    <connections>
-                                                        <segue destination="lfQ-P4-Ahc" kind="show" identifier="ChooseAddress" id="ttI-uU-Mjk"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

@@ -38,6 +38,7 @@ final class AssetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupRefreshControl()
         createBackButton()
         setupSegmentedControl()
@@ -152,6 +153,8 @@ private extension AssetViewController {
             reloadSegmentedControl(assets: state.assets, currentAsset: state.currentAsset)
             changeCurrentAsset(info: state.currentAsset)
             updateNavigationItem(with: state)
+            layoutPassthroughFrameForNavigationBar()
+            updateContentInsetForTableView()
 
         case .changedFavorite:
             updateNavigationItem(with: state)
@@ -482,7 +485,6 @@ extension AssetViewController: UITableViewDelegate {
         case .assetInfo(let info):
             return AssetDetailCell.viewHeight(model: info, width: tableView.frame.width)
         }
-        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

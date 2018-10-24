@@ -13,9 +13,9 @@ import RealmSwift
 
 final class AddressBookRepository: AddressBookRepositoryProtocol {
 
-    func listListener() -> Observable<[DomainLayer.DTO.Contact]> {
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
-            let realm = try! Realm()
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             let result = realm.objects(AddressBook.self)
             let collection = Observable.collection(from: result)
@@ -30,9 +30,9 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
         })
     }
     
-    func list() -> Observable<[DomainLayer.DTO.Contact]> {
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
-            let realm = try! Realm()
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             let list = realm.objects(AddressBook.self).toArray().map {
                 return DomainLayer.DTO.Contact(name: $0.name, address: $0.address)
@@ -43,47 +43,51 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
             return Disposables.create()
         })
     }
-    
-    func create(contact: DomainLayer.DTO.Contact) {
-        
-        let realm = try! Realm()
-        
-        try! realm.write {
-            realm.add(addressBookContact(contact), update: true)
-        }
-    }
-    
-    func edit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
-        
-        let realm = try! Realm()
 
-        if let contact = realm.object(ofType: AddressBook.self, forPrimaryKey: contact.address) {
-            
+    func save(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool> {
+
+        return Observable.create({ observer -> Disposable in
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
             try! realm.write {
-                realm.delete(contact)
-                realm.add(addressBookContact(newContact), update: true)
+                realm.add(AddressBook(contact), update: true)
             }
-        }
+            observer.onNext(true)
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
     }
-    
-    func delete(contact: DomainLayer.DTO.Contact) {
-        
-        let realm = try! Realm()
-        
-        if let user = realm.object(ofType: AddressBook.self, forPrimaryKey: contact.address) {
+
+    func delete(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool> {
+
+        return Observable.create({ observer -> Disposable in
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
+            guard let user = realm.object(ofType: AddressBook.self,
+                                          forPrimaryKey: contact.address) else {
+                observer.onNext(true)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
             try! realm.write {
                 realm.delete(user)
             }
-        }
+
+            observer.onNext(true)
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
     }
 }
 
-private extension AddressBookRepository {
+private extension AddressBook {
     
-    func addressBookContact(_ from: DomainLayer.DTO.Contact) -> AddressBook {
-        let addressBook = AddressBook()
-        addressBook.address = from.address
-        addressBook.name = from.name
-        return addressBook
+    convenience init(_ from: DomainLayer.DTO.Contact) {
+        self.init()
+        self.address = from.address
+        self.name = from.name
     }
 }

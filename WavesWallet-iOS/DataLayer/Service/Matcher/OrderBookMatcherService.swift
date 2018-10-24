@@ -10,14 +10,21 @@ import Foundation
 import Moya
 
 extension Matcher.Service {
-    enum OrderBook {
-        /**
-         Response:
-         - Not implementation
-         */
-        case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
+
+    struct OrderBook {
+        enum Kind {
+            /**
+             Response:
+             - Not implementation
+             */
+            case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
+        }
+
+        var kind: Kind
+        var environment: Environment
     }
 }
+
 extension Matcher.Service.OrderBook: MatcherTargetType {
     fileprivate enum Constants {
         static let matcher = "matcher"
@@ -26,7 +33,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getOrderHistory(let signature, _):
             return Constants.matcher
                 + "/"
@@ -37,14 +44,14 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getOrderHistory:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getOrderHistory(_, let isActiveOnly):
 
             return .requestCompositeParameters(bodyParameters: [:],
@@ -56,7 +63,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     var headers: [String: String]? {
         var headers = ContentType.applicationJson.headers
 
-        switch self {
+        switch kind {
         case .getOrderHistory(let signature, _):            
             headers.merge(signature.parameters) { a, _ in a }
         }
