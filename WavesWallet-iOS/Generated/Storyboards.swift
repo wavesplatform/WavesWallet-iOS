@@ -307,6 +307,7 @@ internal enum StoryboardSegue {
     case dexContainerViewController = "DexContainerViewController"
   }
   internal enum Transfer: String, SegueType {
+    case chooseAddress = "ChooseAddress"
     case transactionSuccess = "TransactionSuccess"
   }
 }

@@ -13,7 +13,7 @@ enum ReceiveCryptocurrency {
     
     enum Event {
         case generateAddress(asset: DomainLayer.DTO.Asset)
-        case addressDidGenerate(Response<DTO.DisplayInfo>)
+        case addressDidGenerate(ResponseType<DTO.DisplayInfo>)
     }
     
     struct State: Mutating {

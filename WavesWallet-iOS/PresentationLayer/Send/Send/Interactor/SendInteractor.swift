@@ -34,7 +34,7 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<Response<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
        
         return Observable.create({ [weak self] subscribe -> Disposable in
         
@@ -55,15 +55,15 @@ final class SendInteractor: SendInteractorProtocol {
                                                                    fee: fee,
                                                                    address: address)
                             
-                            subscribe.onNext(Response(output: gatewayInfo, error: nil))
+                            subscribe.onNext(ResponseType(output: gatewayInfo, error: nil))
                         }
                         else {
-                            subscribe.onNext(Response(output: nil, error: errorMessage))
+                            subscribe.onNext(ResponseType(output: nil, error: errorMessage))
                         }
                     })
                 }
                 else {
-                    subscribe.onNext(Response(output: nil, error: errorMessage))
+                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
                 }
             })
             

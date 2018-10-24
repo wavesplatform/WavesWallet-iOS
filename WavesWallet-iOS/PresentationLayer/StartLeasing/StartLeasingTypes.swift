@@ -13,7 +13,7 @@ enum StartLeasing {
     
     enum Event {
         case createOrder
-        case orderDidCreate(Response<Bool>)
+        case orderDidCreate(ResponseType<Bool>)
         case updateInputOrder(DTO.Order)
     }
     

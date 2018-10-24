@@ -35,7 +35,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         }
     }
     
-    private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<Response<ReceiveCard.DTO.AmountInfo>> {
+    private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.AmountInfo>> {
        
         
         return Observable.create({ [weak self] subscribe -> Disposable in
@@ -60,11 +60,11 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                         let maxString = json["max"].stringValue
                         
                         let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat, minAmount: minMoney, maxAmount: maxMoney, minAmountString: minString, maxAmountString: maxString)
-                        subscribe.onNext(Response(output: amountInfo, error: nil))
+                        subscribe.onNext(ResponseType(output: amountInfo, error: nil))
                         subscribe.onCompleted()
                     }
                     else if let errorMessage = errorMessage {
-                        subscribe.onNext(Response(output: nil, error: errorMessage))
+                        subscribe.onNext(ResponseType(output: nil, error: errorMessage))
                         subscribe.onCompleted()
                     }
                 })
@@ -74,19 +74,19 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         })
     }
     
-    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<Response<ReceiveCard.DTO.Info>> {
+    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {
     
         let amount = getAmountInfo(fiat: fiatType)
         
-        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<Response<ReceiveCard.DTO.Info>> in
+        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<ResponseType<ReceiveCard.DTO.Info>> in
 
             switch amountInfo.result {
             case .success(let info):
                 let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info, address: address)
-                return Observable.just(Response(output: info, error: nil))
+                return Observable.just(ResponseType(output: info, error: nil))
             
             case .error(let error):
-                return Observable.just(Response(output: nil, error: error))
+                return Observable.just(ResponseType(output: nil, error: error))
             }
         })
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Response <T> {
+struct ResponseType <T> {
     let output: T?
     let error: String?
     

@@ -1219,7 +1219,6 @@ internal enum Localizable {
       }
     }
   }
-<<<<<<< HEAD
           internal enum SendConfirmation {
 
     internal enum Button {
@@ -1242,7 +1241,8 @@ internal enum Localizable {
       internal static var optionalMessage: String { return Localizable.tr("SendConfirmation", "label.optionalMessage") }
       /// Sent to
       internal static var sentTo: String { return Localizable.tr("SendConfirmation", "label.sentTo") }
-=======
+    }
+  }
           internal enum NetworkSettings {
 
     internal enum Button {
@@ -1277,7 +1277,6 @@ internal enum Localizable {
         /// Spam filter
         internal static var title: String { return Localizable.tr("NetworkSettings", "textfield.spamfilter.title") }
       }
->>>>>>> develop
     }
   }
           internal enum History {
