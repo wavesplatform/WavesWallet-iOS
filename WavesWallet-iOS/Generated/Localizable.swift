@@ -548,6 +548,8 @@ internal enum Localizable {
       internal static var dollar: String { return Localizable.tr("Send", "label.dollar") }
       /// Gateway fee is
       internal static var gatewayFee: String { return Localizable.tr("Send", "label.gatewayFee") }
+      /// Monero Payment ID
+      internal static var moneroPaymentId: String { return Localizable.tr("Send", "label.moneroPaymentId") }
       /// Recipient
       internal static var recipient: String { return Localizable.tr("Send", "label.recipient") }
       /// Recipient address…
@@ -560,6 +562,8 @@ internal enum Localizable {
       internal enum Error {
         /// Insufficient funds
         internal static var insufficientFunds: String { return Localizable.tr("Send", "label.error.insufficientFunds") }
+        /// invalid ID
+        internal static var invalidId: String { return Localizable.tr("Send", "label.error.invalidId") }
         /// You don't have enough funds to pay the required fees.
         internal static var notFundsFee: String { return Localizable.tr("Send", "label.error.notFundsFee") }
         /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
@@ -578,6 +582,11 @@ internal enum Localizable {
           return Localizable.tr("Send", "label.warning.subtitle", p1, p2, p3)
         }
       }
+    }
+
+    internal enum Textfield {
+      /// Paste or type your Payment ID
+      internal static var placeholderPaymentId: String { return Localizable.tr("Send", "textField.placeholderPaymentId") }
     }
   }
           internal enum InfoPlist {

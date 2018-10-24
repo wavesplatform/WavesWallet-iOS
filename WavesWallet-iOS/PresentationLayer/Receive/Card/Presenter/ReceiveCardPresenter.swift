@@ -11,11 +11,6 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 
-private enum Constants {
-    static let apiPath = "api/v2/indacoin/"
-    static let apiName = "buy.php"
-}
-
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     
     var interactor: ReceiveCardInteractorProtocol!
@@ -63,8 +58,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
                                  "amount" : String(money.doubleValue),
                                  "fiat" : state.fiatType.id]
                     
-                    $0.link = Receive.DTO.urlFromPath(GlobalConstants.coinomatUrl + Constants.apiPath + Constants.apiName,
-                                                      params: params)
+                    $0.link = Receive.DTO.urlFromPath(GlobalConstants.Coinomat.buy, params: params)
                 }
             }
             

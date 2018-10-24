@@ -17,12 +17,12 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
         return Observable.create({ (subscribe) -> Disposable in
             
 
-            let params = ["currency_from" : asset.gatewayId ?? "",
-                          "currency_to" : asset.wavesId ?? "",
+            let params = ["currency_from" : asset.wavesId ?? "",
+                          "currency_to" : asset.gatewayId ?? "",
                           "wallet_to" : WalletManager.currentWallet?.address ?? ""]
             
-            let url = GlobalConstants.coinomatUrl + "api/v1/create_tunnel.php"
-            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
+
+            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.createTunnel, complete: { (info, errorMessage) in
                 
                 guard let info = info else {
                     subscribe.onNext(Response(output: nil, error: errorMessage))
@@ -36,8 +36,8 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                               "k2": tunnel["k2"].stringValue,
                               "history" : 0] as [String: Any]
                 
-                let url = GlobalConstants.coinomatUrl + "api/v1/get_tunnel.php"
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
+                
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getTunnel, complete: { (info, errorMessage) in
                     
                     guard let info = info else {
                         subscribe.onNext(Response(output: nil, error: errorMessage))
@@ -46,6 +46,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                     
                     let json = JSON(info)["tunnel"]
                     
+                    //TODO: need to check if we need take minAmount from api .getTunnel or .getRate
                     let minAmount =  Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
                     let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: json["wallet_from"].stringValue,
                                                                             assetName: asset.displayName,

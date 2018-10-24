@@ -39,4 +39,8 @@ extension DomainLayer.DTO.Asset {
     var icon: String {
         return ticker ?? displayName
     }
+    
+    var isMonero: Bool {
+        return gatewayId == "XMR"
+    }
 }

@@ -10,10 +10,6 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
-private enum Constants {
-    static let apiPath = "api/v2/indacoin/"
-    static let apiName = "limits.php"
-}
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
@@ -48,14 +44,12 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
 
             let authAccount = FactoryInteractors.instance.authorization
             authAccount.authorizedWallet().subscribe(onNext: { signedWallet in
-                
-                let url = GlobalConstants.coinomatUrl + Constants.apiPath + Constants.apiName
-                
+                                
                 let params = ["crypto" : Environments.Constants.wavesAssetId,
                               "address" : signedWallet.wallet.address,
                               "fiat" : fiat.id]
                 
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getLimits, complete: { (info, errorMessage) in
 
                     if let info = info {
                         let json = JSON(info)

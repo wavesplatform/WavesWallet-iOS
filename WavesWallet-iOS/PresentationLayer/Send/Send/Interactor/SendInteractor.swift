@@ -13,11 +13,6 @@ import SwiftyJSON
 
 private enum Constasts {
     static let aliasApi = "/v0/aliases/"
-
-    static let coinomatApiPath = "api/v1/"
-    
-    static let coinomatCreateTunnel = "create_tunnel.php"
-    static let coinomatGetTunnel = "get_tunnel.php"
 }
 
 final class SendInteractor: SendInteractorProtocol {
@@ -41,56 +36,35 @@ final class SendInteractor: SendInteractorProtocol {
     
     func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<Response<Send.DTO.GatewayInfo>> {
        
-        return Observable.create({ (subscribe) -> Disposable in
+        return Observable.create({ [weak self] subscribe -> Disposable in
         
             guard let asset = asset.asset else { return Disposables.create() }
             
-            let params = ["currency_from" : asset.gatewayId ?? "",
-                          "currency_to" : asset.wavesId ?? "",
-                          "wallet_to" : address]
+            self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
 
-            let url = GlobalConstants.coinomatUrl + Constasts.coinomatApiPath + Constasts.coinomatCreateTunnel
+                if let fee = fee, let min = min, let max = max {
 
-            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
-                guard let info = info else {
-                    subscribe.onNext(Response(output: nil, error: errorMessage))
-                    return
+                    self?.getAssetTunnelInfo(asset: asset, address: address, complete: { (shortName, address, errorMessage) in
+                        
+                        if let shortName = shortName, let address = address {
+                            
+                            let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                                   assetShortName: shortName,
+                                                                   minAmount: min,
+                                                                   maxAmount: max,
+                                                                   fee: fee,
+                                                                   address: address)
+                            
+                            subscribe.onNext(Response(output: gatewayInfo, error: nil))
+                        }
+                        else {
+                            subscribe.onNext(Response(output: nil, error: errorMessage))
+                        }
+                    })
                 }
-                
-                let tunnel = JSON(info)
-                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
-                              "k1" : tunnel["k1"].stringValue,
-                              "k2": tunnel["k2"].stringValue,
-                              "history" : 0] as [String: Any]
-                
-                let url = GlobalConstants.coinomatUrl + Constasts.coinomatApiPath + Constasts.coinomatGetTunnel
-                
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
-                    
-                    guard let info = info else {
-                        subscribe.onNext(Response(output: nil, error: errorMessage))
-                        return
-                    }
-                    
-                    let json = JSON(info)["tunnel"]
-                    let shortName = asset.gatewayId ?? json["to_txt"].stringValue
-                    let min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
-                    let max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
-                 
-                    //TODO: chacnge fee field
-                    let fee = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
-
-                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                           assetShortName: shortName,
-                                                           minAmount: min,
-                                                           maxAmount: max,
-                                                           fee: fee,
-                                                           address: json["wallet_from"].stringValue)
-                    
-                    subscribe.onNext(Response(output: gatewayInfo, error: nil))
-                })
-                
-                
+                else {
+                    subscribe.onNext(Response(output: nil, error: errorMessage))
+                }
             })
             
             return Disposables.create()
@@ -134,4 +108,66 @@ final class SendInteractor: SendInteractorProtocol {
             return Disposables.create()
         })
     }
+}
+
+private extension SendInteractor {
+    
+    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, complete:@escaping(_ shortName: String?, _ address: String?, _ errorMessage: String?) -> Void) {
+        
+        let params = ["currency_from" : asset.wavesId ?? "",
+                      "currency_to" : asset.gatewayId ?? "",
+                      "wallet_to" : address]
+        
+        NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.createTunnel) { (info, errorMessage) in
+            if let info = info {
+                
+                let tunnel = JSON(info)
+                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
+                              "k1" : tunnel["k1"].stringValue,
+                              "k2": tunnel["k2"].stringValue,
+                              "history" : 0] as [String: Any]
+                
+                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getTunnel, complete: { (info, errorMessage) in
+                    if let info = info {
+                        
+                        let json = JSON(info)["tunnel"]
+                        let shortName = asset.gatewayId ?? json["to_txt"].stringValue
+                        let address = json["wallet_from"].stringValue
+                        
+                        complete(shortName, address, nil)
+                    }
+                    else {
+                        complete(nil, nil, errorMessage)
+                    }
+                })
+            }
+            else {
+                complete(nil, nil, errorMessage)
+            }
+        }
+    }
+    
+    func getAssetRate(asset: DomainLayer.DTO.Asset, complete:@escaping(_ fee: Money?, _ min: Money?, _ max: Money?, _ errorMessage: String?) -> Void) {
+        
+        let params = ["f" : asset.wavesId ?? "",
+                      "t" : asset.gatewayId ?? ""]
+        
+
+        NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getRate) { (info, errorMessage) in
+            
+            var fee: Money?
+            var min: Money?
+            var max: Money?
+
+            if let info = info {
+                let json = JSON(info)
+                fee = Money(value: Decimal(json["fee_in"].doubleValue + json["fee_out"].doubleValue), asset.precision)
+                min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
+                max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
+            }
+
+            complete(fee, min, max, errorMessage)
+        }
+    }
+    
 }
