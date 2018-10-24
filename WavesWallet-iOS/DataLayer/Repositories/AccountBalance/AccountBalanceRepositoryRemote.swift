@@ -72,7 +72,7 @@ private extension AccountBalanceRepositoryRemote {
         let signature = TimestampSignature(signedWallet: wallet)
 
         return environmentRepository
-            .environment(accountAddress: walletAddress)
+            .accountEnvironment(accountAddress: wallet.wallet.address)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
@@ -92,7 +92,7 @@ private extension AccountBalanceRepositoryRemote {
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
 
         return environmentRepository
-            .environment(accountAddress: walletAddress)
+            .accountEnvironment(accountAddress: walletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
@@ -110,7 +110,7 @@ private extension AccountBalanceRepositoryRemote {
     func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {
 
         return environmentRepository
-            .environment(accountAddress: walletAddress)
+            .accountEnvironment(accountAddress: walletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
                 guard let owner = self else { return Single.never() }
                 return owner

@@ -24,54 +24,60 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
 
-    func environment(accountAddress: String) -> Observable<Environment> {
+    func deffaultEnvironment(accountAddress: String) -> Observable<Environment> {
 
-        if let enviroment = localEnvironment(by: .init(accountAddress: "", isTestNet: Environments.isTestNet)) {
-            return Observable.just(enviroment)
+        var observer: Observable<Environment>! = nil
+
+        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environments.isTestNet)) {
+            observer = Observable.just(enviroment)
         } else {
-            return remoteEnvironment(accountAddress: accountAddress)
+            observer = remoteEnvironment(accountAddress: accountAddress)
         }
+
+        return observer
+    }
+
+    func accountEnvironment(accountAddress: String) -> Observable<Environment> {
+
+        let deffaultEnvironment: Observable<Environment> = self.deffaultEnvironment(accountAddress: accountAddress)
+        let accountEnvironment = self.localAccountEnvironment(accountAddress: accountAddress)
+
+        return Observable
+            .zip(deffaultEnvironment, accountEnvironment)
+            .flatMap(weak: self, selector: { (owner, environments) -> Observable<Environment> in
+
+                let environment: Environment = owner.merge(environment: environments.0, with: environments.1)
+                return Observable.just(environment)
+            })
+            .do(onNext: { [weak self] environment in
+
+                guard let owner = self else {
+                    return
+                }
+
+                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environments.isTestNet)
+
+                if let value = try? owner.localEnvironments.value() {
+                    var newValue = value
+                    newValue[key] = environment
+                    owner.localEnvironments.onNext(newValue)
+                } else {
+                    owner.localEnvironments.onNext([key: environment])
+                }
+            })
+            .sweetDebug("accountEnvironment")
     }
 
     private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
-        return Observable.create { [weak self] observer -> Disposable in
 
-            guard let owner = self else {
-                return Disposables.create()
+        return environmentRepository
+            .rx
+            .request(.get(isTestNet: Environments.isTestNet))
+            .map(Environment.self)
+            .catchError { _ -> Single<Environment> in
+                return Single.just(Environments.current)
             }
-
-            let remote = owner.environmentRepository
-                .rx
-                .request(.get(isTestNet: Environments.isTestNet))
-                .map(Environment.self)
-                .catchError { _ -> Single<Environment> in
-                    return Single.just(Environments.current)
-                }
-                .asObservable()
-
-            let accountEnvironment = owner.accountEnvironment(accountAddress: accountAddress)
-
-            let disposable = Observable
-                .zip(remote, accountEnvironment)
-                .subscribe(weak: owner, onNext: { (owner, environments) in
-
-                    let key = EnvironmentKey(accountAddress: "", isTestNet: false)
-
-                    let environment: Environment = owner.merge(environment: environments.0, with: environments.1)
-
-                    if let value = try? owner.localEnvironments.value() {
-                        var newValue = value
-                        newValue[key] = environment
-                        owner.localEnvironments.onNext(newValue)
-                    } else {
-                        owner.localEnvironments.onNext([key: environment])
-                    }
-                    observer.onNext(environment)
-                    observer.onCompleted()
-                })
-
-            return Disposables.create([disposable])
-        }
+            .asObservable()
     }
 
     func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
@@ -104,12 +110,12 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                     }
                 })
                 .asObservable()
-                .flatMap({ [weak self] _ -> Observable<AccountEnvironment?> in
+                .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.AccountEnvironment?> in
 
                     guard let owner = self else {
                         return Observable.never()
                     }
-                    return owner.accountEnvironment(accountAddress: accountAddress)
+                    return owner.localAccountEnvironment(accountAddress: accountAddress)
                 })
                 .flatMap({ [weak self] account -> Observable<Bool> in
 
@@ -117,7 +123,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                         return Observable.never()
                     }
 
-                    let newAccount = account ?? AccountEnvironment()
+                    var newAccount = account ?? DomainLayer.DTO.AccountEnvironment()
                     newAccount.spamUrl = url
 
                     return owner.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
@@ -126,6 +132,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
             return Disposables.create([disposable])
         })
+        .sweetDebug("setURL")
     }
 
     private func localEnvironment(by key: EnvironmentKey) -> Environment? {
@@ -137,25 +144,45 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         return nil
     }
 
-    private func accountEnvironment(accountAddress: String) -> Observable<AccountEnvironment?> {
+    private func localAccountEnvironment(accountAddress: String) -> Observable<DomainLayer.DTO.AccountEnvironment?> {
         return Observable.create { observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             let result = realm.objects(AccountEnvironment.self)
-            observer.onNext(result.toArray().first)
+
+            guard let environment = result.toArray().first else {
+                observer.onNext(nil)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
+            observer.onNext(.init(nodeUrl: environment.nodeUrl,
+                                  dataUrl: environment.dataUrl,
+                                  spamUrl: environment.spamUrl,
+                                  matcherUrl: environment.matcherUrl))
             observer.onCompleted()
 
             return Disposables.create()
         }
     }
 
-    private func saveAccountEnvironment(_ accountEnvironment: AccountEnvironment, accountAddress: String) -> Observable<Bool> {
+    private func saveAccountEnvironment(_ accountEnvironment: DomainLayer.DTO.AccountEnvironment, accountAddress: String) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             try? realm.write {
-                realm.deleteAll()
-                realm.add(accountEnvironment, update: false)
+                realm
+                    .objects(AccountEnvironment.self)
+                    .toArray()
+                    .forEach({ account in
+                        account.realm?.delete(account)
+                    })
+                let environment = AccountEnvironment()
+                environment.dataUrl = accountEnvironment.dataUrl
+                environment.matcherUrl = accountEnvironment.matcherUrl
+                environment.nodeUrl = accountEnvironment.nodeUrl
+                environment.spamUrl = accountEnvironment.spamUrl
+                realm.add(environment, update: false)
             }
             observer.onNext(true)
             observer.onCompleted()
@@ -164,7 +191,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         }
     }
 
-    func merge(environment: Environment, with accountEnvironmet: AccountEnvironment?) -> Environment {
+    func merge(environment: Environment, with accountEnvironmet: DomainLayer.DTO.AccountEnvironment?) -> Environment {
 
         var servers: Environment.Servers!
 

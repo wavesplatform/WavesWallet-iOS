@@ -46,7 +46,8 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(environmentsQuery())
-//        newFeedbacks.append(handlerQuery())
+        newFeedbacks.append(deffaultEnvironmentQuery())
+        newFeedbacks.append(saveEnvironmentQuery())
 
         let initialState = self.initialState(wallet: input.wallet)
         let system = Driver.system(initialState: initialState,
@@ -58,7 +59,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-    func environmentsQuery() -> Feedback {
+    private func environmentsQuery() -> Feedback {
 
         return react(query: { state -> String? in
 
@@ -72,8 +73,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             guard let strongSelf = self else { return Signal.empty() }
 
-            let environment = strongSelf.environmentRepository
-                .environment(accountAddress: address)
+            let environment = strongSelf
+                .environmentRepository
+                .accountEnvironment(accountAddress: address)
 
             let accountSettings = strongSelf.accountSettingsRepository
                 .accountSettings(accountAddress: address)
@@ -81,8 +83,82 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             return Observable.zip(environment, accountSettings)
                 .map { Types.Event.setEnvironmets($0.0, $0.1) }
-                .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                .asSignal(onErrorRecover: { error in
+                    return Signal.just(Types.Event.handlerError(error))
+                })
+        })
+    }
+
+    private func deffaultEnvironmentQuery() -> Feedback {
+
+        return react(query: { state -> String? in
+
+            if let query = state.query, case .resetEnvironmentOnDeffault = query {
+                return state.wallet.address
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] address -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            let environment = strongSelf
+                .environmentRepository
+                .deffaultEnvironment(accountAddress: address)
+
+            return environment
+                .map { Types.Event.setDeffaultEnvironmet($0) }
+                .asSignal(onErrorRecover: { error in
+                    return Signal.just(Types.Event.handlerError(error))
+                })
+        })
+    }
+
+    private struct SaveQuery: Equatable {
+        let accountAddress: String
+        let url: String
+        let accountSettings: DomainLayer.DTO.AccountSettings
+    }
+
+    private func saveEnvironmentQuery() -> Feedback {
+
+        return react(query: { state -> SaveQuery? in
+
+            if let query = state.query, case .saveEnvironments = query {
+
+                let isEnabledSpam = state.displayState.isSpam
+                let spamUrl = state.displayState.spamUrl ?? ""
+
+                var newAccountSettings = state.accountSettings ?? DomainLayer.DTO.AccountSettings(isEnabledSpam: false)
+                newAccountSettings.isEnabledSpam = isEnabledSpam
+
+                return SaveQuery(accountAddress: state.wallet.address,
+                                 url: spamUrl,
+                                 accountSettings: newAccountSettings)
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            let environment = strongSelf
+                .environmentRepository
+                .setSpamURL(query.url, by: query.accountAddress)
+
+            let accountSettings = query.accountSettings
+
+            let saveAccountSettings = strongSelf
+                .accountSettingsRepository
+                .saveAccountSettings(accountAddress: query.accountAddress,
+                                     settings: accountSettings)
+
+            return Observable.zip(environment, saveAccountSettings)
+                .map { _ in Types.Event.successSave }
+                .asSignal(onErrorRecover: { error in
+                    return Signal.just(Types.Event.handlerError(error))
                 })
         })
     }
@@ -109,30 +185,66 @@ private extension NetworkSettingsPresenter {
             state.accountSettings = accountSettings
             state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
             state.displayState.isSpam = accountSettings?.isEnabledSpam ?? false
+            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSetDeffaultButton = true
+            state.displayState.isEnabledSpamSwitch = true
+            state.displayState.isEnabledSpamInput = true
+
+        case .setDeffaultEnvironmet(let environment):
+            state.environment = environment
+            state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
+            state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSetDeffaultButton = true
+            state.query = nil
 
         case .handlerError(let error):
-            break
+            state.query = nil
+            state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSetDeffaultButton = true
+            state.displayState.isEnabledSpamSwitch = true
+            state.displayState.isEnabledSpamInput = true
 
         case .inputSpam(let url):
-            break
+
+            state.displayState.spamUrl = url
+
+            if url?.isValidUrl == false {
+                state.displayState.spamError = "Error"
+                state.displayState.isEnabledSaveButton = false
+            } else {
+                state.displayState.isEnabledSaveButton = true
+                state.displayState.spamError = nil
+            }
 
         case .switchSpam(let isOn):
-            break
+            state.displayState.isSpam = isOn
 
         case .successSave:
-            break
+            state.query = nil
+            state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSetDeffaultButton = true
+            state.displayState.isEnabledSpamSwitch = true
+            state.displayState.isEnabledSpamInput = true
 
         case .tapSetDeffault:
-            break
+            state.query = .resetEnvironmentOnDeffault
+            state.displayState.isLoading = true
+            state.displayState.isEnabledSaveButton = false
+            state.displayState.isEnabledSetDeffaultButton = false
 
         case .tapSave:
-            break
+            state.query = .saveEnvironments
+            state.displayState.isLoading = true
+            state.displayState.isEnabledSaveButton = false
+            state.displayState.isEnabledSetDeffaultButton = false
+            state.displayState.isEnabledSpamSwitch = false
+            state.displayState.isEnabledSpamInput = false
 
         case .completedQuery:
-            break
-
-        default:
-            break
+            state.query = nil
         }
     }
 }
@@ -156,6 +268,8 @@ private extension NetworkSettingsPresenter {
                                   isLoading: false,
                                   isEnabledSaveButton: false,
                                   isEnabledSetDeffaultButton: false,
+                                  isEnabledSpamSwitch: false,
+                                  isEnabledSpamInput: false,
                                   spamError: nil)
     }
 }

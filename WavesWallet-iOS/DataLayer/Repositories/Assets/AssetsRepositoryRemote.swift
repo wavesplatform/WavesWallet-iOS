@@ -24,7 +24,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let environment = environmentRepository.environment(accountAddress: accountAddress)
+        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
 
         let spamAssets = environment
             .flatMap { [weak self] environment -> Single<Response> in

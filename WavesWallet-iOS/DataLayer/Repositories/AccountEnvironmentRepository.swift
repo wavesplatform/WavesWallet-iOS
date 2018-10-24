@@ -36,10 +36,23 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
         return Observable.create({ observer -> Disposable in
 
             //TODO Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            try? realm.write {
-                realm.deleteAll()
-                realm.add(AccountSettings(settings))
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                try realm.write {
+
+                    realm
+                        .objects(AccountSettings.self)
+                        .forEach({ settings in
+                            settings.realm?.delete(settings)
+                        })
+
+                    realm.add(AccountSettings(settings))
+                }
+
+                debug(realm.objects(AccountSettings.self).toArray())
+            } catch let e {
+                debug(e)
+                observer.onError(AccountSettingsRepositoryError.invalid)
             }
 
             observer.onNext(settings)

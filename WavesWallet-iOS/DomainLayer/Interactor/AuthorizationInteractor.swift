@@ -391,7 +391,7 @@ extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.never() }
 
                 // Deffault setting for account
-                let settings = DomainLayer.DTO.AccountSettings(isEnabledSpam: false)
+                let settings = DomainLayer.DTO.AccountSettings(isEnabledSpam: true)
                 return owner.accountSettingsRepository
                     .saveAccountSettings(accountAddress: wallet.address,
                                          settings: settings)

@@ -15,7 +15,8 @@ enum NetworkSettingsTypes {
 extension NetworkSettingsTypes {
 
     enum Query {
-        case confirmPassword(wallet: DomainLayer.DTO.Wallet, old: String, new: String)
+        case resetEnvironmentOnDeffault
+        case saveEnvironments
     }
 
     struct State: Mutating {
@@ -30,7 +31,8 @@ extension NetworkSettingsTypes {
     enum Event {
         case readyView
         case setEnvironmets(Environment, DomainLayer.DTO.AccountSettings?)
-        case handlerError(AuthorizationInteractorError)
+        case setDeffaultEnvironmet(Environment)
+        case handlerError(Error)
         case inputSpam(String?)
         case switchSpam(Bool)
         case successSave
@@ -41,12 +43,14 @@ extension NetworkSettingsTypes {
 
     struct DisplayState: Mutating {
 
-        var spamUrl: String
+        var spamUrl: String?
         var isSpam: Bool
         var isAppeared: Bool
         var isLoading: Bool
         var isEnabledSaveButton: Bool
         var isEnabledSetDeffaultButton: Bool
+        var isEnabledSpamSwitch: Bool
+        var isEnabledSpamInput: Bool
         var spamError: String?
     }
 }

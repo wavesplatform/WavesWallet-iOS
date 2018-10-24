@@ -63,14 +63,32 @@ final class InputTextField: UIView, NibOwnerLoadable {
     var changedValue: ((Bool,String?) -> Void)?
     var textFieldShouldReturn: ((InputTextField) -> Void)?
 
+    var clearButtonMode: UITextField.ViewMode? {
+        didSet {
+            textFieldValue.clearButtonMode = clearButtonMode ?? .never
+        }
+    }
+
     var returnKey: UIReturnKeyType? {
         didSet {
             textFieldValue.returnKeyType = returnKey ?? .done
         }
     }
 
-    private(set) var isValidValue: Bool = false
+    var autocapitalizationType: UITextAutocapitalizationType? {
+        didSet {
+            textFieldValue.autocapitalizationType = autocapitalizationType ?? .none
+        }
+    }
 
+    var keyboardType: UIKeyboardType? {
+        didSet {
+            textFieldValue.keyboardType = keyboardType ?? .default
+        }
+    }
+
+    private(set) var isValidValue: Bool = false
+    
     private var kind: Kind?
 
     override func awakeFromNib() {
@@ -174,7 +192,6 @@ extension InputTextField: ViewConfiguration {
             isSecureTextEntry = false
             eyeButton.isHidden = true
             textFieldValue.autocorrectionType = .no
-            textFieldValue.autocapitalizationType = .words
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = .name
             }
@@ -184,8 +201,7 @@ extension InputTextField: ViewConfiguration {
             }
             isSecureTextEntry = true
             eyeButton.isHidden = false
-            textFieldValue.autocorrectionType = .no
-            textFieldValue.autocapitalizationType = .none
+            textFieldValue.autocorrectionType = .no            
         }
     }
 }
@@ -206,12 +222,19 @@ extension InputTextField: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
+        var newString = string
+
+        if self.autocapitalizationType == .none {
+            newString = newString.lowercased()
+        }
+
         if let text = textField.text,
             let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
-                                                       with: string)
+                                                       with: newString)
             checkValidValue(updatedText)
         }
         return true
     }
 }
+

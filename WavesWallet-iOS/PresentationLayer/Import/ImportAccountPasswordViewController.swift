@@ -74,6 +74,11 @@ final class ImportAccountPasswordViewController: UIViewController {
 extension ImportAccountPasswordViewController {
 
     private func setupTextField() {
+
+        accountTextField.autocapitalizationType = .words
+        passwordTextField.autocapitalizationType = .none
+        confirmPasswordTextField.autocapitalizationType = .none
+
         accountTextField.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
                                                            kind: .text,
                                                            placeholder: Localizable.NewAccount.Textfield.Accountname.title))
