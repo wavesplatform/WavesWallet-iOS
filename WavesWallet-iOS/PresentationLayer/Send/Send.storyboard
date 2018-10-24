@@ -39,7 +39,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHV-Q6-oxV" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="379" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="479" width="375" height="100"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="cN5-2N-yju"/>
@@ -143,7 +143,7 @@
                                                 <rect key="frame" x="177.5" y="692" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JYP-ot-PPW">
-                                                <rect key="frame" x="16" y="493" width="343" height="50"/>
+                                                <rect key="frame" x="16" y="593" width="343" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GII-kX-4Ke">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -179,12 +179,20 @@
                                                     <constraint firstItem="GII-kX-4Ke" firstAttribute="leading" secondItem="JYP-ot-PPW" secondAttribute="leading" id="h3S-XJ-jxw"/>
                                                 </constraints>
                                             </stackView>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9H-VA-qyq" customClass="SendMoneroPaymentIdView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="379" width="375" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="MVi-RB-Ovs"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Oif-AZ-b0k" secondAttribute="trailing" id="00L-tg-2Y0"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="4NW-lg-XQk"/>
                                             <constraint firstItem="42Y-VU-iOX" firstAttribute="centerY" secondItem="Bio-ZP-ebk" secondAttribute="centerY" id="5I6-px-RlA"/>
+                                            <constraint firstItem="Y9H-VA-qyq" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="5IM-e4-elI"/>
                                             <constraint firstItem="Oif-AZ-b0k" firstAttribute="top" secondItem="hb8-5S-GBV" secondAttribute="bottom" constant="14" id="CxR-Eb-vYx"/>
                                             <constraint firstItem="Bio-ZP-ebk" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="GUg-Wk-Lwd"/>
                                             <constraint firstAttribute="trailing" secondItem="Bio-ZP-ebk" secondAttribute="trailing" id="H42-v1-MWr"/>
@@ -192,14 +200,15 @@
                                             <constraint firstAttribute="bottom" secondItem="Oif-AZ-b0k" secondAttribute="bottom" constant="24" id="Nr9-4m-tD3"/>
                                             <constraint firstItem="Oif-AZ-b0k" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="OnN-4U-wlR"/>
                                             <constraint firstAttribute="trailing" secondItem="mHV-Q6-oxV" secondAttribute="trailing" id="PdI-3I-989"/>
+                                            <constraint firstItem="mHV-Q6-oxV" firstAttribute="top" secondItem="Y9H-VA-qyq" secondAttribute="bottom" id="QHq-ug-13Z"/>
                                             <constraint firstAttribute="trailing" secondItem="KUx-Kq-mM9" secondAttribute="trailing" id="WLb-iL-Iws"/>
                                             <constraint firstItem="1Yy-qL-dYq" firstAttribute="centerX" secondItem="hb8-5S-GBV" secondAttribute="centerX" id="X2A-PG-9sP"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="Xqt-Io-ej3"/>
+                                            <constraint firstItem="Y9H-VA-qyq" firstAttribute="top" secondItem="Bio-ZP-ebk" secondAttribute="bottom" id="YFc-fr-WmO"/>
                                             <constraint firstAttribute="trailing" secondItem="JYP-ot-PPW" secondAttribute="trailing" constant="16" id="a9d-gc-G5f"/>
                                             <constraint firstAttribute="trailing" secondItem="hb8-5S-GBV" secondAttribute="trailing" constant="16" id="fe1-QK-L0e"/>
                                             <constraint firstItem="hb8-5S-GBV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JYP-ot-PPW" secondAttribute="bottom" constant="24" id="hiS-9I-Pvn"/>
                                             <constraint firstItem="42Y-VU-iOX" firstAttribute="centerX" secondItem="Bio-ZP-ebk" secondAttribute="centerX" id="hzn-LL-mT3"/>
-                                            <constraint firstItem="mHV-Q6-oxV" firstAttribute="top" secondItem="Bio-ZP-ebk" secondAttribute="bottom" id="jgX-ze-6BE"/>
                                             <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
                                             <constraint firstItem="JYP-ot-PPW" firstAttribute="top" secondItem="mHV-Q6-oxV" secondAttribute="bottom" constant="14" id="n7V-nE-vIv"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
@@ -208,6 +217,7 @@
                                             <constraint firstItem="JYP-ot-PPW" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" constant="16" id="vCj-40-nbP"/>
                                             <constraint firstItem="Bio-ZP-ebk" firstAttribute="top" secondItem="f7C-jx-v1E" secondAttribute="bottom" constant="24" id="vfx-BW-9u8"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="top" secondItem="6P1-zy-nqY" secondAttribute="top" id="wW0-p3-g3z"/>
+                                            <constraint firstAttribute="trailing" secondItem="Y9H-VA-qyq" secondAttribute="trailing" id="xUf-hT-GKP"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -245,6 +255,7 @@
                         <outlet property="labelWarningDescription" destination="gpG-yx-vFO" id="VOc-mz-UF4"/>
                         <outlet property="labelWarningSubtitle" destination="P4c-uB-bkF" id="iac-QY-drY"/>
                         <outlet property="labelWarningTitle" destination="Y13-4e-ZF3" id="UZt-qc-Ahm"/>
+                        <outlet property="moneroPaymentIdView" destination="Y9H-VA-qyq" id="vFb-g0-Hk8"/>
                         <outlet property="recipientAddressView" destination="f7C-jx-v1E" id="WNg-3Y-7rk"/>
                         <outlet property="viewAmountError" destination="GII-kX-4Ke" id="xgp-b5-poR"/>
                         <outlet property="viewWarning" destination="03w-Yq-wk1" id="v4x-dr-EnS"/>

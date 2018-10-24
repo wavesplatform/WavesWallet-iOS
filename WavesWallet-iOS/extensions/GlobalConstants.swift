@@ -38,7 +38,6 @@ extension GlobalConstants.Coinomat {
 
     static var buy: String {
         return url + apiVersion(.v2) + "indacoin/buy.php"
-
     }
    
     private enum Version {
