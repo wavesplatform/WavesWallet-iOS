@@ -34,17 +34,16 @@ final class NetworkSettingsViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.barTintColor = .white
-        navigationItem.title = "Network"
 
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
-        saveButton.setTitle(Localizable.ChangePassword.Button.Confirm.title, for: .normal)
 
         hideTopBarLine()
         setupBigNavigationBar()
         createBackButton()
         setupTextField()
         setupSystem()
+        setupLocalizable()
     }
 
     override func viewDidLayoutSubviews() {
@@ -67,6 +66,13 @@ extension NetworkSettingsViewController: UIScrollViewDelegate {
 // MARK: Private
 extension NetworkSettingsViewController {
 
+    private func setupLocalizable() {
+        spamTitleLabel.text = Localizable.NetworkSettings.Label.Switchspam.title
+        navigationItem.title = Localizable.NetworkSettings.Navigation.title
+        saveButton.setTitle(Localizable.NetworkSettings.Button.Save.title, for: .normal)
+        setDefaultButton.setTitle(Localizable.NetworkSettings.Button.Setdefault.title, for: .normal)
+    }
+
     private func setupTextField() {
 
         spamUrlTextField.keyboardType = .URL
@@ -74,7 +80,7 @@ extension NetworkSettingsViewController {
         spamUrlTextField.clearButtonMode = .whileEditing
 
 
-        spamUrlTextField.update(with: InputTextField.Model(title: "Spam filter",
+        spamUrlTextField.update(with: InputTextField.Model(title: Localizable.NetworkSettings.Textfield.Spamfilter.title,
                                                             kind: .text,
                                                             placeholder: "http://wavesplatform.com"))
 
