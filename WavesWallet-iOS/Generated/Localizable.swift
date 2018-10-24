@@ -1151,6 +1151,42 @@ internal enum Localizable {
       }
     }
   }
+          internal enum NetworkSettings {
+
+    internal enum Button {
+
+      internal enum Save {
+        /// Save
+        internal static var title: String { return Localizable.tr("NetworkSettings", "button.save.title") }
+      }
+
+      internal enum Setdefault {
+        /// Confirm
+        internal static var title: String { return Localizable.tr("NetworkSettings", "button.setdefault.title") }
+      }
+    }
+
+    internal enum Label {
+
+      internal enum Switchspam {
+        /// Switch off spam filtering
+        internal static var title: String { return Localizable.tr("NetworkSettings", "label.switchspam.title") }
+      }
+    }
+
+    internal enum Navigation {
+      /// Network
+      internal static var title: String { return Localizable.tr("NetworkSettings", "navigation.title") }
+    }
+
+    internal enum Textfield {
+
+      internal enum Spamfilter {
+        /// Spam filter
+        internal static var title: String { return Localizable.tr("NetworkSettings", "textfield.spamfilter.title") }
+      }
+    }
+  }
           internal enum History {
 
     internal enum Navigationbar {
