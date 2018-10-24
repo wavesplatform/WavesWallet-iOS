@@ -34,6 +34,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
     @IBOutlet private weak var viewAmountError: UIView!
     @IBOutlet private weak var labelAmountError: UILabel!
+    @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
     private var amount: Money?
@@ -82,6 +83,7 @@ final class SendViewController: UIViewController {
         
         assetView.delegate = self
         amountView.delegate = self
+        moneroPaymentIdView.setupZeroHeight(animation: false)
         
         if let asset = input.selectedAsset {
             assetView.isSelectedAssetMode = false

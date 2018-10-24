@@ -11,6 +11,7 @@ import UIKit
 private enum Constants {
     static let paymentIdLength = 64
     static let animationDuration: TimeInterval = 0.3
+    static let viewHeight: CGFloat = 98
 }
 
 
@@ -35,7 +36,7 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         labelError.alpha = 0
         setupLocalization()
         viewContainer.addTableCellShadowStyle()
-        setupDefaultHeight()
+        setupDefaultHeight(animation: false)
     }
     
     @IBAction private func textFieldDidChange(_ sender: Any) {
@@ -46,12 +47,23 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         showError(text.count != Constants.paymentIdLength, animation: true)
     }
     
-    func setupDefaultHeight() {
-        heightConstraint.constant = viewContainer.frame.origin.y + viewContainer.frame.size.height
+    func setupDefaultHeight(animation: Bool) {
+        heightConstraint.constant = Constants.viewHeight
+        
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.firstAvailableViewController().view.layoutIfNeeded()
+            }
+        }
     }
     
-    func setupZeroHeight() {
+    func setupZeroHeight(animation: Bool) {
         heightConstraint.constant = 0
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.firstAvailableViewController().view.layoutIfNeeded()
+            }
+        }
     }
     
     private func showError(_ isShow: Bool, animation: Bool) {
