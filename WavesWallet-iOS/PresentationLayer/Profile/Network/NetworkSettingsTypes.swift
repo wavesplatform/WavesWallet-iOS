@@ -17,6 +17,7 @@ extension NetworkSettingsTypes {
     enum Query {
         case resetEnvironmentOnDeffault
         case saveEnvironments
+        case successSaveEnvironments
     }
 
     struct State: Mutating {

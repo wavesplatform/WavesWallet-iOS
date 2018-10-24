@@ -93,12 +93,19 @@ fileprivate extension DexListViewController {
 
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
             .asSignal(onErrorSignalWith: Signal.empty())
+
         let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
             .asSignal(onErrorSignalWith: Signal.empty())
+
         let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event, refresh]
+        let changedSpamList = NotificationCenter.default.rx
+            .notification(.changedSpamList)
+            .map { _ in DexList.Event.refresh }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event, refresh, changedSpamList]
     }
     
     func subscriptions(state: Driver<DexList.State>) -> [Disposable] {

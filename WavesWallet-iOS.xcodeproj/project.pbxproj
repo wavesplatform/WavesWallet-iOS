@@ -138,6 +138,7 @@
 		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
 		0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */; };
 		0A4D221E21809E3600155A8E /* AccountEnvironmentDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */; };
+		0A4D22202180DC5A00155A8E /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D221F2180DC5A00155A8E /* Notifications.swift */; };
 		0A56EA0721628DEB00208CAF /* ChooseAccount.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A56EA0921628DEB00208CAF /* ChooseAccount.strings */; };
 		0A580E622135F17700C62549 /* UIScrollView+ContentInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E612135F17700C62549 /* UIScrollView+ContentInset.swift */; };
 		0A580E642135F5CE00C62549 /* DateFormatter+Once.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E632135F5CE00C62549 /* DateFormatter+Once.swift */; };
@@ -548,11 +549,7 @@
 		E95B480421638BE9004D4E39 /* TransactionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47FA21638BE9004D4E39 /* TransactionCommentView.swift */; };
 		E95B480621638BE9004D4E39 /* TransactionHistoryShowAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */; };
 		E95B480721638BE9004D4E39 /* TransactionCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */; };
-		E95B480821638BE9004D4E39 /* TransactionHistoryAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47FE21638BE9004D4E39 /* TransactionHistoryAddressView.swift */; };
-		E95B480921638BE9004D4E39 /* TransactionHistoryAddressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47FF21638BE9004D4E39 /* TransactionHistoryAddressView.xib */; };
 		E95B480B21638BE9004D4E39 /* TransactionHistoryShowAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */; };
-		E95B480C21638BE9004D4E39 /* TransactionHistoryMassSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B480221638BE9004D4E39 /* TransactionHistoryMassSendView.swift */; };
-		E95B480D21638BE9004D4E39 /* TransactionHistoryMassSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B480321638BE9004D4E39 /* TransactionHistoryMassSendView.xib */; };
 		E95B481321638FE1004D4E39 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95B481221638FE1004D4E39 /* Fabric-Info.plist */; };
 		E95B481521638FE8004D4E39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95B481421638FE8004D4E39 /* GoogleService-Info.plist */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
@@ -954,6 +951,7 @@
 		0A4C9AA220EE65910095A417 /* SeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsApiService.swift; sourceTree = "<group>"; };
 		0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentDomainDTO.swift; sourceTree = "<group>"; };
+		0A4D221F2180DC5A00155A8E /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		0A56EA0821628DEB00208CAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ChooseAccount.strings; sourceTree = "<group>"; };
 		0A56EA0A21628DED00208CAF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ChooseAccount.strings; sourceTree = "<group>"; };
 		0A580E612135F17700C62549 /* UIScrollView+ContentInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ContentInset.swift"; sourceTree = "<group>"; };
@@ -1398,11 +1396,7 @@
 		E95B47FA21638BE9004D4E39 /* TransactionCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCommentView.swift; sourceTree = "<group>"; };
 		E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryShowAllView.swift; sourceTree = "<group>"; };
 		E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
-		E95B47FE21638BE9004D4E39 /* TransactionHistoryAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryAddressView.swift; sourceTree = "<group>"; };
-		E95B47FF21638BE9004D4E39 /* TransactionHistoryAddressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryAddressView.xib; sourceTree = "<group>"; };
 		E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryShowAllView.xib; sourceTree = "<group>"; };
-		E95B480221638BE9004D4E39 /* TransactionHistoryMassSendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryMassSendView.swift; sourceTree = "<group>"; };
-		E95B480321638BE9004D4E39 /* TransactionHistoryMassSendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryMassSendView.xib; sourceTree = "<group>"; };
 		E95B481221638FE1004D4E39 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		E95B481421638FE8004D4E39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -2862,6 +2856,7 @@
 		0AF9223F212E1233003BA067 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0A4D221F2180DC5A00155A8E /* Notifications.swift */,
 				0A762D9421639FBF0019D447 /* UIView+SafeArea.swift */,
 				F7C683971EA93A4000C87DAF /* crypto */,
 				0AF92272212E1233003BA067 /* Protocols */,
@@ -3295,11 +3290,7 @@
 				E95B47FA21638BE9004D4E39 /* TransactionCommentView.swift */,
 				E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */,
 				E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */,
-				E95B47FE21638BE9004D4E39 /* TransactionHistoryAddressView.swift */,
-				E95B47FF21638BE9004D4E39 /* TransactionHistoryAddressView.xib */,
 				E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */,
-				E95B480221638BE9004D4E39 /* TransactionHistoryMassSendView.swift */,
-				E95B480321638BE9004D4E39 /* TransactionHistoryMassSendView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4333,7 +4324,6 @@
 				E9B087BA2163886800937644 /* DexInfo.strings in Resources */,
 				E9B087B72163886800937644 /* OrderConfirmView.xib in Resources */,
 				E9B0880A2163886800937644 /* DexMarketPairs.json in Resources */,
-				E95B480921638BE9004D4E39 /* TransactionHistoryAddressView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				E95B47F321638B11004D4E39 /* StartLeasingGeneratorView.xib in Resources */,
@@ -4378,7 +4368,6 @@
 				0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */,
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
-				E95B480D21638BE9004D4E39 /* TransactionHistoryMassSendView.xib in Resources */,
 				E9D36DD02175C755001E6DF0 /* Receive.strings in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				0AF92303212E1424003BA067 /* General.strings in Resources */,
@@ -5120,11 +5109,11 @@
 				0AF922DB212E1234003BA067 /* SectionDisplayCollection.swift in Sources */,
 				0A762D7421639FA60019D447 /* TransactionHistoryCoordinator.swift in Sources */,
 				0A762D7D21639FA60019D447 /* TransactionHistoryModuleBuilder.swift in Sources */,
+				0A4D22202180DC5A00155A8E /* Notifications.swift in Sources */,
 				0AF922B3212E1234003BA067 /* UITableView+HeaderView.swift in Sources */,
 				E9D36DD12175C755001E6DF0 /* ReceiveCardTypes.swift in Sources */,
 				0A5C919C20F3E7DD00443CE6 /* Asset.swift in Sources */,
 				E9D36DCE2175C755001E6DF0 /* ReceiveCryptocurrencyInteractor.swift in Sources */,
-				E95B480C21638BE9004D4E39 /* TransactionHistoryMassSendView.swift in Sources */,
 				0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */,
 				0AF922D0212E1234003BA067 /* StringExtension.swift in Sources */,
 				E9B087EC2163886800937644 /* DexLastTradesModuleBuilder.swift in Sources */,
@@ -5179,7 +5168,6 @@
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
-				E95B480821638BE9004D4E39 /* TransactionHistoryAddressView.swift in Sources */,
 				0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */,
 				0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */,
 				E9D36DCF2175C755001E6DF0 /* ReceiveCryptocurrencyViewController.swift in Sources */,

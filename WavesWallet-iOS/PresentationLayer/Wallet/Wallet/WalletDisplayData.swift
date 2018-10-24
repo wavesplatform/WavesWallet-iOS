@@ -35,9 +35,13 @@ final class WalletDisplayData: NSObject {
         tableView.dataSource = self
     }
 
-    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType) {
+    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType, completed: @escaping (() -> Void)) {
         self.sections = sections
 
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            completed()
+        }
         switch animateType {
         case .refresh:
             tableView.reloadData()
@@ -52,8 +56,8 @@ final class WalletDisplayData: NSObject {
             tableView.reloadSections([index], animationStyle: .fade)
             tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             tableView.endUpdates()
-            break
         }
+        CATransaction.commit()
     }
 }
 

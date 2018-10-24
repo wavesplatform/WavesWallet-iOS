@@ -25,21 +25,19 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
 
     func deffaultEnvironment(accountAddress: String) -> Observable<Environment> {
-
-        var observer: Observable<Environment>! = nil
-
-        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environments.isTestNet)) {
-            observer = Observable.just(enviroment)
-        } else {
-            observer = remoteEnvironment(accountAddress: accountAddress)
-        }
-
-        return observer
+        return remoteEnvironment(accountAddress: accountAddress)
     }
 
     func accountEnvironment(accountAddress: String) -> Observable<Environment> {
 
-        let deffaultEnvironment: Observable<Environment> = self.deffaultEnvironment(accountAddress: accountAddress)
+        var deffaultEnvironment: Observable<Environment>!
+
+        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environments.isTestNet)) {
+            deffaultEnvironment = Observable.just(enviroment)
+        } else {
+            deffaultEnvironment = remoteEnvironment(accountAddress: accountAddress)
+        }
+
         let accountEnvironment = self.localAccountEnvironment(accountAddress: accountAddress)
 
         return Observable

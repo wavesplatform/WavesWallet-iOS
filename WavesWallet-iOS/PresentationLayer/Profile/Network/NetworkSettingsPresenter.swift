@@ -12,7 +12,7 @@ import RxFeedback
 import RxSwift
 
 protocol NetworkSettingsModuleOutput: AnyObject {
-
+    func networkSettingSavedSetting()
 }
 
 protocol NetworkSettingsModuleInput {
@@ -48,6 +48,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
         newFeedbacks.append(environmentsQuery())
         newFeedbacks.append(deffaultEnvironmentQuery())
         newFeedbacks.append(saveEnvironmentQuery())
+        newFeedbacks.append(handlerExternalQuery())
 
         let initialState = self.initialState(wallet: input.wallet)
         let system = Driver.system(initialState: initialState,
@@ -58,6 +59,30 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
             .drive()
             .disposed(by: disposeBag)
     }
+
+    private func handlerExternalQuery() -> Feedback {
+
+        return react(query: { state -> Bool? in
+
+            if let query = state.query {
+
+                switch query {
+                case .successSaveEnvironments:
+                    return true
+                default:
+                    return nil
+                }
+
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] address -> Signal<Types.Event> in
+            self?.moduleOutput?.networkSettingSavedSetting()
+            return Signal.just(.completedQuery)
+        })
+    }
+
 
     private func environmentsQuery() -> Feedback {
 
@@ -222,7 +247,7 @@ private extension NetworkSettingsPresenter {
             state.displayState.isSpam = isOn
 
         case .successSave:
-            state.query = nil
+            state.query = .successSaveEnvironments
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = true
             state.displayState.isEnabledSetDeffaultButton = true
