@@ -1161,7 +1161,7 @@ internal enum Localizable {
       }
 
       internal enum Setdefault {
-        /// Confirm
+        /// Set default
         internal static var title: String { return Localizable.tr("NetworkSettings", "button.setdefault.title") }
       }
     }
