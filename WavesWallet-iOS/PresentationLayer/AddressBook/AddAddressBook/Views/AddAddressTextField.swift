@@ -56,6 +56,10 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
         buttonDelete.alpha = 0
         setupButtonsState(animation: false)
     }
+
+    @discardableResult override func becomeFirstResponder() -> Bool {
+        return addressTextField.becomeFirstResponder()
+    }
     
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {

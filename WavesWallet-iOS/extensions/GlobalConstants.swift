@@ -9,5 +9,10 @@
 import Foundation
 
 enum GlobalConstants {
+    #if DEBUG
     static let accountNameMinLimitSymbols: Int = 2
+    #else
+    static let accountNameMinLimitSymbols: Int = 8
+    #endif
+    static let wavesAssetId = "WAVES"
 }

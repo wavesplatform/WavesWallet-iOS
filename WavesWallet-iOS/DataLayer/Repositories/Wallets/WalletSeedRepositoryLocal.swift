@@ -90,18 +90,18 @@ private extension WalletSeedRepositoryLocal {
 
     func removeDB(address: String, seedId: String) -> Bool {
 
-        guard let fileURL = try? Realm().configuration.fileURL else {
+        guard let fileURL = Realm.Configuration.defaultConfiguration.fileURL else {
             error("File Realm is nil")
             return false
         }
 
-        guard let path = fileURL?
+        let path = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("\(address)_seed_\(seedId).realm") else { return false }
+            .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
-        guard let oldPath = fileURL?
+        let oldPath = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("\(address)_seed.realm") else { return false }
+            .appendingPathComponent("\(address)_seed.realm")
 
         do {
             try FileManager.default.removeItem(at: path)

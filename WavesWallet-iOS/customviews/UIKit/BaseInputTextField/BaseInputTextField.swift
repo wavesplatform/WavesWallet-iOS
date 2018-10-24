@@ -45,6 +45,10 @@ final class BaseInputTextField: UIView, NibOwnerLoadable {
         label.alpha = 0
         updateButtonCenterConstraints()
     }
+
+    @discardableResult override func becomeFirstResponder() -> Bool {
+        return textField.becomeFirstResponder()
+    }
     
     @IBAction private func textFieldDidChange(_ sender: Any) {
         delegate?.baseInputTextField(self, didChange: text)

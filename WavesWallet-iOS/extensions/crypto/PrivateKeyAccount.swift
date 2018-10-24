@@ -13,8 +13,8 @@ class Address {
     static let AddressVersion: UInt8 = 1
     static let ChecksumLength = 4
     static let HashLength = 20
-    static let AddressLength = 1 + 1 + ChecksumLength + HashLength
-    
+    static let AddressLength = 1 + 1 + HashLength + ChecksumLength
+
     class func getSchemeByte() -> UInt8 {
         return Environments.current.scheme.utf8.first!
     }
@@ -42,6 +42,19 @@ class Address {
         } else {
             return false
         }
+    }
+
+    class func scheme(from publicKey: String) -> String? {
+
+        let address = Address.addressFromPublicKey(publicKey: publicKey.bytes)
+        let bytes = Base58.decode(address)
+        guard bytes.count == AddressLength else { return nil }
+        guard bytes[0] == AddressVersion else { return nil }
+        let schemeBytes = bytes[1]
+        let data = Data(bytes: [schemeBytes])
+        guard let scheme = String(data: data, encoding: .utf8) else { return nil }
+
+        return scheme
     }
 }
 

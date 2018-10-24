@@ -297,8 +297,8 @@ class WavesSendViewController: BaseAmountViewController, UIScrollViewDelegate, T
         
         if index == 0 {
             
-            let vc = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
-            navigationController?.pushViewController(vc, animated: true)
+//            let vc = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
+//            navigationController?.pushViewController(vc, animated: true)
         }
         else {
             

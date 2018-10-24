@@ -44,9 +44,21 @@ final class Environments {
 
     static let Testnet: Environment = parseJSON(json: Constants.test)!
     static let Mainnet: Environment = parseJSON(json: Constants.main)!
+
+    static var isTestNet: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "isTestEnvironment")
+            UserDefaults.standard.synchronize()
+        }
+
+        get {
+            return UserDefaults.standard.bool(forKey: "isTestEnvironment")
+        }
+    }
+
     static var current: Environment {
         get {
-            if UserDefaults.standard.bool(forKey: "isTestEnvironment") {
+            if isTestNet {
                 return Testnet
             } else {
                 return Mainnet

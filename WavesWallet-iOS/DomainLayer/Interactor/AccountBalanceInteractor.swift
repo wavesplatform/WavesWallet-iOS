@@ -26,6 +26,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
+    private let environmentRepository: EnvironmentRepositoryProtocol = FactoryRepositories.instance.environmentRepository
 
     private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
@@ -78,10 +79,12 @@ private extension AccountBalanceInteractor {
         let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
                                                                              isNeedUpdate: isNeedUpdate)
 
-        return Observable.zip(balances, activeTransactions)
-            .map { balances, transactions -> [DomainLayer.DTO.AssetBalance] in
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address)
 
-                let generalBalances = Environments.current.generalAssetIds.map { DomainLayer.DTO.AssetBalance(info: $0) }
+        return Observable.zip(balances, activeTransactions, environment)
+            .map { balances, transactions, environment -> [DomainLayer.DTO.AssetBalance] in
+
+                let generalBalances = environment.generalAssetIds.map { DomainLayer.DTO.AssetBalance(info: $0) }
                 var newBalances = balances
                 for generalBalance in generalBalances {
                     if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
@@ -91,7 +94,7 @@ private extension AccountBalanceInteractor {
 
                 if let wavesAssetBalance = newBalances
                     .enumerated()
-                    .first(where: { $0.element.assetId == Environments.Constants.wavesAssetId }) {
+                    .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
 
                     let leasedBalance: Int64 = transactions
                         .filter { $0.sender.id == walletAddress }
@@ -140,7 +143,7 @@ private extension AccountBalanceInteractor {
                         newBalances = owner.initialSettings(for: newBalances)
                         return owner
                             .balanceRepositoryLocal
-                            .saveBalances(newBalances)
+                            .saveBalances(newBalances, accountAddress: walletAddress)
                             .map { _ in newBalances }
                     }
             }

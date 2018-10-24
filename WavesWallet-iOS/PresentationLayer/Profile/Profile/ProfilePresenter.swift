@@ -19,7 +19,7 @@ protocol ProfileModuleOutput: AnyObject {
     func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void))
     func showChangePassword(wallet: DomainLayer.DTO.Wallet)
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
-    func showNetwork()
+    func showNetwork(wallet: DomainLayer.DTO.Wallet)
     func showRateApp()
     func showFeedback()
     func showSupport()
@@ -133,8 +133,8 @@ fileprivate extension ProfilePresenter {
         case .showChangePasscode(let wallet):
             owner.moduleOutput?.showChangePasscode(wallet: wallet)
 
-        case .showNetwork:
-            owner.moduleOutput?.showNetwork()
+        case .showNetwork(let wallet):
+            owner.moduleOutput?.showNetwork(wallet: wallet)
 
         case .showRateApp:
             owner.moduleOutput?.showRateApp()
@@ -233,21 +233,21 @@ fileprivate extension ProfilePresenter {
 
     func blockQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(query: { state -> String? in
 
             if state.displayState.isAppeared == true, state.wallet != nil {
-                return true
+                return state.wallet?.address
             } else {
                 return nil
             }
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        }, effects: { [weak self] address -> Signal<Types.Event> in
 
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
                 .blockRepository
-                .height()
+                .height(accountAddress: address)
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()
@@ -393,7 +393,7 @@ private extension ProfilePresenter {
                 state.query = Types.Query.showChangePasscode(wallet: wallet)
 
             case .network:
-                state.query = Types.Query.showNetwork
+                state.query = Types.Query.showNetwork(wallet: wallet)
 
             case .rateApp:
                 state.query = Types.Query.showRateApp

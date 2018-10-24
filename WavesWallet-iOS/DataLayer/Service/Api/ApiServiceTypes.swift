@@ -24,7 +24,7 @@ extension ApiTargetType {
     }
 
     private var apiUrl: String {
-        return Environments.current.servers.dataUrl.relativeString
+        return environment.servers.dataUrl.relativeString
     }
 
     var baseURL: URL { return URL(string: "\(apiUrl)\(apiVersion)")! }

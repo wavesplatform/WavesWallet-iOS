@@ -69,7 +69,12 @@ final class AppCoordinator: Coordinator {
 
     func start() {
         self.isActiveApp = true
-        self.window.rootViewController = slideMenuViewController
+
+        let vc = StoryboardScene.Profile.networkSettingsViewController.instantiate()
+        let custom = CustomNavigationController(rootViewController: vc)
+
+      self.window.rootViewController = slideMenuViewController
+//        self.window.rootViewController = custom
         self.window.makeKeyAndVisible()
         logInApplication()
 
@@ -336,10 +341,22 @@ extension AppCoordinator {
 
 // MARK: SupportViewControllerDelegate
 extension AppCoordinator: SupportViewControllerDelegate  {
-    func closeSupportView() {
+    func closeSupportView(isTestNet: Bool) {
+
+
 
         self.window.rootViewController?.dismiss(animated: true, completion: {
-            self.logInApplication()
+            if Environments.isTestNet != isTestNet {
+
+                self.authoAuthorizationInteractor
+                    .logout()
+                    .sweetDebug("Logount Support")
+                    .subscribe(onCompleted: { [weak self] in
+                        Environments.isTestNet = isTestNet
+                        self?.showEnter()
+                    })
+                    .disposed(by: self.disposeBag)
+            }
         })
     }
 }

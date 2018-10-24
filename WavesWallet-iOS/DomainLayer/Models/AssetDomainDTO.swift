@@ -9,7 +9,7 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct Asset {
+    struct Asset: Mutating {
         let id: String
         let gatewayId: String?
         let wavesId: String?
@@ -22,7 +22,7 @@ extension DomainLayer.DTO {
         let quantity: Int64
         let ticker: String?
         let isReusable: Bool
-        let isSpam: Bool
+        var isSpam: Bool
         let isFiat: Bool
         let isGeneral: Bool
         let isMyWavesToken: Bool
