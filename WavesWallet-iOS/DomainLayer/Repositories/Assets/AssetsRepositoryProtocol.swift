@@ -17,6 +17,6 @@ protocol AssetsRepositoryProtocol  {
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>
     
-    func saveAssets(_ assets:[DomainLayer.DTO.Asset]) -> Observable<Bool>
-    func saveAsset(_ asset: DomainLayer.DTO.Asset) -> Observable<Bool>
+    func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool>
+    func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool>
 }

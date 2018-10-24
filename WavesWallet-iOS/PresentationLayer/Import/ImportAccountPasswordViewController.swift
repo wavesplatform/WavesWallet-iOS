@@ -23,9 +23,9 @@ final class ImportAccountPasswordViewController: UIViewController {
     @IBOutlet private weak var imageIcon: UIImageView!
     @IBOutlet private weak var labelAddress: UILabel!
     
-    @IBOutlet private weak var accountTextField: PasswordTextField!
-    @IBOutlet private weak var passwordTextField: PasswordTextField!
-    @IBOutlet private weak var confirmPasswordTextField: PasswordTextField!
+    @IBOutlet private weak var accountTextField: InputTextField!
+    @IBOutlet private weak var passwordTextField: InputTextField!
+    @IBOutlet private weak var confirmPasswordTextField: InputTextField!
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
@@ -74,13 +74,18 @@ final class ImportAccountPasswordViewController: UIViewController {
 extension ImportAccountPasswordViewController {
 
     private func setupTextField() {
-        accountTextField.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
+
+        accountTextField.autocapitalizationType = .words
+        passwordTextField.autocapitalizationType = .none
+        confirmPasswordTextField.autocapitalizationType = .none
+
+        accountTextField.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
                                                            kind: .text,
                                                            placeholder: Localizable.NewAccount.Textfield.Accountname.title))
-        passwordTextField.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
+        passwordTextField.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
                                                         kind: .password,
                                                         placeholder: Localizable.NewAccount.Textfield.Createpassword.title))
-        confirmPasswordTextField.update(with: PasswordTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+        confirmPasswordTextField.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
                                                                kind: .newPassword,
                                                                placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 

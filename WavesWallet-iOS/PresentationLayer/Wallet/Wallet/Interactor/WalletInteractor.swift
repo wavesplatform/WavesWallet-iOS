@@ -30,7 +30,15 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func assets() -> AsyncObservable<[WalletTypes.DTO.Asset]> {
 
-        let listener = accountBalanceRepositoryLocal.listenerOfUpdatedBalances.subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+        let listener = authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .accountBalanceRepositoryLocal
+                    .listenerOfUpdatedBalances(by: wallet.wallet.address)
+            }
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
 
         return Observable.merge(assets(isNeedUpdate: false),
@@ -69,7 +77,8 @@ final class WalletInteractor: WalletInteractorProtocol {
 fileprivate extension WalletInteractor {
 
     func mapAssets(_ observable: AsyncObservable<[DomainLayer.DTO.AssetBalance]>) -> AsyncObservable<[WalletTypes.DTO.Asset]> {
-        return observable.map { $0.filter { $0.asset != nil || $0.settings != nil } }
+        return observable
+            .map { $0.filter { $0.asset != nil || $0.settings != nil } }
             .map {
                 $0.map { balance -> WalletTypes.DTO.Asset in
                     WalletTypes.DTO.Asset.map(from: balance)

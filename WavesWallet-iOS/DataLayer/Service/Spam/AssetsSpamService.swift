@@ -13,13 +13,29 @@ extension Spam.Service {
     enum Assets {
         /**
          Response:
-         - Node.Model.AccountBalance.self
+         - CSV
          */
-        case getSpamList
+        case getSpamList(url: URL)
     }
 }
 
-extension Spam.Service.Assets: SpamTargetType {
+extension Spam.Service.Assets: TargetType {
+
+    var baseURL: URL {
+
+        switch self {
+        case .getSpamList(let url):
+            return url
+        }
+    }
+
+    var headers: [String: String]? {
+        return ContentType.applicationCsv.headers
+    }
+
+    var sampleData: Data {
+        return Data()
+    }
 
     var path: String {
         return ""

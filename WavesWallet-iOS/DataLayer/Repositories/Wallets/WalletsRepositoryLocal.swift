@@ -16,12 +16,6 @@ fileprivate enum Constants {
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
-    private let environment: Environment
-
-    init(environment: Environment) {
-        self.environment = environment
-    }
-
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
@@ -186,7 +180,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
 private extension WalletsRepositoryLocal {
 
-    func getWalletsConfig(environment: Environment) -> Realm.Configuration? {
+    func getWalletsConfig() -> Realm.Configuration? {
 
         var config = Realm.Configuration()
         config.schemaVersion = UInt64(Constants.schemaVersion)
@@ -198,7 +192,7 @@ private extension WalletsRepositoryLocal {
 
         config.fileURL = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("wallets_\(environment.scheme).realm")
+            .appendingPathComponent("wallets_\(Environments.current.scheme).realm")
 
         config.migrationBlock = { _, oldSchemaVersion in
             debug("Migration!!! \(oldSchemaVersion)")
@@ -208,7 +202,7 @@ private extension WalletsRepositoryLocal {
     }
 
     var realm: Realm? {
-        guard let config = getWalletsConfig(environment: environment) else {
+        guard let config = getWalletsConfig() else {
             error("Realm Configuration is nil")
             return nil
         }

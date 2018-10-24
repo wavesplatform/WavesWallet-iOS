@@ -10,12 +10,18 @@ import Foundation
 import Moya
 
 extension Node.Service {
-    enum Blocks {
-        /**
-         Response:
-         - Node.DTO.Block
-         */
-        case height
+        
+    struct Blocks {
+        enum Kind {
+            /**
+             Response:
+             - Node.DTO.Block
+             */
+            case height
+        }
+
+        let environment: Environment
+        let kind: Kind
     }
 }
 
@@ -30,21 +36,21 @@ extension Node.Service.Blocks: NodeTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .height:
             return Constants.blocks + "/" + Constants.height
         }
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .height:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .height:
             return .requestPlain
         }

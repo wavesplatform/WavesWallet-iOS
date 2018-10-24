@@ -10,14 +10,24 @@ import Foundation
 import RxSwift
 
 final class AddressBookInteractor: AddressBookInteractorProtocol {
-    
+
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     private var _users: [DomainLayer.DTO.Contact] = []
     private let repository = AddressBookRepository()
     
     func users() -> Observable<[DomainLayer.DTO.Contact]> {
-                
-        let merge = Observable.merge([repository.list(), repository.listListener()])
+
+        let merge = authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.Contact]> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return Observable.merge([owner.repository.list(by: wallet.wallet.address),
+                                         owner.repository.listListener(by: wallet.wallet.address)])
+            }
             .do(onNext: { [weak self] users in
                 self?._users = users
             })

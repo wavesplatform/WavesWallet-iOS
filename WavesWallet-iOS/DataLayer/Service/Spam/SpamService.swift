@@ -13,13 +13,3 @@ enum Spam {}
 extension Spam {
     enum Service {}
 }
-
-protocol SpamTargetType: BaseTargetType {}
-
-extension SpamTargetType {
-    var baseURL: URL { return Environments.current.servers.spamUrl }
-
-    var headers: [String: String]? {
-        return ContentType.applicationCsv.headers
-    }
-}

@@ -35,9 +35,13 @@ final class WalletDisplayData: NSObject {
         tableView.dataSource = self
     }
 
-    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType) {
+    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType, completed: @escaping (() -> Void)) {
         self.sections = sections
 
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            completed()
+        }
         switch animateType {
         case .refresh:
             tableView.reloadData()
@@ -50,9 +54,10 @@ final class WalletDisplayData: NSObject {
         case .expanded(let index):
             tableView.beginUpdates()
             tableView.reloadSections([index], animationStyle: .fade)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             tableView.endUpdates()
-            break
         }
+        CATransaction.commit()
     }
 }
 
@@ -231,11 +236,11 @@ fileprivate extension WalletTypes.ViewModel.Section {
         case .transactions:
             return Localizable.Wallet.Section.activeNow(items.count)
 
-        case .spam:
-            return Localizable.Wallet.Section.spamAssets(items.count)
+        case .spam(let count):
+            return Localizable.Wallet.Section.spamAssets(count)
 
-        case .hidden:
-            return Localizable.Wallet.Section.hiddenAssets(items.count)
+        case .hidden(let count):
+            return Localizable.Wallet.Section.hiddenAssets(count)
 
         default:
             return nil

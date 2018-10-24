@@ -16,39 +16,53 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     private let apiProvider: MoyaProvider<API.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let spamAssets = spamProvider
-            .rx
-            .request(.getSpamList, callbackQueue: DispatchQueue.global(qos: .background))
+        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
+
+        let spamAssets = environment
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .spamProvider
+                    .rx
+                    .request(.getSpamList(url: environment.servers.spamUrl),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
             .map { response -> [String] in
-
-                guard let text = String(data: response.data, encoding: .utf8) else { return [] }
-                guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { return [] }
-
-                var addresses = [String]()
-                while let row = csv.next() {
-                    guard let address = scamAddressFrom(row: row) else { continue }
-                    addresses.append(address)
-                }
-                return addresses
+                return (try? SpamCVC.addresses(from: response.data)) ?? []
             }
             .asObservable()
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy =  .formatted(DateFormatter.iso())
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
 
-        let assetsList = apiProvider
-            .rx
-            .request(.getAssets(ids: ids), callbackQueue: DispatchQueue.global(qos: .background))
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
+        let assetsList = environment
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .apiProvider
+                    .rx
+                    .request(.init(kind: .getAssets(ids: ids), environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
+            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
             .map { $0.data.map { $0.data } }
             .asObservable()
 
-        return Observable.zip(assetsList, spamAssets)
-            .map { assets, spamAssets in
 
-                let map = Environments.current.hashMapGeneralAssets()
+        return Observable.zip(assetsList, spamAssets, environment)
+            .map { assets, spamAssets, environment in
+
+                let map = environment.hashMapGeneralAssets()
                 return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamAssets.contains($0.id),
@@ -56,12 +70,12 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
     }
 
-    func saveAssets(_ assets:[DomainLayer.DTO.Asset]) -> Observable<Bool> {
+    func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }
 
-    func saveAsset(_ asset: DomainLayer.DTO.Asset) -> Observable<Bool> {
+    func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
         assert(true, "Method don't supported")
         return Observable.never()
     }
@@ -104,7 +118,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
-            if info.assetId == Environments.Constants.wavesAssetId {
+            if info.assetId == GlobalConstants.wavesAssetId {
                 isWaves = true
             }
             name = info.displayName
@@ -119,18 +133,4 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.displayName = name
         self.regularExpression = info?.regularExpression
     }
-}
-
-fileprivate func scamAddressFrom(row: [String]) -> String? {
-    if row.count < 2 {
-        return nil
-    }
-    let address = row[0]
-    let type = row[1]
-
-    if type.lowercased() != "scam", address.count == 0 {
-        return nil
-    }
-
-    return address
 }

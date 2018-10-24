@@ -10,16 +10,27 @@ import Foundation
 import RxSwift
 import Moya
 
-
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
+    private let environmentRepository: EnvironmentRepositoryProtocol
     private let blockNode: MoyaProvider<Node.Service.Blocks> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    func height() -> Observable<Int64> {
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
 
-        return blockNode
-            .rx
-            .request(.height)
+    func height(accountAddress: String) -> Observable<Int64> {
+
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] environment -> Single<Response> in
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .blockNode
+                    .rx
+                    .request(Node.Service.Blocks(environment: environment,
+                                                 kind: .height))
+            })
             .map(Node.DTO.Block.self)
             .asObservable()
             .map { $0.height }        

@@ -57,7 +57,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showAddressBook() {
-        let vc = AddressBookModuleBuilder.init(output: nil).build(input: .init(isEditMode: false))
+        let vc = AddressBookModuleBuilder.init(output: nil).build(input: .init(isEditMode: true))
         self.navigationController.pushViewController(vc, animated: true)
     }
 
@@ -67,8 +67,9 @@ extension ProfileCoordinator: ProfileModuleOutput {
         navigationController.pushViewController(language, animated: true)
     }
 
-    func showNetwork() {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+    func showNetwork(wallet: DomainLayer.DTO.Wallet) {
+        let vc = NetworkSettingsModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func showRateApp() {
@@ -160,3 +161,15 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
         passcode.start()
     }
 }
+
+// MARK: NetworkSettingsModuleOutput
+
+extension ProfileCoordinator: NetworkSettingsModuleOutput {
+
+    func networkSettingSavedSetting() {
+        NotificationCenter.default.post(name: .changedSpamList, object: nil)
+        navigationController.popViewController(animated: true)
+    }
+}
+
+

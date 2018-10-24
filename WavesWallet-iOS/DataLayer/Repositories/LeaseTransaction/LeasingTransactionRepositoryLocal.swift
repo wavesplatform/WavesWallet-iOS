@@ -16,7 +16,7 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
     func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
         return Observable.create({ (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(LeasingTransactionRepositoryError.fail)
                 return Disposables.create()
             }
@@ -32,10 +32,10 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
         })
     }
 
-    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction]) -> Observable<Bool> {
+    func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction], by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ (observer) -> Disposable in
 
-            guard let realm = try? Realm() else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onNext(false)
                 observer.onError(LeasingTransactionRepositoryError.fail)
                 return Disposables.create()
@@ -57,8 +57,8 @@ final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProto
         })
     }
 
-    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction) -> Observable<Bool> {
-        return saveLeasingTransactions([transaction])
+    func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction, by accountAddress: String) -> Observable<Bool> {
+        return saveLeasingTransactions([transaction], by: accountAddress)
     }
 }
 

@@ -10,11 +10,17 @@ import Foundation
 import Moya
 
 extension API.Service {
-    enum Transactions {
-        // TODO: Need response
-        case getExchange(id: String)
-        // TODO: Need response
-        case getExchangeWithFilters(API.Query.ExchangeFilters)
+
+    struct Transactions {
+        enum Kind {
+            // TODO: Need response
+            case getExchange(id: String)
+            // TODO: Need response
+            case getExchangeWithFilters(API.Query.ExchangeFilters)
+        }
+
+        let environment: Environment
+        let kind: Kind
     }
 }
 
@@ -25,7 +31,7 @@ extension API.Service.Transactions: ApiTargetType {
     }
 
     var path: String {
-        switch self {
+        switch kind {
         case .getExchange(let id):
             return Constants.assets + "/\(id)".urlEscaped
 
@@ -35,14 +41,14 @@ extension API.Service.Transactions: ApiTargetType {
     }
 
     var method: Moya.Method {
-        switch self {
+        switch kind {
         case .getExchange, .getExchangeWithFilters:
             return .get
         }
     }
 
     var task: Task {
-        switch self {
+        switch kind {
         case .getExchange:
             return .requestPlain
 

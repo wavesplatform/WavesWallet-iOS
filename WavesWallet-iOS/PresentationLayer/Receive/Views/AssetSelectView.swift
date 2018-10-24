@@ -66,12 +66,12 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         viewAsset.isHidden = false
         labelSelectAsset.isHidden = true
         
-        let wavesTitle = Environments.current.generalAssetIds.first(where: {$0.wavesId == Environments.Constants.wavesAssetId})?.displayName ?? ""
-        labelAssetName.text = wavesTitle
+        labelAssetName.text = "Waves"
         labelAmount.isHidden = true
         iconGateway.isHidden = true
         
         loadIcon(name: Environments.Constants.wavesAssetId)
+
     }
     
     func showAmount() {
