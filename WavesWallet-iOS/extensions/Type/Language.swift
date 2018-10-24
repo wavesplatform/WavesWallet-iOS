@@ -18,13 +18,6 @@ protocol Localization {
     func setupLocalization()
 }
 
-extension Notification.Name {
-    /**
-        The notification object contained current Language
-    */
-    static let changedLanguage: Notification.Name = Notification.Name.init("com.waves.language.notification.changedLanguage")
-}
-
 private struct LanguageCode: TSUD {
 
     private static let key: String = "com.waves.language.code"

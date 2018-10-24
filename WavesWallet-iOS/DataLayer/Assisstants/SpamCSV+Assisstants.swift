@@ -9,6 +9,10 @@
 import Foundation
 import CSV
 
+private enum Constants {
+    static private let keyAddress: String = "scam"
+}
+
 enum SpamCVC {
 
     enum SpamError: Error {
@@ -28,7 +32,7 @@ enum SpamCVC {
         let address = row[0]
         let type = row[1]
 
-        if type.lowercased() != "scam", address.count == 0 {
+        if type.lowercased() != Constants.keyAddress, address.count == 0 {
             return nil
         }
 
