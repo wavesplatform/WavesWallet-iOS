@@ -733,6 +733,8 @@
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
 		E9CD0D26217FFC21001A99B3 /* SendComplete.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9CD0D28217FFC21001A99B3 /* SendComplete.strings */; };
+		E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */; };
+		E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */; };
 		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */; };
 		E9D36DC82175C755001E6DF0 /* ReceiveCryptocurrency.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9D36D6E2175C754001E6DF0 /* ReceiveCryptocurrency.strings */; };
 		E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */; };
@@ -1628,6 +1630,8 @@
 		E9CD0D27217FFC21001A99B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SendComplete.strings; sourceTree = "<group>"; };
 		E9CD0D29217FFC24001A99B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SendComplete.strings; sourceTree = "<group>"; };
 		E9CD0D2A217FFC27001A99B3 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/SendComplete.strings; sourceTree = "<group>"; };
+		E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMoneroPaymentIdView.swift; sourceTree = "<group>"; };
+		E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendMoneroPaymentIdView.xib; sourceTree = "<group>"; };
 		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTypes.swift; sourceTree = "<group>"; };
 		E9D36D6F2175C754001E6DF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
 		E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyModuleBuilder.swift; sourceTree = "<group>"; };
@@ -4104,6 +4108,8 @@
 			children = (
 				E9EC5BA82175F35800E5C29A /* AddressInputView.swift */,
 				E9EC5BA92175F35800E5C29A /* AddressInputView.xib */,
+				E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */,
+				E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4485,6 +4491,7 @@
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				E9D36DE12175C755001E6DF0 /* ReceiveAddress.strings in Resources */,
 				E9B088092163886800937644 /* DexMarket.strings in Resources */,
+				E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */,
 				E9B086BE2163883000937644 /* AddressBook.storyboard in Resources */,
 				E95B480A21638BE9004D4E39 /* TransactionHistoryContentView.xib in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
@@ -5144,6 +5151,7 @@
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */,
+				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
 				0A762D7F21639FA60019D447 /* TransactionHistoryCommentCell.swift in Sources */,
 				0AF922E8212E1234003BA067 /* CustomSectionHeader.swift in Sources */,
 				0AF922B5212E1234003BA067 /* UIFont+Additions.swift in Sources */,

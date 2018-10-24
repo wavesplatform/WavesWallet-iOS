@@ -290,8 +290,9 @@ private extension SendViewController {
         if isShow {
             if viewAmountError.isHidden {
                 viewAmountError.isHidden = false
+                viewAmountError.alpha = animation ? 0 : 1
+
                 if animation {
-                    viewAmountError.alpha = 0
                     UIView.animate(withDuration: Constants.animationDuration) {
                         self.viewAmountError.alpha = 1
                     }
@@ -308,6 +309,8 @@ private extension SendViewController {
             }
         }
         else {
+            //TODO: can be bug. Multiple times call UIView.animationWithDuration...
+            
             if !viewAmountError.isHidden {
                 if animation {
                     UIView.animate(withDuration: Constants.animationDuration, animations: {
