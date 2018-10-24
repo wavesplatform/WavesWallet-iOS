@@ -514,8 +514,10 @@
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
 		E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */; };
 		E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */; };
-		E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */; };
 		E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950AA46211226A500BFE872 /* String+Escaped.swift */; };
+		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
+		E95438FB217F93EB001A7860 /* SendLoading.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95438FD217F93EB001A7860 /* SendLoading.strings */; };
+		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
 		E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A621638A9F004D4E39 /* Hello.strings */; };
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
 		E95B47C121638A9F004D4E39 /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */; };
@@ -559,7 +561,6 @@
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
-		E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E99950312092128B00A11E37 /* WalletSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99950302092128B00A11E37 /* WalletSortViewController.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
@@ -731,6 +732,7 @@
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
+		E9CD0D26217FFC21001A99B3 /* SendComplete.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9CD0D28217FFC21001A99B3 /* SendComplete.strings */; };
 		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */; };
 		E9D36DC82175C755001E6DF0 /* ReceiveCryptocurrency.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9D36D6E2175C754001E6DF0 /* ReceiveCryptocurrency.strings */; };
 		E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */; };
@@ -784,7 +786,6 @@
 		E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D36DC62175C755001E6DF0 /* AssetList.storyboard */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
-		E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */; };
 		E9E6DADA20A620360081C71A /* AssetChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6DAD920A620360081C71A /* AssetChartViewController.swift */; };
 		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
 		E9EC5BAB2175F35900E5C29A /* Send.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B382175F35800E5C29A /* Send.strings */; };
@@ -1371,8 +1372,12 @@
 		E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
 		E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
-		E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E950AA46211226A500BFE872 /* String+Escaped.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
+		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
+		E95438FC217F93EB001A7860 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SendLoading.strings; sourceTree = "<group>"; };
+		E95438FE217F93ED001A7860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SendLoading.strings; sourceTree = "<group>"; };
+		E95438FF217F93F2001A7860 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/SendLoading.strings; sourceTree = "<group>"; };
+		E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompleteViewController.swift; sourceTree = "<group>"; };
 		E95B47A721638A9F004D4E39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Hello.strings; sourceTree = "<group>"; };
 		E95B47A821638A9F004D4E39 /* Hello.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
@@ -1420,7 +1425,6 @@
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWelcomeBackViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
-		E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAmountViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E99950302092128B00A11E37 /* WalletSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortViewController.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
@@ -1621,6 +1625,9 @@
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E9CD0D27217FFC21001A99B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SendComplete.strings; sourceTree = "<group>"; };
+		E9CD0D29217FFC24001A99B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SendComplete.strings; sourceTree = "<group>"; };
+		E9CD0D2A217FFC27001A99B3 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/SendComplete.strings; sourceTree = "<group>"; };
 		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTypes.swift; sourceTree = "<group>"; };
 		E9D36D6F2175C754001E6DF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
 		E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyModuleBuilder.swift; sourceTree = "<group>"; };
@@ -1689,7 +1696,6 @@
 		E9D36DC62175C755001E6DF0 /* AssetList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AssetList.storyboard; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
-		E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSendViewController.swift; sourceTree = "<group>"; };
 		E9E6DAD920A620360081C71A /* AssetChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewController.swift; sourceTree = "<group>"; };
 		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		E9EC5B392175F35800E5C29A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Send.strings; sourceTree = "<group>"; };
@@ -3201,6 +3207,24 @@
 			path = AddressBook;
 			sourceTree = "<group>";
 		};
+		E95438F6217F919B001A7860 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */,
+				E95438FD217F93EB001A7860 /* SendLoading.strings */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		E9543900217FF9C8001A7860 /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+				E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */,
+				E9CD0D28217FFC21001A99B3 /* SendComplete.strings */,
+			);
+			path = Complete;
+			sourceTree = "<group>";
+		};
 		E95B47A521638A9F004D4E39 /* Hello */ = {
 			isa = PBXGroup;
 			children = (
@@ -4044,24 +4068,16 @@
 			children = (
 				E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */,
 				E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */,
-				E9DEECE720BEF90F00F28C67 /* Send */,
 			);
 			path = Waves;
-			sourceTree = "<group>";
-		};
-		E9DEECE720BEF90F00F28C67 /* Send */ = {
-			isa = PBXGroup;
-			children = (
-				E9DEECEC20BF030E00F28C67 /* WavesSendViewController.swift */,
-				E94C818320D2F45C00120A8D /* WavesSendConfirmationViewController.swift */,
-			);
-			path = Send;
 			sourceTree = "<group>";
 		};
 		E9EC5B352175F35800E5C29A /* Send */ = {
 			isa = PBXGroup;
 			children = (
 				E9EC5B362175F35800E5C29A /* Send.storyboard */,
+				E9543900217FF9C8001A7860 /* Complete */,
+				E95438F6217F919B001A7860 /* Loading */,
 				E9310D0A217924B7008BF3EE /* Confirmaion */,
 				E9EC5B372175F35800E5C29A /* Send */,
 			);
@@ -4215,7 +4231,6 @@
 				F7C683D51EA943E700C87DAF /* StoryboardManager.swift */,
 				F79C43DA1EAEB14D006057B0 /* HalfNavController.swift */,
 				E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */,
-				E980EAC920A9CDAE001834DB /* BaseAmountViewController.swift */,
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
 				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
 				F74240C81EAB8EC800C3B84D /* Main.storyboard */,
@@ -4341,6 +4356,7 @@
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
 				E9B087CB2163886800937644 /* DexList.strings in Resources */,
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
+				E95438FB217F93EB001A7860 /* SendLoading.strings in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				E9B088182163886800937644 /* DexSort.strings in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
@@ -4446,6 +4462,7 @@
 				0AF92303212E1424003BA067 /* General.strings in Resources */,
 				0AF921F0212E07B3003BA067 /* Assets.json in Resources */,
 				E9B086AF2163883000937644 /* AddAddressBook.strings in Resources */,
+				E9CD0D26217FFC21001A99B3 /* SendComplete.strings in Resources */,
 				0A762D0C214FB6FD00BE9204 /* NewAccount.strings in Resources */,
 				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
@@ -4882,7 +4899,6 @@
 				0AF922CB212E1234003BA067 /* CGSize+Hashable.swift in Sources */,
 				0AEB358C2115DB3C00EDD63C /* AssetsRepositoryProtocol.swift in Sources */,
 				0AF922D4212E1234003BA067 /* Any+Name.swift in Sources */,
-				E980EACA20A9CDAE001834DB /* BaseAmountViewController.swift in Sources */,
 				0A61B596214AC90C00EC60FC /* Coordinator.swift in Sources */,
 				E9B087962163886800937644 /* DexChartTypes.swift in Sources */,
 				04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */,
@@ -4962,12 +4978,12 @@
 				0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */,
 				E9B087CF2163886800937644 /* DexListHeaderCell.swift in Sources */,
 				E9B087A72163886800937644 /* DexOrderBookTypes.swift in Sources */,
-				E9DEECED20BF030E00F28C67 /* WavesSendViewController.swift in Sources */,
 				F761428E1EAFD6C500F4C749 /* OpenUrlManager.swift in Sources */,
 				04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractorMock.swift in Sources */,
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
 				0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */,
+				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
 				0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */,
 				E95B47ED21638B11004D4E39 /* StartLeasingPresenterProtocol.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
@@ -5145,7 +5161,6 @@
 				E9B087BB2163886800937644 /* DexInfoModuleBuilder.swift in Sources */,
 				E9B0880C2163886800937644 /* DexMarketPresenter.swift in Sources */,
 				E9B086BD2163883000937644 /* AddressBookInteractor.swift in Sources */,
-				E94C818420D2F45D00120A8D /* WavesSendConfirmationViewController.swift in Sources */,
 				E9B0881F2163886800937644 /* DexSortInteractorProtocol.swift in Sources */,
 				0AF922BA212E1234003BA067 /* SweetNetworkLoggerPlugin.swift in Sources */,
 				0A110CC62153F36F002A8FD7 /* SkeletonView.swift in Sources */,
@@ -5232,6 +5247,7 @@
 				0AF922CA212E1234003BA067 /* UIViewController+SafeArea.swift in Sources */,
 				0AFA0C7B2174A2300003FE3B /* CheckboxControl.swift in Sources */,
 				E9B087F42163886800937644 /* DexLastTradesInteractor.swift in Sources */,
+				E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */,
 				0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */,
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
 				0A96F1D32151BD46005E148F /* PasscodeTopBarView.swift in Sources */,
@@ -5523,6 +5539,16 @@
 			name = SendConfirmation.strings;
 			sourceTree = "<group>";
 		};
+		E95438FD217F93EB001A7860 /* SendLoading.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E95438FC217F93EB001A7860 /* en */,
+				E95438FE217F93ED001A7860 /* ru */,
+				E95438FF217F93F2001A7860 /* tr */,
+			);
+			name = SendLoading.strings;
+			sourceTree = "<group>";
+		};
 		E95B47A621638A9F004D4E39 /* Hello.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5671,6 +5697,16 @@
 				E9B0878E2163886800937644 /* ru */,
 			);
 			name = DexSort.strings;
+			sourceTree = "<group>";
+		};
+		E9CD0D28217FFC21001A99B3 /* SendComplete.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9CD0D27217FFC21001A99B3 /* en */,
+				E9CD0D29217FFC24001A99B3 /* ru */,
+				E9CD0D2A217FFC27001A99B3 /* tr */,
+			);
+			name = SendComplete.strings;
 			sourceTree = "<group>";
 		};
 		E9D36D6E2175C754001E6DF0 /* ReceiveCryptocurrency.strings */ = {

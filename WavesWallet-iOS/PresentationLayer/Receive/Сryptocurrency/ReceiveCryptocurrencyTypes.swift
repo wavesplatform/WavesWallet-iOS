@@ -36,7 +36,7 @@ extension ReceiveCryptocurrency.DTO {
         let address: String
         let assetName: String
         let assetShort: String
-        let fee: Double
+        let minAmount: Money
         let icon: String
     }
 }

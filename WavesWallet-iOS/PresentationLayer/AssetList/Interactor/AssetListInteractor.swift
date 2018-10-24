@@ -71,7 +71,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 private extension AssetListInteractor {
     
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.AssetBalance]) -> [DomainLayer.DTO.AssetBalance] {
-        return _isMyList ? assets.filter({$0.balance > 0 }) : assets
+        return _isMyList ? assets.filter({$0.avaliableBalance > 0 }) : assets
     }
     
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.AssetBalance]) {

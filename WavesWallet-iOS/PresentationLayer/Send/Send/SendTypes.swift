@@ -85,6 +85,7 @@ extension Send.DTO {
         let minAmount: Money
         let maxAmount: Money
         let fee: Money
+        let address: String
     }
 }
 
