@@ -9,7 +9,9 @@
 import Foundation
 import Moya
 
-protocol BaseTargetType: TargetType {}
+protocol BaseTargetType: TargetType {
+    var environment: Environment { get }
+ }
 
 enum ContentType {
     case applicationJson

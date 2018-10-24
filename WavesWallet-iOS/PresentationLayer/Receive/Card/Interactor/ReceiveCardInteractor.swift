@@ -21,7 +21,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         return accountBalance.balances(isNeedUpdate: true)
             .flatMap({ balances -> Observable<DomainLayer.DTO.AssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == GlobalConstants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)
@@ -44,8 +44,8 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
 
             let authAccount = FactoryInteractors.instance.authorization
             authAccount.authorizedWallet().subscribe(onNext: { signedWallet in
-                                
-                let params = ["crypto" : Environments.Constants.wavesAssetId,
+ 
+                let params = ["crypto" : GlobalConstants.wavesAssetId,
                               "address" : signedWallet.wallet.address,
                               "fiat" : fiat.id]
                 

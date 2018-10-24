@@ -14,7 +14,7 @@ extension Optional where Wrapped == String {
         if let id = self {
             return id
         } else {
-            return Environments.Constants.wavesAssetId
+            return GlobalConstants.wavesAssetId
         }
     }
 }

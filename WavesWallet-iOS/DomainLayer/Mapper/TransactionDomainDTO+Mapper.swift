@@ -45,7 +45,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
         let feeBalance = wavesAsset.balance(fee)
@@ -69,7 +69,7 @@ extension DomainLayer.DTO.IssueTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
         guard let asset = assets[self.assetId] else { return nil }
         let balance = asset.balance(self.quantity)
@@ -124,7 +124,7 @@ extension DomainLayer.DTO.TransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -148,7 +148,7 @@ extension DomainLayer.DTO.ReissueTransaction {
 
         guard let asset = assets[self.assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
 
         let balance = asset.balance(self.quantity)
         let feeBalance = wavesAsset.balance(fee)
@@ -176,7 +176,7 @@ extension DomainLayer.DTO.BurnTransaction {
 
         guard let asset = assets[self.assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         let balance = asset.balance(self.amount)
         let feeBalance = wavesAsset.balance(fee)
 
@@ -203,7 +203,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         let amountAssetId = order1.assetPair.amountAsset
         let priceAssetId = order1.assetPair.priceAsset
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let amountAsset = assets[amountAssetId] else { return nil }
         guard let priceAsset = assets[priceAssetId] else { return nil }
         let assetPair = DomainLayer.DTO.AssetPair(amountAsset: amountAsset,
@@ -254,7 +254,7 @@ extension DomainLayer.DTO.LeaseTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         let balance = wavesAsset.balance(self.amount)
         let isSenderAccount = sender.isMyAccount(accountAddress)
 
@@ -296,7 +296,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
         guard let lease = self.lease else { return nil }
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let recipient = accounts[lease.recipient] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
@@ -327,7 +327,7 @@ extension DomainLayer.DTO.AliasTransaction {
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
@@ -383,7 +383,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -416,7 +416,7 @@ extension DomainLayer.DTO.DataTransaction {
         let prettyJSON = list.prettyJSON ?? ""
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .data(.init(prettyJSON: prettyJSON))
 
-        guard let wavesAsset = assets[Environments.Constants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
         let feeBalance = wavesAsset.balance(fee)
 

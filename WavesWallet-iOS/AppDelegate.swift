@@ -41,12 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Swizzle(initializers: [UIView.passtroughInit,                               
                                UIView.shadowInit]).start()
-
         SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.backgroundColor = AppColors.wavesColor
-
 
         appCoordinator = AppCoordinator(window!)
         appCoordinator.start()
@@ -57,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {}
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        WalletManager.clearPrivateMemoryKey()
         appCoordinator.applicationDidEnterBackground()
     }
 

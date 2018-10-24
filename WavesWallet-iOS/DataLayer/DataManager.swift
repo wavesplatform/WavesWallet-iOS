@@ -77,7 +77,7 @@ class DataManager: NSObject {
  
     class func getWavesWbtcPair() -> NSDictionary {
         
-        let priceAsset = Environments.current.isTestNet ? "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe" : "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"
+        let priceAsset = Environments.isTestNet ? "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe" : "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"
         
         return  ["amountAsset" : "WAVES",
                 "amountAssetName" : "WAVES",

@@ -9,19 +9,18 @@
 import UIKit
 
 protocol SupportViewControllerDelegate: AnyObject {
-    func closeSupportView()
+    func closeSupportView(isTestNet: Bool)
 }
 
 final class SupportViewController: UIViewController {
     @IBOutlet private var versionLabel: UILabel!
     @IBOutlet private var buildVersionLabel: UILabel!
     @IBOutlet private var testNetSwitch: UISwitch!
-
     weak var delegate: SupportViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let on = UserDefaults.standard.bool(forKey: "isTestEnvironment")
+        let on = Environments.isTestNet
         testNetSwitch.setOn(on, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
@@ -29,12 +28,11 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction private func actionBack() {
-        delegate?.closeSupportView()
+        delegate?.closeSupportView(isTestNet: testNetSwitch.isOn)
     }
 
     @IBAction func actionTestNetSwitch(sender: Any) {
-        UserDefaults.standard.set(testNetSwitch.isOn, forKey: "isTestEnvironment")
-        UserDefaults.standard.synchronize()
+        
     }
 
     private func version() -> String {

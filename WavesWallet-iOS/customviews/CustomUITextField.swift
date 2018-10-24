@@ -1,6 +1,7 @@
 import UIKit
 
 //@IBDesignable
+@available(*, deprecated, message: "need remove")
 class CustomUITextField: UITextField {
     
     // Provides left padding for images
