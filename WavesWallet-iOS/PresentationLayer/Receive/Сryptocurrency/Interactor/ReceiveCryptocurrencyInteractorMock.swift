@@ -12,7 +12,7 @@ import SwiftyJSON
 
 final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractorProtocol {
     
-    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<Response<ReceiveCryptocurrency.DTO.DisplayInfo>> {
+    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         return Observable.create({ (subscribe) -> Disposable in
             
@@ -25,7 +25,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
             NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.createTunnel, complete: { (info, errorMessage) in
                 
                 guard let info = info else {
-                    subscribe.onNext(Response(output: nil, error: errorMessage))
+                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
                     return
                 }
                 
@@ -40,7 +40,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                 NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getTunnel, complete: { (info, errorMessage) in
                     
                     guard let info = info else {
-                        subscribe.onNext(Response(output: nil, error: errorMessage))
+                        subscribe.onNext(ResponseType(output: nil, error: errorMessage))
                         return
                     }
                     
@@ -54,7 +54,7 @@ final class ReceiveCryptocurrencyInteractorMock: ReceiveCryptocurrencyInteractor
                                                                             minAmount: minAmount,
                                                                             icon: asset.icon)
                     
-                    subscribe.onNext(Response(output: displayInfo, error: nil))
+                    subscribe.onNext(ResponseType(output: displayInfo, error: nil))
                 })
                 
                

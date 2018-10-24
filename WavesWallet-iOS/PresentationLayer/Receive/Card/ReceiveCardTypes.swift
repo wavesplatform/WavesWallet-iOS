@@ -13,7 +13,7 @@ enum ReceiveCard {
     enum DTO {}
     
     enum Event {
-        case didGetInfo(Response<DTO.Info>)
+        case didGetInfo(ResponseType<DTO.Info>)
         case getUSDAmountInfo
         case getEURAmountInfo
         case updateAmount(Money)

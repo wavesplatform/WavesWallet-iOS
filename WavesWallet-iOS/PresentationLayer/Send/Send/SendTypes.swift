@@ -16,7 +16,7 @@ enum Send {
         case didChangeRecipient(String)
         case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)
         case getGatewayInfo
-        case didGetGatewayInfo(Response<DTO.GatewayInfo>)
+        case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
         case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
