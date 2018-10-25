@@ -100,8 +100,8 @@ final class NewAccountViewController: UIViewController {
         }
 
         passwordInput.valueValidator = { value in
-            if (value?.count ?? 0) < Settings.minLengthPassword {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
+            if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
+                return Localizable.NewAccount.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
             } else {
                 return nil
             }
