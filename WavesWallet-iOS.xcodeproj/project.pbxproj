@@ -745,7 +745,6 @@
 		E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */; };
 		E9D36DCA2175C755001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D722175C754001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift */; };
 		E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D732175C754001E6DF0 /* ReceiveCryptocurrencyPresenter.swift */; };
-		E9D36DCC2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D772175C754001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift */; };
 		E9D36DCD2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D782175C754001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift */; };
 		E9D36DCE2175C755001E6DF0 /* ReceiveCryptocurrencyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D792175C754001E6DF0 /* ReceiveCryptocurrencyInteractor.swift */; };
 		E9D36DCF2175C755001E6DF0 /* ReceiveCryptocurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D7A2175C754001E6DF0 /* ReceiveCryptocurrencyViewController.swift */; };
@@ -1644,7 +1643,6 @@
 		E9D36D732175C754001E6DF0 /* ReceiveCryptocurrencyPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyPresenter.swift; sourceTree = "<group>"; };
 		E9D36D742175C754001E6DF0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
 		E9D36D752175C754001E6DF0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ReceiveCryptocurrency.strings; sourceTree = "<group>"; };
-		E9D36D772175C754001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractorMock.swift; sourceTree = "<group>"; };
 		E9D36D782175C754001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9D36D792175C754001E6DF0 /* ReceiveCryptocurrencyInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyInteractor.swift; sourceTree = "<group>"; };
 		E9D36D7A2175C754001E6DF0 /* ReceiveCryptocurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyViewController.swift; sourceTree = "<group>"; };
@@ -3979,7 +3977,6 @@
 		E9D36D762175C754001E6DF0 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				E9D36D772175C754001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift */,
 				E9D36D782175C754001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift */,
 				E9D36D792175C754001E6DF0 /* ReceiveCryptocurrencyInteractor.swift */,
 			);
@@ -5120,7 +5117,6 @@
 				E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */,
 				E9B087B52163886800937644 /* CreateOrderViewController.swift in Sources */,
 				0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */,
-				E9D36DCC2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorMock.swift in Sources */,
 				0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */,
 				0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
