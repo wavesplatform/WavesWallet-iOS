@@ -37,8 +37,28 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func generateMoneroAddress(asset: DomainLayer.DTO.AssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
+        
+        return Observable.create({ [weak self] (subscribe) -> Disposable in
+            
+            guard let asset = asset.asset else { return Disposables.create() }
+
+            self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, errorMessage) in
+                
+                if let address = address {
+                    subscribe.onNext(ResponseType(output: address, error: nil))
+                }
+                else {
+                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                }
+            })
+            return Disposables.create()
+        })
        
+    }
+    
+    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+        
         return Observable.create({ [weak self] subscribe -> Disposable in
         
             guard let asset = asset.asset else { return Disposables.create() }
@@ -47,7 +67,7 @@ final class SendInteractor: SendInteractorProtocol {
 
                 if let fee = fee, let min = min, let max = max {
 
-                    self?.getAssetTunnelInfo(asset: asset, address: address, complete: { (shortName, address, errorMessage) in
+                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: "", complete: { (shortName, address, errorMessage) in
                         
                         if let shortName = shortName, let address = address {
                             
@@ -145,11 +165,15 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, complete:@escaping(_ shortName: String?, _ address: String?, _ errorMessage: String?) -> Void) {
+    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ errorMessage: String?) -> Void) {
         
-        let params = ["currency_from" : asset.wavesId ?? "",
+        var params = ["currency_from" : asset.wavesId ?? "",
                       "currency_to" : asset.gatewayId ?? "",
                       "wallet_to" : address]
+        
+        if moneroPaymentID.count > 0 {
+            params["monero_payment_id"] = moneroPaymentID
+        }
         
         NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.createTunnel) { (info, errorMessage) in
             if let info = info {
@@ -161,6 +185,7 @@ private extension SendInteractor {
                               "history" : 0] as [String: Any]
                 
                 NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getTunnel, complete: { (info, errorMessage) in
+                    
                     if let info = info {
                         
                         let json = JSON(info)["tunnel"]

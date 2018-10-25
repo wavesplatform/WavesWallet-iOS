@@ -27,12 +27,13 @@
                     <rect key="frame" x="16" y="24" width="343" height="48"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eS3-MY-Ekw">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="48"/>
+                            <rect key="frame" x="14" y="0.0" width="329" height="48"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             <connections>
                                 <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="yjd-hV-mlG"/>
+                                <outlet property="delegate" destination="-1" id="7Mc-2R-4ze"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -40,7 +41,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="eS3-MY-Ekw" secondAttribute="trailing" id="Qgb-jG-vA7"/>
                         <constraint firstAttribute="bottom" secondItem="eS3-MY-Ekw" secondAttribute="bottom" id="UIp-LB-bUh"/>
-                        <constraint firstItem="eS3-MY-Ekw" firstAttribute="leading" secondItem="L8h-hd-QE1" secondAttribute="leading" id="fa5-7T-WfI"/>
+                        <constraint firstItem="eS3-MY-Ekw" firstAttribute="leading" secondItem="L8h-hd-QE1" secondAttribute="leading" constant="14" id="fa5-7T-WfI"/>
                         <constraint firstItem="eS3-MY-Ekw" firstAttribute="top" secondItem="L8h-hd-QE1" secondAttribute="top" id="lns-Pn-1ZI"/>
                         <constraint firstAttribute="height" constant="48" id="pK4-pr-oNK"/>
                     </constraints>

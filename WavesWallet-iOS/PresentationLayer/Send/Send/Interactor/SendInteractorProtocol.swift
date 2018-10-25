@@ -12,6 +12,7 @@ import RxSwift
 protocol SendInteractorProtocol {
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance>
+    func generateMoneroAddress(asset: DomainLayer.DTO.AssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>>
     func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>>
     func validateAlis(alias: String) -> Observable<Bool>
     func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Send.TransactionStatus>
