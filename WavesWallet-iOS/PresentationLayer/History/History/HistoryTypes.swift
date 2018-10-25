@@ -34,6 +34,7 @@ enum HistoryTypes {
     
     enum Event {
         case responseAll([DomainLayer.DTO.SmartTransaction])
+        case handlerError(Error)
         case readyView
         case refresh
         case changeFilter(Filter)

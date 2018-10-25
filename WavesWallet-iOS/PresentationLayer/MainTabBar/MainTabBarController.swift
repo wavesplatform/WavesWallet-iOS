@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 
 private enum Constants {
-    static let tabBarItemImageInset = UIEdgeInsetsMake(0, 0, -16, 0)
+    static let tabBarItemImageInset = UIEdgeInsetsMake(0, 0, -8, 0)
 }
 private class DUMPVC: UIViewController {}
 

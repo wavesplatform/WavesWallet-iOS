@@ -58,7 +58,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
 
@@ -78,7 +78,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .leasing()
                 .map { .setLeasing($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
 
@@ -86,6 +86,9 @@ final class WalletPresenter: WalletPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate { $0.displayState.isAppeared = true }
+
+        case .handlerError:
+            return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: false) }
 
         case .tapSortButton:
             moduleOutput?.showWalletSort()

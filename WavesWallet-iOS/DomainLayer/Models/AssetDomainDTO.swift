@@ -30,7 +30,7 @@ extension DomainLayer.DTO {
         let isGateway: Bool
         let isWaves: Bool
         let modified: Date
-        let regularExpression: String
+        let addressRegEx: String
     }
 }
 

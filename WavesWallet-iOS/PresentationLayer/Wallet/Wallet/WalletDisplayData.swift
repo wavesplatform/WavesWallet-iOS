@@ -44,6 +44,7 @@ final class WalletDisplayData: NSObject {
         }
         switch animateType {
         case .refresh:
+            print("tableView.reloadData")
             tableView.reloadData()
 
         case .collapsed(let index):

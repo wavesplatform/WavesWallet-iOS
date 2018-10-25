@@ -54,6 +54,7 @@ extension WalletTypes {
     enum Event {
         case setAssets([DTO.Asset])
         case setLeasing(DTO.Leasing)
+        case handlerError(Error)
         case refresh
         case readyView
         case tapRow(IndexPath)

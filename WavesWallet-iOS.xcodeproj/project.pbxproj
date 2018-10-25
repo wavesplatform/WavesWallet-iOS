@@ -79,6 +79,8 @@
 		0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7720F3A85A004DA625 /* Encodable+Dictionary.swift */; };
 		0A20145F212EDD720004BDE8 /* DateFormatter+ISO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A20145E212EDD720004BDE8 /* DateFormatter+ISO.swift */; };
 		0A20605E2180E8AD0048CF83 /* NetworkSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A2060602180E8AD0048CF83 /* NetworkSettings.strings */; };
+		0A2060642181C2C20048CF83 /* environment_mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A2060622181C2C10048CF83 /* environment_mainnet.json */; };
+		0A2060652181C2C20048CF83 /* environment_testnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A2060632181C2C20048CF83 /* environment_testnet.json */; };
 		0A218B812155180C00B989A1 /* WalletDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B802155180C00B989A1 /* WalletDomainDTO.swift */; };
 		0A218B8521551D1400B989A1 /* WalletsRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8421551D1400B989A1 /* WalletsRepositoryLocal.swift */; };
 		0A218B8721551E6600B989A1 /* WalletsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */; };
@@ -253,8 +255,6 @@
 		0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */; };
 		0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */; };
 		0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */; };
-		0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD420F2B9190010CA6C /* Environment-Test.json */; };
-		0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD520F2B9190010CA6C /* Environment-Main.json */; };
 		0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */; };
 		0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */; };
 		0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */; };
@@ -912,6 +912,8 @@
 		0A20145E212EDD720004BDE8 /* DateFormatter+ISO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+ISO.swift"; sourceTree = "<group>"; };
 		0A20605F2180E8AD0048CF83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetworkSettings.strings; sourceTree = "<group>"; };
 		0A2060612180E8B00048CF83 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NetworkSettings.strings; sourceTree = "<group>"; };
+		0A2060622181C2C10048CF83 /* environment_mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet.json; sourceTree = "<group>"; };
+		0A2060632181C2C20048CF83 /* environment_testnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_testnet.json; sourceTree = "<group>"; };
 		0A218B802155180C00B989A1 /* WalletDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDomainDTO.swift; sourceTree = "<group>"; };
 		0A218B8421551D1400B989A1 /* WalletsRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsRepositoryLocal.swift; sourceTree = "<group>"; };
 		0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -1089,8 +1091,6 @@
 		0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
 		0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryRepositories.swift; sourceTree = "<group>"; };
 		0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
-		0A7E0CD420F2B9190010CA6C /* Environment-Test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Test.json"; sourceTree = "<group>"; };
-		0A7E0CD520F2B9190010CA6C /* Environment-Main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Environment-Main.json"; sourceTree = "<group>"; };
 		0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsApiService.swift; sourceTree = "<group>"; };
 		0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTypes.swift; sourceTree = "<group>"; };
 		0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
@@ -2564,11 +2564,11 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
+				0A2060632181C2C20048CF83 /* environment_testnet.json */,
 				E95B481421638FE8004D4E39 /* GoogleService-Info.plist */,
 				E95B481221638FE1004D4E39 /* Fabric-Info.plist */,
 				E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */,
-				0A7E0CD520F2B9190010CA6C /* Environment-Main.json */,
-				0A7E0CD420F2B9190010CA6C /* Environment-Test.json */,
 				0AF92301212E1424003BA067 /* General.strings */,
 				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
 				0A61B599214ACFD500EC60FC /* Languages.json */,
@@ -4439,7 +4439,6 @@
 				0A58CEAA2167A42E000CEAD3 /* Profile.strings in Resources */,
 				0A24E2D8210918A300598548 /* WalletSortSeparatorFooter.xib in Resources */,
 				0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */,
-				0A7E0CD720F2B9190010CA6C /* Environment-Main.json in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E9B087F82163886800937644 /* DexMyOrders.strings in Resources */,
@@ -4457,6 +4456,8 @@
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				0AFA0C752174A2300003FE3B /* Checkbox.strings in Resources */,
+				0A2060642181C2C20048CF83 /* environment_mainnet.json in Resources */,
+				0A2060652181C2C20048CF83 /* environment_testnet.json in Resources */,
 				E95B47BF21638A9F004D4E39 /* Hello.strings in Resources */,
 				0AD6323C217620DC0047D467 /* ChangePassword.strings in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
@@ -4506,7 +4507,6 @@
 				E9B086AF2163883000937644 /* AddAddressBook.strings in Resources */,
 				E9CD0D26217FFC21001A99B3 /* SendComplete.strings in Resources */,
 				0A762D0C214FB6FD00BE9204 /* NewAccount.strings in Resources */,
-				0A7E0CD620F2B9190010CA6C /* Environment-Test.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				0AF92200212E07B3003BA067 /* AssetHistorySkeletonCell.xib in Resources */,
 				E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */,
