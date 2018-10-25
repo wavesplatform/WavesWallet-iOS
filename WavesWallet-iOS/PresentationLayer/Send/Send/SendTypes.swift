@@ -12,6 +12,11 @@ enum Send {
     enum DTO {}
     enum ViewModel {}
 
+    enum TransactionStatus {
+        case success
+        case error(String)
+    }
+    
     enum Event {
         case didChangeRecipient(String)
         case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)

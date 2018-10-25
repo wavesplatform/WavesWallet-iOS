@@ -44,10 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-
+        self.window?.backgroundColor = .basic50
+        
         appCoordinator = AppCoordinator(window!)
         appCoordinator.start()
-        
+                
         return true
     }
 

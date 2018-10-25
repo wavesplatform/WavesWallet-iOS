@@ -9,13 +9,16 @@
 import Foundation
 import RxSwift
 import SwiftyJSON
-
+import Alamofire
 
 private enum Constasts {
     static let aliasApi = "/v0/aliases/"
+    static let transactionApi = "/transactions/broadcast"
 }
 
 final class SendInteractor: SendInteractorProtocol {
+    
+    private let disposeBag = DisposeBag()
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance> {
         
@@ -75,6 +78,7 @@ final class SendInteractor: SendInteractorProtocol {
         
         return Observable.create({ (subscribe) -> Disposable in
         
+            //TODO: need use EnviromentsRepositoryProtocol            
             let url = Environments.current.servers.dataUrl.relativeString + Constasts.aliasApi + alias
 
             let req = NetworkManager.getRequestWithPath(path: "", parameters: nil, customUrl: url, complete: { (info, errorMessage) in
@@ -88,8 +92,11 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     
-    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Bool> {
-        return Observable.create({ (subscribe) -> Disposable in
+    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Send.TransactionStatus> {
+       
+        return Observable.create({ [weak self] subscribe -> Disposable in
+            
+            guard let strongSelf = self else { return Disposables.create() }
             
             let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
             auth.authorizedWallet().subscribe(onNext: { signedWallet in
@@ -103,8 +110,34 @@ final class SendInteractor: SendInteractorProtocol {
                                                        attachment: attachment,
                                                        isAlias: isAlias)
                 
+                let params = ["type" : transaction.type,
+                              "senderPublicKey" : Base58.encode(transaction.senderPublicKey.publicKey),
+                              "fee" : transaction.fee.amount,
+                              "timestamp" : transaction.timestamp,
+                              "proofs" : transaction.proofs,
+                              "version" : transaction.version,
+                              "recipient" : transaction.recipient,
+                              "assetId" : transaction.assetId,
+                              "feeAssetId" : transaction.feeAssetId,
+                              "feeAsset" : transaction.feeAsset,
+                              "amount" : transaction.amount.amount,
+                              "attachment" : Base58.encode(Array(transaction.attachment.utf8))] as [String : Any]
                 
-            }).dispose()
+                //TODO: need to use EnvironmentsRepositoryProtocol
+                
+                let url = Environments.current.servers.nodeUrl.appendingPathComponent(Constasts.transactionApi).relativeString
+                
+                NetworkManager.postRequestWithPath(path: "", parameters: params, customUrl: url, complete: { (info, errorMessage) in
+                    
+                    if let error = errorMessage {
+                        subscribe.onNext(.error(error))
+                    }
+                    else {
+                        subscribe.onNext(.success)
+                    }
+                })
+            }).disposed(by: strongSelf.disposeBag)
+            
             return Disposables.create()
         })
     }

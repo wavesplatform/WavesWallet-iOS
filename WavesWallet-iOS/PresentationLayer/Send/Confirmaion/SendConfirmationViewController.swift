@@ -16,11 +16,12 @@ private enum Constants {
 final class SendConfirmationViewController: UIViewController {
 
     struct Input {
-        let recipient: String
+        let asset: DomainLayer.DTO.Asset
+        let address: String
+        let displayAddress: String
         let fee: Money
-        let assetId: String
         let amount: Money
-        let contactName: String?
+        let amountWithoutFee: Money
         let isAlias: Bool
         var attachment: String
     }
@@ -117,8 +118,23 @@ private extension SendConfirmationViewController {
     }
     
     func setupData() {
-        viewRecipient.update(with: .init(name: input.contactName, address: input.recipient))
+        
+        let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
+        addressBook.users().subscribe(onNext: { [weak self] contacts in
+
+            guard let strongSelf = self else { return }
+            
+            if let contact = contacts.first(where: {$0.address == strongSelf.input.address}) {
+                strongSelf.viewRecipient.update(with: .init(name: contact.name, address: strongSelf.input.displayAddress))
+
+            }
+            else {
+                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.address))
+            }
+
+        }).dispose()
+        
         labelFeeAmount.text = input.fee.displayText + " Waves"
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayTextFull, font: labelBalance.font)
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayTextFull, font: labelBalance.font)
     }
 }
