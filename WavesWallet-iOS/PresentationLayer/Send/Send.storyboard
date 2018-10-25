@@ -237,7 +237,7 @@
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="h9I-OQ-j23" firstAttribute="top" secondItem="0o9-e5-6xM" secondAttribute="top" id="Kjj-3q-Txt"/>
-                            <constraint firstItem="0o9-e5-6xM" firstAttribute="bottom" secondItem="h9I-OQ-j23" secondAttribute="bottom" id="flJ-pC-b6C"/>
+                            <constraint firstAttribute="bottom" secondItem="h9I-OQ-j23" secondAttribute="bottom" id="flJ-pC-b6C"/>
                             <constraint firstItem="h9I-OQ-j23" firstAttribute="leading" secondItem="0o9-e5-6xM" secondAttribute="leading" id="kCS-Yn-0IV"/>
                             <constraint firstItem="0o9-e5-6xM" firstAttribute="trailing" secondItem="h9I-OQ-j23" secondAttribute="trailing" id="wZv-7p-FGE"/>
                         </constraints>
@@ -634,6 +634,7 @@
                                             <constraint firstItem="Uqi-5b-exH" firstAttribute="leading" secondItem="pth-HC-NfF" secondAttribute="leading" constant="16" id="3is-at-kEc"/>
                                             <constraint firstAttribute="trailing" secondItem="Uqi-5b-exH" secondAttribute="trailing" constant="16" id="8l6-na-DLg"/>
                                             <constraint firstItem="Uqi-5b-exH" firstAttribute="top" secondItem="pth-HC-NfF" secondAttribute="top" constant="20" id="HZ0-nc-D63"/>
+                                            <constraint firstItem="Uqi-5b-exH" firstAttribute="height" secondItem="pth-HC-NfF" secondAttribute="height" priority="750" id="U6G-L9-EP4"/>
                                             <constraint firstAttribute="bottom" secondItem="Uqi-5b-exH" secondAttribute="bottom" id="q3x-ju-2TQ"/>
                                         </constraints>
                                     </view>
@@ -650,7 +651,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="epI-Y3-UXb" firstAttribute="bottom" secondItem="6u6-aO-ZJ8" secondAttribute="bottom" id="G3H-oq-P7s"/>
+                            <constraint firstAttribute="bottom" secondItem="6u6-aO-ZJ8" secondAttribute="bottom" id="G3H-oq-P7s"/>
                             <constraint firstItem="epI-Y3-UXb" firstAttribute="trailing" secondItem="6u6-aO-ZJ8" secondAttribute="trailing" id="W3F-Jf-Qa1"/>
                             <constraint firstItem="6u6-aO-ZJ8" firstAttribute="top" secondItem="epI-Y3-UXb" secondAttribute="top" id="Xcc-6z-qsH"/>
                             <constraint firstItem="6u6-aO-ZJ8" firstAttribute="leading" secondItem="epI-Y3-UXb" secondAttribute="leading" id="iCC-oY-RCw"/>

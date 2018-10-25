@@ -51,6 +51,7 @@ final class SendViewController: UIViewController {
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var wavesAsset: DomainLayer.DTO.AssetBalance?
+    private var moneroAddress: String = ""
     
     var availableBalance: Money {
         
@@ -83,10 +84,16 @@ final class SendViewController: UIViewController {
         amountView.input = { [weak self] in
             return self?.inputAmountValues ?? []
         }
-        
         assetView.delegate = self
         amountView.delegate = self
         moneroPaymentIdView.setupZeroHeight(animation: false)
+        moneroPaymentIdView.didTapNext = { [weak self] in
+            self?.amountView.activateTextField()
+        }
+        moneroPaymentIdView.paymentIdDidChange = { [weak self] paymentID in
+            self?.setupButtonState()
+            self?.moneroAddress = ""
+        }
         
         if let asset = input.selectedAsset {
             assetView.isSelectedAssetMode = false
@@ -128,39 +135,54 @@ final class SendViewController: UIViewController {
         }
         
         updateAmountData()
+        updateMoneraPaymentView(animation: false)
     }
-
+    
+    private func showConfirmScreen() {
+        guard let amountWithoutFee = self.amount else { return }
+        guard let asset = selectedAsset?.asset else { return }
+        
+        var address = recipientAddressView.text
+        var amount = amountWithoutFee
+        
+        if let gateWay = gateWayInfo, isValidCryptocyrrencyAddress {
+            address = gateWay.address
+            
+            if selectedAsset?.asset?.isMonero == true && moneroAddress.count > 0 {
+                address = moneroAddress
+            }
+            
+            //Coinomate take fee from transaction
+            //in 'availableBalance' I substract fee from coinomate that user can input valid amount with fee.
+            amount = Money(amount.amount + gateWay.fee.amount, amount.decimals)
+        }
+        
+        
+        let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+        vc.resultDelegate = self
+        vc.input = .init(asset: asset,
+                         address: address,
+                         displayAddress: recipientAddressView.text,
+                         fee: wavesFee,
+                         amount: amount,
+                         amountWithoutFee: amountWithoutFee,
+                         isAlias: isValidAlias,
+                         attachment: "")
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction private func continueTapped(_ sender: Any) {
     
         if wavesAsset == nil {
-            showButtonLoadingWavesState()
+            showLoadingButtonState()
+        }
+        else if isNeedGenerateMoneroAddress {
+            showLoadingButtonState()
+            sendEvent.accept(.didChangeMoneroPaymentID(moneroPaymentIdView.paymentID))
         }
         else {
-            guard let amountWithoutFee = self.amount else { return }
-            guard let asset = selectedAsset?.asset else { return }
-            
-            var address = recipientAddressView.text
-            var amount = amountWithoutFee
-            
-            if let gateWay = gateWayInfo, isValidCryptocyrrencyAddress {
-                address = gateWay.address
-                //Coinomate take fee from transaction
-                //in 'availableBalance' I substract fee from coinomate that user can input valid amount with fee.
-                amount = Money(amount.amount + gateWay.fee.amount, amount.decimals)
-            }
-            
-            let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
-            vc.resultDelegate = self
-            vc.input = .init(asset: asset,
-                             address: address,
-                             displayAddress: recipientAddressView.text,
-                             fee: wavesFee,
-                             amount: amount,
-                             amountWithoutFee: amountWithoutFee,
-                             isAlias: isValidAlias,
-                             attachment: "")
-        
-            navigationController?.pushViewController(vc, animated: true)
+            showConfirmScreen()
         }
     }
 }
@@ -219,9 +241,20 @@ private extension SendViewController {
 
                 case .didGetWavesAsset(let asset):
                     strongSelf.wavesAsset = asset
-                    strongSelf.hideButtonLoadingWavesState()
+                    strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.updateAmountError(animation: true)
                     
+                case .didFailGenerateMoneroAddress(let error):
+                    strongSelf.hideButtonLoadingButtonsState()
+                    strongSelf.moneroPaymentIdView.showError(true, animation: true)
+                    strongSelf.setupButtonState()
+
+                case .didGenerateMoneroAddress(let address):
+                    strongSelf.moneroAddress = address
+                    strongSelf.hideButtonLoadingButtonsState()
+                    strongSelf.setupButtonState()
+                    strongSelf.showConfirmScreen()
+
                 default:
                     break
                 }
@@ -343,22 +376,22 @@ private extension SendViewController {
         amountView.showErrorMessage(message: Localizable.Send.Label.Error.insufficientFunds, isShow: isShow)
     }
     
-    func showButtonLoadingWavesState() {
-        buttonContinue.isUserInteractionEnabled = false
+    func showLoadingButtonState() {
+        view.isUserInteractionEnabled = false
         buttonContinue.backgroundColor = .submit200
         buttonContinue.setTitle("", for: .normal)
         activityIndicatorButton.isHidden = false
         activityIndicatorButton.startAnimating()
     }
     
-    func hideButtonLoadingWavesState() {
+    func hideButtonLoadingButtonsState() {
+        view.isUserInteractionEnabled = true
         setupButtonState()
         setupLocalization()
         activityIndicatorButton.stopAnimating()
     }
     
     func setupButtonState() {
-        
         
         var isValidateGateway = true
         if isValidCryptocyrrencyAddress && gateWayInfo == nil {
@@ -369,7 +402,8 @@ private extension SendViewController {
             selectedAsset != nil &&
             isValidAmount &&
             (amount?.amount ?? 0) > 0 &&
-            isValidMinMaxGatewayAmount
+            isValidMinMaxGatewayAmount &&
+            isValidPaymentMoneroID
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
@@ -424,6 +458,17 @@ private extension SendViewController {
         })
         setupButtonState()
         updateAmountError(animation: true)
+        updateMoneraPaymentView(animation: true)
+    }
+    
+    func updateMoneraPaymentView(animation: Bool) {
+        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+            moneroPaymentIdView.setupDefaultHeight(animation: animation)
+        }
+        else {
+            moneroAddress = ""
+            moneroPaymentIdView.setupZeroHeight(animation: animation)
+        }
     }
     
     func setupLocalization() {
@@ -450,7 +495,13 @@ private extension SendViewController {
 extension SendViewController: AddressInputViewDelegate {
   
     func addressInputViewDidTapNext() {
-        amountView.activateTextField()
+        
+        if moneroPaymentIdView.isVisible {
+            moneroPaymentIdView.activateTextField()
+        }
+        else {
+            amountView.activateTextField()
+        }
     }
     
     func addressInputViewDidEndEditing() {
@@ -507,6 +558,7 @@ extension SendViewController: AddressInputViewDelegate {
         if gateWayInfo != nil {
             gateWayInfo = nil
             updateAmountData()
+            updateMoneraPaymentView(animation: true)
         }
     }
 }
@@ -534,6 +586,21 @@ extension SendViewController: UIScrollViewDelegate {
 //MARK: - Validation
 private extension SendViewController {
 
+    var isNeedGenerateMoneroAddress: Bool {
+        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
+            return moneroAddress.count == 0
+        }
+        return false
+    }
+    
+    var isValidPaymentMoneroID: Bool {
+    
+        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+            return moneroPaymentIdView.isValidPaymentID
+        }
+        return true
+    }
+    
     var isValidMinMaxGatewayAmount: Bool {
         guard let amount = amount else { return false }
 
@@ -566,7 +633,7 @@ private extension SendViewController {
     var isValidLocalAddress: Bool {
         return Address.isValidAddress(address: recipientAddressView.text)
     }
-
+    
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 

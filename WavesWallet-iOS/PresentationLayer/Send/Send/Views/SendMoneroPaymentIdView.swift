@@ -24,7 +24,8 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     
     private var isShowError = false
     
-    var didChangePaymentId:((String) -> Void)?
+    var didTapNext:(() -> Void)?
+    var paymentIdDidChange:((String) -> Void)?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -38,13 +39,9 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         viewContainer.addTableCellShadowStyle()
         setupDefaultHeight(animation: false)
     }
-    
-    @IBAction private func textFieldDidChange(_ sender: Any) {
-        
-        guard let text = textField.text else { return }
-        didChangePaymentId?(text)
-        
-        showError(text.count != Constants.paymentIdLength, animation: true)
+  
+    var isVisible: Bool {
+        return heightConstraint.constant > 0
     }
     
     func setupDefaultHeight(animation: Bool) {
@@ -58,15 +55,33 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     }
     
     func setupZeroHeight(animation: Bool) {
+        showError(false, animation: animation)
         heightConstraint.constant = 0
         if animation {
-            UIView.animate(withDuration: Constants.animationDuration) {
+            UIView.animate(withDuration: Constants.animationDuration, animations: {
                 self.firstAvailableViewController().view.layoutIfNeeded()
+            }) { (_) in
+                self.textField.text = nil
             }
+        }
+        else {
+            textField.text = nil
         }
     }
     
-    private func showError(_ isShow: Bool, animation: Bool) {
+    func activateTextField() {
+        textField.becomeFirstResponder()
+    }
+    
+    var paymentID: String {
+        return textField.text?.trimmingCharacters(in: CharacterSet.whitespaces) ?? ""
+    }
+    
+    var isValidPaymentID: Bool {
+        return paymentID.count == Constants.paymentIdLength
+    }
+    
+    func showError(_ isShow: Bool, animation: Bool) {
         
         if isShow {
             if !isShowError {
@@ -96,12 +111,39 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         }
     }
     
-    private func setupLocalization() {
+    @IBAction private func textFieldDidChange(_ sender: Any) {
+        
+        paymentIdDidChange?(paymentID)
+        showError(false, animation: true)
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension SendMoneroPaymentIdView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        didTapNext?()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let isShow = paymentID.count != Constants.paymentIdLength && paymentID.count > 0
+        showError(isShow, animation: true)
+    }
+}
+
+//MARK: - UI
+private extension SendMoneroPaymentIdView {
+    
+    func setupLocalization() {
         labelError.text = Localizable.Send.Label.Error.invalidId
         labelMoneroPayment.text = Localizable.Send.Label.moneroPaymentId
         textField.placeholder = Localizable.Send.Textfield.placeholderPaymentId
     }
 }
+
+//MARK: - NSLayoutConstraint
 
 private extension SendMoneroPaymentIdView {
     

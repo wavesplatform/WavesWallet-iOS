@@ -19,12 +19,14 @@ enum Send {
     
     enum Event {
         case didChangeRecipient(String)
+        case didChangeMoneroPaymentID(String)
         case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)
         case getGatewayInfo
         case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
         case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
+        case moneroAddressDidGenerate(ResponseType<String>)
     }
     
     struct State: Mutating {
@@ -34,13 +36,18 @@ enum Send {
             case didFailInfo(String)
             case aliasDidFinishCheckValidation(Bool)
             case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
+            case didGenerateMoneroAddress(String)
+            case didFailGenerateMoneroAddress(String)
+
         }
         
         var isNeedLoadInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
+        var isNeedGenerateMoneroAddress: Bool
         var action: Action
         var recipient: String = ""
+        var moneroPaymentID: String = ""
         var selectedAsset: DomainLayer.DTO.AssetBalance?
     }
 }
@@ -126,7 +133,9 @@ extension Send.State: Equatable {
     static func == (lhs: Send.State, rhs: Send.State) -> Bool {
         return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
                 lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
+                lhs.isNeedGenerateMoneroAddress == rhs.isNeedGenerateMoneroAddress &&
                 lhs.recipient == rhs.recipient &&
+                lhs.moneroPaymentID == rhs.moneroPaymentID &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId
     }
 }

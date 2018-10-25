@@ -94,6 +94,9 @@ class NetworkManager: NSObject
                         if dict["status"] as? String == "error" {
                             complete (nil, dict["message"] as? String)
                         }
+                        else if dict["error"] as? String != nil {
+                            complete(nil, dict["error"] as? String)
+                        }
                         else {
                             complete (parsedObjectFromResponse(response.result.value), nil)
                         }

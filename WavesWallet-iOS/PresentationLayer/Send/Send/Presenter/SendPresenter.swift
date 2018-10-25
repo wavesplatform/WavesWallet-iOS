@@ -41,14 +41,22 @@ final class SendPresenter: SendPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Send.State? in
-            return state.isNeedLoadInfo || state.isNeedValidateAliase ? state : nil
+            return  state.isNeedLoadInfo ||
+                    state.isNeedValidateAliase ||
+                    state.isNeedGenerateMoneroAddress ? state : nil
+            
         }, effects: { [weak self] state -> Signal<Send.Event> in
             
             guard let strongSelf = self else { return Signal.empty() }
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
             if state.isNeedLoadInfo {
-                return strongSelf.interactor.gateWayInfo(asset: asset, address: state.recipient).map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+                return strongSelf.interactor.gateWayInfo(asset: asset, address: state.recipient)
+                    .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
+            else if state.isNeedGenerateMoneroAddress {
+                return strongSelf.interactor.generateMoneroAddress(asset: asset, address: state.recipient, paymentID: state.moneroPaymentID)
+                    .map {.moneroAddressDidGenerate($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             else if state.isNeedValidateAliase {
                 return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
@@ -72,6 +80,7 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .none
                 $0.isNeedLoadInfo = true
                 $0.isNeedValidateAliase = false
+                $0.isNeedGenerateMoneroAddress = false
             }
             
         case .didSelectAsset(let asset, let loadGatewayInfo):
@@ -79,6 +88,7 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .none
                 $0.isNeedLoadInfo = loadGatewayInfo
                 $0.isNeedValidateAliase = false
+                $0.isNeedGenerateMoneroAddress = false
                 $0.selectedAsset = asset
             }
     
@@ -86,8 +96,33 @@ final class SendPresenter: SendPresenterProtocol {
             return state.mutate {
                 $0.isNeedLoadInfo = false
                 $0.isNeedValidateAliase = false
+                $0.isNeedGenerateMoneroAddress = false
                 $0.recipient = recipient
                 $0.action = .none
+            }
+            
+        case .didChangeMoneroPaymentID(let paymentID):
+            return state.mutate {
+                $0.isNeedLoadInfo = false
+                $0.isNeedValidateAliase = false
+                $0.isNeedGenerateMoneroAddress = true
+                $0.moneroPaymentID = paymentID
+                $0.action = .none
+            }
+            
+        case .moneroAddressDidGenerate(let response):
+            return state.mutate {
+                $0.isNeedGenerateMoneroAddress = false
+                $0.isNeedLoadInfo = false
+                $0.isNeedValidateAliase = false
+
+                switch response.result {
+                case .success(let address):
+                    $0.action = .didGenerateMoneroAddress(address)
+                    
+                case .error(let error):
+                    $0.action = .didFailGenerateMoneroAddress(error)
+                }
             }
             
         case .didGetGatewayInfo(let response):
@@ -95,7 +130,8 @@ final class SendPresenter: SendPresenterProtocol {
                 
                 $0.isNeedLoadInfo = false
                 $0.isNeedValidateAliase = false
-
+                $0.isNeedGenerateMoneroAddress = false
+                
                 switch response.result {
                 case .success(let info):
                     $0.action = .didGetInfo(info)
@@ -128,6 +164,10 @@ fileprivate extension Send.State {
         return Send.State(isNeedLoadInfo: false,
                           isNeedValidateAliase: false,
                           isNeedLoadWaves: true,
-                          action: .none, recipient: "", selectedAsset: nil)
+                          isNeedGenerateMoneroAddress: false,
+                          action: .none,
+                          recipient: "",
+                          moneroPaymentID: "",
+                          selectedAsset: nil)
     }
 }

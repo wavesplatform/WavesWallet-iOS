@@ -133,7 +133,7 @@
                             <constraint firstItem="LBm-JY-bIl" firstAttribute="leading" secondItem="X56-pB-arV" secondAttribute="leading" id="YbK-uR-5pF"/>
                             <constraint firstItem="LBm-JY-bIl" firstAttribute="top" secondItem="X56-pB-arV" secondAttribute="top" id="Z6C-kX-f62"/>
                             <constraint firstItem="t8d-VP-Kg7" firstAttribute="top" secondItem="LBm-JY-bIl" secondAttribute="bottom" id="dez-hC-H8T"/>
-                            <constraint firstItem="X56-pB-arV" firstAttribute="bottom" secondItem="t8d-VP-Kg7" secondAttribute="bottom" id="f2X-vE-hdM"/>
+                            <constraint firstAttribute="bottom" secondItem="t8d-VP-Kg7" secondAttribute="bottom" id="f2X-vE-hdM"/>
                             <constraint firstItem="Avi-Yz-4YL" firstAttribute="centerY" secondItem="r1U-aR-fkg" secondAttribute="centerY" id="pnD-HK-jOH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X56-pB-arV"/>
