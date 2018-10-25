@@ -127,7 +127,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
     func updateTag(with model: TransactionHistoryTypes.ViewModel.General) {
         
         if model.isSpam == true {
-            tickerView.update(with: TickerView.Model(text: Localizable.General.Ticker.Title.spam, style: .soft))
+            tickerView.update(with: TickerView.Model(text: Localizable.Waves.General.Ticker.Title.spam, style: .soft))
             tickerView.isHidden = false
         }
         

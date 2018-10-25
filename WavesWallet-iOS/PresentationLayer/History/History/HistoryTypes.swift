@@ -156,21 +156,21 @@ extension HistoryTypes.Filter {
     var name: String {
         switch self {
         case .all:
-            return Localizable.History.Segmentedcontrol.all
+            return Localizable.Waves.History.Segmentedcontrol.all
         case .sent:
-            return Localizable.History.Segmentedcontrol.sent
+            return Localizable.Waves.History.Segmentedcontrol.sent
         case .received:
-            return Localizable.History.Segmentedcontrol.received
+            return Localizable.Waves.History.Segmentedcontrol.received
         case .exchanged:
-            return Localizable.History.Segmentedcontrol.exchanged
+            return Localizable.Waves.History.Segmentedcontrol.exchanged
         case .leased:
-            return Localizable.History.Segmentedcontrol.leased
+            return Localizable.Waves.History.Segmentedcontrol.leased
         case .issued:
-            return Localizable.History.Segmentedcontrol.issued
+            return Localizable.Waves.History.Segmentedcontrol.issued
         case .activeNow:
-            return Localizable.History.Segmentedcontrol.activeNow
+            return Localizable.Waves.History.Segmentedcontrol.activeNow
         case .canceled:
-            return Localizable.History.Segmentedcontrol.canceled
+            return Localizable.Waves.History.Segmentedcontrol.canceled
         }
     }
 }

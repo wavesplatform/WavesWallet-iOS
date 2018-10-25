@@ -17,9 +17,9 @@ private extension WalletTypes.DisplayState.Kind {
     var name: String {
         switch self {
         case .assets:
-            return Localizable.Wallet.Segmentedcontrol.assets
+            return Localizable.Waves.Wallet.Segmentedcontrol.assets
         case .leasing:
-            return Localizable.Wallet.Segmentedcontrol.leasing
+            return Localizable.Waves.Wallet.Segmentedcontrol.leasing
         }
     }
 }
@@ -188,7 +188,7 @@ extension WalletViewController {
 private extension WalletViewController {
 
     func setupLanguages() {
-        navigationItem.title = Localizable.Wallet.Navigationbar.title
+        navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }
 
     func setupRightButons(kind: WalletTypes.DisplayState.Kind) {

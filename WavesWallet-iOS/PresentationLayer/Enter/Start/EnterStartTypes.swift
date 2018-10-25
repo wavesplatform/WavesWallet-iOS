@@ -37,26 +37,26 @@ extension EnterStartTypes.Block {
     var title: String {
         switch self {
         case .blockchain:
-            return Localizable.Enter.Block.Blockchain.title
+            return Localizable.Waves.Enter.Block.Blockchain.title
         case .wallet:
-            return Localizable.Enter.Block.Wallet.title
+            return Localizable.Waves.Enter.Block.Wallet.title
         case .dex:
-            return Localizable.Enter.Block.Exchange.title
+            return Localizable.Waves.Enter.Block.Exchange.title
         case .token:
-            return Localizable.Enter.Block.Token.title
+            return Localizable.Waves.Enter.Block.Token.title
         }
     }
     
     var text: String {
         switch self {
         case .blockchain:
-            return Localizable.Enter.Block.Blockchain.text
+            return Localizable.Waves.Enter.Block.Blockchain.text
         case .wallet:
-            return Localizable.Enter.Block.Wallet.text
+            return Localizable.Waves.Enter.Block.Wallet.text
         case .dex:
-            return Localizable.Enter.Block.Exchange.text
+            return Localizable.Waves.Enter.Block.Exchange.text
         case .token:
-            return Localizable.Enter.Block.Token.text
+            return Localizable.Waves.Enter.Block.Token.text
         }
     }
 }

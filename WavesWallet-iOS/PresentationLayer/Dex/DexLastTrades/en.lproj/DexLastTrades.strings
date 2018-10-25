@@ -1,9 +1,0 @@
-"label.time" = "Time";
-"label.price" = "Price";
-"label.amount" = "Amount";
-"label.sum" = "Sum";
-"label.emptyData" = "Nothing Here…\nThe trading history is empty";
-"label.loadingLastTrades" = "Loading last trades…";
-
-"button.buy" = "BUY";
-"button.sell" = "SELL";

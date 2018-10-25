@@ -67,10 +67,10 @@ extension NetworkSettingsViewController: UIScrollViewDelegate {
 extension NetworkSettingsViewController {
 
     private func setupLocalizable() {
-        spamTitleLabel.text = Localizable.NetworkSettings.Label.Switchspam.title
-        navigationItem.title = Localizable.NetworkSettings.Navigation.title
-        saveButton.setTitle(Localizable.NetworkSettings.Button.Save.title, for: .normal)
-        setDefaultButton.setTitle(Localizable.NetworkSettings.Button.Setdefault.title, for: .normal)
+        spamTitleLabel.text = Localizable.Waves.Networksettings.Label.Switchspam.title
+        navigationItem.title = Localizable.Waves.Networksettings.Navigation.title
+        saveButton.setTitle(Localizable.Waves.Networksettings.Button.Save.title, for: .normal)
+        setDefaultButton.setTitle(Localizable.Waves.Networksettings.Button.Setdefault.title, for: .normal)
     }
 
     private func setupTextField() {
@@ -80,7 +80,7 @@ extension NetworkSettingsViewController {
         spamUrlTextField.clearButtonMode = .whileEditing
 
 
-        spamUrlTextField.update(with: InputTextField.Model(title: Localizable.NetworkSettings.Textfield.Spamfilter.title,
+        spamUrlTextField.update(with: InputTextField.Model(title: Localizable.Waves.Networksettings.Textfield.Spamfilter.title,
                                                             kind: .text,
                                                             placeholder: "http://wavesplatform.com"))
 

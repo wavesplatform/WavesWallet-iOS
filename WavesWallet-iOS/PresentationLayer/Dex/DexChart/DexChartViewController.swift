@@ -138,8 +138,8 @@ private extension DexChartViewController {
     }
     
     func setupLocalization() {
-        labelLoadingData.text = Localizable.DexChart.Label.loadingChart
-        labelEmptyData.text = Localizable.DexChart.Label.emptyData
+        labelLoadingData.text = Localizable.Waves.Dexchart.Label.loadingChart
+        labelEmptyData.text = Localizable.Waves.Dexchart.Label.emptyData
     }
 }
 

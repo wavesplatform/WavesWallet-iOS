@@ -178,8 +178,8 @@ private extension DexMyOrdersViewController {
     }
     
     func setupLocalization() {
-        labelEmptyData.text = Localizable.DexMyOrders.Label.emptyData
-        labelLoadingData.text = Localizable.DexMyOrders.Label.loadingLastTrades
+        labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
+        labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
     }
     
     func setupCorners() {

@@ -94,8 +94,8 @@ private extension DexMarketViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.DexMarket.Navigationbar.title
-        labelLoadingMarkets.text = Localizable.DexMarket.Label.loadingMarkets
+        title = Localizable.Waves.Dexmarket.Navigationbar.title
+        labelLoadingMarkets.text = Localizable.Waves.Dexmarket.Label.loadingMarkets
     }
 }
 

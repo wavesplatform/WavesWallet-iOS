@@ -53,10 +53,10 @@ final class UseTouchIDViewController: UIViewController {
         let biometricType = BiometricType.current
         let biometricTitle = biometricType.title ?? ""
         iconTouch.image = biometricType.icon
-        labelTouchId.text = Localizable.UseTouchID.Label.Title.text(biometricTitle)
-        labelDescription.text = Localizable.UseTouchID.Label.Detail.text(biometricTitle)
+        labelTouchId.text = Localizable.Waves.Usetouchid.Label.Title.text(biometricTitle)
+        labelDescription.text = Localizable.Waves.Usetouchid.Label.Detail.text(biometricTitle)
 
-        buttonNotNow.setTitle(Localizable.UseTouchID.Button.Notnow.text, for: .normal)
+        buttonNotNow.setTitle(Localizable.Waves.Usetouchid.Button.Notnow.text, for: .normal)
 
         buttonUseTouchId.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonUseTouchId.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
@@ -66,7 +66,7 @@ final class UseTouchIDViewController: UIViewController {
     private func setupButtonUseTouchId() {
         let biometricType = BiometricType.current
         let biometricTitle = biometricType.title ?? ""
-        buttonUseTouchId.setTitle(Localizable.UseTouchID.Button.Usebiometric.text(biometricTitle), for: .normal)
+        buttonUseTouchId.setTitle(Localizable.Waves.Usetouchid.Button.Usebiometric.text(biometricTitle), for: .normal)
     }
 
     private func startIndicator() -> Void {

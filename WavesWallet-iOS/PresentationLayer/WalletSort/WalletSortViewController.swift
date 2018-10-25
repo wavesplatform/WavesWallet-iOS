@@ -19,11 +19,11 @@ fileprivate enum Constants {
 final class WalletSortViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
-    let visibilityButton = UIBarButtonItem(title: Localizable.WalletSort.Button.visibility,
+    let visibilityButton = UIBarButtonItem(title: Localizable.Waves.Walletsort.Button.visibility,
                                            style: .plain,
                                            target: nil,
                                            action: nil)
-    let positionButton = UIBarButtonItem(title: Localizable.WalletSort.Button.position,
+    let positionButton = UIBarButtonItem(title: Localizable.Waves.Walletsort.Button.position,
                                            style: .plain,
                                            target: nil,
                                            action: nil)
@@ -40,7 +40,7 @@ final class WalletSortViewController: UIViewController {
         createBackButton()
         setupBigNavigationBar()
 
-        title = Localizable.WalletSort.Navigationbar.title
+        title = Localizable.Waves.Walletsort.Navigationbar.title
         tableView.contentInset = Constants.contentInset
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in

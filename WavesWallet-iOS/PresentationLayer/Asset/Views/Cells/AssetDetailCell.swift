@@ -72,13 +72,13 @@ final class AssetDetailCell: UITableViewCell, Reusable {
     }
 
     private func setupLocalization() {
-        assetTitleLabel.text = Localizable.Asset.Cell.Assetinfo.title
-        nameTitleLabel.text = Localizable.Asset.Cell.Assetinfo.name
-        issuerTitleLabel.text = Localizable.Asset.Cell.Assetinfo.issuer
-        idTitleLabel.text = Localizable.Asset.Cell.Assetinfo.id
-        typeTitleLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.title
-        dateTitleLabel.text = Localizable.Asset.Cell.Assetinfo.issueDate
-        descriptionTitleLabel.text = Localizable.Asset.Cell.Assetinfo.description
+        assetTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.title
+        nameTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.name
+        issuerTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.issuer
+        idTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.id
+        typeTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.title
+        dateTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.issueDate
+        descriptionTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.description
     }
 }
 
@@ -96,9 +96,9 @@ extension AssetDetailCell: ViewConfiguration {
         dateLabel.text = dateFormatter.string(from: Date())
 
         if model.isReusable {
-            typeLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.reissuable
+            typeLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.reissuable
         } else {
-            typeLabel.text = Localizable.Asset.Cell.Assetinfo.Kind.notReissuable
+            typeLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.notReissuable
         }
     }
 }

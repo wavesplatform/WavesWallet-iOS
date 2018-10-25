@@ -43,9 +43,9 @@ final class NewAccountViewController: UIViewController {
         super.viewDidLoad()
 
         scrollView.keyboardDismissMode = .onDrag
-        title = Localizable.NewAccount.Main.Navigation.title
-        avatarTitleLabel.text = Localizable.NewAccount.Avatar.title
-        avatarDetailLabel.text = Localizable.NewAccount.Avatar.detail
+        title = Localizable.Waves.Newaccount.Main.Navigation.title
+        avatarTitleLabel.text = Localizable.Waves.Newaccount.Avatar.title
+        avatarDetailLabel.text = Localizable.Waves.Newaccount.Avatar.detail
 
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
@@ -81,19 +81,19 @@ final class NewAccountViewController: UIViewController {
         passwordInput.autocapitalizationType = .none
         confirmPasswordInput.autocapitalizationType = .none
         
-        accountNameInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Accountname.title,
+        accountNameInput.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Accountname.title,
                                                            kind: .text,
-                                                           placeholder: Localizable.NewAccount.Textfield.Accountname.title))
-        passwordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Createpassword.title,
+                                                           placeholder: Localizable.Waves.Newaccount.Textfield.Accountname.title))
+        passwordInput.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Createpassword.title,
                                                         kind: .password,
-                                                        placeholder: Localizable.NewAccount.Textfield.Createpassword.title))
-        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+                                                        placeholder: Localizable.Waves.Newaccount.Textfield.Createpassword.title))
+        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title,
                                                                kind: .newPassword,
-                                                               placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
+                                                               placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
 
         accountNameInput.valueValidator = { value in
             if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else {
                 return nil
             }
@@ -101,7 +101,7 @@ final class NewAccountViewController: UIViewController {
 
         passwordInput.valueValidator = { value in
             if (value?.count ?? 0) < Settings.minLengthPassword {
-                return Localizable.NewAccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
             } else {
                 return nil
             }
@@ -109,7 +109,7 @@ final class NewAccountViewController: UIViewController {
 
         confirmPasswordInput.valueValidator = { [weak self] value in
             if self?.passwordInput.value != value {
-                return Localizable.NewAccount.Textfield.Error.passwordnotmatch
+                return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
             }
 
             return nil

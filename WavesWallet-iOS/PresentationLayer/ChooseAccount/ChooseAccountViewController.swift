@@ -44,8 +44,8 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
         setupSystem()
         addBgBlueImage()
         createBackWhiteButton()
-        navigationItem.title = Localizable.ChooseAccount.Navigation.title
-        noResultInfoLabel.text = Localizable.ChooseAccount.Label.nothingWallets
+        navigationItem.title = Localizable.Waves.Chooseaccount.Navigation.title
+        noResultInfoLabel.text = Localizable.Waves.Chooseaccount.Label.nothingWallets
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -154,15 +154,15 @@ extension ChooseAccountViewController {
         guard let indexPath = tableView.indexPath(for: cell) else { return false }
         let wallet = wallets[indexPath.row]
 
-        let alert = UIAlertController(title: Localizable.ChooseAccount.Alert.Delete.title,
-                                      message: Localizable.ChooseAccount.Alert.Delete.message,
+        let alert = UIAlertController(title: Localizable.Waves.Chooseaccount.Alert.Delete.title,
+                                      message: Localizable.Waves.Chooseaccount.Alert.Delete.message,
                                       preferredStyle: .alert)
 
-        let cancel = UIAlertAction(title: Localizable.ChooseAccount.Alert.Button.no, style: .cancel) { (action) in
+        let cancel = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.no, style: .cancel) { (action) in
             cell.hideSwipe(animated: true)
         }
 
-        let yes = UIAlertAction(title: Localizable.ChooseAccount.Alert.Button.ok, style: .default) { [weak self] (action) in
+        let yes = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.ok, style: .default) { [weak self] (action) in
             self?.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
         }
         alert.addAction(cancel)

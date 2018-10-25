@@ -182,13 +182,13 @@ private extension DexOrderBookViewController {
     }
     
     func setupSellBuyButtons() {
-        buttonBuy.setup(title: Localizable.DexOrderBook.Button.buy, subTitle: askTitle)
-        buttonSell.setup(title: Localizable.DexOrderBook.Button.sell, subTitle: bidTitle)
+        buttonBuy.setup(title: Localizable.Waves.Dexorderbook.Button.buy, subTitle: askTitle)
+        buttonSell.setup(title: Localizable.Waves.Dexorderbook.Button.sell, subTitle: bidTitle)
     }
     
     func setupLocalization() {
-        labelLoadingOrderBook.text = Localizable.DexOrderBook.Label.loadingOrderbook
-        labelEmptyData.text = Localizable.DexOrderBook.Label.emptyData
+        labelLoadingOrderBook.text = Localizable.Waves.Dexorderbook.Label.loadingOrderbook
+        labelEmptyData.text = Localizable.Waves.Dexorderbook.Label.emptyData
     }
 }
 

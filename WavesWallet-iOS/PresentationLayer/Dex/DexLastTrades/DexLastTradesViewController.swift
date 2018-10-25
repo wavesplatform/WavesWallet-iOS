@@ -127,8 +127,8 @@ private extension DexLastTradesViewController {
 private extension DexLastTradesViewController {
     
     func setupLocalization() {
-        labelEmptyData.text = Localizable.DexLastTrades.Label.emptyData
-        labelLoading.text = Localizable.DexLastTrades.Label.loadingLastTrades
+        labelEmptyData.text = Localizable.Waves.Dexlasttrades.Label.emptyData
+        labelLoading.text = Localizable.Waves.Dexlasttrades.Label.loadingLastTrades
     }
     
     func setupLoadingState() {
@@ -147,8 +147,8 @@ private extension DexLastTradesViewController {
     }
     
     func setupSellBuyButtons() {
-        buttonBuy.setup(title: Localizable.DexLastTrades.Button.buy, subTitle: buyTitle)
-        buttonSell.setup(title: Localizable.DexLastTrades.Button.sell, subTitle: sellTitle)
+        buttonBuy.setup(title: Localizable.Waves.Dexlasttrades.Button.buy, subTitle: buyTitle)
+        buttonSell.setup(title: Localizable.Waves.Dexlasttrades.Button.sell, subTitle: sellTitle)
     }
 }
 

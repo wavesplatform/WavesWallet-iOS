@@ -34,18 +34,18 @@ final class ImportWelcomeBackViewController: UIViewController, UIScrollViewDeleg
         super.viewDidLoad()
 
         addressBar.isHidden = true
-        title = Localizable.Import.Welcome.Navigation.title
+        title = Localizable.Waves.Import.Welcome.Navigation.title
         createBackButton()
         setupBigNavigationBar()
 
-        buttonContinue.setTitle(Localizable.Import.Welcome.Button.continue, for: .normal)
+        buttonContinue.setTitle(Localizable.Waves.Import.Welcome.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
         buttonContinue.isEnabled = false
         
         textField.returnKey = .done
-        textField.update(with: MultyTextField.Model(title: Localizable.Import.Welcome.Label.Address.title,
-                                                    placeholder: Localizable.Import.Welcome.Label.Address.placeholder))
+        textField.update(with: MultyTextField.Model(title: Localizable.Waves.Import.Welcome.Label.Address.title,
+                                                    placeholder: Localizable.Waves.Import.Welcome.Label.Address.placeholder))
 
         
         textField.valueValidator = { value in

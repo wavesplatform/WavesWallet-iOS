@@ -243,15 +243,15 @@ extension AssetPresenter {
 
         switch transactionStatus {
         case .empty:
-            transactionHeaderTitle = Localizable.Asset.Header.notHaveTransactions
+            transactionHeaderTitle = Localizable.Waves.Asset.Header.notHaveTransactions
             transactionRows = [.viewHistoryDisabled]
 
         case .loading:
-            transactionHeaderTitle = Localizable.Asset.Header.lastTransactions
+            transactionHeaderTitle = Localizable.Waves.Asset.Header.lastTransactions
             transactionRows = [.transactionSkeleton]
 
         case .transaction(let transactions):
-            transactionHeaderTitle = Localizable.Asset.Header.lastTransactions
+            transactionHeaderTitle = Localizable.Waves.Asset.Header.lastTransactions
             transactionRows = [.lastTransactions(transactions), .viewHistory]
 
         case .none:
