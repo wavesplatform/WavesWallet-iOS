@@ -568,7 +568,7 @@ private extension SendViewController {
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 
-        if let regExp = selectedAsset?.asset?.regularExpression, regExp.count > 0 {
+        if let regExp = selectedAsset?.asset?.addressRegEx, regExp.count > 0 {
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
                 selectedAsset?.asset?.isGateway == true &&
                 selectedAsset?.asset?.isFiat == false

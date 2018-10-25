@@ -14,7 +14,8 @@
             "isFiat": false,
             "isGateway" : false,
             "wavesId" : "WAVES",
-            "gatewayId": "WAVES"
+            "gatewayId": "WAVES",
+            "addressRegEx" : ""
         },
         {
             "assetId": "Fmg13HEHJHuZYbtJq8Da8wifJENq8uBxDuWoP9pVe2Qe",
@@ -23,7 +24,7 @@
             "isGateway" : true,
             "wavesId" : "WBTC",
             "gatewayId": "BTC",
-            "regularExpression" : "^[13][a-km-zA-HJ-NP-Z1-9]{33}"
+            "addressRegEx" : "^[13][a-km-zA-HJ-NP-Z1-9]{33}"
         },
         {
             "assetId": "HyFJ3rrq5m7FxdkWtQXkZrDat1F7LjVVGfpSkUuEXQHj",
@@ -31,8 +32,8 @@
             "isFiat": true,
             "isGateway" : true,
             "wavesId" : "WUSD",
-            "gatewayId": "USD"
-            
+            "gatewayId": "USD",
+            "addressRegEx": ""
         },
         {
             "assetId": "2xnE3EdpqXtFgCP156qt1AbyjpqdZ5jGjWo3CwTawcux",
@@ -40,7 +41,8 @@
             "isFiat": true,
             "isGateway" : true,
             "wavesId" : "WEUR",
-            "gatewayId": "EUR"
+            "gatewayId": "EUR",
+            "addressRegEx" : ""
         }
     ]
 }

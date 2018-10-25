@@ -39,7 +39,7 @@ final class AssetInteractor: AssetInteractorProtocol {
 
                 owner.accountBalanceInteractor
                     .balances(by: wallet,
-                              isNeedUpdate: false)
+                              isNeedUpdate: isNeedUpdate)
                     .map {
                         $0.filter { asset -> Bool in
                             ids.contains(asset.assetId)
