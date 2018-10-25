@@ -75,7 +75,10 @@ final class ReceiveInvoiceViewController: UIViewController {
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
-        let assetInput = AssetList.DTO.Input(filters: input.filters, selectedAsset: selectedAsset)
+        let assetInput = AssetList.DTO.Input(filters: input.filters,
+                                             selectedAsset: selectedAsset,
+                                             showAllList: input.showAllList)
+        
         let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
     }

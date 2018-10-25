@@ -600,8 +600,8 @@ internal enum Localizable {
     internal enum Button {
       /// All list
       internal static var allList: String { return Localizable.tr("AssetList", "button.allList") }
-      /// My list
-      internal static var myList: String { return Localizable.tr("AssetList", "button.myList") }
+      /// With balance
+      internal static var withBalance: String { return Localizable.tr("AssetList", "button.withBalance") }
     }
 
     internal enum Label {

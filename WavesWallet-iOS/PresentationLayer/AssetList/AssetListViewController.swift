@@ -28,6 +28,7 @@ final class AssetListViewController: UIViewController {
 
     var selectedAsset: DomainLayer.DTO.AssetBalance?
     var presenter: AssetListPresenterProtocol!
+    var showAllList = true
     
     private var isMyList = false
     private var isNeedCheckAssetsBalance = true
@@ -120,7 +121,9 @@ extension AssetListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let asset = modelSection.items[indexPath.row].asset
         sendEvent.accept(.didSelectAsset(asset))
-        navigationController?.popViewController(animated: true)
+        selectedAsset = asset
+        tableView.reloadData()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -153,8 +156,12 @@ private extension AssetListViewController {
     
     private func createButtonList() {
         
+        if showAllList == false {
+            return
+        }
+        
         let font = UIFont.systemFont(ofSize: 17)
-        let title = isMyList ? Localizable.AssetList.Button.myList :  Localizable.AssetList.Button.allList
+        let title = isMyList ? Localizable.AssetList.Button.allList :  Localizable.AssetList.Button.withBalance
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font), height: Constants.buttonHeight)
         button.titleLabel?.font = font

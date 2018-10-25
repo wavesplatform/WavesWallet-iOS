@@ -13,24 +13,38 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
     func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
+        let showAllList = true
 
         if let asset = input {
             
             if input?.asset?.isWaves == true {
-                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
+                                                                        selectedAsset: asset,
+                                                                        showAllList: showAllList)), state: .invoice)
                 vc.add(ReceiveCardModuleBuilder().build(), state: .card)
             }
             else if input?.asset?.isFiat == true {
-                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
+                                                                        selectedAsset: asset,
+                                                                        showAllList: showAllList)), state: .invoice)
             }
             else {
-                vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .cryptoCurrency)
-                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [], selectedAsset: asset)), state: .invoice)
+                vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [],
+                                                                               selectedAsset: asset,
+                                                                               showAllList: showAllList)), state: .cryptoCurrency)
+                vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
+                                                                        selectedAsset: asset,
+                                                                        showAllList: showAllList)), state: .invoice)
             }
         }
         else {
-            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency], selectedAsset: nil)), state: .cryptoCurrency)
-            vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat], selectedAsset: nil)), state: .invoice)
+            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency],
+                                                                           selectedAsset: nil,
+                                                                           showAllList: showAllList)), state: .cryptoCurrency)
+            
+            vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat],
+                                                                    selectedAsset: nil,
+                                                                    showAllList: showAllList)), state: .invoice)
             vc.add(ReceiveCardModuleBuilder().build(), state: .card)
         }
         
