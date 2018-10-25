@@ -30,7 +30,7 @@ final class Asset: Object {
     @objc dynamic var isWavesToken: Bool = false    
     @objc dynamic var isGateway: Bool = false
     @objc dynamic var isWaves: Bool = false
-    @objc dynamic var regularExpression: String?
+    @objc dynamic var regularExpression: String = ""
 
     override class func primaryKey() -> String? {
         return "id"

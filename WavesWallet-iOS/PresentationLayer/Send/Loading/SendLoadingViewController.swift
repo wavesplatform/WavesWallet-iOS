@@ -7,11 +7,7 @@
 //
 
 import UIKit
-
-protocol SendResultDelegate: AnyObject {
-
-    func sendResultDidFail(_ error: String)
-}
+import RxSwift
 
 final class SendLoadingViewController: UIViewController {
 
@@ -20,19 +16,52 @@ final class SendLoadingViewController: UIViewController {
     weak var delegate: SendResultDelegate?
     var input: SendConfirmationViewController.Input!
     
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         labelSending.text = Localizable.SendLoading.Label.sending
-//        send()
+        navigationItem.hidesBackButton = true
+        send()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideTopBarLine()
+        navigationItem.backgroundImage = UIImage()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    private func showComplete() {
+        let vc = StoryboardScene.Send.sendCompleteViewController.instantiate()
+        vc.input = .init(assetName: input.asset.displayName,
+                         amount: input.amount,
+                         address: input.address,
+                         amountWithoutFee: input.amountWithoutFee)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func send() {
     
         let interactor: SendInteractorProtocol = SendInteractor()
-        interactor.send(fee: input.fee, recipient: input.recipient, assetId: input.assetId, amount: input.amount, attachment: input.attachment, isAlias: input.isAlias)
-            .subscribe(onNext: { [weak self] success in
+        
+        let assetId = input.asset.isWaves ? "" : input.asset.id
+        interactor.send(fee: input.fee, recipient: input.address, assetId: assetId, amount: input.amount, attachment: input.attachment, isAlias: input.isAlias)
+            .subscribe(onNext: { [weak self] status in
                 
-            }).dispose()
+                switch status {
+                case .success:
+                    self?.showComplete()
+                
+                case .error(let error):
+                    self?.delegate?.sendResultDidFail(error)
+                }
+                
+        }).disposed(by: disposeBag)
     }
 }
