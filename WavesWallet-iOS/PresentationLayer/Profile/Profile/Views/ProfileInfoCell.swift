@@ -73,7 +73,7 @@ extension ProfileInfoCell: ViewConfiguration {
 
         currentHeightTitleLabel.text = Localizable.Waves.Profile.Cell.Info.Currentheight.title
         versionTitleLabel.text = Localizable.Waves.Profile.Cell.Info.Version.title
-        
+
         currentHeightValueLabel.text = model.height
         versionValueLabel.text = model.version
 
