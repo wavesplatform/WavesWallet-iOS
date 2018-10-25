@@ -246,7 +246,7 @@ private extension SendViewController {
                     
                 case .didFailGenerateMoneroAddress(let error):
                     strongSelf.hideButtonLoadingButtonsState()
-                    strongSelf.moneroPaymentIdView.showError(true, animation: true)
+                    strongSelf.moneroPaymentIdView.showError()
                     strongSelf.setupButtonState()
 
                 case .didGenerateMoneroAddress(let address):

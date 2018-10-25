@@ -23,6 +23,7 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var textField: UITextField!
     
     private var isShowError = false
+    private var hasErrorFromServer = false
     
     var didTapNext:(() -> Void)?
     var paymentIdDidChange:((String) -> Void)?
@@ -78,8 +79,39 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     }
     
     var isValidPaymentID: Bool {
-        return paymentID.count == Constants.paymentIdLength
+        return paymentID.count == Constants.paymentIdLength && !hasErrorFromServer
     }
+    
+    func showError() {
+        hasErrorFromServer = true
+        showError(true, animation: true)
+    }
+    
+    @IBAction private func textFieldDidChange(_ sender: Any) {
+        
+        hasErrorFromServer = false
+        paymentIdDidChange?(paymentID)
+        showError(false, animation: true)
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension SendMoneroPaymentIdView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        didTapNext?()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let isShow = (paymentID.count != Constants.paymentIdLength && paymentID.count > 0) || hasErrorFromServer
+        showError(isShow, animation: true)
+    }
+}
+
+//MARK: - UI
+private extension SendMoneroPaymentIdView {
     
     func showError(_ isShow: Bool, animation: Bool) {
         
@@ -111,30 +143,6 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         }
     }
     
-    @IBAction private func textFieldDidChange(_ sender: Any) {
-        
-        paymentIdDidChange?(paymentID)
-        showError(false, animation: true)
-    }
-    
-}
-
-//MARK: - UITextFieldDelegate
-extension SendMoneroPaymentIdView: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        didTapNext?()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let isShow = paymentID.count != Constants.paymentIdLength && paymentID.count > 0
-        showError(isShow, animation: true)
-    }
-}
-
-//MARK: - UI
-private extension SendMoneroPaymentIdView {
     
     func setupLocalization() {
         labelError.text = Localizable.Send.Label.Error.invalidId
