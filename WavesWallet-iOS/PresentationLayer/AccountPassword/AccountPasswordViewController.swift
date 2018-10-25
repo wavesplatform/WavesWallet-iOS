@@ -73,7 +73,7 @@ final class AccountPasswordViewController: UIViewController {
                                              placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
 
         passwordTextField.valueValidator = { value in
-            return (value?.count ?? 0) < Settings.minLengthPassword ? Localizable.AccountPassword.Textfield.Error.atleastcharacters(Settings.minLengthPassword) : nil
+            return (value?.count ?? 0) < GlobalConstants.minLengthPassword ? Localizable.AccountPassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword) : nil
         }
 
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
