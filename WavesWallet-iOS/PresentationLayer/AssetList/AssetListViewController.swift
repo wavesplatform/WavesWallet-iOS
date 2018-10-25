@@ -154,7 +154,7 @@ private extension AssetListViewController {
     private func createButtonList() {
         
         let font = UIFont.systemFont(ofSize: 17)
-        let title = isMyList ? Localizable.AssetList.Button.myList :  Localizable.AssetList.Button.allList
+        let title = isMyList ? Localizable.Waves.Assetlist.Button.myList :  Localizable.Waves.Assetlist.Button.allList
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font), height: Constants.buttonHeight)
         button.titleLabel?.font = font
@@ -165,8 +165,8 @@ private extension AssetListViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.AssetList.Label.assets
-        labelLoading.text = Localizable.AssetList.Label.loadingAssets
+        title = Localizable.Waves.Assetlist.Label.assets
+        labelLoading.text = Localizable.Waves.Assetlist.Label.loadingAssets
     }
     
     func setupLoadingState() {

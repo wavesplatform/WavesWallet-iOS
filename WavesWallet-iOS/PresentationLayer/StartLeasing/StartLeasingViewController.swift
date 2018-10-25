@@ -143,11 +143,11 @@ private extension StartLeasingViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.StartLeasing.Label.startLeasing
-        labelBalanceTitle.text = Localizable.StartLeasing.Label.balance
+        title = Localizable.Waves.Startleasing.Label.startLeasing
+        labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
         let fee = Money(order.fee, order.amount.decimals)
-        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + fee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + fee.displayText + " WAVES"
     }
     
     func setupData() {
@@ -166,7 +166,7 @@ private extension StartLeasingViewController {
             let valuePercent5 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent5) / 100,
                                       availableBalance.decimals)
             
-            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: availableBalance))
+            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: availableBalance))
             inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
             inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
@@ -197,7 +197,7 @@ private extension StartLeasingViewController {
         buttonStartLease.isUserInteractionEnabled = isValidOrder
         buttonStartLease.backgroundColor = isValidOrder ? .submit400 : .submit200
         
-        let buttonTitle = isCreatingOrderState ? "" : Localizable.StartLeasing.Button.startLease
+        let buttonTitle = isCreatingOrderState ? "" : Localizable.Waves.Startleasing.Button.startLease
         buttonStartLease.setTitle(buttonTitle, for: .normal)
     }
 
@@ -224,7 +224,7 @@ extension StartLeasingViewController: StartLeasingAmountViewDelegate {
     func startLeasingAmountView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
-        amountView.showErrorMessage(message: Localizable.StartLeasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
         sendEvent.accept(.updateInputOrder(order))
     }
 }

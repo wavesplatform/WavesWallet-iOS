@@ -51,7 +51,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         addressTextField.setupTextFieldRightOffset(Constansts.rightButtonOffset)
-        addressTextField.setupPlaceholder(Localizable.AddAddressBook.Label.address)
+        addressTextField.setupPlaceholder(Localizable.Waves.Addaddressbook.Label.address)
         addressTextField.delegate = self
         buttonDelete.alpha = 0
         setupButtonsState(animation: false)

@@ -73,11 +73,11 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
 
 extension WalletLeasingBalanceCell: Localization {
     func setupLocalization() {
-        totalBalanceTitleLabel.text = Localizable.Wallet.Label.totalBalance
-        avaliableTitleLabel.text = Localizable.Wallet.Label.available
-        leasedTitleLabel.text = Localizable.Wallet.Label.leased
-        leasedInTitleLabel.text = Localizable.Wallet.Label.leasedIn
-        buttonStartLease.setTitle(Localizable.Wallet.Button.startLease, for: .normal)
+        totalBalanceTitleLabel.text = Localizable.Waves.Wallet.Label.totalBalance
+        avaliableTitleLabel.text = Localizable.Waves.Wallet.Label.available
+        leasedTitleLabel.text = Localizable.Waves.Wallet.Label.leased
+        leasedInTitleLabel.text = Localizable.Waves.Wallet.Label.leasedIn
+        buttonStartLease.setTitle(Localizable.Waves.Wallet.Button.startLease, for: .normal)
     }
 }
 

@@ -48,7 +48,7 @@ private extension DexCompleteOrderViewController {
     func setupInfo() {
         labelPrice.text = input.price.displayText
         labelAmount.text = input.amount.displayText
-        labelStatus.text = Localizable.DexCompleteOrder.Label.open
+        labelStatus.text = Localizable.Waves.Dexcompleteorder.Label.open
         labelStatus.textColor = input.orderType == .sell ? .error500 : .submit400
         
         let dateFormatter = DateFormatter()
@@ -58,12 +58,12 @@ private extension DexCompleteOrderViewController {
     }
     
     func setupLocalization() {
-        labelTitleLocalization.text = Localizable.DexCompleteOrder.Label.orderIsCreated
-        labelTimeLocalization.text = Localizable.DexCompleteOrder.Label.time
-        labelStatusLocalization.text = Localizable.DexCompleteOrder.Label.status
-        labelPriceLocalization.text = Localizable.DexCompleteOrder.Label.price
-        labelAmountLocalization.text = Localizable.DexCompleteOrder.Label.amount
+        labelTitleLocalization.text = Localizable.Waves.Dexcompleteorder.Label.orderIsCreated
+        labelTimeLocalization.text = Localizable.Waves.Dexcompleteorder.Label.time
+        labelStatusLocalization.text = Localizable.Waves.Dexcompleteorder.Label.status
+        labelPriceLocalization.text = Localizable.Waves.Dexcompleteorder.Label.price
+        labelAmountLocalization.text = Localizable.Waves.Dexcompleteorder.Label.amount
         
-        buttonOkey.setTitle(Localizable.DexCompleteOrder.Button.okey, for: .normal)
+        buttonOkey.setTitle(Localizable.Waves.Dexcompleteorder.Button.okey, for: .normal)
     }
 }

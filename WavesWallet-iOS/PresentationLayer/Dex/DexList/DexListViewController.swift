@@ -77,10 +77,10 @@ final class DexListViewController: UIViewController {
 
 extension DexListViewController: Localization {
     func setupLocalization() {
-        navigationItem.title = Localizable.DexList.Navigationbar.title
-        labelNoItemsTitle.text = Localizable.DexList.Label.decentralisedExchange
-        labelNoItemsDescription.text = Localizable.DexList.Label.description
-        buttonAddMarkets.setTitle(Localizable.DexList.Button.addMarkets, for: .normal)
+        navigationItem.title = Localizable.Waves.Dexlist.Navigationbar.title
+        labelNoItemsTitle.text = Localizable.Waves.Dexlist.Label.decentralisedExchange
+        labelNoItemsDescription.text = Localizable.Waves.Dexlist.Label.description
+        buttonAddMarkets.setTitle(Localizable.Waves.Dexlist.Button.addMarkets, for: .normal)
     }
 }
 

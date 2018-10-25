@@ -29,9 +29,9 @@ final class ReceiveCardCompleteViewController: UIViewController {
     }
     
     private func setupLocalization() {
-        labelTitle.text = Localizable.ReceiveCardComplete.Label.redirectToIndacoin
-        labelSubtitle.text = Localizable.ReceiveCardComplete.Label.afterPaymentUpdateBalance
-        buttonOkey.setTitle(Localizable.ReceiveCardComplete.Button.okay, for: .normal)
+        labelTitle.text = Localizable.Waves.Receivecardcomplete.Label.redirectToIndacoin
+        labelSubtitle.text = Localizable.Waves.Receivecardcomplete.Label.afterPaymentUpdateBalance
+        buttonOkey.setTitle(Localizable.Waves.Receivecardcomplete.Button.okay, for: .normal)
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {

@@ -64,13 +64,13 @@ final class ReceiveAddressViewController: UIViewController {
     }
     
     private func setupLocalization() {
-        labelQRCode.text = Localizable.ReceiveAddress.Label.yourQRCode
-        buttonClose.setTitle(Localizable.ReceiveAddress.Button.close, for: .normal)
-        labelInvoiceLinkLocalized.text = Localizable.ReceiveAddress.Label.linkToInvoice
+        labelQRCode.text = Localizable.Waves.Receiveaddress.Label.yourQRCode
+        buttonClose.setTitle(Localizable.Waves.Receiveaddress.Button.close, for: .normal)
+        labelInvoiceLinkLocalized.text = Localizable.Waves.Receiveaddress.Label.linkToInvoice
     }
     
     private func setupInfo() {
-        title = Localizable.ReceiveAddress.Label.yourAddress(input.assetName)
+        title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
         let iconStyle = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 22), border: nil)
         logoTask = AssetLogo.logoFromCache(name: input.icon, style: iconStyle, completionHandler: { [weak self] (image) in
@@ -96,16 +96,16 @@ final class ReceiveAddressViewController: UIViewController {
         buttonCopy.tintColor = UIColor.success400
         buttonCopy.setTitleColor(UIColor.success400, for: .normal)
         buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
-        buttonCopy.titleLabel?.text = Localizable.ReceiveAddress.Button.copied
-        buttonCopy.setTitle(Localizable.ReceiveAddress.Button.copied, for: .normal)
+        buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copied
+        buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copied, for: .normal)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.copyDuration) {
             self.buttonCopy.isUserInteractionEnabled = true
             self.buttonCopy.tintColor = UIColor.submit400
             self.buttonCopy.setTitleColor(UIColor.submit400, for: .normal)
             self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)
-            self.buttonCopy.titleLabel?.text = Localizable.ReceiveAddress.Button.copy
-            self.buttonCopy.setTitle(Localizable.ReceiveAddress.Button.copy, for: .normal)
+            self.buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copy
+            self.buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
         }
     }
    

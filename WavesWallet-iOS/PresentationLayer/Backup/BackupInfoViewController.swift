@@ -37,9 +37,9 @@ final class BackupInfoViewController: UIViewController {
         createBackButton()
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()        
-        titleLabel.text = Localizable.Backup.Infobackup.Label.title
-        detailLabel.text = Localizable.Backup.Infobackup.Label.detail
-        iUnderstandButton.setTitle(Localizable.Backup.Infobackup.Button.iunderstand, for: .normal)
+        titleLabel.text = Localizable.Waves.Backup.Infobackup.Label.title
+        detailLabel.text = Localizable.Waves.Backup.Infobackup.Label.detail
+        iUnderstandButton.setTitle(Localizable.Waves.Backup.Infobackup.Button.iunderstand, for: .normal)
     }
 
     @IBAction func understandTapped(_ sender: Any) {

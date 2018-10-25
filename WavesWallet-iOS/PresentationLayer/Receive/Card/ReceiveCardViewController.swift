@@ -63,7 +63,7 @@ final class ReceiveCardViewController: UIViewController {
     
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        controller.addAction(.init(title: Localizable.ReceiveCard.Button.cancel, style: .cancel, handler: nil))
+        controller.addAction(.init(title: Localizable.Waves.Receivecard.Button.cancel, style: .cancel, handler: nil))
         
         let actionUSD = UIAlertAction(title: ReceiveCard.DTO.FiatType.usd.text, style: .default) { (action) in
            
@@ -167,7 +167,7 @@ private extension ReceiveCardViewController {
     }
     
     func setupFiatText() {
-        labelAmountIn.text = Localizable.Receive.Label.amountIn + " " + selectedFiat.text
+        labelAmountIn.text = Localizable.Waves.Receive.Label.amountIn + " " + selectedFiat.text
     }
     
     func setupAmountInfo(_ amountInfo: ReceiveCard.DTO.AmountInfo) {
@@ -175,7 +175,7 @@ private extension ReceiveCardViewController {
         let minimum = amountInfo.minAmountString + " " + selectedFiat.text
         let maximum = amountInfo.maxAmountString + " " + selectedFiat.text
         
-        labelWarningMinimumAmount.text = Localizable.ReceiveCard.Label.minimunAmountInfo(minimum, maximum)
+        labelWarningMinimumAmount.text = Localizable.Waves.Receivecard.Label.minimunAmountInfo(minimum, maximum)
         viewWarning.isHidden = false
     }
     
@@ -228,7 +228,7 @@ private extension ReceiveCardViewController {
     }
     
     func setupLocalization() {
-        labelChangeCurrency.text = Localizable.ReceiveCard.Label.changeCurrency
-        labelWarningInfo.text = Localizable.ReceiveCard.Label.warningInfo
+        labelChangeCurrency.text = Localizable.Waves.Receivecard.Label.changeCurrency
+        labelWarningInfo.text = Localizable.Waves.Receivecard.Label.warningInfo
     }
 }

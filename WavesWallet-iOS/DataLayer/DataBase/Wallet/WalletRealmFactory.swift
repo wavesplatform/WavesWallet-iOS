@@ -11,7 +11,7 @@ import RealmSwift
 
 
 fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 2
+    static let schemaVersion: UInt64 = 3
 }
 
 enum WalletRealmFactory {

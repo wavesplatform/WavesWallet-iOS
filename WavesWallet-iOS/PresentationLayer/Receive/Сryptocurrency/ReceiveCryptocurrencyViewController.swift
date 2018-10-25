@@ -145,14 +145,14 @@ private extension ReceiveCryptocurrencyViewController {
         viewWarning.isHidden = false
         
         let displayFee = String(info.fee) + " " + info.assetShort
-        labelTitleMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.minumumAmountOfDeposit(displayFee)
-        labelWarningMinimumAmount.text = Localizable.ReceiveCryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
-        labelTitleSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
-        labelWarningSendOnlyDeposit.text = Localizable.ReceiveCryptocurrency.Label.warningSendOnlyOnThisDeposit
+        labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayFee)
+        labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
+        labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
+        labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
     }
     
     func setupLocalization() {
-        buttonCotinue.setTitle(Localizable.Receive.Button.continue, for: .normal)
+        buttonCotinue.setTitle(Localizable.Waves.Receive.Button.continue, for: .normal)
     }
 }
 

@@ -36,11 +36,11 @@ final class SaveBackupPhraseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title =  Localizable.Backup.Savebackup.Navigation.title
-        titleLabel.text = Localizable.Backup.Savebackup.Label.title
-        titleForCopyLabel.text = Localizable.Backup.Savebackup.Copy.Label.title
-        infoLabel.text = Localizable.Backup.Savebackup.Next.Label.title
-        buttonCopy.setTitle(Localizable.Backup.Savebackup.Next.Button.title, for: .normal)
+        title =  Localizable.Waves.Backup.Savebackup.Navigation.title
+        titleLabel.text = Localizable.Waves.Backup.Savebackup.Label.title
+        titleForCopyLabel.text = Localizable.Waves.Backup.Savebackup.Copy.Label.title
+        infoLabel.text = Localizable.Waves.Backup.Savebackup.Next.Label.title
+        buttonCopy.setTitle(Localizable.Waves.Backup.Savebackup.Next.Button.title, for: .normal)
 
         createBackButton()
         setupBigNavigationBar()

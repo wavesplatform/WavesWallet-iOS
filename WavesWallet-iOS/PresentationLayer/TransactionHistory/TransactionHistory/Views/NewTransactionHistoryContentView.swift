@@ -61,19 +61,19 @@ final class NewTransactionHistoryContentView: UIView {
         copyTXButton.titleEdgeInsets = Constants.titleEdgeInsets
         copyAllDataButton.titleEdgeInsets = Constants.titleEdgeInsets
         
-        copyTXButton.normalTitle = Localizable.TransactionHistory.Button.copyTXId
+        copyTXButton.normalTitle = Localizable.Waves.Transactionhistory.Button.copyTXId
         copyTXButton.normalTitleColor = .black
         copyTXButton.normalImage = Images.copy18Black.image
         
-        copyTXButton.selectedTitle = Localizable.TransactionHistory.Button.copied
+        copyTXButton.selectedTitle = Localizable.Waves.Transactionhistory.Button.copied
         copyTXButton.selectedTitleColor = .success400
         copyTXButton.selectedImage = Images.checkSuccess.image
         
-        copyAllDataButton.normalTitle = Localizable.TransactionHistory.Button.copyAllData
+        copyAllDataButton.normalTitle = Localizable.Waves.Transactionhistory.Button.copyAllData
         copyAllDataButton.normalTitleColor = .black
         copyAllDataButton.normalImage = Images.copy18Black.image
         
-        copyAllDataButton.selectedTitle = Localizable.TransactionHistory.Button.copied
+        copyAllDataButton.selectedTitle = Localizable.Waves.Transactionhistory.Button.copied
         copyAllDataButton.selectedTitleColor = .success400
         copyAllDataButton.selectedImage = Images.checkSuccess.image
         
@@ -188,13 +188,13 @@ final class NewTransactionHistoryContentView: UIView {
         }
         
         let recipientsKeys = recipients.map { (recipient) -> [String: String] in
-            return [Localizable.TransactionHistory.Copy.recipient: recipient]
+            return [Localizable.Waves.Transactionhistory.Copy.recipient: recipient]
         }
         let amount = balance?.displayText
         let fee = transaction.totalFee.displayText
         
-        let keys: [[String: String]] = [[Localizable.TransactionHistory.Copy.transactionId: id], [Localizable.TransactionHistory.Copy.type: kind], [Localizable.TransactionHistory.Copy.date: date], [Localizable.TransactionHistory.Copy.sender: sender]] + recipientsKeys +
-            [[Localizable.TransactionHistory.Copy.amount: amount ?? ""], [Localizable.TransactionHistory.Copy.fee: fee]]
+        let keys: [[String: String]] = [[Localizable.Waves.Transactionhistory.Copy.transactionId: id], [Localizable.Waves.Transactionhistory.Copy.type: kind], [Localizable.Waves.Transactionhistory.Copy.date: date], [Localizable.Waves.Transactionhistory.Copy.sender: sender]] + recipientsKeys +
+            [[Localizable.Waves.Transactionhistory.Copy.amount: amount ?? ""], [Localizable.Waves.Transactionhistory.Copy.fee: fee]]
         
         UIPasteboard.general.string = keys.map({ (item) -> String in
             let key = item.first!.key

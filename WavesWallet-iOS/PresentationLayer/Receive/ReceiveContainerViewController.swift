@@ -28,7 +28,7 @@ final class ReceiveContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Localizable.Receive.Label.receive
+        title = Localizable.Waves.Receive.Label.receive
         createBackButton()
         setupControllers()
         setupSegmentedControl()
@@ -135,17 +135,17 @@ private extension ReceiveContainerViewController {
         
         for state in states {
             if state == .cryptoCurrency {
-                buttons.append(.init(name: Localizable.Receive.Button.cryptocurrency,
+                buttons.append(.init(name: Localizable.Waves.Receive.Button.cryptocurrency,
                                      icon: .init(normal: Images.rGateway14Basic500.image,
                                                  selected: Images.rGateway14White.image)))
             }
             else if state == .invoice {
-                buttons.append(.init(name: Localizable.Receive.Button.invoice,
+                buttons.append(.init(name: Localizable.Waves.Receive.Button.invoice,
                                      icon: .init(normal: Images.rInwaves14Basic500.image,
                                                  selected: Images.rInwaves14White.image)))
             }
             else if state == .card {
-                buttons.append(.init(name: Localizable.Receive.Button.card,
+                buttons.append(.init(name: Localizable.Waves.Receive.Button.card,
                                      icon: .init(normal: Images.rCard14Basic500.image,
                                                  selected: Images.rCard14White.image)))
             }

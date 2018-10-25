@@ -44,15 +44,15 @@ final class StartLeasingGeneratorView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelTitle.text = Localizable.StartLeasing.Label.generator
-        labelError.text = Localizable.StartLeasing.Label.addressIsNotValid
+        labelTitle.text = Localizable.Waves.Startleasing.Label.generator
+        labelError.text = Localizable.Waves.Startleasing.Label.addressIsNotValid
         labelError.alpha = 0
-        textField.placeholder = Localizable.StartLeasing.Label.nodeAddress
+        textField.placeholder = Localizable.Waves.Startleasing.Label.nodeAddress
         viewContentTextField.addTableCellShadowStyle()
         inputScrollView.inputDelegate = self
         buttonDelete.alpha = 0
         showInputScrollView(animation: false)
-        inputScrollView.update(with: [Localizable.StartLeasing.Button.chooseFromAddressBook])
+        inputScrollView.update(with: [Localizable.Waves.Startleasing.Button.chooseFromAddressBook])
     }
     
     

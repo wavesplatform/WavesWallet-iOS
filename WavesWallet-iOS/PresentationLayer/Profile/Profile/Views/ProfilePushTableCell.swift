@@ -22,6 +22,6 @@ final class ProfilePushTableCell: UITableViewCell, Reusable, ViewConfiguration {
     }
 
     func update(with model: Void) {
-        titleLabel.text = Localizable.Profile.Cell.Pushnotifications.title
+        titleLabel.text = Localizable.Waves.Profile.Cell.Pushnotifications.title
     }
 }

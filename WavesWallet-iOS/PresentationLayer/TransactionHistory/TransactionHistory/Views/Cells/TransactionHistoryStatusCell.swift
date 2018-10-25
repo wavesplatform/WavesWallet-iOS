@@ -10,13 +10,13 @@
 import UIKit
 
 private enum Constants {
-    static let timestampDateFormat = "dd.MM.yyyy '" + Localizable.TransactionHistory.Cell.Status.at + "' hh:mm"
+    static let timestampDateFormat = "dd.MM.yyyy '" + Localizable.Waves.Transactionhistory.Cell.Status.at + "' hh:mm"
     static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1)
     static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)
     
-    static let activeNow = Localizable.TransactionHistory.Cell.Status.Button.activeNow
-    static let completed = Localizable.TransactionHistory.Cell.Status.Button.completed
-    static let unconfirmed = Localizable.TransactionHistory.Cell.Status.Button.unconfirmed
+    static let activeNow = Localizable.Waves.Transactionhistory.Cell.Status.Button.activeNow
+    static let completed = Localizable.Waves.Transactionhistory.Cell.Status.Button.completed
+    static let unconfirmed = Localizable.Waves.Transactionhistory.Cell.Status.Button.unconfirmed
 }
 
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
@@ -35,7 +35,7 @@ final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
 extension TransactionHistoryStatusCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Status) {
         
-        titleLabel.text = Localizable.TransactionHistory.Cell.Status.timestamp
+        titleLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.timestamp
         
         // timestamp
         let formatter = DateFormatter.sharedFormatter

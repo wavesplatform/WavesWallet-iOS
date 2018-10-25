@@ -50,8 +50,8 @@ final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        buttonBuy.setTitle(Localizable.DexCreateOrder.Button.buy, for: .normal)
-        buttonSell.setTitle(Localizable.DexCreateOrder.Button.sell, for: .normal)
+        buttonBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy, for: .normal)
+        buttonSell.setTitle(Localizable.Waves.Dexcreateorder.Button.sell, for: .normal)
     }
     
     override func layoutSubviews() {

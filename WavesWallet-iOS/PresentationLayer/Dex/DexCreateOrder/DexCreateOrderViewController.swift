@@ -188,7 +188,7 @@ private extension DexCreateOrderViewController {
                       DexCreateOrder.DTO.Expiration.expiration30d]
         
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancel = UIAlertAction(title: Localizable.DexCreateOrder.Button.cancel, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: Localizable.Waves.Dexcreateorder.Button.cancel, style: .cancel, handler: nil)
         controller.addAction(cancel)
         
         for value in values {
@@ -269,23 +269,23 @@ private extension DexCreateOrderViewController {
     func setupValidationErrors() {
         if order.type == .sell {
             
-            inputAmount.showErrorMessage(message: Localizable.DexCreateOrder.Label.notEnough + " " + input.amountAsset.name,
+            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.name,
                                          isShow: !isValidAmountAssetBalance)
             
-            inputTotal.showErrorMessage(message: Localizable.DexCreateOrder.Label.bigValue,
+            inputTotal.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.bigValue,
                                         isShow: order.total.isBigAmount)
         }
         else {
             
-            inputAmount.showErrorMessage(message: Localizable.DexCreateOrder.Label.bigValue,
+            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.bigValue,
                                          isShow: order.amount.isBigAmount)
             
             var totalError = ""
             if order.total.isBigAmount {
-                totalError = Localizable.DexCreateOrder.Label.bigValue
+                totalError = Localizable.Waves.Dexcreateorder.Label.bigValue
             }
             else if !isValidPriceAssetBalance {
-                totalError = Localizable.DexCreateOrder.Label.notEnough + " " + input.priceAsset.name
+                totalError = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.priceAsset.name
             }
             
             inputTotal.showErrorMessage(message: totalError,
@@ -297,12 +297,12 @@ private extension DexCreateOrderViewController {
         buttonSellBuy.isUserInteractionEnabled = isValidOrder
 
         if order.type == .sell {            
-            buttonSellBuy.setTitle(Localizable.DexCreateOrder.Button.sell + " " + input.amountAsset.name, for: .normal)
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.name, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .error400 : .error100
             buttonSellBuy.highlightedBackground = .error200
         }
         else {
-            buttonSellBuy.setTitle(Localizable.DexCreateOrder.Button.buy + " " + input.amountAsset.name, for: .normal)
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.name, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .submit400 : .submit200
             buttonSellBuy.highlightedBackground = .submit300
         }
@@ -325,7 +325,7 @@ private extension DexCreateOrderViewController {
             let valuePercent5 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent5) / 100,
                                       input.availableAmountAssetBalance.decimals)
             
-            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: input.availableAmountAssetBalance))
+            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: input.availableAmountAssetBalance))
             inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
             inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
@@ -346,7 +346,7 @@ private extension DexCreateOrderViewController {
             let valuePercent5 = Money(value: totalAmount * Decimal(Constants.percent5) / 100,
                                       input.availableAmountAssetBalance.decimals)
             
-            inputAmountValues.append(.init(text: Localizable.DexCreateOrder.Button.useTotalBalanace, value: totalAmountMoney))
+            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: totalAmountMoney))
             inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
             inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
@@ -362,15 +362,15 @@ private extension DexCreateOrderViewController {
         var inputPriceValues: [DexCreateOrderInputView.Input] = []
 
         if let bid = input.bid {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.bid, value: bid))
+            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.bid, value: bid))
         }
 
         if let ask = input.ask {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.ask, value: ask))
+            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.ask, value: ask))
         }
 
         if let last = input.last {
-            inputPriceValues.append(.init(text: Localizable.DexCreateOrder.Button.last, value: last))
+            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.last, value: last))
         }
         
         inputPrice.update(with: inputPriceValues)
@@ -398,12 +398,12 @@ private extension DexCreateOrderViewController {
     func setupLocalization() {
         setupLabelExpiration()
         
-        labelFee.text = Localizable.DexCreateOrder.Label.fee
-        labelExpiration.text = Localizable.DexCreateOrder.Label.expiration
+        labelFee.text = Localizable.Waves.Dexcreateorder.Label.fee
+        labelExpiration.text = Localizable.Waves.Dexcreateorder.Label.expiration
         
-        inputAmount.setupTitle(title: Localizable.DexCreateOrder.Label.amountIn + " " + input.amountAsset.name)
-        inputPrice.setupTitle(title: Localizable.DexCreateOrder.Label.limitPriceIn + " " + input.priceAsset.name)
-        inputTotal.setupTitle(title: Localizable.DexCreateOrder.Label.totalIn + " " + input.priceAsset.name)
+        inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.name)
+        inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.name)
+        inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.name)
     }
 }
 

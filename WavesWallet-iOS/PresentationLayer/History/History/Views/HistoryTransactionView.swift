@@ -34,7 +34,7 @@ fileprivate extension HistoryTransactionView {
 
         if asset.isSpam {
             tickerView.isHidden = false
-            tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
+            tickerView.update(with: .init(text: Localizable.Waves.General.Ticker.Title.spam,
                                           style: .normal))
             labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
             return
@@ -123,7 +123,7 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.total, sign: .plus)
 
         case .data:
-            labelValue.text = Localizable.General.History.Transaction.Value.data
+            labelValue.text = Localizable.Waves.History.Transaction.Value.data
         }
     }
 }
@@ -134,13 +134,13 @@ extension DomainLayer.DTO.SmartTransaction {
 
         switch kind {
         case .receive:
-            return Localizable.General.History.Transaction.Title.received
+            return Localizable.Waves.History.Transaction.Title.received
 
         case .sent:
-            return Localizable.General.History.Transaction.Title.sent
+            return Localizable.Waves.History.Transaction.Title.sent
 
         case .startedLeasing:
-            return Localizable.General.History.Transaction.Title.startedLeasing
+            return Localizable.Waves.History.Transaction.Title.startedLeasing
 
         case .exchange(let tx):
             let myOrder = tx.myOrder
@@ -152,43 +152,43 @@ extension DomainLayer.DTO.SmartTransaction {
             }
 
         case .canceledLeasing:
-            return Localizable.General.History.Transaction.Title.canceledLeasing
+            return Localizable.Waves.History.Transaction.Title.canceledLeasing
 
         case .tokenGeneration:
-            return Localizable.General.History.Transaction.Title.tokenGeneration
+            return Localizable.Waves.History.Transaction.Title.tokenGeneration
 
         case .tokenBurn:
-            return Localizable.General.History.Transaction.Title.tokenBurn
+            return Localizable.Waves.History.Transaction.Title.tokenBurn
 
         case .tokenReissue:
-            return Localizable.General.History.Transaction.Title.tokenReissue
+            return Localizable.Waves.History.Transaction.Title.tokenReissue
 
         case .selfTransfer:
-            return Localizable.General.History.Transaction.Title.selfTransfer
+            return Localizable.Waves.History.Transaction.Title.selfTransfer
 
         case .createdAlias:
-            return Localizable.General.History.Transaction.Title.alias
+            return Localizable.Waves.History.Transaction.Title.alias
 
         case .incomingLeasing:
-            return Localizable.General.History.Transaction.Title.incomingLeasing
+            return Localizable.Waves.History.Transaction.Title.incomingLeasing
 
         case .unrecognisedTransaction:
-            return Localizable.General.History.Transaction.Title.unrecognisedTransaction
+            return Localizable.Waves.History.Transaction.Title.unrecognisedTransaction
 
         case .massSent:
-            return Localizable.General.History.Transaction.Title.sent
+            return Localizable.Waves.History.Transaction.Title.sent
 
         case .massReceived:
-            return Localizable.General.History.Transaction.Title.received
+            return Localizable.Waves.History.Transaction.Title.received
 
         case .spamReceive:
-            return Localizable.General.History.Transaction.Title.received
+            return Localizable.Waves.History.Transaction.Title.received
 
         case .spamMassReceived:
-           return Localizable.General.History.Transaction.Title.received
+           return Localizable.Waves.History.Transaction.Title.received
 
         case .data:
-            return Localizable.General.History.Transaction.Title.data
+            return Localizable.Waves.History.Transaction.Title.data
         }
     }
 
