@@ -18,7 +18,7 @@ struct SendModuleBuilder: ModuleBuilder {
         presenter.interactor = interactor
         
         let vc = StoryboardScene.Send.sendViewController.instantiate()
-        vc.input = .init(filters: [.all], selectedAsset: input)
+        vc.input = .init(filters: [.all], selectedAsset: input, showAllList: false)
 
         vc.presenter = presenter
         

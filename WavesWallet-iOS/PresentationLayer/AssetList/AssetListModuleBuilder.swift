@@ -19,10 +19,12 @@ struct AssetListModuleBuilder: ModuleBuilderOutput {
         presenter.interactor = interactor
         presenter.filters = input.filters
         presenter.moduleOutput = output
+        presenter.isMyList = !input.showAllList
         
         let vc = StoryboardScene.AssetList.assetListViewController.instantiate()
         vc.presenter = presenter
         vc.selectedAsset = input.selectedAsset
+        vc.showAllList = input.showAllList
         
         return vc
     }

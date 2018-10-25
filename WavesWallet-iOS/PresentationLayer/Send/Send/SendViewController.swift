@@ -257,7 +257,9 @@ extension SendViewController: AssetListModuleOutput {
 extension SendViewController: AssetSelectViewDelegate {
    
     func assetViewDidTapChangeAsset() {
-        let assetInput = AssetList.DTO.Input(filters: [.all], selectedAsset: selectedAsset)
+        let assetInput = AssetList.DTO.Input(filters: input.filters,
+                                             selectedAsset: selectedAsset,
+                                             showAllList: input.showAllList)
         
         let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
