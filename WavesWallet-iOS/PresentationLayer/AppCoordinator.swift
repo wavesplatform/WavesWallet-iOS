@@ -70,11 +70,10 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        let vc = StoryboardScene.Profile.networkSettingsViewController.instantiate()
+        let vc = StoryboardScene.Profile.addressesKeysViewController.instantiate()
         let custom = CustomNavigationController(rootViewController: vc)
-
-      self.window.rootViewController = slideMenuViewController
-//        self.window.rootViewController = custom
+//        self.window.rootViewController = slideMenuViewController
+        self.window.rootViewController = custom
         self.window.makeKeyAndVisible()
         logInApplication()
 

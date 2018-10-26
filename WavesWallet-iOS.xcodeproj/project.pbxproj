@@ -141,6 +141,11 @@
 		0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */; };
 		0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A580E6B2135FCD200C62549 /* Decimal+Assisstants.swift */; };
 		0A580E702137449100C62549 /* AllTransactionExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A580E6F2137449000C62549 /* AllTransactionExample.json */; };
+		0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A59330B218343B00059A77A /* AddressesKeysAliacesCell.swift */; };
+		0A59330E218343C30059A77A /* AddressesKeysValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A59330D218343C30059A77A /* AddressesKeysValueCell.swift */; };
+		0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A593311218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift */; };
+		0A59331421835C9C0059A77A /* AddressesKeysTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A59331321835C9C0059A77A /* AddressesKeysTypes.swift */; };
+		0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5933152183604F0059A77A /* AddressesKeysPresenter.swift */; };
 		0A5ABBA421173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA321173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift */; };
 		0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */; };
 		0A5ABBA8211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5ABBA7211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift */; };
@@ -906,6 +911,11 @@
 		0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Pagination.swift"; sourceTree = "<group>"; };
 		0A580E6B2135FCD200C62549 /* Decimal+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Assisstants.swift"; sourceTree = "<group>"; };
 		0A580E6F2137449000C62549 /* AllTransactionExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AllTransactionExample.json; sourceTree = "<group>"; };
+		0A59330B218343B00059A77A /* AddressesKeysAliacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysAliacesCell.swift; sourceTree = "<group>"; };
+		0A59330D218343C30059A77A /* AddressesKeysValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddressesKeysValueCell.swift; path = "/Users/mefilt/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/PresentationLayer/Profile/AddressesKeys/AddressesKeysValueCell.swift"; sourceTree = "<absolute>"; };
+		0A593311218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysHiddenPrivateKeyCell.swift; sourceTree = "<group>"; };
+		0A59331321835C9C0059A77A /* AddressesKeysTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysTypes.swift; sourceTree = "<group>"; };
+		0A5933152183604F0059A77A /* AddressesKeysPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysPresenter.swift; sourceTree = "<group>"; };
 		0A5ABBA321173356006A10A7 /* LeasingTransactionRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A5ABBA521173405006A10A7 /* LeasingTransactionRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A5ABBA7211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingTransactionRepositoryLocal.swift; sourceTree = "<group>"; };
@@ -1809,6 +1819,11 @@
 			isa = PBXGroup;
 			children = (
 				0A20606721822C3A0048CF83 /* AddressesKeysViewController.swift */,
+				0A59330B218343B00059A77A /* AddressesKeysAliacesCell.swift */,
+				0A59330D218343C30059A77A /* AddressesKeysValueCell.swift */,
+				0A593311218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift */,
+				0A59331321835C9C0059A77A /* AddressesKeysTypes.swift */,
+				0A5933152183604F0059A77A /* AddressesKeysPresenter.swift */,
 			);
 			path = AddressesKeys;
 			sourceTree = "<group>";
@@ -4418,6 +4433,7 @@
 				E9B087B82163886800937644 /* OrderBookViewController.swift in Sources */,
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
+				0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */,
 				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
 				E9D36DEF2175C755001E6DF0 /* ReceiveInvoiceInteractor.swift in Sources */,
 				0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */,
@@ -4681,6 +4697,7 @@
 				E9A4681720E22B8300BD0E75 /* CreateAliasViewController.swift in Sources */,
 				E9B087D22163886800937644 /* DexListViewController.swift in Sources */,
 				E9B088152163886800937644 /* DexMarketInteractorMock.swift in Sources */,
+				0A59330E218343C30059A77A /* AddressesKeysValueCell.swift in Sources */,
 				0A61B59C214AD51700EC60FC /* JSONDecoder+JSON.swift in Sources */,
 				0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				0A218B892155221F00B989A1 /* Wallet+Mapper.swift in Sources */,
@@ -4750,6 +4767,7 @@
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
 				0A762D9B2163A0B60019D447 /* FactoryInteractors.swift in Sources */,
 				0AFBCA912113274B00285BCB /* WalletSortInteractorProtocol.swift in Sources */,
+				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				E95B47F421638B11004D4E39 /* StartLeasingGeneratorView.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
 				0A071E73215D9B30007D9750 /* RunLoopThreadScheduler.swift in Sources */,
@@ -4964,6 +4982,7 @@
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
 				0AA8CAA42151133D000D09E6 /* UIView+Animation.swift in Sources */,
+				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				0A762D7E21639FA60019D447 /* TransactionHistoryViewController.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
@@ -5027,6 +5046,7 @@
 				0A25B46C216F763D00638C93 /* MailCompose+Support.swift in Sources */,
 				E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */,
 				0AF92230212E0F1F003BA067 /* WalletSegmentedControl.swift in Sources */,
+				0A59331421835C9C0059A77A /* AddressesKeysTypes.swift in Sources */,
 				E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */,
 				0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */,
 				0AE491F02107A4BD009223DB /* WalletCoordinator.swift in Sources */,
