@@ -59,6 +59,7 @@ extension AssetList.DTO {
     struct Input {
         let filters: [AssetList.DTO.Filter]
         let selectedAsset: DomainLayer.DTO.AssetBalance?
+        let showAllList: Bool
     }
     
     enum Filter {

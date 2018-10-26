@@ -55,7 +55,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
                 .map { .responseAll($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
 
@@ -102,6 +102,14 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             let newState = state.setSections(sections: sections).setFilter(filter: filter)
             
             return newState
+
+        case .handlerError:
+
+            let newState = state.setIsRefreshing(false)
+
+            return newState
+
+            break
 
         case .responseAll(let response):
 

@@ -66,12 +66,12 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         viewAsset.isHidden = false
         labelSelectAsset.isHidden = true
         
+        labelAssetName.text = "Waves"
+        labelAmount.isHidden = true
+        iconGateway.isHidden = true
+        
+        loadIcon(name: Environments.Constants.wavesAssetId)
 
-//        labelAssetName.text = wavesTitle
-//        labelAmount.isHidden = true
-//        iconGateway.isHidden = true
-//
-//        loadIcon(name: Environments.Constants.wavesAssetId)
     }
     
     func showAmount() {
@@ -100,7 +100,7 @@ extension AssetSelectView: ViewConfiguration {
         iconFav.isHidden = !(model.settings?.isFavorite ?? false)
        
         loadIcon(name: asset.ticker ?? asset.displayName)
-        let money = Money(model.balance, asset.precision)
+        let money = Money(model.avaliableBalance, asset.precision)
         labelAmount.text = money.displayTextFull
     }
     

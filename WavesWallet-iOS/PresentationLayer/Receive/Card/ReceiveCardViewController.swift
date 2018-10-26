@@ -48,15 +48,17 @@ final class ReceiveCardViewController: UIViewController {
         assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
-        textFieldMoney.decimals = amount.decimals
+        textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
     
-        debug(self.urlLink)
-        //TODO: - Need to show webView screen
-        let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
-        navigationController?.pushViewController(vc, animated: true)
+        let browser = BrowserViewController(url: URL(string: urlLink)!)
+        let nav = UINavigationController(rootViewController: browser)
+        present(nav, animated: true, completion: {
+            let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
+            self.navigationController?.pushViewController(vc, animated: false)
+        })
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
@@ -199,7 +201,7 @@ private extension ReceiveCardViewController {
         }
     }
     
-    func showError(_ error: Error) {
+    func showError(_ error: String) {
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
     }

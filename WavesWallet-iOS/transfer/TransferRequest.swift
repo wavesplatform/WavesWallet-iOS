@@ -36,17 +36,13 @@ class TransferRequest {
         self.attachment = attachment
     }
     
-    func arrayWithSize(_ s: String) -> [UInt8] {
-        let b: [UInt8] = Array(s.utf8)
-        return toByteArray(Int16(b.count)) + b
-    }
     
     var toSign: [UInt8] {
         let assetIdBytes = assetId.isEmpty ? [UInt8(0)] :  ([UInt8(1)] + Base58.decode(assetId))
         let feeAssetIdBytes = [UInt8(0)]
         let s1 = [transactionType] + senderPublicKey.publicKey
         let s2 = assetIdBytes + feeAssetIdBytes + toByteArray(timestamp) + toByteArray(amount.amount) + toByteArray(fee.amount)
-        let s3 = Base58.decode(recipient) + arrayWithSize(attachment)
+        let s3 = Base58.decode(recipient) + attachment.arrayWithSize()
         return s1 + s2 + s3
         /*let assetIdBytes = assetId.isEmpty ? [UInt8(0)] :  ([UInt8(1)] + Base58.decode(assetId))
         let feeAssetIdBytes = [UInt8(0)]

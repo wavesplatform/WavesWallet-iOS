@@ -43,4 +43,13 @@ struct Platform {
     static let isIphone7 : Bool = {
         return UIScreen.main.bounds.size.width == 375 && UIScreen.main.bounds.size.height == 667 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }()
+    
+    static let isIphoneXMax : Bool = {
+        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 896 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone && UIScreen.main.scale == 3
+    }()
+    
+    static let isIphoneXR : Bool = {
+        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 896 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone && UIScreen.main.scale == 2
+    }()
+    
 }

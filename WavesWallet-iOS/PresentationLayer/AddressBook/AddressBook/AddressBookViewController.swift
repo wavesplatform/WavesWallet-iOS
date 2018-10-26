@@ -72,7 +72,7 @@ private extension AddressBookViewController {
     
     @objc func addUserTapped() {
         
-        let controller = AddAddressBookModuleBuilder(output: self).build(input: nil)
+        let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(contact: nil, address: nil))
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -162,7 +162,7 @@ extension AddressBookViewController: AddressBookCellDelegate {
         if let indexPath = tableView.indexPath(for: cell) {
             
             let contact = modelSection.items[indexPath.row].contact
-            let controller = AddAddressBookModuleBuilder(output: self).build(input: contact)
+            let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(contact: contact, address: nil))
             navigationController?.pushViewController(controller, animated: true)
         }
     }

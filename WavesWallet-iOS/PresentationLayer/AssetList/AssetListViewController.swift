@@ -28,6 +28,7 @@ final class AssetListViewController: UIViewController {
 
     var selectedAsset: DomainLayer.DTO.AssetBalance?
     var presenter: AssetListPresenterProtocol!
+    var showAllList = true
     
     private var isMyList = false
     private var isNeedCheckAssetsBalance = true
@@ -120,7 +121,9 @@ extension AssetListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let asset = modelSection.items[indexPath.row].asset
         sendEvent.accept(.didSelectAsset(asset))
-        navigationController?.popViewController(animated: true)
+        selectedAsset = asset
+        tableView.reloadData()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -139,7 +142,7 @@ extension AssetListViewController: UITableViewDataSource {
         
         if let asset = assetBalance.asset {
             let isChecked = assetBalance.assetId == selectedAsset?.assetId
-            let money = Money(assetBalance.balance, asset.precision)
+            let money = Money(assetBalance.avaliableBalance, asset.precision)
             let isFavourite = assetBalance.settings?.isFavorite ?? false
             
             cell.update(with: .init(asset: asset, balance: money, isChecked: isChecked, isFavourite: isFavourite))
@@ -153,8 +156,12 @@ private extension AssetListViewController {
     
     private func createButtonList() {
         
+        if showAllList == false {
+            return
+        }
+        
         let font = UIFont.systemFont(ofSize: 17)
-        let title = isMyList ? Localizable.Waves.Assetlist.Button.myList :  Localizable.Waves.Assetlist.Button.allList
+        let title = isMyList ? Localizable.Waves.Assetlist.Button.allList :  Localizable.Waves.Assetlist.Button.withBalance
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font), height: Constants.buttonHeight)
         button.titleLabel?.font = font

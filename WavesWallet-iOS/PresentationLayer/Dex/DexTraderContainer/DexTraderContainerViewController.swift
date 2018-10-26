@@ -25,7 +25,6 @@ final class DexTraderContainerViewController: UIViewController {
         segmentedControl.delegate = self
         title = pair.amountAsset.name + " / " + pair.priceAsset.name
         createBackWhiteButton()
-        addBgBlueImage()
         addInfoButton()
         buildControllers()
         setupScrollEnabled(currentPage: scrollView.currentPage)

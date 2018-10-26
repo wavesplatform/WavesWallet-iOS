@@ -12,7 +12,7 @@ struct ReceiveCryptocurrencyModuleBuilder: ModuleBuilder {
     
     func build(input: AssetList.DTO.Input) -> UIViewController {
         
-        let interactor: ReceiveCryptocurrencyInteractorProtocol = ReceiveCryptocurrencyInteractorMock()
+        let interactor: ReceiveCryptocurrencyInteractorProtocol = ReceiveCryptocurrencyInteractor()
         
         var presenter: ReceiveCryptocurrencyPresenterProtocol = ReceiveCryptocurrencyPresenter()
         presenter.interactor = interactor

@@ -38,7 +38,7 @@ final class MoneyTextField: UITextField {
 
     weak var moneyDelegate: MoneyTextFieldDelegate?
     var isShakeView: Bool = true
-    var decimals: Int = 0
+    private var decimals: Int = 0
 
     var value: Money {
         if let decimal = Decimal(string: textString, locale: Constants.locale) {
@@ -46,13 +46,6 @@ final class MoneyTextField: UITextField {
         } else {
             return Money(0, decimals)
         }
-    }
-
-    var decimalValue: Decimal {
-        if let decimal = Decimal(string: textString, locale: Constants.locale) {
-            return decimal
-        }
-        return 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,23 +64,25 @@ final class MoneyTextField: UITextField {
 //MARK: - Methods
 extension MoneyTextField {
     
-    func clearText() {
-        attributedText = nil
+    // forceUpdateMoney need if we want call -> MoneyTextFieldDelegate: moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
+    func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
+        self.decimals = decimals
+        
+        if forceUpdateMoney {
+            textDidChange()
+        }
     }
     
     func setValue(value: Money) {
-
         decimals = value.decimals
         setupAttributedText(text: formattedStringFrom(value))
     }
     
     func addPlusValue() {
-      
         setValue(value: value.add(deltaValue))
     }
     
     func addMinusValue() {
-
         setValue(value: value.minus(deltaValue))
     }
 }

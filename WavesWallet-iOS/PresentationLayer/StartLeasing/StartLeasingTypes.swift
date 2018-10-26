@@ -8,16 +8,12 @@
 
 import Foundation
 
-private enum Constansts {
-    static let fee: Int64 = 100000
-}
-
 enum StartLeasing {
     enum DTO {}
     
     enum Event {
         case createOrder
-        case orderDidCreate(Responce<Bool>)
+        case orderDidCreate(ResponseType<Bool>)
         case updateInputOrder(DTO.Order)
     }
     
@@ -25,7 +21,7 @@ enum StartLeasing {
         enum Action {
             case none
             case showCreatingOrderState
-            case orderDidFailCreate(Error)
+            case orderDidFailCreate(String)
             case orderDidCreate
         }
         
@@ -40,7 +36,7 @@ extension StartLeasing.DTO {
     struct Order {
         var recipient: String
         var amount: Money
-        let fee = Constansts.fee
+        let fee = GlobalConstants.WavesTransactionFee.amount
         var time: Date
     }
 }

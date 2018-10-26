@@ -18,7 +18,11 @@ final class ReceiveCardCompleteViewController: UIViewController {
         super.viewDidLoad()
 
         setupLocalization()
-        addBgBlueImage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupSmallNavigationBar()
         hideTopBarLine()
         navigationItem.backgroundImage = UIImage()
         navigationItem.hidesBackButton = true
@@ -35,7 +39,11 @@ final class ReceiveCardCompleteViewController: UIViewController {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetViewController.classForCoder()}) {
+            navigationController?.popToViewController(assetVc, animated: true)
+        }
+        else {
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
-    
 }

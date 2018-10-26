@@ -7,8 +7,3 @@
 //
 
 import Foundation
-
-
-enum Settings {
-    static let minLengthPassword: Int = 2
-}

@@ -11,7 +11,7 @@ import RxSwift
 
 final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     
-    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(Responce<Bool>)> {
+    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(ResponseType<Bool>)> {
         return Observable.empty()
     }
 }

@@ -144,9 +144,9 @@ private extension ReceiveCryptocurrencyViewController {
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
         
-        let displayFee = String(info.fee) + " " + info.assetShort
-        labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayFee)
-        labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayFee)
+        let displayMin = info.minAmount.displayText + " " + info.assetShort
+        labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
+        labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
         labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
         labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
     }
@@ -161,7 +161,9 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
         
-        let assetInput = AssetList.DTO.Input(filters: input.filters, selectedAsset: selectedAsset)
+        let assetInput = AssetList.DTO.Input(filters: input.filters,
+                                             selectedAsset: selectedAsset,
+                                             showAllList: input.showAllList)
         let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
     }
