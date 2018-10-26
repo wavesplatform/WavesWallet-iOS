@@ -16,8 +16,9 @@ final class SendLoadingViewController: UIViewController {
     weak var delegate: SendResultDelegate?
     var input: SendConfirmationViewController.Input!
     
+    let interactor: SendInteractorProtocol = SendInteractor()
     private let disposeBag = DisposeBag()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,8 +48,6 @@ final class SendLoadingViewController: UIViewController {
     }
     
     private func send() {
-    
-        let interactor: SendInteractorProtocol = SendInteractor()
         
         let assetId = input.asset.isWaves ? "" : input.asset.id
         interactor.send(fee: input.fee, recipient: input.address, assetId: assetId, amount: input.amount, attachment: input.attachment, isAlias: input.isAlias)

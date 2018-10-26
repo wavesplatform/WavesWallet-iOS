@@ -56,7 +56,7 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     }
     
     func setupZeroHeight(animation: Bool) {
-        showError(false, animation: animation)
+        hideError(animation: animation)
         heightConstraint.constant = 0
         if animation {
             UIView.animate(withDuration: Constants.animationDuration, animations: {
@@ -82,16 +82,16 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         return paymentID.count == Constants.paymentIdLength && !hasErrorFromServer
     }
     
-    func showError() {
+    func showErrorFromServer() {
         hasErrorFromServer = true
-        showError(true, animation: true)
+        showError(animation: true)
     }
     
     @IBAction private func textFieldDidChange(_ sender: Any) {
         
         hasErrorFromServer = false
         paymentIdDidChange?(paymentID)
-        showError(false, animation: true)
+        hideError(animation: true)
     }
     
 }
@@ -106,43 +106,47 @@ extension SendMoneroPaymentIdView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let isShow = (paymentID.count != Constants.paymentIdLength && paymentID.count > 0) || hasErrorFromServer
-        showError(isShow, animation: true)
+        
+        if isShow {
+            showError(animation: true)
+        }
+        else {
+            hideError(animation: true)
+        }
     }
 }
 
 //MARK: - UI
 private extension SendMoneroPaymentIdView {
     
-    func showError(_ isShow: Bool, animation: Bool) {
-        
-        if isShow {
-            if !isShowError {
-                isShowError = true
-                if animation {
-                    UIView.animate(withDuration: Constants.animationDuration) {
-                        self.labelError.alpha = 1
-                    }
-                }
-                else {
-                    labelError.alpha = 1
+    func showError(animation: Bool) {
+        if !isShowError {
+            isShowError = true
+            if animation {
+                UIView.animate(withDuration: Constants.animationDuration) {
+                    self.labelError.alpha = 1
                 }
             }
-        }
-        else {
-            if isShowError {
-                isShowError = false
-                if animation {
-                    UIView.animate(withDuration: Constants.animationDuration) {
-                        self.labelError.alpha = 0
-                    }
-                }
-                else {
-                    labelError.alpha = 0
-                }
+            else {
+                self.labelError.alpha = 1
             }
         }
     }
     
+    func hideError(animation: Bool) {
+        if isShowError {
+            isShowError = false
+            if animation {
+                UIView.animate(withDuration: Constants.animationDuration) {
+                    self.labelError.alpha = 0
+                }
+            }
+            else {
+                self.labelError.alpha = 0
+            }
+        }
+          
+    }
     
     func setupLocalization() {
         labelError.text = Localizable.Send.Label.Error.invalidId
