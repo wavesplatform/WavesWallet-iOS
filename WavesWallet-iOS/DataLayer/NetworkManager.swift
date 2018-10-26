@@ -94,6 +94,9 @@ class NetworkManager: NSObject
                         if dict["status"] as? String == "error" {
                             complete (nil, dict["message"] as? String)
                         }
+                        else if dict["error"] as? String != nil {
+                            complete(nil, dict["error"] as? String)
+                        }
                         else {
                             complete (parsedObjectFromResponse(response.result.value), nil)
                         }
@@ -106,7 +109,7 @@ class NetworkManager: NSObject
 
     }
 
-    @discardableResult fileprivate class func postRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult class func postRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
     
         return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, encoding: JSONEncoding.default, complete: complete)
     }

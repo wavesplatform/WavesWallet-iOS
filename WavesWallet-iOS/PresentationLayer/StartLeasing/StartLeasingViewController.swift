@@ -28,9 +28,9 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var iconAssetBalance: UIImageView!
     @IBOutlet private weak var labelAssetAmount: UILabel!
     @IBOutlet private weak var iconFavourite: UIImageView!
-    @IBOutlet private weak var addressGeneratorView: StartLeasingGeneratorView!
+    @IBOutlet private weak var addressGeneratorView: AddressInputView!
     @IBOutlet private weak var assetBgView: UIView!
-    @IBOutlet private weak var amountView: StartLeasingAmountView!
+    @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelTransactionFee: UILabel!
@@ -42,19 +42,19 @@ final class StartLeasingViewController: UIViewController {
     var presenter: StartLeasingPresenterProtocol!
     private let sendEvent: PublishRelay<StartLeasing.Event> = PublishRelay<StartLeasing.Event>()
     
-    var availableBalance: Money! {
+    var totalBalance: Money! {
         didSet {
-            
-            
             order = StartLeasing.DTO.Order(recipient: "",
-                                           amount: Money(0, availableBalance.decimals),
+                                           amount: Money(0, totalBalance.decimals),
                                            time: Date())
-            
-            if !availableBalance.isZero {
-                let amountWithFee = availableBalance.amount - order.fee
-                availableBalance = Money(amountWithFee < 0 ? 0 : amountWithFee, availableBalance.decimals)
-            }
         }
+    }
+    
+    private var availableBalance: Money {
+        if !totalBalance.isZero {
+            return Money(totalBalance.amount - order.fee, totalBalance.decimals)
+        }
+        return totalBalance
     }
     
     override func viewDidLoad() {
@@ -146,41 +146,50 @@ private extension StartLeasingViewController {
         title = Localizable.Waves.Startleasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
-        let fee = Money(order.fee, order.amount.decimals)
-        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + fee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
+        amountView.setupRightLabelText("Waves")
+    }
+    
+    var inputAmountValues: [Money] {
+        var values: [Money] = []
+        if !availableBalance.isZero {
+        
+            values.append(availableBalance)
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent50) / 100,
+                                availableBalance.decimals))
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent10) / 100,
+                                availableBalance.decimals))
+            values.append(Money(value: availableBalance.decimalValue * Decimal(Constants.percent5) / 100,
+                                availableBalance.decimals))
+        }
+        return values
     }
     
     func setupData() {
         
-        labelAssetAmount.text = availableBalance.displayTextFull
+        labelAssetAmount.text = totalBalance.displayTextFull
         
-        var inputAmountValues: [StartLeasingAmountView.Input] = []
+        var fields: [String] = []
         
         if !availableBalance.isZero {
-            let valuePercent50 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent50) / 100,
-                                       availableBalance.decimals)
             
-            let valuePercent10 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent10) / 100,
-                                       availableBalance.decimals)
-            
-            let valuePercent5 = Money(value: availableBalance.decimalValue * Decimal(Constants.percent5) / 100,
-                                      availableBalance.decimals)
-            
-            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: availableBalance))
-            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
-            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
-            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+            fields.append(contentsOf: [Localizable.Waves.Dexcreateorder.Button.useTotalBalanace,
+                                      String(Constants.percent50) + "%",
+                                      String(Constants.percent10) + "%",
+                                      String(Constants.percent5) + "%"])
         }
      
-        amountView.update(with: inputAmountValues)
+        amountView.update(with: fields)
+        amountView.input = { [weak self] in
+            return self?.inputAmountValues ?? []
+        }
     }
     
     func setupUI() {
         scrollView.keyboardDismissMode = .onDrag
         addressGeneratorView.delegate = self
         amountView.delegate = self
-        amountView.maximumFractionDigits = availableBalance.decimals
-
+        amountView.setDecimals(availableBalance.decimals, forceUpdateMoney: false)
         iconAssetBalance.layer.cornerRadius = iconAssetBalance.frame.size.width / 2
         iconAssetBalance.layer.borderWidth = Constants.borderWidth
         iconAssetBalance.layer.borderColor = UIColor.overlayDark.cgColor
@@ -189,6 +198,14 @@ private extension StartLeasingViewController {
         assetBgView.layer.borderWidth = Constants.borderWidth
         assetBgView.layer.borderColor = UIColor.overlayDark.cgColor
         
+        let addressInput = AddressInputView.Input.init(title: Localizable.StartLeasing.Label.generator,
+                                                       error: Localizable.StartLeasing.Label.addressIsNotValid,
+                                                       placeHolder: Localizable.StartLeasing.Label.nodeAddress,
+                                                       contacts: [])
+        addressGeneratorView.update(with: addressInput)
+        addressGeneratorView.errorValidation = { text in
+            return Address.isValidAddress(address: text)
+        }
         setupButtonState()
     }
     
@@ -220,8 +237,9 @@ private extension StartLeasingViewController {
 }
 
 //MARK: - StartLeasingAmountViewDelegate
-extension StartLeasingViewController: StartLeasingAmountViewDelegate {
-    func startLeasingAmountView(didChangeValue value: Money) {
+extension StartLeasingViewController: AmountInputViewDelegate {
+    
+    func amountInputView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
         amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
@@ -230,23 +248,41 @@ extension StartLeasingViewController: StartLeasingAmountViewDelegate {
 }
 
 //MARK: - StartLeasingGeneratorViewDelegate
-extension StartLeasingViewController: StartLeasingGeneratorViewDelegate {
+extension StartLeasingViewController: AddressInputViewDelegate {
 
-   
-    func startLeasingGeneratorViewDidSelectAddressBook() {
+    func addressInputViewDidSelectContactAtIndex(_ index: Int) {
         
+    }
+    
+    func addressInputViewDidEndEditing() {
+        addressGeneratorView.checkIfValidAddress()
+    }
+    
+    func addressInputViewDidSelectAddressBook() {
         let controller = AddressBookModuleBuilder(output: self).build(input: .init(isEditMode: false))
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func startLeasingGeneratorViewDidChangeAddress(_ address: String) {
+    func addressInputViewDidDeleteAddress() {
+        acceptAddress("")
+    }
+    
+    func addressInputViewDidScanAddress(_ address: String) {
+        acceptAddress(address)
+    }
+    
+    func addressInputViewDidChangeAddress(_ address: String) {
+        acceptAddress(address)
+    }
+    
+    func addressInputViewDidTapNext() {
+        amountView.activateTextField()
+    }
+    
+    private func acceptAddress(_ address: String) {
         order.recipient = address
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
-    }
-    
-    func startLeasingGeneratorDidTapNext() {
-        amountView.activateTextField()
     }
 }
 
@@ -257,6 +293,7 @@ extension StartLeasingViewController: AddressBookModuleOutput {
         addressGeneratorView.setupText(order.recipient, animation: false)
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
+        addressGeneratorView.checkIfValidAddress()
     }
 }
 

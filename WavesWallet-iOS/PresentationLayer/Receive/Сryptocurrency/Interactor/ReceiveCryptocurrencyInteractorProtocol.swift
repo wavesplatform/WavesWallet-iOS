@@ -11,6 +11,6 @@ import RxSwift
 
 protocol ReceiveCryptocurrencyInteractorProtocol {
     
-    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<Responce<ReceiveCryptocurrency.DTO.DisplayInfo>>
+    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>>
     
 }

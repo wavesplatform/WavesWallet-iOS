@@ -661,7 +661,7 @@
                                         <rect key="frame" x="0.0" y="748" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vJG-r1-UAG" id="iph-aj-DDz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
@@ -710,7 +710,7 @@
                                         <rect key="frame" x="0.0" y="792" width="375" height="326"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q4l-dc-88O" id="kfg-x4-slT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="326"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="325.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
@@ -1037,7 +1037,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LbA-uf-tAJ"/>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="segmentedControl" destination="SDa-Pg-ekZ" id="PwS-eG-iMS"/>
                         <outlet property="tableView" destination="b2m-TL-gDN" id="knk-WN-8gB"/>

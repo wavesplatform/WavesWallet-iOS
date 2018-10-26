@@ -12,10 +12,10 @@ struct AddAddressBookModuleBuilder: ModuleBuilderOutput {
     
     weak var output: AddAddressBookModuleOutput?
     
-    func build(input: DomainLayer.DTO.Contact?) -> UIViewController {
+    func build(input: AddAddressBook.DTO.Input) -> UIViewController {
         
         let vc = StoryboardScene.AddressBook.addAddressBookViewController.instantiate()
-        vc.contact = input
+        vc.input = input
         vc.delegate = output
         return vc
     }

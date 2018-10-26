@@ -20,7 +20,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     private let interator: ReceiveInvoiceInteractorProtocol = ReceiveInvoiceInteractor()
 
     private var selectedAsset: DomainLayer.DTO.AssetBalance?
-    private var amount: Decimal = 0
+    private var amount: Money?
     private var displayInfo: ReceiveInvoice.DTO.DisplayInfo?
     
     var input: AssetList.DTO.Input!
@@ -50,10 +50,8 @@ final class ReceiveInvoiceViewController: UIViewController {
     
     private func setupInfo(asset: DomainLayer.DTO.AssetBalance) {
         selectedAsset = asset
-
-        updateDisplayInfo()
         viewAsset.update(with: asset)
-        textFieldMoney.decimals = asset.asset?.precision ?? 0
+        textFieldMoney.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
     }
     
     private func updateDisplayInfo() {
@@ -61,9 +59,8 @@ final class ReceiveInvoiceViewController: UIViewController {
         displayInfo = nil
         setupButtonState()
         guard let asset = selectedAsset?.asset else { return }
-        
-        let money = Money(value: amount, asset.precision)
-        
+        guard let money = amount else { return }
+
         interator.displayInfo(asset: asset, amount: money).subscribe(onNext: { [weak self] displayInfo in
             
             guard let strongSelf = self else { return }
@@ -78,7 +75,10 @@ final class ReceiveInvoiceViewController: UIViewController {
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
-        let assetInput = AssetList.DTO.Input(filters: input.filters, selectedAsset: selectedAsset)
+        let assetInput = AssetList.DTO.Input(filters: input.filters,
+                                             selectedAsset: selectedAsset,
+                                             showAllList: input.showAllList)
+        
         let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -95,7 +95,7 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
 extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
 
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        amount = textField.decimalValue
+        amount = value
         updateDisplayInfo()
         calculateTotalDollar()
     }

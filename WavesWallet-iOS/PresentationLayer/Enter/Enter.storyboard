@@ -192,7 +192,6 @@
         <!--Language View Controller-->
         <scene sceneID="kO3-39-nzy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="50y-bF-cnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="LanguageViewController" id="Yh1-g9-kpK" customClass="LanguageViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QTo-yg-TWB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -274,6 +273,7 @@
                         <outlet property="tableView" destination="wHQ-5s-yxl" id="Ixa-Bc-YdY"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50y-bF-cnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="684" y="85.907046476761622"/>
         </scene>
@@ -281,7 +281,7 @@
         <scene sceneID="Yac-AZ-fkG">
             <objects>
                 <viewController storyboardIdentifier="EditAccountNameViewController" id="JRP-Zd-pua" customClass="EditAccountNameViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mOr-Kv-d5U">
+                    <view key="view" contentMode="scaleToFill" id="mOr-Kv-d5U" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
