@@ -109,12 +109,12 @@ private extension SendConfirmationViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.SendConfirmation.Label.confirmation
-        labelFee.text = Localizable.SendConfirmation.Label.fee
-        labelDescription.text = Localizable.SendConfirmation.Label.description
-        labelDescriptionError.text = Localizable.SendConfirmation.Label.descriptionIsTooLong
-        textField.placeholder = Localizable.SendConfirmation.Label.optionalMessage
-        buttonConfirm.setTitle(Localizable.SendConfirmation.Button.confim, for: .normal)
+        title = Localizable.Waves.Sendconfirmation.Label.confirmation
+        labelFee.text = Localizable.Waves.Sendconfirmation.Label.fee
+        labelDescription.text = Localizable.Waves.Sendconfirmation.Label.description
+        labelDescriptionError.text = Localizable.Waves.Sendconfirmation.Label.descriptionIsTooLong
+        textField.placeholder = Localizable.Waves.Sendconfirmation.Label.optionalMessage
+        buttonConfirm.setTitle(Localizable.Waves.Sendconfirmation.Button.confim, for: .normal)
     }
     
     func setupData() {

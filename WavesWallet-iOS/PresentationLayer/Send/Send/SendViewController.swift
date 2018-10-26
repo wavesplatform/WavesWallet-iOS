@@ -73,7 +73,7 @@ final class SendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Send.Label.send
+        title = Localizable.Waves.Send.Label.send
         createBackButton()
         setupRecipientAddress()
         setupLocalization()
@@ -115,7 +115,7 @@ final class SendViewController: UIViewController {
     private func calculateAmount() {
         
         //TODO: need update calculation
-        amountView.setupRightLabelText("≈ " + "0" + " " + Localizable.Send.Label.dollar)
+        amountView.setupRightLabelText("≈ " + "0" + " " + Localizable.Waves.Send.Label.dollar)
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
@@ -321,7 +321,7 @@ private extension SendViewController {
         var fields: [String] = []
         
         if availableBalance.amount > 0 {
-            fields.append(contentsOf: [Localizable.Send.Button.useTotalBalanace,
+            fields.append(contentsOf: [Localizable.Waves.Send.Button.useTotalBalanace,
                                        String(Constants.percent50) + "%",
                                        String(Constants.percent10) + "%",
                                        String(Constants.percent5) + "%"])
@@ -349,10 +349,10 @@ private extension SendViewController {
             if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress {
                 let wavesFeeText = wavesFee.displayText + " WAVES"
                 let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
-                labelAmountError.text = Localizable.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
+                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
             }
             else {
-                labelAmountError.text = Localizable.Send.Label.Error.notFundsFee
+                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFee
             }
         }
         else {
@@ -373,7 +373,7 @@ private extension SendViewController {
                
             }
         }
-        amountView.showErrorMessage(message: Localizable.Send.Label.Error.insufficientFunds, isShow: isShow)
+        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShow)
     }
     
     func showLoadingButtonState() {
@@ -440,13 +440,13 @@ private extension SendViewController {
         
         gateWayInfo = info
         
-        labelWarningTitle.text = Localizable.Send.Label.gatewayFee + " " + info.fee.displayText + " " + info.assetShortName
+        labelWarningTitle.text = Localizable.Waves.Send.Label.gatewayFee + " " + info.fee.displayText + " " + info.assetShortName
         
         let min = info.minAmount.displayText + " " + info.assetShortName
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
-        labelWarningSubtitle.text = Localizable.Send.Label.Warning.subtitle(info.assetName, min, max)
-        labelWarningDescription.text = Localizable.Send.Label.Warning.description(info.assetName)
+        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
+        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
         
         viewWarning.isHidden = false
         viewWarning.alpha = 0
@@ -472,15 +472,15 @@ private extension SendViewController {
     }
     
     func setupLocalization() {
-        buttonContinue.setTitle(Localizable.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Send.Label.transactionFee + " " + wavesFee.displayText + " WAVES"
+        buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
+        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + wavesFee.displayText + " WAVES"
     }
     
     func setupRecipientAddress() {
         
-        let input = AddressInputView.Input(title: Localizable.Send.Label.recipient,
-                                           error: Localizable.Send.Label.addressNotValid,
-                                           placeHolder: Localizable.Send.Label.recipientAddress,
+        let input = AddressInputView.Input(title: Localizable.Waves.Send.Label.recipient,
+                                           error: Localizable.Waves.Send.Label.addressNotValid,
+                                           placeHolder: Localizable.Waves.Send.Label.recipientAddress,
                                            contacts: [])
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self

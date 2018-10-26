@@ -161,7 +161,7 @@ private extension AssetListViewController {
         }
         
         let font = UIFont.systemFont(ofSize: 17)
-        let title = isMyList ? Localizable.AssetList.Button.allList :  Localizable.AssetList.Button.withBalance
+        let title = isMyList ? Localizable.Waves.Assetlist.Button.allList :  Localizable.Waves.Assetlist.Button.withBalance
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font), height: Constants.buttonHeight)
         button.titleLabel?.font = font

@@ -64,7 +64,7 @@ final class SendCompleteViewController: UIViewController {
         labelAddress.text = input.address
         let amountText = input.amountWithoutFee.displayText + " " + input.assetName
         
-        labelSubtitle.text = Localizable.SendComplete.Label.youHaveSent + " " + amountText
+        labelSubtitle.text = Localizable.Waves.Sendcomplete.Label.youHaveSent + " " + amountText
         
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
         addressBook.users().subscribe(onNext: { [weak self] contacts in
@@ -78,9 +78,9 @@ final class SendCompleteViewController: UIViewController {
     
     private func setupLocalization() {
         
-        labelSaveAddress.text = Localizable.SendComplete.Label.saveThisAddress
-        buttonOkey.setTitle(Localizable.SendComplete.Button.okey, for: .normal)
-        labelTitle.text = Localizable.SendComplete.Label.transactionIsOnWay
+        labelSaveAddress.text = Localizable.Waves.Sendcomplete.Label.saveThisAddress
+        buttonOkey.setTitle(Localizable.Waves.Sendcomplete.Button.okey, for: .normal)
+        labelTitle.text = Localizable.Waves.Sendcomplete.Label.transactionIsOnWay
     }
 }
 
