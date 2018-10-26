@@ -246,7 +246,7 @@ private extension SendViewController {
                     
                 case .didFailGenerateMoneroAddress(let error):
                     strongSelf.hideButtonLoadingButtonsState()
-                    strongSelf.moneroPaymentIdView.showError()
+                    strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()
 
                 case .didGenerateMoneroAddress(let address):
@@ -624,7 +624,7 @@ private extension SendViewController {
             (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
     }
     
-    var canValidateAlias: Bool {
+    var canValidateAliasOnServer: Bool {
         let alias = recipientAddressView.text
         return alias.count >= Send.ViewModel.minimumAliasLength &&
         alias.count <= Send.ViewModel.maximumAliasLength
@@ -656,17 +656,29 @@ private extension SendViewController {
         }
     }
 
+    func canInputOnlyLocalAddressOrAlias(_ asset: DomainLayer.DTO.Asset) -> Bool {
+         return asset.isWaves || asset.isWavesToken || asset.isFiat
+    }
+    
+    func isCryptoCurrencyAsset(_ asset: DomainLayer.DTO.Asset) -> Bool {
+        return asset.isGateway && !asset.isFiat
+    }
+    
+    func addressNotRequireMinimumLength(_ address: String) -> Bool {
+        return address.count > 0 && address.count < Send.ViewModel.minimumAliasLength
+    }
+    
     func validateAddress() {
         let address = recipientAddressView.text
         guard let asset = selectedAsset?.asset else { return }
 
-        if address.count > 0 && address.count < Send.ViewModel.minimumAliasLength {
+        if addressNotRequireMinimumLength(address) {
             recipientAddressView.checkIfValidAddress()
             return
         }
 
-        if asset.isWaves || asset.isWavesToken || asset.isFiat {
-            if !isValidLocalAddress && !isValidAlias && canValidateAlias {
+        if canInputOnlyLocalAddressOrAlias(asset) {
+            if !isValidLocalAddress && !isValidAlias && canValidateAliasOnServer {
                 sendEvent.accept(.checkValidationAlias)
                 recipientAddressView.showLoadingState()
             }
@@ -674,7 +686,7 @@ private extension SendViewController {
                 recipientAddressView.checkIfValidAddress()
             }
         }
-        else if asset.isGateway && !asset.isFiat {
+        else if isCryptoCurrencyAsset(asset) {
             if !isValidLocalAddress {
                 if isValidCryptocyrrencyAddress {
                     if gateWayInfo == nil {
@@ -684,7 +696,7 @@ private extension SendViewController {
                     recipientAddressView.checkIfValidAddress()
                 }
                 else {
-                    if !isValidAlias && canValidateAlias {
+                    if !isValidAlias && canValidateAliasOnServer {
                         sendEvent.accept(.checkValidationAlias)
                         recipientAddressView.showLoadingState()
                     }
