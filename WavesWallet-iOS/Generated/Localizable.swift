@@ -10,7 +10,7 @@ internal enum Localizable {
           internal enum InfoPlist {
     /// The camera is needed to scan QR codes
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
-    /// Authenticate with Face ID
+    /// Access to your wallet
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
   }
           internal enum Waves {
