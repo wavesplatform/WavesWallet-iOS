@@ -149,9 +149,9 @@ private extension SendMoneroPaymentIdView {
     }
     
     func setupLocalization() {
-        labelError.text = Localizable.Send.Label.Error.invalidId
-        labelMoneroPayment.text = Localizable.Send.Label.moneroPaymentId
-        textField.placeholder = Localizable.Send.Textfield.placeholderPaymentId
+        labelError.text = Localizable.Waves.Send.Label.Error.invalidId
+        labelMoneroPayment.text = Localizable.Waves.Send.Label.moneroPaymentId
+        textField.placeholder = Localizable.Waves.Send.Textfield.placeholderPaymentId
     }
 }
 

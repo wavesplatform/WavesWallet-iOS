@@ -22,7 +22,7 @@ final class SendLoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        labelSending.text = Localizable.SendLoading.Label.sending
+        labelSending.text = Localizable.Waves.Sendloading.Label.sending
         navigationItem.hidesBackButton = true
         send()
     }

@@ -26,7 +26,7 @@ final class SendConfirmationRecipientView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelSendTo.text = Localizable.SendConfirmation.Label.sentTo
+        labelSendTo.text = Localizable.Waves.Sendconfirmation.Label.sentTo
     }
     
 }
