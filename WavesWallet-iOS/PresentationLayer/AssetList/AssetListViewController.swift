@@ -172,8 +172,8 @@ private extension AssetListViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.AssetList.Label.assets
-        labelLoading.text = Localizable.AssetList.Label.loadingAssets
+        title = Localizable.Waves.Assetlist.Label.assets
+        labelLoading.text = Localizable.Waves.Assetlist.Label.loadingAssets
     }
     
     func setupLoadingState() {

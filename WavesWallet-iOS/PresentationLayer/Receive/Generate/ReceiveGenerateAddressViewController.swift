@@ -65,16 +65,16 @@ final class ReceiveGenerateAddressViewController: UIViewController {
     
     private func setupLocalication() {
         
-        labelGenerate.text = Localizable.ReceiveGenerate.Label.generate
+        labelGenerate.text = Localizable.Waves.Receivegenerate.Label.generate
      
         guard let type = input else { return }
         
         switch type {
         case .cryptoCurrency(let info):
-            title = Localizable.ReceiveGenerate.Label.yourAddress(info.assetName)
+            title = Localizable.Waves.Receivegenerate.Label.yourAddress(info.assetName)
             
         case .invoice(let info):
-            title = Localizable.ReceiveGenerate.Label.yourAddress(info.assetName)
+            title = Localizable.Waves.Receivegenerate.Label.yourAddress(info.assetName)
         }
     }
     

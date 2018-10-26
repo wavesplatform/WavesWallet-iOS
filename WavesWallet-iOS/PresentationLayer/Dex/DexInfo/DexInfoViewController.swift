@@ -68,16 +68,16 @@ private extension DexInfoViewController {
 private extension DexInfoViewController {
  
     func setupInfo() {
-        labelAmountAssetTitle.text = Localizable.DexInfo.Label.amountAsset + " — " + pair.amountAsset.name
+        labelAmountAssetTitle.text = Localizable.Waves.Dexinfo.Label.amountAsset + " — " + pair.amountAsset.name
         labelAmountAsset.text = pair.amountAsset.id
         
-        labelPriceAssetTitle.text = Localizable.DexInfo.Label.priceAsset + " — " + pair.priceAsset.name
+        labelPriceAssetTitle.text = Localizable.Waves.Dexinfo.Label.priceAsset + " — " + pair.priceAsset.name
         labelPriceAsset.text = pair.priceAsset.id
         
         labelPopular.isHidden = pair.isHidden
     }
     
     func setupLocalization() {
-        labelPopular.text = Localizable.DexInfo.Label.popular
+        labelPopular.text = Localizable.Waves.Dexinfo.Label.popular
     }
 }

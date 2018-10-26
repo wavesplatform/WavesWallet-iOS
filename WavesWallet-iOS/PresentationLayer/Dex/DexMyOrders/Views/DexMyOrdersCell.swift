@@ -52,10 +52,10 @@ private extension DexMyOrdersCell {
 private extension DexMyOrdersCell {
         
     func setupLocalization() {
-        labelTimeText.text = Localizable.DexMyOrders.Label.time
-        labelStatusText.text = Localizable.DexMyOrders.Label.status
-        labelAmountText.text = Localizable.DexMyOrders.Label.amount
-        labelPriceText.text = Localizable.DexMyOrders.Label.price
+        labelTimeText.text = Localizable.Waves.Dexmyorders.Label.time
+        labelStatusText.text = Localizable.Waves.Dexmyorders.Label.status
+        labelAmountText.text = Localizable.Waves.Dexmyorders.Label.amount
+        labelPriceText.text = Localizable.Waves.Dexmyorders.Label.price
     }
 }
 
@@ -65,16 +65,16 @@ fileprivate extension DexMyOrders.DTO.Order {
     var statusText: String {
         switch status {
         case .accepted:
-            return Localizable.DexMyOrders.Label.Status.accepted
+            return Localizable.Waves.Dexmyorders.Label.Status.accepted
             
         case .partiallyFilled:
-            return Localizable.DexMyOrders.Label.Status.partiallyFilled
+            return Localizable.Waves.Dexmyorders.Label.Status.partiallyFilled
             
         case .cancelled:
-            return Localizable.DexMyOrders.Label.Status.cancelled
+            return Localizable.Waves.Dexmyorders.Label.Status.cancelled
             
         case .filled:
-            return Localizable.DexMyOrders.Label.Status.filled
+            return Localizable.Waves.Dexmyorders.Label.Status.filled
         }
     }
 }

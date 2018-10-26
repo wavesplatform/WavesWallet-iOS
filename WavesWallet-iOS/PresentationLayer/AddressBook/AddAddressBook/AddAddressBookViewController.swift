@@ -36,7 +36,7 @@ final class AddAddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = input.contact != nil ? Localizable.AddAddressBook.Label.edit : Localizable.AddAddressBook.Label.add
+        title = input.contact != nil ? Localizable.Waves.Addaddressbook.Label.edit : Localizable.Waves.Addaddressbook.Label.add
         if let address = input.address {
             textFieldAddress.text = address
         }
@@ -98,9 +98,9 @@ private extension AddAddressBookViewController {
     
     @IBAction func deleteTapped(_ sender: Any) {
     
-        let controller = UIAlertController(title: Localizable.AddAddressBook.Button.deleteAddress, message: Localizable.AddAddressBook.Label.deleteAlertMessage, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: Localizable.AddAddressBook.Button.cancel, style: .cancel, handler: nil)
-        let delete = UIAlertAction(title: Localizable.AddAddressBook.Button.delete, style: .destructive) { (action) in
+        let controller = UIAlertController(title: Localizable.Waves.Addaddressbook.Button.deleteAddress, message: Localizable.Waves.Addaddressbook.Label.deleteAlertMessage, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: Localizable.Waves.Addaddressbook.Button.cancel, style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: Localizable.Waves.Addaddressbook.Button.delete, style: .destructive) { (action) in
             if let contact = self.input.contact {
                 self.authorizationInteractor
                     .authorizedWallet()
@@ -151,12 +151,12 @@ private extension AddAddressBookViewController {
     func setupTextFields() {
         textFieldName.delegate = self
         textFieldAddress.delegate = self
-        textFieldName.setupPlaceholder(Localizable.AddAddressBook.Label.name)
+        textFieldName.setupPlaceholder(Localizable.Waves.Addaddressbook.Label.name)
     }
     
     func setupLocalization() {
-        buttonDelete.setTitle(Localizable.AddAddressBook.Button.deleteAddress, for: .normal)
-        buttonSave.setTitle(Localizable.AddAddressBook.Button.save, for: .normal)
+        buttonDelete.setTitle(Localizable.Waves.Addaddressbook.Button.deleteAddress, for: .normal)
+        buttonSave.setTitle(Localizable.Waves.Addaddressbook.Button.save, for: .normal)
     }
     
     func setupNavBarUI() {

@@ -33,13 +33,13 @@ final class WalletHistoryCell: UITableViewCell, NibReusable {
 // MARK: ViewConfiguration
 extension WalletHistoryCell: ViewConfiguration {
     func update(with model: Void) {
-        titleLabel.text = Localizable.Wallet.Label.viewHistory
+        titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory
     }
 }
 
 // MARK: Localization
 extension WalletHistoryCell: Localization {
     func setupLocalization() {
-        titleLabel.text = Localizable.Wallet.Label.viewHistory
+        titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory
     }
 }

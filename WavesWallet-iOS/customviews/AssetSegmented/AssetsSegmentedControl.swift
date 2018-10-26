@@ -145,14 +145,14 @@ fileprivate extension AssetsSegmentedControl {
         titleLabel.text = asset.name
         switch asset.kind {
         case .fiat:
-            detailLabel.text = Localizable.General.Ticker.Title.fiatmoney
+            detailLabel.text = Localizable.Waves.General.Ticker.Title.fiatmoney
         case .gateway:
-            detailLabel.text = Localizable.General.Ticker.Title.cryptocurrency
+            detailLabel.text = Localizable.Waves.General.Ticker.Title.cryptocurrency
         case .spam:
-            tickerView.update(with: .init(text: Localizable.General.Ticker.Title.spam,
+            tickerView.update(with: .init(text: Localizable.Waves.General.Ticker.Title.spam,
                                           style: .normal))
         case .wavesToken:
-            detailLabel.text = Localizable.General.Ticker.Title.wavestoken
+            detailLabel.text = Localizable.Waves.General.Ticker.Title.wavestoken
         }
     }
 }

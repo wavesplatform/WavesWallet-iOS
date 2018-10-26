@@ -18,7 +18,7 @@ final class AssetViewHistoryCell: UITableViewCell, NibReusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        button.setTitle(Localizable.Asset.Cell.viewHistory, for: .normal)
+        button.setTitle(Localizable.Waves.Asset.Cell.viewHistory, for: .normal)
         button.isUserInteractionEnabled = false
         viewContainer.addTableCellShadowStyle()
     }

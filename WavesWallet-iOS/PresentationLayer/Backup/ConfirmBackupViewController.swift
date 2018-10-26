@@ -35,10 +35,10 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Backup.Confirmbackup.Navigation.title
-        labelTapWord.text = Localizable.Backup.Confirmbackup.Info.label
-        labelError.text = Localizable.Backup.Confirmbackup.Error.label
-        buttonConfirm.setTitle(Localizable.Backup.Confirmbackup.Button.confirm, for: .normal)
+        title = Localizable.Waves.Backup.Confirmbackup.Navigation.title
+        labelTapWord.text = Localizable.Waves.Backup.Confirmbackup.Info.label
+        labelError.text = Localizable.Waves.Backup.Confirmbackup.Error.label
+        buttonConfirm.setTitle(Localizable.Waves.Backup.Confirmbackup.Button.confirm, for: .normal)
 
         buttonConfirm.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         buttonConfirm.setBackgroundImage(UIColor.submit400.image, for: .normal)

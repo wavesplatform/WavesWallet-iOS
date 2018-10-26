@@ -76,6 +76,6 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
 
         let item = languages[indexPath.row]
         output?.languageDidSelect(language: item)
-        continueBtn.setTitle(Localizable.Hello.Button.continue, for: .normal)
+        continueBtn.setTitle(Localizable.Waves.Hello.Button.continue, for: .normal)
     }
 }

@@ -50,14 +50,14 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
         switch model.type {
         case .resend:
             
-            title = Localizable.TransactionHistory.Cell.Button.sendAgain
+            title = Localizable.Waves.Transactionhistory.Cell.Button.sendAgain
             buttonBackground = UIColor.warning600
             buttonHighlightedBackground = UIColor.warning400
             icon = Images.resendIcon.image
             
         case .cancelLeasing:
             
-            title = Localizable.TransactionHistory.Cell.Button.cancelLeasing
+            title = Localizable.Waves.Transactionhistory.Cell.Button.cancelLeasing
             buttonBackground = UIColor.error400
             buttonHighlightedBackground = UIColor.error700
             icon = Images.closeLeaseIcon.image

@@ -1008,16 +1008,16 @@ fileprivate extension PasscodeTypes.DTO.Kind {
         default:
             switch kind {
             case .oldPasscode:
-                return Localizable.Passcode.Label.Passcode.enter
+                return Localizable.Waves.Passcode.Label.Passcode.enter
 
             case .newPasscode:
-                return Localizable.Passcode.Label.Passcode.create
+                return Localizable.Waves.Passcode.Label.Passcode.create
 
             case .repeatPasscode:
-                return Localizable.Passcode.Label.Passcode.verify
+                return Localizable.Waves.Passcode.Label.Passcode.verify
 
             case .enterPasscode:
-                return Localizable.Passcode.Label.Passcode.enter
+                return Localizable.Waves.Passcode.Label.Passcode.enter
             }
         }
     }

@@ -36,9 +36,9 @@ private extension DexLastTradesHeaderView {
     
     func setupTitles() {
         
-        labelTime.text = Localizable.DexLastTrades.Label.time
-        labelAmount.text = Localizable.DexLastTrades.Label.amount
-        labelPrice.text = Localizable.DexLastTrades.Label.price
-        labelSum.text = Localizable.DexLastTrades.Label.sum
+        labelTime.text = Localizable.Waves.Dexlasttrades.Label.time
+        labelAmount.text = Localizable.Waves.Dexlasttrades.Label.amount
+        labelPrice.text = Localizable.Waves.Dexlasttrades.Label.price
+        labelSum.text = Localizable.Waves.Dexlasttrades.Label.sum
     }
 }

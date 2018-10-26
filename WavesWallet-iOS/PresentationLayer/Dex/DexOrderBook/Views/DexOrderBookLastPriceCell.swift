@@ -18,7 +18,7 @@ final class DexOrderBookLastPriceCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        labelLastPrice.text = Localizable.DexOrderBook.Label.lastPrice
+        labelLastPrice.text = Localizable.Waves.Dexorderbook.Label.lastPrice
     }
 }
 
@@ -29,10 +29,10 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
         labelPrice.text = model.price.formattedText()
        
         if model.percent > 0 {
-            labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
+            labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
         }
         else {
-            labelSpread.text = Localizable.DexOrderBook.Label.spread + " " + "%"
+            labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " " + "%"
         }
         
         if model.orderType == .sell {

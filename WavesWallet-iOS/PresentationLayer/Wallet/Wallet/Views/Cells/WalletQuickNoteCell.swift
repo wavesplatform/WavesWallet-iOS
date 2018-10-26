@@ -38,9 +38,9 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
     class func cellHeight(with width: CGFloat) -> CGFloat {
         
         let font = UIFont.systemFont(ofSize: 13)
-        let text1 = Localizable.Wallet.Label.Quicknote.Description.first
-        let text2 = Localizable.Wallet.Label.Quicknote.Description.second
-        let text3 = Localizable.Wallet.Label.Quicknote.Description.third
+        let text1 = Localizable.Waves.Wallet.Label.Quicknote.Description.first
+        let text2 = Localizable.Waves.Wallet.Label.Quicknote.Description.second
+        let text3 = Localizable.Waves.Wallet.Label.Quicknote.Description.third
 
         var height = text1.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingSecondTitleTop
@@ -55,9 +55,9 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
 
 extension WalletQuickNoteCell: Localization {
     func setupLocalization() {
-        firstTitle.text = Localizable.Wallet.Label.Quicknote.Description.first
-        secondTitle.text = Localizable.Wallet.Label.Quicknote.Description.second
-        thirdTitle.text = Localizable.Wallet.Label.Quicknote.Description.third
+        firstTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.first
+        secondTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.second
+        thirdTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.third
     }
 }
 

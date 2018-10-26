@@ -143,8 +143,8 @@ private extension StartLeasingViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.StartLeasing.Label.startLeasing
-        labelBalanceTitle.text = Localizable.StartLeasing.Label.balance
+        title = Localizable.Waves.Startleasing.Label.startLeasing
+        labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
         labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
         amountView.setupRightLabelText("Waves")
@@ -173,7 +173,7 @@ private extension StartLeasingViewController {
         
         if !availableBalance.isZero {
             
-            fields.append(contentsOf: [Localizable.DexCreateOrder.Button.useTotalBalanace,
+            fields.append(contentsOf: [Localizable.Waves.Dexcreateorder.Button.useTotalBalanace,
                                       String(Constants.percent50) + "%",
                                       String(Constants.percent10) + "%",
                                       String(Constants.percent5) + "%"])
@@ -214,7 +214,7 @@ private extension StartLeasingViewController {
         buttonStartLease.isUserInteractionEnabled = isValidOrder
         buttonStartLease.backgroundColor = isValidOrder ? .submit400 : .submit200
         
-        let buttonTitle = isCreatingOrderState ? "" : Localizable.StartLeasing.Button.startLease
+        let buttonTitle = isCreatingOrderState ? "" : Localizable.Waves.Startleasing.Button.startLease
         buttonStartLease.setTitle(buttonTitle, for: .normal)
     }
 
@@ -242,7 +242,7 @@ extension StartLeasingViewController: AmountInputViewDelegate {
     func amountInputView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
-        amountView.showErrorMessage(message: Localizable.StartLeasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
         sendEvent.accept(.updateInputOrder(order))
     }
 }

@@ -49,7 +49,7 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
 extension ProfileBackupPhraseCell: ViewConfiguration {
 
     func update(with model: ProfileBackupPhraseCell.Model) {
-        labelTitle.text = Localizable.Profile.Cell.Backupphrase.title
+        labelTitle.text = Localizable.Waves.Profile.Cell.Backupphrase.title
         if model.isBackedUp {
             viewColorState.backgroundColor = .success400
             iconState.image = Images.check18Success400.image
