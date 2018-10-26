@@ -28,12 +28,12 @@ final class ImportAccountViewController: UIViewController, TTTAttributedLabelDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Import.Account.Navigation.title
+        title = Localizable.Waves.Import.Account.Navigation.title
 
-        stepOneDetailLabel.text = Localizable.Import.Account.Label.Info.Step.One.detail
-        stepTwoTitleLabel.text = Localizable.Import.Account.Label.Info.Step.Two.title
-        scanParringButton.setTitle(Localizable.Import.Account.Button.Scan.title, for: .normal)
-        enterSeedButton.setTitle(Localizable.Import.Account.Button.Enter.title, for: .normal)
+        stepOneDetailLabel.text = Localizable.Waves.Import.Account.Label.Info.Step.One.detail
+        stepTwoTitleLabel.text = Localizable.Waves.Import.Account.Label.Info.Step.Two.title
+        scanParringButton.setTitle(Localizable.Waves.Import.Account.Button.Scan.title, for: .normal)
+        enterSeedButton.setTitle(Localizable.Waves.Import.Account.Button.Enter.title, for: .normal)
 
         navigationItem.barTintColor = .white
         setupBigNavigationBar()
@@ -51,7 +51,7 @@ final class ImportAccountViewController: UIViewController, TTTAttributedLabelDel
         labelLog.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
         labelLog.delegate = self
         
-        let attr = NSAttributedString(string: Localizable.Import.Account.Label.Info.Step.One.title, attributes: [NSAttributedStringKey.font : labelLog.font])
+        let attr = NSAttributedString(string: Localizable.Waves.Import.Account.Label.Info.Step.One.title, attributes: [NSAttributedStringKey.font : labelLog.font])
         labelLog.setText(attr)
     }
 

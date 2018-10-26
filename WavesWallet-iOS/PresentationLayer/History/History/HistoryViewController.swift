@@ -73,8 +73,8 @@ final class HistoryViewController: UIViewController {
 
 extension HistoryViewController: Localization {
     func setupLocalization() {
-        navigationItem.title = Localizable.History.Navigationbar.title
-        emptyTextLabel.text = Localizable.Asset.Header.notHaveTransactions
+        navigationItem.title = Localizable.Waves.History.Navigationbar.title
+        emptyTextLabel.text = Localizable.Waves.Asset.Header.notHaveTransactions
     }
 }
 

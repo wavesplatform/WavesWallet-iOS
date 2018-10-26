@@ -29,7 +29,7 @@ final class DexSortViewController: UIViewController {
         super.viewDidLoad()
 
         createBackButton()
-        title = Localizable.DexSort.Navigationbar.title
+        title = Localizable.Waves.Dexsort.Navigationbar.title
         tableView.setEditing(true, animated: false)
         tableView.contentInset = Constants.contentInset
 

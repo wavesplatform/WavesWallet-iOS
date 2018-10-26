@@ -74,13 +74,13 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     private func setupLanguage() {
         collectionView.reloadData()
-    createNewAccountButton.setTitle(Localizable.Enter.Button.Createnewaccount.title, for: .normal)
+    createNewAccountButton.setTitle(Localizable.Waves.Enter.Button.Createnewaccount.title, for: .normal)
         
-        signInTitleLabel.text = Localizable.Enter.Button.Signin.title
-        signInDetailLabel.text = Localizable.Enter.Button.Signin.detail
+        signInTitleLabel.text = Localizable.Waves.Enter.Button.Signin.title
+        signInDetailLabel.text = Localizable.Waves.Enter.Button.Signin.detail
         
-        importAccountTitleLabel.text = Localizable.Enter.Button.Importaccount.title
-        importAccountDetailLabel.text = Localizable.Enter.Button.Importaccount.detail
+        importAccountTitleLabel.text = Localizable.Waves.Enter.Button.Importaccount.title
+        importAccountDetailLabel.text = Localizable.Waves.Enter.Button.Importaccount.detail
         
         setupLanguageButton()
     }

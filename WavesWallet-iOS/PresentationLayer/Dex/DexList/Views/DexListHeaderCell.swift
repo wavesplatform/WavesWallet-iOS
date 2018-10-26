@@ -32,13 +32,13 @@ extension DexListHeaderCell {
         
         if date.isToday {
             formatter.dateFormat = "HH:mm"
-            labelTitle.text = Localizable.DexList.Label.lastUpdate + ": " +
-                Localizable.DexList.Label.today + ", " + formatter.string(from: date)
+            labelTitle.text = Localizable.Waves.Dexlist.Label.lastUpdate + ": " +
+                Localizable.Waves.Dexlist.Label.today + ", " + formatter.string(from: date)
         }
         else if date.isYesterday {
             formatter.dateFormat = "HH:mm"
-            labelTitle.text = Localizable.DexList.Label.lastUpdate + ": " +
-                Localizable.DexList.Label.yesterday + ", " + formatter.string(from: date)
+            labelTitle.text = Localizable.Waves.Dexlist.Label.lastUpdate + ": " +
+                Localizable.Waves.Dexlist.Label.yesterday + ", " + formatter.string(from: date)
         }
         else {
             formatter.timeStyle = .short

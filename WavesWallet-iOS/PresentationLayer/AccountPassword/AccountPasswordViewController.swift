@@ -68,12 +68,12 @@ final class AccountPasswordViewController: UIViewController {
 
     private func setupTextField() {
         passwordTextField.returnKey = .done
-        passwordTextField.update(with: .init(title: Localizable.NewAccount.Textfield.Confirmpassword.title,
+        passwordTextField.update(with: .init(title: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title,
                                              kind: .password,
-                                             placeholder: Localizable.NewAccount.Textfield.Confirmpassword.title))
+                                             placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
 
         passwordTextField.valueValidator = { value in
-            return (value?.count ?? 0) < GlobalConstants.minLengthPassword ? Localizable.AccountPassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword) : nil
+            return (value?.count ?? 0) < GlobalConstants.minLengthPassword ? Localizable.Waves.Accountpassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword) : nil
         }
 
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
@@ -128,7 +128,7 @@ private extension AccountPasswordViewController {
         } else {
             indicatorView.stopAnimating()
             buttonSignIn.isEnabled = passwordTextField.isValidValue
-            buttonSignIn.setTitleWithoutAnimated(Localizable.AccountPassword.Button.Signin.title, for: .normal)
+            buttonSignIn.setTitleWithoutAnimated(Localizable.Waves.Accountpassword.Button.Signin.title, for: .normal)
         }
 
         imageView.image = identity.createImage(by: state.address, size: imageView.frame.size)

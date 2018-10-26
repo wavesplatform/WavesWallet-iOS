@@ -39,10 +39,10 @@ final class NeedBackupViewController: UIViewController {
         navigationItem.rightBarButtonItem = closeItem
         navigationItem.leftBarButtonItem = UIBarButtonItem()
 
-        titleLabel.text = Localizable.Backup.Needbackup.Label.title
-        detailLabel.text = Localizable.Backup.Needbackup.Label.detail
-        backUpNowButton.setTitle(Localizable.Backup.Needbackup.Button.backupnow, for: .normal)
-        doItLaterButton.setTitle(Localizable.Backup.Needbackup.Button.doitlater, for: .normal)
+        titleLabel.text = Localizable.Waves.Backup.Needbackup.Label.title
+        detailLabel.text = Localizable.Waves.Backup.Needbackup.Label.detail
+        backUpNowButton.setTitle(Localizable.Waves.Backup.Needbackup.Button.backupnow, for: .normal)
+        doItLaterButton.setTitle(Localizable.Waves.Backup.Needbackup.Button.doitlater, for: .normal)
         backUpNowButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         backUpNowButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }

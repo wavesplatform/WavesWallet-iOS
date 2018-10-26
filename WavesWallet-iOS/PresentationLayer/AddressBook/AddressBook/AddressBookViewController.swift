@@ -55,8 +55,8 @@ final class AddressBookViewController: UIViewController {
 private extension AddressBookViewController {
     
     func setupLocalization() {
-        title = Localizable.AddressBook.Label.addressBook
-        labelNoInfo.text = Localizable.AddressBook.Label.noInfo
+        title = Localizable.Waves.Addressbook.Label.addressBook
+        labelNoInfo.text = Localizable.Waves.Addressbook.Label.noInfo
     }
 
     func setupUIState() {
@@ -171,6 +171,6 @@ extension AddressBookViewController: AddressBookCellDelegate {
 extension AddressBookViewController: AddAddressBookModuleOutput {
        
     func addAddressBookDidDelete(contact: DomainLayer.DTO.Contact) {
-        SuccessSystemMessageView.showWithMessage(Localizable.AddressBook.Label.addressDeleted)
+        SuccessSystemMessageView.showWithMessage(Localizable.Waves.Addressbook.Label.addressDeleted)
     }
 }

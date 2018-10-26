@@ -96,20 +96,20 @@ extension AssetBalanceCell: ViewConfiguration {
 
         options = Options(isHiddenLeased: model.leasedMoney.isZero, isHiddenInOrder: model.inOrderMoney.isZero)
 
-        sendButton.setTitle(Localizable.Asset.Cell.Balance.Button.send, for: .normal)
-        receiveButton.setTitle(Localizable.Asset.Cell.Balance.Button.receive, for: .normal)
-        exchangeButton.setTitle(Localizable.Asset.Cell.Balance.Button.exchange, for: .normal)
+        sendButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.send, for: .normal)
+        receiveButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.receive, for: .normal)
+        exchangeButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.exchange, for: .normal)
 
-        titleLabel.text = Localizable.Asset.Cell.Balance.avaliableBalance
+        titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 
         balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull,
                                                                          font: balanceLabel.font)
 
-        viewLeased.update(with: .init(name: Localizable.Asset.Cell.Balance.leased,
+        viewLeased.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.leased,
                                       money: model.leasedMoney))
-        viewInOrder.update(with: .init(name: Localizable.Asset.Cell.Balance.inOrderBalance,
+        viewInOrder.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.inOrderBalance,
                                        money: model.inOrderMoney))
-        viewTotal.update(with: .init(name: Localizable.Asset.Cell.Balance.totalBalance,
+        viewTotal.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.totalBalance,
                                      money: model.totalMoney))
 
         isNeedsUpdateConstraints = true

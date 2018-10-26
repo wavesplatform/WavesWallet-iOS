@@ -40,7 +40,7 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelAmountLocalizable.text = Localizable.StartLeasing.Label.amount
+        labelAmountLocalizable.text = Localizable.Waves.Startleasing.Label.amount
         viewTextField.addTableCellShadowStyle()
         scrollViewInput.inputDelegate = self
         textFieldMoney.moneyDelegate = self

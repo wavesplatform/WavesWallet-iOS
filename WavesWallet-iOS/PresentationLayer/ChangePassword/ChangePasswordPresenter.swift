@@ -155,7 +155,7 @@ private extension ChangePasswordPresenter {
                 var confirmPasswordTextField = state.displayState.textFields[.confirmPassword]
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.ChangePassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
                 } else {
                     textfield?.error = nil
                     state.isValidConfirmPassword = true
@@ -164,7 +164,7 @@ private extension ChangePasswordPresenter {
 
                 if let confirmPassword = state.textFields[.confirmPassword],
                     let newPassword = value, confirmPassword != newPassword {
-                    confirmPasswordTextField?.error = Localizable.ChangePassword.Textfield.Error.passwordnotmatch
+                    confirmPasswordTextField?.error = Localizable.Waves.Changepassword.Textfield.Error.passwordnotmatch
                 }
 
                 state.displayState.textFields[.confirmPassword] = confirmPasswordTextField
@@ -172,10 +172,10 @@ private extension ChangePasswordPresenter {
             case .confirmPassword:
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.ChangePassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
                 } else if let newPassword = state.textFields[.newPassword],
                     let confirmPassword = value, confirmPassword != newPassword {
-                    textfield?.error = Localizable.ChangePassword.Textfield.Error.passwordnotmatch
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.passwordnotmatch
                 } else {
                     textfield?.error = nil
                     state.isValidConfirmPassword = true
@@ -195,7 +195,7 @@ private extension ChangePasswordPresenter {
 
         case .handlerError:
             //TODO: Error
-            state.displayState.textFields[.oldPassword]?.error = Localizable.ChangePassword.Textfield.Error.incorrectpassword
+            state.displayState.textFields[.oldPassword]?.error = Localizable.Waves.Changepassword.Textfield.Error.incorrectpassword
 
         case .tapContinue:
             guard let oldPassword = state.textFields[.oldPassword] else { return }

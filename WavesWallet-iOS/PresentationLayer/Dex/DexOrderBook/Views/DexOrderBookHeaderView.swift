@@ -30,8 +30,8 @@ final class DexOrderBookHeaderView: DexTraderContainerBaseHeaderView, NibOwnerLo
 extension DexOrderBookHeaderView: ViewConfiguration {
     
     func update(with model: DexOrderBook.ViewModel.Header) {
-        labelAmountAssetName.text = Localizable.DexOrderBook.Label.amount + " " + model.amountName
-        labelPriceAssetName.text = Localizable.DexOrderBook.Label.price + " " + model.priceName
-        labelSumAssetName.text = Localizable.DexOrderBook.Label.sum + " " + model.sumName
+        labelAmountAssetName.text = Localizable.Waves.Dexorderbook.Label.amount + " " + model.amountName
+        labelPriceAssetName.text = Localizable.Waves.Dexorderbook.Label.price + " " + model.priceName
+        labelSumAssetName.text = Localizable.Waves.Dexorderbook.Label.sum + " " + model.sumName
     }
 }

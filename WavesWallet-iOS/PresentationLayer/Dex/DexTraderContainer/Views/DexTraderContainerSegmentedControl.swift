@@ -97,10 +97,10 @@ final class DexTraderContainerSegmentedControl: UIView, NibOwnerLoadable {
 //MARK - Localization
 private extension DexTraderContainerSegmentedControl {
     func setupLocalization() {
-        buttonOrderBook.setTitle(Localizable.DexTraderContainer.Button.orderbook, for: .normal)
-        buttonChart.setTitle(Localizable.DexTraderContainer.Button.chart, for: .normal)
-        buttonMyOrders.setTitle(Localizable.DexTraderContainer.Button.myOrders, for: .normal)
-        buttonLastTrades.setTitle(Localizable.DexTraderContainer.Button.lastTrades, for: .normal)
+        buttonOrderBook.setTitle(Localizable.Waves.Dextradercontainer.Button.orderbook, for: .normal)
+        buttonChart.setTitle(Localizable.Waves.Dextradercontainer.Button.chart, for: .normal)
+        buttonMyOrders.setTitle(Localizable.Waves.Dextradercontainer.Button.myOrders, for: .normal)
+        buttonLastTrades.setTitle(Localizable.Waves.Dextradercontainer.Button.lastTrades, for: .normal)
     }
 }
 

@@ -52,7 +52,7 @@ final class ProfileViewController: UIViewController {
 private extension ProfileViewController {
 
     private func setupLanguages() {
-        navigationItem.title = Localizable.Profile.Navigation.title
+        navigationItem.title = Localizable.Waves.Profile.Navigation.title
     }
 
     private func setupTableview() {
@@ -134,12 +134,12 @@ extension ProfileViewController: UITableViewDataSource {
         switch row {
         case .addressesKeys:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Addresses.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Addresses.title))
             return cell
 
         case .addressbook:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Addressbook.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Addressbook.title))
             return cell
 
         case .pushNotifications:
@@ -159,12 +159,12 @@ extension ProfileViewController: UITableViewDataSource {
 
         case .changePassword:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Changepassword.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Changepassword.title))
             return cell
 
         case .changePasscode:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Changepasscode.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Changepasscode.title))
             return cell
 
         case .biometric(let isOn):
@@ -177,22 +177,22 @@ extension ProfileViewController: UITableViewDataSource {
 
         case .network:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Network.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Network.title))
             return cell
 
         case .rateApp:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Rateapp.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Rateapp.title))
             return cell
 
         case .feedback:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Feedback.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Feedback.title))
             return cell
 
         case .supportWavesplatform:
             let cell: ProfileValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Profile.Cell.Supportwavesplatform.title))
+            cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Supportwavesplatform.title))
             return cell
             
         case .info(let version, let height, let isBackedUp):
@@ -247,13 +247,13 @@ extension ProfileViewController: UITableViewDelegate {
 
         switch section.kind {
         case .general:
-            view.update(with: Localizable.Profile.Header.General.title)
+            view.update(with: Localizable.Waves.Profile.Header.General.title)
 
         case .security:
-            view.update(with: Localizable.Profile.Header.Security.title)
+            view.update(with: Localizable.Waves.Profile.Header.Security.title)
 
         case .other:
-            view.update(with: Localizable.Profile.Header.Other.title)
+            view.update(with: Localizable.Waves.Profile.Header.Other.title)
 
         }
        
@@ -316,17 +316,17 @@ private extension ProfileViewController{
 
     func showAlertDeleteAccount() {
 
-        let alert = UIAlertController(title: Localizable.Profile.Alert.Deleteaccount.title,
-                                      message: Localizable.Profile.Alert.Deleteaccount.Withoutbackup.message,
+        let alert = UIAlertController(title: Localizable.Waves.Profile.Alert.Deleteaccount.title,
+                                      message: Localizable.Waves.Profile.Alert.Deleteaccount.Withoutbackup.message,
                                       preferredStyle: .alert)
 
-        let delete = UIAlertAction(title: Localizable.Profile.Alert.Deleteaccount.Button.delete,
+        let delete = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.delete,
                                    style: UIAlertActionStyle.default,
                                    handler: { [weak self] _ in
                                     self?.eventInput.onNext(.tapDelete)
         })
 
-        let cancel = UIAlertAction(title: Localizable.Profile.Alert.Deleteaccount.Button.cancel,
+        let cancel = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.cancel,
                                    style: UIAlertActionStyle.cancel,
                                    handler: { [weak alert] _ in
                                     alert?.dismiss(animated: true, completion: nil)

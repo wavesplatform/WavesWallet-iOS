@@ -1,5 +1,0 @@
-"label.minimunAmountInfo" = "The minimum is %@, the maximum is %@"; // The minimum is 30 USD, the maximum is 200 USD
-"label.warningInfo" = "For making a payment from your card you will be redirected to the merchant's website";
-"label.changeCurrency" = "Change currency";
-
-"button.cancel" = "Cancel";

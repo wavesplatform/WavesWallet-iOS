@@ -43,19 +43,19 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         
         switch model.kind {
         case .sent:
-            title = Localizable.TransactionHistory.Cell.sentTo
+            title = Localizable.Waves.Transactionhistory.Cell.sentTo
         case .receive:
-            title = Localizable.TransactionHistory.Cell.receivedFrom
+            title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
         case .startedLeasing:
-            title = Localizable.TransactionHistory.Cell.leasingTo
+            title = Localizable.Waves.Transactionhistory.Cell.leasingTo
         case .canceledLeasing:
-            title = Localizable.TransactionHistory.Cell.from
+            title = Localizable.Waves.Transactionhistory.Cell.from
         case .incomingLeasing:
-            title = Localizable.TransactionHistory.Cell.from
+            title = Localizable.Waves.Transactionhistory.Cell.from
         case .massSent:
-            title = Localizable.TransactionHistory.Cell.recipient
+            title = Localizable.Waves.Transactionhistory.Cell.recipient
         case .massReceived:
-            title = Localizable.TransactionHistory.Cell.recipient
+            title = Localizable.Waves.Transactionhistory.Cell.recipient
         default:
             title = ""
         }

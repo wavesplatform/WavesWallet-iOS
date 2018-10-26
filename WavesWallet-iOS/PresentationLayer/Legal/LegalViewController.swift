@@ -114,8 +114,8 @@ final class LegalViewController: UIViewController {
     // MARK: - Content
     
     private func fillLabels() {
-        firstLabel.text = Localizable.Checkbox.Box.first
-        secondLabel.text = Localizable.Checkbox.Box.second
+        firstLabel.text = Localizable.Waves.Legal.Checkbox.Box.first
+        secondLabel.text = Localizable.Waves.Legal.Checkbox.Box.second
         
         secondLabel.activeLinkAttributes = linkAttributes()
         secondLabel.linkAttributes = linkAttributes()
@@ -129,8 +129,8 @@ final class LegalViewController: UIViewController {
         firstLabel.addLink(to: URL(string: "https://apple.com/"), with: NSRange.init(location: 0, length: firstCount))
         secondLabel.addLink(to: URL(string: "https://apple.com/"), with: NSRange.init(location: 0, length: secondCount))
         
-        let termsString = Localizable.Checkbox.Box.termsOfUse
-        let thirdString = Localizable.Checkbox.Box.third + " " + termsString
+        let termsString = Localizable.Waves.Legal.Checkbox.Box.termsOfUse
+        let thirdString = Localizable.Waves.Legal.Checkbox.Box.third + " " + termsString
 
         thirdLabel.text = thirdString
         

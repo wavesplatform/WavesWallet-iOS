@@ -103,22 +103,22 @@ extension DexChart.DTO.TimeFrameType {
     var text: String {
         switch self {
         case .m5:
-            return "5" + " " + Localizable.DexChart.Label.minutes
+            return "5" + " " + Localizable.Waves.Dexchart.Label.minutes
 
         case .m15:
-            return "15" + " " + Localizable.DexChart.Label.minutes
+            return "15" + " " + Localizable.Waves.Dexchart.Label.minutes
 
         case .m30:
-            return "30" + " " + Localizable.DexChart.Label.minutes
+            return "30" + " " + Localizable.Waves.Dexchart.Label.minutes
 
         case .h1:
-            return "1" + " " + Localizable.DexChart.Label.hour
+            return "1" + " " + Localizable.Waves.Dexchart.Label.hour
 
         case .h4:
-            return "4" + " " + Localizable.DexChart.Label.hours
+            return "4" + " " + Localizable.Waves.Dexchart.Label.hours
 
         case .h24:
-            return "24" + " " + Localizable.DexChart.Label.hours
+            return "24" + " " + Localizable.Waves.Dexchart.Label.hours
         }
     }
     

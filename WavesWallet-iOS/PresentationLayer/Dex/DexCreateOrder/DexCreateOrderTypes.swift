@@ -85,22 +85,22 @@ extension DexCreateOrder.DTO.Expiration {
     var text: String {
         switch self {
         case .expiration5m:
-            return "5" + " " + Localizable.DexCreateOrder.Button.minutes
+            return "5" + " " + Localizable.Waves.Dexcreateorder.Button.minutes
             
         case .expiration30m:
-            return "30" + " " + Localizable.DexCreateOrder.Button.minutes
+            return "30" + " " + Localizable.Waves.Dexcreateorder.Button.minutes
             
         case .expiration1h:
-            return "1" + " " + Localizable.DexCreateOrder.Button.hour
+            return "1" + " " + Localizable.Waves.Dexcreateorder.Button.hour
             
         case .expiration1d:
-            return "1" + " " + Localizable.DexCreateOrder.Button.day
+            return "1" + " " + Localizable.Waves.Dexcreateorder.Button.day
             
         case .expiration1w:
-            return "1" + " " + Localizable.DexCreateOrder.Button.week
+            return "1" + " " + Localizable.Waves.Dexcreateorder.Button.week
             
         case .expiration30d:
-            return "30" + " " + Localizable.DexCreateOrder.Button.days
+            return "30" + " " + Localizable.Waves.Dexcreateorder.Button.days
         }
     }
 }

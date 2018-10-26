@@ -31,9 +31,9 @@ final class ChangePasswordViewController: UIViewController {
 
         buttonConfirm.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonConfirm.setBackgroundImage(UIColor.submit400.image, for: .normal)
-        buttonConfirm.setTitle(Localizable.ChangePassword.Button.Confirm.title, for: .normal)
+        buttonConfirm.setTitle(Localizable.Waves.Changepassword.Button.Confirm.title, for: .normal)
 
-        navigationItem.title = Localizable.ChangePassword.Navigation.title
+        navigationItem.title = Localizable.Waves.Changepassword.Navigation.title
         navigationItem.barTintColor = .white
         createBackButton()
         setupBigNavigationBar()
@@ -52,15 +52,15 @@ final class ChangePasswordViewController: UIViewController {
         passwordInput.autocapitalizationType = .none
         confirmPasswordInput.autocapitalizationType = .none
 
-        oldPasswordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Oldpassword.title,
+        oldPasswordInput.update(with: InputTextField.Model(title: Localizable.Waves.Changepassword.Textfield.Oldpassword.title,
                                                               kind: .password,
-                                                              placeholder: Localizable.ChangePassword.Textfield.Oldpassword.title))
-        passwordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Createpassword.title,
+                                                              placeholder: Localizable.Waves.Changepassword.Textfield.Oldpassword.title))
+        passwordInput.update(with: InputTextField.Model(title: Localizable.Waves.Changepassword.Textfield.Createpassword.title,
                                                            kind: .password,
-                                                           placeholder: Localizable.ChangePassword.Textfield.Createpassword.title))
-        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.ChangePassword.Textfield.Confirmpassword.title,
+                                                           placeholder: Localizable.Waves.Changepassword.Textfield.Createpassword.title))
+        confirmPasswordInput.update(with: InputTextField.Model(title: Localizable.Waves.Changepassword.Textfield.Confirmpassword.title,
                                                                   kind: .newPassword,
-                                                                  placeholder: Localizable.ChangePassword.Textfield.Confirmpassword.title))
+                                                                  placeholder: Localizable.Waves.Changepassword.Textfield.Confirmpassword.title))
 
         oldPasswordInput.returnKey = .next
         passwordInput.returnKey = .next

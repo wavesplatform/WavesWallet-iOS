@@ -49,8 +49,8 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        labelAssetLocalization.text = Localizable.Receive.Label.asset
-        labelSelectAsset.text = Localizable.Receive.Label.selectYourAsset
+        labelAssetLocalization.text = Localizable.Waves.Receive.Label.asset
+        labelSelectAsset.text = Localizable.Waves.Receive.Label.selectYourAsset
         viewAsset.isHidden = true
         updateViewStyle()
     }

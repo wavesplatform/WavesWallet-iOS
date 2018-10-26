@@ -16,10 +16,10 @@ extension BiometricType {
             return nil
 
         case .touchID:
-            return Localizable.General.Biometric.Touchid.title
+            return Localizable.Waves.General.Biometric.Touchid.title
 
         case .faceID:
-            return Localizable.General.Biometric.Faceid.title
+            return Localizable.Waves.General.Biometric.Faceid.title
         }
     }
 

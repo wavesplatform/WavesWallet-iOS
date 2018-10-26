@@ -33,7 +33,7 @@ extension DexListCell: ViewConfiguration {
         
         labelTitle.text = model.amountAsset.name + " / " + model.priceAsset.name
 
-        labelType.text = Localizable.DexList.Label.price + " " + model.amountAsset.name
+        labelType.text = Localizable.Waves.Dexlist.Label.price + " " + model.amountAsset.name
         
         let firstPrice = model.firstPrice.doubleValue
         let lastPrice = model.lastPrice.doubleValue

@@ -232,16 +232,16 @@ fileprivate extension WalletTypes.ViewModel.Section {
 
         switch kind {
         case .info:
-            return Localizable.Wallet.Section.quickNote
+            return Localizable.Waves.Wallet.Section.quickNote
 
         case .transactions:
-            return Localizable.Wallet.Section.activeNow(items.count)
+            return Localizable.Waves.Wallet.Section.activeNow(items.count)
 
         case .spam(let count):
-            return Localizable.Wallet.Section.spamAssets(count)
+            return Localizable.Waves.Wallet.Section.spamAssets(count)
 
         case .hidden(let count):
-            return Localizable.Wallet.Section.hiddenAssets(count)
+            return Localizable.Waves.Wallet.Section.hiddenAssets(count)
 
         default:
             return nil

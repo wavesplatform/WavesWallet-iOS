@@ -44,7 +44,7 @@ private extension DexChartHeaderView {
     @IBAction func timeTapped(_ sender: Any) {
         
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancel = UIAlertAction(title: Localizable.DexChart.Button.cancel, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: Localizable.Waves.Dexchart.Button.cancel, style: .cancel, handler: nil)
         controller.addAction(cancel)
 
         let types: [DexChart.DTO.TimeFrameType] = [.m5, .m15, .m30, .h1, .h4, .h24]

@@ -150,7 +150,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             kindRows.append(
                 .keyValue(
                 .init(
-                    title: model.price.currency.title + " " + Localizable.TransactionHistory.Cell.price,
+                    title: model.price.currency.title + " " + Localizable.Waves.Transactionhistory.Cell.price,
                     value: model.price.displayText)
                 ))
             
@@ -167,9 +167,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
             kindRows.append(
                 .keyValue(
                 .init(
-                    title: Localizable.TransactionHistory.Cell.id,
+                    title: Localizable.Waves.Transactionhistory.Cell.id,
                     value: model.asset.id,
-                    subvalue: model.asset.isReusable ? Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                    subvalue: model.asset.isReusable ? Localizable.Waves.Transactionhistory.Cell.reissuable : Localizable.Waves.Transactionhistory.Cell.notReissuable)
                 ))
             
         case .tokenReissue(let model):
@@ -181,10 +181,10 @@ extension TransactionHistoryTypes.ViewModel.Section {
             kindRows.append(
                 .keyValue(
                 .init(
-                    title: Localizable.TransactionHistory.Cell.id,
+                    title: Localizable.Waves.Transactionhistory.Cell.id,
                     value: model.asset.id,
                     subvalue: model.asset.isReusable ?
-                        Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                        Localizable.Waves.Transactionhistory.Cell.reissuable : Localizable.Waves.Transactionhistory.Cell.notReissuable)
                 ))
             
         case .tokenBurn(let model):
@@ -195,9 +195,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
             kindRows.append(
                 .keyValue(
                 .init(
-                    title: Localizable.TransactionHistory.Cell.id,
+                    title: Localizable.Waves.Transactionhistory.Cell.id,
                     value: model.asset.id,
-                    subvalue: model.asset.isReusable ? Localizable.TransactionHistory.Cell.reissuable : Localizable.TransactionHistory.Cell.notReissuable)
+                    subvalue: model.asset.isReusable ? Localizable.Waves.Transactionhistory.Cell.reissuable : Localizable.Waves.Transactionhistory.Cell.notReissuable)
                 ))
             
         case .createdAlias(let model):
@@ -292,7 +292,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             }
             
         case .data:
-            customTitle = Localizable.TransactionHistory.Cell.dataTransaction
+            customTitle = Localizable.Waves.Transactionhistory.Cell.dataTransaction
         case .unrecognisedTransaction:
             break
         }
@@ -378,7 +378,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func feeRow() -> TransactionHistoryTypes.ViewModel.Row {
         return
             .keyValue(
-                .init(title: Localizable.TransactionHistory.Cell.fee,
+                .init(title: Localizable.Waves.Transactionhistory.Cell.fee,
                   value: totalFee.displayText)
             )
     }
@@ -387,11 +387,11 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return .keysValues(
             [
                 .init(
-                    title: Localizable.TransactionHistory.Cell.confirmations,
+                    title: Localizable.Waves.Transactionhistory.Cell.confirmations,
                     value: String(confirmationHeight)
                 ),
                 .init(
-                    title: Localizable.TransactionHistory.Cell.block,
+                    title: Localizable.Waves.Transactionhistory.Cell.block,
                     value: String(height)
                 )
             ])
