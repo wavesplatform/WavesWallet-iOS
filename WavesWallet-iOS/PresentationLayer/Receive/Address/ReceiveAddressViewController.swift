@@ -59,7 +59,12 @@ final class ReceiveAddressViewController: UIViewController {
     }
     
     @objc private func cancelTapped() {
-        navigationController?.popToRootViewController(animated: true)
+        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetViewController.classForCoder()}) {
+            navigationController?.popToViewController(assetVc, animated: true)
+        }
+        else {
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     private func setupLocalization() {
