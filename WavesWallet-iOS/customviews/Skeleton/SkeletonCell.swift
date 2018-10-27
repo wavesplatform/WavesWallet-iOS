@@ -32,3 +32,21 @@ class SkeletonCell: UITableViewCell, SkeletonAnimatable {
         return views.map { $0.gradientLayer }
     }
 }
+
+extension UITableView {
+
+    func startSkeletonCells() {
+        self.visibleCells
+            .map { $0 as? SkeletonCell }
+            .flatMap { $0 }
+            .forEach { $0.startAnimation() }
+
+    }
+
+    func stopSkeletonCells() {
+        self.visibleCells
+            .map { $0 as? SkeletonCell }
+            .flatMap { $0 }
+            .forEach { $0.stopAnimation() }
+    }
+}
