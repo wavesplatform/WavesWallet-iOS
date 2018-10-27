@@ -115,7 +115,7 @@ extension AddressInputView: ViewConfiguration {
         labelTitle.text = model.title
         labelError.text = model.error
         textField.placeholder = model.placeHolder
-        inputScrollView.update(with: [Localizable.StartLeasing.Button.chooseFromAddressBook] + model.contacts)
+        inputScrollView.update(with: [Localizable.Waves.Startleasing.Button.chooseFromAddressBook] + model.contacts)
     }
 }
 

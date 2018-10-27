@@ -146,7 +146,7 @@ private extension StartLeasingViewController {
         title = Localizable.Waves.Startleasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
-        labelTransactionFee.text = Localizable.StartLeasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
         amountView.setupRightLabelText("Waves")
     }
     
@@ -198,9 +198,9 @@ private extension StartLeasingViewController {
         assetBgView.layer.borderWidth = Constants.borderWidth
         assetBgView.layer.borderColor = UIColor.overlayDark.cgColor
         
-        let addressInput = AddressInputView.Input.init(title: Localizable.StartLeasing.Label.generator,
-                                                       error: Localizable.StartLeasing.Label.addressIsNotValid,
-                                                       placeHolder: Localizable.StartLeasing.Label.nodeAddress,
+        let addressInput = AddressInputView.Input.init(title: Localizable.Waves.Startleasing.Label.generator,
+                                                       error: Localizable.Waves.Startleasing.Label.addressIsNotValid,
+                                                       placeHolder: Localizable.Waves.Startleasing.Label.nodeAddress,
                                                        contacts: [])
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
