@@ -9,7 +9,7 @@
 import UIKit
 
 fileprivate enum Constants {
-    static let deffaultCornerRadius: Float = -1
+    static let deffaultValue: Float = -1
 }
 
 extension UIView {
@@ -19,6 +19,8 @@ extension UIView {
         static var maskLayer = "maskLayer"
         static var prevBounds = "prevBounds"
         static var shadowOptions = "shadowOptions"
+        static var borderWidth = "borderWidth"
+        static var borderColor = "borderColor"
         static var isInvalidatePath = "isInvalidatePath"
     }
 
@@ -41,13 +43,38 @@ extension UIView {
     @IBInspectable var cornerRadius: Float {
 
         get {
-            return associatedObject(for: &AssociatedKeys.cornerRadius) ?? Constants.deffaultCornerRadius
+            return associatedObject(for: &AssociatedKeys.cornerRadius) ?? Constants.deffaultValue
         }
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.cornerRadius)
             update()
             
+        }
+    }
+
+    @IBInspectable var borderWidth: Float {
+
+        get {
+            return associatedObject(for: &AssociatedKeys.borderWidth) ?? Constants.deffaultValue
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.borderWidth)
+            update()
+
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+
+        get {
+            return associatedObject(for: &AssociatedKeys.borderColor)
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.borderColor)
+            update()
         }
     }
 
@@ -69,7 +96,7 @@ extension UIView {
             layer.setupShadow(options: shadowOptions)
         }
 
-        if self.cornerRadius != Constants.deffaultCornerRadius {
+        if self.cornerRadius != Constants.deffaultValue {
             layer.cornerRadius = CGFloat(self.cornerRadius)
             layer.shouldRasterize = true
             layer.rasterizationScale = UIScreen.main.scale
@@ -78,6 +105,11 @@ extension UIView {
                 layer.masksToBounds = true
                 warning("Corner radius dont work, need enable mask to bounds")
             }
+        }
+
+        if self.borderWidth != Constants.deffaultValue {
+            layer.borderWidth = CGFloat(self.borderWidth) / UIScreen.main.scale
+            layer.borderColor = self.borderColor?.cgColor
         }
     }
 

@@ -15,27 +15,30 @@ enum AddressesKeysTypes {
 extension AddressesKeysTypes {
 
     enum Query: Hashable {
-
+        case getAliases
+        case getPrivateKey
     }
 
     struct State: Mutating {
+        var wallet: DomainLayer.DTO.Wallet
+        var aliaces: [DomainLayer.DTO.Alias]
         var query: Query?
-        var wallet: DomainLayer.DTO.Wallet?
-        var block: Int64?
         var displayState: DisplayState
     }
 
     enum Event {
-//        case viewDidAppear
+        case viewWillAppear
+        case setAliaces([DomainLayer.DTO.Alias])
+        case setPrivateKey(DomainLayer.DTO.SignedWallet)
 //        case viewDidDisappear
 //        case tapRow(ProfileTypes.ViewModel.Row)
 //        case setEnabledBiometric(Bool)
 //        case setBlock(Int64)
 //        case setWallet(DomainLayer.DTO.Wallet)
 //        case setBackedUp(Bool)
-//        case tapLogout
+        case tapShowPrivateKey
 //        case tapDelete
-//        case completedQuery
+        case completedQuery
 //        case none
     }
 
@@ -55,11 +58,12 @@ extension AddressesKeysTypes {
 extension AddressesKeysTypes.ViewModel {
 
     enum Row {
-        case aliases
-        case address
-        case publicKey
+        case aliases(Int)
+        case address(String)
+        case publicKey(String)
         case hiddenPrivateKey
-        case privateKey
+        case privateKey(String)
+        case skeleton
     }
 
     struct Section: SectionBase, Mutating {

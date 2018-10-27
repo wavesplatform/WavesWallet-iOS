@@ -55,6 +55,7 @@ final class HistoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.basic50
         setupTopBarLine()
         setupBigNavigationBar()
+        tableView.startSkeletonCells()
     }
 
     override func viewDidAppear(_ animated: Bool) {

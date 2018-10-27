@@ -15,7 +15,7 @@ enum ProfileTypes {
 extension ProfileTypes {
 
     enum Query: Hashable {
-        case showAddressesKeys
+        case showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
         case showAddressBook
         case showLanguage
         case showBackupPhrase(wallet: DomainLayer.DTO.Wallet)
