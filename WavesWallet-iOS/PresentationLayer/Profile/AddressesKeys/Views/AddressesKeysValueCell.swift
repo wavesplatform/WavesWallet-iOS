@@ -14,7 +14,7 @@ private enum Constants {
     static let titleKeyHeight: CGFloat = 14
     static let paddingTitleTop: CGFloat = 8
     static let leftOrRightPadding: CGFloat = 16
-    static let infoButtonSize: CGFloat = 44
+    static let infoButtonSize: CGFloat = 50
 }
 
 final class AddressesKeysValueCell: UITableViewCell, Reusable {
@@ -51,11 +51,12 @@ extension AddressesKeysValueCell: ViewConfiguration {
 
 // MARK: ViewCalculateHeight
 
+//TODO: Incorect paddint copy button 
 extension AddressesKeysValueCell: ViewCalculateHeight {
 
     static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
 
-        let size = model.value.maxHeightMultiline(font: .systemFont(ofSize: 13), forWidth: width - Constants.leftOrRightPadding * 3 - Constants.infoButtonSize)
+        let size = model.value.maxHeightMultiline(font: .systemFont(ofSize: 13), forWidth: width - Constants.leftOrRightPadding - Constants.infoButtonSize)
 
         return Constants.topPadding + Constants.bottomPadding + Constants.separatoHeight + Constants.titleKeyHeight + size + Constants.paddingTitleTop
     }
