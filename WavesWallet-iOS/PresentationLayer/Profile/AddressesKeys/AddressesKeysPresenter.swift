@@ -86,6 +86,7 @@ fileprivate extension AddressesKeysPresenter {
                 .aliasesRepository
                 .aliases(accountAddress: accountAddress)
                 .map { Types.Event.setAliaces($0) }
+                .sweetDebug("getAliasesQuery")
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()
                 })
@@ -107,7 +108,7 @@ fileprivate extension AddressesKeysPresenter {
             return Observable.create({ [weak self] (observer) -> Disposable in
 
                 guard let strongSelf = self else { return Disposables.create() }
-                
+
                 strongSelf
                     .moduleOutput?
                     .addressesKeysNeedPrivateKey(wallet: wallet, callback: { signedWallet in
@@ -138,15 +139,7 @@ private extension AddressesKeysPresenter {
 
         switch event {
         case .viewWillAppear:
-            state.displayState.isAppeared = true
-            state.displayState.action = .update
-
-            let sections = [Types.ViewModel.Section(rows: [.skeleton,
-                                                           .address(state.wallet.address),
-                                                           .publicKey(state.wallet.publicKey),
-                                                           .hiddenPrivateKey])]
-            state.displayState.sections = sections
-
+            state.displayState.isAppeared = true            
         case .setAliaces(let aliaces):
             state.aliaces = aliaces
 
@@ -199,17 +192,18 @@ private extension AddressesKeysPresenter {
         return Types.State(wallet: moduleInput.wallet,
                            aliaces: [],
                            query: nil,
-                           displayState: initialDisplayState())
+                           displayState: initialDisplayState(moduleInput: moduleInput))
     }
 
-    func initialDisplayState() -> Types.DisplayState {
+    func initialDisplayState(moduleInput: AddressesKeysModuleInput) -> Types.DisplayState {
 
-//        let sections = [Types.ViewModel.Section.init(rows: [.aliases(8),
-//                                                            .address("3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW"),
-//                                                            .publicKey("4T25bAunzydwvzkJcQ9f378UzGRqyUcDXLS4xgam7JQQ 4T25bAunzydwvzkJcQ9f378UzGRqyUcDXLS4xgam7JQQ"),
-//                                                            .hiddenPrivateKey])]
-        return Types.DisplayState(sections: [],
+        let section = Types.ViewModel.Section(rows: [.skeleton,
+                                                     .address(moduleInput.wallet.address),
+                                                     .publicKey(moduleInput.wallet.publicKey),
+                                                     .hiddenPrivateKey])
+
+        return Types.DisplayState(sections: [section],
                                   isAppeared: false,
-                                  action: nil)
+                                  action: .update)
     }
 }

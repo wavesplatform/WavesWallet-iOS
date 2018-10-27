@@ -16,6 +16,7 @@ final class AddressesKeysCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let wallet: DomainLayer.DTO.Wallet
     private var needPrivateKeyCallback: ((DomainLayer.DTO.SignedWallet) -> Void)?
+    private var rootViewController: UIViewController?
 
     init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet) {
         self.navigationController = navigationController
@@ -24,6 +25,7 @@ final class AddressesKeysCoordinator: Coordinator {
 
     func start() {
         let vc = AddressesKeysModuleBuilder(output: self).build(input: .init(wallet: wallet))
+        self.rootViewController = vc
         self.navigationController.pushViewController(vc, animated: true)
     }
 
@@ -50,7 +52,9 @@ extension AddressesKeysCoordinator: PasscodeCoordinatorDelegate {
         if let callback = self.needPrivateKeyCallback {
             callback(signedWallet)
             self.needPrivateKeyCallback = nil
-            navigationController.popViewController(animated: true)
+            if let rootViewController = self.rootViewController {
+                navigationController.popToViewController(rootViewController, animated: true)
+            }
             childCoordinators.last(where: { $0 is PasscodeCoordinator })?.removeFromParentCoordinator()
         }
     }
