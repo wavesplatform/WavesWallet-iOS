@@ -36,6 +36,8 @@ final class SendConfirmationViewController: UIViewController {
     @IBOutlet private weak var labelDescriptionError: UILabel!
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var buttonConfirm: HighlightedButton!
+    @IBOutlet private weak var tickerView: TickerView!
+    @IBOutlet private weak var labelAssetName: UILabel!
     
     private var isShowError = false
     
@@ -45,13 +47,17 @@ final class SendConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewContainer.createTopCorners(radius: Constants.cornerRadius)
         createBackWhiteButton()
         setupLocalization()
         setupData()
         labelDescriptionError.alpha = 0
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        viewContainer.createTopCorners(radius: Constants.cornerRadius)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTopBarLine()
@@ -81,6 +87,15 @@ final class SendConfirmationViewController: UIViewController {
     
     private var descriptionText: String {
         return textField.text ?? ""
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension SendConfirmationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        confirmTapped(buttonConfirm)
+        return true
     }
 }
 
@@ -134,6 +149,14 @@ private extension SendConfirmationViewController {
 
         }).dispose()
         
+        if let ticker = input.asset.ticker {
+            labelAssetName.isHidden = true
+            tickerView.update(with: .init(text: ticker, style: .soft))
+        }
+        else {
+            tickerView.isHidden = true
+            labelAssetName.text = input.asset.displayName
+        }
         labelFeeAmount.text = input.fee.displayText + " Waves"
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayTextFull, font: labelBalance.font)
     }
