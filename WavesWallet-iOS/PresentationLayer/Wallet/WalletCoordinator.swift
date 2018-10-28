@@ -20,7 +20,6 @@ final class WalletCoordinator {
 
     func start(navigationController: UINavigationController) {
         self.navigationController = navigationController
-
         navigationController.pushViewController(walletViewContoller, animated: false)
     }
 }

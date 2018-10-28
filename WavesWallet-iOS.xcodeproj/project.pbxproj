@@ -190,6 +190,7 @@
 		0A5E4BE521383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE421383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift */; };
 		0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE621383E1600E3C3C3 /* BurnTransaction+Mapper.swift */; };
 		0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E4BE821383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift */; };
+		0A5F953F2185FAD4005308AC /* CreateNewAliasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F953E2185FAD4005308AC /* CreateNewAliasViewController.swift */; };
 		0A61B593214AB4E700EC60FC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61B592214AB4E700EC60FC /* AppCoordinator.swift */; };
 		0A61B596214AC90C00EC60FC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61B595214AC90C00EC60FC /* Coordinator.swift */; };
 		0A61B59A214ACFD500EC60FC /* Languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A61B599214ACFD500EC60FC /* Languages.json */; };
@@ -976,6 +977,7 @@
 		0A5E4BE621383E1600E3C3C3 /* BurnTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BurnTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A5E4BE821383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExchangeTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsInteractor.swift; sourceTree = "<group>"; };
+		0A5F953E2185FAD4005308AC /* CreateNewAliasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAliasViewController.swift; sourceTree = "<group>"; };
 		0A61B592214AB4E700EC60FC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0A61B595214AC90C00EC60FC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0A61B599214ACFD500EC60FC /* Languages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Languages.json; sourceTree = "<group>"; };
@@ -2129,6 +2131,14 @@
 			path = Transactions;
 			sourceTree = "<group>";
 		};
+		0A5F953D2185FAB5005308AC /* CreateNewAlias */ = {
+			isa = PBXGroup;
+			children = (
+				0A5F953E2185FAD4005308AC /* CreateNewAliasViewController.swift */,
+			);
+			path = CreateNewAlias;
+			sourceTree = "<group>";
+		};
 		0A61B594214AC6F200EC60FC /* Sweet */ = {
 			isa = PBXGroup;
 			children = (
@@ -2284,6 +2294,7 @@
 		0A762DA321650DA80019D447 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0A5F953D2185FAB5005308AC /* CreateNewAlias */,
 				0A20606621822C1A0048CF83 /* AddressesKeys */,
 				0AB63C292170CBF80056B17E /* Profile */,
 				0AD8360F217DD77F004413E9 /* Network */,
@@ -4792,6 +4803,7 @@
 				0AF922CE212E1234003BA067 /* UIViewController+Rx.swift in Sources */,
 				0AF921ED212E07B3003BA067 /* AssetViewController.swift in Sources */,
 				E9B0880E2163886800937644 /* DexMarketViewController.swift in Sources */,
+				0A5F953F2185FAD4005308AC /* CreateNewAliasViewController.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
 				0A762D9B2163A0B60019D447 /* FactoryInteractors.swift in Sources */,

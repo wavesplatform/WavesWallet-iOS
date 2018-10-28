@@ -1338,10 +1338,10 @@
             </objects>
             <point key="canvasLocation" x="1432.8" y="610.34482758620697"/>
         </scene>
-        <!--View Controller-->
+        <!--Create New Alias View Controller-->
         <scene sceneID="WBn-Tv-7jF">
             <objects>
-                <viewController id="nLK-VF-1vR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateNewAliasViewController" id="nLK-VF-1vR" customClass="CreateNewAliasViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WvS-PM-VNt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

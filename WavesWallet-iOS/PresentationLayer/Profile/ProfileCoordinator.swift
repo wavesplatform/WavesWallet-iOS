@@ -54,9 +54,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
 
-        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+//        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
+//        addChildCoordinator(childCoordinator: coordinator)
+//        coordinator.start()
+
+        let controller = StoryboardScene.Profile.createNewAliasViewController.instantiate()
+        let popup = PopupViewController()
+        popup.contentHeight = 378
+        popup.present(contentViewController: controller)
     }
 
     func showAddressBook() {
