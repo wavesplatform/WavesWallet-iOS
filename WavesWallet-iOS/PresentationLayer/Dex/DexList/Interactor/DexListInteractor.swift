@@ -81,10 +81,12 @@ private extension DexListInteractor {
                     
                     let amountAsset = Dex.DTO.Asset(id: localPair.amountAsset.id,
                                                     name: localPair.amountAsset.name,
+                                                    shortName: localPair.amountAsset.shortName,
                                                     decimals: localPair.amountAsset.decimals)
                     
                     let priceAsset = Dex.DTO.Asset(id: localPair.priceAsset.id,
                                                    name: localPair.priceAsset.name,
+                                                   shortName: localPair.priceAsset.shortName,
                                                    decimals: localPair.priceAsset.decimals)
                 
                     let info = item["data"]

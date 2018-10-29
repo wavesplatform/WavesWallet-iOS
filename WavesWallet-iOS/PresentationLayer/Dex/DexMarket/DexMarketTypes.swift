@@ -46,21 +46,14 @@ extension DexMarket.ViewModel {
 
 extension DexMarket.DTO {
     
-    struct Asset: Hashable {
-        let id: String
-        let name: String
-        let shortName: String
-        let decimals: Int
-    }
-    
     struct Pair: Mutating {
         let id: String
-        let amountAsset: Asset
-        let priceAsset: Asset
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
         var isChecked: Bool
         let isGeneral: Bool
         
-        init(amountAsset: Asset, priceAsset: Asset, isChecked: Bool, isGeneral: Bool) {
+        init(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, isChecked: Bool, isGeneral: Bool) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset

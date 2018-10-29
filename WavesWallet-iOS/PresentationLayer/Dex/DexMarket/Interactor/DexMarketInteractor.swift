@@ -37,7 +37,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     func checkMark(pair: DexMarket.DTO.Pair) {
         
-        if let index = DexMarketInteractor.allPairs.index(where: {$0.amountAsset == pair.amountAsset && $0.priceAsset == pair.priceAsset}) {
+        if let index = DexMarketInteractor.allPairs.index(where: {$0.id == pair.id}) {
            
             DexMarketInteractor.allPairs[index] = pair.mutate {
 
@@ -177,15 +177,15 @@ private extension DexMarketInteractor {
                         }
                     }
                     
-                    let amountAsset = DexMarket.DTO.Asset(id: amountAssetId,
-                                                          name: amountAssetName,
-                                                          shortName: amountAssetShortName,
-                                                          decimals: item["amountAssetInfo"]["decimals"].intValue)
+                    let amountAsset = Dex.DTO.Asset(id: amountAssetId,
+                                                        name: amountAssetName,
+                                                        shortName: amountAssetShortName,
+                                                        decimals: item["amountAssetInfo"]["decimals"].intValue)
                     
-                    let priceAsset = DexMarket.DTO.Asset(id: priceAssetId,
-                                                         name: priceAssetName,
-                                                         shortName: priceAssetShortName,
-                                                         decimals: item["priceAssetInfo"]["decimals"].intValue)
+                    let priceAsset = Dex.DTO.Asset(id: priceAssetId,
+                                                        name: priceAssetName,
+                                                        shortName: priceAssetShortName,
+                                                        decimals: item["priceAssetInfo"]["decimals"].intValue)
                     
                     
                     let isGeneralAmount = balances.filter({$0.assetId == amountAsset.id && $0.asset?.isGeneral == true}).count > 0

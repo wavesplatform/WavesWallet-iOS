@@ -17,8 +17,8 @@ extension Dex.DTO {
     struct Asset {
         let id: String
         let name: String
+        let shortName: String
         let decimals: Int
-//        let shortName: String
     }
 
     enum OrderType {
