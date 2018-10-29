@@ -124,6 +124,13 @@ extension CreateAliasViewController: UITableViewDataSource {
         case .input(let text):
             let cell: CreateAliasInputCell = tableView.dequeueCell()
             cell.update(with: .init(text: text))
+
+            cell
+                .textFieldChangedValue
+                .map { Types.Event.input($0) }
+                .bind(to: self.eventInput)
+                .disposed(by: cell.disposeBag)
+            
             return cell
         }
     }

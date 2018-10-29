@@ -26,7 +26,7 @@ extension CreateAliasTypes {
     enum Event {
         case viewWillAppear
         case viewDidDisappear
-        case input(String)
+        case input(String?)
         case completedQuery
     }
 
@@ -47,7 +47,7 @@ extension CreateAliasTypes {
 extension CreateAliasTypes.ViewModel {
 
     enum Row {
-        case input(String)
+        case input(String?)
     }
 
     struct Section: SectionBase, Mutating {
