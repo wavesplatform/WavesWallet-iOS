@@ -35,6 +35,7 @@ enum DexList {
             case update
         }
         
+        var isAppear: Bool
         var isNeedRefreshing: Bool
         var action: Action
         var sections: [DexList.ViewModel.Section]
@@ -71,7 +72,7 @@ extension DexList.DTO {
         var lastPrice: Money
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
-        let isHidden: Bool
+        let isGeneral: Bool
     }
     
     static let fiatAssets: [String] = {
@@ -82,5 +83,13 @@ extension DexList.DTO {
 extension DexList.State {
     var isVisibleItems: Bool {
         return sections.count > 1
+    }
+}
+
+extension DexList.State : Equatable {
+    
+    static func == (lhs: DexList.State, rhs: DexList.State) -> Bool {
+        return lhs.isAppear == rhs.isAppear &&
+        lhs.isNeedRefreshing == rhs.isNeedRefreshing
     }
 }

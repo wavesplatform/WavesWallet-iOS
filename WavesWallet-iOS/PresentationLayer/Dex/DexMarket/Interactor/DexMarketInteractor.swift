@@ -15,32 +15,19 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
 
     func pairs() -> Observable<[DexMarket.DTO.Pair]> {
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
-            
-            guard let strongSelf = self else { return Disposables.create() }
+        
+        if DexMarketInteractor.allPairs.count > 0 {
+            return Observable.just(DexMarketInteractor.allPairs)
+        }
 
-            if DexMarketInteractor.allPairs.count > 0 {
-                subscribe.onNext(DexMarketInteractor.allPairs)
-                return Disposables.create()
-            }
+        return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMarket.DTO.Pair]> in
             
-            strongSelf.authorizationInteractor.authorizedWallet().subscribe(onNext: { [weak self] (signedWallet) in
+            guard let owner = self else { return Observable.empty() }
+            return owner.account.balances(by: wallet, isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<[DexMarket.DTO.Pair]> in
                 
-                guard let strongSelf = self else { return }
-
-                strongSelf.account.balances(by: signedWallet, isNeedUpdate: false).subscribe(onNext: { (balances) in
-                    
-                    self?.getAllPairs(balances: balances, accountAddress: signedWallet.wallet.address, complete: { (pairs) in
-                        DexMarketInteractor.allPairs = pairs
-                        subscribe.onNext(pairs)
-                    })
-                    
-                }).disposed(by: strongSelf.disposeBag)
-                
-            }).disposed(by: strongSelf.disposeBag)
-           
-            
-            return Disposables.create()
+                guard let owner = self else { return Observable.empty() }
+                return owner.allPairs(balances: balances, accountAddress: wallet.wallet.address)
+            })
         })
     }
     
@@ -58,9 +45,6 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 let pair = $0
                 
                 $0.isChecked = !$0.isChecked
-                
-                let amountAssetId = $0.amountAsset.id
-                let priceAssetId = $0.priceAsset.id
                 
                 authorizationInteractor.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
                         
@@ -144,6 +128,20 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
+    func allPairs(balances: [DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
+        return Observable.create({ [weak self] (subscribe) -> Disposable in
+            
+            guard let owner = self else { return Disposables.create() }
+            owner.getAllPairs(balances: balances, accountAddress: accountAddress, complete: { (pairs) in
+                DexMarketInteractor.allPairs = pairs
+                subscribe.onNext(pairs)
+                subscribe.onCompleted()
+            })
+            return Disposables.create()
+        })
+        
+    }
+    
     func getAllPairs(balances: [DomainLayer.DTO.AssetBalance], accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
       
         NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
@@ -192,12 +190,16 @@ private extension DexMarketInteractor {
                     let isChecked = realm.object(ofType: DexAssetPair.self,
                                                  forPrimaryKey: DexAssetPair.primaryKey(amountAsset.id, priceAsset.id)) != nil
                     
+                    let isGeneralAmount = balances.filter({$0.assetId == amountAsset.id && $0.asset?.isGeneral == true}).count > 0
+                    let isGeneralPrice = balances.filter({$0.assetId == priceAsset.id && $0.asset?.isGeneral == true}).count > 0
+                
                     pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset,
                                                     priceAsset: priceAsset,
                                                     isChecked: isChecked,
-                                                    isHidden: false))
+                                                    isGeneral: isGeneralAmount && isGeneralPrice))
                 }
                 
+                pairs.sort(by: { $0.isGeneral && !$1.isGeneral })
             }
             
             complete(pairs)

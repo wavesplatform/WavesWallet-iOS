@@ -88,7 +88,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
                 let amountAsset = Dex.DTO.Asset(id: pair.amountAsset.id, name: pair.amountAsset.name, decimals: pair.amountAsset.decimals)
                 let priceAsset = Dex.DTO.Asset(id: pair.priceAsset.id, name: pair.priceAsset.name, decimals: pair.priceAsset.decimals)
 
-                let infoPair = DexInfoPair.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isHidden: pair.isHidden)
+                let infoPair = DexInfoPair.DTO.Pair(amountAsset: amountAsset, priceAsset: priceAsset, isGeneral: pair.isGeneral)
                 moduleOutput?.showInfo(pair: infoPair)
             }
             return state.changeAction(.none)

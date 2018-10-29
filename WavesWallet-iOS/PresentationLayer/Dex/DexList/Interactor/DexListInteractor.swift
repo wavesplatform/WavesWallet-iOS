@@ -16,43 +16,46 @@ final class DexListInteractor: DexListInteractorProtocol {
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     
-    private var request: DataRequest?
-    
     func pairs() -> Observable<[DexList.DTO.Pair]> {
         
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
+        return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexList.DTO.Pair]> in
+            guard let owner = self else { return Observable.empty() }
             
-            guard let owner = self else { return Disposables.create() }
-            owner.authorizationInteractor.authorizedWallet().subscribe(onNext: { [weak self] (wallet) in
-                
-                guard let owner = self else { return }
-                
-                Observable.merge([owner.repository.list(by: wallet.wallet.address),
-                                  owner.repository.listListener(by: wallet.wallet.address)]).subscribe(onNext: { [weak self] (pairs) in
-                                    
-                        guard let owner = self else { return }
-                        owner.getListPairs(by: pairs, complete: { (pairs, error) in
-                            subscribe.onNext(pairs)
-                        })
-                                  
-                }).disposed(by: owner.disposeBag)
-                
-            }).disposed(by: owner.disposeBag)
             
-            return Disposables.create {
-                self?.request?.cancel()
-            }
+            return Observable.merge([owner.repository.list(by: wallet.wallet.address),
+                                     owner.repository.listListener(by: wallet.wallet.address)])
+                .flatMap({ [weak self] (pairs) -> Observable<[DexList.DTO.Pair]> in
+                    
+                    guard let owner = self else { return Observable.empty() }
+                    if pairs.count == 0 {
+                        return Observable.just([])
+                    }
+                    else {
+                        return owner.getList(by: pairs)
+                    }
+            })
         })
-    }
-    
-    func refreshPairs() {
-        
+
     }
 }
 
 private extension DexListInteractor {
     
-    func getListPairs(by pairs: [DexAssetPair], complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) {
+    func getList(by pairs: [DexAssetPair]) -> Observable<[DexList.DTO.Pair]> {
+        
+        return Observable.create({ [weak self] (subscribe) -> Disposable in
+            
+            guard let owner = self else { return Disposables.create() }
+            let req = owner.getListPairs(by: pairs, complete: { (pairs, error) in
+                subscribe.onNext(pairs)
+            })
+            return Disposables.create {
+                req.cancel()
+            }
+        })
+    }
+    
+    func getListPairs(by pairs: [DexAssetPair], complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
         
         var url = Environments.current.servers.dataUrl.relativeString + "/v0" + "/pairs"
         
@@ -66,7 +69,7 @@ private extension DexListInteractor {
             url.append("pairs=" + pair.amountAsset.id + "/" + pair.priceAsset.id)
         }
         
-        request = NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
+        return NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
             
             if let info = info {
 
@@ -92,9 +95,10 @@ private extension DexListInteractor {
                                                 lastPrice: lastPrice,
                                                 amountAsset: amountAsset,
                                                 priceAsset: priceAsset,
-                                                isHidden: false)
+                                                isGeneral: localPair.isGeneral)
                     listPairs.append(pair)
                 }
+                
                 complete(listPairs, nil)
             }
             else {
