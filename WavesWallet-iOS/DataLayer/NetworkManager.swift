@@ -63,68 +63,71 @@ class NetworkManager: NSObject
         return responseObject;
     }
 
-    
-    @discardableResult fileprivate class func baseRequestWithPath(path: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
-
+    private static var serverURL: String {
         //TODO: incorrect environment
-        var url = Environments.current.servers.nodeUrl.relativeString.appending("/")
-
-        if customUrl != nil {
-            url = customUrl!
-        }
+        return Environments.current.servers.nodeUrl.relativeString.appending("/")
+    }
+    
+    private static var matcherURL: String {
+        //TODO: incorrect environment
         
-        return Alamofire.request(url + path, method: method, parameters : parameters, encoding: encoding, headers: headers)
+        return Environments.current.servers.matcherUrl.relativeString.appending("/")
+    }
+   
+    @discardableResult fileprivate class func baseRequestWithUrl(_ url: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
+        
+        return Alamofire.request(url, method: method, parameters : parameters, encoding: encoding, headers: headers)
             
             .responseJSON { response in
+                
+                let responseCode = response.response?.statusCode ?? 0
                 
                 if response.error != nil {
                     
                     let error = response.error as NSError?
                     
                     if error?.code != NSURLErrorCancelled {
-                        complete(nil, response.error?.localizedDescription)
+                        complete(nil, .init(message: response.error?.localizedDescription ?? "", code: responseCode))
                     }
                 }
                 else if response.response?.statusCode != 200 {
-                    complete(nil, (response.result.value as? NSDictionary)?["message"] as? String)
+                    complete(nil, .init(message: (response.result.value as? NSDictionary)?["message"] as? String ?? "", code: responseCode))
                 }
                 else {
                     
                     if let dict = response.result.value as? NSDictionary {
                         if dict["status"] as? String == "error" {
-                            complete (nil, dict["message"] as? String)
+                            complete (nil, .init(message:  dict["message"] as? String ?? "", code: responseCode))
                         }
                         else if dict["error"] as? String != nil {
-                            complete(nil, dict["error"] as? String)
+                            complete(nil, .init(message:  dict["error"] as? String ?? "", code: responseCode))
+                        }
+                        else if let value = parsedObjectFromResponse(response.result.value) {
+                            complete (JSON(value), nil)
                         }
                         else {
-                            complete (parsedObjectFromResponse(response.result.value), nil)
+                            complete (nil, .init(message: response.result.error?.localizedDescription ?? "", code: responseCode))
                         }
                     }
+                    else if let value = parsedObjectFromResponse(response.result.value) {
+                        complete(JSON(value), nil)
+                    }
                     else {
-                        complete (parsedObjectFromResponse(response.result.value), nil)
+                        complete (nil, .init(message: response.result.error?.localizedDescription ?? "", code: responseCode))
                     }
                 }
         }
 
     }
 
-    @discardableResult class func postRequestWithPath(path: String, parameters: Dictionary <String, Any>?, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult class func postRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
     
-        return baseRequestWithPath(path: path, method: .post, parameters: parameters, customUrl: customUrl, encoding: JSONEncoding.default, complete: complete)
+        return baseRequestWithUrl(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, complete: complete)
     }
     
-    @discardableResult class func getRequestWithPath(path: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, customUrl: String?, complete: @escaping ( _ completeInfo: Any?, _ errorMessage: String?) -> Void) -> DataRequest {
+    @discardableResult class func getRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil,  complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
 
-        return baseRequestWithPath(path: path, method: .get, parameters: parameters, headers:headers, customUrl: customUrl, complete: complete)
-    }
-    
-    fileprivate class func getMatcherUrl() -> String? {
-        return Environments.current.isTestNet ? "http://52.30.47.67:6886/" : nil
-    }
-    
-    fileprivate class func getMarketUrl() -> String {
-        return "https://marketdata.wavesplatform.com/api/"
+        return baseRequestWithUrl(url, method: .get, parameters: parameters, headers:headers, complete: complete)
     }
     
     class func getCandles(amountAsset : String, priceAsset : String, timeframe : Int, from : Date, to : Date, complete: @escaping (_ completeInfo: NSArray?, _ errorMessage: String?) -> Void) {
@@ -132,14 +135,14 @@ class NetworkManager: NSObject
         let dateFrom = String.init(format: "%0.f", from.timeIntervalSince1970 * 1000)
         let dateTo =  String.init(format: "%0.f", to.timeIntervalSince1970 * 1000)
         
-        getRequestWithPath(path: "candles/\(amountAsset)/\(priceAsset)/\(timeframe)/\(dateFrom)/\(dateTo)", parameters: nil, customUrl: getMarketUrl()) { (info : Any?, errorMessage: String?) in
+        getRequestWithUrl(GlobalConstants.Market.candles + "\(amountAsset)/\(priceAsset)/\(timeframe)/\(dateFrom)/\(dateTo)", parameters: nil) { (info : Any?, error: ResponseTypeError?) in
 
-            complete(info as? NSArray, errorMessage)
+            complete(info as? NSArray, error?.message)
         }
     }
     
     class func getLastPairPrice(pair: AssetPair) -> Observable<(Double, Int64)> {
-        let u = URL(string: getMarketUrl())!.appendingPathComponent("trades/\(pair.amountAsset)/\(pair.priceAsset)/1")
+        let u = URL(string: GlobalConstants.Market.trades + "\(pair.amountAsset)/\(pair.priceAsset)/1")!
         return RxAlamofire.requestJSON(.get, u)
             .flatMap { (resp, json) -> Observable<(Double, Int64)> in
                 if let infos = json as? [JSON] {
@@ -157,84 +160,84 @@ class NetworkManager: NSObject
     
     @discardableResult class func getLastTraderPairPrice(amountAsset : String, priceAsset : String, complete: @escaping (_ price: Double, _ timestamp: Int64, _ errorMessage: String?) -> Void) -> DataRequest {
         
-        return getRequestWithPath(path: "trades/\(amountAsset)/\(priceAsset)/1", parameters: nil, customUrl: getMarketUrl()) { (info, errorMessage) in
+        return getRequestWithUrl(GlobalConstants.Market.trades + "\(amountAsset)/\(priceAsset)/1", parameters: nil) { (info, error) in
             
                 if let item = (info as? NSArray)?.firstObject as? NSDictionary {
                                         
                     if item["price"] is String {
                         let value = Double(item["price"] as! String)!
-                        complete(value, item["timestamp"] as! Int64, errorMessage)
+                        complete(value, item["timestamp"] as! Int64, error?.message)
                     }
                     else {
-                        complete(item["price"] as! Double, item["timestamp"] as! Int64, errorMessage)
+                        complete(item["price"] as! Double, item["timestamp"] as! Int64, error?.message)
                     }
                 }
                 else {
-                    complete(0, 0, errorMessage)
+                    complete(0, 0, error?.message)
                 }
         }
     }
     
     class func getLastTraders(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
         
-        getRequestWithPath(path: "trades/\(amountAsset)/\(priceAsset)/100", parameters: nil, customUrl: getMarketUrl()) { (info, errorMessage) in
+        getRequestWithUrl(GlobalConstants.Market.trades + "\(amountAsset)/\(priceAsset)/100", parameters: nil) { (info, error) in
             
-            complete(info as? NSArray, errorMessage)
+            complete(info as? NSArray, error?.message)
         }
     }
     
     class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) -> DataRequest {
     
-        return getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete(info as? NSDictionary, errorMessage)
+        return getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil) { (info, error) in
+            complete(info as? NSDictionary, error?.message)
         }
     }
     
     class func getAllOrderBooks (_ complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
     
-        getRequestWithPath(path: "matcher/orderbook", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete((info as? NSDictionary)?["markets"] as? NSArray, errorMessage)
+        getRequestWithUrl(matcherURL + "matcher/orderbook", parameters: nil) { (info, error) in
+            complete((info as? NSDictionary)?["markets"] as? NSArray, error?.message)
         }
     }
     
     class func getVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
-        getRequestWithPath(path: "verified-assets.json", parameters: nil, customUrl: "https://waves-wallet.firebaseio.com/") { (info, errorMessage) in
-            complete(info as? NSDictionary, errorMessage)
+        getRequestWithUrl( "https://waves-wallet.firebaseio.com/" + "verified-assets.json", parameters: nil) { (info, error) in
+            complete(info as? NSDictionary, error?.message)
         }
     }
     
     @discardableResult class func getTickerInfo(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) -> DataRequest {
 
-        return getRequestWithPath(path: "ticker/\(amountAsset)/\(priceAsset)", parameters: nil, customUrl: getMarketUrl()) { (info, errorMessage) in
-                complete(info as? NSDictionary, errorMessage)
+        return getRequestWithUrl(GlobalConstants.Market.ticker + "\(amountAsset)/\(priceAsset)", parameters: nil) { (info, error) in
+                complete(info as? NSDictionary, error?.message)
             }
     }
     
     class func getTransactionInfo(asset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
                 
-        getRequestWithPath(path: "transactions/info/\(asset)", parameters: nil, customUrl: nil) { (info, errorMessage) in
-            complete(info as? NSDictionary, errorMessage)
+        getRequestWithUrl(serverURL + "transactions/info/\(asset)", parameters: nil) { (info, error) in
+            complete(info as? NSDictionary, error?.message)
         }
     }
     
     class func getBalancePair(priceAsset: String, amountAsset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
         
-        getRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete(info as? NSDictionary, errorMessage)
+        getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil) { (info, error) in
+            complete(info as? NSDictionary, error?.message)
         }        
     }
     
     class func getMatcherPublicKey(complete: @escaping (_ key: String?, _ errorMessage: String?) -> Void) {
         
-        getRequestWithPath(path: "matcher", parameters: nil, customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete(info as? String, errorMessage)
+        getRequestWithUrl(matcherURL + "matcher", parameters: nil) { (info, error) in
+            complete(info as? String, error?.message)
         }
     }
     
     class func buySellOrder(order: Order, complete: @escaping (_ errorMessage: String?) -> Void) {
-        postRequestWithPath(path: "matcher/orderbook", parameters: order.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
+        postRequestWithUrl(matcherURL + "matcher/orderbook", parameters: order.toJSON()) { (info, error) in
             
-            complete (errorMessage)
+            complete (error?.message)
         }
     }
     
@@ -249,8 +252,8 @@ class NetworkManager: NSObject
             
             let path = "matcher/orderbook/\(amountAsset)/\(priceAsset)/publicKey/\(WalletManager.currentWallet!.publicKeyStr)"
             
-            getRequestWithPath(path: path, parameters: nil, headers: headers, customUrl: getMatcherUrl()) { (info, errorMessage) in
-                complete (info as? NSArray, errorMessage)
+            getRequestWithUrl(matcherURL + path, parameters: nil, headers: headers) { (info, error) in
+                complete (info as? NSArray, error?.message)
             }
             
         }) { (errorMessage) in
@@ -260,15 +263,15 @@ class NetworkManager: NSObject
     
     class func cancelOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
     
-        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/cancel", parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete(errorMessage)
+        postRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/cancel", parameters: request.toJSON()) { (info, error) in
+            complete(error?.message)
         }
     }
 
     class func deleteOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
         
-        postRequestWithPath(path: "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete?" + String(Date().millisecondsSince1970), parameters: request.toJSON(), customUrl: getMatcherUrl()) { (info, errorMessage) in
-            complete(errorMessage)
+        postRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete?" + String(Date().millisecondsSince1970), parameters: request.toJSON()) { (info, error) in
+            complete(error?.message)
         }
     }
 
