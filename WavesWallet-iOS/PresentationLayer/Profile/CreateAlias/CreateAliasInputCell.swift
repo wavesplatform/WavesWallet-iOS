@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let height: CGFloat = 60
@@ -17,11 +18,40 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var inputTextField: InputTextField!
 
+    var disposeBag: DisposeBag = DisposeBag()
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.disposeBag = DisposeBag()
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLocalization()
         setupTextField()
     }
+
+    lazy var textFieldShouldReturn: Observable<Void> = {
+
+        return Observable.create({ [weak self] observer -> Disposable in
+            guard let owner = self else { return Disposables.create() }
+            owner.inputTextField.textFieldShouldReturn = { [weak self] _ in
+                observer.onNext(())
+            }
+            return Disposables.create()
+        })
+    }()
+
+    lazy var textFieldChangedValue: Observable<String?> = {
+
+        return Observable.create({ [weak self] observer -> Disposable in
+            guard let owner = self else { return Disposables.create() }
+            owner.inputTextField.changedValue = { [weak self] isValidData, text in
+                observer.onNext(text)
+            }
+            return Disposables.create()
+        })
+    }()
 
     private func setupTextField() {
 
@@ -33,17 +63,8 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
 
         inputTextField.returnKey = .done
 
-        inputTextField.textFieldShouldReturn = { [weak self] _ in
-//            self?.passwordInput.becomeFirstResponder()
-        }
-
-
         inputTextField.valueValidator = { text -> String? in
             return nil
-        }
-
-        inputTextField.changedValue = { [weak self] isValidData, text in
-
         }
     }
 
@@ -61,7 +82,7 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
 extension CreateAliasInputCell: ViewConfiguration {
 
     struct Model {
-        let text: String
+        let text: String?
     }
 
     func update(with model: CreateAliasInputCell.Model) {

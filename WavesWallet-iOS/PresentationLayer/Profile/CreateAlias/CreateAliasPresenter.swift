@@ -152,14 +152,16 @@ private extension CreateAliasPresenter {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input)])
+            state.displayState.sections = [section]
+            state.displayState.action = .update
+            
         case .viewDidDisappear:
             state.displayState.isAppeared = false
 
         case .input(let text):
             state.displayState.input = text
-            let section = Types.ViewModel.Section(rows: [.input(text)])
-            state.displayState.sections = [section]
+            state.displayState.action = .none
 
         case .completedQuery:
             state.query = nil
@@ -178,9 +180,7 @@ private extension CreateAliasPresenter {
 
     func initialDisplayState() -> Types.DisplayState {
 
-        let section = Types.ViewModel.Section(rows: [.input("")])
-
-        return Types.DisplayState(sections: [section],
+        return Types.DisplayState(sections: [],
                                   input: nil,
                                   isAppeared: false,
                                   action: .update)
