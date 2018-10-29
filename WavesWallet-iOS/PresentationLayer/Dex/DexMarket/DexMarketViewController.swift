@@ -49,12 +49,7 @@ final class DexMarketViewController: UIViewController {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        navigationController?.navigationBar.isTranslucent = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = true
+        navigationItem.isTranslucent = false
     }
 }
 

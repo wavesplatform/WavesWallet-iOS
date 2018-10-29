@@ -22,6 +22,35 @@ enum GlobalConstants {
     static let WavesTransactionFee = Money(100000, 8)
     
     enum Coinomat {}
+    enum Market {}
+    enum Matcher {}
+}
+
+extension GlobalConstants.Matcher {
+    private static let url = Environments.current.servers.matcherUrl.relativeString + "/"
+    
+    static var orderBook: String {
+        return url + "matcher/orderbook"
+    }
+    
+}
+
+extension GlobalConstants.Market {
+    
+    private static let url = "https://marketdata.wavesplatform.com/"
+    private static let apiPath = "api/"
+    
+    static var trades: String {
+        return url + apiPath + "trades/"
+    }
+    
+    static var candles: String {
+        return url + apiPath + "candles/"
+    }
+    
+    static var ticker: String {
+        return url + apiPath + "ticker/"
+    }
 }
 
 extension GlobalConstants.Coinomat {
