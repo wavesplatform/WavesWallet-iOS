@@ -18,7 +18,7 @@ final class DexRepository: DexRepositoryProtocol {
             
             try! realm.write {
                 
-                realm.add(DexAssetPair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral), update: true)
+                realm.add(DexAssetPair(id: pair.id, amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral), update: true)
             }
             observer.onNext(true)
             observer.onCompleted()
@@ -35,8 +35,7 @@ final class DexRepository: DexRepositoryProtocol {
             
             
             guard let pair = realm.object(ofType: DexAssetPair.self,
-                                          forPrimaryKey: DexAssetPair.primaryKey(pair.amountAsset.id,
-                                                                                 pair.priceAsset.id)) else {
+                                          forPrimaryKey: pair.id) else {
                                             observer.onNext(true)
                                             observer.onCompleted()
                                             return Disposables.create()

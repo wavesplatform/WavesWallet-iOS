@@ -1859,6 +1859,7 @@ You do not have any orders</string>
                         <outlet property="labelPopular" destination="IMX-0Q-5ve" id="WAV-0t-XR6"/>
                         <outlet property="labelPriceAsset" destination="yVt-Fg-zGG" id="my4-Ga-ICC"/>
                         <outlet property="labelPriceAssetTitle" destination="lgp-EE-on1" id="PLU-4o-ed1"/>
+                        <outlet property="labelTitle" destination="lo2-xT-OcO" id="jcv-NK-PSh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lgO-Lq-vZq" userLabel="First Responder" sceneMemberID="firstResponder"/>

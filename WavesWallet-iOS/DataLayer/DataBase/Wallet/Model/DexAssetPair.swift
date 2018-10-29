@@ -25,24 +25,21 @@ final class DexAsset: Object {
 
 final class DexAssetPair: Object {
 
-    @objc dynamic private var id: String = ""
+    @objc dynamic var id: String = ""
     @objc dynamic var amountAsset: DexAsset!
     @objc dynamic var priceAsset: DexAsset!
     @objc dynamic var isGeneral: Bool = false
 
-    convenience init(amountAsset: DexMarket.DTO.Asset, priceAsset: DexMarket.DTO.Asset, isGeneral: Bool) {
+    convenience init(id: String, amountAsset: DexMarket.DTO.Asset, priceAsset: DexMarket.DTO.Asset, isGeneral: Bool) {
         self.init()
+        self.id = id
         self.amountAsset = DexAsset(id: amountAsset.id, name: amountAsset.name, decimals: amountAsset.decimals)
         self.priceAsset = DexAsset(id: priceAsset.id, name: priceAsset.name, decimals: priceAsset.decimals)
         self.isGeneral = isGeneral
-        id = DexAssetPair.primaryKey(amountAsset.id, priceAsset.id)
     }
     
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    static func primaryKey(_ amountAssetId: String, _ priceAssetId: String) -> String {
-        return amountAssetId + priceAssetId
-    }
 }

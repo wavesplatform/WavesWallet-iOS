@@ -54,10 +54,20 @@ extension DexMarket.DTO {
     }
     
     struct Pair: Mutating {
+        let id: String
         let amountAsset: Asset
         let priceAsset: Asset
         var isChecked: Bool
         let isGeneral: Bool
+        
+        init(amountAsset: Asset, priceAsset: Asset, isChecked: Bool, isGeneral: Bool) {
+            
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+            self.isChecked = isChecked
+            self.isGeneral = isGeneral
+            self.id = amountAsset.id + priceAsset.id
+        }
     }
 }
 

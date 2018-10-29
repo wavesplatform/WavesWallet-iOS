@@ -18,6 +18,7 @@ extension Dex.DTO {
         let id: String
         let name: String
         let decimals: Int
+//        let shortName: String
     }
 
     enum OrderType {
