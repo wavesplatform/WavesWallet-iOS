@@ -10,28 +10,37 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-final class DexAssetPair: Object {
-   
-    @objc dynamic var amountAssetID: String = ""
-    @objc dynamic var amountAssetName: String = ""
-    @objc dynamic var amountAssetDecimals: Int = 0
+final class DexAsset: Object {
+    @objc dynamic var id: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var decimals: Int = 0
     
-    @objc dynamic var priceAssetID: String = ""
-    @objc dynamic var priceAssetName: String = ""
-    @objc dynamic var priceAssetDecimals: Int = 0
-
-    convenience init(_ info: JSON) {
+    convenience init(id: String, name: String, decimals: Int) {
         self.init()
-        amountAssetID = info["amountAsset"].stringValue
-        amountAssetName = info["amountAssetName"].stringValue
-        amountAssetDecimals = info["amountAssetInfo"]["decimals"].intValue
-        
-        priceAssetID = info["priceAsset"].stringValue
-        priceAssetName = info["priceAssetName"].stringValue
-        priceAssetDecimals = info["priceAssetInfo"]["decimals"].intValue
+        self.id = id
+        self.name = name
+        self.decimals = decimals
+    }
+}
+
+final class DexAssetPair: Object {
+
+    @objc dynamic private var id: String = ""
+    @objc dynamic var amountAsset: DexAsset!
+    @objc dynamic var priceAsset: DexAsset!
+    
+    convenience init(amountAsset: DexMarket.DTO.Asset, priceAsset: DexMarket.DTO.Asset) {
+        self.init()
+        self.amountAsset = DexAsset(id: amountAsset.id, name: amountAsset.name, decimals: amountAsset.decimals)
+        self.priceAsset = DexAsset(id: priceAsset.id, name: priceAsset.name, decimals: priceAsset.decimals)
+        id = DexAssetPair.primaryKey(amountAsset.id, priceAsset.id)
     }
     
-    var id: String {
-        return amountAssetID + priceAssetID
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    static func primaryKey(_ amountAssetId: String, _ priceAssetId: String) -> String {
+        return amountAssetId + priceAssetId
     }
 }

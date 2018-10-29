@@ -1,6 +1,7 @@
 import Foundation
 import RxSwift
 import SwiftyJSON
+import RealmSwift
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
@@ -8,7 +9,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
     private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
     private let disposeBag: DisposeBag = DisposeBag()
-    
+
+    private let repository: DexRepositoryProtocol = DexRepository()
+    private let authorizationInteractor = FactoryInteractors.instance.authorization
+    private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+
     func pairs() -> Observable<[DexMarket.DTO.Pair]> {
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
@@ -19,15 +24,19 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 return Disposables.create()
             }
             
-            let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-            account.balances(isNeedUpdate: false).subscribe(onNext: { [weak self] (balances) in
+            strongSelf.authorizationInteractor.authorizedWallet().subscribe(onNext: { [weak self] (signedWallet) in
                 
-                self?.getAllPairs(balances: balances, complete: { (pairs) in
-                   
-                    DexMarketInteractor.allPairs = pairs
-                    subscribe.onNext(pairs)
-                })
-        
+                guard let strongSelf = self else { return }
+
+                strongSelf.account.balances(by: signedWallet, isNeedUpdate: false).subscribe(onNext: { (balances) in
+                    
+                    self?.getAllPairs(balances: balances, accountAddress: signedWallet.wallet.address, complete: { (pairs) in
+                        DexMarketInteractor.allPairs = pairs
+                        subscribe.onNext(pairs)
+                    })
+                    
+                }).disposed(by: strongSelf.disposeBag)
+                
             }).disposed(by: strongSelf.disposeBag)
            
             
@@ -40,8 +49,30 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     }
     
     func checkMark(pair: DexMarket.DTO.Pair) {
+        
         if let index = DexMarketInteractor.allPairs.index(where: {$0.amountAsset == pair.amountAsset && $0.priceAsset == pair.priceAsset}) {
-            DexMarketInteractor.allPairs[index] = pair.mutate { $0.isChecked = !$0.isChecked }
+           
+            DexMarketInteractor.allPairs[index] = pair.mutate {
+
+                let needSaveAssetPair = !$0.isChecked
+                let pair = $0
+                
+                $0.isChecked = !$0.isChecked
+                
+                let amountAssetId = $0.amountAsset.id
+                let priceAssetId = $0.priceAsset.id
+                
+                authorizationInteractor.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+                        
+                    guard let owner = self else { return Observable.never() }
+
+                    if needSaveAssetPair {
+                        return owner.repository.save(pair: pair, accountAddress: wallet.wallet.address)
+                    }
+                    return owner.repository.delete(pair: pair, accountAddress: wallet.wallet.address)
+                    
+                }.subscribe().disposed(by: disposeBag)
+            }
         }
     }
     
@@ -113,7 +144,7 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func getAllPairs(balances: [DomainLayer.DTO.AssetBalance], complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
+    func getAllPairs(balances: [DomainLayer.DTO.AssetBalance], accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
       
         NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
             
@@ -121,6 +152,8 @@ private extension DexMarketInteractor {
 
             if let info = info {
                 
+                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
                 for item in info["markets"].arrayValue {
                     
                     let amountAssetId = item["amountAsset"].stringValue
@@ -155,9 +188,13 @@ private extension DexMarketInteractor {
                                                          shortName: priceAssetShortName,
                                                          decimals: item["priceAssetInfo"]["decimals"].intValue)
                     
+                    
+                    let isChecked = realm.object(ofType: DexAssetPair.self,
+                                                 forPrimaryKey: DexAssetPair.primaryKey(amountAsset.id, priceAsset.id)) != nil
+                    
                     pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset,
                                                     priceAsset: priceAsset,
-                                                    isChecked: false,
+                                                    isChecked: isChecked,
                                                     isHidden: false))
                 }
                 

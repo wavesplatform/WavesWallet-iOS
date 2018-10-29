@@ -11,7 +11,9 @@ import RxSwift
 
 protocol DexRepositoryProtocol {
     
-//    func save(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool>
-//    func delete(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool>
-//    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]>
+    func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool>
+    func delete(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool>
+    func list(by accountAddress: String) -> Observable<[DexAssetPair]>
+    func listListener(by accountAddress: String) -> Observable<[DexAssetPair]>
+
 }
