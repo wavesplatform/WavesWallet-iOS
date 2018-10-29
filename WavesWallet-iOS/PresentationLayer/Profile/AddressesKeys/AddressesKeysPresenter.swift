@@ -13,6 +13,7 @@ import RxCocoa
 
 protocol AddressesKeysModuleOutput: AnyObject {
     func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet) -> Void))
+    func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias])
 }
 
 protocol AddressesKeysModuleInput {
@@ -37,9 +38,6 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
     private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
 
     var moduleInput: AddressesKeysModuleInput!
-
-//    private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-
     weak var moduleOutput: AddressesKeysModuleOutput?
 
     func system(feedbacks: [Feedback]) {
@@ -47,11 +45,8 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(getAliasesQuery())
         newFeedbacks.append(getPrivateKeyQuery())
-//        newFeedbacks.append(blockQuery())
-//        newFeedbacks.append(deleteAccountQuery())
-//        newFeedbacks.append(logoutAccountQuery())
-//        newFeedbacks.append(handlerEvent())
-//        newFeedbacks.append(setBackupQuery())
+        newFeedbacks.append(externalQuery())
+
 
         let initialState = self.initialState(moduleInput: moduleInput)
 
@@ -85,7 +80,7 @@ fileprivate extension AddressesKeysPresenter {
             return strongSelf
                 .aliasesRepository
                 .aliases(accountAddress: accountAddress)
-                .map { Types.Event.setAliaces($0) }
+                .map { Types.Event.setAliases($0) }
                 .sweetDebug("getAliasesQuery")
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()
@@ -123,6 +118,27 @@ fileprivate extension AddressesKeysPresenter {
             })
         })
     }
+
+    func externalQuery() -> Feedback {
+
+        return react(query: { state -> Types.Query? in
+
+
+            if case .showInfo? = state.query {
+                return state.query
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            if case .showInfo(let aliases) = query {
+                self?.moduleOutput?.addressesKeysShowAliases(aliases)
+            }
+
+            return Signal.just(.completedQuery)
+        })
+    }
 }
 
 // MARK: Core State
@@ -139,9 +155,13 @@ private extension AddressesKeysPresenter {
 
         switch event {
         case .viewWillAppear:
-            state.displayState.isAppeared = true            
-        case .setAliaces(let aliaces):
-            state.aliaces = aliaces
+            state.displayState.isAppeared = true
+
+        case .viewDidDisappear:
+            state.displayState.isAppeared = false
+
+        case .setAliases(let aliaces):
+            state.aliases = aliaces
 
             var sections = state.displayState.sections
             guard var section = sections.first else { return }
@@ -159,8 +179,10 @@ private extension AddressesKeysPresenter {
         case .tapShowPrivateKey:
             state.query = .getPrivateKey
 
-        case .setPrivateKey(let signedWallet):
+        case .tapShowInfo:
+            state.query = .showInfo(aliases: state.aliases)
 
+        case .setPrivateKey(let signedWallet):
 
             var sections = state.displayState.sections
             guard var section = sections.first else { return }
@@ -178,9 +200,7 @@ private extension AddressesKeysPresenter {
 
         case .completedQuery:
             state.query = nil
-
         }
-
     }
 }
 
@@ -190,7 +210,7 @@ private extension AddressesKeysPresenter {
 
     func initialState(moduleInput: AddressesKeysModuleInput) -> Types.State {
         return Types.State(wallet: moduleInput.wallet,
-                           aliaces: [],
+                           aliases: [],
                            query: nil,
                            displayState: initialDisplayState(moduleInput: moduleInput))
     }

@@ -62,13 +62,34 @@ extension AddressesKeysCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorWalletLogouted() {}
 }
 
-
 // MARK: AddressesKeysModuleOutput
 
 extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
 
+    func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
+
+        if aliases.count == 0 {
+            let controller = StoryboardScene.Profile.createNewAliasViewController.instantiate()
+            let popup = PopupViewController()
+            popup.contentHeight = 378
+            popup.present(contentViewController: controller)
+        } else {
+            let controller = AliasesModuleBuilder.init(output: self).build(input: .init(aliases: aliases))
+            let popup = PopupViewController()            
+            popup.present(contentViewController: controller)
+        }
+    }
+
     func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet) -> Void)) {
         self.needPrivateKeyCallback = callback
         showPasscode(wallet: wallet)
+    }
+}
+
+// MARK: AliasesModuleOutput
+
+extension AddressesKeysCoordinator: AliasesModuleOutput {
+    func aliasesCreateAlias() {
+
     }
 }
