@@ -18,7 +18,7 @@ fileprivate extension DexList.DTO.Pair {
         let priceAsset = Dex.DTO.Asset(id: priceAsset, name: priceAssetName, decimals: priceDecimals)
         
         let isFiat = DexList.DTO.fiatAssets.contains(amountAsset.id) ||  DexList.DTO.fiatAssets.contains(priceAsset.id)
-        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false, isFiat: isFiat)
+        return DexList.DTO.Pair(firstPrice: firstPrice, lastPrice: lastPrice, amountAsset: amountAsset, priceAsset: priceAsset, isHidden: false)
     }
 }
 

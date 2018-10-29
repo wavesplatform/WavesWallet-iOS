@@ -84,15 +84,15 @@ private extension DexListInteractor {
                                                    name: localPair.priceAsset.name,
                                                    decimals: localPair.priceAsset.decimals)
                 
-                    let firstPrice = Money(value: Decimal(item["firstPrice"].doubleValue), amountAsset.decimals)
-                    let lastPrice = Money(value: Decimal(item["lastPrice"].doubleValue), amountAsset.decimals)
+                    let info = item["data"]
+                    let firstPrice = Money(value: Decimal(info["firstPrice"].doubleValue), amountAsset.decimals)
+                    let lastPrice = Money(value: Decimal(info["lastPrice"].doubleValue), amountAsset.decimals)
                     
                     let pair = DexList.DTO.Pair(firstPrice: firstPrice,
                                                 lastPrice: lastPrice,
                                                 amountAsset: amountAsset,
                                                 priceAsset: priceAsset,
-                                                isHidden: false,
-                                                isFiat: false)
+                                                isHidden: false)
                     listPairs.append(pair)
                 }
                 complete(listPairs, nil)
