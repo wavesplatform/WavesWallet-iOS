@@ -125,6 +125,7 @@ private extension DexMarketInteractor {
     }
 }
 
+
 //MARK: - Load data
 private extension DexMarketInteractor {
     
@@ -187,23 +188,51 @@ private extension DexMarketInteractor {
                                                          decimals: item["priceAssetInfo"]["decimals"].intValue)
                     
                     
-                    let isChecked = realm.object(ofType: DexAssetPair.self,
-                                                 forPrimaryKey: DexAssetPair.primaryKey(amountAsset.id, priceAsset.id)) != nil
-                    
                     let isGeneralAmount = balances.filter({$0.assetId == amountAsset.id && $0.asset?.isGeneral == true}).count > 0
                     let isGeneralPrice = balances.filter({$0.assetId == priceAsset.id && $0.asset?.isGeneral == true}).count > 0
                 
-                    pairs.append(DexMarket.DTO.Pair(amountAsset: amountAsset,
-                                                    priceAsset: priceAsset,
-                                                    isChecked: isChecked,
-                                                    isGeneral: isGeneralAmount && isGeneralPrice))
+                    var pair = DexMarket.DTO.Pair(amountAsset: amountAsset,
+                                                  priceAsset: priceAsset,
+                                                  isChecked: false,
+                                                  isGeneral: isGeneralAmount && isGeneralPrice)
+                    
+                    pair.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
+                        
+                    pairs.append(pair)
                 }
                 
-                pairs.sort(by: { $0.isGeneral && !$1.isGeneral })
+                pairs = self.sort(pairs: pairs, balances: balances)
             }
             
             complete(pairs)
         })
+
+    }
+}
+
+
+//MARK: - Sort
+private extension DexMarketInteractor {
+    
+    func sort(pairs: [DexMarket.DTO.Pair], balances: [DomainLayer.DTO.AssetBalance]) -> [DexMarket.DTO.Pair] {
         
+        var sortedPairs: [DexMarket.DTO.Pair] = []
+        let generalBalances = balances.filter({$0.asset?.isGeneral == true})
+        
+        for balance in generalBalances {
+            sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == balance.assetId && $0.isGeneral == true }))
+        }
+        
+        var sortedIds = sortedPairs.map {$0.id}
+        sortedPairs.append(contentsOf: pairs.filter { $0.isGeneral == true && !sortedIds.contains($0.id) } )
+
+        sortedIds = sortedPairs.map {$0.id}
+        sortedPairs.append(contentsOf: pairs.filter { !sortedIds.contains($0.id) } )
+
+        return sortedPairs
+    }
+    
+    func predicate(notIN: [String]) -> NSPredicate {
+        return NSPredicate(format: "id NOT IN %@", notIN)
     }
 }

@@ -18,6 +18,7 @@ final class DexInfoViewController: UIViewController {
     
     @IBOutlet weak var btnCopyAmountAsset: UIButton!
     @IBOutlet weak var btnCopyPriceAsset: UIButton!
+    @IBOutlet weak var labelTitle: UILabel!
     
     var pair: DexInfoPair.DTO.Pair!
     
