@@ -72,7 +72,6 @@ extension DexList.DTO {
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         let isHidden: Bool
-        let isFiat: Bool
     }
     
     static let fiatAssets: [String] = {

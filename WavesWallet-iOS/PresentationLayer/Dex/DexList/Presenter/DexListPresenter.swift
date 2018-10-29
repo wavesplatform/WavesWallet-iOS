@@ -89,7 +89,7 @@ final class DexListPresenter: DexListPresenterProtocol {
         
         case .tapAssetPair(let pair):
 
-            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isHidden: pair.isHidden, isFiat: pair.isFiat)
+            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isHidden: pair.isHidden)
             moduleOutput?.showTradePairInfo(pair: tradePair)
             
             return state.changeAction(.none)
