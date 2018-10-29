@@ -74,7 +74,7 @@ private extension DexInfoViewController {
         labelPriceAssetTitle.text = Localizable.Waves.Dexinfo.Label.priceAsset + " — " + pair.priceAsset.name
         labelPriceAsset.text = pair.priceAsset.id
         
-        labelPopular.isHidden = pair.isHidden
+        labelPopular.isHidden = !pair.isGeneral
     }
     
     func setupLocalization() {

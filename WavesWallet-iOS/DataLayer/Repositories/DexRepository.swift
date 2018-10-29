@@ -18,7 +18,7 @@ final class DexRepository: DexRepositoryProtocol {
             
             try! realm.write {
                 
-                realm.add(DexAssetPair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset), update: true)
+                realm.add(DexAssetPair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral), update: true)
             }
             observer.onNext(true)
             observer.onCompleted()

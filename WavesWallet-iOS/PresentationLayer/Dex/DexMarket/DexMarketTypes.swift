@@ -57,7 +57,7 @@ extension DexMarket.DTO {
         let amountAsset: Asset
         let priceAsset: Asset
         var isChecked: Bool
-        let isHidden: Bool
+        let isGeneral: Bool
     }
 }
 

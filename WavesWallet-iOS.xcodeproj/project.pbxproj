@@ -620,7 +620,6 @@
 		E9B087D12163886800937644 /* DexListSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0871C2163886800937644 /* DexListSkeletonCell.swift */; };
 		E9B087D22163886800937644 /* DexListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0871D2163886800937644 /* DexListViewController.swift */; };
 		E9B087D32163886800937644 /* DexListModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0871E2163886800937644 /* DexListModuleBuilder.swift */; };
-		E9B087D42163886800937644 /* DexListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087202163886800937644 /* DexListInteractorMock.swift */; };
 		E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087212163886800937644 /* DexListInteractorProtocol.swift */; };
 		E9B087D62163886800937644 /* DexListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087222163886800937644 /* DexListInteractor.swift */; };
 		E9B087D72163886800937644 /* OrderConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087232163886800937644 /* OrderConfirmView.swift */; };
@@ -1408,7 +1407,6 @@
 		E9B0871C2163886800937644 /* DexListSkeletonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListSkeletonCell.swift; sourceTree = "<group>"; };
 		E9B0871D2163886800937644 /* DexListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListViewController.swift; sourceTree = "<group>"; };
 		E9B0871E2163886800937644 /* DexListModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListModuleBuilder.swift; sourceTree = "<group>"; };
-		E9B087202163886800937644 /* DexListInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListInteractorMock.swift; sourceTree = "<group>"; };
 		E9B087212163886800937644 /* DexListInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B087222163886800937644 /* DexListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexListInteractor.swift; sourceTree = "<group>"; };
 		E9B087232163886800937644 /* OrderConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmView.swift; sourceTree = "<group>"; };
@@ -3478,7 +3476,6 @@
 		E9B0871F2163886800937644 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				E9B087202163886800937644 /* DexListInteractorMock.swift */,
 				E9B087212163886800937644 /* DexListInteractorProtocol.swift */,
 				E9B087222163886800937644 /* DexListInteractor.swift */,
 			);
@@ -4562,7 +4559,6 @@
 				0A3FE8B92137007500DBF4E1 /* ReissueTransactionNode.swift in Sources */,
 				0A5E4BE12138378500E3C3C3 /* LeaseCancelTransaction+Mapper.swift in Sources */,
 				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
-				E9B087D42163886800937644 /* DexListInteractorMock.swift in Sources */,
 				E95B47C121638A9F004D4E39 /* HelloCoordinator.swift in Sources */,
 				0A5E4BAF213801C400E3C3C3 /* ReissueTransaction.swift in Sources */,
 				0A5E4BDF213832A000E3C3C3 /* ReissueTransaction+Mapper.swift in Sources */,
