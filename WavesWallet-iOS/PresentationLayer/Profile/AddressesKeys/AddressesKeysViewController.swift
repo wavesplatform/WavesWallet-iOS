@@ -33,13 +33,6 @@ final class AddressesKeysViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
         
-//        sections = [Types.ViewModel.Section.init(rows: [.aliases(8),
-//                                                        .address("3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW"),
-//                                                        .publicKey("4T25bAunzydwvzkJcQ9f378UzGRqyUcDXLS4xgam7JQQ 4T25bAunzydwvzkJcQ9f378UzGRqyUcDXLS4xgam7JQQ"),
-//                                                        .hiddenPrivateKey])]
-
-//        tableView.reloadData()
-
         setupSystem()
     }
 }
@@ -63,7 +56,16 @@ private extension AddressesKeysViewController {
                 .map { _ in Types.Event.viewWillAppear }
         }
 
-        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+        let viewDidDisappearFeedback: AddressesKeysPresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf.rx.viewDidDisappear.asObservable()
+                .throttle(1, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.viewDidDisappear }
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewDidDisappearFeedback])
     }
 
     func events() -> [Signal<Types.Event>] {
@@ -122,6 +124,9 @@ extension AddressesKeysViewController: UITableViewDataSource {
         case .aliases(let count):
             let cell: AddressesKeysAliacesCell = tableView.dequeueCell()
             cell.update(with: .init(count: count))
+            cell.infoButtonDidTap = { [weak self] in
+                self?.eventInput.onNext(.tapShowInfo)
+            }
             return cell
 
         case .hiddenPrivateKey:

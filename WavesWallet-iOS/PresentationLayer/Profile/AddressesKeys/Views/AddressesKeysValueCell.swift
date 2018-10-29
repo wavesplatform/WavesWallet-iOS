@@ -51,7 +51,6 @@ extension AddressesKeysValueCell: ViewConfiguration {
 
 // MARK: ViewCalculateHeight
 
-//TODO: Incorect paddint copy button 
 extension AddressesKeysValueCell: ViewCalculateHeight {
 
     static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
