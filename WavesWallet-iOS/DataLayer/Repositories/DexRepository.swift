@@ -18,7 +18,13 @@ final class DexRepository: DexRepositoryProtocol {
             
             try! realm.write {
                 
-                realm.add(DexAssetPair(id: pair.id, amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral), update: true)
+                let lastSortLevel = realm.objects(DexAssetPair.self).sorted(byKeyPath: "sortLevel").last?.sortLevel ?? 0
+
+                realm.add(DexAssetPair(id: pair.id,
+                                       amountAsset: pair.amountAsset,
+                                       priceAsset: pair.priceAsset,
+                                       isGeneral: pair.isGeneral,
+                                       sortLevel: lastSortLevel + 1), update: true)
             }
             observer.onNext(true)
             observer.onCompleted()
@@ -28,14 +34,14 @@ final class DexRepository: DexRepositoryProtocol {
         
     }
     
-    func delete(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
+    func delete(by id: String, accountAddress: String) -> Observable<Bool> {
 
         return Observable.create({ observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             
             guard let pair = realm.object(ofType: DexAssetPair.self,
-                                          forPrimaryKey: pair.id) else {
+                                          forPrimaryKey: id) else {
                                             observer.onNext(true)
                                             observer.onCompleted()
                                             return Disposables.create()

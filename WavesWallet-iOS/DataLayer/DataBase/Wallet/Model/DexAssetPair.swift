@@ -31,13 +31,15 @@ final class DexAssetPair: Object {
     @objc dynamic var amountAsset: DexAsset!
     @objc dynamic var priceAsset: DexAsset!
     @objc dynamic var isGeneral: Bool = false
+    @objc dynamic var sortLevel: Int = 0
 
-    convenience init(id: String, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, isGeneral: Bool) {
+    convenience init(id: String, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, isGeneral: Bool, sortLevel: Int) {
         self.init()
         self.id = id
         self.amountAsset = DexAsset(id: amountAsset.id, name: amountAsset.name, shortName: amountAsset.shortName, decimals: amountAsset.decimals)
         self.priceAsset = DexAsset(id: priceAsset.id, name: priceAsset.name, shortName: priceAsset.shortName, decimals: priceAsset.decimals)
         self.isGeneral = isGeneral
+        self.sortLevel = sortLevel
     }
     
     override static func primaryKey() -> String? {
