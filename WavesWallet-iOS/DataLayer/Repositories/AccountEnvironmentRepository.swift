@@ -48,8 +48,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
 
                     realm.add(AccountSettings(settings))
                 }
-
-                debug(realm.objects(AccountSettings.self).toArray())
+                
             } catch let e {
                 debug(e)
                 observer.onError(AccountSettingsRepositoryError.invalid)

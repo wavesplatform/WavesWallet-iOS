@@ -98,8 +98,8 @@ extension ImportAccountPasswordViewController {
         }
 
         passwordTextField.valueValidator = { value in
-            if (value?.count ?? 0) < Settings.minLengthPassword {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(Settings.minLengthPassword)
+            if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
             } else {
                 return nil
             }

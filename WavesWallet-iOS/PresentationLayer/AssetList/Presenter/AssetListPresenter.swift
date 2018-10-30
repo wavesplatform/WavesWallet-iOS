@@ -15,7 +15,8 @@ final class AssetListPresenter: AssetListPresenterProtocol {
     
     var interactor: AssetListInteractorProtocol!
     var filters: [AssetList.DTO.Filter]!
-    
+    var isMyList: Bool = false
+
     weak var moduleOutput: AssetListModuleOutput?
     
     private let disposeBag = DisposeBag()
@@ -24,7 +25,7 @@ final class AssetListPresenter: AssetListPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
         
-        Driver.system(initialState: AssetList.State.initialState,
+        Driver.system(initialState: AssetList.State.initialState(isMyList: isMyList),
                       reduce: { [weak self] state, event -> AssetList.State in
                         return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
@@ -78,9 +79,9 @@ final class AssetListPresenter: AssetListPresenterProtocol {
 
 fileprivate extension AssetList.State {
     
-    static var initialState: AssetList.State {
+    static func initialState(isMyList: Bool) -> AssetList.State {
         let section = AssetList.ViewModel.Section(items: [])
-        return AssetList.State(isAppeared: false, action: .none, section: section, isMyList: false)
+        return AssetList.State(isAppeared: false, action: .none, section: section, isMyList: isMyList)
     }
     
     func changeAction(_ action: AssetList.State.Action) -> AssetList.State {

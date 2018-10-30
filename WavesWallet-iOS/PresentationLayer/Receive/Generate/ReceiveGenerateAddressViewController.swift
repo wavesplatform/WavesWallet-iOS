@@ -27,7 +27,6 @@ final class ReceiveGenerateAddressViewController: UIViewController {
 
         navigationItem.hidesBackButton = true
         viewContainer.addTableCellShadowStyle()
-        addBgBlueImage()
         setupLocalication()
         acceptGeneratingAddress()
     }

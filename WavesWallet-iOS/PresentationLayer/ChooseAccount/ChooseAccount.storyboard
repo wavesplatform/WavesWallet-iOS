@@ -14,7 +14,7 @@
         <scene sceneID="GzO-rM-Dpc">
             <objects>
                 <viewController storyboardIdentifier="ChooseAccountViewController" id="drW-m4-jNX" customClass="ChooseAccountViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="O9M-cT-Iod">
+                    <view key="view" contentMode="scaleToFill" id="O9M-cT-Iod" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

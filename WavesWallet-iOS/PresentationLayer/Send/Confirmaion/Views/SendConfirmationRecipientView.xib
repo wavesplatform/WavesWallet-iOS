@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendConfirmationRecipientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelSendTo" destination="Vob-zo-WKK" id="pv2-ic-rkI"/>
+                <outlet property="labelSubtitle" destination="KJT-Fc-CpC" id="dK2-mU-kmf"/>
+                <outlet property="labelTitle" destination="tFn-Ir-zXd" id="w3Y-Nz-5xF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sent to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vob-zo-WKK">
+                    <rect key="frame" x="0.0" y="14" width="44" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFn-Ir-zXd">
+                    <rect key="frame" x="0.0" y="36" width="375" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJT-Fc-CpC">
+                    <rect key="frame" x="0.0" y="54" width="375" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBV-we-H7i" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="99" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="a3g-tb-Qzl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lBV-we-H7i" secondAttribute="trailing" id="3Ug-UA-x2D"/>
+                <constraint firstItem="lBV-we-H7i" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3dI-sJ-UZP"/>
+                <constraint firstItem="KJT-Fc-CpC" firstAttribute="top" secondItem="tFn-Ir-zXd" secondAttribute="bottom" constant="2" id="7IN-H7-ANU"/>
+                <constraint firstItem="tFn-Ir-zXd" firstAttribute="top" secondItem="Vob-zo-WKK" secondAttribute="bottom" constant="6" id="7jZ-L5-xky"/>
+                <constraint firstItem="Vob-zo-WKK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="14" id="F2X-hD-LOL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tFn-Ir-zXd" secondAttribute="trailing" id="sTG-Lj-Wtc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KJT-Fc-CpC" secondAttribute="trailing" id="scd-hi-e7m"/>
+                <constraint firstAttribute="bottom" secondItem="lBV-we-H7i" secondAttribute="bottom" id="tSH-kU-JER"/>
+                <constraint firstItem="Vob-zo-WKK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="uQy-Ht-SoE"/>
+                <constraint firstItem="tFn-Ir-zXd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="xBp-z6-e6X"/>
+                <constraint firstItem="KJT-Fc-CpC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xxU-C0-gD5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

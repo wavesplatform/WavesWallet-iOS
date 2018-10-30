@@ -42,7 +42,6 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
         navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.largeTitleTextAttributes = [.foregroundColor: UIColor.white]        
         setupSystem()
-        addBgBlueImage()
         createBackWhiteButton()
         navigationItem.title = Localizable.Waves.Chooseaccount.Navigation.title
         noResultInfoLabel.text = Localizable.Waves.Chooseaccount.Label.nothingWallets

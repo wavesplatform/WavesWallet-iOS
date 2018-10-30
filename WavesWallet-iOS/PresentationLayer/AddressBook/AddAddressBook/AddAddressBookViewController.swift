@@ -14,7 +14,7 @@ private enum Constants {
 }
 
 final class AddAddressBookViewController: UIViewController {
-
+    
     @IBOutlet private weak var textFieldAddress: AddAddressTextField!
     @IBOutlet private weak var textFieldName: BaseInputTextField!
     @IBOutlet private weak var buttonSave: HighlightedButton!
@@ -25,9 +25,9 @@ final class AddAddressBookViewController: UIViewController {
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
 
-    var contact: DomainLayer.DTO.Contact?
     weak var delegate: AddAddressBookModuleOutput?
-
+    var input: AddAddressBook.DTO.Input!
+    
     private var isValidInput: Bool {
         return textFieldAddress.trimmingText.count > 0 &&
         textFieldName.trimmingText.count > 0
@@ -36,7 +36,10 @@ final class AddAddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = contact != nil ? Localizable.Waves.Addaddressbook.Label.edit : Localizable.Waves.Addaddressbook.Label.add
+        title = input.contact != nil ? Localizable.Waves.Addaddressbook.Label.edit : Localizable.Waves.Addaddressbook.Label.add
+        if let address = input.address {
+            textFieldAddress.text = address
+        }
         createBackButton()
         setupNavBarUI()
         setupTextFields()
@@ -63,7 +66,7 @@ private extension AddAddressBookViewController {
     
         let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText, address: textFieldAddress.trimmingText)
 
-        if let contact = self.contact {
+        if let contact = input.contact {
             authorizationInteractor
                 .authorizedWallet()
                 .flatMap { [weak self] wallet -> Observable<Bool> in
@@ -98,7 +101,7 @@ private extension AddAddressBookViewController {
         let controller = UIAlertController(title: Localizable.Waves.Addaddressbook.Button.deleteAddress, message: Localizable.Waves.Addaddressbook.Label.deleteAlertMessage, preferredStyle: .alert)
         let cancel = UIAlertAction(title: Localizable.Waves.Addaddressbook.Button.cancel, style: .cancel, handler: nil)
         let delete = UIAlertAction(title: Localizable.Waves.Addaddressbook.Button.delete, style: .destructive) { (action) in
-            if let contact = self.contact {
+            if let contact = self.input.contact {
                 self.authorizationInteractor
                     .authorizedWallet()
                     .flatMap { [weak self] wallet -> Observable<Bool> in
@@ -164,9 +167,9 @@ private extension AddAddressBookViewController {
     
     func setupEditUserMode() {
         
-        buttonDelete.isHidden = contact == nil
+        buttonDelete.isHidden = input.contact == nil
         
-        if let contact = self.contact {
+        if let contact = input.contact {
             textFieldName.setupText(contact.name)
             textFieldAddress.text = contact.address
             buttonSaveBottomOffset.constant = Constants.buttonSaveBottomEditModeOffset

@@ -146,6 +146,8 @@ internal enum Localizable {
         internal static var allList: String { return Localizable.tr("Waves", "assetlist.button.allList") }
         /// My list
         internal static var myList: String { return Localizable.tr("Waves", "assetlist.button.myList") }
+        /// With balance
+        internal static var withBalance: String { return Localizable.tr("Waves", "assetlist.button.withBalance") }
       }
 
       internal enum Label {
@@ -1318,6 +1320,118 @@ internal enum Localizable {
       internal enum Label {
         /// US Dollar
         internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
+      }
+    }
+
+    internal enum Send {
+
+      internal enum Button {
+        /// Choose from Address book
+        internal static var chooseFromAddressBook: String { return Localizable.tr("Waves", "send.button.chooseFromAddressBook") }
+        /// Continue
+        internal static var `continue`: String { return Localizable.tr("Waves", "send.button.continue") }
+        /// Use total balance
+        internal static var useTotalBalanace: String { return Localizable.tr("Waves", "send.button.useTotalBalanace") }
+      }
+
+      internal enum Label {
+        /// The address is not valid
+        internal static var addressNotValid: String { return Localizable.tr("Waves", "send.label.addressNotValid") }
+        /// Amount
+        internal static var amount: String { return Localizable.tr("Waves", "send.label.amount") }
+        /// US Dollar
+        internal static var dollar: String { return Localizable.tr("Waves", "send.label.dollar") }
+        /// Gateway fee is
+        internal static var gatewayFee: String { return Localizable.tr("Waves", "send.label.gatewayFee") }
+        /// Monero Payment ID
+        internal static var moneroPaymentId: String { return Localizable.tr("Waves", "send.label.moneroPaymentId") }
+        /// Recipient
+        internal static var recipient: String { return Localizable.tr("Waves", "send.label.recipient") }
+        /// Recipient address…
+        internal static var recipientAddress: String { return Localizable.tr("Waves", "send.label.recipientAddress") }
+        /// Send
+        internal static var send: String { return Localizable.tr("Waves", "send.label.send") }
+        /// Transaction Fee
+        internal static var transactionFee: String { return Localizable.tr("Waves", "send.label.transactionFee") }
+
+        internal enum Error {
+          /// Insufficient funds
+          internal static var insufficientFunds: String { return Localizable.tr("Waves", "send.label.error.insufficientFunds") }
+          /// invalid ID
+          internal static var invalidId: String { return Localizable.tr("Waves", "send.label.error.invalidId") }
+          /// You don't have enough funds to pay the required fees.
+          internal static var notFundsFee: String { return Localizable.tr("Waves", "send.label.error.notFundsFee") }
+          /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
+          internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "send.label.error.notFundsFeeGateway", p1, p2)
+          }
+        }
+
+        internal enum Warning {
+          /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
+          internal static func description(_ p1: String) -> String {
+            return Localizable.tr("Waves", "send.label.warning.description", p1)
+          }
+          /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
+          internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
+            return Localizable.tr("Waves", "send.label.warning.subtitle", p1, p2, p3)
+          }
+        }
+      }
+
+      internal enum Textfield {
+        /// Paste or type your Payment ID
+        internal static var placeholderPaymentId: String { return Localizable.tr("Waves", "send.textField.placeholderPaymentId") }
+      }
+    }
+
+    internal enum Sendcomplete {
+
+      internal enum Button {
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "sendcomplete.button.okey") }
+      }
+
+      internal enum Label {
+        /// Do you want to save this address?
+        internal static var saveThisAddress: String { return Localizable.tr("Waves", "sendcomplete.label.saveThisAddress") }
+        /// Your transaction is on the way!
+        internal static var transactionIsOnWay: String { return Localizable.tr("Waves", "sendcomplete.label.transactionIsOnWay") }
+        /// You have sent
+        internal static var youHaveSent: String { return Localizable.tr("Waves", "sendcomplete.label.youHaveSent") }
+      }
+    }
+
+    internal enum Sendconfirmation {
+
+      internal enum Button {
+        /// Confirm
+        internal static var confim: String { return Localizable.tr("Waves", "sendconfirmation.button.confim") }
+      }
+
+      internal enum Label {
+        /// Confirmation
+        internal static var confirmation: String { return Localizable.tr("Waves", "sendconfirmation.label.confirmation") }
+        /// Description
+        internal static var description: String { return Localizable.tr("Waves", "sendconfirmation.label.description") }
+        /// The description is too long
+        internal static var descriptionIsTooLong: String { return Localizable.tr("Waves", "sendconfirmation.label.descriptionIsTooLong") }
+        /// US Dollar
+        internal static var dollar: String { return Localizable.tr("Waves", "sendconfirmation.label.dollar") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "sendconfirmation.label.fee") }
+        /// Write an optional message
+        internal static var optionalMessage: String { return Localizable.tr("Waves", "sendconfirmation.label.optionalMessage") }
+        /// Sent to
+        internal static var sentTo: String { return Localizable.tr("Waves", "sendconfirmation.label.sentTo") }
+      }
+    }
+
+    internal enum Sendloading {
+
+      internal enum Label {
+        /// Sending...
+        internal static var sending: String { return Localizable.tr("Waves", "sendloading.label.sending") }
       }
     }
 

@@ -131,5 +131,6 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isFiat = isFiat
         self.isGateway = isGateway
         self.displayName = name
+        self.addressRegEx = info?.addressRegEx ?? ""
     }
 }
