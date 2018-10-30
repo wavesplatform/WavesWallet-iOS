@@ -151,6 +151,7 @@ private extension DexMarketInteractor {
     
     func getAllPairs(accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
       
+        //TODO: need change to Observer network
         NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
             
             var pairs: [DexMarket.DTO.Pair] = []
@@ -160,7 +161,6 @@ private extension DexMarketInteractor {
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
                 for item in info["markets"].arrayValue {
-                  
                     pairs.append(DexMarket.DTO.Pair(item, realm: realm))
                 }
                 

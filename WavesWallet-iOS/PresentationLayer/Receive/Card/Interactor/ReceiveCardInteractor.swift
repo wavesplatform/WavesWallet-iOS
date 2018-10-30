@@ -49,6 +49,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                               "address" : signedWallet.wallet.address,
                               "fiat" : fiat.id]
                 
+                //TODO: need change to Observer network
                 NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getLimits, parameters: params, complete: { (info, error) in
 
                     if let json = info {
