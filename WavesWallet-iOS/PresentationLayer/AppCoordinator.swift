@@ -70,12 +70,13 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        let vc = CreateAliasModuleBuilder.init(output: self).build()
-        let custom = CustomNavigationController(rootViewController: vc)
-//        self.window.rootViewController = slideMenuViewController
-        self.window.rootViewController = custom
+//        let vc = CreateAliasModuleBuilder.init(output: self).build()
+//        let custom = CustomNavigationController(rootViewController: vc)
+//        self.window.rootViewController = custom
+
+        self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
-//        logInApplication()
+        logInApplication()
 
         #if DEBUG
             addTapGestureForSupportDisplay()

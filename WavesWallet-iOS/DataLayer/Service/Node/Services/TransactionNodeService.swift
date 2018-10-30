@@ -23,6 +23,8 @@ extension Node.Service {
              - ?
              */
             case info(id: String)
+
+            case broadcast
         }
 
         var kind: Kind
@@ -40,6 +42,7 @@ extension Node.Service.Transaction: NodeTargetType {
         static let limit = "limit"
         static let address = "address"
         static let info = "info"
+        static let broadcast = "broadcast"
     }
 
     var path: String {
@@ -49,6 +52,9 @@ extension Node.Service.Transaction: NodeTargetType {
             
         case .info(let id):
             return Constants.transactions + "/" + Constants.info + "/" + "\(id)".urlEscaped
+
+        case .broadcast:
+            return Constants.transactions + "/" + Constants.broadcast
         }
     }
 
@@ -56,12 +62,16 @@ extension Node.Service.Transaction: NodeTargetType {
         switch kind {
         case .list, .info:
             return .get
+        case .broadcast:
+            return .post
         }
     }
 
     var task: Task {
         switch kind {
         case .list, .info:
+            return .requestPlain
+        case .broadcast:
             return .requestPlain
         }
     }

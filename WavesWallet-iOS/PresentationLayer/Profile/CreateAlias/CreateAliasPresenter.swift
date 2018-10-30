@@ -33,13 +33,15 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     fileprivate typealias Types = CreateAliasTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     weak var moduleOutput: CreateAliasModuleOutput?
 
     func system(feedbacks: [Feedback]) {
 
         var newFeedbacks = feedbacks
-//        newFeedbacks.append(getAliasesQuery())
+        newFeedbacks.append(checkExistAliasQuery())
 //        newFeedbacks.append(getPrivateKeyQuery())
 //        newFeedbacks.append(externalQuery())
 
@@ -84,57 +86,34 @@ fileprivate extension CreateAliasPresenter {
 //        })
 //    }
 //
-//    func getPrivateKeyQuery() -> Feedback {
-//
-//        return react(query: { state -> DomainLayer.DTO.Wallet? in
-//
-//            if case .getPrivateKey? = state.query {
-//                return state.wallet
-//            } else {
-//                return nil
-//            }
-//
-//        }, effects: { [weak self] wallet -> Signal<Types.Event> in
-//
-//            return Observable.create({ [weak self] (observer) -> Disposable in
-//
-//                guard let strongSelf = self else { return Disposables.create() }
-//
-//                strongSelf
-//                    .moduleOutput?
-//                    .addressesKeysNeedPrivateKey(wallet: wallet, callback: { signedWallet in
-//                        observer.onNext(.setPrivateKey(signedWallet))
-//                        observer.onCompleted()
-//                    })
-//
-//                return Disposables.create()
-//            })
-//                .asSignal(onErrorRecover: { _ in
-//                    return Signal.empty()
-//                })
-//        })
-//    }
-//
-//    func externalQuery() -> Feedback {
-//
-//        return react(query: { state -> Types.Query? in
-//
-//
-//            if case .showInfo? = state.query {
-//                return state.query
-//            } else {
-//                return nil
-//            }
-//
-//        }, effects: { [weak self] query -> Signal<Types.Event> in
-//
-//            if case .showInfo(let aliases) = query {
-//                self?.moduleOutput?.addressesKeysShowAliases(aliases)
-//            }
-//
-//            return Signal.just(.completedQuery)
-//        })
-//    }
+
+    func checkExistAliasQuery() -> Feedback {
+
+        return react(query: { state -> String? in
+
+            if case .checkExist(let name)? = state.query {
+                return name
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] name -> Signal<Types.Event> in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .authorizationInteractor
+                .authorizedWallet()
+                .flatMap({ wallet -> Observable<String> in
+                    return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.wallet.address)
+                })
+                .sweetDebug("Debug")
+                .map { _ in .errorAliasExist }
+                .asSignal(onErrorRecover: { e in
+                    error(e)
+                    return Signal.just(Types.Event.aliasAameFree)
+                })
+        })
+    }
 }
 
 // MARK: Core State
@@ -152,16 +131,64 @@ private extension CreateAliasPresenter {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input)])
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: nil)])
             state.displayState.sections = [section]
-            state.displayState.action = .update
-            
+            state.displayState.action = .reload
+
         case .viewDidDisappear:
             state.displayState.isAppeared = false
 
         case .input(let text):
             state.displayState.input = text
             state.displayState.action = .none
+            state.query = nil
+
+            if let text = text {
+                if RegEx.alias(text) {
+                    if text.count < GlobalConstants.aliasNameMinLimitSymbols {
+                        state.displayState.isEnabledSaveButton = false
+                        state.displayState.error = "Minimum 4 characters"
+                    } else if text.count > GlobalConstants.aliasNameMaxLimitSymbols {
+                        state.displayState.isEnabledSaveButton = false
+                        state.displayState.error = "30 characters maximum"
+                    } else {
+                        state.displayState.isLoading = true
+                        state.displayState.isEnabledSaveButton = false
+                        state.displayState.error = nil
+                        state.query = .checkExist(text)
+                    }
+                } else {
+                    state.displayState.error = "Invalid character"
+                    state.displayState.isEnabledSaveButton = false
+                }
+            } else {
+                state.displayState.error = nil
+                state.displayState.isEnabledSaveButton = false
+            }
+
+            state.displayState.action = .update
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            state.displayState.sections = [section]
+
+        case .aliasAameFree:
+            state.query = nil
+            state.displayState.error = nil
+            state.displayState.action = .update
+            state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            state.displayState.sections = [section]
+
+        case .errorAliasExist:
+            state.query = nil
+            state.displayState.error = "Already in use"
+            state.displayState.action = .update
+            state.displayState.isLoading = false            
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            state.displayState.sections = [section]
+
+        case .createAlias:
+            break
 
         case .completedQuery:
             state.query = nil
@@ -182,8 +209,11 @@ private extension CreateAliasPresenter {
 
         return Types.DisplayState(sections: [],
                                   input: nil,
+                                  error: nil,
+                                  isEnabledSaveButton: false,
+                                  isLoading: false,
                                   isAppeared: false,
-                                  action: .update)
+                                  action: .none)
     }
 }
 

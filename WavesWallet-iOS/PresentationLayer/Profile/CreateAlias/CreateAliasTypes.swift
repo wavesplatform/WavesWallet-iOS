@@ -15,7 +15,7 @@ enum CreateAliasTypes {
 extension CreateAliasTypes {
 
     enum Query: Equatable {
-        
+        case checkExist(String)
     }
 
     struct State: Mutating {        
@@ -27,6 +27,9 @@ extension CreateAliasTypes {
         case viewWillAppear
         case viewDidDisappear
         case input(String?)
+        case createAlias
+        case errorAliasExist
+        case aliasAameFree
         case completedQuery
     }
 
@@ -34,11 +37,15 @@ extension CreateAliasTypes {
 
         enum Action {
             case none
+            case reload
             case update
         }
 
         var sections: [ViewModel.Section]
         var input: String?
+        var error: String?
+        var isEnabledSaveButton: Bool
+        var isLoading: Bool
         var isAppeared: Bool
         var action: Action?
     }
@@ -47,7 +54,7 @@ extension CreateAliasTypes {
 extension CreateAliasTypes.ViewModel {
 
     enum Row {
-        case input(String?)
+        case input(String?, error: String?)
     }
 
     struct Section: SectionBase, Mutating {

@@ -24,6 +24,8 @@ final class AliasesViewController: UIViewController {
     @IBOutlet private var aliasesInfoView: AliasesInfoView!
     @IBOutlet private var aliasesInfoViewTopLayot: NSLayoutConstraint!
 
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(tap:)))
+
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     private var isHiddenInfoView: Bool = true
@@ -32,6 +34,9 @@ final class AliasesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
 
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
@@ -43,6 +48,10 @@ final class AliasesViewController: UIViewController {
             } else {
                 self.hideInfoView()
             }
+        }
+
+        aliasesInfoView.createButtonDidTap = {
+            self.eventInput.onNext(.tapCreateAlias)
         }
 
         setupSystem()
@@ -75,6 +84,23 @@ final class AliasesViewController: UIViewController {
         }) { _ in
 
         }
+    }
+
+    @objc func handlerTapGesture(tap: UITapGestureRecognizer) {
+        if self.isHiddenInfoView {
+            self.showInfoView()
+        } else {
+            self.hideInfoView()
+        }
+    }
+}
+
+extension AliasesViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: view)
+        let frame = CGRect(x: aliasesInfoView.frame.origin.x, y: aliasesInfoView.frame.origin.y, width: aliasesInfoView.frame.width, height: Constants.topBarHeight)
+        return frame.contains(location)
     }
 }
 

@@ -177,9 +177,16 @@ final class InputTextField: UIView, NibOwnerLoadable {
         self.isValidValue = isValidValue
     }
 
-    func setError(_ error: String?) {
-        externalError = error
-        checkValidValue()
+    var error: String? {
+
+        get {
+            return externalError ?? errorLabel.text
+        }
+
+        set {
+            externalError = newValue
+            checkValidValue()
+        }
     }
 }
 

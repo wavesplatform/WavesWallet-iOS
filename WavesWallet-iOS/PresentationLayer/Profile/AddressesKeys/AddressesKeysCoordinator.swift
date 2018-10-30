@@ -18,6 +18,8 @@ final class AddressesKeysCoordinator: Coordinator {
     private var needPrivateKeyCallback: ((DomainLayer.DTO.SignedWallet) -> Void)?
     private var rootViewController: UIViewController?
 
+    private var currentPopup: PopupViewController?
+
     init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet) {
         self.navigationController = navigationController
         self.wallet = wallet
@@ -69,14 +71,17 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
 
         if aliases.count == 0 {
-            let controller = StoryboardScene.Profile.createNewAliasViewController.instantiate()
+            let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
+            controller.delegate = self
             let popup = PopupViewController()
             popup.contentHeight = 378
             popup.present(contentViewController: controller)
+            self.currentPopup = popup
         } else {
             let controller = AliasesModuleBuilder.init(output: self).build(input: .init(aliases: aliases))
             let popup = PopupViewController()            
             popup.present(contentViewController: controller)
+            self.currentPopup = popup
         }
     }
 
@@ -91,5 +96,28 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
 extension AddressesKeysCoordinator: AliasesModuleOutput {
     func aliasesCreateAlias() {
 
+        self.currentPopup?.dismissPopup {
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationController.pushViewController(vc, animated: true)
+        }
     }
 }
+
+// MARK: AliasWithoutViewControllerDelegate
+
+extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
+    func aliasWithoutUserTapCreateNewAlias() {
+        self.currentPopup?.dismissPopup {
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+// MARK: CreateAliasModuleOutput
+
+extension AddressesKeysCoordinator: CreateAliasModuleOutput {
+
+}
+
+

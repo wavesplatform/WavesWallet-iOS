@@ -1061,7 +1061,7 @@
         <!--Alias Without View Controller-->
         <scene sceneID="WBn-Tv-7jF">
             <objects>
-                <viewController storyboardIdentifier="CreateNewAliasViewController" id="nLK-VF-1vR" customClass="AliasWithoutViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AliasWithoutViewController" id="nLK-VF-1vR" customClass="AliasWithoutViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WvS-PM-VNt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1468,33 +1468,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IlR-mG-oiA">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="qsT-SU-M5e">
-                                    <rect key="frame" x="0.0" y="192" width="375" height="128"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsX-3v-n1I">
-                                            <rect key="frame" x="16" y="56" width="343" height="48"/>
-                                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="FOD-qd-b0p"/>
-                                            </constraints>
-                                            <state key="normal" title="Save">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                        </button>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NIh-d1-URR">
-                                            <rect key="frame" x="323" y="70" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="NIh-d1-URR" firstAttribute="trailing" secondItem="OsX-3v-n1I" secondAttribute="trailing" constant="-16" id="DmS-t2-Uh3"/>
-                                        <constraint firstAttribute="bottom" secondItem="OsX-3v-n1I" secondAttribute="bottom" constant="24" id="ITP-tT-h24"/>
-                                        <constraint firstAttribute="trailing" secondItem="OsX-3v-n1I" secondAttribute="trailing" constant="16" id="NuC-mt-6DV"/>
-                                        <constraint firstItem="OsX-3v-n1I" firstAttribute="leading" secondItem="qsT-SU-M5e" secondAttribute="leading" constant="16" id="se2-ff-vFy"/>
-                                        <constraint firstItem="NIh-d1-URR" firstAttribute="centerY" secondItem="OsX-3v-n1I" secondAttribute="centerY" id="xVL-xl-0Hc"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CreateAliasInputCell" rowHeight="164" id="ulQ-Vl-QDm" customClass="CreateAliasInputCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="164"/>
@@ -1536,12 +1509,42 @@
                         <viewLayoutGuide key="safeArea" id="QlR-47-7rJ"/>
                     </view>
                     <connections>
+                        <outlet property="footerView" destination="qsT-SU-M5e" id="DHh-fJ-MYU"/>
                         <outlet property="indicatorView" destination="NIh-d1-URR" id="HQl-sO-cj9"/>
                         <outlet property="saveButton" destination="OsX-3v-n1I" id="ZvR-MY-NSb"/>
                         <outlet property="tableView" destination="IlR-mG-oiA" id="uvM-3c-mgd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4e-en-PVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="qsT-SU-M5e">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsX-3v-n1I">
+                            <rect key="frame" x="16" y="0.0" width="343" height="48"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="FOD-qd-b0p"/>
+                            </constraints>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NIh-d1-URR">
+                            <rect key="frame" x="323" y="14" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="OsX-3v-n1I" firstAttribute="top" secondItem="qsT-SU-M5e" secondAttribute="top" id="84p-IU-Zev"/>
+                        <constraint firstItem="NIh-d1-URR" firstAttribute="trailing" secondItem="OsX-3v-n1I" secondAttribute="trailing" constant="-16" id="DmS-t2-Uh3"/>
+                        <constraint firstAttribute="bottom" secondItem="OsX-3v-n1I" secondAttribute="bottom" constant="24" id="ITP-tT-h24"/>
+                        <constraint firstAttribute="trailing" secondItem="OsX-3v-n1I" secondAttribute="trailing" constant="16" id="NuC-mt-6DV"/>
+                        <constraint firstItem="OsX-3v-n1I" firstAttribute="leading" secondItem="qsT-SU-M5e" secondAttribute="leading" constant="16" id="se2-ff-vFy"/>
+                        <constraint firstItem="NIh-d1-URR" firstAttribute="centerY" secondItem="OsX-3v-n1I" secondAttribute="centerY" id="xVL-xl-0Hc"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="aYo-uh-8rw"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="4029.5999999999999" y="640.92953523238384"/>
         </scene>

@@ -28,6 +28,9 @@ final class AliasesInfoView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        createButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
+        createButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
         setupLocalization()
     }
 

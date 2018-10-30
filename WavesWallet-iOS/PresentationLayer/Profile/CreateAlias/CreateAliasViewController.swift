@@ -15,6 +15,7 @@ final class CreateAliasViewController: UIViewController {
 
     typealias Types = CreateAliasTypes
 
+    @IBOutlet private var footerView: UIView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var saveButton: UIButton!
     @IBOutlet private var indicatorView: UIActivityIndicatorView!
@@ -35,10 +36,42 @@ final class CreateAliasViewController: UIViewController {
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
 
-        tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
-
+        tableView.addSubview(footerView)
         setupSystem()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutFooterView()
+        updateContentInset()
+    }
+
+    private func continueCreateAlias() {
+        view.endEditing(true)
+        eventInput.onNext(.createAlias)
+    }
+
+    @IBAction func handlerSaveButton() {
+        continueCreateAlias()
+    }
+
+    private func updateContentInset() {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: footerView.frame.height, right: 0)
+    }
+
+    private func layoutFooterView() {
+        let size = footerView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let y = max(tableView.contentSize.height, tableView.frame.height) - size.height
+        footerView.frame = CGRect.init(x: 0, y: y, width: tableView.frame.width, height: size.height)
+    }
+
+    private var inputCell: CreateAliasInputCell? {
+        guard let visibleCells = tableView?.visibleCells else { return nil }
+        let anyCell = visibleCells.map({ cell -> CreateAliasInputCell? in
+            return cell as? CreateAliasInputCell
+        }).compactMap { $0 }.first
+        return anyCell
     }
 }
 
@@ -92,11 +125,31 @@ private extension CreateAliasViewController {
     func updateView(with state: Types.DisplayState) {
 
         self.sections = state.sections
+
+        if state.isLoading {
+            indicatorView.startAnimating()
+        } else {
+            indicatorView.stopAnimating()
+        }
+
+        saveButton.isEnabled = state.isEnabledSaveButton
+
         if let action = state.action {
             switch action {
+            case .reload:
+                tableView.reloadData()
+
+                guard let inputCell = self.inputCell else { return }
+                inputCell.becomeFirstResponder()
             case .update:
 
-                tableView.reloadData()
+                guard let inputCell = self.inputCell else { return }
+                guard let indexPath = tableView.indexPath(for: inputCell) else { return }
+
+                if case .input(let text, let error) = sections[indexPath] {
+                    inputCell.update(with: .init(text: text, error: error))
+                }
+
             case .none:
                 break
             }
@@ -121,14 +174,20 @@ extension CreateAliasViewController: UITableViewDataSource {
 
         let row = sections[indexPath]
         switch row {
-        case .input(let text):
+        case .input(let text, let error):
             let cell: CreateAliasInputCell = tableView.dequeueCell()
-            cell.update(with: .init(text: text))
+            cell.update(with: .init(text: text, error: error))
 
             cell
                 .textFieldChangedValue
                 .map { Types.Event.input($0) }
                 .bind(to: self.eventInput)
+                .disposed(by: cell.disposeBag)
+
+            cell.textFieldShouldReturn
+                .subscribe(weak: self, onNext: { (owner, _) in
+                    owner.continueCreateAlias()
+                })
                 .disposed(by: cell.disposeBag)
             
             return cell
@@ -144,8 +203,8 @@ extension CreateAliasViewController: UITableViewDelegate {
 
         let row = sections[indexPath]
         switch row {
-        case .input(let text):
-            return CreateAliasInputCell.viewHeight(model: .init(text: text), width: tableView.frame.width)
+        case .input(let text, let error):
+            return CreateAliasInputCell.viewHeight(model: .init(text: text, error: error), width: tableView.frame.width)
         }
     }
 }
@@ -156,5 +215,6 @@ extension CreateAliasViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
+        layoutFooterView()
     }
 }
