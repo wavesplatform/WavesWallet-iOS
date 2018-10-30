@@ -10,10 +10,12 @@ import Foundation
 
 import RxSwift
 
-enum AliasesRepositoryProtocolError: Error {
+enum AliasesRepositoryError: Error {
     case invalid
+    case dontExist
 }
 
 protocol AliasesRepositoryProtocol {
     func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]>
+    func alias(by name: String, accountAddress: String) -> Observable<String>
 }

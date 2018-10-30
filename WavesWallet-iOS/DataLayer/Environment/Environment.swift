@@ -41,6 +41,7 @@ struct Environment: Decodable {
 }
 
 extension Environment {
+
     var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
     }

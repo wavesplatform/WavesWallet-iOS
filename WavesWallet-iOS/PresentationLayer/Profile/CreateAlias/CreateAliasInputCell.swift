@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 private enum Constants {
-    static let height: CGFloat = 60
+    static let height: CGFloat = 62
 }
 
 final class CreateAliasInputCell: UITableViewCell, Reusable {
@@ -29,6 +29,10 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         setupLocalization()
         setupTextField()
+    }
+
+    @discardableResult override func becomeFirstResponder() -> Bool {
+        return inputTextField.becomeFirstResponder()
     }
 
     lazy var textFieldShouldReturn: Observable<Void> = {
@@ -53,6 +57,17 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
         })
     }()
 
+    var error: String? {
+
+        get {
+            return self.inputTextField.error
+        }
+
+        set {
+            self.inputTextField.error = newValue
+        }
+    }
+
     private func setupTextField() {
 
         inputTextField.autocapitalizationType = .none
@@ -62,19 +77,7 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
                                                            placeholder: "Symbolic name"))
 
         inputTextField.returnKey = .done
-
-        inputTextField.valueValidator = { text -> String? in
-            return nil
-        }
     }
-
-//    private func continueChangePassword() {
-//
-//    }
-//
-//    @IBAction func handlerConfirmButton() {
-//        continueChangePassword()
-//    }
 }
 
 // MARK: ViewConfiguration
@@ -83,10 +86,12 @@ extension CreateAliasInputCell: ViewConfiguration {
 
     struct Model {
         let text: String?
+        let error: String?
     }
 
     func update(with model: CreateAliasInputCell.Model) {
         inputTextField.value = model.text
+        inputTextField.error = model.error
     }
 }
 

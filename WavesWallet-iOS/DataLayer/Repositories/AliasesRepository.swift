@@ -51,4 +51,28 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                 .compactMap { $0 }
             })
     }
+
+    func alias(by name: String, accountAddress: String) -> Observable<String> {
+
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] environment -> Observable<String> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .aliasNode
+                    .rx
+                    .request(Node.Service.Alias(environment: environment,
+                                                kind: .alias(name: name)))
+                    .map([String:String].self)
+                    .asObservable()
+                    .map({ $0["address"] ?? "" })
+                    .catchError({ e -> Observable<String> in
+                        guard let error = e as? MoyaError else { return Observable.error(AliasesRepositoryError.invalid) }
+                        guard let response = error.response else { return Observable.error(AliasesRepositoryError.invalid) }
+                        guard response.statusCode == 404 else { return Observable.error(AliasesRepositoryError.invalid) }
+                        return Observable.error(AliasesRepositoryError.dontExist)                    
+                    })
+
+            })
+    }
 }

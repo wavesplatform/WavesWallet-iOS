@@ -152,7 +152,7 @@ private extension NetworkSettingsViewController {
     func updateView(with state: Types.DisplayState) {
 
         spamUrlTextField.value = state.spamUrl
-        spamUrlTextField.setError(state.spamError)
+        spamUrlTextField.error = state.spamError
         spamFilterSwitch.isOn = state.isSpam
         saveButton.isEnabled = state.isEnabledSaveButton
         setDefaultButton.isEnabled = state.isEnabledSetDeffaultButton
