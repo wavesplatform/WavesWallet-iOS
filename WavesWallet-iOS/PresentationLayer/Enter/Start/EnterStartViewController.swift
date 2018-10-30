@@ -26,6 +26,12 @@ private enum Constants {
         case big = 44
     }
     
+    enum PageControlTopOffset: CGFloat {
+        case small = 2
+        case big = 24
+    }
+    
+    
 }
 
 protocol EnterStartViewControllerDelegate: AnyObject {
@@ -45,6 +51,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     @IBOutlet weak var createAccountButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var pageControlTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var importAccountView: UIView!
     @IBOutlet weak var signInView: UIView!
@@ -154,12 +161,15 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         if Platform.isIphone5 {
             collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.small.rawValue
             createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.small.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.small.rawValue
         } else if Platform.isIphone7 {
             collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.medium.rawValue
             createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.big.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.big.rawValue
         } else {
             collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.big.rawValue
             createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.big.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.big.rawValue
         }
     }
     

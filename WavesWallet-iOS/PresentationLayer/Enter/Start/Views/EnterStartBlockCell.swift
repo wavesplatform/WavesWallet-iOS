@@ -34,6 +34,11 @@ private enum Constants {
         
         return [.font: font, .paragraphStyle: style]
     }()
+    
+    enum TitleTopOffset: CGFloat {
+        case small = 14
+        case big = 24
+    }
 }
 
 final class EnterStartBlockCell: UICollectionViewCell, NibReusable {
@@ -44,10 +49,17 @@ final class EnterStartBlockCell: UICollectionViewCell, NibReusable {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var textLabel: UILabel!
     
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        if Platform.isIphone5 {
+            titleLabelTopConstraint.constant = Constants.TitleTopOffset.small.rawValue
+        } else {
+            titleLabelTopConstraint.constant = Constants.TitleTopOffset.big.rawValue
+        }
     }
     
     class func cellHeight(model: EnterStartTypes.Block, width: CGFloat)-> CGFloat {

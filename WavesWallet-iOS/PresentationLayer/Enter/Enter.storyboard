@@ -181,6 +181,7 @@
                         <outlet property="importAccountTitleLabel" destination="0p7-nL-lGj" id="sF7-G1-4om"/>
                         <outlet property="importAccountView" destination="GaN-1g-QJC" id="VkW-sb-df9"/>
                         <outlet property="pageControl" destination="wMZ-Ng-A1S" id="Cfk-8X-EOy"/>
+                        <outlet property="pageControlTopConstraint" destination="cXI-Pi-9Jg" id="g1q-0t-zBj"/>
                         <outlet property="signInDetailLabel" destination="HN0-TK-RAU" id="ARY-yg-FtS"/>
                         <outlet property="signInTitleLabel" destination="2jk-jI-Nn6" id="YUb-ec-3Qd"/>
                         <outlet property="signInView" destination="EtO-b7-VE7" id="8Js-Hp-2lz"/>
