@@ -175,6 +175,7 @@ private extension SendInteractor {
             params["monero_payment_id"] = moneroPaymentID
         }
         
+        //TODO: need change to Observer network
         NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params) { (info, error) in
             if let tunnel = info {
                 
@@ -208,7 +209,7 @@ private extension SendInteractor {
         let params = ["f" : asset.wavesId ?? "",
                       "t" : asset.gatewayId ?? ""]
         
-
+        //TODO: need change to Observer network
         NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
             
             var fee: Money?

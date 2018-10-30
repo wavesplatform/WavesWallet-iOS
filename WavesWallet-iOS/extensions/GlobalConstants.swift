@@ -33,6 +33,10 @@ extension GlobalConstants.Matcher {
         return url + "matcher/orderbook"
     }
     
+    static func orderBook(_ amountAsset: String, _ priceAsset: String) -> String {
+        return orderBook + "/" + amountAsset + "/" + priceAsset
+    }
+    
 }
 
 extension GlobalConstants.Market {
@@ -40,8 +44,8 @@ extension GlobalConstants.Market {
     private static let url = "https://marketdata.wavesplatform.com/"
     private static let apiPath = "api/"
     
-    static var trades: String {
-        return url + apiPath + "trades/"
+    static func trades(_ amountAsset: String, _ priceAsset: String, _ count: Int) -> String {
+        return url + apiPath + "trades/" + amountAsset + "/" + priceAsset + "/" + String(count)
     }
     
     static var candles: String {

@@ -77,6 +77,7 @@ private extension DexListInteractor {
             url.append("pairs=" + pair.amountAsset.id + "/" + pair.priceAsset.id)
         }
         
+        //TODO: need change to Observer network
         return NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
             
             if let info = info {

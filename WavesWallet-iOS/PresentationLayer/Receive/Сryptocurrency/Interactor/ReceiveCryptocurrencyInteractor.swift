@@ -13,7 +13,8 @@ import SwiftyJSON
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     
     private var disposeBag = DisposeBag()
-    
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         return Observable.create({ [weak self] subscribe -> Disposable in
@@ -53,6 +54,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         let params = ["f" : asset.wavesId ?? "",
                       "t" : asset.gatewayId ?? ""]
         
+        //TODO: need change to Observer network
         NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
             
             var min: Money?
@@ -68,13 +70,13 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
   
     private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ error: ResponseTypeError?) -> Void) {
     
-        let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
         auth.authorizedWallet().subscribe(onNext: { signedWallet in
 
             let params = ["currency_from" : asset.wavesId ?? "",
                           "currency_to" : asset.gatewayId ?? "",
                           "wallet_to" : signedWallet.wallet.address]
             
+            //TODO: need change to Observer network
             NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params, complete: { (info, error) in
                 
                 guard let tunnel = info else {

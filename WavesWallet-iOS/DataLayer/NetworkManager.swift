@@ -141,26 +141,9 @@ class NetworkManager: NSObject
         }
     }
     
-    class func getLastPairPrice(pair: AssetPair) -> Observable<(Double, Int64)> {
-        let u = URL(string: GlobalConstants.Market.trades + "\(pair.amountAsset)/\(pair.priceAsset)/1")!
-        return RxAlamofire.requestJSON(.get, u)
-            .flatMap { (resp, json) -> Observable<(Double, Int64)> in
-                if let infos = json as? [JSON] {
-                    if infos.count > 0 {
-                        let info = infos[0]
-                        if let p = info["price"].double,
-                            let ts = info["timestamp"].int64 {
-                            return Observable.just((p, ts))
-                        }
-                    }
-                }
-            return Observable.error(ApiError.IncorrectResponseFormat)
-        }
-    }
-    
     @discardableResult class func getLastTraderPairPrice(amountAsset : String, priceAsset : String, complete: @escaping (_ price: Double, _ timestamp: Int64, _ errorMessage: String?) -> Void) -> DataRequest {
         
-        return getRequestWithUrl(GlobalConstants.Market.trades + "\(amountAsset)/\(priceAsset)/1", parameters: nil) { (info, error) in
+        return getRequestWithUrl(GlobalConstants.Market.trades(amountAsset, priceAsset, 1), parameters: nil) { (info, error) in
             
                 if let item = (info as? NSArray)?.firstObject as? NSDictionary {
                                         
@@ -180,7 +163,7 @@ class NetworkManager: NSObject
     
     class func getLastTraders(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
         
-        getRequestWithUrl(GlobalConstants.Market.trades + "\(amountAsset)/\(priceAsset)/100", parameters: nil) { (info, error) in
+        getRequestWithUrl(GlobalConstants.Market.trades(amountAsset, priceAsset, 100), parameters: nil) { (info, error) in
             
             complete(info as? NSArray, error?.message)
         }
