@@ -129,79 +129,14 @@ class NetworkManager: NSObject
 
         return baseRequestWithUrl(url, method: .get, parameters: parameters, headers:headers, complete: complete)
     }
-    
-    class func getCandles(amountAsset : String, priceAsset : String, timeframe : Int, from : Date, to : Date, complete: @escaping (_ completeInfo: NSArray?, _ errorMessage: String?) -> Void) {
-        
-        let dateFrom = String.init(format: "%0.f", from.timeIntervalSince1970 * 1000)
-        let dateTo =  String.init(format: "%0.f", to.timeIntervalSince1970 * 1000)
-        
-        getRequestWithUrl(GlobalConstants.Market.candles + "\(amountAsset)/\(priceAsset)/\(timeframe)/\(dateFrom)/\(dateTo)", parameters: nil) { (info : Any?, error: ResponseTypeError?) in
 
-            complete(info as? NSArray, error?.message)
-        }
-    }
-    
-    @discardableResult class func getLastTraderPairPrice(amountAsset : String, priceAsset : String, complete: @escaping (_ price: Double, _ timestamp: Int64, _ errorMessage: String?) -> Void) -> DataRequest {
-        
-        return getRequestWithUrl(GlobalConstants.Market.trades(amountAsset, priceAsset, 1), parameters: nil) { (info, error) in
-            
-                if let item = (info as? NSArray)?.firstObject as? NSDictionary {
-                                        
-                    if item["price"] is String {
-                        let value = Double(item["price"] as! String)!
-                        complete(value, item["timestamp"] as! Int64, error?.message)
-                    }
-                    else {
-                        complete(item["price"] as! Double, item["timestamp"] as! Int64, error?.message)
-                    }
-                }
-                else {
-                    complete(0, 0, error?.message)
-                }
-        }
-    }
-    
-    class func getLastTraders(amountAsset: String, priceAsset: String , complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
-        
-        getRequestWithUrl(GlobalConstants.Market.trades(amountAsset, priceAsset, 100), parameters: nil) { (info, error) in
-            
-            complete(info as? NSArray, error?.message)
-        }
-    }
-    
-    class func getOrderBook(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) -> DataRequest {
-    
-        return getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)", parameters: nil) { (info, error) in
-            complete(info as? NSDictionary, error?.message)
-        }
-    }
-    
-    class func getAllOrderBooks (_ complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
-    
-        getRequestWithUrl(matcherURL + "matcher/orderbook", parameters: nil) { (info, error) in
-            complete((info as? NSDictionary)?["markets"] as? NSArray, error?.message)
-        }
-    }
     
     class func getVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
         getRequestWithUrl( "https://waves-wallet.firebaseio.com/" + "verified-assets.json", parameters: nil) { (info, error) in
             complete(info as? NSDictionary, error?.message)
         }
     }
-    
-    @discardableResult class func getTickerInfo(amountAsset: String, priceAsset: String , complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) -> DataRequest {
-
-        return getRequestWithUrl(GlobalConstants.Market.ticker + "\(amountAsset)/\(priceAsset)", parameters: nil) { (info, error) in
-                complete(info as? NSDictionary, error?.message)
-            }
-    }
-    
-    class func getTransactionInfo(asset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
-                
-        getRequestWithUrl(serverURL + "transactions/info/\(asset)", parameters: nil) { (info, error) in
-            complete(info as? NSDictionary, error?.message)
-        }
-    }
+   
     
     class func getBalancePair(priceAsset: String, amountAsset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
         

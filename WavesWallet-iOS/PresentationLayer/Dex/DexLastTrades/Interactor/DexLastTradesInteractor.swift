@@ -55,8 +55,6 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     }
 }
 
-//MARK: - TestData
-
 private extension DexLastTradesInteractor {
     
     func getLastTrades(_ complete:@escaping(_ trades: [DexLastTrades.DTO.Trade]) -> Void) {

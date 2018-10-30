@@ -99,19 +99,11 @@ internal enum StoryboardScene {
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
 
-    internal static let assetPairDetailsViewController = SceneType<WavesWallet_iOS.HalfNavController>(storyboard: Dex.self, identifier: "AssetPairDetailsViewController")
-
-    internal static let chartViewController = SceneType<WavesWallet_iOS.ChartViewController>(storyboard: Dex.self, identifier: "ChartViewController")
-
     internal static let createOrderViewController = SceneType<WavesWallet_iOS.CreateOrderViewController>(storyboard: Dex.self, identifier: "CreateOrderViewController")
-
-    internal static let createOrderViewController1 = SceneType<UIViewController>(storyboard: Dex.self, identifier: "CreateOrderViewController1")
 
     internal static let dexChartViewController = SceneType<WavesWallet_iOS.DexChartViewController>(storyboard: Dex.self, identifier: "DexChartViewController")
 
     internal static let dexCompleteOrderViewController = SceneType<WavesWallet_iOS.DexCompleteOrderViewController>(storyboard: Dex.self, identifier: "DexCompleteOrderViewController")
-
-    internal static let dexContainerViewController = SceneType<WavesWallet_iOS.DexContainerViewController>(storyboard: Dex.self, identifier: "DexContainerViewController")
 
     internal static let dexCreateOrderViewController = SceneType<WavesWallet_iOS.DexCreateOrderViewController>(storyboard: Dex.self, identifier: "DexCreateOrderViewController")
 
@@ -125,23 +117,13 @@ internal enum StoryboardScene {
 
     internal static let dexMyOrdersViewController = SceneType<WavesWallet_iOS.DexMyOrdersViewController>(storyboard: Dex.self, identifier: "DexMyOrdersViewController")
 
-    internal static let dexNewPairViewController = SceneType<WavesWallet_iOS.DexNewPairViewController>(storyboard: Dex.self, identifier: "DexNewPairViewController")
-
     internal static let dexOrderBookViewController = SceneType<WavesWallet_iOS.DexOrderBookViewController>(storyboard: Dex.self, identifier: "DexOrderBookViewController")
-
-    internal static let dexSearchViewController = SceneType<WavesWallet_iOS.DexSearchViewController>(storyboard: Dex.self, identifier: "DexSearchViewController")
 
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
     internal static let dexTraderContainerViewController = SceneType<WavesWallet_iOS.DexTraderContainerViewController>(storyboard: Dex.self, identifier: "DexTraderContainerViewController")
 
-    internal static let dexViewController = SceneType<WavesWallet_iOS.DexViewController>(storyboard: Dex.self, identifier: "DexViewController")
-
-    internal static let lastTradersViewController = SceneType<WavesWallet_iOS.LastTradersViewController>(storyboard: Dex.self, identifier: "LastTradersViewController")
-
     internal static let myOrdersViewController = SceneType<WavesWallet_iOS.MyOrdersViewController>(storyboard: Dex.self, identifier: "MyOrdersViewController")
-
-    internal static let orderBookViewController = SceneType<WavesWallet_iOS.OrderBookViewController>(storyboard: Dex.self, identifier: "OrderBookViewController")
   }
   internal enum Enter: StoryboardType {
     internal static let storyboardName = "Enter"
@@ -292,9 +274,6 @@ internal enum StoryboardScene {
 }
 
 internal enum StoryboardSegue {
-  internal enum Dex: String, SegueType {
-    case dexContainerViewController = "DexContainerViewController"
-  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name
 
