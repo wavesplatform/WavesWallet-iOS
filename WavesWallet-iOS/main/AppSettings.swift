@@ -1,4 +1,5 @@
 import UIKit
+import Device_swift
 
 class AppColors {
     static let wavesColor = UIColor(netHex: 0x003597)//UIColor(netHex: 0x4b7190)
@@ -26,30 +27,62 @@ class AppColors {
 
 struct Platform {
 
-    static let ScreenWidth = UIScreen.main.bounds.size.width
+    static let ScreenWidth = UIScreen.main.bounds.width
     
-    static let isIphoneX : Bool = {
-        return UIScreen.main.bounds.size.width == 375 && UIScreen.main.bounds.size.height == 812 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
-    }()
+    static let deviceType = UIDevice.current.deviceType
     
     static let isIphone5 : Bool = {
-        return UIScreen.main.bounds.size.width == 320 && UIScreen.main.bounds.size.height == 568 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
-    }()
-    
-    static let isIphonePlus : Bool = {
-        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 736 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+        switch Platform.deviceType {
+        case .iPhone5, .iPhoneSE, .iPhone5C, .iPhone5S:
+            return true
+        default:
+            return false
+        }
     }()
     
     static let isIphone7 : Bool = {
-        return UIScreen.main.bounds.size.width == 375 && UIScreen.main.bounds.size.height == 667 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+        switch Platform.deviceType {
+        case .iPhone6, .iPhone6S, .iPhone7, .iPhone8:
+            return true
+        default:
+            return false
+        }
+    }()
+    
+    static let isIphonePlus : Bool = {
+        switch Platform.deviceType {
+        case .iPhone6Plus, .iPhone6SPlus, .iPhone7Plus, .iPhone8Plus:
+            return true
+        default:
+            return false
+        }
+    }()
+    
+    static let isIphoneX : Bool = {
+        switch Platform.deviceType {
+        case .iPhoneX, .iPhoneXS:
+            return true
+        default:
+            return false
+        }
     }()
     
     static let isIphoneXMax : Bool = {
-        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 896 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone && UIScreen.main.scale == 3
+        switch Platform.deviceType {
+        case .iPhoneXSMax:
+            return true
+        default:
+            return false
+        }
     }()
     
     static let isIphoneXR : Bool = {
-        return UIScreen.main.bounds.size.width == 414 && UIScreen.main.bounds.size.height == 896 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone && UIScreen.main.scale == 2
+        switch Platform.deviceType {
+        case .iPhoneXR:
+            return true
+        default:
+            return false
+        }
     }()
     
 }
