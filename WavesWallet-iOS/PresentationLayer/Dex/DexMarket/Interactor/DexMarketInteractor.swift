@@ -15,19 +15,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
 
     func pairs() -> Observable<[DexMarket.DTO.Pair]> {
-        
-        if DexMarketInteractor.allPairs.count > 0 {
-            return Observable.just(DexMarketInteractor.allPairs)
-        }
 
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMarket.DTO.Pair]> in
             
             guard let owner = self else { return Observable.empty() }
-            return owner.account.balances(by: wallet, isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<[DexMarket.DTO.Pair]> in
-                
-                guard let owner = self else { return Observable.empty() }
-                return owner.allPairs(balances: balances, accountAddress: wallet.wallet.address)
-            })
+            return owner.allPairs(accountAddress: wallet.wallet.address)
         })
     }
     
@@ -53,7 +45,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                     if needSaveAssetPair {
                         return owner.repository.save(pair: pair, accountAddress: wallet.wallet.address)
                     }
-                    return owner.repository.delete(pair: pair, accountAddress: wallet.wallet.address)
+                    return owner.repository.delete(by: pair.id, accountAddress: wallet.wallet.address)
                     
                 }.subscribe().disposed(by: disposeBag)
             }
@@ -78,6 +70,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             searchPairsSubject.onNext(DexMarketInteractor.allPairs)
         }
     }
+    
 }
 
 //MARK: - Search
@@ -129,26 +122,42 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func allPairs(balances: [DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
-            
-            guard let owner = self else { return Disposables.create() }
-            owner.getAllPairs(balances: balances, accountAddress: accountAddress, complete: { (pairs) in
-                DexMarketInteractor.allPairs = pairs
-                subscribe.onNext(pairs)
-                subscribe.onCompleted()
-            })
-            return Disposables.create()
-        })
+    func allPairs(accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
         
+        if DexMarketInteractor.allPairs.count > 0 {
+            
+            return repository.list(by: accountAddress).flatMap({ (pairs) -> Observable<[DexMarket.DTO.Pair]> in
+                
+                for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
+                    
+                    DexMarketInteractor.allPairs[index] = pair.mutate {
+                        $0.isChecked = pairs.contains(where: {$0.id == pair.id})
+                    }
+                }
+                
+                return Observable.just(DexMarketInteractor.allPairs)
+            })
+        }
+        else {
+            return Observable.create({ [weak self] (subscribe) -> Disposable in
+                
+                guard let owner = self else { return Disposables.create() }
+                owner.getAllPairs(accountAddress: accountAddress, complete: { (pairs) in
+                    DexMarketInteractor.allPairs = pairs
+                    subscribe.onNext(pairs)
+                    subscribe.onCompleted()
+                })
+                return Disposables.create()
+            })
+        }
     }
     
-    func getAllPairs(balances: [DomainLayer.DTO.AssetBalance], accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
+    func getAllPairs(accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
       
         NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
             
             var pairs: [DexMarket.DTO.Pair] = []
-
+            
             if let info = info {
                 
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
@@ -159,7 +168,7 @@ private extension DexMarketInteractor {
                     var amountAssetName = item["amountAssetName"].stringValue
                     var amountAssetShortName = item["amountAssetName"].stringValue
                     
-                    if let asset = balances.first(where: {$0.assetId == amountAssetId})?.asset {
+                    if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: amountAssetId)?.asset {
                         amountAssetName = asset.displayName
                         if let ticker = asset.ticker {
                             amountAssetShortName = ticker
@@ -170,13 +179,13 @@ private extension DexMarketInteractor {
                     var priceAssetName = item["priceAssetName"].stringValue
                     var priceAssetShortName = item["priceAssetName"].stringValue
                     
-                    if let asset = balances.first(where: {$0.assetId == priceAssetId})?.asset {
+                    if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: priceAssetId)?.asset {
                         priceAssetName = asset.displayName
                         if let ticker = asset.ticker {
                             priceAssetShortName = ticker
                         }
                     }
-                    
+
                     let amountAsset = Dex.DTO.Asset(id: amountAssetId,
                                                         name: amountAssetName,
                                                         shortName: amountAssetShortName,
@@ -187,21 +196,23 @@ private extension DexMarketInteractor {
                                                         shortName: priceAssetShortName,
                                                         decimals: item["priceAssetInfo"]["decimals"].intValue)
                     
-                    
-                    let isGeneralAmount = balances.filter({$0.assetId == amountAsset.id && $0.asset?.isGeneral == true}).count > 0
-                    let isGeneralPrice = balances.filter({$0.assetId == priceAsset.id && $0.asset?.isGeneral == true}).count > 0
-                
+
+                    let isGeneralAmount = realm.objects(AssetBalance.self)
+                        .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", amountAsset.id)).count > 0
+                    let isGeneralPrice = realm.objects(AssetBalance.self)
+                        .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", priceAsset.id)).count > 0
+
                     var pair = DexMarket.DTO.Pair(amountAsset: amountAsset,
                                                   priceAsset: priceAsset,
                                                   isChecked: false,
                                                   isGeneral: isGeneralAmount && isGeneralPrice)
-                    
+
                     pair.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
                         
                     pairs.append(pair)
                 }
                 
-                pairs = self.sort(pairs: pairs, balances: balances)
+                pairs = self.sort(pairs: pairs, realm: realm)
             }
             
             complete(pairs)
@@ -214,10 +225,10 @@ private extension DexMarketInteractor {
 //MARK: - Sort
 private extension DexMarketInteractor {
     
-    func sort(pairs: [DexMarket.DTO.Pair], balances: [DomainLayer.DTO.AssetBalance]) -> [DexMarket.DTO.Pair] {
+    func sort(pairs: [DexMarket.DTO.Pair], realm: Realm) -> [DexMarket.DTO.Pair] {
         
         var sortedPairs: [DexMarket.DTO.Pair] = []
-        let generalBalances = balances.filter({$0.asset?.isGeneral == true})
+        let generalBalances = realm.objects(AssetBalance.self).filter(NSPredicate(format: "asset.isGeneral == true"))
         
         for balance in generalBalances {
             sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == balance.assetId && $0.isGeneral == true }))

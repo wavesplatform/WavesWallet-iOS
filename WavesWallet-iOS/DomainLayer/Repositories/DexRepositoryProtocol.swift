@@ -12,7 +12,7 @@ import RxSwift
 protocol DexRepositoryProtocol {
     
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool>
-    func delete(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool>
+    func delete(by id: String, accountAddress: String) -> Observable<Bool> 
     func list(by accountAddress: String) -> Observable<[DexAssetPair]>
     func listListener(by accountAddress: String) -> Observable<[DexAssetPair]>
 

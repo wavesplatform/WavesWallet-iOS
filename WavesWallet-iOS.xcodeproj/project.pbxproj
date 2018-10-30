@@ -685,7 +685,6 @@
 		E9B0881D2163886800937644 /* DexSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087902163886800937644 /* DexSortCell.swift */; };
 		E9B0881E2163886800937644 /* DexSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087922163886800937644 /* DexSortInteractor.swift */; };
 		E9B0881F2163886800937644 /* DexSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087932163886800937644 /* DexSortInteractorProtocol.swift */; };
-		E9B088202163886800937644 /* DexSortInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087942163886800937644 /* DexSortInteractorMock.swift */; };
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
 		E9BCF48121636DAC00FA6502 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ResponseType.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
@@ -1473,7 +1472,6 @@
 		E9B087902163886800937644 /* DexSortCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortCell.swift; sourceTree = "<group>"; };
 		E9B087922163886800937644 /* DexSortInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractor.swift; sourceTree = "<group>"; };
 		E9B087932163886800937644 /* DexSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9B087942163886800937644 /* DexSortInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorMock.swift; sourceTree = "<group>"; };
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -3695,7 +3693,6 @@
 			children = (
 				E9B087922163886800937644 /* DexSortInteractor.swift */,
 				E9B087932163886800937644 /* DexSortInteractorProtocol.swift */,
-				E9B087942163886800937644 /* DexSortInteractorMock.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4515,7 +4512,6 @@
 				0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */,
 				0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */,
-				E9B088202163886800937644 /* DexSortInteractorMock.swift in Sources */,
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,

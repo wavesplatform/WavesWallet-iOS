@@ -10,11 +10,16 @@ import Foundation
 import RxSwift
 import Alamofire
 
+private enum Constants {
+    static let pair = "/v0" + "/pairs"
+}
+
 final class DexListInteractor: DexListInteractorProtocol {
    
     private let repository = DexRepository()
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
+    private let environmentRepository = FactoryRepositories.instance.environmentRepository
     
     func pairs() -> Observable<[DexList.DTO.Pair]> {
         
@@ -57,7 +62,7 @@ private extension DexListInteractor {
     
     func getListPairs(by pairs: [DexAssetPair], complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
         
-        var url = Environments.current.servers.dataUrl.relativeString + "/v0" + "/pairs"
+        var url = Environments.current.servers.dataUrl.relativeString + Constants.pair
         
         for pair in pairs {
             if (url as NSString).range(of: "?").location == NSNotFound {
@@ -97,7 +102,8 @@ private extension DexListInteractor {
                                                 lastPrice: lastPrice,
                                                 amountAsset: amountAsset,
                                                 priceAsset: priceAsset,
-                                                isGeneral: localPair.isGeneral)
+                                                isGeneral: localPair.isGeneral,
+                                                sortLevel: localPair.sortLevel)
                     listPairs.append(pair)
                 }
                 

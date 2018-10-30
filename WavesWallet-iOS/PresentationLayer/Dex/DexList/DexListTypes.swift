@@ -73,6 +73,7 @@ extension DexList.DTO {
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         let isGeneral: Bool
+        let sortLevel: Int
     }
     
     static let fiatAssets: [String] = {

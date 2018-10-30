@@ -15,10 +15,26 @@ fileprivate enum Constants {
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
+    private let reposity = DexRepository()
+    private let auth = FactoryInteractors.instance.authorization
+    private let disposeBag = DisposeBag()
     
     func models() -> Observable<[DexSort.DTO.DexSortModel]> {
         
-        return Observable.just([])
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexSort.DTO.DexSortModel]> in
+            
+            guard let owner = self else { return Observable.empty() }
+            return owner.reposity.list(by: wallet.wallet.address).flatMap({ (pairs) -> Observable<[DexSort.DTO.DexSortModel]> in
+                
+                var sortModels: [DexSort.DTO.DexSortModel] = []
+                for pair in pairs {
+                    let name = pair.amountAsset.name + " / " + pair.priceAsset.name
+                    sortModels.append(.init(id: pair.id, name: name, sortLevel: pair.sortLevel))
+                }
+                return Observable.just(sortModels)
+            })
+            
+        })
     }
    
     
@@ -32,6 +48,14 @@ final class DexSortInteractor: DexSortInteractorProtocol {
     
     func delete(model: DexSort.DTO.DexSortModel) {
         
+        auth.authorizedWallet().subscribe(onNext: { [weak self] (wallet) in
+            
+            guard let owner = self else { return }
+            owner.reposity.delete(by: model.id, accountAddress: wallet.wallet.address)
+            .subscribe()
+            .disposed(by: owner.disposeBag)
+            
+        }).disposed(by: disposeBag)
     }
     
 }
