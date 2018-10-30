@@ -126,17 +126,15 @@ private extension DexMarketInteractor {
         
         if DexMarketInteractor.allPairs.count > 0 {
             
-            return repository.list(by: accountAddress).flatMap({ (pairs) -> Observable<[DexMarket.DTO.Pair]> in
-                
-                for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
-                    
-                    DexMarketInteractor.allPairs[index] = pair.mutate {
-                        $0.isChecked = pairs.contains(where: {$0.id == pair.id})
-                    }
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+            
+            for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
+                DexMarketInteractor.allPairs[index] = pair.mutate {
+                    $0.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
                 }
-                
-                return Observable.just(DexMarketInteractor.allPairs)
-            })
+            }
+            
+            return Observable.just(DexMarketInteractor.allPairs)
         }
         else {
             return Observable.create({ [weak self] (subscribe) -> Disposable in
@@ -241,9 +239,5 @@ private extension DexMarketInteractor {
         sortedPairs.append(contentsOf: pairs.filter { !sortedIds.contains($0.id) } )
 
         return sortedPairs
-    }
-    
-    func predicate(notIN: [String]) -> NSPredicate {
-        return NSPredicate(format: "id NOT IN %@", notIN)
     }
 }
