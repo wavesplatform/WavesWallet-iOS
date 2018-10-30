@@ -16,7 +16,7 @@ private enum Constants {
 
 final class DexListInteractor: DexListInteractorProtocol {
    
-    private let dexRepository = DexRepository()
+    private let dexRepository = FactoryRepositories.instance.dexRepository
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
@@ -26,11 +26,11 @@ final class DexListInteractor: DexListInteractorProtocol {
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexList.DTO.Pair]> in
             guard let owner = self else { return Observable.empty() }
             
-            
             return Observable.merge([owner.dexRepository.list(by: wallet.wallet.address),
                                      owner.dexRepository.listListener(by: wallet.wallet.address)])
+                
                 .flatMap({ [weak self] (pairs) -> Observable<[DexList.DTO.Pair]> in
-                    
+                                        
                     guard let owner = self else { return Observable.empty() }
                     if pairs.count == 0 {
                         return Observable.just([])
@@ -49,10 +49,10 @@ final class DexListInteractor: DexListInteractorProtocol {
 
 private extension DexListInteractor {
     
-    func getList(by pairs: [DexAssetPair], environment: Environment) -> Observable<[DexList.DTO.Pair]> {
+    func getList(by pairs: [DexMarket.DTO.Pair], environment: Environment) -> Observable<[DexList.DTO.Pair]> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
-            
+
             guard let owner = self else { return Disposables.create() }
             let req = owner.getListPairs(by: pairs, environment: environment, complete: { (pairs, error) in
                 subscribe.onNext(pairs)
@@ -63,7 +63,7 @@ private extension DexListInteractor {
         })
     }
     
-    func getListPairs(by pairs: [DexAssetPair], environment: Environment, complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    func getListPairs(by pairs: [DexMarket.DTO.Pair], environment: Environment, complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
         
         var url = environment.servers.dataUrl.relativeString + Constants.pair
         

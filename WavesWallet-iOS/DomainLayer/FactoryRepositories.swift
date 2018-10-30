@@ -38,5 +38,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var addressBookRepository: AddressBookRepositoryProtocol = AddressBookRepository()
 
+    private(set) lazy var dexRepository: DexRepositoryProtocol = DexRepository()
+    
     fileprivate init() {}
 }
