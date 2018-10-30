@@ -1,0 +1,61 @@
+//
+//  DexMarketDTO+Mapper.swift
+//  WavesWallet-iOS
+//
+//  Created by Pavel Gubin on 10/30/18.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import Foundation
+import SwiftyJSON
+import RealmSwift
+
+
+extension DexMarket.DTO.Pair {
+    
+    init(_ json: JSON, realm: Realm) {
+        
+        let amountAssetId = json["amountAsset"].stringValue
+        var amountAssetName = json["amountAssetName"].stringValue
+        var amountAssetShortName = json["amountAssetName"].stringValue
+        
+        if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: amountAssetId)?.asset {
+            amountAssetName = asset.displayName
+            if let ticker = asset.ticker {
+                amountAssetShortName = ticker
+            }
+        }
+        
+        let priceAssetId = json["priceAsset"].stringValue
+        var priceAssetName = json["priceAssetName"].stringValue
+        var priceAssetShortName = json["priceAssetName"].stringValue
+        
+        if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: priceAssetId)?.asset {
+            priceAssetName = asset.displayName
+            if let ticker = asset.ticker {
+                priceAssetShortName = ticker
+            }
+        }
+        
+        amountAsset = Dex.DTO.Asset(id: amountAssetId,
+                                    name: amountAssetName,
+                                    shortName: amountAssetShortName,
+                                    decimals: json["amountAssetInfo"]["decimals"].intValue)
+        
+        priceAsset = Dex.DTO.Asset(id: priceAssetId,
+                                    name: priceAssetName,
+                                    shortName: priceAssetShortName,
+                                    decimals: json["priceAssetInfo"]["decimals"].intValue)
+        
+        
+        let isGeneralAmount = realm.objects(AssetBalance.self)
+            .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", amountAsset.id)).count > 0
+        let isGeneralPrice = realm.objects(AssetBalance.self)
+            .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", priceAsset.id)).count > 0
+        
+        isGeneral = isGeneralAmount && isGeneralPrice
+        id = amountAssetId + priceAssetId
+        isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id) != nil
+        sortLevel = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)?.sortLevel ?? 0
+    }
+}

@@ -118,7 +118,6 @@ private extension DexMarketInteractor {
     }
 }
 
-
 //MARK: - Load data
 private extension DexMarketInteractor {
     
@@ -161,53 +160,8 @@ private extension DexMarketInteractor {
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
                 for item in info["markets"].arrayValue {
-                    
-                    let amountAssetId = item["amountAsset"].stringValue
-                    var amountAssetName = item["amountAssetName"].stringValue
-                    var amountAssetShortName = item["amountAssetName"].stringValue
-                    
-                    if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: amountAssetId)?.asset {
-                        amountAssetName = asset.displayName
-                        if let ticker = asset.ticker {
-                            amountAssetShortName = ticker
-                        }
-                    }
-                    
-                    let priceAssetId = item["priceAsset"].stringValue
-                    var priceAssetName = item["priceAssetName"].stringValue
-                    var priceAssetShortName = item["priceAssetName"].stringValue
-                    
-                    if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: priceAssetId)?.asset {
-                        priceAssetName = asset.displayName
-                        if let ticker = asset.ticker {
-                            priceAssetShortName = ticker
-                        }
-                    }
-
-                    let amountAsset = Dex.DTO.Asset(id: amountAssetId,
-                                                        name: amountAssetName,
-                                                        shortName: amountAssetShortName,
-                                                        decimals: item["amountAssetInfo"]["decimals"].intValue)
-                    
-                    let priceAsset = Dex.DTO.Asset(id: priceAssetId,
-                                                        name: priceAssetName,
-                                                        shortName: priceAssetShortName,
-                                                        decimals: item["priceAssetInfo"]["decimals"].intValue)
-                    
-
-                    let isGeneralAmount = realm.objects(AssetBalance.self)
-                        .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", amountAsset.id)).count > 0
-                    let isGeneralPrice = realm.objects(AssetBalance.self)
-                        .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", priceAsset.id)).count > 0
-
-                    var pair = DexMarket.DTO.Pair(amountAsset: amountAsset,
-                                                  priceAsset: priceAsset,
-                                                  isChecked: false,
-                                                  isGeneral: isGeneralAmount && isGeneralPrice)
-
-                    pair.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
-                        
-                    pairs.append(pair)
+                  
+                    pairs.append(DexMarket.DTO.Pair(item, realm: realm))
                 }
                 
                 pairs = self.sort(pairs: pairs, realm: realm)

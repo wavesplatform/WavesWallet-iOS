@@ -15,7 +15,7 @@ fileprivate enum Constants {
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
-    private let reposity = DexRepository()
+    private let reposity = FactoryRepositories.instance.dexRepository
     private let auth = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     

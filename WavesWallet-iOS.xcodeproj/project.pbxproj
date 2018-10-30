@@ -507,6 +507,7 @@
 		E950AA47211226A500BFE872 /* String+Escaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950AA46211226A500BFE872 /* String+Escaped.swift */; };
 		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
+		E95AD8F6218904CC00AFD303 /* DexMarketDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95AD8F5218904CC00AFD303 /* DexMarketDTO+Mapper.swift */; };
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
 		E95B47C121638A9F004D4E39 /* HelloCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */; };
 		E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */; };
@@ -1292,6 +1293,7 @@
 		E950AA46211226A500BFE872 /* String+Escaped.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Escaped.swift"; sourceTree = "<group>"; };
 		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
 		E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompleteViewController.swift; sourceTree = "<group>"; };
+		E95AD8F5218904CC00AFD303 /* DexMarketDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DexMarketDTO+Mapper.swift"; sourceTree = "<group>"; };
 		E95B47A821638A9F004D4E39 /* Hello.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloCoordinator.swift; sourceTree = "<group>"; };
 		E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloLanguagesViewController.swift; sourceTree = "<group>"; };
@@ -3626,6 +3628,7 @@
 				E9B087782163886800937644 /* DexMarketModuleOutput.swift */,
 				E9B087792163886800937644 /* DexMarketModuleBuilder.swift */,
 				E9B0877B2163886800937644 /* DexMarketTypes.swift */,
+				E95AD8F5218904CC00AFD303 /* DexMarketDTO+Mapper.swift */,
 				E9B0877D2163886800937644 /* Views */,
 				E9B0877F2163886800937644 /* Interactor */,
 			);
@@ -4873,6 +4876,7 @@
 				0AF922DC212E1234003BA067 /* SkeletonAnimatable.swift in Sources */,
 				E9B088192163886800937644 /* DexSortPresenter.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
+				E95AD8F6218904CC00AFD303 /* DexMarketDTO+Mapper.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */,
 				0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */,

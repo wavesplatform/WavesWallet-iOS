@@ -13,75 +13,52 @@ final class DexRepository: DexRepositoryProtocol {
 
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
        
-        return Observable.create({ observer -> Disposable in
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            try! realm.write {
-                
-                let lastSortLevel = realm.objects(DexAssetPair.self).sorted(byKeyPath: "sortLevel").last?.sortLevel ?? 0
-
-                realm.add(DexAssetPair(id: pair.id,
-                                       amountAsset: pair.amountAsset,
-                                       priceAsset: pair.priceAsset,
-                                       isGeneral: pair.isGeneral,
-                                       sortLevel: lastSortLevel + 1), update: true)
-            }
-            observer.onNext(true)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        })
+        let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
         
+        try! realm.write {
+            
+            let lastSortLevel = realm.objects(DexAssetPair.self).sorted(byKeyPath: "sortLevel").last?.sortLevel ?? 0
+
+            realm.add(DexAssetPair(id: pair.id,
+                                   amountAsset: pair.amountAsset,
+                                   priceAsset: pair.priceAsset,
+                                   isGeneral: pair.isGeneral,
+                                   sortLevel: lastSortLevel + 1), update: true)
+        }
+        
+        return Observable.just(true)
     }
     
     func delete(by id: String, accountAddress: String) -> Observable<Bool> {
 
-        return Observable.create({ observer -> Disposable in
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            
-            guard let pair = realm.object(ofType: DexAssetPair.self,
-                                          forPrimaryKey: id) else {
-                                            observer.onNext(true)
-                                            observer.onCompleted()
-                                            return Disposables.create()
-            }
-            
+        let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+        
+        if let pair = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)  {
             try! realm.write {
                 realm.delete(pair)
             }
-            
-            observer.onNext(true)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        })
+        }
+        return Observable.just(true)
     }
     
-    func list(by accountAddress: String) -> Observable<[DexAssetPair]> {
+    func list(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
+        let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+        return Observable.just( realm.objects(DexAssetPair.self).map { return DexMarket.DTO.Pair($0, isChecked: true)})
+    }
+    
+    func listListener(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
 
         return Observable.create({ observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            let list = realm.objects(DexAssetPair.self).toArray()
-            observer.onNext(list)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        })
-    }
-    
-    func listListener(by accountAddress: String) -> Observable<[DexAssetPair]> {
-      
-        return Observable.create({ observer -> Disposable in
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
+        
             let result = realm.objects(DexAssetPair.self)
             let collection = Observable.collection(from: result)
                 .skip(1)
                 .map { $0.toArray() }
+                .map({ list -> [DexMarket.DTO.Pair] in
+                    return list.map { return DexMarket.DTO.Pair($0, isChecked: true) }})
                 .bind(to: observer)
-            
+
             return Disposables.create([collection])
         })
     }

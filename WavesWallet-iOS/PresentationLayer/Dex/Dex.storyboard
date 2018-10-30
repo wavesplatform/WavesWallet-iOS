@@ -1659,12 +1659,16 @@ You do not have any orders</string>
                                     <constraint firstAttribute="height" constant="36" id="PSk-Dy-4rh"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="g6N-zp-CkK">
+                                <rect key="frame" x="177.5" y="70" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6NX-Ev-yDd" firstAttribute="leading" secondItem="D0b-EK-h5J" secondAttribute="leading" constant="50" id="9DA-Ww-Mbm"/>
                             <constraint firstItem="h6k-oH-iYs" firstAttribute="top" secondItem="erJ-Rv-Aky" secondAttribute="bottom" id="Bea-c5-bDf"/>
                             <constraint firstItem="ce9-pp-PpI" firstAttribute="top" secondItem="h6k-oH-iYs" secondAttribute="bottom" constant="4" id="Bfn-vy-6ui"/>
+                            <constraint firstItem="g6N-zp-CkK" firstAttribute="top" secondItem="ce9-pp-PpI" secondAttribute="top" constant="10" id="Cj4-Y2-Yqh"/>
                             <constraint firstAttribute="trailing" secondItem="6NX-Ev-yDd" secondAttribute="trailing" constant="50" id="HVA-kh-52A"/>
                             <constraint firstAttribute="trailing" secondItem="h6k-oH-iYs" secondAttribute="trailing" id="OAe-de-71g"/>
                             <constraint firstItem="ce9-pp-PpI" firstAttribute="leading" secondItem="D0b-EK-h5J" secondAttribute="leading" id="U6t-U0-hQS"/>
@@ -1672,9 +1676,11 @@ You do not have any orders</string>
                             <constraint firstItem="6NX-Ev-yDd" firstAttribute="centerY" secondItem="D0b-EK-h5J" secondAttribute="centerY" id="puq-9e-CcV"/>
                             <constraint firstAttribute="bottom" secondItem="ce9-pp-PpI" secondAttribute="bottom" id="rVe-ZE-MkA"/>
                             <constraint firstItem="h6k-oH-iYs" firstAttribute="leading" secondItem="D0b-EK-h5J" secondAttribute="leading" id="ua0-UY-Ne3"/>
+                            <constraint firstItem="g6N-zp-CkK" firstAttribute="centerX" secondItem="D0b-EK-h5J" secondAttribute="centerX" id="vrr-qk-mNv"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorSearch" destination="g6N-zp-CkK" id="4u8-iv-BOB"/>
                         <outlet property="labelLoadingMarkets" destination="XSr-Xm-wYZ" id="Azt-RI-ClS"/>
                         <outlet property="searchBar" destination="h6k-oH-iYs" id="KLB-ME-Set"/>
                         <outlet property="tableView" destination="ce9-pp-PpI" id="uKD-B7-snt"/>

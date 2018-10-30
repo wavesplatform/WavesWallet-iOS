@@ -52,15 +52,32 @@ extension DexMarket.DTO {
         let priceAsset: Dex.DTO.Asset
         var isChecked: Bool
         let isGeneral: Bool
-        
-        init(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, isChecked: Bool, isGeneral: Bool) {
-            
-            self.amountAsset = amountAsset
-            self.priceAsset = priceAsset
-            self.isChecked = isChecked
-            self.isGeneral = isGeneral
-            self.id = amountAsset.id + priceAsset.id
-        }
+        var sortLevel: Int
     }
 }
 
+extension DexMarket.DTO.Pair {
+
+    
+    init(_ pair: DexAssetPair, isChecked: Bool) {
+        
+        let amountAsset = Dex.DTO.Asset(id: pair.amountAsset.id,
+                                        name: pair.amountAsset.name,
+                                        shortName: pair.amountAsset.shortName,
+                                        decimals: pair.amountAsset.decimals)
+        
+        let priceAsset = Dex.DTO.Asset(id: pair.priceAsset.id,
+                                       name: pair.priceAsset.name,
+                                       shortName: pair.priceAsset.shortName,
+                                       decimals: pair.priceAsset.decimals)
+        
+        
+        self.amountAsset = amountAsset
+        self.priceAsset = priceAsset
+        self.isChecked = isChecked
+        self.isGeneral = pair.isGeneral
+        self.sortLevel = pair.sortLevel
+        self.id = pair.id
+        
+    }
+}
