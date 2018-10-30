@@ -16,7 +16,7 @@ private enum Constants {
 
 final class DexListInteractor: DexListInteractorProtocol {
    
-    private let repository = DexRepository()
+    private let dexRepository = DexRepository()
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
@@ -27,8 +27,8 @@ final class DexListInteractor: DexListInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             
             
-            return Observable.merge([owner.repository.list(by: wallet.wallet.address),
-                                     owner.repository.listListener(by: wallet.wallet.address)])
+            return Observable.merge([owner.dexRepository.list(by: wallet.wallet.address),
+                                     owner.dexRepository.listListener(by: wallet.wallet.address)])
                 .flatMap({ [weak self] (pairs) -> Observable<[DexList.DTO.Pair]> in
                     
                     guard let owner = self else { return Observable.empty() }
@@ -36,22 +36,25 @@ final class DexListInteractor: DexListInteractorProtocol {
                         return Observable.just([])
                     }
                     else {
-                        return owner.getList(by: pairs)
+                        return owner.environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexList.DTO.Pair]> in
+                            
+                            guard let owner = self else { return Observable.empty() }
+                            return owner.getList(by: pairs, environment: environment)
+                        })
                     }
             })
         })
-
     }
 }
 
 private extension DexListInteractor {
     
-    func getList(by pairs: [DexAssetPair]) -> Observable<[DexList.DTO.Pair]> {
+    func getList(by pairs: [DexAssetPair], environment: Environment) -> Observable<[DexList.DTO.Pair]> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
             guard let owner = self else { return Disposables.create() }
-            let req = owner.getListPairs(by: pairs, complete: { (pairs, error) in
+            let req = owner.getListPairs(by: pairs, environment: environment, complete: { (pairs, error) in
                 subscribe.onNext(pairs)
             })
             return Disposables.create {
@@ -60,9 +63,9 @@ private extension DexListInteractor {
         })
     }
     
-    func getListPairs(by pairs: [DexAssetPair], complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    func getListPairs(by pairs: [DexAssetPair], environment: Environment, complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
         
-        var url = Environments.current.servers.dataUrl.relativeString + Constants.pair
+        var url = environment.servers.dataUrl.relativeString + Constants.pair
         
         for pair in pairs {
             if (url as NSString).range(of: "?").location == NSNotFound {
@@ -112,7 +115,6 @@ private extension DexListInteractor {
             else {
                 complete([], error)
             }
-            
         }
     }
 }
