@@ -42,32 +42,32 @@ class MyOrderCell : UITableViewCell {
         
         if item["type"] as? String == "sell" {
             labelType.text = "Sell"
-            labelType.textColor = LastTraderCell.sellColor()
+//            labelType.textColor = LastTraderCell.sellColor()
         }
         else {
             labelType.text = "Buy"
-            labelType.textColor = LastTraderCell.buyColor()
+//            labelType.textColor = LastTraderCell.buyColor()
         }
         
         labelPrice.textColor = labelType.textColor
 
         if item["status"] as? String == "Accepted" {
             labelStatus.text = "Open"
-            labelStatus.textColor = LastTraderCell.buyColor()
+//            labelStatus.textColor = LastTraderCell.buyColor()
         }
         else if item["status"] as? String == "PartiallyFilled" {
             labelStatus.text = "Partial"
-            labelStatus.textColor = LastTraderCell.buyColor()
+//            labelStatus.textColor = LastTraderCell.buyColor()
 
         }
         else if item["status"] as? String == "Cancelled" {
             labelStatus.text = "Cancelled"
-            labelStatus.textColor = LastTraderCell.sellColor()
+//            labelStatus.textColor = LastTraderCell.sellColor()
 
         }
         else if item["status"] as? String == "Filled" {
             labelStatus.text = "Filled"
-            labelStatus.textColor = LastTraderCell.sellColor()
+//            labelStatus.textColor = LastTraderCell.sellColor()
         }
         
         labelFilled.textColor = labelStatus.textColor
@@ -243,10 +243,10 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         cell.labelAmount.text = MoneyUtil.getScaledTextTrimZeros(amount, decimals: self.amountAssetDecimal)
         
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = LastTraderCell.lightBgColor()
+//            cell.backgroundColor = LastTraderCell.lightBgColor()
         }
         else {
-            cell.backgroundColor = LastTraderCell.darkBgColor()
+//            cell.backgroundColor = LastTraderCell.darkBgColor()
         }
         
         return cell
