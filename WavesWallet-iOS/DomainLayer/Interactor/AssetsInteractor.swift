@@ -54,7 +54,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                         .map({ _ -> [DomainLayer.DTO.Asset] in
                             return assets
                         })
-                })
+                }).sweetDebug("AAASEET")
             }
             .flatMap(weak: self, selector: { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
 

@@ -30,6 +30,7 @@ extension DomainLayer.DTO {
         let isGateway: Bool
         let isWaves: Bool
         let modified: Date
+        let addressRegEx: String
     }
 }
 
@@ -37,5 +38,9 @@ extension DomainLayer.DTO {
 extension DomainLayer.DTO.Asset {
     var icon: String {
         return ticker ?? displayName
+    }
+    
+    var isMonero: Bool {
+        return gatewayId == "XMR"
     }
 }

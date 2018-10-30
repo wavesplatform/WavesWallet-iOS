@@ -52,48 +52,30 @@ struct TransactionsSpecifications {
     let types: [TransactionType]
 }
 
-protocol TransactionBrodcasterSpecifications {
-    var fee: Int64 { get }
-    var id: String { get }
-    var proofs: [String] { get }
-    var timestamp: Int64 { get }
-    var type: Int64 { get }
-    var version: Int64 { get }
 
-    var parameter: [String: Any] { get }
+struct AliasTransactionSender {
+    let alias: String
+    let fee: Int64
+}
 
+enum TransactionSenderSpecifications {
+    case createAlias(AliasTransactionSender)
+//    case issue
+//    case transfer
+//    case reissue
+//    case burn
+//    case exchange
+//    case lease
+//    case leaseCancel
+//    case alias
+//    case massTransfer
+//    case data
+}
 
-//    amount
-//    amount: number
-//    Defined in transactions.ts:91
-//    fee
-//    fee: number
-//    Inherited from Transaction.fee
-//    Defined in transactions.ts:26
-//    id
-//    id: string
-//    Inherited from Transaction.id
-//    Defined in transactions.ts:23
-//    proofs
-//    proofs: string[]
-//    Inherited from WithProofs.proofs
-//    Defined in transactions.ts:19
-//    recipient
-//    recipient: string
-//    Defined in transactions.ts:92
-//    senderPublicKey
-//    senderPublicKey: string
-//    Inherited from WithSender.senderPublicKey
-//    Defined in transactions.ts:41
-//    timestamp
-//    timestamp: number
-//    Inherited from Transaction.timestamp
-//    Defined in transactions.ts:25
-//    type
-//    type: Lease
-//    Overrides Transaction.type
-//    Defined in transactions.ts:90
-//    version
+struct AliasTransactionSpecifications {
+    let fee: Int64
+    let timestamp: Int64
+    let alias: String
 }
 
 protocol TransactionsRepositoryProtocol {
@@ -108,5 +90,5 @@ protocol TransactionsRepositoryProtocol {
     func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool>
     func isHasTransactions(by accountAddress: String) -> Observable<Bool>
 
-    func send(by transaction: TransactionBrodcasterSpecifications, wallet: DomainLayer.DTO.SignedWallet)
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AnyTransaction]>
 }

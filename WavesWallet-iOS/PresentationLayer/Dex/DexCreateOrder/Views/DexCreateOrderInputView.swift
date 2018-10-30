@@ -39,7 +39,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     var maximumFractionDigits: Int = 0 {
         didSet {
-            textField.decimals = maximumFractionDigits
+            textField.setDecimals(maximumFractionDigits, forceUpdateMoney: false)
         }
     }
     

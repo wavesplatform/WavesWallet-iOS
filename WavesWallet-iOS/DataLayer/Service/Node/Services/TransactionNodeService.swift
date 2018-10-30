@@ -24,7 +24,7 @@ extension Node.Service {
              */
             case info(id: String)
 
-            case broadcast
+            case broadcast([String: Any])
         }
 
         var kind: Kind
@@ -71,8 +71,9 @@ extension Node.Service.Transaction: NodeTargetType {
         switch kind {
         case .list, .info:
             return .requestPlain
-        case .broadcast:
-            return .requestPlain
+            
+        case .broadcast(let params):
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }
 }

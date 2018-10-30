@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendMoneroPaymentIdView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelError" destination="1UJ-r1-Fo6" id="kGJ-2s-pz4"/>
+                <outlet property="labelMoneroPayment" destination="bAI-VA-knT" id="dEl-s3-MnE"/>
+                <outlet property="textField" destination="eS3-MY-Ekw" id="1Pe-S7-ejd"/>
+                <outlet property="viewContainer" destination="L8h-hd-QE1" id="eXC-Ee-eK8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8h-hd-QE1">
+                    <rect key="frame" x="16" y="24" width="343" height="48"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eS3-MY-Ekw">
+                            <rect key="frame" x="14" y="0.0" width="329" height="48"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            <connections>
+                                <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="yjd-hV-mlG"/>
+                                <outlet property="delegate" destination="-1" id="7Mc-2R-4ze"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="eS3-MY-Ekw" secondAttribute="trailing" id="Qgb-jG-vA7"/>
+                        <constraint firstAttribute="bottom" secondItem="eS3-MY-Ekw" secondAttribute="bottom" id="UIp-LB-bUh"/>
+                        <constraint firstItem="eS3-MY-Ekw" firstAttribute="leading" secondItem="L8h-hd-QE1" secondAttribute="leading" constant="14" id="fa5-7T-WfI"/>
+                        <constraint firstItem="eS3-MY-Ekw" firstAttribute="top" secondItem="L8h-hd-QE1" secondAttribute="top" id="lns-Pn-1ZI"/>
+                        <constraint firstAttribute="height" constant="48" id="pK4-pr-oNK"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="invalid ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UJ-r1-Fo6">
+                    <rect key="frame" x="304" y="0.0" width="55" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monero Payment ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAI-VA-knT">
+                    <rect key="frame" x="16" y="0.0" width="118.5" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1UJ-r1-Fo6" secondAttribute="trailing" constant="16" id="Grp-v7-4UJ"/>
+                <constraint firstItem="L8h-hd-QE1" firstAttribute="top" secondItem="bAI-VA-knT" secondAttribute="bottom" constant="8" id="SEo-wn-hAK"/>
+                <constraint firstItem="1UJ-r1-Fo6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="W6j-ap-oZ8"/>
+                <constraint firstItem="L8h-hd-QE1" firstAttribute="leading" secondItem="bAI-VA-knT" secondAttribute="leading" id="ZXQ-tp-51U"/>
+                <constraint firstItem="L8h-hd-QE1" firstAttribute="trailing" secondItem="1UJ-r1-Fo6" secondAttribute="trailing" id="cta-te-vvi"/>
+                <constraint firstItem="bAI-VA-knT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="e9x-0X-Cws"/>
+                <constraint firstItem="bAI-VA-knT" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fzh-Pc-KbH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-148" y="59.370314842578715"/>
+        </view>
+    </objects>
+</document>

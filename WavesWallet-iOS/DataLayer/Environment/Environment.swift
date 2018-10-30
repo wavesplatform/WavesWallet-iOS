@@ -21,6 +21,7 @@ struct Environment: Decodable {
         let isGateway: Bool
         let wavesId: String
         let gatewayId: String
+        let addressRegEx: String
     }
 
     struct Servers: Decodable {
@@ -50,8 +51,8 @@ extension Environment {
 final class Environments {
     enum Constants {
         static let wavesAssetId = "WAVES"
-        fileprivate static let main = "Environment-Main"
-        fileprivate static let test = "Environment-Test"
+        fileprivate static let main = "environment_mainnet"
+        fileprivate static let test = "environment_testnet"
     }
 
     static let Testnet: Environment = parseJSON(json: Constants.test)!

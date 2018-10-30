@@ -86,7 +86,7 @@
         <scene sceneID="9oI-u8-IYP">
             <objects>
                 <viewController storyboardIdentifier="ReceiveGenerateAddressViewController" id="FQk-Y3-fUg" customClass="ReceiveGenerateAddressViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QeA-st-pSv">
+                    <view key="view" contentMode="scaleToFill" id="QeA-st-pSv" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -134,7 +134,7 @@
         <scene sceneID="caL-6H-vCp">
             <objects>
                 <viewController storyboardIdentifier="ReceiveAddressViewController" id="Oys-9L-jOE" customClass="ReceiveAddressViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe">
+                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -406,12 +406,12 @@
         <scene sceneID="Gay-Sm-bGs">
             <objects>
                 <viewController storyboardIdentifier="ReceiveCardCompleteViewController" id="3Dc-NI-mZi" customClass="ReceiveCardCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8Nm-aU-BJ5">
+                    <view key="view" contentMode="scaleToFill" id="8Nm-aU-BJ5" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIX-Ps-Wsh">
-                                <rect key="frame" x="16" y="40" width="343" height="344.5"/>
+                                <rect key="frame" x="16" y="20" width="343" height="344.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-aI-vHo">
                                         <rect key="frame" x="131.5" y="44" width="80" height="80"/>
@@ -476,7 +476,7 @@ will be updated</string>
                         <constraints>
                             <constraint firstItem="PIX-Ps-Wsh" firstAttribute="leading" secondItem="9Ix-zD-SJa" secondAttribute="leading" constant="16" id="9qN-D3-3Nt"/>
                             <constraint firstItem="9Ix-zD-SJa" firstAttribute="trailing" secondItem="PIX-Ps-Wsh" secondAttribute="trailing" constant="16" id="hsb-r0-bC1"/>
-                            <constraint firstItem="PIX-Ps-Wsh" firstAttribute="top" secondItem="9Ix-zD-SJa" secondAttribute="top" constant="20" id="sNQ-Ii-cCX"/>
+                            <constraint firstItem="PIX-Ps-Wsh" firstAttribute="top" secondItem="9Ix-zD-SJa" secondAttribute="top" id="sNQ-Ii-cCX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ix-zD-SJa"/>
                     </view>

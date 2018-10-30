@@ -73,6 +73,7 @@ internal enum Images {
     internal static let walletSort = ImageAsset(name: "wallet_sort")
   }
   internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
+  internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
   internal static let arrowLeft = ImageAsset(name: "arrow_left")
   internal static let arrowRed = ImageAsset(name: "arrow_red")
@@ -86,14 +87,12 @@ internal enum Images {
   internal static let assets = ImageAsset(name: "assets")
   internal static let backChevron = ImageAsset(name: "back-chevron")
   internal static let backspace48Disabled900 = ImageAsset(name: "backspace48Disabled900")
-  internal static let bgIphone5Top = ImageAsset(name: "bg-iphone5-top")
   internal static let bgIphone5 = ImageAsset(name: "bg-iphone5")
-  internal static let bgIphone8Top = ImageAsset(name: "bg-iphone8-top")
   internal static let bgIphone8 = ImageAsset(name: "bg-iphone8")
-  internal static let bgIphone8plusTop = ImageAsset(name: "bg-iphone8plus-top")
   internal static let bgIphone8plus = ImageAsset(name: "bg-iphone8plus")
-  internal static let bgIphonexTop = ImageAsset(name: "bg-iphonex-top")
   internal static let bgIphonex = ImageAsset(name: "bg-iphonex")
+  internal static let bgIphonexr = ImageAsset(name: "bg-iphonexr")
+  internal static let bgIphonexsmax = ImageAsset(name: "bg-iphonexsmax")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
   internal static let btnOrder = ImageAsset(name: "btn_order")
@@ -181,6 +180,7 @@ internal enum Images {
   internal static let logoMonero48 = ImageAsset(name: "logoMonero48")
   internal static let logoUsd48 = ImageAsset(name: "logoUsd48")
   internal static let logoWaves48 = ImageAsset(name: "logoWaves48")
+  internal static let logoZec48 = ImageAsset(name: "logoZec48")
   internal static let menuDiscord = ImageAsset(name: "menu_discord")
   internal static let menuFacebook = ImageAsset(name: "menu_facebook")
   internal static let menuGit = ImageAsset(name: "menu_git")
@@ -304,6 +304,7 @@ internal enum Images {
     Wallet.walletScanner,
     Wallet.walletSort,
     addAddressIcon,
+    addaddress24Submit300,
     arrowGreen,
     arrowLeft,
     arrowRed,
@@ -317,14 +318,12 @@ internal enum Images {
     assets,
     backChevron,
     backspace48Disabled900,
-    bgIphone5Top,
     bgIphone5,
-    bgIphone8Top,
     bgIphone8,
-    bgIphone8plusTop,
     bgIphone8plus,
-    bgIphonexTop,
     bgIphonex,
+    bgIphonexr,
+    bgIphonexsmax,
     btnBack,
     btnBars,
     btnOrder,
@@ -412,6 +411,7 @@ internal enum Images {
     logoMonero48,
     logoUsd48,
     logoWaves48,
+    logoZec48,
     menuDiscord,
     menuFacebook,
     menuGit,

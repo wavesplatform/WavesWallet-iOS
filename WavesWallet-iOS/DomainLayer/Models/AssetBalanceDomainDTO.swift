@@ -25,5 +25,12 @@ extension DomainLayer.DTO {
         var settings: Settings?
         var asset: DomainLayer.DTO.Asset?
         var modified: Date
-    } 
+    }
+}
+
+extension DomainLayer.DTO.AssetBalance {
+
+    var avaliableBalance: Int64 {
+        return balance - leasedBalance - inOrderBalance
+    }
 }

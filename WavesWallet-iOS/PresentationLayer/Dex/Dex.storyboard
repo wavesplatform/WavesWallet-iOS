@@ -576,7 +576,7 @@
                         <viewControllerLayoutGuide type="top" id="pvr-iy-fzE"/>
                         <viewControllerLayoutGuide type="bottom" id="Aky-Vh-ZNf"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xmf-yo-QhY">
+                    <view key="view" contentMode="scaleToFill" id="Xmf-yo-QhY" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -898,7 +898,7 @@ The order book is empty</string>
                             <constraint firstItem="xjR-EW-Dsq" firstAttribute="centerY" secondItem="mJy-1c-DfB" secondAttribute="centerY" id="2n8-y8-L1N"/>
                             <constraint firstItem="ThQ-iU-VS5" firstAttribute="leading" secondItem="shw-kt-pDv" secondAttribute="leading" id="4Em-kD-iv2"/>
                             <constraint firstItem="xjR-EW-Dsq" firstAttribute="centerX" secondItem="mJy-1c-DfB" secondAttribute="centerX" id="Czj-Kl-XDx"/>
-                            <constraint firstItem="LAz-9x-7ON" firstAttribute="top" secondItem="shw-kt-pDv" secondAttribute="bottom" id="J7O-L0-1dh"/>
+                            <constraint firstAttribute="bottom" secondItem="shw-kt-pDv" secondAttribute="bottom" id="J7O-L0-1dh"/>
                             <constraint firstAttribute="trailing" secondItem="shw-kt-pDv" secondAttribute="trailing" constant="8" id="SLZ-ih-HPR"/>
                             <constraint firstItem="shw-kt-pDv" firstAttribute="top" secondItem="ThQ-iU-VS5" secondAttribute="bottom" id="WfK-0w-XR0"/>
                             <constraint firstItem="IxJ-8M-tIJ" firstAttribute="centerX" secondItem="mJy-1c-DfB" secondAttribute="centerX" id="X96-qF-hrj"/>
@@ -1055,7 +1055,7 @@ The order book is empty</string>
                         <constraints>
                             <constraint firstItem="gZh-fa-6fT" firstAttribute="top" secondItem="P2q-YV-bSv" secondAttribute="bottom" id="5RD-9y-QVR"/>
                             <constraint firstItem="gZh-fa-6fT" firstAttribute="leading" secondItem="I8m-2K-rec" secondAttribute="leading" constant="8" id="BuT-uO-MSw"/>
-                            <constraint firstItem="fRT-Nh-Er2" firstAttribute="top" secondItem="gZh-fa-6fT" secondAttribute="bottom" id="CTD-sc-HmX"/>
+                            <constraint firstAttribute="bottom" secondItem="gZh-fa-6fT" secondAttribute="bottom" id="CTD-sc-HmX"/>
                             <constraint firstAttribute="trailing" secondItem="gZh-fa-6fT" secondAttribute="trailing" constant="8" id="HE9-8e-7yA"/>
                         </constraints>
                     </view>
@@ -2077,7 +2077,7 @@ You do not have any orders</string>
                         <viewControllerLayoutGuide type="top" id="gVr-pd-FhJ"/>
                         <viewControllerLayoutGuide type="bottom" id="aYT-CG-8AO"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8Yv-Zy-HXW">
+                    <view key="view" contentMode="scaleToFill" id="8Yv-Zy-HXW" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
