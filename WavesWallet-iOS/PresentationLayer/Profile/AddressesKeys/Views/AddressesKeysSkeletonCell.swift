@@ -21,11 +21,11 @@ final class AddressesKeysSkeletonCell: SkeletonCell, Reusable {
     }
 }
 
-// MARK: ViewCalculateHeight
+// MARK: ViewHeight
 
-extension AddressesKeysSkeletonCell: ViewCalculateHeight {
+extension AddressesKeysSkeletonCell: ViewHeight {
 
-    static func viewHeight(model: Void, width: CGFloat) -> CGFloat {
+    static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }

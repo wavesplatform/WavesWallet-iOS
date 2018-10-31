@@ -12,7 +12,7 @@ protocol AliasWithoutViewControllerDelegate: AnyObject {
     func aliasWithoutUserTapCreateNewAlias()
 }
 
-final class AliasWithoutViewController: UIViewController {
+final class AliasWithoutViewController: UIViewController, Localization {
     weak var delegate: AliasWithoutViewControllerDelegate?
 
     @IBOutlet private var createButton: UIButton!
@@ -25,10 +25,18 @@ final class AliasWithoutViewController: UIViewController {
         super.viewDidLoad()
         createButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         createButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
-//        createButton.setTitle(Localizable.Waves.Changepassword.Button.Confirm.title, for: .normal)
+        setupLocalization()
     }
 
     @IBAction func handlerTapCreateButton(sender: Any) {
         delegate?.aliasWithoutUserTapCreateNewAlias()
+    }
+
+    func setupLocalization() {
+        createButton.setTitle(Localizable.Waves.Aliaseswithout.View.Info.Button.create, for: .normal)
+        titleLabel.text = Localizable.Waves.Aliaseswithout.View.Info.Label.title
+        subtitleLabel.text = Localizable.Waves.Aliaseswithout.View.Info.Label.subtitle
+        secondSubtitleLabel.text = Localizable.Waves.Aliaseswithout.View.Info.Label.secondsubtitle
+        feeLabel.text = Localizable.Waves.Aliaseswithout.View.Info.Label.fee
     }
 }

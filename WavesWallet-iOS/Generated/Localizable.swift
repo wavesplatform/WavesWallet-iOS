@@ -80,6 +80,115 @@ internal enum Localizable {
       }
     }
 
+    internal enum Addresseskeys {
+
+      internal enum Cell {
+
+        internal enum Address {
+          /// Your address
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.address.title") }
+        }
+
+        internal enum Aliases {
+
+          internal enum Subtitle {
+            /// You have %d
+            internal static func withaliaces(_ p1: Int) -> String {
+              return Localizable.tr("Waves", "addresseskeys.cell.aliases.subtitle.withaliaces", p1)
+            }
+            /// You do not have
+            internal static var withoutaliaces: String { return Localizable.tr("Waves", "addresseskeys.cell.aliases.subtitle.withoutaliaces") }
+          }
+        }
+
+        internal enum Privatekey {
+          /// Private Key
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.privatekey.title") }
+        }
+
+        internal enum Privatekeyhidde {
+
+          internal enum Button {
+            /// Show
+            internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.privatekeyhidde.button.title") }
+          }
+        }
+
+        internal enum Publickey {
+          /// Public Key
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.publickey.title") }
+        }
+
+        internal enum Seed {
+          /// Seed
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.seed.title") }
+        }
+      }
+
+      internal enum Navigation {
+        /// Addresses, keys
+        internal static var title: String { return Localizable.tr("Waves", "addresseskeys.navigation.title") }
+      }
+    }
+
+    internal enum Aliases {
+
+      internal enum Cell {
+
+        internal enum Head {
+          /// Your Aliases
+          internal static var title: String { return Localizable.tr("Waves", "aliases.cell.head.title") }
+        }
+      }
+
+      internal enum View {
+
+        internal enum Info {
+
+          internal enum Button {
+            /// Create new alias
+            internal static var create: String { return Localizable.tr("Waves", "aliases.view.info.button.create") }
+          }
+
+          internal enum Label {
+            /// Transaction Fee 0.001 Waves
+            internal static var fee: String { return Localizable.tr("Waves", "aliases.view.info.label.fee") }
+            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
+            internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliases.view.info.label.secondsubtitle") }
+            /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
+            internal static var subtitle: String { return Localizable.tr("Waves", "aliases.view.info.label.subtitle") }
+            /// About Alias
+            internal static var title: String { return Localizable.tr("Waves", "aliases.view.info.label.title") }
+          }
+        }
+      }
+    }
+
+    internal enum Aliaseswithout {
+
+      internal enum View {
+
+        internal enum Info {
+
+          internal enum Button {
+            /// Create new alias
+            internal static var create: String { return Localizable.tr("Waves", "aliaseswithout.view.info.button.create") }
+          }
+
+          internal enum Label {
+            /// Transaction Fee 0.001 Waves
+            internal static var fee: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.fee") }
+            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
+            internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.secondsubtitle") }
+            /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
+            internal static var subtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.subtitle") }
+            /// About Alias
+            internal static var title: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.title") }
+          }
+        }
+      }
+    }
+
     internal enum Asset {
 
       internal enum Cell {
@@ -916,6 +1025,49 @@ internal enum Localizable {
           internal static var termsOfUse: String { return Localizable.tr("Waves", "legal.checkbox.box.termsOfUse") }
           /// I have read, understood, and agree to the
           internal static var third: String { return Localizable.tr("Waves", "legal.checkbox.box.third") }
+        }
+      }
+    }
+
+    internal enum Myaddress {
+
+      internal enum Button {
+
+        internal enum Copy {
+          /// Copy
+          internal static var title: String { return Localizable.tr("Waves", "myaddress.button.copy.title") }
+        }
+
+        internal enum Share {
+          /// Share
+          internal static var title: String { return Localizable.tr("Waves", "myaddress.button.share.title") }
+        }
+      }
+
+      internal enum Cell {
+
+        internal enum Aliases {
+          /// Aliases
+          internal static var title: String { return Localizable.tr("Waves", "myaddress.cell.aliases.title") }
+
+          internal enum Subtitle {
+            /// You have %d
+            internal static func withaliaces(_ p1: Int) -> String {
+              return Localizable.tr("Waves", "myaddress.cell.aliases.subtitle.withaliaces", p1)
+            }
+            /// You do not have
+            internal static var withoutaliaces: String { return Localizable.tr("Waves", "myaddress.cell.aliases.subtitle.withoutaliaces") }
+          }
+        }
+
+        internal enum Info {
+          /// Your address
+          internal static var title: String { return Localizable.tr("Waves", "myaddress.cell.info.title") }
+        }
+
+        internal enum Qrcode {
+          /// Your QR Code
+          internal static var title: String { return Localizable.tr("Waves", "myaddress.cell.qrcode.title") }
         }
       }
     }

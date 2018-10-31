@@ -9,10 +9,10 @@
 import UIKit
 
 private enum Constants {
-    static let height: CGFloat = 60
+    static let height: CGFloat = 108
 }
 
-final class AddressesKeysSkeletonCell: SkeletonCell, Reusable {
+final class MyAddressAliacesSkeletonCell: SkeletonCell, Reusable {
 
     @IBOutlet var viewContent: UIView!
 
@@ -23,9 +23,9 @@ final class AddressesKeysSkeletonCell: SkeletonCell, Reusable {
 
 // MARK: ViewCalculateHeight
 
-extension AddressesKeysSkeletonCell: ViewCalculateHeight {
+extension MyAddressAliacesSkeletonCell: ViewHeight {
 
-    static func viewHeight(model: Void, width: CGFloat) -> CGFloat {
+    static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }

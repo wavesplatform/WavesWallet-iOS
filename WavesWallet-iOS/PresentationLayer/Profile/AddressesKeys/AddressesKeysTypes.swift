@@ -58,6 +58,7 @@ extension AddressesKeysTypes.ViewModel {
         case publicKey(String)
         case hiddenPrivateKey
         case privateKey(String)
+        case seed(String)
         case skeleton
     }
 

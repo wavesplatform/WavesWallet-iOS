@@ -11,43 +11,53 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 
-final class AddressesKeysViewController: UIViewController {
+final class MyAddressViewController: UIViewController {
 
-    typealias Types = AddressesKeysTypes
+    typealias Types = MyAddressTypes
 
     @IBOutlet private var tableView: UITableView!
 
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     
-    var presenter: AddressesKeysPresenterProtocol!
+    var presenter: MyAddressPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         createBackButton()
-        setupBigNavigationBar()
-        navigationItem.title = Localizable.Waves.Addresseskeys.Navigation.title
-        navigationItem.barTintColor = .white
+        navigationItem.backgroundImage = UIImage()
+        navigationItem.shadowImage = UIImage()
+
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+           edgesForExtendedLayout = UIRectEdge(rawValue: 0)
+        }
 
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
         
         setupSystem()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset  = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
+    }
 }
 
 // MARK: RxFeedback
 
-private extension AddressesKeysViewController {
+private extension MyAddressViewController {
 
     func setupSystem() {
 
-        let uiFeedback: AddressesKeysPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
+        let uiFeedback: MyAddressPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
-        let readyViewFeedback: AddressesKeysPresenterProtocol.Feedback = { [weak self] _ in
+        let readyViewFeedback: MyAddressPresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewWillAppear.asObservable()
@@ -56,7 +66,7 @@ private extension AddressesKeysViewController {
                 .map { _ in Types.Event.viewWillAppear }
         }
 
-        let viewDidDisappearFeedback: AddressesKeysPresenterProtocol.Feedback = { [weak self] _ in
+        let viewDidDisappearFeedback: MyAddressPresenterProtocol.Feedback = { [weak self] _ in
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewDidDisappear.asObservable()
@@ -102,7 +112,7 @@ private extension AddressesKeysViewController {
 
 // MARK: UITableViewDataSource
 
-extension AddressesKeysViewController: UITableViewDataSource {
+extension MyAddressViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
@@ -117,42 +127,27 @@ extension AddressesKeysViewController: UITableViewDataSource {
         let row = sections[indexPath]
         switch row {
         case .address(let address):
-            let cell: AddressesKeysValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Address.title, value: address))
+            let cell: MyAddressInfoAddressCell = tableView.dequeueCell()
+
+            cell.update(with: .init(address: address))
             return cell
 
         case .aliases(let count):
-            let cell: AddressesKeysAliacesCell = tableView.dequeueCell()
+            let cell: MyAddressAliacesCell = tableView.dequeueCell()
             cell.update(with: .init(count: count))
             cell.infoButtonDidTap = { [weak self] in
                 self?.eventInput.onNext(.tapShowInfo)
             }
             return cell
 
-        case .hiddenPrivateKey:
-            let cell: AddressesKeysHiddenPrivateKeyCell = tableView.dequeueCell()
-            cell.showButtonDidTap = { [weak self] in
-                self?.eventInput.onNext(.tapShowPrivateKey)
-            }
-            return cell
+        case .qrcode(let address):
+            let cell: MyAddressQRCodeCell = tableView.dequeueCell()
+            cell.update(with: .init(address: address))
 
-        case .privateKey(let key):
-            let cell: AddressesKeysValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Privatekey.title, value: key))
-            return cell
-
-        case .seed(let seed):
-            let cell: AddressesKeysValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Seed.title, value: seed))
-            return cell
-
-        case .publicKey(let publicKey):
-            let cell: AddressesKeysValueCell = tableView.dequeueCell()
-            cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Publickey.title, value: publicKey))
             return cell
 
         case .skeleton:
-            let cell: AddressesKeysSkeletonCell = tableView.dequeueCell()
+            let cell: MyAddressAliacesSkeletonCell = tableView.dequeueCell()
             return cell
         }
     }
@@ -160,32 +155,23 @@ extension AddressesKeysViewController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension AddressesKeysViewController: UITableViewDelegate {
+extension MyAddressViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let row = sections[indexPath]
         switch row {
-        case .address(let address):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Address.title, value: address), width: tableView.frame.width)
+        case .address:
+            return MyAddressInfoAddressCell.viewHeight()
 
-        case .aliases(let count):
-            return AddressesKeysAliacesCell.viewHeight(model: .init(count: count), width: tableView.frame.width)
+        case .aliases:
+            return MyAddressAliacesCell.viewHeight()
 
-        case .hiddenPrivateKey:
-            return AddressesKeysHiddenPrivateKeyCell.viewHeight(model: (), width: tableView.frame.width)
-
-        case .seed(let seed):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Seed.title, value: seed), width: tableView.frame.width)
-
-        case .privateKey(let seed):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Privatekey.title, value: seed), width: tableView.frame.width)
-
-        case .publicKey(let publicKey):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Publickey.title, value: publicKey), width: tableView.frame.width)
+        case .qrcode:
+            return MyAddressQRCodeCell.viewHeight()
 
         case .skeleton:
-            return AddressesKeysSkeletonCell.viewHeight()
+            return MyAddressAliacesSkeletonCell.viewHeight()
         }
     }
 
@@ -195,20 +181,11 @@ extension AddressesKeysViewController: UITableViewDelegate {
 
         switch row {
         case .skeleton:
-            let skeleton = cell as? AddressesKeysSkeletonCell
+            let skeleton = cell as? MyAddressAliacesSkeletonCell
             skeleton?.startAnimation()
-            
+
         default:
             break
         }
-    }
-}
-
-// MARK: UIScrollViewDelegate
-
-extension AddressesKeysViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
     }
 }

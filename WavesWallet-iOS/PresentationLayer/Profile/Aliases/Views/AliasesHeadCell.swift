@@ -37,6 +37,6 @@ extension AliasesHeadCell: ViewCalculateHeight {
 extension AliasesHeadCell: Localization {
 
     func setupLocalization() {
-
+        titleLabel.text = Localizable.Waves.Aliases.Cell.Head.title
     }
 }

@@ -48,6 +48,10 @@ final class AliasesInfoView: UIView {
 extension AliasesInfoView: Localization {
 
     func setupLocalization() {
-        self.titleLabel.text = "Aliases"
+        self.titleLabel.text = Localizable.Waves.Aliases.View.Info.Label.title
+        self.subTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.subtitle
+        self.secondSubTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.subtitle
+        self.feeTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.fee
+        createButton.setTitle(Localizable.Waves.Aliases.View.Info.Button.create, for: .normal)
     }
 }
