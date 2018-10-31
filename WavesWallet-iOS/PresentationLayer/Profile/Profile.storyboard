@@ -1477,7 +1477,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtX-E9-J54" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="163.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="164"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                             </subviews>
@@ -1529,6 +1529,9 @@
                             <state key="normal" title="Save">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="handlerSaveButton" destination="x72-6W-x4l" eventType="touchUpInside" id="m60-HN-9zg"/>
+                            </connections>
                         </button>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NIh-d1-URR">
                             <rect key="frame" x="323" y="14" width="20" height="20"/>

@@ -9,9 +9,55 @@
 import Foundation
 import Moya
 
+fileprivate enum Constants {
+    static let transactions = "transactions"
+    static let limit = "limit"
+    static let address = "address"
+    static let info = "info"
+    static let broadcast = "broadcast"
+
+    static let version: String = "version"
+    static let alias: String = "alias"
+    static let fee: String = "fee"
+    static let timestamp: String = "timestamp"
+    static let type: String = "type"
+    static let senderPublicKey: String = "senderPublicKey"
+    static let proofs: String = "proofs"
+}
+
 extension Node.Service {
 
     struct Transaction {
+
+        struct Alias {
+            let version: Int
+            let name: String
+            let fee: Int64
+            let timestamp: Int64
+            let type: Int
+            let senderPublicKey: String
+            let proofs: [String]
+        }
+
+        enum BroadcastSpecification {
+            case createAlias(Alias)
+
+            var params: [String: Any] {
+                switch self {
+                case .createAlias(let alias):
+                    return [Constants.version: alias.version,
+                            Constants.alias: alias.name,
+                            Constants.fee: alias.fee,
+                            Constants.timestamp: alias.timestamp,
+                            Constants.type: alias.type,
+                            Constants.senderPublicKey: alias.senderPublicKey,
+                            Constants.proofs: alias.proofs]
+                default:
+                    break
+                }
+            }
+        }
+
         enum Kind {
             /**
              Response:
@@ -24,7 +70,7 @@ extension Node.Service {
              */
             case info(id: String)
 
-            case broadcast([String: Any])
+            case broadcast(BroadcastSpecification)
         }
 
         var kind: Kind
@@ -35,14 +81,6 @@ extension Node.Service {
 extension Node.Service.Transaction: NodeTargetType {
     var modelType: Encodable.Type {
         return String.self
-    }
-
-    fileprivate enum Constants {
-        static let transactions = "transactions"
-        static let limit = "limit"
-        static let address = "address"
-        static let info = "info"
-        static let broadcast = "broadcast"
     }
 
     var path: String {
@@ -72,8 +110,8 @@ extension Node.Service.Transaction: NodeTargetType {
         case .list, .info:
             return .requestPlain
             
-        case .broadcast(let params):
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+        case .broadcast(let specification):
+            return .requestParameters(parameters: specification.params, encoding: JSONEncoding.default)
         }
     }
 }

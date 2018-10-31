@@ -119,6 +119,9 @@ final class AppCoordinator: Coordinator {
             .lastWalletLoggedIn()
             .sweetDebug("Last Wallet")
             .take(1)
+            .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
+                return Observable.just(nil)
+            }
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
@@ -362,7 +365,3 @@ extension AppCoordinator: SupportViewControllerDelegate  {
 }
 
 #endif
-
-extension AppCoordinator: CreateAliasModuleOutput, CreateAliasModuleInput {
-
-}
