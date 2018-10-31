@@ -10,9 +10,23 @@ import UIKit
 
 final class PasteboardButton: UIButton {
 
+    @IBInspectable var isBlack: Bool = true {
+        didSet {
+            if isBlack {
+                setImage(Images.copy18Black.image, for: .normal)
+            } else {
+                setImage(Images.copy18Submit400.image, for: .normal)
+            }
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.isBlack = true
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        setImage(Images.copy18Black.image, for: .normal)
         self.addTarget(self, action: #selector(copyTapped(_:)), for: .touchUpInside)
     }
 
@@ -27,7 +41,13 @@ final class PasteboardButton: UIButton {
         isUserInteractionEnabled = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.setImage(Images.copy18Black.image, for: .normal)
+
+            if self.isBlack {
+                self.setImage(Images.copy18Black.image, for: .normal)
+            } else {
+                self.setImage(Images.copy18Submit400.image, for: .normal)
+            }
+            
             self.isUserInteractionEnabled = true
         }
     }

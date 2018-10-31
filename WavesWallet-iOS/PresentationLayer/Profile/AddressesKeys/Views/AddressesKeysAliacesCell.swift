@@ -43,9 +43,9 @@ extension AddressesKeysAliacesCell: ViewConfiguration {
     func update(with model: AddressesKeysAliacesCell.Model) {
 
         if model.count == 0 {
-            subTitleLabel.text = "You do not have"
+            subTitleLabel.text = Localizable.Waves.Addresseskeys.Cell.Aliases.Subtitle.withoutaliaces
         } else {
-            subTitleLabel.text = "You have \(model.count)"
+            subTitleLabel.text = Localizable.Waves.Addresseskeys.Cell.Aliases.Subtitle.withaliaces(model.count)
         }
     }
 }
@@ -65,6 +65,6 @@ extension AddressesKeysAliacesCell: ViewCalculateHeight {
 extension AddressesKeysAliacesCell: Localization {
 
     func setupLocalization() {
-        self.titleLabel.text = "Aliases"
+        self.titleLabel.text = Localizable.Waves.Addresseskeys.Cell.Privatekey.title
     }
 }

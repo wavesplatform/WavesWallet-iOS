@@ -1,14 +1,14 @@
 //
-//  CopyableLabel.swift
+//  CopyableImageView.swift
 //  WavesWallet-iOS
 //
-//  Created by Prokofev Ruslan on 22/08/2018.
+//  Created by Prokofev Ruslan on 01/11/2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import UIKit
 
-final class CopyableLabel: UILabel {
+final class CopyableImageView: UIImageView {
 
     override public var canBecomeFirstResponder: Bool {
         get {
@@ -27,7 +27,7 @@ final class CopyableLabel: UILabel {
     }
 
     override func copy(_ sender: Any?) {
-        UIPasteboard.general.string = text
+        UIPasteboard.general.image = self.image
         UIMenuController.shared.setMenuVisible(false, animated: true)
         ImpactFeedbackGenerator.impactOccurred()
     }
@@ -48,8 +48,7 @@ final class CopyableLabel: UILabel {
         becomeFirstResponder()
         let menu = UIMenuController.shared
         if !menu.isMenuVisible {
-            let rect = self.attributedText?.boundingRect(with: bounds.size) ?? bounds
-            menu.setTargetRect(rect, in: self)
+            menu.setTargetRect(bounds, in: self)
             menu.setMenuVisible(true, animated: true)
         }
     }

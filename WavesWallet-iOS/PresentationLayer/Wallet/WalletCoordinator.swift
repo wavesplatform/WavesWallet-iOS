@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let popoverHeight: CGFloat = 378
+}
+
 final class WalletCoordinator {
 
     private lazy var historyCoordinator: HistoryCoordinator = HistoryCoordinator()
@@ -18,11 +22,17 @@ final class WalletCoordinator {
 
     private var navigationController: UINavigationController!
 
+    private weak var myAddressVC: UIViewController?
+
+    private var currentPopup: PopupViewController? = nil
+
     func start(navigationController: UINavigationController) {
         self.navigationController = navigationController
         navigationController.pushViewController(walletViewContoller, animated: false)
     }
 }
+
+// MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
 
@@ -32,7 +42,8 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 
     func showMyAddress() {
-        let vc = StoryboardScene.Main.myAddressViewController.instantiate()
+        let vc = MyAddressModuleBuilder(output: self).build()
+        self.myAddressVC = vc
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -62,6 +73,8 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
+// MARK: AssetModuleOutput
+
 extension WalletCoordinator: AssetModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.AssetBalance) {
@@ -87,7 +100,8 @@ extension WalletCoordinator: AssetModuleOutput {
     }
 }
 
-//MARK: - StartLeasingModuleOutput
+// MARK: - StartLeasingModuleOutput
+
 extension WalletCoordinator: StartLeasingModuleOutput {
     
     func startLeasingDidCreateOrder() {
@@ -125,3 +139,57 @@ fileprivate extension AssetTypes.DTO.Asset.Info {
     }
 }
 
+
+// MARK: MyAddressModuleOutput
+
+extension WalletCoordinator: MyAddressModuleOutput {
+    func myAddressShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
+
+        if aliases.count == 0 {
+            let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
+            controller.delegate = self
+            let popup = PopupViewController()
+            popup.contentHeight = Constants.popoverHeight
+            popup.present(contentViewController: controller)
+            self.currentPopup = popup
+        } else {
+            let controller = AliasesModuleBuilder.init(output: self).build(input: .init(aliases: aliases))
+            let popup = PopupViewController()
+            popup.present(contentViewController: controller)
+            self.currentPopup = popup
+        }
+    }
+}
+
+// MARK: AliasesModuleOutput
+
+extension WalletCoordinator: AliasesModuleOutput {
+    func aliasesCreateAlias() {
+
+        self.currentPopup?.dismissPopup {
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+// MARK: AliasWithoutViewControllerDelegate
+
+extension WalletCoordinator: AliasWithoutViewControllerDelegate {
+    func aliasWithoutUserTapCreateNewAlias() {
+        self.currentPopup?.dismissPopup {
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+// MARK: CreateAliasModuleOutput
+
+extension WalletCoordinator: CreateAliasModuleOutput {
+    func createAliasCompletedCreateAlias(_ alias: String) {
+        if let myAddressVC = self.myAddressVC {
+            navigationController.popToViewController(myAddressVC, animated: true)
+        }
+    }
+}

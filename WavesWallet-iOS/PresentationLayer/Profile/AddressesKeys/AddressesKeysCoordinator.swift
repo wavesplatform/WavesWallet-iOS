@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let popoverHeight: CGFloat = 378
+}
+
 final class AddressesKeysCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -74,7 +78,7 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
             let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
             controller.delegate = self
             let popup = PopupViewController()
-            popup.contentHeight = 378
+            popup.contentHeight = Constants.popoverHeight
             popup.present(contentViewController: controller)
             self.currentPopup = popup
         } else {

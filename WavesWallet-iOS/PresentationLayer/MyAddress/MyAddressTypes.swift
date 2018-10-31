@@ -8,20 +8,20 @@
 
 import Foundation
 
-enum MyAddressesKeysTypes {
+enum MyAddressTypes {
     enum ViewModel { }
 }
 
-extension MyAddressesKeysTypes {
+extension MyAddressTypes {
 
     enum Query: Equatable {
         case getAliases
-        case getPrivateKey
+        case getWallet
         case showInfo(aliases: [DomainLayer.DTO.Alias])
     }
 
     struct State: Mutating {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: DomainLayer.DTO.Wallet?
         var aliases: [DomainLayer.DTO.Alias]
         var query: Query?
         var displayState: DisplayState
@@ -31,8 +31,7 @@ extension MyAddressesKeysTypes {
         case viewWillAppear
         case viewDidDisappear
         case setAliases([DomainLayer.DTO.Alias])
-        case setPrivateKey(DomainLayer.DTO.SignedWallet)
-        case tapShowPrivateKey
+        case setWallet(DomainLayer.DTO.Wallet)
         case tapShowInfo
         case completedQuery
     }
@@ -50,14 +49,12 @@ extension MyAddressesKeysTypes {
     }
 }
 
-extension MyAddressesKeysTypes.ViewModel {
+extension MyAddressTypes.ViewModel {
 
     enum Row {
         case aliases(Int)
-        case address(String)
-        case publicKey(String)
-        case hiddenPrivateKey
-        case privateKey(String)
+        case address(String)        
+        case qrcode(address: String)
         case skeleton
     }
 

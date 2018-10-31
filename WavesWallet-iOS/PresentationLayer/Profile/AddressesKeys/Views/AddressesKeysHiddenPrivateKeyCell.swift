@@ -22,6 +22,7 @@ final class AddressesKeysHiddenPrivateKeyCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupLocalization()
         showButton.addTarget(self, action: #selector(actionTouchUpShowButton(sender:)), for: .touchUpInside)
     }
 
@@ -50,7 +51,8 @@ extension AddressesKeysHiddenPrivateKeyCell: ViewCalculateHeight {
 extension AddressesKeysHiddenPrivateKeyCell: Localization {
 
     func setupLocalization() {
-        titleLabel.text = "Private key"
-        showButton.setTitle("Show", for: .normal)
+        
+        titleLabel.text = Localizable.Waves.Addresseskeys.Cell.Privatekey.title
+        showButton.setTitle(Localizable.Waves.Addresseskeys.Cell.Privatekeyhidde.Button.title, for: .normal)
     }
 }

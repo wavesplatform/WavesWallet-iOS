@@ -9,10 +9,10 @@
 import UIKit
 
 private enum Constants {
-    static let height: CGFloat = 60
+    static let height: CGFloat = 108
 }
 
-final class AddressesKeysAliacesCell: UITableViewCell, Reusable {
+final class MyAddressAliacesCell: UITableViewCell, Reusable {
 
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
@@ -24,6 +24,7 @@ final class AddressesKeysAliacesCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLocalization()
+        viewContainer.addTableCellShadowStyle()
         infoButton.addTarget(self, action: #selector(actionTouchInfoButton(sender:)), for: .touchUpInside)
     }
 
@@ -34,27 +35,27 @@ final class AddressesKeysAliacesCell: UITableViewCell, Reusable {
 
 // MARK: ViewConfiguration
 
-extension AddressesKeysAliacesCell: ViewConfiguration {
+extension MyAddressAliacesCell: ViewConfiguration {
 
     struct Model {
         let count: Int
     }
 
-    func update(with model: AddressesKeysAliacesCell.Model) {
+    func update(with model: MyAddressAliacesCell.Model) {
 
         if model.count == 0 {
-            subTitleLabel.text = "You do not have"
+            subTitleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.Subtitle.withoutaliaces
         } else {
-            subTitleLabel.text = "You have \(model.count)"
+            subTitleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.Subtitle.withaliaces(model.count)
         }
     }
 }
 
-// MARK: ViewCalculateHeight
+// MARK: ViewHeight
 
-extension AddressesKeysAliacesCell: ViewCalculateHeight {
+extension MyAddressAliacesCell: ViewHeight {
 
-    static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
+    static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }
@@ -62,9 +63,9 @@ extension AddressesKeysAliacesCell: ViewCalculateHeight {
 
 // MARK: Localization
 
-extension AddressesKeysAliacesCell: Localization {
+extension MyAddressAliacesCell: Localization {
 
     func setupLocalization() {
-        self.titleLabel.text = "Aliases"
+        self.titleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.title
     }
 }
