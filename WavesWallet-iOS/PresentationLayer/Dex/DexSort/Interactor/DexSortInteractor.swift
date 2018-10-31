@@ -8,10 +8,7 @@
 
 import Foundation
 import RxSwift
-
-fileprivate enum Constants {
-    static let stepSize: Float = 0.000000001
-}
+import RealmSwift
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
@@ -37,15 +34,24 @@ final class DexSortInteractor: DexSortInteractorProtocol {
         })
     }
    
-    
-    func move(model: DexSort.DTO.DexSortModel, overModel: DexSort.DTO.DexSortModel) {
+    func update(_ models: [DexSort.DTO.DexSortModel]) {
         
+        auth.authorizedWallet().subscribe(onNext: { (wallet) in
+            
+            let realm = try! WalletRealmFactory.realm(accountAddress: wallet.wallet.address)
+            
+            try! realm.write {
+                for model in models {
+                    if let object = realm.object(ofType: DexAssetPair.self, forPrimaryKey: model.id) {
+                        object.sortLevel = model.sortLevel
+                    }
+                }
+            }
+            
+        }).disposed(by: disposeBag)
     }
     
-    func move(model: DexSort.DTO.DexSortModel, underModel: DexSort.DTO.DexSortModel) {
-        
-    }
-    
+   
     func delete(model: DexSort.DTO.DexSortModel) {
         
         auth.authorizedWallet().subscribe(onNext: { [weak self] (wallet) in
@@ -57,5 +63,5 @@ final class DexSortInteractor: DexSortInteractorProtocol {
             
         }).disposed(by: disposeBag)
     }
-    
+ 
 }

@@ -43,7 +43,7 @@ final class DexRepository: DexRepositoryProtocol {
     
     func list(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
         let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-        return Observable.just( realm.objects(DexAssetPair.self).map { return DexMarket.DTO.Pair($0, isChecked: true)})
+        return Observable.just(realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DexMarket.DTO.Pair($0, isChecked: true)})
     }
     
     func listListener(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
@@ -56,7 +56,7 @@ final class DexRepository: DexRepositoryProtocol {
                 .skip(1)
                 .map { $0.toArray() }
                 .map({ list -> [DexMarket.DTO.Pair] in
-                    return list.map { return DexMarket.DTO.Pair($0, isChecked: true) }})
+                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DexMarket.DTO.Pair($0, isChecked: true) }})
                 .bind(to: observer)
 
             return Disposables.create([collection])

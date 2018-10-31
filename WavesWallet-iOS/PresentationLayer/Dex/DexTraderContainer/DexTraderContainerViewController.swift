@@ -42,12 +42,6 @@ final class DexTraderContainerViewController: UIViewController {
         navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationItem.backgroundImage = nil
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
-    }
-    
  
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

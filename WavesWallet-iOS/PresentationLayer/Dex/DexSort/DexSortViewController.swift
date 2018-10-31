@@ -58,9 +58,10 @@ fileprivate extension DexSortViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
                 
                 strongSelf.modelSection = state.section
+                guard state.action != .none else { return }
+                
                 strongSelf.updateUI(state: state)
             })
         
