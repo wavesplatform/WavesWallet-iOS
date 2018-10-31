@@ -1049,12 +1049,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qEB-1o-Vl4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="VbA-31-HL0">
-                    <rect key="frame" x="0.0" y="0.0" width="357" height="658"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <viewLayoutGuide key="safeArea" id="ZAB-p6-fie"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="1432.8" y="610.34482758620697"/>
         </scene>
