@@ -39,9 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Language.load()
         
-        Swizzle(initializers: [UIView.passtroughInit,                               
-                               UIView.shadowInit]).start()
-        SweetLogger.current.visibleLevels = [.debug, .network]
+//        Swizzle(initializers: [UIView.passtroughInit,
+//                               UIView.shadowInit]).start()
+        Swizzle(initializers: [UIView.passtroughInit]).start()
+
+        SweetLogger.current.visibleLevels = []
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
