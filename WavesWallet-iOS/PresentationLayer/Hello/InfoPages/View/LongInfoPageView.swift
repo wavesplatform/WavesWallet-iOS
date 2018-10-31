@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol LongInfoPageViewDelegate: class {
+    
+    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView)
+    
+}
+
 final class LongInfoPageView: UIView {
     
-    struct Model {
+    class Model {
         let title: String
         let firstDetail: String
         let secondDetail: String
@@ -19,7 +25,28 @@ final class LongInfoPageView: UIView {
         let secondImage: UIImage?
         let thirdImage: UIImage?
         let fourthImage: UIImage?
+        var scrolledToBottom: Bool = false
+        
+        init(title: String, firstDetail: String, secondDetail: String,
+         thirdDetail: String,
+         fourthDetail: String,
+         firstImage: UIImage?,
+         secondImage: UIImage?,
+         thirdImage: UIImage?,
+         fourthImage: UIImage?) {
+            self.title = title
+            self.firstDetail = firstDetail
+            self.secondDetail = secondDetail
+            self.thirdDetail = thirdDetail
+            self.fourthDetail = fourthDetail
+            self.firstImage = firstImage
+            self.secondImage = secondImage
+            self.thirdImage = thirdImage
+            self.fourthImage = fourthImage
+        }
     }
+    
+    weak var delegate: LongInfoPageViewDelegate?
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -38,6 +65,7 @@ final class LongInfoPageView: UIView {
     @IBOutlet weak var secondImageView: UIImageView!
     @IBOutlet weak var thirdImageView: UIImageView!
     @IBOutlet weak var fourthImageView: UIImageView!
+ 
     
     
     func setupConstraints() {
@@ -56,6 +84,19 @@ final class LongInfoPageView: UIView {
         textTrailingConstraint.constant = textTrailing
         secondSectionTopConstraint.constant = secondTop
     }
+    
+    func updateOnScroll() {
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        let contentOffsetY = scrollView.contentOffset.y
+        
+        if contentHeight > 0 && contentHeight - height - contentOffsetY <= 0 {
+            delegate?.longInfoPageViewDidScrollToBottom(view: self)
+        }
+        
+    }
+
+    
 }
 
 extension LongInfoPageView: ViewConfiguration {
@@ -74,7 +115,15 @@ extension LongInfoPageView: ViewConfiguration {
         fourthImageView.image = model.fourthImage
         
         updateConstraints()
-        
+        scrollView.delegate = self
+    }
+    
+}
+
+extension LongInfoPageView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateOnScroll()
     }
     
 }
