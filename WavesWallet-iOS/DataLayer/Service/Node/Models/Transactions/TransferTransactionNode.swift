@@ -20,6 +20,7 @@ extension Node.DTO {
         let height: Int64
 
         let signature: String?
+        let proofs: [String]
         let recipient: String
         let assetId: String?
         let feeAssetId: String?

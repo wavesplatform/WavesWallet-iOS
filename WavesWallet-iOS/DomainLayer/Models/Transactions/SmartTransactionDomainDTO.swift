@@ -112,7 +112,7 @@ extension DomainLayer.DTO {
         let kind: Kind
         let timestamp: Date
         let totalFee: Balance
-        let height: Int64
+        let height: Int64?
         let confirmationHeight: Int64
         let sender: Account
     }

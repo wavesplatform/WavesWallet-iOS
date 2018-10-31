@@ -191,7 +191,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             })
     }
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
         assertMethodDontSupported()
         return Observable.never()
     }

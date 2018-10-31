@@ -12,13 +12,10 @@ import RxSwift
 import RxCocoa
 
 protocol CreateAliasModuleOutput: AnyObject {
-//    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet) -> Void))
-//    func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias])
+    func createAliasCompletedCreateAlias(_ alias: String)
 }
 
-protocol CreateAliasModuleInput {
-//    var wallet: DomainLayer.DTO.Wallet { get }
-}
+protocol CreateAliasModuleInput {}
 
 protocol CreateAliasPresenterProtocol {
 
@@ -35,6 +32,7 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
     private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     weak var moduleOutput: CreateAliasModuleOutput?
 
@@ -42,9 +40,8 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(checkExistAliasQuery())
-//        newFeedbacks.append(getPrivateKeyQuery())
-//        newFeedbacks.append(externalQuery())
-
+        newFeedbacks.append(getAliasesQuery())
+        newFeedbacks.append(externalQueries())
 
         let initialState = self.initialState()
 
@@ -61,31 +58,60 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
 
 fileprivate extension CreateAliasPresenter {
 
-//    func getAliasesQuery() -> Feedback {
-//
-//        return react(query: { state -> String? in
-//
-//            if state.displayState.isAppeared == true {
-//                return state.wallet.address
-//            } else {
-//                return nil
-//            }
-//
-//        }, effects: { [weak self] accountAddress -> Signal<Types.Event> in
-//
-//            guard let strongSelf = self else { return Signal.empty() }
-//
-//            return strongSelf
-//                .aliasesRepository
-//                .aliases(accountAddress: accountAddress)
-//                .map { Types.Event.setAliases($0) }
-//                .sweetDebug("getAliasesQuery")
-//                .asSignal(onErrorRecover: { _ in
-//                    return Signal.empty()
-//                })
-//        })
-//    }
-//
+    func externalQueries() -> Feedback {
+
+        return react(query: { state -> Types.Query? in
+
+            switch state.query {
+            case .completedCreateAlias?:
+                return state.query
+            default:
+                return nil
+            }
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            if case .completedCreateAlias(let name) = query {
+                strongSelf.moduleOutput?.createAliasCompletedCreateAlias(name)
+            }
+
+            return Signal.just(.completedQuery)
+        })
+    }
+
+    func getAliasesQuery() -> Feedback {
+
+        return react(query: { state -> String? in
+
+            if case .createAlias(let name)? = state.query {
+                return name
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] name -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .authorizationInteractor
+                .authorizedWallet()
+                .flatMap({ wallet -> Observable<Bool> in
+                    return strongSelf
+                        .transactionsInteractor
+                        .send(by: .createAlias(.init(alias: name, fee: GlobalConstants.WavesTransactionFeeAmaount)), wallet: wallet)
+                        .map { _ in true }
+                })
+                .map { _ in .aliasCreated }
+                .asSignal(onErrorRecover: { e in
+                    error(e)
+                    return Signal.just(Types.Event.handlerError(e))
+                })
+        })
+    }
+
 
     func checkExistAliasQuery() -> Feedback {
 
@@ -187,8 +213,20 @@ private extension CreateAliasPresenter {
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
             state.displayState.sections = [section]
 
+        case .handlerError:
+            state.query = nil
+            state.displayState.isLoading = false
+            // TODO:
+
+        case .aliasCreated:
+            guard let text = state.displayState.input else { return }
+            state.displayState.isLoading = false
+            state.query = .completedCreateAlias(text)
+
         case .createAlias:
-            break
+            guard let text = state.displayState.input else { return }
+            state.query = .createAlias(text)
+            state.displayState.isLoading = true
 
         case .completedQuery:
             state.query = nil

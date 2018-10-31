@@ -70,6 +70,7 @@ enum TransactionSenderSpecifications {
 //    case alias
 //    case massTransfer
 //    case data
+
 }
 
 struct AliasTransactionSpecifications {
@@ -90,5 +91,5 @@ protocol TransactionsRepositoryProtocol {
     func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool>
     func isHasTransactions(by accountAddress: String) -> Observable<Bool>
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
 }

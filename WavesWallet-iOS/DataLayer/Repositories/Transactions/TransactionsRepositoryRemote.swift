@@ -14,22 +14,6 @@ fileprivate enum Constants {
     static let maxLimit: Int = 10000
 }
 
-//
-//fileprivate enum TRANSACTION_TYPE_VERSION: Int {
-//    case ISSUE = 2,
-//    case TRANSFER = 2,
-//    case REISSUE = 2,
-//    case BURN = 2,
-//    case EXCHANGE = 2,
-//    case LEASE = 2,
-//    case CANCEL_LEASING = 2,
-//    case CREATE_ALIAS = 2,
-//    case MASS_TRANSFER = 1,
-//    case DATA = 1,
-//    case SET_SCRIPT = 1,
-//    case SPONSORSHIP = 1
-//}
-
 extension TransactionSenderSpecifications {
 
     var version: Int {
@@ -39,10 +23,10 @@ extension TransactionSenderSpecifications {
         }
     }
 
-    var type: Int {
+    var type: TransactionType {
         switch self {
         case .createAlias:
-            return 10
+            return TransactionType.alias
         }
     }
 }
@@ -100,60 +84,41 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .asObservable()
     }
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
 
-        switch specifications {
-        case .createAlias(let model):
+        return environmentRepository
+            .accountEnvironment(accountAddress: wallet.wallet.address)
+            .flatMap { [weak self] environment -> Single<Response> in
 
-//            let assetIdBytes = assetId.isEmpty ? [UInt8(0)] :  ([UInt8(1)] + Base58.decode(assetId))
-//            let feeAssetIdBytes = [UInt8(0)]
-//            let s1 = [transactionType] + senderPublicKey.publicKey
-//            let s2 = assetIdBytes + feeAssetIdBytes + toByteArray(timestamp) + toByteArray(amount.amount) + toByteArray(fee.amount)
-//            let s3 = Base58.decode(recipient) + attachment.arrayWithSize()
-//            return s1 + s2 + s3
+                let timestamp = Int64(Date().millisecondsSince1970)
+                var signature = specifications.signature(timestamp: timestamp,
+                                                         scheme: environment.scheme,
+                                                         publicKey: wallet.publicKey.publicKey)
 
-            let timestamp = Int64(Date().millisecondsSince1970)
-
-            var signature: [UInt8] = [UInt8(specifications.type)]
-            signature += [UInt8(specifications.version)]
-            signature += wallet.publicKey.publicKey
-            signature += model.alias.arrayWithSize()
-            signature += toByteArray([UInt8(100000)])
-            signature += toByteArray(timestamp)
-
-            let parameter: [String: Any]  = ["version": specifications.version,
-                                             "alias": model.alias,
-                                             "fee": 100000,
-                                             "timestamp": timestamp,
-                                             "type": specifications.type,
-                                             "senderPublicKey": wallet.seed.publicKey,
-                                             "proofs": Base58.encode(signature)]
-
-
-
-            return environmentRepository
-                .accountEnvironment(accountAddress: wallet.wallet.address)
-                .flatMap { [weak self] environment -> Single<Response> in
-
-                    guard let owner = self else { return Single.never() }
-                    return owner
-                        .transactions
-                        .rx
-                        .request(.init(kind: .brodcast(parameter),
-                                       environment: environment),
-                                 callbackQueue: DispatchQueue.global(qos: .background))
+                do {
+                    signature = try wallet.sign(input: signature, kind: [.none])
+                } catch let e {
+                    error(e)
+                    return Single.error(LeasingTransactionRepositoryError.fail)
                 }
-                .asObservable()
-                .map { _ in [DomainLayer.DTO.AnyTransaction].init() }
 
-            break
+                let proofs = [Base58.encode(signature)]
 
+                let broadcastSpecification = specifications.broadcastSpecification(timestamp: timestamp,
+                                                                                   publicKey: wallet.publicKey.getPublicKeyStr(),
+                                                                                   proofs: proofs)
 
-        default:
-            break
-        }
-
-        return Observable.never()
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .transactions
+                    .rx
+                    .request(.init(kind: .broadcast(broadcastSpecification),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .background))
+            }
+            .map(Node.DTO.Transaction.self)
+            .map({ $0.anyTransaction })
+            .asObservable()
     }
 
     func transactions(by accountAddress: String,
@@ -182,3 +147,52 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         return Observable.never()
     }
 }
+
+fileprivate extension TransactionSenderSpecifications {
+
+    func broadcastSpecification(timestamp: Int64, publicKey: String, proofs: [String]) -> Node.Service.Transaction.BroadcastSpecification {
+
+        switch self {
+        case .createAlias(let model):
+
+            return .createAlias(Node.Service.Transaction.Alias(version: self.version,
+                                                               name: model.alias,
+                                                               fee: model.fee,
+                                                               timestamp: timestamp,
+                                                               type: self.type.rawValue,
+                                                               senderPublicKey: publicKey,
+                                                               proofs: proofs))
+
+        default:
+            break
+        }
+
+    }
+
+    func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+
+        switch self {
+        case .createAlias(let model):
+
+            var alias: [UInt8] = toByteArray(Int8(self.version))
+            alias += scheme.utf8
+            alias += model.alias.arrayWithSize()
+
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += publicKey
+
+            signature += alias.arrayWithSize()
+            signature += toByteArray(model.fee)
+            signature += toByteArray(timestamp)
+            return signature
+
+        default:
+            break
+        }
+
+    }
+}
+
+

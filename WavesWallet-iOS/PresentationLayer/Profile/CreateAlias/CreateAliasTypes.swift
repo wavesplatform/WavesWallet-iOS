@@ -16,6 +16,8 @@ extension CreateAliasTypes {
 
     enum Query: Equatable {
         case checkExist(String)
+        case createAlias(String)
+        case completedCreateAlias(String)
     }
 
     struct State: Mutating {        
@@ -30,6 +32,8 @@ extension CreateAliasTypes {
         case createAlias
         case errorAliasExist
         case aliasAameFree
+        case aliasCreated
+        case handlerError(Error)
         case completedQuery
     }
 

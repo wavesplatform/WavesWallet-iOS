@@ -117,7 +117,11 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
 // MARK: CreateAliasModuleOutput
 
 extension AddressesKeysCoordinator: CreateAliasModuleOutput {
-
+    func createAliasCompletedCreateAlias(_ alias: String) {
+        if let rootViewController = self.rootViewController {
+            navigationController.popToViewController(rootViewController, animated: true)
+        }
+    }
 }
 
 

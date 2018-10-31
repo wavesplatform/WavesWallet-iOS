@@ -157,11 +157,6 @@ extension AddressesKeysViewController: UITableViewDataSource {
 
 extension AddressesKeysViewController: UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let row = sections[indexPath]
