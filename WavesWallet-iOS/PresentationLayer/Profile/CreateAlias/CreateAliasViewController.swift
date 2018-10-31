@@ -47,6 +47,16 @@ final class CreateAliasViewController: UIViewController {
         updateContentInset()
     }
 
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        guard let inputCell = self.inputCell else { return }
+        DispatchQueue.main.async {
+            inputCell.becomeFirstResponder()
+        }
+    }
+
     private func continueCreateAlias() {
         view.endEditing(true)
         eventInput.onNext(.createAlias)
@@ -137,10 +147,17 @@ private extension CreateAliasViewController {
         if let action = state.action {
             switch action {
             case .reload:
-                tableView.reloadData()
 
-                guard let inputCell = self.inputCell else { return }
-                inputCell.becomeFirstResponder()
+//                CATransaction.begin()
+//                CATransaction.setCompletionBlock {
+//                    guard let inputCell = self.inputCell else { return }
+//                    DispatchQueue.main.async {
+//                        inputCell.becomeFirstResponder()
+//                    }
+//                }
+                tableView.reloadData()
+//                CATransaction.commit()
+
             case .update:
 
                 guard let inputCell = self.inputCell else { return }
@@ -206,6 +223,10 @@ extension CreateAliasViewController: UITableViewDelegate {
         case .input(let text, let error):
             return CreateAliasInputCell.viewHeight(model: .init(text: text, error: error), width: tableView.frame.width)
         }
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.becomeFirstResponder()
     }
 }
 
