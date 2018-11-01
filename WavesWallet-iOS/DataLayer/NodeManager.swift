@@ -19,26 +19,3 @@ extension ApiError: LocalizedError {
     }
 }
 
-class NodeManager {
-
-    class func broadcastTransfer(transferRequest: TransferRequest) -> Observable<TransferTransaction> {
-        //TODO: incorrect environment
-        let u = Environments.current.servers.nodeUrl.appendingPathComponent("/assets/broadcast/transfer")
-        return RxAlamofire.requestJSON(.post, u,
-                                       parameters: transferRequest.toJSON(), encoding: JSONEncoding.default)
-            .flatMap { (resp, json) -> Observable<TransferTransaction> in
-                print(resp)
-                if let res = json as? JSON {
-                    if let tx = TransferTransaction(json: res) {
-                        return Observable.just(tx)
-                    } else {
-                        print(res)
-                        return Observable.error(ApiError.ServerError(res.description))
-                    }
-                } else {
-                    return Observable.error(ApiError.IncorrectResponseFormat)
-                }
-        }
-    }
-    
-}

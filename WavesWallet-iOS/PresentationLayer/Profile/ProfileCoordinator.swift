@@ -52,8 +52,11 @@ extension ProfileCoordinator: ProfileModuleOutput {
         passcode.start()
     }
 
-    func showAddressesKeys() {
-        navigationController.presentBasicAlertWithTitle(title: "🐙")
+    func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
+
+        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
 
     func showAddressBook() {

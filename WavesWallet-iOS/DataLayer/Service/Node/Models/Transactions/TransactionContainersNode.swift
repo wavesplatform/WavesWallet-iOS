@@ -10,37 +10,91 @@ import Foundation
 
 extension Node.DTO {
 
+    fileprivate enum TransactionType: Int, Decodable {
+        case issue = 3
+        case transfer = 4
+        case reissue = 5
+        case burn = 6
+        case exchange = 7
+        case lease = 8
+        case leaseCancel = 9
+        case alias = 10
+        case massTransfer = 11
+        case data = 12
+    }
+
+    enum TransactionError: Error {
+        case none
+    }
+
+    enum Transaction: Decodable {
+        case unrecognised(Node.DTO.UnrecognisedTransaction)
+        case issue(Node.DTO.IssueTransaction)
+        case transfer(Node.DTO.TransferTransaction)
+        case reissue(Node.DTO.ReissueTransaction)
+        case burn(Node.DTO.BurnTransaction)
+        case exchange(Node.DTO.ExchangeTransaction)
+        case lease(Node.DTO.LeaseTransaction)
+        case leaseCancel(Node.DTO.LeaseCancelTransaction)
+        case alias(Node.DTO.AliasTransaction)
+        case massTransfer(Node.DTO.MassTransferTransaction)
+        case data(Node.DTO.DataTransaction)
+
+        init(from decoder: Decoder) throws {
+
+            do {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                let type = try container.decode(TransactionType.self, forKey: .type)
+
+                self = try Transaction.transaction(from: decoder, type: type)
+            } catch let e {
+                error(e)
+                throw TransactionError.none
+            }
+        }
+
+
+        fileprivate static func transaction(from decode: Decoder, type: TransactionType) throws -> Transaction {
+
+            switch type {
+            case .issue:
+                return .issue( try Node.DTO.IssueTransaction(from: decode))
+
+            case .transfer:
+                return .transfer( try Node.DTO.TransferTransaction(from: decode))
+
+            case .reissue:
+                return .reissue( try Node.DTO.ReissueTransaction(from: decode))
+
+            case .burn:
+                return .burn( try Node.DTO.BurnTransaction(from: decode))
+
+            case .exchange:
+                return .exchange( try Node.DTO.ExchangeTransaction(from: decode))
+
+            case .lease:
+                return .lease( try Node.DTO.LeaseTransaction(from: decode))
+
+            case .leaseCancel:
+                return .leaseCancel( try Node.DTO.LeaseCancelTransaction(from: decode))
+
+            case .alias:
+                return .alias( try Node.DTO.AliasTransaction(from: decode))
+
+            case .massTransfer:
+                return .massTransfer( try Node.DTO.MassTransferTransaction(from: decode))
+
+            case .data:
+                return .data(try Node.DTO.DataTransaction(from: decode))
+            }
+        }
+    }
+
     enum CodingKeys: String, CodingKey {
         case type = "type"
     }
 
     struct TransactionContainers: Decodable {
-        enum Transaction {
-            case unrecognised(Node.DTO.UnrecognisedTransaction)
-            case issue(Node.DTO.IssueTransaction)
-            case transfer(Node.DTO.TransferTransaction)
-            case reissue(Node.DTO.ReissueTransaction)
-            case burn(Node.DTO.BurnTransaction)
-            case exchange(Node.DTO.ExchangeTransaction)
-            case lease(Node.DTO.LeaseTransaction)
-            case leaseCancel(Node.DTO.LeaseCancelTransaction)
-            case alias(Node.DTO.AliasTransaction)
-            case massTransfer(Node.DTO.MassTransferTransaction)
-            case data(Node.DTO.DataTransaction)
-        }
-
-        private enum TransactionType: Int, Decodable {
-            case issue = 3
-            case transfer = 4
-            case reissue = 5
-            case burn = 6
-            case exchange = 7
-            case lease = 8
-            case leaseCancel = 9
-            case alias = 10
-            case massTransfer = 11
-            case data = 12
-        }
 
         let transactions: [Transaction]
 

@@ -9,6 +9,11 @@
 import Foundation
 
 struct Environment: Decodable {
+
+    enum Constants {
+        static let alias = "alias"
+    }
+
     struct AssetInfo: Decodable {
         let assetId: String
         let displayName: String
@@ -34,6 +39,13 @@ struct Environment: Decodable {
     let isTestNet: Bool = {
         UserDefaults.standard.bool(forKey: "isTestEnvironment")
     }()
+}
+
+extension Environment {
+
+    var aliasScheme: String {
+        return Constants.alias + ":" + scheme + ":"
+    }
 }
 
 final class Environments {

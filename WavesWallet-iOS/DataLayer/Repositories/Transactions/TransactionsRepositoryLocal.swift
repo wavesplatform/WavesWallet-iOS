@@ -117,6 +117,7 @@ fileprivate extension TransactionType {
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
+
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         return self.transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
     }
@@ -188,7 +189,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 })
                 .compactMap { $0 }
             })
+    }
 
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
+        assertMethodDontSupported()
+        return Observable.never()
     }
 
     func isHasTransactions(by accountAddress: String) -> Observable<Bool> {

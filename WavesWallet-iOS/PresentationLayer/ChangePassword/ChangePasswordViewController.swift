@@ -141,21 +141,21 @@ private extension ChangePasswordViewController {
     func updateView(with state: Types.DisplayState) {
 
         if let textFiled = state.textFields[.oldPassword] {
-            oldPasswordInput.setError(textFiled.error)
+            oldPasswordInput.error = textFiled.error
         } else {
-            oldPasswordInput.setError(nil)
+            oldPasswordInput.error = nil
         }
 
         if let textFiled = state.textFields[.newPassword] {
-            passwordInput.setError(textFiled.error)
+            passwordInput.error = textFiled.error
         } else {
-            passwordInput.setError(nil)
+            passwordInput.error = nil
         }
 
         if let textFiled = state.textFields[.confirmPassword] {
-            confirmPasswordInput.setError(textFiled.error)
+            confirmPasswordInput.error = textFiled.error
         } else {
-            confirmPasswordInput.setError(nil)
+            confirmPasswordInput.error = nil
         }
 
         buttonConfirm.isEnabled = state.isEnabledConfirmButton

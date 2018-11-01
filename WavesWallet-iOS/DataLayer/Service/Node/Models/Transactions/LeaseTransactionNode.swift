@@ -20,6 +20,7 @@ extension Node.DTO {
         let height: Int64? //I do optional variable for cancel leasing model
     
         let signature: String?
+        let proofs: [String]
         let amount: Int64
         let recipient: String
     }

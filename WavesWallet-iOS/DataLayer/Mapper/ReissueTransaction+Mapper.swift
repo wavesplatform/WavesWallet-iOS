@@ -49,6 +49,7 @@ extension DomainLayer.DTO.ReissueTransaction {
         chainId = transaction.chainId
         quantity = transaction.quantity
         reissuable = transaction.reissuable
+        proofs = transaction.proofs
     }
 
     init(transaction: ReissueTransaction) {
@@ -67,5 +68,6 @@ extension DomainLayer.DTO.ReissueTransaction {
         chainId = transaction.chainId.value
         quantity = transaction.quantity
         reissuable = transaction.reissuable
+        proofs = []
     }
 }
