@@ -53,6 +53,7 @@ extension DomainLayer.DTO.IssueTransaction {
         description = transaction.description
         script = transaction.script
         modified = Date()
+        proofs = transaction.proofs
     }
 
     init(transaction: IssueTransaction) {
@@ -73,5 +74,6 @@ extension DomainLayer.DTO.IssueTransaction {
         description = transaction.assetDescription
         script = transaction.script
         modified = transaction.modified
+        proofs = []
     }
 }

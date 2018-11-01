@@ -98,7 +98,11 @@ class PrivateKeyAccount: PublicKeyAccount {
         privateKey = Array(pair.privateKey())
         super.init(publicKey: Array(pair.publicKey()))
     }
-    
+
+    var privateKeyStr: String {
+        return Base58.encode(privateKey)
+    }
+
     var words: [String] {
         return String(data: Data(seed), encoding: .utf8)?.components(separatedBy: " ") ?? []
     }

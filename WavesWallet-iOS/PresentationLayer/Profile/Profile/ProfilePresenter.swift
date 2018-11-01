@@ -13,7 +13,7 @@ import RxCocoa
 
 protocol ProfileModuleOutput: AnyObject {
 
-    func showAddressesKeys()
+    func showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
     func showAddressBook()
     func showLanguage()
     func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void))
@@ -113,8 +113,8 @@ fileprivate extension ProfilePresenter {
     fileprivate static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
 
         switch query {
-        case .showAddressesKeys:
-            owner.moduleOutput?.showAddressesKeys()
+        case .showAddressesKeys(let wallet):
+            owner.moduleOutput?.showAddressesKeys(wallet: wallet)
 
         case .showAddressBook:
             owner.moduleOutput?.showAddressBook()
@@ -376,7 +376,7 @@ private extension ProfilePresenter {
                 state.query = .showAddressBook
 
             case .addressesKeys:
-                state.query = .showAddressesKeys
+                state.query = .showAddressesKeys(wallet: wallet)
 
             case .language:
                 state.query = Types.Query.showLanguage

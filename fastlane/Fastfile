@@ -1,0 +1,29 @@
+require 'open-uri'
+
+default_platform(:ios)
+
+platform :ios do
+  
+  lane :waves do
+    
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+
+		cocoapods(
+			verbose: true,
+			clean: true,
+			use_bundle_exec: false
+		)
+		
+		gym(scheme: "WavesWallet-iOS-Test",
+        workspace: "WavesWallet-iOS.xcworkspace",
+        include_bitcode: true,
+        include_symbols: true,
+        export_options: "#{Dir.pwd}/#{ENV['EXPORT_OPTIONS_NAME']}"
+    )
+
+    testflight(username: "#{ENV['APPLDE_DEV_PORTAL_ID']}")
+  end
+end

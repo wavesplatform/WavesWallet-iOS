@@ -27,6 +27,7 @@ final class PasscodeCoordinator: Coordinator {
     
     weak var delegate: PasscodeCoordinatorDelegate?
     var animated: Bool = true
+    var isDontClose: Bool = false
 
     init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
 
@@ -62,6 +63,10 @@ final class PasscodeCoordinator: Coordinator {
     private func dissmiss() {
         removeFromParentCoordinator()
 
+        if isDontClose == true {
+            return
+        }
+        
         if hasExternalNavigationController == false {
             self.viewController.dismiss(animated: true, completion: nil)
         } else {
