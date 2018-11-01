@@ -9,17 +9,3 @@
 import Foundation
 import RxSwift
 
-final class StartLeasingInteractorMock: StartLeasingInteractorProtocol {
-    
-    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(ResponseType<Bool>)> {
-        
-        
-        return Observable.create({ (subscribe) -> Disposable in
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                subscribe.onNext(ResponseType<Bool>(output: true, error: nil))
-            })
-            return Disposables.create()
-        })
-    }
-}

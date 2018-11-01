@@ -41,7 +41,11 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
             guard let order = ss.order else { return Signal.empty() }
             
-            return strongSelf.interactor.createOrder(order: order).map { .orderDidCreate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf
+                .interactor
+                .createOrder(order: order)
+                .map { _ in .orderDidCreate }
+                .asSignal(onErrorSignalWith: Signal.just(.handlerError))
         })
     }
     
@@ -52,35 +56,40 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
             
             return state.mutate {
                 $0.isNeedCreateOrder = true
-                $0.order?.time = Date()
-                }.changeAction(.showCreatingOrderState)
-            
-        case .orderDidCreate(let responce):
+            }.changeAction(.showCreatingOrderState)
+
+        case .handlerError:
+            return state.mutate {
+                $0.action = .orderDidFailCreate("error")
+            }
+        case .orderDidCreate:
             
             return state.mutate {
                 
                 $0.isNeedCreateOrder = false
-                
-                switch responce.result {
-                case .error(let error):
-                    $0.action = .orderDidFailCreate(error)
-                    
-                case .success(let success):
-                    if success {
-                        moduleOutput?.startLeasingDidCreateOrder()
-                        $0.action = .orderDidCreate
-                    }
-                    else {
-                        $0.action = .none
-                    }
-                }
+                moduleOutput?.startLeasingDidCreateOrder()
+                $0.action = .orderDidCreate
+  
+//                switch responce.result {
+//                case .error(let error):
+//                    $0.action = .orderDidFailCreate(error)
+//
+//                case .success(let success):
+//                    if success {
+//                        moduleOutput?.startLeasingDidCreateOrder()
+//                        $0.action = .orderDidCreate
+//                    }
+//                    else {
+//                        $0.action = .none
+//                    }
+//                }
             }
             
         case .updateInputOrder(let order):
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.order = order
-                }.changeAction(.none)
+            }.changeAction(.none)
         }
     }
     

@@ -45,8 +45,7 @@ final class StartLeasingViewController: UIViewController {
     var totalBalance: Money! {
         didSet {
             order = StartLeasing.DTO.Order(recipient: "",
-                                           amount: Money(0, totalBalance.decimals),
-                                           time: Date())
+                                           amount: Money(0, totalBalance.decimals))
         }
     }
     
@@ -134,8 +133,9 @@ private extension StartLeasingViewController {
         return order.recipient.count > 0 &&
             !isNotEnoughAmount &&
             order.amount.amount > 0 &&
-            Address.isValidAddress(address: order.recipient) &&
             !isCreatingOrderState
+
+//        Address.isValidAddress(address: order.recipient)
     }
     
     var isNotEnoughAmount: Bool {
@@ -204,7 +204,9 @@ private extension StartLeasingViewController {
                                                        contacts: [])
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
-            return Address.isValidAddress(address: text)
+            return true
+            //TODO: Need add check alias
+//            Address.isValidAddress(address: text)
         }
         setupButtonState()
     }
