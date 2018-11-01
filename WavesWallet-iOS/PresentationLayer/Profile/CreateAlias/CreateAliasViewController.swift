@@ -36,7 +36,7 @@ final class CreateAliasViewController: UIViewController {
 
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
-        saveButton.setTitle(Localizable.Waves.Createalias.Button.create.title, for: .normal)
+        saveButton.setTitle(Localizable.Waves.Createalias.Button.Create.title, for: .normal)
         tableView.tableHeaderView = UIView()
         tableView.addSubview(footerView)
         setupSystem()
