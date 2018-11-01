@@ -48,3 +48,7 @@ Temp/
 *.Fabric-Info.plist
 WavesWallet-iOS/Resources/Fabric-Info.plist
 WavesWallet-iOS/Resources/GoogleService-Info.plist
+
+fastlane/report\.xml
+
+fastlane/README\.md
