@@ -72,9 +72,12 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
 
         inputTextField.autocapitalizationType = .none
 
-        inputTextField.update(with: InputTextField.Model(title: "Symbolic name",
-                                                           kind: .text,
-                                                           placeholder: "Symbolic name"))
+        let title = Localizable.Waves.Createalias.Cell.Input.Textfiled.Input.title
+        let placeholder = Localizable.Waves.Createalias.Cell.Input.Textfiled.Input.placeholder
+
+        inputTextField.update(with: InputTextField.Model(title: title,
+                                                         kind: .text,
+                                                         placeholder: placeholder))
 
         inputTextField.returnKey = .done
     }
@@ -110,6 +113,6 @@ extension CreateAliasInputCell: ViewCalculateHeight {
 extension CreateAliasInputCell: Localization {
 
     func setupLocalization() {
-//        self.titleLabel.text = "Aliases"
+//        self.titleLabel.text = Localizable.Waves.Createalias.Cell.Input.Label.title
     }
 }

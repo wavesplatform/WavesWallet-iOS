@@ -14,6 +14,7 @@ import RxCocoa
 private enum Constants {
     static let topBarHeight: CGFloat = 42;
     static let bottomPadding: CGFloat = 24;
+    static let durationAnimation: TimeInterval = 0.24
 }
 
 final class AliasesViewController: UIViewController {
@@ -65,11 +66,9 @@ final class AliasesViewController: UIViewController {
         aliasesInfoView.arrayButton.setImage(Images.arrowdown14Basic300.image, for: .normal)
         tableView.contentInset = UIEdgeInsetsMake(0, 0, Constants.bottomPadding + size.height, 0)
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
-        }) { _ in
-
-        }
+        })
     }
 
     private func hideInfoView() {
@@ -79,11 +78,9 @@ final class AliasesViewController: UIViewController {
         aliasesInfoView.arrayButton.setImage(Images.arrowup14Basic300.image, for: .normal)
         tableView.contentInset = UIEdgeInsetsMake(0, 0, Constants.bottomPadding + Constants.topBarHeight, 0)
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
-        }) { _ in
-
-        }
+        })
     }
 
     @objc func handlerTapGesture(tap: UITapGestureRecognizer) {

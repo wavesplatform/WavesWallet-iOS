@@ -522,3 +522,8 @@
 
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "You do not have";
 "addresseskeys.cell.aliases.subtitle.withaliaces" = "You have %d";
+
+"createalias.navigation.title" = "New alias";
+"createalias.button.create.title" = "Create";
+"createalias.cell.input.textfiled.input.title" = "Symbolic name";
+"createalias.cell.input.textfiled.input.placeholder" = "Symbolic name";

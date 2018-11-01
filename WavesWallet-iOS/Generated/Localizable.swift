@@ -434,6 +434,38 @@ internal enum Localizable {
       }
     }
 
+    internal enum Createalias {
+
+      internal enum Button {
+
+        internal enum Create {
+          /// Create
+          internal static var title: String { return Localizable.tr("Waves", "createalias.button.create.title") }
+        }
+      }
+
+      internal enum Cell {
+
+        internal enum Input {
+
+          internal enum Textfiled {
+
+            internal enum Input {
+              /// Symbolic name
+              internal static var placeholder: String { return Localizable.tr("Waves", "createalias.cell.input.textfiled.input.placeholder") }
+              /// Symbolic name
+              internal static var title: String { return Localizable.tr("Waves", "createalias.cell.input.textfiled.input.title") }
+            }
+          }
+        }
+      }
+
+      internal enum Navigation {
+        /// New alias
+        internal static var title: String { return Localizable.tr("Waves", "createalias.navigation.title") }
+      }
+    }
+
     internal enum Dexchart {
 
       internal enum Button {

@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 import Moya
 
+private enum Constants {
+    static var notFoundCode = 404
+}
 final class AliasesRepository: AliasesRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -69,7 +72,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .catchError({ e -> Observable<String> in
                         guard let error = e as? MoyaError else { return Observable.error(AliasesRepositoryError.invalid) }
                         guard let response = error.response else { return Observable.error(AliasesRepositoryError.invalid) }
-                        guard response.statusCode == 404 else { return Observable.error(AliasesRepositoryError.invalid) }
+                        guard response.statusCode == Constants.notFoundCode else { return Observable.error(AliasesRepositoryError.invalid) }
                         return Observable.error(AliasesRepositoryError.dontExist)                    
                     })
 
