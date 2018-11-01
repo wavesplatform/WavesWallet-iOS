@@ -12,3 +12,8 @@ protocol ViewCalculateHeight {
     associatedtype Model
     static func viewHeight(model: Model, width: CGFloat) -> CGFloat
 }
+
+
+protocol ViewHeight {
+    static func viewHeight() -> CGFloat
+}

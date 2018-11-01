@@ -47,6 +47,7 @@ extension DomainLayer.DTO.BurnTransaction {
         signature = transaction.signature
         chainId = transaction.chainId
         amount = transaction.amount
+        proofs = transaction.proofs
     }
 
     init(transaction: BurnTransaction) {
@@ -64,5 +65,6 @@ extension DomainLayer.DTO.BurnTransaction {
         signature = transaction.signature
         chainId = transaction.chainId.value
         amount = transaction.amount
+        proofs = []
     }
 }
