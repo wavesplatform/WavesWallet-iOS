@@ -281,7 +281,7 @@
         <scene sceneID="Yac-AZ-fkG">
             <objects>
                 <viewController storyboardIdentifier="EditAccountNameViewController" id="JRP-Zd-pua" customClass="EditAccountNameViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mOr-Kv-d5U" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="mOr-Kv-d5U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -416,9 +416,9 @@
                         <viewLayoutGuide key="safeArea" id="r18-IF-S2d"/>
                     </view>
                     <connections>
-                        <outlet property="buttonSave" destination="oVR-Fw-S5K" id="lcw-cm-GUb"/>
-                        <outlet property="labelAccountName" destination="D3q-2O-kLo" id="Apy-5N-5xT"/>
-                        <outlet property="textField" destination="hb2-dV-I3c" id="qvr-Q0-QIj"/>
+                        <outlet property="buttonSave" destination="oVR-Fw-S5K" id="jjS-q8-6Ik"/>
+                        <outlet property="labelAccountName" destination="D3q-2O-kLo" id="H1l-fI-5ap"/>
+                        <outlet property="textField" destination="hb2-dV-I3c" id="UnV-dO-kBT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pBo-2Z-Ff0" userLabel="First Responder" sceneMemberID="firstResponder"/>

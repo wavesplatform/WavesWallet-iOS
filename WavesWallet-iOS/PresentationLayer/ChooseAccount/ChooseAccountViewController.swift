@@ -15,9 +15,11 @@ import MGSwipeTableCell
 
 private enum Constants {
     static let swipeButtonWidth: CGFloat = 72
+    static let editButtonTag = 1000
+    static let deleteButtonTag = 1001
 }
 
-final class ChooseAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
+final class ChooseAccountViewController: UIViewController {
 
     fileprivate typealias Types = ChooseAccountTypes
 
@@ -35,22 +37,121 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBigNavigationBar()
-        hideTopBarLine()
-        navigationItem.barTintColor = .white
-        navigationItem.tintColor = .white
-        navigationItem.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.largeTitleTextAttributes = [.foregroundColor: UIColor.white]        
-        setupSystem()
-        createBackWhiteButton()
-        navigationItem.title = Localizable.Waves.Chooseaccount.Navigation.title
+        view.backgroundColor = .basic50
         noResultInfoLabel.text = Localizable.Waves.Chooseaccount.Label.nothingWallets
+        setupNavigation()
+        
+        setupSystem()
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    
+    private func setupNavigation() {
+        
+        navigationItem.title = Localizable.Waves.Chooseaccount.Navigation.title
+        setupBigNavigationBar()
+        createBackButton()
+        hideTopBarLine()
     }
+    
+    // MARK: - Content
 
+    fileprivate lazy var swipeButtons: [UIView] = {
+        let edit = MGSwipeButton(title: "", icon: Images.editaddress24Submit300.image, backgroundColor: nil)
+        edit.buttonWidth = Constants.swipeButtonWidth
+        edit.tag = Constants.editButtonTag
+        
+        let delete = MGSwipeButton(title: "", icon: Images.deladdress24Error400.image, backgroundColor: nil)
+        delete.buttonWidth = Constants.swipeButtonWidth
+        delete.tag = Constants.deleteButtonTag
+        
+        return [delete, edit]
+    }()
+    
+    fileprivate var editButtonIndex: Int {
+        return swipeButtons.firstIndex(where: { (view) -> Bool in
+            view.tag == Constants.editButtonTag
+        })!
+    }
+    
+    fileprivate var deleteButtonIndex: Int {
+        return swipeButtons.firstIndex(where: { (view) -> Bool in
+            view.tag == Constants.deleteButtonTag
+        })!
+    }
+    
+    // MARK: - State
+    
+    fileprivate func reloadTableView() {
+        tableView.reloadData()
+        
+        if wallets.count > 0 {
+            hideEmptyView()
+        } else {
+            showEmptyView()
+        }
+    }
+    
+    fileprivate func removeAccount(atIndexPath indexPath: IndexPath) {
+        
+        CATransaction.begin()
+        
+        CATransaction.setCompletionBlock {
+            if self.wallets.count > 0 {
+                self.hideEmptyView()
+            } else {
+                self.showEmptyView()
+            }
+        }
+        
+        tableView.beginUpdates()
+        
+        if wallets.count == 0 {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        tableView.endUpdates()
+        CATransaction.commit()
+        
+    }
+    
+    // MARK: Actions
+    
+    fileprivate func deleteTap(atIndexPath indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? ChooseAccountCell else { return }
+        
+        let wallet = wallets[indexPath.row]
+        
+        let alert = UIAlertController(title: Localizable.Waves.Chooseaccount.Alert.Delete.title,
+        message: Localizable.Waves.Chooseaccount.Alert.Delete.message,
+        preferredStyle: .alert)
+    
+        let cancel = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.no, style: .cancel) { (action) in
+            cell.hideSwipe(animated: true)
+        }
+    
+        let yes = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.ok, style: .default) { [weak self] (action) in
+            self?.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
+        }
+    
+        alert.addAction(cancel)
+        alert.addAction(yes)
+    
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    private func editTap(atIndexPath indexPath: IndexPath) {
+        
+        let wallet = wallets[indexPath.row]
+        
+        eventInput.onNext(.tapEditButton(wallet, indexPath: indexPath))
+        
+    }
+    
+    // MARK: Empty
+    
     private func showEmptyView() {
         tableView.addSubview(viewNoResult)
         viewNoResult.setNeedsLayout()
@@ -65,6 +166,7 @@ final class ChooseAccountViewController: UIViewController, UITableViewDelegate, 
     private func hideEmptyView() {
         viewNoResult.removeFromSuperview()
     }
+    
 }
 
 // MARK: RxFeedback
@@ -113,31 +215,13 @@ private extension ChooseAccountViewController {
 
         switch state.action {
         case .reload:
-            tableView.reloadData()
-            if wallets.count > 0 {
-                hideEmptyView()
-            } else {
-                showEmptyView()
-            }
+            
+           reloadTableView()
 
         case .remove(let indexPath):
 
-            CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                if self.wallets.count > 0 {
-                    self.hideEmptyView()
-                } else {
-                    self.showEmptyView()
-                }
-            }
-            tableView.beginUpdates()
-            if wallets.count == 0 {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            tableView.endUpdates()
-            CATransaction.commit()
+            removeAccount(atIndexPath: indexPath)
+            
         default:
             break
         }
@@ -145,55 +229,7 @@ private extension ChooseAccountViewController {
     
 }
 
-// MARK: - MGSwipeTableCellDelegate/ UITableViewDelegate/ UITableViewDatasource
-extension ChooseAccountViewController {
-
-    func swipeTableCell(_ cell: MGSwipeTableCell, tappedButtonAt index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
-
-        guard let indexPath = tableView.indexPath(for: cell) else { return false }
-        let wallet = wallets[indexPath.row]
-
-        let alert = UIAlertController(title: Localizable.Waves.Chooseaccount.Alert.Delete.title,
-                                      message: Localizable.Waves.Chooseaccount.Alert.Delete.message,
-                                      preferredStyle: .alert)
-
-        let cancel = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.no, style: .cancel) { (action) in
-            cell.hideSwipe(animated: true)
-        }
-
-        let yes = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.ok, style: .default) { [weak self] (action) in
-            self?.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
-        }
-        alert.addAction(cancel)
-        alert.addAction(yes)
-        present(alert, animated: true, completion: nil)
-
-        return true
-    }
-
-    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
-
-        if direction == .rightToLeft {
-
-            //TODO: Edit
-//            let edit = MGSwipeButton(title: "", icon: UIImage(named: "editaddress24Submit300"), backgroundColor: nil)
-//            edit.setEdgeInsets(UIEdgeInsetsMake(0, 15, 0, 0))
-//            edit.buttonWidth = 72
-
-            let delete = MGSwipeButton(title: "", icon: Images.deladdress24Error400.image, backgroundColor: nil)
-            delete.buttonWidth = Constants.swipeButtonWidth
-            return [delete]
-        }
-        return nil
-    }
-
-    //MARK: - UITableView
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let wallet = wallets[indexPath.row]
-        eventInput.onNext(.tapWallet(wallet))
-    }
+extension ChooseAccountViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return wallets.count
@@ -204,13 +240,66 @@ extension ChooseAccountViewController {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ChouseAccountCell = tableView.dequeueAndRegisterCell()
-
+        
+        let cell: ChooseAccountCell = tableView.dequeueAndRegisterCell()
         let wallet = wallets[indexPath.row]
+        
+        let model = ChooseAccountCell.Model(
+                title: wallet.name,
+                address: wallet.address,
+                image: identity.createImage(by: wallet.address, size: cell.imageIcon.frame.size))
+        
+        cell.update(with: model)
         cell.delegate = self
-        cell.labelTitle.text = wallet.name
-        cell.labelAddress.text = wallet.address
-        cell.imageIcon.image = identity.createImage(by: wallet.address, size: cell.imageIcon.frame.size)
+        
         return cell
     }
+}
+
+extension ChooseAccountViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let wallet = wallets[indexPath.row]
+        eventInput.onNext(.tapWallet(wallet))
+        
+    }
+    
+}
+
+extension ChooseAccountViewController: MGSwipeTableCellDelegate {
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, tappedButtonAt index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
+        
+        guard let indexPath = tableView.indexPath(for: cell) else { return false }
+
+        
+        if direction == .rightToLeft {
+            
+            if index == deleteButtonIndex {
+                
+                deleteTap(atIndexPath: indexPath)
+                
+            } else if index == editButtonIndex {
+                
+                editTap(atIndexPath: indexPath)
+                
+            }
+            
+        }
+        
+        return true
+    }
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+        
+        if direction == .rightToLeft {
+            
+            return swipeButtons
+            
+        }
+        
+        return nil
+    }
+    
 }
