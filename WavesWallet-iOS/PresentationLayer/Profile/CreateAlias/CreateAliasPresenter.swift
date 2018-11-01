@@ -101,7 +101,7 @@ fileprivate extension CreateAliasPresenter {
                 .flatMap({ wallet -> Observable<Bool> in
                     return strongSelf
                         .transactionsInteractor
-                        .send(by: .createAlias(.init(alias: name, fee: GlobalConstants.WavesTransactionFeeAmaount)), wallet: wallet)
+                        .send(by: .createAlias(.init(alias: name, fee: GlobalConstants.WavesTransactionFeeAmount)), wallet: wallet)
                         .map { _ in true }
                 })
                 .map { _ in .aliasCreated }
