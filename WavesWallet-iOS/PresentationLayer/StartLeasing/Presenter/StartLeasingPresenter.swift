@@ -60,6 +60,7 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
 
         case .handlerError:
             return state.mutate {
+                $0.isNeedCreateOrder = false
                 $0.action = .orderDidFailCreate("error")
             }
         case .orderDidCreate:
@@ -69,20 +70,6 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
                 $0.isNeedCreateOrder = false
                 moduleOutput?.startLeasingDidCreateOrder()
                 $0.action = .orderDidCreate
-  
-//                switch responce.result {
-//                case .error(let error):
-//                    $0.action = .orderDidFailCreate(error)
-//
-//                case .success(let success):
-//                    if success {
-//                        moduleOutput?.startLeasingDidCreateOrder()
-//                        $0.action = .orderDidCreate
-//                    }
-//                    else {
-//                        $0.action = .none
-//                    }
-//                }
             }
             
         case .updateInputOrder(let order):
