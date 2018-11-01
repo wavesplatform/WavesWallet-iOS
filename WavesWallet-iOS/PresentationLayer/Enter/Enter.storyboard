@@ -175,11 +175,13 @@
                         <outlet property="collectionTopOffsetConstraint" destination="FAz-Y8-jpC" id="3I0-oZ-yVI"/>
                         <outlet property="collectionView" destination="zWW-QO-W8Z" id="FEm-rH-wsl"/>
                         <outlet property="collectionViewHeightConstraint" destination="QY8-ZD-mz0" id="Xdy-KV-aMP"/>
+                        <outlet property="createAccountButtonTopConstraint" destination="2l7-JN-FnF" id="dvs-Qs-t5w"/>
                         <outlet property="createNewAccountButton" destination="Jze-fZ-8Wd" id="Gke-36-HM8"/>
                         <outlet property="importAccountDetailLabel" destination="ITU-BK-i2w" id="vN0-c9-v92"/>
                         <outlet property="importAccountTitleLabel" destination="0p7-nL-lGj" id="sF7-G1-4om"/>
                         <outlet property="importAccountView" destination="GaN-1g-QJC" id="VkW-sb-df9"/>
                         <outlet property="pageControl" destination="wMZ-Ng-A1S" id="Cfk-8X-EOy"/>
+                        <outlet property="pageControlTopConstraint" destination="cXI-Pi-9Jg" id="g1q-0t-zBj"/>
                         <outlet property="signInDetailLabel" destination="HN0-TK-RAU" id="ARY-yg-FtS"/>
                         <outlet property="signInTitleLabel" destination="2jk-jI-Nn6" id="YUb-ec-3Qd"/>
                         <outlet property="signInView" destination="EtO-b7-VE7" id="8Js-Hp-2lz"/>
