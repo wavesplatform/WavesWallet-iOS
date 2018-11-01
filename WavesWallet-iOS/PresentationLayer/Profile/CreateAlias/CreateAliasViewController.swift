@@ -30,12 +30,13 @@ final class CreateAliasViewController: UIViewController {
 
         createBackButton()
         setupBigNavigationBar()
-        navigationItem.title = "New alias"
+        navigationItem.title = Localizable.Waves.Createalias.Navigation.title
+
         navigationItem.barTintColor = .white
 
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
-
+        saveButton.setTitle(Localizable.Waves.Createalias.Button.create.title, for: .normal)
         tableView.tableHeaderView = UIView()
         tableView.addSubview(footerView)
         setupSystem()
@@ -148,16 +149,7 @@ private extension CreateAliasViewController {
             switch action {
             case .reload:
 
-//                CATransaction.begin()
-//                CATransaction.setCompletionBlock {
-//                    guard let inputCell = self.inputCell else { return }
-//                    DispatchQueue.main.async {
-//                        inputCell.becomeFirstResponder()
-//                    }
-//                }
                 tableView.reloadData()
-//                CATransaction.commit()
-
             case .update:
 
                 guard let inputCell = self.inputCell else { return }

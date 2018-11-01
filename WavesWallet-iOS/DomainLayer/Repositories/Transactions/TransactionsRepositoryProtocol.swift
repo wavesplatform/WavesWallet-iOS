@@ -60,17 +60,6 @@ struct AliasTransactionSender {
 
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
-//    case issue
-//    case transfer
-//    case reissue
-//    case burn
-//    case exchange
-//    case lease
-//    case leaseCancel
-//    case alias
-//    case massTransfer
-//    case data
-
 }
 
 struct AliasTransactionSpecifications {
