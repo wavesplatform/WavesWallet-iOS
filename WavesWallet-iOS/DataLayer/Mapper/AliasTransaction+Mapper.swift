@@ -19,7 +19,7 @@ extension AliasTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? -1
         modified = transaction.modified
 
         signature = transaction.signature
@@ -43,6 +43,7 @@ extension DomainLayer.DTO.AliasTransaction {
 
         signature = transaction.signature
         alias = transaction.alias
+        proofs = transaction.proofs
     }
 
     init(transaction: AliasTransaction) {
@@ -58,5 +59,6 @@ extension DomainLayer.DTO.AliasTransaction {
 
         signature = transaction.signature
         alias = transaction.alias
+        proofs = []
     }
 }

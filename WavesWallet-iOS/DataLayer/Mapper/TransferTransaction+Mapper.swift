@@ -53,6 +53,7 @@ extension DomainLayer.DTO.TransferTransaction {
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
+        proofs = transaction.proofs
     }
 
     init(transaction: TransferTransaction) {
@@ -73,5 +74,6 @@ extension DomainLayer.DTO.TransferTransaction {
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
+        proofs = []
     }
 }

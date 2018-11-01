@@ -57,6 +57,7 @@ final class AssetViewController: UIViewController {
 
         setupNavigationBar()
         hiddenSegmentedIfNeeded()
+        tableView.startSkeletonCells()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

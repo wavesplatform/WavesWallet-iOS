@@ -10,9 +10,14 @@ import Foundation
 import Moya
 import RxSwift
 
+enum TransactionsInteractorError: Error {
+    case invalid
+}
+
 protocol TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]>
     func activeLeasingTransactions(by accountAddress: String, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartTransaction]>
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction>
 }
 
 fileprivate enum Constants {
@@ -88,6 +93,20 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             })
             return owner.smartTransactions(SmartTransactionsQuery(accountAddress: accountAddress, transactions: txs))
         }
+    }
+
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
+
+        return transactionsRepositoryRemote
+                .send(by: specifications, wallet: wallet)
+                .flatMap({ [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
+                    guard let owner = self else { return Observable.never() }
+                    return owner.smartTransactions(SmartTransactionsQuery(accountAddress: wallet.wallet.address, transactions: [tx]))
+                        .flatMap({ txs -> Observable<DomainLayer.DTO.SmartTransaction> in
+                            guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
+                            return Observable.just(tx)
+                        })
+                })
     }
 }
 

@@ -193,13 +193,12 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
-    internal static let assetChartViewController = SceneType<WavesWallet_iOS.AssetChartViewController>(storyboard: Main.self, identifier: "AssetChartViewController")
-
-    internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Main.self, identifier: "AssetViewController")
-
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
+  }
+  internal enum MyAddress: StoryboardType {
+    internal static let storyboardName = "MyAddress"
 
-    internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: Main.self, identifier: "MyAddressViewController")
+    internal static let myAddressViewController = SceneType<WavesWallet_iOS.MyAddressViewController>(storyboard: MyAddress.self, identifier: "MyAddressViewController")
   }
   internal enum NewAccount: StoryboardType {
     internal static let storyboardName = "NewAccount"
@@ -214,13 +213,17 @@ internal enum StoryboardScene {
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
 
+    internal static let addressesKeysViewController = SceneType<WavesWallet_iOS.AddressesKeysViewController>(storyboard: Profile.self, identifier: "AddressesKeysViewController")
+
     internal static let alertDeleteAccountViewController = SceneType<WavesWallet_iOS.AlertDeleteAccountViewController>(storyboard: Profile.self, identifier: "AlertDeleteAccountViewController")
+
+    internal static let aliasWithoutViewController = SceneType<WavesWallet_iOS.AliasWithoutViewController>(storyboard: Profile.self, identifier: "AliasWithoutViewController")
+
+    internal static let aliasesViewController = SceneType<WavesWallet_iOS.AliasesViewController>(storyboard: Profile.self, identifier: "AliasesViewController")
 
     internal static let createAliasViewController = SceneType<WavesWallet_iOS.CreateAliasViewController>(storyboard: Profile.self, identifier: "CreateAliasViewController")
 
     internal static let networkSettingsViewController = SceneType<WavesWallet_iOS.NetworkSettingsViewController>(storyboard: Profile.self, identifier: "NetworkSettingsViewController")
-
-    internal static let profileAddressKeyViewController = SceneType<WavesWallet_iOS.ProfileAddressKeyViewController>(storyboard: Profile.self, identifier: "ProfileAddressKeyViewController")
 
     internal static let profileViewController = SceneType<WavesWallet_iOS.ProfileViewController>(storyboard: Profile.self, identifier: "ProfileViewController")
   }
@@ -272,6 +275,15 @@ internal enum StoryboardScene {
 
     internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: Transactions.self, identifier: "TransactionHistoryViewController")
   }
+  internal enum Transfer: StoryboardType {
+    internal static let storyboardName = "Transfer"
+
+    internal static let initialScene = InitialSceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Transfer.self)
+
+    internal static let receiveNavViewController = SceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Transfer.self, identifier: "ReceiveNavViewController")
+
+    internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Transfer.self, identifier: "SendViewController")
+  }
   internal enum UseTouchID: StoryboardType {
     internal static let storyboardName = "UseTouchID"
 
@@ -294,6 +306,9 @@ internal enum StoryboardScene {
 internal enum StoryboardSegue {
   internal enum Dex: String, SegueType {
     case dexContainerViewController = "DexContainerViewController"
+  }
+  internal enum Transfer: String, SegueType {
+    case transactionSuccess = "TransactionSuccess"
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

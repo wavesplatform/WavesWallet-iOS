@@ -20,6 +20,7 @@ extension DomainLayer.DTO {
         let height: Int64
         
         let signature: String?
+        let proofs: [String]
         let amount: Int64
         let recipient: String
         var modified: Date
