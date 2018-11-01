@@ -10,6 +10,7 @@ PODS:
     - Fabric (~> 1.7.11)
   - CryptoSwift (0.11.0)
   - CSV.swift (2.2.1)
+  - Device.swift (1.1.2)
   - Differentiator (3.0.2)
   - Fabric (1.7.11)
   - Firebase/Auth (5.7.0):
@@ -150,6 +151,7 @@ DEPENDENCIES:
   - Crashlytics
   - CryptoSwift
   - CSV.swift
+  - Device.swift (from `https://github.com/schickling/Device.swift.git`, branch `swift-4.2`)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -253,6 +255,9 @@ EXTERNAL SOURCES:
     :path: Vendors/Base58
   blake2:
     :path: Vendors/Blake2
+  Device.swift:
+    :branch: swift-4.2
+    :git: https://github.com/schickling/Device.swift.git
   IdentityImg:
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
   InfiniteCollectionView:
@@ -266,6 +271,9 @@ CHECKOUT OPTIONS:
   '25519':
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
     :git: "git@github.com:wavesplatform/25519.git"
+  Device.swift:
+    :commit: fa70c4a09b3f41a58ca82140a0aca168faccb628
+    :git: https://github.com/schickling/Device.swift.git
   IdentityImg:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
@@ -285,6 +293,7 @@ SPEC CHECKSUMS:
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   CryptoSwift: ad5208dd2aae0a764ea4ce2c2d34bd067cae67f0
   CSV.swift: 5bf3338aff82371cb51cc6dc559d7b45a74bab14
+  Device.swift: a8c9f6ee3b0a9ee85764bf07461c163b9e95c94c
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   Firebase: 734a4f92957aa6c40e7ae3fda3d9359e1890aa87
@@ -338,6 +347,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 438c7aaba1d60944b551b7a3b89cf860d51a7512
+PODFILE CHECKSUM: 6ee523f04df9ae80f67fbb3f3ddae2b6bd8fbbee
 
 COCOAPODS: 1.5.3
