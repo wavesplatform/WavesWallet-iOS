@@ -10,8 +10,21 @@ import Foundation
 import RxSwift
 
 final class StartLeasingInteractor: StartLeasingInteractorProtocol {
-    
-    func createOrder(order: StartLeasing.DTO.Order) -> Observable<(ResponseType<Bool>)> {
-        return Observable.empty()
+
+    let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
+    func createOrder(order: StartLeasing.DTO.Order) -> Observable<Bool> {
+
+        let sender = LeaseTransactionSender(recipient: order.recipient,
+                                            amount: order.amount.amount,
+                                            fee: GlobalConstants.WavesTransactionFeeAmount)
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ (wallet) -> Observable<Bool> in
+                return self.transactionInteractor
+                    .send(by: .lease(sender), wallet: wallet)
+                    .map { _ in true }
+            })
     }
 }

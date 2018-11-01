@@ -58,8 +58,16 @@ struct AliasTransactionSender {
     let fee: Int64
 }
 
+struct LeaseTransactionSender {
+    let recipient: String
+    let amount: Int64
+    let fee: Int64
+}
+
+
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
+    case lease(LeaseTransactionSender)
 }
 
 struct AliasTransactionSpecifications {

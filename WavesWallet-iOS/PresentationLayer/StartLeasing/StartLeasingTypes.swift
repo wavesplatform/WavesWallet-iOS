@@ -13,8 +13,9 @@ enum StartLeasing {
     
     enum Event {
         case createOrder
-        case orderDidCreate(ResponseType<Bool>)
+        case orderDidCreate
         case updateInputOrder(DTO.Order)
+        case handlerError
     }
     
     struct State: Mutating {
@@ -37,6 +38,5 @@ extension StartLeasing.DTO {
         var recipient: String
         var amount: Money
         let fee = GlobalConstants.WavesTransactionFee.amount
-        var time: Date
     }
 }
