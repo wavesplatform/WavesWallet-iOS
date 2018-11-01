@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +30,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8R-9z-bG6" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="18" width="343" height="30"/>
+                                            <rect key="frame" x="16" y="18" width="568" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
@@ -46,7 +46,7 @@
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="202" id="YYb-vZ-s0g" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="202" id="YYb-vZ-s0g" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="94" width="375" height="202"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YYb-vZ-s0g" id="7b8-Qm-uHN">
@@ -135,7 +135,7 @@
                                             <outlet property="viewContent" destination="hEI-oP-PRf" id="cmi-S7-RNO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="296" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zxf-gt-R6U" id="foS-gd-Nwu">
@@ -279,7 +279,7 @@
                                             <outlet property="viewSpam" destination="lpf-8A-XFP" id="BXh-u9-wr4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" id="Whf-q6-cMJ" userLabel="WalletAssetSkeletonCell" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" id="Whf-q6-cMJ" userLabel="WalletAssetSkeletonCell" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="372" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Whf-q6-cMJ" id="wzV-8e-5DE">
@@ -376,15 +376,15 @@
                                             <outletCollection property="views" destination="EoQ-aJ-Lp6" collectionClass="NSMutableArray" id="tCa-a2-HeR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceSkeletonCell" rowHeight="332" id="WIZ-6T-pHf" userLabel="WalletLeasingBalanceSkeletonCell" customClass="WalletLeasingBalanceSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="416" width="375" height="332"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceSkeletonCell" rowHeight="282" id="WIZ-6T-pHf" userLabel="WalletLeasingBalanceSkeletonCell" customClass="WalletLeasingBalanceSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="416" width="375" height="282"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WIZ-6T-pHf" id="hGv-jF-rP4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="282"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XK-X6-6E0">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="324"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="274"/>
                                                     <subviews>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvh-m9-vUL" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="16" y="28" width="64" height="10"/>
@@ -489,32 +489,6 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joB-Jb-Ll0" userLabel="8" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="16" y="204" width="144" height="10"/>
-                                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="144" id="F5P-5o-3Dm"/>
-                                                                <constraint firstAttribute="height" constant="10" id="rbL-gh-pbL"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
-                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x61-4Z-etA" userLabel="10" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="263" y="204" width="64" height="10"/>
-                                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="10" id="Afr-cT-no8"/>
-                                                                <constraint firstAttribute="width" constant="64" id="qLI-Hr-0HI"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a60-48-dY2" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="16" y="144" width="311" height="1"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -529,26 +503,6 @@
                                                                     <integer key="value" value="0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
-                                                                    <real key="value" value="3"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="3"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4h-Ms-rwU" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="230" width="311" height="1"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="1" id="D9u-45-4H4"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="styleInt">
-                                                                    <integer key="value" value="0"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="NO"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
                                                                     <real key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
@@ -576,7 +530,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEl-nj-jke" userLabel="11" customClass="GradientContainerView" customModule="Skeleton">
-                                                            <rect key="frame" x="16" y="255" width="311" height="48"/>
+                                                            <rect key="frame" x="16" y="212" width="311" height="48"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="48" id="aWw-k4-crA"/>
@@ -592,35 +546,28 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="nG8-nN-H4s" secondAttribute="trailing" constant="16" id="6bW-VD-fXg"/>
                                                         <constraint firstItem="8ax-gj-taL" firstAttribute="top" secondItem="a60-48-dY2" secondAttribute="bottom" constant="16" id="89W-Db-ZHz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="x61-4Z-etA" secondAttribute="trailing" constant="16" id="9bl-ah-Vat"/>
-                                                        <constraint firstItem="H4h-Ms-rwU" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="EQt-lS-7G7"/>
                                                         <constraint firstItem="LHe-Kt-Vaq" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="EUb-iL-pws"/>
                                                         <constraint firstItem="LTU-wK-4A1" firstAttribute="centerY" secondItem="Sy5-l8-1RR" secondAttribute="centerY" id="FiZ-Yh-5kI"/>
                                                         <constraint firstAttribute="trailing" secondItem="K5r-hV-XhO" secondAttribute="trailing" constant="16" id="HC5-vO-f10"/>
-                                                        <constraint firstItem="joB-Jb-Ll0" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="K2h-Kw-vvB"/>
                                                         <constraint firstItem="FUs-t1-pOx" firstAttribute="top" secondItem="LHe-Kt-Vaq" secondAttribute="bottom" constant="26" id="K3o-os-0Iy"/>
                                                         <constraint firstItem="a60-48-dY2" firstAttribute="top" secondItem="K5r-hV-XhO" secondAttribute="bottom" constant="16" id="Lap-Le-sEz"/>
                                                         <constraint firstAttribute="trailing" secondItem="a60-48-dY2" secondAttribute="trailing" constant="16" id="MhW-Za-KJZ"/>
                                                         <constraint firstItem="LHe-Kt-Vaq" firstAttribute="top" secondItem="Sy5-l8-1RR" secondAttribute="bottom" constant="22" id="SQd-5A-BcD"/>
                                                         <constraint firstItem="a60-48-dY2" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="UKe-dH-zzV"/>
                                                         <constraint firstItem="Sy5-l8-1RR" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="W6u-CJ-bx7"/>
-                                                        <constraint firstAttribute="trailing" secondItem="H4h-Ms-rwU" secondAttribute="trailing" constant="16" id="Wvp-JL-IYI"/>
                                                         <constraint firstItem="SEl-nj-jke" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="YGT-5o-Yur"/>
                                                         <constraint firstItem="LTU-wK-4A1" firstAttribute="leading" secondItem="Sy5-l8-1RR" secondAttribute="trailing" constant="10" id="Z3N-NG-JgZ"/>
                                                         <constraint firstAttribute="trailing" secondItem="LHe-Kt-Vaq" secondAttribute="trailing" constant="16" id="aDM-c5-6tU"/>
-                                                        <constraint firstItem="x61-4Z-etA" firstAttribute="top" secondItem="nG8-nN-H4s" secondAttribute="bottom" constant="16" id="bBf-4r-EMk"/>
                                                         <constraint firstItem="LG4-5n-CI5" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="bDt-CC-2rd"/>
-                                                        <constraint firstItem="H4h-Ms-rwU" firstAttribute="top" secondItem="x61-4Z-etA" secondAttribute="bottom" constant="16" id="bgk-5f-jEe"/>
                                                         <constraint firstAttribute="trailing" secondItem="SEl-nj-jke" secondAttribute="trailing" constant="16" id="gkh-1D-fpt"/>
                                                         <constraint firstItem="pvh-m9-vUL" firstAttribute="top" secondItem="2XK-X6-6E0" secondAttribute="top" constant="28" id="ks3-iH-Boj"/>
                                                         <constraint firstAttribute="trailing" secondItem="8ax-gj-taL" secondAttribute="trailing" constant="16" id="mYL-hZ-xwf"/>
                                                         <constraint firstItem="K5r-hV-XhO" firstAttribute="centerY" secondItem="FUs-t1-pOx" secondAttribute="centerY" id="nWI-OU-7rs"/>
                                                         <constraint firstItem="nG8-nN-H4s" firstAttribute="top" secondItem="8ax-gj-taL" secondAttribute="bottom" constant="16" id="p4t-Zk-cop"/>
-                                                        <constraint firstItem="SEl-nj-jke" firstAttribute="top" secondItem="H4h-Ms-rwU" secondAttribute="bottom" constant="24" id="q9F-5g-Kxe"/>
                                                         <constraint firstItem="nG8-nN-H4s" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="qho-Up-RrQ"/>
                                                         <constraint firstItem="pvh-m9-vUL" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="rGm-Yz-t8k"/>
+                                                        <constraint firstItem="SEl-nj-jke" firstAttribute="top" secondItem="nG8-nN-H4s" secondAttribute="bottom" constant="24" id="rJS-4H-VPP"/>
                                                         <constraint firstItem="LG4-5n-CI5" firstAttribute="top" secondItem="a60-48-dY2" secondAttribute="bottom" constant="16" id="rUX-fL-Bq7"/>
-                                                        <constraint firstItem="joB-Jb-Ll0" firstAttribute="top" secondItem="nG8-nN-H4s" secondAttribute="bottom" constant="16" id="vXU-t4-Hwn"/>
                                                         <constraint firstItem="Sy5-l8-1RR" firstAttribute="top" secondItem="pvh-m9-vUL" secondAttribute="bottom" constant="12" id="vYn-lD-ega"/>
                                                         <constraint firstItem="FUs-t1-pOx" firstAttribute="leading" secondItem="2XK-X6-6E0" secondAttribute="leading" constant="16" id="zKq-x3-qbT"/>
                                                     </constraints>
@@ -650,22 +597,19 @@
                                             <outletCollection property="views" destination="8ax-gj-taL" collectionClass="NSMutableArray" id="CPL-PX-1bK"/>
                                             <outletCollection property="views" destination="LG4-5n-CI5" collectionClass="NSMutableArray" id="sUb-6U-giG"/>
                                             <outletCollection property="separatorViews" destination="nG8-nN-H4s" collectionClass="NSMutableArray" id="lwE-4Y-KFI"/>
-                                            <outletCollection property="views" destination="x61-4Z-etA" collectionClass="NSMutableArray" id="vse-3h-rAd"/>
                                             <outletCollection property="views" destination="SEl-nj-jke" collectionClass="NSMutableArray" id="pvC-y1-7la"/>
-                                            <outletCollection property="views" destination="joB-Jb-Ll0" collectionClass="NSMutableArray" id="7OO-Cm-I5m"/>
                                             <outletCollection property="views" destination="LHe-Kt-Vaq" collectionClass="NSMutableArray" id="OR9-qB-CXO"/>
-                                            <outletCollection property="separatorViews" destination="H4h-Ms-rwU" collectionClass="NSMutableArray" id="Mq8-Lw-8Nq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletHistorySkeletonCell" rowHeight="44" id="vJG-r1-UAG" customClass="WalletHistorySkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="748" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="698" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vJG-r1-UAG" id="iph-aj-DDz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="35.5"/>
                                                     <subviews>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>
@@ -706,30 +650,30 @@
                                             <outletCollection property="views" destination="7IA-zx-4bJ" collectionClass="NSMutableArray" id="x8V-yV-dCh"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceCell" rowHeight="326" id="Q4l-dc-88O" customClass="WalletLeasingBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="792" width="375" height="326"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceCell" rowHeight="292" id="Q4l-dc-88O" customClass="WalletLeasingBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="742" width="375" height="292"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q4l-dc-88O" id="kfg-x4-slT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="325.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="292"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="317.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="283.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-tF-ic6">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-tF-ic6">
                                                             <rect key="frame" x="16" y="24" width="80.5" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="500" text="000000000.000000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WSF-Og-DF9">
-                                                            <rect key="frame" x="16" y="48" width="189.5" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="500" ambiguous="YES" text="000000000.000000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WSF-Og-DF9">
+                                                            <rect key="frame" x="16" y="48" width="189.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBB-zl-cCl">
-                                                            <rect key="frame" x="210.5" y="49" width="37.5" height="16"/>
+                                                        <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBB-zl-cCl">
+                                                            <rect key="frame" x="210.5" y="50.5" width="37.5" height="16"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 196" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jy9-B9-BPF">
                                                                     <rect key="frame" x="5" y="2" width="27.5" height="12"/>
@@ -758,18 +702,11 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJF-Ow-2yD" userLabel="ProgressBar">
-                                                            <rect key="frame" x="16" y="83.5" width="311" height="8"/>
+                                                            <rect key="frame" x="16" y="89.5" width="311" height="8"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQf-y0-2gm" userLabel="avaialble">
                                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="8"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.91764705879999997" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </view>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFi-Z6-tW3" userLabel="leased in">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="8"/>
-                                                                    <color key="backgroundColor" red="0.72941176470000002" green="0.79215686269999996" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="200" id="1o9-Jj-78n"/>
-                                                                    </constraints>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22L-Nv-VlN" userLabel="leased">
                                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="8"/>
@@ -786,11 +723,8 @@
                                                                 <constraint firstItem="yQf-y0-2gm" firstAttribute="leading" secondItem="gJF-Ow-2yD" secondAttribute="leading" id="NyK-c5-ifa"/>
                                                                 <constraint firstAttribute="bottom" secondItem="yQf-y0-2gm" secondAttribute="bottom" id="kKQ-4u-2sr"/>
                                                                 <constraint firstAttribute="bottom" secondItem="22L-Nv-VlN" secondAttribute="bottom" id="tdD-bv-qX0"/>
-                                                                <constraint firstAttribute="bottom" secondItem="FFi-Z6-tW3" secondAttribute="bottom" id="uxL-AU-NEg"/>
-                                                                <constraint firstItem="FFi-Z6-tW3" firstAttribute="top" secondItem="gJF-Ow-2yD" secondAttribute="top" id="vbm-G1-Imo"/>
                                                                 <constraint firstItem="22L-Nv-VlN" firstAttribute="top" secondItem="gJF-Ow-2yD" secondAttribute="top" id="vq8-LD-9QJ"/>
                                                                 <constraint firstItem="22L-Nv-VlN" firstAttribute="leading" secondItem="gJF-Ow-2yD" secondAttribute="leading" id="vqi-Ie-EQ3"/>
-                                                                <constraint firstItem="FFi-Z6-tW3" firstAttribute="leading" secondItem="gJF-Ow-2yD" secondAttribute="leading" id="ywu-rn-Zwf"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -799,7 +733,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcL-6r-9ca">
-                                                            <rect key="frame" x="16" y="101.5" width="311" height="40"/>
+                                                            <rect key="frame" x="16" y="107.5" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KAJ-RA-5nt">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -850,7 +784,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBL-v1-B05">
-                                                            <rect key="frame" x="16" y="141.5" width="311" height="40"/>
+                                                            <rect key="frame" x="16" y="147.5" width="311" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-cn-jBD">
                                                                     <rect key="frame" x="0.0" y="12" width="76" height="16"/>
@@ -900,59 +834,8 @@
                                                                 <constraint firstItem="7NI-iz-m8A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tlu-cn-jBD" secondAttribute="trailing" constant="5" id="zBL-ju-vph"/>
                                                             </constraints>
                                                         </view>
-                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVF-Fg-Q9g">
-                                                            <rect key="frame" x="16" y="181.5" width="311" height="40"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="0.00000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wnP-Mc-VoY">
-                                                                    <rect key="frame" x="0.0" y="12" width="76" height="16"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIj-Wo-H81">
-                                                                    <rect key="frame" x="303" y="16" width="8" height="8"/>
-                                                                    <color key="backgroundColor" red="0.72941176470000002" green="0.79215686269999996" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="8" id="FXn-pb-URK"/>
-                                                                        <constraint firstAttribute="width" constant="8" id="tR1-fH-I4B"/>
-                                                                    </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="4"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leased in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-Bd-O4g">
-                                                                    <rect key="frame" x="237" y="12" width="58" height="16"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVS-5i-SR5" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="39.5" width="311" height="0.5"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="0.5" id="W4T-mH-Jh8"/>
-                                                                    </constraints>
-                                                                </view>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="UIj-Wo-H81" secondAttribute="trailing" id="1hp-Ho-vhq"/>
-                                                                <constraint firstItem="wnP-Mc-VoY" firstAttribute="centerY" secondItem="wVF-Fg-Q9g" secondAttribute="centerY" id="3D6-Zw-VOs"/>
-                                                                <constraint firstAttribute="bottom" secondItem="tVS-5i-SR5" secondAttribute="bottom" id="4a7-Jy-ZlH"/>
-                                                                <constraint firstItem="tLh-Bd-O4g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wnP-Mc-VoY" secondAttribute="trailing" constant="5" id="CIr-E0-zD3"/>
-                                                                <constraint firstItem="wnP-Mc-VoY" firstAttribute="leading" secondItem="wVF-Fg-Q9g" secondAttribute="leading" id="Oe1-52-Z7B"/>
-                                                                <constraint firstAttribute="trailing" secondItem="tVS-5i-SR5" secondAttribute="trailing" id="bIv-2w-AUn"/>
-                                                                <constraint firstAttribute="height" constant="40" id="eTR-FJ-MiG"/>
-                                                                <constraint firstItem="UIj-Wo-H81" firstAttribute="centerY" secondItem="wVF-Fg-Q9g" secondAttribute="centerY" id="mgL-b5-Iv9"/>
-                                                                <constraint firstItem="UIj-Wo-H81" firstAttribute="leading" secondItem="tLh-Bd-O4g" secondAttribute="trailing" constant="8" id="pe1-EB-nT7"/>
-                                                                <constraint firstItem="tLh-Bd-O4g" firstAttribute="centerY" secondItem="wVF-Fg-Q9g" secondAttribute="centerY" id="pne-jN-j7k"/>
-                                                                <constraint firstItem="tVS-5i-SR5" firstAttribute="leading" secondItem="wVF-Fg-Q9g" secondAttribute="leading" id="rjd-7T-LDS"/>
-                                                            </constraints>
-                                                        </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBm-vS-D94">
-                                                            <rect key="frame" x="16" y="245.5" width="311" height="48"/>
+                                                            <rect key="frame" x="16" y="211.5" width="311" height="48"/>
                                                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="48" id="DEU-g9-8JI"/>
@@ -970,21 +853,18 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="wVF-Fg-Q9g" firstAttribute="leading" secondItem="UBL-v1-B05" secondAttribute="leading" id="6WJ-wI-nwe"/>
+                                                        <constraint firstItem="RBm-vS-D94" firstAttribute="top" secondItem="UBL-v1-B05" secondAttribute="bottom" constant="24" id="4BY-M2-oh7"/>
                                                         <constraint firstAttribute="bottom" secondItem="RBm-vS-D94" secondAttribute="bottom" constant="24" id="EFg-BQ-pGo"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XBB-zl-cCl" secondAttribute="trailing" constant="5" id="GrE-HL-JhK"/>
                                                         <constraint firstItem="tjo-tF-ic6" firstAttribute="leading" secondItem="yRV-Dn-K2P" secondAttribute="leading" constant="16" id="H0W-C5-h1h"/>
                                                         <constraint firstItem="WSF-Og-DF9" firstAttribute="leading" secondItem="tjo-tF-ic6" secondAttribute="leading" id="Iw2-G1-6lg"/>
-                                                        <constraint firstItem="wVF-Fg-Q9g" firstAttribute="top" secondItem="UBL-v1-B05" secondAttribute="bottom" id="M4C-aM-cJ8"/>
                                                         <constraint firstItem="gJF-Ow-2yD" firstAttribute="leading" secondItem="yRV-Dn-K2P" secondAttribute="leading" constant="16" id="Odv-Qd-jj1"/>
                                                         <constraint firstItem="gJF-Ow-2yD" firstAttribute="top" secondItem="WSF-Og-DF9" secondAttribute="bottom" constant="17.5" id="P76-iS-GoE"/>
-                                                        <constraint firstItem="wVF-Fg-Q9g" firstAttribute="trailing" secondItem="UBL-v1-B05" secondAttribute="trailing" id="Rwr-Js-YyK"/>
                                                         <constraint firstItem="UBL-v1-B05" firstAttribute="trailing" secondItem="tcL-6r-9ca" secondAttribute="trailing" id="Tl9-AH-tCe"/>
                                                         <constraint firstItem="UBL-v1-B05" firstAttribute="leading" secondItem="tcL-6r-9ca" secondAttribute="leading" id="ZaD-DA-Uhk"/>
                                                         <constraint firstAttribute="trailing" secondItem="RBm-vS-D94" secondAttribute="trailing" constant="16" id="Zvf-Z9-EFw"/>
                                                         <constraint firstItem="XBB-zl-cCl" firstAttribute="centerY" secondItem="WSF-Og-DF9" secondAttribute="centerY" id="bkJ-Nl-Huh"/>
                                                         <constraint firstAttribute="trailing" secondItem="tcL-6r-9ca" secondAttribute="trailing" constant="16" id="egJ-xE-Q0f"/>
-                                                        <constraint firstItem="RBm-vS-D94" firstAttribute="top" secondItem="wVF-Fg-Q9g" secondAttribute="bottom" constant="24" id="ejS-rz-zgO"/>
                                                         <constraint firstItem="tcL-6r-9ca" firstAttribute="leading" secondItem="yRV-Dn-K2P" secondAttribute="leading" constant="16" id="hyw-SW-DFK"/>
                                                         <constraint firstItem="WSF-Og-DF9" firstAttribute="top" secondItem="tjo-tF-ic6" secondAttribute="bottom" constant="8" id="iEb-V4-w2Y"/>
                                                         <constraint firstItem="UBL-v1-B05" firstAttribute="top" secondItem="tcL-6r-9ca" secondAttribute="bottom" id="oSS-Vd-ffp"/>
@@ -1010,19 +890,15 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="avaliableTitleLabel" destination="dYs-lG-ZmG" id="b0M-fb-chg"/>
+                                            <outlet property="avaliableTitleLabel" destination="tjo-tF-ic6" id="WF0-vi-QoP"/>
                                             <outlet property="buttonStartLease" destination="RBm-vS-D94" id="rpk-Uk-OFO"/>
-                                            <outlet property="labelAvaliableBalance" destination="KAJ-RA-5nt" id="bBl-28-j5L"/>
-                                            <outlet property="labelBalance" destination="WSF-Og-DF9" id="dF7-Xk-Mjk"/>
-                                            <outlet property="leasedBalanceLabel" destination="tlu-cn-jBD" id="57N-EJ-d5u"/>
-                                            <outlet property="leasedInBalanceLabel" destination="wnP-Mc-VoY" id="QeB-Ss-A4K"/>
-                                            <outlet property="leasedInTitleLabel" destination="tLh-Bd-O4g" id="eb1-5k-W7f"/>
-                                            <outlet property="leasedInWidth" destination="1o9-Jj-78n" id="6gh-nb-Gaf"/>
-                                            <outlet property="leasedTitleLabel" destination="7NI-iz-m8A" id="0zC-41-ftd"/>
+                                            <outlet property="labelAvaliableBalance" destination="WSF-Og-DF9" id="dF7-Xk-Mjk"/>
+                                            <outlet property="labelTotalBalance" destination="tlu-cn-jBD" id="57N-EJ-d5u"/>
+                                            <outlet property="leasedBalanceLabel" destination="KAJ-RA-5nt" id="bBl-28-j5L"/>
+                                            <outlet property="leasedTitleLabel" destination="dYs-lG-ZmG" id="b0M-fb-chg"/>
                                             <outlet property="leasedWidth" destination="8gk-52-PYE" id="xsV-gx-cJ8"/>
-                                            <outlet property="totalBalanceTitleLabel" destination="tjo-tF-ic6" id="WF0-vi-QoP"/>
+                                            <outlet property="totalBalanceTitleLabel" destination="7NI-iz-m8A" id="0zC-41-ftd"/>
                                             <outlet property="viewContainer" destination="yRV-Dn-K2P" id="Sfn-Mu-SCb"/>
-                                            <outlet property="viewLeasedInHeight" destination="eTR-FJ-MiG" id="Wxd-2v-0wk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1062,7 +938,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="360" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortFavCell" rowHeight="48" id="c6l-TP-0O9" customClass="WalletSortFavCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortFavCell" rowHeight="48" id="c6l-TP-0O9" customClass="WalletSortFavCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="360" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c6l-TP-0O9" id="p5p-Nm-HJC">
@@ -1130,7 +1006,7 @@
                                             <outlet property="viewContent" destination="p5p-Nm-HJC" id="4MV-Kw-jtW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="76" width="360" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rQp-SF-xxg" id="wpN-Qh-lGr">
@@ -1214,7 +1090,7 @@
                                             <outlet property="viewContent" destination="sOG-r7-BYD" id="3zG-kT-W0z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortSeparatorCell" rowHeight="30" id="uXQ-VZ-aZ7" customClass="WalletSortSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortSeparatorCell" rowHeight="30" id="uXQ-VZ-aZ7" customClass="WalletSortSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="132" width="360" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uXQ-VZ-aZ7" id="qex-PW-27L">
