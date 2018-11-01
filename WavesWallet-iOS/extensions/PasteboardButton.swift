@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-    static let duration: CGFloat = 2
+    static let duration: TimeInterval = 2
 }
 
 final class PasteboardButton: UIButton {
