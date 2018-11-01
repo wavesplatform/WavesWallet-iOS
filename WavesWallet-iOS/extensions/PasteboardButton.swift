@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let duration: CGFloat = 2
+}
+
 final class PasteboardButton: UIButton {
 
     @IBInspectable var isBlack: Bool = true {
@@ -40,7 +44,7 @@ final class PasteboardButton: UIButton {
         setImage(Images.checkSuccess.image, for: .normal)
         isUserInteractionEnabled = false
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.duration) {
 
             if self.isBlack {
                 self.setImage(Images.copy18Black.image, for: .normal)
