@@ -12,7 +12,8 @@ import RxFeedback
 import RxSwift
 
 protocol ChooseAccountModuleOutput: AnyObject {
-    func userChoouseAccount(wallet: DomainLayer.DTO.Wallet) -> Void
+    func userChooseAccount(wallet: DomainLayer.DTO.Wallet) -> Void
+    func userEditAccount(wallet: DomainLayer.DTO.Wallet) -> Void
 }
 
 protocol ChooseAccountModuleInput {
@@ -111,7 +112,7 @@ private extension ChooseAccountPresenter {
             }
 
         case .tapWallet(let wallet):
-            moduleOutput?.userChoouseAccount(wallet: wallet)
+            moduleOutput?.userChooseAccount(wallet: wallet)
             return state.mutate(transform: {
                 $0.displayState.action = .none                
             })
@@ -133,13 +134,16 @@ private extension ChooseAccountPresenter {
                 $0.displayState.action = .remove(indexPath: indexPath)
             }
 
-        case .tapEditButton(let wallet):
-            return state.mutate(transform: { $0.displayState.action = .none })
+        case .tapEditButton(let wallet, let indexPath):
+            moduleOutput?.userEditAccount(wallet: wallet)
+            
+            return state.mutate(transform: {
+                $0.displayState.action = .none
+                $0.action = .editWallet(wallet, indexPath: indexPath)
+            })
 
-        default:
-            break
         }
-        return state.mutate(transform: { $0.displayState.action = .none })
+        
     }
 }
 

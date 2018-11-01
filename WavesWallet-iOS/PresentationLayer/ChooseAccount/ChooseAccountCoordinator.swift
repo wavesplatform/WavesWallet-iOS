@@ -45,12 +45,24 @@ final class ChooseAccountCoordinator: Coordinator {
         addChildCoordinator(childCoordinator: passcodeCoordinator)
         passcodeCoordinator.start()
     }
+    
+    private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
+        // TODO: как сделаю edit, заменю на координатор
+        let vc = StoryboardScene.Enter.editAccountNameViewController.instantiate()
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
-    func userChoouseAccount(wallet: DomainLayer.DTO.Wallet) -> Void {
+    
+    func userChooseAccount(wallet: DomainLayer.DTO.Wallet) -> Void {
         showPasscode(wallet: wallet)
     }
+    
+    func userEditAccount(wallet: DomainLayer.DTO.Wallet) {
+        showEdit(wallet: wallet)
+    }
+    
 }
 
 extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
@@ -64,4 +76,5 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorWalletLogouted() {
 
     }
+    
 }
