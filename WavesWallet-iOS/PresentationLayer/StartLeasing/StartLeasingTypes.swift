@@ -22,7 +22,7 @@ enum StartLeasing {
         enum Action {
             case none
             case showCreatingOrderState
-            case orderDidFailCreate(ResponseTypeError)
+            case orderDidFailCreate
             case orderDidCreate
         }
         
