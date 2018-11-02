@@ -14,6 +14,24 @@ private enum Constants {
     static let shadowOffset = CGSize(width: 0, height: 4)
     static let shadowRadius: Float = 4
     static let shadowColor: UIColor = .black
+    
+    enum CollectionTopOffset: CGFloat {
+        case small = 0
+        case medium = 24
+        case big = 64
+    }
+    
+    enum ButtonTopOffset: CGFloat {
+        case small = 24
+        case big = 44
+    }
+    
+    enum PageControlTopOffset: CGFloat {
+        case small = 2
+        case big = 24
+    }
+    
+    
 }
 
 protocol EnterStartViewControllerDelegate: AnyObject {
@@ -30,6 +48,10 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet private weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var collectionTopOffsetConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var createAccountButtonTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var pageControlTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var importAccountView: UIView!
     @IBOutlet weak var signInView: UIView!
@@ -137,15 +159,17 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     // TODO: Remove Platform and add constants
     private func setupTopOffsetConstraint() {
         if Platform.isIphone5 {
-            collectionTopOffsetConstraint.constant = 0
-        } else if Platform.isIphoneX {
-            collectionTopOffsetConstraint.constant = 64
-        } else if Platform.isIphonePlus {
-            collectionTopOffsetConstraint.constant = 48
+            collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.small.rawValue
+            createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.small.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.small.rawValue
         } else if Platform.isIphone7 {
-            collectionTopOffsetConstraint.constant = 24
+            collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.medium.rawValue
+            createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.big.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.big.rawValue
         } else {
-            collectionTopOffsetConstraint.constant = 64
+            collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.big.rawValue
+            createAccountButtonTopConstraint.constant = Constants.ButtonTopOffset.big.rawValue
+            pageControlTopConstraint.constant = Constants.PageControlTopOffset.big.rawValue
         }
     }
     

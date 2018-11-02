@@ -220,7 +220,6 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?> {
         return walletsLoggedIn()
-            .sweetDebug("Last Wallet walletsLoggedIn")
             .flatMap({ wallets -> Observable<DomainLayer.DTO.Wallet?> in
                 return Observable.just(wallets.first)
             })

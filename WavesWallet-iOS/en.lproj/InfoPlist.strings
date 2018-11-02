@@ -1,2 +1,2 @@
-"NSFaceIDUsageDescription" = "Authenticate with Face ID";
+"NSFaceIDUsageDescription" = "Access to your wallet";
 "NSCameraUsageDescription" = "The camera is needed to scan QR codes";

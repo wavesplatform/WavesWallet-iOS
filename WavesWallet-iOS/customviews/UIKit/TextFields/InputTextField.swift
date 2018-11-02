@@ -63,6 +63,8 @@ final class InputTextField: UIView, NibOwnerLoadable {
     var changedValue: ((Bool,String?) -> Void)?
     var textFieldShouldReturn: ((InputTextField) -> Void)?
 
+    var rightView: UIView?
+
     var clearButtonMode: UITextField.ViewMode? {
         didSet {
             textFieldValue.clearButtonMode = clearButtonMode ?? .never
@@ -91,9 +93,13 @@ final class InputTextField: UIView, NibOwnerLoadable {
     
     private var kind: Kind?
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        loadNibContent()
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        loadNibContent()
         addGestureRecognizer(tapGesture)
         textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
@@ -171,9 +177,16 @@ final class InputTextField: UIView, NibOwnerLoadable {
         self.isValidValue = isValidValue
     }
 
-    func setError(_ error: String?) {
-        externalError = error
-        checkValidValue()
+    var error: String? {
+
+        get {
+            return externalError ?? errorLabel.text
+        }
+
+        set {
+            externalError = newValue
+            checkValidValue()
+        }
     }
 }
 
@@ -195,10 +208,19 @@ extension InputTextField: ViewConfiguration {
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = .name
             }
+            if let rightView = self.rightView {
+                textFieldValue.rightView = rightView
+                textFieldValue.rightViewMode = .always
+            } else {
+                textFieldValue.rightView = nil
+                textFieldValue.rightViewMode = .never
+            }
         case .password, .newPassword:
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = UITextContentType("")
             }
+            textFieldValue.rightView = eyeButton
+            textFieldValue.rightViewMode = .always
             isSecureTextEntry = true
             eyeButton.isHidden = false
             textFieldValue.autocorrectionType = .no            

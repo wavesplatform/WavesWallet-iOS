@@ -333,12 +333,13 @@ extension DomainLayer.DTO.AliasTransaction {
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
         let feeBalance = wavesAsset.balance(fee)
 
+        //TODO: confirmationHeight is nil?
         return .init(id: id,
                      kind: kind,
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
-                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? -1),
                      sender: sender)
     }
 }

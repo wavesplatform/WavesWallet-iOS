@@ -37,6 +37,9 @@ final class PasscodeViewController: UIViewController {
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
 
+        logInByPasswordButton.setTitle(Localizable.Waves.Passcode.Button.Forgotpasscode.title, for: .normal)
+        logInByPasswordTitle.text = Localizable.Waves.Passcode.Label.Forgotpasscode.title
+
         setupSystem()
     }
 

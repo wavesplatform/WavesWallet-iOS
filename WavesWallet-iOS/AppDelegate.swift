@@ -6,7 +6,6 @@
 //  Copyright © 2017 Waves Platform. All rights reserved.
 //
 
-import Gloss
 import RESideMenu
 import RxSwift
 import IQKeyboardManagerSwift

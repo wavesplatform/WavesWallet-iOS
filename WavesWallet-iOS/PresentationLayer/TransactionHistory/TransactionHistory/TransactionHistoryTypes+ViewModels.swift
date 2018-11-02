@@ -382,7 +382,8 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                   value: totalFee.displayText)
             )
     }
-    
+
+    //TODO: Height == -1
     func confirmationsBlockRow() -> TransactionHistoryTypes.ViewModel.Row {
         return .keysValues(
             [
@@ -392,7 +393,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                 ),
                 .init(
                     title: Localizable.Waves.Transactionhistory.Cell.block,
-                    value: String(height)
+                    value: String(height ?? -1)
                 )
             ])
     }
