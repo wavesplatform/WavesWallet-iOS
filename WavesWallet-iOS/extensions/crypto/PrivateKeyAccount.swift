@@ -40,7 +40,7 @@ class Address {
                 let checkSumGenerated = calcCheckSum(Array(bytes[0..<bytes.count - ChecksumLength]))
                 return checkSum == checkSumGenerated
         } else {
-            return false
+            return RegEx.alias(address)
         }
     }
 

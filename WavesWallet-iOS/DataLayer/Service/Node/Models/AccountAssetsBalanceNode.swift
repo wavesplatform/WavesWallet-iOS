@@ -24,7 +24,7 @@ extension Node.DTO {
             let fee: Int64
             let timestamp: Int64
             let signature: String?
-            let proofs: [String]
+            let proofs: [String]??
             let version: Int64
             let assetId: String
             let name: String

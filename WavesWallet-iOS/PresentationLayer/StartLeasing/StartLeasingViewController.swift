@@ -45,8 +45,7 @@ final class StartLeasingViewController: UIViewController {
     var totalBalance: Money! {
         didSet {
             order = StartLeasing.DTO.Order(recipient: "",
-                                           amount: Money(0, totalBalance.decimals),
-                                           time: Date())
+                                           amount: Money(0, totalBalance.decimals))
         }
     }
     
@@ -112,6 +111,7 @@ private extension StartLeasingViewController {
                     strongSelf.setupCreatingOrderState()
                     
                 case .orderDidFailCreate(let error):
+                    //TODO: Error
                     strongSelf.setupDefaultState()
                     
                 case .orderDidCreate:
@@ -131,11 +131,11 @@ private extension StartLeasingViewController {
 private extension StartLeasingViewController {
     
     var isValidOrder: Bool {
-        return order.recipient.count > 0 &&
-            !isNotEnoughAmount &&
-            order.amount.amount > 0 &&
-            Address.isValidAddress(address: order.recipient) &&
-            !isCreatingOrderState
+        return order.recipient.count > 0
+            && !isNotEnoughAmount
+            && order.amount.amount > 0
+            && !isCreatingOrderState
+            && Address.isValidAddress(address: order.recipient)
     }
     
     var isNotEnoughAmount: Bool {

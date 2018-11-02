@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 290
+}
+
 final class WalletLeasingBalanceSkeletonCell: SkeletonCell, Reusable {
     @IBOutlet var viewContent: UIView!    
     @IBOutlet var separatorViews: [SeparatorView]!
@@ -21,6 +25,6 @@ final class WalletLeasingBalanceSkeletonCell: SkeletonCell, Reusable {
     }
 
     class func cellHeight() -> CGFloat {
-        return 332
+        return Constants.height
     }
 }

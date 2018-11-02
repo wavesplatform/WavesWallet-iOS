@@ -14,7 +14,7 @@ struct StartLeasingModuleBuilder: ModuleBuilderOutput {
     
     func build(input: Money) -> UIViewController {
         
-        let interactor: StartLeasingInteractorProtocol = StartLeasingInteractorMock()
+        let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
         
         var presenter: StartLeasingPresenterProtocol = StartLeasingPresenter()
         presenter.interactor = interactor
