@@ -50,6 +50,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         leaseId = transaction.leaseId
 
         lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease)
+        proofs = transaction.proofs
     }
 
     init(transaction: LeaseCancelTransaction) {
@@ -71,5 +72,6 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         } else {
             self.lease = nil
         }
+        proofs = []
     }
 }

@@ -25,7 +25,9 @@ final class InfoPagesViewController: UIViewController {
     @IBOutlet private weak var toolbarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var toolbarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var toolbarBottomConstraint: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var nextControl: UIControl!
+    
     weak var output: InfoPagesViewModuleOutput?
     
     private lazy var pageViews: [UIView] = {
@@ -54,6 +56,8 @@ final class InfoPagesViewController: UIViewController {
         return [welcome, needToKnow, needToKnowLong, protect, protectLong]
         
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,29 +116,46 @@ final class InfoPagesViewController: UIViewController {
 
     private func setupConstraints() {
         if Platform.isIphone5 {
-            toolbarBottomConstraint.constant = 14
-            toolbarLeadingConstraint.constant = 8
-            toolbarTrailingConstraint.constant = 8
+            toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.small.rawValue
+            toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.small.rawValue
+            toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.small.rawValue
         } else if Platform.isIphoneX || Platform.isIphonePlus {
-            toolbarBottomConstraint.constant = 24
-            toolbarLeadingConstraint.constant = 14
-            toolbarTrailingConstraint.constant = 14
+            toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.big.rawValue
+            toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.big.rawValue
+            toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.big.rawValue
         } else {
-            toolbarBottomConstraint.constant = 24
-            toolbarLeadingConstraint.constant = 14
-            toolbarTrailingConstraint.constant = 14
+            toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.big.rawValue
+            toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.big.rawValue
+            toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.big.rawValue
         }
     }
     
-    func nextPage() {
+    fileprivate func nextPage() {
         let page = pageControl.currentPage + 1
         
         if page < pageViews.count {
-            
             collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
-            
         } else {
             output?.userFinishedReadPages()
+        }
+        
+    }
+    
+    fileprivate func changedPage() {
+        let currentPage = pageControl.currentPage
+        
+        if currentPage == pageViews.count - 1 {
+            toolbarLabel.text = Localizable.Waves.Hello.Button.understand
+        } else {
+            toolbarLabel.text = Localizable.Waves.Hello.Button.next
+        }
+        
+        if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
+            nextControl.isEnabled = currentModel.scrolledToBottom
+            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+        } else {
+            nextControl.isEnabled = true
+            toolbarLabel.alpha = 1
         }
         
     }
@@ -174,6 +195,7 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         } else if let pageView = pageView as? LongInfoPageView {
             
             pageView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
+            pageView.delegate = self
             pageView.update(with: pageModel as! LongInfoPageView.Model)
             
         }
@@ -188,6 +210,16 @@ extension InfoPagesViewController: UICollectionViewDataSource {
 
 extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let pageView = pageViews[indexPath.item]
+        
+        if let pageView = pageView as? LongInfoPageView {
+            pageView.updateOnScroll()
+        }
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return collectionView.bounds.size
@@ -200,27 +232,61 @@ extension InfoPagesViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let offsetY = scrollView.contentOffset.x
-        let size = scrollView.bounds.width
+        if scrollView == collectionView {
         
-        if size == 0 { return }
-        
-        var page = Int((offsetY + size / 2) / size)
-        
-        page = max(min(pageViews.count - 1, page), 0)
-        pageControl.currentPage = page
-        
-        if page == pageViews.count - 1 {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.understand
-        } else {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.next
-        }
+            let offsetY = scrollView.contentOffset.x
+            let size = scrollView.bounds.width
+            
+            if size == 0 { return }
+            
+            var page = Int((offsetY + size / 2) / size)
+            
+            page = max(min(pageViews.count - 1, page), 0)
+            pageControl.currentPage = page
+            
+            changedPage()
+ 
+        } 
         
     }
     
 }
 
+extension InfoPagesViewController: LongInfoPageViewDelegate {
+    
+    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView) {
+        
+        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
+            return pageView == view
+        }) else { return }
+        
+        print(index)
+        
+        if let model = pageModels[index] as? LongInfoPageView.Model {
+             model.scrolledToBottom = true
+        }
+        
+        changedPage()
+    }
+    
+}
+
 enum InfoPagesViewControllerConstants {
+    
+    enum ToolbarLeadingOffset: CGFloat {
+        case small = 8
+        case big = 14
+    }
+    
+    enum ToolbarTrailingOffset: CGFloat {
+        case small = 8
+        case big = 14
+    }
+    
+    enum ToolbarBottomOffset: CGFloat {
+        case small = 14
+        case big = 24
+    }
     
     static let toolbarShadowOptions = ShadowOptions(offset: .init(width: 0, height: 4), color: .black, opacity: 0.1, shadowRadius: 4, shouldRasterize: false)
     

@@ -28,12 +28,16 @@ class DottedRoundView: UIView {
         }
     }
 
+    @IBInspectable var dottedCornerRadius: CGFloat = -1
+
     override func draw(_ rect: CGRect) {
 
         guard isHiddenDottedLine == false else {
             return
         }
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: frame.size.width / 2)
+
+        let cornerRadius = self.dottedCornerRadius == -1 ? frame.size.width / 2 : self.dottedCornerRadius
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         let dashes: [CGFloat] = [4, 4]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
         path.lineCapStyle = CGLineCap.butt

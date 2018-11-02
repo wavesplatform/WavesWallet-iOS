@@ -32,10 +32,7 @@ final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
         transactionHistoryViewController.modalPresentationStyle = .custom
         rootViewController.present(transactionHistoryViewController, animated: true, completion: nil)
     }
-    
 }
 
-extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
-    
-}
+extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {}
 

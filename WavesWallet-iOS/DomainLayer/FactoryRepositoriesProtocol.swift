@@ -36,6 +36,8 @@ protocol FactoryRepositoriesProtocol {
     var addressBookRepository: AddressBookRepositoryProtocol { get }
     
     var dexRepository: DexRepositoryProtocol { get }
+
+    var aliasesRepository: AliasesRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

@@ -70,11 +70,11 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        let vc = StoryboardScene.Profile.networkSettingsViewController.instantiate()
-        let custom = CustomNavigationController(rootViewController: vc)
-
-      self.window.rootViewController = slideMenuViewController
+//        let vc = CreateAliasModuleBuilder.init(output: self).build()
+//        let custom = CustomNavigationController(rootViewController: vc)
 //        self.window.rootViewController = custom
+
+        self.window.rootViewController = slideMenuViewController
         self.window.makeKeyAndVisible()
         logInApplication()
 
@@ -119,6 +119,9 @@ final class AppCoordinator: Coordinator {
             .lastWalletLoggedIn()
             .sweetDebug("Last Wallet")
             .take(1)
+            .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
+                return Observable.just(nil)
+            }
             .flatMap(weak: self, selector: { $0.currentDisplay })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)

@@ -1,0 +1,35 @@
+# iOS CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
+#
+version: 2
+
+jobs:
+  build:
+    macos:
+      xcode: "10.1"
+    working_directory: ~/Waves/iOS
+    environment:
+      FL_OUTPUT_DIR: ~/Waves/iOS/Output
+      FASTLANE_LANE: waves
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - run: bundle install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: ~/Waves/iOS/Output
+      - store_test_results:
+          path: ~/Waves/iOS/Output/Results
+
+
+workflows:
+  version: 2
+  build-waves:
+    jobs:
+        - build:
+            filters:
+                branches:
+                    only: develop

@@ -40,5 +40,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var dexRepository: DexRepositoryProtocol = DexRepository()
     
+    private(set) lazy var aliasesRepository: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: self.environmentRepository)
+
     fileprivate init() {}
 }
