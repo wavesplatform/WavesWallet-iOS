@@ -9,19 +9,18 @@
 import Foundation
 import Kingfisher
 
-// TODO: Change To Asset id
 enum AssetLogo: String {
     case waves = "waves"
-    case usd = "us dollar"
-    case monero = "monero"
-    case litecoin = "litecoin"
+    case usd = "usd"
+    case monero = "xmr"
+    case litecoin = "ltc"
     case lira = "try"
-    case eur = "euro"
-    case eth = "ethereum"
+    case eur = "eur"
+    case eth = "eth"
     case dash = "dash"
-    case bitcoinCash = "bitcoin cash"
-    case bitcoin = "bitcoin"
-    case zcash = "zcash"
+    case bitcoinCash = "bch"
+    case bitcoin = "btc"
+    case zcash = "zec"
 }
 
 extension AssetLogo {
