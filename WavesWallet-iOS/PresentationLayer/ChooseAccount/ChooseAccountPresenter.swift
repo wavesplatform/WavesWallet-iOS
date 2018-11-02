@@ -158,4 +158,5 @@ private extension ChooseAccountPresenter {
     func initialDisplayState() -> Types.DisplayState {
         return Types.DisplayState(wallets: [], action: .none)
     }
+    
 }

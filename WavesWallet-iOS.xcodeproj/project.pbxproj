@@ -32,6 +32,9 @@
 		0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048447492118658400552772 /* HistoryTypes+ViewModels.swift */; };
 		048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048684F421258B0B00D12189 /* HistoryHeaderView.swift */; };
 		048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048684F621258BC400D12189 /* HistoryHeaderView.xib */; };
+		049E1117218C75BC00E7E257 /* EditAccountNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E1116218C75BC00E7E257 /* EditAccountNameCoordinator.swift */; };
+		049E111B218C85A000E7E257 /* EditAccountNameModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E111A218C85A000E7E257 /* EditAccountNameModuleBuilder.swift */; };
+		049E111D218C85B400E7E257 /* EditAccountName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049E111C218C85B400E7E257 /* EditAccountName.storyboard */; };
 		04A2CFA32112103800784FEC /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2CFA22112103800784FEC /* HistoryCoordinator.swift */; };
 		04A2CFA5211213BE00784FEC /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2CFA4211213BE00784FEC /* History.storyboard */; };
 		04A4031E2164A99300652F21 /* EnterLanguageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */; };
@@ -804,6 +807,9 @@
 		048447492118658400552772 /* HistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		048684F421258B0B00D12189 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
 		048684F621258BC400D12189 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
+		049E1116218C75BC00E7E257 /* EditAccountNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameCoordinator.swift; sourceTree = "<group>"; };
+		049E111A218C85A000E7E257 /* EditAccountNameModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameModuleBuilder.swift; sourceTree = "<group>"; };
+		049E111C218C85B400E7E257 /* EditAccountName.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditAccountName.storyboard; sourceTree = "<group>"; };
 		04A2CFA22112103800784FEC /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		04A2CFA4211213BE00784FEC /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
 		04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterLanguageCoordinator.swift; sourceTree = "<group>"; };
@@ -1660,6 +1666,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		049E1115218C73CA00E7E257 /* EditAccountName */ = {
+			isa = PBXGroup;
+			children = (
+				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
+				049E1116218C75BC00E7E257 /* EditAccountNameCoordinator.swift */,
+				049E111A218C85A000E7E257 /* EditAccountNameModuleBuilder.swift */,
+				049E111C218C85B400E7E257 /* EditAccountName.storyboard */,
+			);
+			path = EditAccountName;
+			sourceTree = "<group>";
+		};
 		04A2CFA12112100B00784FEC /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -2313,6 +2330,7 @@
 				0AF921BE212E07B2003BA067 /* Asset */,
 				0A4399672150470E0032E608 /* Backup */,
 				0A071E78215DB084007D9750 /* ChooseAccount */,
+				049E1115218C73CA00E7E257 /* EditAccountName */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E95B47A521638A9F004D4E39 /* Hello */,
@@ -3978,7 +3996,6 @@
 				04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */,
 				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
 				E9F984A820E526DA00D2CB4D /* Enter.storyboard */,
-				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
 				04A4031F2164B8CD00652F21 /* Start */,
 			);
 			path = Enter;
@@ -4256,6 +4273,7 @@
 				E9B087FC2163886800937644 /* DexMyOrdersHeaderView.xib in Resources */,
 				0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */,
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
+				049E111D218C85B400E7E257 /* EditAccountName.storyboard in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
@@ -4928,6 +4946,7 @@
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */,
 				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
+				049E111B218C85A000E7E257 /* EditAccountNameModuleBuilder.swift in Sources */,
 				0A762D7F21639FA60019D447 /* TransactionHistoryCommentCell.swift in Sources */,
 				0AF922B5212E1234003BA067 /* UIFont+Additions.swift in Sources */,
 				0AF922B0212E1234003BA067 /* Runtime.swift in Sources */,
@@ -4950,6 +4969,7 @@
 				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				0AF922CF212E1234003BA067 /* UIView+Passtrough.swift in Sources */,
+				049E1117218C75BC00E7E257 /* EditAccountNameCoordinator.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
 				0A14CFCC2144156400C3A4D5 /* String+NormalizeAssetId.swift in Sources */,
 				E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */,

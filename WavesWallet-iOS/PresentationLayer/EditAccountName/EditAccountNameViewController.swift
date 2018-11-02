@@ -12,6 +12,7 @@ class EditAccountNameViewController: UIViewController {
 
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var labelAccountName: UILabel!
+    @IBOutlet weak var labelAccountAddress: UILabel!
     @IBOutlet weak var textField: UITextField!
     
     override func viewDidLoad() {
@@ -43,3 +44,10 @@ class EditAccountNameViewController: UIViewController {
     }
     
 }
+
+//if textField.text!.count > 0 {
+//    buttonSave.setupButtonActiveState()
+//}
+//else {
+//    buttonSave.setupButtonDeactivateState()
+//}
