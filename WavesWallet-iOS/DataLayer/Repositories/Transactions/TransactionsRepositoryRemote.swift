@@ -20,6 +20,9 @@ extension TransactionSenderSpecifications {
         switch self {
         case .createAlias:
             return 2
+
+        case .lease:
+            return 2
         }
     }
 
@@ -27,6 +30,9 @@ extension TransactionSenderSpecifications {
         switch self {
         case .createAlias:
             return TransactionType.alias
+
+        case .lease:
+            return TransactionType.lease
         }
     }
 }
@@ -105,6 +111,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 let proofs = [Base58.encode(signature)]
 
                 let broadcastSpecification = specifications.broadcastSpecification(timestamp: timestamp,
+                                                                                   environment: environment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
 
@@ -148,9 +155,25 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     }
 }
 
+
+struct Lease {
+    let version: Int
+    let name: String
+    let fee: Int64
+    let recipient: String
+    let amount: Int64
+    let timestamp: Int64
+    let type: Int
+    let senderPublicKey: String
+    let proofs: [String]?
+}
+
 fileprivate extension TransactionSenderSpecifications {
 
-    func broadcastSpecification(timestamp: Int64, publicKey: String, proofs: [String]) -> Node.Service.Transaction.BroadcastSpecification {
+    func broadcastSpecification(timestamp: Int64,
+                                environment: Environment,
+                                publicKey: String,
+                                proofs: [String]) -> Node.Service.Transaction.BroadcastSpecification {
 
         switch self {
         case .createAlias(let model):
@@ -162,6 +185,23 @@ fileprivate extension TransactionSenderSpecifications {
                                                                type: self.type.rawValue,
                                                                senderPublicKey: publicKey,
                                                                proofs: proofs))
+        case .lease(let model):
+
+            var recipient = ""
+            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+                recipient = environment.aliasScheme + model.recipient
+            } else {
+                recipient = model.recipient
+            }
+            return .startLease(Node.Service.Transaction.Lease(version: self.version,
+                                                              scheme: environment.scheme,
+                                                              fee: model.fee,
+                                                              recipient: recipient,
+                                                              amount: model.amount,
+                                                              timestamp: timestamp,
+                                                              type: self.type.rawValue,
+                                                              senderPublicKey: publicKey,
+                                                              proofs: proofs))
 
         default:
             break
@@ -184,6 +224,29 @@ fileprivate extension TransactionSenderSpecifications {
             signature += publicKey
 
             signature += alias.arrayWithSize()
+            signature += toByteArray(model.fee)
+            signature += toByteArray(timestamp)
+            return signature
+
+        case .lease(let model):
+
+            var recipient: [UInt8] = []
+            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+                recipient += toByteArray(Int8(self.version))
+                recipient += scheme.utf8
+                recipient += model.recipient.arrayWithSize()
+            } else {
+                recipient += Base58.decode(model.recipient)
+            }
+
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += [0]
+            signature += publicKey
+
+            signature += recipient
+            signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
             signature += toByteArray(timestamp)
             return signature
