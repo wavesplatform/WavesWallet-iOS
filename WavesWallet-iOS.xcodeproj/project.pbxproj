@@ -57,7 +57,7 @@
 		0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */; };
 		0A071E80215DB172007D9750 /* ChooseAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */; };
 		0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */; };
-		0A071E85215DB1B3007D9750 /* ChouseAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */; };
+		0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E84215DB1B3007D9750 /* ChooseAccountCell.swift */; };
 		0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A110CB72153CE31002A8FD7 /* Import.storyboard */; };
 		0A110CBB2153CE5A002A8FD7 /* ImportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */; };
 		0A110CC62153F36F002A8FD7 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A110CC52153F36F002A8FD7 /* SkeletonView.swift */; };
@@ -860,7 +860,7 @@
 		0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountPresenter.swift; sourceTree = "<group>"; };
 		0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountCoordinator.swift; sourceTree = "<group>"; };
 		0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountModuleBuilder.swift; sourceTree = "<group>"; };
-		0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChouseAccountCell.swift; sourceTree = "<group>"; };
+		0A071E84215DB1B3007D9750 /* ChooseAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountCell.swift; sourceTree = "<group>"; };
 		0A110CB72153CE31002A8FD7 /* Import.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Import.storyboard; sourceTree = "<group>"; };
 		0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCoordinator.swift; sourceTree = "<group>"; };
 		0A110CC52153F36F002A8FD7 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
@@ -1798,7 +1798,7 @@
 		0A071E83215DB1AB007D9750 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A071E84215DB1B3007D9750 /* ChouseAccountCell.swift */,
+				0A071E84215DB1B3007D9750 /* ChooseAccountCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5078,7 +5078,7 @@
 				0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */,
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
 				0AF922BB212E1234003BA067 /* SweetLogger.swift in Sources */,
-				0A071E85215DB1B3007D9750 /* ChouseAccountCell.swift in Sources */,
+				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
 				E9B088122163886800937644 /* DexMarketCell.swift in Sources */,
 				0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */,
 				0AF922D9212E1234003BA067 /* Mutating.swift in Sources */,
