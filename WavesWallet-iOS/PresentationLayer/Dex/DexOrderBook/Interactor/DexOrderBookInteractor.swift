@@ -10,40 +10,45 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
-private enum Constanst {
-    static let priceAssetBalance: Int64 = 652333333240
-    static let amountAssetBalance: Int64 = 31433333240
-}
-
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
-    private let environment = FactoryRepositories.instance.environmentRepository
+    private let account = FactoryInteractors.instance.accountBalance
+    private let disposeBag = DisposeBag()
     
     var pair: DexTraderContainer.DTO.Pair!
     
     func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)> {
 
-        return Observable.create({ (subscribe) -> Disposable in
+        return Observable.create({ [weak self] (subscribe) -> Disposable in
             
-            let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name, priceName: self.pair.priceAsset.name, sumName: self.pair.priceAsset.name)
+            guard let owner = self else { return Disposables.create() }
             
-            let url = GlobalConstants.Matcher.orderBook(self.pair.amountAsset.id, self.pair.priceAsset.id)
-            //TODO: need change to Observer network
+            owner.account.balances(isNeedUpdate: false).subscribe(onNext: { [weak self] (balances) in
+                
+                guard let owner = self else { return }
 
-            NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
+                let header = DexOrderBook.ViewModel.Header(amountName: owner.pair.amountAsset.name, priceName: owner.pair.priceAsset.name, sumName: owner.pair.priceAsset.name)
 
-                if let info = info {
-                    self.getLastPriceInfo({ (lastPriceInfo) in
-                        subscribe.onNext(self.getDisplayData(info: info, lastPriceInfo: lastPriceInfo, header: header))
-                    })
-                }
-                else {
-                    subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [],
-                                                                  header: header,
-                                                                  availablePriceAssetBalance: Money(0 ,self.pair.priceAsset.decimals),
-                                                                  availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals)))
-                }
-            })
+                //TODO: need change to Observer network
+                let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
+                
+                NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
+                    
+                    if let info = info {
+                        owner.getLastPriceInfo({ (lastPriceInfo) in
+                            subscribe.onNext(owner.getDisplayData(info: info, lastPriceInfo: lastPriceInfo, header: header, balances: balances))
+                        })
+                    }
+                    else {
+                        subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [],
+                                                                      header: header,
+                                                                      availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
+                                                                      availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals)))
+                    }
+                })
+                
+            }).disposed(by: owner.disposeBag)
+         
             return Disposables.create()
         })
     }
@@ -52,7 +57,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: JSON, lastPriceInfo: JSON?, header: DexOrderBook.ViewModel.Header) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastPriceInfo: JSON?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.AssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -117,10 +122,20 @@ private extension DexOrderBookInteractor {
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }
         
+        var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
+        var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
+        
+        if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
+            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset?.precision ?? 0)
+        }
+        
+        if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
+            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset?.precision ?? 0)
+        }
         
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
-                                            availablePriceAssetBalance: Money(Constanst.priceAssetBalance ,self.pair.priceAsset.decimals),
-                                            availableAmountAssetBalance: Money(Constanst.amountAssetBalance, self.pair.amountAsset.decimals))
+                                            availablePriceAssetBalance: priceAssetBalance,
+                                            availableAmountAssetBalance: amountAssetBalance)
     }
     
     func getLastPriceInfo(_ complete:@escaping(_ lastPriceInfo: JSON?) -> Void) {

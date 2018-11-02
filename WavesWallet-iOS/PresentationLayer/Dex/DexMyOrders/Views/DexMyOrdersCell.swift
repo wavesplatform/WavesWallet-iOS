@@ -10,10 +10,10 @@ import UIKit
 
 final class DexMyOrdersCell: UITableViewCell, Reusable {
 
-    @IBOutlet private weak var labelTimeText: UILabel!
+    @IBOutlet private weak var labelDate: UILabel!
     @IBOutlet private weak var labelTime: UILabel!
-    @IBOutlet private weak var labelStatusText: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
+//    @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var labelPriceText: UILabel!
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var labelAmountText: UILabel!
@@ -52,8 +52,8 @@ private extension DexMyOrdersCell {
 private extension DexMyOrdersCell {
         
     func setupLocalization() {
-        labelTimeText.text = Localizable.Waves.Dexmyorders.Label.time
-        labelStatusText.text = Localizable.Waves.Dexmyorders.Label.status
+//        labelTimeText.text = Localizable.Waves.Dexmyorders.Label.time
+//        labelStatusText.text = Localizable.Waves.Dexmyorders.Label.status
         labelAmountText.text = Localizable.Waves.Dexmyorders.Label.amount
         labelPriceText.text = Localizable.Waves.Dexmyorders.Label.price
     }
