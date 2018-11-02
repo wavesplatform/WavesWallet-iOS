@@ -219,7 +219,7 @@ private extension ChooseAccountViewController {
            reloadTableView()
 
         case .remove(let indexPath):
-
+            
             removeAccount(atIndexPath: indexPath)
             
         default:

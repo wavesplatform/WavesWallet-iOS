@@ -103,5 +103,6 @@ extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
     func userChooseCompleted() {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn()
-    }    
+    }
+    
 }

@@ -47,9 +47,9 @@ final class ChooseAccountCoordinator: Coordinator {
     }
     
     private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
-        // TODO: как сделаю edit, заменю на координатор
-        let vc = StoryboardScene.Enter.editAccountNameViewController.instantiate()
-        navigationController.pushViewController(vc, animated: true)
+        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController)
+        addChildCoordinator(childCoordinator: editCoordinator)
+        editCoordinator.start()
     }
 }
 
