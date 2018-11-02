@@ -1857,11 +1857,20 @@ extension Localizable {
         var bundle: Bundle
     }
 
+    private static let english: Localizable.Current = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
+
     static var current: Localizable.Current = Localizable.Current(locale: Locale.current, bundle: Bundle(for: BundleToken.self))
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
-        return String(format: format, locale: current.locale, arguments: args)
+        let value = String(format: format, locale: current.locale, arguments: args)
+
+        if value == key {
+            let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
+            return String(format: format, locale: english.locale, arguments: args)
+        } else {
+            return value
+        }
     }
 }
 

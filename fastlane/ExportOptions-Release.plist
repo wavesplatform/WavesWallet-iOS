@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>teamID</key>
+        <string>96SW78M3KJ</string>
+        <key>method</key>
+        <string>app-store</string>
+        <key>provisioningProfiles</key>
+        <dict>
+                <key>com.wavesplatform.WavesWallet</key>
+                <string>Waves Wallet</string>
+        </dict>
+        <key>uploadSymbols</key>
+        <true/>
+        <key>uploadBitcode</key>
+        <true/>
+</dict>
+</plist>
