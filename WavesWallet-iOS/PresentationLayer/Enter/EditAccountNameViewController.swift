@@ -14,7 +14,6 @@ class EditAccountNameViewController: UIViewController {
     @IBOutlet weak var labelAccountName: UILabel!
     @IBOutlet weak var textField: UITextField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

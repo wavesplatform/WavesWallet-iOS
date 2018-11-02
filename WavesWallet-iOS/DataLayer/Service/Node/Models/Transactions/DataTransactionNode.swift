@@ -35,7 +35,7 @@ extension Node.DTO {
         let height: Int64
         let version: Int
 
-        let proofs: [String]
+        let proofs: [String]?
         let data: [Data]
     }
 }

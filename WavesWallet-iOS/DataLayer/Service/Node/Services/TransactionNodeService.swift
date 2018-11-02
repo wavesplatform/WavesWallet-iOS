@@ -23,6 +23,9 @@ fileprivate enum Constants {
     static let type: String = "type"
     static let senderPublicKey: String = "senderPublicKey"
     static let proofs: String = "proofs"
+    static let chainId: String = "chainId"
+    static let recipient: String = "recipient"
+    static let amount: String = "amount"
 }
 
 extension Node.Service {
@@ -36,11 +39,24 @@ extension Node.Service {
             let timestamp: Int64
             let type: Int
             let senderPublicKey: String
+            let proofs: [String]?
+        }
+
+        struct Lease {
+            let version: Int
+            let scheme: String
+            let fee: Int64
+            let recipient: String
+            let amount: Int64
+            let timestamp: Int64
+            let type: Int
+            let senderPublicKey: String
             let proofs: [String]
         }
 
         enum BroadcastSpecification {
             case createAlias(Alias)
+            case startLease(Lease)
 
             var params: [String: Any] {
                 switch self {
@@ -52,6 +68,17 @@ extension Node.Service {
                             Constants.type: alias.type,
                             Constants.senderPublicKey: alias.senderPublicKey,
                             Constants.proofs: alias.proofs]
+
+                case .startLease(let lease):
+                    return  [Constants.version: lease.version,
+                             Constants.chainId: lease.scheme,
+                             Constants.senderPublicKey: lease.senderPublicKey,
+                             Constants.recipient: lease.recipient,
+                             Constants.amount: lease.amount,
+                             Constants.fee: lease.fee,
+                             Constants.timestamp: lease.timestamp,
+                             Constants.proofs: lease.proofs,
+                             Constants.type: lease.type]
                 default:
                     break
                 }

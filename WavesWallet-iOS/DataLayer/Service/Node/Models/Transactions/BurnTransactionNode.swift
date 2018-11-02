@@ -20,7 +20,7 @@ extension Node.DTO {
         let height: Int64
         
         let signature: String?
-        let proofs: [String]
+        let proofs: [String]?
         let chainId: Int?
         let assetId: String
         let amount: Int64
