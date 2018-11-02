@@ -31,11 +31,11 @@ extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DexMyOrders.DTO.Order) {
         
-        labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
-        labelStatus.text = model.statusText
-        labelAmount.text = model.amount.formattedText()
-        labelPrice.text = model.price.formattedText()
-        labelStatus.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
+//        labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
+//        labelStatus.text = model.statusText
+//        labelAmount.text = model.amount.formattedText()
+//        labelPrice.text = model.price.formattedText()
+//        labelStatus.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
     }
     
 }
@@ -54,8 +54,8 @@ private extension DexMyOrdersCell {
     func setupLocalization() {
 //        labelTimeText.text = Localizable.Waves.Dexmyorders.Label.time
 //        labelStatusText.text = Localizable.Waves.Dexmyorders.Label.status
-        labelAmountText.text = Localizable.Waves.Dexmyorders.Label.amount
-        labelPriceText.text = Localizable.Waves.Dexmyorders.Label.price
+//        labelAmountText.text = Localizable.Waves.Dexmyorders.Label.amount
+//        labelPriceText.text = Localizable.Waves.Dexmyorders.Label.price
     }
 }
 

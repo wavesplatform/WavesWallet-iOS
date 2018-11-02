@@ -61,7 +61,7 @@ final class StartLeasingPresenter: StartLeasingPresenterProtocol {
         case .handlerError:
             return state.mutate {
                 $0.isNeedCreateOrder = false
-                $0.action = .orderDidFailCreate("error")
+                $0.action = .orderDidFailCreate
             }
         case .orderDidCreate:
             
