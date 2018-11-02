@@ -743,7 +743,7 @@
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Fi-Wdy">
                                                                     <rect key="frame" x="303" y="16" width="8" height="8"/>
-                                                                    <color key="backgroundColor" red="0.87450980389999999" green="0.91764705879999997" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.3529411764705882" green="0.50588235294117645" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="8" id="ecf-26-MTE"/>
                                                                         <constraint firstAttribute="height" constant="8" id="nyj-oe-VRJ"/>
@@ -794,7 +794,7 @@
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgZ-OB-1Ep">
                                                                     <rect key="frame" x="303" y="16" width="8" height="8"/>
-                                                                    <color key="backgroundColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.87450980392156863" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="8" id="kyD-Qv-rNC"/>
                                                                         <constraint firstAttribute="height" constant="8" id="rFZ-Mc-7L7"/>

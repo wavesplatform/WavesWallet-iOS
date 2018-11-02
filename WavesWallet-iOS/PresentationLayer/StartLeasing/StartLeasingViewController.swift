@@ -111,6 +111,7 @@ private extension StartLeasingViewController {
                     strongSelf.setupCreatingOrderState()
                     
                 case .orderDidFailCreate(let error):
+                    //TODO: Error
                     strongSelf.setupDefaultState()
                     
                 case .orderDidCreate:
@@ -130,12 +131,11 @@ private extension StartLeasingViewController {
 private extension StartLeasingViewController {
     
     var isValidOrder: Bool {
-        return order.recipient.count > 0 &&
-            !isNotEnoughAmount &&
-            order.amount.amount > 0 &&
-            !isCreatingOrderState
-
-//        Address.isValidAddress(address: order.recipient)
+        return order.recipient.count > 0
+            && !isNotEnoughAmount
+            && order.amount.amount > 0
+            && !isCreatingOrderState
+            && Address.isValidAddress(address: order.recipient)
     }
     
     var isNotEnoughAmount: Bool {
@@ -204,9 +204,7 @@ private extension StartLeasingViewController {
                                                        contacts: [])
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
-            return true
-            //TODO: Need add check alias
-//            Address.isValidAddress(address: text)
+            return Address.isValidAddress(address: text)
         }
         setupButtonState()
     }
