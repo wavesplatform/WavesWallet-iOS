@@ -12,8 +12,8 @@ import RxSwift
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
-    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
+    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .nodeMoyaProvider()
     private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
     private let environmentRepository: EnvironmentRepositoryProtocol
