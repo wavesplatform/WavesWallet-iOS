@@ -53,9 +53,9 @@ extension DexMyOrders.ViewModel {
         return formatter
     }()
     
-    static let dateFormatterHeader: DateFormatter = {
+    static let dateFormatterDate: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "dd.MM.yy"
         return formatter
     }()
 }
@@ -70,11 +70,33 @@ extension DexMyOrders.DTO {
     }
     
     struct Order {
+        let id: String
         let time: Date
         let status: Status
         let price: Money
         let amount: Money
+        let filled: Money
         let type: Dex.DTO.OrderType
+    }
+    
+    struct MyOrdersRequest {
+        private let senderPrivateKey: PrivateKeyAccount
+        let timestamp: Int64
+        
+        init(senderPrivateKey: PrivateKeyAccount) {
+            self.senderPrivateKey = senderPrivateKey
+            self.timestamp = Int64(Date().millisecondsSince1970)
+        }
+        
+        private var toSign: [UInt8] {
+            let s1 = senderPrivateKey.publicKey
+            let s2 = toByteArray(timestamp)
+            return s1 + s2
+        }
+        
+        var signature: [UInt8] {
+            return Hash.sign(toSign, senderPrivateKey.privateKey)
+        }
     }
 }
 

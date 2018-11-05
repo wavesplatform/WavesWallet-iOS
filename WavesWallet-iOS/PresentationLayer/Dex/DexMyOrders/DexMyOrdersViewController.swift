@@ -17,8 +17,12 @@ fileprivate enum Constants {
 
 final class DexMyOrdersViewController: UIViewController {
 
+    @IBOutlet private weak var labelDate: UILabel!
+    @IBOutlet private weak var labelSidePrice: UILabel!
+    @IBOutlet private weak var labelAmountSum: UILabel!
+    @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var tableContainer: UIView!
+    @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelLoadingData: UILabel!
@@ -31,7 +35,6 @@ final class DexMyOrdersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerHeaderFooter(type: DexMyOrdersHeaderView.self)
         setupFeedBack()
         setupLocalization()
         setupLoadingState()
@@ -39,7 +42,7 @@ final class DexMyOrdersViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setupCorners()
+        headerView.createTopCorners(radius: Constants.cornerTableRadius)
     }
 }
 
@@ -123,19 +126,6 @@ private extension DexMyOrdersViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
-extension DexMyOrdersViewController: UITableViewDelegate {
-   
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerModel = sections[section].header
-        let header = tableView.dequeueHeaderFooter() as DexMyOrdersHeaderView
-        header.update(with: headerModel)
-        return header
-    }
-   
-}
-
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
     
@@ -180,15 +170,9 @@ private extension DexMyOrdersViewController {
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
         labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
-    }
-    
-    func setupCorners() {
-        
-        let shadowPath = UIBezierPath(roundedRect: tableContainer.bounds,
-                                      byRoundingCorners: [.topLeft, .topRight],
-                                      cornerRadii: CGSize(width: Constants.cornerTableRadius, height: Constants.cornerTableRadius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = shadowPath.cgPath
-        tableContainer.layer.mask = maskLayer
+        labelDate.text = Localizable.Waves.Dexmyorders.Label.date
+        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.side + "/" + Localizable.Waves.Dexmyorders.Label.price
+        labelAmountSum.text = Localizable.Waves.Dexmyorders.Label.amount + "/" + Localizable.Waves.Dexmyorders.Label.sum
+        labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
     }
 }

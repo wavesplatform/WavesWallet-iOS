@@ -60,6 +60,10 @@ extension DexCreateOrder.DTO {
     }
     
     struct Order {
+        var matcherPublicKey: PublicKeyAccount!
+        var senderPublicKey: PublicKeyAccount!
+        var senderPrivateKey: PrivateKeyAccount!
+
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
         var type: Dex.DTO.OrderType
@@ -68,7 +72,17 @@ extension DexCreateOrder.DTO {
         var total: Money
         var expiration: Expiration
         let fee: Int = Constansts.orderFee
-        var time: Date
+        
+        init(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: Dex.DTO.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration) {
+            
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+            self.type = type
+            self.amount = amount
+            self.price = price
+            self.total = total
+            self.expiration = expiration
+        }
     }
     
     struct Output {
@@ -102,5 +116,41 @@ extension DexCreateOrder.DTO.Expiration {
         case .expiration30d:
             return "30" + " " + Localizable.Waves.Dexcreateorder.Button.days
         }
+    }
+}
+
+extension Dex.DTO.OrderType {
+    var bytes: [UInt8] {
+        switch self {
+        case .sell: return [UInt8(1)]
+        case .buy: return [UInt8(0)]
+        }
+    }
+}
+
+extension DexCreateOrder.DTO.Order {
+    
+    var timestamp: Int64 {
+        return Int64(Date().millisecondsSince1970)
+    }
+
+    var id: [UInt8] {
+        return Hash.fastHash(toSign)
+    }
+    
+    var signature: [UInt8] {
+        return Hash.sign(toSign, senderPrivateKey.privateKey)
+    }
+    
+    private var toSign: [UInt8] {
+        let s1 = senderPublicKey.publicKey + matcherPublicKey.publicKey
+        let s2 = assetPairBytes + type.bytes
+        let s3 = toByteArray(price.amount) + toByteArray(amount.amount)
+        let s4 = toByteArray(timestamp) + toByteArray(expiration) + toByteArray(fee)
+        return s1 + s2 + s3 + s4
+    }
+    
+    private var assetPairBytes: [UInt8] {
+        return ([UInt8(1)] + Base58.decode(amountAsset.id)) + ([UInt8(1)] + Base58.decode(priceAsset.id))
     }
 }

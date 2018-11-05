@@ -30,8 +30,7 @@ final class DexCreateOrderViewController: UIViewController {
                                              amount: Money(0, input.amountAsset.decimals),
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
-                                             expiration: DexCreateOrder.DTO.Expiration.expiration30d,
-                                             time: Date())
+                                             expiration: DexCreateOrder.DTO.Expiration.expiration30d)
         }
     }
     
