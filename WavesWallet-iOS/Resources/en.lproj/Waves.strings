@@ -112,6 +112,10 @@
 "chooseaccount.alert.button.ok" = "Yes";
 "chooseaccount.alert.button.no" = "Cancel";
 
+"editaccountname.navigation.title" = "Edit name";
+"editaccountname.label.newName" = "New account name";
+"editaccountname.button.save" = "Save";
+
 "dexchart.label.minutes" = "minutes";
 "dexchart.label.hours" = "hours";
 "dexchart.label.hour" = "hour";

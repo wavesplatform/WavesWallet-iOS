@@ -47,7 +47,7 @@ final class ChooseAccountCoordinator: Coordinator {
     }
     
     private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
-        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController)
+        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController, wallet: wallet)
         addChildCoordinator(childCoordinator: editCoordinator)
         editCoordinator.start()
     }

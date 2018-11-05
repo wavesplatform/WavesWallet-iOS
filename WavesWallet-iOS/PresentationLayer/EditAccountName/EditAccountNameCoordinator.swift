@@ -14,13 +14,15 @@ final class EditAccountNameCoordinator: Coordinator {
     weak var parent: Coordinator?
     
     private let navigationController: UINavigationController
+    private let wallet: DomainLayer.DTO.Wallet
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet) {
         self.navigationController = navigationController
+        self.wallet = wallet
     }
     
     func start() {
-        let vc = EditAccountNameModuleBuilder(output: self).build(input: .init())
+        let vc = EditAccountNameModuleBuilder(output: self).build(input: .init(wallet: wallet))
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -28,6 +30,9 @@ final class EditAccountNameCoordinator: Coordinator {
 
 extension EditAccountNameCoordinator: EditAccountNameModuleOutput {}
 
-protocol EditAccountNameModuleInput {}
+protocol EditAccountNameModuleInput {
+    var wallet: DomainLayer.DTO.Wallet { get }
+}
+
 protocol EditAccountNameModuleOutput {}
 
