@@ -56,50 +56,26 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
           
             return state.mutate {
                 
-                var sections: [DexMyOrders.ViewModel.Section] = []
+                var section = DexMyOrders.ViewModel.Section(items: [])
                 
                 for order in orders {
-
-                    let row = DexMyOrders.ViewModel.Row.order(order)
-                    if let index = sections.index(where: {
-                        $0.header.date.year == order.time.year &&
-                        $0.header.date.month == order.time.month &&
-                        $0.header.date.day == order.time.day}) {
-
-                        sections[index].items.append(row)
-                    }
-                    else {
-                        let header = DexMyOrders.ViewModel.Header(date: order.time)
-                        sections.append(DexMyOrders.ViewModel.Section(items: [row], header: header))
-                    }
+                    section.items.append(DexMyOrders.ViewModel.Row.order(order))
                 }
                
-                $0.sections = sections
+                $0.section = section
                 
             }.changeAction(.update)
             
         case .didRemoveOrder(let indexPath):
             
-            if let order = state.sections[indexPath.section].items[indexPath.row].order {
+            if let order = state.section.items[indexPath.row].order {
                 interactor.deleteOrder(order: order)
             }
             
             return state.mutate {
 
-                $0.sections[indexPath.section].items.remove(at: indexPath.row)
-                
-                var deletedSection: Int?
-                if let emptySectionIndex = $0.sections.index(where: {$0.items.count == 0}) {
-                    $0.sections.remove(at: emptySectionIndex)
-                    deletedSection = emptySectionIndex
-                }
-                
-                if let section = deletedSection {
-                    $0.action = .deleteSection(section)
-                }
-                else {
-                    $0.action = .deleteRow(indexPath)
-                }
+                $0.section.items.remove(at: indexPath.row)
+                $0.action = .deleteRow(indexPath)
              }
         }
     }
@@ -117,6 +93,7 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [], isAppeared: false)
+        let section = DexMyOrders.ViewModel.Section(items: [])
+        return DexMyOrders.State(action: .none, section: section, isAppeared: false)
     }
 }
