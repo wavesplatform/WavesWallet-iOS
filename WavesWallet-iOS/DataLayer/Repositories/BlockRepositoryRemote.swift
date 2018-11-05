@@ -13,7 +13,7 @@ import Moya
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let blockNode: MoyaProvider<Node.Service.Blocks> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let blockNode: MoyaProvider<Node.Service.Blocks> = .nodeMoyaProvider()
 
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
