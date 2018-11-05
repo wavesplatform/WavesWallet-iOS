@@ -579,6 +579,24 @@ internal enum Localizable {
       }
     }
 
+    internal enum Editaccountname {
+
+      internal enum Button {
+        /// Save
+        internal static var save: String { return Localizable.tr("Waves", "editaccountname.button.save") }
+      }
+
+      internal enum Label {
+        /// New account name
+        internal static var newName: String { return Localizable.tr("Waves", "editaccountname.label.newName") }
+      }
+
+      internal enum Navigation {
+        /// Edit name
+        internal static var title: String { return Localizable.tr("Waves", "editaccountname.navigation.title") }
+      }
+    }
+
     internal enum Enter {
 
       internal enum Block {
