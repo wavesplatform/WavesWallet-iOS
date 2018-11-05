@@ -1865,7 +1865,7 @@ extension Localizable {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
         let value = String(format: format, locale: current.locale, arguments: args)
 
-        if value == key {
+        if value.localizedLowercase == key.localizedLowercase {
             let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
             return String(format: format, locale: english.locale, arguments: args)
         } else {
