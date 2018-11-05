@@ -28,7 +28,7 @@ final class DexMyOrdersViewController: UIViewController {
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var labelEmptyData: UILabel!
     
-    private var sections: [DexMyOrders.ViewModel.Section] = []
+    private var section = DexMyOrders.ViewModel.Section(items: [])
     var presenter: DexMyOrdersPresenterProtocol!
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
 
@@ -79,18 +79,14 @@ fileprivate extension DexMyOrdersViewController {
                     break
                 }
                 
-                
-                strongSelf.sections = state.sections
+                strongSelf.section = state.section
 
                 switch state.action {
                 case .update:
                     strongSelf.tableView.reloadData()
-                
-                case .deleteSection(let section):
-                    strongSelf.deleteAt(indexPath: nil, section: section)
                     
                 case .deleteRow(let indexPath):
-                    strongSelf.deleteAt(indexPath: indexPath, section: nil)
+                    strongSelf.deleteAt(indexPath: indexPath)
 
                 default:
                     break
@@ -106,22 +102,13 @@ fileprivate extension DexMyOrdersViewController {
 //MARK: - Actions
 private extension DexMyOrdersViewController {
     
-    func deleteAt(indexPath: IndexPath?, section: Int?) {
-        
-        if indexPath == nil && section == nil {
-            return
-        }
+    func deleteAt(indexPath: IndexPath) {
         
         CATransaction.begin()
         CATransaction.setCompletionBlock({
             self.tableView.reloadData()
         })
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        else if let section = section {
-            tableView.deleteSections([section], animationStyle: .fade)
-        }
+        tableView.deleteRows(at: [indexPath], with: .fade)
         CATransaction.commit()
     }
 }
@@ -129,17 +116,15 @@ private extension DexMyOrdersViewController {
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return self.section.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let row = sections[indexPath.section].items[indexPath.row]
+        let row = section.items[indexPath.row]
 
         switch row {
         case .order(let myOrder):
@@ -160,11 +145,13 @@ private extension DexMyOrdersViewController {
     
     func setupLoadingState() {
         viewEmptyData.isHidden = true
+        headerView.isHidden = true
     }
     
     func setupDefaultState() {
         viewLoadingInfo.isHidden = true
-        viewEmptyData.isHidden = sections.count > 0
+        viewEmptyData.isHidden = section.items.count > 0
+        headerView.isHidden = section.items.count == 0
     }
     
     func setupLocalization() {

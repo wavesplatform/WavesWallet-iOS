@@ -83,9 +83,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 
                 $0.header = displayData.header
                 
-                if !state.hasFirstTimeLoad && $0.sections.count > 0 {
+                if !state.hasFirstTimeLoad {
                     $0.hasFirstTimeLoad = true
-                    $0.action = .scrollTableToCenter
+                    $0.action = $0.sections.count > 0 ? .scrollTableToCenter : .update
                 }
                 else {
                     $0.action = .update

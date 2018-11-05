@@ -23,29 +23,29 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                 newOrder.senderPrivateKey = wallet.privateKey
                 newOrder.senderPublicKey = wallet.publicKey
                 newOrder.matcherPublicKey = matcher
+                newOrder.timestamp = Int64(Date().millisecondsSince1970)
                 
                 return Observable.create({ (subscribe) -> Disposable in
+                    
+                    
+//                    let url = GlobalConstants.Matcher.orderBook + "/\(newOrder.amountAsset.id)/\(newOrder.priceAsset.id)/tradableBalance/\(wallet.wallet.address)"
+//
+//                    getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil) { (info, error) in
 
-                    
-                    let assetPair = ["amountAsset" : newOrder.amountAsset.id,
-                                     "priceAsset" : newOrder.priceAsset.id]
-
-                    let jsonData = try! JSONSerialization.data(withJSONObject: assetPair, options: [])
-                    
-                    guard let assetPairStr = String(data: jsonData, encoding: .utf8) else { return Disposables.create() }
-                    
+                        
                     let params = ["id" : Base58.encode(newOrder.id),
                                   "senderPublicKey" :  Base58.encode(newOrder.senderPublicKey.publicKey),
                                   "matcherPublicKey" : Base58.encode(newOrder.matcherPublicKey.publicKey),
-                                  "assetPair" : assetPairStr,
+                                  "assetPair" : newOrder.assetPair.json,
+                                  "orderType" : newOrder.type.rawValue,
                                   "price" : newOrder.price.amount,
-                                  "amount" : newOrder.price.amount,
+                                  "amount" : newOrder.amount.amount,
                                   "timestamp" : newOrder.timestamp,
-                                  "expiration" : newOrder.expiration,
+                                  "expiration" : newOrder.expirationTimestamp,
                                   "matcherFee" : newOrder.fee,
-                                  "signature" : newOrder.signature] as [String : Any]
-                    
-                    NetworkManager.postRequestWithUrl(GlobalConstants.Matcher.matcher, parameters: params, complete: { (info, error) in
+                                  "signature" : Base58.encode(newOrder.signature)] as [String : Any]
+                        
+                    NetworkManager.postRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: params, complete: { (info, error) in
                         
                         print(info, error)
                         

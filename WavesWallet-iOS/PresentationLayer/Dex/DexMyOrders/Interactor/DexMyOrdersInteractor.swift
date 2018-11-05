@@ -34,7 +34,7 @@ fileprivate extension DexMyOrders.DTO.Order {
             status = DexMyOrders.DTO.Status.cancelled
         }
         
-        filled = Money(json["filled"].int64Value, priceDecimals)
+        filled = Money(json["filled"].int64Value, amountDecimals)
         if json["type"].stringValue == "sell" {
             type = Dex.DTO.OrderType.sell
         }

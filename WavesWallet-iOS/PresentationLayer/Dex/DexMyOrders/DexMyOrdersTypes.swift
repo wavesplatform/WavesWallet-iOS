@@ -23,24 +23,18 @@ enum DexMyOrders {
             case none
             case update
             case deleteRow(IndexPath)
-            case deleteSection(Int)
         }
         
         var action: Action
-        var sections: [DexMyOrders.ViewModel.Section]
+        var section: DexMyOrders.ViewModel.Section
         var isAppeared: Bool
     }
 }
 
 extension DexMyOrders.ViewModel {
-    
-    struct Header {
-        let date: Date
-    }
-    
+ 
     struct Section: Mutating {
         var items: [Row]
-        var header: Header
     }
 
     enum Row {

@@ -59,6 +59,11 @@ extension DexCreateOrder.DTO {
         let availablePriceAssetBalance: Money
     }
     
+    struct AssetPair {
+        let amountAssetId: String?
+        let priceAssetId: String?
+    }
+    
     struct Order {
         var matcherPublicKey: PublicKeyAccount!
         var senderPublicKey: PublicKeyAccount!
@@ -72,6 +77,7 @@ extension DexCreateOrder.DTO {
         var total: Money
         var expiration: Expiration
         let fee: Int = Constansts.orderFee
+        var timestamp: Int64 = 0
         
         init(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: Dex.DTO.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration) {
             
@@ -128,12 +134,30 @@ extension Dex.DTO.OrderType {
     }
 }
 
+extension DexCreateOrder.DTO.AssetPair {
+    
+    var json: [String : String] {
+        return ["amountAsset" : amountAssetId ?? "",
+                "priceAsset" : priceAssetId ?? ""]
+    }
+    
+    func assetIdBytes(_ id: String?) -> [UInt8] {
+        return id == nil ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id!))
+    }
+    
+    var bytes: [UInt8] {
+        return assetIdBytes(amountAssetId) + assetIdBytes(priceAssetId)
+    }
+}
+
 extension DexCreateOrder.DTO.Order {
     
-    var timestamp: Int64 {
-        return Int64(Date().millisecondsSince1970)
+    var assetPair: DexCreateOrder.DTO.AssetPair {
+        
+        return DexCreateOrder.DTO.AssetPair(amountAssetId: amountAsset.id == "WAVES" ? nil : amountAsset.id,
+                                            priceAssetId: priceAsset.id == "WAVES" ? nil : priceAsset.id)
     }
-
+    
     var id: [UInt8] {
         return Hash.fastHash(toSign)
     }
@@ -142,15 +166,15 @@ extension DexCreateOrder.DTO.Order {
         return Hash.sign(toSign, senderPrivateKey.privateKey)
     }
     
-    private var toSign: [UInt8] {
-        let s1 = senderPublicKey.publicKey + matcherPublicKey.publicKey
-        let s2 = assetPairBytes + type.bytes
-        let s3 = toByteArray(price.amount) + toByteArray(amount.amount)
-        let s4 = toByteArray(timestamp) + toByteArray(expiration) + toByteArray(fee)
-        return s1 + s2 + s3 + s4
+    var expirationTimestamp: Int64 {
+        return timestamp + Int64(expiration.rawValue) * 60 * 1000
     }
     
-    private var assetPairBytes: [UInt8] {
-        return ([UInt8(1)] + Base58.decode(amountAsset.id)) + ([UInt8(1)] + Base58.decode(priceAsset.id))
+    private var toSign: [UInt8] {
+        let s1 = senderPublicKey.publicKey + matcherPublicKey.publicKey
+        let s2 = assetPair.bytes + type.bytes
+        let s3 = toByteArray(price.amount) + toByteArray(amount.amount)
+        let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(fee)
+        return s1 + s2 + s3 + s4
     }
 }
