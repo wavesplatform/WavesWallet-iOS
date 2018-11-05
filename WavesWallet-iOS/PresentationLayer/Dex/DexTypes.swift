@@ -21,7 +21,7 @@ extension Dex.DTO {
         let decimals: Int
     }
 
-    enum OrderType {
+    enum OrderType: String {
         case sell
         case buy
     }

@@ -38,7 +38,7 @@ extension DexListCell: ViewConfiguration {
         let firstPrice = model.firstPrice.doubleValue
         let lastPrice = model.lastPrice.doubleValue
 
-        labelValue.text = model.lastPrice.formattedText(defaultMinimumFractionDigits: true)
+        labelValue.text = model.lastPrice.displayText
         
         let deltaPercent = (lastPrice - firstPrice) * 100
         let percent = deltaPercent != 0 ? deltaPercent / lastPrice : 0

@@ -566,6 +566,7 @@
 		E95B480621638BE9004D4E39 /* TransactionHistoryShowAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */; };
 		E95B480721638BE9004D4E39 /* TransactionCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */; };
 		E95B480B21638BE9004D4E39 /* TransactionHistoryShowAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */; };
+		E961A140218FDAFF00882E2E /* DexCreateOrderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E961A13F218FDAFF00882E2E /* DexCreateOrderInteractor.swift */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
@@ -663,7 +664,6 @@
 		E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087382163886800937644 /* DexCreateOrderAmountButton.swift */; };
 		E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B087392163886800937644 /* DexCreateOrderSegmentedControl.xib */; };
 		E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0873B2163886800937644 /* DexCreateOrderInteractorProtocol.swift */; };
-		E9B087E92163886800937644 /* DexCreateOrderInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0873C2163886800937644 /* DexCreateOrderInteractorMock.swift */; };
 		E9B087EB2163886800937644 /* DexLastTradesModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087402163886800937644 /* DexLastTradesModuleOutput.swift */; };
 		E9B087EC2163886800937644 /* DexLastTradesModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087412163886800937644 /* DexLastTradesModuleBuilder.swift */; };
 		E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087432163886800937644 /* DexLastTradesPresenterProtocol.swift */; };
@@ -679,12 +679,9 @@
 		E9B087F92163886800937644 /* DexMyOrdersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087562163886800937644 /* DexMyOrdersPresenterProtocol.swift */; };
 		E9B087FA2163886800937644 /* DexMyOrdersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087572163886800937644 /* DexMyOrdersPresenter.swift */; };
 		E9B087FB2163886800937644 /* DexMyOrdersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087582163886800937644 /* DexMyOrdersModuleBuilder.swift */; };
-		E9B087FC2163886800937644 /* DexMyOrdersHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B0875C2163886800937644 /* DexMyOrdersHeaderView.xib */; };
-		E9B087FD2163886800937644 /* DexMyOrdersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0875D2163886800937644 /* DexMyOrdersHeaderView.swift */; };
 		E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0875E2163886800937644 /* DexMyOrdersCell.swift */; };
 		E9B087FF2163886800937644 /* DexMyOrdersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087602163886800937644 /* DexMyOrdersInteractor.swift */; };
 		E9B088002163886800937644 /* DexMyOrdersInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087612163886800937644 /* DexMyOrdersInteractorProtocol.swift */; };
-		E9B088012163886800937644 /* DexMyOrdersInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087622163886800937644 /* DexMyOrdersInteractorMock.swift */; };
 		E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087692163886800937644 /* DexCompleteOrderViewController.swift */; };
 		E9B088072163886800937644 /* DexCompleteOrderModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0876C2163886800937644 /* DexCompleteOrderModuleBuilder.swift */; };
 		E9B0880C2163886800937644 /* DexMarketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087752163886800937644 /* DexMarketPresenter.swift */; };
@@ -1369,6 +1366,7 @@
 		E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryShowAllView.swift; sourceTree = "<group>"; };
 		E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
 		E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryShowAllView.xib; sourceTree = "<group>"; };
+		E961A13F218FDAFF00882E2E /* DexCreateOrderInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInteractor.swift; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
@@ -1467,7 +1465,6 @@
 		E9B087382163886800937644 /* DexCreateOrderAmountButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCreateOrderAmountButton.swift; sourceTree = "<group>"; };
 		E9B087392163886800937644 /* DexCreateOrderSegmentedControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DexCreateOrderSegmentedControl.xib; sourceTree = "<group>"; };
 		E9B0873B2163886800937644 /* DexCreateOrderInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9B0873C2163886800937644 /* DexCreateOrderInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInteractorMock.swift; sourceTree = "<group>"; };
 		E9B087402163886800937644 /* DexLastTradesModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexLastTradesModuleOutput.swift; sourceTree = "<group>"; };
 		E9B087412163886800937644 /* DexLastTradesModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexLastTradesModuleBuilder.swift; sourceTree = "<group>"; };
 		E9B087432163886800937644 /* DexLastTradesPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexLastTradesPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -1483,12 +1480,9 @@
 		E9B087562163886800937644 /* DexMyOrdersPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9B087572163886800937644 /* DexMyOrdersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersPresenter.swift; sourceTree = "<group>"; };
 		E9B087582163886800937644 /* DexMyOrdersModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleBuilder.swift; sourceTree = "<group>"; };
-		E9B0875C2163886800937644 /* DexMyOrdersHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DexMyOrdersHeaderView.xib; sourceTree = "<group>"; };
-		E9B0875D2163886800937644 /* DexMyOrdersHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersHeaderView.swift; sourceTree = "<group>"; };
 		E9B0875E2163886800937644 /* DexMyOrdersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersCell.swift; sourceTree = "<group>"; };
 		E9B087602163886800937644 /* DexMyOrdersInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersInteractor.swift; sourceTree = "<group>"; };
 		E9B087612163886800937644 /* DexMyOrdersInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9B087622163886800937644 /* DexMyOrdersInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersInteractorMock.swift; sourceTree = "<group>"; };
 		E9B087632163886800937644 /* DexMyOrdersTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMyOrdersTypes.swift; sourceTree = "<group>"; };
 		E9B087692163886800937644 /* DexCompleteOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCompleteOrderViewController.swift; sourceTree = "<group>"; };
 		E9B0876C2163886800937644 /* DexCompleteOrderModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCompleteOrderModuleBuilder.swift; sourceTree = "<group>"; };
@@ -3633,7 +3627,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B0873B2163886800937644 /* DexCreateOrderInteractorProtocol.swift */,
-				E9B0873C2163886800937644 /* DexCreateOrderInteractorMock.swift */,
+				E961A13F218FDAFF00882E2E /* DexCreateOrderInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -3705,8 +3699,6 @@
 		E9B0875B2163886800937644 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E9B0875C2163886800937644 /* DexMyOrdersHeaderView.xib */,
-				E9B0875D2163886800937644 /* DexMyOrdersHeaderView.swift */,
 				E9B0875E2163886800937644 /* DexMyOrdersCell.swift */,
 			);
 			path = Views;
@@ -3717,7 +3709,6 @@
 			children = (
 				E9B087602163886800937644 /* DexMyOrdersInteractor.swift */,
 				E9B087612163886800937644 /* DexMyOrdersInteractorProtocol.swift */,
-				E9B087622163886800937644 /* DexMyOrdersInteractorMock.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4311,8 +4302,6 @@
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				0AF922FA212E1234003BA067 /* MyOrderHeaderView.xib in Resources */,
 				F79C43CC1EAEA967006057B0 /* Transactions.storyboard in Resources */,
-				E9283A7820E1AD5D00BAD3B8 /* ProfileAliasView.xib in Resources */,
-				E9B0880B2163886800937644 /* DexMarketVerifiedAssets.json in Resources */,
 				E9B087B72163886800937644 /* OrderConfirmView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
@@ -4342,7 +4331,6 @@
 				E9B087B92163886800937644 /* Dex.storyboard in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */,
-				E9B087FC2163886800937644 /* DexMyOrdersHeaderView.xib in Resources */,
 				0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */,
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
@@ -4814,7 +4802,6 @@
 				0AF922DF212E1234003BA067 /* UITableView+Reusable.swift in Sources */,
 				0AF922EE212E1234003BA067 /* AssetsSegmentedCell.swift in Sources */,
 				0AF922F8212E1234003BA067 /* LastTraderHeaderView.swift in Sources */,
-				E9B087E92163886800937644 /* DexCreateOrderInteractorMock.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,
@@ -5132,7 +5119,6 @@
 				E95B47EB21638B11004D4E39 /* StartLeasingModuleBuilder.swift in Sources */,
 				E9D36DF42175C755001E6DF0 /* AssetListViewController.swift in Sources */,
 				04831F6221691429006D1ED6 /* HighlightedView.swift in Sources */,
-				E9B088012163886800937644 /* DexMyOrdersInteractorMock.swift in Sources */,
 				0A5ABBA621173405006A10A7 /* LeasingTransactionRepositoryRemote.swift in Sources */,
 				0A7CCDB5218A138D005D372B /* MyAddressInfoAddressCell.swift in Sources */,
 				E902ADCF212E1EB8000C289A /* Money.swift in Sources */,
@@ -5145,7 +5131,6 @@
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
-				E90E25FA2093506600CDCE56 /* MyAddressViewController.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */,
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
@@ -5196,7 +5181,6 @@
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
-				E9B087FD2163886800937644 /* DexMyOrdersHeaderView.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				04831F8021692246006D1ED6 /* BaseInputTextField.swift in Sources */,
@@ -5221,6 +5205,7 @@
 				0A1DAD7820F3A85A004DA625 /* Encodable+Dictionary.swift in Sources */,
 				E9B087EF2163886800937644 /* DexLastTradesTypes.swift in Sources */,
 				0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */,
+				E961A140218FDAFF00882E2E /* DexCreateOrderInteractor.swift in Sources */,
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
 				E95B47EC21638B11004D4E39 /* StartLeasingPresenter.swift in Sources */,

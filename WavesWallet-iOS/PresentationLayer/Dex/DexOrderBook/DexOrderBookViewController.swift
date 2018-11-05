@@ -197,7 +197,7 @@ private extension DexOrderBookViewController {
     
     var bidTitle: String {
         if let bid = state.lastBid {
-            return bid.price.formattedText()
+            return bid.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle
@@ -207,7 +207,7 @@ private extension DexOrderBookViewController {
     
     var askTitle: String {
         if let ask = state.lastAsk {
-            return ask.price.formattedText()
+            return ask.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle

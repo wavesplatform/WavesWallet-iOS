@@ -647,14 +647,24 @@ internal enum Localizable {
       internal enum Label {
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "dexmyorders.label.amount") }
+        /// Buy
+        internal static var buy: String { return Localizable.tr("Waves", "dexmyorders.label.buy") }
+        /// Date
+        internal static var date: String { return Localizable.tr("Waves", "dexmyorders.label.date") }
         /// Nothing Here…\nYou do not have any orders
         internal static var emptyData: String { return Localizable.tr("Waves", "dexmyorders.label.emptyData") }
         /// Loading orders…
         internal static var loadingLastTrades: String { return Localizable.tr("Waves", "dexmyorders.label.loadingLastTrades") }
         /// Price
         internal static var price: String { return Localizable.tr("Waves", "dexmyorders.label.price") }
+        /// Sell
+        internal static var sell: String { return Localizable.tr("Waves", "dexmyorders.label.sell") }
+        /// Side
+        internal static var side: String { return Localizable.tr("Waves", "dexmyorders.label.side") }
         /// Status
         internal static var status: String { return Localizable.tr("Waves", "dexmyorders.label.status") }
+        /// Sum
+        internal static var sum: String { return Localizable.tr("Waves", "dexmyorders.label.sum") }
         /// Time
         internal static var time: String { return Localizable.tr("Waves", "dexmyorders.label.time") }
 

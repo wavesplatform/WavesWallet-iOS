@@ -25,11 +25,11 @@ extension DexLastTradesCell: ViewConfiguration {
     func update(with model: DexLastTrades.DTO.Trade) {
 
         labelTime.text = DexLastTrades.ViewModel.dateFormatter.string(from: model.time)
-        labelPrice.text = model.price.formattedText()
+        labelPrice.text = model.price.displayText
         
-        labelAmount.text = model.amount.formattedText()
+        labelAmount.text = model.amount.displayText
         
-        labelSum.text = model.sum.formattedText()
+        labelSum.text = model.sum.displayText
         
         labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
     }
