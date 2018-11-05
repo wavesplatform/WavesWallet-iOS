@@ -16,7 +16,7 @@ private enum Constants {
 final class AliasesRepository: AliasesRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let aliasNode: MoyaProvider<Node.Service.Alias> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let aliasNode: MoyaProvider<Node.Service.Alias> = .nodeMoyaProvider()
 
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository

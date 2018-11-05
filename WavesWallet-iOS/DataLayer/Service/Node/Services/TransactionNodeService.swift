@@ -67,7 +67,7 @@ extension Node.Service {
                             Constants.timestamp: alias.timestamp,
                             Constants.type: alias.type,
                             Constants.senderPublicKey: alias.senderPublicKey,
-                            Constants.proofs: alias.proofs]
+                            Constants.proofs: alias.proofs ?? []]
 
                 case .startLease(let lease):
                     return  [Constants.version: lease.version,
