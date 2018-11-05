@@ -12,7 +12,7 @@ import Moya
 
 final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProtocol {
 
-    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .nodeMoyaProvider()
     private let environmentRepository: EnvironmentRepositoryProtocol
 
     init(environmentRepository: EnvironmentRepositoryProtocol) {
