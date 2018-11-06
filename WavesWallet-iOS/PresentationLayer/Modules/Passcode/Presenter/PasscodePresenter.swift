@@ -11,32 +11,6 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-
-protocol PasscodeModuleOutput: AnyObject {
-
-    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
-    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) -> Void
-
-    func passcodeUserLogouted()
-    func passcodeLogInByPassword()
-    func passcodeTapBackButton()
-}
-
-protocol PasscodeModuleInput {
-    var kind: PasscodeTypes.DTO.Kind { get }
-    var hasBackButton: Bool { get }
-}
-
-protocol PasscodePresenterProtocol {
-
-    typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
-
-    var interactor: PasscodeInteractorProtocol! { get set }
-    var input: PasscodeModuleInput! { get set }
-    var moduleOutput: PasscodeModuleOutput? { get set }
-    func system(feedbacks: [Feedback])
-}
-
 private struct LogInByBiometricQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
 }
@@ -472,6 +446,9 @@ private extension PasscodePresenter {
         //            case .permissionDenied:
         //            case .fail:
         //            }
+
+        case .viewWillAppear:
+            break
         case .viewDidAppear:
 
             switch state.kind {

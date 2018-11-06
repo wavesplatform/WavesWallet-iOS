@@ -27,7 +27,7 @@ final class PasscodeCoordinator: Coordinator {
     
     weak var delegate: PasscodeCoordinatorDelegate?
     var animated: Bool = true
-    var isDontClose: Bool = false
+    var isDontToRoot: Bool = false
 
     init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
 
@@ -63,14 +63,14 @@ final class PasscodeCoordinator: Coordinator {
     private func dissmiss() {
         removeFromParentCoordinator()
 
-        if isDontClose == true {
-            return
-        }
-        
         if hasExternalNavigationController == false {
             self.viewController.dismiss(animated: true, completion: nil)
         } else {
-            self.navigationController.popToRootViewController(animated: true)
+            if isDontToRoot == true {
+                self.navigationController.popViewController(animated: true)
+            } else {
+                self.navigationController.popToRootViewController(animated: true)
+            }
         }
     }
 }
@@ -124,21 +124,23 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
 extension PasscodeCoordinator: AccountPasswordModuleOutput {
 
     func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {
-        dissmiss()
-        delegate?.passcodeCoordinatorVerifyAcccesCompleted(signedWallet: signedWallet)
+
+        let vc = PasscodeModuleBuilder(output: self)
+            .build(input: .init(kind: .changePasscodeByPassword(signedWallet.wallet,
+                                                                password: password),
+                                hasBackButton: true))
+
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
 
-        if case .changePasscode(let wallet) = kind {
-            let vc = PasscodeModuleBuilder(output: self)
-                .build(input: .init(kind: .changePasscodeByPassword(wallet, password: password),
-                                    hasBackButton: hasExternalNavigationController))
-            navigationController.pushViewController(vc, animated: true)
-        } else {
-            dissmiss()
-            delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
-        }
+        let vc = PasscodeModuleBuilder(output: self)
+            .build(input: .init(kind: .changePasscodeByPassword(wallet,
+                                                                password: password),
+                                hasBackButton: true))
+
+        navigationController.pushViewController(vc, animated: true)
     }
 }
 

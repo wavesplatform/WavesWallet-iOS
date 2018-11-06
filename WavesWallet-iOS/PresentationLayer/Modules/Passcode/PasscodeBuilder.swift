@@ -19,8 +19,28 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
 
     func build(input: PasscodeModuleBuilder.Input) -> UIViewController {
 
-        let presenter = PasscodePresenter()
         let vc = StoryboardScene.Passcode.passcodeViewController.instantiate()
+
+        var presenter: PasscodePresenterProtocol!
+
+        switch input.kind {
+        case .registration:
+            presenter = PasscodeRegistationPresenter()
+
+        case .logIn:
+            presenter = PasscodeLogInPresenter()
+
+        case .verifyAccess:
+            presenter = PasscodeVerifyAccessPresenter()
+
+        case .changePasscodeByPassword:
+            presenter = PasscodeChangePasscodeByPasswordPresenter()
+
+        default:
+            presenter  = PasscodePresenter()
+            break
+        }
+
         presenter.interactor = PasscodeInteractor()
         presenter.moduleOutput = output
         presenter.input = input

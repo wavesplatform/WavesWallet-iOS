@@ -29,13 +29,6 @@ private struct Application: TSUD {
     }
 }
 
-private enum Display {
-    case start(withHelloDisplay: Bool)
-    case mainTabBar
-    case enter
-    case mainWithPasscode(DomainLayer.DTO.Wallet)
-    case passcode(DomainLayer.DTO.Wallet)
-}
 
 protocol ApplicationCoordinatorProtocol: AnyObject {
     func showEnterDisplay()
@@ -46,36 +39,24 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private var slideMenuViewController: SlideMenu = {
-
-        let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        let slideMenuViewController = SlideMenu(contentViewController: UIViewController(),
-                                                leftMenuViewController: menuController,
-                                                rightMenuViewController: nil)!
-        slideMenuViewController.panGestureEnabled = false
-        return slideMenuViewController
-    }()
-
     private let window: UIWindow
 
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
-    private var needShowMainDisplayAfterAuth: Bool = false
+
+    private var lastDisplay: Display?
 
     init(_ window: UIWindow) {
         self.window = window
+        let vc = UINavigationController()
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
     }
 
     func start() {
         self.isActiveApp = true
 
-//        let vc = CreateAliasModuleBuilder.init(output: self).build()
-//        let custom = CustomNavigationController(rootViewController: vc)
-//        self.window.rootViewController = custom
-
-        self.window.rootViewController = slideMenuViewController
-        self.window.makeKeyAndVisible()
         logInApplication()
 
         #if DEBUG
@@ -87,29 +68,28 @@ final class AppCoordinator: Coordinator {
         return childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil
     }
 
-    private func currentDisplay(wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
+    private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
         if let wallet = wallet {
-            return currentDisplayForWallet(wallet)
+            return display(by: wallet)
         } else {
             let settings = Application.get()
             if settings.isAlreadyShownHelloDisplay {
-                return Observable.just(Display.start(withHelloDisplay: false))
+                return Observable.just(Display.enter)
             } else {
-                return Observable.just(Display.start(withHelloDisplay: true))
+                return Observable.just(Display.hello)
             }
         }
     }
 
-    private func currentDisplayForWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Display> {
+    private func display(by wallet: DomainLayer.DTO.Wallet) -> Observable<Display> {
         return authoAuthorizationInteractor
             .isAuthorizedWallet(wallet)
             .map { isAuthorizedWallet -> Display in
-
                 if isAuthorizedWallet {
-                    return .mainTabBar
+                    return Display.slide(wallet)
                 } else {
-                    return .mainWithPasscode(wallet)
+                    return Display.passcode(wallet)
                 }
             }
     }
@@ -117,12 +97,11 @@ final class AppCoordinator: Coordinator {
     private func logInApplication() {
         authoAuthorizationInteractor
             .lastWalletLoggedIn()
-            .sweetDebug("Last Wallet")
             .take(1)
             .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
                 return Observable.just(nil)
             }
-            .flatMap(weak: self, selector: { $0.currentDisplay })
+            .flatMap(weak: self, selector: { $0.display })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(weak: self, onNext: { $0.showDisplay })
@@ -145,26 +124,12 @@ final class AppCoordinator: Coordinator {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(weak: self, onNext: { owner, wallet in
                 if let wallet = wallet {
-                    owner.showPasscode(wallet: wallet)
+                    owner.showDisplay(.passcode(wallet))
                 } else {
-                    owner.showEnter()
+                    owner.showDisplay(.enter)
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: ApplicationCoordinatorProtocol
-extension AppCoordinator: ApplicationCoordinatorProtocol {
-    func showEnterDisplay() {
-        showEnter()
-    }
-}
-
-// MARK: EnterCoordinatorDelegate
-extension AppCoordinator: EnterCoordinatorDelegate  {
-    func userCompletedLogIn() {
-        showDisplay(.mainTabBar)
     }
 }
 
@@ -175,6 +140,7 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
         var settings = Application.get()
         settings.isAlreadyShownHelloDisplay = true
         Application.set(settings)
+        showDisplay(.enter)
     }
 
     func userChangedLanguage(_ language: Language) {
@@ -188,7 +154,7 @@ extension AppCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        showDisplay(.mainTabBar)
+        showDisplay(.slide(wallet))
     }
 
     func passcodeCoordinatorWalletLogouted() {
@@ -197,106 +163,49 @@ extension AppCoordinator: PasscodeCoordinatorDelegate {
 }
 
 // MARK: Methods for showing differnt displays
-extension AppCoordinator {
+extension AppCoordinator: PresentationCoordinator {
 
+    enum Display: Equatable {
+        case hello
+        case slide(DomainLayer.DTO.Wallet)
+        case enter
+        case passcode(DomainLayer.DTO.Wallet)
+    }
 
-    private func showDisplay(_ display: Display) {
+    func showDisplay(_ display: AppCoordinator.Display) {
+
+        if lastDisplay == display {
+            return 
+        }
 
         switch display {
-        case .start(let withHelloDisplay):
-            showStartController(withHelloDisplay: withHelloDisplay)
+        case .hello:
 
-        case .mainTabBar:
-            showMainTabBarDisplay()
+            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
+            helloCoordinator.delegate = self
+            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
         case .passcode(let wallet):
-            showPasscode(wallet: wallet)
 
-        case .mainWithPasscode(let wallet):
-            showPasscode(wallet: wallet, animated: false)
+            let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
+                                                          kind: .logIn(wallet))
+            passcodeCoordinator.animated = false
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinator(childCoordinator: passcodeCoordinator)
+            passcodeCoordinator.start()
+
+        case .slide(let wallet):
+
+            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
 
         case .enter:
-            showEnter()
-        }
-    }
-
-    private func showMainTabBarDisplay() {
-
-        if isMainTabDisplayed {
-            return
+            let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
 
-        let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
-
-        addChildCoordinator(childCoordinator: mainTabBarController)
-        mainTabBarController.start()
-    }
-
-    private func showStartController(withHelloDisplay: Bool) {
-
-        if withHelloDisplay {
-            let helloCoordinator = HelloCoordinator(viewController: slideMenuViewController, presentCompletion: {
-                self.showEnter()
-            })
-
-            helloCoordinator.delegate = self
-            addChildCoordinator(childCoordinator: helloCoordinator)
-            helloCoordinator.start()
-        } else {
-            showEnter()
-        }
-    }
-
-    private func showEnter() {
-
-        //TODO: Нужно придумать другой способ
-        let mainTabBarCoordinator = childCoordinators.first(where: { $0 is MainTabBarCoordinator })
-        mainTabBarCoordinator?.removeFromParentCoordinator()
-
-        let customNavigationController = CustomNavigationController()
-
-        let enter = EnterCoordinator(navigationController: customNavigationController)
-        enter.delegate = self
-        addChildCoordinator(childCoordinator: enter)
-        enter.start()
-        slideMenuViewController.contentViewController = customNavigationController
-    }
-
-    private func showPasscode(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
-
-        //TODO: Нужно придумать другой способ
-        if childCoordinators.first(where: { $0 is PasscodeCoordinator }) != nil {
-            return
-        }
-
-        let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
-                                                      kind: .logIn(wallet))
-        passcodeCoordinator.animated = animated
-        passcodeCoordinator.delegate = self
-
-
-        addChildCoordinator(childCoordinator: passcodeCoordinator)
-        passcodeCoordinator.start()
-    }
-
-    private func showSideMenuViewController(contentViewController: UIViewController) {
-
-        let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        let slideMenuViewController = SlideMenu(contentViewController: contentViewController,
-                                                leftMenuViewController: menuController,
-                                                rightMenuViewController: nil)!
-
-        self.slideMenuViewController = slideMenuViewController
-
-
-        if let view =  self.window.rootViewController?.view {
-            UIView.transition(from:view, to: slideMenuViewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
-                self.window.rootViewController = slideMenuViewController
-            })
-        } else {
-            self.window.rootViewController = slideMenuViewController
-        }
-        self.window.makeKeyAndVisible()
+        lastDisplay = display
     }
 }
 
@@ -316,7 +225,6 @@ extension AppCoordinator {
         isActiveApp = true
     }
 }
-
 
 #if DEBUG
 
@@ -346,17 +254,14 @@ extension AppCoordinator {
 extension AppCoordinator: SupportViewControllerDelegate  {
     func closeSupportView(isTestNet: Bool) {
 
-
-
         self.window.rootViewController?.dismiss(animated: true, completion: {
             if Environments.isTestNet != isTestNet {
 
                 self.authoAuthorizationInteractor
                     .logout()
-                    .sweetDebug("Logount Support")
                     .subscribe(onCompleted: { [weak self] in
                         Environments.isTestNet = isTestNet
-                        self?.showEnter()
+                        self?.showDisplay(.enter)
                     })
                     .disposed(by: self.disposeBag)
             }

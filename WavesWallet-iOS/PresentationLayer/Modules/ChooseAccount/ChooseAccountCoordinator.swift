@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChooseAccountCoordinatorDelegate: AnyObject {
-    func userChooseCompleted()
+    func userChooseCompleted(wallet: DomainLayer.DTO.Wallet)
 }
 
 final class ChooseAccountCoordinator: Coordinator {
@@ -70,7 +70,7 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        delegate?.userChooseCompleted()
+        delegate?.userChooseCompleted(wallet: wallet)
     }
 
     func passcodeCoordinatorWalletLogouted() {

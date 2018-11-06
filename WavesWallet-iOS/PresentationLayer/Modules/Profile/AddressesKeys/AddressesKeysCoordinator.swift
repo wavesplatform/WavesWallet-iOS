@@ -41,7 +41,7 @@ final class AddressesKeysCoordinator: Coordinator {
                                                       kind: .verifyAccess(wallet))
         passcodeCoordinator.animated = true
         passcodeCoordinator.delegate = self
-        passcodeCoordinator.isDontClose = true
+        passcodeCoordinator.isDontToRoot = true
 
         addChildCoordinator(childCoordinator: passcodeCoordinator)
         passcodeCoordinator.start()

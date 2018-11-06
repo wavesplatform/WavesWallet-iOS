@@ -78,6 +78,7 @@ extension PasscodeTypes {
         case tapLogoutButton
         case tapBiometricButton
         case completedInputNumbers([Int])
+        case viewWillAppear
         case viewDidAppear
     }
 
@@ -97,5 +98,24 @@ extension PasscodeTypes {
         var error: Error?
         var titleLabel: String
         var detailLabel: String?
+    }
+}
+
+extension PasscodeTypes.PasscodeKind {
+
+    func title() -> String {
+        switch self {
+        case .oldPasscode:
+            return Localizable.Waves.Passcode.Label.Passcode.enter
+
+        case .newPasscode:
+            return Localizable.Waves.Passcode.Label.Passcode.create
+
+        case .repeatPasscode:
+            return Localizable.Waves.Passcode.Label.Passcode.verify
+
+        case .enterPasscode:
+            return Localizable.Waves.Passcode.Label.Passcode.enter
+        }
     }
 }
