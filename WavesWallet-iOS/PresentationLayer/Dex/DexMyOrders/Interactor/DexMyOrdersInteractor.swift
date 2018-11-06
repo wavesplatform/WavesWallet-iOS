@@ -18,7 +18,7 @@ fileprivate extension DexMyOrders.DTO.Order {
         
         id = json["id"].stringValue
         price = Money(json["price"].int64Value, priceDecimals)
-        amount = Money(json["price"].int64Value, amountDecimals)
+        amount = Money(json["amount"].int64Value, amountDecimals)
         time = Date(milliseconds: json["timestamp"].int64Value)
         
         if json["status"].stringValue == "Accepted" {
