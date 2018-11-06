@@ -36,6 +36,9 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
         case .changePasscodeByPassword:
             presenter = PasscodeChangePasscodeByPasswordPresenter()
 
+        case .changePassword:
+            presenter = PasscodeChangePasswordPresenter()
+
         default:
             presenter  = PasscodePresenter()
             break

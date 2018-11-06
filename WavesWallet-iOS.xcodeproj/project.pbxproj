@@ -378,6 +378,7 @@
 		0AF58F992191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */; };
 		0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */; };
 		0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */; };
+		0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9E2192056300C8A4B3 /* PasscodeChangePasswordPresenter.swift */; };
 		0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6AD24218A54840004F107 /* CopyableImageView.swift */; };
 		0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */; };
 		0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C2212E07B2003BA067 /* AssetInteractor.swift */; };
@@ -1190,6 +1191,7 @@
 		0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeVerifyAccessPresenter.swift; sourceTree = "<group>"; };
 		0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeChangePasscodeByPasswordPresenter.swift; sourceTree = "<group>"; };
 		0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeEnableBiometricPresenter.swift; sourceTree = "<group>"; };
+		0AF58F9E2192056300C8A4B3 /* PasscodeChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeChangePasswordPresenter.swift; sourceTree = "<group>"; };
 		0AF6AD24218A54840004F107 /* CopyableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableImageView.swift; sourceTree = "<group>"; };
 		0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF921C2212E07B2003BA067 /* AssetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetInteractor.swift; sourceTree = "<group>"; };
@@ -2787,6 +2789,7 @@
 				0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */,
 				0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */,
 				0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */,
+				0AF58F9E2192056300C8A4B3 /* PasscodeChangePasswordPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -4854,6 +4857,7 @@
 				E9B086BA2163883000937644 /* AddressBookCell.swift in Sources */,
 				0A6AC3E021847F8D005D2525 /* AddressesKeysModuleBuilder.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
+				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
