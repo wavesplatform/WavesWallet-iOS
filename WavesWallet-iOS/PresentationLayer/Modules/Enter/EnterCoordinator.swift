@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EnterCoordinatorDelegate: AnyObject {
-    func userCompletedLogIn()
+    func userCompletedLogIn(wallet: DomainLayer.DTO.Wallet)
 }
 
 final class EnterCoordinator: Coordinator {
@@ -17,19 +17,22 @@ final class EnterCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
+    private weak var slideMenuViewController: SlideMenu?
     private let navigationController: UINavigationController
     private var account: NewAccountTypes.DTO.Account?
 
     weak var delegate: EnterCoordinatorDelegate?
 
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(slideMenuViewController: SlideMenu) {
+        self.slideMenuViewController = slideMenuViewController
+        self.navigationController = CustomNavigationController()
     }
 
     func start() {
         let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
         enter.delegate = self
-        navigationController.pushViewController(enter, animated: true)        
+        self.navigationController.pushViewController(enter, animated: false)
+        self.slideMenuViewController?.contentViewController = self.navigationController
     }
 }
 
@@ -91,7 +94,7 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         removeFromParentCoordinator()
-        delegate?.userCompletedLogIn()
+        delegate?.userCompletedLogIn(wallet: wallet)
     }
 
     func passcodeCoordinatorWalletLogouted() {}
@@ -100,8 +103,8 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
 // MARK: PasscodeCoordinatorDelegate
 extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
 
-    func userChooseCompleted() {
+    func userChooseCompleted(wallet: DomainLayer.DTO.Wallet) {
         removeFromParentCoordinator()
-        delegate?.userCompletedLogIn()
+        delegate?.userCompletedLogIn(wallet: wallet)
     }    
 }

@@ -98,7 +98,18 @@ private extension PasscodeViewController {
                 .map { _ in Types.Event.viewDidAppear }
         }
 
-        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+
+        let viewWillAppear: PasscodePresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in Types.Event.viewWillAppear }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewWillAppear])
     }
 
     func events() -> [Signal<Types.Event>] {

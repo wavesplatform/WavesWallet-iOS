@@ -371,6 +371,13 @@
 		0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB35A321165E1300EDD63C /* AccountBalanceRepositoryRemote.swift */; };
 		0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB35A521165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift */; };
 		0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED6BB9216620F000481B42 /* ProfileTypes.swift */; };
+		0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */; };
+		0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */; };
+		0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */; };
+		0AF58F962191C95A00C8A4B3 /* PasscodeLogInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F952191C95A00C8A4B3 /* PasscodeLogInPresenter.swift */; };
+		0AF58F992191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */; };
+		0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */; };
+		0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */; };
 		0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6AD24218A54840004F107 /* CopyableImageView.swift */; };
 		0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */; };
 		0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C2212E07B2003BA067 /* AssetInteractor.swift */; };
@@ -1176,6 +1183,13 @@
 		0AEB35A321165E1300EDD63C /* AccountBalanceRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryRemote.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0AEB35A521165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryLocal.swift; sourceTree = "<group>"; };
 		0AED6BB9216620F000481B42 /* ProfileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypes.swift; sourceTree = "<group>"; };
+		0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCoordinator.swift; sourceTree = "<group>"; };
+		0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodePresenterProtocol.swift; sourceTree = "<group>"; };
+		0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeRegistationPresenter.swift; sourceTree = "<group>"; };
+		0AF58F952191C95A00C8A4B3 /* PasscodeLogInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeLogInPresenter.swift; sourceTree = "<group>"; };
+		0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeVerifyAccessPresenter.swift; sourceTree = "<group>"; };
+		0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeChangePasscodeByPasswordPresenter.swift; sourceTree = "<group>"; };
+		0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeEnableBiometricPresenter.swift; sourceTree = "<group>"; };
 		0AF6AD24218A54840004F107 /* CopyableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableImageView.swift; sourceTree = "<group>"; };
 		0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF921C2212E07B2003BA067 /* AssetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetInteractor.swift; sourceTree = "<group>"; };
@@ -1745,8 +1759,7 @@
 				E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */,
 				04831F85216A3627006D1ED6 /* Views */,
 			);
-			name = Language;
-			path = Enter/Language;
+			path = Language;
 			sourceTree = "<group>";
 		};
 		04EFAF4E2164FA5200277CCF /* Views */ = {
@@ -2457,34 +2470,8 @@
 		0A93FED120FCAAA30058179E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0A7CCDA0218A138D005D372B /* MyAddress */,
-				E9CD0D2F218137FE001A99B3 /* MainTabBar */,
-				E9EC5B352175F35800E5C29A /* Send */,
-				0A4140E72174F08600B1310E /* ChangePassword */,
-				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
-				0A071E3D215AEF03007D9750 /* AccountPassword */,
-				E9B086902163882F00937644 /* AddressBook */,
-				0AF921BE212E07B2003BA067 /* Asset */,
-				0A4399672150470E0032E608 /* Backup */,
-				0A071E78215DB084007D9750 /* ChooseAccount */,
-				E9B086BF2163886800937644 /* Dex */,
-				E9F984A720E5266800D2CB4D /* Enter */,
-				E95B47A521638A9F004D4E39 /* Hello */,
-				04A2CFA12112100B00784FEC /* History */,
-				0A762D09214FB60400BE9204 /* Import */,
-				E9D36DB52175C754001E6DF0 /* AssetList */,
-				E9D36D6B2175C754001E6DF0 /* Receive */,
-				04A403202164B8E000652F21 /* Language */,
-				0AFA0C652174A2300003FE3B /* Legal */,
-				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
-				0A96F1CA2151B388005E148F /* Passcode */,
-				0A762DA321650DA80019D447 /* Profile */,
-				E95B47D421638B11004D4E39 /* StartLeasing */,
-				0A762D9E2163ACE80019D447 /* Support */,
-				0A762D4721639FA50019D447 /* TransactionHistory */,
-				0A071E62215C65BC007D9750 /* UseTouchID */,
-				0A97975E2108A10400407F67 /* Wallet */,
-				0AFA0C732174A2300003FE3B /* WebView */,
+				0AF58F8C219190C400C8A4B3 /* Coordinators */,
+				0AF58F8B2191909200C8A4B3 /* Modules */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -2502,13 +2489,12 @@
 		0A96F1CA2151B388005E148F /* Passcode */ = {
 			isa = PBXGroup;
 			children = (
+				0AF58F912191BC9600C8A4B3 /* Presenter */,
 				0A96F1CD2151B699005E148F /* PasscodeViewController.swift */,
-				0A96F1D42152C80E005E148F /* PasscodePresenter.swift */,
 				0A96F1D92152CDB7005E148F /* PasscodeTypes.swift */,
 				0A96F1DB2152E05A005E148F /* PasscodeInteractor.swift */,
 				0A96F1DD2152E14D005E148F /* PasscodeBuilder.swift */,
 				0A96F1CB2151B392005E148F /* Passcode.storyboard */,
-				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
@@ -2744,6 +2730,65 @@
 				0AEB35A121165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift */,
 			);
 			path = AccountBalance;
+			sourceTree = "<group>";
+		};
+		0AF58F8B2191909200C8A4B3 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				0A7CCDA0218A138D005D372B /* MyAddress */,
+				E9CD0D2F218137FE001A99B3 /* MainTabBar */,
+				E9EC5B352175F35800E5C29A /* Send */,
+				0A4140E72174F08600B1310E /* ChangePassword */,
+				0A071E3D215AEF03007D9750 /* AccountPassword */,
+				E9B086902163882F00937644 /* AddressBook */,
+				0AF921BE212E07B2003BA067 /* Asset */,
+				0A4399672150470E0032E608 /* Backup */,
+				0A071E78215DB084007D9750 /* ChooseAccount */,
+				E9B086BF2163886800937644 /* Dex */,
+				E9F984A720E5266800D2CB4D /* Enter */,
+				E95B47A521638A9F004D4E39 /* Hello */,
+				04A2CFA12112100B00784FEC /* History */,
+				0A762D09214FB60400BE9204 /* Import */,
+				E9D36DB52175C754001E6DF0 /* AssetList */,
+				E9D36D6B2175C754001E6DF0 /* Receive */,
+				04A403202164B8E000652F21 /* Language */,
+				0AFA0C652174A2300003FE3B /* Legal */,
+				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
+				0A96F1CA2151B388005E148F /* Passcode */,
+				0A762DA321650DA80019D447 /* Profile */,
+				E95B47D421638B11004D4E39 /* StartLeasing */,
+				0A762D9E2163ACE80019D447 /* Support */,
+				0A762D4721639FA50019D447 /* TransactionHistory */,
+				0A071E62215C65BC007D9750 /* UseTouchID */,
+				0A97975E2108A10400407F67 /* Wallet */,
+				0AFA0C732174A2300003FE3B /* WebView */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		0AF58F8C219190C400C8A4B3 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				E9CD0D31218137FE001A99B3 /* MainTabBarCoordinator.swift */,
+				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
+				0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */,
+				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		0AF58F912191BC9600C8A4B3 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */,
+				0A96F1D42152C80E005E148F /* PasscodePresenter.swift */,
+				0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */,
+				0AF58F952191C95A00C8A4B3 /* PasscodeLogInPresenter.swift */,
+				0AF58F982191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift */,
+				0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */,
+				0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		0AF921BE212E07B2003BA067 /* Asset */ = {
@@ -3866,7 +3911,6 @@
 			isa = PBXGroup;
 			children = (
 				E9CD0D30218137FE001A99B3 /* MainTabBarController.swift */,
-				E9CD0D31218137FE001A99B3 /* MainTabBarCoordinator.swift */,
 			);
 			path = MainTabBar;
 			sourceTree = "<group>";
@@ -4619,6 +4663,7 @@
 				0A6F60E9216F88B200A5C615 /* WalletTypes+ViewModels.swift in Sources */,
 				0A6F60EB216F895A00A5C615 /* WalletTypes+DTO.swift in Sources */,
 				0A6F60E8216F888B00A5C615 /* DexMyOrdersTypes.swift in Sources */,
+				0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */,
 				E9D36DF72175C755001E6DF0 /* AssetListInteractor.swift in Sources */,
 				04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */,
 				E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */,
@@ -4629,6 +4674,7 @@
 				04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */,
 				04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */,
 				04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */,
+				0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */,
 				04831F712169161C006D1ED6 /* Assert+Message.swift in Sources */,
 				0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */,
 				0A2B7D39216038A80098438D /* SpamService.swift in Sources */,
@@ -4642,6 +4688,7 @@
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
 				E9B087AA2163886800937644 /* DexOrderBookPresenter.swift in Sources */,
+				0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */,
 				0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */,
 				0A071E71215C6B95007D9750 /* BiometricType.swift in Sources */,
 				0A7CCDAD218A138D005D372B /* MyAddressTypes.swift in Sources */,
@@ -4766,6 +4813,7 @@
 				E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */,
 				0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */,
 				0A59331B21870B130059A77A /* AliasesTypes.swift in Sources */,
+				0AF58F992191CCA200C8A4B3 /* PasscodeVerifyAccessPresenter.swift in Sources */,
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
 				0A14CFC92144130500C3A4D5 /* Dictionary+Json.swift in Sources */,
 				0AF922CD212E1234003BA067 /* NSObject+AssociatedObject.swift in Sources */,
@@ -4874,6 +4922,7 @@
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
 				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
+				0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
 				0A6AC3EA21848C2F005D2525 /* AliasNodeService.swift in Sources */,
 				0AF922A6212E1234003BA067 /* CALayer+Shadow.swift in Sources */,
@@ -4887,6 +4936,7 @@
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
+				0AF58F962191C95A00C8A4B3 /* PasscodeLogInPresenter.swift in Sources */,
 				0AF921EA212E07B3003BA067 /* AssetTypes.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
 				0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */,
@@ -5247,6 +5297,7 @@
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				04831F8021692246006D1ED6 /* BaseInputTextField.swift in Sources */,
 				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
+				0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */,
 				0AF922E0212E1234003BA067 /* NibLoadable.swift in Sources */,
 				0A14E3F521875B5100EA7E91 /* CreateAliasModuleBuilder.swift in Sources */,
 				0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */,

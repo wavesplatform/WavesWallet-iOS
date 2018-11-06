@@ -189,10 +189,8 @@ private extension AddressesKeysPresenter {
             var rows = section.rows
 
             guard rows.first != nil else { return }
-
-            let seed = signedWallet.privateKey.words.joined(separator: " ")
+            
             rows[3] = .privateKey(signedWallet.privateKey.privateKeyStr)
-            rows.append(.seed(seed))
 
             section.rows = rows
             sections[0] = section
