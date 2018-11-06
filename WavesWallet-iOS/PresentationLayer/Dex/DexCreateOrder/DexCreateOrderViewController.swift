@@ -330,9 +330,17 @@ private extension DexCreateOrderViewController {
             inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
         }
         else {
-            guard !input.availablePriceAssetBalance.isZero && !order.price.isZero else { return }
             
-            let totalAmount = input.availablePriceAssetBalance.decimalValue / order.price.decimalValue
+            var totalAmount: Decimal = 0
+            
+            if order.price.isZero {
+                guard !input.availableAmountAssetBalance.isZero else { return }
+                totalAmount = input.availableAmountAssetBalance.decimalValue
+            }
+            else {
+                guard !input.availablePriceAssetBalance.isZero else { return }
+                totalAmount = input.availablePriceAssetBalance.decimalValue / order.price.decimalValue
+            }
             
             let totalAmountMoney = Money(value: totalAmount, input.availableAmountAssetBalance.decimals)
             
