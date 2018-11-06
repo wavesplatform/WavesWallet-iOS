@@ -13,10 +13,12 @@ import RxFeedback
 
 fileprivate enum Constants {
     static let cornerTableRadius: CGFloat = 3
+    static let animationDuration: TimeInterval = 0.3
 }
 
 final class DexMyOrdersViewController: UIViewController {
 
+    @IBOutlet private weak var viewTopCorners: UIView!
     @IBOutlet private weak var labelDate: UILabel!
     @IBOutlet private weak var labelSidePrice: UILabel!
     @IBOutlet private weak var labelAmountSum: UILabel!
@@ -42,7 +44,7 @@ final class DexMyOrdersViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        headerView.createTopCorners(radius: Constants.cornerTableRadius)
+        viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
     }
 }
 
@@ -84,15 +86,16 @@ fileprivate extension DexMyOrdersViewController {
                 switch state.action {
                 case .update:
                     strongSelf.tableView.reloadData()
-                    
+                    strongSelf.setupDefaultState(animation: false)
+
                 case .deleteRow(let indexPath):
                     strongSelf.deleteAt(indexPath: indexPath)
+                    strongSelf.setupDefaultState(animation: true)
 
                 default:
                     break
                 }
                
-                strongSelf.setupDefaultState()
             })
         
         return [subscriptionSections]
@@ -145,13 +148,22 @@ private extension DexMyOrdersViewController {
     
     func setupLoadingState() {
         viewEmptyData.isHidden = true
-        headerView.isHidden = true
+        headerView.alpha = 0
     }
     
-    func setupDefaultState() {
+    func setupDefaultState(animation: Bool) {
         viewLoadingInfo.isHidden = true
         viewEmptyData.isHidden = section.items.count > 0
-        headerView.isHidden = section.items.count == 0
+        
+        let headerAlpha: CGFloat = section.items.count > 0 ? 1 : 0
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.headerView.alpha = headerAlpha
+            }
+        }
+        else {
+            headerView.alpha = headerAlpha
+        }
     }
     
     func setupLocalization() {
