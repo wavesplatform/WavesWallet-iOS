@@ -44,9 +44,18 @@
                                                     </label>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsf-7G-LQx">
                                                         <rect key="frame" x="16" y="28" width="28" height="28"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="625-mj-Wgx">
+                                                                <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                                            </imageView>
+                                                        </subviews>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="625-mj-Wgx" secondAttribute="bottom" id="NIn-P8-DOU"/>
+                                                            <constraint firstAttribute="trailing" secondItem="625-mj-Wgx" secondAttribute="trailing" id="PRd-kv-K7a"/>
                                                             <constraint firstAttribute="width" constant="28" id="kN3-2g-XUA"/>
+                                                            <constraint firstItem="625-mj-Wgx" firstAttribute="top" secondItem="Nsf-7G-LQx" secondAttribute="top" id="sIk-qh-DSZ"/>
+                                                            <constraint firstItem="625-mj-Wgx" firstAttribute="leading" secondItem="Nsf-7G-LQx" secondAttribute="leading" id="urL-ZI-2dc"/>
                                                             <constraint firstAttribute="height" constant="28" id="wXu-6S-Gxz"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -136,6 +145,7 @@
                         <viewLayoutGuide key="safeArea" id="gBS-gG-HD2"/>
                     </view>
                     <connections>
+                        <outlet property="accountImageView" destination="625-mj-Wgx" id="bUS-q7-gOm"/>
                         <outlet property="accountNameInput" destination="8ZR-fG-ECf" id="b2F-8b-0gd"/>
                         <outlet property="containerView" destination="EXS-L4-bPl" id="IFw-LF-fk3"/>
                         <outlet property="labelAccountAddress" destination="PIY-u6-06t" id="Rrr-bg-E94"/>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IdentityImg
 
 private enum Constants {
     
@@ -26,11 +27,15 @@ class EditAccountNameViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var labelAccountName: UILabel!
     @IBOutlet weak var labelAccountAddress: UILabel!
+    
+    @IBOutlet weak var accountImageView: UIImageView!
+    
     @IBOutlet weak var accountNameInput: InputTextField!
     
-       @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
+   @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
     
     var wallet: DomainLayer.DTO.Wallet!
+    private let identity: Identity = Identity(options: Identity.defaultOptions)
     
     var keyboardHeight: CGFloat = 0
     
@@ -76,6 +81,8 @@ class EditAccountNameViewController: UIViewController {
     private func fillLabels() {
         labelAccountName.text = wallet.name
         labelAccountAddress.text = wallet.address
+        
+        accountImageView.image = identity.createImage(by: wallet.address, size: accountImageView.frame.size)   
     }
     
     private func setupTextField() {
