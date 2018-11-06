@@ -305,8 +305,10 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         let changeData = changePasswordData(wallet, password: newPassword)
 
         let oldSeedId = wallet.seedId
-        return Observable
-            .zip(currentSeed, changeData)
+        return self.verifyAccessWalletUsingPasscode(passcode, wallet: wallet)
+            .flatMap({ _ -> Observable<(DomainLayer.DTO.WalletSeed, ChangePasswordData)> in
+                return Observable.zip(currentSeed, changeData)
+            })            
             .flatMap { [weak self] seed, data -> Observable<ChangePasswordData> in
                 guard let owner = self else { return Observable.never() }
                 let saveSeed = owner.localWalletSeedRepository.saveSeed(for: seed, seedId: data.wallet.seedId, password: data.password)
