@@ -8,6 +8,24 @@
 
 import Foundation
 
+extension WalletEncryption {
+    convenience init(wallet: DomainLayer.DTO.WalletEncryption) {
+        self.init()
+        self.publicKey = wallet.publicKey
+        self.secret = wallet.secret
+        self.seedId = wallet.seedId
+    }
+}
+
+extension DomainLayer.DTO.WalletEncryption {
+
+    init(wallet: WalletEncryption) {
+        self.publicKey = wallet.publicKey
+        self.secret = wallet.secret
+        self.seedId = wallet.seedId
+    }
+}
+
 extension WalletItem {
 
     convenience init(wallet: DomainLayer.DTO.Wallet) {
@@ -17,10 +35,8 @@ extension WalletItem {
         self.isLoggedIn = wallet.isLoggedIn
         self.isBackedUp = wallet.isBackedUp
         self.address = wallet.address
-        self.secret = wallet.secret
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
-        self.seedId = wallet.seedId
     }
 }
 
@@ -32,11 +48,9 @@ extension DomainLayer.DTO.Wallet {
         self.name = wallet.name
         self.isLoggedIn = wallet.isLoggedIn
         self.isBackedUp = wallet.isBackedUp
-        self.address = wallet.address
-        self.secret = wallet.secret
+        self.address = wallet.address        
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
-        self.seedId = wallet.seedId
     }
 }
 

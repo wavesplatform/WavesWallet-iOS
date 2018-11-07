@@ -379,6 +379,7 @@
 		0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */; };
 		0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */; };
 		0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F9E2192056300C8A4B3 /* PasscodeChangePasswordPresenter.swift */; };
+		0AF58FA121931AD400C8A4B3 /* WalletEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58FA021931AD400C8A4B3 /* WalletEncryption.swift */; };
 		0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6AD24218A54840004F107 /* CopyableImageView.swift */; };
 		0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */; };
 		0AF921E9212E07B3003BA067 /* AssetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF921C2212E07B2003BA067 /* AssetInteractor.swift */; };
@@ -1192,6 +1193,7 @@
 		0AF58F9A2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeChangePasscodeByPasswordPresenter.swift; sourceTree = "<group>"; };
 		0AF58F9C2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeEnableBiometricPresenter.swift; sourceTree = "<group>"; };
 		0AF58F9E2192056300C8A4B3 /* PasscodeChangePasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeChangePasswordPresenter.swift; sourceTree = "<group>"; };
+		0AF58FA021931AD400C8A4B3 /* WalletEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEncryption.swift; sourceTree = "<group>"; };
 		0AF6AD24218A54840004F107 /* CopyableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableImageView.swift; sourceTree = "<group>"; };
 		0AF921C1212E07B2003BA067 /* AssetPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetPresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF921C2212E07B2003BA067 /* AssetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetInteractor.swift; sourceTree = "<group>"; };
@@ -2618,6 +2620,7 @@
 			isa = PBXGroup;
 			children = (
 				0A4C9AA020EE65800095A417 /* WalletItem.swift */,
+				0AF58FA021931AD400C8A4B3 /* WalletEncryption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5057,6 +5060,7 @@
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
+				0AF58FA121931AD400C8A4B3 /* WalletEncryption.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,

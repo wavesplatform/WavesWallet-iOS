@@ -39,8 +39,7 @@ extension Reactive where Base: DatabaseReference {
         .amb(Observable.error(NSError(domain: NSURLErrorDomain,
                                       code: NSURLErrorTimedOut,
                                       userInfo: nil))
-        .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
-        .sweetDebug("FB removeValue")
+        .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))        
     }
 
     func setValue(_ value: Any?) -> Observable<DatabaseReference> {
@@ -64,7 +63,6 @@ extension Reactive where Base: DatabaseReference {
                                       code: NSURLErrorTimedOut,
                                       userInfo: nil))
         .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
-        .sweetDebug("FB setValue")
     }
 
     var value: Observable<Any?> {
@@ -85,7 +83,6 @@ extension Reactive where Base: DatabaseReference {
                                         code: NSURLErrorTimedOut,
                                         userInfo: nil))
         .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
-        .sweetDebug("FB Value")
     }
 
 }

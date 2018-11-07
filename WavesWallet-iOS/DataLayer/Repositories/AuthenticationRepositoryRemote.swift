@@ -102,8 +102,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             })
             .catchError({ _ -> Observable<Int> in
                 Observable.error(AuthenticationRepositoryError.fail)
-            })
-            .sweetDebug("lastTry")
+            })            
     }
 
     private func inputPasscode(database: DatabaseReference, passcode: String, nTry: Int) -> Observable<DatabaseReference> {
