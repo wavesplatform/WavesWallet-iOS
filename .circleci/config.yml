@@ -15,12 +15,7 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run:
-          name: Bundle install
-          command: bundle install
-      - run:
-          name: Fastlane certificates
-          command: bundle exec fastlane certificates
+      - run: bundle install
       - run:
           name: Fastlane
           command: bundle exec fastlane $FASTLANE_LANE
