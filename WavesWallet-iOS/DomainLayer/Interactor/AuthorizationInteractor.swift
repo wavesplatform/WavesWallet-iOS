@@ -270,22 +270,23 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
 
                 guard let owner = self else { return Observable.never() }
-                let wallet = data.wallet
+                let newWallet = data.wallet
 
                 return owner
                     .remoteAuthenticationRepository
-                    .registration(with: wallet.id,
+                    .registration(with: newWallet.id,
                                   keyForPassword: data.keyForPassword,
                                   passcode: passcode)
-                    .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
+                    .map { _ in newWallet }
+            })
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
 
-                        guard let owner = self else { return Observable.never() }
-                        return owner.localWalletRepository.saveWallet(wallet)
-                    })
-                    .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                        guard let owner = self else { return Observable.never() }
-                        return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)
-                    })
+                guard let owner = self else { return Observable.never() }
+                return owner.localWalletRepository.saveWallet(wallet)
+            })
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let owner = self else { return Observable.never() }
+                return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)
             })
             .catchError({ [weak self] error -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
@@ -311,18 +312,24 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             })            
             .flatMap { [weak self] seed, data -> Observable<ChangePasswordData> in
                 guard let owner = self else { return Observable.never() }
-                let saveSeed = owner.localWalletSeedRepository.saveSeed(for: seed, seedId: data.wallet.seedId, password: data.password)
-                let saveWallet = owner.localWalletRepository.saveWallet(data.wallet)
-
-                return Observable.zip(saveSeed, saveWallet)
-                    .flatMap({ [weak self] seed, wallet -> Observable<ChangePasswordData> in
-                        guard let owner = self else { return Observable.never() }
-                        return owner
-                            .localWalletSeedRepository
-                            .deleteSeed(for: wallet.address, seedId: oldSeedId)
-                            .map { _ in data }
-                    })
+                return owner.localWalletSeedRepository
+                    .saveSeed(for: seed, seedId: data.wallet.seedId, password: data.password)
+                    .map { _ in data }
             }
+            .flatMap({ [weak self] data -> Observable<ChangePasswordData> in
+                guard let owner = self else { return Observable.never() }
+                return owner.localWalletRepository.saveWallet(data.wallet)
+                    .map { ChangePasswordData(wallet: $0,
+                                              keyForPassword: data.keyForPassword,
+                                              password: data.password) }
+            })
+            .flatMap({ [weak self] data -> Observable<ChangePasswordData> in
+                guard let owner = self else { return Observable.never() }
+                return owner
+                    .localWalletSeedRepository
+                    .deleteSeed(for: data.wallet.address, seedId: oldSeedId)
+                    .map { _ in data }
+            })
             .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.never() }
                 return owner
@@ -332,9 +339,9 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                                   passcode: passcode)
                     .map { _ in data.wallet }
             })
-            .flatMap({ [weak self] data -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
                 guard let owner = self else { return Observable.never() }
-                return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)                    
+                return owner.reRegisterBiometric(wallet: wallet, passcode: passcode)
             })
     }
 }
@@ -606,7 +613,7 @@ private extension AuthorizationInteractor {
 
                 try keychain
                     .authenticationPrompt("Authenticate to store encrypted wallet private key")
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                     .set(passcode, key: wallet.publicKey)
 
                 observer.onNext(true)
