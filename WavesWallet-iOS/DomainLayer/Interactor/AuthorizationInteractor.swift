@@ -504,7 +504,11 @@ extension AuthorizationInteractor {
 
     func unregisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus> {
 
-        let auth = verifyAccessWalletUsingPassword(passcode, wallet: wallet)
+        let auth = getPasswordByPasscode(passcode, wallet: wallet)
+            .flatMap { [weak self] password -> Observable<DomainLayer.DTO.SignedWallet> in 
+                guard let owner = self else { return Observable.never() }
+                return owner.verifyAccessWalletUsingPassword(password, wallet: wallet)
+            }
             .flatMap({ [weak self] signedWallet -> Observable<AuthorizationAuthStatus> in
                 guard let owner = self else { return Observable.never() }
                 return owner
@@ -638,7 +642,7 @@ private extension AuthorizationInteractor {
             }
 
             return Disposables.create()
-        }
+        }.sweetDebug("Keychain Bio ")
     }
 }
 

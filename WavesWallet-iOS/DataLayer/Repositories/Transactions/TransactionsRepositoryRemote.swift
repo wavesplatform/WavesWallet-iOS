@@ -39,8 +39,8 @@ extension TransactionSenderSpecifications {
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
-    private let transactions: MoyaProvider<Node.Service.Transaction> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let transactions: MoyaProvider<Node.Service.Transaction> = .nodeMoyaProvider()
+    private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 

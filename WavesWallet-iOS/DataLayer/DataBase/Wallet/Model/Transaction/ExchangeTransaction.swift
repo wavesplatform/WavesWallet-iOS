@@ -7,10 +7,7 @@
 //
 
 import Foundation
-import Gloss
 import RealmSwift
-import Realm
-import RxDataSources
 
 final class ExchangeTransaction: Transaction {
 
