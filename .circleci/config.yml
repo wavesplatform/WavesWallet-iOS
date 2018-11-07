@@ -21,7 +21,7 @@ jobs:
           name: Fastlane certificates
           command: bundle exec fastlane certificates
       - run:
-          name: Fastlane
+          name: Fastlane build
           command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: ~/Waves/iOS/Output
