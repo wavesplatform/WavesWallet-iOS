@@ -14,7 +14,7 @@ jobs:
       FASTLANE_LANE: waves_test
     shell: /bin/bash --login -o pipefail
     steps:
-      - checkout
+      - checkout: {}
       - run: bundle install
       - run:
           name: Fastlane
