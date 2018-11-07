@@ -2,6 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
 #
+---
 version: 2
 
 jobs:
@@ -32,7 +33,7 @@ workflows:
   version: 2
   build-waves:
     jobs:
-        - build:
-            filters:
-                branches:
-                    only: develop
+      - build:
+          filters:
+          branches:
+            only: develop
