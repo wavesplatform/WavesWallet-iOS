@@ -17,10 +17,29 @@ protocol Coordinator: AnyObject {
      */
     var parent: Coordinator? { get set }
 
+    //    var finished: (() -> Void) { get }
+
     func start()
+
+//    func dismiss()
+}
+
+protocol PresentationCoordinator: Coordinator {
+    associatedtype Display
+
+    func showDisplay(_ display: Display)
 }
 
 extension Coordinator {
+
+    func removeCoordinators() {
+        childCoordinators = []
+    }
+
+    func addChildCoordinatorAndStart(childCoordinator: Coordinator) {
+        addChildCoordinator(childCoordinator: childCoordinator)
+        childCoordinator.start()
+    }
 
     func addChildCoordinator(childCoordinator: Coordinator) {
         self.childCoordinators.append(childCoordinator)
