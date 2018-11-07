@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run: bundle install
-        - run:
+      - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates
       - run:
