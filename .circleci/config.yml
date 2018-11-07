@@ -19,7 +19,7 @@ jobs:
       - run: bundle install
       - run:
           command: bundle exec fastlane certificates
-      - run: 
+      - run:
           command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: ~/Waves/iOS/Output
@@ -33,5 +33,5 @@ workflows:
     jobs:
       - build:
           filters:
-          branches:
-            only: develop
+            branches:
+              only: develop
