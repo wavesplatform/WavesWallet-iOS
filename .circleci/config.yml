@@ -7,11 +7,11 @@ version: 2
 jobs:
   build:
     macos:
-      xcode: "10.1"
+      xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
       FL_OUTPUT_DIR: ~/Waves/iOS/Output
-      FASTLANE_LANE: waves
+      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
