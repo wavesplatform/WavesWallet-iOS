@@ -20,13 +20,7 @@ protocol DexCreateOrderInputViewDelegate: AnyObject {
 
 final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
-    struct Input {
-        let text: String
-        let value: Money
-    }
-    
     private var isShowInputScrollView = false
-    private var input: [Input] = []
     private var isHiddenErrorLabel = true
     
     @IBOutlet private weak var labelTitle: UILabel!
@@ -36,7 +30,8 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
-    
+    var input:(() -> [Money])?
+
     var maximumFractionDigits: Int = 0 {
         didSet {
             textField.setDecimals(maximumFractionDigits, forceUpdateMoney: false)
@@ -98,12 +93,10 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
 extension DexCreateOrderInputView: ViewConfiguration {
 
-    func update(with input: [Input]) {
-        
-        self.input = input
+    func update(with input: [String]) {
         
         isShowInputScrollView = input.count > 0
-        inputScrollView.update(with: input.map({$0.text}))
+        inputScrollView.update(with: input)
         updateViewHeight(inputValue: textField.value, animation: false)
     }
 }
@@ -122,9 +115,11 @@ extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     func inputScrollButtonsViewDidTapAt(index: Int) {
         hideInputScrollView(animation: true)
         
-        let value = input[index].value
-        textField.setValue(value: value)
-        textFieldDidChangeNewValue()
+        if let values = input {
+            let value = values()[index]
+            textField.setValue(value: value)
+            textFieldDidChangeNewValue()
+        }
     }
 }
 

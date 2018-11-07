@@ -125,19 +125,19 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func loadInfo () {
         
         isLoading = true
-        NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
-            self.isLoading = false
-            self.activityIndicatorView.stopAnimating()
-            if items != nil {
-                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as NSArray
-                self.tableView.reloadData()
-            } else if let msg = erorMessage {
-                self.presentBasicAlertWithTitle(title: msg)
-            }
-            
-            self.refreshControl.endRefreshing()
-            SVProgressHUD.dismiss()
-        }
+//        NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
+//            self.isLoading = false
+//            self.activityIndicatorView.stopAnimating()
+//            if items != nil {
+//                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as NSArray
+//                self.tableView.reloadData()
+//            } else if let msg = erorMessage {
+//                self.presentBasicAlertWithTitle(title: msg)
+//            }
+//            
+//            self.refreshControl.endRefreshing()
+//            SVProgressHUD.dismiss()
+//        }
     }
     
     func controllerWillAppear() {

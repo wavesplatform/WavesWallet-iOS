@@ -14,11 +14,11 @@ import SwiftyJSON
 
 fileprivate extension DexMyOrders.DTO.Order {
     
-    init(_ json: JSON, priceDecimals: Int, amountDecimals: Int) {
+    init(_ json: JSON, priceAsset: Dex.DTO.Asset, amountAsset: Dex.DTO.Asset) {
         
         id = json["id"].stringValue
-        price = Money(json["price"].int64Value, priceDecimals)
-        amount = Money(json["amount"].int64Value, amountDecimals)
+        price = Money(json["price"].int64Value, priceAsset.decimals)
+        amount = Money(json["amount"].int64Value, amountAsset.decimals)
         time = Date(milliseconds: json["timestamp"].int64Value)
         
         if json["status"].stringValue == "Accepted" {
@@ -34,13 +34,16 @@ fileprivate extension DexMyOrders.DTO.Order {
             status = DexMyOrders.DTO.Status.cancelled
         }
         
-        filled = Money(json["filled"].int64Value, amountDecimals)
+        filled = Money(json["filled"].int64Value, amountAsset.decimals)
         if json["type"].stringValue == "sell" {
             type = Dex.DTO.OrderType.sell
         }
         else {
             type = Dex.DTO.OrderType.buy
         }
+        
+        self.amountAsset = amountAsset
+        self.priceAsset = priceAsset
     }
 }
 
@@ -51,6 +54,8 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair!
     
+    private let sendSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
+
     func myOrders() -> Observable<([DexMyOrders.DTO.Order])> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<([DexMyOrders.DTO.Order])> in
@@ -74,8 +79,8 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
                         
                         for item in info.arrayValue {
                             orders.append(DexMyOrders.DTO.Order(item,
-                                                                priceDecimals: owner.pair.priceAsset.decimals,
-                                                                amountDecimals: owner.pair.amountAsset.decimals))
+                                                                priceAsset: owner.pair.priceAsset,
+                                                                amountAsset: owner.pair.amountAsset))
                         }
                     }
                     
@@ -87,7 +92,28 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     }
     
  
-    func deleteOrder(order: DexMyOrders.DTO.Order) {
+    func cancelOrder(order: DexMyOrders.DTO.Order) -> Observable<ResponseType<Bool>> {
         
+        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<ResponseType<Bool>> in
+            
+            return Observable.create({ (subscribe) -> Disposable in
+                
+                let url = GlobalConstants.Matcher.cancelOrder(order.amountAsset.id, order.priceAsset.id)
+                
+                let cancelRequest = DexMyOrders.DTO.CancelRequest(senderPublicKey: wallet.publicKey, senderPrivateKey: wallet.privateKey, orderId: order.id)
+                
+                NetworkManager.postRequestWithUrl(url, parameters: cancelRequest.params, complete: { (info, error) in
+                    if info != nil {
+                        subscribe.onNext(ResponseType(output: true, error: nil))
+                    }
+                    else {
+                        subscribe.onNext(ResponseType(output: nil, error: error))
+                    }
+                    subscribe.onCompleted()
+                })
+                
+                return Disposables.create()
+            })
+        })
     }
 }

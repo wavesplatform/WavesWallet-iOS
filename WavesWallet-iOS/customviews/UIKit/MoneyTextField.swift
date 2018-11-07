@@ -271,6 +271,10 @@ private extension MoneyTextField {
                 return false
             }
             else if textString.last == "0" && input != "." && input != "," && textString.count == 1 {
+                
+                if inputRange.location == 0 && (input as NSString).integerValue > 0 {
+                    return true
+                }
                 shakeTextFieldIfNeed()
                 return false
             }

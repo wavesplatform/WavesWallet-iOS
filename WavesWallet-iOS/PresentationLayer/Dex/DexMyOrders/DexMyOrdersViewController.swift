@@ -86,12 +86,12 @@ fileprivate extension DexMyOrdersViewController {
                 switch state.action {
                 case .update:
                     strongSelf.tableView.reloadData()
-                    strongSelf.setupDefaultState(animation: false)
+                    strongSelf.setupDefaultState()
 
-                case .deleteRow(let indexPath):
-                    strongSelf.deleteAt(indexPath: indexPath)
-                    strongSelf.setupDefaultState(animation: true)
-
+                case .orderDidFailCancel(let error):
+                    //TODO: need to show error
+                    strongSelf.tableView.reloadData()
+                    
                 default:
                     break
                 }
@@ -118,8 +118,6 @@ private extension DexMyOrdersViewController {
 
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
-    
-
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.section.items.count
@@ -135,7 +133,7 @@ extension DexMyOrdersViewController: UITableViewDataSource {
             cell.update(with: myOrder)
             
             cell.buttonDeleteDidTap = { [weak self] in
-                self?.sendEvent.accept(.didRemoveOrder(indexPath))
+                self?.sendEvent.accept(.cancelOrder(indexPath))
             }
             return cell
         }
@@ -148,22 +146,13 @@ private extension DexMyOrdersViewController {
     
     func setupLoadingState() {
         viewEmptyData.isHidden = true
-        headerView.alpha = 0
+        headerView.isHidden = true
     }
     
-    func setupDefaultState(animation: Bool) {
+    func setupDefaultState() {
         viewLoadingInfo.isHidden = true
         viewEmptyData.isHidden = section.items.count > 0
-        
-        let headerAlpha: CGFloat = section.items.count > 0 ? 1 : 0
-        if animation {
-            UIView.animate(withDuration: Constants.animationDuration) {
-                self.headerView.alpha = headerAlpha
-            }
-        }
-        else {
-            headerView.alpha = headerAlpha
-        }
+        headerView.isHidden = section.items.count == 0
     }
     
     func setupLocalization() {

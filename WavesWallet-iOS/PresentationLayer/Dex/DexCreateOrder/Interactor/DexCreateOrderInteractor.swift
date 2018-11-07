@@ -47,14 +47,16 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                         
                     NetworkManager.postRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: params, complete: { (info, error) in
                         
-                        print(info, error)
-                        
-//                        let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: order.timestamp),
-//                                                               orderType: order.type,
-//                                                               price: order.price,
-//                                                               amount: order.amount)
-//                        subscribe.onNext(ResponseType<DexCreateOrder.DTO.Output>(output: output, error: nil))
-
+                        if info != nil {
+                            let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: newOrder.timestamp),
+                                                                   orderType: newOrder.type,
+                                                                   price: newOrder.price,
+                                                                   amount: newOrder.amount)
+                            subscribe.onNext(ResponseType(output: output, error: nil))
+                        }
+                        else {
+                            subscribe.onNext(ResponseType(output: nil, error: error))
+                        }
                     })
                     
                     return Disposables.create()

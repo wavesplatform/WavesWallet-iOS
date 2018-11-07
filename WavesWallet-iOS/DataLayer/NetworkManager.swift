@@ -63,11 +63,7 @@ class NetworkManager: NSObject
         return responseObject;
     }
 
-    private static var serverURL: String {
-        //TODO: incorrect environment
-        return Environments.current.servers.nodeUrl.relativeString.appending("/")
-    }
-    
+
     private static var matcherURL: String {
         //TODO: incorrect environment
         
@@ -143,47 +139,6 @@ class NetworkManager: NSObject
         getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil) { (info, error) in
             complete(info as? NSDictionary, error?.message)
         }        
-    }
-    
-    class func getMatcherPublicKey(complete: @escaping (_ key: String?, _ errorMessage: String?) -> Void) {
-        
-        getRequestWithUrl(matcherURL + "matcher", parameters: nil) { (info, error) in
-            complete(info as? String, error?.message)
-        }
-    }
-    
-    class func buySellOrder(order: Order, complete: @escaping (_ errorMessage: String?) -> Void) {
-        postRequestWithUrl(matcherURL + "matcher/orderbook", parameters: order.toJSON()) { (info, error) in
-            
-            complete (error?.message)
-        }
-    }
-    
-    class func getMyOrders(amountAsset: String, priceAsset: String, complete: @escaping (_ items: NSArray?, _ errorMessage: String?) -> Void) {
-        
-        WalletManager.getPrivateKey(complete: { (privateKey) in
-      
-            let req = MyOrdersRequest(senderPrivateKey: privateKey)
-
-            let headers : HTTPHeaders = ["timestamp" : "\(req.toJSON()!["timestamp"]!)",
-                "signature" : req.toJSON()!["signature"] as! String]
-            
-            let path = "matcher/orderbook/\(amountAsset)/\(priceAsset)/publicKey/\(WalletManager.currentWallet!.publicKeyStr)"
-            
-            getRequestWithUrl(matcherURL + path, parameters: nil, headers: headers) { (info, error) in
-                complete (info as? NSArray, error?.message)
-            }
-            
-        }) { (errorMessage) in
-            complete(nil, errorMessage)
-        }
-    }
-    
-    class func cancelOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
-    
-        postRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/cancel", parameters: request.toJSON()) { (info, error) in
-            complete(error?.message)
-        }
     }
 
     class func deleteOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
