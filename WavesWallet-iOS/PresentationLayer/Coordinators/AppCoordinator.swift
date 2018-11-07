@@ -181,6 +181,8 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .passcode(let wallet):
 
+            guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
+
             let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
                                                           kind: .logIn(wallet))
             passcodeCoordinator.animated = false
@@ -191,9 +193,7 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
 
-            guard childCoordinators.first(where: { (coordinator) -> Bool in
-                return coordinator is SlideCoordinator
-            }) == nil else { return }
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)

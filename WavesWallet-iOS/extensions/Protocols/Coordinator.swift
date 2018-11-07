@@ -35,7 +35,7 @@ extension Coordinator {
     func isHasCoordinator<C: Coordinator>(type: C.Type) -> Bool {
         return childCoordinators.first(where: { (coordinator) -> Bool in
             return coordinator is C
-        }) == nil
+        }) != nil
 
     }
 
