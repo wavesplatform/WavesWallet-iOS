@@ -663,17 +663,19 @@ private extension AuthorizationInteractor {
             let keychain = Keychain(service: Constants.service)
                 .accessibility(.whenUnlocked)
 
-            do {
+            DispatchQueue.main.async(execute: {
+                do {
 
-                try keychain
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
-                    .remove(wallet.publicKey)
+                    try keychain
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .remove(wallet.publicKey)
 
-                observer.onNext(true)
-                observer.onCompleted()
-            } catch _ {
-                observer.onError(AuthorizationInteractorError.biometricDisable)
-            }
+                    observer.onNext(true)
+                    observer.onCompleted()
+                } catch _ {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                }
+            })
 
             return Disposables.create()
         }
@@ -682,23 +684,30 @@ private extension AuthorizationInteractor {
     private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
-            let keychain = Keychain(service: Constants.service)
-                .label("Waves wallet seeds")
-                .accessibility(.whenUnlocked)
+            DispatchQueue.main.async(execute: {
 
-            do {
+                let keychain = Keychain(service: Constants.service)
+                    .label("Waves wallet seeds")
+                    .accessibility(.whenUnlocked)
 
-                try keychain
-                    .authenticationPrompt("Authenticate to store encrypted wallet private key")
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
-                    .set(passcode, key: wallet.publicKey)
+                do {
 
-                observer.onNext(true)
-                observer.onCompleted()
-            } catch let errorValue {
-                error(errorValue)
-                observer.onError(AuthorizationInteractorError.biometricDisable)
-            }
+                    try keychain
+                        .authenticationPrompt("Authenticate to store encrypted wallet private key")
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+                        .set(passcode, key: wallet.publicKey)
+
+                    observer.onNext(true)
+                    observer.onCompleted()
+                } catch let error {
+
+                    if error is AuthorizationInteractorError {
+                        observer.onError(error)
+                    } else {
+                        observer.onError(AuthorizationInteractorError.biometricDisable)
+                    }
+                }
+            })
 
             return Disposables.create()
         }
@@ -708,27 +717,37 @@ private extension AuthorizationInteractor {
 
         return Observable<String>.create { observer -> Disposable in
 
+            let context = LAContext()
+            context.localizedFallbackTitle = "Ввод"
+
             let keychain = Keychain(service: Constants.service)
+                .authenticationContext(context)
 
-            do {
+            DispatchQueue.main.async(execute: {
 
-                guard let passcode = try keychain
-                    .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
-                    .get(wallet.publicKey) else
-                {
-                    observer.onError(AuthorizationInteractorError.biometricDisable)
-                    return Disposables.create()
+                do {
+
+                    guard let passcode = try keychain
+                        .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .get(wallet.publicKey) else
+                    {
+                        throw AuthorizationInteractorError.biometricDisable
+                    }
+
+                    observer.onNext(passcode)
+                    observer.onCompleted()
+                } catch let error {
+                    if error is AuthorizationInteractorError {
+                        observer.onError(error)
+                    } else {
+                        observer.onError(AuthorizationInteractorError.permissionDenied)
+                    }
                 }
-
-                observer.onNext(passcode)
-                observer.onCompleted()
-            } catch _ {
-                observer.onError(AuthorizationInteractorError.permissionDenied)
-            }
+            })
 
             return Disposables.create()
-        }
+        }.sweetDebug("GEEETT key")
     }
 }
 
