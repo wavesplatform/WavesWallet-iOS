@@ -40,7 +40,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                         })
                     }
                     else {
-                        subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty, bids: [],
+                        subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty(decimals: owner.pair.priceAsset.decimals), bids: [],
                                                                       header: header,
                                                                       availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
                                                                       availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals)))
@@ -105,7 +105,7 @@ private extension DexOrderBookInteractor {
         }
         
         
-        var lastPrice = DexOrderBook.DTO.LastPrice.empty
+        var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
 
         if let priceInfo = lastPriceInfo {
             var percent: Float = 0

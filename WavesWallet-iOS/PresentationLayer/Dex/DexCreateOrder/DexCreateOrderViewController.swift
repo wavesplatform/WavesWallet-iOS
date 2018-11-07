@@ -309,83 +309,136 @@ private extension DexCreateOrderViewController {
     
     func setupInputAmountData() {
         
-        var inputAmountValues: [DexCreateOrderInputView.Input] = []
+        var fields: [String] = []
         
         if order.type == .sell {
             
             guard !input.availableAmountAssetBalance.isZero else { return }
             
-            let valuePercent50 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent50) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent10 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent10) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent5 = Money(value: input.availableAmountAssetBalance.decimalValue * Decimal(Constants.percent5) / 100,
-                                      input.availableAmountAssetBalance.decimals)
-            
-            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: input.availableAmountAssetBalance))
-            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
-            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
-            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
+            fields.append(String(Constants.percent50) + "%")
+            fields.append(String(Constants.percent10) + "%")
+            fields.append(String(Constants.percent5) + "%")
         }
         else {
             
-            var totalAmount: Decimal = 0
-            
             if order.price.isZero {
                 guard !input.availableAmountAssetBalance.isZero else { return }
-                totalAmount = input.availableAmountAssetBalance.decimalValue
             }
             else {
                 guard !input.availablePriceAssetBalance.isZero else { return }
-                totalAmount = input.availablePriceAssetBalance.decimalValue / order.price.decimalValue
             }
-            
-            let totalAmountMoney = Money(value: totalAmount, input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent50 = Money(value: totalAmount * Decimal(Constants.percent50) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent10 = Money(value: totalAmount * Decimal(Constants.percent10) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent5 = Money(value: totalAmount * Decimal(Constants.percent5) / 100,
-                                      input.availableAmountAssetBalance.decimals)
-            
-            inputAmountValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.useTotalBalanace, value: totalAmountMoney))
-            inputAmountValues.append(.init(text: String(Constants.percent50) + "%", value: valuePercent50))
-            inputAmountValues.append(.init(text: String(Constants.percent10) + "%", value: valuePercent10))
-            inputAmountValues.append(.init(text: String(Constants.percent5) + "%", value: valuePercent5))
+
+            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
+            fields.append(String(Constants.percent50) + "%")
+            fields.append(String(Constants.percent10) + "%")
+            fields.append(String(Constants.percent5) + "%")
         }
         
-        inputAmount.update(with: inputAmountValues)
+        inputAmount.update(with: fields)
     }
     
     func setupData() {
         
         setupInputAmountData()
 
-        var inputPriceValues: [DexCreateOrderInputView.Input] = []
-
-        if let bid = input.bid {
-            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.bid, value: bid))
-        }
-
-        if let ask = input.ask {
-            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.ask, value: ask))
-        }
-
-        if let last = input.last {
-            inputPriceValues.append(.init(text: Localizable.Waves.Dexcreateorder.Button.last, value: last))
+        inputAmount.input = { [weak self] in
+            return self?.amountValues ?? []
         }
         
-        inputPrice.update(with: inputPriceValues)
+        inputPrice.input = { [weak self] in
+            self?.priceValues ?? []
+        }
+        
+        var fields: [String] = []
+        if input.bid != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
+        }
+        if input.ask != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.ask)
+        }
+        if input.last != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.last)
+        }
+        inputPrice.update(with: fields)
 
         if let price = input.price {
             order.price = price
             inputPrice.setupValue(price)
         }
+    }
+    
+    var amountValues: [Money] {
+        var values: [Money] = []
+        
+        if order.type == .sell {
+            
+            guard !input.availableAmountAssetBalance.isZero else { return values }
+            
+            let valuePercent50 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent50) / 100,
+                                       input.availableAmountAssetBalance.decimals)
+            
+            let valuePercent10 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent10) / 100,
+                                       input.availableAmountAssetBalance.decimals)
+            
+            let valuePercent5 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent5) / 100,
+                                      input.availableAmountAssetBalance.decimals)
+            
+            values.append(input.availableAmountAssetBalance)
+            values.append(valuePercent50)
+            values.append(valuePercent10)
+            values.append(valuePercent5)
+        }
+        else {
+            
+            var totalAmount: Int64 = 0
+            
+            if order.price.isZero {
+                guard !input.availableAmountAssetBalance.isZero else { return values }
+                totalAmount = input.availableAmountAssetBalance.amount
+            }
+            else {
+                guard !input.availablePriceAssetBalance.isZero else { return values }
+                totalAmount = (input.availablePriceAssetBalance.decimalValue / order.price.decimalValue * pow(10, order.price.decimals)).int64Value
+            }
+            
+            let totalAmountMoney = Money(totalAmount, input.availableAmountAssetBalance.decimals)
+            
+            let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100,
+                                       input.availableAmountAssetBalance.decimals)
+            
+            let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100,
+                                       input.availableAmountAssetBalance.decimals)
+            
+            let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100,
+                                      input.availableAmountAssetBalance.decimals)
+            
+            values.append(totalAmountMoney)
+            values.append(valuePercent50)
+            values.append(valuePercent10)
+            values.append(valuePercent5)
+        }
+        
+        return values
+    }
+    
+    var priceValues: [Money] {
+        
+        var values: [Money] = []
+        
+        if let bid = input.bid {
+            values.append(bid)
+        }
+        
+        if let ask = input.ask {
+            values.append(ask)
+        }
+        
+        if let last = input.last {
+            values.append(last)
+        }
+
+        return values
     }
     
     func setupViews() {

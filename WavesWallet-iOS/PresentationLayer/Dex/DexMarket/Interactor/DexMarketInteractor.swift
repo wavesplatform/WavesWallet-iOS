@@ -84,7 +84,8 @@ private extension DexMarketInteractor {
             
             let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
             
-            return isValidSearchAsset(name: amountName, shortName: amountShortName, searchWords: searchWords)
+            return isValidSearchAsset(name: amountName, shortName: amountShortName, searchWords: searchWords) ||
+                isValidSearchAsset(name: priceName, shortName: priceShortName, searchWords: searchWords)
         }
         else if searchCompoments.count >= 2 {
             

@@ -118,8 +118,8 @@ extension DexOrderBook.ViewModel.Row {
 
 //MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
-    static var empty: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: nil)
+    static func empty(decimals: Int) -> DexOrderBook.DTO.LastPrice {
+        return DexOrderBook.DTO.LastPrice(price: Money(0, decimals), percent: 0, orderType: nil)
     }
 }
 

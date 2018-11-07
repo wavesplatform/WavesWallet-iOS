@@ -49,6 +49,10 @@ extension GlobalConstants.Matcher {
     static func myOrderBook(_ amountAsset: String, _ priceAsset: String, publicKey: PublicKeyAccount) -> String {
         return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "publicKey" + "/" + publicKey.getPublicKeyStr()
     }
+    
+    static func cancelOrder(_ amountAsset: String, _ priceAsset: String) -> String {
+        return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "cancel"
+    }
 }
 
 extension GlobalConstants.Market {
