@@ -139,6 +139,11 @@ final class MigrationInteractor {
                     .deletingLastPathComponent()
                     .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
+                let oldFileExistsSeed = FileManager.default.fileExists(atPath: oldUrl.absoluteString)
+                let newFileExistsSeed = FileManager.default.fileExists(atPath: newUrl.absoluteString)
+
+                  debug("exist file old \(oldFileExistsSeed) - new \(newFileExistsSeed)")
+
                 do {
                     if FileManager.default.fileExists(atPath: oldUrl.absoluteString) == true
                         && FileManager.default.fileExists(atPath: newUrl.absoluteString) == false {
