@@ -65,7 +65,8 @@ platform :ios do
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "appstore",        
+          type: "appstore",
+          wait_for_uploaded_build: "false",
           readonly: true)
   end
 
