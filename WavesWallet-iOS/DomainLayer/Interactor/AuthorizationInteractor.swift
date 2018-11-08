@@ -39,7 +39,7 @@ private extension AuthorizationInteractor {
             let id = UUID().uuidString
             let seedId = UUID().uuidString
             let keyForPassword = UUID().uuidString.sha512()
-            let password = wallet.password.sha512()
+            let password = wallet.password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -60,7 +60,7 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let keyForPassword = UUID().uuidString.sha512()
-            let password = password.sha512()
+//            let password = password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -82,7 +82,7 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let keyForPassword = UUID().uuidString.sha512()
-            let password = password.sha512()
+            let password = password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -319,7 +319,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 let currentSeed = owner.localWalletSeedRepository.seed(for: wallet.address,
                                                                        publicKey: wallet.publicKey,
                                                                        seedId: walletEncryption.seedId,
-                                                                       password: oldPassword.sha512())
+                                                                       password: oldPassword)
 
                 let changeData = owner.changePasswordData(wallet, password: newPassword, walletEncryption: walletEncryption)
 
