@@ -31,3 +31,6 @@ workflows:
   build-waves:
     jobs:
       - build:
+          filters:
+            branches:
+              only: develop
