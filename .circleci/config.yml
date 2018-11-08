@@ -9,7 +9,7 @@ jobs:
     macos:
         xcode: "10.0.0"
     docker:
-      - image: circleci/ruby:2.5.1
+      - image: circleci/ruby
     working_directory: ~/Waves/iOS
     environment:
       FL_OUTPUT_DIR: ~/Waves/iOS/Output
