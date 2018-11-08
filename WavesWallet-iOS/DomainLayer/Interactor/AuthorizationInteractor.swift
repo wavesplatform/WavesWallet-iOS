@@ -940,7 +940,7 @@ fileprivate extension AuthorizationInteractor {
             case .permissionDenied:
                 return  AuthorizationInteractorError.passwordIncorrect
 
-            case .fail:
+            default:
                 return AuthorizationInteractorError.fail
             }
 
