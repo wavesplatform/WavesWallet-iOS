@@ -17,7 +17,7 @@ enum DexMyOrders {
         case setOrders([DexMyOrders.DTO.Order])
         case cancelOrder(IndexPath)
         case orderDidFinishCancel(ResponseType<Bool>)
-        case updateData
+        case refresh
     }
     
     struct State: Mutating {

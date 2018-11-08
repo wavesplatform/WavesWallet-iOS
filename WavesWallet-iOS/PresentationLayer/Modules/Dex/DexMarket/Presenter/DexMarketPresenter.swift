@@ -59,6 +59,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
         switch event {
         case .readyView:
             return state.changeAction(.none)
+            
         case .setPairs(let pairs):
             
             return state.mutate { state in

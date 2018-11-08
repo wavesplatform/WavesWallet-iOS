@@ -30,6 +30,8 @@ final class DexMyOrdersViewController: UIViewController {
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var labelEmptyData: UILabel!
     
+    private var refreshControl: UIRefreshControl!
+    
     private var section = DexMyOrders.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
     
@@ -43,6 +45,7 @@ final class DexMyOrdersViewController: UIViewController {
         setupFeedBack()
         setupLocalization()
         setupLoadingState()
+        setupRefreshControl()
     }
     
     override func viewWillLayoutSubviews() {
@@ -55,7 +58,7 @@ final class DexMyOrdersViewController: UIViewController {
 extension DexMyOrdersViewController: DexCreateOrderProtocol {
     
     func updateCreatedOrders() {
-        sendEvent.accept(.updateData)
+        sendEvent.accept(.refresh)
     }
 }
 
@@ -77,7 +80,9 @@ fileprivate extension DexMyOrdersViewController {
     }
     
     func events() -> [Signal<DexMyOrders.Event>] {
-        return [sendEvent.asSignal()]
+        
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexMyOrders.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+        return [sendEvent.asSignal(), refresh]
     }
     
     func subscriptions(state: Driver<DexMyOrders.State>) -> [Disposable] {
@@ -98,7 +103,8 @@ fileprivate extension DexMyOrdersViewController {
                 case .update:
                     strongSelf.tableView.reloadData()
                     strongSelf.setupDefaultState()
-
+                    strongSelf.refreshControl.endRefreshing()
+                    
                 case .orderDidFailCancel(let error):
                     //TODO: need to show error
                     print(error)
@@ -158,6 +164,15 @@ extension DexMyOrdersViewController: UITableViewDataSource {
 //MARK: - SetupUI
 
 private extension DexMyOrdersViewController {
+    
+    func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+    }
     
     func setupLoadingState() {
         viewEmptyData.isHidden = true

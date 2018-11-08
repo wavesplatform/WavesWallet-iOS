@@ -56,7 +56,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
             
-        case .updateData:
+        case .refresh:
             return state.mutate {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
