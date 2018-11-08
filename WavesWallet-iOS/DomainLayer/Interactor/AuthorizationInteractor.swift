@@ -305,9 +305,6 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                         oldPassword: String,
                         newPassword: String) -> Observable<DomainLayer.DTO.Wallet> {
 
-        let oldSeedId = ""
-//        wallet.seedId
-
         return self.verifyAccessWalletUsingPasscode(passcode, wallet: wallet)
             .sweetDebug("Verify acccess")
 
@@ -418,7 +415,6 @@ extension AuthorizationInteractor {
                                                    query: registration)
 
                 let seedId = registerData.seedId
-                let secret = registerData.secret
 
                 let saveSeed = owner
                     .localWalletSeedRepository
@@ -718,7 +714,6 @@ private extension AuthorizationInteractor {
         return Observable<String>.create { observer -> Disposable in
 
             let context = LAContext()
-            context.localizedFallbackTitle = "Ввод"
 
             let keychain = Keychain(service: Constants.service)
                 .authenticationContext(context)

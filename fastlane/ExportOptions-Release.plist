@@ -9,7 +9,7 @@
         <key>provisioningProfiles</key>
         <dict>
                 <key>com.wavesplatform.WavesWallet</key>
-                <string>Waves Wallet</string>
+                <string>match AppStore com.wavesplatform.waveswallet</string>
         </dict>
         <key>uploadSymbols</key>
         <true/>
