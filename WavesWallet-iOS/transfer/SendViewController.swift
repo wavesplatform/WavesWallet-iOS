@@ -125,7 +125,7 @@ class SendViewController: UITableViewController, UITextFieldDelegate, UITextView
     func setupAttachementField() {
         attachmentField.textColor = AppColors.darkGreyText
         attachmentField.delegate = self
-        attachmentField.placeholderText = "Enter attachment here..."
+//        attachmentField.placeholderText = "Enter attachment here..."
     }
     
     lazy var totalMinusFeeDriver: Driver<Money> = {

@@ -13,6 +13,7 @@ import RealmSwift
 import RxGesture
 import QRCodeReader
 import AVFoundation
+import UITextView_Placeholder
 
 class CreateNewWalletViewController: UIViewController {
 
@@ -42,7 +43,7 @@ class CreateNewWalletViewController: UIViewController {
         } else {
             self.title = "Import Wallet"
             //seedTextView.text = "trial appear battle what fiber hello weasel grunt spare heavy produce beach one friend sad"
-            seedTextView.placeholderText = "Enter wallet seed here..."
+//            seedTextView.placeholderText = "Enter wallet seed here..."
             qrCodeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "qrcode"), style: .plain, target: self, action: #selector(onScanQrCode(_:)))
             qrCodeButton.tintColor = AppColors.activeColor
             self.navigationItem.rightBarButtonItem = qrCodeButton

@@ -15,7 +15,7 @@ target 'WavesWallet-iOS' do
   pod 'RealmSwift', '~> 2.10.0'
   pod 'RxRealm', '~> 0.6'
   pod 'MGSwipeTableCell'
-  pod '25519', '~> 2.0.2'
+  pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
   pod 'KeychainAccess'
   pod 'MBProgressHUD', '~> 1.0.0'
   pod 'IQKeyboardManagerSwift'
@@ -34,8 +34,8 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         if target.name == 'Charts'
             target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '4.1'
+                config.build_settings['SWIFT_VERSION'] = '4.2'
             end
         end
     end
-    end
+end
