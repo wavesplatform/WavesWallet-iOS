@@ -19,6 +19,7 @@ enum DexOrderBook {
         case didTapEmptyBid
         case didTapAsk(DTO.BidAsk)
         case didTamEmptyAsk
+        case updateData
     }
     
     struct State: Mutating {

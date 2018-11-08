@@ -14,6 +14,7 @@ import RxFeedback
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
+    static let updateTime: RxTimeInterval = 20
 }
 
 final class DexOrderBookViewController: UIViewController {
@@ -31,6 +32,7 @@ final class DexOrderBookViewController: UIViewController {
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
     private var state: DexOrderBook.State = DexOrderBook.State.initialState
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,25 @@ final class DexOrderBookViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
+        
+        //TODO: - need subscribe only when isActive orderbook screen
+        Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+            self?.sendEvent.accept(.updateData)
+        }).disposed(by: disposeBag)
+    }
+    
+}
+
+//MARK: - DexCreateOrderProtocol, DexCancelOrderProtocol
+
+extension DexOrderBookViewController: DexCreateOrderProtocol, DexCancelOrderProtocol {
+    
+    func updateCanceledOrders() {
+        sendEvent.accept(.updateData)
+    }
+    
+    func updateCreatedOrders() {
+        sendEvent.accept(.updateData)
     }
 }
 

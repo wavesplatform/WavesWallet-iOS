@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct DexMyOrdersModuleBuilder: ModuleBuilder {
+struct DexMyOrdersModuleBuilder: ModuleBuilderOutput {
+    
+    weak var output: DexMyOrdersModuleOutput?
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
 
@@ -20,6 +22,8 @@ struct DexMyOrdersModuleBuilder: ModuleBuilder {
         
         let vc = StoryboardScene.Dex.dexMyOrdersViewController.instantiate()
         vc.presenter = presenter
+        vc.output = output
+        
         return vc
     }
 }

@@ -27,12 +27,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                 
                 return Observable.create({ (subscribe) -> Disposable in
                     
-                    
-//                    let url = GlobalConstants.Matcher.orderBook + "/\(newOrder.amountAsset.id)/\(newOrder.priceAsset.id)/tradableBalance/\(wallet.wallet.address)"
-//
-//                    getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil) { (info, error) in
-
-                        
                     let params = ["id" : Base58.encode(newOrder.id),
                                   "senderPublicKey" :  Base58.encode(newOrder.senderPublicKey.publicKey),
                                   "matcherPublicKey" : Base58.encode(newOrder.matcherPublicKey.publicKey),
