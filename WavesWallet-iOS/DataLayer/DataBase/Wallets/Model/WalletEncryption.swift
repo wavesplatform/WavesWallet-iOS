@@ -13,7 +13,7 @@ class WalletEncryption: Object {
 
     @objc dynamic var publicKey: String = ""    
     @objc dynamic var seedId: String = ""
-    @objc dynamic var secret: String = ""
+    @objc dynamic var secret: String? = ""
 
     override static func primaryKey() -> String? {
         return "publicKey"

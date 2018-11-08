@@ -234,6 +234,21 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             })
     }
 
+    func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        self.localWalletRepository.walletEncryption(by: wallet.publicKey)
+            .flatMap { walletEncrypted -> Observable<Bool> in
+                if walletEncrypted.kind.secret == nil {
+                    return Observable.error(AuthorizationInteractorError.passcodeIncorrect)
+                }
+
+                return Observable.just(true)
+            }
+            .catchError({ [weak self] error -> Observable<[DomainLayer.DTO.Wallet]> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable.just(seedRepositoryMemory.hasSeed(wallet.publicKey))
     }
@@ -275,7 +290,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
                 guard let owner = self else { return Observable.never() }
                 return owner.localWalletRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey,
-                                                                              secret: data.secret,
+                                                                              kind: .passcode(secret: data.secret),
                                                                               seedId: data.seedId))
                     .map { _ in data }
             })
@@ -343,7 +358,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 return owner
                     .localWalletRepository
                     .saveWalletEncryption(DomainLayer.DTO.WalletEncryption(publicKey: passwordData.wallet.publicKey,
-                                                                           secret: passwordData.secret,
+                                                                           kind: .passcode(secret: passwordData.secret),
                                                                            seedId: passwordData.seedId))
                     .map { _ in passwordData }
             }
@@ -437,7 +452,7 @@ extension AuthorizationInteractor {
                 let saveSeed = owner
                     .localWalletRepository
                     .saveWalletEncryption(DomainLayer.DTO.WalletEncryption(publicKey: publicKey,
-                                                                           secret: secret,
+                                                                           kind: .passcode(secret: secret),
                                                                            seedId: seedId))
                 return saveSeed.map { _ in data }
             })
@@ -860,7 +875,9 @@ fileprivate extension AuthorizationInteractor {
                 let keyForPassword = data.0
                 let walletEncryption = data.1
 
-                guard let password: String = walletEncryption.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.error(AuthorizationInteractorError.fail) }
+                guard let secret = walletEncryption.kind.secret else { return Observable.error(AuthorizationInteractorError.passcodeNotCreated)}
+
+                guard let password: String = secret.aesDecrypt(withKey: keyForPassword) else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.just(password)
             }
             .catchError({ [weak self] error -> Observable<String> in
