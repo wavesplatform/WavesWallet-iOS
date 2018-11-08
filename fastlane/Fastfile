@@ -2,8 +2,6 @@ require 'open-uri'
 
 default_platform(:ios)
 
-fastlane_require 'open-uri'
-
 platform :ios do
 
   lane :waves_test do
