@@ -22,10 +22,19 @@ protocol WalletsRepositoryProtocol {
 
     func wallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
-    func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
-    func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]>
-    func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
     func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[DomainLayer.DTO.Wallet]>
 
+    func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
+    func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]>
+
+    func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+
     func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
+
+
+    func walletEncryption(by publicKey: String) -> Observable<DomainLayer.DTO.WalletEncryption>
+
+    func saveWalletEncryption(_ walletEncryption: DomainLayer.DTO.WalletEncryption) -> Observable<DomainLayer.DTO.WalletEncryption>
+
+    func removeWalletEncryption(by publicKey: String) -> Observable<Bool>;
 }
