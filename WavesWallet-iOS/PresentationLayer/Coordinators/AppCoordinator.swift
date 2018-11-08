@@ -45,8 +45,6 @@ final class AppCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
 
-    private var lastDisplay: Display?
-
     init(_ window: UIWindow) {
         self.window = window
         let vc = UINavigationController()
@@ -174,10 +172,6 @@ extension AppCoordinator: PresentationCoordinator {
 
     func showDisplay(_ display: AppCoordinator.Display) {
 
-        if lastDisplay == display {
-            return 
-        }
-
         switch display {
         case .hello:
 
@@ -186,6 +180,8 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
         case .passcode(let wallet):
+
+            guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
 
             let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
                                                           kind: .logIn(wallet))
@@ -197,6 +193,8 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
 
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+
             let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
 
@@ -204,8 +202,6 @@ extension AppCoordinator: PresentationCoordinator {
             let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
-
-        lastDisplay = display
     }
 }
 

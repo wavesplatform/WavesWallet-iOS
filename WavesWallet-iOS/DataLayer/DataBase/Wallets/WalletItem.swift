@@ -15,27 +15,10 @@ class WalletItem: Object {
     @objc dynamic var isLoggedIn: Bool = false
     @objc dynamic var isBackedUp: Bool = false
     @objc dynamic var address: String = ""
-    @objc dynamic var secret: String = ""
     @objc dynamic var hasBiometricEntrance: Bool = false
     @objc dynamic var id: String = ""
-    @objc dynamic var seedId: String = ""
 
-    public var identity: String {
-        return "\(publicKey)"
-    }
     override static func primaryKey() -> String? {
         return "publicKey"
     }
-
-    var publicKeyAccount: PublicKeyAccount {
-        return PublicKeyAccount(publicKey: Base58.decode(publicKey))
-    }
-
-    var toWallet: Wallet {
-        return Wallet(name: name, publicKeyAccount: publicKeyAccount, isBackedUp: isBackedUp)
-    }
-}
-
-func == (lhs: WalletItem, rhs: WalletItem) -> Bool {
-    return lhs.publicKey == rhs.publicKey
 }
