@@ -35,7 +35,6 @@ final class ImportAccountPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Waves.Import.Welcome.Navigation.title
         labelAddress.text = address
 
         createBackButton()
@@ -61,7 +60,7 @@ final class ImportAccountPasswordViewController: UIViewController {
     }
 
     private func setupButtonContinue() {
-        buttonContinue.setTitle(Localizable.Waves.Import.Welcome.Button.continue, for: .normal)
+        buttonContinue.setTitle(Localizable.Waves.Import.Password.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }

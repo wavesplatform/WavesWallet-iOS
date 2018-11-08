@@ -978,68 +978,75 @@ internal enum Localizable {
 
     internal enum Import {
 
-      internal enum Account {
-
-        internal enum Button {
-
-          internal enum Enter {
-            /// Enter seed manually
-            internal static var title: String { return Localizable.tr("Waves", "import.account.button.enter.title") }
-          }
-
-          internal enum Scan {
-            /// Scan pairing code
-            internal static var title: String { return Localizable.tr("Waves", "import.account.button.scan.title") }
-          }
-        }
-
-        internal enum Label {
-
-          internal enum Info {
-
-            internal enum Step {
-
-              internal enum One {
-                /// Settings > Security > Pairing code
-                internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
-                /// Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com
-                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
-              }
-
-              internal enum Two {
-                /// Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.
-                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.two.title") }
-              }
-            }
-          }
-        }
+      internal enum General {
 
         internal enum Navigation {
           /// Import account
-          internal static var title: String { return Localizable.tr("Waves", "import.account.navigation.title") }
+          internal static var title: String { return Localizable.tr("Waves", "import.general.navigation.title") }
+        }
+
+        internal enum Segmentedcontrol {
+          /// Manually
+          internal static var manually: String { return Localizable.tr("Waves", "import.general.segmentedControl.manually") }
+          /// Scan
+          internal static var scan: String { return Localizable.tr("Waves", "import.general.segmentedControl.scan") }
         }
       }
 
-      internal enum Welcome {
+      internal enum Manually {
 
         internal enum Button {
           /// Continue
-          internal static var `continue`: String { return Localizable.tr("Waves", "import.welcome.button.continue") }
+          internal static var `continue`: String { return Localizable.tr("Waves", "import.manually.button.continue") }
         }
 
         internal enum Label {
 
           internal enum Address {
             /// Your seed is the 15 words you saved when creating your account
-            internal static var placeholder: String { return Localizable.tr("Waves", "import.welcome.label.address.placeholder") }
+            internal static var placeholder: String { return Localizable.tr("Waves", "import.manually.label.address.placeholder") }
             /// Your account seed
-            internal static var title: String { return Localizable.tr("Waves", "import.welcome.label.address.title") }
+            internal static var title: String { return Localizable.tr("Waves", "import.manually.label.address.title") }
           }
         }
+      }
 
-        internal enum Navigation {
-          /// Welcome back
-          internal static var title: String { return Localizable.tr("Waves", "import.welcome.navigation.title") }
+      internal enum Password {
+
+        internal enum Button {
+          /// Continue
+          internal static var `continue`: String { return Localizable.tr("Waves", "import.password.button.continue") }
+        }
+      }
+
+      internal enum Scan {
+
+        internal enum Button {
+          /// Scan pairing code
+          internal static var title: String { return Localizable.tr("Waves", "import.scan.button.title") }
+        }
+
+        internal enum Label {
+
+          internal enum Step {
+
+            internal enum One {
+              /// Log in to your Waves Client via web or Mac/PC
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.one.title") }
+            }
+
+            internal enum Three {
+              /// Scan the code with your camera
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.three.title") }
+            }
+
+            internal enum Two {
+              /// (Settings > Security > Pairing code)
+              internal static var detail: String { return Localizable.tr("Waves", "import.scan.label.step.two.detail") }
+              /// Click «Show Pairing Code» to reveal a QR Code
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.two.title") }
+            }
+          }
         }
       }
     }
