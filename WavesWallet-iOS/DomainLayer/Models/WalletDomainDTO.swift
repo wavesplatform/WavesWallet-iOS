@@ -13,11 +13,15 @@ extension DomainLayer.DTO {
         let name: String
         let address: String
         let publicKey: String
-        var secret: String
         var isLoggedIn: Bool
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool
         let id: String
+    }
+
+    struct WalletEncryption: Mutating, Hashable {
+        let publicKey: String
+        var secret: String
         var seedId: String
     }
 
