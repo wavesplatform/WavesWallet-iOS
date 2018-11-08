@@ -32,7 +32,7 @@ final class DexOrderBookViewController: UIViewController {
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
     private var state: DexOrderBook.State = DexOrderBook.State.initialState
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +41,21 @@ final class DexOrderBookViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
-        
-        //TODO: - need subscribe only when isActive orderbook screen
+    }
+}
+
+//MARK: - DexTraderContainerProcotol
+extension DexOrderBookViewController: DexTraderContainerProcotol {
+    
+    func controllerWillAppear() {
         Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
             self?.sendEvent.accept(.updateData)
         }).disposed(by: disposeBag)
     }
     
+    func controllerWillDissapear() {
+        disposeBag = DisposeBag()
+    }
 }
 
 //MARK: - DexCreateOrderProtocol, DexCancelOrderProtocol
