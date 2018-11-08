@@ -60,7 +60,6 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let keyForPassword = UUID().uuidString.sha512()
-//            let password = password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -763,13 +762,7 @@ private extension AuthorizationInteractor {
 
         case .password(let password):
 
-            let remote = Crypto
-                .rx
-                .sha512(password)
-                .flatMap { [weak self] password -> Observable<DomainLayer.DTO.SignedWallet> in
-                    guard let owner = self else { return Observable.empty() }
-                    return owner.verifyAccessWalletUsingPassword(password, wallet: wallet)
-                }
+            let remote = verifyAccessWalletUsingPassword(password, wallet: wallet)
                 .map { AuthorizationVerifyAccessStatus.completed($0) }
 
             return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.waiting), remote)
