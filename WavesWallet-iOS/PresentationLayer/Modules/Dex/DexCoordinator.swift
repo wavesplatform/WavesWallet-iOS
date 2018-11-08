@@ -20,6 +20,15 @@ final class DexCoordinator {
         self.navigationController = navigationController
         navigationController.pushViewController(dexListViewContoller, animated: false)
     }
+    
+    private var containerControllers: [UIViewController] {
+        for controller in navigationController.viewControllers {
+            if let vc = controller as? DexTraderContainerViewController {
+                return vc.controllers
+            }
+        }
+        return []
+    }
 }
 
 
@@ -38,7 +47,7 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
 
-        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self).build(input: pair)
+        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self).build(input: pair)
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -102,8 +111,13 @@ private extension DexCoordinator {
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money, availablePriceAssetBalance: Money) {
         
+        var lastPrice: Money?
+        if let last = last, last.amount > 0 {
+            lastPrice = last
+        }
+        
         let input = DexCreateOrder.DTO.Input(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                             price: price, ask: ask, bid: bid, last: last,
+                                             price: price, ask: ask, bid: bid, last: lastPrice,
                                              availableAmountAssetBalance: availableAmountAssetBalance,
                                              availablePriceAssetBalance: availablePriceAssetBalance)
        
@@ -118,5 +132,21 @@ extension DexCoordinator: DexCreateOrderModuleOutput {
 
         let controller = DexCompleteOrderModuleBuilder().build(input: output)
         navigationController.pushViewController(controller, animated: true)
+   
+        for controller in containerControllers {
+            if let vc = controller as? DexCreateOrderProtocol {
+                vc.updateCreatedOrders()
+            }
+        }
+    }
+}
+
+extension DexCoordinator: DexMyOrdersModuleOutput {
+    func myOrderDidCancel() {
+        for controller in containerControllers {
+            if let vc = controller as? DexCancelOrderProtocol {
+                vc.updateCanceledOrders()
+            }
+        }
     }
 }

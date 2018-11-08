@@ -19,6 +19,7 @@ enum DexLastTrades {
         case didTapEmptySell
         case didTapBuy(DTO.SellBuyTrade)
         case didTapEmptyBuy
+        case updateData
     }
     
     struct State: Mutating {

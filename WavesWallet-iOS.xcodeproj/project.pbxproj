@@ -582,6 +582,7 @@
 		E965703F219360770052F0FC /* WalletSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657032219360770052F0FC /* WalletSortViewController.swift */; };
 		E9657040219360770052F0FC /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657034219360770052F0FC /* WalletSortInteractor.swift */; };
 		E9657041219360770052F0FC /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */; };
+		E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
 		E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */; };
@@ -1390,6 +1391,7 @@
 		E9657032219360770052F0FC /* WalletSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortViewController.swift; sourceTree = "<group>"; };
 		E9657034219360770052F0FC /* WalletSortInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortInteractorProtocol.swift; sourceTree = "<group>"; };
+		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewController.swift; sourceTree = "<group>"; };
@@ -3739,6 +3741,7 @@
 				E9B087522163886800937644 /* DexMyOrdersViewController.swift */,
 				E9B087552163886800937644 /* Presenter */,
 				E9B087582163886800937644 /* DexMyOrdersModuleBuilder.swift */,
+				E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */,
 				E9B0875B2163886800937644 /* Views */,
 				E9B0875F2163886800937644 /* Interactor */,
 				E9B087632163886800937644 /* DexMyOrdersTypes.swift */,
@@ -4625,6 +4628,7 @@
 				0A2B7D30216036480098438D /* Observable+Types.swift in Sources */,
 				04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */,
 				04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */,
+				E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */,
 				04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */,
 				0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */,
 				04831F712169161C006D1ED6 /* Assert+Message.swift in Sources */,

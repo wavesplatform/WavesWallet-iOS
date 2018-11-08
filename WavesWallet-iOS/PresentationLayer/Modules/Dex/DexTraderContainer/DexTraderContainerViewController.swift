@@ -50,6 +50,10 @@ final class DexTraderContainerViewController: UIViewController {
             setupViewControllerSize(view: view)
         }
     }
+    
+    var controllers: [UIViewController] {
+        return viewControllers
+    }
 }
 
 extension DexTraderContainerViewController: DexTraderContainerInputProtocol {

@@ -56,6 +56,11 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 $0.isNeedLoadOrders = true
             }.changeAction(.none)
         
+        case .updateData:
+            return state.mutate {
+                $0.isNeedLoadOrders = true
+            }.changeAction(.none)
+            
         case .setOrders(let orders):
           
             return state.mutate {
@@ -77,7 +82,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 switch response.result {
                 
                 case .success:
-                    $0.action = .none
+                    $0.action = .orderDidFinishCancel
                     
                 case .error(let error):
                     if let order = state.canceledOrder, let index = $0.section.items.index(where: {$0.order?.id == order.id}) {

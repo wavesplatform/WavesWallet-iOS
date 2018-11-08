@@ -31,9 +31,12 @@ final class DexMyOrdersViewController: UIViewController {
     @IBOutlet private weak var labelEmptyData: UILabel!
     
     private var section = DexMyOrders.ViewModel.Section(items: [])
-    var presenter: DexMyOrdersPresenterProtocol!
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
+    
+    var presenter: DexMyOrdersPresenterProtocol!
+    weak var output: DexMyOrdersModuleOutput?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +48,14 @@ final class DexMyOrdersViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
+    }
+}
+
+//MARK: - DexCreateOrderProtocol
+extension DexMyOrdersViewController: DexCreateOrderProtocol {
+    
+    func updateCreatedOrders() {
+        sendEvent.accept(.updateData)
     }
 }
 
@@ -92,6 +103,9 @@ fileprivate extension DexMyOrdersViewController {
                     //TODO: need to show error
                     print(error)
                     strongSelf.tableView.reloadData()
+                
+                case .orderDidFinishCancel:
+                    strongSelf.output?.myOrderDidCancel()
                     
                 default:
                     break
