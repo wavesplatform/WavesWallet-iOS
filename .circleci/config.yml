@@ -7,7 +7,7 @@ version: 2
 jobs:
   rocketjump:
     macos:
-      xcode: "10.0.0"
+      xcode: "10.0"
     working_directory: ~/Waves/iOS
     environment:
       FL_OUTPUT_DIR: ~/Waves/iOS/Output
