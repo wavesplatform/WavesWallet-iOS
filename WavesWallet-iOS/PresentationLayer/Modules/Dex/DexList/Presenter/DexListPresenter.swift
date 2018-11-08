@@ -56,7 +56,6 @@ final class DexListPresenter: DexListPresenterProtocol {
             
             return state.mutate { state in
                 
-                state.isAppear = false
                 state.isFirstLoadingData = false
                 state.isNeedRefreshing = false
                 
