@@ -6,10 +6,6 @@ fastlane_require 'open-uri'
 
 platform :ios do
 
-  before_all do
-    setup_circle_ci()
-  end
-
   lane :waves_test do
 
     ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.waveswallet.test"
