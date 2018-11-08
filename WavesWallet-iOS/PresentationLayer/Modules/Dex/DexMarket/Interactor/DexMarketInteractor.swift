@@ -106,12 +106,12 @@ private extension DexMarketInteractor {
         
         for word in searchWords {
             let isValid = isValidSearch(inputText: name, searchText: word) ||
-                        isValidSearch(inputText: shortName, searchText: word)
-            if isValid {
-                return true
+                isValidSearch(inputText: shortName, searchText: word)
+            if !isValid {
+                return false
             }
         }
-        return false
+        return true
     }
     
     func isValidSearch(inputText: String, searchText: String) -> Bool {
@@ -124,30 +124,32 @@ private extension DexMarketInteractor {
     
     func allPairs(accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
         
-        if DexMarketInteractor.allPairs.count > 0 {
-            
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
-                DexMarketInteractor.allPairs[index] = pair.mutate {
-                    $0.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
-                }
-            }
-            
-            return Observable.just(DexMarketInteractor.allPairs)
-        }
-        else {
-            return Observable.create({ [weak self] (subscribe) -> Disposable in
+        return Observable.create({ [weak self] (subscribe) -> Disposable in
+
+            if DexMarketInteractor.allPairs.count > 0 {
                 
+                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+                
+                for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
+                    DexMarketInteractor.allPairs[index] = pair.mutate {
+                        $0.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
+                    }
+                }
+                
+                subscribe.onNext(DexMarketInteractor.allPairs)
+                subscribe.onCompleted()
+            }
+            else {
                 guard let owner = self else { return Disposables.create() }
                 owner.getAllPairs(accountAddress: accountAddress, complete: { (pairs) in
                     DexMarketInteractor.allPairs = pairs
                     subscribe.onNext(pairs)
                     subscribe.onCompleted()
                 })
-                return Disposables.create()
-            })
-        }
+            }
+
+            return Disposables.create()
+        })
     }
     
     func getAllPairs(accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {

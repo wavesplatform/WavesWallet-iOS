@@ -154,8 +154,8 @@ extension DexCreateOrder.DTO.Order {
     
     var assetPair: DexCreateOrder.DTO.AssetPair {
         
-        return DexCreateOrder.DTO.AssetPair(amountAssetId: amountAsset.id == "WAVES" ? nil : amountAsset.id,
-                                            priceAssetId: priceAsset.id == "WAVES" ? nil : priceAsset.id)
+        return DexCreateOrder.DTO.AssetPair(amountAssetId: amountAsset.id == GlobalConstants.wavesAssetId ? nil : amountAsset.id,
+                                            priceAssetId: priceAsset.id == GlobalConstants.wavesAssetId ? nil : priceAsset.id)
     }
     
     var id: [UInt8] {

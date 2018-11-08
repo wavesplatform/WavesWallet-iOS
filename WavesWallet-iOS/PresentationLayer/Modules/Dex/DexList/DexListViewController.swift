@@ -61,7 +61,7 @@ final class DexListViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       disposeBag = DisposeBag()
+        disposeBag = DisposeBag()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -56,7 +56,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 $0.isNeedLoadOrders = true
             }.changeAction(.none)
         
-        case .updateData:
+        case .refresh:
             return state.mutate {
                 $0.isNeedLoadOrders = true
             }.changeAction(.none)

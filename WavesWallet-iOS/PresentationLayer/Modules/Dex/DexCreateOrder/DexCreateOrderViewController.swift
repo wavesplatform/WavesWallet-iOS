@@ -268,7 +268,7 @@ private extension DexCreateOrderViewController {
     func setupValidationErrors() {
         if order.type == .sell {
             
-            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.name,
+            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.shortName,
                                          isShow: !isValidAmountAssetBalance)
             
             inputTotal.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.bigValue,
@@ -284,7 +284,7 @@ private extension DexCreateOrderViewController {
                 totalError = Localizable.Waves.Dexcreateorder.Label.bigValue
             }
             else if !isValidPriceAssetBalance {
-                totalError = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.priceAsset.name
+                totalError = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.priceAsset.shortName
             }
             
             inputTotal.showErrorMessage(message: totalError,
@@ -296,12 +296,12 @@ private extension DexCreateOrderViewController {
         buttonSellBuy.isUserInteractionEnabled = isValidOrder
 
         if order.type == .sell {            
-            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.name, for: .normal)
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.shortName, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .error400 : .error100
             buttonSellBuy.highlightedBackground = .error200
         }
         else {
-            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.name, for: .normal)
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.shortName, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .submit400 : .submit200
             buttonSellBuy.highlightedBackground = .submit300
         }
@@ -452,9 +452,9 @@ private extension DexCreateOrderViewController {
         labelFee.text = Localizable.Waves.Dexcreateorder.Label.fee
         labelExpiration.text = Localizable.Waves.Dexcreateorder.Label.expiration
         
-        inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.name)
-        inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.name)
-        inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.name)
+        inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.shortName)
+        inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.shortName)
+        inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.shortName)
     }
 }
 

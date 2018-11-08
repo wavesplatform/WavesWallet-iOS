@@ -14,7 +14,6 @@ import RxFeedback
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
-    static let updateTime: RxTimeInterval = 20
 }
 
 final class DexLastTradesViewController: UIViewController {
@@ -27,7 +26,8 @@ final class DexLastTradesViewController: UIViewController {
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var labelEmptyData: UILabel!
     @IBOutlet private weak var labelLoading: UILabel!
-    
+    private var refreshControl: UIRefreshControl!
+
     var presenter: DexLastTradesPresenterProtocol!
     private let sendEvent: PublishRelay<DexLastTrades.Event> = PublishRelay<DexLastTrades.Event>()
     private var state: DexLastTrades.State = DexLastTrades.State.initialState
@@ -40,11 +40,7 @@ final class DexLastTradesViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
-        
-        //TODO: - need subscribe only when isActive lastTrades screen
-        Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
-            self?.sendEvent.accept(.updateData)
-        }).disposed(by: disposeBag)
+        setupRefreshControl()
     }
 }
 
@@ -66,7 +62,10 @@ fileprivate extension DexLastTradesViewController {
     }
     
     func events() -> [Signal<DexLastTrades.Event>] {
-        return [sendEvent.asSignal()]
+        
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexLastTrades.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+
+        return [sendEvent.asSignal(), refresh]
     }
     
     func subscriptions(state: Driver<DexLastTrades.State>) -> [Disposable] {
@@ -80,6 +79,7 @@ fileprivate extension DexLastTradesViewController {
                 strongSelf.tableView.reloadData()
                 strongSelf.setupSellBuyButtons()
                 strongSelf.setupDefaultState(state: state)
+                strongSelf.refreshControl.endRefreshing()
             })
         
         return [subscriptionSections]
@@ -131,6 +131,15 @@ private extension DexLastTradesViewController {
 //MARK: - SetupUI
 
 private extension DexLastTradesViewController {
+    
+    func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+    }
     
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexlasttrades.Label.emptyData
