@@ -166,7 +166,7 @@ final class MigrationInteractor {
     private func addedWalletEncryption(wallet: DomainLayer.DTO.Wallet, seedId: String) -> Observable<DomainLayer.DTO.WalletEncryption> {
 
         return self.walletsRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey,
-                                                                 secret: "test",
+                                                                 kind: .none,
                                                                  seedId: seedId))
     }
 
