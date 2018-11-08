@@ -15,9 +15,8 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:
-          fingerprints:
+          fingerprints:            
             - "f9:5e:b7:91:7b:1e:83:ea:65:be:f9:dd:93:07:38:d5"
-            - "05:0d:0f:58:8d:fa:2a:26:d6:55:07:bf:c6:b6:c9:59"
       - checkout
       - run:
           name: Bundle
