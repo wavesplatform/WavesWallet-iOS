@@ -9,7 +9,7 @@ jobs:
     macos:
         xcode: "10.0.0"
     docker:
-      - image: circleci/ruby:2.3
+      - image: circleci/ruby:2.5.1
     working_directory: ~/Waves/iOS
     environment:
       FL_OUTPUT_DIR: ~/Waves/iOS/Output
@@ -20,6 +20,9 @@ jobs:
           fingerprints:
             - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
+      - run:
+          name: Set Ruby Version
+          command:  echo "ruby-2.3" > ~/.ruby-version
       - run:
           name: SSH
           command: ls -la ~/.ssh/
