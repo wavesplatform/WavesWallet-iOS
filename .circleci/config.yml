@@ -22,6 +22,15 @@ jobs:
           name: SSH
           command: ls -la ~/.ssh/
       - run:
+          name: SSH Cat id_rsa_f95eb7917b1e83ea65bef9dd930738d5
+          command: cat ~/.ssh/id_rsa_f95eb7917b1e83ea65bef9dd930738d5
+      - run:
+          name: SSH Cat authorized_keys
+          command: cat ~/.ssh/authorized_keys
+      - run:
+          name: SSH Cat config
+          command: cat ~/.ssh/config
+      - run:
           name: Bundle
           command: bundle install
       - run:
