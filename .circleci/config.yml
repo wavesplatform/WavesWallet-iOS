@@ -19,6 +19,9 @@ jobs:
             - "f9:5e:b7:91:7b:1e:83:ea:65:be:f9:dd:93:07:38:d5"
       - checkout
       - run:
+          name: SSH
+          command: ls -la ~/.ssh/
+      - run:
           name: Bundle
           command: bundle install
       - run:
