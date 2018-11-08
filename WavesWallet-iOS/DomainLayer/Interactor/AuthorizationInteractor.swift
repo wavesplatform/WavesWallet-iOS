@@ -211,8 +211,9 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                     case .completed(let signedWallet):
                         return AuthorizationAuthStatus.completed(signedWallet.wallet)
                     }
-            })
+            }).sweetDebug("auth")
     }
+
 
     func verifyAccess(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationVerifyAccessStatus> {
         return verifyAccessWallet(type: type, wallet: wallet)

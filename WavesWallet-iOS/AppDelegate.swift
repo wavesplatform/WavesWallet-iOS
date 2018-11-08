@@ -19,9 +19,12 @@ import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
+    var migrationInteractor: MigrationInteractor = MigrationInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -32,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }
+
+
 
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
@@ -47,8 +52,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .basic50
         
         appCoordinator = AppCoordinator(window!)
-        appCoordinator.start()
-                
+
+
+        migrationInteractor
+            .migration()
+            .subscribe(onNext: { (_) in
+
+            }, onError: { (_) in
+
+            }, onCompleted: {
+                self.appCoordinator.start()
+            })
+            .disposed(by: disposeBag)
+
         return true
     }
 
