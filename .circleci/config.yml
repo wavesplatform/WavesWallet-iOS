@@ -30,14 +30,8 @@ jobs:
           name: Bundle
           command: bundle install
       - run:
-          name: Security find-identity begin
-          command: security find-identity -v -p codesigning
-      - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates --verbose
-      - run:
-          name: Security find-identity begin
-          command: security find-identity -v -p codesigning
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
