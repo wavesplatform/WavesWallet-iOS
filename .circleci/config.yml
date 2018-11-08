@@ -33,6 +33,9 @@ jobs:
           name: Bundle
           command: bundle install
       - run:
+          name: Fastlane action setup_circle_ci
+          command: bundle exec fastlane action setup_circle_ci --verbose
+      - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates --verbose
       - run:
