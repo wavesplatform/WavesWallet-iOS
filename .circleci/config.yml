@@ -25,12 +25,3 @@ jobs:
       - store_test_results:
           path: ~/Waves/iOS/Output/Results
 
----
-workflows:
-  version: 2
-  build-waves:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: develop
