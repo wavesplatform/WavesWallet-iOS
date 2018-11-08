@@ -8,6 +8,8 @@ jobs:
   rocketjump:
     macos:
         xcode: "10.0.0"
+    docker:
+      - image: circleci/ruby:2.3
     working_directory: ~/Waves/iOS
     environment:
       FL_OUTPUT_DIR: ~/Waves/iOS/Output
@@ -44,7 +46,7 @@ jobs:
           command: security find-identity -v -p codesigning
       - run:
           name: Fastlane Build
-          command: bundle exec fastlane $FASTLANE_LANE
+          command: bundle exec fastlane $FASTLANE_LANE --verbose
       - store_artifacts:
           path: ~/Waves/iOS/Output
       - store_test_results:
