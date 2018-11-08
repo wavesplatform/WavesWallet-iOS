@@ -24,47 +24,67 @@ final class ImportCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = StoryboardScene.Import.importAccountViewController.instantiate()
+        let vc = StoryboardScene.Import.importAccountManuallyViewController.instantiate()
         vc.delegate = self
         self.navigationController.pushViewController(vc, animated: true)
     }
-}
-
-// MARK: ImportAccountViewControllerDelegate
-extension ImportCoordinator: ImportAccountViewControllerDelegate {
-
-    func enterManuallyTapped() {
-        let vc = StoryboardScene.Import.importWelcomeBackViewController.instantiate()
-        vc.delegate = self
-        navigationController.pushViewController(vc, animated: true)
-    }
-
-    func scanedSeed(_ seed: String) {
+    
+    // MARK: - Child Controllers
+    
+    func scannedSeed(_ seed: String) {
         currentPrivateKeyAccount = PrivateKeyAccount(seedStr: seed)
         showAccountPassword(currentPrivateKeyAccount!)
     }
-}
-
-// MARK: ImportWelcomeBackViewControllerDelegate
-extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
-    func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount) {
-        currentPrivateKeyAccount = keyAccount
-        showAccountPassword(keyAccount)
+    
+    func showQRCodeReader() {
+        
+        QRCodeReaderControllerCoordinator(rootViewController: navigationController).start { [weak self] (result) in
+            if let seed = result?.value {
+                self?.scannedSeed(seed)
+            }
+            
+            self?.navigationController.dismiss(animated: true)
+        }
+        
     }
-}
-
-private extension ImportCoordinator {
-
+    
     func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
         let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
         vc.delegate = self
         vc.address = keyAccount.address
         navigationController.pushViewController(vc, animated: true)
     }
+    
 }
+
+// MARK: ImportAccountViewControllerDelegate
+extension ImportCoordinator: ImportAccountViewControllerDelegate {
+
+    func scanTapped() {
+//        let vc = StoryboardScene.Import.importWelcomeBackViewController.instantiate()
+//        vc.delegate = self
+//        navigationController.pushViewController(vc, animated: true)
+        
+        showQRCodeReader()
+    }
+
+    
+}
+
+// MARK: ImportWelcomeBackViewControllerDelegate
+extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
+    
+    func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount) {
+        currentPrivateKeyAccount = keyAccount
+        showAccountPassword(keyAccount)
+    }
+    
+}
+
 
 // MARK: ImportAccountPasswordViewControllerDelegate
 extension ImportCoordinator: ImportAccountPasswordViewControllerDelegate {
+    
     func userCompletedInputAccountData(password: String, name: String) {
 
         guard let privateKeyAccount = currentPrivateKeyAccount else { return }
@@ -72,5 +92,7 @@ extension ImportCoordinator: ImportAccountPasswordViewControllerDelegate {
         completed(.init(privateKey: privateKeyAccount,
                         password: password,
                         name: name))
+        
     }
+    
 }

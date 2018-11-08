@@ -1,0 +1,105 @@
+//
+//  ImportWelcomeBackViewController.swift
+//  WavesWallet-iOS
+//
+//  Created by Pavel Gubin on 6/29/18.
+//  Copyright © 2018 Waves Platform. All rights reserved.
+//
+
+import UIKit
+import IdentityImg
+import IQKeyboardManagerSwift
+
+protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
+    func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
+}
+
+final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
+
+    @IBOutlet private weak var textField: MultyTextField!
+    @IBOutlet private weak var buttonContinue: UIButton!
+    
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet private weak var addressBar: UIView!
+    @IBOutlet private weak var labelAddress: UILabel!
+    @IBOutlet private weak var iconImages: UIImageView!
+    @IBOutlet private weak var skeletonView: SkeletonView!
+
+    private let identity: Identity = Identity(options: Identity.defaultOptions)
+    private var currentKeyAccount: PrivateKeyAccount?
+
+    weak var delegate: ImportWelcomeBackViewControllerDelegate?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+       view.backgroundColor = .basic50
+        containerView.addTableCellShadowStyle()
+        
+        addressBar.isHidden = true
+        createBackButton()
+        setupBigNavigationBar()
+
+        buttonContinue.setTitle(Localizable.Waves.Import.Manually.Button.continue, for: .normal)
+        buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
+        buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
+        buttonContinue.isEnabled = false
+        
+        textField.returnKey = .done
+        textField.update(with: MultyTextField.Model(title: Localizable.Waves.Import.Manually.Label.Address.title,
+                                                    placeholder: Localizable.Waves.Import.Manually.Label.Address.placeholder))
+
+        
+        textField.valueValidator = { value in
+            return value?.count == 0 ? "" : nil
+        }
+
+        let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
+            self?.buttonContinue.isEnabled = isValidValue
+            if let value = value, isValidValue {
+                self?.addressBar.isHidden = false
+                self?.skeletonView.isHidden = true
+                self?.skeletonView.stopAnimation()
+                self?.createAccount(seed: value)
+
+            } else {
+                self?.skeletonView.isHidden = false
+                self?.skeletonView.startAnimation()
+                self?.addressBar.isHidden = true
+            }
+        }
+        textField.changedValue = changedValue
+
+        textField.textFieldShouldReturn = { [weak self] _ in
+            self?.completedInput()
+        }
+    }
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        skeletonView.startAnimation()        
+        textField.becomeFirstResponder()
+    }
+
+    private func createAccount(seed: String) {
+        
+        let privateKey = PrivateKeyAccount(seedStr: seed)
+        currentKeyAccount = privateKey
+        iconImages.image = identity.createImage(by: privateKey.address, size: iconImages.frame.size)
+        labelAddress.text = privateKey.address
+    }
+
+    private func completedInput() {
+        view.endEditing(true)
+        if let privateKey = currentKeyAccount {
+            delegate?.userCompletedInputSeed(privateKey)
+        }
+    }
+
+    @IBAction func continueTapped(_ sender: Any) {
+        completedInput()
+    }
+    
+}
