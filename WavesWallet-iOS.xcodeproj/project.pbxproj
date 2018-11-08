@@ -108,6 +108,7 @@
 		0A2B7D39216038A80098438D /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D38216038A80098438D /* SpamService.swift */; };
 		0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D3A216038F70098438D /* AssetsSpamService.swift */; };
 		0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */; };
+		0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A344E2E2194747E007809B1 /* MigrationInteractor.swift */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
 		0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */; };
 		0A3AD40621492E5D00F8A929 /* WalletSortSeparatorFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491E321078CB9009223DB /* WalletSortSeparatorFooter.swift */; };
@@ -926,6 +927,7 @@
 		0A2B7D38216038A80098438D /* SpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpamService.swift; sourceTree = "<group>"; };
 		0A2B7D3A216038F70098438D /* AssetsSpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
 		0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
+		0A344E2E2194747E007809B1 /* MigrationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationInteractor.swift; sourceTree = "<group>"; };
 		0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedBackupViewController.swift; sourceTree = "<group>"; };
 		0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupInfoViewController.swift; sourceTree = "<group>"; };
 		0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetTransactionsCell.swift; sourceTree = "<group>"; };
@@ -1882,6 +1884,7 @@
 				0ABD1BE521469CE70027A7A2 /* AccountsInteractor.swift */,
 				0A5D3301215842860009CDF3 /* AuthorizationInteractor.swift */,
 				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
+				0A344E2E2194747E007809B1 /* MigrationInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4914,6 +4917,7 @@
 				0AF922EE212E1234003BA067 /* AssetsSegmentedCell.swift in Sources */,
 				0AF922F8212E1234003BA067 /* LastTraderHeaderView.swift in Sources */,
 				E9B087E92163886800937644 /* DexCreateOrderInteractorMock.swift in Sources */,
+				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,

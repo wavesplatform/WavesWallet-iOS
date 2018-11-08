@@ -14,6 +14,7 @@ typealias StringSHA512 = String
 enum WalletSeedRepositoryError: Error {
     case fail
     case permissionDenied
+    case notFound
 }
 
 struct WalletSeedRepositoryChangePasswordQuery {
