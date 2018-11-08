@@ -23,6 +23,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
             
             guard let owner = self else { return Disposables.create() }
             
+            //TODO: need change api to get only balances by ids
             owner.account.balances(isNeedUpdate: false).subscribe(onNext: { [weak self] (balances) in
                 
                 guard let owner = self else { return }

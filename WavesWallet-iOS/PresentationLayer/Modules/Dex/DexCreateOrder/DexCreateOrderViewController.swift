@@ -371,53 +371,44 @@ private extension DexCreateOrderViewController {
     var amountValues: [Money] {
         var values: [Money] = []
         
+        var totalAmount: Int64 = 0
+        var decimals: Int = 0
+
         if order.type == .sell {
             
             guard !input.availableAmountAssetBalance.isZero else { return values }
             
-            let valuePercent50 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent50) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent10 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent10) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent5 = Money(input.availableAmountAssetBalance.amount * Int64(Constants.percent5) / 100,
-                                      input.availableAmountAssetBalance.decimals)
-            
-            values.append(input.availableAmountAssetBalance)
-            values.append(valuePercent50)
-            values.append(valuePercent10)
-            values.append(valuePercent5)
+            totalAmount = input.availableAmountAssetBalance.amount
+            decimals = input.availableAmountAssetBalance.decimals
         }
         else {
             
-            var totalAmount: Int64 = 0
             
             if order.price.isZero {
                 guard !input.availableAmountAssetBalance.isZero else { return values }
                 totalAmount = input.availableAmountAssetBalance.amount
+                decimals = input.availableAmountAssetBalance.decimals
             }
             else {
                 guard !input.availablePriceAssetBalance.isZero else { return values }
-                totalAmount = (input.availablePriceAssetBalance.decimalValue / order.price.decimalValue * pow(10, order.price.decimals)).int64Value
+                
+                totalAmount = (input.availablePriceAssetBalance.decimalValue / order.price.decimalValue * pow(10, order.price.decimals)).rounded().int64Value
+                decimals = input.availablePriceAssetBalance.decimals
             }
-            
-            let totalAmountMoney = Money(totalAmount, input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100,
-                                       input.availableAmountAssetBalance.decimals)
-            
-            let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100,
-                                      input.availableAmountAssetBalance.decimals)
-            
-            values.append(totalAmountMoney)
-            values.append(valuePercent50)
-            values.append(valuePercent10)
-            values.append(valuePercent5)
         }
+        
+        let totalAmountMoney = Money(totalAmount, decimals)
+        
+        let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100, decimals)
+        
+        let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100, decimals)
+        
+        let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100, decimals)
+        
+        values.append(totalAmountMoney)
+        values.append(valuePercent50)
+        values.append(valuePercent10)
+        values.append(valuePercent5)
         
         return values
     }
