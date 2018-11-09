@@ -313,7 +313,10 @@ private extension DexCreateOrderViewController {
         
         if order.type == .sell {
             
-            guard !input.availableAmountAssetBalance.isZero else { return }
+            guard !input.availableAmountAssetBalance.isZero else {
+                inputAmount.update(with: [])
+                return
+            }
             
             fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
             fields.append(String(Constants.percent50) + "%")
@@ -323,10 +326,16 @@ private extension DexCreateOrderViewController {
         else {
             
             if order.price.isZero {
-                guard !input.availableAmountAssetBalance.isZero else { return }
+                guard !input.availableAmountAssetBalance.isZero else {
+                    inputAmount.update(with: [])
+                    return
+                }
             }
             else {
-                guard !input.availablePriceAssetBalance.isZero else { return }
+                guard !input.availablePriceAssetBalance.isZero else {
+                    inputAmount.update(with: [])
+                    return
+                }
             }
 
             fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
@@ -361,7 +370,8 @@ private extension DexCreateOrderViewController {
             fields.append(Localizable.Waves.Dexcreateorder.Button.last)
         }
         inputPrice.update(with: fields)
-
+        inputPrice.isShowInputWhenFilled = true
+        
         if let price = input.price {
             order.price = price
             inputPrice.setupValue(price)

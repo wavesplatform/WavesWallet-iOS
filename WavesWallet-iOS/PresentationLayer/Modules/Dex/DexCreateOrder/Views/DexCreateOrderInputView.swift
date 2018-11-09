@@ -31,7 +31,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     weak var delegate: DexCreateOrderInputViewDelegate?
     var input:(() -> [Money])?
-
+    var isShowInputWhenFilled = false
     var maximumFractionDigits: Int = 0 {
         didSet {
             textField.setDecimals(maximumFractionDigits, forceUpdateMoney: false)
@@ -62,7 +62,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     
     func setupValue(_ value: Money) {
         textField.setValue(value: value)
-        hideInputScrollView(animation: false)
+        updateViewHeight(inputValue: value, animation: false)
     }
     
     func showErrorMessage(message: String, isShow: Bool) {
@@ -97,7 +97,7 @@ extension DexCreateOrderInputView: ViewConfiguration {
         
         isShowInputScrollView = input.count > 0
         inputScrollView.update(with: input)
-        updateViewHeight(inputValue: textField.value, animation: false)
+        updateViewHeight(inputValue: textField.value, animation: true)
     }
 }
 
@@ -113,7 +113,9 @@ extension DexCreateOrderInputView: MoneyTextFieldDelegate {
 extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
-        hideInputScrollView(animation: true)
+        if !isShowInputWhenFilled {
+            hideInputScrollView(animation: true)
+        }
         
         if let values = input {
             let value = values()[index]
@@ -150,11 +152,16 @@ private extension DexCreateOrderInputView {
     func updateViewHeight(inputValue: Money, animation: Bool) {
         
         if isShowInputScrollView {
-            if inputValue.isZero {
+            if isShowInputWhenFilled {
                 showInputScrollView(animation: animation)
             }
             else {
-                hideInputScrollView(animation: animation)
+                if inputValue.isZero {
+                    showInputScrollView(animation: animation)
+                }
+                else {
+                    hideInputScrollView(animation: animation)
+                }
             }
         }
         else {
