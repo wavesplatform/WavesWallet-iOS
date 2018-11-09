@@ -12,7 +12,12 @@ private enum Constants {
     static let popoverHeight: CGFloat = 378
 }
 
-final class WalletCoordinator {
+final class WalletCoordinator: Coordinator {
+
+
+    var childCoordinators: [Coordinator] = []
+
+    weak var parent: Coordinator?
 
     private lazy var historyCoordinator: HistoryCoordinator = HistoryCoordinator()
 
@@ -20,15 +25,31 @@ final class WalletCoordinator {
         return WalletModuleBuilder(output: self).build()
     }()
 
-    private var navigationController: UINavigationController!
+    private weak var navigationController: UINavigationController?
 
     private weak var myAddressVC: UIViewController?
 
     private var currentPopup: PopupViewController? = nil
 
-    func start(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        navigationController.pushViewController(walletViewContoller, animated: false)
+    }
+
+    func start() {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+
+            if Application.get().isAlreadyShowLegalDisplay == false {
+                let legal = LegalCoordinator(viewController: self.walletViewContoller)
+                legal.delegate = self
+                self.addChildCoordinatorAndStart(childCoordinator: legal)
+            }
+        }
+        navigationController?.pushViewController(walletViewContoller, animated: false)
+        CATransaction.commit()
+
+
     }
 }
 
@@ -38,13 +59,13 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showWalletSort() {
         let vc = WalletSortModuleBuilder().build()
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showMyAddress() {
         let vc = MyAddressModuleBuilder(output: self).build()
         self.myAddressVC = vc
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset]) {
@@ -53,17 +74,18 @@ extension WalletCoordinator: WalletModuleOutput {
             .build(input: .init(assets: assets,
                                 currentAsset: currentAsset))
         
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showHistoryForLeasing() {
+        guard let navigationController = navigationController else { return }
         historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
     }
     
     func showStartLease(availableMoney: Money) {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
-        navigationController.pushViewController(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -79,16 +101,16 @@ extension WalletCoordinator: AssetModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.AssetBalance) {
         let vc = SendModuleBuilder().build(input: asset)
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showReceive(asset: DomainLayer.DTO.AssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showHistory(by assetId: String) {
-
+        guard let navigationController = navigationController else { return }
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 
@@ -168,7 +190,7 @@ extension WalletCoordinator: AliasesModuleOutput {
 
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -179,7 +201,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -189,7 +211,19 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
 extension WalletCoordinator: CreateAliasModuleOutput {
     func createAliasCompletedCreateAlias(_ alias: String) {
         if let myAddressVC = self.myAddressVC {
-            navigationController.popToViewController(myAddressVC, animated: true)
+            navigationController?.popToViewController(myAddressVC, animated: true)
         }
+    }
+}
+
+// MARK: LegalCoordinatorDelegate
+
+extension WalletCoordinator: LegalCoordinatorDelegate {
+
+    func legalConfirm() {
+
+        var value = Application.get()
+        value.isAlreadyShowLegalDisplay = true
+        Application.set(value)
     }
 }

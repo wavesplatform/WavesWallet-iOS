@@ -12,23 +12,23 @@ import RxSwift
 import RESideMenu
 import RxOptional
 
-private struct Application: TSUD {
+struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
-        var isAlreadyShownHelloDisplay: Bool  = false
+        var isAlreadyShowHelloDisplay: Bool  = false
+        var isAlreadyShowLegalDisplay: Bool = false
     }
 
     private static let key: String = "com.waves.application.settings"
 
     static var defaultValue: Settings {
-        return Settings(isAlreadyShownHelloDisplay: false)
+        return Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowLegalDisplay: false)
     }
 
     static var stringKey: String {
         return Application.key
     }
 }
-
 
 protocol ApplicationCoordinatorProtocol: AnyObject {
     func showEnterDisplay()
@@ -72,7 +72,7 @@ final class AppCoordinator: Coordinator {
             return display(by: wallet)
         } else {
             let settings = Application.get()
-            if settings.isAlreadyShownHelloDisplay {
+            if settings.isAlreadyShowHelloDisplay {
                 return Observable.just(Display.enter)
             } else {
                 return Observable.just(Display.hello)
@@ -136,7 +136,7 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 
     func userFinishedGreet() {
         var settings = Application.get()
-        settings.isAlreadyShownHelloDisplay = true
+        settings.isAlreadyShowHelloDisplay = true
         Application.set(settings)
         showDisplay(.enter)
     }
