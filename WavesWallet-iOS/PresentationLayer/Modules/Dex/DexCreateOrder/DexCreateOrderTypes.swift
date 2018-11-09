@@ -44,7 +44,7 @@ extension DexCreateOrder.DTO {
         case expiration1h = 60
         case expiration1d = 1440
         case expiration1w = 10080
-        case expiration30d = 43200
+        case expiration29d = 41760
     }
     
     struct Input {
@@ -120,8 +120,8 @@ extension DexCreateOrder.DTO.Expiration {
         case .expiration1w:
             return "1" + " " + Localizable.Waves.Dexcreateorder.Button.week
             
-        case .expiration30d:
-            return "30" + " " + Localizable.Waves.Dexcreateorder.Button.days
+        case .expiration29d:
+            return "29" + " " + Localizable.Waves.Dexcreateorder.Button.days
         }
     }
 }
