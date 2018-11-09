@@ -30,7 +30,7 @@ final class DexCreateOrderViewController: UIViewController {
                                              amount: Money(0, input.amountAsset.decimals),
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
-                                             expiration: DexCreateOrder.DTO.Expiration.expiration30d)
+                                             expiration: DexCreateOrder.DTO.Expiration.expiration29d)
         }
     }
     
@@ -184,7 +184,7 @@ private extension DexCreateOrderViewController {
                       DexCreateOrder.DTO.Expiration.expiration1h,
                       DexCreateOrder.DTO.Expiration.expiration1d,
                       DexCreateOrder.DTO.Expiration.expiration1w,
-                      DexCreateOrder.DTO.Expiration.expiration30d]
+                      DexCreateOrder.DTO.Expiration.expiration29d]
         
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: Localizable.Waves.Dexcreateorder.Button.cancel, style: .cancel, handler: nil)
