@@ -44,7 +44,8 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                         subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty(decimals: owner.pair.priceAsset.decimals), bids: [],
                                                                       header: header,
                                                                       availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
-                                                                      availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals)))
+                                                                      availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
+                                                                      availableWavesBalance: Money(0, GlobalConstants.WavesDecimals)))
                     }
                 })
                 
@@ -125,6 +126,7 @@ private extension DexOrderBookInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
+        var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset?.precision ?? 0)
@@ -134,9 +136,14 @@ private extension DexOrderBookInteractor {
             priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset?.precision ?? 0)
         }
         
+        if let wavesAsset = balances.first(where: {$0.asset?.isWaves == true}) {
+            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset?.precision ?? 0)
+        }
+        
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
                                             availablePriceAssetBalance: priceAssetBalance,
-                                            availableAmountAssetBalance: amountAssetBalance)
+                                            availableAmountAssetBalance: amountAssetBalance,
+                                            availableWavesBalance: wavesBalance)
     }
     
     func getLastPriceInfo(_ complete:@escaping(_ lastPriceInfo: JSON?) -> Void) {

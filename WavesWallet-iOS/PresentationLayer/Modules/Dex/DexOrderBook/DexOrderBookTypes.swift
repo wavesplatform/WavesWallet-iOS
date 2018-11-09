@@ -36,6 +36,7 @@ enum DexOrderBook {
         var isNeedRefreshing: Bool
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
+        var availableWavesBalance: Money
     }
 }
 
@@ -82,6 +83,7 @@ extension DexOrderBook.DTO {
         let header: DexOrderBook.ViewModel.Header
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
+        let availableWavesBalance: Money
     }
 }
 
@@ -131,7 +133,8 @@ extension DexOrderBook.State {
         let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
         return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
                                   availablePriceAssetBalance: Money(0, 0),
-                                  availableAmountAssetBalance: Money(0, 0))
+                                  availableAmountAssetBalance: Money(0, 0),
+                                  availableWavesBalance: Money (0, 0))
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {
