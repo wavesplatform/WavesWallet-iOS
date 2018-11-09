@@ -2545,7 +2545,6 @@
 			isa = PBXGroup;
 			children = (
 				0AE491E221078CA1009223DB /* WalletSort */,
-				0AE491EF2107A4BD009223DB /* WalletCoordinator.swift */,
 				0A4C9A2620ED3A180095A417 /* Wallet */,
 				0A97975F2108A11A00407F67 /* Wallet.storyboard */,
 			);
@@ -2776,6 +2775,7 @@
 		0AF58F8C219190C400C8A4B3 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				0AE491EF2107A4BD009223DB /* WalletCoordinator.swift */,
 				E9CD0D31218137FE001A99B3 /* MainTabBarCoordinator.swift */,
 				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
 				0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */,

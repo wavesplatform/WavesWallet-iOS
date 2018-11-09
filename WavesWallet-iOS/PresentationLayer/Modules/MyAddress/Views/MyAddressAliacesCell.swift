@@ -20,15 +20,21 @@ final class MyAddressAliacesCell: UITableViewCell, Reusable {
     @IBOutlet private var infoButton: UIButton!
 
     var infoButtonDidTap: (() -> Void)?
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(gesture:)))
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLocalization()
+        viewContainer.addGestureRecognizer(tapGesture)
         viewContainer.addTableCellShadowStyle()
         infoButton.addTarget(self, action: #selector(actionTouchInfoButton(sender:)), for: .touchUpInside)
     }
 
     @objc func actionTouchInfoButton(sender: UIButton) {
+        infoButtonDidTap?()
+    }
+
+    @objc func handlerTapGesture(gesture: UITapGestureRecognizer) {
         infoButtonDidTap?()
     }
 }
