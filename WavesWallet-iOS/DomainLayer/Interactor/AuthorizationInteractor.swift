@@ -235,15 +235,15 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     }
 
     func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
-        self.localWalletRepository.walletEncryption(by: wallet.publicKey)
+        return self.localWalletRepository.walletEncryption(by: wallet.publicKey)
             .flatMap { walletEncrypted -> Observable<Bool> in
                 if walletEncrypted.kind.secret == nil {
-                    return Observable.error(AuthorizationInteractorError.passcodeIncorrect)
+                    return Observable.error(AuthorizationInteractorError.passcodeNotCreated)
                 }
 
                 return Observable.just(true)
             }
-            .catchError({ [weak self] error -> Observable<[DomainLayer.DTO.Wallet]> in
+            .catchError({ [weak self] error -> Observable<Bool> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
@@ -678,7 +678,7 @@ private extension AuthorizationInteractor {
                 do {
 
                     try keychain
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .remove(wallet.publicKey)
 
                     observer.onNext(true)
@@ -728,10 +728,7 @@ private extension AuthorizationInteractor {
 
         return Observable<String>.create { observer -> Disposable in
 
-            let context = LAContext()
-
             let keychain = Keychain(service: Constants.service)
-                .authenticationContext(context)
 
             DispatchQueue.main.async(execute: {
 
@@ -739,7 +736,7 @@ private extension AuthorizationInteractor {
 
                     guard let passcode = try keychain
                         .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .get(wallet.publicKey) else
                     {
                         throw AuthorizationInteractorError.biometricDisable
@@ -954,9 +951,14 @@ fileprivate extension AuthorizationInteractor {
                 return AuthorizationInteractorError.fail
             }
 
+        case let error as AuthorizationInteractorError:
+            return error
+
         default:
             break
         }
+
+
 
         return AuthorizationInteractorError.fail
     }

@@ -47,16 +47,16 @@ final class SweetMigration {
         let versions = self.versions.sorted(by: { (v1, v2) -> Bool in
             return v1.version.compare(v2.version) == .orderedAscending
         })
-//        .filter { (version) -> Bool in
-//            return version.version.compare(currentVersion) == .orderedDescending
-//        }
+        .filter { (version) -> Bool in
+            return version.version.compare(currentVersion) == .orderedDescending
+        }
 
         let lastVersion = versions.last?.version ?? currentVersion
 
         return Observable
             .merge(versions.map { $0.migration() })
             .do(onCompleted: {
-//                ApplicationVersion.set(lastVersion)
+                ApplicationVersion.set(lastVersion)
             })
     }
 }
