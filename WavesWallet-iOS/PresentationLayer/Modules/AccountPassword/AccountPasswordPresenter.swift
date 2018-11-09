@@ -93,32 +93,6 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
         })
     }
 
-//    private func hasPermissionToEnter() -> Feedback {
-////        return react(query: { state -> LogInQuery? in
-////
-////            guard let query = state.query else { return nil }
-////
-////            if case .logIn(let wallet, let password) = query {
-////                return LogInQuery(wallet: wallet, password: password)
-////            }
-////
-////            return nil
-////
-////        }, effects: { [weak self] query -> Signal<Types.Event> in
-////
-////            guard let strongSelf = self else { return Signal.empty() }
-////
-////            return strongSelf
-////                .interactor
-////                .logIn(wallet: query.wallet, password: query.password)
-////                .map { .completedLogIn($0, password: query.password) }
-////                .asSignal(onErrorRecover: { error -> Signal<Types.Event> in
-////                    guard let error = error as? AccountPasswordInteractorError else { return Signal.just(.handlerError(.fail)) }
-////                    return Signal.just(.handlerError(error))
-////                })
-////        })
-//    }
-
     private func verifyAccess() -> Feedback {
         return react(query: { state -> LogInQuery? in
 
