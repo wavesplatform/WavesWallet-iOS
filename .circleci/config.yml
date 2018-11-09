@@ -27,6 +27,9 @@ jobs:
       - run:
           name: SSH Cat config
           command: cat ~/.ssh/config
+      -run: 
+          name: Test ouput
+          command: touch $FL_OUTPUT_DIR/test_4.txt
       - run:
           name: Bundle
           command: bundle install
