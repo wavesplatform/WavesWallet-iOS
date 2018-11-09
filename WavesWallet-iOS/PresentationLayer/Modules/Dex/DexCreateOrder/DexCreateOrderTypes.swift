@@ -57,6 +57,7 @@ extension DexCreateOrder.DTO {
         let last: Money?
         let availableAmountAssetBalance: Money
         let availablePriceAssetBalance: Money
+        let availableWavesBalance: Money
     }
     
     struct AssetPair {

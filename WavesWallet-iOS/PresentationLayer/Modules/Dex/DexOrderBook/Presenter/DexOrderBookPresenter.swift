@@ -69,7 +69,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
-
+                $0.availableWavesBalance = displayData.availableWavesBalance
+                
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
 
@@ -104,7 +105,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          bid: state.lastBid?.price,
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
@@ -114,7 +116,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               bid: state.lastBid?.price,
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
@@ -123,7 +126,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          bid: state.lastBid?.price,
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
@@ -134,7 +138,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               bid: state.lastBid?.price,
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
         }
     }

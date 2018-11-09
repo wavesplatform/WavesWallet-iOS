@@ -31,7 +31,8 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                         
                         var amountAssetBalance =  Money(0, owner.pair.amountAsset.decimals)
                         var priceAssetBalance =  Money(0, owner.pair.priceAsset.decimals)
-                        
+                        var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
+
                         if let amountAsset = balances.first(where: {$0.assetId == owner.pair.amountAsset.id}) {
                             amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset?.precision ?? 0)
                         }
@@ -40,9 +41,13 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                             priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset?.precision ?? 0)
                         }
                         
+                        if let wavesAsset = balances.first(where: {$0.asset?.isWaves == true}) {
+                            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset?.precision ?? 0)
+                        }
                         let display = DexLastTrades.DTO.DisplayData(trades: trades, lastSell: lastSell, lastBuy: lastBuy,
                                                                     availableAmountAssetBalance: amountAssetBalance,
-                                                                    availablePriceAssetBalance: priceAssetBalance)
+                                                                    availablePriceAssetBalance: priceAssetBalance,
+                                                                    availableWavesBalance: wavesBalance)
 
                         subscribe.onNext(display)
                         
