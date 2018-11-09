@@ -105,7 +105,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tableView.register(UINib.init(nibName: MyOrderHeaderView.getIdentifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: MyOrderHeaderView.getIdentifier())
+//        tableView.register(UINib.init(nibName: MyOrderHeaderView.getIdentifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: MyOrderHeaderView.getIdentifier())
     
         loadInfo()
         NotificationCenter.default.addObserver(self, selector: #selector(loadInfo), name: Notification.Name(rawValue: kNotifDidCreateOrder), object: nil)
@@ -214,7 +214,8 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
             return nil
         }
         
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: MyOrderHeaderView.getIdentifier())
+        return UIView()
+//        return tableView.dequeueReusableHeaderFooterView(withIdentifier: MyOrderHeaderView.getIdentifier())
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
