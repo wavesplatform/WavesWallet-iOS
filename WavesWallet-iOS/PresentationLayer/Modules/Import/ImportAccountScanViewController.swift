@@ -31,16 +31,21 @@ final class ImportAccountScanViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .basic50
-        //        title = Localizable.Waves.Import.Account.Navigation.title
         
+        setupLocalization()
+        setupConstraints()
+    }
+    
+    private func setupLocalization() {
         stepOneTitleLabel.text = Localizable.Waves.Import.Scan.Label.Step.One.title
         stepTwoDetailLabel.text = Localizable.Waves.Import.Scan.Label.Step.Two.detail
         stepTwoTitleLabel.text = Localizable.Waves.Import.Scan.Label.Step.Two.title
         stepThreeTitleLabel.text = Localizable.Waves.Import.Scan.Label.Step.Three.title
         scanPairingButton.setTitle(Localizable.Waves.Import.Scan.Button.title, for: .normal)
         scanPairingButton.addTableCellShadowStyle()
-        
-        
+    }
+    
+    private func setupConstraints() {
         if Platform.isIphone5 {
             pairingButtonLeftConstraint.constant = 24
             pairingButtonRightConstraint.constant = 24
@@ -48,17 +53,12 @@ final class ImportAccountScanViewController: UIViewController {
             pairingButtonLeftConstraint.constant = 32
             pairingButtonRightConstraint.constant = 32
         }
-        //        navigationItem.barTintColor = .white
-        //        setupBigNavigationBar()
-        //        createBackButton()
-        //        hideTopBarLine()
-        
     }
     
+    // MARK: - Actions
+    
     @IBAction func scanTapped(_ sender: Any) {
-        
         delegate?.scanTapped()
-        
     }
     
 }
