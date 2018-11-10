@@ -97,7 +97,7 @@ extension SegmentedControl: ViewAnimatableConfiguration {
 fileprivate final class SegmentedControlButton: UIButton, ViewConfiguration {
     private var model: SegmentedControl.Button?
 
-    func update(with model: SegmentedControl.Button) {
+    func update(with model: SegmentedControl.Button) { 
         self.model = model
         setTitle(model.name, for: .normal)
         setBackgroundImage(UIColor.clear.image, for: .normal)

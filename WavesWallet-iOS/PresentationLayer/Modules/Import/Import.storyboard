@@ -213,6 +213,9 @@ or Mac/PC</string>
                                 <state key="normal" title="Scan pairing code">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="scanTapped:" destination="XqT-6q-6K4" eventType="touchUpInside" id="577-m9-we0"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-6C-Pqa">
                                 <rect key="frame" x="24" y="382" width="12" height="16"/>
@@ -274,13 +277,81 @@ or Mac/PC</string>
                     <view key="view" contentMode="scaleToFill" id="IqK-nm-oZX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ec-mc-96I">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOp-gD-KDs">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDb-dq-Pn6" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P9l-bL-yhJ" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                        <rect key="frame" x="8" y="8" width="359" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="P9l-bL-yhJ" firstAttribute="leading" secondItem="fDb-dq-Pn6" secondAttribute="leading" constant="8" id="Gbe-6U-HcH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="P9l-bL-yhJ" secondAttribute="trailing" constant="8" id="Jyl-Rt-YIx"/>
+                                                    <constraint firstItem="P9l-bL-yhJ" firstAttribute="top" secondItem="fDb-dq-Pn6" secondAttribute="top" constant="8" id="dHn-oo-pHh"/>
+                                                    <constraint firstAttribute="height" constant="46" id="ocl-Rb-DNW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="P9l-bL-yhJ" secondAttribute="bottom" constant="8" id="s3d-r2-DXp"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="segmentedControl" destination="P9l-bL-yhJ" id="RLL-c6-WmY"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJH-bg-6Ha">
+                                                <rect key="frame" x="0.0" y="46" width="375" height="601"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="MJH-bg-6Ha" secondAttribute="trailing" id="88f-aB-07a"/>
+                                            <constraint firstAttribute="bottom" secondItem="MJH-bg-6Ha" secondAttribute="bottom" id="A44-LZ-uor"/>
+                                            <constraint firstItem="MJH-bg-6Ha" firstAttribute="leading" secondItem="nOp-gD-KDs" secondAttribute="leading" id="IAp-lY-1os"/>
+                                            <constraint firstItem="fDb-dq-Pn6" firstAttribute="leading" secondItem="nOp-gD-KDs" secondAttribute="leading" id="N81-in-yfT"/>
+                                            <constraint firstItem="MJH-bg-6Ha" firstAttribute="top" secondItem="fDb-dq-Pn6" secondAttribute="bottom" id="dlb-Ys-Rv6"/>
+                                            <constraint firstAttribute="trailing" secondItem="fDb-dq-Pn6" secondAttribute="trailing" id="oRd-1I-Zd9"/>
+                                            <constraint firstItem="fDb-dq-Pn6" firstAttribute="top" secondItem="nOp-gD-KDs" secondAttribute="top" id="srA-17-Uj9"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nOp-gD-KDs" firstAttribute="top" secondItem="4Ec-mc-96I" secondAttribute="top" id="2tG-Ly-Vi3"/>
+                                    <constraint firstAttribute="trailing" secondItem="nOp-gD-KDs" secondAttribute="trailing" id="E11-3d-7fV"/>
+                                    <constraint firstAttribute="bottom" secondItem="nOp-gD-KDs" secondAttribute="bottom" id="KFM-hp-6Wz"/>
+                                    <constraint firstItem="nOp-gD-KDs" firstAttribute="width" secondItem="4Ec-mc-96I" secondAttribute="width" id="ORT-Xn-dJp"/>
+                                    <constraint firstItem="nOp-gD-KDs" firstAttribute="leading" secondItem="4Ec-mc-96I" secondAttribute="leading" id="WCX-zO-k3X"/>
+                                    <constraint firstItem="nOp-gD-KDs" firstAttribute="height" secondItem="4Ec-mc-96I" secondAttribute="height" priority="250" id="wdL-YG-S50"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="vVE-ID-fT5" id="voK-37-sUc"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Ec-mc-96I" firstAttribute="top" secondItem="34v-4l-V0g" secondAttribute="top" id="051-zn-v0H"/>
+                            <constraint firstItem="34v-4l-V0g" firstAttribute="bottom" secondItem="4Ec-mc-96I" secondAttribute="bottom" id="KFA-PX-zVz"/>
+                            <constraint firstItem="4Ec-mc-96I" firstAttribute="leading" secondItem="34v-4l-V0g" secondAttribute="leading" id="TQR-Ck-gOF"/>
+                            <constraint firstItem="34v-4l-V0g" firstAttribute="trailing" secondItem="4Ec-mc-96I" secondAttribute="trailing" id="rBk-ul-cjH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="34v-4l-V0g"/>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="MJH-bg-6Ha" id="ZP4-vy-dn7"/>
+                        <outlet property="scrollView" destination="4Ec-mc-96I" id="rca-Os-A0p"/>
+                        <outlet property="segmentedControl" destination="fDb-dq-Pn6" id="ULS-HH-ENj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcZ-ee-37L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15" y="1449"/>
+            <point key="canvasLocation" x="-15.199999999999999" y="1448.7256371814094"/>
         </scene>
         <!--Import Account Manually View Controller-->
         <scene sceneID="izo-Lm-vh0">
@@ -346,7 +417,7 @@ or Mac/PC</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="62" translatesAutoresizingMaskIntoConstraints="NO" id="121-uO-CG7" customClass="MultyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="90" width="319" height="62"/>
+                                        <rect key="frame" x="12" y="90" width="319" height="72"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0w-pD-6Ms" customClass="SkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -404,7 +475,7 @@ or Mac/PC</string>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="gix-ZN-FPa"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="n9r-79-W7F"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="rCH-gS-UYg"/>
-                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="54" id="tWa-bV-jId"/>
+                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="44" id="tWa-bV-jId"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -420,9 +491,13 @@ or Mac/PC</string>
                         <outlet property="addressBar" destination="ffH-55-n96" id="mns-rj-km0"/>
                         <outlet property="buttonContinue" destination="ATx-9a-f9l" id="wFc-vA-PFh"/>
                         <outlet property="containerView" destination="H58-Qa-VfM" id="FVs-oN-ZA5"/>
+                        <outlet property="containerViewLeftConstraint" destination="Mso-Wj-NQC" id="J9a-Ce-WH8"/>
+                        <outlet property="containerViewRightConstraint" destination="Ij5-Bf-aa6" id="mHS-ze-0gb"/>
                         <outlet property="iconImages" destination="wT2-e8-xV2" id="iNz-bg-xdA"/>
                         <outlet property="labelAddress" destination="WI2-dC-Kmd" id="Ru7-Qe-0WU"/>
                         <outlet property="skeletonView" destination="F0w-pD-6Ms" id="ch6-wb-fvC"/>
+                        <outlet property="skeletonViewLeftConstraint" destination="8uP-Px-Rch" id="LFc-2R-XNq"/>
+                        <outlet property="skeletonViewRightConstraint" destination="fnz-ui-Xzl" id="tAw-ZS-SGk"/>
                         <outlet property="textField" destination="121-uO-CG7" id="Dhj-cS-NuP"/>
                     </connections>
                 </viewController>

@@ -24,8 +24,11 @@ final class ImportCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = StoryboardScene.Import.importAccountManuallyViewController.instantiate()
-        vc.delegate = self
+        let vc = StoryboardScene.Import.importAccountViewController.instantiate() as ImportAccountViewController
+        
+        vc.scanViewController.delegate = self
+        vc.manuallyViewController.delegate = self
+        
         self.navigationController.pushViewController(vc, animated: true)
     }
     

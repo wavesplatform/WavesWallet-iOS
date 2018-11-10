@@ -47,16 +47,14 @@ final class ImportAccountPasswordViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         imageIcon.image = identity.createImage(by: address ?? "", size: imageIcon.frame.size)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         accountTextField.becomeFirstResponder()
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
     }
 
     private func setupButtonContinue() {
@@ -68,6 +66,7 @@ final class ImportAccountPasswordViewController: UIViewController {
     @IBAction func continueTapped(_ sender: Any) {
         continueCreateAccount()
     }
+    
 }
 
 extension ImportAccountPasswordViewController {
