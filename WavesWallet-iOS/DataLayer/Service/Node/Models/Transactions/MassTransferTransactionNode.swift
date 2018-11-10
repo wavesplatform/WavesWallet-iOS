@@ -25,7 +25,7 @@ extension Node.DTO {
         let version: Int
         let height: Int64
 
-        let proofs: [String]
+        let proofs: [String]?
         let assetId: String?
         let attachment: String
         let transferCount: Int

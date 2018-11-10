@@ -52,6 +52,30 @@ struct TransactionsSpecifications {
     let types: [TransactionType]
 }
 
+
+struct AliasTransactionSender {
+    let alias: String
+    let fee: Int64
+}
+
+struct LeaseTransactionSender {
+    let recipient: String
+    let amount: Int64
+    let fee: Int64
+}
+
+
+enum TransactionSenderSpecifications {
+    case createAlias(AliasTransactionSender)
+    case lease(LeaseTransactionSender)
+}
+
+struct AliasTransactionSpecifications {
+    let fee: Int64
+    let timestamp: Int64
+    let alias: String
+}
+
 protocol TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
@@ -63,4 +87,6 @@ protocol TransactionsRepositoryProtocol {
     func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool>
     func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool>
     func isHasTransactions(by accountAddress: String) -> Observable<Bool>
+
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
 }

@@ -17,9 +17,10 @@ extension Node.DTO {
         let fee: Int64
         let timestamp: Int64
         let version: Int
-        let height: Int64
+        let height: Int64?
 
         let signature: String?
+        let proofs: [String]?
         let alias: String
     }
 }

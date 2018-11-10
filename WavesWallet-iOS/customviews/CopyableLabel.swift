@@ -29,6 +29,7 @@ final class CopyableLabel: UILabel {
     override func copy(_ sender: Any?) {
         UIPasteboard.general.string = text
         UIMenuController.shared.setMenuVisible(false, animated: true)
+        ImpactFeedbackGenerator.impactOccurred()
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

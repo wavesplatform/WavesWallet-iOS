@@ -6,7 +6,6 @@
 //  Copyright © 2017 Waves Platform. All rights reserved.
 //
 
-import Gloss
 import RESideMenu
 import RxSwift
 import IQKeyboardManagerSwift
@@ -41,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Swizzle(initializers: [UIView.passtroughInit,                               
                                UIView.shadowInit]).start()
-        SweetLogger.current.visibleLevels = [.debug, .network]
+
+        SweetLogger.current.visibleLevels = [.debug, .network, .error]
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50

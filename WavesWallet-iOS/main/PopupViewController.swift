@@ -76,16 +76,7 @@ final class PopupViewController: UIViewController {
     }
  
     func present(contentView: UIView, animated: Bool) {
-        
-//        let topController = getTopController()
-//        topController.view.addSubview(bgView)
-        
-//        topController.addChildViewController(self)
-//        didMove(toParentViewController: topController)
-//        topController.view.addSubview(view)
-        
-//        view.addSubview(bgView)
-        
+                
         contentView.frame = CGRect(x: 0, y: Constants.ContainerOffsetOfDragPoint,
                                                   width: contentView.frame.size.width,
                                                   height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
@@ -96,11 +87,12 @@ final class PopupViewController: UIViewController {
         showView(animated: animated)
     }
     
-    func dismissPopup() {
+    func dismissPopup(completed: (() -> Void)? = nil) {
         UIView.animate(withDuration: Constants.AnimationDuration, animations: {
             self.view.frame.origin.y = self.view.frame.size.height
             self.bgView.alpha = 0
         }) { (compeleted) in
+            completed?()
             self.bgView.removeFromSuperview()
             self.view.removeFromSuperview()
             self.willMove(toParentViewController: nil)

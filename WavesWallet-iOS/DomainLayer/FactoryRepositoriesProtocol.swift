@@ -34,6 +34,8 @@ protocol FactoryRepositoriesProtocol {
     var accountSettingsRepository: AccountSettingsRepositoryProtocol { get }
 
     var addressBookRepository: AddressBookRepositoryProtocol { get }
+
+    var aliasesRepository: AliasesRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

@@ -7,10 +7,7 @@
 //
 
 import Foundation
-import Gloss
 import RealmSwift
-import Realm
-import RxDataSources
 
 final class ExchangeTransaction: Transaction {
 
@@ -21,77 +18,6 @@ final class ExchangeTransaction: Transaction {
     @objc dynamic var sellMatcherFee: Int64 = 0
     @objc dynamic var order1: ExchangeTransactionOrder?
     @objc dynamic var order2: ExchangeTransactionOrder?
-
-    @available(*, deprecated, message: "need remove")
-    @objc dynamic var sellSender = ""
-    @available(*, deprecated, message: "need remove")
-    @objc dynamic var buySender = ""
-    @available(*, deprecated, message: "need remove")
-    @objc dynamic var amountAsset = ""
-    @available(*, deprecated, message: "need remove")
-    @objc dynamic var priceAsset = ""
-
-    @available(*, deprecated, message: "need remove")
-    public required init?(json: JSON) {
-        guard let sellSender: String = "order2.senderPublicKey" <~~ json
-            , let buySender: String = "order1.senderPublicKey" <~~ json
-            , let price: Int64 = "price" <~~ json
-            , let amount: Int64 = "amount" <~~ json else {
-                return nil
-        }
-
-        self.sellSender = sellSender
-        self.buySender = buySender
-        self.price = price
-        self.amount = amount
-        self.amountAsset = ("order1.assetPair.amountAsset" <~~ json) ?? ""
-        self.priceAsset = ("order1.assetPair.priceAsset" <~~ json) ?? ""
-
-        super.init(json: json)
-    }
-
-    required public init() {
-        super.init()
-    }
-
-    /**
-     WARNING: This is an internal initializer not intended for public use.
-     :nodoc:
-     */
-    public required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-
-    public required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
-
-    public override func getAssetId() -> String {
-        return amountAsset
-    }
-
-    public override func getAmount() -> Int64 {
-        return amount
-    }
-
-    public override func isInput() -> Bool {
-        return buyerAddress == WalletManager.getAddress()
-    }
-
-    @available(*, deprecated, message: "need remove")
-    var sellerAddress: String {
-        return PublicKeyAccount(publicKey: Base58.decode(sellSender)).address
-    }
-
-    @available(*, deprecated, message: "need remove")
-    var buyerAddress: String {
-        return PublicKeyAccount(publicKey: Base58.decode(buySender)).address
-    }
-
-    @available(*, deprecated, message: "need remove")
-    public override func isOur() -> Bool {
-        return sellerAddress == WalletManager.getAddress() || buyerAddress == WalletManager.getAddress()
-    }
 }
 
 final class ExchangeTransactionOrder: Object {

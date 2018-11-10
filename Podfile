@@ -37,6 +37,8 @@ target 'WavesWallet-iOS' do
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
+    
+    pod 'Device.swift', :git => 'https://github.com/schickling/Device.swift.git', :branch => 'swift-4.2'
 
     # Assisstant
     pod 'RxSwift'
