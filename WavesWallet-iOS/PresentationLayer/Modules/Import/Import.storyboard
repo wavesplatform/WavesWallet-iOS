@@ -417,7 +417,7 @@ or Mac/PC</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="62" translatesAutoresizingMaskIntoConstraints="NO" id="121-uO-CG7" customClass="MultyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="90" width="319" height="72"/>
+                                        <rect key="frame" x="12" y="90" width="319" height="82"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0w-pD-6Ms" customClass="SkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -475,7 +475,7 @@ or Mac/PC</string>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="gix-ZN-FPa"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="n9r-79-W7F"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="rCH-gS-UYg"/>
-                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="44" id="tWa-bV-jId"/>
+                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="34" id="tWa-bV-jId"/>
                                 </constraints>
                             </view>
                         </subviews>
