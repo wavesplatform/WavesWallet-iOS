@@ -75,7 +75,11 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         textField.valueValidator = { value in
             guard let value = value else { return "" }
             
-            return value.count > Constants.minimumLength ? "" : nil
+            if value.count > Constants.minimumLength {
+                return nil
+            } else {
+                return ""
+            }
         }
         
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
