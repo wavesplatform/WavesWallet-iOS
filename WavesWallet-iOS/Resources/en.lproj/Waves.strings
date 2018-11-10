@@ -483,3 +483,51 @@
 "sendcomplete.label.youHaveSent" = "You have sent";
 "sendcomplete.label.saveThisAddress" = "Do you want to save this address?";
 "sendcomplete.button.okey" = "Okay";
+
+
+
+"myaddress.cell.aliases.title" = "Aliases";
+
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "You do not have";
+"myaddress.cell.aliases.subtitle.withaliaces" = "You have %d";
+
+"myaddress.cell.info.title" = "Your address";
+"myaddress.cell.qrcode.title" = "Your QR Code";
+"myaddress.button.copy.title" = "Copy";
+"myaddress.button.share.title" = "Share";
+
+
+"aliases.cell.head.title" = "Your Aliases";
+"aliases.view.info.label.title" = "About Alias";
+"aliases.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
+
+"aliases.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+
+"aliases.view.info.label.fee" = "Transaction Fee 0.001 Waves";
+"aliases.view.info.button.create" = "Create new alias";
+
+
+"aliaseswithout.view.info.label.title" = "About Alias";
+"aliaseswithout.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
+
+"aliaseswithout.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+
+"aliaseswithout.view.info.label.fee" = "Transaction Fee 0.001 Waves";
+"aliaseswithout.view.info.button.create" = "Create new alias";
+
+
+"addresseskeys.navigation.title" = "Addresses, keys";
+"addresseskeys.cell.address.title" = "Your address";
+"addresseskeys.cell.publickey.title" = "Public Key";
+"addresseskeys.cell.privatekey.title" = "Private Key";
+"addresseskeys.cell.seed.title" = "Seed";
+
+"addresseskeys.cell.privatekeyhidde.button.title" = "Show";
+
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "You do not have";
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "You have %d";
+
+"createalias.navigation.title" = "New alias";
+"createalias.button.create.title" = "Create";
+"createalias.cell.input.textfiled.input.title" = "Symbolic name";
+"createalias.cell.input.textfiled.input.placeholder" = "Symbolic name";

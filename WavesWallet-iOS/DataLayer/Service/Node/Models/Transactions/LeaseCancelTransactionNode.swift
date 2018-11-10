@@ -19,6 +19,7 @@ extension Node.DTO {
         let version: Int
         let height: Int64    
         let signature: String?
+        let proofs: [String]?
         let chainId: Int?
         let leaseId: String
         let lease: Node.DTO.LeaseTransaction

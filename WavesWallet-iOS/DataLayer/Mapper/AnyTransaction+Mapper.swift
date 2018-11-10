@@ -8,6 +8,47 @@
 
 import Foundation
 
+extension Node.DTO.Transaction {
+
+    var anyTransaction: DomainLayer.DTO.AnyTransaction {
+
+        switch self  {
+        case .unrecognised(let transaction):
+            return .unrecognised(.init(transaction: transaction))
+
+        case .issue(let transaction):
+            return .issue(.init(transaction: transaction))
+
+        case .transfer(let transaction):
+            return .transfer(.init(transaction: transaction))
+
+        case .reissue(let transaction):
+            return .reissue(.init(transaction: transaction))
+
+        case .burn(let transaction):
+            return .burn(.init(transaction: transaction))
+
+        case .exchange(let transaction):
+            return .exchange(.init(transaction: transaction))
+
+        case .lease(let transaction):
+            return .lease(.init(transaction: transaction))
+
+        case .leaseCancel(let transaction):
+            return .leaseCancel(.init(transaction: transaction))
+
+        case .alias(let transaction):
+            return .alias(.init(transaction: transaction))
+
+        case .massTransfer(let transaction):
+            return   .massTransfer(.init(transaction: transaction))
+
+        case .data(let transaction):
+            return .data(.init(transaction: transaction))
+        }
+    }
+}
+
 extension Node.DTO.TransactionContainers {
 
     func anyTransactions() -> [DomainLayer.DTO.AnyTransaction] {
@@ -15,41 +56,7 @@ extension Node.DTO.TransactionContainers {
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 
         for transaction in self.transactions {
-
-            switch transaction {
-            case .unrecognised(let transaction):
-              anyTransactions.append(.unrecognised(.init(transaction: transaction)))
-
-            case .issue(let transaction):
-                anyTransactions.append(.issue(.init(transaction: transaction)))
-
-            case .transfer(let transaction):
-                anyTransactions.append(.transfer(.init(transaction: transaction)))
-
-            case .reissue(let transaction):
-                anyTransactions.append(.reissue(.init(transaction: transaction)))
-
-            case .burn(let transaction):
-                anyTransactions.append(.burn(.init(transaction: transaction)))
-
-            case .exchange(let transaction):
-                anyTransactions.append(.exchange(.init(transaction: transaction)))
-
-            case .lease(let transaction):
-                anyTransactions.append(.lease(.init(transaction: transaction)))
-
-            case .leaseCancel(let transaction):
-                anyTransactions.append(.leaseCancel(.init(transaction: transaction)))
-
-            case .alias(let transaction):
-                anyTransactions.append(.alias(.init(transaction: transaction)))
-
-            case .massTransfer(let transaction):
-                anyTransactions.append(.massTransfer(.init(transaction: transaction)))
-
-            case .data(let transaction):
-                anyTransactions.append(.data(.init(transaction: transaction)))
-            }
+           anyTransactions.append(transaction.anyTransaction)
         }
 
         return anyTransactions

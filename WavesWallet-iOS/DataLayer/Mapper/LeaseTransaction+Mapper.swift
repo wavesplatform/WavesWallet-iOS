@@ -42,6 +42,7 @@ extension DomainLayer.DTO.LeaseTransaction {
         recipient = transaction.recipient        
         height = transaction.height ?? -1
         modified = Date()
+        proofs = transaction.proofs
     }
 
     init(transaction: LeaseTransaction) {
@@ -57,5 +58,6 @@ extension DomainLayer.DTO.LeaseTransaction {
         recipient = transaction.recipient
         height = transaction.height
         modified = transaction.modified
+        proofs = []
     }
 }

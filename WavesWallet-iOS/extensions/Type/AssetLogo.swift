@@ -9,6 +9,7 @@
 import Foundation
 import Kingfisher
 
+// TODO: Change To Asset id
 enum AssetLogo: String {
     case waves
     case usd

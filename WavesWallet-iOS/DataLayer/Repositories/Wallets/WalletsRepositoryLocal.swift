@@ -56,6 +56,80 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         })
     }
 
+    func walletEncryption(by publicKey: String) -> Observable<DomainLayer.DTO.WalletEncryption> {
+
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
+                observer.onNext(.init(wallet: object))
+                observer.onCompleted()
+            } else {
+                observer.onError(WalletsRepositoryError.fail)
+            }
+
+            return Disposables.create()
+        })
+    }
+
+    func saveWalletEncryption(_ walletEncryption: DomainLayer.DTO.WalletEncryption) -> Observable<DomainLayer.DTO.WalletEncryption> {
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            do {
+                try realm.write {
+                    realm.add(WalletEncryption(wallet: walletEncryption), update: true)
+                }
+                observer.onNext(walletEncryption)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            return Disposables.create()
+        })
+    }
+
+    func removeWalletEncryption(by publicKey: String) -> Observable<Bool> {
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let realm = self?.realm else {
+                observer.onNext(false)
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            do {
+                if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
+                    try realm.write {
+                        realm.delete(object)
+                    }
+                    observer.onNext(true)
+                    observer.onCompleted()
+                } else {
+                    observer.onNext(false)
+                    observer.onError(WalletsRepositoryError.fail)
+                }
+            } catch _ {
+                observer.onNext(false)
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            return Disposables.create()
+        })
+    }
+    
+
     func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
@@ -183,6 +257,7 @@ private extension WalletsRepositoryLocal {
     func getWalletsConfig() -> Realm.Configuration? {
 
         var config = Realm.Configuration()
+        config.objectTypes = [WalletEncryption.self, WalletItem.self]
         config.schemaVersion = UInt64(Constants.schemaVersion)
 
         guard let fileURL = config.fileURL else {

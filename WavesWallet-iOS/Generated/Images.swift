@@ -79,7 +79,9 @@ internal enum Images {
   internal static let arrowRed = ImageAsset(name: "arrow_red")
   internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
+  internal static let arrowdown14Basic300 = ImageAsset(name: "arrowdown14Basic300")
   internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
+  internal static let arrowup14Basic300 = ImageAsset(name: "arrowup14Basic300")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
   internal static let assetReceive = ImageAsset(name: "asset_receive")
   internal static let assets = ImageAsset(name: "assets")
@@ -111,6 +113,7 @@ internal enum Images {
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
+  internal static let copy18Submit400 = ImageAsset(name: "copy18Submit400")
   internal static let copyAddress = ImageAsset(name: "copy_address")
   internal static let copyBlack = ImageAsset(name: "copy_black")
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
@@ -214,6 +217,7 @@ internal enum Images {
   internal static let send = ImageAsset(name: "send")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
+  internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
   internal static let star = ImageAsset(name: "star")
@@ -308,7 +312,9 @@ internal enum Images {
     arrowRed,
     arrowRight,
     arrowTransfer,
+    arrowdown14Basic300,
     arrowright14Basic200,
+    arrowup14Basic300,
     assetChangeArrows,
     assetReceive,
     assets,
@@ -340,6 +346,7 @@ internal enum Images {
     close,
     closeLeaseIcon,
     copy18Black,
+    copy18Submit400,
     copyAddress,
     copyBlack,
     deladdress24Error400,
@@ -443,6 +450,7 @@ internal enum Images {
     send,
     sendBtn,
     settings,
+    share18Submit400,
     shareAddress,
     sizefull14Basic500,
     star,
