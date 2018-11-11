@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import IdentityImg
 
 private enum Constants {
@@ -32,8 +33,11 @@ class EditAccountNameViewController: UIViewController {
     
     @IBOutlet weak var accountNameInput: InputTextField!
     
-   @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
+
+    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let disposeBag: DisposeBag = DisposeBag()
+
     var wallet: DomainLayer.DTO.Wallet!
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     
@@ -130,15 +134,22 @@ class EditAccountNameViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func saveTapped(_ sender: Any) {
-        save()
-        navigationController?.popViewController(animated: true)
+
+        guard var wallet = self.wallet else { return }
+        guard let accountNameInput = self.accountNameInput else { return }
+        guard let newName = accountNameInput.value else { return }
+        wallet.name = newName
+        authorization
+            .changeWallet(wallet)
+            .subscribeNext(weak: self, { $0.save })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Content
     
     
-    private func save() {
-        
+    private func save(_ wallet: DomainLayer.DTO.Wallet) {
+        navigationController?.popViewController(animated: true)
     }
     
 }

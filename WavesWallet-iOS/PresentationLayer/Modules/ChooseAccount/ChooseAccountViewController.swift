@@ -190,7 +190,19 @@ private extension ChooseAccountViewController {
                 .map { _ in Types.Event.readyView }
         }
 
-        presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
+        let viewDidDisappearFeedback: ChooseAccountPresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .rx
+                .viewDidDisappear
+                .asObservable()
+                .asSignal(onErrorSignalWith: Signal.empty())
+                .map { _ in Types.Event.viewDidDisappear }
+        }
+
+
+        presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewDidDisappearFeedback])
     }
 
     func events() -> [Signal<Types.Event>] {

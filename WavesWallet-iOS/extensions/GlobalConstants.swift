@@ -14,7 +14,7 @@ enum GlobalConstants {
     static let minLengthPassword: Int = 2
     #else
     static let accountNameMinLimitSymbols: Int = 1
-    static let minLengthPassword: Int = 8
+    static let minLengthPassword: Int = 6
     #endif
 
     static let aliasNameMinLimitSymbols: Int = 4

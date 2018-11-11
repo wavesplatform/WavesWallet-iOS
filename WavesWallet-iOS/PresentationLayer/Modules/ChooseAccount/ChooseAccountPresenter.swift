@@ -105,6 +105,11 @@ private extension ChooseAccountPresenter {
                 $0.isAppeared = true
             }
 
+        case .viewDidDisappear:
+            return state.mutate {
+                $0.isAppeared = false
+            }
+
         case .setWallets(let wallets):
             return state.mutate {
                 $0.displayState.wallets = wallets
