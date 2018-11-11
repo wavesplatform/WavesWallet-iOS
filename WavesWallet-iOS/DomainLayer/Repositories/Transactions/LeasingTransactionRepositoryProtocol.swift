@@ -14,7 +14,7 @@ enum LeasingTransactionRepositoryError: Error {
 }
 
 protocol LeasingTransactionRepositoryProtocol {
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]>
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]>
 
     func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction], by accountAddress: String) -> Observable<Bool>
     func saveLeasingTransaction(_ transaction: DomainLayer.DTO.LeaseTransaction, by accountAddress: String) -> Observable<Bool>

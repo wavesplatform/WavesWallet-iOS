@@ -9,7 +9,7 @@
 import UIKit
 import Skeleton
 
-final class HeaderSkeletonView: UITableViewHeaderFooterView, GradientsOwner, NibReusable {
+final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable, NibReusable {
     
     @IBOutlet var views: [GradientContainerView]!
     

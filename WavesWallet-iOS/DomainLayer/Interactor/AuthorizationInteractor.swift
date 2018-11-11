@@ -27,6 +27,7 @@ private extension DomainLayer.DTO.Wallet {
         self.isBackedUp = query.isBackedUp
         self.hasBiometricEntrance = false
         self.id = id
+        self.isAlreadyShowLegalDisplay = false
     }
 }
 
