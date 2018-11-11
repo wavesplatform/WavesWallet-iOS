@@ -234,6 +234,10 @@ private extension ChooseAccountViewController {
             
             removeAccount(atIndexPath: indexPath)
             
+        case .none:
+            
+            reloadTableView()
+            
         default:
             break
         }
