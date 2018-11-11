@@ -11,6 +11,7 @@ import RxSwift
 
 enum WalletsRepositoryError: Error {
     case fail
+    case notFound
 }
 
 struct WalletsRepositorySpecifications {
@@ -19,7 +20,7 @@ struct WalletsRepositorySpecifications {
 
 
 protocol WalletsRepositoryProtocol {
-
+    
     func wallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
     func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[DomainLayer.DTO.Wallet]>

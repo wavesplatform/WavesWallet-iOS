@@ -11,5 +11,6 @@ import UIKit
 protocol LegalModuleOutput: AnyObject {
     
     func showViewController(viewController: UIViewController)
-    
+
+    func legalConfirm()
 }
