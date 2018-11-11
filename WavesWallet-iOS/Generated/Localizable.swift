@@ -90,6 +90,8 @@ internal enum Localizable {
         }
 
         internal enum Aliases {
+          /// Aliases
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.aliases.title") }
 
           internal enum Subtitle {
             /// You have %d
@@ -182,7 +184,7 @@ internal enum Localizable {
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
             internal static var subtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.subtitle") }
-            /// About Alias
+            /// You do not have Aliases
             internal static var title: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.title") }
           }
         }
@@ -1063,10 +1065,19 @@ internal enum Localizable {
           internal static var first: String { return Localizable.tr("Waves", "legal.checkbox.box.first") }
           /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
           internal static var second: String { return Localizable.tr("Waves", "legal.checkbox.box.second") }
+          /// Waves is different — it cannot be held safely by a bank or web service
+          internal static var subtitle: String { return Localizable.tr("Waves", "legal.checkbox.box.subtitle") }
           /// Terms of Use
           internal static var termsOfUse: String { return Localizable.tr("Waves", "legal.checkbox.box.termsOfUse") }
           /// I have read, understood, and agree to the
           internal static var third: String { return Localizable.tr("Waves", "legal.checkbox.box.third") }
+          /// Done! Let’s review.
+          internal static var title: String { return Localizable.tr("Waves", "legal.checkbox.box.title") }
+
+          internal enum Button {
+            /// Confirm and begin
+            internal static var confirm: String { return Localizable.tr("Waves", "legal.checkbox.box.button.confirm") }
+          }
         }
       }
     }

@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension SweetLogger {
+
+    static func error(_ message: @escaping  @autoclosure () -> Any,
+               _ file: String = #file,
+               _ function: String = #function,
+               _ line: Int = #line,
+               _ context: Any? = nil,
+               type: Any.Type? = nil)
+    {
+        SweetLogger.current.send(message: message, level: .error, file: file, function: function, line: line, context: context, type: type)
+    }
+}
+
 func warning(_ message: @escaping @autoclosure () -> Any,
              _ file: String = #file,
              _ function: String = #function,
@@ -18,12 +31,13 @@ func warning(_ message: @escaping @autoclosure () -> Any,
     SweetLogger.current.send(message: message, level: .warning, file: file, function: function, line: line, context: context)
 }
 
+
 func error(_ message: @escaping  @autoclosure () -> Any,
-             _ file: String = #file,
-             _ function: String = #function,
-             _ line: Int = #line,
-             _ context: Any? = nil,
-            type: Any.Type? = nil)
+           _ file: String = #file,
+           _ function: String = #function,
+           _ line: Int = #line,
+           _ context: Any? = nil,
+           type: Any.Type? = nil)
 {
     SweetLogger.current.send(message: message, level: .error, file: file, function: function, line: line, context: context, type: type)
 }
