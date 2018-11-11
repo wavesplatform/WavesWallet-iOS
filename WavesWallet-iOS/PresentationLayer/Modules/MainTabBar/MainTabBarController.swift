@@ -12,7 +12,7 @@ final class MainTabBarController: UITabBarController {
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
-    private let walletCoordinator: WalletCoordinator = WalletCoordinator()
+    private var walletCoordinator: WalletCoordinator!
     private let historyCoordinator: HistoryCoordinator = HistoryCoordinator()
     private let dexListCoordinator: DexCoordinator = DexCoordinator()
     private var profileCoordinator: ProfileCoordinator!
@@ -45,7 +45,8 @@ final class MainTabBarController: UITabBarController {
 
         listenerWallet()
 
-        walletCoordinator.start(navigationController: navWallet)
+        walletCoordinator = WalletCoordinator(navigationController: navWallet)
+        walletCoordinator.start()
         navWallet.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
         navWallet.tabBarItem.imageInsets = Constants.tabBarItemImageInset
         navWallet.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
