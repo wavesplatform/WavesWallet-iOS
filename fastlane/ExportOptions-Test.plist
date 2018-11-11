@@ -10,6 +10,8 @@
         <dict>
                 <key>com.wavesplatform.waveswallet.test</key>
                 <string>match AppStore com.wavesplatform.waveswallet.test</string>
+                <key>com.wavesplatform.waveswallet</key>
+                <string>match AppStore com.wavesplatform.waveswallet</string>
         </dict>
         <key>uploadSymbols</key>
         <true/>

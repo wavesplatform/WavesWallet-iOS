@@ -11,7 +11,7 @@ import RxSwift
 import RealmSwift
 
 fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 3
+    static let schemaVersion: UInt64 = 4
 }
 
 final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
@@ -31,10 +31,11 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
                     observer.onNext(DomainLayer.DTO.WalletSeed(seed: object))
                     observer.onCompleted()
                 } else {
-                    observer.onError(WalletSeedRepositoryError.fail)
+                    observer.onError(WalletSeedRepositoryError.notFound)
                 }
 
             } catch let error {
+                SweetLogger.error(error)
                 observer.onError(error)
             }
 
@@ -63,6 +64,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
                 }
 
             } catch let error {
+                SweetLogger.error(error)
                 observer.onError(error)
             }
 
@@ -91,7 +93,7 @@ private extension WalletSeedRepositoryLocal {
     func removeDB(address: String, seedId: String) -> Bool {
 
         guard let fileURL = Realm.Configuration.defaultConfiguration.fileURL else {
-            error("File Realm is nil")
+            SweetLogger.error("File Realm is nil")
             return false
         }
 
@@ -99,13 +101,13 @@ private extension WalletSeedRepositoryLocal {
             .deletingLastPathComponent()
             .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
-        let oldPath = fileURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(address)_seed.realm")
+//        let oldPath = fileURL
+//            .deletingLastPathComponent()
+//            .appendingPathComponent("\(address)_seed.realm")
 
         do {
             try FileManager.default.removeItem(at: path)
-            try? FileManager.default.removeItem(at: oldPath)
+//            try? FileManager.default.removeItem(at: oldPath)
             return true
         } catch _ {
             return false
@@ -121,7 +123,7 @@ private extension WalletSeedRepositoryLocal {
         config.schemaVersion = UInt64(Constants.schemaVersion)
 
         guard let fileURL = config.fileURL else {
-            error("File Realm is nil")
+            SweetLogger.error("File Realm is nil")
             return nil
         }
 
@@ -138,26 +140,6 @@ private extension WalletSeedRepositoryLocal {
     func realm(address: String,
                seedId: String,
                password: String) throws -> Realm? {
-
-        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
-
-            let oldUrl = fileURL
-                .deletingLastPathComponent()
-                .appendingPathComponent("\(address)_seed.realm")
-            
-            let newUrl = fileURL
-                .deletingLastPathComponent()
-                .appendingPathComponent("\(address)_seed_\(seedId).realm")
-
-            do {
-                if FileManager.default.fileExists(atPath: oldUrl.absoluteString) == true
-                    && FileManager.default.fileExists(atPath: newUrl.absoluteString) == false {
-                    try FileManager.default.moveItem(at: oldUrl, to: newUrl)
-                }
-            } catch let e {
-                error(e)
-            }
-        }
 
         guard let config = realmConfig(address: address,
                                        password: password,
@@ -177,7 +159,7 @@ private extension WalletSeedRepositoryLocal {
             }
 
         } catch let e {
-            error(e)
+            SweetLogger.error(e)
             throw WalletSeedRepositoryError.fail
         }
     }
