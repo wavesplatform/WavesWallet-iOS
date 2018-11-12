@@ -18,6 +18,7 @@ final class DexInfoViewController: UIViewController {
     
     @IBOutlet weak var btnCopyAmountAsset: UIButton!
     @IBOutlet weak var btnCopyPriceAsset: UIButton!
+    @IBOutlet weak var labelTitle: UILabel!
     
     var pair: DexInfoPair.DTO.Pair!
     
@@ -74,7 +75,9 @@ private extension DexInfoViewController {
         labelPriceAssetTitle.text = Localizable.Waves.Dexinfo.Label.priceAsset + " — " + pair.priceAsset.name
         labelPriceAsset.text = pair.priceAsset.id
         
-        labelPopular.isHidden = pair.isHidden
+        labelPopular.isHidden = !pair.isGeneral
+        
+        labelTitle.text = pair.amountAsset.shortName + " / " + pair.priceAsset.shortName
     }
     
     func setupLocalization() {

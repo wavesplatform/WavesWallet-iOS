@@ -11,13 +11,17 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+private enum Constants {
+    static let searchDelay = 0.3
+}
 
 final class DexMarketViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: SearchBarView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewLoadingInfo: UIView!
-    @IBOutlet weak var labelLoadingMarkets: UILabel!
+    @IBOutlet private weak var searchBar: SearchBarView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var viewLoadingInfo: UIView!
+    @IBOutlet private weak var labelLoadingMarkets: UILabel!
+    @IBOutlet private weak var activityIndicatorSearch: UIActivityIndicatorView!
     
     var presenter: DexMarketPresenterProtocol!
     private var modelSection = DexMarket.ViewModel.Section(items: [])
@@ -49,12 +53,7 @@ final class DexMarketViewController: UIViewController {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         hideTopBarLine()
-        navigationController?.navigationBar.isTranslucent = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = true
+        navigationItem.isTranslucent = false
     }
 }
 
@@ -74,8 +73,7 @@ fileprivate extension DexMarketViewController {
                 guard let strongSelf = self else { return }
                 guard state.action != .none else { return }
                 
-                debug(state.action)
-
+                strongSelf.setupDefaultState()
                 strongSelf.setupViews(isLoadingState: false)
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
@@ -97,13 +95,36 @@ private extension DexMarketViewController {
         title = Localizable.Waves.Dexmarket.Navigationbar.title
         labelLoadingMarkets.text = Localizable.Waves.Dexmarket.Label.loadingMarkets
     }
+    
+    func setupSearchingState() {
+        tableView.isHidden = true
+        activityIndicatorSearch.isHidden = false
+        activityIndicatorSearch.startAnimating()
+    }
+    
+    func setupDefaultState() {
+        tableView.isHidden = false
+        activityIndicatorSearch.stopAnimating()
+    }
 }
 
 //MARK: - UITextFieldDelegate
 extension DexMarketViewController: SearchBarViewDelegate {
 
-    func searchBarDidChangeText(_ searchText: String) {
+    @objc private func search(_ searchText: String) {
         sendEvent.accept(.searchTextChange(text: searchText))
+    }
+    
+    func searchBarDidChangeText(_ searchText: String) {
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        if searchText.count > 0 {
+            setupSearchingState()
+            perform(#selector(search(_:)), with: searchText, afterDelay: Constants.searchDelay)
+        }
+        else {
+            search(searchText)
+        }
     }
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -139,8 +139,8 @@
                             <constraint firstItem="R2H-d9-q7T" firstAttribute="width" secondItem="9XC-je-3rP" secondAttribute="width" id="3V8-OH-XWq"/>
                             <constraint firstItem="G6B-Mp-pk4" firstAttribute="leading" secondItem="gBS-gG-HD2" secondAttribute="leading" id="6eP-eB-new"/>
                             <constraint firstItem="gBS-gG-HD2" firstAttribute="trailing" secondItem="yqu-Bm-dHn" secondAttribute="trailing" id="94y-Eg-Kw9"/>
-                            <constraint firstItem="gBS-gG-HD2" firstAttribute="bottom" secondItem="yqu-Bm-dHn" secondAttribute="bottom" id="FLX-BB-Jda"/>
                             <constraint firstItem="yqu-Bm-dHn" firstAttribute="leading" secondItem="gBS-gG-HD2" secondAttribute="leading" id="Zvi-IR-RLH"/>
+                            <constraint firstItem="G6B-Mp-pk4" firstAttribute="top" secondItem="yqu-Bm-dHn" secondAttribute="bottom" constant="-42" id="bbX-Gx-Q8h"/>
                             <constraint firstItem="yqu-Bm-dHn" firstAttribute="top" secondItem="gBS-gG-HD2" secondAttribute="top" id="gru-fJ-Hoa"/>
                             <constraint firstItem="gBS-gG-HD2" firstAttribute="trailing" secondItem="G6B-Mp-pk4" secondAttribute="trailing" id="jDa-Ut-s2a"/>
                             <constraint firstItem="gBS-gG-HD2" firstAttribute="bottom" secondItem="G6B-Mp-pk4" secondAttribute="bottom" id="qsR-wc-wyO"/>
@@ -154,7 +154,7 @@
                         <outlet property="labelAccountAddress" destination="PIY-u6-06t" id="Rrr-bg-E94"/>
                         <outlet property="labelAccountName" destination="rNu-Ij-zie" id="0YS-NA-rKY"/>
                         <outlet property="saveButton" destination="G6B-Mp-pk4" id="zQA-gC-d21"/>
-                        <outlet property="saveButtonBottomConstraint" destination="qsR-wc-wyO" id="r6R-HX-yL8"/>
+                        <outlet property="saveButtonBottomConstraint" destination="qsR-wc-wyO" id="evL-Mw-Bmw"/>
                         <outlet property="scrollView" destination="yqu-Bm-dHn" id="1a4-yx-I9Y"/>
                     </connections>
                 </viewController>

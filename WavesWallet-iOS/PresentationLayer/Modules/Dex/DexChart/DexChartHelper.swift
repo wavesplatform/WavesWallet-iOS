@@ -146,7 +146,7 @@ extension DexChartHelper {
         barChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
         barChartView.rightAxis.labelTextColor = Constants.Bar.RightAxis.labelTextColor
         barChartView.rightAxis.labelFont = Constants.Bar.RightAxis.labelFont
-        barChartView.rightAxis.valueFormatter = BarAxisValueFormatter()
+        barChartView.rightAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.rightAxis.axisMinimum = 0
         barChartView.rightAxis.forceLabelsEnabled = true
         barChartView.rightAxis.valueFormatter = DexChartBarRightAxisFormatter()

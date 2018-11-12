@@ -24,9 +24,54 @@ enum GlobalConstants {
     static let aliasPrefix = "alias:W:"
 
     static let WavesTransactionFeeAmount: Int64 = 100000
-    static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, 8)
+    static let WavesDecimals: Int = 8
+    static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
 
     enum Coinomat {}
+    enum Market {}
+    enum Matcher {}
+}
+
+extension GlobalConstants.Matcher {
+    private static let url = Environments.current.servers.matcherUrl.relativeString + "/"
+    
+    static var matcher: String {
+        return url + "matcher"
+    }
+    
+    static var orderBook: String {
+        return url + "matcher/orderbook"
+    }
+    
+    static func orderBook(_ amountAsset: String, _ priceAsset: String) -> String {
+        return orderBook + "/" + amountAsset + "/" + priceAsset
+    }
+    
+    static func myOrderBook(_ amountAsset: String, _ priceAsset: String, publicKey: PublicKeyAccount) -> String {
+        return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "publicKey" + "/" + publicKey.getPublicKeyStr()
+    }
+    
+    static func cancelOrder(_ amountAsset: String, _ priceAsset: String) -> String {
+        return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "cancel"
+    }
+}
+
+extension GlobalConstants.Market {
+    
+    private static let url = "https://marketdata.wavesplatform.com/"
+    private static let apiPath = "api/"
+    
+    static func trades(_ amountAsset: String, _ priceAsset: String, _ count: Int) -> String {
+        return url + apiPath + "trades/" + amountAsset + "/" + priceAsset + "/" + String(count)
+    }
+    
+    static var candles: String {
+        return url + apiPath + "candles/"
+    }
+    
+    static var ticker: String {
+        return url + apiPath + "ticker/"
+    }
 }
 
 extension GlobalConstants.Coinomat {

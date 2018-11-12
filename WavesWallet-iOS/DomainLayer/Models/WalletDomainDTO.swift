@@ -16,12 +16,28 @@ extension DomainLayer.DTO {
         var isLoggedIn: Bool
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool
+        var isAlreadyShowLegalDisplay: Bool
         let id: String
     }
 
-    struct WalletEncryption: Mutating, Hashable {
+    struct WalletEncryption: Mutating {
+
+        enum Kind {
+            case passcode(secret: String)
+            case none
+
+            var secret: String? {
+                switch self {
+                case .passcode(let secret):
+                    return secret
+                default:
+                    return nil
+                }
+            }
+        }
+
         let publicKey: String
-        var secret: String
+        var kind: Kind
         var seedId: String
     }
 

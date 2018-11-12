@@ -233,7 +233,7 @@ extension HistoryViewController: UITableViewDelegate {
         switch row {
         case .transactionSkeleton:
             let skeletonCell: HistoryTransactionSkeletonCell = cell as! HistoryTransactionSkeletonCell
-            skeletonCell.slide(to: .right)
+            skeletonCell.startAnimation()
             
         default:
             break
@@ -249,7 +249,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         switch firstItem {
         case .transactionSkeleton:
-            (view as! HeaderSkeletonView).slide(to: .right)
+            (view as! HeaderSkeletonView).startAnimation()
         default:
             break
         }

@@ -20,6 +20,7 @@ private enum Constants {
     }
 }
 
+
 final class LegalViewController: UIViewController {
     
     var documentViewer: UIDocumentInteractionController!
@@ -29,31 +30,49 @@ final class LegalViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var okButton: UIButton!
-    var output: LegalModuleOutput?
+    weak var output: LegalModuleOutput?
     
     @IBOutlet weak var firstCheckboxView: CheckboxControl!
-    
     @IBOutlet weak var thirdCheckboxView: CheckboxControl!
     @IBOutlet weak var secondCheckboxView: CheckboxControl!
     
     var firstCheckboxValue: Bool = false
     var secondCheckboxValue: Bool = false
     var thirdCheckboxValue: Bool = false
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subTitleLabel: UILabel!
     
     @IBOutlet weak var firstLabel: TTTAttributedLabel!
     @IBOutlet weak var secondLabel: TTTAttributedLabel!
     @IBOutlet weak var thirdLabel: TTTAttributedLabel!
     
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var contentWidthConstraint: NSLayoutConstraint!
+    
     var presenting: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
+        okButton.setTitle(Localizable.Waves.Legal.Checkbox.Box.Button.confirm, for: .normal)
+        titleLabel.text = Localizable.Waves.Legal.Checkbox.Box.title
+        subTitleLabel.text = Localizable.Waves.Legal.Checkbox.Box.subtitle
+
         setupBox()
         addGestureRecognizers()
         setupData()
         fillLabels()
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        if Platform.isIphone5 {
+            contentWidthConstraint.constant = Platform.ScreenWidth - 32
+        } else {
+            contentWidthConstraint.constant = 343
+        }
     }
     
     private func setupBox() {
@@ -107,8 +126,8 @@ final class LegalViewController: UIViewController {
     
     @IBAction func buttonTap(_ sender: Any) {
         
-        dismiss(animated: true) 
-        
+        dismiss(animated: true)
+        output?.legalConfirm()    
     }
     
     // MARK: - Content

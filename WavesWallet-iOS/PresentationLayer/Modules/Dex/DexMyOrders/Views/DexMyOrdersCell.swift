@@ -10,32 +10,39 @@ import UIKit
 
 final class DexMyOrdersCell: UITableViewCell, Reusable {
 
-    @IBOutlet private weak var labelTimeText: UILabel!
+    @IBOutlet private weak var labelDate: UILabel!
     @IBOutlet private weak var labelTime: UILabel!
-    @IBOutlet private weak var labelStatusText: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
-    @IBOutlet private weak var labelPriceText: UILabel!
+    @IBOutlet private weak var labelSide: UILabel!
     @IBOutlet private weak var labelPrice: UILabel!
-    @IBOutlet private weak var labelAmountText: UILabel!
     @IBOutlet private weak var labelAmount: UILabel!
+    @IBOutlet private weak var labelSum: UILabel!
+    @IBOutlet private weak var labelFilled: UILabel!
+    @IBOutlet private weak var buttonDelete: UIButton!
+    @IBOutlet private weak var viewSeparate: UIView!
     
     var buttonDeleteDidTap: (() -> Void)?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupLocalization()
-    }
 }
 
 extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DexMyOrders.DTO.Order) {
         
+        labelDate.text = DexMyOrders.ViewModel.dateFormatterDate.string(from: model.time)
         labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
         labelStatus.text = model.statusText
-        labelAmount.text = model.amount.formattedText()
-        labelPrice.text = model.price.formattedText()
-        labelStatus.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
+        labelAmount.text = model.amount.displayText
+        labelPrice.text = model.price.displayText
+        labelSide.text = model.type == .sell ? Localizable.Waves.Dexmyorders.Label.sell : Localizable.Waves.Dexmyorders.Label.buy
+        labelSide.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
+        labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
+        labelFilled.text = model.filled.displayText
+
+        let sum = Money(value: model.price.decimalValue * model.amount.decimalValue, model.price.decimals)
+        labelSum.text = sum.displayText
+        
+        buttonDelete.isHidden = model.status == .filled || model.status == .cancelled
+        viewSeparate.isHidden = buttonDelete.isHidden
     }
     
 }
@@ -45,17 +52,6 @@ private extension DexMyOrdersCell {
    
     @IBAction func deleteTapped(_ sender: Any) {
         buttonDeleteDidTap?()
-    }
-}
-
-//MARK: - SetupUI
-private extension DexMyOrdersCell {
-        
-    func setupLocalization() {
-        labelTimeText.text = Localizable.Waves.Dexmyorders.Label.time
-        labelStatusText.text = Localizable.Waves.Dexmyorders.Label.status
-        labelAmountText.text = Localizable.Waves.Dexmyorders.Label.amount
-        labelPriceText.text = Localizable.Waves.Dexmyorders.Label.price
     }
 }
 

@@ -14,7 +14,7 @@ struct DexSortModuleBuilder: ModuleBuilder {
         
         let vc = StoryboardScene.Dex.dexSortViewController.instantiate()
         var presenter: DexSortPresenterProtocol = DexSortPresenter()
-        presenter.interactor = DexSortInteractorMock()
+        presenter.interactor = DexSortInteractor()
         vc.presenter = presenter
         
         return vc

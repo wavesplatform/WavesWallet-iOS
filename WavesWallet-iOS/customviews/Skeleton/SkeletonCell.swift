@@ -38,15 +38,14 @@ extension UITableView {
     func startSkeletonCells() {
         self.visibleCells
             .map { $0 as? SkeletonCell }
-            .flatMap { $0 }
+            .compactMap { $0 }
             .forEach { $0.startAnimation() }
-
     }
 
     func stopSkeletonCells() {
         self.visibleCells
             .map { $0 as? SkeletonCell }
-            .flatMap { $0 }
+            .compactMap { $0 }
             .forEach { $0.stopAnimation() }
     }
 }

@@ -8,13 +8,19 @@
 
 import Foundation
 
+struct ResponseTypeError {
+    let message: String
+    let code: Int
+}
+
 struct ResponseType <T> {
+    
     let output: T?
-    let error: String?
+    let error: ResponseTypeError?
     
     enum Result {
         case success(T)
-        case error(String)
+        case error(ResponseTypeError)
     }
     
     var result: Result {
@@ -24,6 +30,7 @@ struct ResponseType <T> {
         else if let error = self.error {
             return Result.error(error)
         }
-        return Result.error("Try again")
+        return Result.error(.init(message: "Try again", code:0))
     }
 }
+

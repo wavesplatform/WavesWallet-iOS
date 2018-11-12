@@ -1158,7 +1158,8 @@
                         <outlet property="createButton" destination="2su-Jh-1lC" id="23c-g4-Brc"/>
                         <outlet property="feeLabel" destination="aRT-WS-kgk" id="KVp-4S-Qsv"/>
                         <outlet property="secondSubtitleLabel" destination="Ppq-2Y-NpV" id="7TC-6g-eFu"/>
-                        <outlet property="titleLabel" destination="VOY-jz-v3q" id="edU-9n-IFc"/>
+                        <outlet property="subtitleLabel" destination="VOY-jz-v3q" id="2cW-QX-nIA"/>
+                        <outlet property="titleLabel" destination="DGo-HK-3gm" id="rny-RP-YpZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDs-21-UBM" userLabel="First Responder" sceneMemberID="firstResponder"/>
