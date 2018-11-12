@@ -36,13 +36,14 @@ final class SlideMenu: RESideMenu {
 
     private func setup() {
         contentViewShadowEnabled = true
-        panGestureEnabled = false
         interactivePopGestureRecognizerEnabled = false
-        panFromEdge = false
+        panFromEdge = true
         interactivePopGestureRecognizerEnabled = true
         contentViewShadowOffset = CGSize(width: 0, height: 10)
         contentViewShadowOpacity = 0.2
         contentViewShadowRadius = 15
         contentViewInPortraitOffsetCenterX = 100
+        bouncesHorizontally = false
+        topControllersNames = [NSStringFromClass(PopupViewController.classForCoder())]
     }
 }
