@@ -29,6 +29,14 @@ final class DexCompleteOrderViewController: UIViewController {
 
         setupLocalization()
         setupInfo()
+        
+        navigationItem.backgroundImage = UIImage()
+        hideTopBarLine()
+        navigationItem.hidesBackButton = true
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
 
@@ -36,7 +44,7 @@ final class DexCompleteOrderViewController: UIViewController {
 private extension DexCompleteOrderViewController {
     
     @IBAction func okeyTapped(_ sender: Any) {
-
+        navigationController?.popViewController(animated: true)
     }
 }
 

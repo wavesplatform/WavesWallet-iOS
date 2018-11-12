@@ -15,21 +15,21 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:
-          fingerprints:            
+          fingerprints:
             - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
+      - run:
+          name: Set Ruby Version
+          command:  echo "ruby-2.3" > ~/.ruby-version
       - run:
           name: SSH
           command: ls -la ~/.ssh/
       - run:
-          name: SSH Cat id_rsa_43eb59d649f1ae81cb5abab801641939
-          command: cat ~/.ssh/id_rsa_43eb59d649f1ae81cb5abab801641939
-      - run:
-          name: SSH Cat authorized_keys
-          command: cat ~/.ssh/authorized_keys
-      - run:
           name: SSH Cat config
           command: cat ~/.ssh/config
+      - run: 
+          name: Test ouput
+          command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
       - run:
           name: Bundle
           command: bundle install
@@ -37,8 +37,8 @@ jobs:
           name: Secure
           command: security find-identity -v -p codesigning
       - run:
-          name: Fastlane
-          command: bundle exec fastlane certificates
+          name: Fastlane action setup_circle_ci
+          command: bundle exec fastlane action setup_circle_ci --verbose
       - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates --verbose

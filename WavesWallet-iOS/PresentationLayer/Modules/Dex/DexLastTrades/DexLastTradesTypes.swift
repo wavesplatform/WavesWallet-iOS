@@ -19,6 +19,7 @@ enum DexLastTrades {
         case didTapEmptySell
         case didTapBuy(DTO.SellBuyTrade)
         case didTapEmptyBuy
+        case refresh
     }
     
     struct State: Mutating {
@@ -35,6 +36,7 @@ enum DexLastTrades {
         var isNeedRefreshing: Bool
         var availableAmountAssetBalance: Money
         var availablePriceAssetBalance: Money
+        var availableWavesBalance: Money
 
     }
 }
@@ -79,6 +81,7 @@ extension DexLastTrades.DTO {
         let lastBuy: SellBuyTrade?
         let availableAmountAssetBalance: Money
         let availablePriceAssetBalance: Money
+        let availableWavesBalance: Money
     }
 }
 
@@ -87,7 +90,8 @@ extension DexLastTrades.State {
         let section = DexLastTrades.ViewModel.Section(items: [])
         return DexLastTrades.State(action: .none, section: section, lastSell: nil, lastBuy: nil, hasFirstTimeLoad: false, isNeedRefreshing: false,
                                    availableAmountAssetBalance: Money(0, 0),
-                                   availablePriceAssetBalance: Money(0, 0))
+                                   availablePriceAssetBalance: Money(0, 0),
+                                   availableWavesBalance: Money(0, 0))
     }
     
     var isNotEmpty: Bool {

@@ -12,7 +12,7 @@ extension WalletEncryption {
     convenience init(wallet: DomainLayer.DTO.WalletEncryption) {
         self.init()
         self.publicKey = wallet.publicKey
-        self.secret = wallet.secret
+        self.secret = wallet.kind.secret
         self.seedId = wallet.seedId
     }
 }
@@ -21,7 +21,12 @@ extension DomainLayer.DTO.WalletEncryption {
 
     init(wallet: WalletEncryption) {
         self.publicKey = wallet.publicKey
-        self.secret = wallet.secret
+
+        if let secret = wallet.secret {
+            self.kind = .passcode(secret: secret)
+        } else {
+            self.kind = .none
+        }
         self.seedId = wallet.seedId
     }
 }
@@ -37,6 +42,7 @@ extension WalletItem {
         self.address = wallet.address
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.isAlreadyShowLegalDisplay = wallet.isAlreadyShowLegalDisplay
     }
 }
 
@@ -51,6 +57,7 @@ extension DomainLayer.DTO.Wallet {
         self.address = wallet.address        
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.isAlreadyShowLegalDisplay = wallet.isAlreadyShowLegalDisplay
     }
 }
 

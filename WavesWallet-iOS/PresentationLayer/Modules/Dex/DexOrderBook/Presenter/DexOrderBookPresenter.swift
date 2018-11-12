@@ -57,6 +57,11 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
             
+        case .updateData:
+            return state.mutate {
+                $0.isNeedRefreshing = true
+            }.changeAction(.none)
+            
         case .setDisplayData(let displayData):
             
             return state.mutate {
@@ -64,7 +69,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
-
+                $0.availableWavesBalance = displayData.availableWavesBalance
+                
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
 
@@ -83,9 +89,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 
                 $0.header = displayData.header
                 
-                if !state.hasFirstTimeLoad && $0.sections.count > 0 {
+                if !state.hasFirstTimeLoad {
                     $0.hasFirstTimeLoad = true
-                    $0.action = .scrollTableToCenter
+                    $0.action = $0.sections.count > 0 ? .scrollTableToCenter : .update
                 }
                 else {
                     $0.action = .update
@@ -99,7 +105,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          bid: state.lastBid?.price,
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
@@ -109,7 +116,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               bid: state.lastBid?.price,
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTapAsk(let ask):
@@ -118,7 +126,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          bid: state.lastBid?.price,
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
@@ -129,7 +138,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               bid: state.lastBid?.price,
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
         }
     }

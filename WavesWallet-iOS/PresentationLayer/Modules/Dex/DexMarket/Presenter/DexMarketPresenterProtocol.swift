@@ -14,5 +14,4 @@ protocol DexMarketPresenterProtocol {
     var interactor: DexMarketInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
     var moduleOutput: DexMarketModuleOutput? { get set }
-
 }

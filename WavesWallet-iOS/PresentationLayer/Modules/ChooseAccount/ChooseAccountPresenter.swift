@@ -12,7 +12,7 @@ import RxFeedback
 import RxSwift
 
 protocol ChooseAccountModuleOutput: AnyObject {
-    func userChooseAccount(wallet: DomainLayer.DTO.Wallet) -> Void
+    func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void
     func userEditAccount(wallet: DomainLayer.DTO.Wallet) -> Void
 }
 
@@ -49,6 +49,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(walletsFeedback())
         newFeedbacks.append(removeWallet())
+        newFeedbacks.append(hasPermissionQuery())
 
         let initialState = self.initialState()
         let system = Driver.system(initialState: initialState,
@@ -92,6 +93,29 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
+
+    private func hasPermissionQuery() -> Feedback {
+        return react(query: { state -> DomainLayer.DTO.Wallet? in
+            if let action = state.action, case .openWallet(let wallet) = action {
+                return wallet
+            }
+
+            return nil
+        }, effects: { [weak self] wallet -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .authorizationInteractor
+                .hasPermissionToLoggedIn(wallet)
+                .map { _ in Types.Event.openWallet(wallet, passcodeNotCreated: false) }
+                .asSignal(onErrorRecover: { error -> Signal<Types.Event> in
+                    if case AuthorizationInteractorError.passcodeNotCreated? = error as? AuthorizationInteractorError {
+                        return Signal.just(Types.Event.openWallet(wallet, passcodeNotCreated: true))
+                    }
+                    return Signal.never()
+                })
+        })
+    }
 }
 
 // MARK: Core State
@@ -99,51 +123,45 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
 private extension ChooseAccountPresenter {
 
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
+        var newState = state
+        reduce(state: &newState, event: event)
+        return newState
+    }
+
+    func reduce(state: inout Types.State, event: Types.Event) {
         switch event {
         case .readyView:
-            return state.mutate {
-                $0.isAppeared = true
-            }
+            state.isAppeared = true
 
         case .setWallets(let wallets):
-            return state.mutate {
-                $0.displayState.wallets = wallets
-                $0.displayState.action = .reload
-            }
+            state.displayState.wallets = wallets
+            state.displayState.action = .reload
 
         case .tapWallet(let wallet):
-            moduleOutput?.userChooseAccount(wallet: wallet)
-            return state.mutate(transform: {
-                $0.displayState.action = .none                
-            })
+            state.action = .openWallet(wallet)
+            state.displayState.action = .none
 
         case .tapRemoveButton(let wallet, let indexPath):
-             return state.mutate {
-                $0.displayState.action = .none
-                $0.action = .removeWallet(wallet, indexPath: indexPath)
-            }
+            state.displayState.action = .none
+            state.action = .removeWallet(wallet, indexPath: indexPath)
+
+        case .openWallet(let wallet, let passcodeNotCreated):
+            state.action = nil
+            moduleOutput?.userChooseAccount(wallet: wallet, passcodeNotCreated: passcodeNotCreated)
             
         case .completedDeleteWallet(let indexPath):
 
-            
-            return state.mutate {
-                $0.action = nil
-                var wallets = $0.displayState.wallets
-                wallets.remove(at: indexPath.row)
-                $0.displayState.wallets = wallets
-                $0.displayState.action = .remove(indexPath: indexPath)
-            }
+            state.action = nil
+            var wallets = state.displayState.wallets
+            wallets.remove(at: indexPath.row)
+            state.displayState.wallets = wallets
+            state.displayState.action = .remove(indexPath: indexPath)
 
         case .tapEditButton(let wallet, let indexPath):
             moduleOutput?.userEditAccount(wallet: wallet)
-            
-            return state.mutate(transform: {
-                $0.displayState.action = .none
-                $0.action = .editWallet(wallet, indexPath: indexPath)
-            })
-
+            state.displayState.action = .none
+            state.action = .editWallet(wallet, indexPath: indexPath)
         }
-        
     }
 }
 

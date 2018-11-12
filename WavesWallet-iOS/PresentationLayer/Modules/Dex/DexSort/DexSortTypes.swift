@@ -48,6 +48,6 @@ extension DexSort.DTO {
     struct DexSortModel: Hashable, Mutating {
         let id: String
         let name: String
-        var sortLevel: Float
+        var sortLevel: Int
     }
 }

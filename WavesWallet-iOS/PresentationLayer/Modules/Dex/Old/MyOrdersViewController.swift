@@ -42,32 +42,32 @@ class MyOrderCell : UITableViewCell {
         
         if item["type"] as? String == "sell" {
             labelType.text = "Sell"
-            labelType.textColor = LastTraderCell.sellColor()
+//            labelType.textColor = LastTraderCell.sellColor()
         }
         else {
             labelType.text = "Buy"
-            labelType.textColor = LastTraderCell.buyColor()
+//            labelType.textColor = LastTraderCell.buyColor()
         }
         
         labelPrice.textColor = labelType.textColor
 
         if item["status"] as? String == "Accepted" {
             labelStatus.text = "Open"
-            labelStatus.textColor = LastTraderCell.buyColor()
+//            labelStatus.textColor = LastTraderCell.buyColor()
         }
         else if item["status"] as? String == "PartiallyFilled" {
             labelStatus.text = "Partial"
-            labelStatus.textColor = LastTraderCell.buyColor()
+//            labelStatus.textColor = LastTraderCell.buyColor()
 
         }
         else if item["status"] as? String == "Cancelled" {
             labelStatus.text = "Cancelled"
-            labelStatus.textColor = LastTraderCell.sellColor()
+//            labelStatus.textColor = LastTraderCell.sellColor()
 
         }
         else if item["status"] as? String == "Filled" {
             labelStatus.text = "Filled"
-            labelStatus.textColor = LastTraderCell.sellColor()
+//            labelStatus.textColor = LastTraderCell.sellColor()
         }
         
         labelFilled.textColor = labelStatus.textColor
@@ -105,7 +105,7 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tableView.register(UINib.init(nibName: MyOrderHeaderView.getIdentifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: MyOrderHeaderView.getIdentifier())
+//        tableView.register(UINib.init(nibName: MyOrderHeaderView.getIdentifier(), bundle: nil), forHeaderFooterViewReuseIdentifier: MyOrderHeaderView.getIdentifier())
     
         loadInfo()
         NotificationCenter.default.addObserver(self, selector: #selector(loadInfo), name: Notification.Name(rawValue: kNotifDidCreateOrder), object: nil)
@@ -125,19 +125,19 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func loadInfo () {
         
         isLoading = true
-        NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
-            self.isLoading = false
-            self.activityIndicatorView.stopAnimating()
-            if items != nil {
-                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as NSArray
-                self.tableView.reloadData()
-            } else if let msg = erorMessage {
-                self.presentBasicAlertWithTitle(title: msg)
-            }
-            
-            self.refreshControl.endRefreshing()
-            SVProgressHUD.dismiss()
-        }
+//        NetworkManager.getMyOrders(amountAsset: amountAsset, priceAsset: priceAsset) { (items, erorMessage) in
+//            self.isLoading = false
+//            self.activityIndicatorView.stopAnimating()
+//            if items != nil {
+//                self.myOrders = items!.sortedArray(using: [NSSortDescriptor.init(key: "timestamp", ascending: false)]) as NSArray
+//                self.tableView.reloadData()
+//            } else if let msg = erorMessage {
+//                self.presentBasicAlertWithTitle(title: msg)
+//            }
+//
+//            self.refreshControl.endRefreshing()
+//            SVProgressHUD.dismiss()
+//        }
     }
     
     func controllerWillAppear() {
@@ -214,7 +214,8 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
             return nil
         }
         
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: MyOrderHeaderView.getIdentifier())
+        return UIView()
+//        return tableView.dequeueReusableHeaderFooterView(withIdentifier: MyOrderHeaderView.getIdentifier())
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -243,10 +244,10 @@ class MyOrdersViewController: UIViewController, UITableViewDelegate, UITableView
         cell.labelAmount.text = MoneyUtil.getScaledTextTrimZeros(amount, decimals: self.amountAssetDecimal)
         
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = LastTraderCell.lightBgColor()
+//            cell.backgroundColor = LastTraderCell.lightBgColor()
         }
         else {
-            cell.backgroundColor = LastTraderCell.darkBgColor()
+//            cell.backgroundColor = LastTraderCell.darkBgColor()
         }
         
         return cell
