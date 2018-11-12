@@ -56,6 +56,11 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
             
+        case .refresh:
+            return state.mutate {
+                $0.isNeedRefreshing = true
+            }.changeAction(.none)
+            
         case .setDisplayData(let displayData):
             return state.mutate {
                 
@@ -65,6 +70,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                 $0.lastSell = displayData.lastSell
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
+                $0.availableWavesBalance = displayData.availableWavesBalance
                 
                 let items = displayData.trades.map {DexLastTrades.ViewModel.Row.trade($0)}
                 $0.section = DexLastTrades.ViewModel.Section(items: items)
@@ -74,7 +80,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             
             moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
@@ -82,14 +89,16 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
             
             moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                         availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                         availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                         availableWavesBalance: state.availableWavesBalance)
 
             return state.changeAction(.none)
             
@@ -98,7 +107,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
-                                              availablePriceAssetBalance: state.availablePriceAssetBalance)
+                                              availablePriceAssetBalance: state.availablePriceAssetBalance,
+                                              availableWavesBalance: state.availableWavesBalance)
 
             return state.changeAction(.none)
         }

@@ -14,7 +14,7 @@ struct DexLastTradesModuleBuilder: ModuleBuilderOutput {
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         
-        var interactor: DexLastTradesInteractorProtocol = DexLastTradesInteractorMock()
+        var interactor: DexLastTradesInteractorProtocol = DexLastTradesInteractor()
         interactor.pair = input
         
         var presenter: DexLastTradesPresenterProtocol = DexLastTradesPresenter()

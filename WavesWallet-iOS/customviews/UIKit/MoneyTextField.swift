@@ -39,7 +39,8 @@ final class MoneyTextField: UITextField {
     weak var moneyDelegate: MoneyTextFieldDelegate?
     var isShakeView: Bool = true
     private var decimals: Int = 0
-
+    private var hasSetDecimals = false
+    
     var value: Money {
         if let decimal = Decimal(string: textString, locale: Constants.locale) {
             return Money(value: decimal, decimals)
@@ -67,6 +68,7 @@ extension MoneyTextField {
     // forceUpdateMoney need if we want call -> MoneyTextFieldDelegate: moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
     func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
         self.decimals = decimals
+        hasSetDecimals = true
         
         if forceUpdateMoney {
             textDidChange()
@@ -74,7 +76,6 @@ extension MoneyTextField {
     }
     
     func setValue(value: Money) {
-        decimals = value.decimals
         setupAttributedText(text: formattedStringFrom(value))
     }
     
@@ -271,6 +272,11 @@ private extension MoneyTextField {
                 return false
             }
             else if textString.last == "0" && input != "." && input != "," && textString.count == 1 {
+                
+                if inputRange.location == 0 && (input as NSString).integerValue > 0 {
+                    
+                    return true
+                }
                 shakeTextFieldIfNeed()
                 return false
             }
@@ -300,8 +306,17 @@ private extension MoneyTextField {
     }
     
     func isValidInputAfterDot(input: String, inputRange: NSRange) -> Bool {
-        
-        if countInputDecimals >= decimals && decimals > 0 && input.count > 0 {
+
+        var isMaximumInputDecimals = false
+        if hasSetDecimals {
+            isMaximumInputDecimals = countInputDecimals >= decimals && input.count > 0
+
+        }
+        else {
+            isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && input.count > 0
+        }
+
+        if isMaximumInputDecimals {
             if inputRange.location > dotRange.location {
                 return false
             }
