@@ -149,8 +149,24 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         }
     }
     
-    func resignKeyboard() {
-        textField.resignFirstResponder()
+    func showKeyboard(animated: Bool = true) {
+        if animated {
+            textField.becomeFirstResponder()
+        } else {
+            UIView.setAnimationsEnabled(false)
+            textField.becomeFirstResponder()
+            UIView.setAnimationsEnabled(true)
+        }
+    }
+    
+    func resignKeyboard(animated: Bool = true) {
+        if animated {
+            textField.resignFirstResponder()
+        } else {
+            UIView.setAnimationsEnabled(false)
+            textField.resignFirstResponder()
+            UIView.setAnimationsEnabled(true)
+        }
     }
     
 }
