@@ -170,7 +170,7 @@ DEPENDENCIES:
   - QRCode
   - QRCodeReader.swift
   - RealmSwift
-  - RESideMenu (from `https://github.com/florianbuerger/RESideMenu.git`)
+  - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
   - Reveal-SDK
   - RxAlamofire
   - RxCocoa
@@ -265,7 +265,7 @@ EXTERNAL SOURCES:
   keccak:
     :path: Vendors/Keccak
   RESideMenu:
-    :git: https://github.com/florianbuerger/RESideMenu.git
+    :git: https://github.com/wavesplatform/RESideMenu.git
 
 CHECKOUT OPTIONS:
   '25519':
@@ -281,8 +281,8 @@ CHECKOUT OPTIONS:
     :commit: 0168a154821a80611dda2f524da143e3392328d6
     :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
   RESideMenu:
-    :commit: a5246a511cef009a60f07eabd68a41a1e19ce2a9
-    :git: https://github.com/florianbuerger/RESideMenu.git
+    :commit: c4870be8caf988b3c164bbf5675a717a905e9952
+    :git: https://github.com/wavesplatform/RESideMenu.git
 
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
@@ -347,6 +347,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 6ee523f04df9ae80f67fbb3f3ddae2b6bd8fbbee
+PODFILE CHECKSUM: 0370be91c33df8259d86a988f3b946172d7aafec
 
 COCOAPODS: 1.5.3
