@@ -75,6 +75,7 @@ final class MultyTextField: UIView, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         textViewValue.textContainerInset = .zero
         textViewValue.textContainer.lineFragmentPadding = 0
         textViewValue.delegate = self

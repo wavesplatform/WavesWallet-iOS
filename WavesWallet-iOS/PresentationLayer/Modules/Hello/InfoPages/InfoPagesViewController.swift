@@ -234,12 +234,16 @@ extension InfoPagesViewController: UIScrollViewDelegate {
         
         if scrollView == collectionView {
         
-            let offsetY = scrollView.contentOffset.x
+            let offsetX = scrollView.contentOffset.x
             let size = scrollView.bounds.width
             
             if size == 0 { return }
             
-            var page = Int((offsetY + size / 2) / size)
+            var page = Int((offsetX + size / 2) / size)
+            
+            if offsetX > size * CGFloat(page) && !nextControl.isEnabled {
+                scrollView.contentOffset.x = size * CGFloat(page)
+            }
             
             page = max(min(pageViews.count - 1, page), 0)
             pageControl.currentPage = page

@@ -266,6 +266,7 @@ internal enum Images {
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
+  internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
   internal static let userimgToken80White = ImageAsset(name: "userimgToken80White")
   internal static let userimgWallet80White = ImageAsset(name: "userimgWallet80White")
@@ -499,6 +500,7 @@ internal enum Images {
     userimgDex80White,
     userimgDone80Success400,
     userimgEmpty80Multi,
+    userimgPairing80,
     userimgSeed80Submit400,
     userimgToken80White,
     userimgWallet80White,

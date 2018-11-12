@@ -259,17 +259,18 @@
 "history.segmentedControl.activeNow" = "Active Now";
 "history.segmentedControl.canceled" = "Canceled";
 
-"import.account.navigation.title" = "Import account";
-"import.account.label.info.step.one.title" = "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com";
-"import.account.label.info.step.one.detail" = "Settings > Security > Pairing code";
-"import.account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
-"import.account.button.scan.title" = "Scan pairing code";
-"import.account.button.enter.title" = "Enter seed manually";
-"import.welcome.navigation.title" = "Welcome back";
-"import.welcome.label.address.title" = "Your account seed";
-"import.welcome.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
-"import.welcome.button.continue" = "Continue";
-
+"import.general.navigation.title" = "Import account";
+"import.general.segmentedControl.scan" = "Scan";
+"import.general.segmentedControl.manually" = "Manually";
+"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac/PC";
+"import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
+"import.scan.label.step.two.detail" = "(Settings > Security > Pairing code)";
+"import.scan.label.step.three.title" = "Scan the code with your camera";
+"import.scan.button.title" = "Scan pairing code";
+"import.manually.label.address.title" = "Your account seed";
+"import.manually.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"import.manually.button.continue" = "Continue";
+"import.password.button.continue" = "Continue";
 
 "assetlist.label.assets" = "Assets";
 "assetlist.label.loadingAssets" = "Loading assets…";
