@@ -13,7 +13,7 @@ import RealmSwift
 
 final class LeasingTransactionRepositoryLocal: LeasingTransactionRepositoryProtocol {
 
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
         return Observable.create({ (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {

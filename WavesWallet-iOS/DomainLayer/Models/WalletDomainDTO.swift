@@ -10,12 +10,13 @@ import Foundation
 extension DomainLayer.DTO {
 
     struct Wallet: Mutating, Hashable {
-        let name: String
+        var name: String
         let address: String
         let publicKey: String
         var isLoggedIn: Bool
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool
+        var isAlreadyShowLegalDisplay: Bool
         let id: String
     }
 

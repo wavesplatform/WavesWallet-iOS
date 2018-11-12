@@ -10,12 +10,9 @@ import Foundation
 
 extension DomainLayer.DTO {
     struct Account {
-        struct Contact {
-            let name: String
-        }
-
+        
         let id: String
-        let contact: Contact?
+        let contact: DomainLayer.DTO.Contact?
         let isMyAccount: Bool
     }
 }

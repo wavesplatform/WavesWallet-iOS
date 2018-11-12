@@ -11,7 +11,7 @@ import RxSwift
 import RealmSwift
 
 fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 4
+    static let schemaVersion: UInt64 = 5
 }
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {

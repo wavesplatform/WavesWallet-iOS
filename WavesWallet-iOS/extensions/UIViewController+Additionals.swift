@@ -55,7 +55,11 @@ extension UIViewController {
     var isShowNotFullBigNavigationBar: Bool {
         return navigationController?.navigationBar.frame.size.height.rounded(.down) ?? 0 < Constants.bigNavBarHeight
     }
-    
+
+    var isSmallNavigationBar: Bool {
+        return navigationController?.navigationBar.frame.size.height.rounded(.down) ?? 0 <= Constants.smallNavBarHeight
+    }
+
     // TODO: Меня смущает проверка (<= 44) в showImage.
     func setupTopBarLine() {
         
