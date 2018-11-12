@@ -99,7 +99,6 @@
 		0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */; };
 		0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25B469216F69EC00638C93 /* Bundle+Version.swift */; };
 		0A25B46C216F763D00638C93 /* MailCompose+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25B46B216F763D00638C93 /* MailCompose+Support.swift */; };
-		0A2B7D30216036480098438D /* Observable+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D2F216036480098438D /* Observable+Types.swift */; };
 		0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B7D32216037FD0098438D /* AssetViewHistoryCell.xib */; };
 		0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D33216037FD0098438D /* AssetViewHistoryCell.swift */; };
 		0A2B7D37216038540098438D /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B7D36216038540098438D /* HalfModalInteractiveTransition.swift */; };
@@ -899,7 +898,6 @@
 		0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryRemote.swift; sourceTree = "<group>"; };
 		0A25B469216F69EC00638C93 /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
 		0A25B46B216F763D00638C93 /* MailCompose+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MailCompose+Support.swift"; sourceTree = "<group>"; };
-		0A2B7D2F216036480098438D /* Observable+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Types.swift"; sourceTree = "<group>"; };
 		0A2B7D32216037FD0098438D /* AssetViewHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetViewHistoryCell.xib; sourceTree = "<group>"; };
 		0A2B7D33216037FD0098438D /* AssetViewHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetViewHistoryCell.swift; sourceTree = "<group>"; };
 		0A2B7D36216038540098438D /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -1055,7 +1053,6 @@
 		0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPopupCell.swift; sourceTree = "<group>"; };
 		0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTransactionHistoryContentView.swift; sourceTree = "<group>"; };
 		0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTransactionHistoryContentView.xib; sourceTree = "<group>"; };
-		0A762D6D21639FA50019D447 /* TransactionHistoryCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCollectionView.swift; sourceTree = "<group>"; };
 		0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryInteractor.swift; sourceTree = "<group>"; };
 		0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+State.swift"; sourceTree = "<group>"; };
 		0A762D9421639FBF0019D447 /* UIView+SafeArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SafeArea.swift"; sourceTree = "<group>"; };
@@ -1234,7 +1231,6 @@
 		0AF92258212E1233003BA067 /* UIResponder+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
 		0AF92259212E1233003BA067 /* RxTableViewAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewAnimatedDataSource.swift; sourceTree = "<group>"; };
 		0AF9225A212E1233003BA067 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
-		0AF9225B212E1233003BA067 /* Observable+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Types.swift"; sourceTree = "<group>"; };
 		0AF9225D212E1233003BA067 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		0AF9225F212E1233003BA067 /* ControlEvent+Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+Signal.swift"; sourceTree = "<group>"; };
 		0AF92260212E1233003BA067 /* UINavigationController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Additionals.swift"; sourceTree = "<group>"; };
@@ -2279,14 +2275,14 @@
 		0A762D4B21639FA50019D447 /* TransactionHistory */ = {
 			isa = PBXGroup;
 			children = (
+				0A762D5021639FA50019D447 /* Presenter */,
+				0A762D5921639FA50019D447 /* Views */,
+				0A762D6E21639FA50019D447 /* Interactor */,
 				0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */,
 				0A762D4F21639FA50019D447 /* TransactionHistoryTypes+DTO.swift */,
-				0A762D5021639FA50019D447 /* Presenter */,
 				0A762D5421639FA50019D447 /* TransactionHistoryTypes+ViewModels.swift */,
 				0A762D5621639FA50019D447 /* TransactionHistoryModuleBuilder.swift */,
 				0A762D5821639FA50019D447 /* TransactionHistoryViewController.swift */,
-				0A762D5921639FA50019D447 /* Views */,
-				0A762D6E21639FA50019D447 /* Interactor */,
 				0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */,
 			);
 			path = TransactionHistory;
@@ -2310,7 +2306,6 @@
 				0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */,
 				0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */,
 				0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */,
-				0A762D6D21639FA50019D447 /* TransactionHistoryCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2867,7 +2862,6 @@
 				0AF92245212E1233003BA067 /* Array+Sort.swift */,
 				0AF92250212E1233003BA067 /* ArrayExtension.swift */,
 				0A5C53E22139502F00667E34 /* Assert+Message.swift */,
-				0A2B7D2F216036480098438D /* Observable+Types.swift */,
 				0AF9226E212E1233003BA067 /* CALayer+RoundingCorners.swift */,
 				0AF92240212E1233003BA067 /* CALayer+Shadow.swift */,
 				0AF92244212E1233003BA067 /* CGFloat+Min.swift */,
@@ -2882,7 +2876,6 @@
 				0AF92251212E1233003BA067 /* JSONDecoder+Rx.swift */,
 				0AF92248212E1233003BA067 /* NSAttributedString+Styles.swift */,
 				0AF92269212E1233003BA067 /* NSObject+AssociatedObject.swift */,
-				0AF9225B212E1233003BA067 /* Observable+Types.swift */,
 				0AF9226F212E1233003BA067 /* ObservableType+Weak.swift */,
 				0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */,
 				0AF9224A212E1233003BA067 /* Runtime.swift */,
@@ -4607,7 +4600,6 @@
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				0A7CCDB1218A138D005D372B /* MyAddressModuleBuilder.swift in Sources */,
 				04831F75216916EE006D1ED6 /* ActivityIndicator.swift in Sources */,
-				0A2B7D30216036480098438D /* Observable+Types.swift in Sources */,
 				04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */,
 				04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */,
 				E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */,
