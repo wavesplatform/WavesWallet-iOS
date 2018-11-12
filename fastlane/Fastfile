@@ -5,9 +5,9 @@ default_platform(:ios)
 platform :ios do
 
   before_all do
-    if is_ci?
-      setup_circle_ci
-    end
+    setup_circle_ci
+    sh("export MATCH_KEYCHAIN_NAME=#{ENV['FASTLANE_TEAM_ID']}")
+    sh("export MATCH_KEYCHAIN_PASSWORD=#{ENV['FASTLANE_TEAM_ID']}")
   end
 
   lane :waves_test do
@@ -75,7 +75,7 @@ platform :ios do
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "appstore",          
           readonly: true,
-          keychain_name: "fastlane_tmp_keychain")
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
   lane :download_environments do
