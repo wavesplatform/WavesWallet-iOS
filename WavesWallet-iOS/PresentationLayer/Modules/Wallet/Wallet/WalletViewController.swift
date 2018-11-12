@@ -80,10 +80,26 @@ final class WalletViewController: UIViewController {
 
     @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
 
+        let frameS = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
+        let navigation = self.navigationController?.navigationBar.frame ?? CGRect.zero
+
+        if navigation.maxY > frameS.minY {
+            return
+        }
+
+
+        print(frameS)
+
         sendEvent.accept(.changeDisplay(.leasing))
     }
 
     @objc func handlerRightSwipe(gesture: UIGestureRecognizer) {
+        let frameS = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
+        let navigation = self.navigationController?.navigationBar.frame ?? CGRect.zero
+
+        if navigation.maxY > frameS.minY {
+            return
+        }
         sendEvent.accept(.changeDisplay(.assets))
     }
 

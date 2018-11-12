@@ -4,12 +4,6 @@ default_platform(:ios)
 
 platform :ios do
 
-  before_all do
-    
-    # sh("export MATCH_KEYCHAIN_NAME=#{ENV['FASTLANE_TEAM_ID']}")
-    # sh("export MATCH_KEYCHAIN_PASSWORD=#{ENV['FASTLANE_TEAM_ID']}")
-  end
-
   lane :waves_test do
 
     ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.waveswallet.test"
@@ -22,7 +16,7 @@ platform :ios do
       type: "appstore",          
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-      
+
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
@@ -46,7 +40,6 @@ platform :ios do
               team_id: "#{ENV['FASTLANE_TEAM_ID']}",
               wait_for_uploaded_build: "false")
   end
-
 
   lane :waves do
 
