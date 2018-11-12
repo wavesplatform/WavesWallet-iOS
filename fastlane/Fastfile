@@ -83,7 +83,7 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
 
-  lane :upload_to_testflight do
+  lane :upload_testflight do
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
       itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
       team_id: "#{ENV['FASTLANE_TEAM_ID']}",
