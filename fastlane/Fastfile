@@ -29,7 +29,8 @@ platform :ios do
 
     testflight(username: "#{ENV['APPLDE_DEV_PORTAL_ID']}",
               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-              team_id: "#{ENV['FASTLANE_TEAM_ID']}")
+              team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+              wait_for_uploaded_build: "false")
   end
 
 
@@ -58,15 +59,15 @@ platform :ios do
 
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-              team_id: "#{ENV['FASTLANE_TEAM_ID']}")
+              team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+              wait_for_uploaded_build: "false")
   end
 
   lane :certificates do
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "appstore",
-          wait_for_uploaded_build: "false",
+          type: "appstore",          
           readonly: true)
   end
 

@@ -11,7 +11,7 @@ import RxSwift
 import RealmSwift
 
 fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 3
+    static let schemaVersion: UInt64 = 4
 }
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
@@ -49,7 +49,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(WalletsRepositoryError.notFound)
+                SweetLogger.error(WalletsRepositoryError.notFound)
             }
 
             return Disposables.create()
@@ -69,7 +70,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(WalletsRepositoryError.notFound)
             }
 
             return Disposables.create()
@@ -90,7 +91,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 }
                 observer.onNext(walletEncryption)
                 observer.onCompleted()
-            } catch _ {
+            } catch let error {
+                SweetLogger.error(error)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -119,7 +121,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onNext(false)
                     observer.onError(WalletsRepositoryError.fail)
                 }
-            } catch _ {
+            } catch let error {
+                SweetLogger.error(error)
                 observer.onNext(false)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
@@ -144,7 +147,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 }
                 observer.onNext(wallet)
                 observer.onCompleted()
-            } catch _ {
+            } catch let error {
+                SweetLogger.error(error)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -168,7 +172,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 }
                 observer.onNext(wallets)
                 observer.onCompleted()
-            } catch _ {
+            } catch let error {
+                SweetLogger.error(error)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -195,9 +200,11 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onCompleted()
                 } else {
                     observer.onNext(false)
-                    observer.onError(WalletsRepositoryError.fail)
+                    observer.onError(WalletsRepositoryError.notFound)
+                    SweetLogger.error(WalletsRepositoryError.notFound)
                 }
-            } catch _ {
+            } catch let error {
+                SweetLogger.error(error)
                 observer.onNext(false)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
@@ -261,7 +268,7 @@ private extension WalletsRepositoryLocal {
         config.schemaVersion = UInt64(Constants.schemaVersion)
 
         guard let fileURL = config.fileURL else {
-            error("File Realm is nil")
+            SweetLogger.error("File Realm is nil")
             return nil
         }
 

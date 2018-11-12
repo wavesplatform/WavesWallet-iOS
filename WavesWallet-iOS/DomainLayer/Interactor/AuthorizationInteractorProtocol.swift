@@ -18,6 +18,7 @@ enum AuthorizationType {
 
 enum AuthorizationInteractorError: Error {
     case fail
+    case passcodeNotCreated
     case passcodeIncorrect
     case passwordIncorrect
     case permissionDenied
@@ -46,6 +47,9 @@ protocol AuthorizationInteractorProtocol {
 
     func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?>
     func walletsLoggedIn() -> Observable<[DomainLayer.DTO.Wallet]>
+
+    //passcodeNotCreated or permissionDenied
+    func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
     // Return AuthorizationInteractorError permissionDenied
     func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet>
