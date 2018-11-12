@@ -232,5 +232,6 @@ private extension ReceiveCardViewController {
     func setupLocalization() {
         labelChangeCurrency.text = Localizable.Waves.Receivecard.Label.changeCurrency
         labelWarningInfo.text = Localizable.Waves.Receivecard.Label.warningInfo
+        buttonContinue.setTitle(Localizable.Waves.Receive.Button.continue, for: .normal)
     }
 }
