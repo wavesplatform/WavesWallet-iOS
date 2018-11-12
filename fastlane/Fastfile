@@ -63,14 +63,13 @@ platform :ios do
               wait_for_uploaded_build: "false")
   end
 
-
-
   lane :certificates do
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "appstore",          
-          readonly: true)
+          readonly: true,
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
   lane :download_environments do

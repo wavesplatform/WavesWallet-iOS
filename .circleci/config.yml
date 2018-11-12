@@ -45,6 +45,9 @@ jobs:
       - run: 
           name: Secure
           command: security find-identity -v -p codesigning
+      - run: 
+          name: Env
+          command: bundle exec fastlane env
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE
