@@ -18,7 +18,9 @@ fileprivate enum Constants {
 }
 
 final class HistoryViewController: UIViewController {
-    
+
+    typealias Types = HistoryTypes
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     private var refreshControl: UIRefreshControl!
@@ -30,16 +32,28 @@ final class HistoryViewController: UIViewController {
     @IBOutlet weak var emptyTextLabel: UILabel!
     
     var presenter: HistoryPresenterProtocol!
-    
+
+    private lazy var leftRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerLeftSwipe(gesture:)))
+    private lazy var rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerRightSwipe(gesture:)))
     private var sections: [HistoryTypes.ViewModel.Section] = []
     private var filters: [HistoryTypes.Filter] = []
-    
+    private let sendEvent: PublishRelay<Types.Event> = PublishRelay<Types.Event>()
     let tapCell: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.contentInset = Constants.contentInset
+
+        leftRightGesture.delegate = self
+        leftRightGesture.direction = .left
+        rightSwipeGesture.delegate = self
+        rightSwipeGesture.direction = .right
+
+        tableView.addGestureRecognizer(leftRightGesture)
+        tableView.addGestureRecognizer(rightSwipeGesture)
+
+
         emptyView.isHidden = true
         setupLocalization()
         setupSegmentedControl()
@@ -67,6 +81,42 @@ final class HistoryViewController: UIViewController {
         setupLocalization()
         setupSegmentedControl()
         tableView.reloadData()
+    }
+
+    @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
+
+        if isHiddenSegmentedControl {
+            return
+        }
+
+        var index = self.segmentedControl.segmentedControl.selectedIndex
+        index = min(max(0, filters.count - 1), index + 1)
+
+        sendEvent.accept(.changeFilter(filters[index]))
+    }
+
+    @objc func handlerRightSwipe(gesture: UIGestureRecognizer) {
+        if isHiddenSegmentedControl {
+            return
+        }
+        var index = self.segmentedControl.segmentedControl.selectedIndex
+        index = max(0, index - 1)
+        sendEvent.accept(.changeFilter(filters[index]))
+    }
+
+    private var isHiddenSegmentedControl: Bool {
+        let frameSegmented = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
+        let barFrame = self.navigationController?.navigationBar.frame ?? CGRect.zero
+
+        return barFrame.maxY > frameSegmented.maxY
+    }
+}
+
+// MARK: UIGestureRecognizerDelegate
+
+extension HistoryViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
@@ -137,7 +187,7 @@ private extension HistoryViewController {
                 return .changeFilter(filter)
         }
         
-        return [changedDisplayEvent, refreshEvent, tap, changedSpamList]
+        return [changedDisplayEvent, refreshEvent, tap, changedSpamList, sendEvent.asSignal()]
     }
     
     func uiSubscriptions(state: Driver<HistoryTypes.State>) -> [Disposable] {
@@ -156,7 +206,9 @@ private extension HistoryViewController {
                 }
                 
                 strongSelf.sections = state.sections
-            
+
+                strongSelf.segmentedControl.segmentedControl.selectedIndex = strongSelf.filters.firstIndex(of: state.currentFilter) ?? 0
+
                 UIView.transition(with: strongSelf.tableView,
                                   duration: 0.24,
                                   options: [.transitionCrossDissolve, .curveEaseInOut],

@@ -117,7 +117,7 @@ final class WalletViewController: UIViewController {
     }
 }
 
-// MARK: Bind UI
+// MARK: UIGestureRecognizerDelegate
 
 extension WalletViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
