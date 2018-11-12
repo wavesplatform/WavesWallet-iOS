@@ -24,7 +24,7 @@ platform :ios do
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
-        export_options: "#{Dir.pwd}/ExportOptions-Test.plist"
+        export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
     )
 
     testflight(username: "#{ENV['APPLDE_DEV_PORTAL_ID']}",
@@ -53,13 +53,15 @@ platform :ios do
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
-        export_options: "#{Dir.pwd}/ExportOptions-Release.plist"
+        export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
     )
 
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
               team_id: "#{ENV['FASTLANE_TEAM_ID']}")
   end
+
+
 
   lane :certificates do
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
@@ -68,6 +70,20 @@ platform :ios do
           type: "appstore",
           wait_for_uploaded_build: "false",
           readonly: true)
+  end
+
+  lane :download_environments do
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+  end
+
+  lane :upload_to_testflight do
+    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+      itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
+      team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+      wait_for_uploaded_build: "false")
   end
 
 end
