@@ -98,7 +98,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 }
             }
             
-        case .didTapBid(let bid):
+        case .didTapBid(let bid, let inputMaxAmount):
             
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
@@ -106,7 +106,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance)
+                                         availableWavesBalance: state.availableWavesBalance,
+                                         inputMaxAmount: inputMaxAmount)
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
@@ -120,14 +121,15 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               availableWavesBalance: state.availableWavesBalance)
             return state.changeAction(.none)
             
-        case .didTapAsk(let ask):
+        case .didTapAsk(let ask, let inputMaxAmount):
             moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance)
+                                         availableWavesBalance: state.availableWavesBalance,
+                                         inputMaxAmount: inputMaxAmount)
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:

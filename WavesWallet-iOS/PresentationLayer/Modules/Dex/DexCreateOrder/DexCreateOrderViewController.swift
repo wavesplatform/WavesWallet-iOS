@@ -407,6 +407,10 @@ private extension DexCreateOrderViewController {
         if let price = input.price {
             order.price = price
             inputPrice.setupValue(price)
+            
+            if input.inputMaxAmount && amountValues.count > 0 {
+                inputAmount.inputScrollButtonsViewDidTapAt(index: 0)
+            }
         }
     }
     
