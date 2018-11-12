@@ -28,7 +28,7 @@ platform :ios do
     setup_circle_ci
 
     unless Helper.ci?
-        sh("print CI DONT USE")
+        sh("echo CI DONT USE")
         ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
     end
 
