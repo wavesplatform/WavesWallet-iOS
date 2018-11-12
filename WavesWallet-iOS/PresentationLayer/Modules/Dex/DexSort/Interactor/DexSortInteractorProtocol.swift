@@ -12,7 +12,6 @@ import RxSwift
 protocol DexSortInteractorProtocol {
     
     func models() -> Observable<[DexSort.DTO.DexSortModel]>
-    func move(model: DexSort.DTO.DexSortModel, underModel: DexSort.DTO.DexSortModel)
-    func move(model: DexSort.DTO.DexSortModel, overModel: DexSort.DTO.DexSortModel)
+    func update(_ models: [DexSort.DTO.DexSortModel])
     func delete(model: DexSort.DTO.DexSortModel)
 }

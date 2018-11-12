@@ -41,10 +41,6 @@ extension Money {
     var displayTextFull: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
-    
-    func formattedText(defaultMinimumFractionDigits: Bool = false) -> String {
-        return MoneyUtil.getScaledText(amount, decimals: decimals, defaultMinimumFractionDigits: defaultMinimumFractionDigits)
-    }
 }
 
 extension Money {

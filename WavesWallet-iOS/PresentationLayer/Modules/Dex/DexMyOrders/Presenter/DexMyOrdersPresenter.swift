@@ -33,12 +33,16 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         
-        return react(query: { state -> Bool? in
-            return state.isAppeared ? true : nil
-        }, effects: { [weak self] ss -> Signal<DexMyOrders.Event> in
+        return react(query: { state -> DexMyOrders.State? in
+            return state.isNeedLoadOrders || state.isNeedCancelOrder ? state : nil
+        }, effects: { [weak self] state -> Signal<DexMyOrders.Event> in
             
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
+
+            if let order = state.canceledOrder, state.isNeedCancelOrder {
+                return strongSelf.interactor.cancelOrder(order: order).map {.orderDidFinishCancel($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
             
             return strongSelf.interactor.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -49,58 +53,67 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isAppeared = true
+                $0.isNeedLoadOrders = true
             }.changeAction(.none)
         
+        case .refresh:
+            return state.mutate {
+                $0.isNeedLoadOrders = true
+            }.changeAction(.none)
+            
         case .setOrders(let orders):
           
             return state.mutate {
                 
-                var sections: [DexMyOrders.ViewModel.Section] = []
-                
+                $0.isNeedCancelOrder = false
+                $0.isNeedLoadOrders = false
+
+                $0.section.items.removeAll()
                 for order in orders {
-
-                    let row = DexMyOrders.ViewModel.Row.order(order)
-                    if let index = sections.index(where: {
-                        $0.header.date.year == order.time.year &&
-                        $0.header.date.month == order.time.month &&
-                        $0.header.date.day == order.time.day}) {
-
-                        sections[index].items.append(row)
-                    }
-                    else {
-                        let header = DexMyOrders.ViewModel.Header(date: order.time)
-                        sections.append(DexMyOrders.ViewModel.Section(items: [row], header: header))
-                    }
-                }
-               
-                $0.sections = sections
-                
+                    $0.section.items.append(DexMyOrders.ViewModel.Row.order(order))
+                }                
             }.changeAction(.update)
             
-        case .didRemoveOrder(let indexPath):
-            
-            if let order = state.sections[indexPath.section].items[indexPath.row].order {
-                interactor.deleteOrder(order: order)
+        case .orderDidFinishCancel(let response):
+            return state.mutate {
+                $0.isNeedCancelOrder = false
+                $0.isNeedLoadOrders = false
+
+                switch response.result {
+                
+                case .success:
+                    $0.action = .orderDidFinishCancel
+                    
+                case .error(let error):
+                    if let order = state.canceledOrder, let index = $0.section.items.index(where: {$0.order?.id == order.id}) {
+                        $0.section.items[index] = DexMyOrders.ViewModel.Row.order(order)
+                    }
+                    $0.action = .orderDidFailCancel(error)
+                }
+
             }
             
+        case .cancelOrder(let indexPath):
+            
             return state.mutate {
+                
+                $0.isNeedLoadOrders = false
 
-                $0.sections[indexPath.section].items.remove(at: indexPath.row)
-                
-                var deletedSection: Int?
-                if let emptySectionIndex = $0.sections.index(where: {$0.items.count == 0}) {
-                    $0.sections.remove(at: emptySectionIndex)
-                    deletedSection = emptySectionIndex
-                }
-                
-                if let section = deletedSection {
-                    $0.action = .deleteSection(section)
+                if let order = state.section.items[indexPath.row].order {
+
+                    $0.canceledOrder = order
+                    $0.isNeedCancelOrder = true
+                    
+                    var newOrder = order
+                    newOrder.status = .cancelled
+                    
+                    $0.section.items[indexPath.row] = DexMyOrders.ViewModel.Row.order(newOrder)
+                    $0.action = .update
                 }
                 else {
-                    $0.action = .deleteRow(indexPath)
+                    $0.action = .none
                 }
-             }
+            }
         }
     }
 }
@@ -117,6 +130,7 @@ fileprivate extension DexMyOrders.State {
 
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
-        return DexMyOrders.State(action: .none, sections: [], isAppeared: false)
+        let section = DexMyOrders.ViewModel.Section(items: [])
+        return DexMyOrders.State(action: .none, section: section, isNeedLoadOrders: false, isNeedCancelOrder: false, canceledOrder: nil)
     }
 }

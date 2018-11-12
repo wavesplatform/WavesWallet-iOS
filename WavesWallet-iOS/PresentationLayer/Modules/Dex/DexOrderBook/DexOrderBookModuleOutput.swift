@@ -12,10 +12,10 @@ protocol DexOrderBookModuleOutput: AnyObject {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
                         ask: Money?, bid: Money?, last: Money?,
-                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
+                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money)
 
     func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
                              orderType: Dex.DTO.OrderType,
                              ask: Money?, bid: Money?, last: Money?,
-                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
+                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money)
 }

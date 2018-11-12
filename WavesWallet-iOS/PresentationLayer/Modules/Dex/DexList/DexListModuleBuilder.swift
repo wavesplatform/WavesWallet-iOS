@@ -16,7 +16,7 @@ struct DexListModuleBuilder: ModuleBuilderOutput {
         
         let vc = StoryboardScene.Dex.dexListViewController.instantiate()
         let presenter = DexListPresenter()
-        presenter.interactor = DexListInteractorMock()
+        presenter.interactor = DexListInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
         

@@ -19,7 +19,7 @@ extension DexInfoPair.DTO {
     struct Pair: Mutating {
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
-        let isHidden: Bool
+        let isGeneral: Bool
     }
 }
 
