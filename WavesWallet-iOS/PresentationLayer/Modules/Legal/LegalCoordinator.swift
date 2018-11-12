@@ -8,26 +8,47 @@
 
 import UIKit
 
-final class LegalCoordinator {
-    
+protocol LegalCoordinatorDelegate: AnyObject {
+
+    func legalConfirm()
+}
+
+final class LegalCoordinator: Coordinator {
+
+    var childCoordinators: [Coordinator] = []
+
+    weak var parent: Coordinator?
+
+    private weak var viewController: UIViewController?
+
     private lazy var legalViewController: UIViewController = {
         return LegalModuleBuilder(output: self).build(input: self)
     }()
+
+    weak var delegate: LegalCoordinatorDelegate?
+
+    init(viewController: UIViewController) {
+        self.viewController = viewController
+    }
     
     func start() {
-        UIApplication.shared.keyWindow!.rootViewController!.present(legalViewController, animated: true, completion: nil)
+        viewController?.present(legalViewController, animated: true, completion: nil)
     }
     
 }
 
 extension LegalCoordinator: LegalModuleOutput {
-    
+
+    //TODO Change name method
     func showViewController(viewController: UIViewController) {
         let navigationController = UINavigationController(rootViewController: viewController)
-        
         legalViewController.present(navigationController, animated: true)
     }
-    
+
+    func legalConfirm() {
+        removeFromParentCoordinator()
+        delegate?.legalConfirm()
+    }
 }
 
 extension LegalCoordinator: LegalModuleInput {

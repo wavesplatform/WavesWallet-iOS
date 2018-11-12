@@ -68,9 +68,9 @@ final class AccountPasswordViewController: UIViewController {
 
     private func setupTextField() {
         passwordTextField.returnKey = .done
-        passwordTextField.update(with: .init(title: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title,
+        passwordTextField.update(with: .init(title: Localizable.Waves.Accountpassword.Textfield.Password.placeholder,
                                              kind: .password,
-                                             placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
+                                             placeholder: Localizable.Waves.Accountpassword.Textfield.Password.placeholder))
 
         passwordTextField.valueValidator = { value in
             return (value?.count ?? 0) < GlobalConstants.minLengthPassword ? Localizable.Waves.Accountpassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword) : nil
