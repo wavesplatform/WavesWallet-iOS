@@ -133,6 +133,9 @@ private extension ChooseAccountPresenter {
         case .readyView:
             state.isAppeared = true
 
+        case .viewDidDisappear:
+            state.isAppeared = false
+
         case .setWallets(let wallets):
             state.displayState.wallets = wallets
             state.displayState.action = .reload
@@ -176,4 +179,5 @@ private extension ChooseAccountPresenter {
     func initialDisplayState() -> Types.DisplayState {
         return Types.DisplayState(wallets: [], action: .none)
     }
+    
 }

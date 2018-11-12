@@ -5,22 +5,21 @@
 ---
 version: 2
 jobs:
-  rocketjump:
+  Moon:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
-      FL_OUTPUT_DIR: ~/Waves/iOS/Output
+      FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
-    shell: /bin/bash --login -o pipefail
+    shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
           fingerprints:
             - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
-      - run:
-          name: Set Ruby Version
-          command:  echo "ruby-2.3" > ~/.ruby-version
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}      
       - run:
           name: SSH
           command: ls -la ~/.ssh/
@@ -32,22 +31,23 @@ jobs:
           command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
       - run:
           name: Bundle
-          command: bundle install
-      - run:
-          name: Fastlane action setup_circle_ci
-          command: bundle exec fastlane action setup_circle_ci --verbose
-      - run:
-          name: Fastlane certificates
-          command: bundle exec fastlane certificates --verbose
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle            
       - run:
           name: Fastlane Build
-          command: bundle exec fastlane $FASTLANE_LANE
+          command: bundle exec fastlane $FASTLANE_LANE --verbose
       - store_artifacts:
-          path: ~/Waves/iOS/Output
+          path: output
       - store_test_results:
-          path: ~/Waves/iOS/Output/Results
+          path: output/scan
 workflows:
   version: 2
-  sakura:
+  Spaceship:
     jobs:
-      - rocketjump
+      - Moon:
+          filters:
+            branches:
+              only: develop

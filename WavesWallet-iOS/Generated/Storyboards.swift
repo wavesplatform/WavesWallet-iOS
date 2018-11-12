@@ -125,10 +125,13 @@ internal enum StoryboardScene {
 
     internal static let myOrdersViewController = SceneType<WavesWallet_iOS.MyOrdersViewController>(storyboard: Dex.self, identifier: "MyOrdersViewController")
   }
+  internal enum EditAccountName: StoryboardType {
+    internal static let storyboardName = "EditAccountName"
+
+    internal static let editAccountNameViewController = SceneType<WavesWallet_iOS.EditAccountNameViewController>(storyboard: EditAccountName.self, identifier: "EditAccountNameViewController")
+  }
   internal enum Enter: StoryboardType {
     internal static let storyboardName = "Enter"
-
-    internal static let editAccountNameViewController = SceneType<WavesWallet_iOS.EditAccountNameViewController>(storyboard: Enter.self, identifier: "EditAccountNameViewController")
 
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
 
@@ -151,11 +154,13 @@ internal enum StoryboardScene {
   internal enum Import: StoryboardType {
     internal static let storyboardName = "Import"
 
+    internal static let importAccountManuallyViewController = SceneType<WavesWallet_iOS.ImportAccountManuallyViewController>(storyboard: Import.self, identifier: "ImportAccountManuallyViewController")
+
     internal static let importAccountPasswordViewController = SceneType<WavesWallet_iOS.ImportAccountPasswordViewController>(storyboard: Import.self, identifier: "ImportAccountPasswordViewController")
 
-    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
+    internal static let importAccountScanViewController = SceneType<WavesWallet_iOS.ImportAccountScanViewController>(storyboard: Import.self, identifier: "ImportAccountScanViewController")
 
-    internal static let importWelcomeBackViewController = SceneType<WavesWallet_iOS.ImportWelcomeBackViewController>(storyboard: Import.self, identifier: "ImportWelcomeBackViewController")
+    internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
   }
   internal enum Language: StoryboardType {
     internal static let storyboardName = "Language"
