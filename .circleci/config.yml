@@ -59,4 +59,4 @@ workflows:
       - rocketjump
           filters:
             branches:
-               only: develop
+              only: develop
