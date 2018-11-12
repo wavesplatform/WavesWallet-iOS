@@ -80,12 +80,21 @@ extension DexList.DTO {
         return [FiatAsset.USD, FiatAsset.EUR, FiatAsset.TRY]
     }()
     
+    private static func precisionDifference(_ amountDecimals: Int, _ priceDecimals: Int) -> Int {
+        return priceDecimals - amountDecimals + 8
+    }
+    
     static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
         
-        let precisionDifference = priceDecimals - amountDecimals + 8
-        let decimalValue = Decimal(amount) / pow(10, precisionDifference)
+        let precisionDiff = precisionDifference(amountDecimals, priceDecimals)
+        let decimalValue = Decimal(amount) / pow(10, precisionDiff)
 
         return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
+    }
+    
+    static func priceAmount(price: Money, amountDecimals: Int, priceDecimals: Int) -> Int64 {
+        let precisionDiff = precisionDifference(amountDecimals, priceDecimals)
+        return (price.decimalValue * pow(10, precisionDiff)).int64Value
     }
 }
 
