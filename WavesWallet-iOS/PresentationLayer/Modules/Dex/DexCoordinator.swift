@@ -69,7 +69,8 @@ extension DexCoordinator: DexLastTradesModuleOutput {
                                   price: trade.price, ask: nil, bid: nil, last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance)
+                                  availableWavesBalance: availableWavesBalance,
+                                  inputMaxAmount: false)
     }
     
     func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, orderType: Dex.DTO.OrderType, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
@@ -78,7 +79,8 @@ extension DexCoordinator: DexLastTradesModuleOutput {
                                   price: nil, ask: nil, bid: nil, last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance)
+                                  availableWavesBalance: availableWavesBalance,
+                                  inputMaxAmount: false)
         
     }
 }
@@ -86,13 +88,14 @@ extension DexCoordinator: DexLastTradesModuleOutput {
 //MARK: - DexOrderBookModuleOutput
 extension DexCoordinator:  DexOrderBookModuleOutput {
     
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxAmount: Bool) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: bidAsk.orderType,
                                   price: bidAsk.price, ask: ask, bid: bid, last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance)
+                                  availableWavesBalance: availableWavesBalance,
+                                  inputMaxAmount: inputMaxAmount)
 
     }
     
@@ -103,7 +106,8 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
                                   price: nil, ask: ask, bid: bid, last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance)
+                                  availableWavesBalance: availableWavesBalance,
+                                  inputMaxAmount: false)
         
     }
 }
@@ -114,7 +118,8 @@ private extension DexCoordinator {
     func showCreateOrderController(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: Dex.DTO.OrderType,
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money, availablePriceAssetBalance: Money,
-                                   availableWavesBalance: Money) {
+                                   availableWavesBalance: Money,
+                                   inputMaxAmount: Bool) {
         
         var lastPrice: Money?
         if let last = last, last.amount > 0 {
@@ -125,7 +130,8 @@ private extension DexCoordinator {
                                              price: price, ask: ask, bid: bid, last: lastPrice,
                                              availableAmountAssetBalance: availableAmountAssetBalance,
                                              availablePriceAssetBalance: availablePriceAssetBalance,
-                                             availableWavesBalance: availableWavesBalance)
+                                             availableWavesBalance: availableWavesBalance,
+                                             inputMaxAmount: inputMaxAmount)
        
         let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
         let popup = PopupViewController()
