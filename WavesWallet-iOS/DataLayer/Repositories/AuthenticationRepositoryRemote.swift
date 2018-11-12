@@ -13,7 +13,13 @@ import Foundation
 import RxSwift
 
 fileprivate enum Constants {
+    #if DEBUG
     static let rootPath: String = "pincodes-ios-dev"
+    #elseif Test
+    static let rootPath: String = "pincodes-ios-test"
+    #else
+    static let rootPath: String = "pincodes-ios"
+    #endif
 }
 
 final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
@@ -28,7 +34,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
             let database: DatabaseReference = Database.database().reference()
 
-            let disposable = database.child("pincodes-ios-dev/\(id)/")
+            let disposable = database.child("\(Constants.rootPath)/\(id)/")
                 .rx
                 .removeValue()
                 .map { $0.child(passcode) }
@@ -55,7 +61,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
             let database: DatabaseReference = Database.database()
                 .reference()
-                .child("pincodes-ios-dev")
+                .child(Constants.rootPath)
                 .child(id)
 
             let value = self.lastTry(database: database)
