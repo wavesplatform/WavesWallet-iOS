@@ -35,7 +35,7 @@ final class AssetInteractor: AssetInteractorProtocol {
 
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap(weak: self) { owner, wallet -> AsyncObservable<[AssetTypes.DTO.Asset]> in
+            .flatMap(weak: self) { owner, wallet -> Observable<[AssetTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
                     .balances(by: wallet,

@@ -49,26 +49,25 @@ final class DexSortPresenter: DexSortPresenterProtocol {
             return state.mutate { $0.isNeedRefreshing = true }
 
         case .tapDeleteButton(let indexPath):
-            if let model = state.section.items[indexPath.row].model {
-                interactor.delete(model: model)
-            }
 
+            interactor.delete(model: state.section.items[indexPath.row].model)
             return state.deleteRow(indexPath: indexPath).changeAction(.delete)
 
         case .dragModels(let sourceIndexPath, let destinationIndexPath):
 
-            let movableModel = state.section.items[sourceIndexPath.row].model
-            let toModel = state.section.items[destinationIndexPath.row].model
-            
-            if let movableModel = movableModel, let toModel = toModel {
-                if sourceIndexPath.row > destinationIndexPath.row {
-                    interactor.move(model: movableModel, overModel: toModel)
-                } else {
-                    interactor.move(model: movableModel, underModel: toModel)
+            return state.mutate {
+                let row = $0.section.items.remove(at: sourceIndexPath.row)
+                $0.section.items.insert(row, at: destinationIndexPath.row)
+                
+                for (index, row) in $0.section.items.enumerated() {
+                    $0.section.items[index] = DexSort.ViewModel.Row.model(row.model.mutate { $0.sortLevel = index + 1})
                 }
-            }
+                
+                interactor.update($0.section.items.map {$0.model})
+                
+            }.changeAction(.none)
+            
 
-            return state.moveRow(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath).changeAction(.refresh)
         case .setModels(let models):
             
             return state.mutate { state in
@@ -82,14 +81,6 @@ final class DexSortPresenter: DexSortPresenterProtocol {
 fileprivate extension DexSort.State {
     static var initialState: DexSort.State {
         return DexSort.State(isNeedRefreshing: false, action: .none, section: DexSort.ViewModel.Section(items: []), deletedIndex: 0)
-    }
-    
-    func moveRow(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) -> DexSort.State {
-        
-        return mutate { state in
-            let section = state.section.moveRow(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
-            state.section = section
-        }
     }
     
     func deleteRow(indexPath: IndexPath) -> DexSort.State {
@@ -110,12 +101,6 @@ fileprivate extension DexSort.State {
 
 private extension DexSort.ViewModel.Section {
     
-    func moveRow(sourceIndex: Int, destinationIndex: Int) -> DexSort.ViewModel.Section {
-        return mutate { section in
-            let row = section.items.remove(at: sourceIndex)
-            section.items.insert(row, at: destinationIndex)
-        }
-    }
     
     func deleteRow(index: Int) -> DexSort.ViewModel.Section {
         return mutate { section in
@@ -136,7 +121,7 @@ private extension DexSort.ViewModel {
 
 
 private extension DexSort.ViewModel.Row {
-    var model: DexSort.DTO.DexSortModel? {
+    var model: DexSort.DTO.DexSortModel {
         switch self {
         case .model(let model):
             return model

@@ -90,6 +90,8 @@ internal enum Localizable {
         }
 
         internal enum Aliases {
+          /// Aliases
+          internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.aliases.title") }
 
           internal enum Subtitle {
             /// You have %d
@@ -182,7 +184,7 @@ internal enum Localizable {
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
             internal static var subtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.subtitle") }
-            /// About Alias
+            /// You do not have Aliases
             internal static var title: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.title") }
           }
         }
@@ -647,14 +649,24 @@ internal enum Localizable {
       internal enum Label {
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "dexmyorders.label.amount") }
+        /// Buy
+        internal static var buy: String { return Localizable.tr("Waves", "dexmyorders.label.buy") }
+        /// Date
+        internal static var date: String { return Localizable.tr("Waves", "dexmyorders.label.date") }
         /// Nothing Here…\nYou do not have any orders
         internal static var emptyData: String { return Localizable.tr("Waves", "dexmyorders.label.emptyData") }
         /// Loading orders…
         internal static var loadingLastTrades: String { return Localizable.tr("Waves", "dexmyorders.label.loadingLastTrades") }
         /// Price
         internal static var price: String { return Localizable.tr("Waves", "dexmyorders.label.price") }
+        /// Sell
+        internal static var sell: String { return Localizable.tr("Waves", "dexmyorders.label.sell") }
+        /// Side
+        internal static var side: String { return Localizable.tr("Waves", "dexmyorders.label.side") }
         /// Status
         internal static var status: String { return Localizable.tr("Waves", "dexmyorders.label.status") }
+        /// Sum
+        internal static var sum: String { return Localizable.tr("Waves", "dexmyorders.label.sum") }
         /// Time
         internal static var time: String { return Localizable.tr("Waves", "dexmyorders.label.time") }
 
@@ -996,68 +1008,75 @@ internal enum Localizable {
 
     internal enum Import {
 
-      internal enum Account {
-
-        internal enum Button {
-
-          internal enum Enter {
-            /// Enter seed manually
-            internal static var title: String { return Localizable.tr("Waves", "import.account.button.enter.title") }
-          }
-
-          internal enum Scan {
-            /// Scan pairing code
-            internal static var title: String { return Localizable.tr("Waves", "import.account.button.scan.title") }
-          }
-        }
-
-        internal enum Label {
-
-          internal enum Info {
-
-            internal enum Step {
-
-              internal enum One {
-                /// Settings > Security > Pairing code
-                internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
-                /// Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com
-                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
-              }
-
-              internal enum Two {
-                /// Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.
-                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.two.title") }
-              }
-            }
-          }
-        }
+      internal enum General {
 
         internal enum Navigation {
           /// Import account
-          internal static var title: String { return Localizable.tr("Waves", "import.account.navigation.title") }
+          internal static var title: String { return Localizable.tr("Waves", "import.general.navigation.title") }
+        }
+
+        internal enum Segmentedcontrol {
+          /// Manually
+          internal static var manually: String { return Localizable.tr("Waves", "import.general.segmentedControl.manually") }
+          /// Scan
+          internal static var scan: String { return Localizable.tr("Waves", "import.general.segmentedControl.scan") }
         }
       }
 
-      internal enum Welcome {
+      internal enum Manually {
 
         internal enum Button {
           /// Continue
-          internal static var `continue`: String { return Localizable.tr("Waves", "import.welcome.button.continue") }
+          internal static var `continue`: String { return Localizable.tr("Waves", "import.manually.button.continue") }
         }
 
         internal enum Label {
 
           internal enum Address {
             /// Your seed is the 15 words you saved when creating your account
-            internal static var placeholder: String { return Localizable.tr("Waves", "import.welcome.label.address.placeholder") }
+            internal static var placeholder: String { return Localizable.tr("Waves", "import.manually.label.address.placeholder") }
             /// Your account seed
-            internal static var title: String { return Localizable.tr("Waves", "import.welcome.label.address.title") }
+            internal static var title: String { return Localizable.tr("Waves", "import.manually.label.address.title") }
           }
         }
+      }
 
-        internal enum Navigation {
-          /// Welcome back
-          internal static var title: String { return Localizable.tr("Waves", "import.welcome.navigation.title") }
+      internal enum Password {
+
+        internal enum Button {
+          /// Continue
+          internal static var `continue`: String { return Localizable.tr("Waves", "import.password.button.continue") }
+        }
+      }
+
+      internal enum Scan {
+
+        internal enum Button {
+          /// Scan pairing code
+          internal static var title: String { return Localizable.tr("Waves", "import.scan.button.title") }
+        }
+
+        internal enum Label {
+
+          internal enum Step {
+
+            internal enum One {
+              /// Log in to your Waves Client via web or Mac/PC
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.one.title") }
+            }
+
+            internal enum Three {
+              /// Scan the code with your camera
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.three.title") }
+            }
+
+            internal enum Two {
+              /// (Settings > Security > Pairing code)
+              internal static var detail: String { return Localizable.tr("Waves", "import.scan.label.step.two.detail") }
+              /// Click «Show Pairing Code» to reveal a QR Code
+              internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.two.title") }
+            }
+          }
         }
       }
     }
@@ -1071,10 +1090,19 @@ internal enum Localizable {
           internal static var first: String { return Localizable.tr("Waves", "legal.checkbox.box.first") }
           /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
           internal static var second: String { return Localizable.tr("Waves", "legal.checkbox.box.second") }
+          /// Waves is different — it cannot be held safely by a bank or web service
+          internal static var subtitle: String { return Localizable.tr("Waves", "legal.checkbox.box.subtitle") }
           /// Terms of Use
           internal static var termsOfUse: String { return Localizable.tr("Waves", "legal.checkbox.box.termsOfUse") }
           /// I have read, understood, and agree to the
           internal static var third: String { return Localizable.tr("Waves", "legal.checkbox.box.third") }
+          /// Done! Let’s review.
+          internal static var title: String { return Localizable.tr("Waves", "legal.checkbox.box.title") }
+
+          internal enum Button {
+            /// Confirm and begin
+            internal static var confirm: String { return Localizable.tr("Waves", "legal.checkbox.box.button.confirm") }
+          }
         }
       }
     }

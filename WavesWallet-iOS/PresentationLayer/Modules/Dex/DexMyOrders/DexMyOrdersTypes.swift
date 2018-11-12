@@ -15,32 +15,31 @@ enum DexMyOrders {
     enum Event {
         case readyView
         case setOrders([DexMyOrders.DTO.Order])
-        case didRemoveOrder(IndexPath)
+        case cancelOrder(IndexPath)
+        case orderDidFinishCancel(ResponseType<Bool>)
+        case refresh
     }
     
     struct State: Mutating {
         enum Action {
             case none
             case update
-            case deleteRow(IndexPath)
-            case deleteSection(Int)
+            case orderDidFailCancel(ResponseTypeError)
+            case orderDidFinishCancel
         }
         
         var action: Action
-        var sections: [DexMyOrders.ViewModel.Section]
-        var isAppeared: Bool
+        var section: DexMyOrders.ViewModel.Section
+        var isNeedLoadOrders: Bool
+        var isNeedCancelOrder: Bool
+        var canceledOrder: DexMyOrders.DTO.Order?
     }
 }
 
 extension DexMyOrders.ViewModel {
-    
-    struct Header {
-        let date: Date
-    }
-    
+ 
     struct Section: Mutating {
         var items: [Row]
-        var header: Header
     }
 
     enum Row {
@@ -53,9 +52,9 @@ extension DexMyOrders.ViewModel {
         return formatter
     }()
     
-    static let dateFormatterHeader: DateFormatter = {
+    static let dateFormatterDate: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "dd.MM.yy"
         return formatter
     }()
 }
@@ -70,11 +69,63 @@ extension DexMyOrders.DTO {
     }
     
     struct Order {
+        let id: String
         let time: Date
-        let status: Status
+        var status: Status
         let price: Money
         let amount: Money
+        let filled: Money
         let type: Dex.DTO.OrderType
+        let amountAsset: Dex.DTO.Asset
+        let priceAsset: Dex.DTO.Asset
+    }
+    
+    struct MyOrdersRequest {
+        private let senderPrivateKey: PrivateKeyAccount
+        let timestamp: Int64
+        
+        init(senderPrivateKey: PrivateKeyAccount) {
+            self.senderPrivateKey = senderPrivateKey
+            self.timestamp = Int64(Date().millisecondsSince1970)
+        }
+        
+        private var toSign: [UInt8] {
+            let s1 = senderPrivateKey.publicKey
+            let s2 = toByteArray(timestamp)
+            return s1 + s2
+        }
+        
+        var signature: [UInt8] {
+            return Hash.sign(toSign, senderPrivateKey.privateKey)
+        }
+    }
+    
+    struct CancelRequest {
+        private let senderPublicKey: PublicKeyAccount
+        private let senderPrivateKey: PrivateKeyAccount
+        private let orderId: String
+        
+        init(senderPublicKey: PublicKeyAccount, senderPrivateKey: PrivateKeyAccount,  orderId: String) {
+            self.senderPublicKey = senderPublicKey
+            self.senderPrivateKey = senderPrivateKey
+            self.orderId = orderId
+        }
+        
+        private var toSign: [UInt8] {
+            let s1 = senderPublicKey.publicKey
+            let s2 = Base58.decode(orderId)
+            return s1 + s2
+        }
+        
+        private var signature: [UInt8] {
+            return Hash.sign(toSign, senderPrivateKey.privateKey)
+        }
+        
+        var params: [String : Any] {
+            return ["sender" :  Base58.encode(senderPublicKey.publicKey),
+                    "orderId" : orderId,
+                    "signature" : Base58.encode(signature)]
+        }
     }
 }
 
@@ -84,5 +135,13 @@ extension DexMyOrders.ViewModel.Row {
         case .order(let order):
             return order
         }
+    }
+}
+
+extension DexMyOrders.State: Equatable {
+    
+    static func == (lhs: DexMyOrders.State, rhs: DexMyOrders.State) -> Bool {
+        return lhs.isNeedLoadOrders == rhs.isNeedLoadOrders &&
+            lhs.isNeedCancelOrder == rhs.isNeedCancelOrder
     }
 }

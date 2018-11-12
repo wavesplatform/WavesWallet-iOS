@@ -22,11 +22,12 @@ final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
     @IBOutlet private var copyButton: PasteboardButton!
     @IBOutlet private var shareButton: UIButton!
     @IBOutlet private var iconImageView: UIImageView!
+    
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
     override func awakeFromNib() {
-        super.awakeFromNib()
+        super.awakeFromNib()        
         copyButton.isBlack = false
         setupLocalization()
 
@@ -37,9 +38,10 @@ final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
 
     @IBAction func actionTouchUpCopyButton(sender: Any) {
         ImpactFeedbackGenerator.impactOccurred()
-        guard let image = iconImageView.image else { return }
-//        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: [])
-        //TODO: Что тут надо?
+
+        // TODO: Move code to coordinator
+        let activityVC = UIActivityViewController(activityItems: [self.subTitleLabel.text], applicationActivities: [])
+        AppDelegate.shared().window?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
 }
 

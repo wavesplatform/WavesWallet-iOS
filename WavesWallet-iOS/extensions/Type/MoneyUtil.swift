@@ -3,24 +3,12 @@ import UIKit
 
 class MoneyUtil {
     
-    private static let defaultMaximumFractionDigits = 8
-    private static let defaultMinimumFractionDigits = 0
-
     class func getScaledText(_ amount: Int64, decimals: Int, scale: Int? = nil) -> String {
         let f = NumberFormatter()
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
         f.minimumFractionDigits = decimals
         let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
-        return result ?? ""
-    }
-
-    class func getScaledText(_ amount: Int64, decimals: Int, defaultMinimumFractionDigits: Bool) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.maximumFractionDigits = MoneyUtil.defaultMaximumFractionDigits
-        f.minimumFractionDigits = defaultMinimumFractionDigits ? MoneyUtil.defaultMinimumFractionDigits : decimals
-        let result = f.string(from: Decimal(amount) / pow(10, decimals) as NSNumber)
         return result ?? ""
     }
     
@@ -46,7 +34,7 @@ class MoneyUtil {
         let f = NumberFormatter()
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
-        f.minimumFractionDigits = 1
+        f.minimumFractionDigits = 0
         let result = f.string(from: Decimal(amount) / pow(10, scale ?? decimals) as NSNumber)
         return result ?? ""
     }

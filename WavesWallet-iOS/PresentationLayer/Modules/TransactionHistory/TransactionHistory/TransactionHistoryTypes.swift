@@ -19,6 +19,7 @@ enum TransactionHistoryTypes {
         var transactions: [DomainLayer.DTO.SmartTransaction]
         
         struct DisplayState: Mutating {
+            var transaction: DomainLayer.DTO.SmartTransaction
             var sections: [ViewModel.Section]
         }
         

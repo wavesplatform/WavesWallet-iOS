@@ -18,17 +18,23 @@ final class AddressesKeysAliacesCell: UITableViewCell, Reusable {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var infoButton: UIButton!
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(gesture:)))
 
     var infoButtonDidTap: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        viewContainer.addGestureRecognizer(tapGesture)
         setupLocalization()
         infoButton.addTarget(self, action: #selector(actionTouchInfoButton(sender:)), for: .touchUpInside)
     }
 
     @objc func actionTouchInfoButton(sender: UIButton) {
         infoButtonDidTap?()
+    }
+
+    @objc func handlerTapGesture(gesture: UITapGestureRecognizer) {
+            infoButtonDidTap?()
     }
 }
 
@@ -65,6 +71,6 @@ extension AddressesKeysAliacesCell: ViewCalculateHeight {
 extension AddressesKeysAliacesCell: Localization {
 
     func setupLocalization() {
-        self.titleLabel.text = Localizable.Waves.Addresseskeys.Cell.Privatekey.title
+        self.titleLabel.text = Localizable.Waves.Addresseskeys.Cell.Aliases.title
     }
 }

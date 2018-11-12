@@ -49,10 +49,10 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                               "address" : signedWallet.wallet.address,
                               "fiat" : fiat.id]
                 
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getLimits, complete: { (info, errorMessage) in
+                //TODO: need change to Observer network
+                NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getLimits, parameters: params, complete: { (info, error) in
 
-                    if let info = info {
-                        let json = JSON(info)
+                    if let json = info {
                         
                         let minMoney = Money(value: Decimal(json["min"].intValue), ReceiveCard.DTO.fiatDecimals)
                         let maxMoney = Money(value: Decimal(json["max"].intValue), ReceiveCard.DTO.fiatDecimals)
@@ -63,8 +63,8 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                         subscribe.onNext(ResponseType(output: amountInfo, error: nil))
                         subscribe.onCompleted()
                     }
-                    else if let errorMessage = errorMessage {
-                        subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                    else if let error = error {
+                        subscribe.onNext(ResponseType(output: nil, error: error))
                         subscribe.onCompleted()
                     }
                 })

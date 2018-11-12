@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,95 +20,139 @@
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXn-bO-61P" userLabel="Background">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.1950984589041096" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVL-1X-3EE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsg-5Z-eLv" userLabel="Box">
-                                        <rect key="frame" x="16" y="148.5" width="343" height="370"/>
+                                        <rect key="frame" x="16" y="-15" width="343" height="697"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYD-WC-dFv" userLabel="Content">
-                                                <rect key="frame" x="24" y="24" width="295" height="322"/>
+                                                <rect key="frame" x="24" y="25.5" width="295" height="646.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done! Let's review." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58a-iO-pXP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="zXr-YL-JyW"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves is different — it cannot be held safely by a bank or web service" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEz-u7-cDd">
-                                                        <rect key="frame" x="0.0" y="29" width="295" height="33.5"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33.5" id="yVM-0j-itp"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="28.5" width="295" height="33.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w41-Qd-DOQ" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="86.5" width="295" height="1"/>
+                                                        <rect key="frame" x="0.0" y="86" width="295" height="1"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="Nxi-ul-cuW"/>
+                                                            <constraint firstAttribute="height" constant="1" id="u64-4V-SS6"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ab-cM-BoN" customClass="TTTAttributedLabel">
-                                                        <rect key="frame" x="38" y="112" width="257" height="24"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="W6P-J7-qoy"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hap-zv-gPI" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="111.5" width="24" height="24"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="24" id="IbR-sO-cLX"/>
-                                                            <constraint firstAttribute="height" constant="24" id="kil-BT-Lo7"/>
-                                                        </constraints>
-                                                        <connections>
-                                                            <action selector="firstCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="nW5-pw-p2M"/>
-                                                        </connections>
-                                                    </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrI-1a-Njq" customClass="TTTAttributedLabel">
-                                                        <rect key="frame" x="38" y="160" width="257" height="36"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="fsc-ap-nYK"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWl-Os-7v2" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="165.5" width="24" height="24"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="24" id="Ee0-cO-TWA"/>
-                                                            <constraint firstAttribute="width" constant="24" id="SIu-fT-5JK"/>
-                                                        </constraints>
-                                                        <connections>
-                                                            <action selector="secondCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="Idq-8v-qOv"/>
-                                                        </connections>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nRU-J9-JPP" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="219.5" width="24" height="24"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="24" id="URh-17-doD"/>
-                                                            <constraint firstAttribute="height" constant="24" id="uNu-Pa-40m"/>
-                                                        </constraints>
-                                                        <connections>
-                                                            <action selector="thirdCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="EI5-rU-iuV"/>
-                                                        </connections>
-                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="kJf-sO-HKc">
+                                                        <rect key="frame" x="0.0" y="111" width="295" height="457.5"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4F-Z9-Jso">
+                                                                <rect key="frame" x="0.0" y="0.0" width="295" height="132.5"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-K2-a7s" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="54" width="24" height="24"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="24" id="Os7-Kd-vz4"/>
+                                                                            <constraint firstAttribute="height" constant="24" id="ito-kj-ath"/>
+                                                                        </constraints>
+                                                                        <viewLayoutGuide key="safeArea" id="ubm-pV-egS"/>
+                                                                        <connections>
+                                                                            <action selector="firstCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="LoY-IS-WWX"/>
+                                                                        </connections>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgh-FA-sit" customClass="TTTAttributedLabel">
+                                                                        <rect key="frame" x="38" y="0.0" width="257" height="132.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="aIc-K2-a7s" firstAttribute="leading" secondItem="c4F-Z9-Jso" secondAttribute="leading" id="2nr-oY-xN6"/>
+                                                                    <constraint firstItem="Vgh-FA-sit" firstAttribute="top" secondItem="c4F-Z9-Jso" secondAttribute="top" id="88a-ae-KMa"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Vgh-FA-sit" secondAttribute="trailing" id="Apl-CH-KH4"/>
+                                                                    <constraint firstItem="aIc-K2-a7s" firstAttribute="centerY" secondItem="c4F-Z9-Jso" secondAttribute="centerY" id="HDC-1G-BXT"/>
+                                                                    <constraint firstItem="Vgh-FA-sit" firstAttribute="leading" secondItem="aIc-K2-a7s" secondAttribute="trailing" constant="14" id="jMY-0l-j56"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Vgh-FA-sit" secondAttribute="bottom" id="yFf-U6-GQL"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffd-aq-mQ4">
+                                                                <rect key="frame" x="0.0" y="162.5" width="295" height="132.5"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BW1-uf-3vy" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="54" width="24" height="24"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="24" id="Hlt-7c-BR0"/>
+                                                                            <constraint firstAttribute="width" constant="24" id="fAq-Et-QFH"/>
+                                                                        </constraints>
+                                                                        <viewLayoutGuide key="safeArea" id="qEI-Ir-Ovi"/>
+                                                                        <connections>
+                                                                            <action selector="secondCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="6ej-7M-vDQ"/>
+                                                                        </connections>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mp-E1-Jum" customClass="TTTAttributedLabel">
+                                                                        <rect key="frame" x="38" y="0.0" width="257" height="132.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="9Mp-E1-Jum" firstAttribute="leading" secondItem="BW1-uf-3vy" secondAttribute="trailing" constant="14" id="4sT-pe-8gR"/>
+                                                                    <constraint firstItem="BW1-uf-3vy" firstAttribute="centerY" secondItem="ffd-aq-mQ4" secondAttribute="centerY" id="CyA-cy-0u8"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="9Mp-E1-Jum" secondAttribute="bottom" id="Unf-bf-YGO"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="9Mp-E1-Jum" secondAttribute="trailing" id="bOg-ax-Say"/>
+                                                                    <constraint firstItem="BW1-uf-3vy" firstAttribute="leading" secondItem="ffd-aq-mQ4" secondAttribute="leading" id="nnw-tF-aZF"/>
+                                                                    <constraint firstItem="9Mp-E1-Jum" firstAttribute="top" secondItem="ffd-aq-mQ4" secondAttribute="top" id="pB8-zH-Rey"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxw-w8-XWO">
+                                                                <rect key="frame" x="0.0" y="325" width="295" height="132.5"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hap-zv-gPI" customClass="CheckboxControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="54" width="24" height="24"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="24" id="IbR-sO-cLX"/>
+                                                                            <constraint firstAttribute="height" constant="24" id="kil-BT-Lo7"/>
+                                                                        </constraints>
+                                                                        <viewLayoutGuide key="safeArea" id="7xD-gI-rd4"/>
+                                                                        <connections>
+                                                                            <action selector="thirdCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="Cwy-UC-NJl"/>
+                                                                        </connections>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ab-cM-BoN" customClass="TTTAttributedLabel">
+                                                                        <rect key="frame" x="38" y="0.0" width="257" height="132.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="4ab-cM-BoN" firstAttribute="leading" secondItem="hap-zv-gPI" secondAttribute="trailing" constant="14" id="3W1-5X-cf8"/>
+                                                                    <constraint firstItem="4ab-cM-BoN" firstAttribute="top" secondItem="oxw-w8-XWO" secondAttribute="top" id="4je-jV-ZeA"/>
+                                                                    <constraint firstItem="hap-zv-gPI" firstAttribute="centerY" secondItem="oxw-w8-XWO" secondAttribute="centerY" id="7gC-Vt-Yid"/>
+                                                                    <constraint firstItem="hap-zv-gPI" firstAttribute="leading" secondItem="oxw-w8-XWO" secondAttribute="leading" id="OsY-gZ-GjE"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="4ab-cM-BoN" secondAttribute="trailing" id="VHA-OK-xoZ"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="4ab-cM-BoN" secondAttribute="bottom" id="eZd-hT-LP5"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZW-zI-zMx">
-                                                        <rect key="frame" x="0.0" y="274" width="295" height="48"/>
+                                                        <rect key="frame" x="0.0" y="598.5" width="295" height="48"/>
                                                         <color key="backgroundColor" red="0.72941176470588232" green="0.792156862745098" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="5dt-KL-hry"/>
@@ -124,46 +168,25 @@
                                                             <action selector="buttonTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="O4b-ML-2Tx"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have read, understood, and agree to the Terms of Use" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbK-10-s33" customClass="TTTAttributedLabel">
-                                                        <rect key="frame" x="38" y="220" width="257" height="24"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="e8u-VT-bVd"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="4ab-cM-BoN" firstAttribute="leading" secondItem="hap-zv-gPI" secondAttribute="trailing" constant="14" id="70C-Uq-NKg"/>
-                                                    <constraint firstItem="hap-zv-gPI" firstAttribute="top" secondItem="w41-Qd-DOQ" secondAttribute="bottom" constant="24" id="Beg-Od-Q8A"/>
-                                                    <constraint firstItem="nRU-J9-JPP" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="ECm-6v-qbu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kJf-sO-HKc" secondAttribute="trailing" id="842-VU-SM6"/>
                                                     <constraint firstItem="nEz-u7-cDd" firstAttribute="top" secondItem="58a-iO-pXP" secondAttribute="bottom" constant="8" id="Fx5-MF-Rby"/>
-                                                    <constraint firstItem="4ab-cM-BoN" firstAttribute="top" secondItem="w41-Qd-DOQ" secondAttribute="bottom" constant="24" id="HC4-s3-eJI"/>
                                                     <constraint firstItem="58a-iO-pXP" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="JQr-uL-1y9"/>
                                                     <constraint firstItem="nEz-u7-cDd" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="Jcd-jC-bMc"/>
                                                     <constraint firstItem="w41-Qd-DOQ" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="JfC-C2-4Ps"/>
                                                     <constraint firstAttribute="trailing" secondItem="58a-iO-pXP" secondAttribute="trailing" id="PWQ-sa-las"/>
-                                                    <constraint firstItem="VWl-Os-7v2" firstAttribute="top" secondItem="hap-zv-gPI" secondAttribute="bottom" constant="30" id="QY1-NO-J8H"/>
+                                                    <constraint firstItem="ZZW-zI-zMx" firstAttribute="top" secondItem="kJf-sO-HKc" secondAttribute="bottom" constant="30" id="PuI-xH-l5t"/>
                                                     <constraint firstAttribute="bottom" secondItem="ZZW-zI-zMx" secondAttribute="bottom" id="RKx-me-7BR"/>
-                                                    <constraint firstAttribute="trailing" secondItem="4ab-cM-BoN" secondAttribute="trailing" id="SCf-6o-KWd"/>
-                                                    <constraint firstItem="nbK-10-s33" firstAttribute="leading" secondItem="nRU-J9-JPP" secondAttribute="trailing" constant="14" id="Ug9-5B-dTp"/>
                                                     <constraint firstAttribute="trailing" secondItem="w41-Qd-DOQ" secondAttribute="trailing" id="UgT-ny-GWv"/>
-                                                    <constraint firstAttribute="trailing" secondItem="nbK-10-s33" secondAttribute="trailing" id="Xeq-KR-8aK"/>
-                                                    <constraint firstItem="hap-zv-gPI" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="YGX-8C-Usp"/>
                                                     <constraint firstAttribute="trailing" secondItem="nEz-u7-cDd" secondAttribute="trailing" id="Zko-yi-aRJ"/>
-                                                    <constraint firstItem="ZZW-zI-zMx" firstAttribute="top" secondItem="nbK-10-s33" secondAttribute="bottom" constant="30" id="aBd-gs-MV8"/>
-                                                    <constraint firstItem="hrI-1a-Njq" firstAttribute="top" secondItem="4ab-cM-BoN" secondAttribute="bottom" constant="24" id="cNs-qx-nLp"/>
                                                     <constraint firstItem="58a-iO-pXP" firstAttribute="top" secondItem="MYD-WC-dFv" secondAttribute="top" id="d8H-co-nAh"/>
-                                                    <constraint firstItem="hrI-1a-Njq" firstAttribute="leading" secondItem="VWl-Os-7v2" secondAttribute="trailing" constant="14" id="dZi-MW-FOV"/>
                                                     <constraint firstItem="ZZW-zI-zMx" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="eh8-HJ-ia2"/>
+                                                    <constraint firstItem="kJf-sO-HKc" firstAttribute="top" secondItem="w41-Qd-DOQ" secondAttribute="bottom" constant="24" id="fyu-rE-Crx"/>
                                                     <constraint firstItem="w41-Qd-DOQ" firstAttribute="top" secondItem="nEz-u7-cDd" secondAttribute="bottom" constant="24" id="gIC-Qa-7Rh"/>
-                                                    <constraint firstItem="nRU-J9-JPP" firstAttribute="top" secondItem="VWl-Os-7v2" secondAttribute="bottom" constant="30" id="gPu-Oe-NQV"/>
                                                     <constraint firstAttribute="trailing" secondItem="ZZW-zI-zMx" secondAttribute="trailing" id="i1V-pb-jIX"/>
-                                                    <constraint firstAttribute="trailing" secondItem="hrI-1a-Njq" secondAttribute="trailing" id="lAr-db-5iZ"/>
-                                                    <constraint firstItem="nbK-10-s33" firstAttribute="top" secondItem="hrI-1a-Njq" secondAttribute="bottom" constant="24" id="s29-F7-8J5"/>
-                                                    <constraint firstItem="VWl-Os-7v2" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="yRL-wO-Ve6"/>
+                                                    <constraint firstItem="kJf-sO-HKc" firstAttribute="leading" secondItem="MYD-WC-dFv" secondAttribute="leading" id="ogJ-pQ-48a"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -176,9 +199,8 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MYD-WC-dFv" secondAttribute="trailing" constant="24" id="3c6-eH-IyG"/>
                                             <constraint firstItem="MYD-WC-dFv" firstAttribute="leading" secondItem="Nsg-5Z-eLv" secondAttribute="leading" constant="24" id="9KH-vQ-zrR"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="370" id="HOL-ed-Yza"/>
-                                            <constraint firstAttribute="bottom" secondItem="MYD-WC-dFv" secondAttribute="bottom" constant="24" id="HOs-bm-RVh"/>
-                                            <constraint firstItem="MYD-WC-dFv" firstAttribute="top" secondItem="Nsg-5Z-eLv" secondAttribute="top" constant="24" id="WSV-e3-EhK"/>
+                                            <constraint firstAttribute="bottom" secondItem="MYD-WC-dFv" secondAttribute="bottom" constant="25" id="HOs-bm-RVh"/>
+                                            <constraint firstItem="MYD-WC-dFv" firstAttribute="top" secondItem="Nsg-5Z-eLv" secondAttribute="top" constant="25" id="WSV-e3-EhK"/>
                                             <constraint firstAttribute="width" constant="343" id="gLJ-6L-g6f"/>
                                         </constraints>
                                     </view>
@@ -193,13 +215,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tso-YO-Hkj" firstAttribute="trailing" secondItem="lVL-1X-3EE" secondAttribute="trailing" id="167-Vu-zRp"/>
-                            <constraint firstItem="tso-YO-Hkj" firstAttribute="top" secondItem="lVL-1X-3EE" secondAttribute="top" constant="20" id="1U5-nt-VxJ"/>
-                            <constraint firstItem="tso-YO-Hkj" firstAttribute="bottom" secondItem="eXn-bO-61P" secondAttribute="bottom" id="C6z-oE-LA4"/>
+                            <constraint firstAttribute="top" secondItem="lVL-1X-3EE" secondAttribute="top" id="1U5-nt-VxJ"/>
+                            <constraint firstAttribute="bottom" secondItem="eXn-bO-61P" secondAttribute="bottom" id="C6z-oE-LA4"/>
                             <constraint firstItem="eXn-bO-61P" firstAttribute="leading" secondItem="tso-YO-Hkj" secondAttribute="leading" id="RXy-jj-2h4"/>
                             <constraint firstItem="tso-YO-Hkj" firstAttribute="trailing" secondItem="eXn-bO-61P" secondAttribute="trailing" id="SRo-Cp-ZBs"/>
-                            <constraint firstItem="tso-YO-Hkj" firstAttribute="bottom" secondItem="lVL-1X-3EE" secondAttribute="bottom" id="UJN-Hp-32y"/>
+                            <constraint firstAttribute="bottom" secondItem="lVL-1X-3EE" secondAttribute="bottom" id="UJN-Hp-32y"/>
                             <constraint firstItem="lVL-1X-3EE" firstAttribute="leading" secondItem="tso-YO-Hkj" secondAttribute="leading" id="UYE-5Q-iwt"/>
-                            <constraint firstItem="tso-YO-Hkj" firstAttribute="top" secondItem="eXn-bO-61P" secondAttribute="top" constant="20" id="tS6-2m-ZPY"/>
+                            <constraint firstAttribute="top" secondItem="eXn-bO-61P" secondAttribute="top" id="tS6-2m-ZPY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tso-YO-Hkj"/>
                     </view>
@@ -207,14 +229,17 @@
                         <outlet property="box" destination="Nsg-5Z-eLv" id="dQf-nI-DtW"/>
                         <outlet property="containerTopConstraint" destination="1U5-nt-VxJ" id="O8U-1D-ZVZ"/>
                         <outlet property="containerView" destination="lVL-1X-3EE" id="ASa-di-6Md"/>
-                        <outlet property="firstCheckboxView" destination="hap-zv-gPI" id="5zK-5p-sHu"/>
-                        <outlet property="firstLabel" destination="4ab-cM-BoN" id="7EG-bi-fx1"/>
+                        <outlet property="contentWidthConstraint" destination="gLJ-6L-g6f" id="KW3-eq-Wha"/>
+                        <outlet property="firstCheckboxView" destination="aIc-K2-a7s" id="fk6-Gt-Ed1"/>
+                        <outlet property="firstLabel" destination="Vgh-FA-sit" id="jfJ-mj-yfd"/>
                         <outlet property="grayView" destination="eXn-bO-61P" id="pUn-xF-YxY"/>
                         <outlet property="okButton" destination="ZZW-zI-zMx" id="zZ0-vF-URk"/>
-                        <outlet property="secondCheckboxView" destination="VWl-Os-7v2" id="OdD-9T-cRw"/>
-                        <outlet property="secondLabel" destination="hrI-1a-Njq" id="b3w-e0-Qzp"/>
-                        <outlet property="thirdCheckboxView" destination="nRU-J9-JPP" id="IoP-HM-lkt"/>
-                        <outlet property="thirdLabel" destination="nbK-10-s33" id="ydo-dm-OvW"/>
+                        <outlet property="secondCheckboxView" destination="BW1-uf-3vy" id="lIs-CO-mC2"/>
+                        <outlet property="secondLabel" destination="9Mp-E1-Jum" id="uxX-kR-5VB"/>
+                        <outlet property="subTitleLabel" destination="nEz-u7-cDd" id="Qtm-zQ-MI4"/>
+                        <outlet property="thirdCheckboxView" destination="hap-zv-gPI" id="yJJ-q3-olg"/>
+                        <outlet property="thirdLabel" destination="4ab-cM-BoN" id="r2Y-Xa-bwM"/>
+                        <outlet property="titleLabel" destination="58a-iO-pXP" id="9b3-zd-bI0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7I-VY-kBC" userLabel="First Responder" sceneMemberID="firstResponder"/>

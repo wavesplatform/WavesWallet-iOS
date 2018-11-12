@@ -34,10 +34,9 @@ extension DomainLayer.DTO {
     }
 }
 
-
 extension DomainLayer.DTO.Asset {
     var icon: String {
-        return ticker ?? displayName
+        return gatewayId ?? displayName
     }
     
     var isMonero: Bool {

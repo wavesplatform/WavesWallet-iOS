@@ -12,7 +12,7 @@ import RxFeedback
 import RxCocoa
 
 protocol SendResultDelegate: AnyObject {
-    func sendResultDidFail(_ error: String)
+    func sendResultDidFail(_ error: ResponseTypeError)
 }
 
 private enum Constants {
@@ -190,12 +190,12 @@ final class SendViewController: UIViewController {
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
-    func sendResultDidFail(_ error: String) {
+    func sendResultDidFail(_ error: ResponseTypeError) {
         
        navigationController?.popToViewController(self, animated: true)
         
         //TODO: need show view with error
-        debug(error)
+        debug(error.message)
     }
 }
 

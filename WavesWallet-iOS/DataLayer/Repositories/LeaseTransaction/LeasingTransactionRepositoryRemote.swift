@@ -19,7 +19,7 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
         self.environmentRepository = environmentRepository
     }
 
-    func activeLeasingTransactions(by accountAddress: String) -> AsyncObservable<[DomainLayer.DTO.LeaseTransaction]> {
+    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
