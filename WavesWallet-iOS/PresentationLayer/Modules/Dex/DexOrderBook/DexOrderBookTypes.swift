@@ -19,6 +19,7 @@ enum DexOrderBook {
         case didTapEmptyBid
         case didTapAsk(DTO.BidAsk)
         case didTamEmptyAsk
+        case updateData
     }
     
     struct State: Mutating {
@@ -35,6 +36,7 @@ enum DexOrderBook {
         var isNeedRefreshing: Bool
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
+        var availableWavesBalance: Money
     }
 }
 
@@ -81,6 +83,7 @@ extension DexOrderBook.DTO {
         let header: DexOrderBook.ViewModel.Header
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
+        let availableWavesBalance: Money
     }
 }
 
@@ -118,8 +121,8 @@ extension DexOrderBook.ViewModel.Row {
 
 //MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
-    static var empty: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice(price: Money(0, 0), percent: 0, orderType: nil)
+    static func empty(decimals: Int) -> DexOrderBook.DTO.LastPrice {
+        return DexOrderBook.DTO.LastPrice(price: Money(0, decimals), percent: 0, orderType: nil)
     }
 }
 
@@ -130,7 +133,8 @@ extension DexOrderBook.State {
         let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
         return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
                                   availablePriceAssetBalance: Money(0, 0),
-                                  availableAmountAssetBalance: Money(0, 0))
+                                  availableAmountAssetBalance: Money(0, 0),
+                                  availableWavesBalance: Money (0, 0))
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {

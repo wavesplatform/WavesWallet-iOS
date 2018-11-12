@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
@@ -31,6 +32,9 @@ final class WalletCoordinator: Coordinator {
 
     private var currentPopup: PopupViewController? = nil
 
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
@@ -40,11 +44,18 @@ final class WalletCoordinator: Coordinator {
         CATransaction.begin()
         CATransaction.setCompletionBlock {
 
-            if Application.get().isAlreadyShowLegalDisplay == false {
-                let legal = LegalCoordinator(viewController: self.walletViewContoller)
-                legal.delegate = self
-                self.addChildCoordinatorAndStart(childCoordinator: legal)
-            }
+            self.authorization
+                .authorizedWallet()
+                .subscribe(onNext: { [weak self] wallet in
+
+                    guard let owner = self else { return }
+                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else { return }
+
+                    let legal = LegalCoordinator(viewController: owner.walletViewContoller)
+                    legal.delegate = owner
+                    owner.addChildCoordinatorAndStart(childCoordinator: legal)
+                })
+                .disposed(by: self.disposeBag)
         }
         navigationController?.pushViewController(walletViewContoller, animated: false)
         CATransaction.commit()
@@ -222,8 +233,17 @@ extension WalletCoordinator: LegalCoordinatorDelegate {
 
     func legalConfirm() {
 
-        var value = Application.get()
-        value.isAlreadyShowLegalDisplay = true
-        Application.set(value)
+        authorization
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Void> in
+                guard let owner = self else { return Observable.never() }
+
+                var newWallet = wallet.wallet
+                newWallet.isAlreadyShowLegalDisplay = true
+
+                return owner.authorization.changeWallet(newWallet).map { _ in }
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }

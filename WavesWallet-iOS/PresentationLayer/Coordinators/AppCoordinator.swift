@@ -16,13 +16,12 @@ struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
         var isAlreadyShowHelloDisplay: Bool  = false
-        var isAlreadyShowLegalDisplay: Bool = false
     }
 
     private static let key: String = "com.waves.application.settings"
 
     static var defaultValue: Settings {
-        return Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowLegalDisplay: false)
+        return Settings(isAlreadyShowHelloDisplay: false)
     }
 
     static var stringKey: String {

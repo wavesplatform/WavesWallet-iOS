@@ -10,10 +10,10 @@ import Foundation
 
 protocol DexLastTradesModuleOutput: AnyObject {
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
-                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
+                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money)
     
     func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset,
                              orderType: Dex.DTO.OrderType,
-                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money)
+                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money)
     
 }

@@ -178,9 +178,14 @@
 "dexlasttrades.button.buy" = "BUY";
 "dexlasttrades.button.sell" = "SELL";
 
+"dexmyorders.label.date" = "Date";
+"dexmyorders.label.sell" = "Sell";
+"dexmyorders.label.buy" = "Buy";
 "dexmyorders.label.time" = "Time";
 "dexmyorders.label.status" = "Status";
 "dexmyorders.label.price" = "Price";
+"dexmyorders.label.side" = "Side";
+"dexmyorders.label.sum" = "Sum";
 "dexmyorders.label.amount" = "Amount";
 "dexmyorders.label.emptyData" = "Nothing Here…\nYou do not have any orders";
 "dexmyorders.label.loadingLastTrades" = "Loading orders…";

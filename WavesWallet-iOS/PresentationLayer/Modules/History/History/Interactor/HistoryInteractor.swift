@@ -14,7 +14,7 @@ fileprivate enum Constants {
 }
 
 protocol HistoryInteractorProtocol {
-    func transactions(input: HistoryModuleInput) -> AsyncObservable<[DomainLayer.DTO.SmartTransaction]>
+    func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]>
     func refreshTransactions()
 }
 

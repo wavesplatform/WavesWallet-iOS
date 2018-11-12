@@ -36,18 +36,23 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex), reduce: reduce, feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
-        
     }
     
     private func reduce(state: TransactionHistoryTypes.State, event: TransactionHistoryTypes.Event) -> TransactionHistoryTypes.State {
+        var newState = state
+        reduce(state: &newState, event: event)
+        return newState
+    }
+
+    private func reduce(state: inout TransactionHistoryTypes.State, event: TransactionHistoryTypes.Event) {
+
         switch event {
         case .readyView:
-            return state
+            break
         }
     }
     
     private static func initialState(transactions: [DomainLayer.DTO.SmartTransaction], currentIndex: Int) -> TransactionHistoryTypes.State {
         return TransactionHistoryTypes.State.initialState(transactions: transactions, currentIndex: currentIndex)
     }
-    
 }
