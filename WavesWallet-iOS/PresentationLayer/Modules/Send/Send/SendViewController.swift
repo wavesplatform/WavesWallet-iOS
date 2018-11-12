@@ -309,11 +309,13 @@ private extension SendViewController {
 
             values.append(availableBalance)
 
+            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n10 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n50 = Decimal(availableBalance.amount) * (Decimal(Constants.percent50) / 100.0)
-            let n50Value  = n50.int64Value
-            values.append(Money(n50Value, availableBalance.decimals))
-            values.append(Money(availableBalance.amount * Int64(Constants.percent10) / 100, availableBalance.decimals))
-            values.append(Money(availableBalance.amount * Int64(Constants.percent5) / 100, availableBalance.decimals))
+
+            values.append(Money(n50.int64Value, availableBalance.decimals))
+            values.append(Money(n10.int64Value, availableBalance.decimals))
+            values.append(Money(n5.int64Value, availableBalance.decimals))
         }
         
         return values
