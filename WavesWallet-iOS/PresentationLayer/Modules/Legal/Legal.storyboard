@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,10 +26,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsg-5Z-eLv" userLabel="Box">
-                                        <rect key="frame" x="16" y="-14" width="343" height="695"/>
+                                        <rect key="frame" x="16" y="-15" width="343" height="697"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYD-WC-dFv" userLabel="Content">
-                                                <rect key="frame" x="24" y="24.5" width="295" height="646.5"/>
+                                                <rect key="frame" x="24" y="25.5" width="295" height="646.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done! Let's review." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58a-iO-pXP">
                                                         <rect key="frame" x="0.0" y="0.0" width="295" height="20.5"/>
@@ -199,8 +199,8 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MYD-WC-dFv" secondAttribute="trailing" constant="24" id="3c6-eH-IyG"/>
                                             <constraint firstItem="MYD-WC-dFv" firstAttribute="leading" secondItem="Nsg-5Z-eLv" secondAttribute="leading" constant="24" id="9KH-vQ-zrR"/>
-                                            <constraint firstAttribute="bottom" secondItem="MYD-WC-dFv" secondAttribute="bottom" constant="24" id="HOs-bm-RVh"/>
-                                            <constraint firstItem="MYD-WC-dFv" firstAttribute="top" secondItem="Nsg-5Z-eLv" secondAttribute="top" constant="24" id="WSV-e3-EhK"/>
+                                            <constraint firstAttribute="bottom" secondItem="MYD-WC-dFv" secondAttribute="bottom" constant="25" id="HOs-bm-RVh"/>
+                                            <constraint firstItem="MYD-WC-dFv" firstAttribute="top" secondItem="Nsg-5Z-eLv" secondAttribute="top" constant="25" id="WSV-e3-EhK"/>
                                             <constraint firstAttribute="width" constant="343" id="gLJ-6L-g6f"/>
                                         </constraints>
                                     </view>
@@ -229,6 +229,7 @@
                         <outlet property="box" destination="Nsg-5Z-eLv" id="dQf-nI-DtW"/>
                         <outlet property="containerTopConstraint" destination="1U5-nt-VxJ" id="O8U-1D-ZVZ"/>
                         <outlet property="containerView" destination="lVL-1X-3EE" id="ASa-di-6Md"/>
+                        <outlet property="contentWidthConstraint" destination="gLJ-6L-g6f" id="KW3-eq-Wha"/>
                         <outlet property="firstCheckboxView" destination="aIc-K2-a7s" id="fk6-Gt-Ed1"/>
                         <outlet property="firstLabel" destination="Vgh-FA-sit" id="jfJ-mj-yfd"/>
                         <outlet property="grayView" destination="eXn-bO-61P" id="pUn-xF-YxY"/>

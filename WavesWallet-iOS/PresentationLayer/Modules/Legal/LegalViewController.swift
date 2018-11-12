@@ -48,6 +48,9 @@ final class LegalViewController: UIViewController {
     @IBOutlet weak var thirdLabel: TTTAttributedLabel!
     
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var contentWidthConstraint: NSLayoutConstraint!
+    
     var presenting: Bool = false
     
     override func viewDidLoad() {
@@ -61,6 +64,15 @@ final class LegalViewController: UIViewController {
         addGestureRecognizers()
         setupData()
         fillLabels()
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        if Platform.isIphone5 {
+            contentWidthConstraint.constant = Platform.ScreenWidth - 32
+        } else {
+            contentWidthConstraint.constant = 343
+        }
     }
     
     private func setupBox() {
