@@ -17,7 +17,8 @@ fileprivate extension DexMyOrders.DTO.Order {
     init(_ json: JSON, priceAsset: Dex.DTO.Asset, amountAsset: Dex.DTO.Asset) {
         
         id = json["id"].stringValue
-        price = Money(json["price"].int64Value, priceAsset.decimals)
+        
+        price = DexList.DTO.price(amount: json["price"].int64Value, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
         amount = Money(json["amount"].int64Value, amountAsset.decimals)
         time = Date(milliseconds: json["timestamp"].int64Value)
         

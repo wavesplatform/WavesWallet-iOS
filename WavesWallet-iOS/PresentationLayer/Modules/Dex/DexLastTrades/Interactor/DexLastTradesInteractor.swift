@@ -112,12 +112,17 @@ private extension DexLastTradesInteractor {
             if let info = info {                
                 if let bid = info["bids"].arrayValue.first {
                     
-                    sell = DexLastTrades.DTO.SellBuyTrade(price: Money((bid["price"]).int64Value, self.pair.priceAsset.decimals),
+                    let price = DexList.DTO.price(amount: bid["price"].int64Value, amountDecimals: self.pair.amountAsset.decimals, priceDecimals: self.pair.priceAsset.decimals)
+                    
+                    sell = DexLastTrades.DTO.SellBuyTrade(price: price,
                                                           type: .sell)
                 }
                 
                 if let ask = info["asks"].arrayValue.first {
-                    buy = DexLastTrades.DTO.SellBuyTrade(price: Money((ask["price"]).int64Value, self.pair.priceAsset.decimals),
+                    
+                    let price = DexList.DTO.price(amount: ask["price"].int64Value, amountDecimals: self.pair.amountAsset.decimals, priceDecimals: self.pair.priceAsset.decimals)
+
+                    buy = DexLastTrades.DTO.SellBuyTrade(price: price,
                                                          type: .buy)
                 }
             }

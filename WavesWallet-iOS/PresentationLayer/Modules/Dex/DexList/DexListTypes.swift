@@ -79,6 +79,14 @@ extension DexList.DTO {
     static let fiatAssets: [String] = {
         return [FiatAsset.USD, FiatAsset.EUR, FiatAsset.TRY]
     }()
+    
+    static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
+        
+        let precisionDifference = priceDecimals - amountDecimals + 8
+        let decimalValue = Decimal(amount) / pow(10, precisionDifference)
+
+        return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
+    }
 }
 
 extension DexList.State {

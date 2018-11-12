@@ -99,8 +99,8 @@ private extension DexListInteractor {
                                                    decimals: localPair.priceAsset.decimals)
                 
                     let info = item["data"]
-                    let firstPrice = Money(value: Decimal(info["firstPrice"].doubleValue), amountAsset.decimals)
-                    let lastPrice = Money(value: Decimal(info["lastPrice"].doubleValue), amountAsset.decimals)
+                    let firstPrice = Money(value: Decimal(info["firstPrice"].doubleValue), priceAsset.decimals)
+                    let lastPrice = Money(value: Decimal(info["lastPrice"].doubleValue), priceAsset.decimals)
                     
                     let pair = DexList.DTO.Pair(firstPrice: firstPrice,
                                                 lastPrice: lastPrice,
