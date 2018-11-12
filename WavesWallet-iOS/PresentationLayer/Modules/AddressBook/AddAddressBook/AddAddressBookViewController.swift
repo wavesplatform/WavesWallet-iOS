@@ -41,6 +41,7 @@ final class AddAddressBookViewController: UIViewController {
             textFieldAddress.text = address
         }
         createBackButton()
+        setupLocalization()
         setupNavBarUI()
         setupTextFields()
         setupEditUserMode()

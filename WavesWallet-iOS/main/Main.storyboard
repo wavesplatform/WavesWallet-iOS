@@ -263,7 +263,6 @@
                     <connections>
                         <outlet property="communitiesLabel" destination="Sek-E8-ecM" id="5JP-8e-BPi"/>
                         <outlet property="descriptionLabel" destination="OAc-aH-YeQ" id="3mb-c8-f7o"/>
-                        <outlet property="firstOffset" destination="BQ3-l4-kTA" id="PkP-bX-dSN"/>
                         <outlet property="supportWavesplatformButton" destination="4ND-pJ-l0K" id="At0-cb-aAp"/>
                         <outlet property="termAndConditionsButton" destination="LCQ-Rf-qFo" id="HGB-R3-9yq"/>
                         <outlet property="whitepaperButton" destination="WyS-Zx-ty9" id="7Gy-EP-WVE"/>

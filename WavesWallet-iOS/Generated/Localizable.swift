@@ -470,6 +470,17 @@ internal enum Localizable {
         }
       }
 
+      internal enum Error {
+        /// Already in use
+        internal static var alreadyinuse: String { return Localizable.tr("Waves", "createalias.error.alreadyinuse") }
+        /// 30 characters maximum
+        internal static var charactersmaximum: String { return Localizable.tr("Waves", "createalias.error.charactersmaximum") }
+        /// Invalid character
+        internal static var invalidcharacter: String { return Localizable.tr("Waves", "createalias.error.invalidcharacter") }
+        /// Minimum 4 characters
+        internal static var minimumcharacters: String { return Localizable.tr("Waves", "createalias.error.minimumcharacters") }
+      }
+
       internal enum Navigation {
         /// New alias
         internal static var title: String { return Localizable.tr("Waves", "createalias.navigation.title") }
@@ -1982,6 +1993,23 @@ internal enum Localizable {
       internal enum Navigationbar {
         /// Sorting
         internal static var title: String { return Localizable.tr("Waves", "walletsort.navigationBar.title") }
+      }
+    }
+
+    internal enum Wavespopup {
+
+      internal enum Button {
+        /// Exchange
+        internal static var exchange: String { return Localizable.tr("Waves", "wavespopup.button.exchange") }
+        /// Receive
+        internal static var receive: String { return Localizable.tr("Waves", "wavespopup.button.receive") }
+        /// Send
+        internal static var send: String { return Localizable.tr("Waves", "wavespopup.button.send") }
+      }
+
+      internal enum Label {
+        /// Coming soon
+        internal static var comingsoon: String { return Localizable.tr("Waves", "wavespopup.label.comingsoon") }
       }
     }
   }

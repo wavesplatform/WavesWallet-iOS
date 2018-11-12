@@ -10,10 +10,6 @@ import UIKit
 
 class MenuViewController: UIViewController {
 
-    @IBOutlet weak var firstOffset: NSLayoutConstraint!
-    @IBOutlet weak var secondOffset: NSLayoutConstraint!
-    @IBOutlet weak var bottomOffset: NSLayoutConstraint!
-
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var communitiesLabel: UILabel!
     @IBOutlet weak var whitepaperButton: UIButton!
@@ -25,11 +21,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         setupLocalization()
-        if Platform.isIphone5 {
-            firstOffset.constant = 0
-            secondOffset.constant = 20
-            bottomOffset.constant = 20
-        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
 

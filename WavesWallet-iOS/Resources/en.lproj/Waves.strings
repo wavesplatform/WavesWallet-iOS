@@ -929,3 +929,14 @@
 "menu.button.whitepaper" = "Whitepaper";
 "menu.button.termsandconditions" = "Terms and conditions";
 "menu.button.supportwavesplatform" = "Support Wavesplatform";
+
+"createalias.error.minimumcharacters" = "Minimum 4 characters";
+"createalias.error.charactersmaximum" = "30 characters maximum";
+"createalias.error.invalidcharacter" = "Invalid character";
+"createalias.error.alreadyinuse" = "Already in use";
+
+"wavespopup.button.send" = "Send";
+"wavespopup.button.receive" = "Receive";
+"wavespopup.button.exchange" = "Exchange";
+"wavespopup.label.comingsoon" = "Coming soon";
+

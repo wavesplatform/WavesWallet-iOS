@@ -18,9 +18,17 @@ protocol WavesPopupModuleOutput: AnyObject {
 class WavesPopupViewController: UIViewController {
 
     weak var moduleOutput: WavesPopupModuleOutput?
+    @IBOutlet weak var comingSoonLabel: UILabel!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var receiveButton: UIButton!
+    @IBOutlet weak var exchangeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        comingSoonLabel.text = Localizable.Waves.Wavespopup.Label.comingsoon
+        sendButton.setTitle(Localizable.Waves.Wavespopup.Button.send, for: .normal)
+        receiveButton.setTitle(Localizable.Waves.Wavespopup.Button.receive, for: .normal)
+        exchangeButton.setTitle(Localizable.Waves.Wavespopup.Button.exchange, for: .normal)
     }
 
     @IBAction func sendTapped(_ sender: Any) {
@@ -48,10 +56,4 @@ class WavesPopupViewController: UIViewController {
             parent.dismissPopup()
         }
     }
-    
-    
-    deinit {
-        debug("WavesPopupViewController deinit")
-    }
-    
 }

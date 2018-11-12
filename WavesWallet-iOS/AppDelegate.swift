@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      sourceApplication: String?,
                      annotation: Any) -> Bool {
         if let urlScheme = url.scheme, urlScheme == "waves" {
-            OpenUrlManager.openUrl = url
+//            OpenUrlManager.openUrl = url
             return true
         } else {
             return false
