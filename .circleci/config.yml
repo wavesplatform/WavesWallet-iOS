@@ -41,10 +41,7 @@ jobs:
             - vendor/bundle
       - run: 
           name: Secure
-          command: security find-identity -v -p codesigning fastlane_tmp_keychain
-      - run:
-          name: Fastlane certificates
-          command: bundle exec fastlane certificates --verbose
+          command: security find-identity -v -p codesigning fastlane_tmp_keychain      
       - run: 
           name: Secure
           command: security find-identity -v -p codesigning fastlane_tmp_keychain
