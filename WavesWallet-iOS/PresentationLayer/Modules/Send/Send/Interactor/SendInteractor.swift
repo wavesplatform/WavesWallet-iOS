@@ -167,8 +167,8 @@ private extension SendInteractor {
     
     func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ error: ResponseTypeError?) -> Void) {
         
-        var params = ["currency_from" : asset.wavesId ?? "",
-                      "currency_to" : asset.gatewayId ?? "",
+        var params = ["currency_from" : asset.gatewayId ?? "",
+                      "currency_to" : asset.wavesId ?? "",
                       "wallet_to" : address]
         
         if moneroPaymentID.count > 0 {
@@ -188,7 +188,7 @@ private extension SendInteractor {
                     
                     if let info = info {
                         let json = info["tunnel"]
-                        let shortName = asset.gatewayId ?? json["to_txt"].stringValue
+                        let shortName = asset.gatewayId ?? json["currency_from_txt"].stringValue
                         let address = json["wallet_from"].stringValue
                         
                         complete(shortName, address, nil)
