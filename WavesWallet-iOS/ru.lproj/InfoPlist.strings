@@ -1,2 +1,4 @@
-"NSFaceIDUsageDescription" = "Authenticate with Face ID";
-"NSCameraUsageDescription" = "The camera is needed to scan QR codes";
+
+"NSCameraUsageDescription" = "Камера необходима для сканирования QR-кодов";
+
+"NSFaceIDUsageDescription" = "Доступ к вашему кошельку";
