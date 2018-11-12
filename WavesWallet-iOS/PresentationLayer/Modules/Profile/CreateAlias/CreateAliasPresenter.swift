@@ -173,10 +173,10 @@ private extension CreateAliasPresenter {
                 if RegEx.alias(text) {
                     if text.count < GlobalConstants.aliasNameMinLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
-                        state.displayState.error = "Minimum 4 characters"
+                        state.displayState.error = Localizable.Waves.Createalias.Error.minimumcharacters
                     } else if text.count > GlobalConstants.aliasNameMaxLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
-                        state.displayState.error = "30 characters maximum"
+                        state.displayState.error = Localizable.Waves.Createalias.Error.charactersmaximum
                     } else {
                         state.displayState.isLoading = true
                         state.displayState.isEnabledSaveButton = false
@@ -184,7 +184,7 @@ private extension CreateAliasPresenter {
                         state.query = .checkExist(text)
                     }
                 } else {
-                    state.displayState.error = "Invalid character"
+                    state.displayState.error = Localizable.Waves.Createalias.Error.invalidcharacter
                     state.displayState.isEnabledSaveButton = false
                 }
             } else {
@@ -207,7 +207,7 @@ private extension CreateAliasPresenter {
 
         case .errorAliasExist:
             state.query = nil
-            state.displayState.error = "Already in use"
+            state.displayState.error = Localizable.Waves.Createalias.Error.alreadyinuse
             state.displayState.action = .update
             state.displayState.isLoading = false            
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])

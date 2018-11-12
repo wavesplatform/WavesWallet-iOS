@@ -10,18 +10,23 @@ import UIKit
 
 class MenuViewController: UIViewController {
 
-    @IBOutlet weak var firstOffset: NSLayoutConstraint!
-    @IBOutlet weak var secondOffset: NSLayoutConstraint!
-    @IBOutlet weak var bottomOffset: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var communitiesLabel: UILabel!
+    @IBOutlet weak var whitepaperButton: UIButton!
+    @IBOutlet weak var termAndConditionsButton: UIButton!
+    @IBOutlet weak var supportWavesplatformButton: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if Platform.isIphone5 {
-            firstOffset.constant = 0
-            secondOffset.constant = 20
-            bottomOffset.constant = 20
-        }
+        setupLocalization()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+    }
+
+    @objc func changedLanguage() {
+        setupLocalization()
     }
     
     @IBAction func wavesTapped(_ sender: Any) {
@@ -47,6 +52,27 @@ class MenuViewController: UIViewController {
     @IBAction func fbTapped(_ sender: Any) {
         UIApplication.shared.openURL(URL(string: "https://www.facebook.com/wavesplatform")!)
     }
-    
 
+    @IBAction func whitepaperTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://wavesplatform.com/files/whitepaper_v0.pdf")!)
+    }
+
+    @IBAction func termAndConditionsTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf")!)
+    }
+
+    @IBAction func supportWavesplatformTapped(_ sender: Any) {
+        UIApplication.shared.openURL(URL(string: "https://support.wavesplatform.com/")!)
+    }
+}
+
+extension MenuViewController: Localization {
+    func setupLocalization() {
+
+        descriptionLabel.text = Localizable.Waves.Menu.Label.description
+        communitiesLabel.text = Localizable.Waves.Menu.Label.communities
+        whitepaperButton.setTitle(Localizable.Waves.Menu.Button.whitepaper, for: .normal)
+        termAndConditionsButton.setTitle(Localizable.Waves.Menu.Button.termsandconditions, for: .normal)
+        supportWavesplatformButton.setTitle(Localizable.Waves.Menu.Button.supportwavesplatform, for: .normal)
+    }
 }

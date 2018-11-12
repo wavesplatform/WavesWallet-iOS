@@ -1,14 +1,26 @@
 require 'open-uri'
+require 'credentials_manager'
 
 default_platform(:ios)
 
 platform :ios do
 
   lane :waves_test do
+  
+  
 
     ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.waveswallet.test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     setup_circle_ci
+
+    sh("printenv")
+
+    puts ENV['FASTLANE_USER']
+    puts ENV['FASTLANE_PASSWORD']
+
+    data = CredentialsManager::AccountManager.new(user: "#{ENV['FASTLANE_USER']}", password: "#{ENV['FASTLANE_PASSWORD']}")
+    puts data.user
+    puts data.password  
 
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
