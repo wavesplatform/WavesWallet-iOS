@@ -2,96 +2,124 @@
 //  ImportAccountViewController.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 6/29/18.
+//  Created by Mac on 08/11/2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import UIKit
-import TTTAttributedLabel
-import QRCodeReader
+import RxCocoa
+import RxFeedback
+import RxSwift
 
-protocol ImportAccountViewControllerDelegate: AnyObject {
-    func enterManuallyTapped()
-    func scanedSeed(_ seed: String)
-}
-
-final class ImportAccountViewController: UIViewController, TTTAttributedLabelDelegate {
-
-    @IBOutlet final weak var labelLog: TTTAttributedLabel!
-    @IBOutlet final weak var stepOneDetailLabel: UILabel!
-    @IBOutlet final weak var stepTwoTitleLabel: UILabel!
-    @IBOutlet final weak var scanParringButton: UIButton!
-    @IBOutlet final weak var enterSeedButton: UIButton!
-
-    weak var delegate: ImportAccountViewControllerDelegate?
-
+class ImportAccountViewController: UIViewController {
+    
+    struct Section {
+        let id: Int
+        let title: String
+    }
+    
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    lazy var scanViewController: ImportAccountScanViewController = {
+        return StoryboardScene.Import.importAccountScanViewController.instantiate()
+    }()
+    
+    lazy var manuallyViewController: ImportAccountManuallyViewController = {
+        return StoryboardScene.Import.importAccountManuallyViewController.instantiate()
+    }()
+    
+    @IBOutlet weak var segmentedControl: WalletSegmentedControl!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        title = Localizable.Waves.Import.Account.Navigation.title
-
-        stepOneDetailLabel.text = Localizable.Waves.Import.Account.Label.Info.Step.One.detail
-        stepTwoTitleLabel.text = Localizable.Waves.Import.Account.Label.Info.Step.Two.title
-        scanParringButton.setTitle(Localizable.Waves.Import.Account.Button.Scan.title, for: .normal)
-        enterSeedButton.setTitle(Localizable.Waves.Import.Account.Button.Enter.title, for: .normal)
-
-        navigationItem.barTintColor = .white
+        title = Localizable.Waves.Import.General.Navigation.title
+        view.backgroundColor = .basic50
+        
         setupBigNavigationBar()
         createBackButton()
         hideTopBarLine()
-
-        var params = [kCTUnderlineStyleAttributeName as String : true,
-                      kCTForegroundColorAttributeName as String : UIColor.black.cgColor] as [String : Any]
         
-        labelLog.linkAttributes = params
-        labelLog.inactiveLinkAttributes = params
+        setupViewControllers()
+        setupSegmentedControl()
         
-        params[kCTForegroundColorAttributeName as String] = UIColor(130, 130, 130).cgColor
-        labelLog.activeLinkAttributes = params
-        labelLog.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
-        labelLog.delegate = self
-        
-        let attr = NSAttributedString(string: Localizable.Waves.Import.Account.Label.Info.Step.One.title, attributes: [NSAttributedStringKey.font : labelLog.font])
-        labelLog.setText(attr)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        scrollView.alwaysBounceVertical = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.keyboardDismissMode = .onDrag
+        currentIndex = 0
     }
     
-    @IBAction func enterManuallyTapped(_ sender: Any) {
-        delegate?.enterManuallyTapped()
-    }
-
-    lazy var readerVC: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            $0.showSwitchCameraButton = false
-            $0.showTorchButton = true
-            $0.reader = QRCodeReader()
-            $0.preferredStatusBarStyle = UIStatusBarStyle.lightContent
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
+    private func setupSegmentedControl() {
+        let buttons = sections.map { SegmentedControl.Button(name: $0.title) }
+        
+        segmentedControl
+            .segmentedControl
+            .update(with: buttons, animated: true)
+        
+         segmentedControl.segmentedControl.scrollView.changedValue = { newValue in
+                self.currentIndex = newValue
+                self.manuallyViewController.resignKeyboard()
         }
+    }
+    
+    private func setupViewControllers() {
+        addChildViewController(scanViewController)
+        scanViewController.view.frame = containerView.bounds
+        containerView.addSubview(scanViewController.view)
         
-        return QRCodeReaderViewController(builder: builder)
-    }()
-    
-    @IBAction func scanTapped(_ sender: Any) {
-    
-        guard QRCodeReader.isAvailable() else { return }
+        scanViewController.didMove(toParentViewController: self)
 
-        readerVC.completionBlock = { [weak self] (result: QRCodeReaderResult?) in
-            if let seed = result?.value {
-                self?.delegate?.scanedSeed(seed)
+        addChildViewController(manuallyViewController)
+        manuallyViewController.view.frame = containerView.bounds
+        containerView.addSubview(manuallyViewController.view)
+        
+        manuallyViewController.didMove(toParentViewController: self)
+
+        scanViewController.view.isHidden = true
+        manuallyViewController.view.isHidden = true
+    }
+    
+    // MARK: - Content
+    
+    private var sections: [Section] {
+        return [
+            Section(id: 0, title: Localizable.Waves.Import.General.Segmentedcontrol.scan),
+            Section(id: 1, title: Localizable.Waves.Import.General.Segmentedcontrol.manually)
+        ]
+    }
+    
+    private var currentIndex: Int = 0 {
+        didSet {
+            for vc in viewControllers {
+                vc.view.isHidden = true
             }
-            self?.dismiss(animated: true, completion: nil)
+            
+            currentViewController?.view.isHidden = false
+            
+            guard let currentViewController = currentViewController else { return }
+            
+            if currentViewController == scanViewController {
+                manuallyViewController.resignKeyboard(animated: true)
+            } else if currentViewController == manuallyViewController {
+                manuallyViewController.showKeyboard(animated: true)
+            }
         }
-
-        readerVC.modalPresentationStyle = .formSheet
-        present(readerVC, animated: true) {}
     }
     
-    //MARK: - TTTAttributedLabelDelegate
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        UIApplication.shared.openURL(url)
+    private var currentViewController: UIViewController? {
+        return viewControllers[currentIndex]
     }
+    
+    private var viewControllers: [UIViewController] {
+        return [scanViewController, manuallyViewController]
+    }
+    
+}
+
+extension ImportAccountViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
+        manuallyViewController.resignKeyboard()
+    }
+    
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016DFB219420C900BA5235 /* ImportAccountViewController.swift */; };
+		04016DFE2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016DFD2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift */; };
+		04016E00219499DA00BA5235 /* ImportAccountScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016DFF219499DA00BA5235 /* ImportAccountScanViewController.swift */; };
+		04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016E0121949A8400BA5235 /* ImportAccountManuallyViewController.swift */; };
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
@@ -582,9 +586,7 @@
 		E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
-		E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */; };
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
-		E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
@@ -805,6 +807,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04016DFB219420C900BA5235 /* ImportAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewController.swift; sourceTree = "<group>"; };
+		04016DFD2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReaderControllerCoordinator.swift; sourceTree = "<group>"; };
+		04016DFF219499DA00BA5235 /* ImportAccountScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountScanViewController.swift; sourceTree = "<group>"; };
+		04016E0121949A8400BA5235 /* ImportAccountManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountManuallyViewController.swift; sourceTree = "<group>"; };
 		0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionView.xib; sourceTree = "<group>"; };
 		0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionView.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
@@ -1385,9 +1391,7 @@
 		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
-		E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
-		E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWelcomeBackViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
@@ -2243,11 +2247,13 @@
 		0A762D09214FB60400BE9204 /* Import */ = {
 			isa = PBXGroup;
 			children = (
-				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
-				E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */,
-				E97EC84020E67C8500AB006B /* ImportWelcomeBackViewController.swift */,
-				0A110CB72153CE31002A8FD7 /* Import.storyboard */,
+				04016DFD2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift */,
 				0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */,
+				0A110CB72153CE31002A8FD7 /* Import.storyboard */,
+				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
+				04016DFB219420C900BA5235 /* ImportAccountViewController.swift */,
+				04016DFF219499DA00BA5235 /* ImportAccountScanViewController.swift */,
+				04016E0121949A8400BA5235 /* ImportAccountManuallyViewController.swift */,
 				0A5D32F8215461E90009CDF3 /* ImportTypes.swift */,
 			);
 			path = Import;
@@ -4582,6 +4588,7 @@
 				E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */,
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
+				04016DFE2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,
@@ -4833,6 +4840,7 @@
 				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
+				04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,
 				E9657041219360770052F0FC /* WalletSortInteractorProtocol.swift in Sources */,
@@ -4845,7 +4853,6 @@
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
 				0AD63240217633C20047D467 /* ChangePasswordModuleBuilder.swift in Sources */,
 				0AF922AC212E1234003BA067 /* RxDataSource+TableView.swift in Sources */,
-				E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */,
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
 				0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
@@ -4892,6 +4899,7 @@
 				0A5ABBA8211735C9006A10A7 /* LeasingTransactionRepositoryLocal.swift in Sources */,
 				E9CD0D33218137FE001A99B3 /* MainTabBarCoordinator.swift in Sources */,
 				0AF922CC212E1234003BA067 /* UInt8+Assisstants.swift in Sources */,
+				04016E00219499DA00BA5235 /* ImportAccountScanViewController.swift in Sources */,
 				0A3FE8BB2137007500DBF4E1 /* MassTransferTransactionNode.swift in Sources */,
 				0AF922E3212E1234003BA067 /* HalfModalPresentationController.swift in Sources */,
 				0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */,
@@ -5075,6 +5083,7 @@
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				0A580E6C2135FCD200C62549 /* Decimal+Assisstants.swift in Sources */,
 				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
+				04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */,
 				0A762D7F21639FA60019D447 /* TransactionHistoryCommentCell.swift in Sources */,
 				0AF922B5212E1234003BA067 /* UIFont+Additions.swift in Sources */,
 				0AF922B0212E1234003BA067 /* Runtime.swift in Sources */,
@@ -5268,7 +5277,6 @@
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */,
 				0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */,
-				E97EC84120E67C8500AB006B /* ImportWelcomeBackViewController.swift in Sources */,
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,
 				0AF922D2212E1234003BA067 /* CALayer+RoundingCorners.swift in Sources */,
 				0A25B46C216F763D00638C93 /* MailCompose+Support.swift in Sources */,

@@ -35,7 +35,6 @@ final class ImportAccountPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Waves.Import.Welcome.Navigation.title
         labelAddress.text = address
 
         createBackButton()
@@ -48,20 +47,18 @@ final class ImportAccountPasswordViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         imageIcon.image = identity.createImage(by: address ?? "", size: imageIcon.frame.size)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         accountTextField.becomeFirstResponder()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-
     private func setupButtonContinue() {
-        buttonContinue.setTitle(Localizable.Waves.Import.Welcome.Button.continue, for: .normal)
+        buttonContinue.setTitle(Localizable.Waves.Import.Password.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }
@@ -69,6 +66,7 @@ final class ImportAccountPasswordViewController: UIViewController {
     @IBAction func continueTapped(_ sender: Any) {
         continueCreateAccount()
     }
+    
 }
 
 extension ImportAccountPasswordViewController {
