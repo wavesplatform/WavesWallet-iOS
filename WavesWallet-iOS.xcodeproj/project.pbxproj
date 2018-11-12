@@ -14,6 +14,10 @@
 		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
+		044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D6C8721978C9C003861A2 /* EditAccountName.storyboard */; };
+		044D6C8D21978CED003861A2 /* EditAccountNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D6C8521978C9B003861A2 /* EditAccountNameCoordinator.swift */; };
+		044D6C8E21978CED003861A2 /* EditAccountNameModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D6C8621978C9B003861A2 /* EditAccountNameModuleBuilder.swift */; };
+		044D6C8F21978CED003861A2 /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D6C8821978C9C003861A2 /* EditAccountNameViewController.swift */; };
 		04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04615A22211A31C90000FF80 /* HistoryModuleInput.swift */; };
 		048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048310832119675300509CED /* HistoryModuleBuilder.swift */; };
 		04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831085211967D500509CED /* HistoryModuleOutput.swift */; };
@@ -585,6 +589,7 @@
 		E9657041219360770052F0FC /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */; };
 		E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
+		E97EC83D20E6772F00AB006B /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */; };
 		E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */; };
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
@@ -815,6 +820,10 @@
 		0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionView.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
+		044D6C8521978C9B003861A2 /* EditAccountNameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountNameCoordinator.swift; sourceTree = "<group>"; };
+		044D6C8621978C9B003861A2 /* EditAccountNameModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountNameModuleBuilder.swift; sourceTree = "<group>"; };
+		044D6C8721978C9C003861A2 /* EditAccountName.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditAccountName.storyboard; sourceTree = "<group>"; };
+		044D6C8821978C9C003861A2 /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		04615A22211A31C90000FF80 /* HistoryModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleInput.swift; sourceTree = "<group>"; };
 		048310832119675300509CED /* HistoryModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleBuilder.swift; sourceTree = "<group>"; };
 		04831085211967D500509CED /* HistoryModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModuleOutput.swift; sourceTree = "<group>"; };
@@ -1390,6 +1399,7 @@
 		E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
+		E97EC83C20E6772F00AB006B /* ImportAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
@@ -1632,6 +1642,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044D6C8121978A8D003861A2 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		044D6C8421978C8C003861A2 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				044D6C8721978C9C003861A2 /* EditAccountName.storyboard */,
+				044D6C8521978C9B003861A2 /* EditAccountNameCoordinator.swift */,
+				044D6C8621978C9B003861A2 /* EditAccountNameModuleBuilder.swift */,
+				044D6C8821978C9C003861A2 /* EditAccountNameViewController.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		04831F6B21691449006D1ED6 /* BaseInputTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -4098,10 +4126,10 @@
 		E9F984A720E5266800D2CB4D /* Enter */ = {
 			isa = PBXGroup;
 			children = (
+				044D6C8421978C8C003861A2 /* Edit */,
 				04A4031D2164A99300652F21 /* EnterLanguageCoordinator.swift */,
 				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
 				E9F984A820E526DA00D2CB4D /* Enter.storyboard */,
-				E97EC83A20E6236600AB006B /* EditAccountNameViewController.swift */,
 				04A4031F2164B8CD00652F21 /* Start */,
 			);
 			path = Enter;
@@ -4190,6 +4218,7 @@
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
+				044D6C8121978A8D003861A2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4352,6 +4381,7 @@
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				E95B480721638BE9004D4E39 /* TransactionCommentView.xib in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
+				044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
@@ -4584,6 +4614,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044D6C8D21978CED003861A2 /* EditAccountNameCoordinator.swift in Sources */,
+				044D6C8E21978CED003861A2 /* EditAccountNameModuleBuilder.swift in Sources */,
+				044D6C8F21978CED003861A2 /* EditAccountNameViewController.swift in Sources */,
 				E9657039219360770052F0FC /* WalletSortTypes.swift in Sources */,
 				E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */,
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
@@ -4735,7 +4768,6 @@
 				E9B088112163886800937644 /* DexMarketTypes.swift in Sources */,
 				E9B0881E2163886800937644 /* DexSortInteractor.swift in Sources */,
 				E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */,
-				E97EC83B20E6236600AB006B /* EditAccountNameViewController.swift in Sources */,
 				0AFF5C7D215BD08500B82940 /* AccountPasswordTypes.swift in Sources */,
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				E9B0881B2163886800937644 /* DexSortModuleBuilder.swift in Sources */,

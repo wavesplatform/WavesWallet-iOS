@@ -10,7 +10,7 @@ import Foundation
 extension DomainLayer.DTO {
 
     struct Wallet: Mutating, Hashable {
-        let name: String
+        var name: String
         let address: String
         let publicKey: String
         var isLoggedIn: Bool

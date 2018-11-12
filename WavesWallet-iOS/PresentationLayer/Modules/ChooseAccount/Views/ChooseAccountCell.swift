@@ -9,16 +9,6 @@
 import UIKit
 import MGSwipeTableCell
 
-private enum Constants {
-    
-    static let shadowOptions = ShadowOptions(offset: CGSize(width: 0, height: 4),
-                                                   color: .black,
-                                                   opacity: 0.1,
-                                                   shadowRadius: 4,
-                                                   shouldRasterize: true)
-    
-}
-
 final class ChooseAccountCell: MGSwipeTableCell, NibReusable {
 
     struct Model {
@@ -36,7 +26,7 @@ final class ChooseAccountCell: MGSwipeTableCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        containerView.setupShadow(options: Constants.shadowOptions)
+        containerView.addTableCellShadowStyle()
         containerView.cornerRadius = 2
     }
     
