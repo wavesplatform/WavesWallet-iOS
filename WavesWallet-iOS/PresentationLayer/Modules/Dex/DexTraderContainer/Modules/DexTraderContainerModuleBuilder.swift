@@ -13,6 +13,7 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
     weak var output: DexTraderContainerModuleOutput?
     weak var orderBookOutput: DexOrderBookModuleOutput?
     weak var lastTradesOutput: DexLastTradesModuleOutput?
+    weak var myOrdersOutpout: DexMyOrdersModuleOutput?
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         let vc = StoryboardScene.Dex.dexTraderContainerViewController.instantiate()
@@ -22,7 +23,7 @@ struct DexTraderContainerModuleBuilder: ModuleBuilderOutput {
         vc.addViewController(DexOrderBookModuleBuilder(output: orderBookOutput).build(input: input), isScrollEnabled: true)
         vc.addViewController(DexChartModuleBuilder().build(input: input), isScrollEnabled: false)
         vc.addViewController(DexLastTradesModuleBuilder(output: lastTradesOutput).build(input: input), isScrollEnabled: true)
-        vc.addViewController(DexMyOrdersModuleBuilder().build(input: input), isScrollEnabled: true)
+        vc.addViewController(DexMyOrdersModuleBuilder(output: myOrdersOutpout).build(input: input), isScrollEnabled: true)
         return vc
     }
 }

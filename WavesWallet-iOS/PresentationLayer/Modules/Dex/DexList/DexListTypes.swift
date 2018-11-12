@@ -35,6 +35,7 @@ enum DexList {
             case update
         }
         
+        var isAppear: Bool
         var isNeedRefreshing: Bool
         var action: Action
         var sections: [DexList.ViewModel.Section]
@@ -71,17 +72,42 @@ extension DexList.DTO {
         var lastPrice: Money
         let amountAsset: Dex.DTO.Asset
         let priceAsset: Dex.DTO.Asset
-        let isHidden: Bool
-        let isFiat: Bool
+        let isGeneral: Bool
+        let sortLevel: Int
     }
     
     static let fiatAssets: [String] = {
         return [FiatAsset.USD, FiatAsset.EUR, FiatAsset.TRY]
     }()
+    
+    private static func precisionDifference(_ amountDecimals: Int, _ priceDecimals: Int) -> Int {
+        return priceDecimals - amountDecimals + 8
+    }
+    
+    static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
+        
+        let precisionDiff = precisionDifference(amountDecimals, priceDecimals)
+        let decimalValue = Decimal(amount) / pow(10, precisionDiff)
+
+        return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
+    }
+    
+    static func priceAmount(price: Money, amountDecimals: Int, priceDecimals: Int) -> Int64 {
+        let precisionDiff = precisionDifference(amountDecimals, priceDecimals)
+        return (price.decimalValue * pow(10, precisionDiff)).int64Value
+    }
 }
 
 extension DexList.State {
     var isVisibleItems: Bool {
         return sections.count > 1
+    }
+}
+
+extension DexList.State : Equatable {
+    
+    static func == (lhs: DexList.State, rhs: DexList.State) -> Bool {
+        return lhs.isAppear == rhs.isAppear &&
+        lhs.isNeedRefreshing == rhs.isNeedRefreshing
     }
 }

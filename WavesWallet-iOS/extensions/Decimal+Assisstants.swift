@@ -45,7 +45,7 @@ extension Decimal {
     
     func rounded() -> Decimal {
         
-        let behavior = NSDecimalNumberHandler(roundingMode: .plain,
+        let behavior = NSDecimalNumberHandler(roundingMode: .down,
                                               scale: 0,
                                               raiseOnExactness: false,
                                               raiseOnOverflow: false,

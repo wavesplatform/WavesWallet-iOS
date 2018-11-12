@@ -26,7 +26,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
    
     func update(with model: DexOrderBook.DTO.LastPrice) {
         
-        labelPrice.text = model.price.formattedText()
+        labelPrice.text = model.price.displayText
        
         if model.percent > 0 {
             labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
