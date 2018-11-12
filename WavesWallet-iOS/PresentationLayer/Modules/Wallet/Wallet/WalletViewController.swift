@@ -80,11 +80,6 @@ final class WalletViewController: UIViewController {
 
     @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.transitionFlipFromLeft], animations: {
-
-        }) { (_) in
-
-        }
         sendEvent.accept(.changeDisplay(.leasing))
     }
 

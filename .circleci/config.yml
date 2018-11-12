@@ -35,10 +35,7 @@ jobs:
           command: bundle install
       - run: 
           name: Secure
-          command: security find-identity -v -p codesigning
-      - run:
-          name: Fastlane action setup_circle_ci
-          command: bundle exec fastlane action setup_circle_ci --verbose
+          command: security find-identity -v -p codesigning    
       - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates --verbose

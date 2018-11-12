@@ -3,7 +3,11 @@ require 'open-uri'
 default_platform(:ios)
 
 platform :ios do
-  
+
+  before_all do
+    setup_circle_ci
+  end
+
   lane :waves_test do
     
     ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.waveswallet.test"
@@ -69,7 +73,7 @@ platform :ios do
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "appstore",          
           readonly: true,
-          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+          keychain_name: "fastlane_tmp_keychain")
   end
 
   lane :download_environments do
