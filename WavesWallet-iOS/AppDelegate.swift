@@ -43,8 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Language.load()
         
-        Swizzle(initializers: [UIView.passtroughInit,                               
-                               UIView.shadowInit]).start()
+//        Swizzle(initializers: [UIView.passtroughInit,
+//                               UIView.shadowInit]).start()
+        Swizzle(initializers: [UIView.passtroughInit]).start()
 
         #if DEBUG
             SweetLogger.current.visibleLevels = []

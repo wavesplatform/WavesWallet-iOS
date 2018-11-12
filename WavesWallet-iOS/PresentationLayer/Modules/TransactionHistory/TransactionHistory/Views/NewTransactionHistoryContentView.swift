@@ -299,17 +299,23 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
         
         switch item {
         case .recipient(let model):
-            return TransactionHistoryRecipientCell.viewHeight(model: model, width: tableView.bounds.width) 
+            return TransactionHistoryRecipientCell.viewHeight(model: model, width: tableView.bounds.width)
+            
         case .comment(let model):
             return TransactionHistoryCommentCell.viewHeight(model: model, width: tableView.bounds.width)
+
         case .keyValue(_):
             return TransactionHistoryKeyValueCell.cellHeight()
+
         case .keysValues(_):
             return TransactionHistoryKeysValuesCell.cellHeight()
+
         case .resendButton(_):
             return TransactionHistoryButtonCell.cellHeight()
+
         case .status(_):
             return TransactionHistoryStatusCell.cellHeight()
+
         case .general(let model):
             return TransactionHistoryGeneralCell.viewHeight(model: model, width: tableView.bounds.width)
         }
@@ -318,6 +324,8 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
 
     
 }
+
+//MARK: NewTransactionHistoryContentView
 
 extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate {
     
@@ -328,6 +336,8 @@ extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate
     }
     
 }
+
+// MARK: TransactionHistoryGeneralCellDelegate
 
 extension NewTransactionHistoryContentView: TransactionHistoryGeneralCellDelegate {
     
@@ -343,12 +353,14 @@ extension NewTransactionHistoryContentView: TransactionHistoryGeneralCellDelegat
     
 }
 
+// MARK: TransactionHistoryRecipientCellDelegate
+
 extension NewTransactionHistoryContentView: TransactionHistoryRecipientCellDelegate {
     
     func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell) {
-        
+
         delegate?.contentViewDidPressAccount(view: self)
-        
+
     }
 
 }

@@ -13,18 +13,19 @@ import SwiftyJSON
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     
     private var disposeBag = DisposeBag()
-    
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         return Observable.create({ [weak self] subscribe -> Disposable in
             
             guard let strongSelf = self else { return Disposables.create() }
             
-            strongSelf.getAddress(asset: asset, complete: { (address, errorMessage) in
+            strongSelf.getAddress(asset: asset, complete: { (address, error) in
 
                 if let address = address {
                     
-                    strongSelf.getMinAmount(asset: asset, complete: { (minAmount, errorMessage) in
+                    strongSelf.getMinAmount(asset: asset, complete: { (minAmount, error) in
 
                         if let min = minAmount {
                             let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: address,
@@ -35,12 +36,12 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                             subscribe.onNext(ResponseType(output: displayInfo, error: nil))
                         }
                         else {
-                            subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                            subscribe.onNext(ResponseType(output: nil, error: error))
                         }
                     })
                 }
                 else {
-                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                    subscribe.onNext(ResponseType(output: nil, error: error))
                 }
             })
             
@@ -48,56 +49,54 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         })
     }
     
-    private func getMinAmount(asset: DomainLayer.DTO.Asset, complete:@escaping(_ minAmount: Money?, _ errorMessage: String?) -> Void) {
+    private func getMinAmount(asset: DomainLayer.DTO.Asset, complete:@escaping(_ minAmount: Money?, _ error: ResponseTypeError?) -> Void) {
         
         let params = ["f" : asset.wavesId ?? "",
                       "t" : asset.gatewayId ?? ""]
         
-        NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getRate) { (info, errorMessage) in
+        //TODO: need change to Observer network
+        NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
             
             var min: Money?
             
-            if let info = info {
-                let json = JSON(info)
+            if let json = info {
                 min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
             }
             
-            complete(min, errorMessage)
+            complete(min, error)
         }
     }
     
   
-    private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ errorMessage: String?) -> Void) {
+    private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ error: ResponseTypeError?) -> Void) {
     
-        let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
         auth.authorizedWallet().subscribe(onNext: { signedWallet in
 
             let params = ["currency_from" : asset.wavesId ?? "",
                           "currency_to" : asset.gatewayId ?? "",
                           "wallet_to" : signedWallet.wallet.address]
             
-            NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.createTunnel, complete: { (info, errorMessage) in
+            //TODO: need change to Observer network
+            NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params, complete: { (info, error) in
                 
-                guard let info = info else {
-                    complete(nil, errorMessage)
+                guard let tunnel = info else {
+                    complete(nil, error)
                     return
                 }
-                
-                let tunnel = JSON(info)
                 
                 let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
                               "k1" : tunnel["k1"].stringValue,
                               "k2": tunnel["k2"].stringValue,
                               "history" : 0] as [String: Any]
                 
-                NetworkManager.getRequestWithPath(path: "", parameters: params, customUrl: GlobalConstants.Coinomat.getTunnel, complete: { (info, errorMessage) in
+                NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getTunnel, parameters: params, complete: { (info, error) in
                     
                     guard let info = info else {
-                        complete(nil, errorMessage)
+                        complete(nil, error)
                         return
                     }
                     
-                    let json = JSON(info)["tunnel"]
+                    let json = info["tunnel"]
                     complete(json["wallet_from"].stringValue, nil)
                 })
             })

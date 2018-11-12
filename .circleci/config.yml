@@ -33,12 +33,18 @@ jobs:
       - run:
           name: Bundle
           command: bundle install
+      - run: 
+          name: Secure
+          command: security find-identity -v -p codesigning
       - run:
           name: Fastlane action setup_circle_ci
           command: bundle exec fastlane action setup_circle_ci --verbose
       - run:
           name: Fastlane certificates
           command: bundle exec fastlane certificates --verbose
+      - run: 
+          name: Secure
+          command: security find-identity -v -p codesigning
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE
@@ -51,3 +57,6 @@ workflows:
   sakura:
     jobs:
       - rocketjump
+          filters:
+            branches:
+               only: develop

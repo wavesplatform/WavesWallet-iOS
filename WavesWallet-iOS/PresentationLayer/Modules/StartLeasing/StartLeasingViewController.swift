@@ -110,7 +110,8 @@ private extension StartLeasingViewController {
                 case .showCreatingOrderState:
                     strongSelf.setupCreatingOrderState()
                     
-                case .orderDidFailCreate(let error):
+                case .orderDidFailCreate:
+                    
                     //TODO: Error
                     strongSelf.setupDefaultState()
                     

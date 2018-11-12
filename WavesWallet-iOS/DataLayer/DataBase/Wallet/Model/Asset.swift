@@ -37,6 +37,6 @@ final class Asset: Object {
     }
     
     var icon: String {
-        return ticker ?? displayName
+        return gatewayId ?? displayName
     }
 }

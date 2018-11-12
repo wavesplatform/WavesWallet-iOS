@@ -14,6 +14,7 @@ import RxFeedback
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
+    static let updateTime: RxTimeInterval = 20
 }
 
 final class DexOrderBookViewController: UIViewController {
@@ -31,6 +32,7 @@ final class DexOrderBookViewController: UIViewController {
     var presenter: DexOrderBookPresenterProtocol!
     private let sendEvent: PublishRelay<DexOrderBook.Event> = PublishRelay<DexOrderBook.Event>()
     private var state: DexOrderBook.State = DexOrderBook.State.initialState
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,33 @@ final class DexOrderBookViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
+    }
+}
+
+//MARK: - DexTraderContainerProcotol
+extension DexOrderBookViewController: DexTraderContainerProcotol {
+    
+    func controllerWillAppear() {
+        Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+            self?.sendEvent.accept(.updateData)
+        }).disposed(by: disposeBag)
+    }
+    
+    func controllerWillDissapear() {
+        disposeBag = DisposeBag()
+    }
+}
+
+//MARK: - DexCreateOrderProtocol, DexCancelOrderProtocol
+
+extension DexOrderBookViewController: DexCreateOrderProtocol, DexCancelOrderProtocol {
+    
+    func updateCanceledOrders() {
+        sendEvent.accept(.updateData)
+    }
+    
+    func updateCreatedOrders() {
+        sendEvent.accept(.updateData)
     }
 }
 
@@ -197,7 +226,7 @@ private extension DexOrderBookViewController {
     
     var bidTitle: String {
         if let bid = state.lastBid {
-            return bid.price.formattedText()
+            return bid.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle
@@ -207,7 +236,7 @@ private extension DexOrderBookViewController {
     
     var askTitle: String {
         if let ask = state.lastAsk {
-            return ask.price.formattedText()
+            return ask.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle

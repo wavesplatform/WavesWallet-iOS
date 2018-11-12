@@ -17,7 +17,7 @@ struct DexMarketModuleBuilder: ModuleBuilderOutput {
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
         
         var presenter: DexMarketPresenterProtocol = DexMarketPresenter()
-        presenter.interactor = DexMarketInteractorMock()
+        presenter.interactor = DexMarketInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
         

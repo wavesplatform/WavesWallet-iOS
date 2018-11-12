@@ -11,3 +11,11 @@ import Foundation
 protocol DexCreateOrderModuleOutput: AnyObject {
     func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output)
 }
+
+protocol DexCreateOrderProtocol {
+    func updateCreatedOrders()
+}
+
+protocol DexCancelOrderProtocol {
+    func updateCanceledOrders()
+}
