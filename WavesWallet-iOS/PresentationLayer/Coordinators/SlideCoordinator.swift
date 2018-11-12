@@ -23,7 +23,6 @@ final class SlideCoordinator: Coordinator {
         let slideMenuViewController = SlideMenu(contentViewController: UIViewController(),
                                                 leftMenuViewController: menuController,
                                                 rightMenuViewController: nil)!
-        slideMenuViewController.panGestureEnabled = false
         return slideMenuViewController
     }()
 
