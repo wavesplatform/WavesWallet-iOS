@@ -5,7 +5,7 @@
 ---
 version: 2
 jobs:
-  🛠Test🛠:
+  Moon:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
@@ -45,9 +45,9 @@ jobs:
           path: output/scan
 workflows:
   version: 2
-  🚀Rocket_Jump🚀:
+  Spaceship:
     jobs:
-      - 🛠Test🛠:
+      - Moon:
           filters:
             branches:
               only: develop
