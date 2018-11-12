@@ -14,6 +14,7 @@ protocol SaveBackupPhraseOutput: AnyObject {
 
 struct SaveBackupPhraseInput {
     let seed: [String]
+    let isReadOnly: Bool
 }
 
 private enum Constants {
@@ -36,7 +37,12 @@ final class SaveBackupPhraseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title =  Localizable.Waves.Backup.Savebackup.Navigation.title
+        if input?.isReadOnly ?? false {
+            nextButton.isHidden = true
+            infoLabel.isHidden = true
+        }
+
+        title =  Localizable.Waves.Backup.Backup.Navigation.title
         titleLabel.text = Localizable.Waves.Backup.Savebackup.Label.title
         titleForCopyLabel.text = Localizable.Waves.Backup.Savebackup.Copy.Label.title
         infoLabel.text = Localizable.Waves.Backup.Savebackup.Next.Label.title

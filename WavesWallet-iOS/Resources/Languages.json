@@ -8,35 +8,5 @@
     "title": "Русский",
     "icon": "flag18Rus",
     "code": "ru"
-  },
-  {
-    "title": "中文(简体)",
-    "icon": "flag18China",
-    "code": "ch"
-  },
-  {
-    "title": "한국어",
-    "icon": "flag18Korea",
-    "code": "ko"
-  },
-  {
-    "title": "Türkçe",
-    "icon": "flag18Turkey",
-    "code": "tk"
-  },
-  {
-    "title": "हिन्दी",
-    "icon": "flag18Hindi",
-    "code": "indi"
-  },
-  {
-    "title": "Dansk",
-    "icon": "flag18Danish",
-    "code": "da"
-  },
-  {
-    "title": "Nederlands",
-    "icon": "flag18Nederland",
-    "code": "nd"
-  }  
+  }
 ]
