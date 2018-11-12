@@ -21,6 +21,9 @@ jobs:
       - restore_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}      
       - run:
+          name: Show exported variables
+          command: export
+      - run:
           name: SSH
           command: ls -la ~/.ssh/
       - run:
@@ -83,7 +86,7 @@ jobs:
       - store_artifacts:
           path: output
       - store_test_results:
-          path: output/scan        
+          path: output/scan
 workflows:
   version: 2
   Spaceship:
