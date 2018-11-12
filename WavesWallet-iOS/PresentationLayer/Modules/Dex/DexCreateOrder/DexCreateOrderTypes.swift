@@ -174,7 +174,7 @@ extension DexCreateOrder.DTO.Order {
     private var toSign: [UInt8] {
         let s1 = senderPublicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + type.bytes
-        let s3 = toByteArray(price.amount) + toByteArray(amount.amount)
+        let s3 = toByteArray(DexList.DTO.priceAmount(price: price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)) + toByteArray(amount.amount)
         let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(fee)
         return s1 + s2 + s3 + s4
     }

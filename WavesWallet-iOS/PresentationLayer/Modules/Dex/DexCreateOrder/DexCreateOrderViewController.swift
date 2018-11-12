@@ -62,7 +62,6 @@ final class DexCreateOrderViewController: UIViewController {
         
         setupFeedBack()
         setupData()
-        setupViews()
         setupLocalization()
         setupButtonSellBuy()
         setupUIForIPhone5IfNeed()
@@ -139,18 +138,39 @@ private extension DexCreateOrderViewController {
 //MARK: - Validation
 private extension DexCreateOrderViewController {
     
+    var isValidWavesFee: Bool {
+        return input.availableWavesBalance.amount >= order.fee
+    }
+    
     var isValidOrder: Bool {
         return !order.amount.isZero &&
             !order.price.isZero &&
             !order.total.isZero &&
             isValidAmountAssetBalance &&
             isValidPriceAssetBalance &&
-            !isCreatingOrderState
+            !isCreatingOrderState &&
+            isValidWavesFee
+    }
+    
+    var availableAmountAssetBalance: Money {
+        if order.amountAsset.id == GlobalConstants.wavesAssetId {
+            let amount = input.availableAmountAssetBalance.amount - Int64(order.fee)
+            return Money(amount < 0 ? 0 : amount, input.availableAmountAssetBalance.decimals)
+        }
+        return input.availableAmountAssetBalance
+    }
+    
+    var availablePriceAssetBalance: Money {
+        if order.priceAsset.id == GlobalConstants.wavesAssetId {
+            let amount = input.availablePriceAssetBalance.amount - Int64(order.fee)
+            return Money(amount < 0 ? 0 : amount, input.availablePriceAssetBalance.decimals)
+        }
+        return input.availablePriceAssetBalance
     }
     
     var isValidAmountAssetBalance: Bool {
         if order.type == .sell {
-            return order.amount.decimalValue <= input.availableAmountAssetBalance.decimalValue
+            return order.amount.decimalValue <= availableAmountAssetBalance.decimalValue
         }
         return true
     }
@@ -158,7 +178,7 @@ private extension DexCreateOrderViewController {
     
     var isValidPriceAssetBalance: Bool {
         if order.type == .buy {
-            return order.total.decimalValue <= input.availablePriceAssetBalance.decimalValue
+            return order.total.decimalValue <= availablePriceAssetBalance.decimalValue
         }
         return true
     }
@@ -313,7 +333,7 @@ private extension DexCreateOrderViewController {
         
         if order.type == .sell {
             
-            guard !input.availableAmountAssetBalance.isZero else {
+            guard !availableAmountAssetBalance.isZero else {
                 inputAmount.update(with: [])
                 return
             }
@@ -326,13 +346,13 @@ private extension DexCreateOrderViewController {
         else {
             
             if order.price.isZero {
-                guard !input.availableAmountAssetBalance.isZero else {
+                guard !availableAmountAssetBalance.isZero else {
                     inputAmount.update(with: [])
                     return
                 }
             }
             else {
-                guard !input.availablePriceAssetBalance.isZero else {
+                guard !availablePriceAssetBalance.isZero else {
                     inputAmount.update(with: [])
                     return
                 }
@@ -348,6 +368,18 @@ private extension DexCreateOrderViewController {
     }
     
     func setupData() {
+        
+        segmentedControl.type = input.type
+        segmentedControl.delegate = self
+        
+        inputAmount.delegate = self
+        inputAmount.maximumFractionDigits = input.amountAsset.decimals
+        
+        inputPrice.delegate = self
+        inputPrice.maximumFractionDigits = input.priceAsset.decimals
+        
+        inputTotal.delegate = self
+        inputTotal.maximumFractionDigits = input.priceAsset.decimals
         
         setupInputAmountData()
 
@@ -386,24 +418,23 @@ private extension DexCreateOrderViewController {
 
         if order.type == .sell {
             
-            guard !input.availableAmountAssetBalance.isZero else { return values }
+            guard !availableAmountAssetBalance.isZero else { return values }
             
-            totalAmount = input.availableAmountAssetBalance.amount
-            decimals = input.availableAmountAssetBalance.decimals
+            totalAmount = availableAmountAssetBalance.amount
+            decimals = availableAmountAssetBalance.decimals
         }
         else {
-            
-            
             if order.price.isZero {
-                guard !input.availableAmountAssetBalance.isZero else { return values }
-                totalAmount = input.availableAmountAssetBalance.amount
-                decimals = input.availableAmountAssetBalance.decimals
+                guard !availableAmountAssetBalance.isZero else { return values }
+                totalAmount = availableAmountAssetBalance.amount
+                decimals = availableAmountAssetBalance.decimals
             }
             else {
-                guard !input.availablePriceAssetBalance.isZero else { return values }
                 
-                totalAmount = (input.availablePriceAssetBalance.decimalValue / order.price.decimalValue * pow(10, order.price.decimals)).rounded().int64Value
-                decimals = input.availablePriceAssetBalance.decimals
+                guard !availablePriceAssetBalance.isZero else { return values }
+
+                totalAmount = ((availablePriceAssetBalance.decimalValue / order.price.decimalValue) * pow(10, availableAmountAssetBalance.decimals)).rounded().int64Value
+                decimals = availableAmountAssetBalance.decimals
             }
         }
         
@@ -440,20 +471,6 @@ private extension DexCreateOrderViewController {
         }
 
         return values
-    }
-    
-    func setupViews() {
-        segmentedControl.type = input.type
-        segmentedControl.delegate = self
-        
-        inputAmount.delegate = self
-        inputAmount.maximumFractionDigits = input.amountAsset.decimals
-        
-        inputPrice.delegate = self
-        inputPrice.maximumFractionDigits = input.priceAsset.decimals
-        
-        inputTotal.delegate = self
-        inputTotal.maximumFractionDigits = input.priceAsset.decimals
     }
     
     func setupLocalization() {
