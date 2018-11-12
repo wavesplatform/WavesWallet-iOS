@@ -1180,6 +1180,25 @@ internal enum Localizable {
       }
     }
 
+    internal enum Menu {
+
+      internal enum Button {
+        /// Support Wavesplatform
+        internal static var supportwavesplatform: String { return Localizable.tr("Waves", "menu.button.supportwavesplatform") }
+        /// Terms and conditions
+        internal static var termsandconditions: String { return Localizable.tr("Waves", "menu.button.termsandconditions") }
+        /// Whitepaper
+        internal static var whitepaper: String { return Localizable.tr("Waves", "menu.button.whitepaper") }
+      }
+
+      internal enum Label {
+        /// Join the Waves Community
+        internal static var communities: String { return Localizable.tr("Waves", "menu.label.communities") }
+        /// Keep up with the latest news and articles, and find out all about events happening on the Waves Platform
+        internal static var description: String { return Localizable.tr("Waves", "menu.label.description") }
+      }
+    }
+
     internal enum Myaddress {
 
       internal enum Button {

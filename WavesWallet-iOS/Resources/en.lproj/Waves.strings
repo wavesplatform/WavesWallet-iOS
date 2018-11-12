@@ -923,3 +923,9 @@
 "walletsort.button.visibility" = "Visibility";
 
 "walletsort.navigationBar.title" = "Sorting";
+
+"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Platform";
+"menu.label.communities" = "Join the Waves Community";
+"menu.button.whitepaper" = "Whitepaper";
+"menu.button.termsandconditions" = "Terms and conditions";
+"menu.button.supportwavesplatform" = "Support Wavesplatform";
