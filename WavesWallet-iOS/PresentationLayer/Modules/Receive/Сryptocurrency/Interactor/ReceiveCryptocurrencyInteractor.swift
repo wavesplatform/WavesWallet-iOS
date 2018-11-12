@@ -72,8 +72,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     
         auth.authorizedWallet().subscribe(onNext: { signedWallet in
 
-            let params = ["currency_from" : asset.wavesId ?? "",
-                          "currency_to" : asset.gatewayId ?? "",
+            let params = ["currency_from" : asset.gatewayId ?? "",
+                          "currency_to" : asset.wavesId ?? "",
                           "wallet_to" : signedWallet.wallet.address]
             
             //TODO: need change to Observer network
