@@ -13,7 +13,7 @@ platform :ios do
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     setup_circle_ci
 
-    printenv
+    sh("printenv")
 
     puts ENV['FASTLANE_USER']
     puts ENV['FASTLANE_PASSWORD']
