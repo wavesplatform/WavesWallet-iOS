@@ -43,6 +43,8 @@ class ImportAccountViewController: UIViewController {
         setupSegmentedControl()
         
         scrollView.alwaysBounceVertical = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.keyboardDismissMode = .onDrag
         currentIndex = 0
     }
     
@@ -92,6 +94,14 @@ class ImportAccountViewController: UIViewController {
             }
             
             currentViewController?.view.isHidden = false
+            
+            guard let currentViewController = currentViewController else { return }
+            
+            if currentViewController == scanViewController {
+                manuallyViewController.resignKeyboard(animated: true)
+            } else if currentViewController == manuallyViewController {
+                manuallyViewController.showKeyboard(animated: true)
+            }
         }
     }
     
@@ -109,6 +119,7 @@ extension ImportAccountViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
+        manuallyViewController.resignKeyboard()
     }
     
 }

@@ -64,10 +64,6 @@ final class ImportCoordinator: Coordinator {
 extension ImportCoordinator: ImportAccountViewControllerDelegate {
 
     func scanTapped() {
-//        let vc = StoryboardScene.Import.importWelcomeBackViewController.instantiate()
-//        vc.delegate = self
-//        navigationController.pushViewController(vc, animated: true)
-        
         showQRCodeReader()
     }
 
