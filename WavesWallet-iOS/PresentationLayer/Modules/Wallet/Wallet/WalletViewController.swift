@@ -80,24 +80,14 @@ final class WalletViewController: UIViewController {
 
     @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
 
-        let frameS = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
-        let navigation = self.navigationController?.navigationBar.frame ?? CGRect.zero
-
-        if navigation.maxY > frameS.minY {
+        if isHiddenSegmentedControl {
             return
         }
-
-
-        print(frameS)
-
         sendEvent.accept(.changeDisplay(.leasing))
     }
 
     @objc func handlerRightSwipe(gesture: UIGestureRecognizer) {
-        let frameS = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
-        let navigation = self.navigationController?.navigationBar.frame ?? CGRect.zero
-
-        if navigation.maxY > frameS.minY {
+        if isHiddenSegmentedControl {
             return
         }
         sendEvent.accept(.changeDisplay(.assets))
@@ -117,6 +107,13 @@ final class WalletViewController: UIViewController {
         setupLanguages()
         setupSegmetedControl()
         tableView.reloadData()
+    }
+
+    private var isHiddenSegmentedControl: Bool {
+        let frameSegmented = self.segmentedControl.convert(segmentedControl.frame, to: self.view)
+        let barFrame = self.navigationController?.navigationBar.frame ?? CGRect.zero
+
+        return barFrame.maxY > frameSegmented.maxY
     }
 }
 
@@ -227,6 +224,8 @@ extension WalletViewController {
             }
         })
 
+
+        self.segmentedControl.segmentedControl.selectedIndex = displays.firstIndex(of: state.kind) ?? 0
         setupRightButons(kind: state.kind)
     }
 }
