@@ -32,9 +32,9 @@ final class DexListPresenter: DexListPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(query: { state -> DexList.State? in
 
-            return state.isNeedRefreshing == true ? true : nil
+            return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
             // TODO: Error
@@ -49,15 +49,15 @@ final class DexListPresenter: DexListPresenterProtocol {
         switch event {
         case .readyView:
             return state.mutate {
-                $0.isNeedRefreshing = true
+                $0.isAppear = true
                 }.changeAction(.update)
             
         case .setModels(let models):
             
             return state.mutate { state in
                 
-                state.isNeedRefreshing = false
                 state.isFirstLoadingData = false
+                state.isNeedRefreshing = false
                 
                 if models.count > 0 {
                     
@@ -84,12 +84,13 @@ final class DexListPresenter: DexListPresenterProtocol {
             return state.changeAction(.none)
             
         case .refresh:
-            interactor.refreshPairs()
-            return state.mutate { $0.isNeedRefreshing = true }.changeAction(.none)
+            return state.mutate {
+                $0.isNeedRefreshing = true
+            }.changeAction(.none)
         
         case .tapAssetPair(let pair):
 
-            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isHidden: pair.isHidden, isFiat: pair.isFiat)
+            let tradePair = DexTraderContainer.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral)
             moduleOutput?.showTradePairInfo(pair: tradePair)
             
             return state.changeAction(.none)
@@ -101,7 +102,7 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isNeedRefreshing: false, action: .none, sections: [section], isFirstLoadingData: true, lastUpdate: Date())
+        return DexList.State(isAppear: false, isNeedRefreshing: false, action: .none, sections: [section], isFirstLoadingData: true, lastUpdate: Date())
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {

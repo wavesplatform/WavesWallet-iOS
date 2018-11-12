@@ -14,6 +14,7 @@ import RxSwift
 
 fileprivate enum Constants {
     static let contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+    static let updateTime: RxTimeInterval = 30
 }
 
 final class DexListViewController: UIViewController {
@@ -33,6 +34,7 @@ final class DexListViewController: UIViewController {
     var presenter : DexListPresenterProtocol!
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +59,18 @@ final class DexListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
+        
+        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+            self?.sendEvent.accept(.refresh)
+        }).disposed(by: disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {

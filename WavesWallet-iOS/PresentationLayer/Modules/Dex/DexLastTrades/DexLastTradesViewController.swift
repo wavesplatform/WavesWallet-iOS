@@ -26,11 +26,13 @@ final class DexLastTradesViewController: UIViewController {
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var labelEmptyData: UILabel!
     @IBOutlet private weak var labelLoading: UILabel!
-    
+    private var refreshControl: UIRefreshControl!
+
     var presenter: DexLastTradesPresenterProtocol!
     private let sendEvent: PublishRelay<DexLastTrades.Event> = PublishRelay<DexLastTrades.Event>()
     private var state: DexLastTrades.State = DexLastTrades.State.initialState
-
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,8 +40,8 @@ final class DexLastTradesViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupFeedBack()
+        setupRefreshControl()
     }
-  
 }
 
 
@@ -60,7 +62,10 @@ fileprivate extension DexLastTradesViewController {
     }
     
     func events() -> [Signal<DexLastTrades.Event>] {
-        return [sendEvent.asSignal()]
+        
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexLastTrades.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+
+        return [sendEvent.asSignal(), refresh]
     }
     
     func subscriptions(state: Driver<DexLastTrades.State>) -> [Disposable] {
@@ -74,6 +79,7 @@ fileprivate extension DexLastTradesViewController {
                 strongSelf.tableView.reloadData()
                 strongSelf.setupSellBuyButtons()
                 strongSelf.setupDefaultState(state: state)
+                strongSelf.refreshControl.endRefreshing()
             })
         
         return [subscriptionSections]
@@ -126,6 +132,15 @@ private extension DexLastTradesViewController {
 
 private extension DexLastTradesViewController {
     
+    func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+    }
+    
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexlasttrades.Label.emptyData
         labelLoading.text = Localizable.Waves.Dexlasttrades.Label.loadingLastTrades
@@ -159,7 +174,7 @@ private extension DexLastTradesViewController {
     
     var sellTitle: String {
         if let sell = state.lastSell {
-            return sell.price.formattedText()
+            return sell.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle
@@ -169,7 +184,7 @@ private extension DexLastTradesViewController {
     
     var buyTitle: String {
         if let buy = state.lastBuy {
-            return buy.price.formattedText()
+            return buy.price.displayText
         }
         else if !state.hasFirstTimeLoad {
             return Constansts.loadingButtonsTitle

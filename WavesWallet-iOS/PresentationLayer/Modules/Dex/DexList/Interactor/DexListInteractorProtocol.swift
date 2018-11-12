@@ -11,5 +11,4 @@ import RxSwift
 
 protocol DexListInteractorProtocol {
     func pairs() -> Observable<[DexList.DTO.Pair]>
-    func refreshPairs()
 }

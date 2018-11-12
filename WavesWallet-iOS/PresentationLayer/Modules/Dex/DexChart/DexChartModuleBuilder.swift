@@ -12,7 +12,7 @@ struct DexChartModuleBuilder: ModuleBuilder {
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
         
-        var interactor: DexChartInteractorProtocol = DexChartInteractorMock()
+        var interactor: DexChartInteractorProtocol = DexChartInteractor()
         interactor.pair = input
         
         var presenter: DexChartPresenterProtocol = DexChartPresenter()
