@@ -64,6 +64,9 @@ jobs:
       - run:
           name: SSH Cat config
           command: cat ~/.ssh/config
+        - run:
+          name: FASTLANE ENV
+          command: echo $FASTLANE_USER && $FASTLANE_PASSWORD
       - run: 
           name: Test ouput
           command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
