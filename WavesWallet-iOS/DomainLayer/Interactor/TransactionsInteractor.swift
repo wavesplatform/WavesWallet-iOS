@@ -187,7 +187,7 @@ fileprivate extension TransactionsInteractor {
                                            transactions: query.transactions)}
     }
 
-    private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> AsyncObservable<Bool> {
+    private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
 
         return transactionsRepositoryLocal
             .saveTransactions(transactions, accountAddress: accountAddress)
@@ -218,9 +218,9 @@ fileprivate extension TransactionsInteractor {
         return assets
     }
 
-    private func accounts(by ids: [String]) -> Observable<[String: DomainLayer.DTO.Account]> {
+    private func accounts(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Account]> {
         let accounts = accountsInteractors
-            .accounts(by: ids)
+            .accounts(by: ids, accountAddress: accountAddress)
             .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
                 list[account.id] = account
             })
@@ -235,7 +235,7 @@ fileprivate extension TransactionsInteractor {
         let accountsIds = query.transactions.accountsIds
 
         let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
-        let accounts = self.accounts(by: accountsIds)
+        let accounts = self.accounts(by: accountsIds, accountAddress: query.accountAddress)
         let txs = Observable.just(query.transactions)
         let blockHeight = blockRepositoryRemote.height(accountAddress: query.accountAddress)
 

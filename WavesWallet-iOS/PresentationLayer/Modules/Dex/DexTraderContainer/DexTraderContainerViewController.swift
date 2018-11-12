@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol DexTraderContainerProcotol {
+    func controllerWillAppear()
+    func controllerWillDissapear()
+}
+
 final class DexTraderContainerViewController: UIViewController {
 
     @IBOutlet weak var segmentedControl: DexTraderContainerSegmentedControl!
@@ -23,11 +28,12 @@ final class DexTraderContainerViewController: UIViewController {
         super.viewDidLoad()
 
         segmentedControl.delegate = self
-        title = pair.amountAsset.name + " / " + pair.priceAsset.name
+        title = pair.amountAsset.shortName + " / " + pair.priceAsset.shortName
         createBackWhiteButton()
         addInfoButton()
         buildControllers()
         setupScrollEnabled(currentPage: scrollView.currentPage)
+        updateControllersActiveState(page: scrollView.currentPage)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -42,18 +48,28 @@ final class DexTraderContainerViewController: UIViewController {
         navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationItem.backgroundImage = nil
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
-    }
-    
- 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         for view in scrollView.subviews {
             setupViewControllerSize(view: view)
+        }
+    }
+    
+    var controllers: [UIViewController] {
+        return viewControllers
+    }
+    
+    private func updateControllersActiveState(page: Int) {
+        for (index, controller) in viewControllers.enumerated() {
+            if let vc = controller as? DexTraderContainerProcotol {
+                if index == page {
+                    vc.controllerWillAppear()
+                }
+                else {
+                    vc.controllerWillDissapear()
+                }
+            }
         }
     }
 }
@@ -71,7 +87,7 @@ extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
 private extension DexTraderContainerViewController {
     
     @objc func infoTapped() {
-        let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isHidden: pair.isHidden)
+        let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral)
         moduleOutput?.showInfo(pair: infoPair)
     }
     
@@ -83,6 +99,7 @@ extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDe
     func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState) {
         scrollToPageIndex(state.rawValue)
         setupScrollEnabled(currentPage: state.rawValue)
+        updateControllersActiveState(page: state.rawValue)
     }
 }
 
@@ -90,6 +107,11 @@ extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDe
 extension DexTraderContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        if segmentedControl.selectedState.rawValue != scrollView.currentPage {
+            updateControllersActiveState(page: scrollView.currentPage)
+        }
+        
         segmentedControl.changeStateToScrollPage(scrollView.currentPage)
         setupScrollEnabled(currentPage: scrollView.currentPage)
     }

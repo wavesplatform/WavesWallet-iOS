@@ -14,7 +14,7 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
 
     func build(input: DexCreateOrder.DTO.Input) -> UIViewController {
         
-        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractorMock()
+        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractor()
         
         var presenter: DexCreateOrderPresenterProtocol = DexCreateOrderPresenter()
         presenter.interactor = interactor

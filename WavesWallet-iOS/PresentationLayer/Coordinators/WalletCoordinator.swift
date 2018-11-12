@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
 }
 
-final class WalletCoordinator {
+final class WalletCoordinator: Coordinator {
+
+
+    var childCoordinators: [Coordinator] = []
+
+    weak var parent: Coordinator?
 
     private lazy var historyCoordinator: HistoryCoordinator = HistoryCoordinator()
 
@@ -20,15 +26,41 @@ final class WalletCoordinator {
         return WalletModuleBuilder(output: self).build()
     }()
 
-    private var navigationController: UINavigationController!
+    private weak var navigationController: UINavigationController?
 
     private weak var myAddressVC: UIViewController?
 
     private var currentPopup: PopupViewController? = nil
 
-    func start(navigationController: UINavigationController) {
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
+    init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        navigationController.pushViewController(walletViewContoller, animated: false)
+    }
+
+    func start() {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+
+            self.authorization
+                .authorizedWallet()
+                .subscribe(onNext: { [weak self] wallet in
+
+                    guard let owner = self else { return }
+                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else { return }
+
+                    let legal = LegalCoordinator(viewController: owner.walletViewContoller)
+                    legal.delegate = owner
+                    owner.addChildCoordinatorAndStart(childCoordinator: legal)
+                })
+                .disposed(by: self.disposeBag)
+        }
+        navigationController?.pushViewController(walletViewContoller, animated: false)
+        CATransaction.commit()
+
+
     }
 }
 
@@ -38,13 +70,13 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showWalletSort() {
         let vc = WalletSortModuleBuilder().build()
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showMyAddress() {
         let vc = MyAddressModuleBuilder(output: self).build()
         self.myAddressVC = vc
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset]) {
@@ -53,17 +85,18 @@ extension WalletCoordinator: WalletModuleOutput {
             .build(input: .init(assets: assets,
                                 currentAsset: currentAsset))
         
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showHistoryForLeasing() {
+        guard let navigationController = navigationController else { return }
         historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
     }
     
     func showStartLease(availableMoney: Money) {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
-        navigationController.pushViewController(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -79,16 +112,16 @@ extension WalletCoordinator: AssetModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.AssetBalance) {
         let vc = SendModuleBuilder().build(input: asset)
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showReceive(asset: DomainLayer.DTO.AssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showHistory(by assetId: String) {
-
+        guard let navigationController = navigationController else { return }
         historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
     }
 
@@ -168,7 +201,7 @@ extension WalletCoordinator: AliasesModuleOutput {
 
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -179,7 +212,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -189,7 +222,28 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
 extension WalletCoordinator: CreateAliasModuleOutput {
     func createAliasCompletedCreateAlias(_ alias: String) {
         if let myAddressVC = self.myAddressVC {
-            navigationController.popToViewController(myAddressVC, animated: true)
+            navigationController?.popToViewController(myAddressVC, animated: true)
         }
+    }
+}
+
+// MARK: LegalCoordinatorDelegate
+
+extension WalletCoordinator: LegalCoordinatorDelegate {
+
+    func legalConfirm() {
+
+        authorization
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Void> in
+                guard let owner = self else { return Observable.never() }
+
+                var newWallet = wallet.wallet
+                newWallet.isAlreadyShowLegalDisplay = true
+
+                return owner.authorization.changeWallet(newWallet).map { _ in }
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }

@@ -27,6 +27,7 @@ private extension DomainLayer.DTO.Wallet {
         self.isBackedUp = query.isBackedUp
         self.hasBiometricEntrance = false
         self.id = id
+        self.isAlreadyShowLegalDisplay = false
     }
 }
 
@@ -39,7 +40,7 @@ private extension AuthorizationInteractor {
             let id = UUID().uuidString
             let seedId = UUID().uuidString
             let keyForPassword = UUID().uuidString.sha512()
-            let password = wallet.password.sha512()
+            let password = wallet.password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -60,7 +61,6 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let keyForPassword = UUID().uuidString.sha512()
-            let password = password.sha512()
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -82,7 +82,7 @@ private extension AuthorizationInteractor {
         return Observable.create { observer -> Disposable in
 
             let keyForPassword = UUID().uuidString.sha512()
-            let password = password.sha512()
+            let password = password
             guard let secret: String = password.aesEncrypt(withKey: keyForPassword) else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
@@ -211,8 +211,9 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                     case .completed(let signedWallet):
                         return AuthorizationAuthStatus.completed(signedWallet.wallet)
                     }
-            })
+            }).sweetDebug("auth")
     }
+
 
     func verifyAccess(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationVerifyAccessStatus> {
         return verifyAccessWallet(type: type, wallet: wallet)
@@ -229,6 +230,21 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         return localWalletRepository
             .wallets(specifications: .init(isLoggedIn: true))
             .catchError({ [weak self] error -> Observable<[DomainLayer.DTO.Wallet]> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                return Observable.error(owner.handlerError(error))
+            })
+    }
+
+    func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return self.localWalletRepository.walletEncryption(by: wallet.publicKey)
+            .flatMap { walletEncrypted -> Observable<Bool> in
+                if walletEncrypted.kind.secret == nil {
+                    return Observable.error(AuthorizationInteractorError.passcodeNotCreated)
+                }
+
+                return Observable.just(true)
+            }
+            .catchError({ [weak self] error -> Observable<Bool> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
@@ -275,7 +291,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
                 guard let owner = self else { return Observable.never() }
                 return owner.localWalletRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey,
-                                                                              secret: data.secret,
+                                                                              kind: .passcode(secret: data.secret),
                                                                               seedId: data.seedId))
                     .map { _ in data }
             })
@@ -318,7 +334,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 let currentSeed = owner.localWalletSeedRepository.seed(for: wallet.address,
                                                                        publicKey: wallet.publicKey,
                                                                        seedId: walletEncryption.seedId,
-                                                                       password: oldPassword.sha512())
+                                                                       password: oldPassword)
 
                 let changeData = owner.changePasswordData(wallet, password: newPassword, walletEncryption: walletEncryption)
 
@@ -343,7 +359,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                 return owner
                     .localWalletRepository
                     .saveWalletEncryption(DomainLayer.DTO.WalletEncryption(publicKey: passwordData.wallet.publicKey,
-                                                                           secret: passwordData.secret,
+                                                                           kind: .passcode(secret: passwordData.secret),
                                                                            seedId: passwordData.seedId))
                     .map { _ in passwordData }
             }
@@ -437,7 +453,7 @@ extension AuthorizationInteractor {
                 let saveSeed = owner
                     .localWalletRepository
                     .saveWalletEncryption(DomainLayer.DTO.WalletEncryption(publicKey: publicKey,
-                                                                           secret: secret,
+                                                                           kind: .passcode(secret: secret),
                                                                            seedId: seedId))
                 return saveSeed.map { _ in data }
             })
@@ -663,7 +679,7 @@ private extension AuthorizationInteractor {
                 do {
 
                     try keychain
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .remove(wallet.publicKey)
 
                     observer.onNext(true)
@@ -713,10 +729,7 @@ private extension AuthorizationInteractor {
 
         return Observable<String>.create { observer -> Disposable in
 
-            let context = LAContext()
-
             let keychain = Keychain(service: Constants.service)
-                .authenticationContext(context)
 
             DispatchQueue.main.async(execute: {
 
@@ -724,7 +737,7 @@ private extension AuthorizationInteractor {
 
                     guard let passcode = try keychain
                         .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDAny)
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .get(wallet.publicKey) else
                     {
                         throw AuthorizationInteractorError.biometricDisable
@@ -762,13 +775,7 @@ private extension AuthorizationInteractor {
 
         case .password(let password):
 
-            let remote = Crypto
-                .rx
-                .sha512(password)
-                .flatMap { [weak self] password -> Observable<DomainLayer.DTO.SignedWallet> in
-                    guard let owner = self else { return Observable.empty() }
-                    return owner.verifyAccessWalletUsingPassword(password, wallet: wallet)
-                }
+            let remote = verifyAccessWalletUsingPassword(password, wallet: wallet)
                 .map { AuthorizationVerifyAccessStatus.completed($0) }
 
             return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.waiting), remote)
@@ -866,7 +873,9 @@ fileprivate extension AuthorizationInteractor {
                 let keyForPassword = data.0
                 let walletEncryption = data.1
 
-                guard let password: String = walletEncryption.secret.aesDecrypt(withKey: keyForPassword) else { return Observable.error(AuthorizationInteractorError.fail) }
+                guard let secret = walletEncryption.kind.secret else { return Observable.error(AuthorizationInteractorError.passcodeNotCreated)}
+
+                guard let password: String = secret.aesDecrypt(withKey: keyForPassword) else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.just(password)
             }
             .catchError({ [weak self] error -> Observable<String> in
@@ -939,13 +948,18 @@ fileprivate extension AuthorizationInteractor {
             case .permissionDenied:
                 return  AuthorizationInteractorError.passwordIncorrect
 
-            case .fail:
+            default:
                 return AuthorizationInteractorError.fail
             }
+
+        case let error as AuthorizationInteractorError:
+            return error
 
         default:
             break
         }
+
+
 
         return AuthorizationInteractorError.fail
     }

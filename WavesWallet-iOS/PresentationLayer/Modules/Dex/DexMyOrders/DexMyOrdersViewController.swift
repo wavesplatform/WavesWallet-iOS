@@ -13,33 +13,52 @@ import RxFeedback
 
 fileprivate enum Constants {
     static let cornerTableRadius: CGFloat = 3
+    static let animationDuration: TimeInterval = 0.3
 }
 
 final class DexMyOrdersViewController: UIViewController {
 
+    @IBOutlet private weak var viewTopCorners: UIView!
+    @IBOutlet private weak var labelDate: UILabel!
+    @IBOutlet private weak var labelSidePrice: UILabel!
+    @IBOutlet private weak var labelAmountSum: UILabel!
+    @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var tableContainer: UIView!
+    @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var labelEmptyData: UILabel!
     
-    private var sections: [DexMyOrders.ViewModel.Section] = []
-    var presenter: DexMyOrdersPresenterProtocol!
+    private var refreshControl: UIRefreshControl!
+    
+    private var section = DexMyOrders.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
+    
+    var presenter: DexMyOrdersPresenterProtocol!
+    weak var output: DexMyOrdersModuleOutput?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerHeaderFooter(type: DexMyOrdersHeaderView.self)
         setupFeedBack()
         setupLocalization()
         setupLoadingState()
+        setupRefreshControl()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setupCorners()
+        viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
+    }
+}
+
+//MARK: - DexCreateOrderProtocol
+extension DexMyOrdersViewController: DexCreateOrderProtocol {
+    
+    func updateCreatedOrders() {
+        sendEvent.accept(.refresh)
     }
 }
 
@@ -61,7 +80,9 @@ fileprivate extension DexMyOrdersViewController {
     }
     
     func events() -> [Signal<DexMyOrders.Event>] {
-        return [sendEvent.asSignal()]
+        
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexMyOrders.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+        return [sendEvent.asSignal(), refresh]
     }
     
     func subscriptions(state: Driver<DexMyOrders.State>) -> [Disposable] {
@@ -76,24 +97,26 @@ fileprivate extension DexMyOrdersViewController {
                     break
                 }
                 
-                
-                strongSelf.sections = state.sections
+                strongSelf.section = state.section
 
                 switch state.action {
                 case .update:
                     strongSelf.tableView.reloadData()
-                
-                case .deleteSection(let section):
-                    strongSelf.deleteAt(indexPath: nil, section: section)
+                    strongSelf.setupDefaultState()
+                    strongSelf.refreshControl.endRefreshing()
                     
-                case .deleteRow(let indexPath):
-                    strongSelf.deleteAt(indexPath: indexPath, section: nil)
-
+                case .orderDidFailCancel(let error):
+                    //TODO: need to show error
+                    print(error)
+                    strongSelf.tableView.reloadData()
+                
+                case .orderDidFinishCancel:
+                    strongSelf.output?.myOrderDidCancel()
+                    
                 default:
                     break
                 }
                
-                strongSelf.setupDefaultState()
             })
         
         return [subscriptionSections]
@@ -103,53 +126,27 @@ fileprivate extension DexMyOrdersViewController {
 //MARK: - Actions
 private extension DexMyOrdersViewController {
     
-    func deleteAt(indexPath: IndexPath?, section: Int?) {
-        
-        if indexPath == nil && section == nil {
-            return
-        }
+    func deleteAt(indexPath: IndexPath) {
         
         CATransaction.begin()
         CATransaction.setCompletionBlock({
             self.tableView.reloadData()
         })
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        else if let section = section {
-            tableView.deleteSections([section], animationStyle: .fade)
-        }
+        tableView.deleteRows(at: [indexPath], with: .fade)
         CATransaction.commit()
     }
 }
 
-//MARK: - UITableViewDelegate
-extension DexMyOrdersViewController: UITableViewDelegate {
-   
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerModel = sections[section].header
-        let header = tableView.dequeueHeaderFooter() as DexMyOrdersHeaderView
-        header.update(with: headerModel)
-        return header
-    }
-   
-}
-
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return self.section.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let row = sections[indexPath.section].items[indexPath.row]
+        let row = section.items[indexPath.row]
 
         switch row {
         case .order(let myOrder):
@@ -157,7 +154,7 @@ extension DexMyOrdersViewController: UITableViewDataSource {
             cell.update(with: myOrder)
             
             cell.buttonDeleteDidTap = { [weak self] in
-                self?.sendEvent.accept(.didRemoveOrder(indexPath))
+                self?.sendEvent.accept(.cancelOrder(indexPath))
             }
             return cell
         }
@@ -168,27 +165,32 @@ extension DexMyOrdersViewController: UITableViewDataSource {
 
 private extension DexMyOrdersViewController {
     
+    func setupRefreshControl() {
+        if #available(iOS 10.0, *) {
+            refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+    }
+    
     func setupLoadingState() {
         viewEmptyData.isHidden = true
+        headerView.isHidden = true
     }
     
     func setupDefaultState() {
         viewLoadingInfo.isHidden = true
-        viewEmptyData.isHidden = sections.count > 0
+        viewEmptyData.isHidden = section.items.count > 0
+        headerView.isHidden = section.items.count == 0
     }
     
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
         labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
-    }
-    
-    func setupCorners() {
-        
-        let shadowPath = UIBezierPath(roundedRect: tableContainer.bounds,
-                                      byRoundingCorners: [.topLeft, .topRight],
-                                      cornerRadii: CGSize(width: Constants.cornerTableRadius, height: Constants.cornerTableRadius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = shadowPath.cgPath
-        tableContainer.layer.mask = maskLayer
+        labelDate.text = Localizable.Waves.Dexmyorders.Label.date
+        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.side + "/" + Localizable.Waves.Dexmyorders.Label.price
+        labelAmountSum.text = Localizable.Waves.Dexmyorders.Label.amount + "/" + Localizable.Waves.Dexmyorders.Label.sum
+        labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
     }
 }

@@ -29,7 +29,7 @@ final class ChooseAccountCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
-    private func showPasscode(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
+    private func showPasscode(kind: PasscodeTypes.DTO.Kind, animated: Bool = true) {
 
         //TODO: Нужно придумать другой способ
         if childCoordinators.first(where: { $0 is PasscodeCoordinator }) != nil {
@@ -37,10 +37,9 @@ final class ChooseAccountCoordinator: Coordinator {
         }
 
         let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
-                                                      kind: .logIn(wallet))
+                                                      kind: kind)
         passcodeCoordinator.animated = animated
         passcodeCoordinator.delegate = self
-
 
         addChildCoordinator(childCoordinator: passcodeCoordinator)
         passcodeCoordinator.start()
@@ -51,20 +50,42 @@ final class ChooseAccountCoordinator: Coordinator {
         let vc = StoryboardScene.Enter.editAccountNameViewController.instantiate()
         navigationController.pushViewController(vc, animated: true)
     }
+
+    func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
+
+        let vc = AccountPasswordModuleBuilder(output: self)
+            .build(input: .init(kind: kind))
+        navigationController.pushViewController(vc, animated: true)
+    }
 }
 
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
     
-    func userChooseAccount(wallet: DomainLayer.DTO.Wallet) -> Void {
-        showPasscode(wallet: wallet)
+    func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void {
+        if passcodeNotCreated {
+            showAccountPassword(kind: .logIn(wallet))
+        } else {
+            showPasscode(kind: .logIn(wallet))
+        }
     }
     
     func userEditAccount(wallet: DomainLayer.DTO.Wallet) {
         showEdit(wallet: wallet)
     }
-    
 }
 
+
+// MARK: AccountPasswordModuleOutput
+extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
+
+    func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
+        showPasscode(kind: .changePasscodeByPassword(wallet, password: password))
+    }
+
+    func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {}
+}
+
+// MARK: PasscodeCoordinatorDelegate
 extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
@@ -76,5 +97,4 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorWalletLogouted() {
 
     }
-    
 }

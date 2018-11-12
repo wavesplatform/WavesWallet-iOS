@@ -51,10 +51,20 @@ final class WalletViewController: UIViewController {
 
     private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
 
+    private lazy var leftRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerLeftSwipe(gesture:)))
+    private lazy var rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerRightSwipe(gesture:)))
     var presenter: WalletPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        leftRightGesture.delegate = self
+        leftRightGesture.direction = .left
+        rightSwipeGesture.delegate = self
+        rightSwipeGesture.direction = .right
+
+        tableView.addGestureRecognizer(leftRightGesture)
+        tableView.addGestureRecognizer(rightSwipeGesture)
 
         displayData = WalletDisplayData(tableView: tableView)
         setupLanguages()
@@ -66,6 +76,20 @@ final class WalletViewController: UIViewController {
         setupSystem()
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+    }
+
+    @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
+
+        UIView.animate(withDuration: 0.24, delay: 0, options: [.transitionFlipFromLeft], animations: {
+
+        }) { (_) in
+
+        }
+        sendEvent.accept(.changeDisplay(.leasing))
+    }
+
+    @objc func handlerRightSwipe(gesture: UIGestureRecognizer) {
+        sendEvent.accept(.changeDisplay(.assets))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +106,14 @@ final class WalletViewController: UIViewController {
         setupLanguages()
         setupSegmetedControl()
         tableView.reloadData()
+    }
+}
+
+// MARK: Bind UI
+
+extension WalletViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
