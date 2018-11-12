@@ -1,4 +1,12 @@
 
+"Receivecard.Label.minimunAmountInfo" = "Минимум %@, максимум %@";
+
+"Send.Label.Error.notFundsFeeGateway" = "У вас недостаточно средств для отправки транзакции. Вы должны оплатить комиссию %@ и %@ gateway комиссию.";
+
+"Send.Label.Warning.description" = "Не выводите %@ на адреса ICO, так как мы не зачислим вам токены полученные после окончания распродажи.";
+
+"Send.Label.Warning.subtitle" = "Введенный адрес определен как %@, ваши средства будут отправлены на него через шлюз Coinomat. Минимальная сумма перевода — %@, максимальная — %@.";
+
 "accountpassword.button.signIn.title" = "Войти";
 
 "accountpassword.textfield.error.atleastcharacters" = "не менее %d символов";
@@ -35,6 +43,8 @@
 
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "У вас их нет";
 
+"addresseskeys.cell.aliases.title" = "Алиасы";
+
 "addresseskeys.cell.privatekey.title" = "Приватный ключ";
 
 "addresseskeys.cell.privatekeyhidde.button.title" = "Показать";
@@ -65,7 +75,7 @@
 
 "aliaseswithout.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
 
-"aliaseswithout.view.info.label.title" = "О алиасах";
+"aliaseswithout.view.info.label.title" = "У вас их нет";
 
 "asset.cell.assetInfo.description" = "Описание";
 
@@ -211,9 +221,9 @@
 
 "dexcompleteorder.label.time" = "Время";
 
-"dexcreateorder.button.ask" = "";
+"dexcreateorder.button.ask" = "Ask";
 
-"dexcreateorder.button.bid" = "";
+"dexcreateorder.button.bid" = "Bid";
 
 "dexcreateorder.button.buy" = "Купить";
 
@@ -225,7 +235,7 @@
 
 "dexcreateorder.button.hour" = "час";
 
-"dexcreateorder.button.last" = "";
+"dexcreateorder.button.last" = "Last";
 
 "dexcreateorder.button.minutes" = "минут";
 
@@ -235,7 +245,7 @@
 
 "dexcreateorder.button.week" = "неделя";
 
-"dexcreateorder.label.Expiration" = "";
+"dexcreateorder.label.Expiration" = "Expiration";
 
 "dexcreateorder.label.amountIn" = "Количество в";
 
@@ -251,11 +261,11 @@
 
 "dexcreateorder.label.totalIn" = "Всего в";
 
-"dexinfo.label.amountAsset" = "";
+"dexinfo.label.amountAsset" = "Amount Asset";
 
 "dexinfo.label.popular" = "Популярно";
 
-"dexinfo.label.priceAsset" = "";
+"dexinfo.label.priceAsset" = "Price Asset";
 
 "dexlasttrades.button.buy" = "КУПИТЬ";
 
@@ -297,11 +307,19 @@
 
 "dexmyorders.label.amount" = "Количество";
 
+"dexmyorders.label.buy" = "Купить";
+
+"dexmyorders.label.date" = "Дата";
+
 "dexmyorders.label.emptyData" = "Пока ничего нет… \ nУ вас нет ордеров";
 
 "dexmyorders.label.loadingLastTrades" = "Загрузка оредеров...";
 
 "dexmyorders.label.price" = "Цена";
+
+"dexmyorders.label.sell" = "Продать";
+
+"dexmyorders.label.side" = "Side";
 
 "dexmyorders.label.status" = "Статус";
 
@@ -313,17 +331,19 @@
 
 "dexmyorders.label.status.partiallyFilled" = "Частично";
 
+"dexmyorders.label.sum" = "Sum";
+
 "dexmyorders.label.time" = "Время";
 
 "dexorderbook.button.buy" = "КУПИТЬ";
 
 "dexorderbook.button.sell" = "ПРОДАТЬ";
 
-"dexorderbook.label.amount" = "Количество";
+"dexorderbook.label.amount" = "Кол-во";
 
-"dexorderbook.label.emptyData" = "Пока ничего нет… \ nСписок сделок пуст";
+"dexorderbook.label.emptyData" = "Пока ничего нет… \nСписок сделок пуст";
 
-"dexorderbook.label.lastPrice" = "ПОСЛЕДНЯЯ ЦЕНА";
+"dexorderbook.label.lastPrice" = "LAST PRICE";
 
 "dexorderbook.label.loadingOrderbook" = "Загрузка биржевого стакана...";
 
@@ -337,11 +357,17 @@
 
 "dextradercontainer.button.chart" = "График";
 
-"dextradercontainer.button.lastTrades" = "Последние сделки";
+"dextradercontainer.button.lastTrades" = "Сделки";
 
 "dextradercontainer.button.myOrders" = "Мои ордера";
 
-"dextradercontainer.button.orderbook" = "Биржевой стакан";
+"dextradercontainer.button.orderbook" = "Ордербук";
+
+"editaccountname.button.save" = "Сохранить";
+
+"editaccountname.label.newName" = "Новое имя аккаунта";
+
+"editaccountname.navigation.title" = "Изменить имя";
 
 "enter.block.blockchain.text" = "Станьте частью быстро растущего криптомира. Только вы можете получить доступ к своим средствам.";
 
@@ -363,7 +389,7 @@
 
 "enter.button.createNewAccount.title" = "Создать новый аккаунт";
 
-"enter.button.importAccount.detail" = "через QR или вручную";
+"enter.button.importAccount.detail" = "через QR-код или вручную";
 
 "enter.button.importAccount.title" = "Импортировать аккаунт";
 
@@ -441,7 +467,7 @@
 
 "history.segmentedControl.canceled" = "Отменен";
 
-"history.segmentedControl.exchanged" = "";
+"history.segmentedControl.exchanged" = "Exchanged";
 
 "history.segmentedControl.issued" = "Выпущен";
 
@@ -457,7 +483,7 @@
 
 "history.transaction.title.data" = "Дата транзакция";
 
-"history.transaction.title.exchange" = "";
+"history.transaction.title.exchange" = "Exchange";
 
 "history.transaction.title.incomingLeasing" = "Входящий лизинг";
 
@@ -483,29 +509,59 @@
 
 "import.account.button.scan.title" = "Сканировать QR-код";
 
-"import.account.label.info.step.one.detail" = "";
+"import.account.label.info.step.one.detail" = "Settings > Security > Pairing code";
 
-"import.account.label.info.step.one.title" = "";
+"import.account.label.info.step.one.title" = "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com";
 
-"import.account.label.info.step.two.title" = "";
+"import.account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
 
 "import.account.navigation.title" = "Импорт аккаунта";
 
+"import.general.navigation.title" = "Импорт аккаунта";
+
+"import.general.segmentedControl.manually" = "Вручную";
+
+"import.general.segmentedControl.scan" = "Сканировать";
+
+"import.manually.button.continue" = "Продолжить";
+
+"import.manually.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+
+"import.manually.label.address.title" = "Семя вашей учетной записи";
+
+"import.password.button.continue" = "Продолжить";
+
+"import.scan.button.title" = "Сканировать QR-код";
+
+"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac/PC";
+
+"import.scan.label.step.three.title" = "Сканирование кода с помощью камеры";
+
+"import.scan.label.step.two.detail" = "(Settings > Security > Pairing code)";
+
+"import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
+
 "import.welcome.button.continue" = "Продолжить";
 
-"import.welcome.label.address.placeholder" = "";
+"import.welcome.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
 
 "import.welcome.label.address.title" = "Секретная фраза вашего аккаунта";
 
 "import.welcome.navigation.title" = "Добро пожаловать";
 
+"legal.checkbox.box.button.confirm" = "Подтвердить и начать";
+
 "legal.checkbox.box.first" = "Я понимаю, что мои средства хранятся на этом устройстве, а не у компании";
 
 "legal.checkbox.box.second" = "Я понимаю, что если это приложение установлено на другом устройстве или удалено, то я получу доступ к своим средствам только с помощью секретной фразы";
 
+"legal.checkbox.box.subtitle" = "Кошелёк Waves хранится только на вашем компьютере";
+
 "legal.checkbox.box.termsOfUse" = "Условиями использования";
 
 "legal.checkbox.box.third" = "Я прочитал, понял и согласился с";
+
+"legal.checkbox.box.title" = "Готово! Давайте рассмотрим.";
 
 "myaddress.button.copy.title" = "Копировать";
 

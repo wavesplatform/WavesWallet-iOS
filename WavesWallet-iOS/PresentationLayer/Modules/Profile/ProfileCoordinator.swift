@@ -17,6 +17,7 @@ private enum Constants {
 
 private enum State {
     case backupPhrase(completed: ((_ isBackedUp: Bool) -> Void))
+    case showPhrase
 }
 
 final class ProfileCoordinator: Coordinator {
@@ -45,7 +46,12 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void)) {
 
-        self.state = .backupPhrase(completed: completed)        
+        if wallet.isBackedUp == true {
+            self.state = .showPhrase
+        } else {
+            self.state = .backupPhrase(completed: completed)
+        }
+
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .verifyAccess(wallet))
         passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
@@ -126,11 +132,11 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
 
+        let seed = signedWallet.seed.seed.split(separator: " ").map { "\($0)" }
+
         guard let state = state else { return }
         switch state {
         case .backupPhrase(let completed):
-
-            let seed = signedWallet.seed.seed.split(separator: " ").map { "\($0)" }
 
             let backup = BackupCoordinator(navigationController: navigationController, seed: seed, completed: { [weak self] needBackup in
                 completed(!needBackup)
@@ -138,7 +144,15 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
             })
             addChildCoordinator(childCoordinator: backup)
             backup.start()
+        case .showPhrase:
+
+            let viewControllers = navigationController.viewControllers.filter({ ($0 is PasscodeViewController) == false })
+            navigationController.viewControllers = viewControllers
+            let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
+            vc.input = .init(seed: seed, isReadOnly: true)
+            navigationController.pushViewController(vc, animated: true)
         }
+
 
         self.state = nil
     }

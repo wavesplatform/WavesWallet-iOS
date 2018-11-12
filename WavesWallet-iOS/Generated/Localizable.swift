@@ -59,7 +59,7 @@ internal enum Localizable {
         internal static var add: String { return Localizable.tr("Waves", "addAddressbook.label.add") }
         /// Address
         internal static var address: String { return Localizable.tr("Waves", "addAddressbook.label.address") }
-        /// Are you sure you want to delete address form address book?
+        /// Are you sure you want to delete address from address book?
         internal static var deleteAlertMessage: String { return Localizable.tr("Waves", "addAddressbook.label.deleteAlertMessage") }
         /// Edit
         internal static var edit: String { return Localizable.tr("Waves", "addAddressbook.label.edit") }
@@ -270,6 +270,14 @@ internal enum Localizable {
     }
 
     internal enum Backup {
+
+      internal enum Backup {
+
+        internal enum Navigation {
+          /// Backup phrase
+          internal static var title: String { return Localizable.tr("Waves", "backup.backup.navigation.title") }
+        }
+      }
 
       internal enum Confirmbackup {
 
@@ -796,7 +804,7 @@ internal enum Localizable {
         }
 
         internal enum Importaccount {
-          /// via paring code or manually
+          /// via pairing code or manually
           internal static var detail: String { return Localizable.tr("Waves", "enter.button.importAccount.detail") }
           /// Import account
           internal static var title: String { return Localizable.tr("Waves", "enter.button.importAccount.title") }
@@ -1008,6 +1016,48 @@ internal enum Localizable {
 
     internal enum Import {
 
+      internal enum Account {
+
+        internal enum Button {
+
+          internal enum Enter {
+            /// Enter seed manually
+            internal static var title: String { return Localizable.tr("Waves", "import.account.button.enter.title") }
+          }
+
+          internal enum Scan {
+            /// Scan pairing code
+            internal static var title: String { return Localizable.tr("Waves", "import.account.button.scan.title") }
+          }
+        }
+
+        internal enum Label {
+
+          internal enum Info {
+
+            internal enum Step {
+
+              internal enum One {
+                /// Settings > Security > Pairing code
+                internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
+                /// Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com
+                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
+              }
+
+              internal enum Two {
+                /// Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.
+                internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.two.title") }
+              }
+            }
+          }
+        }
+
+        internal enum Navigation {
+          /// Import account
+          internal static var title: String { return Localizable.tr("Waves", "import.account.navigation.title") }
+        }
+      }
+
       internal enum General {
 
         internal enum Navigation {
@@ -1077,6 +1127,29 @@ internal enum Localizable {
               internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.two.title") }
             }
           }
+        }
+      }
+
+      internal enum Welcome {
+
+        internal enum Button {
+          /// Continue
+          internal static var `continue`: String { return Localizable.tr("Waves", "import.welcome.button.continue") }
+        }
+
+        internal enum Label {
+
+          internal enum Address {
+            /// Your seed is the 15 words you saved when creating your account
+            internal static var placeholder: String { return Localizable.tr("Waves", "import.welcome.label.address.placeholder") }
+            /// Your account seed
+            internal static var title: String { return Localizable.tr("Waves", "import.welcome.label.address.title") }
+          }
+        }
+
+        internal enum Navigation {
+          /// Welcome back
+          internal static var title: String { return Localizable.tr("Waves", "import.welcome.navigation.title") }
         }
       }
     }
@@ -1491,7 +1564,7 @@ internal enum Localizable {
         internal static var changeCurrency: String { return Localizable.tr("Waves", "receivecard.label.changeCurrency") }
         /// The minimum is %@, the maximum is %@
         internal static func minimunAmountInfo(_ p1: String, _ p2: String) -> String {
-          return Localizable.tr("Waves", "receivecard.label.minimunAmountInfo", p1, p2)
+          return Localizable.tr("Waves", "Receivecard.Label.minimunAmountInfo", p1, p2)
         }
         /// For making a payment from your card you will be redirected to the merchant's website
         internal static var warningInfo: String { return Localizable.tr("Waves", "receivecard.label.warningInfo") }
@@ -1593,18 +1666,18 @@ internal enum Localizable {
           internal static var notFundsFee: String { return Localizable.tr("Waves", "send.label.error.notFundsFee") }
           /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
           internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
-            return Localizable.tr("Waves", "send.label.error.notFundsFeeGateway", p1, p2)
+            return Localizable.tr("Waves", "Send.Label.Error.notFundsFeeGateway", p1, p2)
           }
         }
 
         internal enum Warning {
           /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
           internal static func description(_ p1: String) -> String {
-            return Localizable.tr("Waves", "send.label.warning.description", p1)
+            return Localizable.tr("Waves", "Send.Label.Warning.description", p1)
           }
           /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
           internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
-            return Localizable.tr("Waves", "send.label.warning.subtitle", p1, p2, p3)
+            return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
         }
       }

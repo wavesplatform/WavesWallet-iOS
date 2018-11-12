@@ -382,10 +382,8 @@ private extension ProfilePresenter {
                 state.query = Types.Query.showLanguage
 
             case .backupPhrase:
-                if wallet.isBackedUp == false {
-                    state.query = Types.Query.showBackupPhrase(wallet: wallet)
-                }
-                
+                state.query = Types.Query.showBackupPhrase(wallet: wallet)
+
             case .changePassword:
                 state.query = Types.Query.showChangePassword(wallet: wallet)
 

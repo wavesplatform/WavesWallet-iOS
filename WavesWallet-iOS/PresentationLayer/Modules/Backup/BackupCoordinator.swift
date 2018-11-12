@@ -74,7 +74,7 @@ extension BackupCoordinator: NeedBackupModuleOutput {
 extension BackupCoordinator: BackupInfoViewModuleOutput {
     func userReadedBackupInfo() {
         let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
-        vc.input = .init(seed: seed)
+        vc.input = .init(seed: seed, isReadOnly: false)
         vc.output = self
         navigationController.pushViewController(vc, animated: true)
     }
@@ -85,9 +85,9 @@ extension BackupCoordinator: BackupInfoViewModuleOutput {
 extension BackupCoordinator: SaveBackupPhraseOutput {
     func userSavedBackupPhrase() {
         let vc = StoryboardScene.Backup.confirmBackupViewController.instantiate()
-        vc.input = .init(seed: seed)
-        vc.output = self
-        navigationController.pushViewController(vc, animated: true)
+            vc.input = .init(seed: seed)
+            vc.output = self
+            navigationController.pushViewController(vc, animated: true)
     }
 }
 

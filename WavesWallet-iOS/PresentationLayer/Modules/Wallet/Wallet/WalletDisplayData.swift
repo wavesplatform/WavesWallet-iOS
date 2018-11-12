@@ -44,8 +44,10 @@ final class WalletDisplayData: NSObject {
         }
         switch animateType {
         case .refresh:
-            debug("tableView.reloadData")
-            tableView.reloadData()
+
+            UIView.animate(withDuration: 0.24, delay: 0, options: [.transitionCrossDissolve], animations: {
+                self.tableView.reloadData()
+            }, completion: nil)
 
         case .collapsed(let index):
             tableView.beginUpdates()
