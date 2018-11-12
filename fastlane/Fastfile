@@ -5,70 +5,36 @@ default_platform(:ios)
 
 platform :ios do
 
-before_all do
-  update_fastlane
-end
-
   lane :waves_test do
-  
-    
-    sh("export FASTLANE_USER=#{ENV['FASTLANE_USER']}")
-    sh("export FASTLANE_PASSWORD=#{ENV['FASTLANE_PASSWORD']}")
-
-    ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.waveswallet.test"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
+    ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
-    setup_circle_ci
-
-    sh("printenv")
-
-    puts ENV['FASTLANE_USER']
-    puts ENV['FASTLANE_PASSWORD']
-
-    data = CredentialsManager::AccountManager.new(user: "#{ENV['FASTLANE_USER']}", password: "#{ENV['FASTLANE_PASSWORD']}")
-    puts data.user
-    puts data.password  
-
-    match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
-      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "appstore",          
-      readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
-
-		cocoapods(
-			verbose: true,
-			clean: true,
-			use_bundle_exec: false
-		)
-		
-		gym(scheme: "WavesWallet-iOS-Test",
-        workspace: "WavesWallet-iOS.xcworkspace",
-        include_bitcode: true,
-        include_symbols: true,
-        export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    )
-
-    testflight(username: "#{ENV['APPLDE_DEV_PORTAL_ID']}",
-              itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-              team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-              wait_for_uploaded_build: "false")
+    build_and_upload
   end
 
   lane :waves do
 
-    ENV['FASTLANE_TEAM_ID'] = "com.wavesplatform.WavesWallet"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
+    ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
+    build_and_upload
+  end
+
+  lane :build_and_upload do
+
+    sh("export FASTLANE_USER=#{ENV['FASTLANE_USER']}")
+    sh("export FASTLANE_PASSWORD=#{ENV['FASTLANE_PASSWORD']}")
+
     setup_circle_ci
+
+    unless Helper.ci?
+        ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+    end
 
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "appstore",          
+      type: "appstore",
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
@@ -82,16 +48,15 @@ end
 			clean: true,
 			use_bundle_exec: false
 		)
-		
-		gym(scheme: "WavesWallet-iOS-Release",
+
+		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
     )
 
-    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-              itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
+    testflight(itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
               team_id: "#{ENV['FASTLANE_TEAM_ID']}",
               wait_for_uploaded_build: "false")
   end
@@ -100,7 +65,7 @@ end
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "appstore",          
+          type: "appstore",
           readonly: true)
   end
 
