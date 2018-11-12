@@ -39,9 +39,11 @@ extension TransactionHistoryTypes.State {
         let displays = transactions.map { (transaction) -> TransactionHistoryTypes.State.DisplayState in
             
             i = i + 1
-            
-            return TransactionHistoryTypes.State.DisplayState(sections: TransactionHistoryTypes.ViewModel.Section.map(from: transaction, index: i - 1, count: transactions.count))
-            
+
+            let sections = TransactionHistoryTypes.ViewModel.Section.map(from: transaction, index: i - 1, count: transactions.count)
+
+            return TransactionHistoryTypes.State.DisplayState(transaction: transaction,
+                                                              sections: sections)
         }
         
         return TransactionHistoryTypes.State(currentIndex: currentIndex, displays: displays, transactions: transactions)

@@ -293,6 +293,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .data:
             customTitle = Localizable.Waves.Transactionhistory.Cell.dataTransaction
+            
         case .unrecognisedTransaction:
             break
         }
@@ -300,7 +301,14 @@ extension TransactionHistoryTypes.ViewModel.Section {
         // general
         
         rows.append(
-            transaction.generalRow(balance: balance, sign: sign, customTitle: customTitle, asset: asset, currencyConversion: currencyConversion, isSpam: isSpam, canGoBack: index > 0, canGoForward: index < count - 1)
+            transaction.generalRow(balance: balance,
+                                   sign: sign,
+                                   customTitle: customTitle,
+                                   asset: asset,
+                                   currencyConversion: currencyConversion,
+                                   isSpam: isSpam,
+                                   canGoBack: index > 0,
+                                   canGoForward: index < count - 1)
         )
         
         // custom rows
@@ -334,16 +342,19 @@ extension TransactionHistoryTypes.ViewModel.Section {
         let generalSection = TransactionHistoryTypes.ViewModel.Section(transaction: transaction, items: rows)
         
         return [generalSection]
-        
     }
-    
-    
-    
 }
 
 fileprivate extension DomainLayer.DTO.SmartTransaction {
     
-    func generalRow(balance: Balance?, sign: Balance.Sign?, customTitle: String?, asset: DomainLayer.DTO.Asset?, currencyConversion: String?, isSpam: Bool?, canGoBack: Bool?, canGoForward: Bool?) -> TransactionHistoryTypes.ViewModel.Row {
+    func generalRow(balance: Balance?,
+                    sign: Balance.Sign?,
+                    customTitle: String?,
+                    asset: DomainLayer.DTO.Asset?,
+                    currencyConversion: String?,
+                    isSpam: Bool?,
+                    canGoBack: Bool?,
+                    canGoForward: Bool?) -> TransactionHistoryTypes.ViewModel.Row {
         
         return
             .general(
@@ -356,10 +367,8 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                     isSpam: isSpam,
                     currencyConversion: currencyConversion,
                     canGoBack: canGoBack,
-                    canGoForward: canGoForward
-                )
+                    canGoForward: canGoForward)
             )
-        
     }
     
     func commentRow(comment: String?) -> TransactionHistoryTypes.ViewModel.Row? {
@@ -411,10 +420,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         switch kind {
         case .sent(_):
             return .resendButton(.init(type: .resend))
+
         case .massSent(_):
             return .resendButton(.init(type: .resend))
+
         case .startedLeasing(_):
             return .resendButton(.init(type: .cancelLeasing))
+            
         default:
             break
         }

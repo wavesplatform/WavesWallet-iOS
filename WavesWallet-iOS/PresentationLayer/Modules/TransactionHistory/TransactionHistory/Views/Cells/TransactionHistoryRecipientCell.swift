@@ -44,18 +44,25 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         switch model.kind {
         case .sent:
             title = Localizable.Waves.Transactionhistory.Cell.sentTo
+
         case .receive:
             title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
+
         case .startedLeasing:
             title = Localizable.Waves.Transactionhistory.Cell.leasingTo
+
         case .canceledLeasing:
             title = Localizable.Waves.Transactionhistory.Cell.from
+
         case .incomingLeasing:
             title = Localizable.Waves.Transactionhistory.Cell.from
+
         case .massSent:
             title = Localizable.Waves.Transactionhistory.Cell.recipient
+
         case .massReceived:
             title = Localizable.Waves.Transactionhistory.Cell.recipient
+
         default:
             title = ""
         }
@@ -67,7 +74,6 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     @IBAction func contactPressed(_ sender: Any) {
         delegate?.recipientCellDidPressContact(cell: self)
     }
-    
 }
 
 extension TransactionHistoryRecipientCell: ViewCalculateHeight {
