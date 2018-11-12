@@ -107,4 +107,5 @@ extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
         removeFromParentCoordinator()
         delegate?.userCompletedLogIn(wallet: wallet)
     }    
+
 }

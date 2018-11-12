@@ -33,7 +33,8 @@ extension ChooseAccountTypes {
         case tapEditButton(DomainLayer.DTO.Wallet, indexPath: IndexPath)
         case tapRemoveButton(DomainLayer.DTO.Wallet, indexPath: IndexPath)
         case tapWallet(DomainLayer.DTO.Wallet)
-        case setWallets([DomainLayer.DTO.Wallet])        
+        case setWallets([DomainLayer.DTO.Wallet])
+        case viewDidDisappear
     }
 
     struct DisplayState: Mutating {
