@@ -33,11 +33,20 @@ jobs:
       - run:
           name: Bundle
           command: bundle install
+      - run: 
+          name: Secure
+          command: security find-identity -v -p codesigning
       - run:
           name: Fastlane
           command: bundle exec fastlane certificates
       - run:
-          name: Fastlane 2
+          name: Fastlane certificates
+          command: bundle exec fastlane certificates --verbose
+      - run: 
+          name: Secure
+          command: security find-identity -v -p codesigning
+      - run:
+          name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: ~/Waves/iOS/Output
