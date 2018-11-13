@@ -234,6 +234,7 @@ extension LegalViewController: UIViewControllerAnimatedTransitioning {
                 self.containerView.alpha = 0
                 self.containerTopConstraint.constant = -containerFrame.height
             }
+            self.view.layoutIfNeeded()
             
         }) { (success) in
             
