@@ -216,6 +216,7 @@ private extension DexCreateOrderViewController {
                 if self.order.expiration != value {
                     self.order.expiration = value
                     self.setupLabelExpiration()
+                    self.sendEvent.accept(.updateInputOrder(self.order))
                 }
             }
             controller.addAction(action)
