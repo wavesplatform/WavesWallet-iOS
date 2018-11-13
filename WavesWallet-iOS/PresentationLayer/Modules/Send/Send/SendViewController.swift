@@ -229,6 +229,8 @@ private extension SendViewController {
                 
                 switch state.action {
                 case .didFailInfo(let error):
+                    
+                    //TODO: need to show error when in come from server
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -422,12 +424,12 @@ private extension SendViewController {
     
     func hideGatewayInfo(animation: Bool) {
         updateAmountError(animation: animation)
-        
+        activityIndicatorView.stopAnimating()
+
         if viewWarning.isHidden {
             return
         }
         viewWarning.isHidden = true
-        activityIndicatorView.stopAnimating()
         if animation {
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.view.layoutIfNeeded()
