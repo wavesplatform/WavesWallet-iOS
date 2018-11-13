@@ -7,7 +7,7 @@ platform :ios do
 
   lane :waves_test do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
-    ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
+    # ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     build_and_upload
   end
@@ -15,22 +15,23 @@ platform :ios do
   lane :waves do
 
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
-    ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
+    # ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     build_and_upload
   end
 
   lane :build_and_upload do
 
-    sh("export FASTLANE_USER=#{ENV['FASTLANE_USER']}")
-    sh("export FASTLANE_PASSWORD=#{ENV['FASTLANE_PASSWORD']}")
-
+    # sh("export FASTLANE_USER=#{ENV['FASTLANE_USER']}")
+    # sh("export FASTLANE_PASSWORD=#{ENV['FASTLANE_PASSWORD']}")
+    
     setup_circle_ci
 
     unless Helper.ci?
         sh("echo CI DONT USE")
         ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
     end
+    sh("printenv")
 
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
@@ -57,10 +58,13 @@ platform :ios do
         export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
     )
 
-    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+    testflight(apple_id: "#{ENV['APPLE_DEV_PORTAL_ID']}", 
+              username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
               team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-              wait_for_uploaded_build: "false")
+              app_identifier: "#{ENV['FASTLANE_APP_IDENTIFIER']}",
+              dev_portal_team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+              skip_waiting_for_build_processing: "true")
   end
 
   lane :certificates do
