@@ -410,7 +410,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func statusRow() -> TransactionHistoryTypes.ViewModel.Row {
         return .status(.init(
             timestamp: timestamp,
-            status: .activeNow)
+            status: .completed)
         )
     }
     
