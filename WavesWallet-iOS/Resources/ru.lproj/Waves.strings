@@ -97,7 +97,7 @@
 
 "asset.cell.balance.avaliableBalance" = "Доступный баланс";
 
-"asset.cell.balance.button.exchange" = "Обмен";
+"asset.cell.balance.button.exchange" = "Обменять";
 
 "asset.cell.balance.button.receive" = "Получить";
 
@@ -125,6 +125,8 @@
 
 "assetlist.label.loadingAssets" = "Загрузка ассетов ...";
 
+"backup.backup.navigation.title" = "Секретная фраза";
+
 "backup.confirmbackup.button.confirm" = "Подтвердить";
 
 "backup.confirmbackup.error.label" = "Неверный порядок, повторите попытку";
@@ -151,9 +153,9 @@
 
 "backup.savebackup.copy.label.title" = "Пожалуйста, внимательно запишите эти 15 слов или скопируйте их";
 
-"backup.savebackup.label.title" = "Посколько только вы контролируете ваши деньги, вам необходимо сохранить секретную фразу или вернитесь назад";
+"backup.savebackup.label.title" = "Посколько только вы контролируете ваши деньги, вам необходимо сохранить секретную фразу";
 
-"backup.savebackup.navigation.title" = "Сохранение секретной фразы";
+"backup.savebackup.navigation.title" = "Секретная фраза";
 
 "backup.savebackup.next.button.title" = "Я всё записал";
 
@@ -192,6 +194,14 @@
 "createalias.cell.input.textfiled.input.placeholder" = "Символическое имя";
 
 "createalias.cell.input.textfiled.input.title" = "Символическое имя";
+
+"createalias.error.alreadyinuse" = "Уже в используется";
+
+"createalias.error.charactersmaximum" = "Максимум 30 символов";
+
+"createalias.error.invalidcharacter" = "Неправильный символ";
+
+"createalias.error.minimumcharacters" = "Минимум 4 символа";
 
 "createalias.navigation.title" = "Новый алиас";
 
@@ -345,7 +355,7 @@
 
 "dexorderbook.label.lastPrice" = "LAST PRICE";
 
-"dexorderbook.label.loadingOrderbook" = "Загрузка биржевого стакана...";
+"dexorderbook.label.loadingOrderbook" = "Загрузка ордербука...";
 
 "dexorderbook.label.price" = "Цена";
 
@@ -465,17 +475,17 @@
 
 "history.segmentedControl.all" = "Всё";
 
-"history.segmentedControl.canceled" = "Отменен";
+"history.segmentedControl.canceled" = "Отмена";
 
-"history.segmentedControl.exchanged" = "Exchanged";
+"history.segmentedControl.exchanged" = "Обмен";
 
 "history.segmentedControl.issued" = "Выпущен";
 
 "history.segmentedControl.leased" = "В лизинге";
 
-"history.segmentedControl.received" = "Получено";
+"history.segmentedControl.received" = "Полученные";
 
-"history.segmentedControl.sent" = "Получатель";
+"history.segmentedControl.sent" = "Отправленные";
 
 "history.transaction.title.alias" = "Создать алиас";
 
@@ -483,7 +493,7 @@
 
 "history.transaction.title.data" = "Дата транзакция";
 
-"history.transaction.title.exchange" = "Exchange";
+"history.transaction.title.exchange" = "Обмен";
 
 "history.transaction.title.incomingLeasing" = "Входящий лизинг";
 
@@ -509,11 +519,11 @@
 
 "import.account.button.scan.title" = "Сканировать QR-код";
 
-"import.account.label.info.step.one.detail" = "Settings > Security > Pairing code";
+"import.account.label.info.step.one.detail" = "Настройки > Безопасность > Экспорт аккаунта";
 
-"import.account.label.info.step.one.title" = "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com";
+"import.account.label.info.step.one.title" = "Войдите в Waves клиент через свой PC, Mac или https://client.wavesplatform.com";
 
-"import.account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
+"import.account.label.info.step.two.title" = "Нажмите «Показать QR-код» и сканируйте его с помощью камеры.";
 
 "import.account.navigation.title" = "Импорт аккаунта";
 
@@ -525,25 +535,25 @@
 
 "import.manually.button.continue" = "Продолжить";
 
-"import.manually.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"import.manually.label.address.placeholder" = "Введите 15 слов, которые вы сохранили при создании аккаунта";
 
-"import.manually.label.address.title" = "Семя вашей учетной записи";
+"import.manually.label.address.title" = "Секретная фраза";
 
 "import.password.button.continue" = "Продолжить";
 
 "import.scan.button.title" = "Сканировать QR-код";
 
-"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac/PC";
+"import.scan.label.step.one.title" = "Войдите в Waves клиент через свой PC, Mac";
 
 "import.scan.label.step.three.title" = "Сканирование кода с помощью камеры";
 
-"import.scan.label.step.two.detail" = "(Settings > Security > Pairing code)";
+"import.scan.label.step.two.detail" = "(Настройки > Безопасность > Экспорт аккаунта)";
 
-"import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
+"import.scan.label.step.two.title" = "Нажмите «Показать QR-код», чтобы экспортировать аккаунт";
 
 "import.welcome.button.continue" = "Продолжить";
 
-"import.welcome.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"import.welcome.label.address.placeholder" = "Введите 15 слов, которые вы сохранили при создании аккаунта";
 
 "import.welcome.label.address.title" = "Секретная фраза вашего аккаунта";
 
@@ -555,13 +565,23 @@
 
 "legal.checkbox.box.second" = "Я понимаю, что если это приложение установлено на другом устройстве или удалено, то я получу доступ к своим средствам только с помощью секретной фразы";
 
-"legal.checkbox.box.subtitle" = "Кошелёк Waves хранится только на вашем компьютере";
+"legal.checkbox.box.subtitle" = "Кошелёк Waves хранится только на вашем устройстве";
 
 "legal.checkbox.box.termsOfUse" = "Условиями использования";
 
 "legal.checkbox.box.third" = "Я прочитал, понял и согласился с";
 
-"legal.checkbox.box.title" = "Готово! Давайте рассмотрим.";
+"legal.checkbox.box.title" = "Готово! Давайте начнём.";
+
+"menu.button.supportwavesplatform" = "Поддержка Wavesplatform";
+
+"menu.button.termsandconditions" = "Условия и положения";
+
+"menu.button.whitepaper" = "Whitepaper";
+
+"menu.label.communities" = "Присоединиться к сообществу Waves";
+
+"menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на платформе Waves";
 
 "myaddress.button.copy.title" = "Копировать";
 
@@ -581,7 +601,7 @@
 
 "networksettings.button.setdefault.title" = "По умолчанию";
 
-"networksettings.label.switchspam.title" = "Отключить фильтрацию спама";
+"networksettings.label.switchspam.title" = "Фильтрация спама";
 
 "networksettings.navigation.title" = "Сеть";
 
@@ -725,7 +745,7 @@
 
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Если вы отправите меньше чем %@, вы потеряете деньги.";
 
-"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере вашего депозита.";
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере ваших средств.";
 
 "receivegenerate.label.generate" = "Создание...";
 
@@ -767,7 +787,7 @@
 
 "sendcomplete.button.okey" = "Хорошо";
 
-"sendcomplete.label.saveThisAddress" = "Вы хотите сохранить этот адрес?";
+"sendcomplete.label.saveThisAddress" = "Хотите сохранить этот адрес?";
 
 "sendcomplete.label.transactionIsOnWay" = "Ваша транзакция уже в пути!";
 
@@ -779,7 +799,7 @@
 
 "sendconfirmation.label.description" = "Описание";
 
-"sendconfirmation.label.descriptionIsTooLong" = "Описание слишком длинное";
+"sendconfirmation.label.descriptionIsTooLong" = "Слишком длинное описание";
 
 "sendconfirmation.label.dollar" = "US Dollar";
 
@@ -879,7 +899,7 @@
 
 "usetouchid.button.useBiometric.text" = "Использовать %@";
 
-"usetouchid.label.detail.text" = "Используйте свой %@ для более быстрого и легкого доступа к своему аккаунту.";
+"usetouchid.label.detail.text" = "Используйте свой %@ для более быстрого и легкого доступа к своему аккаунту";
 
 "usetouchid.label.title.text" = "Использовать %@ для входа?";
 
@@ -905,13 +925,13 @@
 
 "wallet.navigationBar.title" = "Кошелёк";
 
-"wallet.section.activeNow" = "Активны сейчас (%d)";
+"wallet.section.activeNow" = "Активных сейчас (%d)";
 
-"wallet.section.hiddenAssets" = "Скрытые ассеты (%d)";
+"wallet.section.hiddenAssets" = "Скрытые (%d)";
 
-"wallet.section.quickNote" = "Краткая заметка";
+"wallet.section.quickNote" = "О лизинге";
 
-"wallet.section.spamAssets" = "Спам ассеты (%d)";
+"wallet.section.spamAssets" = "Спам (%d)";
 
 "wallet.segmentedControl.assets" = "Ассеты";
 
@@ -923,8 +943,10 @@
 
 "walletsort.navigationBar.title" = "Сортировка";
 
-"menu.label.description" = "Зал up with the latest news and articles, and find out all about events happening on the Waves Platform";
-"menu.label.communities" = "Зал the Waves Community";
-"menu.button.whitepaper" = "Зал Whitepaper";
-"menu.button.termsandconditions" = "Зал Terms and conditions";
-"menu.button.supportwavesplatform" = "Зал Support Wavesplatform";
+"wavespopup.button.exchange" = "Обменять";
+
+"wavespopup.button.receive" = "Получить";
+
+"wavespopup.button.send" = "Отправить";
+
+"wavespopup.label.comingsoon" = "Скоро";

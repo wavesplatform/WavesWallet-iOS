@@ -163,7 +163,7 @@ private extension PasscodeVerifyAccessPresenter {
         case .tapBiometricButton:
 
             state.displayState.isLoading = true
-            state.action = .logInBiometric
+            state.action = .verifyAccessBiometric
             state.displayState.error = nil
 
         case .tapLogInByPassword:

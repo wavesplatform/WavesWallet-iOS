@@ -139,6 +139,7 @@ internal enum Images {
   internal static let flag18Korea = ImageAsset(name: "flag18Korea")
   internal static let flag18Nederland = ImageAsset(name: "flag18Nederland")
   internal static let flag18Rus = ImageAsset(name: "flag18Rus")
+  internal static let flag18Spain = ImageAsset(name: "flag18Spain")
   internal static let flag18Turkey = ImageAsset(name: "flag18Turkey")
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
   internal static let hide = ImageAsset(name: "hide")
@@ -373,6 +374,7 @@ internal enum Images {
     flag18Korea,
     flag18Nederland,
     flag18Rus,
+    flag18Spain,
     flag18Turkey,
     forwardChevron,
     hide,
