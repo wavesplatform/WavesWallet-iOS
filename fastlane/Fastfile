@@ -19,6 +19,9 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
+    ENV['URL_FIREBASE_PROD'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
+    ENV['URL_FIREBASE_TEST'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
+    ENV['URL_FIREBASE_DEV'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Dev.plist"
     build_and_upload
   end
 

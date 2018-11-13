@@ -110,7 +110,6 @@ fileprivate extension AddressesKeysPresenter {
                         observer.onNext(.setPrivateKey(signedWallet))
                         observer.onCompleted()
                     })
-                observer.onNext(.completedQuery)
                 return Disposables.create()
             })
             .asSignal(onErrorRecover: { _ in
