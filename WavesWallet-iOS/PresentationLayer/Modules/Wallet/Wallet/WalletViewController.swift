@@ -285,6 +285,7 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 
 extension WalletViewController: WalletDisplayDataDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll Wallet")
         setupTopBarLine()
     }
 
