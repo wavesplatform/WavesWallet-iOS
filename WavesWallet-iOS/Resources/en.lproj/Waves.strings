@@ -252,6 +252,8 @@
 
 "dexcreateorder.label.bigValue" = "Value is too big";
 
+"dexcreateorder.label.smallValue" = "Value is too small";
+
 "dexcreateorder.label.days" = "days";
 
 "dexcreateorder.label.fee" = "Fee";
