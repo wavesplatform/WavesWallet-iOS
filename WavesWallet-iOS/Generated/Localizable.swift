@@ -369,6 +369,13 @@ internal enum Localizable {
       }
     }
 
+    internal enum Biometric {
+      /// Authenticate to decrypt wallet private key and confirm your transaction
+      internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
+      /// Authenticate to store encrypted wallet private key
+      internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
+    }
+
     internal enum Changepassword {
 
       internal enum Button {

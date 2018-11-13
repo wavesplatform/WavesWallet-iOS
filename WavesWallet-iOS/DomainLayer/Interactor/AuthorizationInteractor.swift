@@ -680,13 +680,12 @@ private extension AuthorizationInteractor {
     private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
-            let keychain = Keychain(service: Constants.service)
-                .accessibility(.whenUnlocked)
-                .authenticationContext(context)
-
             DispatchQueue.main.async(execute: {
                 do {
 
+                    let keychain = Keychain(service: Constants.service)
+                        .accessibility(.whenUnlocked)
+                        .authenticationContext(context)
                     try keychain
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .remove(wallet.publicKey)
@@ -737,11 +736,10 @@ private extension AuthorizationInteractor {
 
                     let keychain = Keychain(service: Constants.service)
                         .authenticationContext(context)
-                        .label("Waves wallet seeds")
                         .accessibility(.whenUnlocked)                        
 
                     try keychain
-                        .authenticationPrompt("Authenticate to store encrypted wallet private key")
+                        .authenticationPrompt(Localizable.Waves.Biometric.saveinkeychain)
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .set(passcode, key: wallet.publicKey)
                     observer.onNext(true)
@@ -772,14 +770,13 @@ private extension AuthorizationInteractor {
 
         return Observable<String>.create { observer -> Disposable in
 
-            let keychain = Keychain(service: Constants.service)
-                .authenticationContext(context)
             DispatchQueue.main.async(execute: {
 
                 do {
-
+                    let keychain = Keychain(service: Constants.service)
+                        .authenticationContext(context)
                     guard let passcode = try keychain
-                        .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
+                        .authenticationPrompt(Localizable.Waves.Biometric.readfromkeychain)
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .get(wallet.publicKey) else
                     {

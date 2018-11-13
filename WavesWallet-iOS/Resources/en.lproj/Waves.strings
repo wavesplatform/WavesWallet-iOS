@@ -940,3 +940,5 @@
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.label.comingsoon" = "Coming soon";
 
+"biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
+"biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
