@@ -180,7 +180,7 @@ private extension PasscodeEnableBiometricPresenter {
         case .tapBiometricButton:
 
             state.displayState.isLoading = true
-            state.action = .logInBiometric
+            state.action = .disabledBiometricUsingBiometric
             state.displayState.error = nil
 
         case .tapLogInByPassword:
