@@ -670,14 +670,22 @@ extension AuthorizationInteractor {
 private extension AuthorizationInteractor {
 
     private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
-        return Observable<Bool>.create { observer -> Disposable in
+        return biometricAccess()
+            .flatMap({ [weak self] (context) -> Observable<Bool> in
+                guard let owner = self else { return Observable<Bool>.never() }
+                return owner.removePasscodeInKeychain(wallet: wallet, context: context)
+            })
+    }
 
-            let keychain = Keychain(service: Constants.service)
-                .accessibility(.whenUnlocked)
+    private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<Bool> {
+        return Observable<Bool>.create { observer -> Disposable in
 
             DispatchQueue.main.async(execute: {
                 do {
 
+                    let keychain = Keychain(service: Constants.service)
+                        .accessibility(.whenUnlocked)
+                        .authenticationContext(context)
                     try keychain
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .remove(wallet.publicKey)
@@ -693,24 +701,48 @@ private extension AuthorizationInteractor {
         }
     }
 
+    private func biometricAccess() -> Observable<LAContext> {
+        return Observable<LAContext>.create { observer -> Disposable in
+
+            let context = LAContext()            
+            var error: NSError?
+            if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+
+                observer.onNext(context)
+                observer.onCompleted()
+            } else {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }
+
+            return Disposables.create()
+        }
+    }
+
     private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
+        return biometricAccess()
+            .flatMap({ [weak self] (context) -> Observable<Bool> in
+                guard let owner = self else { return Observable<Bool>.never() }
+                return owner.savePasscodeInKeychain(wallet: wallet, passcode: passcode, context: context)
+            })
+    }
+
+    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, context: LAContext) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
             DispatchQueue.main.async(execute: {
 
-                let keychain = Keychain(service: Constants.service)
-                    .label("Waves wallet seeds")
-                    .accessibility(.whenUnlocked)
-
                 do {
 
+                    let keychain = Keychain(service: Constants.service)
+                        .authenticationContext(context)
+                        .accessibility(.whenUnlocked)                        
+
                     try keychain
-                        .authenticationPrompt("Authenticate to store encrypted wallet private key")
+                        .authenticationPrompt(Localizable.Waves.Biometric.saveinkeychain)
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .set(passcode, key: wallet.publicKey)
-
                     observer.onNext(true)
-                    observer.onCompleted()
+
                 } catch let error {
 
                     if error is AuthorizationInteractorError {
@@ -726,17 +758,24 @@ private extension AuthorizationInteractor {
     }
 
     private func passcodeFromKeychain(wallet: DomainLayer.DTO.Wallet) -> Observable<String> {
+        return biometricAccess()
+            .flatMap({ [weak self] (context) -> Observable<String> in
+                guard let owner = self else { return Observable<String>.never() }
+                return owner.passcodeFromKeychain(wallet: wallet, context: context)
+            })
+    }
+
+    private func passcodeFromKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<String> {
 
         return Observable<String>.create { observer -> Disposable in
-
-            let keychain = Keychain(service: Constants.service)
 
             DispatchQueue.main.async(execute: {
 
                 do {
-
+                    let keychain = Keychain(service: Constants.service)
+                        .authenticationContext(context)
                     guard let passcode = try keychain
-                        .authenticationPrompt("Authenticate to decrypt wallet private key and confirm your transaction")
+                        .authenticationPrompt(Localizable.Waves.Biometric.readfromkeychain)
                         .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
                         .get(wallet.publicKey) else
                     {
