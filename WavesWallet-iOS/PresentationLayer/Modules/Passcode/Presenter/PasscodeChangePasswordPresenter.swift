@@ -109,24 +109,9 @@ private extension PasscodeChangePasswordPresenter {
 
         case .viewWillAppear:
             break
+            
         case .viewDidAppear:
-
-            switch state.kind {
-            case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .logInBiometric
-                state.displayState.error = nil
-
-            case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .disabledBiometricUsingBiometric
-                state.displayState.error = nil
-
-            case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .verifyAccessBiometric
-                state.displayState.error = nil
-
-            default:
-                break
-            }
+            break
 
         case .tapBiometricButton:
 
