@@ -52,3 +52,9 @@ WavesWallet-iOS/Resources/GoogleService-Info.plist
 fastlane/report\.xml
 
 fastlane/README\.md
+
+WavesWallet-iOS/Resources/GoogleService-Info-Dev\.plist
+
+WavesWallet-iOS/Resources/GoogleService-Info-Prod\.plist
+
+WavesWallet-iOS/Resources/GoogleService-Info-Test\.plist
