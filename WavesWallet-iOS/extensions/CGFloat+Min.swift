@@ -13,8 +13,10 @@ extension CGFloat {
     static var minValue: CGFloat {
         if #available(iOS 11.0, *) {
             return CGFloat.leastNonzeroMagnitude
+        } else if #available(iOS 10.0, *) {
+            return 0
         } else {
-            return 1.0 + CGFloat.leastNonzeroMagnitude
+            return CGFloat.leastNonzeroMagnitude
         }
     }
 }

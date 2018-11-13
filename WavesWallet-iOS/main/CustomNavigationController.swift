@@ -220,6 +220,25 @@ class CustomNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.topViewController?.preferredStatusBarStyle ?? .default
     }
+
+    deinit {
+        if let prevViewContoller = prevViewContoller {
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.barTintColor)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.tintColor)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isNavigationBarHidden)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.titleTextAttributes)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isTranslucent)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorImage)
+            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage)
+
+            if #available(iOS 11.0, *) {
+                prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.prefersLargeTitles)
+                prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.largeTitleTextAttributes)
+            }
+        }
+    }
 }
 
 // MARK: UIGestureRecognizerDelegate
@@ -241,7 +260,6 @@ extension CustomNavigationController: UINavigationControllerDelegate {
         if let prevViewContoller = prevViewContoller {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
-            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.prefersLargeTitles)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.barTintColor)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.tintColor)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isNavigationBarHidden)
@@ -249,7 +267,11 @@ extension CustomNavigationController: UINavigationControllerDelegate {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.isTranslucent)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage)
-            prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.largeTitleTextAttributes)
+
+            if #available(iOS 11.0, *) {
+                prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.prefersLargeTitles)
+                prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.largeTitleTextAttributes)
+            }
         }
 
         prevViewContoller = viewController
@@ -258,7 +280,6 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
 
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.barTintColor, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.tintColor, options: [.new, .old], context: nil)
@@ -268,8 +289,12 @@ extension CustomNavigationController: UINavigationControllerDelegate {
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorImage, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage, options: [.new, .old], context: nil)
 
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.largeTitleTextAttributes, options: [.new, .old], context: nil)
-        
+
+        if #available(iOS 11.0, *) {
+            viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
+            viewController.navigationItem.addObserver(self, forKeyPath: Constants.largeTitleTextAttributes, options: [.new, .old], context: nil)
+        }
+
         self.transitionCoordinator?.notifyWhenInteractionEnds({ [weak self] context in
             guard context.isCancelled else { return }
             guard let fromViewController = context.viewController(forKey: .from) else { return }

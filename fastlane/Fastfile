@@ -9,19 +9,15 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-    ENV['URL_FIREBASE_PROD'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
-    ENV['URL_FIREBASE_TEST'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-    ENV['URL_FIREBASE_DEV'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Dev.plist"
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
     build_and_upload
   end
 
   lane :waves do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
-    ENV['URL_FIREBASE_PROD'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
-    ENV['URL_FIREBASE_TEST'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-    ENV['URL_FIREBASE_DEV'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Dev.plist"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"    
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
     build_and_upload
   end
 
@@ -44,12 +40,8 @@ platform :ios do
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Dev.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Test.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Prod.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE_PROD']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Dev.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE_TEST']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Test.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE_DEV']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Prod.plist")
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
 
 		cocoapods(
 			verbose: true,
@@ -78,12 +70,10 @@ platform :ios do
   end
 
   lane :download_environments do
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Dev.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Test.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info-Prod.plist")
-
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
 
