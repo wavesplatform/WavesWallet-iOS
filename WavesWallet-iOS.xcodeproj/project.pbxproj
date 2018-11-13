@@ -85,9 +85,7 @@
 		0A14E3F321875B3C00EA7E91 /* CreateAliasTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14E3F221875B3C00EA7E91 /* CreateAliasTypes.swift */; };
 		0A14E3F521875B5100EA7E91 /* CreateAliasModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14E3F421875B5100EA7E91 /* CreateAliasModuleBuilder.swift */; };
 		0A14E3F721875F5600EA7E91 /* CreateAliasInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14E3F621875F5600EA7E91 /* CreateAliasInputCell.swift */; };
-		0A150824219B0D6B00516037 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A150821219B0D6B00516037 /* GoogleService-Info-Dev.plist */; };
-		0A150825219B0D6B00516037 /* GoogleService-Info-Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A150822219B0D6B00516037 /* GoogleService-Info-Test.plist */; };
-		0A150826219B0D6B00516037 /* GoogleService-Info-Prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A150823219B0D6B00516037 /* GoogleService-Info-Prod.plist */; };
+		0A150824219B0D6B00516037 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A150821219B0D6B00516037 /* GoogleService-Info.plist */; };
 		0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6120F3876C004DA625 /* AssetApi.swift */; };
 		0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */; };
 		0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */; };
@@ -887,9 +885,7 @@
 		0A15081C219AE51100516037 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Waves.strings; sourceTree = "<group>"; };
 		0A15081D219AE53600516037 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A15081E219AE53700516037 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Waves.strings; sourceTree = "<group>"; };
-		0A150821219B0D6B00516037 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
-		0A150822219B0D6B00516037 /* GoogleService-Info-Test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Test.plist"; sourceTree = "<group>"; };
-		0A150823219B0D6B00516037 /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
+		0A150821219B0D6B00516037 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletTypes+DisplayState.swift"; sourceTree = "<group>"; };
 		0A1DAD6120F3876C004DA625 /* AssetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetApi.swift; sourceTree = "<group>"; };
 		0A1DAD6420F395F2004DA625 /* AssetsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
@@ -2518,9 +2514,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0A150821219B0D6B00516037 /* GoogleService-Info-Dev.plist */,
-				0A150823219B0D6B00516037 /* GoogleService-Info-Prod.plist */,
-				0A150822219B0D6B00516037 /* GoogleService-Info-Test.plist */,
+				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
 				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
 				0A2060632181C2C20048CF83 /* environment_testnet.json */,
 				04D4431A21885F4F009CEB22 /* Fabric-Info.plist */,
@@ -4325,7 +4319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A150824219B0D6B00516037 /* GoogleService-Info-Dev.plist in Resources */,
+				0A150824219B0D6B00516037 /* GoogleService-Info.plist in Resources */,
 				E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */,
 				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
@@ -4350,7 +4344,6 @@
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
 				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
 				0A762D8C21639FA60019D447 /* TransactionHistoryStatusCell.xib in Resources */,
-				0A150826219B0D6B00516037 /* GoogleService-Info-Prod.plist in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
@@ -4369,7 +4362,6 @@
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				0A2060642181C2C20048CF83 /* environment_mainnet.json in Resources */,
-				0A150825219B0D6B00516037 /* GoogleService-Info-Test.plist in Resources */,
 				0A2060652181C2C20048CF83 /* environment_testnet.json in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
