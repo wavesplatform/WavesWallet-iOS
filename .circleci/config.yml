@@ -98,4 +98,4 @@ workflows:
       - X61:
           filters:
             branches:
-              only: release/*
+              only: release/v2.0rc0
