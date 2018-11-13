@@ -6,25 +6,21 @@ default_platform(:ios)
 platform :ios do
 
   lane :waves_test do
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
-    # ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
     build_and_upload
   end
 
   lane :waves do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
-    # ENV['FASTLANE_TEAM_ID'] = "96SW78M3KJ"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     build_and_upload
   end
 
   lane :build_and_upload do
 
-    # sh("export FASTLANE_USER=#{ENV['FASTLANE_USER']}")
-    # sh("export FASTLANE_PASSWORD=#{ENV['FASTLANE_PASSWORD']}")
-    
     setup_circle_ci
 
     unless Helper.ci?
@@ -58,12 +54,8 @@ platform :ios do
         export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
     )
 
-    testflight(apple_id: "#{ENV['APPLE_DEV_PORTAL_ID']}", 
-              username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-              itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-              team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-              app_identifier: "#{ENV['FASTLANE_APP_IDENTIFIER']}",
-              dev_portal_team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+              itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",                                       
               skip_waiting_for_build_processing: "true")
   end
 
@@ -84,9 +76,8 @@ platform :ios do
 
   lane :upload_testflight do
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-      team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-      wait_for_uploaded_build: "false")
+               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",      
+               wait_for_uploaded_build: "false")
   end
 
 end
