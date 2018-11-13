@@ -16,7 +16,7 @@ fileprivate enum Constants {
     #if DEBUG
     static let rootPath: String = "pincodes-ios-dev"
     #elseif Test
-    static let rootPath: String = "pincodes-ios-test"
+    static let rootPath: String = "pincodes-ios-dev"
     #else
     static let rootPath: String = "pincodes-ios"
     #endif
