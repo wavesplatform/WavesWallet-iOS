@@ -134,6 +134,7 @@ private extension ChooseAccountPresenter {
             state.isAppeared = true
 
         case .viewDidDisappear:
+            state.action = nil
             state.isAppeared = false
 
         case .setWallets(let wallets):

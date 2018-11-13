@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)
@@ -33,6 +34,10 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionTestNetSwitch(sender: Any) {
         
+    }
+
+    @IBAction func actionCrash(_ sender: Any) {
+        Crashlytics.sharedInstance().crash()
     }
 
     private func version() -> String {

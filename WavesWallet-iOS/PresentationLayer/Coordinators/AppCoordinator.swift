@@ -56,7 +56,7 @@ final class AppCoordinator: Coordinator {
 
         logInApplication()
 
-        #if DEBUG
+        #if DEBUG || ADHOC
             addTapGestureForSupportDisplay()
         #endif
     }
