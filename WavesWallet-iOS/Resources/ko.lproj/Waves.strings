@@ -1,0 +1,955 @@
+
+"Receivecard.Label.minimunAmountInfo" = "최소 수량 %@, 최대 수량 %@";
+
+"Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";
+
+"Send.Label.Warning.description" = "ICO로  %@ 를 출금하지 마세요. 해당 판매의 토큰을 귀하의 계정에 크레딧 하지 않을 것입니다.";
+
+"Send.Label.Warning.subtitle" = "%@ 주소를 감지했으며 해당 주소로 Coinomat 게이트웨이를 통해 자산을 송금할 것입니다. 최소 수량은 %@ 이며, 최대 수량은 %@ 입니다.";
+
+"accountpassword.button.signIn.title" = "로그인";
+
+"accountpassword.textfield.error.atleastcharacters" = "최소 %d 자";
+
+"accountpassword.textfield.password.placeholder" = "계정 비밀번호";
+
+"addAddressbook.button.cancel" = "취소";
+
+"addAddressbook.button.delete" = "삭제";
+
+"addAddressbook.button.deleteAddress" = "주소 삭제";
+
+"addAddressbook.button.save" = "저장";
+
+"addAddressbook.label.add" = "추가";
+
+"addAddressbook.label.address" = "주소";
+
+"addAddressbook.label.deleteAlertMessage" = "해당 주소를 주소록에서 삭제하시겠습니까?";
+
+"addAddressbook.label.edit" = "편집";
+
+"addAddressbook.label.name" = "이름";
+
+"addressbook.label.addressBook" = "주소록";
+
+"addressbook.label.addressDeleted" = "주소 삭제 완료";
+
+"addressbook.label.noInfo" = "아무것도 없습니다...\n신규 주소를 생성할 수 있습니다";
+
+"addresseskeys.cell.address.title" = "귀하의 주소";
+
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "%d 를 가지고 있습니다";
+
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "가지고 있지 않습니다";
+
+"addresseskeys.cell.aliases.title" = "Alias";
+
+"addresseskeys.cell.privatekey.title" = "프라이빗 키";
+
+"addresseskeys.cell.privatekeyhidde.button.title" = "보기";
+
+"addresseskeys.cell.publickey.title" = "퍼블릭 키";
+
+"addresseskeys.cell.seed.title" = "Seed";
+
+"addresseskeys.navigation.title" = "주소, 키";
+
+"aliases.cell.head.title" = "귀하의 Alias";
+
+"aliases.view.info.button.create" = "신규 Alias 생성";
+
+"aliases.view.info.label.fee" = "트랜잭션 수수료 0.001 Waves";
+
+"aliases.view.info.label.secondsubtitle" = "Alias는 4자에서 30자 사이어야하며 소문자, 숫자 및 기호(@, -, _ 등)를 포함해야 합니다.";
+
+"aliases.view.info.label.subtitle" = "Alias는 귀하의 주소 명칭입니다. 트랜잭션을 하기위해 주소 대신 Alias를 사용할 수 있습니다.";
+
+"aliases.view.info.label.title" = "Alias란";
+
+"aliaseswithout.view.info.button.create" = "신규 Alias 생성";
+
+"aliaseswithout.view.info.label.fee" = "트랜잭션 수수료 0.001 Waves";
+
+"aliaseswithout.view.info.label.secondsubtitle" = "Alias는 4자에서 30자 사이어야하며 소문자, 숫자 및 기호(@, -, _ 등)를 포함해야 합니다.";
+
+"aliaseswithout.view.info.label.subtitle" = "Alias는 귀하의 주소 명칭입니다. 트랜잭션을 하기위해 주소 대신 Alias를 사용할 수 있습니다.";
+
+"aliaseswithout.view.info.label.title" = "Alias를 가지고 있지 않습니다";
+
+"asset.cell.assetInfo.description" = "설명";
+
+"asset.cell.assetInfo.id" = "ID";
+
+"asset.cell.assetInfo.issueDate" = "발행일";
+
+"asset.cell.assetInfo.issuer" = "발행자";
+
+"asset.cell.assetInfo.kind.notReissuable" = "재발행 불가능";
+
+"asset.cell.assetInfo.kind.reissuable" = "재발행 가능";
+
+"asset.cell.assetInfo.kind.title" = "유형";
+
+"asset.cell.assetInfo.name" = "이름";
+
+"asset.cell.assetInfo.title" = "자산 정보";
+
+"asset.cell.balance.avaliableBalance" = "사용 가능 잔액";
+
+"asset.cell.balance.button.exchange" = "거래";
+
+"asset.cell.balance.button.receive" = "받기";
+
+"asset.cell.balance.button.send" = "보내기";
+
+"asset.cell.balance.inOrderBalance" = "대기 주문";
+
+"asset.cell.balance.leased" = "Lease된 수량";
+
+"asset.cell.balance.totalBalance" = "총수량";
+
+"asset.cell.viewHistory" = "내역 보기";
+
+"asset.header.lastTransactions" = "최근 트랜잭션";
+
+"asset.header.notHaveTransactions" = "트랜잭션 내역이 없습니다";
+
+"assetlist.button.allList" = "모든 목록";
+
+"assetlist.button.myList" = "나의 목록";
+
+"assetlist.button.withBalance" = "잔액과 함께";
+
+"assetlist.label.assets" = "자산";
+
+"assetlist.label.loadingAssets" = "자산 로딩 중...";
+
+"backup.backup.navigation.title" = "백업 구절";
+
+"backup.confirmbackup.button.confirm" = "승인";
+
+"backup.confirmbackup.error.label" = "잘못된 주문입니다. 다시 시도하세요";
+
+"backup.confirmbackup.info.label" = "올바른 순서로 각 단어를 탭하세요";
+
+"backup.confirmbackup.navigation.title" = "백업 승인";
+
+"backup.infobackup.button.iunderstand" = "이해했습니다";
+
+"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다.
+
+이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오.
+
+공식 Waves 클라이언트만 사용하세요.";
+
+"backup.infobackup.label.title" = "백업 구절을 매우 신중히 다루세요!";
+
+"backup.needbackup.button.backupnow" = "즉시 백업합니다";
+
+"backup.needbackup.button.doitlater" = "다음에 백업합니다";
+
+"backup.needbackup.label.detail" = "백업 구절을 반드시 저장해야 합니다. 귀하의 계정에 대한 액세스를 위해 매우 중요한 과정입니다.";
+
+"backup.needbackup.label.title" = "백업을 하지 않으면 자산을 잃을 수 있습니다";
+
+"backup.savebackup.copy.label.title" = "이 15 단어를 반드시 메모하거나 저장하세요";
+
+"backup.savebackup.label.title" = "귀하의 자산은 당신만 통제할 수 있습니다. 앱이 삭제될 경우를 대비해 반드시 백업 구절을 저장해야 합니다. 원치 않으시면 이전 페이지로 돌아가세요";
+
+"backup.savebackup.navigation.title" = "백업 구절 저장";
+
+"backup.savebackup.next.button.title" = "메모하였습니다";
+
+"backup.savebackup.next.label.title" = "다음 페이지에서 백업 구절을 승인해야 합니다";
+
+"changepassword.button.confirm.title" = "승인";
+
+"changepassword.navigation.title" = "비밀번호 변경";
+
+"changepassword.textfield.confirmpassword.title" = "비밀번호 승인";
+
+"changepassword.textfield.createpassword.title" = "신규 비밀번호";
+
+"changepassword.textfield.error.atleastcharacters" = "최소 %d 글자";
+
+"changepassword.textfield.error.incorrectpassword" = "잘못된 비밀번호입니다";
+
+"changepassword.textfield.error.passwordnotmatch" = "비밀번호가 일치하지 않습니다";
+
+"changepassword.textfield.oldpassword.title" = "이전 비밀번호";
+
+"chooseaccount.alert.button.no" = "취소";
+
+"chooseaccount.alert.button.ok" = "네";
+
+"chooseaccount.alert.delete.message" = "본 계정을 정말 삭제하시겠습니까?";
+
+"chooseaccount.alert.delete.title" = "계정 삭제";
+
+"chooseaccount.label.nothingWallets" = "아무것도 없습니다...\n저장된 계정이 없습니다";
+
+"chooseaccount.navigation.title" = "계정 선택";
+
+"createalias.button.create.title" = "생성";
+
+"createalias.cell.input.textfiled.input.placeholder" = "상징적인 이름";
+
+"createalias.cell.input.textfiled.input.title" = "상징적인 이름";
+
+"createalias.error.alreadyinuse" = "이미 사용 중입니다";
+
+"createalias.error.charactersmaximum" = "최대 30 글자";
+
+"createalias.error.invalidcharacter" = "잘못된 문자입니다";
+
+"createalias.error.minimumcharacters" = "최소 4 글자";
+
+"createalias.navigation.title" = "신규 Alias";
+
+"dexchart.button.cancel" = "취소";
+
+"dexchart.label.emptyData" = "사용할 수 있는 차트 데이터가 없습니다";
+
+"dexchart.label.hour" = "시간";
+
+"dexchart.label.hours" = "시간";
+
+"dexchart.label.loadingChart" = "차트 로딩 중...";
+
+"dexchart.label.minutes" = "분";
+
+"dexcompleteorder.button.okey" = "알겠습니다";
+
+"dexcompleteorder.label.amount" = "수량";
+
+"dexcompleteorder.label.open" = "열기";
+
+"dexcompleteorder.label.orderIsCreated" = "주만이 생성되었습니다";
+
+"dexcompleteorder.label.price" = "가격";
+
+"dexcompleteorder.label.status" = "상태";
+
+"dexcompleteorder.label.time" = "시간";
+
+"dexcreateorder.button.ask" = "매도 호가";
+
+"dexcreateorder.button.bid" = "매수 호가";
+
+"dexcreateorder.button.buy" = "매수";
+
+"dexcreateorder.button.cancel" = "취소";
+
+"dexcreateorder.button.day" = "일";
+
+"dexcreateorder.button.days" = "일";
+
+"dexcreateorder.button.hour" = "시간";
+
+"dexcreateorder.button.last" = "체결가";
+
+"dexcreateorder.button.minutes" = "분";
+
+"dexcreateorder.button.sell" = "매도";
+
+"dexcreateorder.button.useTotalBalanace" = "총 잔액 사용";
+
+"dexcreateorder.button.week" = "주";
+
+"dexcreateorder.label.Expiration" = "만기";
+
+"dexcreateorder.label.amountIn" = "받은 수량";
+
+"dexcreateorder.label.bigValue" = "최댓값을 초과하였습니다";
+
+"dexcreateorder.label.days" = "일";
+
+"dexcreateorder.label.fee" = "수수료";
+
+"dexcreateorder.label.limitPriceIn" = "지정가";
+
+"dexcreateorder.label.notEnough" = "충분하지 않습니다";
+
+"dexcreateorder.label.totalIn" = "총";
+
+"dexinfo.label.amountAsset" = "자산 수량";
+
+"dexinfo.label.popular" = "Popular";
+
+"dexinfo.label.priceAsset" = "자산 가격";
+
+"dexlasttrades.button.buy" = "매수";
+
+"dexlasttrades.button.sell" = "매도";
+
+"dexlasttrades.label.amount" = "수량";
+
+"dexlasttrades.label.emptyData" = "아무것도 없습니다...\n거래 내역이 없습니다";
+
+"dexlasttrades.label.loadingLastTrades" = "최근 거래 로딩 중...";
+
+"dexlasttrades.label.price" = "가격";
+
+"dexlasttrades.label.sum" = "합계";
+
+"dexlasttrades.label.time" = "시간";
+
+"dexlist.button.addMarkets" = "마켓 추가";
+
+"dexlist.label.decentralisedExchange" = "탈중앙화 거래소";
+
+"dexlist.label.description" = "빠르고 안전하게 거래하세요. 탈중앙화 거래소에서 거래하면 귀하의 자금을 완전히 통제할 수 있습니다.";
+
+"dexlist.label.lastUpdate" = "최근 업데이트";
+
+"dexlist.label.price" = "가격";
+
+"dexlist.label.today" = "오늘";
+
+"dexlist.label.yesterday" = "어제";
+
+"dexlist.navigationBar.title" = "Dex";
+
+"dexmarket.label.loadingMarkets" = "마켓 로딩 중...";
+
+"dexmarket.navigationBar.title" = "마켓";
+
+"dexmarket.searchBar.placeholder" = "검색";
+
+"dexmyorders.label.amount" = "수량";
+
+"dexmyorders.label.buy" = "매수";
+
+"dexmyorders.label.date" = "날짜";
+
+"dexmyorders.label.emptyData" = "아무것도 없습니다…\n주문 내역이 없습니다";
+
+"dexmyorders.label.loadingLastTrades" = "주문 내역 로딩 중";
+
+"dexmyorders.label.price" = "가격";
+
+"dexmyorders.label.sell" = "매도";
+
+"dexmyorders.label.side" = "사이드";
+
+"dexmyorders.label.status" = "상태";
+
+"dexmyorders.label.status.accepted" = "대기 주문";
+
+"dexmyorders.label.status.cancelled" = "취소된 주문";
+
+"dexmyorders.label.status.filled" = "체결 주문";
+
+"dexmyorders.label.status.partiallyFilled" = "부분 체결 주문";
+
+"dexmyorders.label.sum" = "합계";
+
+"dexmyorders.label.time" = "시간";
+
+"dexorderbook.button.buy" = "매수";
+
+"dexorderbook.button.sell" = "매도";
+
+"dexorderbook.label.amount" = "수량";
+
+"dexorderbook.label.emptyData" = "아무것도 없습니다...\n호가창이 비어있습니다";
+
+"dexorderbook.label.lastPrice" = "지정가";
+
+"dexorderbook.label.loadingOrderbook" = "호가창 로딩 중...";
+
+"dexorderbook.label.price" = "가격";
+
+"dexorderbook.label.spread" = "스프레드";
+
+"dexorderbook.label.sum" = "합계";
+
+"dexsort.navigationBar.title" = "분류";
+
+"dextradercontainer.button.chart" = "차트";
+
+"dextradercontainer.button.lastTrades" = "최근 거래";
+
+"dextradercontainer.button.myOrders" = "나의 주문";
+
+"dextradercontainer.button.orderbook" = "호가창";
+
+"editaccountname.button.save" = "저장";
+
+"editaccountname.label.newName" = "신규 계정 이름";
+
+"editaccountname.navigation.title" = "이름 변경";
+
+"enter.block.blockchain.text" = "빠르게 성장하는 암호화폐 세계의 일원이 되세요. 당신은 당신의 암호화 자산에 액세스 할 수 있는 유일한 사람입니다.";
+
+"enter.block.blockchain.title" = "블록체인 시작하기";
+
+"enter.block.exchange.text" = "빠르고 안전하게 거래하세요. 탈중앙화 거래소에서 거래하면 귀하의 자금을 완전히 통제할 수 있습니다.";
+
+"enter.block.exchange.title" = "탈중앙화 거래소";
+
+"enter.block.token.text" = "당신의 토큰을 발행해보세요. 이는 당신의 비즈니스에 내부적인 화폐로 통합될 뿐만 아니라 등급 시스템 또는 로열티 프로그램의 탈중앙화 방식 투표로 활용될 수 있습니다.";
+
+"enter.block.token.title" = "토큰 런처";
+
+"enter.block.wallet.text" = "디지털 자산을 매우 쉽고 안전하게 전송하고 관리하고 보관하세요.";
+
+"enter.block.wallet.title" = "지갑";
+
+"enter.button.confirm.title" = "승인";
+
+"enter.button.createNewAccount.title" = "신규 계정 생성";
+
+"enter.button.importAccount.detail" = "페어링 코드를 이용하거나 수동으로";
+
+"enter.button.importAccount.title" = "계정 불러오기";
+
+"enter.button.signIn.detail" = "저장된 계정으로";
+
+"enter.button.signIn.title" = "로그인";
+
+"enter.language.navigation.title" = "언어 변경";
+
+"general.biometric.faceID.title" = "Face ID";
+
+"general.biometric.touchID.title" = "터치 ID";
+
+"general.label.title.myasset" = "/ 나의 자산";
+
+"general.tabbar.title.dex" = "DEX";
+
+"general.tabbar.title.history" = "내역";
+
+"general.tabbar.title.profile" = "프로파일";
+
+"general.tabbar.title.wallet" = "지갑";
+
+"general.ticker.title.cryptocurrency" = "암호화폐";
+
+"general.ticker.title.fiatmoney" = "명목 화폐";
+
+"general.ticker.title.spam" = "스팸";
+
+"general.ticker.title.wavestoken" = "Waves 토큰";
+
+"hello.button.continue" = "계속";
+
+"hello.button.next" = "다음";
+
+"hello.button.understand" = "이해했습니다";
+
+"hello.page.info.fifth.detail.first" = "알 수 없는 발신자의 이메일 또는 링크를 열지 마세요.";
+
+"hello.page.info.fifth.detail.fourth" = "공용 Wi-Fi 또는 타인의 기기를 사용할 때 지갑에 액세스하지 마십시오.";
+
+"hello.page.info.fifth.detail.second" = "운영체제를 정기적으로 업데이트하세요.";
+
+"hello.page.info.fifth.detail.third" = "정식 보안 소프트웨어를 사용하세요. 해킹에 취약한 알 수 없는 소프트웨어를 설치하지 마세요.";
+
+"hello.page.info.fifth.title" = "피싱공격 예방 방법";
+
+"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다. 🙏\n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다.\n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
+
+"hello.page.info.first.title" = "Waves Platform에 오신것을 환영합니다!";
+
+"hello.page.info.fourth.detail" = "가장 일반적인 형태의 사기 유형 중 하나는 피싱 공격이며 이는 사기꾼이 Facebook 또는 기타 웹 사이트에서 가짜 Waves 커뮤니티를 만드는 것입니다.";
+
+"hello.page.info.fourth.title" = "피싱공격 예방 방법";
+
+"hello.page.info.second.detail" = "계정을 등록할 때 백업 구절(SEED)을 저장하고 암호로 계정을 보호하라는 메시지가 나타납니다. 일반적인 중앙화 집중 서버에서는 비밀번호가 매우 중요합니다. 이는 필요하다면 이메일을 통해 비밀번호를 변경 및 재설정할 수 있습니다. 하지만 Waves와 같은 탈중앙화 플랫폼에서는 모든 것이 다르게 처리됩니다.";
+
+"hello.page.info.second.title" = "SEED에 대해 알아두어야 할 사항";
+
+"hello.page.info.third.detail.first" = "귀하는 익명으로 지갑을 사용합니다. 즉, 본 계정이 이메일 계정 또는 기타 개인 정보 데이터에 연결되지 않습니다.";
+
+"hello.page.info.third.detail.fourth" = "귀하의 백업 구절은 변경할 수 없습니다. 실수로 타인에게 백업 구절을 공유했거나 스캠 및 피싱 공격으로 인해 노출이 되었다고 의심되면 즉시 신규 Waves 지갑을 생성하고 모든 자산을 신규 주소로 이동시키기 바랍니다.";
+
+"hello.page.info.third.detail.second" = "비밀번호는 특정 장치 또는 브라우저에서 작업할 때 계정을 보호해줍니다. 이는 백업 구절이 귀하의 스토리지에 저장되지 않도록 하기 위해 필요합니다.";
+
+"hello.page.info.third.detail.third" = "비밀번호를 잊어버린 경우 백업 구절을 계정 복구 메뉴에 입력하여 신규 비밀번호를 쉽게 만들 수 있습니다. 그러나 백업 구절을 분실하면 계정에 액세스할 수 없습니다.";
+
+"hello.page.info.third.title" = "SEED에 대해 알아두어야 할 사항";
+
+"history.navigationBar.title" = "내역";
+
+"history.segmentedControl.activeNow" = "지금 활성화";
+
+"history.segmentedControl.all" = "모두";
+
+"history.segmentedControl.canceled" = "취소 내역";
+
+"history.segmentedControl.exchanged" = "거래 내역";
+
+"history.segmentedControl.issued" = "발행 내역";
+
+"history.segmentedControl.leased" = "Lease 내역";
+
+"history.segmentedControl.received" = "수신 내역";
+
+"history.segmentedControl.sent" = "발신 내역";
+
+"history.transaction.title.alias" = "Alias 생성";
+
+"history.transaction.title.canceledLeasing" = "취소된 Leasing";
+
+"history.transaction.title.data" = "데이터 트랜잭션";
+
+"history.transaction.title.exchange" = "거래 내역";
+
+"history.transaction.title.incomingLeasing" = "들어오는 Leasing";
+
+"history.transaction.title.received" = "수신 내역";
+
+"history.transaction.title.selfTransfer" = "자체 전송";
+
+"history.transaction.title.sent" = "발신 내역";
+
+"history.transaction.title.startedLeasing" = "시작된 Leasing";
+
+"history.transaction.title.tokenBurn" = "토큰 소각";
+
+"history.transaction.title.tokenGeneration" = "토큰 생성";
+
+"history.transaction.title.tokenReissue" = "토큰 재발행";
+
+"history.transaction.title.unrecognisedTransaction" = "알수없는 트랜잭션";
+
+"history.transaction.value.data" = "블록체인에 들어가기";
+
+"import.account.button.enter.title" = "SEED 수동 입력";
+
+"import.account.button.scan.title" = "페어링 코드 스캔";
+
+"import.account.label.info.step.one.detail" = "설정 > 보안 > 페어링 코드";
+
+"import.account.label.info.step.one.title" = "웹 또는 Mac/PC를 통해 Waves 클라이언트에 로그인하세요
+https://beta.wavesplatform.com";
+
+"import.account.label.info.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요. 카메라로 QR 코드를 스캔하세요.";
+
+"import.account.navigation.title" = "계정 가져오기";
+
+"import.general.navigation.title" = "계정 불러오기";
+
+"import.general.segmentedControl.manually" = "수동으로";
+
+"import.general.segmentedControl.scan" = "스캔";
+
+"import.manually.button.continue" = "계속";
+
+"import.manually.label.address.placeholder" = "SEED는 귀하의 계정 생성 시 저장한 15개의 단어입니다";
+
+"import.manually.label.address.title" = "귀하의 계정 SEED";
+
+"import.password.button.continue" = "계속";
+
+"import.scan.button.title" = "페어링 코드 스캔";
+
+"import.scan.label.step.one.title" = "웹 또는 Mac/PC를 이용하여 Waves 클라이언트에 로그인 하세요";
+
+"import.scan.label.step.three.title" = "카메라로 코드를 스캔하세요";
+
+"import.scan.label.step.two.detail" = "(설정 > 보안 > 페어링 코드)";
+
+"import.scan.label.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요";
+
+"import.welcome.button.continue" = "계속";
+
+"import.welcome.label.address.placeholder" = "SEED는 귀하의 계정 생성 시 저장한 15개의 단어입니다";
+
+"import.welcome.label.address.title" = "귀하의 SEED";
+
+"import.welcome.navigation.title" = "환영합니다";
+
+"legal.checkbox.box.button.confirm" = "승인하고 시작";
+
+"legal.checkbox.box.first" = "나의 자산이 거래소가 아닌 본 기기에서 안전하게 보관된다는 것을 이해합니다.";
+
+"legal.checkbox.box.second" = "본 앱을 다른 장치로 이동하거나 삭제하면 귀하의 Waves 계정은 백업 구절로만 복구될 수 있음을 이해합니다.";
+
+"legal.checkbox.box.subtitle" = "Waves는 특별합니다 — 은행 또는 웹 서비스에서 안전하게 보관될 수 없습니다";
+
+"legal.checkbox.box.termsOfUse" = "이용 약관";
+
+"legal.checkbox.box.third" = "나는 이용약관을 읽었으며 이해하였고 동의합니다";
+
+"legal.checkbox.box.title" = "완료! 재검토하겠습니다.";
+
+"menu.button.supportwavesplatform" = "Wavesplatform 지원";
+
+"menu.button.termsandconditions" = "이용 약관";
+
+"menu.button.whitepaper" = "백서";
+
+"menu.label.communities" = "Waves 커뮤니티에 참여";
+
+"menu.label.description" = "최신 뉴스 및 기사를 확인하고 Waves Platform에서 업데이트하는 이벤트에 대해 알아보세요";
+
+"myaddress.button.copy.title" = "복사";
+
+"myaddress.button.share.title" = "공유";
+
+"myaddress.cell.aliases.subtitle.withaliaces" = "%d 를 가지고 있습니다";
+
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "보유하고있지 않습니다.";
+
+"myaddress.cell.aliases.title" = "Alias";
+
+"myaddress.cell.info.title" = "귀하의 주소";
+
+"myaddress.cell.qrcode.title" = "귀하의 QR 코드";
+
+"networksettings.button.save.title" = "저장";
+
+"networksettings.button.setdefault.title" = "기본 설정";
+
+"networksettings.label.switchspam.title" = "스팸 필터링 끄기";
+
+"networksettings.navigation.title" = "네트워크";
+
+"networksettings.textfield.spamfilter.title" = "스팸 필터";
+
+"newaccount.avatar.detail" = "본 아바타는 고유합니다. 추후 변경할 수 없습니다";
+
+"newaccount.avatar.title" = "귀하의 아바타 선택";
+
+"newaccount.backup.navigation.title" = "신규 계정";
+
+"newaccount.main.navigation.title" = "신규 계정";
+
+"newaccount.secret.navigation.title" = "신규 계정";
+
+"newaccount.textfield.accountName.title" = "계정 이름";
+
+"newaccount.textfield.confirmpassword.title" = "비밀번호 승인";
+
+"newaccount.textfield.createpassword.title" = "비밀번호 생성";
+
+"newaccount.textfield.error.atleastcharacters" = "최소 %d 글자";
+
+"newaccount.textfield.error.passwordnotmatch" = "비밀번호가 일치하지 않습니다";
+
+"passcode.button.forgotPasscode.title" = "계정 비밀번호 사용";
+
+"passcode.label.forgotPasscode.title" = "Passcode를 잊어버렸나요?";
+
+"passcode.label.passcode.create" = "Passcode 생성";
+
+"passcode.label.passcode.enter" = "Passcode 입력";
+
+"passcode.label.passcode.old" = "이전 Passcode 입력";
+
+"passcode.label.passcode.verify" = "귀하의 Passcode 인증";
+
+"profile.alert.deleteAccount.button.cancel" = "취소";
+
+"profile.alert.deleteAccount.button.delete" = "삭제";
+
+"profile.alert.deleteAccount.message" = "본 기기에서 이 계정을 삭제하시겠습니까?";
+
+"profile.alert.deleteAccount.title" = "계정 삭제";
+
+"profile.alert.deleteAccount.withoutbackup.message" = "계정을 삭제하면 복구할 수 없는 손실로 이어질 수 있습니다!";
+
+"profile.button.delete.title" = "장치에서 계정 삭제";
+
+"profile.button.logout.title" = "계정 로그아웃";
+
+"profile.cell.addressbook.title" = "주소록";
+
+"profile.cell.addresses.title" = "주소, 키";
+
+"profile.cell.backupphrase.title" = "백업 구절";
+
+"profile.cell.changepasscode.title" = "Passcode 변경";
+
+"profile.cell.changepassword.title" = "비밀번호 변경";
+
+"profile.cell.currentheight.title" = "현재 Height";
+
+"profile.cell.feedback.title" = "피드백";
+
+"profile.cell.info.currentheight.title" = "현재 Height";
+
+"profile.cell.info.version.title" = "버전";
+
+"profile.cell.language.title" = "언어";
+
+"profile.cell.network.title" = "네트워크";
+
+"profile.cell.pushnotifications.title" = "Push 알림";
+
+"profile.cell.rateApp.title" = "앱 평가하기";
+
+"profile.cell.supportwavesplatform.title" = "Wavesplatform 지원센터";
+
+"profile.header.general.title" = "일반 설정";
+
+"profile.header.other.title" = "기타";
+
+"profile.header.security.title" = "보안";
+
+"profile.language.navigation.title" = "언어";
+
+"profile.navigation.title" = "프로파일";
+
+"receive.button.card" = "카드";
+
+"receive.button.continue" = "계속";
+
+"receive.button.cryptocurrency" = "암호화폐";
+
+"receive.button.invoice" = "인보이스";
+
+"receive.button.useTotalBalance" = "모든 잔액 사용";
+
+"receive.label.amount" = "수량";
+
+"receive.label.amountIn" = "받은 수량";
+
+"receive.label.asset" = "자산";
+
+"receive.label.receive" = "수신";
+
+"receive.label.selectYourAsset" = "자산을 선택하세요";
+
+"receiveaddress.button.cancel" = "취소";
+
+"receiveaddress.button.close" = "닫기";
+
+"receiveaddress.button.copied" = "복사 완료!";
+
+"receiveaddress.button.copy" = "복사";
+
+"receiveaddress.button.share" = "공유";
+
+"receiveaddress.label.linkToInvoice" = "인보이스 링크";
+
+"receiveaddress.label.yourAddress" = "귀하의 %@ 주소";
+
+"receiveaddress.label.yourQRCode" = "귀하의 QR 코드";
+
+"receivecard.button.cancel" = "취소";
+
+"receivecard.label.changeCurrency" = "화폐 변경";
+
+"receivecard.label.warningInfo" = "카드로 결제하기 위해 해당 사업자의 웹 사이트로 이동됩니다";
+
+"receivecardcomplete.button.okay" = "확인";
+
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "지불이 완료되면 잔액 수량이 업데이트됩니다.";
+
+"receivecardcomplete.label.redirectToIndacoin" = "«Indacoin» 페이지로 이동됩니다";
+
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "최소 입금 수량은 %@ 입니다";
+
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "본 입금 주소로는 %@ 만 전송하세요";
+
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "%@ 미만의 자산을 보내면 귀하는 해당 자산을 잃게 됩니다.";
+
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "해당 주소로 다른 화폐 및 코인을 보내면 귀하의 자산을 잃을 수 있습니다.";
+
+"receivegenerate.label.generate" = "생성 중…";
+
+"receivegenerate.label.yourAddress" = "귀하의 %@ 주소";
+
+"receiveinvoice.label.dollar" = "US 달러";
+
+"send.button.chooseFromAddressBook" = "주소록에서 선택";
+
+"send.button.continue" = "계속";
+
+"send.button.useTotalBalanace" = "모든 잔액 사용";
+
+"send.label.addressNotValid" = "이 주소는 유효하지 않습니다";
+
+"send.label.amount" = "수량";
+
+"send.label.dollar" = "US 달러";
+
+"send.label.error.insufficientFunds" = "잔액이 부족합니다";
+
+"send.label.error.invalidId" = "유효하지 않은 ID";
+
+"send.label.error.notFundsFee" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다.";
+
+"send.label.gatewayFee" = "게이트웨이 수수료는";
+
+"send.label.moneroPaymentId" = "Monero 지불 ID";
+
+"send.label.recipient" = "수신자";
+
+"send.label.recipientAddress" = "수신자 주소...";
+
+"send.label.send" = "전송";
+
+"send.label.transactionFee" = "트랜잭션 수수료";
+
+"send.textField.placeholderPaymentId" = "귀하의 Payment ID를 붙여넣거나 입력하세요";
+
+"sendcomplete.button.okey" = "확인";
+
+"sendcomplete.label.saveThisAddress" = "이 주소를 저장하시겠습니까?";
+
+"sendcomplete.label.transactionIsOnWay" = "트랜잭션이 진행 중입니다";
+
+"sendcomplete.label.youHaveSent" = "보냈습니다";
+
+"sendconfirmation.button.confim" = "승인";
+
+"sendconfirmation.label.confirmation" = "승인";
+
+"sendconfirmation.label.description" = "설명";
+
+"sendconfirmation.label.descriptionIsTooLong" = "입력 제한을 초과했습니다";
+
+"sendconfirmation.label.dollar" = "US 달러";
+
+"sendconfirmation.label.fee" = "수수료";
+
+"sendconfirmation.label.optionalMessage" = "선택 사항 메세지를 입력하세요";
+
+"sendconfirmation.label.sentTo" = "받는 주소";
+
+"sendloading.label.sending" = "전송 중...";
+
+"startleasing.button.chooseFromAddressBook" = "주소록에서 선택";
+
+"startleasing.button.startLease" = "Lease 시작";
+
+"startleasing.button.useTotalBalanace" = "모든 잔액 사용";
+
+"startleasing.button.useTotalBalance" = "모든 잔액 사용";
+
+"startleasing.label.addressIsNotValid" = "이 주소는 유효하지 않습니다";
+
+"startleasing.label.amount" = "수량";
+
+"startleasing.label.balance" = "잔액";
+
+"startleasing.label.generator" = "Generator";
+
+"startleasing.label.nodeAddress" = "노드 주소...";
+
+"startleasing.label.notEnough" = "충분하지 않습니다";
+
+"startleasing.label.startLeasing" = "Leasing 시작";
+
+"startleasing.label.transactionFee" = "트랜잭션 수수료";
+
+"transactionhistory.button.copied" = "복사 완료";
+
+"transactionhistory.button.copyAllData" = "모든 데이터 복사";
+
+"transactionhistory.button.copyTXId" = "TX ID 복사";
+
+"transactionhistory.cell.block" = "블록";
+
+"transactionhistory.cell.button.cancelLeasing" = "Leasing 취소";
+
+"transactionhistory.cell.button.sendAgain" = "재전송";
+
+"transactionhistory.cell.confirmations" = "승인";
+
+"transactionhistory.cell.dataTransaction" = "데이터 트랜잭션";
+
+"transactionhistory.cell.fee" = "수수료";
+
+"transactionhistory.cell.from" = "Lease 보내는 주소";
+
+"transactionhistory.cell.id" = "ID";
+
+"transactionhistory.cell.leasingTo" = "Lease 받는 주소";
+
+"transactionhistory.cell.notReissuable" = "재발행 불가";
+
+"transactionhistory.cell.price" = "가격";
+
+"transactionhistory.cell.receivedFrom" = "발신된 주소";
+
+"transactionhistory.cell.recipient" = "수신자";
+
+"transactionhistory.cell.reissuable" = "재발행 가능";
+
+"transactionhistory.cell.sentTo" = "받는 주소";
+
+"transactionhistory.cell.status.at" = "으로";
+
+"transactionhistory.cell.status.button.activeNow" = "지금 활성화";
+
+"transactionhistory.cell.status.button.completed" = "완료";
+
+"transactionhistory.cell.status.button.unconfirmed" = "미승인";
+
+"transactionhistory.cell.status.timestamp" = "타임 스탬프";
+
+"transactionhistory.copy.amount" = "수량";
+
+"transactionhistory.copy.date" = "날짜";
+
+"transactionhistory.copy.fee" = "수수료";
+
+"transactionhistory.copy.recipient" = "수신자";
+
+"transactionhistory.copy.sender" = "발신자";
+
+"transactionhistory.copy.transactionId" = "트랜잭션 ID";
+
+"transactionhistory.copy.type" = "유형";
+
+"usetouchid.button.notNow.text" = "지금은 안됩니다";
+
+"usetouchid.button.useBiometric.text" = "%@ 사용";
+
+"usetouchid.label.detail.text" = "%@을 사용하여 귀하의 계정에 쉽게 액세스하세요";
+
+"usetouchid.label.title.text" = "%@을 사용하여 로그인하시겠습니까?";
+
+"wallet.button.startLease" = "Lease 시작";
+
+"wallet.label.available" = "사용 가능 잔액";
+
+"wallet.label.leased" = "Lease된 수량";
+
+"wallet.label.leasedIn" = "Lease 받은 수량";
+
+"wallet.label.quickNote.description.first" = "Lease 되지 않은 WAVES만 전송 및 거래가 가능합니다. Lease된 수량은 당신 또는 어떠한 사람이라도 전송하거나 거래할 수 없습니다.";
+
+"wallet.label.quickNote.description.second" = "귀하는 블록체인상에 올라간 Leasing 트랜잭션을 취소할 수 있습니다. 이는 일반적으로 1분 이내에 발생합니다.";
+
+"wallet.label.quickNote.description.third" = "Generating 잔액은 1,000 블록 후에 업데이트됩니다.";
+
+"wallet.label.startedLeasing" = "시작된 Leasing";
+
+"wallet.label.totalBalance" = "총 잔액";
+
+"wallet.label.viewHistory" = "내역 보기";
+
+"wallet.navigationBar.title" = "지갑";
+
+"wallet.section.activeNow" = "지금 활성화 (%d)";
+
+"wallet.section.hiddenAssets" = "숨긴 자산 (%1$s)";
+
+"wallet.section.quickNote" = "퀵노트";
+
+"wallet.section.spamAssets" = "스팸 자산 (%d)";
+
+"wallet.segmentedControl.assets" = "자산";
+
+"wallet.segmentedControl.leasing" = "Leasing";
+
+"walletsort.button.position" = "포지션";
+
+"walletsort.button.visibility" = "가시성";
+
+"walletsort.navigationBar.title" = "분류";
+
+"wavespopup.button.exchange" = "거래";
+
+"wavespopup.button.receive" = "수신";
+
+"wavespopup.button.send" = "발신";
+
+"wavespopup.label.comingsoon" = "커밍순";

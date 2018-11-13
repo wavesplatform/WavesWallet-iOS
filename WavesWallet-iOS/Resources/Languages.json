@@ -8,5 +8,15 @@
     "title": "Русский",
     "icon": "flag18Rus",
     "code": "ru"
+  },
+  {
+      "title": "한국어",
+      "icon": "flag18Korea",
+      "code": "ko"
+  },
+  {
+      "title": "Español",
+      "icon": "flag18Spain",
+      "code": "es"
   }
 ]
