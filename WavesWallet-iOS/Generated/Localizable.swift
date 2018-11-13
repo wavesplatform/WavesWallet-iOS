@@ -582,6 +582,8 @@ internal enum Localizable {
         internal static var limitPriceIn: String { return Localizable.tr("Waves", "dexcreateorder.label.limitPriceIn") }
         /// Not enough
         internal static var notEnough: String { return Localizable.tr("Waves", "dexcreateorder.label.notEnough") }
+        /// Value is too small
+        internal static var smallValue: String { return Localizable.tr("Waves", "dexcreateorder.label.smallValue") }
         /// Total in
         internal static var totalIn: String { return Localizable.tr("Waves", "dexcreateorder.label.totalIn") }
       }
