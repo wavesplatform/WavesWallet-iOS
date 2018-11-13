@@ -704,8 +704,7 @@ private extension AuthorizationInteractor {
     private func biometricAccess() -> Observable<LAContext> {
         return Observable<LAContext>.create { observer -> Disposable in
 
-            let context = LAContext()
-            context.localizedFallbackTitle = "Test"
+            let context = LAContext()            
             var error: NSError?
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
