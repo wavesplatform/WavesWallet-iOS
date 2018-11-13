@@ -291,24 +291,44 @@ private extension DexCreateOrderViewController {
             inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.shortName,
                                          isShow: !isValidAmountAssetBalance)
             
-            inputTotal.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.bigValue,
-                                        isShow: order.total.isBigAmount)
+           
+            var message = ""
+            if order.total.isBigAmount {
+                message = Localizable.Waves.Dexcreateorder.Label.bigValue
+            }
+            else if order.total.isSmallAmount {
+                message = Localizable.Waves.Dexcreateorder.Label.smallValue
+            }
+            
+            inputTotal.showErrorMessage(message: message,
+                                        isShow: order.total.isBigAmount || order.total.isSmallAmount)
         }
         else {
             
-            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.bigValue,
-                                         isShow: order.amount.isBigAmount)
+            var amountError = ""
+            if order.total.isBigAmount {
+                amountError = Localizable.Waves.Dexcreateorder.Label.bigValue
+            }
+            else if order.total.isSmallAmount {
+                amountError = Localizable.Waves.Dexcreateorder.Label.smallValue
+            }
+            
+            inputAmount.showErrorMessage(message: amountError,
+                                         isShow: order.amount.isBigAmount || order.amount.isSmallAmount)
             
             var totalError = ""
             if order.total.isBigAmount {
                 totalError = Localizable.Waves.Dexcreateorder.Label.bigValue
+            }
+            else if order.total.isSmallAmount {
+                totalError = Localizable.Waves.Dexcreateorder.Label.smallValue
             }
             else if !isValidPriceAssetBalance {
                 totalError = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.priceAsset.shortName
             }
             
             inputTotal.showErrorMessage(message: totalError,
-                                        isShow: !isValidPriceAssetBalance || order.total.isBigAmount)
+                                        isShow: !isValidPriceAssetBalance || order.total.isBigAmount || order.total.isSmallAmount)
         }
     }
     

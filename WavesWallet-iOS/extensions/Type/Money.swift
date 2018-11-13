@@ -12,8 +12,9 @@ struct Money: Hashable, Codable {
     let amount: Int64
     let decimals: Int
     
-    private var _isBigAmount = false
-    
+    private(set) var isBigAmount = false
+    private(set) var isSmallAmount = false
+
     init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
@@ -28,7 +29,8 @@ extension Money {
         
         self.amount = isValidDecimal ? Int64(truncating: decimalValue as NSNumber) : 0
         self.decimals = decimals
-        self._isBigAmount = self.amount == 0 && value > 0
+        self.isBigAmount = self.amount == 0 && value > 0 && decimalValue > 0
+        self.isSmallAmount = self.amount == 0 && value > 0 && decimalValue == 0
     }
 }
 
@@ -49,11 +51,6 @@ extension Money {
         return amount == 0
     }
     
-    var isBigAmount: Bool {
-        return _isBigAmount
-    }
-
-   
     var decimalValue: Decimal {
         return Decimal(amount) / pow(10, decimals)
     }
