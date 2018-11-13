@@ -26,9 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     var migrationInteractor: MigrationInteractor = MigrationInteractor()
 
+    private static var googleServiceInfo: String = {
+
+        #if DEBUG
+            return "GoogleService-Info-Dev"
+        #elseif TEST
+            return "GoogleService-Info-Test"
+        #else
+            return "GoogleService-Info-Prod"
+        #endif
+    }()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
+        if let path = Bundle.main.path(forResource: AppDelegate.googleServiceInfo, ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
 
             FirebaseApp.configure(options: options)
@@ -36,15 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
-
-
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
         Language.load()
-        
-//        Swizzle(initializers: [UIView.passtroughInit,
-//                               UIView.shadowInit]).start()
+
         Swizzle(initializers: [UIView.passtroughInit]).start()
 
         #if DEBUG
@@ -52,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             SweetLogger.current.visibleLevels = []
         #endif
-//            [.debug, .network, .error]
+
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50

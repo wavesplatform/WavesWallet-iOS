@@ -236,10 +236,7 @@ private extension ChooseAccountViewController {
             
         case .none:
             
-            reloadTableView()
-            
-        default:
-            break
+            reloadTableView()                    
         }
     }
     
