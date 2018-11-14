@@ -14,5 +14,3 @@ protocol TransactionHistoryModuleInput {
     var currentIndex: Int { get }
     
 }
-
-

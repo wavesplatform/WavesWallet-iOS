@@ -50,6 +50,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        addressTextField.textField.returnKeyType = .next
         addressTextField.setupTextFieldRightOffset(Constansts.rightButtonOffset)
         addressTextField.setupPlaceholder(Localizable.Waves.Addaddressbook.Label.address)
         addressTextField.delegate = self

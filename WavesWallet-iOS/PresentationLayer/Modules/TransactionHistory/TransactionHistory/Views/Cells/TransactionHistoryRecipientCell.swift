@@ -19,9 +19,7 @@ private enum Constants {
 }
 
 protocol TransactionHistoryRecipientCellDelegate: class {
-    
-    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell)
-    
+    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell, recipient: TransactionHistoryTypes.ViewModel.Recipient)
 }
 
 final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
@@ -36,6 +34,8 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     @IBOutlet fileprivate weak var nameToKeyConstraint: NSLayoutConstraint!
     
     @IBOutlet fileprivate weak var contactButton: UIButton!
+
+    private var recipient: TransactionHistoryTypes.ViewModel.Recipient?
     
     fileprivate static func title(for model: TransactionHistoryTypes.ViewModel.Recipient) -> String {
      
@@ -72,7 +72,8 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
     }
     
     @IBAction func contactPressed(_ sender: Any) {
-        delegate?.recipientCellDidPressContact(cell: self)
+        guard let recipient = recipient else { return }
+        delegate?.recipientCellDidPressContact(cell: self, recipient: recipient)
     }
 }
 
@@ -100,7 +101,8 @@ extension TransactionHistoryRecipientCell: ViewCalculateHeight {
 
 extension TransactionHistoryRecipientCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Recipient) {
-        
+
+        self.recipient = model
         titleLabel.text = TransactionHistoryRecipientCell.title(for: model)
         
         if model.name != nil {
