@@ -48,8 +48,13 @@ extension TransactionHistoryTypes.ViewModel {
     }
     
     struct Status: Hashable {
+        enum Kind: Hashable {
+            case activeNow
+            case unconfirmed
+            case completed
+        }
         let timestamp: Date
-        let status: TransactionHistoryTypes.DTO.Transaction.Status
+        let status: Kind
     }
     
     struct ResendButton: Hashable {

@@ -2341,19 +2341,19 @@
 		0A762D5A21639FA50019D447 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0A762D5B21639FA50019D447 /* TransactionHistoryCommentCell.swift */,
-				0A762D5C21639FA50019D447 /* TransactionHistoryGeneralCell.xib */,
 				0A762D5D21639FA50019D447 /* TransactionHistoryButtonCell.swift */,
-				0A762D5E21639FA50019D447 /* TransactionHistoryStatusCell.swift */,
-				0A762D5F21639FA50019D447 /* TransactionHistoryKeyValueCell.swift */,
-				0A762D6021639FA50019D447 /* TransactionHistoryKeysValuesCell.swift */,
-				0A762D6121639FA50019D447 /* TransactionHistoryRecipientCell.swift */,
-				0A762D6221639FA50019D447 /* TransactionHistoryKeyValueCell.xib */,
-				0A762D6321639FA50019D447 /* TransactionHistoryCommentCell.xib */,
-				0A762D6421639FA50019D447 /* TransactionHistoryRecipientCell.xib */,
-				0A762D6521639FA50019D447 /* TransactionHistoryGeneralCell.swift */,
-				0A762D6621639FA50019D447 /* TransactionHistoryKeysValuesCell.xib */,
 				0A762D6721639FA50019D447 /* TransactionHistoryButtonCell.xib */,
+				0A762D5B21639FA50019D447 /* TransactionHistoryCommentCell.swift */,
+				0A762D6321639FA50019D447 /* TransactionHistoryCommentCell.xib */,
+				0A762D6521639FA50019D447 /* TransactionHistoryGeneralCell.swift */,
+				0A762D5C21639FA50019D447 /* TransactionHistoryGeneralCell.xib */,
+				0A762D6021639FA50019D447 /* TransactionHistoryKeysValuesCell.swift */,
+				0A762D6621639FA50019D447 /* TransactionHistoryKeysValuesCell.xib */,
+				0A762D5F21639FA50019D447 /* TransactionHistoryKeyValueCell.swift */,
+				0A762D6221639FA50019D447 /* TransactionHistoryKeyValueCell.xib */,
+				0A762D6121639FA50019D447 /* TransactionHistoryRecipientCell.swift */,
+				0A762D6421639FA50019D447 /* TransactionHistoryRecipientCell.xib */,
+				0A762D5E21639FA50019D447 /* TransactionHistoryStatusCell.swift */,
 				0A762D6821639FA50019D447 /* TransactionHistoryStatusCell.xib */,
 			);
 			path = Cells;
@@ -3387,7 +3387,6 @@
 			children = (
 				E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */,
 				E9CD0D3421815849001A99B3 /* AddAddressBookTypes.swift */,
-				E9B086932163883000937644 /* AddAddressBook.strings */,
 				E9B086972163883000937644 /* Views */,
 				E9B0869A2163883000937644 /* AddAddressBookModuleOutput.swift */,
 				E9B0869B2163883000937644 /* AddAddressBookViewController.swift */,
@@ -5335,13 +5334,6 @@
 				0A15081D219AE53600516037 /* es */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E9B086932163883000937644 /* AddAddressBook.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-			);
-			name = AddAddressBook.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

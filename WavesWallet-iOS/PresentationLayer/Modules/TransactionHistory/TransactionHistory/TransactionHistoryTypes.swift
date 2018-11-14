@@ -15,18 +15,25 @@ enum TransactionHistoryTypes {
     struct State: Mutating {
         
         var currentIndex: Int
+        var action: Action
         var displays: [DisplayState]
         var transactions: [DomainLayer.DTO.SmartTransaction]
-        
-        struct DisplayState: Mutating {
-            var transaction: DomainLayer.DTO.SmartTransaction
-            var sections: [ViewModel.Section]
-        }
-        
+    }
+
+    struct DisplayState: Mutating {
+        var transaction: DomainLayer.DTO.SmartTransaction
+        var sections: [ViewModel.Section]
     }
     
     enum Event {
         case readyView
+        case tapRecipient(DisplayState, ViewModel.Recipient)
+        case completedAction
+    }
+
+    enum Action {
+        case none
+        case showAddressBook(address: String, isAdded: Bool)
     }
 }
 

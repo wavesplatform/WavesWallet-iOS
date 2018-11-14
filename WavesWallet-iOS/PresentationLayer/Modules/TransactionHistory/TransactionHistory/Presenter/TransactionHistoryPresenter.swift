@@ -18,7 +18,10 @@ protocol TransactionHistoryPresenterProtocol {
 }
 
 final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
-    
+
+    typealias Types = TransactionHistoryTypes
+    typealias Event = Types.Event
+
     var interactor: TransactionHistoryInteractorProtocol!
     weak var moduleOutput: TransactionHistoryModuleOutput?
     let moduleInput: TransactionHistoryModuleInput
@@ -31,12 +34,39 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     
     func system(feedbacks: [TransactionHistoryPresenterProtocol.Feedback]) {
         
-        let newFeedbacks = feedbacks
+        var newFeedbacks = feedbacks
+        newFeedbacks.append(handlerAction())
         
-        Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex), reduce: reduce, feedback: newFeedbacks)
+        Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
+                      reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
+                      feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
+
+
+    func handlerAction() -> TransactionHistoryPresenterProtocol.Feedback {
+
+        return react(query: { state -> Bool? in
+
+            switch state.action {
+            case .showAddressBook(let address, let isAdded):
+
+                if isAdded {
+                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: address)
+                } else {
+                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(address: address)
+                }
+                return true
+            default:
+                return nil
+            }
+
+        }, effects: { _ -> Signal<Event> in
+            return Signal.just(.completedAction)
+        })
+    }
+
     
     private func reduce(state: TransactionHistoryTypes.State, event: TransactionHistoryTypes.Event) -> TransactionHistoryTypes.State {
         var newState = state
@@ -49,6 +79,15 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         switch event {
         case .readyView:
             break
+
+        case .tapRecipient(let displayState, let recipient):
+
+            let address = recipient.address
+            let isAdded = recipient.name == nil
+            state.action = .showAddressBook(address: address, isAdded: isAdded)
+
+        case .completedAction:
+            state.action = .none
         }
     }
     

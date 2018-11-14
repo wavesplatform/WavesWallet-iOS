@@ -10,6 +10,6 @@ import Foundation
 
 protocol TransactionHistoryModuleOutput: class {
     
-    
-    
+    func transactionHistoryAddAddressToHistoryBook(address: String)
+    func transactionHistoryEditAddressToHistoryBook(address: String)
 }

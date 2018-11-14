@@ -27,7 +27,7 @@ extension HistoryCoordinator: HistoryModuleOutput {
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
         TransactionHistoryCoordinator(transactions: transactions,
                                       currentIndex: index,
-                                      rootViewController: historyViewController!).start()
+                                      navigationController: navigationController).start()
     }
 }
 
