@@ -32,13 +32,13 @@ class ImportAccountViewController: UIViewController {
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     
     override func viewDidLoad() {
-        title = Localizable.Waves.Import.General.Navigation.title
+        navigationItem.title = Localizable.Waves.Import.General.Navigation.title
         view.backgroundColor = .basic50
         
         setupBigNavigationBar()
         createBackButton()
         hideTopBarLine()
-        
+
         setupViewControllers()
         setupSegmentedControl()
         
@@ -75,7 +75,13 @@ class ImportAccountViewController: UIViewController {
         manuallyViewController.didMove(toParentViewController: self)
 
         scanViewController.view.isHidden = true
-        manuallyViewController.view.isHidden = true
+        manuallyViewController.view.isHidden = true        
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scanViewController.view.frame = containerView.bounds
+        manuallyViewController.view.frame = containerView.bounds
     }
     
     // MARK: - Content
@@ -118,6 +124,7 @@ class ImportAccountViewController: UIViewController {
 extension ImportAccountViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
         setupTopBarLine()
         manuallyViewController.resignKeyboard()
     }
