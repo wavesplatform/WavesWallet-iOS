@@ -947,6 +947,5 @@
 
 "tokenBurn.label.tokenBurn" = "Token Burn";
 "tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
-"tokenBurn.label.transactionFee" = "Transaction Fee";
-"tokenBurn.button.useTotalBalance" = "Use total balance";
-"tokenBurn.button.continue" = "Continue";
+"tokenBurn.label.id" = "ID";
+"tokenBurn.button.burn" = "Burn";
