@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -446,7 +446,7 @@
                                         <rect key="frame" x="0.0" y="757.5" width="375" height="450"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="449.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9h0-sn-6uU">
@@ -684,6 +684,107 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="2404" y="-125"/>
+        </scene>
+        <!--Token Burn View Controller-->
+        <scene sceneID="eL2-Xj-XXu">
+            <objects>
+                <viewController storyboardIdentifier="TokenBurnViewController" id="yCn-1B-F7E" customClass="TokenBurnViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VLd-aq-0L2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oud-cK-Q8E">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfL-hl-a8z">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18n-d2-Oob" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="120" width="375" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="H3o-5l-YFg"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKR-D9-Jcf" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="547" width="343" height="48"/>
+                                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="lVP-o4-ZeG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <state key="normal" title="Continue"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                                        <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="jXu-Pv-cKv">
+                                                <rect key="frame" x="177.5" y="561" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee 0.001 WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCc-kj-e5z">
+                                                <rect key="frame" x="0.0" y="607" width="375" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O02-7e-sgd" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="24" width="375" height="72"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="72" id="BH7-qh-1H6"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="O02-7e-sgd" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="2hS-X4-0kC"/>
+                                            <constraint firstAttribute="trailing" secondItem="O02-7e-sgd" secondAttribute="trailing" id="AGd-qe-xxm"/>
+                                            <constraint firstItem="18n-d2-Oob" firstAttribute="top" secondItem="O02-7e-sgd" secondAttribute="bottom" constant="24" id="DdN-MQ-Qil"/>
+                                            <constraint firstItem="VKR-D9-Jcf" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="Fyy-D2-MJ2"/>
+                                            <constraint firstAttribute="trailing" secondItem="VKR-D9-Jcf" secondAttribute="trailing" constant="16" id="JTm-ha-Pvl"/>
+                                            <constraint firstItem="jXu-Pv-cKv" firstAttribute="centerY" secondItem="VKR-D9-Jcf" secondAttribute="centerY" id="N3M-Ac-Kjf"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZCc-kj-e5z" secondAttribute="trailing" id="NkK-ck-jPM"/>
+                                            <constraint firstItem="O02-7e-sgd" firstAttribute="top" secondItem="cfL-hl-a8z" secondAttribute="top" constant="24" id="QLA-Sw-BTN"/>
+                                            <constraint firstItem="ZCc-kj-e5z" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="ZeC-1Y-4FR"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZCc-kj-e5z" secondAttribute="bottom" constant="24" id="d2x-1P-ZsL"/>
+                                            <constraint firstItem="jXu-Pv-cKv" firstAttribute="centerX" secondItem="VKR-D9-Jcf" secondAttribute="centerX" id="dg7-wP-GVM"/>
+                                            <constraint firstItem="18n-d2-Oob" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="fWG-i0-AT3"/>
+                                            <constraint firstAttribute="trailing" secondItem="18n-d2-Oob" secondAttribute="trailing" id="iEO-JH-n4l"/>
+                                            <constraint firstAttribute="bottom" secondItem="VKR-D9-Jcf" secondAttribute="bottom" constant="52" id="ycZ-9l-lk3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="cfL-hl-a8z" firstAttribute="width" secondItem="Oud-cK-Q8E" secondAttribute="width" id="0Vx-Xb-ih6"/>
+                                    <constraint firstAttribute="bottom" secondItem="cfL-hl-a8z" secondAttribute="bottom" id="838-xu-3ln"/>
+                                    <constraint firstItem="cfL-hl-a8z" firstAttribute="leading" secondItem="Oud-cK-Q8E" secondAttribute="leading" id="Jm7-x8-1mP"/>
+                                    <constraint firstItem="cfL-hl-a8z" firstAttribute="height" secondItem="Oud-cK-Q8E" secondAttribute="height" id="Kvf-pS-03j"/>
+                                    <constraint firstAttribute="trailing" secondItem="cfL-hl-a8z" secondAttribute="trailing" id="b3m-os-DtQ"/>
+                                    <constraint firstItem="cfL-hl-a8z" firstAttribute="top" secondItem="Oud-cK-Q8E" secondAttribute="top" id="btO-ZG-JPu"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Oud-cK-Q8E" secondAttribute="bottom" id="818-4c-hQs"/>
+                            <constraint firstAttribute="trailing" secondItem="Oud-cK-Q8E" secondAttribute="trailing" id="Vdv-rb-AhE"/>
+                            <constraint firstItem="Oud-cK-Q8E" firstAttribute="top" secondItem="kPd-cu-Tg0" secondAttribute="top" id="XIO-J2-57L"/>
+                            <constraint firstItem="Oud-cK-Q8E" firstAttribute="leading" secondItem="kPd-cu-Tg0" secondAttribute="leading" id="jS2-iw-q7P"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kPd-cu-Tg0"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountView" destination="18n-d2-Oob" id="n0C-lz-dIR"/>
+                        <outlet property="assetView" destination="O02-7e-sgd" id="Rk8-jF-pzB"/>
+                        <outlet property="buttonContinue" destination="VKR-D9-Jcf" id="wby-kK-ieP"/>
+                        <outlet property="labelTransactionFee" destination="ZCc-kj-e5z" id="Djs-eS-opp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cf0-0H-I3V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3087" y="-120"/>
         </scene>
     </scenes>
     <resources>

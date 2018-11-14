@@ -944,3 +944,9 @@
 
 "biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
 "biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
+
+"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.transactionFee" = "Transaction Fee";
+"tokenBurn.button.useTotalBalance" = "Use total balance";
+"tokenBurn.button.continue" = "Continue";

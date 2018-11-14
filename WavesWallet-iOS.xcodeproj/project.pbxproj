@@ -566,6 +566,7 @@
 		E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E721638B11004D4E39 /* StartLeasingInteractorProtocol.swift */; };
 		E95B47F721638B11004D4E39 /* StartLeasingInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E821638B11004D4E39 /* StartLeasingInteractorMock.swift */; };
 		E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E921638B11004D4E39 /* StartLeasingInteractor.swift */; };
+		E95B6B0A219B3B0100A85B5D /* TokenBurnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B6B09219B3B0100A85B5D /* TokenBurnViewController.swift */; };
 		E963CF821F1CF970001494FD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E963CF811F1CF970001494FD /* NetworkManager.swift */; };
 		E965701721935CFD0052F0FC /* CreateOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965701021935CFD0052F0FC /* CreateOrderViewController.swift */; };
 		E965701821935CFD0052F0FC /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965701121935CFD0052F0FC /* Order.swift */; };
@@ -1378,6 +1379,7 @@
 		E95B47FC21638BE9004D4E39 /* TransactionHistoryShowAllView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryShowAllView.swift; sourceTree = "<group>"; };
 		E95B47FD21638BE9004D4E39 /* TransactionCommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCommentView.xib; sourceTree = "<group>"; };
 		E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryShowAllView.xib; sourceTree = "<group>"; };
+		E95B6B09219B3B0100A85B5D /* TokenBurnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnViewController.swift; sourceTree = "<group>"; };
 		E963CF811F1CF970001494FD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E965701021935CFD0052F0FC /* CreateOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrderViewController.swift; sourceTree = "<group>"; };
 		E965701121935CFD0052F0FC /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -2709,6 +2711,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
 				0A7CCDA0218A138D005D372B /* MyAddress */,
 				E9CD0D2F218137FE001A99B3 /* MainTabBar */,
 				E9EC5B352175F35800E5C29A /* Send */,
@@ -3309,6 +3312,22 @@
 				E95B480121638BE9004D4E39 /* TransactionHistoryShowAllView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E95B6B08219B3ADF00A85B5D /* TokenBurn */ = {
+			isa = PBXGroup;
+			children = (
+				E95B6B0B219B4B3A00A85B5D /* Interactor */,
+				E95B6B09219B3B0100A85B5D /* TokenBurnViewController.swift */,
+			);
+			path = TokenBurn;
+			sourceTree = "<group>";
+		};
+		E95B6B0B219B4B3A00A85B5D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E965700F21935CFD0052F0FC /* Old */ = {
@@ -4893,6 +4912,7 @@
 				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
+				E95B6B0A219B3B0100A85B5D /* TokenBurnViewController.swift in Sources */,
 				0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */,
 				0A14E3E42187184000EA7E91 /* AliasesPresenterProtocol.swift in Sources */,
 				F76AF1F81EBB5F650081A8BD /* Base58.swift in Sources */,

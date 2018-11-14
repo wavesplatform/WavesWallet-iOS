@@ -69,6 +69,8 @@ internal enum StoryboardScene {
     internal static let storyboardName = "Asset"
 
     internal static let assetViewController = SceneType<WavesWallet_iOS.AssetViewController>(storyboard: Asset.self, identifier: "AssetViewController")
+
+    internal static let tokenBurnViewController = SceneType<WavesWallet_iOS.TokenBurnViewController>(storyboard: Asset.self, identifier: "TokenBurnViewController")
   }
   internal enum AssetList: StoryboardType {
     internal static let storyboardName = "AssetList"
