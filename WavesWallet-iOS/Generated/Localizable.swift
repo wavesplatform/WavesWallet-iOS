@@ -1813,19 +1813,17 @@ internal enum Localizable {
     internal enum Tokenburn {
 
       internal enum Button {
-        /// Continue
-        internal static var `continue`: String { return Localizable.tr("Waves", "tokenBurn.button.continue") }
-        /// Use total balance
-        internal static var useTotalBalance: String { return Localizable.tr("Waves", "tokenBurn.button.useTotalBalance") }
+        /// Burn
+        internal static var burn: String { return Localizable.tr("Waves", "tokenBurn.button.burn") }
       }
 
       internal enum Label {
+        /// ID
+        internal static var id: String { return Localizable.tr("Waves", "tokenBurn.label.id") }
         /// Quantity of tokens to be burned
         internal static var quantityTokensBurned: String { return Localizable.tr("Waves", "tokenBurn.label.quantityTokensBurned") }
         /// Token Burn
         internal static var tokenBurn: String { return Localizable.tr("Waves", "tokenBurn.label.tokenBurn") }
-        /// Transaction Fee
-        internal static var transactionFee: String { return Localizable.tr("Waves", "tokenBurn.label.transactionFee") }
       }
     }
 

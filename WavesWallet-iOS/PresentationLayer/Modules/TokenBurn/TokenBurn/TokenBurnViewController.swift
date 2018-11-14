@@ -17,13 +17,15 @@ final class TokenBurnViewController: UIViewController {
     
     var asset: DomainLayer.DTO.AssetBalance!
     
+    private var amount: Money?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        title = Localizable.Waves.Tokenburn.Label.tokenBurn
         createBackButton()
         setupLocalization()
         setupData()
+        setupButtonContinue()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,10 +34,16 @@ final class TokenBurnViewController: UIViewController {
         hideTopBarLine()
     }
    
+    @IBAction private func continueTapped(_ sender: Any) {
+        guard let amount = self.amount else { return }
+        let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
+        vc.input = .init(asset: asset, amount: amount)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 
-//MARK: - DATA
+//MARK: - Data
 private extension TokenBurnViewController {
     
     var input: [Money] {
@@ -45,6 +53,11 @@ private extension TokenBurnViewController {
     var availableBalance: Money {
         return Money(asset.avaliableBalance, asset.asset?.precision ?? 0)
     }
+    
+    var isValidInputAmount: Bool {
+        guard let amount = self.amount else { return false }
+        return amount.amount <= availableBalance.amount && amount.amount > 0
+    }
 }
 
 //MARK: - AmountInputViewDelegate
@@ -52,11 +65,26 @@ extension TokenBurnViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         
+        amount = value
+        setupButtonContinue()
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension TokenBurnViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setupTopBarLine()
     }
 }
 
 //MARK: - UI
 private extension TokenBurnViewController {
+    
+    func setupButtonContinue() {
+        
+        buttonContinue.isUserInteractionEnabled = isValidInputAmount
+        buttonContinue.backgroundColor = isValidInputAmount ? .submit400 : .submit200
+    }
     
     func setupData() {
         assetView.isSelectedAssetMode = false
@@ -69,14 +97,15 @@ private extension TokenBurnViewController {
             amountView.input = { [weak self] in
                 return self?.input ?? []
             }
-            amountView.update(with: [Localizable.Waves.Tokenburn.Button.useTotalBalance])
+            amountView.update(with: [Localizable.Waves.Send.Button.useTotalBalanace])
         }
     }
     
     func setupLocalization() {
+        title = Localizable.Waves.Tokenburn.Label.tokenBurn
         amountView.setupRightLabelText(asset.asset?.displayName ?? "")
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
-        buttonContinue.setTitle(Localizable.Waves.Tokenburn.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Waves.Tokenburn.Label.transactionFee + "0.001 WAVES"
+        buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
+        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + "0.001" +  " WAVES"
     }
 }
