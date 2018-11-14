@@ -74,7 +74,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
             let params = ["currency_from" : asset.gatewayId ?? "",
                           "currency_to" : asset.wavesId ?? "",
-                          "wallet_to" : signedWallet.wallet.address]
+                          "wallet_to" : signedWallet.address]
             
             //TODO: need change to Observer network
             NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params, complete: { (info, error) in

@@ -93,7 +93,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
 
         return environmentRepository
-            .accountEnvironment(accountAddress: wallet.wallet.address)
+            .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 let timestamp = Int64(Date().millisecondsSince1970)

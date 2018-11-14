@@ -101,7 +101,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                 .send(by: specifications, wallet: wallet)
                 .flatMap({ [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
                     guard let owner = self else { return Observable.never() }
-                    return owner.smartTransactions(SmartTransactionsQuery(accountAddress: wallet.wallet.address, transactions: [tx]))
+                    return owner.smartTransactions(SmartTransactionsQuery(accountAddress: wallet.address, transactions: [tx]))
                         .flatMap({ txs -> Observable<DomainLayer.DTO.SmartTransaction> in
                             guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
                             return Observable.just(tx)
@@ -222,7 +222,7 @@ fileprivate extension TransactionsInteractor {
         let accounts = accountsInteractors
             .accounts(by: ids, accountAddress: accountAddress)
             .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
-                list[account.id] = account
+                list[account.address] = account
             })
         }
         return accounts

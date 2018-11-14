@@ -16,7 +16,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.wallet.address) else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }

@@ -56,8 +56,8 @@ final class AssetInteractor: AssetInteractorProtocol {
             .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartTransaction]> in
 
                 guard let owner = self else { return Observable.never() }
-
-                return owner.transactionsInteractor.transactions(by: wallet.wallet.address,
+                
+                return owner.transactionsInteractor.transactions(by: wallet.address,
                                                                  specifications: .init(page: .init(offset: 0,
                                                                                             limit: Constants.transactionLimit),
                                                                                 assets: [assetId],
@@ -86,7 +86,7 @@ final class AssetInteractor: AssetInteractorProtocol {
                 guard let owner = self else { return Observable.never() }
                 return owner
                     .accountBalanceRepositoryLocal
-                    .balance(by: id, accountAddress: wallet.wallet.address)
+                    .balance(by: id, accountAddress: wallet.address)
                     .map { (wallet: wallet.wallet, balance: $0) }
             }
             .flatMap { [weak self] data -> Observable<Bool> in

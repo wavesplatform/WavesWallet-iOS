@@ -13,8 +13,8 @@ enum AddAddressBook {
     enum DTO {
         struct Input {
             enum Kind {
-                case edit(address: String)
-                case add
+                case edit(contact: DomainLayer.DTO.Contact, isMutable: Bool)
+                case add(String?)
             }
             let kind: Kind
         }
@@ -24,11 +24,20 @@ enum AddAddressBook {
 extension AddAddressBook.DTO.Input {
 
     var isAdd: Bool {        
-        switch self {
+        switch self.kind {
         case .add:
             return true
         default:
             return false
+        }
+    }
+
+    var contact: DomainLayer.DTO.Contact? {
+        switch self.kind {
+        case .edit(let contact, _):
+            return contact
+        default:
+            return nil
         }
     }
 }
