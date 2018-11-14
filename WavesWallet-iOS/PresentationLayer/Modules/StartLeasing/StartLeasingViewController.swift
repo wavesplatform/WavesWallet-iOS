@@ -136,7 +136,7 @@ private extension StartLeasingViewController {
             && !isNotEnoughAmount
             && order.amount.amount > 0
             && !isCreatingOrderState
-            && Address.isValidAddress(address: order.recipient)
+            && (Address.isValidAddress(address: order.recipient) || Address.isValidAlias(alias: order.recipient))
     }
     
     var isNotEnoughAmount: Bool {
@@ -205,7 +205,7 @@ private extension StartLeasingViewController {
                                                        contacts: [])
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
-            return Address.isValidAddress(address: text)
+            return Address.isValidAddress(address: text) || Address.isValidAlias(alias: text)
         }
         setupButtonState()
     }

@@ -29,6 +29,11 @@ class Address {
         return Array(Hash.secureHash(withoutChecksum)[0..<ChecksumLength])
     }
     
+    class func isValidAlias(alias: String?) -> Bool {
+        guard let alias = alias else { return false }
+        return RegEx.alias(alias)
+    }
+    
     class func isValidAddress(address: String?) -> Bool {
         guard let address = address else { return false }
         
@@ -39,9 +44,8 @@ class Address {
                 let checkSum = Array(bytes[bytes.count - ChecksumLength..<bytes.count])
                 let checkSumGenerated = calcCheckSum(Array(bytes[0..<bytes.count - ChecksumLength]))
                 return checkSum == checkSumGenerated
-        } else {
-            return RegEx.alias(address)
         }
+        return false
     }
 
     class func scheme(from publicKey: String) -> String? {
