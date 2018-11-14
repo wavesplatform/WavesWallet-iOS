@@ -139,7 +139,7 @@ final class NewTransactionHistoryContentView: UIView {
         
         let id = transaction.id
         let kind = transaction.title
-        let sender = transaction.sender.id
+        let sender = transaction.sender.address
         
         let formatter = DateFormatter.sharedFormatter
         formatter.dateFormat = Constants.timestampDateFormat
@@ -150,11 +150,11 @@ final class NewTransactionHistoryContentView: UIView {
         
         switch transaction.kind {
         case .receive(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
 
         case .sent(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
 
         case .exchange(let model):
@@ -173,27 +173,27 @@ final class NewTransactionHistoryContentView: UIView {
             balance = model.balance
 
         case .startedLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
 
         case .canceledLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
 
         case .incomingLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
 
         case .spamReceive(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
 
         case .massSent(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
             balance = model.total
 
         case .massReceived(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
             balance = model.total
         default:
             break

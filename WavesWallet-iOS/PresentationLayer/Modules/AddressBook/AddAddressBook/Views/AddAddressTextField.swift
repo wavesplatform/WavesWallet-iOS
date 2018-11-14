@@ -17,6 +17,7 @@ private enum Constansts {
 
 protocol AddAddressTextFieldDelegate: AnyObject {
     func addAddressTextField(_ textField: AddAddressTextField, didChange text: String)
+    func addressTextFieldTappedNext()
 }
 
 final class AddAddressTextField: UIView, NibOwnerLoadable {
@@ -36,6 +37,14 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
         }
         get {
             return addressTextField.text
+        }
+    }
+
+    var isEnabled: Bool = true {
+        didSet {
+            addressTextField.textField.isEnabled = isEnabled
+            buttonDelete.isHidden = !isEnabled
+            buttonScan.isHidden = !isEnabled
         }
     }
     
@@ -97,6 +106,11 @@ extension AddAddressTextField: BaseInputTextFieldDelegate {
     func baseInputTextField(_ textField: BaseInputTextField, didChange text: String) {
         delegate?.addAddressTextField(self, didChange: text)
         setupButtonsState(animation: true)
+    }
+
+    func baseInputTextFieldHandlerTextFieldReturn(_ textField: BaseInputTextField) -> Bool {
+        delegate?.addressTextFieldTappedNext()
+        return true
     }
 }
 

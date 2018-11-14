@@ -37,19 +37,19 @@ final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
 extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 
     func transactionHistoryAddAddressToHistoryBook(address: String) {
-        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(contact: nil, address: address))
+//        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: a))
 
-        navigationController.dismiss(animated: true) {
-            self.navigationController.pushViewController(vc, animated: true)
-        }
+//        navigationController.dismiss(animated: true) {
+//            self.navigationController.pushViewController(vc, animated: true)
+//        }
     }
 
     func transactionHistoryEditAddressToHistoryBook(address: String) {
-        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(contact: nil, address: address))
-
-        navigationController.dismiss(animated: true) {
-            self.navigationController.pushViewController(vc, animated: true)
-        }
+//        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(contact: nil, address: address))
+//
+//        navigationController.dismiss(animated: true) {
+//            self.navigationController.pushViewController(vc, animated: true)
+//        }
     }
 }
 

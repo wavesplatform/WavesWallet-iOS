@@ -82,15 +82,18 @@ extension TransactionHistoryRecipientCell: ViewCalculateHeight {
     typealias Model = TransactionHistoryTypes.ViewModel.Recipient
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.Recipient, width: CGFloat) -> CGFloat {
-        
+
+        let name = model.account.contact?.name
+        let address = model.account.address
+
         let titleHeight = title(for: model).maxHeight(font: Constants.titleFont, forWidth: width)
         
-        let nameLabelText = model.name ?? model.address
+        let nameLabelText = name ?? address
         let nameHeight = nameLabelText.maxHeight(font: Constants.nameFont, forWidth: width)
         
-        let nameToAddressY: CGFloat = (model.name != nil) ? Constants.nameToAddressY : 0
+        let nameToAddressY: CGFloat = (name != nil) ? Constants.nameToAddressY : 0
         
-        let addressHeight = (model.name != nil) ? model.address.maxHeight(font: Constants.addressFont, forWidth: width) : 0
+        let addressHeight = (name != nil) ? address.maxHeight(font: Constants.addressFont, forWidth: width) : 0
         
         let height = Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + addressHeight + Constants.padding.bottom
         
@@ -104,18 +107,21 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
 
         self.recipient = model
         titleLabel.text = TransactionHistoryRecipientCell.title(for: model)
-        
-        if model.name != nil {
-            valueLabel.text = model.name
-            keyLabel.text = model.address
+
+        let name = model.account.contact?.name
+        let address = model.account.address
+
+        if name != nil {
+            valueLabel.text = name
+            keyLabel.text = address
             contactButton.setImage(Images.editAddressIcon.image, for: .normal)
         } else {
-            valueLabel.text = model.address
+            valueLabel.text = address
             keyLabel.text = ""
             contactButton.setImage(Images.addAddressIcon.image, for: .normal)
         }
         
-        nameToKeyConstraint.constant = model.name != nil ? Constants.nameToAddressY : 0
+        nameToKeyConstraint.constant = name != nil ? Constants.nameToAddressY : 0
         
         setNeedsUpdateConstraints()
     }

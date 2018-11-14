@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-final class AddressBook: Object {
+final class AddressBook: Object {    
     @objc dynamic var address = ""
     @objc dynamic var name = ""
     

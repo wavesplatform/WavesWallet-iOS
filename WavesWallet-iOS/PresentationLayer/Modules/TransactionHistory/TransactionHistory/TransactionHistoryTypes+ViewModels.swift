@@ -23,8 +23,7 @@ extension TransactionHistoryTypes.ViewModel {
     
     struct Recipient {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
-        let name: String?
-        let address: String
+        let account: DomainLayer.DTO.Account
     }
     
     struct KeyValue: Hashable {
@@ -106,10 +105,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
             kindRows.append(
                 .recipient(
-                .init(
-                    kind: transaction.kind,
-                    name: model.recipient.contact?.name,
-                    address: model.recipient.id)
+                    .init(
+                        kind: transaction.kind,
+                        account: model.recipient)
                 ))
 
         case .sent(let model):
@@ -120,10 +118,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
 
             kindRows.append(
                 .recipient(
-                .init(
-                    kind: transaction.kind,
-                    name: model.recipient.contact?.name,
-                    address: model.recipient.id)
+                    .init(
+                        kind: transaction.kind,
+                        account: model.recipient)
                 ))
             
         case .startedLeasing(let model):
@@ -134,8 +131,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    name: model.account.contact?.name,
-                    address: model.account.id)
+                    account: model.account)
                 ))
             
         case .exchange(let model):
@@ -215,8 +211,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    name: model.account.contact?.name,
-                    address: model.account.id)
+                    account: model.account)
                 ))
             
         case .incomingLeasing(let model):
@@ -228,8 +223,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    name: model.account.contact?.name,
-                    address: model.account.id)
+                    account: model.account)
                 ))
             
         case .massSent(let model):
@@ -243,8 +237,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        name: transfer.recipient.contact?.name,
-                        address: transfer.recipient.id)
+                        account: transfer.recipient)
                     ))
             }
             
@@ -259,8 +252,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        name: transfer.recipient.contact?.name,
-                        address: transfer.recipient.id)
+                        account: transfer.recipient)
                     ))
             }
             
@@ -275,8 +267,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    name: model.recipient.contact?.name,
-                    address: model.recipient.id)
+                    account: model.recipient)
                 ))
             
         case .spamMassReceived(let model):
@@ -291,8 +282,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        name: transfer.recipient.contact?.name,
-                        address: transfer.recipient.id)
+                        account: transfer.recipient)
                     ))
             }
             

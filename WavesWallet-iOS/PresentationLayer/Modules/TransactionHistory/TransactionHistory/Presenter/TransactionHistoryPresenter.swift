@@ -82,8 +82,8 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         case .tapRecipient(let displayState, let recipient):
 
-            let address = recipient.address
-            let isAdded = recipient.name == nil
+            let address = recipient.account.address
+            let isAdded = recipient.account.contact == nil
             state.action = .showAddressBook(address: address, isAdded: isAdded)
 
         case .completedAction:

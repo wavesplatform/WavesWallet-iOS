@@ -36,13 +36,15 @@ final class AddAddressBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigation.title = input.isAdd == true ? Localizable.Waves.Addaddressbook.Label.add : Localizable.Waves.Addaddressbook.Label.edit
+        navigationItem.title = input.isAdd == true ? Localizable.Waves.Addaddressbook.Label.add : Localizable.Waves.Addaddressbook.Label.edit
 
         switch input.kind {
-        case .edit(let address):
-            textFieldAddress.text = address
-        default:
-            break
+        case .edit(let contact, let isMutable):
+            textFieldAddress.text = contact.address
+            textFieldAddress.isEnabled = isMutable
+
+        case .add(let address):
+            textFieldAddress.text = address ?? ""
         }
 
         createBackButton()
@@ -69,26 +71,7 @@ final class AddAddressBookViewController: UIViewController {
 private extension AddAddressBookViewController {
     
     @IBAction func saveTapped(_ sender: Any) {
-    
-        let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText, address: textFieldAddress.trimmingText)
-
-        authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<Bool> in
-
-                guard let owner = self else { return Observable.never() }
-                return owner.repository.save(contact: newContact, accountAddress: wallet.wallet.address)
-            }
-            .subscribe(onNext: { [weak self] _ in
-                if self?.input.isAdd ?? false {
-                    self?.delegate?.addAddressBookDidEdit(contact: contact, newContact: newContact)
-                } else {
-                    self?.delegate?.addAddressBookDidCreate(contact: newContact)
-                }
-                //TODO: Move code to coordinator
-                navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: disposeBag)
+        saveAddressBook()
     }
     
     @IBAction func deleteTapped(_ sender: Any) {
@@ -101,11 +84,12 @@ private extension AddAddressBookViewController {
                     .authorizedWallet()
                     .flatMap { [weak self] wallet -> Observable<Bool> in
                         guard let owner = self else { return Observable.never() }
-                        return owner.repository.delete(contact: contact, accountAddress: wallet.wallet.address)
+                        return owner.repository.delete(contact: contact, accountAddress: wallet.address)
                     }
                     .subscribe()
                     .disposed(by: self.disposeBag)
                 self.delegate?.addAddressBookDidDelete(contact: contact)
+                //TODO: Move code to coordinator
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -117,6 +101,39 @@ private extension AddAddressBookViewController {
 
     private func saveAddressBook() {
 
+        if isValidInput == false {
+            return
+        }
+
+        let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText, address: textFieldAddress.trimmingText)
+        authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+
+                guard let owner = self else { return Observable.never() }
+                return owner.repository.save(contact: newContact, accountAddress: wallet.address)
+                    .map { _ in wallet.wallet }
+            }
+            .flatMap({ [weak self] wallet  -> Observable<Bool> in
+                guard let owner = self else { return Observable.never() }
+                if let contact = owner.input.contact,
+                    self?.input.isAdd == false && contact.address != newContact.address {
+                    return owner.repository.delete(contact: contact, accountAddress: wallet.address)
+                }
+
+                return Observable.just(true)
+            })
+            .subscribe(onNext: { [weak self] _ in
+
+                if let contact = self?.input.contact, self?.input.isAdd == false {
+                    self?.delegate?.addAddressBookDidEdit(contact: contact, newContact: newContact)
+                } else {
+                    self?.delegate?.addAddressBookDidCreate(contact: newContact)
+                }
+                //TODO: Move code to coordinator
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 
 }
@@ -132,6 +149,12 @@ extension AddAddressBookViewController: AddAddressTextFieldDelegate {
             textFieldName.becomeFirstResponder()
         }
     }
+
+    func addressTextFieldTappedNext() {
+        if textFieldAddress.text.count > 0 {
+            textFieldName.becomeFirstResponder()
+        }
+    }
 }
 
 //MARK: - BaseInputTextFieldDelegate
@@ -139,6 +162,12 @@ extension AddAddressBookViewController: BaseInputTextFieldDelegate {
 
     func baseInputTextField(_ textField: BaseInputTextField, didChange text: String) {
         setupButtonSaveState()
+    }
+
+    func baseInputTextFieldHandlerTextFieldReturn(_ textField: BaseInputTextField) -> Bool {
+
+        saveAddressBook()
+        return true
     }
 }
 
@@ -168,8 +197,8 @@ private extension AddAddressBookViewController {
     
     func setupEditUserMode() {
         
-        buttonDelete.isHidden = input.contact == nil
-        
+        buttonDelete.isHidden = !input.isAdd
+
         if let contact = input.contact {
             textFieldName.setupText(contact.name)
             textFieldAddress.text = contact.address

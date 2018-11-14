@@ -11,7 +11,7 @@ import Foundation
 extension DomainLayer.DTO {
     struct Account {
         
-        let id: String
+        let address: String
         let contact: DomainLayer.DTO.Contact?
         let isMyAccount: Bool
     }

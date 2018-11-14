@@ -31,7 +31,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
     private func getAddress() -> Observable<String> {
         let authAccount = FactoryInteractors.instance.authorization
         return authAccount.authorizedWallet().flatMap { signedWallet -> Observable<String> in
-            return Observable.just(signedWallet.wallet.address)
+            return Observable.just(signedWallet.address)
         }
     }
     
@@ -46,7 +46,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
             authAccount.authorizedWallet().subscribe(onNext: { signedWallet in
  
                 let params = ["crypto" : GlobalConstants.wavesAssetId,
-                              "address" : signedWallet.wallet.address,
+                              "address" : signedWallet.address,
                               "fiat" : fiat.id]
                 
                 //TODO: need change to Observer network

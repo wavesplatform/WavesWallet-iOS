@@ -38,7 +38,7 @@ final class AccountsInteractorMock: AccountsInteractorProtocol {
                         newAddress = address.removeCharacters(from: environment.aliasScheme)
                     }
                     let isMyAccount = accountAddress == newAddress || aliases.map { $0.name }.contains(newAddress)
-                    return DomainLayer.DTO.Account(id: newAddress, contact: maps[newAddress], isMyAccount: isMyAccount)
+                    return DomainLayer.DTO.Account(address: newAddress, contact: maps[newAddress], isMyAccount: isMyAccount)
                 })
 
                 return Observable.just(accounts)
