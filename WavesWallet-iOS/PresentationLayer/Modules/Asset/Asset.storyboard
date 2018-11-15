@@ -736,13 +736,44 @@
                                                     <constraint firstAttribute="height" constant="72" id="BH7-qh-1H6"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ni-B5-pVf">
+                                                <rect key="frame" x="16" y="234" width="343" height="31.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have enough funds to pay the required fees." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQn-hy-3Ve">
+                                                        <rect key="frame" x="32" y="0.0" width="311" height="31.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Error500" translatesAutoresizingMaskIntoConstraints="NO" id="4QE-ad-1jf">
+                                                        <rect key="frame" x="0.0" y="7" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="18" id="Meb-Lw-Sz3"/>
+                                                            <constraint firstAttribute="height" constant="18" id="p7o-zw-NW0"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="4QE-ad-1jf" firstAttribute="leading" secondItem="0Ni-B5-pVf" secondAttribute="leading" id="3Xy-Zb-s8x"/>
+                                                    <constraint firstItem="4QE-ad-1jf" firstAttribute="centerY" secondItem="0Ni-B5-pVf" secondAttribute="centerY" id="9Ou-x5-5zL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rQn-hy-3Ve" secondAttribute="trailing" id="FPU-eE-TF5"/>
+                                                    <constraint firstItem="rQn-hy-3Ve" firstAttribute="top" secondItem="0Ni-B5-pVf" secondAttribute="top" id="HtW-oy-evb"/>
+                                                    <constraint firstItem="rQn-hy-3Ve" firstAttribute="leading" secondItem="4QE-ad-1jf" secondAttribute="trailing" constant="14" id="SJm-wh-OT9"/>
+                                                    <constraint firstAttribute="bottom" secondItem="rQn-hy-3Ve" secondAttribute="bottom" id="w6e-7J-kff"/>
+                                                </constraints>
+                                            </view>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Io9-U5-RZZ">
+                                                <rect key="frame" x="177.5" y="234" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="O02-7e-sgd" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="2hS-X4-0kC"/>
+                                            <constraint firstItem="0Ni-B5-pVf" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="2ih-3j-uzS"/>
                                             <constraint firstAttribute="trailing" secondItem="O02-7e-sgd" secondAttribute="trailing" id="AGd-qe-xxm"/>
                                             <constraint firstItem="18n-d2-Oob" firstAttribute="top" secondItem="O02-7e-sgd" secondAttribute="bottom" constant="24" id="DdN-MQ-Qil"/>
                                             <constraint firstItem="VKR-D9-Jcf" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="Fyy-D2-MJ2"/>
+                                            <constraint firstItem="Io9-U5-RZZ" firstAttribute="centerX" secondItem="cfL-hl-a8z" secondAttribute="centerX" id="IJ0-Kb-rWa"/>
                                             <constraint firstAttribute="trailing" secondItem="VKR-D9-Jcf" secondAttribute="trailing" constant="16" id="JTm-ha-Pvl"/>
                                             <constraint firstAttribute="trailing" secondItem="ZCc-kj-e5z" secondAttribute="trailing" id="NkK-ck-jPM"/>
                                             <constraint firstItem="O02-7e-sgd" firstAttribute="top" secondItem="cfL-hl-a8z" secondAttribute="top" constant="24" id="QLA-Sw-BTN"/>
@@ -750,6 +781,9 @@
                                             <constraint firstAttribute="bottom" secondItem="ZCc-kj-e5z" secondAttribute="bottom" constant="24" id="d2x-1P-ZsL"/>
                                             <constraint firstItem="18n-d2-Oob" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="fWG-i0-AT3"/>
                                             <constraint firstAttribute="trailing" secondItem="18n-d2-Oob" secondAttribute="trailing" id="iEO-JH-n4l"/>
+                                            <constraint firstAttribute="trailing" secondItem="0Ni-B5-pVf" secondAttribute="trailing" constant="16" id="oAm-so-rrd"/>
+                                            <constraint firstItem="0Ni-B5-pVf" firstAttribute="top" secondItem="18n-d2-Oob" secondAttribute="bottom" constant="14" id="rAL-jt-AEr"/>
+                                            <constraint firstItem="Io9-U5-RZZ" firstAttribute="top" secondItem="0Ni-B5-pVf" secondAttribute="top" id="vbs-Uo-ZYX"/>
                                             <constraint firstAttribute="bottom" secondItem="VKR-D9-Jcf" secondAttribute="bottom" constant="52" id="ycZ-9l-lk3"/>
                                         </constraints>
                                     </view>
@@ -777,10 +811,13 @@
                         <viewLayoutGuide key="safeArea" id="kPd-cu-Tg0"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Io9-U5-RZZ" id="v3G-XN-2b3"/>
                         <outlet property="amountView" destination="18n-d2-Oob" id="n0C-lz-dIR"/>
                         <outlet property="assetView" destination="O02-7e-sgd" id="Rk8-jF-pzB"/>
                         <outlet property="buttonContinue" destination="VKR-D9-Jcf" id="wby-kK-ieP"/>
+                        <outlet property="labelFeeError" destination="rQn-hy-3Ve" id="hqt-U4-VV6"/>
                         <outlet property="labelTransactionFee" destination="ZCc-kj-e5z" id="Djs-eS-opp"/>
+                        <outlet property="viewFeeError" destination="0Ni-B5-pVf" id="PbD-b0-EwD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cf0-0H-I3V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -996,6 +1033,7 @@
         <image name="copy_black" width="18" height="18"/>
         <image name="icon_receive" width="28" height="28"/>
         <image name="icon_send" width="28" height="28"/>
+        <image name="info18Error500" width="18" height="18"/>
         <image name="tSend48" width="48" height="48"/>
         <image name="tSoonExchange28" width="28" height="28"/>
         <image name="wallet_arrow_right" width="14" height="14"/>
