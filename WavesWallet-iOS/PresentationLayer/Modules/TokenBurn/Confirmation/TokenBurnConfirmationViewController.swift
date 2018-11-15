@@ -28,6 +28,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
     struct Input {
         let asset: DomainLayer.DTO.AssetBalance
         let amount: Money
+        let fee: Money
     }
     
     var input: Input!
@@ -59,14 +60,16 @@ final class TokenBurnConfirmationViewController: UIViewController {
     
     @IBAction private func burnTapped(_ sender: Any) {
     
+//        TransactionSenderSpecifications
     }
+   
 }
 
 //MARK: - UI
 private extension TokenBurnConfirmationViewController {
  
     func setupData() {
-        labelFeeAmount.text = "0.001 WAVES"
+        labelFeeAmount.text = input.fee.displayText + " WAVES"
         
         if input.asset.asset?.isReusable == true {
             labelType.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.reissuable

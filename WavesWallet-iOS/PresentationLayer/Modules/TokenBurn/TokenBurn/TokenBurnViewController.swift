@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import RxSwift
+
+private enum Constants {
+    static let animationDuration: TimeInterval = 0.3
+}
 
 final class TokenBurnViewController: UIViewController {
 
@@ -14,10 +19,20 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
     @IBOutlet private weak var labelTransactionFee: UILabel!
+    @IBOutlet private weak var viewFeeError: UIView!
+    @IBOutlet private weak var labelFeeError: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     var asset: DomainLayer.DTO.AssetBalance!
     
+    private let disposeBag = DisposeBag()
+    private let interactor = TokenBurnInteractor()
+    
+    private var wavesBalance: Money?
     private var amount: Money?
+    private let fee = GlobalConstants.WavesTransactionFee
+    
+    private var isShowError = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +41,7 @@ final class TokenBurnViewController: UIViewController {
         setupLocalization()
         setupData()
         setupButtonContinue()
+        loadWavesBalance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +53,7 @@ final class TokenBurnViewController: UIViewController {
     @IBAction private func continueTapped(_ sender: Any) {
         guard let amount = self.amount else { return }
         let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
-        vc.input = .init(asset: asset, amount: amount)
+        vc.input = .init(asset: asset, amount: amount, fee: fee)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -46,8 +62,26 @@ final class TokenBurnViewController: UIViewController {
 //MARK: - Data
 private extension TokenBurnViewController {
     
+    func loadWavesBalance() {
+        interactor.getWavesBalance().subscribe(onNext: { [weak self] (wavesBalance) in
+            guard let owner = self else { return }
+            owner.wavesBalance = wavesBalance
+            
+            DispatchQueue.main.async {
+                owner.setupButtonContinue()
+                owner.activityIndicator.stopAnimating()
+                owner.updateFeeError()
+            }
+        }).disposed(by: disposeBag)
+    }
+    
     var input: [Money] {
         return [availableBalance]
+    }
+    
+    var isValidFee: Bool {
+        guard let balance = wavesBalance else { return false }
+        return balance.amount >= fee.amount
     }
     
     var availableBalance: Money {
@@ -67,6 +101,11 @@ extension TokenBurnViewController: AmountInputViewDelegate {
         
         amount = value
         setupButtonContinue()
+        showLoadingIndicatorIfNeed()
+        updateFeeError()
+        
+        let isShowError = value.amount > availableBalance.amount
+        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowError)
     }
 }
 
@@ -81,12 +120,46 @@ extension TokenBurnViewController: UIScrollViewDelegate {
 private extension TokenBurnViewController {
     
     func setupButtonContinue() {
+        let canContinue = isValidInputAmount && isValidFee
+        buttonContinue.isUserInteractionEnabled = canContinue
+        buttonContinue.backgroundColor = canContinue ? .submit400 : .submit200
+    }
+    
+    func updateFeeError() {
         
-        buttonContinue.isUserInteractionEnabled = isValidInputAmount
-        buttonContinue.backgroundColor = isValidInputAmount ? .submit400 : .submit200
+        if let money = amount, money.amount > 0, wavesBalance != nil  {
+            let isShow = isValidFee ? false : true
+            showError(isShow)
+        }
+        else {
+            showError(false)
+        }
+    }
+    
+    func showError(_ show: Bool) {
+        
+        if isShowError != show {
+            isShowError = show
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.viewFeeError.alpha = show ? 1 : 0
+            }
+        }
+    }
+    
+    func showLoadingIndicatorIfNeed() {
+        if let money = amount, money.amount > 0, wavesBalance == nil {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }
+        else {
+            if activityIndicator.isAnimating {
+                activityIndicator.stopAnimating()
+            }
+        }
     }
     
     func setupData() {
+        viewFeeError.alpha = 0
         assetView.isSelectedAssetMode = false
         assetView.update(with: asset)
         
@@ -106,6 +179,7 @@ private extension TokenBurnViewController {
         amountView.setupRightLabelText(asset.asset?.displayName ?? "")
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
         buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + "0.001" +  " WAVES"
+        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + fee.displayText +  " WAVES"
+        labelFeeError.text = Localizable.Waves.Send.Label.Error.notFundsFee
     }
 }
