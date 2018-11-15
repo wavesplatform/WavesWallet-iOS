@@ -1820,10 +1820,14 @@ internal enum Localizable {
       internal enum Label {
         /// ID
         internal static var id: String { return Localizable.tr("Waves", "tokenBurn.label.id") }
+        /// Burn...
+        internal static var loading: String { return Localizable.tr("Waves", "tokenBurn.label.loading") }
         /// Quantity of tokens to be burned
         internal static var quantityTokensBurned: String { return Localizable.tr("Waves", "tokenBurn.label.quantityTokensBurned") }
         /// Token Burn
         internal static var tokenBurn: String { return Localizable.tr("Waves", "tokenBurn.label.tokenBurn") }
+        /// You have burned
+        internal static var youHaveBurned: String { return Localizable.tr("Waves", "tokenBurn.label.youHaveBurned") }
       }
     }
 
