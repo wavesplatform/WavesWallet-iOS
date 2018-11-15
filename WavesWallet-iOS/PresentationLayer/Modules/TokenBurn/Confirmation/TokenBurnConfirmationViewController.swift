@@ -60,9 +60,20 @@ final class TokenBurnConfirmationViewController: UIViewController {
     
     @IBAction private func burnTapped(_ sender: Any) {
     
-//        TransactionSenderSpecifications
+        let vc = StoryboardScene.Asset.tokenBurnLoadingViewController.instantiate()
+        vc.input = input
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
    
+}
+
+//MARK: - TokenBurnLoadingViewControllerDelegate
+extension TokenBurnConfirmationViewController: TokenBurnLoadingViewControllerDelegate {
+
+    func tokenBurnLoadingViewControllerDidFail(error: ResponseTypeError) {
+        //TODO: need to show error
+    }
 }
 
 //MARK: - UI

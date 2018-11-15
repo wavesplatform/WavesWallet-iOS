@@ -1025,6 +1025,142 @@
             </objects>
             <point key="canvasLocation" x="3781.5999999999999" y="-120.08995502248877"/>
         </scene>
+        <!--Token Burn Loading View Controller-->
+        <scene sceneID="ZON-Za-Ulq">
+            <objects>
+                <viewController storyboardIdentifier="TokenBurnLoadingViewController" id="ezK-uX-Wmk" customClass="TokenBurnLoadingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m4q-Tf-kjc" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fq-NL-cd3">
+                                <rect key="frame" x="16" y="40" width="343" height="212"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bau-ob-pSh">
+                                        <rect key="frame" x="161.5" y="72" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burn..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IC1-Do-T5M">
+                                        <rect key="frame" x="146.5" y="147" width="50.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="IC1-Do-T5M" firstAttribute="centerX" secondItem="4Fq-NL-cd3" secondAttribute="centerX" id="8qP-Vr-yyO"/>
+                                    <constraint firstItem="bau-ob-pSh" firstAttribute="centerX" secondItem="4Fq-NL-cd3" secondAttribute="centerX" id="M5c-GS-TqE"/>
+                                    <constraint firstItem="bau-ob-pSh" firstAttribute="top" secondItem="4Fq-NL-cd3" secondAttribute="top" constant="72" id="Ypu-7Y-qe3"/>
+                                    <constraint firstAttribute="bottom" secondItem="IC1-Do-T5M" secondAttribute="bottom" constant="44" id="ekO-ln-HWc"/>
+                                    <constraint firstAttribute="height" constant="212" id="gan-9p-tqf"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Fq-NL-cd3" firstAttribute="leading" secondItem="Jq3-Hq-8ec" secondAttribute="leading" constant="16" id="I1k-j9-5ta"/>
+                            <constraint firstItem="Jq3-Hq-8ec" firstAttribute="trailing" secondItem="4Fq-NL-cd3" secondAttribute="trailing" constant="16" id="TFF-uR-s5M"/>
+                            <constraint firstItem="4Fq-NL-cd3" firstAttribute="top" secondItem="Jq3-Hq-8ec" secondAttribute="top" constant="20" id="via-F7-LFa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jq3-Hq-8ec"/>
+                    </view>
+                    <connections>
+                        <outlet property="labelLoading" destination="IC1-Do-T5M" id="het-Hk-6My"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5yd-GJ-SWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4445" y="-119"/>
+        </scene>
+        <!--Token Burn Complete View Controller-->
+        <scene sceneID="dij-lh-hs4">
+            <objects>
+                <viewController storyboardIdentifier="TokenBurnCompleteViewController" id="tXg-WY-Blw" customClass="TokenBurnCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hCc-5U-dXw" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nl4-1p-ex9">
+                                <rect key="frame" x="16" y="40" width="343" height="308.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-wz-Phr">
+                                        <rect key="frame" x="131.5" y="44" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is on the way!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2D-4Y-Ila">
+                                        <rect key="frame" x="10" y="148" width="323" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have sent 0.00138696 WAVES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZh-lL-Xrx">
+                                        <rect key="frame" x="10" y="176.5" width="323" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLJ-j1-x2R" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="236.5" width="311" height="48"/>
+                                        <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="J0V-FZ-JJm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <state key="normal" title="Okey"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                                <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okeyTapped:" destination="tXg-WY-Blw" eventType="touchUpInside" id="TYu-Cs-k0u"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="IWN-wz-Phr" firstAttribute="centerX" secondItem="Nl4-1p-ex9" secondAttribute="centerX" id="1eA-aE-yfi"/>
+                                    <constraint firstItem="YLJ-j1-x2R" firstAttribute="leading" secondItem="Nl4-1p-ex9" secondAttribute="leading" constant="16" id="8FC-3I-P0g"/>
+                                    <constraint firstItem="IWN-wz-Phr" firstAttribute="top" secondItem="Nl4-1p-ex9" secondAttribute="top" constant="44" id="8le-rN-gPO"/>
+                                    <constraint firstItem="u2D-4Y-Ila" firstAttribute="top" secondItem="IWN-wz-Phr" secondAttribute="bottom" constant="24" id="921-wg-Azk"/>
+                                    <constraint firstItem="YLJ-j1-x2R" firstAttribute="top" secondItem="tZh-lL-Xrx" secondAttribute="bottom" constant="44" id="Bib-Uf-AZi"/>
+                                    <constraint firstAttribute="trailing" secondItem="u2D-4Y-Ila" secondAttribute="trailing" constant="10" id="CFC-jJ-xN6"/>
+                                    <constraint firstItem="tZh-lL-Xrx" firstAttribute="top" secondItem="u2D-4Y-Ila" secondAttribute="bottom" constant="8" id="D2n-Ky-tQX"/>
+                                    <constraint firstAttribute="trailing" secondItem="tZh-lL-Xrx" secondAttribute="trailing" constant="10" id="PqB-3j-jgx"/>
+                                    <constraint firstItem="u2D-4Y-Ila" firstAttribute="leading" secondItem="Nl4-1p-ex9" secondAttribute="leading" constant="10" id="ZfY-6Z-JGY"/>
+                                    <constraint firstAttribute="trailing" secondItem="YLJ-j1-x2R" secondAttribute="trailing" constant="16" id="bDt-fv-L2c"/>
+                                    <constraint firstAttribute="bottom" secondItem="YLJ-j1-x2R" secondAttribute="bottom" constant="24" id="gg6-vp-z4e"/>
+                                    <constraint firstItem="tZh-lL-Xrx" firstAttribute="leading" secondItem="Nl4-1p-ex9" secondAttribute="leading" constant="10" id="uCY-Vc-cJR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Nl4-1p-ex9" secondAttribute="trailing" constant="16" id="ANJ-1z-qI9"/>
+                            <constraint firstItem="Nl4-1p-ex9" firstAttribute="top" secondItem="Lee-Z9-yEZ" secondAttribute="top" constant="20" id="fTB-LO-O4A"/>
+                            <constraint firstItem="Nl4-1p-ex9" firstAttribute="leading" secondItem="Lee-Z9-yEZ" secondAttribute="leading" constant="16" id="zEy-gF-VMa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Lee-Z9-yEZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonOkey" destination="YLJ-j1-x2R" id="pxj-kT-UxT"/>
+                        <outlet property="labelSubtitle" destination="tZh-lL-Xrx" id="iK5-Fg-ie9"/>
+                        <outlet property="labelTitle" destination="u2D-4Y-Ila" id="vbA-6G-xWc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lSi-G7-47D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5106" y="-120"/>
+        </scene>
     </scenes>
     <resources>
         <image name="chart_arrow_green" width="22" height="22"/>
@@ -1036,6 +1172,7 @@
         <image name="info18Error500" width="18" height="18"/>
         <image name="tSend48" width="48" height="48"/>
         <image name="tSoonExchange28" width="28" height="28"/>
+        <image name="userimgDone80Success400" width="80" height="80"/>
         <image name="wallet_arrow_right" width="14" height="14"/>
     </resources>
 </document>

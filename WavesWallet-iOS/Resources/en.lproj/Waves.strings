@@ -948,4 +948,8 @@
 "tokenBurn.label.tokenBurn" = "Token Burn";
 "tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
 "tokenBurn.label.id" = "ID";
+"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.youHaveBurned" = "You have burned";
+
 "tokenBurn.button.burn" = "Burn";
+
