@@ -29,6 +29,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
         let asset: DomainLayer.DTO.AssetBalance
         let amount: Money
         let fee: Money
+        let delegate: TokenBurnTransactionDelegate?
     }
     
     var input: Input!
@@ -65,7 +66,6 @@ final class TokenBurnConfirmationViewController: UIViewController {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-   
 }
 
 //MARK: - TokenBurnLoadingViewControllerDelegate

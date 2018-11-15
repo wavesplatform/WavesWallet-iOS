@@ -81,6 +81,8 @@
 
 "asset.cell.assetInfo.id" = "ID";
 
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+
 "asset.cell.assetInfo.issueDate" = "Issue date";
 
 "asset.cell.assetInfo.issuer" = "Issuer";

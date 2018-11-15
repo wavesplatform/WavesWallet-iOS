@@ -50,7 +50,10 @@ final class TokenBurnLoadingViewController: UIViewController {
         let isFullBurned = input.amount.amount == input.asset.avaliableBalance
 
         let vc = StoryboardScene.Asset.tokenBurnCompleteViewController.instantiate()
-        vc.input = .init(assetName: input.asset.asset?.displayName ?? "", isFullBurned: isFullBurned)
+        vc.input = .init(assetName: input.asset.asset?.displayName ?? "",
+                         isFullBurned: isFullBurned,
+                         delegate: input.delegate,
+                         amount: input.amount)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -63,4 +66,5 @@ final class TokenBurnLoadingViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+
 }

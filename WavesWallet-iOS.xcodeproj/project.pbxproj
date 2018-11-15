@@ -719,6 +719,10 @@
 		E9B12DAB219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAA219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift */; };
 		E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractorMock.swift */; };
 		E9B12DAF219DCDD300128EFE /* TokenBurnTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAE219DCDD300128EFE /* TokenBurnTypes.swift */; };
+		E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB3219DD6E000128EFE /* AssetBalanceSpamCell.swift */; };
+		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
+		E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */; };
+		E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */; };
 		E9BCF48121636DAC00FA6502 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ResponseType.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -1541,6 +1545,10 @@
 		E9B12DAA219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnSendInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnSendInteractorMock.swift; sourceTree = "<group>"; };
 		E9B12DAE219DCDD300128EFE /* TokenBurnTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnTypes.swift; sourceTree = "<group>"; };
+		E9B12DB3219DD6E000128EFE /* AssetBalanceSpamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSpamCell.swift; sourceTree = "<group>"; };
+		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
+		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
+		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
@@ -2825,6 +2833,10 @@
 				0AF921D3212E07B2003BA067 /* AssetBalanceCell.swift */,
 				0AF921D4212E07B2003BA067 /* AssetBalanceMoneyInfoView.xib */,
 				0AF921D7212E07B2003BA067 /* AssetBalanceMoneyInfoView.swift */,
+				E9B12DB3219DD6E000128EFE /* AssetBalanceSpamCell.swift */,
+				E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */,
+				E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */,
+				E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4410,6 +4422,7 @@
 				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
 				E965701921935CFD0052F0FC /* OrderConfirmView.xib in Resources */,
+				E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */,
 				E965703C219360770052F0FC /* WalletSortSeparatorFooter.xib in Resources */,
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
@@ -4435,6 +4448,7 @@
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
 				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
+				E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */,
 				0ADD6C822167948500B06917 /* ProfileHeaderView.xib in Resources */,
 				0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */,
 				04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */,
@@ -4706,6 +4720,7 @@
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,
 				0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */,
+				E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */,
 				0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */,
 				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
 				0A6F60ED216F89EA00A5C615 /* DexTypes.swift in Sources */,
@@ -5295,6 +5310,7 @@
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
+				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
 				0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */,
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
 				E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */,

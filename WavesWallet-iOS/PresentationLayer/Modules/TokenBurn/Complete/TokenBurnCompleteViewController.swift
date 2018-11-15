@@ -17,6 +17,8 @@ final class TokenBurnCompleteViewController: UIViewController {
     struct Input {
         let assetName: String
         let isFullBurned: Bool
+        let delegate: TokenBurnTransactionDelegate?
+        let amount: Money
     }
     
     var input: Input!
@@ -43,8 +45,11 @@ final class TokenBurnCompleteViewController: UIViewController {
         }
         else {
             if let vc = navigationController?.viewControllers.first(where: {$0.isKind(of: AssetViewController.classForCoder())}) {
+                
+                input.delegate?.tokenBurnDidSuccessBurn(amount: input.amount)
                 navigationController?.popToViewController(vc, animated: true)
             }
         }
     }
+
 }
