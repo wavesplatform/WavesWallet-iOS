@@ -14,7 +14,7 @@ enum AddAddressBook {
         struct Input {
             enum Kind {
                 case edit(contact: DomainLayer.DTO.Contact, isMutable: Bool)
-                case add(String?)
+                case add(String?, isMutable: Bool)
             }
             let kind: Kind
         }

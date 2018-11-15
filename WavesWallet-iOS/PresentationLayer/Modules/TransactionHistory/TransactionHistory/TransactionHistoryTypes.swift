@@ -33,7 +33,7 @@ enum TransactionHistoryTypes {
 
     enum Action {
         case none
-        case showAddressBook(address: String, isAdded: Bool)
+        case showAddressBook(account: DomainLayer.DTO.Account, isAdded: Bool)
     }
 }
 

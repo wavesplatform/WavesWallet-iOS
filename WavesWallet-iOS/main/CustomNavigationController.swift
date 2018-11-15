@@ -175,7 +175,7 @@ class CustomNavigationController: UINavigationController {
         if viewControllers.count == 2 {
             self.viewControllers.first?.hidesBottomBarWhenPushed = false
         }
-
+        
         return super.popViewController(animated: animated)
     }
 
