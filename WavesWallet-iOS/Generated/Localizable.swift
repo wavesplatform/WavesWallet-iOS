@@ -198,6 +198,8 @@ internal enum Localizable {
         internal static var viewHistory: String { return Localizable.tr("Waves", "asset.cell.viewHistory") }
 
         internal enum Assetinfo {
+          /// You can not perform transactions with this asset
+          internal static var cantPerformTransactions: String { return Localizable.tr("Waves", "asset.cell.assetInfo.cantPerformTransactions") }
           /// Description
           internal static var description: String { return Localizable.tr("Waves", "asset.cell.assetInfo.description") }
           /// ID

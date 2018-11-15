@@ -13,6 +13,11 @@ private enum Constants {
     static let animationDuration: TimeInterval = 0.3
 }
 
+protocol TokenBurnTransactionDelegate: AnyObject {
+    
+    func tokenBurnDidSuccessBurn(amount: Money)
+}
+
 final class TokenBurnViewController: UIViewController {
 
     @IBOutlet private weak var assetView: AssetSelectView!
@@ -24,6 +29,7 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     var asset: DomainLayer.DTO.AssetBalance!
+    weak var delegate: TokenBurnTransactionDelegate?
     
     private let disposeBag = DisposeBag()
     private let interactor = TokenBurnInteractor()
@@ -53,7 +59,7 @@ final class TokenBurnViewController: UIViewController {
     @IBAction private func continueTapped(_ sender: Any) {
         guard let amount = self.amount else { return }
         let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
-        vc.input = .init(asset: asset, amount: amount, fee: fee)
+        vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
