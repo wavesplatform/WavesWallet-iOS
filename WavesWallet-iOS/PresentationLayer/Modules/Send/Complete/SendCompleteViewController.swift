@@ -54,7 +54,7 @@ final class SendCompleteViewController: UIViewController {
     
     @IBAction private func addContact(_ sender: Any) {
     
-        let vc = AddAddressBookModuleBuilder(output: self).build(input: .init(kind: .add(input.address)))
+        let vc = AddAddressBookModuleBuilder(output: self).build(input: .init(kind: .add(input.address, isMutable: false)))
         navigationController?.pushViewController(vc, animated: true)
     }
     

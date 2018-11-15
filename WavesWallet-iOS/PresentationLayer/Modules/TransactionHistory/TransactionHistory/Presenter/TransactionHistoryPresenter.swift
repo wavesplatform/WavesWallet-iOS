@@ -50,13 +50,18 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         return react(query: { state -> Bool? in
 
             switch state.action {
-            case .showAddressBook(let address, let isAdded):
+            case .showAddressBook(let account, let isAdded):
 
-                if isAdded {
-                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: address)
+                if let contact = account.contact, isAdded == false {
+                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: { (contact, isOK) in
+
+                    })
                 } else {
-                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(address: address)
+                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: { (contact, isOk) in
+
+                    })
                 }
+
                 return true
             default:
                 return nil
@@ -80,11 +85,10 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         case .readyView:
             break
 
-        case .tapRecipient(let displayState, let recipient):
-
-            let address = recipient.account.address
-            let isAdded = recipient.account.contact == nil
-            state.action = .showAddressBook(address: address, isAdded: isAdded)
+        case .tapRecipient(_, let recipient):
+            
+            let isAdded = recipient.account.contact == nil            
+            state.action = .showAddressBook(account: recipient.account, isAdded: isAdded)
 
         case .completedAction:
             state.action = .none

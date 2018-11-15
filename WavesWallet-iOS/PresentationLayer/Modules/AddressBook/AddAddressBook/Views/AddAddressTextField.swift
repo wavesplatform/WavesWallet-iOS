@@ -22,9 +22,9 @@ protocol AddAddressTextFieldDelegate: AnyObject {
 
 final class AddAddressTextField: UIView, NibOwnerLoadable {
 
-    @IBOutlet private weak var addressTextField: BaseInputTextField!
-    @IBOutlet private weak var buttonDelete: UIButton!
-    @IBOutlet private weak var buttonScan: UIButton!
+    @IBOutlet private weak var addressTextField: InputTextField!
+    @IBOutlet private var buttonDelete: UIButton!
+    @IBOutlet private var buttonScan: UIButton!
     
     private var isShowDeleteButton = false
     
@@ -32,24 +32,24 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     
     var text: String {
         set (newValue) {
-            addressTextField.setupText(newValue)
+            addressTextField.value = newValue
             setupButtonsState(animation: false)
         }
         get {
-            return addressTextField.text
+            return addressTextField.value ?? ""
         }
     }
 
     var isEnabled: Bool = true {
         didSet {
-            addressTextField.textField.isEnabled = isEnabled
+            addressTextField.isEnabled = isEnabled
             buttonDelete.isHidden = !isEnabled
             buttonScan.isHidden = !isEnabled
         }
     }
     
     var trimmingText: String {
-        return addressTextField.trimmingText
+        return text.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,10 +59,23 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressTextField.textField.returnKeyType = .next
-        addressTextField.setupTextFieldRightOffset(Constansts.rightButtonOffset)
-        addressTextField.setupPlaceholder(Localizable.Waves.Addaddressbook.Label.address)
-        addressTextField.delegate = self
+        addressTextField.returnKey = .next
+
+        addressTextField.update(with: .init(title: Localizable.Waves.Addaddressbook.Label.address,
+                                            kind: .text,
+                                            placeholder: Localizable.Waves.Addaddressbook.Label.address))
+
+        addressTextField.textFieldShouldReturn = { [weak self] _ in
+            self?.delegate?.addressTextFieldTappedNext()
+        }
+
+        addressTextField.changedValue = { [weak self] (_, value) in
+            guard let owner = self else { return }
+            owner.delegate?.addAddressTextField(owner, didChange: value ?? "")
+            owner.setupButtonsState(animation: true)
+        }
+
+        addressTextField.rightView = buttonScan
         buttonDelete.alpha = 0
         setupButtonsState(animation: false)
     }
@@ -90,7 +103,7 @@ private extension AddAddressTextField {
 
     
     @IBAction func deleteTapped(_ sender: Any) {
-        addressTextField.setupText("", animation: true)
+        self.addressTextField.value = nil
         setupButtonsState(animation: true)
         delegate?.addAddressTextField(self, didChange: text)
     }
@@ -100,44 +113,29 @@ private extension AddAddressTextField {
     }
 }
 
-//MARK: - BaseInputTextFieldDelegate
-extension AddAddressTextField: BaseInputTextFieldDelegate {
-    
-    func baseInputTextField(_ textField: BaseInputTextField, didChange text: String) {
-        delegate?.addAddressTextField(self, didChange: text)
-        setupButtonsState(animation: true)
-    }
-
-    func baseInputTextFieldHandlerTextFieldReturn(_ textField: BaseInputTextField) -> Bool {
-        delegate?.addressTextFieldTappedNext()
-        return true
-    }
-}
-
 private extension AddAddressTextField {
     func setupButtonsState(animation: Bool) {
         
         if text.count > 0 {
             if !isShowDeleteButton {
                 isShowDeleteButton = true
-                
+
                 UIView.animate(withDuration: animation ? Constansts.animationDuration : 0) {
                     self.buttonDelete.alpha = 1
                     self.buttonScan.alpha = 0
+                    self.addressTextField.rightView = self.buttonDelete
                 }
             }
-        }
-        else {
+        } else {
             if isShowDeleteButton {
                 isShowDeleteButton = false
-                
                 UIView.animate(withDuration: animation ? Constansts.animationDuration : 0) {
                     self.buttonDelete.alpha = 0
                     self.buttonScan.alpha = 1
+                    self.addressTextField.rightView = self.buttonScan
                 }
             }
         }
-        
     }
 }
 
@@ -152,7 +150,7 @@ private extension AddAddressTextField {
             
             if let address = result?.value {
                 
-                self.addressTextField.setupText(address, animation: true)
+                self.addressTextField.value = address
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
             }

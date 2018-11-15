@@ -35,10 +35,22 @@ final class InputTextField: UIView, NibOwnerLoadable {
         set {
             textFieldValue.text = newValue
             checkValidValue()
+            ifNeedPlaceholder()
         }
 
         get {
             return textFieldValue.text
+        }
+    }
+
+    var isEnabled: Bool {
+        set {
+            textFieldValue.isEnabled = isEnabled
+            textFieldValue.isUserInteractionEnabled = isEnabled
+        }
+
+        get {
+            return textFieldValue.isEnabled
         }
     }
 
@@ -63,7 +75,18 @@ final class InputTextField: UIView, NibOwnerLoadable {
     var changedValue: ((Bool,String?) -> Void)?
     var textFieldShouldReturn: ((InputTextField) -> Void)?
 
-    var rightView: UIView?
+    var rightView: UIView? {
+        didSet {
+            if let rightView = self.rightView {
+                rightView.translatesAutoresizingMaskIntoConstraints = true
+                textFieldValue.rightViewMode = .always
+                textFieldValue.rightView = rightView
+            } else {
+                textFieldValue.rightViewMode = .never
+                textFieldValue.rightView = nil
+            }
+        }
+    }
 
     var clearButtonMode: UITextField.ViewMode? {
         didSet {
@@ -113,7 +136,10 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     @objc private func handlerTapGesture(recognizer: UITapGestureRecognizer) {
-        becomeFirstResponder()
+
+        if recognizer.state == .ended {
+            textFieldValue.becomeFirstResponder()            
+        }
     }
 
     @objc func keyboardWillHide() {
@@ -132,6 +158,10 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
         changedValue?(isValidValue, value)
 
+        ifNeedPlaceholder()
+    }
+
+    private func ifNeedPlaceholder() {
         let isShow = (textFieldValue.text?.count ?? 0) > 0
 
         let isHiddenTitleLabel = !isShow
@@ -208,28 +238,30 @@ extension InputTextField: ViewConfiguration {
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = .name
             }
-            if let rightView = self.rightView {
-                textFieldValue.rightView = rightView
-                textFieldValue.rightViewMode = .always
-            } else {
-                textFieldValue.rightView = nil
-                textFieldValue.rightViewMode = .never
-            }
+
         case .password, .newPassword:
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = UITextContentType("")
             }
-            textFieldValue.rightView = eyeButton
-            textFieldValue.rightViewMode = .always
+            self.rightView = eyeButton
             isSecureTextEntry = true
             eyeButton.isHidden = false
             textFieldValue.autocorrectionType = .no            
         }
+
+        ifNeedPlaceholder()
     }
 }
 
 // MARK: UITextFieldDelegate
 extension InputTextField: UITextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        DispatchQueue.main.async(execute: {
+            self.textFieldValue.selectedTextRange = self.textFieldValue.textRange(from: self.textFieldValue.endOfDocument,
+                                                                                  to: self.textFieldValue.endOfDocument)
+        })
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
@@ -254,8 +286,10 @@ extension InputTextField: UITextFieldDelegate {
             let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: newString)
+
             checkValidValue(updatedText)
         }
+
         return true
     }
 }

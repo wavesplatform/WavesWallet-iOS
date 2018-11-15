@@ -8,11 +8,22 @@
 
 import UIKit
 
-final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
-    
-    let transactions: [DomainLayer.DTO.SmartTransaction]
-    let currentIndex: Int
-    let navigationController: UINavigationController
+final class TransactionHistoryCoordinator: Coordinator {
+
+    enum Display {
+        case showTransactionHistory
+        case addAddress(_ address: String, FinishedAddressBook)
+        case editContact(_ contact: DomainLayer.DTO.Contact, FinishedAddressBook)
+    }
+
+    var childCoordinators: [Coordinator] = []
+    weak var parent: Coordinator?
+
+    private let transactions: [DomainLayer.DTO.SmartTransaction]
+    private let currentIndex: Int
+    private let navigationController: UINavigationController
+
+    private var lastDisplay: Display?
     
     init(transactions: [DomainLayer.DTO.SmartTransaction],
          currentIndex: Int,
@@ -24,7 +35,7 @@ final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
     }
     
     private lazy var transactionHistoryViewController: TransactionHistoryViewController = {
-        return TransactionHistoryModuleBuilder(output: self).build(input: self) as! TransactionHistoryViewController
+        return TransactionHistoryModuleBuilder(output: self).build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
     }()
     
     func start() {
@@ -34,22 +45,43 @@ final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
     }
 }
 
+extension TransactionHistoryCoordinator: PresentationCoordinator {
+
+    func showDisplay(_ display: Display) {
+
+        self.lastDisplay = display
+
+        switch display {
+        case .showTransactionHistory:
+            break
+
+        case .addAddress(let address, let finishedAddressBook):
+
+            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
+            navigationController.dismiss(animated: true) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+
+        case .editContact(let contact, let finishedAddressBook):
+
+            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
+                                                                                                                 isMutable: false)))
+
+            navigationController.dismiss(animated: true) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
 extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 
-    func transactionHistoryAddAddressToHistoryBook(address: String) {
-//        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: a))
-
-//        navigationController.dismiss(animated: true) {
-//            self.navigationController.pushViewController(vc, animated: true)
-//        }
+    func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook) {
+        showDisplay(.addAddress(address, finished))
     }
 
-    func transactionHistoryEditAddressToHistoryBook(address: String) {
-//        let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(contact: nil, address: address))
-//
-//        navigationController.dismiss(animated: true) {
-//            self.navigationController.pushViewController(vc, animated: true)
-//        }
+    func transactionHistoryEditAddressToHistoryBook(contact: DomainLayer.DTO.Contact, finished: @escaping FinishedAddressBook) {
+        showDisplay(.editContact(contact, finished))
     }
 }
 

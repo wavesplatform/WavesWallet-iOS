@@ -9,10 +9,15 @@
 import UIKit
 
 struct TransactionHistoryModuleBuilder: ModuleBuilderOutput {
-    
+
+    struct Input: TransactionHistoryModuleInput {
+        let transactions: [DomainLayer.DTO.SmartTransaction]
+        let currentIndex: Int
+    }
+
     var output: TransactionHistoryModuleOutput
-    
-    func build(input: TransactionHistoryModuleInput) -> UIViewController {
+
+    func build(input: Input) -> UIViewController {
     
         let presenter = TransactionHistoryPresenter(input: input)
         let vc = StoryboardScene.TransactionHistory.transactionHistoryViewController.instantiate()
@@ -24,7 +29,6 @@ struct TransactionHistoryModuleBuilder: ModuleBuilderOutput {
         return vc
         
     }
-    
 }
 
 

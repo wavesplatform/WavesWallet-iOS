@@ -17,7 +17,7 @@ protocol HelloCoordinatorDelegate: AnyObject {
 final class HelloCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
-    var parent: Coordinator?
+    weak var parent: Coordinator?
 
     weak var delegate: HelloCoordinatorDelegate?
 

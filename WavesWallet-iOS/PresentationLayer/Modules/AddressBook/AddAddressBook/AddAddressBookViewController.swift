@@ -43,8 +43,9 @@ final class AddAddressBookViewController: UIViewController {
             textFieldAddress.text = contact.address
             textFieldAddress.isEnabled = isMutable
 
-        case .add(let address):
+        case .add(let address, let isMutable):
             textFieldAddress.text = address ?? ""
+            textFieldAddress.isEnabled = isMutable
         }
 
         createBackButton()
@@ -105,9 +106,15 @@ private extension AddAddressBookViewController {
             return
         }
 
-        let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText, address: textFieldAddress.trimmingText)
+        
+        let newContact = DomainLayer.DTO.Contact(name: textFieldName.trimmingText,
+                                                 address: textFieldAddress.trimmingText)
+
         authorizationInteractor
             .authorizedWallet()
+//            .flatMap({ (wallet) -> Observable<DomainLayer.DTO.Wallet>  in
+//
+//            })
             .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
 
                 guard let owner = self else { return Observable.never() }
@@ -143,11 +150,6 @@ extension AddAddressBookViewController: AddAddressTextFieldDelegate {
     
     func addAddressTextField(_ textField: AddAddressTextField, didChange text: String) {
         setupButtonSaveState()
-        if textFieldAddress.text.count == 0 {
-            textFieldAddress.becomeFirstResponder()
-        } else if textFieldName.text.count == 0 {
-            textFieldName.becomeFirstResponder()
-        }
     }
 
     func addressTextFieldTappedNext() {
@@ -197,7 +199,7 @@ private extension AddAddressBookViewController {
     
     func setupEditUserMode() {
         
-        buttonDelete.isHidden = !input.isAdd
+        buttonDelete.isHidden = input.isAdd
 
         if let contact = input.contact {
             textFieldName.setupText(contact.name)
