@@ -39,9 +39,7 @@ final class TransactionHistoryCoordinator: Coordinator {
     }()
     
     func start() {
-        transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
-        transactionHistoryViewController.modalPresentationStyle = .custom
-        navigationController.present(transactionHistoryViewController, animated: true, completion: nil)
+        showDisplay(.showTransactionHistory)
     }
 }
 
@@ -52,27 +50,30 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
         self.lastDisplay = display
 
         switch display {
-        case .showTransactionHistory:
-            break
+        case .showTransactionHistory:        
+            transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
+            transactionHistoryViewController.modalPresentationStyle = .custom
+            navigationController.present(transactionHistoryViewController, animated: true, completion: nil)
 
-        case .addAddress(let address, let finishedAddressBook):
+        case .addAddress(let address, _):
 
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
             navigationController.dismiss(animated: true) {
                 self.navigationController.pushViewController(vc, animated: true)
             }
 
-        case .editContact(let contact, let finishedAddressBook):
+        case .editContact(let contact, _):
 
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
                                                                                                                  isMutable: false)))
-
             navigationController.dismiss(animated: true) {
                 self.navigationController.pushViewController(vc, animated: true)
             }
         }
     }
 }
+
+// MARK: TransactionHistoryModuleOutput
 
 extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 
@@ -85,17 +86,49 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
     }
 }
 
+
+// MARK: AddAddressBookModuleOutput
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
     func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
-
+        finishedAddToAddressBook(contact: contact)
     }
 
     func addAddressBookDidCreate(contact: DomainLayer.DTO.Contact) {
-
+        finishedAddToAddressBook(contact: contact)
     }
 
     func addAddressBookDidDelete(contact: DomainLayer.DTO.Contact) {
+        finishedAddToAddressBook(contact: contact)
+    }
+}
 
+extension TransactionHistoryCoordinator {
+
+    func finishedAddToAddressBook(contact: DomainLayer.DTO.Contact) {
+
+        self.navigationController.popViewController(animated: true, completed: { [weak self] in
+            self?.lastDisplay?.finishedAddressBook?(contact, true)
+            self?.showDisplay(.showTransactionHistory)
+        })
+    }
+}
+
+// MARK: Assistant
+extension TransactionHistoryCoordinator.Display {
+
+    var finishedAddressBook: TransactionHistoryModuleOutput.FinishedAddressBook? {
+
+        switch self {
+
+        case .addAddress(_, let finishedAddressBook):
+            return finishedAddressBook
+
+        case .editContact(_, let finishedAddressBook):
+            return finishedAddressBook
+
+        default:
+            return nil
+        }
     }
 }

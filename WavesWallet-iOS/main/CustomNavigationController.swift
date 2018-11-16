@@ -8,6 +8,42 @@
 
 import UIKit
 
+extension UINavigationController {
+
+    func popViewController(animated: Bool, completed: @escaping (() -> Void)) -> UIViewController? {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popViewController(animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func popToRootViewController(animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popToRootViewController(animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func popToViewController(_ viewController: UIViewController, animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popToViewController(viewController, animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func pushViewController(_ viewController: UIViewController, animated: Bool, completed: @escaping (() -> Void)) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+}
+
 extension UINavigationItem {
 
     private enum AssociatedKeys {
