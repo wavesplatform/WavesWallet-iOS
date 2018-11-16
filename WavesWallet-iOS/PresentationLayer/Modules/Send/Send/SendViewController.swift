@@ -131,6 +131,7 @@ final class SendViewController: UIViewController {
         
         updateAmountData()
         updateMoneraPaymentView(animation: false)
+        recipientAddressView.decimals = selectedAsset?.asset?.precision ?? 0
     }
     
     private func showConfirmScreen() {
@@ -522,9 +523,15 @@ extension SendViewController: AddressInputViewDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func addressInputViewDidScanAddress(_ address: String) {
-        acceptAddress(address)
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?) {
         
+        if let amount = amount {
+            self.amount = amount
+            amountView.setAmount(amount)
+            updateAmountError(animation: true)
+        }
+        
+        acceptAddress(address)
         if !recipientAddressView.isKeyboardShow {
             validateAddress()
         }

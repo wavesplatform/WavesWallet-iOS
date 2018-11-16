@@ -84,6 +84,10 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
         textFieldMoney.setDecimals(decimals, forceUpdateMoney: forceUpdateMoney)
     }
+    
+    func setAmount(_ amount: Money) {
+        textFieldMoney.setValue(value: amount)
+    }
 }
 
 
