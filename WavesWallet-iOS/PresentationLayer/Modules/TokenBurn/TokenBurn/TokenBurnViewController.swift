@@ -114,7 +114,7 @@ extension TokenBurnViewController: AmountInputViewDelegate {
         updateFeeError()
         
         let isShowError = value.amount > availableBalance.amount
-        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowError)
+        amountView.showErrorMessage(message: Localizable.Waves.Tokenburn.Label.Error.insufficientFunds, isShow: isShowError)
     }
 }
 
@@ -179,7 +179,7 @@ private extension TokenBurnViewController {
             amountView.input = { [weak self] in
                 return self?.input ?? []
             }
-            amountView.update(with: [Localizable.Waves.Send.Button.useTotalBalanace])
+            amountView.update(with: [Localizable.Waves.Tokenburn.Button.useTotalBalanace])
         }
     }
     
@@ -187,8 +187,8 @@ private extension TokenBurnViewController {
         title = Localizable.Waves.Tokenburn.Label.tokenBurn
         amountView.setupRightLabelText(asset.asset?.displayName ?? "")
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
-        buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + fee.displayText +  " WAVES"
-        labelFeeError.text = Localizable.Waves.Send.Label.Error.notFundsFee
+        buttonContinue.setTitle(Localizable.Waves.Tokenburn.Button.continue, for: .normal)
+        labelTransactionFee.text = Localizable.Waves.Tokenburn.Label.transactionFee(fee.displayText, "WAVES")
+        labelFeeError.text = Localizable.Waves.Tokenburn.Label.Error.notFundsFee
     }
 }

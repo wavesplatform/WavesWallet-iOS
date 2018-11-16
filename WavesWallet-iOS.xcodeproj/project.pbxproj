@@ -3351,17 +3351,9 @@
 			path = TokenBurn;
 			sourceTree = "<group>";
 		};
-		E95B6B0B219B4B3A00A85B5D /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
 		E95B6B0C219C22BB00A85B5D /* TokenBurn */ = {
 			isa = PBXGroup;
 			children = (
-				E95B6B0B219B4B3A00A85B5D /* Interactor */,
 				E95B6B09219B3B0100A85B5D /* TokenBurnViewController.swift */,
 			);
 			path = TokenBurn;

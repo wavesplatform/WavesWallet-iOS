@@ -83,9 +83,9 @@ private extension TokenBurnConfirmationViewController {
         labelFeeAmount.text = input.fee.displayText + " WAVES"
         
         if input.asset.asset?.isReusable == true {
-            labelType.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.reissuable
+            labelType.text = Localizable.Waves.Tokenburn.Label.reissuable
         } else {
-            labelType.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.notReissuable
+            labelType.text = Localizable.Waves.Tokenburn.Label.notReissuable
         }
         
         if let ticker = input.asset.asset?.ticker {
@@ -103,9 +103,9 @@ private extension TokenBurnConfirmationViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.Waves.Sendconfirmation.Label.confirmation
+        title = Localizable.Waves.Tokenburn.Label.confirmation
         buttonBurn.setTitle(Localizable.Waves.Tokenburn.Button.burn, for: .normal)
-        labelFeeLocalization.text = Localizable.Waves.Sendconfirmation.Label.fee
-        labelTypeLocalization.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.title
+        labelFeeLocalization.text = Localizable.Waves.Tokenburn.Label.fee
+        labelTypeLocalization.text = Localizable.Waves.Tokenburn.Label.type
    }
 }
