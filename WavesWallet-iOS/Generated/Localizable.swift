@@ -198,6 +198,8 @@ internal enum Localizable {
         internal static var viewHistory: String { return Localizable.tr("Waves", "asset.cell.viewHistory") }
 
         internal enum Assetinfo {
+          /// You can not perform transactions with this asset
+          internal static var cantPerformTransactions: String { return Localizable.tr("Waves", "asset.cell.assetInfo.cantPerformTransactions") }
           /// Description
           internal static var description: String { return Localizable.tr("Waves", "asset.cell.assetInfo.description") }
           /// ID
@@ -1807,6 +1809,56 @@ internal enum Localizable {
         internal static var startLeasing: String { return Localizable.tr("Waves", "startleasing.label.startLeasing") }
         /// Transaction Fee
         internal static var transactionFee: String { return Localizable.tr("Waves", "startleasing.label.transactionFee") }
+      }
+    }
+
+    internal enum Tokenburn {
+
+      internal enum Button {
+        /// Burn
+        internal static var burn: String { return Localizable.tr("Waves", "tokenBurn.button.burn") }
+        /// Continue
+        internal static var `continue`: String { return Localizable.tr("Waves", "tokenBurn.button.continue") }
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "tokenBurn.button.okey") }
+        /// Use total balance
+        internal static var useTotalBalanace: String { return Localizable.tr("Waves", "tokenBurn.button.useTotalBalanace") }
+      }
+
+      internal enum Label {
+        /// Confirmation
+        internal static var confirmation: String { return Localizable.tr("Waves", "tokenBurn.label.confirmation") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "tokenBurn.label.fee") }
+        /// ID
+        internal static var id: String { return Localizable.tr("Waves", "tokenBurn.label.id") }
+        /// Burn...
+        internal static var loading: String { return Localizable.tr("Waves", "tokenBurn.label.loading") }
+        /// Not reissuable
+        internal static var notReissuable: String { return Localizable.tr("Waves", "tokenBurn.label.notReissuable") }
+        /// Quantity of tokens to be burned
+        internal static var quantityTokensBurned: String { return Localizable.tr("Waves", "tokenBurn.label.quantityTokensBurned") }
+        /// Reissuable
+        internal static var reissuable: String { return Localizable.tr("Waves", "tokenBurn.label.reissuable") }
+        /// Token Burn
+        internal static var tokenBurn: String { return Localizable.tr("Waves", "tokenBurn.label.tokenBurn") }
+        /// Transaction Fee %@ %@
+        internal static func transactionFee(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "tokenBurn.label.transactionFee", p1, p2)
+        }
+        /// Your transaction is on the way!
+        internal static var transactionIsOnWay: String { return Localizable.tr("Waves", "tokenBurn.label.transactionIsOnWay") }
+        /// Type
+        internal static var type: String { return Localizable.tr("Waves", "tokenBurn.label.type") }
+        /// You have burned
+        internal static var youHaveBurned: String { return Localizable.tr("Waves", "tokenBurn.label.youHaveBurned") }
+
+        internal enum Error {
+          /// Insufficient funds
+          internal static var insufficientFunds: String { return Localizable.tr("Waves", "tokenBurn.label.error.insufficientFunds") }
+          /// You don't have enough funds to pay the required fees.
+          internal static var notFundsFee: String { return Localizable.tr("Waves", "tokenBurn.label.error.notFundsFee") }
+        }
       }
     }
 

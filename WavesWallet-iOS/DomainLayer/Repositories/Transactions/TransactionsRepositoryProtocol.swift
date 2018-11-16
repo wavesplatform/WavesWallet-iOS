@@ -64,16 +64,16 @@ struct LeaseTransactionSender {
     let fee: Int64
 }
 
+struct BurnTransactionSender {
+    let assetID: String
+    let quantity: Int64
+    let fee: Int64
+}
 
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)
-}
-
-struct AliasTransactionSpecifications {
-    let fee: Int64
-    let timestamp: Int64
-    let alias: String
+    case burn(BurnTransactionSender)
 }
 
 protocol TransactionsRepositoryProtocol {

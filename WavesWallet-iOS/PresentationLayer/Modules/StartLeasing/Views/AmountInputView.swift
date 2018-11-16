@@ -77,6 +77,10 @@ final class AmountInputView: UIView, NibOwnerLoadable {
         labelAmount.text = string
     }
     
+    func setupTitle(_ string: String) {
+        labelAmountLocalizable.text = string
+    }
+    
     func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
         textFieldMoney.setDecimals(decimals, forceUpdateMoney: forceUpdateMoney)
     }
