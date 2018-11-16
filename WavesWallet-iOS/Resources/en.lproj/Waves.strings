@@ -949,9 +949,19 @@
 
 "tokenBurn.label.tokenBurn" = "Token Burn";
 "tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
-"tokenBurn.label.id" = "ID";
 "tokenBurn.label.loading" = "Burn...";
 "tokenBurn.label.youHaveBurned" = "You have burned";
-
+"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.id" = "ID";
+"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.type" = "Type";
+"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.button.useTotalBalanace" = "Use total balance";
 "tokenBurn.button.burn" = "Burn";
-
+"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.okey" = "Okay";
