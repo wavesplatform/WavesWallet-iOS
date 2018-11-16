@@ -81,6 +81,8 @@
 
 "asset.cell.assetInfo.id" = "ID";
 
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+
 "asset.cell.assetInfo.issueDate" = "Issue date";
 
 "asset.cell.assetInfo.issuer" = "Issuer";
@@ -944,3 +946,22 @@
 
 "biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
 "biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
+
+"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.youHaveBurned" = "You have burned";
+"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.id" = "ID";
+"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.type" = "Type";
+"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.button.useTotalBalanace" = "Use total balance";
+"tokenBurn.button.burn" = "Burn";
+"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.okey" = "Okay";

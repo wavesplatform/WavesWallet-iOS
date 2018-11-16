@@ -26,12 +26,26 @@ fileprivate enum Constants {
     static let chainId: String = "chainId"
     static let recipient: String = "recipient"
     static let amount: String = "amount"
+    static let quantity: String = "quantity"
+    static let assetId: String = "assetId"
 }
 
 extension Node.Service {
 
     struct Transaction {
 
+        struct Burn {
+            let version: Int
+            let type: Int
+            let scheme: String
+            let fee: Int64
+            let assetId: String
+            let quantity: Int64
+            let timestamp: Int64
+            let senderPublicKey: String
+            let proofs: [String]
+        }
+        
         struct Alias {
             let version: Int
             let name: String
@@ -57,9 +71,21 @@ extension Node.Service {
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
-
+            case startBurn(Burn)
+            
             var params: [String: Any] {
                 switch self {
+                case .startBurn(let burn):
+                    return  [Constants.version: burn.version,
+                             Constants.chainId: burn.scheme,
+                             Constants.senderPublicKey: burn.senderPublicKey,
+                             Constants.quantity: burn.quantity,
+                             Constants.fee: burn.fee,
+                             Constants.timestamp: burn.timestamp,
+                             Constants.proofs: burn.proofs,
+                             Constants.type: burn.type,
+                             Constants.assetId: burn.assetId]
+                    
                 case .createAlias(let alias):
                     return [Constants.version: alias.version,
                             Constants.alias: alias.name,
