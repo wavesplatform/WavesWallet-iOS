@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -69,16 +70,18 @@ final class TokenBurnViewController: UIViewController {
 private extension TokenBurnViewController {
     
     func loadWavesBalance() {
-        interactor.getWavesBalance().subscribe(onNext: { [weak self] (wavesBalance) in
-            guard let owner = self else { return }
-            owner.wavesBalance = wavesBalance
-            
-            DispatchQueue.main.async {
+        
+        interactor.getWavesBalance().asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
+                return SharedSequence.just(Money(0, 0))
+            }.drive(onNext: { [weak self] (wavesBalance) in
+                
+                guard let owner = self else { return }
+                owner.wavesBalance = wavesBalance
                 owner.setupButtonContinue()
                 owner.activityIndicator.stopAnimating()
                 owner.updateFeeError()
-            }
-        }).disposed(by: disposeBag)
+                
+            }).disposed(by: disposeBag)
     }
     
     var input: [Money] {
