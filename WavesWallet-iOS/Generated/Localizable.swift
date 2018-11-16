@@ -1683,8 +1683,6 @@ internal enum Localizable {
         internal static var addressNotValid: String { return Localizable.tr("Waves", "send.label.addressNotValid") }
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "send.label.amount") }
-        /// US Dollar
-        internal static var dollar: String { return Localizable.tr("Waves", "send.label.dollar") }
         /// Gateway fee is
         internal static var gatewayFee: String { return Localizable.tr("Waves", "send.label.gatewayFee") }
         /// Monero Payment ID
