@@ -151,6 +151,8 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 .sorted(byKeyPath: "timestamp", ascending: false)
                 .filter("type IN %@", types.map { $0.rawValue })
                 .filter(predicate)
+            
+//             let collection = Observable.collection(from: result)
 
             var txs: [AnyTransaction] = []
             if let page = specifications.page {

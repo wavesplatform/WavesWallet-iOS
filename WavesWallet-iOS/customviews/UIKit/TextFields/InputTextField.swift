@@ -45,6 +45,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
     var isEnabled: Bool {
         set {
+            tapGesture.isEnabled = isEnabled
             textFieldValue.isEnabled = isEnabled
             textFieldValue.isUserInteractionEnabled = isEnabled
         }

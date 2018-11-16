@@ -63,7 +63,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                 let account = data.0
                 let isAdded = data.1
 
-                let finished = { [weak self] (contact, isOK) in
+                let finished: TransactionHistoryModuleOutput.FinishedAddressBook = { (contact, isOK) in
                     if isOK {
                         observer.onNext(.updateContact(contact))
                     } else {
@@ -94,17 +94,54 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         case .readyView:
             break
 
-        case .updateContact(let contact):
+        case .updateContact(let contactState):
 
-            break
+            let contact = contactState.contact
+            let needDelete = contactState.needDelete
+
+            let newDisplays = state.displays.reduce(into: [Types.DisplayState]() ) { (displays, display) in
+
+                let newSections = display.sections.reduce(into: [Types.ViewModel.Section](), { (sections, section) in
+
+                    let newItems = section.items.reduce(into: [Types.ViewModel.Row](), { (rows, row) in
+
+
+                        if case let .recipient(recipient) = row,
+                            recipient.account.address == contact.address
+                        {
+                            let newAccount = DomainLayer.DTO.Account(address: recipient.account.address,
+                                                                     contact: needDelete == true ? nil : contact,
+                                                                     isMyAccount: recipient.account.isMyAccount)
+
+                            rows.append(.recipient(Types.ViewModel.Recipient(kind: recipient.kind,
+                                                                             account: newAccount)))
+                        } else {
+                            rows.append(row)
+                        }
+                    })
+                    var newSection = section
+                    newSection.items = newItems
+                    sections.append(newSection)
+                })
+
+                var newDisplay = display
+                newDisplay.sections = newSections
+                displays.append(newDisplay)
+            }
+
+            state.displays = newDisplays
+            state.actionDisplay = .reload(index: nil)
+            state.action = .none
 
         case .tapRecipient(_, let recipient):
             
             let isAdded = recipient.account.contact == nil            
             state.action = .showAddressBook(account: recipient.account, isAdded: isAdded)
+            state.actionDisplay = .none
 
         case .completedAction:
             state.action = .none
+            state.actionDisplay = .none
         }
     }
     

@@ -26,12 +26,13 @@ extension BurnTransaction {
         signature = transaction.signature
         chainId.value = transaction.chainId
         amount = transaction.amount
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.BurnTransaction {
 
-    init(transaction: Node.DTO.BurnTransaction) {
+    init(transaction: Node.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -48,6 +49,7 @@ extension DomainLayer.DTO.BurnTransaction {
         chainId = transaction.chainId
         amount = transaction.amount
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: BurnTransaction) {
@@ -66,5 +68,6 @@ extension DomainLayer.DTO.BurnTransaction {
         chainId = transaction.chainId.value
         amount = transaction.amount
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

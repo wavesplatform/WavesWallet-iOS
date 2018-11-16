@@ -26,5 +26,6 @@ extension DomainLayer.DTO {
         let quantity: Int64
         let reissuable: Bool
         var modified: Date
+        var status: TransactionStatus
     }
 }

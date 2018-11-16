@@ -21,12 +21,13 @@ extension UnrecognisedTransaction {
         version = 1
         height = transaction.height
         modified = transaction.modified
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.UnrecognisedTransaction {
 
-    init(transaction: Node.DTO.UnrecognisedTransaction) {
+    init(transaction: Node.DTO.UnrecognisedTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -36,6 +37,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
         timestamp = transaction.timestamp
         height = transaction.height
         modified = Date()
+        self.status = status
     }
 
     init(transaction: UnrecognisedTransaction) {
@@ -47,5 +49,6 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
         timestamp = transaction.timestamp
         modified = transaction.modified
         height = transaction.height
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

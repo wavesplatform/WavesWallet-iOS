@@ -297,11 +297,22 @@ private extension TransactionHistoryViewController {
             
             guard let sself = self else { return }
             
-            sself.displays = state.displays
-            
-            sself.collectionView.reloadData()
-            sself.collectionView.scrollToItem(at: IndexPath(item: state.currentIndex, section: 0), at: .left, animated: false)
+            switch state.actionDisplay {
+            case .reload(let index):
+                sself.displays = state.displays
 
+                CATransaction.begin()
+                CATransaction.setCompletionBlock{
+                    if let index = index {
+                        sself.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: false)
+                    }
+                }
+                sself.collectionView.reloadData()
+                CATransaction.commit()
+
+            case .none:
+                break
+            }
         })
         
         return [subscriptionSections]

@@ -24,12 +24,13 @@ extension AliasTransaction {
 
         signature = transaction.signature
         alias = transaction.alias
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.AliasTransaction {
 
-    init(transaction: Node.DTO.AliasTransaction) {
+    init(transaction: Node.DTO.AliasTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -44,6 +45,7 @@ extension DomainLayer.DTO.AliasTransaction {
         signature = transaction.signature
         alias = transaction.alias
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: AliasTransaction) {
@@ -60,5 +62,6 @@ extension DomainLayer.DTO.AliasTransaction {
         signature = transaction.signature
         alias = transaction.alias
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

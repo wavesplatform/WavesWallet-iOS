@@ -10,53 +10,53 @@ import Foundation
 
 extension Node.DTO.Transaction {
 
-    var anyTransaction: DomainLayer.DTO.AnyTransaction {
+    func anyTransaction(status: DomainLayer.DTO.TransactionStatus) -> DomainLayer.DTO.AnyTransaction {
 
         switch self  {
         case .unrecognised(let transaction):
-            return .unrecognised(.init(transaction: transaction))
+            return .unrecognised(.init(transaction: transaction, status: status))
 
         case .issue(let transaction):
-            return .issue(.init(transaction: transaction))
+            return .issue(.init(transaction: transaction, status: status))
 
         case .transfer(let transaction):
-            return .transfer(.init(transaction: transaction))
+            return .transfer(.init(transaction: transaction, status: status))
 
         case .reissue(let transaction):
-            return .reissue(.init(transaction: transaction))
+            return .reissue(.init(transaction: transaction, status: status))
 
         case .burn(let transaction):
-            return .burn(.init(transaction: transaction))
+            return .burn(.init(transaction: transaction, status: status))
 
         case .exchange(let transaction):
-            return .exchange(.init(transaction: transaction))
+            return .exchange(.init(transaction: transaction, status: status))
 
         case .lease(let transaction):
-            return .lease(.init(transaction: transaction))
+            return .lease(.init(transaction: transaction, status: status))
 
         case .leaseCancel(let transaction):
-            return .leaseCancel(.init(transaction: transaction))
+            return .leaseCancel(.init(transaction: transaction, status: status))
 
         case .alias(let transaction):
-            return .alias(.init(transaction: transaction))
+            return .alias(.init(transaction: transaction, status: status))
 
         case .massTransfer(let transaction):
-            return   .massTransfer(.init(transaction: transaction))
+            return .massTransfer(.init(transaction: transaction, status: status))
 
         case .data(let transaction):
-            return .data(.init(transaction: transaction))
+            return .data(.init(transaction: transaction, status: status))
         }
     }
 }
 
 extension Node.DTO.TransactionContainers {
 
-    func anyTransactions() -> [DomainLayer.DTO.AnyTransaction] {
+    func anyTransactions(status: DomainLayer.DTO.TransactionStatus) -> [DomainLayer.DTO.AnyTransaction] {
 
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 
         for transaction in self.transactions {
-           anyTransactions.append(transaction.anyTransaction)
+            anyTransactions.append(transaction.anyTransaction(status: status))
         }
 
         return anyTransactions

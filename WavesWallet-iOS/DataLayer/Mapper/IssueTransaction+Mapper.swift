@@ -29,12 +29,13 @@ extension IssueTransaction {
         assetDescription = transaction.description
         script = transaction.script
         modified = transaction.modified
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.IssueTransaction {
 
-    init(transaction: Node.DTO.IssueTransaction) {
+    init(transaction: Node.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -54,6 +55,7 @@ extension DomainLayer.DTO.IssueTransaction {
         script = transaction.script
         modified = Date()
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: IssueTransaction) {
@@ -75,5 +77,6 @@ extension DomainLayer.DTO.IssueTransaction {
         script = transaction.script
         modified = transaction.modified
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

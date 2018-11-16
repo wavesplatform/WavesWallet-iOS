@@ -19,6 +19,12 @@ extension DomainLayer.DTO {
         typealias Asset = DomainLayer.DTO.Asset
         typealias Account = DomainLayer.DTO.Account
 
+        enum Status {
+            case activeNow
+            case completed
+            case unconfirmed
+        }
+
         struct Transfer {
             let balance: Balance
             let asset: Asset
@@ -115,6 +121,7 @@ extension DomainLayer.DTO {
         let height: Int64?
         let confirmationHeight: Int64
         let sender: Account
+        let status: Status
     }
 }
 

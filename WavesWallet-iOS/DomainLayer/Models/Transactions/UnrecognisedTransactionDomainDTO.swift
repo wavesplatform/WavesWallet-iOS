@@ -18,5 +18,6 @@ extension DomainLayer.DTO {
         let timestamp: Int64
         let height: Int64
         let modified: Date
+        var status: TransactionStatus
     }
 }

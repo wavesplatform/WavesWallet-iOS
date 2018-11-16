@@ -131,7 +131,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 collection.dispose()
             }
         }
-        .subscribeOn(RunLoopThreadScheduler.init(threadName: "Realm"))
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
 }
 

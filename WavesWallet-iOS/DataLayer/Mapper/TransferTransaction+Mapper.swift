@@ -29,12 +29,13 @@ extension TransferTransaction {
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.TransferTransaction {
 
-    init(transaction: Node.DTO.TransferTransaction) {
+    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -54,6 +55,7 @@ extension DomainLayer.DTO.TransferTransaction {
         amount = transaction.amount
         attachment = transaction.attachment
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: TransferTransaction) {
@@ -75,5 +77,6 @@ extension DomainLayer.DTO.TransferTransaction {
         amount = transaction.amount
         attachment = transaction.attachment
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

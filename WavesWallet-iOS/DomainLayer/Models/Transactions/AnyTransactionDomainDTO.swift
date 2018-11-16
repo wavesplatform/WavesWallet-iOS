@@ -9,6 +9,13 @@
 import Foundation
 
 extension DomainLayer.DTO {
+
+    enum TransactionStatus: Int, Decodable {
+        case activeNow
+        case completed
+        case unconfirmed
+    }
+
     enum AnyTransaction {
         case unrecognised(DomainLayer.DTO.UnrecognisedTransaction)
         case issue(DomainLayer.DTO.IssueTransaction)
@@ -25,6 +32,53 @@ extension DomainLayer.DTO {
 }
 
 extension DomainLayer.DTO.AnyTransaction {
+
+    var status: DomainLayer.DTO.TransactionStatus {
+        switch self {
+        case .unrecognised(let tx):
+            return tx.status
+
+        case .issue(let tx):
+            return tx.status
+
+        case .transfer(let tx):
+            return tx.status
+
+        case .reissue(let tx):
+            return tx.status
+
+        case .burn(let tx):
+            return tx.status
+
+        case .exchange(let tx):
+            return tx.status
+
+        case .lease(let tx):
+            return tx.status
+
+        case .leaseCancel(let tx):
+            return tx.status
+
+        case .alias(let tx):
+            return tx.status
+
+        case .massTransfer(let tx):
+            return tx.status
+
+        case .data(let tx):
+            return tx.status
+        }
+    }
+
+    var isLease: Bool {
+        switch self {
+        case .lease:
+            return true
+
+        default:
+            return false
+        }
+    }
 
     var id: String {
         switch self {

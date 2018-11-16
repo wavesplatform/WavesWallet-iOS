@@ -67,7 +67,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
             .map(Node.DTO.TransactionContainers.self)
-            .map { $0.anyTransactions() }
+            .map { $0.anyTransactions(status: .completed) }
             .asObservable()        
     }
 
@@ -86,7 +86,10 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                    callbackQueue: DispatchQueue.global(qos: .background))
             }
             .map([Node.DTO.LeaseTransaction].self)
-            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
+            .map { $0.map { tx in
+                    return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow)
+                }
+            }
             .asObservable()
     }
 
@@ -124,7 +127,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
             .map(Node.DTO.Transaction.self)
-            .map({ $0.anyTransaction })
+            .map({ $0.anyTransaction(status: .unconfirmed) })
             .asObservable()
     }
 

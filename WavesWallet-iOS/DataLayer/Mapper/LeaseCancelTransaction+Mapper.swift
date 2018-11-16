@@ -28,12 +28,13 @@ extension LeaseCancelTransaction {
         if let lease = transaction.lease {
             self.lease = LeaseTransaction(transaction: lease)
         }
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.LeaseCancelTransaction {
 
-    init(transaction: Node.DTO.LeaseCancelTransaction) {
+    init(transaction: Node.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -49,8 +50,9 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         chainId = transaction.chainId
         leaseId = transaction.leaseId
 
-        lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease)
+        lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease, status: .completed)
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: LeaseCancelTransaction) {
@@ -73,5 +75,6 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
             self.lease = nil
         }
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

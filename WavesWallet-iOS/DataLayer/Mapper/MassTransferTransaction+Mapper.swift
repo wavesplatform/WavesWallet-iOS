@@ -38,12 +38,14 @@ extension MassTransferTransaction {
             }
 
         self.transfers.append(objectsIn: transfers)
+
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    init(transaction: Node.DTO.MassTransferTransaction) {
+    init(transaction: Node.DTO.MassTransferTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -65,6 +67,8 @@ extension DomainLayer.DTO.MassTransferTransaction {
             .transfers
             .map { .init(recipient: $0.recipient,
                          amount: $0.amount) }
+
+        self.status = status
     }
 
     init(transaction: MassTransferTransaction) {
@@ -88,5 +92,6 @@ extension DomainLayer.DTO.MassTransferTransaction {
             .transfers
             .map { .init(recipient: $0.recipient,
                          amount: $0.amount) }
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }
