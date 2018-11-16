@@ -8,26 +8,35 @@
 
 import UIKit
 
-final class HistoryCoordinator {
-    
+final class HistoryCoordinator: Coordinator {
+
+    var childCoordinators: [Coordinator] = []
+
+    weak var parent: Coordinator?
+
     private weak var historyViewController: UIViewController?
     
     private var navigationController: UINavigationController!
-    
-    func start(navigationController: UINavigationController, historyType: HistoryType) {
-        self.navigationController = navigationController
 
-        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))        
+    func start() {
         navigationController.pushViewController(historyViewController!, animated: true)
+    }
+
+    init(navigationController: UINavigationController, historyType: HistoryType) {
+
+        self.navigationController = navigationController
+        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
     }
 }
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        TransactionHistoryCoordinator(transactions: transactions,
-                                      currentIndex: index,
-                                      navigationController: navigationController).start()
+        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+                                                        currentIndex: index,
+                                                        navigationController: navigationController)
+
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
 

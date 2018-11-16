@@ -47,28 +47,37 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
     func handlerAction() -> TransactionHistoryPresenterProtocol.Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(query: { state -> (DomainLayer.DTO.Account, Bool)? in
 
             switch state.action {
             case .showAddressBook(let account, let isAdded):
-
-                if let contact = account.contact, isAdded == false {
-                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: { (contact, isOK) in
-
-                    })
-                } else {
-                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: { (contact, isOk) in
-
-                    })
-                }
-
-                return true
+                return (account, isAdded)
             default:
                 return nil
             }
 
-        }, effects: { _ -> Signal<Event> in
-            return Signal.just(.completedAction)
+        }, effects: { data -> Signal<Event> in
+
+            return Observable.create({ (observer) -> Disposable in
+
+                let account = data.0
+                let isAdded = data.1
+
+                let finished = { [weak self] (contact, isOK) in
+                    if isOK {
+                        observer.onNext(.updateContact(contact))
+                    } else {
+                        observer.onNext(.completedAction)
+                    }
+                }
+
+                if let contact = account.contact, isAdded == false {
+                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: finished)
+                } else {
+                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: finished)
+                }
+                return Disposables.create()
+            }).asSignal(onErrorJustReturn: .completedAction)
         })
     }
 
@@ -83,6 +92,10 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         switch event {
         case .readyView:
+            break
+
+        case .updateContact(let contact):
+
             break
 
         case .tapRecipient(_, let recipient):

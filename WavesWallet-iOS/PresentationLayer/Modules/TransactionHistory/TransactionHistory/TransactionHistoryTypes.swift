@@ -29,6 +29,12 @@ enum TransactionHistoryTypes {
         case readyView
         case tapRecipient(DisplayState, ViewModel.Recipient)
         case completedAction
+        case updateContact(DomainLayer.DTO.Contact)
+    }
+
+    enum ActionDisplay {
+        case none
+        case reload(index: Int)
     }
 
     enum Action {
