@@ -35,7 +35,7 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
 
             }
             .map([Node.DTO.LeaseTransaction].self)
-            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0) } }
+            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0, status: .activeNow) } }
             .asObservable()
     }
 

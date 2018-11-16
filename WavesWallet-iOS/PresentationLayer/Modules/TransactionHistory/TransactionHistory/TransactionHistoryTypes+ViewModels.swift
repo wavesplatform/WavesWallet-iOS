@@ -403,13 +403,24 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
     
     func statusRow() -> TransactionHistoryTypes.ViewModel.Row {
-        return .status(.init(
-            timestamp: timestamp,
-            status: .completed)
-        )
+        return .status(.init(timestamp: timestamp,
+                             status: self.statusKind))
+    }
+
+    var statusKind: TransactionHistoryTypes.ViewModel.Status.Kind {
+        switch self.status {
+        case .activeNow:
+            return .activeNow
+
+        case .completed:
+            return .completed
+
+        case .unconfirmed:
+            return .unconfirmed
+        }
     }
     
-    
+
     func buttonRow() -> TransactionHistoryTypes.ViewModel.Row? {
         
         switch kind {

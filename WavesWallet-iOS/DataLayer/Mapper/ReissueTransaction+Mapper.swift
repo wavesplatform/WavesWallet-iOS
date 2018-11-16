@@ -27,12 +27,13 @@ extension ReissueTransaction {
         chainId.value = transaction.chainId
         quantity = transaction.quantity
         reissuable = transaction.reissuable
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.ReissueTransaction {
 
-    init(transaction: Node.DTO.ReissueTransaction) {
+    init(transaction: Node.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -50,6 +51,7 @@ extension DomainLayer.DTO.ReissueTransaction {
         quantity = transaction.quantity
         reissuable = transaction.reissuable
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: ReissueTransaction) {
@@ -69,5 +71,6 @@ extension DomainLayer.DTO.ReissueTransaction {
         quantity = transaction.quantity
         reissuable = transaction.reissuable
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

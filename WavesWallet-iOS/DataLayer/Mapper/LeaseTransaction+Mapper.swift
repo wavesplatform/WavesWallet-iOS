@@ -24,12 +24,13 @@ extension LeaseTransaction {
         recipient = transaction.recipient
         height = transaction.height
         modified = transaction.modified
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.LeaseTransaction {
 
-    init(transaction: Node.DTO.LeaseTransaction) {
+    init(transaction: Node.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -43,6 +44,7 @@ extension DomainLayer.DTO.LeaseTransaction {
         height = transaction.height ?? -1
         modified = Date()
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: LeaseTransaction) {
@@ -59,5 +61,6 @@ extension DomainLayer.DTO.LeaseTransaction {
         height = transaction.height
         modified = transaction.modified
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

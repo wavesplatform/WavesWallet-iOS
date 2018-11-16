@@ -50,6 +50,10 @@ final class RunLoopThreadScheduler: ImmediateSchedulerType {
     }
 }
 
+enum Schedulers {
+    static var realmThreadScheduler = RunLoopThreadScheduler(threadName: "Realm")
+}
+
 private final class ThreadTarget: NSObject {
     @objc fileprivate func threadEntryPoint() {
         let runLoop = RunLoop.current

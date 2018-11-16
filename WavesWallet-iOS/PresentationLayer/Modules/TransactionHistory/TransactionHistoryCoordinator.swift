@@ -91,21 +91,21 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
     func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
-        finishedAddToAddressBook(contact: contact)
+        finishedAddToAddressBook(contact: .update(newContact))
     }
 
     func addAddressBookDidCreate(contact: DomainLayer.DTO.Contact) {
-        finishedAddToAddressBook(contact: contact)
+        finishedAddToAddressBook(contact: .update(contact))
     }
 
     func addAddressBookDidDelete(contact: DomainLayer.DTO.Contact) {
-        finishedAddToAddressBook(contact: contact)
+        finishedAddToAddressBook(contact: .delete(contact))
     }
 }
 
 extension TransactionHistoryCoordinator {
 
-    func finishedAddToAddressBook(contact: DomainLayer.DTO.Contact) {
+    func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
 
         self.navigationController.popViewController(animated: true, completed: { [weak self] in
             self?.lastDisplay?.finishedAddressBook?(contact, true)

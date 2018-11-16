@@ -11,7 +11,7 @@ import RealmSwift
 
 
 fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 4
+    static let schemaVersion: UInt64 = 5
 }
 
 enum WalletRealmFactory {
@@ -20,7 +20,7 @@ enum WalletRealmFactory {
         var config = Realm.Configuration()
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(accountAddress).realm")
-        config.deleteRealmIfMigrationNeeded = true
+        config.deleteRealmIfMigrationNeeded = false
         config.schemaVersion = Constants.schemaVersion
         return config
     }

@@ -46,7 +46,11 @@ extension TransactionHistoryTypes.State {
                                                               sections: sections)
         }
         
-        return TransactionHistoryTypes.State(currentIndex: currentIndex, action: .none, displays: displays, transactions: transactions)
+        return TransactionHistoryTypes.State(currentIndex: currentIndex,
+                                             action: .none,
+                                             displays: displays,
+                                             transactions: transactions,
+                                             actionDisplay: .reload(index: currentIndex))
     }
     
 }

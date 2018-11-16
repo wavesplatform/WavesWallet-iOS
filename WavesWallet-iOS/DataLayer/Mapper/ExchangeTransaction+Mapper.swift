@@ -31,12 +31,13 @@ extension ExchangeTransaction {
 
         order1 = ExchangeTransactionOrder(order: transaction.order1)
         order2 = ExchangeTransactionOrder(order: transaction.order2)
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.ExchangeTransaction {
 
-    init(transaction: Node.DTO.ExchangeTransaction) {
+    init(transaction: Node.DTO.ExchangeTransaction, status: DomainLayer.DTO.TransactionStatus) {
 
         type = transaction.type
         id = transaction.id
@@ -54,6 +55,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1)
         order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2)
+        self.status = status
     }
 
     init(transaction: ExchangeTransaction) {
@@ -73,6 +75,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1!)
         order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2!)
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }
 
