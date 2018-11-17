@@ -53,6 +53,7 @@
 		04EB742621133318004A065B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB742521133318004A065B /* HistoryViewController.swift */; };
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
 		04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */; };
+		04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */; };
 		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
 		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
 		0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E63215C65D2007D9750 /* UseTouchID.storyboard */; };
@@ -846,6 +847,7 @@
 		04EB74272113335B004A065B /* HistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypes.swift; sourceTree = "<group>"; };
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
 		04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterStartBlockCell.xib; sourceTree = "<group>"; };
+		04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		0A071E40215AEF61007D9750 /* AccountPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountPassword.storyboard; sourceTree = "<group>"; };
 		0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		0A071E63215C65D2007D9750 /* UseTouchID.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UseTouchID.storyboard; sourceTree = "<group>"; };
@@ -2633,6 +2635,7 @@
 			isa = PBXGroup;
 			children = (
 				0A110CC8215417DD002A8FD7 /* MultyTextField.swift */,
+				04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */,
 				0A110CC7215417DD002A8FD7 /* MultyTextField.xib */,
 				0A762D16214FF1CD00BE9204 /* InputTextField.swift */,
 				0A762D14214FE3F300BE9204 /* InputTextField.xib */,
@@ -5242,6 +5245,7 @@
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
+				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
 				0AA8CAA42151133D000D09E6 /* UIView+Animation.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				0A762D7E21639FA60019D447 /* TransactionHistoryViewController.swift in Sources */,
