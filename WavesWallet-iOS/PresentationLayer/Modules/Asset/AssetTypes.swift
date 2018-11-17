@@ -54,6 +54,7 @@ extension AssetTypes {
         case tapHistory
         case showReceive(DomainLayer.DTO.AssetBalance)
         case showSend(DomainLayer.DTO.AssetBalance)
+        case tapBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?)
     }
 
     struct DisplayState: DataSourceProtocol, Mutating {
@@ -95,12 +96,14 @@ extension AssetTypes.ViewModel {
     enum Row {
         case balanceSkeleton
         case balance(AssetTypes.DTO.Asset.Balance)
+        case spamBalance(AssetTypes.DTO.Asset.Balance)
         case viewHistory
         case viewHistoryDisabled
         case viewHistorySkeleton
         case lastTransactions([DomainLayer.DTO.SmartTransaction])
         case transactionSkeleton
         case assetInfo(AssetTypes.DTO.Asset.Info)
+        case tokenBurn(AssetTypes.DTO.Asset.Info)
     }
 }
 

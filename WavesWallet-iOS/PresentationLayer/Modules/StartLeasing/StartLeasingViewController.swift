@@ -148,7 +148,7 @@ private extension StartLeasingViewController {
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
         labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
-        amountView.setupRightLabelText("Waves")
+        amountView.setupRightLabelText("WAVES")
     }
     
     var inputAmountValues: [Money] {
