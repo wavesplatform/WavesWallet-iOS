@@ -17,6 +17,10 @@ fileprivate enum Constants {
     static let titleBlockOffset: CGFloat = 24
     static let titleOffset: CGFloat = 8
     static let titleDefaultHeight: CGFloat = 16
+    
+    static let nameTopOffset: CGFloat = 110
+    static let totalAmountDecimalsBlockHeight: CGFloat = 104
+    static let typeBlockHeight: CGFloat = 40
 }
 
 final class AssetDetailCell: UITableViewCell, Reusable {
@@ -129,11 +133,7 @@ extension AssetDetailCell: ViewCalculateHeight {
 
     static func viewHeight(model: AssetTypes.DTO.Asset.Info, width: CGFloat) -> CGFloat {
         
-        let nameTopOffset: CGFloat = 110
-        let totalAmountDecimalsBlockHeight: CGFloat = 104
-        let typeBlockHeight: CGFloat = 40
-        
-        var offset: CGFloat = nameTopOffset
+        var offset: CGFloat = Constants.nameTopOffset
         let nameHeight = model.name.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)
         offset += nameHeight
         offset += Constants.titleBlockOffset
@@ -154,10 +154,10 @@ extension AssetDetailCell: ViewCalculateHeight {
         offset += idHeight
         offset += Constants.titleBlockOffset
         
-        offset += totalAmountDecimalsBlockHeight
+        offset += Constants.totalAmountDecimalsBlockHeight
         offset += Constants.titleBlockOffset
         
-        offset += typeBlockHeight
+        offset += Constants.typeBlockHeight
         
         if model.description.count > 0 {
             offset += Constants.titleBlockOffset
