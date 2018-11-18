@@ -116,17 +116,15 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             }
 
             do {
+                let ids = balances.map { $0.assetId }
+                let objects = realm.objects(AssetBalance.self).filter("assetId IN %@", ids)
                 try realm.write {
-                    balances
-                        .map { AssetBalance(balance: $0) }
-                        .forEach({ (asset) in
-                            realm.delete(asset)
-                        })
+                    realm.delete(objects)            
                 }
                 observer.onNext(true)
                 observer.onCompleted()
-            } catch let error {
-                error(error)
+            } catch let e {
+                error(e)
                 observer.onNext(false)
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()

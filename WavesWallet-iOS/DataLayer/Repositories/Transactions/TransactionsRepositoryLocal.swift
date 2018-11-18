@@ -167,7 +167,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         types.forEach { predicatesFromTypes.append($0.predicate(from: specifications)) }
 
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
-
+        
         let txsResult = realm
             .objects(AnyTransaction.self)
             .sorted(byKeyPath: "timestamp", ascending: false)
