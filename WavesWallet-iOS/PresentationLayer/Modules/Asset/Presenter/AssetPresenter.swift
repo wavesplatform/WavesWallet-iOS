@@ -216,6 +216,12 @@ private extension AssetPresenter {
                 $0.displayState.action = .none
             }
             
+        case .tapBurn(let asset, let delegate):
+            moduleOutput?.showBurn(asset: asset, delegate: delegate)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
+            
         default:
             break
         }
@@ -235,8 +241,19 @@ extension AssetPresenter {
                              and transactionStatus: AssetTypes.State.TransactionStatus) -> [AssetTypes.ViewModel.Section]
     {
 
-        let balance: AssetTypes.ViewModel.Section = .init(kind: .none, rows: [.balance(asset.balance)])
-        let assetInfo: AssetTypes.ViewModel.Section =   .init(kind: .none, rows: [.assetInfo(asset.info)])
+        var balance: AssetTypes.ViewModel.Section!
+        if asset.info.isSpam {
+            balance = .init(kind: .none, rows: [.spamBalance(asset.balance), .tokenBurn(asset.info)])
+        }
+        else {
+            balance = .init(kind: .none, rows: [.balance(asset.balance)])
+        }
+        
+        var infoRows: [AssetTypes.ViewModel.Row] = [.assetInfo(asset.info)]
+        if !asset.info.isSpam && !asset.info.isWaves && asset.info.assetBalance.avaliableBalance > 0 {
+            infoRows.append(.tokenBurn(asset.info))
+        }
+        let assetInfo: AssetTypes.ViewModel.Section = .init(kind: .none, rows: infoRows)
 
         var transactionRows: [AssetTypes.ViewModel.Row] = []
         var transactionHeaderTitle: String = ""
