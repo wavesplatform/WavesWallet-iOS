@@ -751,8 +751,6 @@
 
 "send.label.amount" = "Amount";
 
-"send.label.dollar" = "US Dollar";
-
 "send.label.error.insufficientFunds" = "Insufficient funds";
 
 "send.label.error.invalidId" = "invalid ID";

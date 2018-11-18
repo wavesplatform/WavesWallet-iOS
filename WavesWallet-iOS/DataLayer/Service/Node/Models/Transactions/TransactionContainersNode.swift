@@ -111,15 +111,10 @@ extension Node.DTO {
                 while !listForType.isAtEnd {
 
                     let objectType = try listForType.nestedContainer(keyedBy: CodingKeys.self)
-                    guard let type = try? objectType.decode(TransactionType.self, forKey: .type) else {
-
-                        if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
-                            transactions.append(.unrecognised(tx))
-                        }
-                        continue
-                    }
 
                     do {
+                        let type = try objectType.decode(TransactionType.self, forKey: .type)
+
                         switch type {
                         case .issue:
                             let tx = try listArray.decode(Node.DTO.IssueTransaction.self)
