@@ -135,8 +135,9 @@ private extension AddAddressTextField {
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
-            if let address = result?.value {
+            if let value = result?.value {
                 
+                let address = QRCodeParser.parseAddress(value)
                 self.addressTextField.setupText(address, animation: true)
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
