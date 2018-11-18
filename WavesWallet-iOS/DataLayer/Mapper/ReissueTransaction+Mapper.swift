@@ -15,7 +15,7 @@ extension ReissueTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -33,12 +33,12 @@ extension ReissueTransaction {
 
 extension DomainLayer.DTO.ReissueTransaction {
 
-    init(transaction: Node.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus) {
+    init(transaction: Node.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -58,7 +58,7 @@ extension DomainLayer.DTO.ReissueTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version

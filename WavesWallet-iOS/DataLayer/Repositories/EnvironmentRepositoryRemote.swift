@@ -62,8 +62,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                 } else {
                     owner.localEnvironments.onNext([key: environment])
                 }
-            })
-            .sweetDebug("accountEnvironment")
+            })            
     }
 
     private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
@@ -189,11 +188,11 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         }
     }
 
-    func merge(environment: Environment, with accountEnvironmet: DomainLayer.DTO.AccountEnvironment?) -> Environment {
+    func merge(environment: Environment, with accountEnvironment: DomainLayer.DTO.AccountEnvironment?) -> Environment {
 
         var servers: Environment.Servers!
 
-        if let accountEnvironmet = accountEnvironmet {
+        if let accountEnvironmet = accountEnvironment {
 
             var dataUrl: URL!
             var matcherUrl: URL!

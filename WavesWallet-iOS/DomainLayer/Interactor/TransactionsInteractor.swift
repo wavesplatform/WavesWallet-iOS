@@ -77,7 +77,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> SmartTransactionsObservable {
 
         return transactionsRepositoryLocal
-            .isHasTransactions(by: accountAddress)
+            .isHasTransactions(by: accountAddress, ignoreUnconfirmed: false)
             .map { InitialTransactionsQuery(accountAddress: accountAddress,
                                             specifications: specifications,
                                             isHasTransactions: $0) }
@@ -111,7 +111,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                             guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
                             return Observable.just(tx)
                         })
-                })
+                }).sweetDebug("Send tx")
     }
 }
 
@@ -153,6 +153,7 @@ fileprivate extension TransactionsInteractor {
                           limit: query.currentLimit)
             .map {
                 let ids = $0.reduce(into: [String]()) { list, tx in
+                    
                     list.append(tx.id)
                 }
 
@@ -187,7 +188,7 @@ fileprivate extension TransactionsInteractor {
     private func isHasTransactions(_ query: IsHasTransactionsQuery) -> Observable<IsHasTransactionsResult> {
 
         return transactionsRepositoryLocal
-            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress)
+            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress, ignoreUnconfirmed: true)
             .map { IsHasTransactionsResult(isHasTransactions: $0,
                                            transactions: query.transactions)}
     }
@@ -207,8 +208,21 @@ fileprivate extension TransactionsInteractor {
 
     private func anyTransactionsLocal(_ query: AnyTransactionsQuery) -> AnyTransactionsObservable {
 
-        return transactionsRepositoryLocal
+        let txs = transactionsRepositoryLocal
             .transactions(by: query.accountAddress, specifications: query.specifications)
+
+        var newTxs = transactionsRepositoryLocal
+            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1)
+
+        newTxs = Observable.merge(Observable.just([]), newTxs)
+
+        return txs.flatMap { (txs) -> AnyTransactionsObservable in
+            return newTxs.map({ lastTxs -> [DomainLayer.DTO.AnyTransaction] in
+                var newTxs = lastTxs
+                newTxs.append(contentsOf: txs)
+                return newTxs
+            })
+        }
     }
 
     private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
@@ -255,7 +269,16 @@ fileprivate extension TransactionsInteractor {
         if let leaseTransactions = query.leaseTransactions {
             activeLeasing = Observable.just(leaseTransactions)
         } else {
-            activeLeasing = transactionsRepositoryRemote.activeLeasingTransactions(by: query.accountAddress)
+            //it is code for avoid query when lease thx not found
+            let isNeedActiveLeasing = query.transactions.first(where: { (tx) -> Bool in
+                return tx.isLease == true && tx.status == .completed
+            }) != nil
+
+            if isNeedActiveLeasing {
+                activeLeasing = transactionsRepositoryRemote.activeLeasingTransactions(by: query.accountAddress)
+            } else {
+                activeLeasing = Observable.just([])
+            }
         }
 
         let activeLeasingMap = activeLeasing!.flatMap { (txs) -> Observable<[String: DomainLayer.DTO.LeaseTransaction]> in
@@ -338,7 +361,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
-        case .lease:
+        case .lease(let tx):
             return [GlobalConstants.wavesAssetId]
 
         case .leaseCancel:
@@ -380,7 +403,14 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.sender, tx.recipient]
 
         case .leaseCancel(let tx):
-            return [tx.sender]
+            var accountsIds: [String] = [String]()
+            accountsIds.append(tx.sender)
+            if let lease = tx.lease {
+                accountsIds.append(lease.sender)
+                accountsIds.append(lease.recipient)
+            }
+
+            return accountsIds
 
         case .alias(let tx):
             return [tx.sender]

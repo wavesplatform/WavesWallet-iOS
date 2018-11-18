@@ -52,9 +52,9 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
-                guard let owner = self else { return Single.never() }
+                guard let owner = self else { return Observable.never() }
 
                 let limit = min(Constants.maxLimit, offset + limit)
 
@@ -65,39 +65,39 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                limit: limit),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
+                    .map(Node.DTO.TransactionContainers.self)
+                    .map { $0.anyTransactions(status: .completed, environment: environment) }
+                    .asObservable()
             }
-            .map(Node.DTO.TransactionContainers.self)
-            .map { $0.anyTransactions(status: .completed) }
-            .asObservable()        
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
-                guard let owner = self else { return Single.never() }
+                guard let owner = self else { return Observable.never() }
                 return owner
                     .leasingProvider
                     .rx
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
                                    environment: environment),
                                    callbackQueue: DispatchQueue.global(qos: .background))
+                    .map([Node.DTO.LeaseTransaction].self)
+                    .map { $0.map { tx in
+                        return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow, environment: environment)
+                        }
+                    }
+                    .asObservable()
             }
-            .map([Node.DTO.LeaseTransaction].self)
-            .map { $0.map { tx in
-                    return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow)
-                }
-            }
-            .asObservable()
     }
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: wallet.address)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<DomainLayer.DTO.AnyTransaction> in
 
                 let timestamp = Int64(Date().millisecondsSince1970)
                 var signature = specifications.signature(timestamp: timestamp,
@@ -108,7 +108,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     signature = try wallet.sign(input: signature, kind: [.none])
                 } catch let e {
                     error(e)
-                    return Single.error(LeasingTransactionRepositoryError.fail)
+                    return Observable.error(LeasingTransactionRepositoryError.fail)
                 }
 
                 let proofs = [Base58.encode(signature)]
@@ -117,18 +117,25 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                                                    environment: environment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
-
-                guard let owner = self else { return Single.never() }
+                guard let owner = self else { return Observable.never() }
+                
                 return owner
                     .transactions
                     .rx
                     .request(.init(kind: .broadcast(broadcastSpecification),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
+                    .map(Node.DTO.Transaction.self)
+                    .map({ $0.anyTransaction(status: .unconfirmed, environment: environment) })
+                    .asObservable()
             }
-            .map(Node.DTO.Transaction.self)
-            .map({ $0.anyTransaction(status: .unconfirmed) })
-            .asObservable()
+    }
+
+
+    func newTransactions(by accountAddress: String,
+                         specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+        assertMethodDontSupported()
+        return Observable.never()
     }
 
     func transactions(by accountAddress: String,
@@ -142,17 +149,17 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         return Observable.never()
     }
 
-    func isHasTransactions(by accountAddress: String) -> Observable<Bool> {
+    func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool> {
+    func isHasTransaction(by id: String, accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool> {
+    func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

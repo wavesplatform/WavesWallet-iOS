@@ -23,20 +23,20 @@ final class LeasingTransactionRepositoryRemote: LeasingTransactionRepositoryProt
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
-                guard let owner = self else { return Single.never() }
+                guard let owner = self else { return Observable.never() }
                 return owner
                     .leasingProvider
                     .rx
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
                                    environment: environment),
                             callbackQueue: DispatchQueue.global(qos: .background))
-
+                    .map([Node.DTO.LeaseTransaction].self)
+                    .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0, status: .activeNow, environment: environment) } }
+                    .asObservable()
             }
-            .map([Node.DTO.LeaseTransaction].self)
-            .map { $0.map { DomainLayer.DTO.LeaseTransaction(transaction: $0, status: .activeNow) } }
-            .asObservable()
+
     }
 
     func saveLeasingTransactions(_ transactions:[DomainLayer.DTO.LeaseTransaction], by accountAddress: String) -> Observable<Bool> {

@@ -115,7 +115,13 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.isRefreshing = false
 
         case .responseAll(let response):
-
+            let test = response.filter { (tx) -> Bool in
+                if case DomainLayer.DTO.SmartTransaction.Kind.canceledLeasing(_) = tx.kind {
+                    return true
+                }
+                return false
+            }
+            print(test)
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             state.transactions = response
             state.currentFilter = .all

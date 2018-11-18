@@ -12,11 +12,7 @@ import UIKit
 private enum Constants {
     static let timestampDateFormat = "dd.MM.yyyy '" + Localizable.Waves.Transactionhistory.Cell.Status.at + "' hh:mm"
     static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1)
-    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)
-    
-    static let activeNow = Localizable.Waves.Transactionhistory.Cell.Status.Button.activeNow
-    static let completed = Localizable.Waves.Transactionhistory.Cell.Status.Button.completed
-    static let unconfirmed = Localizable.Waves.Transactionhistory.Cell.Status.Button.unconfirmed
+    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)    
 }
 
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
@@ -47,17 +43,17 @@ extension TransactionHistoryStatusCell: ViewConfiguration {
         
         switch model.status {
         case .unconfirmed:
-            status = Constants.unconfirmed
+            status = Localizable.Waves.Transactionhistory.Cell.Status.Button.unconfirmed
             statusContainer.backgroundColor = Constants.warningBackgroundColor
             statusLabel.textColor = UIColor.warning600
             
         case .activeNow:
-            status = Constants.activeNow
+            status = Localizable.Waves.Transactionhistory.Cell.Status.Button.activeNow
             statusContainer.backgroundColor = Constants.okBackgroundColor
             statusLabel.textColor = UIColor.success500
             
         case .completed:
-            status = Constants.completed
+            status = Localizable.Waves.Transactionhistory.Cell.Status.Button.completed
             statusContainer.backgroundColor = Constants.okBackgroundColor
             statusLabel.textColor = UIColor.success500
             
