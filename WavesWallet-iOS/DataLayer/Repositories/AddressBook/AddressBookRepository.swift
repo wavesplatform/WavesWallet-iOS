@@ -13,6 +13,24 @@ import RealmSwift
 
 final class AddressBookRepository: AddressBookRepositoryProtocol {
 
+    func contact(by address: String, accountAddress: String) -> Observable<DomainLayer.DTO.Contact?> {
+
+        return Observable.create({ observer -> Disposable in
+
+            //TODO: Remove !
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
+            if let object = realm.object(ofType: AddressBook.self, forPrimaryKey: address) {
+                observer.onNext(DomainLayer.DTO.Contact(name: object.name, address: object.address))
+            } else {
+                observer.onNext(nil)
+            }
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
+    }
+
     func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
             //TODO: Remove !

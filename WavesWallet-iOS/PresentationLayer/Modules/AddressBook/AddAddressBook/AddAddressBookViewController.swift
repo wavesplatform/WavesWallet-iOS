@@ -9,6 +9,9 @@
 import UIKit
 import RxSwift
 
+private enum AddAddressError: Error {
+    case addressExists
+}
 private enum Constants {
     static let buttonSaveBottomEditModeOffset: CGFloat = 95
 }
@@ -112,14 +115,29 @@ private extension AddAddressBookViewController {
 
         authorizationInteractor
             .authorizedWallet()
-//            .flatMap({ (wallet) -> Observable<DomainLayer.DTO.Wallet>  in
-//
-//            })
+            .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Wallet>  in
+                guard let owner = self else { return Observable.never() }
+
+                if self?.input.isAdd == true {
+                    return owner
+                        .repository
+                        .contact(by: newContact.address, accountAddress: wallet.address)
+                        .flatMap({ contact -> Observable<DomainLayer.DTO.Wallet> in
+                            if contact == nil {
+                                return Observable.just(wallet.wallet)
+                            } else {
+                                return Observable.error(AddAddressError.addressExists)
+                            }
+                        })
+                }
+
+                return Observable.just(wallet.wallet)
+            })
             .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
 
                 guard let owner = self else { return Observable.never() }
                 return owner.repository.save(contact: newContact, accountAddress: wallet.address)
-                    .map { _ in wallet.wallet }
+                    .map { _ in wallet }
             }
             .flatMap({ [weak self] wallet  -> Observable<Bool> in
                 guard let owner = self else { return Observable.never() }
@@ -139,6 +157,8 @@ private extension AddAddressBookViewController {
                 }
                 //TODO: Move code to coordinator
                 self?.navigationController?.popViewController(animated: true)
+            }, onError: { [weak self] error in
+                self?.textFieldAddress.error = Localizable.Waves.Addaddressbook.Textfield.Address.Error.addressexist
             })
             .disposed(by: disposeBag)
     }
@@ -149,6 +169,7 @@ private extension AddAddressBookViewController {
 extension AddAddressBookViewController: AddAddressTextFieldDelegate {
     
     func addAddressTextField(_ textField: AddAddressTextField, didChange text: String) {
+        textFieldAddress.error = nil
         setupButtonSaveState()
     }
 
