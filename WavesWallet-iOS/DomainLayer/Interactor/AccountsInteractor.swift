@@ -40,12 +40,9 @@ final class AccountsInteractorMock: AccountsInteractorProtocol {
                 })
 
                 let accounts = ids.map({ address -> DomainLayer.DTO.Account in
-                    var newAddress = address
-                    if address.contains(environment.aliasScheme) {
-                        newAddress = address.removeCharacters(from: environment.aliasScheme)
-                    }
-                    let isMyAccount = accountAddress == newAddress || aliases.map { $0.name }.contains(newAddress)
-                    return DomainLayer.DTO.Account(address: newAddress, contact: maps[newAddress], isMyAccount: isMyAccount)
+
+                    let isMyAccount = accountAddress == address || aliases.map { $0.name }.contains(address)
+                    return DomainLayer.DTO.Account(address: address, contact: maps[address], isMyAccount: isMyAccount)
                 })
 
                 return Observable.just(accounts)

@@ -48,12 +48,12 @@ extension DataTransaction {
 
 extension DomainLayer.DTO.DataTransaction {
 
-    init(transaction: Node.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus) {
+    init(transaction: Node.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version

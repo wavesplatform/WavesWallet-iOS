@@ -102,9 +102,10 @@ extension WalletCoordinator: WalletModuleOutput {
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
         guard let navigationController = navigationController else { return }
-        TransactionHistoryCoordinator(transactions: transactions,
-                                      currentIndex: index,
-                                      navigationController: navigationController).start()
+        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+                                                        currentIndex: index,
+                                                        navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
 
@@ -130,9 +131,10 @@ extension WalletCoordinator: AssetModuleOutput {
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
         guard let navigationController = navigationController else { return }
-        TransactionHistoryCoordinator(transactions: transactions,
-                                      currentIndex: index,
-                                      navigationController: navigationController).start()
+        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+                                                        currentIndex: index,
+                                                        navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
 

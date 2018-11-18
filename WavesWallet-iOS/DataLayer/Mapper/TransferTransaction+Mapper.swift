@@ -15,7 +15,7 @@ extension TransferTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -35,12 +35,12 @@ extension TransferTransaction {
 
 extension DomainLayer.DTO.TransferTransaction {
 
-    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus) {
+    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -49,7 +49,7 @@ extension DomainLayer.DTO.TransferTransaction {
         assetId = transaction.assetId.normalizeAssetId
         modified = Date()
 
-        recipient = transaction.recipient
+        recipient = transaction.recipient.normalizeAddress(environment: environment)
         feeAssetId = transaction.feeAssetId.normalizeAssetId
         feeAsset = transaction.feeAsset
         amount = transaction.amount
@@ -62,7 +62,7 @@ extension DomainLayer.DTO.TransferTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version

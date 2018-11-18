@@ -15,7 +15,7 @@ extension LeaseCancelTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -26,7 +26,11 @@ extension LeaseCancelTransaction {
         chainId.value = transaction.chainId
         leaseId = transaction.leaseId
         if let lease = transaction.lease {
-            self.lease = LeaseTransaction(transaction: lease)
+            if let leaseFromBD = self.realm?.object(ofType: LeaseTransaction.self, forPrimaryKey: leaseId) {
+                self.lease = leaseFromBD
+            } else {
+                self.lease = LeaseTransaction(transaction: lease)
+            }
         }
         status = transaction.status.rawValue
     }
@@ -34,12 +38,12 @@ extension LeaseCancelTransaction {
 
 extension DomainLayer.DTO.LeaseCancelTransaction {
 
-    init(transaction: Node.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus) {
+    init(transaction: Node.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -49,8 +53,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         signature = transaction.signature
         chainId = transaction.chainId
         leaseId = transaction.leaseId
-
-        lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease, status: .completed)
+        lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease, status: .completed, environment: environment)
         proofs = transaction.proofs
         self.status = status
     }
@@ -59,7 +62,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version

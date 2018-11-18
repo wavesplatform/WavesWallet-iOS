@@ -15,7 +15,7 @@ extension MassTransferTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -45,12 +45,12 @@ extension MassTransferTransaction {
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    init(transaction: Node.DTO.MassTransferTransaction, status: DomainLayer.DTO.TransactionStatus) {
+    init(transaction: Node.DTO.MassTransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
