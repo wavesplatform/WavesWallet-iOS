@@ -41,7 +41,7 @@ extension DomainLayer.DTO.BurnTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? -1
         modified = Date()
 
         assetId = transaction.assetId

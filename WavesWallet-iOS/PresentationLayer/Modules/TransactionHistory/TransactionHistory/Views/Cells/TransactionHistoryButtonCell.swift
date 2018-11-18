@@ -49,7 +49,9 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
         
         switch model.type {
         case .resend:
-            
+
+            //TODO: Need implementation resend
+            button.isHidden = true
             title = Localizable.Waves.Transactionhistory.Cell.Button.sendAgain
             buttonBackground = UIColor.warning600
             buttonHighlightedBackground = UIColor.warning400

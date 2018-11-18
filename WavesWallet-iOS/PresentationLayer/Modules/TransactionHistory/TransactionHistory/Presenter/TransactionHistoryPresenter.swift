@@ -139,6 +139,21 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
             state.action = .showAddressBook(account: recipient.account, isAdded: isAdded)
             state.actionDisplay = .none
 
+        case .tapButton(let display):
+
+            switch display.transaction.kind {
+            case .startedLeasing:
+                state.action = .cancelLeasing(transaction: display.transaction)
+
+            case .selfTransfer, .sent:
+                state.action = .resendTransaction(display.transaction)
+
+            default:
+                state.action = .none
+            }
+
+            state.actionDisplay = .none
+
         case .completedAction:
             state.action = .none
             state.actionDisplay = .none

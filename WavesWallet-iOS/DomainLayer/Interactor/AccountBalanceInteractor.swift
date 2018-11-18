@@ -13,7 +13,7 @@ import RxSwift
 import RxSwiftExt
 
 fileprivate enum Constants {
-    static let durationInseconds: Double = 6000
+    static let durationInseconds: Double = 0
 }
 
 protocol AccountBalanceInteractorProtocol {
@@ -146,6 +146,21 @@ private extension AccountBalanceInteractor {
                             .saveBalances(newBalances, accountAddress: walletAddress)
                             .map { _ in newBalances }
                     }
+            }
+            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                let map = balances.reduce(into: [String: DomainLayer.DTO.AssetBalance](), { (result, balance) in
+                    result[balance.assetId] = balance
+                })
+
+                var deleteBalances = localBalance
+                deleteBalances.removeAll(where: { (balance) -> Bool in
+                    return map[balance.assetId] != nil
+                })
+
+                return owner
+                    .balanceRepositoryLocal
+                    .deleteBalances(deleteBalances, accountAddress: walletAddress)
+                    .map { _ in balances }
             }
     }
 

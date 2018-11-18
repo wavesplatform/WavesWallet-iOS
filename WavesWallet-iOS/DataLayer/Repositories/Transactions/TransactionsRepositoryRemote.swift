@@ -182,15 +182,15 @@ fileprivate extension TransactionSenderSpecifications {
             
         case .burn(let model):
             
-            return .startBurn(Node.Service.Transaction.Burn(version: self.version,
-                                                            type: self.type.rawValue,
-                                                            scheme: environment.scheme,
-                                                            fee: model.fee,
-                                                            assetId: model.assetID,
-                                                            quantity: model.quantity,
-                                                            timestamp: timestamp,
-                                                            senderPublicKey: publicKey,
-                                                            proofs: proofs))
+            return .burn(Node.Service.Transaction.Burn(version: self.version,
+                                                        type: self.type.rawValue,
+                                                        scheme: environment.scheme,
+                                                        fee: model.fee,
+                                                        assetId: model.assetID,
+                                                        quantity: model.quantity,
+                                                        timestamp: timestamp,
+                                                        senderPublicKey: publicKey,
+                                                        proofs: proofs))
             
         case .createAlias(let model):
 
@@ -230,9 +230,28 @@ fileprivate extension TransactionSenderSpecifications {
         switch self {
         
         case .burn(let model):
-            
-            //TODO: need to sign
-            return []
+
+            let assetId: [UInt8] = Base58.decode(model.assetID)
+
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += scheme.utf8
+            signature += publicKey
+            signature += assetId
+            signature += toByteArray(model.quantity)
+            signature += toByteArray(model.fee)
+            signature += toByteArray(timestamp)
+            return signature
+
+//            constants.TRANSACTION_TYPE_NUMBER.BURN,
+//            constants.TRANSACTION_TYPE_VERSION.BURN,
+//            new Byte('chainId'),
+//            new Base58('senderPublicKey'),
+//            new MandatoryAssetId('assetId'),
+//            new Long('quantity'),
+//            new Long('fee'),
+//            new Long('timestamp')
             
         case .createAlias(let model):
 

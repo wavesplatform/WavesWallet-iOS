@@ -90,6 +90,17 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 // MARK: AddAddressBookModuleOutput
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
+    func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+        //TODO: resend transaction
+    }
+
+    func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
+
+        let transactions = FactoryInteractors.instance.transactions
+
+//        transactions.send(by: .lease(<#T##LeaseTransactionSender#>), wallet: <#T##DomainLayer.DTO.SignedWallet#>)
+    }
+
     func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
         finishedAddToAddressBook(contact: .update(newContact))
     }
