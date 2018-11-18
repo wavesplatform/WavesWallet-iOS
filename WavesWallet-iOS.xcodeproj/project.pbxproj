@@ -779,6 +779,7 @@
 		E9D36DF82175C755001E6DF0 /* AssetListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DC42175C755001E6DF0 /* AssetListInteractorProtocol.swift */; };
 		E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DC52175C755001E6DF0 /* AssetListModuleOutput.swift */; };
 		E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D36DC62175C755001E6DF0 /* AssetList.storyboard */; };
+		E9DB666E21A1DDDF00962639 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
@@ -1606,6 +1607,7 @@
 		E9D36DC42175C755001E6DF0 /* AssetListInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9D36DC52175C755001E6DF0 /* AssetListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListModuleOutput.swift; sourceTree = "<group>"; };
 		E9D36DC62175C755001E6DF0 /* AssetList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AssetList.storyboard; sourceTree = "<group>"; };
+		E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
@@ -2983,6 +2985,7 @@
 				0AD6323821761F350047D467 /* GlobalConstants.swift */,
 				0ACC0234217E3AED000E3EE0 /* String+URL.swift */,
 				0A6AC3DB2183C396005D2525 /* PasteboardButton.swift */,
+				E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -5152,6 +5155,7 @@
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
 				E95B47F121638B11004D4E39 /* StartLeasingTypes.swift in Sources */,
+				E9DB666E21A1DDDF00962639 /* QRCodeParser.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeaseTransaction+Mapper.swift in Sources */,
 				0AF921FC212E07B3003BA067 /* AssetChartHeaderView.swift in Sources */,
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,

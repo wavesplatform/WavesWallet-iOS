@@ -22,8 +22,6 @@ enum GlobalConstants {
 
     static let wavesAssetId = "WAVES"
     static let aliasPrefix = "alias:W:"
-
-    static let wavesPrefixScan = "waves://"
     
     static let WavesTransactionFeeAmount: Int64 = 100000
     static let WavesDecimals: Int = 8
