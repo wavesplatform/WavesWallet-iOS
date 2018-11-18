@@ -86,6 +86,7 @@ final class SendViewController: UIViewController {
         }
         assetView.delegate = self
         amountView.delegate = self
+        amountView.setupRightLabelText("")
         moneroPaymentIdView.setupZeroHeight(animation: false)
         moneroPaymentIdView.didTapNext = { [weak self] in
             self?.amountView.activateTextField()
@@ -110,12 +111,6 @@ final class SendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-    }
-    
-    private func calculateAmount() {
-        
-        //TODO: need update calculation
-        amountView.setupRightLabelText("≈ " + "0" + " " + Localizable.Waves.Send.Label.dollar)
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
@@ -273,7 +268,6 @@ extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
-        calculateAmount()
         updateAmountError(animation: true)
         setupButtonState()
     }
