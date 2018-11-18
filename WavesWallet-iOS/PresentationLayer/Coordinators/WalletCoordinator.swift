@@ -136,6 +136,14 @@ extension WalletCoordinator: AssetModuleOutput {
                                                         navigationController: navigationController)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
+    
+    func showBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?) {
+        
+        let vc = StoryboardScene.Asset.tokenBurnViewController.instantiate()
+        vc.asset = asset
+        vc.delegate = delegate
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: - StartLeasingModuleOutput

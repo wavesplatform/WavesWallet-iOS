@@ -148,7 +148,7 @@ private extension StartLeasingViewController {
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
         labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
-        amountView.setupRightLabelText("Waves")
+        amountView.setupRightLabelText("WAVES")
     }
     
     var inputAmountValues: [Money] {
@@ -184,6 +184,7 @@ private extension StartLeasingViewController {
         amountView.input = { [weak self] in
             return self?.inputAmountValues ?? []
         }
+        addressGeneratorView.decimals = totalBalance.decimals
     }
     
     func setupUI() {
@@ -265,23 +266,30 @@ extension StartLeasingViewController: AddressInputViewDelegate {
     }
     
     func addressInputViewDidDeleteAddress() {
-        acceptAddress("")
+        acceptAddress("", amount: nil)
     }
     
-    func addressInputViewDidScanAddress(_ address: String) {
-        acceptAddress(address)
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?) {
+        acceptAddress(address, amount: amount)
     }
     
     func addressInputViewDidChangeAddress(_ address: String) {
-        acceptAddress(address)
+        acceptAddress(address, amount: nil)
     }
     
     func addressInputViewDidTapNext() {
         amountView.activateTextField()
     }
     
-    private func acceptAddress(_ address: String) {
+    private func acceptAddress(_ address: String, amount: Money?) {
         order.recipient = address
+        
+        if let amount = amount {
+            order.amount = amount
+            amountView.setAmount(amount)
+            amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+        }
+        
         setupButtonState()
         sendEvent.accept(.updateInputOrder(order))
     }

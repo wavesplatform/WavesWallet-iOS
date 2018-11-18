@@ -125,6 +125,7 @@ internal enum Images {
   internal static let downChevron = ImageAsset(name: "down-chevron")
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
+  internal static let draglock22Disabled400 = ImageAsset(name: "draglock22Disabled400")
   internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
@@ -238,6 +239,7 @@ internal enum Images {
   internal static let tSoonExchange48 = ImageAsset(name: "tSoonExchange48")
   internal static let tSpamMassreceived48 = ImageAsset(name: "tSpamMassreceived48")
   internal static let tSpamReceive48 = ImageAsset(name: "tSpamReceive48")
+  internal static let tTokenburn24 = ImageAsset(name: "tTokenburn24")
   internal static let tTokenburn48 = ImageAsset(name: "tTokenburn48")
   internal static let tTokengen48 = ImageAsset(name: "tTokengen48")
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
@@ -360,6 +362,7 @@ internal enum Images {
     downChevron,
     down,
     dragElem,
+    draglock22Disabled400,
     editAddressIcon,
     editaddress24Submit300,
     eyeclsoe24Basic500,
@@ -473,6 +476,7 @@ internal enum Images {
     tSoonExchange48,
     tSpamMassreceived48,
     tSpamReceive48,
+    tTokenburn24,
     tTokenburn48,
     tTokengen48,
     tTokenreis48,

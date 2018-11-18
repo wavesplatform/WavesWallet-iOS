@@ -23,6 +23,9 @@ extension TransactionSenderSpecifications {
 
         case .lease:
             return 2
+            
+        case .burn:
+            return 2
         }
     }
 
@@ -33,6 +36,9 @@ extension TransactionSenderSpecifications {
 
         case .lease:
             return TransactionType.lease
+            
+        case .burn:
+            return TransactionType.burn
         }
     }
 }
@@ -165,19 +171,6 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     }
 }
 
-
-struct Lease {
-    let version: Int
-    let name: String
-    let fee: Int64
-    let recipient: String
-    let amount: Int64
-    let timestamp: Int64
-    let type: Int
-    let senderPublicKey: String
-    let proofs: [String]?
-}
-
 fileprivate extension TransactionSenderSpecifications {
 
     func broadcastSpecification(timestamp: Int64,
@@ -186,6 +179,19 @@ fileprivate extension TransactionSenderSpecifications {
                                 proofs: [String]) -> Node.Service.Transaction.BroadcastSpecification {
 
         switch self {
+            
+        case .burn(let model):
+            
+            return .startBurn(Node.Service.Transaction.Burn(version: self.version,
+                                                            type: self.type.rawValue,
+                                                            scheme: environment.scheme,
+                                                            fee: model.fee,
+                                                            assetId: model.assetID,
+                                                            quantity: model.quantity,
+                                                            timestamp: timestamp,
+                                                            senderPublicKey: publicKey,
+                                                            proofs: proofs))
+            
         case .createAlias(let model):
 
             return .createAlias(Node.Service.Transaction.Alias(version: self.version,
@@ -222,6 +228,12 @@ fileprivate extension TransactionSenderSpecifications {
     func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
 
         switch self {
+        
+        case .burn(let model):
+            
+            //TODO: need to sign
+            return []
+            
         case .createAlias(let model):
 
             var alias: [UInt8] = toByteArray(Int8(self.version))

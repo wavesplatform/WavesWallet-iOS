@@ -60,7 +60,7 @@ final class SaveBackupPhraseViewController: UIViewController {
     @IBAction func copyTapped(_ sender: Any) {
         buttonCopy.isUserInteractionEnabled = false
         buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
-        UIPasteboard.general.string = (input?.seed ?? []).reduce(into: "", { $0 += $1 + " " })
+        UIPasteboard.general.string = (input?.seed ?? []).joined(separator: " ")
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.copyDelay) {
             self.buttonCopy.isUserInteractionEnabled = true
             self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)

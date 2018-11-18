@@ -40,6 +40,15 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
         }
     }
 
+    var error: String? {
+        set (newValue) {
+            addressTextField.error = newValue
+        }
+        get {
+            return addressTextField.error
+        }
+    }
+
     var isEnabled: Bool = true {
         didSet {
             addressTextField.isEnabled = isEnabled
@@ -148,9 +157,10 @@ private extension AddAddressTextField {
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
-            if let address = result?.value {
-                
+            if let value = result?.value {
+                let address = QRCodeParser.parseAddress(value)
                 self.addressTextField.value = address
+
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
             }
