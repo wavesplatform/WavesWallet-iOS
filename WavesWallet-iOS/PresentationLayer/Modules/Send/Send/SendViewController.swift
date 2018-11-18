@@ -86,6 +86,7 @@ final class SendViewController: UIViewController {
         }
         assetView.delegate = self
         amountView.delegate = self
+        amountView.setupRightLabelText("")
         moneroPaymentIdView.setupZeroHeight(animation: false)
         moneroPaymentIdView.didTapNext = { [weak self] in
             self?.amountView.activateTextField()
@@ -110,12 +111,6 @@ final class SendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-    }
-    
-    private func calculateAmount() {
-        
-        //TODO: need update calculation
-        amountView.setupRightLabelText("≈ " + "0" + " " + Localizable.Waves.Send.Label.dollar)
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
@@ -229,6 +224,8 @@ private extension SendViewController {
                 
                 switch state.action {
                 case .didFailInfo(let error):
+                    
+                    //TODO: need to show error when in come from server
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -271,7 +268,6 @@ extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
-        calculateAmount()
         updateAmountError(animation: true)
         setupButtonState()
     }
@@ -422,12 +418,12 @@ private extension SendViewController {
     
     func hideGatewayInfo(animation: Bool) {
         updateAmountError(animation: animation)
-        
+        activityIndicatorView.stopAnimating()
+
         if viewWarning.isHidden {
             return
         }
         viewWarning.isHidden = true
-        activityIndicatorView.stopAnimating()
         if animation {
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.view.layoutIfNeeded()

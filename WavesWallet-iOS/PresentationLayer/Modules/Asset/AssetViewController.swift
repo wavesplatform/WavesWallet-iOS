@@ -81,6 +81,13 @@ final class AssetViewController: UIViewController {
             eventInput.onNext(.showReceive(asset))
         }
     }
+    
+    private func showBurnController() {
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.tapBurn(asset: asset, delegate: self))
+        }
+    }
 }
 
 // MARK: RxFeedback
@@ -369,6 +376,11 @@ extension AssetViewController: UITableViewDataSource {
             }
             return cell
 
+        case .spamBalance(let balance):
+            let cell: AssetBalanceSpamCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: balance)
+            return cell
+            
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
             return cell
@@ -401,7 +413,25 @@ extension AssetViewController: UITableViewDataSource {
             let cell: AssetDetailCell = tableView.dequeueAndRegisterCell()
             cell.update(with: info)
             return cell
+            
+        case .tokenBurn(let info):
+            let cell: AssetBurnCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: .init(isSpam: info.isSpam))
+            cell.burnAction = { [weak self] in
+                self?.showBurnController()
+            }
+            return cell
         }
+    }
+}
+
+//MARK: - TokenBurnTransactionDelegate
+
+extension AssetViewController: TokenBurnTransactionDelegate {
+    func tokenBurnDidSuccessBurn(amount: Money) {
+        
+        //TODO: need update balance after token burned
+        print(amount)
     }
 }
 
@@ -416,6 +446,7 @@ extension AssetViewController: UITableViewDelegate {
         switch row {
         case .viewHistory:
             eventInput.onNext(.tapHistory)
+            
         default:
             break
         }
@@ -480,6 +511,9 @@ extension AssetViewController: UITableViewDelegate {
         case .balance(let balance):
             return AssetBalanceCell.viewHeight(model: balance, width: tableView.frame.width)
 
+        case .spamBalance:
+            return AssetBalanceSpamCell.viewHeight()
+            
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
 
@@ -500,6 +534,10 @@ extension AssetViewController: UITableViewDelegate {
 
         case .assetInfo(let info):
             return AssetDetailCell.viewHeight(model: info, width: tableView.frame.width)
+            
+        case .tokenBurn(let info):
+            return AssetBurnCell.viewHeight(model: .init(isSpam: info.isSpam), width: tableView.frame.width)
+            
         }
     }
 
