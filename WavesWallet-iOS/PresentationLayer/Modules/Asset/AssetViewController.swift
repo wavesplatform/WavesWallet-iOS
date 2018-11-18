@@ -35,6 +35,8 @@ final class AssetViewController: UIViewController {
     private var sections: [AssetTypes.ViewModel.Section] = .init()
     private var currentAssetName: String? = nil
     private var isRefreshing: Bool = false
+    private var invalidNavigationHeight: Bool = true
+    private var savedNavigationHeight: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,13 +269,25 @@ extension AssetViewController {
 
 private extension AssetViewController {
 
+    var navigationBarHeight: CGFloat {
+
+        if invalidNavigationHeight {
+            invalidNavigationHeight = false
+            savedNavigationHeight = navigationController?.navigationBar.frame.height ?? 0
+        }
+        return navigationController?.navigationBar.frame.height ?? 0
+    }
+
     private func layoutPassthroughFrameForNavigationBar() {
         let witdthCells = segmentedControl.witdthCells()
-        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5, y: 0, width: witdthCells, height: navigationController?.navigationBar.frame.height ?? 0)
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5,
+                                                                      y: 0,
+                                                                      width: witdthCells,
+                                                                      height: navigationBarHeight)
     }
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
-        return -(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
+        return -(navigationBarHeight) + segmentedControl.frame.height
     }
 
     func layoutSegmentedControl(scrollView: UIScrollView, animated: Bool = true) {
@@ -285,7 +299,7 @@ private extension AssetViewController {
         newPosY = min(navigationBarY, newPosY)
         segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
         segmentedControl.frame.size = CGSize(width: view.frame.size.width, height: Constants.segmentedControlHeight)
-
+        invalidNavigationHeight = true
         hiddenSegmentedIfNeeded()
     }
 
@@ -320,6 +334,7 @@ private extension AssetViewController {
 
     func showSegmentedControl() {
 
+
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
         title = nil
@@ -328,7 +343,7 @@ private extension AssetViewController {
 
 extension AssetViewController: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
         layoutSegmentedControl(scrollView: scrollView)
     }
 }
