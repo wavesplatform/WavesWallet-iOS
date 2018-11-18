@@ -22,7 +22,7 @@ enum GlobalConstants {
 
     static let wavesAssetId = "WAVES"
     static let aliasPrefix = "alias:W:"
-
+    
     static let WavesTransactionFeeAmount: Int64 = 100000
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)

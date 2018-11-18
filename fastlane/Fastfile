@@ -59,6 +59,8 @@ platform :ios do
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",                                       
               skip_waiting_for_build_processing: "true")
+
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
 
   lane :certificates do

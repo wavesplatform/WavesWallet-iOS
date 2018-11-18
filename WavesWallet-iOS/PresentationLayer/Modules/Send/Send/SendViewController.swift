@@ -86,6 +86,7 @@ final class SendViewController: UIViewController {
         }
         assetView.delegate = self
         amountView.delegate = self
+        amountView.setupRightLabelText("")
         moneroPaymentIdView.setupZeroHeight(animation: false)
         moneroPaymentIdView.didTapNext = { [weak self] in
             self?.amountView.activateTextField()
@@ -112,12 +113,6 @@ final class SendViewController: UIViewController {
         setupBigNavigationBar()
     }
     
-    private func calculateAmount() {
-        
-        //TODO: need update calculation
-        amountView.setupRightLabelText("≈ " + "0" + " " + Localizable.Waves.Send.Label.dollar)
-    }
-    
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
         gateWayInfo = nil
         
@@ -136,6 +131,7 @@ final class SendViewController: UIViewController {
         
         updateAmountData()
         updateMoneraPaymentView(animation: false)
+        recipientAddressView.decimals = selectedAsset?.asset?.precision ?? 0
     }
     
     private func showConfirmScreen() {
@@ -273,7 +269,6 @@ extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
-        calculateAmount()
         updateAmountError(animation: true)
         setupButtonState()
     }
@@ -528,9 +523,15 @@ extension SendViewController: AddressInputViewDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func addressInputViewDidScanAddress(_ address: String) {
-        acceptAddress(address)
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?) {
         
+        if let amount = amount {
+            self.amount = amount
+            amountView.setAmount(amount)
+            updateAmountError(animation: true)
+        }
+        
+        acceptAddress(address)
         if !recipientAddressView.isKeyboardShow {
             validateAddress()
         }

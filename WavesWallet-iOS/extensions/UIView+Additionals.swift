@@ -16,7 +16,7 @@ extension UIView {
         setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                    color: .black,
                                    opacity: 0.15,
-                                   shadowRadius: 4,
+                                   shadowRadius: 2,
                                    shouldRasterize: true))
         self.cornerRadius = 2
     }

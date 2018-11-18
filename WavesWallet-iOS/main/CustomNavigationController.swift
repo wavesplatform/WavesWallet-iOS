@@ -231,7 +231,11 @@ class CustomNavigationController: UINavigationController {
     }
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
-        
+
+        if viewController != topViewController {
+            return
+        }
+
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.isTranslucent = viewController.navigationItem.isTranslucent
@@ -241,12 +245,10 @@ class CustomNavigationController: UINavigationController {
         navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
-        } 
-        setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
-
-        if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
         }
+
+        setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
     }
 
     override var childViewControllerForStatusBarStyle: UIViewController? {
