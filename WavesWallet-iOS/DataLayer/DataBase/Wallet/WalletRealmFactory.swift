@@ -28,6 +28,7 @@ enum WalletRealmFactory {
         config.schemaVersion = Constants.currentVersion.rawValue
         config.objectTypes = [Transaction.self,
                               IssueTransaction.self,
+                              TransferTransaction.self,
                               ReissueTransaction.self,
                               LeaseTransaction.self,
                               LeaseCancelTransaction.self,
@@ -101,6 +102,7 @@ enum WalletRealmFactory {
     static func removeTransaction(migration: Migration) {
         migration.deleteData(forType: Transaction.className())
         migration.deleteData(forType: IssueTransaction.className())
+        migration.deleteData(forType: TransferTransaction.className())
         migration.deleteData(forType: ReissueTransaction.className())
         migration.deleteData(forType: LeaseTransaction.className())
         migration.deleteData(forType: LeaseCancelTransaction.className())
