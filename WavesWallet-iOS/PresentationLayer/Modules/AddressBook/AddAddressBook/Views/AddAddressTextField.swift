@@ -137,7 +137,7 @@ private extension AddAddressTextField {
             
             if let value = result?.value {
                 
-                let address = self.parseAddress(value)
+                let address = QRCodeParser.parseAddress(value)
                 self.addressTextField.setupText(address, animation: true)
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
@@ -150,18 +150,5 @@ private extension AddAddressTextField {
         readerVC.modalPresentationStyle = .formSheet
 
         firstAvailableViewController().present(readerVC, animated: true)
-    }
-}
-
-private extension AddAddressTextField {
-    
-    func parseAddress(_ string: String) -> String {
-        
-        let wavesPrefixRange = (string.lowercased() as NSString).range(of: GlobalConstants.wavesPrefixScan)
-        if wavesPrefixRange.location != NSNotFound {
-            return (string as NSString).substring(from: wavesPrefixRange.location + wavesPrefixRange.length)
-        }
-        
-        return string
     }
 }

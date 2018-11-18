@@ -11,8 +11,6 @@ import QRCodeReader
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
-    static let addressKeyScan = "recipient"
-    static let amountKeyScan = "amount"
 }
 
 protocol AddressInputViewDelegate: AnyObject {
@@ -291,9 +289,9 @@ private extension AddressInputView {
             
             if let value = result?.value {
 
-                let address = self.parseAddress(value)
+                let address = QRCodeParser.parseAddress(value)
                 self.setupText(address, animation: false)
-                self.delegate?.addressInputViewDidScanAddress(address, amount: self.parseAmount(value))
+                self.delegate?.addressInputViewDidScanAddress(address, amount: QRCodeParser.parseAmount(value, decimals: self.decimals))
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
@@ -303,54 +301,5 @@ private extension AddressInputView {
         readerVC.modalPresentationStyle = .formSheet
         
         firstAvailableViewController().present(readerVC, animated: true)
-    }
-}
-
-//MARK: - Parse
-
-private extension AddressInputView {
-    
-    func urlValues(_ string: String) -> [String : String] {
-        
-        var values: [String : String] = [:]
-        
-        if (string as NSString).range(of: "://").location != NSNotFound &&
-            (string.lowercased() as NSString).range(of: GlobalConstants.wavesPrefixScan).location == NSNotFound {
-
-            if let components = string.components(separatedBy: "?").last {
-                let pairs = components.components(separatedBy: "&")
-                for pair in pairs {
-                    let pairComponents = pair.components(separatedBy: "=")
-                    if let key = pairComponents.first, let value = pairComponents.last {
-                        values[key] = value
-                    }
-                }
-            }
-        }
-        
-        return values
-    }
-    
-    func parseAddress(_ string: String) -> String {
-        if let address = urlValues(string)[Constants.addressKeyScan] {
-            return address
-        }
-       
-        let wavesPrefixRange = (string.lowercased() as NSString).range(of: GlobalConstants.wavesPrefixScan)
-        if wavesPrefixRange.location != NSNotFound {
-            return (string as NSString).substring(from: wavesPrefixRange.location + wavesPrefixRange.length)
-        }
-        
-        return string
-    }
-    
-    func parseAmount(_ string: String) -> Money? {
-        if let amount = urlValues(string)[Constants.amountKeyScan] {
-            let value = (amount as NSString).doubleValue
-            if value > 0 {
-                return Money(value:Decimal(value), decimals)
-            }
-        }
-        return nil
     }
 }
