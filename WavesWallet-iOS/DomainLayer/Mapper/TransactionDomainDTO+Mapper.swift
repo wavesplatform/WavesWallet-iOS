@@ -439,13 +439,20 @@ extension DomainLayer.DTO.MassTransferTransaction {
         let totalHeight: Int64 = metaData.totalHeight
 
         let assetId = self.assetId
-        guard let asset = assets[assetId] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
+        guard let asset = assets[assetId] else {
+            return nil
+
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil            
+        }
 
         let totalBalance = asset.balance(self.totalAmount)
 
         let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? in
-            guard let recipient = accounts[tx.recipient] else { return nil }
+            guard let recipient = accounts[tx.recipient] else {
+                return nil
+            }
             let amount = asset.money(tx.amount)
             return .init(amount: amount, recipient: recipient)
         }
@@ -469,7 +476,9 @@ extension DomainLayer.DTO.MassTransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,

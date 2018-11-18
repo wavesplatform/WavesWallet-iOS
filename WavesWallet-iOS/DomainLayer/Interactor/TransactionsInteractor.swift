@@ -350,13 +350,13 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
 
         case .transfer(let tx):
             let assetId = tx.assetId
-            return [assetId]
+            return [assetId, GlobalConstants.wavesAssetId]
 
         case .reissue(let tx):
             return [tx.assetId]
 
         case .burn(let tx):
-            return [tx.assetId]
+            return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
@@ -371,7 +371,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [GlobalConstants.wavesAssetId]
 
         case .massTransfer(let tx):
-            return [tx.assetId]
+            return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .data:
             return [GlobalConstants.wavesAssetId]
