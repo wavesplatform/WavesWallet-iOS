@@ -17,6 +17,10 @@ fileprivate enum SchemaVersions: UInt64 {
 
 fileprivate enum Constants {
     static let currentVersion: SchemaVersions = .version_5
+    static let isHiddenKey: String = "isHidden"
+    static let assetIdKey: String = "assetId"
+    static let settingsKey: String = "settings"
+    static let nameKey: String = "name"
 }
 
 enum WalletRealmFactory {
@@ -56,7 +60,6 @@ enum WalletRealmFactory {
 
             debug("Wallet Migration!!! \(oldSchemaVersion)")
 
-
             if oldSchemaVersion < SchemaVersions.version_4.rawValue {
                 removeTransaction(migration: migration)
             }
@@ -66,24 +69,24 @@ enum WalletRealmFactory {
 
                 migration.enumerateObjects(ofType: AssetBalance.className()) { oldObject, newObject in
 
-                    guard let isHidden = oldObject?["isHidden"] as? Bool else { return }
-                    guard var assetId = oldObject?["assetId"] as? String else { return }
+                    guard let isHidden = oldObject?[Constants.isHiddenKey] as? Bool else { return }
+                    guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
 
                     assetId = assetId.count == 0 ? GlobalConstants.wavesAssetId : assetId
 
                     let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
-                    assetBalanceSettings["assetId"] = assetId
-                    assetBalanceSettings["isHidden"] = isHidden
-                    newObject?["settings"] = assetBalanceSettings
-                    newObject?["assetId"] = assetId
+                    assetBalanceSettings[Constants.assetIdKey] = assetId
+                    assetBalanceSettings[Constants.isHiddenKey] = isHidden
+                    newObject?[Constants.settingsKey] = assetBalanceSettings
+                    newObject?[Constants.assetIdKey] = assetId
                 }
 
                 migration.enumerateObjects(ofType: AddressBook.className()) { oldObject, newObject in
 
-                    let name = oldObject?["name"] as? String
+                    let name = oldObject?[Constants.nameKey] as? String
 
                     if let name = name {
-                        newObject?["name"] = name
+                        newObject?[Constants.nameKey] = name
                     } else if let newObject = newObject {
                         migration.delete(newObject)
                     }

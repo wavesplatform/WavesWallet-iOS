@@ -403,8 +403,6 @@ extension TransactionHistoryViewController: TransactionHistoryContentViewDelegat
         
 //        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
 //        buttonTap.onNext(transaction)
-//        sendEvent
-
     }
     
     func contentViewDidPressAccount(display: TransactionHistoryTypes.DisplayState, recipient: TransactionHistoryTypes.ViewModel.Recipient) {

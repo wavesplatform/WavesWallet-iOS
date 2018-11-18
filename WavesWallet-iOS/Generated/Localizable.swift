@@ -66,6 +66,17 @@ internal enum Localizable {
         /// Name
         internal static var name: String { return Localizable.tr("Waves", "addAddressbook.label.name") }
       }
+
+      internal enum Textfield {
+
+        internal enum Address {
+
+          internal enum Error {
+            /// Address Exist
+            internal static var addressexist: String { return Localizable.tr("Waves", "addAddressbook.textfield.address.error.addressexist") }
+          }
+        }
+      }
     }
 
     internal enum Addressbook {
