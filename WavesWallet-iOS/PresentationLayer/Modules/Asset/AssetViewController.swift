@@ -35,6 +35,8 @@ final class AssetViewController: UIViewController {
     private var sections: [AssetTypes.ViewModel.Section] = .init()
     private var currentAssetName: String? = nil
     private var isRefreshing: Bool = false
+    private var invalidNavigationHeight: Bool = true
+    private var savedNavigationHeight: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +79,13 @@ final class AssetViewController: UIViewController {
         if let section = sections.first(where: {$0.assetBalance != nil}),
             let asset = section.assetBalance {
             eventInput.onNext(.showReceive(asset))
+        }
+    }
+    
+    private func showBurnController() {
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.tapBurn(asset: asset, delegate: self))
         }
     }
 }
@@ -260,13 +269,25 @@ extension AssetViewController {
 
 private extension AssetViewController {
 
+    var navigationBarHeight: CGFloat {
+
+        if invalidNavigationHeight {
+            invalidNavigationHeight = false
+            savedNavigationHeight = navigationController?.navigationBar.frame.height ?? 0
+        }
+        return navigationController?.navigationBar.frame.height ?? 0
+    }
+
     private func layoutPassthroughFrameForNavigationBar() {
         let witdthCells = segmentedControl.witdthCells()
-        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5, y: 0, width: witdthCells, height: navigationController?.navigationBar.frame.height ?? 0)
+        navigationController?.navigationBar.passthroughFrame = CGRect(x: (view.frame.width - witdthCells) * 0.5,
+                                                                      y: 0,
+                                                                      width: witdthCells,
+                                                                      height: navigationBarHeight)
     }
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
-        return -(navigationController?.navigationBar.frame.height ?? 0) + segmentedControl.frame.height
+        return -(navigationBarHeight) + segmentedControl.frame.height
     }
 
     func layoutSegmentedControl(scrollView: UIScrollView, animated: Bool = true) {
@@ -278,7 +299,7 @@ private extension AssetViewController {
         newPosY = min(navigationBarY, newPosY)
         segmentedControl.frame.origin = CGPoint(x: 0, y: newPosY)
         segmentedControl.frame.size = CGSize(width: view.frame.size.width, height: Constants.segmentedControlHeight)
-
+        invalidNavigationHeight = true
         hiddenSegmentedIfNeeded()
     }
 
@@ -313,6 +334,7 @@ private extension AssetViewController {
 
     func showSegmentedControl() {
 
+
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
         title = nil
@@ -321,7 +343,7 @@ private extension AssetViewController {
 
 extension AssetViewController: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
         layoutSegmentedControl(scrollView: scrollView)
     }
 }
@@ -354,6 +376,11 @@ extension AssetViewController: UITableViewDataSource {
             }
             return cell
 
+        case .spamBalance(let balance):
+            let cell: AssetBalanceSpamCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: balance)
+            return cell
+            
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
             return cell
@@ -386,7 +413,25 @@ extension AssetViewController: UITableViewDataSource {
             let cell: AssetDetailCell = tableView.dequeueAndRegisterCell()
             cell.update(with: info)
             return cell
+            
+        case .tokenBurn(let info):
+            let cell: AssetBurnCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: .init(isSpam: info.isSpam))
+            cell.burnAction = { [weak self] in
+                self?.showBurnController()
+            }
+            return cell
         }
+    }
+}
+
+//MARK: - TokenBurnTransactionDelegate
+
+extension AssetViewController: TokenBurnTransactionDelegate {
+    func tokenBurnDidSuccessBurn(amount: Money) {
+        
+        //TODO: need update balance after token burned
+        print(amount)
     }
 }
 
@@ -401,6 +446,7 @@ extension AssetViewController: UITableViewDelegate {
         switch row {
         case .viewHistory:
             eventInput.onNext(.tapHistory)
+            
         default:
             break
         }
@@ -465,6 +511,9 @@ extension AssetViewController: UITableViewDelegate {
         case .balance(let balance):
             return AssetBalanceCell.viewHeight(model: balance, width: tableView.frame.width)
 
+        case .spamBalance:
+            return AssetBalanceSpamCell.viewHeight()
+            
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
 
@@ -485,6 +534,10 @@ extension AssetViewController: UITableViewDelegate {
 
         case .assetInfo(let info):
             return AssetDetailCell.viewHeight(model: info, width: tableView.frame.width)
+            
+        case .tokenBurn(let info):
+            return AssetBurnCell.viewHeight(model: .init(isSpam: info.isSpam), width: tableView.frame.width)
+            
         }
     }
 
