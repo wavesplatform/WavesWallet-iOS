@@ -253,7 +253,6 @@ extension AssetViewController {
     private func updateContentInsetForTableView() {
 
         let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading
-        print("top \(top) heightDifferenceSegmentedControlBetweenNavigationBar \(heightDifferenceSegmentedControlBetweenNavigationBar)")
         tableView.contentInset = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
     }
@@ -337,8 +336,7 @@ private extension AssetViewController {
 
 extension AssetViewController: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll Asset")
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
         layoutSegmentedControl(scrollView: scrollView)
     }
 }
