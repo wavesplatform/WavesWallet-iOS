@@ -125,52 +125,122 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     func transactions(by accountAddress: String,
                       specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
-        return Observable.create { (observer) -> Disposable in
+        return Observable.create { [weak self] (observer) -> Disposable in
+
+            guard let owner = self else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
-            let wavesAssetId = GlobalConstants.wavesAssetId
 
-            let hasWaves = specifications.assets.contains(wavesAssetId)
+            let result = owner.transactionsResultFromRealm(by: accountAddress,
+                                                        specifications: specifications,
+                                                        realm: realm)
 
-            var types = specifications.types
-            if specifications.assets.count > 0 && hasWaves == false {
-                types = types.filter { TransactionType.waves.contains($0) == false }
-            }
-
-            var predicatesFromTypes: [NSPredicate] = .init()
-            types.forEach { predicatesFromTypes.append($0.predicate(from: specifications)) }
-
-            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
-
-            let txsResult = realm
-                .objects(AnyTransaction.self)
-                .sorted(byKeyPath: "timestamp", ascending: false)
-                .filter("type IN %@", types.map { $0.rawValue })
-                .filter(predicate)
-
-            var txs: [AnyTransaction] = []
-            if let page = specifications.page {
-                txs = txsResult.get(offset: page.offset, limit: page.limit)
-            } else {
-                txs = txsResult.toArray()
-            }
-
-            var transactions = [DomainLayer.DTO.AnyTransaction]()
-
-            for any in txs {
-                guard let type = TransactionType(rawValue: any.type) else { continue }
-                guard let tx = type.anyTransaction(from: any) else { continue }
-                transactions.append(tx)
-            }
+            let transactions = owner.mapping(result: result, by: specifications)
 
             observer.onNext(transactions)
             observer.onCompleted()
             return Disposables.create()
         }
+    }
+
+    private func transactionsResultFromRealm(by accountAddress: String,
+                                       specifications: TransactionsSpecifications,
+                                       realm: Realm) -> Results<AnyTransaction> {
+
+        let wavesAssetId = GlobalConstants.wavesAssetId
+
+        let hasWaves = specifications.assets.contains(wavesAssetId)
+
+        var types = specifications.types
+        if specifications.assets.count > 0 && hasWaves == false {
+            types = types.filter { TransactionType.waves.contains($0) == false }
+        }
+
+        var predicatesFromTypes: [NSPredicate] = .init()
+        types.forEach { predicatesFromTypes.append($0.predicate(from: specifications)) }
+
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
+
+        let txsResult = realm
+            .objects(AnyTransaction.self)
+            .sorted(byKeyPath: "timestamp", ascending: false)
+            .filter("type IN %@", types.map { $0.rawValue })
+            .filter(predicate)
+
+        return txsResult
+    }
+
+    private func mapping(result: Results<AnyTransaction>, by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
+
+        var txs: [AnyTransaction] = []
+        if let page = specifications.page {
+            txs = result.get(offset: page.offset, limit: page.limit)
+        } else {
+            txs = result.toArray()
+        }
+
+        return mapping(txs: txs, by: specifications)
+    }
+
+    private func mapping(txs: [AnyTransaction], by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
+
+        var transactions = [DomainLayer.DTO.AnyTransaction]()
+
+        for any in txs {
+            guard let type = TransactionType(rawValue: any.type) else { continue }
+            guard let tx = type.anyTransaction(from: any) else { continue }
+            transactions.append(tx)
+        }
+
+        return transactions
+    }
+
+    func newTransactions(by accountAddress: String,
+                         specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+
+        return Observable.create { [weak self] (observer) -> Disposable in
+
+            guard let owner = self else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let txsResult = owner.transactionsResultFromRealm(by: accountAddress,
+                                                        specifications: specifications,
+                                                        realm: realm)
+
+            let dispose = Observable
+                .arrayWithChangeset(from: txsResult)
+                .flatMap({ [weak self] (list, changeSet) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+
+                    guard let owner = self else {
+                        return Observable.never()
+                    }
+
+                    guard let changeset = changeSet else { return Observable.just([]) }
+                    let txs = changeset.inserted.reduce(into: [AnyTransaction](), { (result, index) in
+                        result.append(list[index])
+                    })
+                    let transactions = owner.mapping(txs: txs, by: specifications)
+                    return Observable.just(transactions)
+                })
+                .bind(to: observer)
+
+            return Disposables.create([dispose])
+        }
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
@@ -196,7 +266,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         return Observable.never()
     }
 
-    func isHasTransactions(by accountAddress: String) -> Observable<Bool> {
+    func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
 
         return Observable.create { observer -> Disposable in
 
@@ -205,14 +275,22 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            observer.onNext(realm.objects(AnyTransaction.self).count != 0)
+            let result = realm.objects(AnyTransaction.self)
+                .filter({ tx -> Bool in
+                    if ignoreUnconfirmed {
+                        return tx.status != TransactionStatus.unconfirmed.rawValue
+                    }
+                    return true
+                })
+
+            observer.onNext(result.count != 0)
             observer.onCompleted()
 
             return Disposables.create()
         }
     }
 
-    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool> {
+    func isHasTransaction(by id: String, accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
 
         return Observable.create { observer -> Disposable in
 
@@ -220,15 +298,26 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
+            let object = realm.object(ofType: AnyTransaction.self, forPrimaryKey: id)
 
-            observer.onNext(realm.object(ofType: AnyTransaction.self, forPrimaryKey: id) != nil)
+            var result: Bool = false
+
+            if let object = object  {
+                if ignoreUnconfirmed {
+                    result = object.status != TransactionStatus.unconfirmed.rawValue
+                } else {
+                    result = true
+                }
+            }
+
+            observer.onNext(result)
             observer.onCompleted()
 
             return Disposables.create()
         }
     }
 
-    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool> {
+    func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
@@ -236,7 +325,14 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let result = realm.objects(AnyTransaction.self).filter("id IN %@", ids)
+            let result = realm.objects(AnyTransaction.self)
+                            .filter("id IN %@", ids)
+                            .filter({ tx -> Bool in
+                                if ignoreUnconfirmed {
+                                    return tx.status != TransactionStatus.unconfirmed.rawValue
+                                }
+                                return true
+                            })
             observer.onNext(result.count == ids.count)
             observer.onCompleted()
 

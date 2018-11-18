@@ -25,8 +25,8 @@ final class AddressBookInteractor: AddressBookInteractorProtocol {
 
                 guard let owner = self else { return Observable.never() }
 
-                return Observable.merge([owner.repository.list(by: wallet.wallet.address),
-                                         owner.repository.listListener(by: wallet.wallet.address)])
+                return Observable.merge([owner.repository.list(by: wallet.address),
+                                         owner.repository.listListener(by: wallet.address)])
             }
             .do(onNext: { [weak self] users in
                 self?._users = users

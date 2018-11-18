@@ -56,7 +56,8 @@ extension WalletTypes {
         case setLeasing(DTO.Leasing)
         case handlerError(Error)
         case refresh
-        case readyView
+        case viewWillAppear
+        case viewDidDisappear
         case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton

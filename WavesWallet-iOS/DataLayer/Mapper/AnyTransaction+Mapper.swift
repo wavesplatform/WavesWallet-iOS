@@ -10,53 +10,53 @@ import Foundation
 
 extension Node.DTO.Transaction {
 
-    var anyTransaction: DomainLayer.DTO.AnyTransaction {
+    func anyTransaction(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> DomainLayer.DTO.AnyTransaction {
 
         switch self  {
         case .unrecognised(let transaction):
-            return .unrecognised(.init(transaction: transaction))
+            return .unrecognised(.init(transaction: transaction, status: status, environment: environment))
 
         case .issue(let transaction):
-            return .issue(.init(transaction: transaction))
+            return .issue(.init(transaction: transaction, status: status, environment: environment))
 
         case .transfer(let transaction):
-            return .transfer(.init(transaction: transaction))
+            return .transfer(.init(transaction: transaction, status: status, environment: environment))
 
         case .reissue(let transaction):
-            return .reissue(.init(transaction: transaction))
+            return .reissue(.init(transaction: transaction, status: status, environment: environment))
 
         case .burn(let transaction):
-            return .burn(.init(transaction: transaction))
+            return .burn(.init(transaction: transaction, status: status, environment: environment))
 
         case .exchange(let transaction):
-            return .exchange(.init(transaction: transaction))
+            return .exchange(.init(transaction: transaction, status: status, environment: environment))
 
         case .lease(let transaction):
-            return .lease(.init(transaction: transaction))
+            return .lease(.init(transaction: transaction, status: status, environment: environment))
 
         case .leaseCancel(let transaction):
-            return .leaseCancel(.init(transaction: transaction))
+            return .leaseCancel(.init(transaction: transaction, status: status, environment: environment))
 
         case .alias(let transaction):
-            return .alias(.init(transaction: transaction))
+            return .alias(.init(transaction: transaction, status: status, environment: environment))
 
         case .massTransfer(let transaction):
-            return   .massTransfer(.init(transaction: transaction))
+            return .massTransfer(.init(transaction: transaction, status: status, environment: environment))
 
         case .data(let transaction):
-            return .data(.init(transaction: transaction))
+            return .data(.init(transaction: transaction, status: status, environment: environment))
         }
     }
 }
 
 extension Node.DTO.TransactionContainers {
 
-    func anyTransactions() -> [DomainLayer.DTO.AnyTransaction] {
+    func anyTransactions(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> [DomainLayer.DTO.AnyTransaction] {
 
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 
         for transaction in self.transactions {
-           anyTransactions.append(transaction.anyTransaction)
+            anyTransactions.append(transaction.anyTransaction(status: status, environment: environment))
         }
 
         return anyTransactions
@@ -115,6 +115,7 @@ extension DomainLayer.DTO.AnyTransaction {
         any.height = from.height
         any.version = from.version
         any.modified = from.modified
+        any.status = from.status
 
         switch self {
         case .unrecognised:

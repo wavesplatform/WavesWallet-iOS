@@ -41,17 +41,19 @@ extension DataTransaction {
             return txData
         }
         data.append(objectsIn: dataList)
+
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.DataTransaction {
 
-    init(transaction: Node.DTO.DataTransaction) {
+    init(transaction: Node.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -78,6 +80,8 @@ extension DomainLayer.DTO.DataTransaction {
 
         proofs = transaction.proofs
         data = dataList
+
+        self.status = status
     }
 
     init(transaction: DataTransaction) {
@@ -109,5 +113,6 @@ extension DomainLayer.DTO.DataTransaction {
             return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
         data = dataList
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

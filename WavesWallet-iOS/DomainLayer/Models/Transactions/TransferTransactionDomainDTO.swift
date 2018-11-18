@@ -28,5 +28,6 @@ extension DomainLayer.DTO {
         let amount: Int64
         let attachment: String?
         var modified: Date
+        var status: TransactionStatus
     }
 }

@@ -14,6 +14,8 @@ private enum Constants {
 
 protocol BaseInputTextFieldDelegate: AnyObject {
     func baseInputTextField(_ textField: BaseInputTextField, didChange text: String)
+
+    func baseInputTextFieldHandlerTextFieldReturn(_ textField: BaseInputTextField) -> Bool
 }
 
 final class BaseInputTextField: UIView, NibOwnerLoadable {
@@ -88,7 +90,9 @@ extension BaseInputTextField {
 //MARK: - UITextFieldDelegate
 extension BaseInputTextField: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if self.delegate?.baseInputTextFieldHandlerTextFieldReturn(self) == false {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }

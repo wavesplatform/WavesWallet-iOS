@@ -25,5 +25,6 @@ extension DomainLayer.DTO {
         let leaseId: String
         let lease: DomainLayer.DTO.LeaseTransaction?
         var modified: Date
+        var status: TransactionStatus
     }
 }

@@ -15,7 +15,7 @@ extension ReissueTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -27,17 +27,18 @@ extension ReissueTransaction {
         chainId.value = transaction.chainId
         quantity = transaction.quantity
         reissuable = transaction.reissuable
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.ReissueTransaction {
 
-    init(transaction: Node.DTO.ReissueTransaction) {
+    init(transaction: Node.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -50,13 +51,14 @@ extension DomainLayer.DTO.ReissueTransaction {
         quantity = transaction.quantity
         reissuable = transaction.reissuable
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: ReissueTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -69,5 +71,6 @@ extension DomainLayer.DTO.ReissueTransaction {
         quantity = transaction.quantity
         reissuable = transaction.reissuable
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

@@ -106,11 +106,17 @@ final class AppCoordinator: Coordinator {
     }
 
     private func revokeAuthAndOpenPasscode() {
+
         authoAuthorizationInteractor
             .revokeAuth()
+            .delay(10, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
-
+                
                 guard let owner = self else { return Observable.never() }
+
+                if owner.isActiveApp == true {
+                    return Observable.never()
+                }
 
                 return owner.authoAuthorizationInteractor
                     .lastWalletLoggedIn()

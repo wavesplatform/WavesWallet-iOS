@@ -22,12 +22,12 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
         return authAccount.authorizedWallet()
         .flatMap({ signedWallet -> Observable<ReceiveInvoice.DTO.DisplayInfo> in
             
-            let params = ["recipient" : signedWallet.wallet.address,
+            let params = ["recipient" : signedWallet.address,
                           "amount" : String(amount.doubleValue)]
             
             let url = Receive.DTO.urlFromPath(Constancts.baseUrl + Constancts.apiPath + asset.id, params: params)
             
-            let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.wallet.address,
+            let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.address,
                                                       invoiceLink: url,
                                                       assetName: asset.displayName,
                                                       icon: asset.icon)

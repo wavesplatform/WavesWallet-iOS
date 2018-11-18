@@ -84,8 +84,11 @@ final class WalletPresenter: WalletPresenterProtocol {
 
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
         switch event {
-        case .readyView:
+        case .viewWillAppear:
             return state.mutate { $0.displayState.isAppeared = true }
+
+        case .viewDidDisappear:
+            return state.mutate { $0.displayState.isAppeared = false }
 
         case .handlerError:
             return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: false) }

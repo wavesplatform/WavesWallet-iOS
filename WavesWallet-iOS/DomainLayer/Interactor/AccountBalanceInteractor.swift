@@ -74,12 +74,12 @@ private extension AccountBalanceInteractor {
                                 localBalance: [DomainLayer.DTO.AssetBalance],
                                 isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        let walletAddress = wallet.wallet.address
+        let walletAddress = wallet.address
         let balances = balanceRepositoryRemote.balances(by: wallet)
-        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
+        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.address,
                                                                              isNeedUpdate: isNeedUpdate)
 
-        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address)
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
 
         return Observable.zip(balances, activeTransactions, environment)
             .map { balances, transactions, environment -> [DomainLayer.DTO.AssetBalance] in
@@ -97,7 +97,7 @@ private extension AccountBalanceInteractor {
                     .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
 
                     let leasedBalance: Int64 = transactions
-                        .filter { $0.sender.id == walletAddress }
+                        .filter { $0.sender.address == walletAddress }
                         .reduce(into: 0, { result, tx in
                             if case .startedLeasing(let txLease) = tx.kind {
                                 result = result + txLease.balance.money.amount

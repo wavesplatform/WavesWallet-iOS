@@ -20,8 +20,6 @@ final class WalletCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private lazy var historyCoordinator: HistoryCoordinator = HistoryCoordinator()
-
     private lazy var walletViewContoller: UIViewController = {
         return WalletModuleBuilder(output: self).build()
     }()
@@ -90,7 +88,9 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showHistoryForLeasing() {
         guard let navigationController = navigationController else { return }
-        historyCoordinator.start(navigationController: navigationController, historyType: .leasing)
+
+        let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .leasing)
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
     
     func showStartLease(availableMoney: Money) {
@@ -100,9 +100,12 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        TransactionHistoryCoordinator(transactions: transactions,
-                                      currentIndex: index,
-                                      rootViewController: walletViewContoller).start()
+
+        guard let navigationController = navigationController else { return }
+        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+                                                        currentIndex: index,
+                                                        navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
 
@@ -122,14 +125,16 @@ extension WalletCoordinator: AssetModuleOutput {
     
     func showHistory(by assetId: String) {
         guard let navigationController = navigationController else { return }
-        historyCoordinator.start(navigationController: navigationController, historyType: .asset(assetId))
+        let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .asset(assetId))
+        historyCoordinator.start()
     }
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-
-        TransactionHistoryCoordinator(transactions: transactions,
-                                      currentIndex: index,
-                                      rootViewController: walletViewContoller).start()
+        guard let navigationController = navigationController else { return }
+        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+                                                        currentIndex: index,
+                                                        navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
     func showBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?) {

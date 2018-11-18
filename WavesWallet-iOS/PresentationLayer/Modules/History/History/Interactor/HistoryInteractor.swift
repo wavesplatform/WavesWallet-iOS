@@ -15,7 +15,6 @@ fileprivate enum Constants {
 
 protocol HistoryInteractorProtocol {
     func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]>
-    func refreshTransactions()
 }
 
 final class HistoryInteractor: HistoryInteractorProtocol {
@@ -55,22 +54,10 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         let transactions = loadingTransactions(specifications: specifications)
         return Observable.merge(transactions, refreshTransactionsSubject.asObserver())
     }
-    
-    func refreshTransactions() {
-
-        guard let specifications = specifications else { return }
-        let transactions = loadingTransactions(specifications: specifications)
-        transactions
-            .take(1)
-            .subscribe(onNext: { [weak self] txs in
-                guard let owner = self else { return }
-                owner.refreshTransactionsSubject.onNext(txs)
-        })
-        .disposed(by: disposeBag)
-    }
 
     private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
+        //TODO: Rmove
         guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.never() }
 
         return transactionsInteractor
