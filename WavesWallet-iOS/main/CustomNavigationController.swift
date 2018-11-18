@@ -200,7 +200,6 @@ class CustomNavigationController: UINavigationController {
             return
         }
 
-//        print("apperance \(String(describing: viewController)) top \(String(describing: self.topViewController!))")
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.isTranslucent = viewController.navigationItem.isTranslucent
@@ -211,7 +210,6 @@ class CustomNavigationController: UINavigationController {
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
-//            print("Pref \(viewController.navigationItem.prefersLargeTitles) \(viewController.navigationItem.largeTitleDisplayMode)")
         }
 
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
