@@ -71,11 +71,11 @@ extension Node.Service {
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
-            case startBurn(Burn)
+            case burn(Burn)
             
             var params: [String: Any] {
                 switch self {
-                case .startBurn(let burn):
+                case .burn(let burn):
                     return  [Constants.version: burn.version,
                              Constants.chainId: burn.scheme,
                              Constants.senderPublicKey: burn.senderPublicKey,

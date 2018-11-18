@@ -361,7 +361,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
-        case .lease(let tx):
+        case .lease:
             return [GlobalConstants.wavesAssetId]
 
         case .leaseCancel:

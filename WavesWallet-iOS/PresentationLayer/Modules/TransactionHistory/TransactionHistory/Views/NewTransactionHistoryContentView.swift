@@ -23,7 +23,7 @@ private enum Constants {
 protocol TransactionHistoryContentViewDelegate: class {
     
     func contentViewDidPressAccount(display: TransactionHistoryTypes.DisplayState, recipient: TransactionHistoryTypes.ViewModel.Recipient)
-    func contentViewDidPressButton(view: NewTransactionHistoryContentView)
+    func contentViewDidPressButton(display: TransactionHistoryTypes.DisplayState)
     func contentViewDidPressNext(view: NewTransactionHistoryContentView)
     func contentViewDidPressPrevious(view: NewTransactionHistoryContentView)
     
@@ -340,8 +340,9 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
 extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate {
     
     func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell) {
-        
-        delegate?.contentViewDidPressButton(view: self)
+
+        guard let display = display else { return }
+        delegate?.contentViewDidPressButton(display: display)
     }
 }
 
@@ -350,9 +351,7 @@ extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate
 extension NewTransactionHistoryContentView: TransactionHistoryGeneralCellDelegate {
     
     func transactionGeneralCellDidPressNext(cell: TransactionHistoryGeneralCell) {
-        
         delegate?.contentViewDidPressNext(view: self)
-        
     }
     
     func transactionGeneralCellDidPressPrevious(cell: TransactionHistoryGeneralCell) {

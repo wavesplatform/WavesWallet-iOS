@@ -14,4 +14,7 @@ protocol TransactionHistoryModuleOutput: class {
 
     func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook)
     func transactionHistoryEditAddressToHistoryBook(contact: DomainLayer.DTO.Contact, finished: @escaping FinishedAddressBook)
+
+    func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
+    func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction)
 }

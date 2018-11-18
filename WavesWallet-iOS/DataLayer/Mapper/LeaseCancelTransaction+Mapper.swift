@@ -47,7 +47,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? -1
         modified = Date()
 
         signature = transaction.signature
