@@ -219,7 +219,7 @@ private extension HistoryViewController {
                                     
                 }, completion: { _ in
                     
-                    if (!state.isRefreshing && strongSelf.isRefreshing) {
+                    if (!state.isRefreshing) {
                         strongSelf.refreshControl.endRefreshing()
                     }
                     

@@ -17,6 +17,8 @@
 
 "addAddressbook.button.delete" = "Delete";
 
+"addAddressbook.textfield.address.error.addressexist" = "Address Exist";
+
 "addAddressbook.button.deleteAddress" = "Delete address";
 
 "addAddressbook.button.save" = "Save";

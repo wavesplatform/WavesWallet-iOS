@@ -18,7 +18,10 @@ protocol TransactionHistoryPresenterProtocol {
 }
 
 final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
-    
+
+    typealias Types = TransactionHistoryTypes
+    typealias Event = Types.Event
+
     var interactor: TransactionHistoryInteractorProtocol!
     weak var moduleOutput: TransactionHistoryModuleOutput?
     let moduleInput: TransactionHistoryModuleInput
@@ -31,12 +34,53 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     
     func system(feedbacks: [TransactionHistoryPresenterProtocol.Feedback]) {
         
-        let newFeedbacks = feedbacks
+        var newFeedbacks = feedbacks
+        newFeedbacks.append(handlerAction())
         
-        Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex), reduce: reduce, feedback: newFeedbacks)
+        Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
+                      reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
+                      feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
+
+
+    func handlerAction() -> TransactionHistoryPresenterProtocol.Feedback {
+
+        return react(query: { state -> (DomainLayer.DTO.Account, Bool)? in
+
+            switch state.action {
+            case .showAddressBook(let account, let isAdded):
+                return (account, isAdded)
+            default:
+                return nil
+            }
+
+        }, effects: { data -> Signal<Event> in
+
+            return Observable.create({ (observer) -> Disposable in
+
+                let account = data.0
+                let isAdded = data.1
+
+                let finished: TransactionHistoryModuleOutput.FinishedAddressBook = { (contact, isOK) in
+                    if isOK {
+                        observer.onNext(.updateContact(contact))
+                    } else {
+                        observer.onNext(.completedAction)
+                    }
+                }
+
+                if let contact = account.contact, isAdded == false {
+                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: finished)
+                } else {
+                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: finished)
+                }
+                return Disposables.create()
+            }).asSignal(onErrorJustReturn: .completedAction)
+        })
+    }
+
     
     private func reduce(state: TransactionHistoryTypes.State, event: TransactionHistoryTypes.Event) -> TransactionHistoryTypes.State {
         var newState = state
@@ -49,6 +93,55 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         switch event {
         case .readyView:
             break
+
+        case .updateContact(let contactState):
+
+            let contact = contactState.contact
+            let needDelete = contactState.needDelete
+
+            let newDisplays = state.displays.reduce(into: [Types.DisplayState]() ) { (displays, display) in
+
+                let newSections = display.sections.reduce(into: [Types.ViewModel.Section](), { (sections, section) in
+
+                    let newItems = section.items.reduce(into: [Types.ViewModel.Row](), { (rows, row) in
+
+
+                        if case let .recipient(recipient) = row,
+                            recipient.account.address == contact.address
+                        {
+                            let newAccount = DomainLayer.DTO.Account(address: recipient.account.address,
+                                                                     contact: needDelete == true ? nil : contact,
+                                                                     isMyAccount: recipient.account.isMyAccount)
+
+                            rows.append(.recipient(Types.ViewModel.Recipient(kind: recipient.kind,
+                                                                             account: newAccount)))
+                        } else {
+                            rows.append(row)
+                        }
+                    })
+                    var newSection = section
+                    newSection.items = newItems
+                    sections.append(newSection)
+                })
+
+                var newDisplay = display
+                newDisplay.sections = newSections
+                displays.append(newDisplay)
+            }
+
+            state.displays = newDisplays
+            state.actionDisplay = .reload(index: nil)
+            state.action = .none
+
+        case .tapRecipient(_, let recipient):
+            
+            let isAdded = recipient.account.contact == nil            
+            state.action = .showAddressBook(account: recipient.account, isAdded: isAdded)
+            state.actionDisplay = .none
+
+        case .completedAction:
+            state.action = .none
+            state.actionDisplay = .none
         }
     }
     

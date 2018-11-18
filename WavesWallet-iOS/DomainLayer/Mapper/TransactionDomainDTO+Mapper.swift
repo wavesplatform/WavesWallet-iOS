@@ -38,15 +38,28 @@ extension Int64 {
     }
 }
 
+struct SmartTransactionMetaData {
+    let accountAddress: String
+    let assets: [String: DomainLayer.DTO.Asset]
+    let accounts: [String: DomainLayer.DTO.Account]
+    let totalHeight: Int64
+    let status: DomainLayer.DTO.SmartTransaction.Status
+}
+
 extension DomainLayer.DTO.UnrecognisedTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
 
         let feeBalance = wavesAsset.balance(fee)
 
@@ -56,7 +69,8 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -64,14 +78,21 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
 
 extension DomainLayer.DTO.IssueTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
-        guard let asset = assets[self.assetId] else { return nil }
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
+        guard let asset = assets[self.assetId] else {
+            return nil
+        }
         let balance = asset.balance(self.quantity)
         let feeBalance = wavesAsset.balance(fee)
 
@@ -81,7 +102,8 @@ extension DomainLayer.DTO.IssueTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -89,15 +111,23 @@ extension DomainLayer.DTO.IssueTransaction {
 
 extension DomainLayer.DTO.TransferTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let accountAddress: String = metaData.accountAddress
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
         let assetId = self.assetId
-        guard let asset = assets[assetId] else { return nil }
-        guard let recipient = accounts[self.recipient] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
+        guard let asset = assets[assetId] else {
+            return nil
+        }
+        guard let recipient = accounts[self.recipient] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
 
         let balance = asset.balance(self.amount)
         let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
@@ -124,7 +154,9 @@ extension DomainLayer.DTO.TransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -133,7 +165,8 @@ extension DomainLayer.DTO.TransferTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -141,14 +174,21 @@ extension DomainLayer.DTO.TransferTransaction {
 
 extension DomainLayer.DTO.ReissueTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let asset = assets[self.assetId] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let asset = assets[self.assetId] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
 
         let balance = asset.balance(self.quantity)
         let feeBalance = wavesAsset.balance(fee)
@@ -161,7 +201,8 @@ extension DomainLayer.DTO.ReissueTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -169,14 +210,21 @@ extension DomainLayer.DTO.ReissueTransaction {
 
 extension DomainLayer.DTO.BurnTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        guard let asset = assets[self.assetId] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let asset = assets[self.assetId] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
         let balance = asset.balance(self.amount)
         let feeBalance = wavesAsset.balance(fee)
 
@@ -188,7 +236,8 @@ extension DomainLayer.DTO.BurnTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -196,16 +245,23 @@ extension DomainLayer.DTO.BurnTransaction {
 
 extension DomainLayer.DTO.ExchangeTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
         let amountAssetId = order1.assetPair.amountAsset
         let priceAssetId = order1.assetPair.priceAsset
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
-        guard let amountAsset = assets[amountAssetId] else { return nil }
-        guard let priceAsset = assets[priceAssetId] else { return nil }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            return nil
+        }
+        guard let amountAsset = assets[amountAssetId] else {
+            return nil
+        }
+        guard let priceAsset = assets[priceAssetId] else {
+            return nil
+        }
         let assetPair = DomainLayer.DTO.AssetPair(amountAsset: amountAsset,
                                                   priceAsset: priceAsset)
 
@@ -218,9 +274,15 @@ extension DomainLayer.DTO.ExchangeTransaction {
         let sellMatcherFee = wavesAsset.balance(self.sellMatcherFee)
 
         guard let order1 = order1.exchangeOrder(assetPair: assetPair,
-                                                accounts: accounts) else { return nil }
+                                                accounts: accounts)
+            else {
+                return nil
+            }
         guard let order2 = order2.exchangeOrder(assetPair: assetPair,
-                                                accounts: accounts) else { return nil }
+                                                accounts: accounts)
+            else {
+                return nil
+            }
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .exchange(.init(price: price,
                                                                           amount: amount,
@@ -233,7 +295,9 @@ extension DomainLayer.DTO.ExchangeTransaction {
         //TODO: Проверить комиссию для одного sendera
         let feeBalance = wavesAsset.balance(fee)
 
-        guard let sender = accounts[self.sender] else { return nil }
+        guard let sender = accounts[self.sender] else {
+            return nil            
+        }
 
         return .init(id: id,
                      kind: kind,
@@ -241,7 +305,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -249,10 +314,12 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
 extension DomainLayer.DTO.LeaseTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let accountAddress: String = metaData.accountAddress
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         let balance = wavesAsset.balance(self.amount)
@@ -282,7 +349,8 @@ extension DomainLayer.DTO.LeaseTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -290,15 +358,28 @@ extension DomainLayer.DTO.LeaseTransaction {
 
 extension DomainLayer.DTO.LeaseCancelTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+        
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
-        guard let lease = self.lease else { return nil }
-        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
-        guard let recipient = accounts[lease.recipient] else { return nil }
-        guard let sender = accounts[self.sender] else { return nil }
+        guard let lease = self.lease else {
+
+            return nil
+        }
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+
+            return nil
+        }
+        guard let recipient = accounts[lease.recipient] else {
+
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+
+            return nil
+        }
 
         let balance = wavesAsset.balance(lease.amount)
 
@@ -314,7 +395,8 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -322,10 +404,11 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
 extension DomainLayer.DTO.AliasTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+        
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
@@ -340,7 +423,8 @@ extension DomainLayer.DTO.AliasTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? -1),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -348,10 +432,11 @@ extension DomainLayer.DTO.AliasTransaction {
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else { return nil }
@@ -393,7 +478,8 @@ extension DomainLayer.DTO.MassTransferTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -401,11 +487,13 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
 extension DomainLayer.DTO.DataTransaction {
 
-    func transaction(by accountAddress: String,
-                     assets: [String: DomainLayer.DTO.Asset],
-                     accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        //TODO: Constants
         let list = data.map { data -> [String: String] in
             var map = [String: String]()
             map["key"] = data.key
@@ -427,7 +515,8 @@ extension DomainLayer.DTO.DataTransaction {
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
-                     sender: sender)
+                     sender: sender,
+                     status: metaData.status)
     }
 }
 
@@ -436,58 +525,74 @@ extension DomainLayer.DTO.AnyTransaction {
     func transaction(by accountAddress: String,
                      assets: [String: DomainLayer.DTO.Asset],
                      accounts: [String: DomainLayer.DTO.Account],
-                     totalHeight: Int64) -> DomainLayer.DTO.SmartTransaction? {
+                     totalHeight: Int64,
+                     leaseTransactions: [String: DomainLayer.DTO.LeaseTransaction]) -> DomainLayer.DTO.SmartTransaction? {
 
+        var status: DomainLayer.DTO.SmartTransaction.Status = .completed
+
+        switch self.status {
+            case .activeNow:
+                status = .activeNow
+
+            case .completed:
+                status = .completed
+
+            case .unconfirmed:
+                status = .unconfirmed
+        }
+
+        if self.isLease && leaseTransactions[id] != nil {
+            status = .activeNow
+        }
+
+        let smartData = SmartTransactionMetaData(accountAddress: accountAddress,
+                                                 assets: assets,
+                                                 accounts: accounts,
+                                                 totalHeight: totalHeight,
+                                                 status: status)
+
+        var smartTransaction: DomainLayer.DTO.SmartTransaction?
         switch self {
 
         case .unrecognised(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .issue(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .transfer(let tx):
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .reissue(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .burn(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .exchange(let tx):
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .lease(let tx):
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .leaseCancel(let tx):
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .alias(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .massTransfer(let tx):
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
 
         case .data(let tx):
-            return tx.transaction(by: accountAddress, assets: assets, accounts: accounts, totalHeight: totalHeight)
+            smartTransaction = tx.transaction(by: smartData)
         }
+
+        if smartTransaction == nil {
+           debug(self)
+        }
+
+        return smartTransaction
     }
 }
 

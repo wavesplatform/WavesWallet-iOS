@@ -130,7 +130,7 @@ fileprivate extension CreateAliasPresenter {
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ wallet -> Observable<String> in
-                    return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.wallet.address)
+                    return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.address)
                 })
                 .sweetDebug("Debug")
                 .map { _ in .errorAliasExist }

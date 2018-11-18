@@ -54,5 +54,6 @@ extension DomainLayer.DTO {
         let buyMatcherFee: Int64
         let sellMatcherFee: Int64
         var modified: Date
+        var status: TransactionStatus
     }
 }

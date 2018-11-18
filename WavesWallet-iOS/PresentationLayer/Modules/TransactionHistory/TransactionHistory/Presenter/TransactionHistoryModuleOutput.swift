@@ -9,7 +9,9 @@
 import Foundation
 
 protocol TransactionHistoryModuleOutput: class {
-    
-    
-    
+
+    typealias FinishedAddressBook = ((TransactionHistoryTypes.DTO.ContactState, Bool) -> Void)
+
+    func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook)
+    func transactionHistoryEditAddressToHistoryBook(contact: DomainLayer.DTO.Contact, finished: @escaping FinishedAddressBook)
 }

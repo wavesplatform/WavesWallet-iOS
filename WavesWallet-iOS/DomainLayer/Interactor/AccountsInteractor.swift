@@ -13,6 +13,7 @@ import RxCocoa
 protocol AccountsInteractorProtocol {
 
     func accounts(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Account]>
+
 }
 
 final class AccountsInteractorMock: AccountsInteractorProtocol {
@@ -23,9 +24,15 @@ final class AccountsInteractorMock: AccountsInteractorProtocol {
 
     func accounts(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Account]> {
 
-        return Observable.zip(addressBookRepository.list(by: accountAddress),
-                              environmentRepository.accountEnvironment(accountAddress: accountAddress),
+        return Observable.zip(environmentRepository.accountEnvironment(accountAddress: accountAddress),
                               aliasesRepository.aliases(accountAddress: accountAddress))
+            .flatMap({ [weak self] (args) -> Observable<([DomainLayer.DTO.Contact], Environment, [DomainLayer.DTO.Alias])> in
+
+                guard let owner = self else { return Observable.never() }
+
+                return Observable.merge(owner.addressBookRepository.listListener(by: accountAddress),
+                                        owner.addressBookRepository.list(by: accountAddress)).map { ($0, args.0, args.1) }
+            })
             .flatMap { (contacts, environment, aliases) -> Observable<[DomainLayer.DTO.Account]> in
 
                 let maps = contacts.reduce(into: [String : DomainLayer.DTO.Contact](), { (result, contact) in
@@ -33,12 +40,9 @@ final class AccountsInteractorMock: AccountsInteractorProtocol {
                 })
 
                 let accounts = ids.map({ address -> DomainLayer.DTO.Account in
-                    var newAddress = address
-                    if address.contains(environment.aliasScheme) {
-                        newAddress = address.removeCharacters(from: environment.aliasScheme)
-                    }
-                    let isMyAccount = accountAddress == newAddress || aliases.map { $0.name }.contains(newAddress)
-                    return DomainLayer.DTO.Account(id: newAddress, contact: maps[newAddress], isMyAccount: isMyAccount)
+
+                    let isMyAccount = accountAddress == address || aliases.map { $0.name }.contains(address)
+                    return DomainLayer.DTO.Account(address: address, contact: maps[address], isMyAccount: isMyAccount)
                 })
 
                 return Observable.just(accounts)

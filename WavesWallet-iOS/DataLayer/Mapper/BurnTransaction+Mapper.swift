@@ -15,7 +15,7 @@ extension BurnTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -26,17 +26,18 @@ extension BurnTransaction {
         signature = transaction.signature
         chainId.value = transaction.chainId
         amount = transaction.amount
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.BurnTransaction {
 
-    init(transaction: Node.DTO.BurnTransaction) {
+    init(transaction: Node.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -48,13 +49,14 @@ extension DomainLayer.DTO.BurnTransaction {
         chainId = transaction.chainId
         amount = transaction.amount
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: BurnTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -66,5 +68,6 @@ extension DomainLayer.DTO.BurnTransaction {
         chainId = transaction.chainId.value
         amount = transaction.amount
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

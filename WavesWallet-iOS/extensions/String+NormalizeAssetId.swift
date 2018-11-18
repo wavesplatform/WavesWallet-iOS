@@ -18,3 +18,14 @@ extension Optional where Wrapped == String {
         }
     }
 }
+
+extension String {
+    func normalizeAddress(environment: Environment) -> String {
+
+        if self.contains(environment.aliasScheme) {
+            return self.removeCharacters(from: environment.aliasScheme)
+        }
+
+        return self
+    }
+}

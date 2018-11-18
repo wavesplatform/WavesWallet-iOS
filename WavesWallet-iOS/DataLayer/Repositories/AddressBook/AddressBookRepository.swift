@@ -13,8 +13,27 @@ import RealmSwift
 
 final class AddressBookRepository: AddressBookRepositoryProtocol {
 
+    func contact(by address: String, accountAddress: String) -> Observable<DomainLayer.DTO.Contact?> {
+
+        return Observable.create({ observer -> Disposable in
+
+            //TODO: Remove !
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
+            if let object = realm.object(ofType: AddressBook.self, forPrimaryKey: address) {
+                observer.onNext(DomainLayer.DTO.Contact(name: object.name, address: object.address))
+            } else {
+                observer.onNext(nil)
+            }
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
+    }
+
     func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
+            //TODO: Remove !
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             let result = realm.objects(AddressBook.self)
@@ -28,10 +47,13 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
             
             return Disposables.create([collection])
         })
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
     
     func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
+
+            //TODO: Remove !
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             let list = realm.objects(AddressBook.self).toArray().map {
@@ -49,6 +71,7 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
         return Observable.create({ observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
+            //TODO: Remove !
             try! realm.write {
                 realm.add(AddressBook(contact), update: true)
             }
@@ -62,6 +85,7 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
     func delete(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool> {
 
         return Observable.create({ observer -> Disposable in
+            //TODO: Remove !
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             guard let user = realm.object(ofType: AddressBook.self,

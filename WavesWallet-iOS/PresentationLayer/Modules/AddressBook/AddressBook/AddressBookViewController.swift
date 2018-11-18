@@ -65,6 +65,12 @@ private extension AddressBookViewController {
         tableView.isHidden = isEmpty
         searchBar.isHidden = isEmpty
     }
+
+
+    func showEditContact(_ contact: DomainLayer.DTO.Contact) {
+        let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(kind: .edit(contact: contact, isMutable: true)))
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 //MARK: - Actions
@@ -72,7 +78,7 @@ private extension AddressBookViewController {
     
     @objc func addUserTapped() {
         
-        let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(contact: nil, address: nil))
+        let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(kind: .add(nil, isMutable: true)))
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -114,7 +120,7 @@ private extension AddressBookViewController {
 }
 
 
-//MARK: - SearchBarViewDelegate
+// MARK: - SearchBarViewDelegate
 extension AddressBookViewController: SearchBarViewDelegate {
     
     func searchBarDidChangeText(_ searchText: String) {
@@ -123,20 +129,23 @@ extension AddressBookViewController: SearchBarViewDelegate {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension AddressBookViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard isEditMode == false else { return }
         let contact = modelSection.items[indexPath.row].contact
 
-        delegate?.addressBookDidSelectContact(contact)
-        navigationController?.popViewController(animated: true)
+        if isEditMode {
+            showEditContact(contact)
+        } else {
+            delegate?.addressBookDidSelectContact(contact)
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension AddressBookViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -162,8 +171,7 @@ extension AddressBookViewController: AddressBookCellDelegate {
         if let indexPath = tableView.indexPath(for: cell) {
             
             let contact = modelSection.items[indexPath.row].contact
-            let controller = AddAddressBookModuleBuilder(output: self).build(input: .init(contact: contact, address: nil))
-            navigationController?.pushViewController(controller, animated: true)
+            showEditContact(contact)
         }
     }
 }

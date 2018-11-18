@@ -22,5 +22,6 @@ extension DomainLayer.DTO {
         let proofs: [String]?
         let alias: String
         var modified: Date
+        var status: TransactionStatus
     }
 }

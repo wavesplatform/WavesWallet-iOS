@@ -56,6 +56,7 @@ fileprivate typealias InitialTransactionsQuery =
 fileprivate struct SmartTransactionsQuery {
     let accountAddress: String
     let transactions: [DomainLayer.DTO.AnyTransaction]
+    let leaseTransactions: [DomainLayer.DTO.LeaseTransaction]?
 }
 
 fileprivate typealias AnyTransactionsQuery = (accountAddress: String, specifications: TransactionsSpecifications)
@@ -76,7 +77,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> SmartTransactionsObservable {
 
         return transactionsRepositoryLocal
-            .isHasTransactions(by: accountAddress)
+            .isHasTransactions(by: accountAddress, ignoreUnconfirmed: false)
             .map { InitialTransactionsQuery(accountAddress: accountAddress,
                                             specifications: specifications,
                                             isHasTransactions: $0) }
@@ -91,22 +92,26 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             let txs = transactions.map({ lease -> DomainLayer.DTO.AnyTransaction in
                 return DomainLayer.DTO.AnyTransaction.lease(lease)
             })
-            return owner.smartTransactions(SmartTransactionsQuery(accountAddress: accountAddress, transactions: txs))
+            return owner.smartTransactions(SmartTransactionsQuery(accountAddress: accountAddress, transactions: txs, leaseTransactions: transactions))
         }
     }
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
 
         return transactionsRepositoryRemote
-                .send(by: specifications, wallet: wallet)
+                .send(by: specifications, wallet: wallet)                
+                .flatMap({ [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
+                    guard let owner = self else { return Observable.never() }
+                    return owner.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
+                })
                 .flatMap({ [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
                     guard let owner = self else { return Observable.never() }
-                    return owner.smartTransactions(SmartTransactionsQuery(accountAddress: wallet.wallet.address, transactions: [tx]))
+                    return owner.smartTransactions(SmartTransactionsQuery(accountAddress: wallet.address, transactions: [tx], leaseTransactions: nil))
                         .flatMap({ txs -> Observable<DomainLayer.DTO.SmartTransaction> in
                             guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
                             return Observable.just(tx)
                         })
-                })
+                }).sweetDebug("Send tx")
     }
 }
 
@@ -148,6 +153,7 @@ fileprivate extension TransactionsInteractor {
                           limit: query.currentLimit)
             .map {
                 let ids = $0.reduce(into: [String]()) { list, tx in
+                    
                     list.append(tx.id)
                 }
 
@@ -182,7 +188,7 @@ fileprivate extension TransactionsInteractor {
     private func isHasTransactions(_ query: IsHasTransactionsQuery) -> Observable<IsHasTransactionsResult> {
 
         return transactionsRepositoryLocal
-            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress)
+            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress, ignoreUnconfirmed: true)
             .map { IsHasTransactionsResult(isHasTransactions: $0,
                                            transactions: query.transactions)}
     }
@@ -195,15 +201,28 @@ fileprivate extension TransactionsInteractor {
 
     private func smartTransactionsFromAnyTransactions(_ query: AnyTransactionsQuery) -> SmartTransactionsObservable {
 
-        return anyTransactions(query)
-            .map { SmartTransactionsQuery(accountAddress: query.accountAddress, transactions: $0) }
+        return anyTransactionsLocal(query)
+            .map { SmartTransactionsQuery(accountAddress: query.accountAddress, transactions: $0, leaseTransactions: nil) }
             .flatMap(weak: self, selector: { $0.smartTransactions })
     }
 
-    private func anyTransactions(_ query: AnyTransactionsQuery) -> AnyTransactionsObservable {
+    private func anyTransactionsLocal(_ query: AnyTransactionsQuery) -> AnyTransactionsObservable {
 
-        return transactionsRepositoryLocal
+        let txs = transactionsRepositoryLocal
             .transactions(by: query.accountAddress, specifications: query.specifications)
+
+        var newTxs = transactionsRepositoryLocal
+            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1)
+
+        newTxs = Observable.merge(Observable.just([]), newTxs)
+
+        return txs.flatMap { (txs) -> AnyTransactionsObservable in
+            return newTxs.map({ lastTxs -> [DomainLayer.DTO.AnyTransaction] in
+                var newTxs = lastTxs
+                newTxs.append(contentsOf: txs)
+                return newTxs
+            })
+        }
     }
 
     private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
@@ -222,11 +241,19 @@ fileprivate extension TransactionsInteractor {
         let accounts = accountsInteractors
             .accounts(by: ids, accountAddress: accountAddress)
             .map { $0.reduce(into: [String: DomainLayer.DTO.Account](), { list, account in
-                list[account.id] = account
+                list[account.address] = account
             })
         }
         return accounts
     }
+
+    private typealias SmartTransactionData = (
+        [String : DomainLayer.DTO.Asset],
+        [DomainLayer.DTO.AnyTransaction],
+        Int64,
+        [String : DomainLayer.DTO.Account],
+        [String : DomainLayer.DTO.LeaseTransaction]
+    )
 
     private func smartTransactions(_ query: SmartTransactionsQuery) -> SmartTransactionsObservable {
 
@@ -236,16 +263,46 @@ fileprivate extension TransactionsInteractor {
 
         let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
         let accounts = self.accounts(by: accountsIds, accountAddress: query.accountAddress)
+
+        var activeLeasing: Observable<[DomainLayer.DTO.LeaseTransaction]>!
+
+        if let leaseTransactions = query.leaseTransactions {
+            activeLeasing = Observable.just(leaseTransactions)
+        } else {
+            //it is code for avoid query when lease thx not found
+            let isNeedActiveLeasing = query.transactions.first(where: { (tx) -> Bool in
+                return tx.isLease == true && tx.status == .completed
+            }) != nil
+
+            if isNeedActiveLeasing {
+                activeLeasing = transactionsRepositoryRemote.activeLeasingTransactions(by: query.accountAddress)
+            } else {
+                activeLeasing = Observable.just([])
+            }
+        }
+
+        let activeLeasingMap = activeLeasing!.flatMap { (txs) -> Observable<[String: DomainLayer.DTO.LeaseTransaction]> in
+            let map = txs.reduce(into: [String: DomainLayer.DTO.LeaseTransaction].init(), { (result, tx) in
+                result[tx.id] = tx
+            })
+            return Observable.just(map)
+        }
+
         let txs = Observable.just(query.transactions)
         let blockHeight = blockRepositoryRemote.height(accountAddress: query.accountAddress)
 
-        return Observable.zip(assets,
-                              accounts,
-                              txs,
-                              blockHeight)
+        return Observable.zip(assets, txs, blockHeight, activeLeasingMap)
+            .flatMap({ (arg) -> Observable<SmartTransactionData> in
+
+                return accounts.map { (arg.0, arg.1, arg.2, $0, arg.3) }
+            })
             .map { arg -> [DomainLayer.DTO.SmartTransaction] in
-                return arg.2
-                    .map { $0.transaction(by: query.accountAddress, assets: arg.0, accounts: arg.1, totalHeight: arg.3) }
+                return arg.1
+                    .map { $0.transaction(by: query.accountAddress,
+                                          assets: arg.0,
+                                          accounts: arg.3,
+                                          totalHeight: arg.2,
+                                          leaseTransactions: arg.4) }
                     .compactMap { $0 }
             }
     }
@@ -304,7 +361,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
-        case .lease:
+        case .lease(let tx):
             return [GlobalConstants.wavesAssetId]
 
         case .leaseCancel:
@@ -346,7 +403,14 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.sender, tx.recipient]
 
         case .leaseCancel(let tx):
-            return [tx.sender]
+            var accountsIds: [String] = [String]()
+            accountsIds.append(tx.sender)
+            if let lease = tx.lease {
+                accountsIds.append(lease.sender)
+                accountsIds.append(lease.recipient)
+            }
+
+            return accountsIds
 
         case .alias(let tx):
             return [tx.sender]
