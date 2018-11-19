@@ -741,8 +741,6 @@
 
 "receivegenerate.label.yourAddress" = "Your %@ address";
 
-"receiveinvoice.label.dollar" = "US Dollar";
-
 "send.button.chooseFromAddressBook" = "Choose from Address book";
 
 "send.button.continue" = "Continue";

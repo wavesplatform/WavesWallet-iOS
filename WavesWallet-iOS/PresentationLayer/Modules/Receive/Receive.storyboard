@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -677,27 +677,19 @@ will be updated</string>
                                                 <rect key="frame" x="16" y="24" width="343" height="44"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B63-Dn-mpE" customClass="MoneyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="0.0" width="232.5" height="44"/>
+                                                        <rect key="frame" x="16" y="0.0" width="327" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="zUE-AX-6ot"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈ 0 US Dollar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGP-r7-wOL">
-                                                        <rect key="frame" x="248.5" y="14" width="80.5" height="16"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                        <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="B63-Dn-mpE" secondAttribute="bottom" id="1tw-l3-RMe"/>
-                                                    <constraint firstItem="JGP-r7-wOL" firstAttribute="leading" secondItem="B63-Dn-mpE" secondAttribute="trailing" id="T78-ES-hPF"/>
                                                     <constraint firstItem="B63-Dn-mpE" firstAttribute="top" secondItem="XH8-E8-j8n" secondAttribute="top" id="bMV-wT-lvY"/>
                                                     <constraint firstItem="B63-Dn-mpE" firstAttribute="leading" secondItem="XH8-E8-j8n" secondAttribute="leading" constant="16" id="hyz-jD-M9y"/>
-                                                    <constraint firstAttribute="trailing" secondItem="JGP-r7-wOL" secondAttribute="trailing" constant="14" id="rN0-sG-eYS"/>
-                                                    <constraint firstItem="JGP-r7-wOL" firstAttribute="centerY" secondItem="XH8-E8-j8n" secondAttribute="centerY" id="xnh-iR-hqp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="B63-Dn-mpE" secondAttribute="trailing" id="pct-Cy-xw0"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -755,7 +747,6 @@ will be updated</string>
                     <connections>
                         <outlet property="buttonContinue" destination="PAO-aY-IdV" id="7EG-pV-jF2"/>
                         <outlet property="labelAmount" destination="qZa-zM-Qzz" id="a4d-4M-RNa"/>
-                        <outlet property="labelTotalDollar" destination="JGP-r7-wOL" id="U8L-rm-8CC"/>
                         <outlet property="textFieldMoney" destination="B63-Dn-mpE" id="bfz-8J-uol"/>
                         <outlet property="viewAmountContainer" destination="XH8-E8-j8n" id="M7Z-Rq-qoh"/>
                         <outlet property="viewAsset" destination="VQ9-8r-0bS" id="I7W-1y-w2s"/>
@@ -805,27 +796,19 @@ will be updated</string>
                                         <rect key="frame" x="16" y="38" width="343" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHZ-gd-e39" customClass="MoneyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="0.0" width="249.5" height="44"/>
+                                                <rect key="frame" x="16" y="0.0" width="327" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Sln-PT-bHe"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈ 0 Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI4-Hc-a2q">
-                                                <rect key="frame" x="265.5" y="14" width="63.5" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="eI4-Hc-a2q" secondAttribute="trailing" constant="14" id="0vm-We-D2B"/>
+                                            <constraint firstAttribute="trailing" secondItem="EHZ-gd-e39" secondAttribute="trailing" id="OU7-19-mJY"/>
                                             <constraint firstItem="EHZ-gd-e39" firstAttribute="top" secondItem="hWi-NR-AOY" secondAttribute="top" id="OrF-KQ-s9U"/>
                                             <constraint firstItem="EHZ-gd-e39" firstAttribute="leading" secondItem="hWi-NR-AOY" secondAttribute="leading" constant="16" id="PCl-MK-xDU"/>
-                                            <constraint firstItem="eI4-Hc-a2q" firstAttribute="centerY" secondItem="hWi-NR-AOY" secondAttribute="centerY" id="rkC-eK-dMw"/>
                                             <constraint firstAttribute="bottom" secondItem="EHZ-gd-e39" secondAttribute="bottom" id="rkX-4L-Lsn"/>
-                                            <constraint firstItem="eI4-Hc-a2q" firstAttribute="leading" secondItem="EHZ-gd-e39" secondAttribute="trailing" id="y1I-ba-mVl"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtF-Wf-fMd">
@@ -958,7 +941,6 @@ will be updated</string>
                         <outlet property="buttonContinue" destination="zrZ-xV-OTi" id="StO-pE-gHW"/>
                         <outlet property="labelAmountIn" destination="kIE-pO-zgW" id="mDW-YG-e6m"/>
                         <outlet property="labelChangeCurrency" destination="hO4-j8-2jN" id="85p-hW-zET"/>
-                        <outlet property="labelTotalAmount" destination="eI4-Hc-a2q" id="EF1-W2-0qp"/>
                         <outlet property="labelWarningInfo" destination="45G-CV-gNf" id="Eqn-B8-dDR"/>
                         <outlet property="labelWarningMinimumAmount" destination="jdk-AP-RQy" id="2h9-cD-HlW"/>
                         <outlet property="textFieldMoney" destination="EHZ-gd-e39" id="KF9-DX-N23"/>
