@@ -17,6 +17,8 @@
 
 "addAddressbook.button.delete" = "Delete";
 
+"addAddressbook.textfield.address.error.addressexist" = "Address Exist";
+
 "addAddressbook.button.deleteAddress" = "Delete address";
 
 "addAddressbook.button.save" = "Save";
@@ -80,6 +82,9 @@
 "asset.cell.assetInfo.description" = "Description";
 
 "asset.cell.assetInfo.id" = "ID";
+
+"asset.cell.assetInfo.totalAmount" = "Total amount";
+"asset.cell.assetInfo.decimalPoints" = "Decimal points";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
 

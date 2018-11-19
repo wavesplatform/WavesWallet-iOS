@@ -15,7 +15,7 @@ extension TransferTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -29,17 +29,18 @@ extension TransferTransaction {
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.TransferTransaction {
 
-    init(transaction: Node.DTO.TransferTransaction) {
+    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -48,19 +49,20 @@ extension DomainLayer.DTO.TransferTransaction {
         assetId = transaction.assetId.normalizeAssetId
         modified = Date()
 
-        recipient = transaction.recipient
+        recipient = transaction.recipient.normalizeAddress(environment: environment)
         feeAssetId = transaction.feeAssetId.normalizeAssetId
         feeAsset = transaction.feeAsset
         amount = transaction.amount
         attachment = transaction.attachment
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: TransferTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -75,5 +77,6 @@ extension DomainLayer.DTO.TransferTransaction {
         amount = transaction.amount
         attachment = transaction.attachment
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

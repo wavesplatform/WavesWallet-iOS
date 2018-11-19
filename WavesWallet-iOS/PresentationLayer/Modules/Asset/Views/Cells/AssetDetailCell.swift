@@ -10,11 +10,19 @@ import UIKit
 
 fileprivate enum Constants {
     static let issueDateFormat = "dd.MM.yyyy 'at' hh:mm"
-    static let height: CGFloat = 314
     static let pictureSize: CGFloat = 40
     static let pictureLeftPadding: CGFloat = 4
     static let padding: CGFloat = 16
+    
+    static let titleBlockOffset: CGFloat = 24
+    static let titleOffset: CGFloat = 8
+    static let titleDefaultHeight: CGFloat = 16
+    
+    static let nameTopOffset: CGFloat = 110
+    static let totalAmountDecimalsBlockHeight: CGFloat = 104
+    static let typeBlockHeight: CGFloat = 40
 }
+
 final class AssetDetailCell: UITableViewCell, Reusable {
 
     @IBOutlet private var assetTitleLabel: UILabel!
@@ -36,8 +44,16 @@ final class AssetDetailCell: UITableViewCell, Reusable {
 
     @IBOutlet private var descriptionTitleLabel: UILabel!
     @IBOutlet private var descriptionLabel: UILabel!
-
-
+ 
+    @IBOutlet private weak var labelTotalAmountTitle: UILabel!
+    @IBOutlet private weak var labelTotalAmount: CopyableLabel!
+    
+    @IBOutlet private weak var labelDecimalPointTitle: UILabel!
+    @IBOutlet private weak var labelDecimalPoint: CopyableLabel!
+    
+    @IBOutlet private weak var viewDescription: UIView!
+    @IBOutlet private weak var viewIssuer: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLocalization()
@@ -79,6 +95,8 @@ final class AssetDetailCell: UITableViewCell, Reusable {
         typeTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.title
         dateTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.issueDate
         descriptionTitleLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.description
+        labelTotalAmountTitle.text = Localizable.Waves.Asset.Cell.Assetinfo.totalAmount
+        labelDecimalPointTitle.text = Localizable.Waves.Asset.Cell.Assetinfo.decimalPoints
     }
 }
 
@@ -90,6 +108,12 @@ extension AssetDetailCell: ViewConfiguration {
         idLabel.text = model.id
         issuerLabel.text = model.issuer
         descriptionLabel.text = model.description
+        
+        let decimals = model.assetBalance.asset?.precision ?? 0
+        labelDecimalPoint.text = String(decimals)
+        
+        let totalAmount = Money(model.assetBalance.asset?.quantity ?? 0, decimals)
+        labelTotalAmount.text = totalAmount.displayText
 
         let dateFormatter = DateFormatter.sharedFormatter
         dateFormatter.dateFormat  = Constants.issueDateFormat
@@ -100,21 +124,50 @@ extension AssetDetailCell: ViewConfiguration {
         } else {
             typeLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.notReissuable
         }
+        viewIssuer.isHidden = model.issuer.count == 0
+        viewDescription.isHidden = model.description.count == 0
     }
 }
 
 extension AssetDetailCell: ViewCalculateHeight {
 
     static func viewHeight(model: AssetTypes.DTO.Asset.Info, width: CGFloat) -> CGFloat {
-
-        let nameHeight =  model.name.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)
-        let issuerHeight = model.issuer.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13),
-                                                           forWidth: width - Constants.padding * 2 - Constants.pictureSize - Constants.pictureLeftPadding)
+        
+        var offset: CGFloat = Constants.nameTopOffset
+        let nameHeight = model.name.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)
+        offset += nameHeight
+        offset += Constants.titleBlockOffset
+        
+        if model.issuer.count > 0 {
+            offset += Constants.titleDefaultHeight
+            offset += Constants.titleOffset
+            let issuerHeight = model.issuer.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13),
+                                                               forWidth: width - Constants.padding * 2 - Constants.pictureSize - Constants.pictureLeftPadding)
+            offset += issuerHeight
+            offset += Constants.titleBlockOffset
+        }
+        
+        offset += Constants.titleDefaultHeight
+        offset += Constants.titleOffset
         let idHeight = model.id.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13),
                                                    forWidth: width - Constants.padding * 2  - Constants.pictureSize - Constants.pictureLeftPadding)
-        let descriptionHeight = model.description.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)
+        offset += idHeight
+        offset += Constants.titleBlockOffset
+        
+        offset += Constants.totalAmountDecimalsBlockHeight
+        offset += Constants.titleBlockOffset
+        
+        offset += Constants.typeBlockHeight
+        
+        if model.description.count > 0 {
+            offset += Constants.titleBlockOffset
 
-        let height = Constants.height + nameHeight + issuerHeight + idHeight + descriptionHeight
-        return height
+            offset += Constants.titleDefaultHeight
+            offset += Constants.titleOffset
+            let descriptionHeight = model.description.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)
+            offset += descriptionHeight
+        }
+
+        return offset
     }
 }

@@ -19,7 +19,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMarket.DTO.Pair]> in
             
             guard let owner = self else { return Observable.empty() }
-            return owner.allPairs(accountAddress: wallet.wallet.address)
+            return owner.allPairs(accountAddress: wallet.address)
         })
     }
     
@@ -43,9 +43,9 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                     guard let owner = self else { return Observable.never() }
 
                     if needSaveAssetPair {
-                        return owner.repository.save(pair: pair, accountAddress: wallet.wallet.address)
+                        return owner.repository.save(pair: pair, accountAddress: wallet.address)
                     }
-                    return owner.repository.delete(by: pair.id, accountAddress: wallet.wallet.address)
+                    return owner.repository.delete(by: pair.id, accountAddress: wallet.address)
                     
                 }.subscribe().disposed(by: disposeBag)
             }

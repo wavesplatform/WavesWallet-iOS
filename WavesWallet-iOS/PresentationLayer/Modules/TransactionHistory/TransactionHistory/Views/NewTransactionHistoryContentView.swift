@@ -9,7 +9,7 @@
 import UIKit
     
 private enum Constants {
-    static let timestampDateFormat = "MM/dd/yyyy hh:mm"
+    static let timestampDateFormat = "MM.dd.yyyy, hh:mm"
     static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
     static let сontentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
     static let buttonsHeight: CGFloat = 48
@@ -22,8 +22,8 @@ private enum Constants {
 
 protocol TransactionHistoryContentViewDelegate: class {
     
-    func contentViewDidPressAccount(view: NewTransactionHistoryContentView)
-    func contentViewDidPressButton(view: NewTransactionHistoryContentView)
+    func contentViewDidPressAccount(display: TransactionHistoryTypes.DisplayState, recipient: TransactionHistoryTypes.ViewModel.Recipient)
+    func contentViewDidPressButton(display: TransactionHistoryTypes.DisplayState)
     func contentViewDidPressNext(view: NewTransactionHistoryContentView)
     func contentViewDidPressPrevious(view: NewTransactionHistoryContentView)
     
@@ -39,7 +39,7 @@ final class NewTransactionHistoryContentView: UIView {
     @IBOutlet private weak var buttonContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tableView: UITableView!
 
-    private(set) var display: TransactionHistoryTypes.State.DisplayState?
+    private(set) var display: TransactionHistoryTypes.DisplayState?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -139,7 +139,7 @@ final class NewTransactionHistoryContentView: UIView {
         
         let id = transaction.id
         let kind = transaction.title
-        let sender = transaction.sender.id
+        let sender = transaction.sender.address
         
         let formatter = DateFormatter.sharedFormatter
         formatter.dateFormat = Constants.timestampDateFormat
@@ -150,38 +150,50 @@ final class NewTransactionHistoryContentView: UIView {
         
         switch transaction.kind {
         case .receive(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
+
         case .sent(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
+
         case .exchange(let model):
             balance = model.total
+
         case .selfTransfer(let model):
             balance = model.balance
+
         case .tokenGeneration(let model):
             balance = model.balance
+
         case .tokenReissue(let model):
             balance = model.balance
+
         case .tokenBurn(let model):
             balance = model.balance
+
         case .startedLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
+
         case .canceledLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
+
         case .incomingLeasing(let model):
-            recipients.append(model.account.id)
+            recipients.append(model.account.address)
             balance = model.balance
+
         case .spamReceive(let model):
-            recipients.append(model.recipient.id)
+            recipients.append(model.recipient.address)
             balance = model.balance
+
         case .massSent(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
             balance = model.total
+
         case .massReceived(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.id }))
+            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
             balance = model.total
         default:
             break
@@ -209,7 +221,7 @@ final class NewTransactionHistoryContentView: UIView {
 
 extension NewTransactionHistoryContentView {
     
-    func setup(with display: TransactionHistoryTypes.State.DisplayState) {
+    func setup(with display: TransactionHistoryTypes.DisplayState) {
         
         self.display = display
         tableView.reloadData()
@@ -245,6 +257,7 @@ extension NewTransactionHistoryContentView: UITableViewDataSource {
             
             let cell: TransactionHistoryRecipientCell = tableView.dequeueAndRegisterCell()
             cell.update(with: model)
+            cell.delegate = self
             return cell
             
         case .comment(let model):
@@ -319,10 +332,7 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
         case .general(let model):
             return TransactionHistoryGeneralCell.viewHeight(model: model, width: tableView.bounds.width)
         }
-        
     }
-
-    
 }
 
 //MARK: NewTransactionHistoryContentView
@@ -330,11 +340,10 @@ extension NewTransactionHistoryContentView: UITableViewDelegate {
 extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate {
     
     func transactionButtonCellDidPress(cell: TransactionHistoryButtonCell) {
-        
-        delegate?.contentViewDidPressButton(view: self)
-        
+
+        guard let display = display else { return }
+        delegate?.contentViewDidPressButton(display: display)
     }
-    
 }
 
 // MARK: TransactionHistoryGeneralCellDelegate
@@ -342,27 +351,20 @@ extension NewTransactionHistoryContentView: TransactionHistoryButtonCellDelegate
 extension NewTransactionHistoryContentView: TransactionHistoryGeneralCellDelegate {
     
     func transactionGeneralCellDidPressNext(cell: TransactionHistoryGeneralCell) {
-        
         delegate?.contentViewDidPressNext(view: self)
-        
     }
     
     func transactionGeneralCellDidPressPrevious(cell: TransactionHistoryGeneralCell) {
         delegate?.contentViewDidPressPrevious(view: self)
     }
-    
 }
 
 // MARK: TransactionHistoryRecipientCellDelegate
 
 extension NewTransactionHistoryContentView: TransactionHistoryRecipientCellDelegate {
     
-    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell) {
-
-        delegate?.contentViewDidPressAccount(view: self)
-
+    func recipientCellDidPressContact(cell: TransactionHistoryRecipientCell, recipient: TransactionHistoryTypes.ViewModel.Recipient) {
+        guard let display = self.display else { return }
+        delegate?.contentViewDidPressAccount(display: display, recipient: recipient)
     }
-
 }
-
-

@@ -8,6 +8,42 @@
 
 import UIKit
 
+extension UINavigationController {
+
+    func popViewController(animated: Bool, completed: @escaping (() -> Void)) -> UIViewController? {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popViewController(animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func popToRootViewController(animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popToRootViewController(animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func popToViewController(_ viewController: UIViewController, animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
+
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        let result = popToViewController(viewController, animated: animated)
+        CATransaction.commit()
+        return result
+    }
+
+    func pushViewController(_ viewController: UIViewController, animated: Bool, completed: @escaping (() -> Void)) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completed)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+}
+
 extension UINavigationItem {
 
     private enum AssociatedKeys {
@@ -175,7 +211,7 @@ class CustomNavigationController: UINavigationController {
         if viewControllers.count == 2 {
             self.viewControllers.first?.hidesBottomBarWhenPushed = false
         }
-
+        
         return super.popViewController(animated: animated)
     }
 
@@ -195,7 +231,11 @@ class CustomNavigationController: UINavigationController {
     }
 
     private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
-        
+
+        if viewController != topViewController {
+            return
+        }
+
         navigationBar.setBackgroundImage(viewController.navigationItem.backgroundImage, for: .default)
 
         navigationBar.isTranslucent = viewController.navigationItem.isTranslucent
@@ -205,12 +245,10 @@ class CustomNavigationController: UINavigationController {
         navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
-        } 
-        setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
-
-        if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
         }
+
+        setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
     }
 
     override var childViewControllerForStatusBarStyle: UIViewController? {

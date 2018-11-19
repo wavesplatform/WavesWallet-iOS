@@ -35,5 +35,6 @@ extension DomainLayer.DTO {
         let proofs: [String]?
         let data: [Data]
         var modified: Date
+        var status: TransactionStatus
     }
 }

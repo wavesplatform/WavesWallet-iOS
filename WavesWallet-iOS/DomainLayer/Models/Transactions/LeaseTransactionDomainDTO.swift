@@ -24,5 +24,6 @@ extension DomainLayer.DTO {
         let amount: Int64
         let recipient: String
         var modified: Date
+        var status: TransactionStatus
     }
 }

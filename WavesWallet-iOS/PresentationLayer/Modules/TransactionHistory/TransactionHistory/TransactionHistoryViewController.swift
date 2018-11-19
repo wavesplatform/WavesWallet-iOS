@@ -23,7 +23,9 @@ private enum Constants {
 }
 
 final class TransactionHistoryViewController: UIViewController {
-    
+
+    typealias Types = TransactionHistoryTypes
+
     fileprivate var collectionViewOffset: CGPoint = .zero
     fileprivate var panningEnabled: Bool = false
     fileprivate var presenting: Bool = false
@@ -38,11 +40,10 @@ final class TransactionHistoryViewController: UIViewController {
     
     var presenter: TransactionHistoryPresenter!
     
-    private var displays: [TransactionHistoryTypes.State.DisplayState] = []
+    private var displays: [TransactionHistoryTypes.DisplayState] = []
     
-    let accountTap: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
-    let buttonTap: PublishSubject<DomainLayer.DTO.SmartTransaction> = PublishSubject<DomainLayer.DTO.SmartTransaction>()
-    
+    let sendEvent: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,6 +108,7 @@ final class TransactionHistoryViewController: UIViewController {
     @objc private func backgroundTap(sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
  
     @objc private func tap(gr: UITapGestureRecognizer) {
         
@@ -286,8 +288,7 @@ private extension TransactionHistoryViewController {
     
     func events() -> [Signal<TransactionHistoryTypes.Event>] {
         
-        return []
-        
+        return [sendEvent.asSignal(onErrorRecover: { _ in Signal.never() })]
     }
     
     func uiSubscriptions(state: Driver<TransactionHistoryTypes.State>) -> [Disposable] {
@@ -296,11 +297,22 @@ private extension TransactionHistoryViewController {
             
             guard let sself = self else { return }
             
-            sself.displays = state.displays
-            
-            sself.collectionView.reloadData()
-            sself.collectionView.scrollToItem(at: IndexPath(item: state.currentIndex, section: 0), at: .left, animated: false)
+            switch state.actionDisplay {
+            case .reload(let index):
+                sself.displays = state.displays
 
+                CATransaction.begin()
+                CATransaction.setCompletionBlock{
+                    if let index = index {
+                        sself.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: false)
+                    }
+                }
+                sself.collectionView.reloadData()
+                CATransaction.commit()
+
+            case .none:
+                break
+            }
         })
         
         return [subscriptionSections]
@@ -383,38 +395,30 @@ extension TransactionHistoryViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
+// MARK: TransactionHistoryContentViewDelegate
+
 extension TransactionHistoryViewController: TransactionHistoryContentViewDelegate {
     
-    func contentViewDidPressButton(view: NewTransactionHistoryContentView) {
-        
-//        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
-//        buttonTap.onNext(transaction)
-        
+    func contentViewDidPressButton(display: TransactionHistoryTypes.DisplayState) {
+        sendEvent.onNext(.tapButton(display))
     }
     
-    func contentViewDidPressAccount(view: NewTransactionHistoryContentView) {
+    func contentViewDidPressAccount(display: TransactionHistoryTypes.DisplayState, recipient: TransactionHistoryTypes.ViewModel.Recipient) {
         
-//        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
-//        accountTap.onNext(transaction)
-        
+        sendEvent.onNext(.tapRecipient(display, recipient))
     }
     
     func contentViewDidPressNext(view: NewTransactionHistoryContentView) {
         
         let page = self.currentPage + 1
-        
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
-        
     }
     
     func contentViewDidPressPrevious(view: NewTransactionHistoryContentView) {
         
         let page = self.currentPage - 1
-        
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
-        
     }
-    
 }
 
 extension TransactionHistoryViewController: UIViewControllerTransitioningDelegate {

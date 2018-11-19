@@ -26,8 +26,8 @@ final class DexListInteractor: DexListInteractorProtocol {
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexList.DTO.Pair]> in
             guard let owner = self else { return Observable.empty() }
             
-            return Observable.merge([owner.dexRepository.list(by: wallet.wallet.address),
-                                     owner.dexRepository.listListener(by: wallet.wallet.address)])
+            return Observable.merge([owner.dexRepository.list(by: wallet.address),
+                                     owner.dexRepository.listListener(by: wallet.address)])
                 
                 .flatMap({ [weak self] (pairs) -> Observable<[DexList.DTO.Pair]> in
                                         
@@ -36,7 +36,7 @@ final class DexListInteractor: DexListInteractorProtocol {
                         return Observable.just([])
                     }
                     else {
-                        return owner.environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexList.DTO.Pair]> in
+                        return owner.environmentRepository.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexList.DTO.Pair]> in
                             
                             guard let owner = self else { return Observable.empty() }
                             return owner.getList(by: pairs, environment: environment)

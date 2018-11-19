@@ -12,7 +12,4 @@ protocol TransactionHistoryModuleInput {
     
     var transactions: [DomainLayer.DTO.SmartTransaction] { get }
     var currentIndex: Int { get }
-    
 }
-
-

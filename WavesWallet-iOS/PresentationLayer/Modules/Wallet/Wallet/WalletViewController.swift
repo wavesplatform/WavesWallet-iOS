@@ -143,14 +143,23 @@ extension WalletViewController {
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .rx
-                .viewDidAppear
-                .take(1)
-                .map { _ in WalletTypes.Event.readyView }
+                .viewWillAppear                
+                .map { _ in WalletTypes.Event.viewWillAppear }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
+        let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewDidDisappear
+                .map { _ in WalletTypes.Event.viewDidDisappear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
         presenter.system(feedbacks: [feedback,
-                                    readyViewFeedback])
+                                    readyViewFeedback,
+                                    viewDidDisappearFeedback])
     }
 
     func events() -> [Signal<WalletTypes.Event>] {
@@ -285,6 +294,7 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 
 extension WalletViewController: WalletDisplayDataDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         setupTopBarLine()
     }
 

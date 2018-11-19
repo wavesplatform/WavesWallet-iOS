@@ -53,7 +53,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
 
                 return owner
                     .accountBalanceRepository
-                    .balances(by: wallet.wallet.address,
+                    .balances(by: wallet.address,
                               specification: .init(isSpam: false,
                                                    isFavorite: nil,
                                                    sortParameters: .init(ascending: true,
@@ -82,7 +82,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                                                          otherBalances: [DomainLayer.DTO.AssetBalance])> in
                 guard let owner = self else { return Observable.never() }
 
-                let accountAddress = wallet.wallet.address
+                let accountAddress = wallet.address
                 let currentAsset = owner
                     .accountBalanceRepository
                     .balance(by: asset.id,
@@ -149,7 +149,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
 
                 guard let owner = self else { return Observable.never() }
 
-                let accountAddress = wallet.wallet.address
+                let accountAddress = wallet.address
                 let assetBalance = owner
                     .accountBalanceRepository
                     .balance(by: asset.id,

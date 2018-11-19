@@ -13,6 +13,12 @@ enum TransactionsRepositoryError: Error {
     case fail
 }
 
+enum TransactionStatus: Int, Decodable {
+    case activeNow
+    case completed
+    case unconfirmed
+}
+
 enum TransactionType: Int {
     case issue = 3
     case transfer = 4
@@ -70,23 +76,32 @@ struct BurnTransactionSender {
     let fee: Int64
 }
 
+struct CancelLeaseTransactionSender {
+    let leaseId: String    
+    let fee: Int64
+}
+
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)
     case burn(BurnTransactionSender)
+    case cancelLease(CancelLeaseTransactionSender)
 }
 
 protocol TransactionsRepositoryProtocol {
 
     func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
     func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func newTransactions(by accountAddress: String,
+                         specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 
     
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool>
 
-    func isHasTransaction(by id: String, accountAddress: String) -> Observable<Bool>
-    func isHasTransactions(by ids: [String], accountAddress: String) -> Observable<Bool>
-    func isHasTransactions(by accountAddress: String) -> Observable<Bool>
+    func isHasTransaction(by id: String, accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
+    func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
+    func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
 }

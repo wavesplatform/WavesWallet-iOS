@@ -13,7 +13,7 @@ import RxSwift
 import RxSwiftExt
 
 fileprivate enum Constants {
-    static let durationInseconds: Double = 6000
+    static let durationInseconds: Double = 0
 }
 
 protocol AccountBalanceInteractorProtocol {
@@ -74,12 +74,12 @@ private extension AccountBalanceInteractor {
                                 localBalance: [DomainLayer.DTO.AssetBalance],
                                 isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        let walletAddress = wallet.wallet.address
+        let walletAddress = wallet.address
         let balances = balanceRepositoryRemote.balances(by: wallet)
-        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
+        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.address,
                                                                              isNeedUpdate: isNeedUpdate)
 
-        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.wallet.address)
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
 
         return Observable.zip(balances, activeTransactions, environment)
             .map { balances, transactions, environment -> [DomainLayer.DTO.AssetBalance] in
@@ -97,7 +97,7 @@ private extension AccountBalanceInteractor {
                     .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
 
                     let leasedBalance: Int64 = transactions
-                        .filter { $0.sender.id == walletAddress }
+                        .filter { $0.sender.address == walletAddress }
                         .reduce(into: 0, { result, tx in
                             if case .startedLeasing(let txLease) = tx.kind {
                                 result = result + txLease.balance.money.amount
@@ -146,6 +146,21 @@ private extension AccountBalanceInteractor {
                             .saveBalances(newBalances, accountAddress: walletAddress)
                             .map { _ in newBalances }
                     }
+            }
+            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                let map = balances.reduce(into: [String: DomainLayer.DTO.AssetBalance](), { (result, balance) in
+                    result[balance.assetId] = balance
+                })
+
+                var deleteBalances = localBalance
+                deleteBalances.removeAll(where: { (balance) -> Bool in
+                    return map[balance.assetId] != nil
+                })
+
+                return owner
+                    .balanceRepositoryLocal
+                    .deleteBalances(deleteBalances, accountAddress: walletAddress)
+                    .map { _ in balances }
             }
     }
 

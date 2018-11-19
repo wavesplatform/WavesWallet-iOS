@@ -18,7 +18,7 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidSelectAddressBook()
     func addressInputViewDidChangeAddress(_ address: String)
     func addressInputViewDidDeleteAddress()
-    func addressInputViewDidScanAddress(_ address: String)
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?)
     func addressInputViewDidTapNext()
     func addressInputViewDidEndEditing()
 }
@@ -45,6 +45,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     weak var delegate: AddressInputViewDelegate?
+    var decimals: Int = 0
+    
     private var isHiddenDeleteButton = true
     private var isShowErrorLabel = false
     
@@ -285,10 +287,11 @@ private extension AddressInputView {
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
-            if let address = result?.value {
-                
+            if let value = result?.value {
+
+                let address = QRCodeParser.parseAddress(value)
                 self.setupText(address, animation: false)
-                self.delegate?.addressInputViewDidScanAddress(address)
+                self.delegate?.addressInputViewDidScanAddress(address, amount: QRCodeParser.parseAmount(value, decimals: self.decimals))
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)

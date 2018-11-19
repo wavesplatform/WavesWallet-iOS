@@ -33,5 +33,6 @@ extension DomainLayer.DTO {
         let totalAmount: Int64
         let transfers: [Transfer]
         var modified: Date
+        var status: TransactionStatus
     }
 }

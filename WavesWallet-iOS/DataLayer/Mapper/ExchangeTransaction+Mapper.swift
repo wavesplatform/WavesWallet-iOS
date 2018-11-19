@@ -31,17 +31,18 @@ extension ExchangeTransaction {
 
         order1 = ExchangeTransactionOrder(order: transaction.order1)
         order2 = ExchangeTransactionOrder(order: transaction.order2)
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.ExchangeTransaction {
 
-    init(transaction: Node.DTO.ExchangeTransaction) {
+    init(transaction: Node.DTO.ExchangeTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         height = transaction.height
@@ -52,8 +53,9 @@ extension DomainLayer.DTO.ExchangeTransaction {
         price = transaction.price        
         buyMatcherFee = transaction.buyMatcherFee
         sellMatcherFee = transaction.sellMatcherFee
-        order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1)
-        order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2)
+        order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1, environment: environment)
+        order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2, environment: environment)
+        self.status = status
     }
 
     init(transaction: ExchangeTransaction) {
@@ -73,6 +75,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1!)
         order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2!)
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }
 
@@ -122,11 +125,11 @@ extension ExchangeTransactionOrder {
 
 extension DomainLayer.DTO.ExchangeTransaction.Order {
 
-    init(order: Node.DTO.ExchangeTransaction.Order) {
+    init(order: Node.DTO.ExchangeTransaction.Order, environment: Environment) {
 
         id = order.id
-        sender = order.sender
-        senderPublicKey = order.sender
+        sender = order.sender.normalizeAddress(environment: environment)
+        senderPublicKey = order.senderPublicKey
         matcherPublicKey = order.matcherPublicKey
         orderType = .init(key: order.orderType)
         price = order.price

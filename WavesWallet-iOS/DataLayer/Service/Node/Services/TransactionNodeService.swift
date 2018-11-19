@@ -28,6 +28,8 @@ fileprivate enum Constants {
     static let amount: String = "amount"
     static let quantity: String = "quantity"
     static let assetId: String = "assetId"
+    static let leaseId: String = "leaseId"
+
 }
 
 extension Node.Service {
@@ -68,14 +70,26 @@ extension Node.Service {
             let proofs: [String]
         }
 
+        struct LeaseCancel {
+            let version: Int
+            let scheme: String
+            let fee: Int64
+            let leaseId: String
+            let timestamp: Int64
+            let type: Int
+            let senderPublicKey: String
+            let proofs: [String]
+        }
+
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
-            case startBurn(Burn)
+            case cancelLease(LeaseCancel)
+            case burn(Burn)
             
             var params: [String: Any] {
                 switch self {
-                case .startBurn(let burn):
+                case .burn(let burn):
                     return  [Constants.version: burn.version,
                              Constants.chainId: burn.scheme,
                              Constants.senderPublicKey: burn.senderPublicKey,
@@ -96,8 +110,9 @@ extension Node.Service {
                             Constants.proofs: alias.proofs ?? []]
 
                 case .startLease(let lease):
+                    let scheme: UInt8 = lease.scheme.utf8.last ?? UInt8(0)
                     return  [Constants.version: lease.version,
-                             Constants.chainId: lease.scheme,
+                             Constants.chainId: scheme,
                              Constants.senderPublicKey: lease.senderPublicKey,
                              Constants.recipient: lease.recipient,
                              Constants.amount: lease.amount,
@@ -105,6 +120,17 @@ extension Node.Service {
                              Constants.timestamp: lease.timestamp,
                              Constants.proofs: lease.proofs,
                              Constants.type: lease.type]
+
+                case .cancelLease(let lease):
+                    let scheme: UInt8 = lease.scheme.utf8.last ?? UInt8(0)
+                    return  [Constants.version: lease.version,
+                             Constants.chainId: scheme,
+                             Constants.senderPublicKey: lease.senderPublicKey,
+                             Constants.fee: lease.fee,
+                             Constants.timestamp: lease.timestamp,
+                             Constants.proofs: lease.proofs,
+                             Constants.type: lease.type,
+                             Constants.leaseId: lease.leaseId]
                 default:
                     break
                 }

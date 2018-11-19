@@ -87,6 +87,10 @@ final class MultyTextField: UIView, NibOwnerLoadable {
         return textViewValue.becomeFirstResponder()
     }
 
+    @discardableResult override func resignFirstResponder() -> Bool {
+        return textViewValue.resignFirstResponder()
+    }
+
     @objc func keyboardWillHide() {
         checkValidValue()
     }

@@ -66,6 +66,17 @@ internal enum Localizable {
         /// Name
         internal static var name: String { return Localizable.tr("Waves", "addAddressbook.label.name") }
       }
+
+      internal enum Textfield {
+
+        internal enum Address {
+
+          internal enum Error {
+            /// Address Exist
+            internal static var addressexist: String { return Localizable.tr("Waves", "addAddressbook.textfield.address.error.addressexist") }
+          }
+        }
+      }
     }
 
     internal enum Addressbook {
@@ -200,6 +211,8 @@ internal enum Localizable {
         internal enum Assetinfo {
           /// You can not perform transactions with this asset
           internal static var cantPerformTransactions: String { return Localizable.tr("Waves", "asset.cell.assetInfo.cantPerformTransactions") }
+          /// Decimal points
+          internal static var decimalPoints: String { return Localizable.tr("Waves", "asset.cell.assetInfo.decimalPoints") }
           /// Description
           internal static var description: String { return Localizable.tr("Waves", "asset.cell.assetInfo.description") }
           /// ID
@@ -212,6 +225,8 @@ internal enum Localizable {
           internal static var name: String { return Localizable.tr("Waves", "asset.cell.assetInfo.name") }
           /// Asset Info
           internal static var title: String { return Localizable.tr("Waves", "asset.cell.assetInfo.title") }
+          /// Total amount
+          internal static var totalAmount: String { return Localizable.tr("Waves", "asset.cell.assetInfo.totalAmount") }
 
           internal enum Kind {
             /// Not reissuable

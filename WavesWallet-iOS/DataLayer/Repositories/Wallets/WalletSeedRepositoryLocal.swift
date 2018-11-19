@@ -101,13 +101,8 @@ private extension WalletSeedRepositoryLocal {
             .deletingLastPathComponent()
             .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
-//        let oldPath = fileURL
-//            .deletingLastPathComponent()
-//            .appendingPathComponent("\(address)_seed.realm")
-
         do {
             try FileManager.default.removeItem(at: path)
-//            try? FileManager.default.removeItem(at: oldPath)
             return true
         } catch _ {
             return false
