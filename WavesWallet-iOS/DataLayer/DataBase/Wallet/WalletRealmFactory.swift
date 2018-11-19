@@ -11,13 +11,15 @@ import RealmSwift
 
 fileprivate enum SchemaVersions: UInt64 {
     case version_1 = 1 // Release old version
+    case version_2 = 2 // Dev version
     case version_4 = 4 // BetaTest 2.0
-    case version_5 = 5
+    case version_5 = 5 // Dev Version
 }
 
 fileprivate enum Constants {
     static let currentVersion: SchemaVersions = .version_5
     static let isHiddenKey: String = "isHidden"
+    static let isSpamKey: String = "isSpam"
     static let assetIdKey: String = "assetId"
     static let settingsKey: String = "settings"
     static let nameKey: String = "name"
@@ -60,25 +62,26 @@ enum WalletRealmFactory {
 
             debug("Wallet Migration!!! \(oldSchemaVersion)")
 
-            if oldSchemaVersion < SchemaVersions.version_4.rawValue {
-                removeTransaction(migration: migration)
-            }
+            if oldSchemaVersion < SchemaVersions.version_2.rawValue {
 
-            if oldSchemaVersion < SchemaVersions.version_5.rawValue {
-                removeTransaction(migration: migration)
+                if migration.hadProperty(onType: AssetBalance.className(), property: Constants.isHiddenKey) &&
+                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.assetIdKey) &&
+                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.isSpamKey) {
 
-                migration.enumerateObjects(ofType: AssetBalance.className()) { oldObject, newObject in
+                    migration.enumerateObjects(ofType: AssetBalance.className()) { oldObject, newObject in
 
-                    guard let isHidden = oldObject?[Constants.isHiddenKey] as? Bool else { return }
-                    guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
+                        guard let isHidden = oldObject?[Constants.isHiddenKey] as? Bool else { return }
+                        guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
+                        guard let isSpam = oldObject?[Constants.isSpamKey] as? Bool else { return }
 
-                    assetId = assetId.count == 0 ? GlobalConstants.wavesAssetId : assetId
+                        assetId = assetId.count == 0 ? GlobalConstants.wavesAssetId : assetId
 
-                    let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
-                    assetBalanceSettings[Constants.assetIdKey] = assetId
-                    assetBalanceSettings[Constants.isHiddenKey] = isHidden
-                    newObject?[Constants.settingsKey] = assetBalanceSettings
-                    newObject?[Constants.assetIdKey] = assetId
+                        let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
+                        assetBalanceSettings[Constants.assetIdKey] = assetId
+                        assetBalanceSettings[Constants.isHiddenKey] = isHidden && !isSpam
+                        newObject?[Constants.settingsKey] = assetBalanceSettings
+                        newObject?[Constants.assetIdKey] = assetId
+                    }
                 }
 
                 migration.enumerateObjects(ofType: AddressBook.className()) { oldObject, newObject in
@@ -91,6 +94,14 @@ enum WalletRealmFactory {
                         migration.delete(newObject)
                     }
                 }
+            }
+
+            if oldSchemaVersion < SchemaVersions.version_4.rawValue {
+                removeTransaction(migration: migration)
+            }
+
+            if oldSchemaVersion < SchemaVersions.version_5.rawValue {
+                removeTransaction(migration: migration)
             }
         }
 
@@ -120,5 +131,22 @@ enum WalletRealmFactory {
         migration.deleteData(forType: DataTransactionData.className())
         migration.deleteData(forType: AnyTransaction.className())
         migration.deleteData(forType: UnrecognisedTransaction.className())
+    }
+}
+
+extension Migration {
+    func hadProperty(onType typeName: String, property propertyName: String) -> Bool {
+        var hasPropery = false
+        self.enumerateObjects(ofType: typeName) { (oldObject, _) in
+            hasPropery = oldObject?.objectSchema.properties.contains(where: { $0.name == propertyName }) ?? false
+            return
+        }
+        return hasPropery
+    }
+
+    func renamePropertyIfExists(onType typeName: String, from oldName: String, to newName: String) {
+        if (hadProperty(onType: typeName, property: oldName)) {
+            renameProperty(onType: typeName, from: oldName, to: newName)
+        }
     }
 }

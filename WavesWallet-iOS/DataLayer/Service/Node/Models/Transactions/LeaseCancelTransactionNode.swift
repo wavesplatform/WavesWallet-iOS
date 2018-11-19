@@ -22,6 +22,6 @@ extension Node.DTO {
         let proofs: [String]?
         let chainId: Int?
         let leaseId: String
-        let lease: Node.DTO.LeaseTransaction
+        let lease: Node.DTO.LeaseTransaction?
     }
 }

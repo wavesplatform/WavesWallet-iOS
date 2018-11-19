@@ -35,7 +35,8 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     func system(feedbacks: [TransactionHistoryPresenterProtocol.Feedback]) {
         
         var newFeedbacks = feedbacks
-        newFeedbacks.append(handlerAction())
+        newFeedbacks.append(showAddressBookFeedback())
+        newFeedbacks.append(cancelLeasingFeedback())
         
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
                       reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
@@ -45,7 +46,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     }
 
 
-    func handlerAction() -> TransactionHistoryPresenterProtocol.Feedback {
+    func showAddressBookFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
 
         return react(query: { state -> (DomainLayer.DTO.Account, Bool)? in
 
@@ -56,9 +57,9 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                 return nil
             }
 
-        }, effects: { data -> Signal<Event> in
+        }, effects: { [weak self] data -> Signal<Event> in
 
-            return Observable.create({ (observer) -> Disposable in
+            return Observable.create({ [weak self] (observer) -> Disposable in
 
                 let account = data.0
                 let isAdded = data.1
@@ -72,12 +73,30 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                 }
 
                 if let contact = account.contact, isAdded == false {
-                    self.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: finished)
+                    self?.moduleOutput?.transactionHistoryEditAddressToHistoryBook(contact: contact, finished: finished)
                 } else {
-                    self.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: finished)
+                    self?.moduleOutput?.transactionHistoryAddAddressToHistoryBook(address: account.address, finished: finished)
                 }
                 return Disposables.create()
             }).asSignal(onErrorJustReturn: .completedAction)
+        })
+    }
+
+    func cancelLeasingFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
+
+        return react(query: { state -> (DomainLayer.DTO.SmartTransaction)? in
+
+            switch state.action {
+            case .cancelLeasing(let tx):
+                return tx
+            default:
+                return nil
+            }
+
+        }, effects: { [weak self] data -> Signal<Event> in
+
+            self?.moduleOutput?.transactionHistoryCancelLeasing(data)
+            return Signal.just(.completedAction)
         })
     }
 

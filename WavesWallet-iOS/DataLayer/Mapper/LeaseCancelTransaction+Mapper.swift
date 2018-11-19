@@ -53,7 +53,12 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         signature = transaction.signature
         chainId = transaction.chainId
         leaseId = transaction.leaseId
-        lease = DomainLayer.DTO.LeaseTransaction(transaction: transaction.lease, status: .completed, environment: environment)
+        if let lease = transaction.lease {
+            self.lease = DomainLayer.DTO.LeaseTransaction(transaction: lease, status: .completed, environment: environment)
+        } else {
+            self.lease = nil
+        }
+
         proofs = transaction.proofs
         self.status = status
     }

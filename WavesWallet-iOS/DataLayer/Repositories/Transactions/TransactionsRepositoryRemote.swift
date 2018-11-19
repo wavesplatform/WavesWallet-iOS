@@ -26,6 +26,9 @@ extension TransactionSenderSpecifications {
             
         case .burn:
             return 2
+
+        case .cancelLease:
+            return 2
         }
     }
 
@@ -39,6 +42,9 @@ extension TransactionSenderSpecifications {
             
         case .burn:
             return TransactionType.burn
+
+        case .cancelLease:
+            return TransactionType.leaseCancel
         }
     }
 }
@@ -218,6 +224,16 @@ fileprivate extension TransactionSenderSpecifications {
                                                               type: self.type.rawValue,
                                                               senderPublicKey: publicKey,
                                                               proofs: proofs))
+        case .cancelLease(let model):
+
+            return .cancelLease(Node.Service.Transaction.LeaseCancel(version: self.version,
+                                                                     scheme: environment.scheme,
+                                                                     fee: model.fee,
+                                                                     leaseId: model.leaseId,
+                                                                     timestamp: timestamp,
+                                                                     type: self.type.rawValue,
+                                                                     senderPublicKey: publicKey,
+                                                                     proofs: proofs))
 
         default:
             break
@@ -244,15 +260,20 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(timestamp)
             return signature
 
-//            constants.TRANSACTION_TYPE_NUMBER.BURN,
-//            constants.TRANSACTION_TYPE_VERSION.BURN,
-//            new Byte('chainId'),
-//            new Base58('senderPublicKey'),
-//            new MandatoryAssetId('assetId'),
-//            new Long('quantity'),
-//            new Long('fee'),
-//            new Long('timestamp')
-            
+        case .cancelLease(let model):
+
+            let leaseId: [UInt8] = Base58.decode(model.leaseId)
+
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += scheme.utf8
+            signature += publicKey
+            signature += toByteArray(model.fee)
+            signature += toByteArray(timestamp)
+            signature += leaseId
+            return signature
+
         case .createAlias(let model):
 
             var alias: [UInt8] = toByteArray(Int8(self.version))

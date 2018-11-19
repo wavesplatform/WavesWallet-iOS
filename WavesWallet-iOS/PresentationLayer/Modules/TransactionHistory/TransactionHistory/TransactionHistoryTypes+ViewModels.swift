@@ -431,8 +431,11 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             return .resendButton(.init(type: .resend))
 
         case .startedLeasing(_):
-            return .resendButton(.init(type: .cancelLeasing))
-            
+            if case .activeNow = self.status {
+                return .resendButton(.init(type: .cancelLeasing))
+            }
+            return nil
+        
         default:
             break
         }

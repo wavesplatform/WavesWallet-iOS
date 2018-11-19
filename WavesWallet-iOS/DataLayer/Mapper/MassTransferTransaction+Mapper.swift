@@ -65,7 +65,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         transfers = transaction
             .transfers
-            .map { .init(recipient: $0.recipient,
+            .map { .init(recipient: $0.recipient.normalizeAddress(environment: environment),
                          amount: $0.amount) }
 
         self.status = status
