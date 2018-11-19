@@ -57,8 +57,13 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         case .incomingLeasing:
             title = Localizable.Waves.Transactionhistory.Cell.from
 
+        case .spamReceive:
+            title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
+            
         case .massSent:
-            title = Localizable.Waves.Transactionhistory.Cell.recipient
+            if model.account.contact =! nil {
+                title = Localizable.Waves.Transactionhistory.Cell.recipient
+            }
 
         case .massReceived:
             title = Localizable.Waves.Transactionhistory.Cell.recipient
@@ -113,16 +118,20 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
 
         if name != nil {
             valueLabel.text = name
-            keyLabel.text = address
             contactButton.setImage(Images.editAddressIcon.image, for: .normal)
         } else {
             valueLabel.text = address
-            keyLabel.text = ""
             contactButton.setImage(Images.addAddressIcon.image, for: .normal)
         }
-        
-        nameToKeyConstraint.constant = name != nil ? Constants.nameToAddressY : 0
-        
+
+        if let amount = model.amount {
+            keyLabel.attributedText = NSAttributedString.styleForBalance(text: amount.displayTextFull, font: keyLabel.font!)
+            nameToKeyConstraint.constant = Constants.nameToAddressY
+        } else {
+            keyLabel.text = ""
+            nameToKeyConstraint.constant = 0
+        }
+
         setNeedsUpdateConstraints()
     }
 }
