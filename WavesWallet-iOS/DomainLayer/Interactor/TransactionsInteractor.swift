@@ -252,7 +252,8 @@ fileprivate extension TransactionsInteractor {
         [DomainLayer.DTO.AnyTransaction],
         Int64,
         [String : DomainLayer.DTO.Account],
-        [String : DomainLayer.DTO.LeaseTransaction]
+        [String : DomainLayer.DTO.LeaseTransaction],
+        [String : DomainLayer.DTO.AnyTransaction]
     )
 
     private func smartTransactions(_ query: SmartTransactionsQuery) -> SmartTransactionsObservable {
@@ -291,18 +292,24 @@ fileprivate extension TransactionsInteractor {
         let txs = Observable.just(query.transactions)
         let blockHeight = blockRepositoryRemote.height(accountAddress: query.accountAddress)
 
-        return Observable.zip(assets, txs, blockHeight, activeLeasingMap)
+        let txsMap = query.transactions.reduce(into: [String: DomainLayer.DTO.AnyTransaction].init(), { (result, tx) in
+            result[tx.id] = tx
+        })
+
+        return Observable.zip(assets, txs, blockHeight, activeLeasingMap, Observable.just(txsMap))
             .flatMap({ (arg) -> Observable<SmartTransactionData> in
 
-                return accounts.map { (arg.0, arg.1, arg.2, $0, arg.3) }
+                return accounts.map { (arg.0, arg.1, arg.2, $0, arg.3, arg.4) }
             })
             .map { arg -> [DomainLayer.DTO.SmartTransaction] in
+
                 return arg.1
                     .map { $0.transaction(by: query.accountAddress,
                                           assets: arg.0,
                                           accounts: arg.3,
                                           totalHeight: arg.2,
-                                          leaseTransactions: arg.4) }
+                                          leaseTransactions: arg.4,
+                                          mapTxs: arg.5) }
                     .compactMap { $0 }
             }
     }
@@ -350,18 +357,18 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
 
         case .transfer(let tx):
             let assetId = tx.assetId
-            return [assetId]
+            return [assetId, GlobalConstants.wavesAssetId]
 
         case .reissue(let tx):
             return [tx.assetId]
 
         case .burn(let tx):
-            return [tx.assetId]
+            return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
-        case .lease(let tx):
+        case .lease:
             return [GlobalConstants.wavesAssetId]
 
         case .leaseCancel:
@@ -371,7 +378,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [GlobalConstants.wavesAssetId]
 
         case .massTransfer(let tx):
-            return [tx.assetId]
+            return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .data:
             return [GlobalConstants.wavesAssetId]

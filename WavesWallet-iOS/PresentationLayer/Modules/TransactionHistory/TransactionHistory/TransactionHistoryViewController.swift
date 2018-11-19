@@ -399,10 +399,8 @@ extension TransactionHistoryViewController: UICollectionViewDelegateFlowLayout {
 
 extension TransactionHistoryViewController: TransactionHistoryContentViewDelegate {
     
-    func contentViewDidPressButton(view: NewTransactionHistoryContentView) {
-        
-//        let transaction = displays[swipeView.currentItemIndex].sections[0].transaction
-//        buttonTap.onNext(transaction)
+    func contentViewDidPressButton(display: TransactionHistoryTypes.DisplayState) {
+        sendEvent.onNext(.tapButton(display))
     }
     
     func contentViewDidPressAccount(display: TransactionHistoryTypes.DisplayState, recipient: TransactionHistoryTypes.ViewModel.Recipient) {
