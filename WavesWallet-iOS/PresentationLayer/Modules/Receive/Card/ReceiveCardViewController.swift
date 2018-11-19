@@ -17,7 +17,6 @@ final class ReceiveCardViewController: UIViewController {
     @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var labelAmountIn: UILabel!
     @IBOutlet private weak var labelChangeCurrency: UILabel!
-    @IBOutlet private weak var labelTotalAmount: UILabel!
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var viewWarning: UIView!
     @IBOutlet private weak var acitivityIndicatorAmount: UIActivityIndicatorView!
