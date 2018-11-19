@@ -44,6 +44,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         return react(query: { (state) -> Bool? in
 
             if state.isAppeared == true {
+                if state.isRefreshing {
+                    return false
+                }
                 return true
             } else {
                 return nil
@@ -54,21 +57,26 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
-                .map { .responseAll($0) }
+                .map { .responseAll($0) }                
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
 
+
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
+        var newState = state
+        reduce(state: &newState, event: event)
+        return newState
+    }
+
+    private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
             
-            return state.setIsAppeared(true)
+            state.isAppeared = true
 
         case .refresh:
-            
-            interactor.refreshTransactions()
-            return state.setIsRefreshing(true)
+            state.isRefreshing = true
             
         case .tapCell(let indexPath):
             
@@ -89,38 +97,30 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             }
             
             if (index != NSNotFound) {
-                
                 moduleOutput?.showTransaction(transactions: filteredTransactions, index: index)
             }
             
-            return state
+
 
         case .changeFilter(let filter):
             
             let filteredTransactions = filter.filtered(transactions: state.transactions)
             let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
-            let newState = state.setSections(sections: sections).setFilter(filter: filter)
-            
-            return newState
+            state.sections = sections
+            state.currentFilter = filter
+
 
         case .handlerError:
 
-            let newState = state.setIsRefreshing(false)
-
-            return newState
-
-            break
+            state.isRefreshing = false
 
         case .responseAll(let response):
 
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
-            let newState = state
-                .setTransactions(transactions: response)
-                .setFilter(filter: .all)
-                .setSections(sections: sections)
-                .setIsRefreshing(false)
-
-            return newState
+            state.transactions = response
+            state.currentFilter = .all
+            state.sections = sections
+            state.isRefreshing = false
         }
     }
 

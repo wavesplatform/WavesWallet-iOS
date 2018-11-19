@@ -442,15 +442,15 @@
                                             <outlet property="viewRight" destination="m7D-SJ-ezN" id="e3r-0p-8Tu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetDetailCell" rowHeight="450" id="E9c-K9-oHe" customClass="AssetDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="757.5" width="375" height="450"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetDetailCell" rowHeight="550" id="E9c-K9-oHe" customClass="AssetDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="757.5" width="375" height="550"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="449.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9h0-sn-6uU">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="449.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="549.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sm5-Ig-doC" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="16" width="343" height="1"/>
@@ -468,57 +468,78 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Asset Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nX3-YC-QD3">
-                                                            <rect key="frame" x="0.0" y="41" width="80" height="21"/>
+                                                            <rect key="frame" x="0.0" y="41" width="80" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRl-IV-W1a">
-                                                            <rect key="frame" x="0.0" y="86" width="35.5" height="14"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRl-IV-W1a">
+                                                            <rect key="frame" x="0.0" y="85.5" width="35.5" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&amp;AssetName&amp;" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbq-4g-kVE" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="110" width="343" height="16"/>
+                                                            <rect key="frame" x="0.0" y="109.5" width="343" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issuer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmA-dH-93Y">
-                                                            <rect key="frame" x="0.0" y="150" width="36.5" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3PC4roN512iugc6xGVTTM2XkoWKEdSiiscd" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jYi-fc-ooa" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="174" width="299" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPJ-rs-9Fx">
-                                                            <rect key="frame" x="303" y="162" width="40" height="40"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="40" id="BLz-yR-bCs"/>
-                                                                <constraint firstAttribute="height" constant="40" id="cim-3g-lFh"/>
-                                                            </constraints>
-                                                            <state key="normal" image="copy_black"/>
-                                                            <connections>
-                                                                <action selector="copyIssuerTapped:" destination="E9c-K9-oHe" eventType="touchUpInside" id="2UZ-Oa-DkV"/>
-                                                            </connections>
-                                                        </button>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SRZ-KS-wUW" userLabel="issuer">
+                                                            <rect key="frame" x="0.0" y="149.5" width="343" height="64"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DY-UV-hqq">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="64"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issuer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmA-dH-93Y">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="36.5" height="16"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3PC4roN512iugc6xGVTTM2XkoWKEdSiiscd" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jYi-fc-ooa" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="24" width="299" height="16"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPJ-rs-9Fx">
+                                                                            <rect key="frame" x="303" y="12" width="40" height="40"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="40" id="BLz-yR-bCs"/>
+                                                                                <constraint firstAttribute="height" constant="40" id="cim-3g-lFh"/>
+                                                                            </constraints>
+                                                                            <state key="normal" image="copy_black"/>
+                                                                            <connections>
+                                                                                <action selector="copyIssuerTapped:" destination="E9c-K9-oHe" eventType="touchUpInside" id="2UZ-Oa-DkV"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="RmA-dH-93Y" firstAttribute="leading" secondItem="5DY-UV-hqq" secondAttribute="leading" id="9A7-oC-hOb"/>
+                                                                        <constraint firstItem="RmA-dH-93Y" firstAttribute="top" secondItem="5DY-UV-hqq" secondAttribute="top" id="Tcs-EA-IMB"/>
+                                                                        <constraint firstItem="jYi-fc-ooa" firstAttribute="top" secondItem="RmA-dH-93Y" secondAttribute="bottom" constant="8" id="YwV-nS-Aav"/>
+                                                                        <constraint firstItem="jYi-fc-ooa" firstAttribute="leading" secondItem="5DY-UV-hqq" secondAttribute="leading" id="bzQ-Zu-UFO"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="jYi-fc-ooa" secondAttribute="bottom" constant="24" id="gBa-ln-ZgP"/>
+                                                                        <constraint firstItem="XPJ-rs-9Fx" firstAttribute="centerY" secondItem="jYi-fc-ooa" secondAttribute="centerY" id="gJX-tw-fL4"/>
+                                                                        <constraint firstItem="XPJ-rs-9Fx" firstAttribute="leading" secondItem="jYi-fc-ooa" secondAttribute="trailing" constant="4" id="iyC-6a-AzB"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="XPJ-rs-9Fx" secondAttribute="trailing" id="tlS-tk-fVz"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PER-Ot-ydm">
-                                                            <rect key="frame" x="0.0" y="214" width="13" height="16"/>
+                                                            <rect key="frame" x="0.0" y="213.5" width="13" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3PC4roN512iugc6xGVTTM2XkoWKEdSiiscd" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rEi-Ai-Fil" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="238" width="303" height="16"/>
+                                                            <rect key="frame" x="0.0" y="237.5" width="303" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-fF-F9Y">
-                                                            <rect key="frame" x="303" y="226" width="40" height="40"/>
+                                                            <rect key="frame" x="303" y="225.5" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="mPp-RF-Nzo"/>
                                                                 <constraint firstAttribute="height" constant="40" id="uE6-nW-OQe"/>
@@ -528,19 +549,58 @@
                                                                 <action selector="copyIDTapped:" destination="E9c-K9-oHe" eventType="touchUpInside" id="C9R-G6-LGT"/>
                                                             </connections>
                                                         </button>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7KI-D6-0X7" userLabel="amount&amp;decimals">
+                                                            <rect key="frame" x="0.0" y="277.5" width="343" height="104"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AA-Qa-nl3">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100,000,000" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tHU-aX-ImA" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="24" width="76.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Decimal points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkd-4k-4qa">
+                                                                    <rect key="frame" x="0.0" y="64" width="89.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eF9-He-j1M" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="88" width="8.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="eF9-He-j1M" firstAttribute="top" secondItem="dkd-4k-4qa" secondAttribute="bottom" constant="8" id="7HO-ts-HJb"/>
+                                                                <constraint firstItem="dkd-4k-4qa" firstAttribute="top" secondItem="tHU-aX-ImA" secondAttribute="bottom" constant="24" id="IAV-cm-aL4"/>
+                                                                <constraint firstItem="eF9-He-j1M" firstAttribute="leading" secondItem="7KI-D6-0X7" secondAttribute="leading" id="NKf-39-WIP"/>
+                                                                <constraint firstItem="tHU-aX-ImA" firstAttribute="leading" secondItem="7KI-D6-0X7" secondAttribute="leading" id="Rgk-Ql-U1P"/>
+                                                                <constraint firstItem="9AA-Qa-nl3" firstAttribute="leading" secondItem="7KI-D6-0X7" secondAttribute="leading" id="hEl-EL-QEa"/>
+                                                                <constraint firstItem="tHU-aX-ImA" firstAttribute="top" secondItem="9AA-Qa-nl3" secondAttribute="bottom" constant="8" id="jdM-Kz-OlI"/>
+                                                                <constraint firstAttribute="bottom" secondItem="eF9-He-j1M" secondAttribute="bottom" id="jt4-NT-5of"/>
+                                                                <constraint firstItem="9AA-Qa-nl3" firstAttribute="top" secondItem="7KI-D6-0X7" secondAttribute="top" id="ngX-OV-eUN"/>
+                                                                <constraint firstItem="dkd-4k-4qa" firstAttribute="leading" secondItem="7KI-D6-0X7" secondAttribute="leading" id="wLp-fA-Eah"/>
+                                                            </constraints>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2i-UP-OBb">
-                                                            <rect key="frame" x="0.0" y="278" width="30" height="16"/>
+                                                            <rect key="frame" x="0.0" y="405.5" width="30" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not reissuable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="By9-Ff-P3f">
-                                                            <rect key="frame" x="0.0" y="302" width="166" height="16"/>
+                                                            <rect key="frame" x="0.0" y="429.5" width="166" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQE-iZ-xks">
-                                                            <rect key="frame" x="171" y="278" width="1" height="30"/>
+                                                            <rect key="frame" x="171" y="405.5" width="1" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="hUd-Et-ktD"/>
@@ -548,66 +608,82 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issue date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-kk-11f">
-                                                            <rect key="frame" x="172" y="278" width="62.5" height="16"/>
+                                                            <rect key="frame" x="172" y="405.5" width="62.5" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DD.MM.YYYY at 00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Pt-qG-ThM" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="172" y="302" width="136.5" height="16"/>
+                                                            <rect key="frame" x="172" y="429.5" width="136.5" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLx-Hb-eCk">
-                                                            <rect key="frame" x="0.0" y="342" width="69.5" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSY-6u-Bad" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="366" width="343" height="109"/>
-                                                            <string key="text">The Waves Platform is a global public blockchain platform, founded in 2016. Waves Platform’s mission is to reinvent the DNA of entrepreneurship around the world by providing a shared infrastructure, offering easy-to-use, highly functional tools to make blockchain available to every person or organisation that can benefit from it.</string>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Bhq-8R-NpS" userLabel="description">
+                                                            <rect key="frame" x="0.0" y="469.5" width="343" height="86.5"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEW-8L-iJ2">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="86.5"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLx-Hb-eCk">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="69.5" height="16"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSY-6u-Bad" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="24" width="343" height="62.5"/>
+                                                                            <string key="text">The Waves Platform is a global public blockchain platform, founded in 2016. Waves Platform’s mission is to reinvent the DNA of entrepreneurship around the world by providin</string>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="kSY-6u-Bad" firstAttribute="top" secondItem="iLx-Hb-eCk" secondAttribute="bottom" constant="8" id="6gB-MX-8Gb"/>
+                                                                        <constraint firstItem="kSY-6u-Bad" firstAttribute="leading" secondItem="QEW-8L-iJ2" secondAttribute="leading" id="MVl-lm-XWf"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="kSY-6u-Bad" secondAttribute="trailing" id="PzB-nQ-dTE"/>
+                                                                        <constraint firstItem="iLx-Hb-eCk" firstAttribute="leading" secondItem="QEW-8L-iJ2" secondAttribute="leading" id="ac0-OM-vkr"/>
+                                                                        <constraint firstItem="iLx-Hb-eCk" firstAttribute="top" secondItem="QEW-8L-iJ2" secondAttribute="top" id="h1L-xH-UGY"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="kSY-6u-Bad" secondAttribute="bottom" id="jmZ-4G-Izf"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="kSY-6u-Bad" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="0Wg-rY-5af"/>
                                                         <constraint firstItem="zQE-iZ-xks" firstAttribute="leading" secondItem="By9-Ff-P3f" secondAttribute="trailing" constant="5" id="0bw-gN-c0o"/>
-                                                        <constraint firstItem="iLx-Hb-eCk" firstAttribute="top" secondItem="By9-Ff-P3f" secondAttribute="bottom" constant="24" id="2AD-FG-Fhg"/>
                                                         <constraint firstItem="rEi-Ai-Fil" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="4sW-Zl-3n6"/>
-                                                        <constraint firstItem="jYi-fc-ooa" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="AOG-79-NW5"/>
+                                                        <constraint firstItem="SRZ-KS-wUW" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="C7i-QS-6Zh"/>
                                                         <constraint firstItem="rEi-Ai-Fil" firstAttribute="top" secondItem="PER-Ot-ydm" secondAttribute="bottom" constant="8" id="CGg-FI-Ug2"/>
-                                                        <constraint firstItem="XPJ-rs-9Fx" firstAttribute="centerY" secondItem="jYi-fc-ooa" secondAttribute="centerY" id="DCd-pA-5Vn"/>
                                                         <constraint firstItem="M4g-fF-F9Y" firstAttribute="leading" secondItem="rEi-Ai-Fil" secondAttribute="trailing" id="Exi-7W-itt"/>
-                                                        <constraint firstItem="RmA-dH-93Y" firstAttribute="top" secondItem="dbq-4g-kVE" secondAttribute="bottom" constant="24" id="Fvr-KN-Riy"/>
-                                                        <constraint firstAttribute="trailing" secondItem="XPJ-rs-9Fx" secondAttribute="trailing" id="Gmz-mW-wfP"/>
                                                         <constraint firstItem="dbq-4g-kVE" firstAttribute="top" secondItem="FRl-IV-W1a" secondAttribute="bottom" constant="8" id="HVh-0t-BLl"/>
                                                         <constraint firstItem="0Pt-qG-ThM" firstAttribute="leading" secondItem="fef-kk-11f" secondAttribute="leading" id="I7l-wl-rZn"/>
+                                                        <constraint firstItem="7KI-D6-0X7" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="IpK-nK-dfP"/>
                                                         <constraint firstItem="FRl-IV-W1a" firstAttribute="top" secondItem="nX3-YC-QD3" secondAttribute="bottom" constant="24" id="Iv0-al-qFg"/>
-                                                        <constraint firstItem="g2i-UP-OBb" firstAttribute="top" secondItem="rEi-Ai-Fil" secondAttribute="bottom" constant="24" id="KVd-d5-w1s"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7KI-D6-0X7" secondAttribute="trailing" id="JiQ-0R-RjZ"/>
+                                                        <constraint firstItem="g2i-UP-OBb" firstAttribute="top" secondItem="7KI-D6-0X7" secondAttribute="bottom" constant="24" id="KbK-Zu-7Xb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="SRZ-KS-wUW" secondAttribute="trailing" id="LBU-Hi-cP6"/>
                                                         <constraint firstItem="Sm5-Ig-doC" firstAttribute="top" secondItem="9h0-sn-6uU" secondAttribute="top" constant="16" id="Mi0-ZW-iB5"/>
-                                                        <constraint firstItem="kSY-6u-Bad" firstAttribute="top" secondItem="iLx-Hb-eCk" secondAttribute="bottom" constant="8" id="NsL-vu-KNj"/>
-                                                        <constraint firstItem="jYi-fc-ooa" firstAttribute="top" secondItem="RmA-dH-93Y" secondAttribute="bottom" constant="8" id="OKU-mt-0Vq"/>
-                                                        <constraint firstItem="RmA-dH-93Y" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="OyX-tP-2gt"/>
                                                         <constraint firstItem="zQE-iZ-xks" firstAttribute="centerX" secondItem="9h0-sn-6uU" secondAttribute="centerX" id="PQ7-09-962"/>
                                                         <constraint firstItem="fef-kk-11f" firstAttribute="leading" secondItem="zQE-iZ-xks" secondAttribute="trailing" id="PYr-bQ-exv"/>
                                                         <constraint firstItem="By9-Ff-P3f" firstAttribute="top" secondItem="g2i-UP-OBb" secondAttribute="bottom" constant="8" id="Pu1-7Y-s6j"/>
+                                                        <constraint firstItem="SRZ-KS-wUW" firstAttribute="top" secondItem="dbq-4g-kVE" secondAttribute="bottom" constant="24" id="QkJ-Ff-oSH"/>
                                                         <constraint firstItem="0Pt-qG-ThM" firstAttribute="top" secondItem="fef-kk-11f" secondAttribute="bottom" constant="8" id="ROG-Rd-Ka9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Bhq-8R-NpS" secondAttribute="trailing" id="UMw-db-gOl"/>
                                                         <constraint firstItem="g2i-UP-OBb" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="WQa-el-r4j"/>
+                                                        <constraint firstItem="7KI-D6-0X7" firstAttribute="top" secondItem="rEi-Ai-Fil" secondAttribute="bottom" constant="24" id="XIb-2u-WS3"/>
                                                         <constraint firstItem="nX3-YC-QD3" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="Z5F-Mw-b8i"/>
                                                         <constraint firstItem="PER-Ot-ydm" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="aYO-h4-9f0"/>
-                                                        <constraint firstItem="PER-Ot-ydm" firstAttribute="top" secondItem="jYi-fc-ooa" secondAttribute="bottom" constant="24" id="cgI-Ws-a9M"/>
+                                                        <constraint firstItem="Bhq-8R-NpS" firstAttribute="top" secondItem="By9-Ff-P3f" secondAttribute="bottom" constant="24" id="bgo-XW-WHf"/>
+                                                        <constraint firstItem="PER-Ot-ydm" firstAttribute="top" secondItem="SRZ-KS-wUW" secondAttribute="bottom" id="e0M-u1-I45"/>
                                                         <constraint firstAttribute="trailing" secondItem="M4g-fF-F9Y" secondAttribute="trailing" id="f3D-LH-g9u"/>
                                                         <constraint firstItem="dbq-4g-kVE" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="jQR-7i-fXM"/>
                                                         <constraint firstItem="By9-Ff-P3f" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="kE8-mW-YVy"/>
                                                         <constraint firstItem="M4g-fF-F9Y" firstAttribute="centerY" secondItem="rEi-Ai-Fil" secondAttribute="centerY" id="mNI-x0-6EA"/>
+                                                        <constraint firstItem="Bhq-8R-NpS" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="n5O-cK-aIB"/>
                                                         <constraint firstItem="FRl-IV-W1a" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="n7A-vk-Nfe"/>
                                                         <constraint firstItem="fef-kk-11f" firstAttribute="top" secondItem="g2i-UP-OBb" secondAttribute="top" id="oB2-zR-lz5"/>
-                                                        <constraint firstAttribute="trailing" secondItem="kSY-6u-Bad" secondAttribute="trailing" id="rGd-E1-8Uu"/>
-                                                        <constraint firstItem="iLx-Hb-eCk" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="rWq-30-ulg"/>
-                                                        <constraint firstItem="XPJ-rs-9Fx" firstAttribute="leading" secondItem="jYi-fc-ooa" secondAttribute="trailing" constant="4" id="sKM-Tl-O4B"/>
                                                         <constraint firstItem="nX3-YC-QD3" firstAttribute="top" secondItem="Sm5-Ig-doC" secondAttribute="bottom" constant="24" id="tBH-AR-wq8"/>
                                                         <constraint firstItem="zQE-iZ-xks" firstAttribute="top" secondItem="g2i-UP-OBb" secondAttribute="top" id="uAV-oF-Y2d"/>
                                                         <constraint firstItem="Sm5-Ig-doC" firstAttribute="leading" secondItem="9h0-sn-6uU" secondAttribute="leading" id="vsH-Zc-KBS"/>
@@ -634,10 +710,16 @@
                                             <outlet property="idTitleLabel" destination="PER-Ot-ydm" id="1BS-wh-Hly"/>
                                             <outlet property="issuerLabel" destination="jYi-fc-ooa" id="zuo-QK-xJM"/>
                                             <outlet property="issuerTitleLabel" destination="RmA-dH-93Y" id="jLM-qc-YTv"/>
+                                            <outlet property="labelDecimalPoint" destination="eF9-He-j1M" id="LuH-d9-bKh"/>
+                                            <outlet property="labelDecimalPointTitle" destination="dkd-4k-4qa" id="001-Ns-Tgz"/>
+                                            <outlet property="labelTotalAmount" destination="tHU-aX-ImA" id="vlC-P0-Kyv"/>
+                                            <outlet property="labelTotalAmountTitle" destination="9AA-Qa-nl3" id="7Fa-kV-NqP"/>
                                             <outlet property="nameLabel" destination="dbq-4g-kVE" id="BtN-bS-RyO"/>
                                             <outlet property="nameTitleLabel" destination="FRl-IV-W1a" id="3lB-R0-D1z"/>
                                             <outlet property="typeLabel" destination="By9-Ff-P3f" id="skw-UK-lq0"/>
                                             <outlet property="typeTitleLabel" destination="g2i-UP-OBb" id="h9G-gz-0DC"/>
+                                            <outlet property="viewDescription" destination="QEW-8L-iJ2" id="NqA-9Q-fhh"/>
+                                            <outlet property="viewIssuer" destination="5DY-UV-hqq" id="23P-c4-iiu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -683,7 +765,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2404" y="-125"/>
+            <point key="canvasLocation" x="2404" y="-125.4872563718141"/>
         </scene>
         <!--Token Burn View Controller-->
         <scene sceneID="eL2-Xj-XXu">

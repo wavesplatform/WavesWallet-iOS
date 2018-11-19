@@ -10,15 +10,23 @@ import Foundation
 import RxSwift
 
 final class TokenBurnSendInteractorMock: TokenBurnSendInteractorProtocol {
-    
+
+    private let transactions = FactoryInteractors.instance.transactions
+    private let authorization = FactoryInteractors.instance.authorization
+
     func burnAsset(asset: DomainLayer.DTO.AssetBalance, fee: Money, quiantity: Money) -> Observable<TokenBurnTypes.TransactionStatus> {
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                
-                subscribe.onNext(TokenBurnTypes.TransactionStatus.success)
-            })
-            return Disposables.create()
-        })
+
+        return authorization
+            .authorizedWallet()
+            .flatMap { [weak self] (wallet) -> Observable<TokenBurnTypes.TransactionStatus> in
+                guard let owner = self else { return Observable.never() }
+
+                return owner.transactions
+                    .send(by: .burn(BurnTransactionSender.init(assetID: asset.assetId,
+                                                               quantity: quiantity.amount,
+                                                               fee: fee.amount)),
+                          wallet: wallet)
+                    .map { _ in TokenBurnTypes.TransactionStatus.success }
+            }
     }
 }

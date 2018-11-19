@@ -8,6 +8,7 @@
 
 import UIKit
 
+//TODO: Rrmove?
 final class TransactionHistoryPopupView: UIView  {
     
     var contentView: NewTransactionHistoryContentView!
@@ -23,8 +24,7 @@ final class TransactionHistoryPopupView: UIView  {
     }
     
     private func setup() {
-        contentView = NewTransactionHistoryContentView.loadView() as! NewTransactionHistoryContentView
-        
+        contentView = NewTransactionHistoryContentView.loadView() as? NewTransactionHistoryContentView        
         addSubview(contentView)
     }
     

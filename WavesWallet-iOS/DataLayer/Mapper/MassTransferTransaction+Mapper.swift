@@ -15,7 +15,7 @@ extension MassTransferTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -38,17 +38,19 @@ extension MassTransferTransaction {
             }
 
         self.transfers.append(objectsIn: transfers)
+
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    init(transaction: Node.DTO.MassTransferTransaction) {
+    init(transaction: Node.DTO.MassTransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -63,8 +65,10 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         transfers = transaction
             .transfers
-            .map { .init(recipient: $0.recipient,
+            .map { .init(recipient: $0.recipient.normalizeAddress(environment: environment),
                          amount: $0.amount) }
+
+        self.status = status
     }
 
     init(transaction: MassTransferTransaction) {
@@ -88,5 +92,6 @@ extension DomainLayer.DTO.MassTransferTransaction {
             .transfers
             .map { .init(recipient: $0.recipient,
                          amount: $0.amount) }
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

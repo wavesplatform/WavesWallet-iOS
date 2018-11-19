@@ -16,7 +16,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.wallet.address) else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -106,6 +106,34 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
+    func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
+        return Observable.create { (observer) -> Disposable in
+
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+                observer.onNext(false)
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            do {
+                let ids = balances.map { $0.assetId }
+                let objects = realm.objects(AssetBalance.self).filter("assetId IN %@", ids)
+                try realm.write {
+                    realm.delete(objects)            
+                }
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch let e {
+                error(e)
+                observer.onNext(false)
+                observer.onError(AccountBalanceRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            return Disposables.create()
+        }
+    }
+
     func saveBalance(_ balance: DomainLayer.DTO.AssetBalance, accountAddress: String) -> Observable<Bool> {
         return self.saveBalances([balance], accountAddress: accountAddress)
     }
@@ -131,7 +159,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 collection.dispose()
             }
         }
-        .subscribeOn(RunLoopThreadScheduler.init(threadName: "Realm"))
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
 }
 

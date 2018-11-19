@@ -13,4 +13,3 @@ final class AliasTransaction: Transaction {
     @objc dynamic var signature: String? = nil
     @objc dynamic var alias: String = ""
 }
-

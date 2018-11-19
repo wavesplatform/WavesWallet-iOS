@@ -15,7 +15,7 @@ extension IssueTransaction {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -29,17 +29,18 @@ extension IssueTransaction {
         assetDescription = transaction.description
         script = transaction.script
         modified = transaction.modified
+        status = transaction.status.rawValue
     }
 }
 
 extension DomainLayer.DTO.IssueTransaction {
 
-    init(transaction: Node.DTO.IssueTransaction) {
+    init(transaction: Node.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
+        sender = transaction.sender.normalizeAddress(environment: environment)
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -54,13 +55,14 @@ extension DomainLayer.DTO.IssueTransaction {
         script = transaction.script
         modified = Date()
         proofs = transaction.proofs
+        self.status = status
     }
 
     init(transaction: IssueTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.sender
+        senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
@@ -75,5 +77,6 @@ extension DomainLayer.DTO.IssueTransaction {
         script = transaction.script
         modified = transaction.modified
         proofs = []
+        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

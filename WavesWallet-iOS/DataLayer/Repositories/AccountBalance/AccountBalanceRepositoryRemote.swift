@@ -24,7 +24,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        let walletAddress = wallet.wallet.address
+        let walletAddress = wallet.address
         let assetsBalance = self.assetsBalance(by: walletAddress)
         let accountBalance = self.accountBalance(by: walletAddress)
         let matcherBalances = self.matcherBalances(by: walletAddress, wallet: wallet)
@@ -48,6 +48,10 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
         return Observable.never()
     }
 
+    func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
 
     func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
@@ -72,7 +76,7 @@ private extension AccountBalanceRepositoryRemote {
         let signature = TimestampSignature(signedWallet: wallet)
 
         return environmentRepository
-            .accountEnvironment(accountAddress: wallet.wallet.address)
+            .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }

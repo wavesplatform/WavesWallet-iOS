@@ -9,9 +9,9 @@
 import Foundation
 
 extension DomainLayer.DTO {
-    struct Account {
+    struct Account: Hashable {
         
-        let id: String
+        let address: String
         let contact: DomainLayer.DTO.Contact?
         let isMyAccount: Bool
     }

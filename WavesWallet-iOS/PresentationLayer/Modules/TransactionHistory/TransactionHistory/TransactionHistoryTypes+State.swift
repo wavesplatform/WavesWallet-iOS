@@ -16,7 +16,7 @@ extension TransactionHistoryTypes.State {
         return newState
     }
     
-    func setDisplays(_ displays: [DisplayState]) -> TransactionHistoryTypes.State {
+    func setDisplays(_ displays: [TransactionHistoryTypes.DisplayState]) -> TransactionHistoryTypes.State {
         var newState = self
         newState.displays = displays
         return newState
@@ -36,17 +36,21 @@ extension TransactionHistoryTypes.State {
         
         var i = 0
         
-        let displays = transactions.map { (transaction) -> TransactionHistoryTypes.State.DisplayState in
+        let displays = transactions.map { (transaction) -> TransactionHistoryTypes.DisplayState in
             
             i = i + 1
 
             let sections = TransactionHistoryTypes.ViewModel.Section.map(from: transaction, index: i - 1, count: transactions.count)
 
-            return TransactionHistoryTypes.State.DisplayState(transaction: transaction,
+            return TransactionHistoryTypes.DisplayState(transaction: transaction,
                                                               sections: sections)
         }
         
-        return TransactionHistoryTypes.State(currentIndex: currentIndex, displays: displays, transactions: transactions)
+        return TransactionHistoryTypes.State(currentIndex: currentIndex,
+                                             action: .none,
+                                             displays: displays,
+                                             transactions: transactions,
+                                             actionDisplay: .reload(index: currentIndex))
     }
     
 }

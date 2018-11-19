@@ -28,6 +28,23 @@ private extension Thread {
 
 extension ObservableType {
 
+    func sweetDebugWithoutResponse(_ identifier: String) -> RxSwift.Observable<Self.E> {
+
+        return self.do(onNext: { element in
+            log(identifier: identifier, message: "onNext 💬")
+        }, onError: { error in
+            log(identifier: identifier, message: "onError \(error)")
+        }, onCompleted: {
+            log(identifier: identifier, message: "onCompleted")
+        }, onSubscribe: {
+            log(identifier: identifier, message: "onSubscribe")
+        }, onSubscribed: {
+            log(identifier: identifier, message: "onSubscribed")
+        }, onDispose: {
+            log(identifier: identifier, message: "onDispose")
+        })
+    }
+
     func sweetDebug(_ identifier: String) -> RxSwift.Observable<Self.E> {
 
         return self.do(onNext: { element in

@@ -13,6 +13,7 @@ public class Transaction: Object {
     @objc dynamic var timestamp: Int64 = 0
     @objc dynamic var height: Int64 = 0
     @objc dynamic var version: Int = 0
+    @objc dynamic var status: Int = 0
     @objc dynamic var modified: Date = Date()
 
     @objc dynamic var isPending: Bool = false

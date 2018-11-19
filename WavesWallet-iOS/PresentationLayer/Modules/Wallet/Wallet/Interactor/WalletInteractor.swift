@@ -36,7 +36,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                 guard let owner = self else { return Observable.never() }
                 return owner
                     .accountBalanceRepositoryLocal
-                    .listenerOfUpdatedBalances(by: wallet.wallet.address)
+                    .listenerOfUpdatedBalances(by: wallet.address)
             }
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
@@ -102,7 +102,7 @@ fileprivate extension WalletInteractor {
             .authorizedWallet()
             .flatMap(weak: self) { owner, wallet -> Observable<Leasing> in
                 
-                let transactions = owner.leasingInteractor.activeLeasingTransactions(by: wallet.wallet.address,
+                let transactions = owner.leasingInteractor.activeLeasingTransactions(by: wallet.address,
                                                                                      isNeedUpdate: isNeedUpdate)
                 let balance = owner.accountBalanceInteractor
                     .balances(by: wallet,
@@ -116,7 +116,7 @@ fileprivate extension WalletInteractor {
                     .map { transactions, balance -> Leasing in
                         Leasing(balance: balance,
                                 transaction: transactions,
-                                walletAddress: wallet.wallet.address)
+                                walletAddress: wallet.address)
                     }
             }
 

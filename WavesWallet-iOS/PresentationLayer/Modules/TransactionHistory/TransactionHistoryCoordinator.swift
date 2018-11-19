@@ -7,32 +7,149 @@
 //
 
 import UIKit
+import RxSwift
 
-final class TransactionHistoryCoordinator: TransactionHistoryModuleInput {
-    
-    let transactions: [DomainLayer.DTO.SmartTransaction]
-    let currentIndex: Int
-    let rootViewController: UIViewController
+final class TransactionHistoryCoordinator: Coordinator {
+
+    enum Display {
+        case showTransactionHistory
+        case addAddress(_ address: String, FinishedAddressBook)
+        case editContact(_ contact: DomainLayer.DTO.Contact, FinishedAddressBook)
+    }
+
+    var childCoordinators: [Coordinator] = []
+    weak var parent: Coordinator?
+
+    private let transactions: [DomainLayer.DTO.SmartTransaction]
+    private let currentIndex: Int
+    private let navigationController: UINavigationController
+
+    private var lastDisplay: Display?
     
     init(transactions: [DomainLayer.DTO.SmartTransaction],
          currentIndex: Int,
-         rootViewController: UIViewController) {
+         navigationController: UINavigationController) {
         
-        self.rootViewController = rootViewController
+        self.navigationController = navigationController
         self.transactions = transactions
         self.currentIndex = currentIndex
     }
     
     private lazy var transactionHistoryViewController: TransactionHistoryViewController = {
-        return TransactionHistoryModuleBuilder(output: self).build(input: self) as! TransactionHistoryViewController
+        return TransactionHistoryModuleBuilder(output: self).build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
     }()
     
     func start() {
-        transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
-        transactionHistoryViewController.modalPresentationStyle = .custom
-        rootViewController.present(transactionHistoryViewController, animated: true, completion: nil)
+        showDisplay(.showTransactionHistory)
     }
 }
 
-extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {}
+extension TransactionHistoryCoordinator: PresentationCoordinator {
 
+    func showDisplay(_ display: Display) {
+
+        self.lastDisplay = display
+
+        switch display {
+        case .showTransactionHistory:        
+            transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
+            transactionHistoryViewController.modalPresentationStyle = .custom
+            navigationController.present(transactionHistoryViewController, animated: true, completion: nil)
+
+        case .addAddress(let address, _):
+
+            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
+            navigationController.dismiss(animated: true) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+
+        case .editContact(let contact, _):
+
+            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
+                                                                                                                 isMutable: false)))
+            navigationController.dismiss(animated: true) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: TransactionHistoryModuleOutput
+
+extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
+
+    func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook) {
+        showDisplay(.addAddress(address, finished))
+    }
+
+    func transactionHistoryEditAddressToHistoryBook(contact: DomainLayer.DTO.Contact, finished: @escaping FinishedAddressBook) {
+        showDisplay(.editContact(contact, finished))
+    }
+}
+
+
+// MARK: AddAddressBookModuleOutput
+extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
+
+    func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+        //TODO: resend transaction
+    }
+
+    func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
+
+        let transactions = FactoryInteractors.instance.transactions
+        let authorization = FactoryInteractors.instance.authorization
+
+        authorization.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+            guard let owner = self else { return Observable.never() }
+
+            return transactions
+                .send(by: .cancelLease(CancelLeaseTransactionSender(leaseId: transaction.id, fee: GlobalConstants.WavesTransactionFeeAmount))
+                    , wallet: wallet).map { _ in true }
+            }.subscribe(onNext: { [weak self] _ in
+                self?.navigationController.dismiss(animated: true) { }
+            })
+    }
+
+    func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
+        finishedAddToAddressBook(contact: .update(newContact))
+    }
+
+    func addAddressBookDidCreate(contact: DomainLayer.DTO.Contact) {
+        finishedAddToAddressBook(contact: .update(contact))
+    }
+
+    func addAddressBookDidDelete(contact: DomainLayer.DTO.Contact) {
+        finishedAddToAddressBook(contact: .delete(contact))
+    }
+}
+
+extension TransactionHistoryCoordinator {
+
+    func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
+
+        self.navigationController.popViewController(animated: true, completed: { [weak self] in
+            self?.lastDisplay?.finishedAddressBook?(contact, true)
+            self?.showDisplay(.showTransactionHistory)
+        })
+    }
+}
+
+// MARK: Assistant
+extension TransactionHistoryCoordinator.Display {
+
+    var finishedAddressBook: TransactionHistoryModuleOutput.FinishedAddressBook? {
+
+        switch self {
+
+        case .addAddress(_, let finishedAddressBook):
+            return finishedAddressBook
+
+        case .editContact(_, let finishedAddressBook):
+            return finishedAddressBook
+
+        default:
+            return nil
+        }
+    }
+}

@@ -65,6 +65,10 @@ extension DomainLayer.DTO {
 
         private weak var signingWallets: SigningWalletsProtocol?
 
+        var address: String {
+            return wallet.address
+        }
+
         init(wallet: Wallet,
              seed: WalletSeed,
              signingWallets: SigningWalletsProtocol) {

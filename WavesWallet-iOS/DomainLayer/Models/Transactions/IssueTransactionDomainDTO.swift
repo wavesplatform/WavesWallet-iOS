@@ -29,5 +29,6 @@ extension DomainLayer.DTO {
         let description: String
         let script: String?
         var modified: Date
+        var status: TransactionStatus
     }
 }
