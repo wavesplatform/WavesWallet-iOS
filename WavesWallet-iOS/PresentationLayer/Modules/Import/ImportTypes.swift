@@ -10,6 +10,8 @@ import Foundation
 
 enum ImportTypes {
     enum DTO { }
+    
+    static let minimumSeedLength = 25
 }
 
 extension ImportTypes.DTO {
