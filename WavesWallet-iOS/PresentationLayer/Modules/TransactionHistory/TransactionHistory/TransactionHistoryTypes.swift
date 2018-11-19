@@ -29,6 +29,7 @@ enum TransactionHistoryTypes {
     enum Event {
         case readyView
         case tapRecipient(DisplayState, ViewModel.Recipient)
+        case tapButton(DisplayState)
         case completedAction
         case updateContact(DTO.ContactState)
     }
@@ -41,6 +42,8 @@ enum TransactionHistoryTypes {
     enum Action {
         case none
         case showAddressBook(account: DomainLayer.DTO.Account, isAdded: Bool)
+        case cancelLeasing(transaction: DomainLayer.DTO.SmartTransaction)
+        case resendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
     }
 }
 

@@ -65,6 +65,16 @@ extension Node.DTO.TransactionContainers {
 
 extension DomainLayer.DTO.AnyTransaction {
 
+    var leaseTransaction: DomainLayer.DTO.LeaseTransaction? {
+        switch self {
+        case .lease(let tx):
+            return tx
+
+        default:
+            return nil
+        }
+    }
+
     var transaction: Transaction {
         
         switch self {
