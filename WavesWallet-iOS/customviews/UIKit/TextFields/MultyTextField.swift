@@ -191,6 +191,7 @@ extension MultyTextField: UITextViewDelegate {
         } else {
             updateTextView(text)
         }
+        
         return false
     }
 }

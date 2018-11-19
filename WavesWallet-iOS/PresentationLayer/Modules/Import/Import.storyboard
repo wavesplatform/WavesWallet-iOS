@@ -362,10 +362,10 @@ or Mac/PC</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H58-Qa-VfM">
-                                <rect key="frame" x="16" y="38" width="343" height="278"/>
+                                <rect key="frame" x="16" y="38" width="343" height="272"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATx-9a-f9l">
-                                        <rect key="frame" x="12" y="206" width="319" height="48"/>
+                                        <rect key="frame" x="12" y="200" width="319" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgM-nA-m86"/>
@@ -416,9 +416,12 @@ or Mac/PC</string>
                                             <constraint firstItem="wT2-e8-xV2" firstAttribute="top" secondItem="ffH-55-n96" secondAttribute="top" id="vWU-ua-0ZO"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="62" translatesAutoresizingMaskIntoConstraints="NO" id="121-uO-CG7" customClass="MultyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="90" width="319" height="82"/>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="62" translatesAutoresizingMaskIntoConstraints="NO" id="121-uO-CG7" customClass="MultilineTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="76" width="319" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="Pcb-vs-lBT"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0w-pD-6Ms" customClass="SkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="12" y="24" width="319" height="28"/>
@@ -466,16 +469,16 @@ or Mac/PC</string>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="5Ls-mn-uJz"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="8s8-3F-Nf8"/>
                                     <constraint firstItem="F0w-pD-6Ms" firstAttribute="leading" secondItem="H58-Qa-VfM" secondAttribute="leading" constant="12" id="8uP-Px-Rch"/>
-                                    <constraint firstAttribute="height" constant="278" id="FlG-rt-Idm"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="FlG-rt-Idm"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="Jbv-6m-03p"/>
-                                    <constraint firstItem="121-uO-CG7" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="bottom" constant="38" id="O4C-QS-qew"/>
+                                    <constraint firstItem="121-uO-CG7" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="bottom" constant="24" id="O4C-QS-qew"/>
                                     <constraint firstAttribute="bottom" secondItem="ATx-9a-f9l" secondAttribute="bottom" constant="24" id="ZKa-Z1-Zw0"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="cgq-og-088"/>
                                     <constraint firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" constant="12" id="fnz-ui-Xzl"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="gix-ZN-FPa"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="n9r-79-W7F"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="rCH-gS-UYg"/>
-                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="34" id="tWa-bV-jId"/>
+                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="44" id="tWa-bV-jId"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -499,6 +502,7 @@ or Mac/PC</string>
                         <outlet property="skeletonViewLeftConstraint" destination="8uP-Px-Rch" id="LFc-2R-XNq"/>
                         <outlet property="skeletonViewRightConstraint" destination="fnz-ui-Xzl" id="tAw-ZS-SGk"/>
                         <outlet property="textField" destination="121-uO-CG7" id="Dhj-cS-NuP"/>
+                        <outlet property="textFieldHeightConstraint" destination="Pcb-vs-lBT" id="6F3-oc-sj5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BzQ-p1-pMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
