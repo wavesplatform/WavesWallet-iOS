@@ -13,15 +13,12 @@ fileprivate enum TransactionDirection {
     case selfSent
     case receive
 
-    init(sender: String,
-         recipient: String,
-         accountAddress: String) {
+    init(sender: DomainLayer.DTO.Account,
+         recipient: DomainLayer.DTO.Account) {
 
-        let isSenderAccount = sender.isMyAccount(accountAddress)
-        let isRecipientAccount = recipient.isMyAccount(accountAddress)
-        if isSenderAccount && isRecipientAccount {
+        if sender.isMyAccount && recipient.isMyAccount {
             self = .selfSent
-        } else if isSenderAccount {
+        } else if sender.isMyAccount {
             self = .sent
         } else {
             self = .receive
@@ -114,7 +111,6 @@ extension DomainLayer.DTO.TransferTransaction {
 
     func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        let accountAddress: String = metaData.accountAddress
         let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -136,9 +132,8 @@ extension DomainLayer.DTO.TransferTransaction {
                                                                         recipient: recipient,
                                                                         attachment: attachment)
 
-        let transactionDirection = TransactionDirection(sender: self.sender,
-                                                        recipient: self.recipient,
-                                                        accountAddress: accountAddress)
+        let transactionDirection = TransactionDirection(sender: sender,
+                                                        recipient: recipient)
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
 
@@ -456,30 +451,53 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         let totalBalance = asset.balance(self.totalAmount)
 
-        let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? in
-            guard let recipient = accounts[tx.recipient] else {
-                return nil
-            }
-            let amount = asset.money(tx.amount)
-            return .init(amount: amount, recipient: recipient)
-        }
-        .compactMap { $0 }
-
-        let massTransfer: DomainLayer.DTO.SmartTransaction.MassTransfer = .init(total: totalBalance,
-                                                                                asset: asset,
-                                                                                attachment: attachment,
-                                                                                transfers: transfers)
         let isSenderAccount = sender.isMyAccount
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
 
         if isSenderAccount {
+            let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? in
+                guard let recipient = accounts[tx.recipient] else {
+                    return nil
+                }
+                let amount = asset.money(tx.amount)
+                return .init(amount: amount, recipient: recipient)
+            }
+            .compactMap { $0 }
+
+            let massTransfer: DomainLayer.DTO.SmartTransaction.MassTransfer = .init(total: totalBalance,
+                                                                                    asset: asset,
+                                                                                    attachment: attachment,
+                                                                                    transfers: transfers)
             kind = .massSent(massTransfer)
         } else {
+
+            let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassReceive.Transfer? in
+                guard let recipient = accounts[tx.recipient] else {
+                    return nil
+                }
+                let amount = asset.money(tx.amount)
+                return .init(amount: amount, recipient: recipient)
+            }
+            .compactMap { $0 }
+
+            let myTotalAmount: Int64 = transfers.reduce(into: Int64(0), { (result, transfer) in
+                if transfer.recipient.isMyAccount {
+                    result += transfer.amount.amount
+                }
+            })
+
+            let myTotalBalance = asset.balance(myTotalAmount)
+
+            let massReceive: DomainLayer.DTO.SmartTransaction.MassReceive = .init(total: totalBalance,
+                                                                                  myTotal: myTotalBalance,
+                                                                                  asset: asset,
+                                                                                  attachment: attachment,
+                                                                                  transfers: transfers)
             if asset.isSpam {
-                kind = .spamMassReceived(massTransfer)
+                kind = .spamMassReceived(massReceive)
             } else {
-                kind = .massReceived(massTransfer)
+                kind = .massReceived(massReceive)
             }
         }
 

@@ -118,7 +118,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             state.transactions = response
-            state.currentFilter = .all
             state.sections = sections
             state.isRefreshing = false
         }

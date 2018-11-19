@@ -76,8 +76,19 @@ extension DomainLayer.DTO {
                 let amount: Money
                 let recipient: Account
             }
-
             let total: Balance
+            let asset: Asset
+            let attachment: String?
+            let transfers: [Transfer]
+        }
+
+        struct MassReceive {
+            struct Transfer {
+                let amount: Money
+                let recipient: Account
+            }
+            let total: Balance
+            let myTotal: Balance
             let asset: Asset
             let attachment: String?
             let transfers: [Transfer]
@@ -92,6 +103,9 @@ extension DomainLayer.DTO {
             case sent(Transfer)
             case spamReceive(Transfer)
             case selfTransfer(Transfer)
+            case massSent(MassTransfer)
+            case massReceived(MassReceive)
+            case spamMassReceived(MassReceive)
 
             case startedLeasing(Leasing)
             case canceledLeasing(Leasing)
@@ -106,10 +120,6 @@ extension DomainLayer.DTO {
             case createdAlias(String)
 
             case unrecognisedTransaction
-
-            case massSent(MassTransfer)
-            case massReceived(MassTransfer)
-            case spamMassReceived(MassTransfer)
 
             case data(Data)
         }

@@ -53,7 +53,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var isIncludedSentGroup: Bool {
         switch kind {
-        case .sent, .massSent:
+        case .sent, .massSent, .selfTransfer:
             return true
         default:
             return false
@@ -62,7 +62,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var isIncludedReceivedGroup: Bool {
         switch kind {
-        case .spamReceive, .spamMassReceived:
+        case .spamReceive, .spamMassReceived, .massReceived, .receive:
             return true
         default:
             return false

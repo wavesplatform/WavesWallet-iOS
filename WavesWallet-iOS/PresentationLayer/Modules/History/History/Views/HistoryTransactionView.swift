@@ -114,13 +114,13 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.total, sign: .plus)
 
         case .massReceived(let tx):
-            update(with: tx.asset, balance: tx.total, sign: .plus)
+            update(with: tx.asset, balance: tx.myTotal, sign: .plus)
 
         case .spamReceive(let tx):
             update(with: tx.asset, balance: tx.balance, sign: .plus)
 
         case .spamMassReceived(let tx):
-            update(with: tx.asset, balance: tx.total, sign: .plus)
+            update(with: tx.asset, balance: tx.myTotal, sign: .plus)
 
         case .data:
             labelValue.text = Localizable.Waves.History.Transaction.Value.data

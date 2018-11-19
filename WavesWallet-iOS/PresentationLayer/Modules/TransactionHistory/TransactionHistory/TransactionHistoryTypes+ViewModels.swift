@@ -24,6 +24,7 @@ extension TransactionHistoryTypes.ViewModel {
     struct Recipient {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
         let account: DomainLayer.DTO.Account
+        let amount: Money?
     }
     
     struct KeyValue: Hashable {
@@ -107,7 +108,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: model.recipient)
+                        account: model.recipient,
+                        amount: nil)
                 ))
 
         case .sent(let model):
@@ -120,7 +122,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: model.recipient)
+                        account: model.recipient,
+                        amount: nil)
                 ))
             
         case .startedLeasing(let model):
@@ -131,7 +134,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil)
                 ))
             
         case .exchange(let model):
@@ -211,7 +215,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil)
                 ))
             
         case .incomingLeasing(let model):
@@ -223,7 +228,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil)
                 ))
             
         case .massSent(let model):
@@ -237,23 +243,21 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: transfer.recipient)
+                        account: transfer.recipient,
+                        amount: transfer.amount)
                     ))
             }
             
         case .massReceived(let model):
             comment = model.attachment
-            balance = model.total
+            balance = model.myTotal
             asset = model.asset
             sign = .plus
 
             for transfer in model.transfers {
-                kindRows.append(
-                    .recipient(
-                    .init(
-                        kind: transaction.kind,
-                        account: transfer.recipient)
-                    ))
+                kindRows.append(.recipient(.init(kind: transaction.kind,
+                                                 account: transfer.recipient,
+                                                 amount: nil)))
             }
             
         case .spamReceive(let model):
@@ -267,12 +271,13 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.recipient)
+                    account: model.recipient,
+                    amount: nil)
                 ))
             
         case .spamMassReceived(let model):
             comment = model.attachment
-            balance = model.total
+            balance = model.myTotal
             asset = model.asset
             sign = .plus
             isSpam = true
@@ -282,7 +287,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: transfer.recipient)
+                        account: transfer.recipient,
+                        amount: transfer.amount)
                     ))
             }
             
@@ -435,7 +441,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                 return .resendButton(.init(type: .cancelLeasing))
             }
             return nil
-        
+
         default:
             break
         }

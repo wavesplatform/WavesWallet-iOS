@@ -34,6 +34,11 @@
                             <constraint firstItem="bV8-0M-fXQ" firstAttribute="top" secondItem="Zn5-8d-gcY" secondAttribute="top" constant="12" id="TbL-X4-IBE"/>
                             <constraint firstAttribute="trailing" secondItem="bV8-0M-fXQ" secondAttribute="trailing" constant="12" id="rHH-Qq-zc7"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="dottedCornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
