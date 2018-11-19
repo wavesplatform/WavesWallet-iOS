@@ -1674,14 +1674,6 @@ internal enum Localizable {
       }
     }
 
-    internal enum Receiveinvoice {
-
-      internal enum Label {
-        /// US Dollar
-        internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
-      }
-    }
-
     internal enum Send {
 
       internal enum Button {
