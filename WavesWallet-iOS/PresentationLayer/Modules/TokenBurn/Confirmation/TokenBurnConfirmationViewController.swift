@@ -51,6 +51,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
         hideTopBarLine()
+        navigationItem.backgroundImage = UIImage()
         navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationItem.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
     }
