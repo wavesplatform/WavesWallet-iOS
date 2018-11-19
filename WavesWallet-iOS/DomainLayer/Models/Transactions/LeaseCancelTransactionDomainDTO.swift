@@ -23,7 +23,7 @@ extension DomainLayer.DTO {
         let proofs: [String]?
         let chainId: Int?
         let leaseId: String
-        let lease: DomainLayer.DTO.LeaseTransaction?
+        var lease: DomainLayer.DTO.LeaseTransaction?
         var modified: Date
         var status: TransactionStatus
     }

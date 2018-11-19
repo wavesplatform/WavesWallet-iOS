@@ -44,6 +44,7 @@ struct SmartTransactionMetaData {
     let accounts: [String: DomainLayer.DTO.Account]
     let totalHeight: Int64
     let status: DomainLayer.DTO.SmartTransaction.Status
+    let mapTxs: [String: DomainLayer.DTO.AnyTransaction]
 }
 
 extension DomainLayer.DTO.UnrecognisedTransaction {
@@ -364,10 +365,16 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let lease = self.lease else {
+        var optionalLease = self.lease
 
+        if optionalLease == nil {
+            optionalLease = metaData.mapTxs[self.leaseId]?.leaseTransaction
+        }
+
+        guard let lease = optionalLease else {
             return nil
         }
+
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
 
             return nil
@@ -444,7 +451,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         }
         guard let sender = accounts[self.sender] else {
-            return nil            
+            return nil
         }
 
         let totalBalance = asset.balance(self.totalAmount)
@@ -535,7 +542,8 @@ extension DomainLayer.DTO.AnyTransaction {
                      assets: [String: DomainLayer.DTO.Asset],
                      accounts: [String: DomainLayer.DTO.Account],
                      totalHeight: Int64,
-                     leaseTransactions: [String: DomainLayer.DTO.LeaseTransaction]) -> DomainLayer.DTO.SmartTransaction? {
+                     leaseTransactions: [String: DomainLayer.DTO.LeaseTransaction],
+                     mapTxs: [String: DomainLayer.DTO.AnyTransaction]) -> DomainLayer.DTO.SmartTransaction? {
 
         var status: DomainLayer.DTO.SmartTransaction.Status = .completed
 
@@ -558,7 +566,8 @@ extension DomainLayer.DTO.AnyTransaction {
                                                  assets: assets,
                                                  accounts: accounts,
                                                  totalHeight: totalHeight,
-                                                 status: status)
+                                                 status: status,
+                                                 mapTxs: mapTxs)
 
         var smartTransaction: DomainLayer.DTO.SmartTransaction?
         switch self {

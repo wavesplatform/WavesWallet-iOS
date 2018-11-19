@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class TransactionHistoryCoordinator: Coordinator {
 
@@ -97,8 +98,17 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
 
         let transactions = FactoryInteractors.instance.transactions
+        let authorization = FactoryInteractors.instance.authorization
 
-//        transactions.send(by: .lease(<#T##LeaseTransactionSender#>), wallet: <#T##DomainLayer.DTO.SignedWallet#>)
+        authorization.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+            guard let owner = self else { return Observable.never() }
+
+            return transactions
+                .send(by: .cancelLease(CancelLeaseTransactionSender(leaseId: transaction.id, fee: GlobalConstants.WavesTransactionFeeAmount))
+                    , wallet: wallet).map { _ in true }
+            }.subscribe(onNext: { [weak self] _ in
+                self?.navigationController.dismiss(animated: true) { }
+            })
     }
 
     func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
