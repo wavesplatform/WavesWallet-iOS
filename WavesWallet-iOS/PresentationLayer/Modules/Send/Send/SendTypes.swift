@@ -27,6 +27,8 @@ enum Send {
         case validationAliasDidComplete(Bool)
         case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
         case moneroAddressDidGenerate(ResponseType<String>)
+        case getAssetById(String)
+        case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
     }
     
     struct State: Mutating {
@@ -38,7 +40,7 @@ enum Send {
             case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
             case didGenerateMoneroAddress(String)
             case didFailGenerateMoneroAddress(ResponseTypeError)
-
+            case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
         }
         
         var isNeedLoadInfo: Bool
@@ -49,6 +51,7 @@ enum Send {
         var recipient: String = ""
         var moneroPaymentID: String = ""
         var selectedAsset: DomainLayer.DTO.AssetBalance?
+        var scanningAssetID: String?
     }
 }
 
@@ -136,7 +139,8 @@ extension Send.State: Equatable {
                 lhs.isNeedGenerateMoneroAddress == rhs.isNeedGenerateMoneroAddress &&
                 lhs.recipient == rhs.recipient &&
                 lhs.moneroPaymentID == rhs.moneroPaymentID &&
-                lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId
+                lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId &&
+                lhs.scanningAssetID == rhs.scanningAssetID
     }
 }
 
