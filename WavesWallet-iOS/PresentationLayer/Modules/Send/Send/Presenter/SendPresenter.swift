@@ -21,12 +21,26 @@ final class SendPresenter: SendPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
         newFeedbacks.append(modelsWavesQuery())
+        newFeedbacks.append(assetQuery())
+        
         Driver.system(initialState: Send.State.initialState,
                       reduce: { [weak self] state, event -> Send.State in
                         return self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
+    }
+    
+    private func assetQuery() -> Feedback {
+        return react(query: { state -> Send.State? in
+            return state.scanningAssetID != nil ? state : nil
+            
+        }, effects: {[weak self] state -> Signal<Send.Event> in
+            guard let strongSelf = self else { return Signal.empty() }
+            guard let assetID = state.scanningAssetID else { return Signal.empty() }
+            
+            return strongSelf.interactor.assetBalance(by: assetID).map { .didGetAssetBalance($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        })
     }
     
     private func modelsWavesQuery() -> Feedback {
@@ -154,6 +168,18 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.isNeedValidateAliase = false
                 $0.action = .aliasDidFinishCheckValidation(isValiadAlias)
             }
+        
+        case .getAssetById(let assetID):
+            return state.mutate {
+                $0.scanningAssetID = assetID
+                $0.action = .none
+            }
+            
+        case .didGetAssetBalance(let asset):
+            return state.mutate {
+                $0.scanningAssetID = nil
+                $0.action = .didGetAssetBalance(asset)
+            }
         }
     }
 }
@@ -168,6 +194,7 @@ fileprivate extension Send.State {
                           action: .none,
                           recipient: "",
                           moneroPaymentID: "",
-                          selectedAsset: nil)
+                          selectedAsset: nil,
+                          scanningAssetID: nil)
     }
 }
