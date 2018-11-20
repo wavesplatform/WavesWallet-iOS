@@ -12,7 +12,6 @@ final class ReceiveInvoiceViewController: UIViewController {
 
     @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var viewAmountContainer: UIView!
-    @IBOutlet private weak var labelTotalDollar: UILabel!
     @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
     @IBOutlet private weak var viewAsset: AssetSelectView!
@@ -33,7 +32,6 @@ final class ReceiveInvoiceViewController: UIViewController {
         textFieldMoney.moneyDelegate = self
         viewAsset.delegate = self
         setupButtonState()
-        calculateTotalDollar()
         
         if let asset = input.selectedAsset {
             viewAsset.isSelectedAssetMode = false
@@ -97,7 +95,6 @@ extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         amount = value
         updateDisplayInfo()
-        calculateTotalDollar()
     }
 }
 
@@ -111,11 +108,6 @@ private extension ReceiveInvoiceViewController {
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
     
-    
-    func calculateTotalDollar() {
-        //TODO: - Need to calculate amount in dollars
-        labelTotalDollar.text = "≈ " + "0" + " " + Localizable.Waves.Receiveinvoice.Label.dollar
-    }
     
     func setupLocalication() {
         labelAmount.text = Localizable.Waves.Receive.Label.amount

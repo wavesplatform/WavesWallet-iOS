@@ -37,6 +37,8 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var iconArrows: UIImageView!
     @IBOutlet private weak var assetRightOffset: NSLayoutConstraint!
+    @IBOutlet private weak var buttonTap: UIButton!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private var taskForAssetLogo: RetrieveImageDiskTask?
 
@@ -81,6 +83,28 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
+    }
+    
+    func showLoadingState() {
+        buttonTap.isUserInteractionEnabled = false
+        viewAsset.isHidden = true
+        labelSelectAsset.isHidden = true
+        iconArrows.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoadingState(isLoadAsset: Bool) {
+        buttonTap.isUserInteractionEnabled = true
+        iconArrows.isHidden = false
+        activityIndicator.stopAnimating()
+        
+        if isLoadAsset {
+            viewAsset.isHidden = false
+        }
+        else {
+            labelSelectAsset.isHidden = false
+        }
     }
 }
 

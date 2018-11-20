@@ -845,6 +845,11 @@ internal enum Localizable {
           internal static var detail: String { return Localizable.tr("Waves", "enter.button.importAccount.detail") }
           /// Import account
           internal static var title: String { return Localizable.tr("Waves", "enter.button.importAccount.title") }
+
+          internal enum Error {
+            /// Insecure SEED
+            internal static var insecureSeed: String { return Localizable.tr("Waves", "enter.button.importAccount.error.insecureSeed") }
+          }
         }
 
         internal enum Signin {
@@ -1671,14 +1676,6 @@ internal enum Localizable {
         internal static func yourAddress(_ p1: String) -> String {
           return Localizable.tr("Waves", "receivegenerate.label.yourAddress", p1)
         }
-      }
-    }
-
-    internal enum Receiveinvoice {
-
-      internal enum Label {
-        /// US Dollar
-        internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
       }
     }
 

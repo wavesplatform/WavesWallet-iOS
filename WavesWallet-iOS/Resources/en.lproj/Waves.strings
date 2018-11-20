@@ -403,6 +403,8 @@
 
 "enter.button.importAccount.title" = "Import account";
 
+"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+
 "enter.button.signIn.detail" = "to a saved account";
 
 "enter.button.signIn.title" = "Sign in";
@@ -740,8 +742,6 @@
 "receivegenerate.label.generate" = "Generate…";
 
 "receivegenerate.label.yourAddress" = "Your %@ address";
-
-"receiveinvoice.label.dollar" = "US Dollar";
 
 "send.button.chooseFromAddressBook" = "Choose from Address book";
 

@@ -26,6 +26,11 @@ extension DexMarket.DTO.Pair {
             }
         }
         
+        //TODO: need remove when move on new Api
+        if let ticker = DexMarket.minersRewardToken[amountAssetName] {
+            amountAssetShortName = ticker
+        }
+        
         let priceAssetId = json["priceAsset"].stringValue
         var priceAssetName = json["priceAssetName"].stringValue
         var priceAssetShortName = json["priceAssetName"].stringValue
@@ -35,6 +40,11 @@ extension DexMarket.DTO.Pair {
             if let ticker = asset.ticker {
                 priceAssetShortName = ticker
             }
+        }
+        
+        //TODO: need remove when move on new Api
+        if let ticker = DexMarket.minersRewardToken[priceAssetName] {
+            priceAssetShortName = ticker
         }
         
         amountAsset = Dex.DTO.Asset(id: amountAssetId,

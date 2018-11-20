@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="dQT-dU-NVN" id="2bi-w9-KWO"/>
                 <outlet property="assetRightOffset" destination="3gI-rv-rKM" id="HN0-z7-Nk7"/>
+                <outlet property="buttonTap" destination="eUL-2y-7ZO" id="Mt0-Ho-Psg"/>
                 <outlet property="iconArrows" destination="swX-PX-8qH" id="U1n-Op-Pc4"/>
                 <outlet property="iconAssetLogo" destination="jnZ-lD-bCR" id="bC9-dq-Dez"/>
                 <outlet property="iconFav" destination="wji-xq-3oT" id="VPs-oy-rTx"/>
@@ -48,6 +50,9 @@
                             <color key="textColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dQT-dU-NVN">
+                            <rect key="frame" x="161.5" y="14" width="20" height="20"/>
+                        </activityIndicatorView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZc-Tc-VFP">
                             <rect key="frame" x="14" y="0.0" width="293" height="48"/>
                             <subviews>
@@ -107,8 +112,10 @@
                         <constraint firstAttribute="bottom" secondItem="eUL-2y-7ZO" secondAttribute="bottom" id="HGU-OA-3bX"/>
                         <constraint firstItem="eUL-2y-7ZO" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="TGG-ex-6Cb"/>
                         <constraint firstItem="DZc-Tc-VFP" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" constant="14" id="TMF-yO-fVr"/>
+                        <constraint firstItem="dQT-dU-NVN" firstAttribute="centerX" secondItem="R6M-IK-Z8L" secondAttribute="centerX" id="c2o-mR-IPo"/>
                         <constraint firstAttribute="height" constant="48" id="dKG-hg-Jc0"/>
                         <constraint firstAttribute="trailing" secondItem="eUL-2y-7ZO" secondAttribute="trailing" id="j8e-mT-ryd"/>
+                        <constraint firstItem="dQT-dU-NVN" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="kFT-6y-0L6"/>
                         <constraint firstItem="ZyM-hx-YX5" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="lyW-lL-K8e"/>
                         <constraint firstItem="eUL-2y-7ZO" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" id="qSg-d2-7xb"/>
                         <constraint firstItem="swX-PX-8qH" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="r8F-5q-7ra"/>

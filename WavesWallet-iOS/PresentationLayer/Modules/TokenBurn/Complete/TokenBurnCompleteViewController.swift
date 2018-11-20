@@ -31,7 +31,7 @@ final class TokenBurnCompleteViewController: UIViewController {
         navigationItem.hidesBackButton = true
 
         labelTitle.text = Localizable.Waves.Tokenburn.Label.transactionIsOnWay
-        labelSubtitle.text = Localizable.Waves.Tokenburn.Label.youHaveBurned + " " + input.assetName
+        labelSubtitle.text = Localizable.Waves.Tokenburn.Label.youHaveBurned + " " + input.amount.displayText + " " + input.assetName
         buttonOkey.setTitle(Localizable.Waves.Tokenburn.Button.okey, for: .normal)
     }
    

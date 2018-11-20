@@ -8,11 +8,14 @@
 
 import Foundation
 
+private enum Constants {
+    static let MinersRewardToken = ["MinersReward" : "MRT"]
+}
 
 enum DexMarket {
     enum DTO {}
     enum ViewModel {}
-    
+
     enum Event {
         case readyView
         case setPairs([DTO.Pair])
@@ -44,6 +47,12 @@ extension DexMarket.ViewModel {
     
 }
 
+extension DexMarket {
+    static var minersRewardToken: [String : String] {
+        return Constants.MinersRewardToken
+    }
+}
+
 extension DexMarket.DTO {
     
     struct Pair: Mutating {
@@ -57,7 +66,6 @@ extension DexMarket.DTO {
 }
 
 extension DexMarket.DTO.Pair {
-
     
     init(_ pair: DexAssetPair, isChecked: Bool) {
         

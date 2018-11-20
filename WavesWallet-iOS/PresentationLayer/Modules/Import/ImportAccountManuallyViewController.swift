@@ -14,13 +14,9 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
 }
 
-private enum Constants {
-    static let minimumLength = 25
-}
-
 final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
     
-    @IBOutlet private weak var textField: MultyTextField!
+    @IBOutlet private weak var textField: MultilineTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     
     @IBOutlet weak var containerView: UIView!
@@ -29,6 +25,9 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var labelAddress: UILabel!
     @IBOutlet private weak var iconImages: UIImageView!
     @IBOutlet private weak var skeletonView: SkeletonView!
+    
+    
+    @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var containerViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerViewRightConstraint: NSLayoutConstraint!
@@ -50,9 +49,9 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         containerView.addTableCellShadowStyle()
         addressBar.isHidden = true
         
-        setupConstraints()
-        setupContinueButton()
         setupTextField()
+        setupContinueButton()
+        setupConstraints()
     }
     
     private func setupConstraints() {
@@ -67,45 +66,15 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
             containerViewLeftConstraint.constant = 16
             containerViewRightConstraint.constant = 16
         }
+        
+        textFieldHeightConstraint.constant = textField.height
     }
     
     private func setupTextField() {
-        textField.returnKey = .done
-        
-        textField.valueValidator = { value in
-            guard let value = value else { return "" }
-            
-            if value.count > Constants.minimumLength {
-                return nil
-            } else {
-                return ""
-            }
-        }
-        
-        let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
-            
-            self?.buttonContinue.isEnabled = isValidValue
-            
-            if let value = value, isValidValue {
-                self?.addressBar.isHidden = false
-                self?.skeletonView.isHidden = true
-                self?.skeletonView.stopAnimation()
-                self?.createAccount(seed: value)
-            } else {
-                self?.skeletonView.isHidden = false
-                self?.skeletonView.startAnimation()
-                self?.addressBar.isHidden = true
-            }
-            
-        }
-        
-        textField.changedValue = changedValue
-        
-        textField.textFieldShouldReturn = { [weak self] _ in
-            self?.completedInput()
-        }
-        
-        textField.update(with: MultyTextField.Model(title: Localizable.Waves.Import.Manually.Label.Address.title,
+        textField.delegate = self
+        textField.textView.returnKeyType = .done
+ 
+        textField.update(with: MultilineTextField.Model(title: Localizable.Waves.Import.Manually.Label.Address.title,
                                                     placeholder: Localizable.Waves.Import.Manually.Label.Address.placeholder))
         
     }
@@ -166,6 +135,44 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
             UIView.setAnimationsEnabled(false)
             textField.resignFirstResponder()
             UIView.setAnimationsEnabled(true)
+        }
+    }
+    
+}
+
+extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
+    
+    func multilineTextFieldShouldReturn(textField: MultilineTextField) {
+        completedInput()
+    }
+    
+    func multilineTextFieldDidChange(textField: MultilineTextField) {
+        
+        buttonContinue.isEnabled = textField.isValidValue
+
+        if textField.isValidValue {
+            addressBar.isHidden = false
+            skeletonView.isHidden = true
+            skeletonView.stopAnimation()
+            createAccount(seed: textField.value)
+        } else {
+            skeletonView.isHidden = false
+            skeletonView.startAnimation()
+            addressBar.isHidden = true
+        }
+        
+        if textFieldHeightConstraint.constant != textField.height {
+            textFieldHeightConstraint.constant = textField.height
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+        }
+    }
+    
+    func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String? {
+        if value.count > ImportTypes.minimumSeedLength {
+            return nil
+        } else {
+            return ""
         }
     }
     

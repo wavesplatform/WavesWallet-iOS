@@ -269,7 +269,7 @@ extension StartLeasingViewController: AddressInputViewDelegate {
         acceptAddress("", amount: nil)
     }
     
-    func addressInputViewDidScanAddress(_ address: String, amount: Money?) {
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
         acceptAddress(address, amount: amount)
     }
     
