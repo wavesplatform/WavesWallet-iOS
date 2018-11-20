@@ -68,11 +68,18 @@ final class StartLeasingViewController: UIViewController {
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
         let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
-        vc.input = order
+        vc.order = order
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+//MARK: - StartLeasingDelegate
+extension StartLeasingViewController: StartLeasingDelegate {
+    func startLeasingDidFail(error: Error) {
+        //TODO: need to show error
+    }
+}
 
 //MARK: - Setup
 private extension StartLeasingViewController {

@@ -3299,8 +3299,8 @@
 			isa = PBXGroup;
 			children = (
 				E95B47DD21638B11004D4E39 /* StartLeasing.storyboard */,
-				E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */,
 				E9DB667921A3937300962639 /* Loading */,
+				E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */,
 				E9DB667821A38D7300962639 /* CancelConfirmation */,
 				E9DB666F21A383E900962639 /* Confirmation */,
 				E9DB667021A383F300962639 /* StartLeasing */,
@@ -4735,8 +4735,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9DB667D21A3942600962639 /* StartLeasingLoadingBuilder.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
+				E9DB667D21A3942600962639 /* StartLeasingLoadingBuilder.swift in Sources */,
+				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
 				E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */,
@@ -4752,7 +4753,6 @@
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				04016DFE2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift in Sources */,
-				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,

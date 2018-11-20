@@ -10,11 +10,13 @@ import UIKit
 import RxSwift
 
 
+
 final class StartLeasingLoadingViewController: UIViewController {
 
     @IBOutlet private weak var labelTitle: UILabel!
     
-    var kind: StartLeasing.DTO.Kind!
+    var kind: StartLeasing.Kind!
+    weak var delegate: StartLeasingDelegate?
     
     private let startLeasingInteractor: StartLeasingInteractorProtocol = StartLeasingInteractor()
     private let disposeBag = DisposeBag()
@@ -22,10 +24,7 @@ final class StartLeasingLoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        switch kind {
-            
-        default:
-            break
+//        switch kind {
 //        case .send(let order):
 //            labelTitle.text = Localizable.Waves.Startleasingloading.Label.startLeasing
 //            startLeasing(order: order)
@@ -33,15 +32,23 @@ final class StartLeasingLoadingViewController: UIViewController {
 //        case .cancel:
 //            labelTitle.text = Localizable.Waves.Startleasingloading.Label.cancelLeasing
 //            cancelLeasing()
-        }
+//        }
     }
     
     private func startLeasing(order: StartLeasing.DTO.Order) {
-//        startLeasingInteractor.createOrder(order: order).subscribe(onNext: { (success) in
-//
-//        }, onError: { (error) in
-//
-//        }, onDisposed: disposeBag)
+        
+        startLeasingInteractor.createOrder(order: order).subscribe(onNext: { (success) in
+            
+        }, onError: { [weak self] (error) in
+            self?.delegate?.startLeasingDidFail(error: error)
+            
+            if let vc = self?.navigationController?.viewControllers.first(where: {$0.isKind(of: StartLeasingViewController.classForCoder())}) {
+                self?.navigationController?.popToViewController(vc, animated: true)
+            }
+            else {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func cancelLeasing() {

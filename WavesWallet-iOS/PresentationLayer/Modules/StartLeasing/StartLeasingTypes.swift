@@ -8,20 +8,25 @@
 
 import Foundation
 
-enum StartLeasing {
-    enum DTO {}
+protocol StartLeasingDelegate: AnyObject {
+    func startLeasingDidFail(error: Error)
 }
 
-extension StartLeasing.DTO {
-    
-    struct Order {
-        var recipient: String
-        var amount: Money
-        let fee = GlobalConstants.WavesTransactionFee
-    }
+enum StartLeasing {
     
     enum Kind {
         case send(StartLeasing.DTO.Order)
         case cancel
     }
+    
+    enum DTO {
+        
+        struct Order {
+            var recipient: String
+            var amount: Money
+            let fee = GlobalConstants.WavesTransactionFee
+        }
+       
+    }
 }
+
