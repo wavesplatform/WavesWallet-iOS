@@ -72,7 +72,7 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         case .spamReceive:
             image = Images.tSpamReceive48
         case .spamMassReceived:
-            image = Images.tSpamReceive48
+            image = Images.tSpamMassreceived48
         case .data:
             image = Images.tData48
         case .unrecognisedTransaction:

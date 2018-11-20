@@ -8,6 +8,7 @@
 
 import UIKit
 import Crashlytics
+import RxSwift
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)
@@ -40,16 +41,27 @@ final class SupportViewController: UIViewController {
         Crashlytics.sharedInstance().crash()
     }
 
+    @IBAction func actionClean(_ sender: Any) {
+        let auth = FactoryInteractors.instance.authorization
+        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
+            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
+            try? realm?.write {
+                realm?.deleteAll()
+            }
+            return Observable.just(true)
+        }.subscribe().dispose()
+    }
+
     private func version() -> String {
-        let dictionary = Bundle.main.infoDictionary!
-        let version = dictionary["CFBundleShortVersionString"] as! String
-        return version
+        let dictionary = Bundle.main.infoDictionary
+        let version = dictionary?["CFBundleShortVersionString"] as? String
+        return version ?? ""
     }
 
     private func buildVersion() -> String {
-        let dictionary = Bundle.main.infoDictionary!
-        let build = dictionary["CFBundleVersion"] as! String
-        return build
+        let dictionary = Bundle.main.infoDictionary
+        let build = dictionary?["CFBundleVersion"] as? String
+        return build ?? ""
     }
 }
 

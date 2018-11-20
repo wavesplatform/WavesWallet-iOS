@@ -22,7 +22,14 @@ enum HistoryTypes {
         case activeNow
         case canceled
     }
-    
+
+    enum RefreshData: Equatable {
+        case none
+        case pullToRefresh
+        case refresh
+        case update
+    }
+
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
@@ -30,12 +37,14 @@ enum HistoryTypes {
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
+        var refreshData: RefreshData
     }
     
     enum Event {
         case responseAll([DomainLayer.DTO.SmartTransaction])
         case handlerError(Error)
         case readyView
+        case viewDidDisappear
         case refresh
         case changeFilter(Filter)
         case tapCell(IndexPath)
@@ -53,7 +62,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var isIncludedSentGroup: Bool {
         switch kind {
-        case .sent, .massSent:
+        case .sent, .massSent, .selfTransfer:
             return true
         default:
             return false
@@ -62,7 +71,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var isIncludedReceivedGroup: Bool {
         switch kind {
-        case .spamReceive, .spamMassReceived:
+        case .spamReceive, .spamMassReceived, .massReceived, .receive:
             return true
         default:
             return false
