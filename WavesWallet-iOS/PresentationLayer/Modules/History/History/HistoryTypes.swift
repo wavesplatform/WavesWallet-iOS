@@ -22,7 +22,14 @@ enum HistoryTypes {
         case activeNow
         case canceled
     }
-    
+
+    enum RefreshData: Equatable {
+        case none
+        case pullToRefresh
+        case refresh
+        case update
+    }
+
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
@@ -30,6 +37,7 @@ enum HistoryTypes {
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
+        var refreshData: RefreshData
     }
     
     enum Event {

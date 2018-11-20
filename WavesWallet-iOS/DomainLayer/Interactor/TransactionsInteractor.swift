@@ -357,7 +357,7 @@ fileprivate extension TransactionsInteractor {
         let txs = Observable.just(query.transactions)
         let blockHeight = blockRepositoryRemote.height(accountAddress: query.accountAddress)
 
-        var txsMap: Observable<[String: DomainLayer.DTO.AnyTransaction]> = Observable.just([String: DomainLayer.DTO.AnyTransaction]())
+        let txsMap: Observable<[String: DomainLayer.DTO.AnyTransaction]> = Observable.just([String: DomainLayer.DTO.AnyTransaction]())
 
         return Observable.zip(assets, txs, blockHeight, activeLeasingMap, txsMap)
             .flatMap({ (arg) -> Observable<SmartTransactionData> in
