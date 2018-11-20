@@ -18,7 +18,7 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
 
         let sender = LeaseTransactionSender(recipient: order.recipient,
                                             amount: order.amount.amount,
-                                            fee: GlobalConstants.WavesTransactionFeeAmount)
+                                            fee: order.fee.amount)
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ (wallet) -> Observable<Bool> in

@@ -23,7 +23,8 @@ final class StartLeasingConfirmationViewController: UIViewController {
     @IBOutlet private weak var labelFee: UILabel!
     @IBOutlet private weak var buttonConfirm: HighlightedButton!
     
-    var input: StartLeasing.DTO.Order!
+    var order: StartLeasing.DTO.Order!
+    weak var delegate: StartLeasingDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +53,15 @@ final class StartLeasingConfirmationViewController: UIViewController {
     
     @IBAction private func confirmTapped(_ sender: Any) {
         
-        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .send(input)))
+        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .send(order), delegate: delegate))
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupData() {
         tickerView.update(with: .init(text: GlobalConstants.wavesAssetId, style: .soft))
-        labelAmount.text = input.amount.displayText
-        labelNodeAddress.text = input.recipient
-        labelFee.text = input.fee.displayText
+        labelAmount.text = order.amount.displayText
+        labelNodeAddress.text = order.recipient
+        labelFee.text = order.fee.displayText
     }
     
     private func setupLocalization() {

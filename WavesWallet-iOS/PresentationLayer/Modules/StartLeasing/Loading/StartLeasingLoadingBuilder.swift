@@ -12,13 +12,16 @@ import UIKit
 struct StartLeasingLoadingBuilder: ModuleBuilder {
     
     struct Input {
-        let kind: StartLeasing.DTO.Kind
+        let kind: StartLeasing.Kind
+        let delegate: StartLeasingDelegate?
     }
     
     func build(input: StartLeasingLoadingBuilder.Input) -> UIViewController {
         
         let vc = StoryboardScene.StartLeasing.startLeasingLoadingViewController.instantiate()
         vc.kind = input.kind
+        vc.delegate = input.delegate
+        
         return vc
     }
 }
