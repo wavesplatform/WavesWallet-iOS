@@ -200,6 +200,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             comment = model.description
             sign = .minus
+            asset = model.asset
             
             kindRows.append(
                 .keyValue(
@@ -211,6 +212,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .createdAlias(let model):
             customTitle = model
+            
         case .canceledLeasing(let model):
             balance = model.balance
             asset = model.asset
@@ -279,8 +281,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             asset = model.asset
             sign = .plus
-            isSpam = true
-            
+
             kindRows.append(
                 .recipient(
                 .init(
@@ -295,7 +296,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.myTotal
             asset = model.asset
             sign = .plus
-            isSpam = true
+
             
             for element in model.transfers.enumerated() {
                 let transfer = element.element
@@ -317,7 +318,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .unrecognisedTransaction:
             break
         }
-        
+
+        isSpam = asset?.isSpam ?? false
         // general
         
         rows.append(

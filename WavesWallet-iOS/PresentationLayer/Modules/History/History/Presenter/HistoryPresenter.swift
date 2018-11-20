@@ -49,16 +49,13 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             }
 
             return state.refreshData
-        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in
-            print("Begin")
+        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in            
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
                 .map { .responseAll($0) }                
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) }).do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
-                    print("END")
-                })
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
 
@@ -72,9 +69,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            if state.refreshData == .refresh {
-                state.refreshData = .refresh
-            }
+            state.refreshData = .refresh
             state.isAppeared = true
 
         case .viewDidDisappear:
@@ -120,7 +115,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.isRefreshing = false
 
         case .responseAll(let response):
-            print("PIZDA")
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             state.transactions = response
             state.sections = sections

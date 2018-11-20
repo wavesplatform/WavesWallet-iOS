@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>819</string>
+	<string>821</string>
 	<key>CFBundleзShortVersionString</key>
 	<string>2.0</string>
 	<key>Fabric</key>
@@ -51,6 +51,11 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>The camera is needed to scan QR codes</string>
 	<key>UILaunchStoryboardName</key>
