@@ -52,6 +52,7 @@ final class SendViewController: UIViewController {
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var wavesAsset: DomainLayer.DTO.AssetBalance?
     private var moneroAddress: String = ""
+    private var isLoadingAssetBalanceAfterScan = false
     
     var availableBalance: Money {
         
@@ -224,6 +225,16 @@ private extension SendViewController {
                 }
                 
                 switch state.action {
+                
+                case .didGetAssetBalance(let assetBalance):
+                    
+                    strongSelf.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
+                
+                    if let asset = assetBalance {
+                        strongSelf.setupAssetInfo(asset)
+                        strongSelf.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+                    }
+                    
                 case .didFailInfo(let error):
                     
                     //TODO: need to show error when in come from server
@@ -243,6 +254,8 @@ private extension SendViewController {
                     strongSelf.updateAmountError(animation: true)
                     
                 case .didFailGenerateMoneroAddress(let error):
+                    
+                    //TODO: need to show error when in come from server
                     strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()
@@ -296,20 +309,19 @@ extension SendViewController: AssetSelectViewDelegate {
     }
 }
 
-//MARK: - UI
+//MARK: - Data
 private extension SendViewController {
-    
     var inputAmountValues: [Money] {
         
         var values: [Money] = []
         if availableBalance.amount > 0 {
-
+            
             values.append(availableBalance)
-
+            
             let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n10 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n50 = Decimal(availableBalance.amount) * (Decimal(Constants.percent50) / 100.0)
-
+            
             values.append(Money(n50.int64Value, availableBalance.decimals))
             values.append(Money(n10.int64Value, availableBalance.decimals))
             values.append(Money(n5.int64Value, availableBalance.decimals))
@@ -319,7 +331,7 @@ private extension SendViewController {
     }
     
     func updateAmountData() {
-    
+        
         var fields: [String] = []
         
         if availableBalance.amount > 0 {
@@ -330,6 +342,23 @@ private extension SendViewController {
         }
         
         amountView.update(with: fields)
+    }
+}
+
+//MARK: - UI
+private extension SendViewController {
+
+    func showLoadingAssetState() {
+        isLoadingAssetBalanceAfterScan = true
+        setupButtonState()
+        assetView.showLoadingState()
+    }
+    
+    func hideLoadingAssetState(isLoadAsset: Bool) {
+     
+        assetView.hideLoadingState(isLoadAsset: isLoadAsset)
+        isLoadingAssetBalanceAfterScan = false
+        setupButtonState()
     }
     
     func updateAmountError(animation: Bool) {
@@ -405,7 +434,8 @@ private extension SendViewController {
             isValidAmount &&
             (amount?.amount ?? 0) > 0 &&
             isValidMinMaxGatewayAmount &&
-            isValidPaymentMoneroID
+            isValidPaymentMoneroID &&
+            !isLoadingAssetBalanceAfterScan
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
@@ -523,7 +553,12 @@ extension SendViewController: AddressInputViewDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    func addressInputViewDidScanAddress(_ address: String, amount: Money?) {
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
+        
+        if let asset = assetID, selectedAsset?.assetId != asset, assetView.isSelectedAssetMode {
+            sendEvent.accept(.getAssetById(asset))
+            showLoadingAssetState()
+        }
         
         if let amount = amount {
             self.amount = amount
