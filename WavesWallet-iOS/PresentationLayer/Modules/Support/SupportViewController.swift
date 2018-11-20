@@ -53,15 +53,15 @@ final class SupportViewController: UIViewController {
     }
 
     private func version() -> String {
-        let dictionary = Bundle.main.infoDictionary!
-        let version = dictionary["CFBundleShortVersionString"] as! String
-        return version
+        let dictionary = Bundle.main.infoDictionary
+        let version = dictionary?["CFBundleShortVersionString"] as? String
+        return version ?? ""
     }
 
     private func buildVersion() -> String {
-        let dictionary = Bundle.main.infoDictionary!
-        let build = dictionary["CFBundleVersion"] as! String
-        return build
+        let dictionary = Bundle.main.infoDictionary
+        let build = dictionary?["CFBundleVersion"] as? String
+        return build ?? ""
     }
 }
 

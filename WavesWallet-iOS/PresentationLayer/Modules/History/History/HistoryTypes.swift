@@ -36,6 +36,7 @@ enum HistoryTypes {
         case responseAll([DomainLayer.DTO.SmartTransaction])
         case handlerError(Error)
         case readyView
+        case viewDidDisappear
         case refresh
         case changeFilter(Filter)
         case tapCell(IndexPath)

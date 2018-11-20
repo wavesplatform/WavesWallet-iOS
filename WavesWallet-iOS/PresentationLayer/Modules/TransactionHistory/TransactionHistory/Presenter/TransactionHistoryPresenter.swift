@@ -134,7 +134,8 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
                             rows.append(.recipient(Types.ViewModel.Recipient(kind: recipient.kind,
                                                                              account: newAccount,
-                                                                             amount: recipient.amount)))
+                                                                             amount: recipient.amount,
+                                                                             isHiddenTitle: recipient.isHiddenTitle)))
                         } else {
                             rows.append(row)
                         }

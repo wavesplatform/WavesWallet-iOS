@@ -25,6 +25,7 @@ extension TransactionHistoryTypes.ViewModel {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
         let account: DomainLayer.DTO.Account
         let amount: Money?
+        let isHiddenTitle: Bool
     }
     
     struct KeyValue: Hashable {
@@ -109,7 +110,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .init(
                         kind: transaction.kind,
                         account: model.recipient,
-                        amount: nil)
+                        amount: nil,
+                        isHiddenTitle: false)
                 ))
 
         case .sent(let model):
@@ -123,7 +125,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                     .init(
                         kind: transaction.kind,
                         account: model.recipient,
-                        amount: nil)
+                        amount: nil,
+                        isHiddenTitle: false)
                 ))
             
         case .startedLeasing(let model):
@@ -135,7 +138,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .init(
                     kind: transaction.kind,
                     account: model.account,
-                    amount: nil)
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .exchange(let model):
@@ -216,7 +220,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .init(
                     kind: transaction.kind,
                     account: model.account,
-                    amount: nil)
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .incomingLeasing(let model):
@@ -229,7 +234,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .init(
                     kind: transaction.kind,
                     account: model.account,
-                    amount: nil)
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .massSent(let model):
@@ -238,13 +244,17 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             sign = .minus
             
-            for transfer in model.transfers {
+            for element in model.transfers.enumerated() {
+
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
                  kindRows.append(
                     .recipient(
                     .init(
                         kind: transaction.kind,
                         account: transfer.recipient,
-                        amount: transfer.amount)
+                        amount: transfer.amount,
+                        isHiddenTitle: isHiddenTitle)
                     ))
             }
             
@@ -254,10 +264,14 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             sign = .plus
 
-            for transfer in model.transfers {
+            for element in model.transfers.enumerated() {
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
                 kindRows.append(.recipient(.init(kind: transaction.kind,
                                                  account: transfer.recipient,
-                                                 amount: nil)))
+                                                 amount: nil,
+                                                 isHiddenTitle: isHiddenTitle))
+                )
             }
             
         case .spamReceive(let model):
@@ -272,7 +286,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .init(
                     kind: transaction.kind,
                     account: model.recipient,
-                    amount: nil)
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .spamMassReceived(let model):
@@ -282,13 +297,17 @@ extension TransactionHistoryTypes.ViewModel.Section {
             sign = .plus
             isSpam = true
             
-            for transfer in model.transfers {
+            for element in model.transfers.enumerated() {
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
+
                 kindRows.append(
                     .recipient(
                     .init(
                         kind: transaction.kind,
                         account: transfer.recipient,
-                        amount: transfer.amount)
+                        amount: transfer.amount,
+                        isHiddenTitle: isHiddenTitle)
                     ))
             }
             
