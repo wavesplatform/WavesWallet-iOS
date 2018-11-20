@@ -35,8 +35,13 @@ final class ImportCoordinator: Coordinator {
     // MARK: - Child Controllers
     
     func scannedSeed(_ seed: String) {
-        currentPrivateKeyAccount = PrivateKeyAccount(seedStr: seed)
-        showAccountPassword(currentPrivateKeyAccount!)
+        if seed.utf8.count >= ImportTypes.minimumSeedLength {
+            currentPrivateKeyAccount = PrivateKeyAccount(seedStr: seed)
+            showAccountPassword(currentPrivateKeyAccount!)
+        }
+        else {
+            //TODO: need to show error Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed
+        }
     }
     
     func showQRCodeReader() {

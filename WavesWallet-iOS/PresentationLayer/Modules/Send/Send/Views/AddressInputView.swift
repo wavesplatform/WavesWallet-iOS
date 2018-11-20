@@ -18,7 +18,7 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidSelectAddressBook()
     func addressInputViewDidChangeAddress(_ address: String)
     func addressInputViewDidDeleteAddress()
-    func addressInputViewDidScanAddress(_ address: String, amount: Money?)
+    func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?)
     func addressInputViewDidTapNext()
     func addressInputViewDidEndEditing()
 }
@@ -291,7 +291,9 @@ private extension AddressInputView {
 
                 let address = QRCodeParser.parseAddress(value)
                 self.setupText(address, animation: false)
-                self.delegate?.addressInputViewDidScanAddress(address, amount: QRCodeParser.parseAmount(value, decimals: self.decimals))
+                self.delegate?.addressInputViewDidScanAddress(address,
+                                                              amount: QRCodeParser.parseAmount(value, decimals: self.decimals),
+                                                              assetID: QRCodeParser.parseAssetID(value))
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
