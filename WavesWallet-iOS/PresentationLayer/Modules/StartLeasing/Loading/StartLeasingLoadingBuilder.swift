@@ -12,8 +12,8 @@ import UIKit
 struct StartLeasingLoadingBuilder: ModuleBuilder {
     
     struct Input {
-        let kind: StartLeasing.Kind
-        let delegate: StartLeasingDelegate?
+        let kind: StartLeasingTypes.Kind
+        let delegate: StartLeasingErrorDelegate?
     }
     
     func build(input: StartLeasingLoadingBuilder.Input) -> UIViewController {

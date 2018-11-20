@@ -14,6 +14,12 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
     }
+}
 
+//MARK: - StartLeasingErrorDelegate
 
+extension StartLeasingCancelConfirmationViewController: StartLeasingErrorDelegate {
+    func startLeasingDidFail() {
+        //TODO: need to show error
+    }
 }

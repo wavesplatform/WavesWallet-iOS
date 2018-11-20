@@ -23,8 +23,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     @IBOutlet private weak var labelFee: UILabel!
     @IBOutlet private weak var buttonConfirm: HighlightedButton!
     
-    var order: StartLeasing.DTO.Order!
-    weak var delegate: StartLeasingDelegate?
+    var order: StartLeasingTypes.DTO.Order!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +52,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     
     @IBAction private func confirmTapped(_ sender: Any) {
         
-        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .send(order), delegate: delegate))
+        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .send(order), delegate: self))
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -72,3 +71,9 @@ final class StartLeasingConfirmationViewController: UIViewController {
     }
 }
 
+//MARK: - StartLeasingErrorDelegate
+extension StartLeasingConfirmationViewController: StartLeasingErrorDelegate {
+    func startLeasingDidFail() {
+        //TODO: need to show error
+    }
+}

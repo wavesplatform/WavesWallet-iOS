@@ -3205,6 +3205,13 @@
 			path = Complete;
 			sourceTree = "<group>";
 		};
+		E92FF25121A43B3B00CBFF07 /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Complete;
+			sourceTree = "<group>";
+		};
 		E9310D0A217924B7008BF3EE /* Confirmaion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3299,8 +3306,9 @@
 			isa = PBXGroup;
 			children = (
 				E95B47DD21638B11004D4E39 /* StartLeasing.storyboard */,
-				E9DB667921A3937300962639 /* Loading */,
 				E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */,
+				E92FF25121A43B3B00CBFF07 /* Complete */,
+				E9DB667921A3937300962639 /* Loading */,
 				E9DB667821A38D7300962639 /* CancelConfirmation */,
 				E9DB666F21A383E900962639 /* Confirmation */,
 				E9DB667021A383F300962639 /* StartLeasing */,

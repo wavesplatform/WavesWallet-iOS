@@ -35,11 +35,11 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
     
-    private var order: StartLeasing.DTO.Order!
+    private var order: StartLeasingTypes.DTO.Order!
     
     var totalBalance: Money! {
         didSet {
-            order = StartLeasing.DTO.Order(recipient: "",
+            order = StartLeasingTypes.DTO.Order(recipient: "",
                                            amount: Money(0, totalBalance.decimals))
         }
     }
@@ -69,15 +69,7 @@ final class StartLeasingViewController: UIViewController {
     @IBAction private func startLeaseTapped(_ sender: Any) {
         let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
         vc.order = order
-        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-//MARK: - StartLeasingDelegate
-extension StartLeasingViewController: StartLeasingDelegate {
-    func startLeasingDidFail(error: Error) {
-        //TODO: need to show error
     }
 }
 

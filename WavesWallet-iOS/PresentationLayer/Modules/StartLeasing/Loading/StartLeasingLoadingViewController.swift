@@ -15,8 +15,8 @@ final class StartLeasingLoadingViewController: UIViewController {
 
     @IBOutlet private weak var labelTitle: UILabel!
     
-    var kind: StartLeasing.Kind!
-    weak var delegate: StartLeasingDelegate?
+    var kind: StartLeasingTypes.Kind!
+    weak var delegate: StartLeasingErrorDelegate?
     
     private let startLeasingInteractor: StartLeasingInteractorProtocol = StartLeasingInteractor()
     private let disposeBag = DisposeBag()
@@ -24,30 +24,42 @@ final class StartLeasingLoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-//        switch kind {
-//        case .send(let order):
-//            labelTitle.text = Localizable.Waves.Startleasingloading.Label.startLeasing
-//            startLeasing(order: order)
-//
-//        case .cancel:
-//            labelTitle.text = Localizable.Waves.Startleasingloading.Label.cancelLeasing
-//            cancelLeasing()
-//        }
+        switch kind! {
+        case .send(let order):
+            labelTitle.text = Localizable.Waves.Startleasingloading.Label.startLeasing
+            startLeasing(order: order)
+
+        case .cancel:
+            labelTitle.text = Localizable.Waves.Startleasingloading.Label.cancelLeasing
+            cancelLeasing()
+        }
     }
     
-    private func startLeasing(order: StartLeasing.DTO.Order) {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideTopBarLine()
+        navigationItem.hidesBackButton = true
+        navigationItem.backgroundImage = UIImage()
+    }
+    
+    
+    private func startLeasing(order: StartLeasingTypes.DTO.Order) {
         
-        startLeasingInteractor.createOrder(order: order).subscribe(onNext: { (success) in
+        startLeasingInteractor.createOrder(order: order).subscribe(onNext: { [weak self] (success) in
             
-        }, onError: { [weak self] (error) in
-            self?.delegate?.startLeasingDidFail(error: error)
-            
-            if let vc = self?.navigationController?.viewControllers.first(where: {$0.isKind(of: StartLeasingViewController.classForCoder())}) {
-                self?.navigationController?.popToViewController(vc, animated: true)
+            if success {
+                
             }
             else {
-                self?.navigationController?.popViewController(animated: true)
+                self?.popBackWithFail()
             }
+            
+        }, onError: { [weak self] (error) in
+            self?.popBackWithFail()
         }).disposed(by: disposeBag)
     }
     
@@ -55,4 +67,8 @@ final class StartLeasingLoadingViewController: UIViewController {
         
     }
     
+    private func popBackWithFail() {
+        delegate?.startLeasingDidFail()
+        navigationController?.popViewController(animated: true)
+    }
 }
