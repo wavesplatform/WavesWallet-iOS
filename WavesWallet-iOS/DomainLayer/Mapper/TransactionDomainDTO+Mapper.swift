@@ -117,9 +117,11 @@ extension DomainLayer.DTO.TransferTransaction {
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else {
+            error("MassTransferTransaction Not found Asset ID")
             return nil
         }
         guard let recipient = accounts[self.recipient] else {
+            error("MassTransferTransaction Not found Recipient ID")
             return nil
         }
         guard let sender = accounts[self.sender] else {
@@ -213,12 +215,15 @@ extension DomainLayer.DTO.BurnTransaction {
         let totalHeight: Int64 = metaData.totalHeight
 
         guard let asset = assets[self.assetId] else {
+            error("MassTransferTransaction Not found Asset ID")
             return nil
         }
         guard let sender = accounts[self.sender] else {
+            error("MassTransferTransaction Not found Sender ID")
             return nil
         }
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            error("MassTransferTransaction Not found Waves ID")
             return nil
         }
         let balance = asset.balance(self.amount)
@@ -442,10 +447,12 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else {
+            error("MassTransferTransaction Not found assetId")
             return nil
 
         }
         guard let sender = accounts[self.sender] else {
+            error("MassTransferTransaction not found sender")
             return nil
         }
 
@@ -458,6 +465,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         if isSenderAccount {
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? in
                 guard let recipient = accounts[tx.recipient] else {
+                    error("MassTransferTransaction Not found recipient")
                     return nil
                 }
                 let amount = asset.money(tx.amount)
@@ -474,6 +482,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassReceive.Transfer? in
                 guard let recipient = accounts[tx.recipient] else {
+                    error("MassTransferTransaction Not found recipient")
                     return nil
                 }
                 let amount = asset.money(tx.amount)
@@ -502,6 +511,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         }
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            error("MassTransferTransaction Not found Waves ID")
             return nil
         }
         let feeBalance = wavesAsset.balance(fee)
@@ -625,7 +635,7 @@ extension DomainLayer.DTO.AnyTransaction {
         }
 
         if smartTransaction == nil {
-           debug(self)
+           debug("Not Found TX \(self)")
         }
 
         return smartTransaction
