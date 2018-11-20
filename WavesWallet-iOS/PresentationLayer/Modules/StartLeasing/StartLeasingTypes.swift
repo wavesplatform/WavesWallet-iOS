@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol StartLeasingDelegate: AnyObject {
-    func startLeasingDidFail(error: Error)
+protocol StartLeasingErrorDelegate: AnyObject {
+    func startLeasingDidFail()
 }
 
-enum StartLeasing {
+enum StartLeasingTypes {
     
     enum Kind {
-        case send(StartLeasing.DTO.Order)
+        case send(StartLeasingTypes.DTO.Order)
         case cancel
     }
     
