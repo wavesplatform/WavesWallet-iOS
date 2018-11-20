@@ -32,15 +32,10 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var assetBgView: UIView!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
     
     private var order: StartLeasing.DTO.Order!
-    private var isCreatingOrderState: Bool = false
-    
-    var presenter: StartLeasingPresenterProtocol!
-    private let sendEvent: PublishRelay<StartLeasing.Event> = PublishRelay<StartLeasing.Event>()
     
     var totalBalance: Money! {
         didSet {
@@ -51,7 +46,7 @@ final class StartLeasingViewController: UIViewController {
     
     private var availableBalance: Money {
         if !totalBalance.isZero {
-            return Money(totalBalance.amount - order.fee, totalBalance.decimals)
+            return Money(totalBalance.amount - order.fee.amount, totalBalance.decimals)
         }
         return totalBalance
     }
@@ -63,7 +58,6 @@ final class StartLeasingViewController: UIViewController {
         createBackButton()
         setupUI()
         setupData()
-        setupFeedBack()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,57 +67,9 @@ final class StartLeasingViewController: UIViewController {
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
-        sendEvent.accept(.createOrder)
-    }
-}
-
-
-//MARK: - FeedBack
-private extension StartLeasingViewController {
-    
-    func setupFeedBack() {
-        
-        let feedback = bind(self) { owner, state -> Bindings<StartLeasing.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
-        }
-        
-        presenter.system(feedbacks: [feedback])
-    }
-    
-    func events() -> [Signal<StartLeasing.Event>] {
-        return [sendEvent.asSignal()]
-    }
-    
-    func subscriptions(state: Driver<StartLeasing.State>) -> [Disposable] {
-        let subscriptionSections = state
-            .drive(onNext: { [weak self] state in
-                
-                guard let strongSelf = self else { return }
-                switch state.action {
-                case .none:
-                    return
-                default:
-                    break
-                }
-                
-                switch state.action {
-                case .showCreatingOrderState:
-                    strongSelf.setupCreatingOrderState()
-                    
-                case .orderDidFailCreate:
-                    
-                    //TODO: Error
-                    strongSelf.setupDefaultState()
-                    
-                case .orderDidCreate:
-                    strongSelf.navigationController?.popViewController(animated: true)
-                    
-                default:
-                    break
-                }
-            })
-        
-        return [subscriptionSections]
+        let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
+        vc.input = order
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -135,7 +81,6 @@ private extension StartLeasingViewController {
         return order.recipient.count > 0
             && !isNotEnoughAmount
             && order.amount.amount > 0
-            && !isCreatingOrderState
             && (Address.isValidAddress(address: order.recipient) || Address.isValidAlias(alias: order.recipient))
     }
     
@@ -147,7 +92,7 @@ private extension StartLeasingViewController {
         title = Localizable.Waves.Startleasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
         
-        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + GlobalConstants.WavesTransactionFee.displayText + " WAVES"
+        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + order.fee.displayText + " WAVES"
         amountView.setupRightLabelText("WAVES")
     }
     
@@ -216,26 +161,9 @@ private extension StartLeasingViewController {
         buttonStartLease.isUserInteractionEnabled = isValidOrder
         buttonStartLease.backgroundColor = isValidOrder ? .submit400 : .submit200
         
-        let buttonTitle = isCreatingOrderState ? "" : Localizable.Waves.Startleasing.Button.startLease
+        let buttonTitle = Localizable.Waves.Startleasing.Button.startLease
         buttonStartLease.setTitle(buttonTitle, for: .normal)
     }
-
-    func setupDefaultState() {
-        isCreatingOrderState = false
-        setupButtonState()
-        activityIndicator.stopAnimating()
-        view.isUserInteractionEnabled = true
-    }
-    
-    func setupCreatingOrderState() {
-        isCreatingOrderState = true
-        setupButtonState()
-        
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        view.isUserInteractionEnabled = false
-    }
-
 }
 
 //MARK: - StartLeasingAmountViewDelegate
@@ -245,7 +173,6 @@ extension StartLeasingViewController: AmountInputViewDelegate {
         order.amount = value
         setupButtonState()
         amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
-        sendEvent.accept(.updateInputOrder(order))
     }
 }
 
@@ -291,7 +218,6 @@ extension StartLeasingViewController: AddressInputViewDelegate {
         }
         
         setupButtonState()
-        sendEvent.accept(.updateInputOrder(order))
     }
 }
 
@@ -301,7 +227,6 @@ extension StartLeasingViewController: AddressBookModuleOutput {
         order.recipient = contact.address
         addressGeneratorView.setupText(order.recipient, animation: false)
         setupButtonState()
-        sendEvent.accept(.updateInputOrder(order))
         addressGeneratorView.checkIfValidAddress()
     }
 }
