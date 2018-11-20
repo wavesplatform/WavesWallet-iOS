@@ -56,7 +56,7 @@ final class LegalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        okButton.setTitle(Localizable.Waves.Legal.Checkbox.Box.Button.confirm, for: .normal)
+    okButton.setTitle(Localizable.Waves.Legal.Checkbox.Box.Button.confirm, for: .normal)
         titleLabel.text = Localizable.Waves.Legal.Checkbox.Box.title
         subTitleLabel.text = Localizable.Waves.Legal.Checkbox.Box.subtitle
 
@@ -125,7 +125,6 @@ final class LegalViewController: UIViewController {
     }
     
     @IBAction func buttonTap(_ sender: Any) {
-        
         dismiss(animated: true)
         output?.legalConfirm()    
     }
