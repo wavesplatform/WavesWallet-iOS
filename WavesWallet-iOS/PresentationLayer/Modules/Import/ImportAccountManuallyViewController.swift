@@ -14,10 +14,6 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
 }
 
-private enum Constants {
-    static let minimumLength = 25
-}
-
 final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet private weak var textField: MultilineTextField!
@@ -173,7 +169,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     }
     
     func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String? {
-        if value.count > Constants.minimumLength {
+        if value.count > ImportTypes.minimumSeedLength {
             return nil
         } else {
             return ""
