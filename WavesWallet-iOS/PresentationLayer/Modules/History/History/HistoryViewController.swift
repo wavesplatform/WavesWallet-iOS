@@ -149,7 +149,6 @@ private extension HistoryViewController {
             return strongSelf
                 .rx
                 .viewWillAppear
-                .take(1)
                 .map { _ in HistoryTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
@@ -159,7 +158,6 @@ private extension HistoryViewController {
             return strongSelf
                 .rx
                 .viewDidDisappear
-                .take(1)
                 .map { _ in HistoryTypes.Event.viewDidDisappear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }

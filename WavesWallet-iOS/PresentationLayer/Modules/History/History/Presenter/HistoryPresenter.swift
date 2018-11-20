@@ -40,25 +40,25 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-    private func queryAll() -> Feedback {
-        return react(query: { (state) -> Bool? in
 
-            if state.isAppeared == true {
-                if state.isRefreshing {
-                    return false
-                }
-                return true
-            } else {
+    private func queryAll() -> Feedback {
+        return react(query: { (state) -> HistoryTypes.RefreshData? in
+
+            if state.refreshData == .none {
                 return nil
             }
 
+            return state.refreshData
         }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in
+            print("Begin")
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
                 .map { .responseAll($0) }                
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) }).do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
+                    print("END")
+                })
         })
     }
 
@@ -72,6 +72,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
+            if state.refreshData == .refresh {
+                state.refreshData = .refresh
+            }
             state.isAppeared = true
 
         case .viewDidDisappear:
@@ -79,6 +82,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
         case .refresh:
             state.isRefreshing = true
+            state.refreshData = .pullToRefresh
             
         case .tapCell(let indexPath):
             
@@ -116,7 +120,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.isRefreshing = false
 
         case .responseAll(let response):
-
+            print("PIZDA")
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             state.transactions = response
             state.sections = sections

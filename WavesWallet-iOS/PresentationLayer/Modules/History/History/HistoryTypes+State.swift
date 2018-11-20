@@ -50,6 +50,12 @@ extension HistoryTypes.State {
         
         section = HistoryTypes.ViewModel.Section(items: [.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton,.transactionSkeleton])
         
-        return HistoryTypes.State(currentFilter: .all, filters: historyType.filters, transactions: [], sections: [section], isRefreshing: false, isAppeared: false)
+        return HistoryTypes.State(currentFilter: .all,
+                                  filters: historyType.filters,
+                                  transactions: [],
+                                  sections: [section],
+                                  isRefreshing: false,
+                                  isAppeared: false,
+                                  refreshData: .none)
     }
 }
