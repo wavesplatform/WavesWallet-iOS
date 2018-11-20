@@ -117,14 +117,15 @@ extension DomainLayer.DTO.TransferTransaction {
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else {
-            error("MassTransferTransaction Not found Asset ID")
+            error("TransferTransaction Not found Asset ID")
             return nil
         }
         guard let recipient = accounts[self.recipient] else {
-            error("MassTransferTransaction Not found Recipient ID")
+            error("TransferTransaction Not found Recipient ID")
             return nil
         }
         guard let sender = accounts[self.sender] else {
+            error("TransferTransaction Not found Sender ID")
             return nil
         }
 
@@ -153,6 +154,7 @@ extension DomainLayer.DTO.TransferTransaction {
         }
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
+            error("TransferTransaction Not found Waves ID")
             return nil
         }
         let feeBalance = wavesAsset.balance(fee)

@@ -14,8 +14,10 @@ extension DomainLayer.DTO.SmartTransaction.Exchange {
             return order1.timestamp > order2.timestamp ? order1 : order2
         } else if order1.sender.isMyAccount {
             return order1
-        } else {
+        } else if order2.sender.isMyAccount {
             return order2
+        } else {
+            return order1.timestamp > order2.timestamp ? order1 : order2
         }
     }
 }

@@ -72,8 +72,10 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            
             state.isAppeared = true
+
+        case .viewDidDisappear:
+            state.isAppeared = false
 
         case .refresh:
             state.isRefreshing = true
@@ -111,7 +113,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
 
         case .handlerError:
-
             state.isRefreshing = false
 
         case .responseAll(let response):
