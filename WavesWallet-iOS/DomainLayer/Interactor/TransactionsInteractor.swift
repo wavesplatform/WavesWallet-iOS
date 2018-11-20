@@ -302,11 +302,18 @@ fileprivate extension TransactionsInteractor {
                                                                                                     assets: [],
                                                                                                     senders: [],
                                                                                                     types: [TransactionType.lease]))
-                .map { }
+                .flatMap { (txs) -> Observable<[String: DomainLayer.DTO.AnyTransaction]> in
+                    let map = txs.reduce(into: [String: DomainLayer.DTO.AnyTransaction].init(), { (result, tx) in
+                        result[tx.id] = tx
+                    })
+                    return Observable.just(map)
+                }
+        } else {
+            txsMap = Observable.just([String: DomainLayer.DTO.AnyTransaction]())
         }
 
 
-        return Observable.zip(assets, txs, blockHeight, activeLeasingMap, Observable.just(txsMap))
+        return Observable.zip(assets, txs, blockHeight, activeLeasingMap, txsMap)
             .flatMap({ (arg) -> Observable<SmartTransactionData> in
 
                 return accounts.map { (arg.0, arg.1, arg.2, $0, arg.3, arg.4) }

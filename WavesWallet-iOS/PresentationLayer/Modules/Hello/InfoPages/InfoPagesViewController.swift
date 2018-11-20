@@ -264,8 +264,6 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
             return pageView == view
         }) else { return }
         
-        print(index)
-        
         if let model = pageModels[index] as? LongInfoPageView.Model {
              model.scrolledToBottom = true
         }

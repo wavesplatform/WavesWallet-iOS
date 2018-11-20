@@ -59,10 +59,10 @@ final class AssetInteractor: AssetInteractorProtocol {
                 
                 return owner.transactionsInteractor.transactions(by: wallet.address,
                                                                  specifications: .init(page: .init(offset: 0,
-                                                                                            limit: Constants.transactionLimit),
-                                                                                assets: [assetId],
-                                                                                senders: [],
-                                                                                types: TransactionType.all))
+                                                                                                   limit: Constants.transactionLimit),
+                                                                                       assets: [assetId],
+                                                                                       senders: [],
+                                                                                       types: TransactionType.all))
             }
     }
 
