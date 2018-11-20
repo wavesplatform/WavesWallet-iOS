@@ -296,7 +296,7 @@ extension LegalViewController: UIGestureRecognizerDelegate {
             return (thirdLabel.link(at: touch.location(in: thirdLabel)) == nil)
         }
         
-        return true
+        return false
         
     }
     
