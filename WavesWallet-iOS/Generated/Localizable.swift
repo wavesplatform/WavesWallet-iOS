@@ -1817,6 +1817,33 @@ internal enum Localizable {
       }
     }
 
+    internal enum Startleasingconfirmation {
+
+      internal enum Button {
+        /// Confirm
+        internal static var confirm: String { return Localizable.tr("Waves", "startleasingconfirmation.button.confirm") }
+      }
+
+      internal enum Label {
+        /// Confirmation
+        internal static var confirmation: String { return Localizable.tr("Waves", "startleasingconfirmation.label.confirmation") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "startleasingconfirmation.label.fee") }
+        /// Node address
+        internal static var nodeAddress: String { return Localizable.tr("Waves", "startleasingconfirmation.label.nodeAddress") }
+      }
+    }
+
+    internal enum Startleasingloading {
+
+      internal enum Label {
+        /// Cancel leasing...
+        internal static var cancelLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.cancelLeasing") }
+        /// Start leasing...
+        internal static var startLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.startLeasing") }
+      }
+    }
+
     internal enum Tokenburn {
 
       internal enum Button {

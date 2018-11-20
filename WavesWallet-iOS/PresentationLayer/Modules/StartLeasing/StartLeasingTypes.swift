@@ -10,26 +10,6 @@ import Foundation
 
 enum StartLeasing {
     enum DTO {}
-    
-    enum Event {
-        case createOrder
-        case orderDidCreate
-        case updateInputOrder(DTO.Order)
-        case handlerError
-    }
-    
-    struct State: Mutating {
-        enum Action {
-            case none
-            case showCreatingOrderState
-            case orderDidFailCreate
-            case orderDidCreate
-        }
-        
-        var isNeedCreateOrder: Bool
-        var order: DTO.Order?
-        var action: Action
-    }
 }
 
 extension StartLeasing.DTO {
@@ -37,6 +17,11 @@ extension StartLeasing.DTO {
     struct Order {
         var recipient: String
         var amount: Money
-        let fee = GlobalConstants.WavesTransactionFee.amount
+        let fee = GlobalConstants.WavesTransactionFee
+    }
+    
+    enum Kind {
+        case send(StartLeasing.DTO.Order)
+        case cancel
     }
 }

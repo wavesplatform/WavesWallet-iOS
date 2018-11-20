@@ -797,6 +797,13 @@
 
 "sendloading.label.sending" = "Sending...";
 
+"startleasingconfirmation.label.confirmation" = "Confirmation";
+"startleasingconfirmation.label.nodeAddress" = "Node address";
+"startleasingconfirmation.label.fee" = "Fee";
+"startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+
 "startleasing.button.chooseFromAddressBook" = "Choose from Address book";
 
 "startleasing.button.startLease" = "Start Lease";
