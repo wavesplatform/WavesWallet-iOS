@@ -19,6 +19,17 @@ private enum Constasts {
 final class SendInteractor: SendInteractorProtocol {
     
     private let disposeBag = DisposeBag()
+    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+
+    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?> {
+        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<DomainLayer.DTO.AssetBalance?>  in
+            
+            if let asset = balances.first(where: {$0.assetId == assetID}) {
+                return Observable.just(asset)
+            }
+            return Observable.just(nil)
+        })
+    }
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance> {
         

@@ -11,6 +11,7 @@ import RxSwift
 
 protocol SendInteractorProtocol {
     
+    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?>
     func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance>
     func generateMoneroAddress(asset: DomainLayer.DTO.AssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>>
     func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>>
