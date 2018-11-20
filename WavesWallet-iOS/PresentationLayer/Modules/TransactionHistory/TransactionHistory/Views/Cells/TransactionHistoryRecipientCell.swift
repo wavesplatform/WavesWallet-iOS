@@ -61,7 +61,7 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
             title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
             
         case .massSent:
-            if model.account.contact =! nil {
+            if model.account.contact == nil {
                 title = Localizable.Waves.Transactionhistory.Cell.recipient
             }
 
