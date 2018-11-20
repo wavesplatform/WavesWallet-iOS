@@ -103,7 +103,7 @@ final class AssetDetailCell: UITableViewCell, Reusable {
 extension AssetDetailCell: ViewConfiguration {
 
     func update(with model: AssetTypes.DTO.Asset.Info) {
-
+        
         nameLabel.text = model.name
         idLabel.text = model.id
         issuerLabel.text = model.issuer
@@ -117,7 +117,7 @@ extension AssetDetailCell: ViewConfiguration {
 
         let dateFormatter = DateFormatter.sharedFormatter
         dateFormatter.dateFormat  = Constants.issueDateFormat
-        dateLabel.text = dateFormatter.string(from: Date())
+        dateLabel.text = dateFormatter.string(from: model.issueDate)
 
         if model.isReusable {
             typeLabel.text = Localizable.Waves.Asset.Cell.Assetinfo.Kind.reissuable
