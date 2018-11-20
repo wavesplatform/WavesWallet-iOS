@@ -70,7 +70,7 @@
                                                                     <action selector="firstCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="LoY-IS-WWX"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgh-FA-sit" customClass="TTTAttributedLabel">
+                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgh-FA-sit" customClass="TTTAttributedLabel">
                                                                 <rect key="frame" x="38" y="12" width="257" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                 <nil key="textColor"/>
@@ -105,7 +105,7 @@
                                                                     <action selector="secondCheckboxTap:" destination="p30-Ya-GBz" eventType="touchUpInside" id="6ej-7M-vDQ"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mp-E1-Jum" customClass="TTTAttributedLabel">
+                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I understand that my funds are held securely on this device, not by a company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mp-E1-Jum" customClass="TTTAttributedLabel">
                                                                 <rect key="frame" x="38" y="12" width="257" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                 <nil key="textColor"/>

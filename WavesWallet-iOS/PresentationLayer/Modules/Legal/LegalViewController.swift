@@ -62,8 +62,10 @@ final class LegalViewController: UIViewController {
 
         setupBox()
         addGestureRecognizers()
+        
         setupData()
         fillLabels()
+        
         setupConstraints()
     }
     
@@ -91,10 +93,20 @@ final class LegalViewController: UIViewController {
     }
     
     private func addGestureRecognizers() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(thirdLabelTap(gr:)))
-        gesture.cancelsTouchesInView = false
-        gesture.delegate = self
-        thirdLabel.addGestureRecognizer(gesture)
+        let firstGesture = UITapGestureRecognizer(target: self, action: #selector(firstCheckboxTap(_:)))
+        firstGesture.cancelsTouchesInView = false
+        firstGesture.delegate = self
+        firstLabel.addGestureRecognizer(firstGesture)
+        
+        let secondGesture = UITapGestureRecognizer(target: self, action: #selector(secondCheckboxTap(_:)))
+        secondGesture.cancelsTouchesInView = false
+        secondGesture.delegate = self
+        secondLabel.addGestureRecognizer(secondGesture)
+        
+        let thirdGesture = UITapGestureRecognizer(target: self, action: #selector(thirdCheckboxTap(_:)))
+        thirdGesture.cancelsTouchesInView = false
+        thirdGesture.delegate = self
+        thirdLabel.addGestureRecognizer(thirdGesture)
     }
     
     // MARK: - Actions
@@ -120,10 +132,6 @@ final class LegalViewController: UIViewController {
         updateButton()
     }
     
-    @objc func thirdLabelTap(gr: UITapGestureRecognizer) {
-        thirdCheckboxTap(self)
-    }
-    
     @IBAction func buttonTap(_ sender: Any) {
         dismiss(animated: true)
         output?.legalConfirm()    
@@ -139,7 +147,6 @@ final class LegalViewController: UIViewController {
         secondLabel.linkAttributes = linkAttributes()
         firstLabel.activeLinkAttributes = linkAttributes()
         firstLabel.linkAttributes = linkAttributes()
-
 
         let firstCount = firstLabel.attributedText.string.count
         let secondCount = secondLabel.attributedText.string.count
