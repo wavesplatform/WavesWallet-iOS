@@ -31,15 +31,17 @@
 
 "addAddressbook.label.name" = "이름";
 
+"addAddressbook.textfield.address.error.addressexist" = "Bereits in Benutzung";
+
 "addressbook.label.addressBook" = "주소록";
 
 "addressbook.label.addressDeleted" = "주소 삭제 완료";
 
-"addressbook.label.noInfo" = "아무것도 없습니다...\n신규 주소를 생성할 수 있습니다";
+"addressbook.label.noInfo" = "아무것도 없습니다... \n신규 주소를 생성할 수 있습니다";
 
 "addresseskeys.cell.address.title" = "귀하의 주소";
 
-"addresseskeys.cell.aliases.subtitle.withaliaces" = "%d 를 가지고 있습니다";
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "%d 개를 가지고 있습니다";
 
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "가지고 있지 않습니다";
 
@@ -77,6 +79,10 @@
 
 "aliaseswithout.view.info.label.title" = "Alias를 가지고 있지 않습니다";
 
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+
+"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+
 "asset.cell.assetInfo.description" = "설명";
 
 "asset.cell.assetInfo.id" = "ID";
@@ -89,11 +95,13 @@
 
 "asset.cell.assetInfo.kind.reissuable" = "재발행 가능";
 
-"asset.cell.assetInfo.kind.title" = "유형";
+"asset.cell.assetInfo.kind.title" = "재발행 여부";
 
 "asset.cell.assetInfo.name" = "이름";
 
 "asset.cell.assetInfo.title" = "자산 정보";
+
+"asset.cell.assetInfo.totalAmount" = "Total amount";
 
 "asset.cell.balance.avaliableBalance" = "사용 가능 잔액";
 
@@ -107,7 +115,7 @@
 
 "asset.cell.balance.leased" = "Lease된 수량";
 
-"asset.cell.balance.totalBalance" = "총수량";
+"asset.cell.balance.totalBalance" = "총 수량";
 
 "asset.cell.viewHistory" = "내역 보기";
 
@@ -137,11 +145,7 @@
 
 "backup.infobackup.button.iunderstand" = "이해했습니다";
 
-"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다.
-
-이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오.
-
-공식 Waves 클라이언트만 사용하세요.";
+"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다. \n\n이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오. \n\n공식 Waves 클라이언트만 사용하세요.";
 
 "backup.infobackup.label.title" = "백업 구절을 매우 신중히 다루세요!";
 
@@ -155,13 +159,17 @@
 
 "backup.savebackup.copy.label.title" = "이 15 단어를 반드시 메모하거나 저장하세요";
 
-"backup.savebackup.label.title" = "귀하의 자산은 당신만 통제할 수 있습니다. 앱이 삭제될 경우를 대비해 반드시 백업 구절을 저장해야 합니다. 원치 않으시면 이전 페이지로 돌아가세요";
+"backup.savebackup.label.title" = "귀하의 자산은 당신만 통제할 수 있습니다. 앱이 삭제될 경우를 대비해 반드시 백업 구절을 저장해야 합니다.";
 
 "backup.savebackup.navigation.title" = "백업 구절 저장";
 
-"backup.savebackup.next.button.title" = "메모하였습니다";
+"backup.savebackup.next.button.title" = "메모했습니다";
 
 "backup.savebackup.next.label.title" = "다음 페이지에서 백업 구절을 승인해야 합니다";
+
+"biometric.readfromkeychain" = "귀하의 트랜잭션을 승인하고 지갑의 프라이빗키를 해독하기 위해 인증해야 합니다.";
+
+"biometric.saveinkeychain" = "암호화된 프라빗키를 보관하기 위해 인증해야 합니다";
 
 "changepassword.button.confirm.title" = "승인";
 
@@ -187,7 +195,7 @@
 
 "chooseaccount.alert.delete.title" = "계정 삭제";
 
-"chooseaccount.label.nothingWallets" = "아무것도 없습니다...\n저장된 계정이 없습니다";
+"chooseaccount.label.nothingWallets" = "아무것도 없습니다... \n저장된 계정이 없습니다";
 
 "chooseaccount.navigation.title" = "계정 선택";
 
@@ -271,6 +279,8 @@
 
 "dexcreateorder.label.notEnough" = "충분하지 않습니다";
 
+"dexcreateorder.label.smallValue" = "값이 너무 작습니다";
+
 "dexcreateorder.label.totalIn" = "총";
 
 "dexinfo.label.amountAsset" = "자산 수량";
@@ -285,7 +295,7 @@
 
 "dexlasttrades.label.amount" = "수량";
 
-"dexlasttrades.label.emptyData" = "아무것도 없습니다...\n거래 내역이 없습니다";
+"dexlasttrades.label.emptyData" = "아무것도 없습니다... \n거래 내역이 없습니다";
 
 "dexlasttrades.label.loadingLastTrades" = "최근 거래 로딩 중...";
 
@@ -309,7 +319,7 @@
 
 "dexlist.label.yesterday" = "어제";
 
-"dexlist.navigationBar.title" = "Dex";
+"dexlist.navigationBar.title" = "DEX";
 
 "dexmarket.label.loadingMarkets" = "마켓 로딩 중...";
 
@@ -323,7 +333,7 @@
 
 "dexmyorders.label.date" = "날짜";
 
-"dexmyorders.label.emptyData" = "아무것도 없습니다…\n주문 내역이 없습니다";
+"dexmyorders.label.emptyData" = "아무것도 없습니다… \n주문 내역이 없습니다";
 
 "dexmyorders.label.loadingLastTrades" = "주문 내역 로딩 중";
 
@@ -331,7 +341,7 @@
 
 "dexmyorders.label.sell" = "매도";
 
-"dexmyorders.label.side" = "사이드";
+"dexmyorders.label.side" = "유형";
 
 "dexmyorders.label.status" = "상태";
 
@@ -353,7 +363,7 @@
 
 "dexorderbook.label.amount" = "수량";
 
-"dexorderbook.label.emptyData" = "아무것도 없습니다...\n호가창이 비어있습니다";
+"dexorderbook.label.emptyData" = "아무것도 없습니다... \n호가창이 비어있습니다";
 
 "dexorderbook.label.lastPrice" = "지정가";
 
@@ -403,6 +413,8 @@
 
 "enter.button.importAccount.detail" = "페어링 코드를 이용하거나 수동으로";
 
+"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+
 "enter.button.importAccount.title" = "계정 불러오기";
 
 "enter.button.signIn.detail" = "저장된 계정으로";
@@ -449,7 +461,7 @@
 
 "hello.page.info.fifth.title" = "피싱공격 예방 방법";
 
-"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다. 🙏\n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다.\n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
+"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다. \n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다. \n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
 
 "hello.page.info.first.title" = "Waves Platform에 오신것을 환영합니다!";
 
@@ -521,10 +533,9 @@
 
 "import.account.button.scan.title" = "페어링 코드 스캔";
 
-"import.account.label.info.step.one.detail" = "설정 > 보안 > 페어링 코드";
+"import.account.label.info.step.one.detail" = "설정 — 보안 — 페어링 코드";
 
-"import.account.label.info.step.one.title" = "웹 또는 Mac/PC를 통해 Waves 클라이언트에 로그인하세요
-https://beta.wavesplatform.com";
+"import.account.label.info.step.one.title" = "Mac 또는 PC를 통해 Waves 클라이언트에 로그인하세요 https://beta.wavesplatform.com";
 
 "import.account.label.info.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요. 카메라로 QR 코드를 스캔하세요.";
 
@@ -546,11 +557,11 @@ https://beta.wavesplatform.com";
 
 "import.scan.button.title" = "페어링 코드 스캔";
 
-"import.scan.label.step.one.title" = "웹 또는 Mac/PC를 이용하여 Waves 클라이언트에 로그인 하세요";
+"import.scan.label.step.one.title" = "웹 또는 Mac, PC를 이용하여 Waves 클라이언트에 로그인 하세요";
 
 "import.scan.label.step.three.title" = "카메라로 코드를 스캔하세요";
 
-"import.scan.label.step.two.detail" = "(설정 > 보안 > 페어링 코드)";
+"import.scan.label.step.two.detail" = "설정 — 보안 — 페어링 코드";
 
 "import.scan.label.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요";
 
@@ -572,11 +583,11 @@ https://beta.wavesplatform.com";
 
 "legal.checkbox.box.termsOfUse" = "이용 약관";
 
-"legal.checkbox.box.third" = "나는 이용약관을 읽었으며 이해하였고 동의합니다";
+"legal.checkbox.box.third" = "나는 본 이용 약관을 읽었으며 이해하고 동의합니다";
 
 "legal.checkbox.box.title" = "완료! 재검토하겠습니다.";
 
-"menu.button.supportwavesplatform" = "Wavesplatform 지원";
+"menu.button.supportwavesplatform" = "Wavesplatform 지원센터";
 
 "menu.button.termsandconditions" = "이용 약관";
 
@@ -604,7 +615,7 @@ https://beta.wavesplatform.com";
 
 "networksettings.button.setdefault.title" = "기본 설정";
 
-"networksettings.label.switchspam.title" = "스팸 필터링 끄기";
+"networksettings.label.switchspam.title" = "스팸 필터링";
 
 "networksettings.navigation.title" = "네트워크";
 
@@ -838,6 +849,68 @@ https://beta.wavesplatform.com";
 
 "startleasing.label.transactionFee" = "트랜잭션 수수료";
 
+"startleasingcomplete.button.okey" = "Okay";
+
+"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+
+"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+
+"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+
+"startleasingconfirmation.button.confirm" = "Confirm";
+
+"startleasingconfirmation.label.TXID" = "TXID";
+
+"startleasingconfirmation.label.confirmation" = "Confirmation";
+
+"startleasingconfirmation.label.fee" = "Fee";
+
+"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+
+"startleasingconfirmation.label.nodeAddress" = "Node address";
+
+"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+
+"startleasingloading.label.startLeasing" = "Start leasing...";
+
+"tokenBurn.button.burn" = "Burn";
+
+"tokenBurn.button.continue" = "Continue";
+
+"tokenBurn.button.okey" = "Okay";
+
+"tokenBurn.button.useTotalBalanace" = "Use total balance";
+
+"tokenBurn.label.confirmation" = "Confirmation";
+
+"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+
+"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
+"tokenBurn.label.fee" = "Fee";
+
+"tokenBurn.label.id" = "ID";
+
+"tokenBurn.label.loading" = "Burn...";
+
+"tokenBurn.label.notReissuable" = "Not reissuable";
+
+"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+
+"tokenBurn.label.reissuable" = "Reissuable";
+
+"tokenBurn.label.tokenBurn" = "Token Burn";
+
+"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+
+"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+
+"tokenBurn.label.type" = "Type";
+
+"tokenBurn.label.youHaveBurned" = "You have burned";
+
 "transactionhistory.button.copied" = "복사 완료";
 
 "transactionhistory.button.copyAllData" = "모든 데이터 복사";
@@ -866,9 +939,11 @@ https://beta.wavesplatform.com";
 
 "transactionhistory.cell.price" = "가격";
 
-"transactionhistory.cell.receivedFrom" = "발신된 주소";
+"transactionhistory.cell.receivedFrom" = "발신한 주소";
 
 "transactionhistory.cell.recipient" = "수신자";
+
+"transactionhistory.cell.recipients" = "Recipients";
 
 "transactionhistory.cell.reissuable" = "재발행 가능";
 
@@ -940,9 +1015,9 @@ https://beta.wavesplatform.com";
 
 "wallet.segmentedControl.leasing" = "Leasing";
 
-"walletsort.button.position" = "포지션";
+"walletsort.button.position" = "편집 완료";
 
-"walletsort.button.visibility" = "가시성";
+"walletsort.button.visibility" = "목록 편집";
 
 "walletsort.navigationBar.title" = "분류";
 
