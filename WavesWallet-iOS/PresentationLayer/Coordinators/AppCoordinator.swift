@@ -56,7 +56,7 @@ final class AppCoordinator: Coordinator {
 
         logInApplication()
 
-        #if DEBUG || ADHOC
+        #if DEBUG || TEST
             addTapGestureForSupportDisplay()
         #endif
     }
@@ -227,7 +227,7 @@ extension AppCoordinator {
     }
 }
 
-#if DEBUG
+#if DEBUG || TEST
 
 // MARK: Support
 extension AppCoordinator {
