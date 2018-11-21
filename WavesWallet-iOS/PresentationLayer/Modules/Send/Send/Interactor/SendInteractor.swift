@@ -178,8 +178,8 @@ private extension SendInteractor {
     
     func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ error: ResponseTypeError?) -> Void) {
         
-        var params = ["currency_from" : asset.gatewayId ?? "",
-                      "currency_to" : asset.wavesId ?? "",
+        var params = ["currency_from" : asset.wavesId ?? "",
+                      "currency_to" : asset.gatewayId ?? "",
                       "wallet_to" : address]
         
         if moneroPaymentID.count > 0 {
