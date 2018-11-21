@@ -15,11 +15,9 @@ final class SweetSnackView: UIView, NibLoadable {
     @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var leftAtIconConstraint: NSLayoutConstraint!
     @IBOutlet private var leftAtSuperviewConstraint: NSLayoutConstraint!
-    @IBOutlet private(set) var iconImageView: UIImageView!
+    @IBOutlet private var iconImageView: UIImageView!
 
     private var isHiddenIcon: Bool = true
-
-    var buttonDidTap: ((UIButton) -> Void)?
     private(set) var model: SweetSnack?
 
     override func updateConstraints() {
@@ -58,7 +56,11 @@ final class SweetSnackView: UIView, NibLoadable {
         setNeedsUpdateConstraints()
     }
 
-    @IBAction func handlerTapButton() {
+    func startAnimationIcon() {
+        // TODO: Animation
+    }
 
+    func stopAnimationIcon() {
+        // TODO: Animation
     }
 }

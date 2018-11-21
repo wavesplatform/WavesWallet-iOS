@@ -58,7 +58,8 @@ final class SupportViewController: UIViewController {
                                     behaviorDismiss: .popToLast,
                                     subtitle: nil,
                                     icon: Images.refresh18White.image,
-                                    didTap: nil)
+                                    isEnabledUserHidden: false,
+                                    action: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 
@@ -68,7 +69,8 @@ final class SupportViewController: UIViewController {
                                     behaviorDismiss: .popToLast,
                                     subtitle: nil,
                                     icon: Images.refresh18White.image,
-                                    didTap: nil)
+                                    isEnabledUserHidden: false,
+                                    action: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 
@@ -78,7 +80,8 @@ final class SupportViewController: UIViewController {
                                     behaviorDismiss: .popToLastWihDuration(1),
                                     subtitle: nil,
                                     icon: nil,
-                                    didTap: nil)
+                                    isEnabledUserHidden: true,
+                                    action: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 
@@ -88,7 +91,8 @@ final class SupportViewController: UIViewController {
                                     behaviorDismiss: .never,
                                     subtitle: "Store your SEED safely, it is the only way to restore your wallet Store your SEED safely, it is the only way to restore your wallet",
                                     icon: Images.warning18White.image,
-                                    didTap: nil)
+                                    isEnabledUserHidden: true,
+                                    action: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 

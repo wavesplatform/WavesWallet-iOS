@@ -12,7 +12,7 @@ protocol SweetSnackIconTransformation {
 
 }
 
-protocol SweetSnackIconAction: AnyObject {
+protocol SweetSnackAction: AnyObject {
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar)
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar)
 }
@@ -31,7 +31,7 @@ struct SweetSnack {
     let subtitle: String?
     let icon: UIImage?
     let isEnabledUserHidden: Bool
-    let action: SweetSnackIconAction?
+    let action: SweetSnackAction?
 }
 
 final class SweetSnackbar: NSObject {
@@ -82,6 +82,7 @@ final class SweetSnackbar: NSObject {
         viewController.view.addSubview(view)
         view.update(model: snack)
 
+        pan.isEnabled = snack.isEnabledUserHidden
         // Setup gesture
         pan.require(toFail: swipe)
         swipe.require(toFail: tap)
@@ -109,7 +110,7 @@ final class SweetSnackbar: NSObject {
             view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
         }) { _ in
 
-            self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: isNewSnack)
+            self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: true)
         }
         return key
     }
@@ -198,7 +199,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
         switch pan.state {
         case .began:
             lastLocation = location
-        case .changed:            
+        case .changed:
             let offset = location.y - (lastLocation?.y ?? location.y)
             var y = view.frame.origin.y + offset            
             y = max(y, minY)
@@ -211,6 +212,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
             percent = min(percent, 1)
             if percent > 0.3 {
                 hideSnack(snack, isNewSnack: false)
+                snack.model.action?.didSwipe(snack: snack.model, view: snack.view, bar: self)
             } else {
                 UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
                     view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
@@ -224,10 +226,25 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
     }
 
     @objc func hanlerSwipeGesture(swipe: UISwipeGestureRecognizer) {
+
+        guard let lastSnack = self.lastSnack else { return }
+        lastSnack.model.action?.didSwipe(snack: lastSnack.model, view: lastSnack.view, bar: self)
+
+        if self.lastSnack?.model.isEnabledUserHidden == false {
+            return
+        }
         hideLastSnack(isNewSnack: false)
     }
 
     @objc func hanlerTapGesture(tap: UITapGestureRecognizer) {
+
+        guard let lastSnack = self.lastSnack else { return }
+        lastSnack.model.action?.didTap(snack: lastSnack.model, view: lastSnack.view, bar: self)
+
+        if self.lastSnack?.model.isEnabledUserHidden == false {
+            return
+        }
+
         hideLastSnack(isNewSnack: false)
     }
 }
