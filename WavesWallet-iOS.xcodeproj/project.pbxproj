@@ -528,6 +528,7 @@
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
+		E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
@@ -1350,6 +1351,7 @@
 		E902ADCE212E1EB8000C289A /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCompleteViewController.swift; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsViewController.swift; sourceTree = "<group>"; };
@@ -3208,6 +3210,7 @@
 		E92FF25121A43B3B00CBFF07 /* Complete */ = {
 			isa = PBXGroup;
 			children = (
+				E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */,
 			);
 			path = Complete;
 			sourceTree = "<group>";
@@ -5055,6 +5058,7 @@
 				F755C1021EAA8319008A938F /* Either.swift in Sources */,
 				0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */,
 				E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */,
+				E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */,
 				0AF922AE212E1234003BA067 /* NSAttributedString+Styles.swift in Sources */,
 				0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */,
 				E9B087F32163886800937644 /* DexLastTradesHeaderView.swift in Sources */,

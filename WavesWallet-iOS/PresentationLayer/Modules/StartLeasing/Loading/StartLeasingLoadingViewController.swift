@@ -29,9 +29,9 @@ final class StartLeasingLoadingViewController: UIViewController {
             labelTitle.text = Localizable.Waves.Startleasingloading.Label.startLeasing
             startLeasing(order: order)
 
-        case .cancel:
+        case .cancel(let cancelOrder):
             labelTitle.text = Localizable.Waves.Startleasingloading.Label.cancelLeasing
-            cancelLeasing()
+            cancelLeasing(cancelOrder: cancelOrder)
         }
     }
     
@@ -46,16 +46,18 @@ final class StartLeasingLoadingViewController: UIViewController {
         navigationItem.backgroundImage = UIImage()
     }
     
-    
     private func startLeasing(order: StartLeasingTypes.DTO.Order) {
-        
         startLeasingInteractor.createOrder(order: order).subscribe(onNext: { [weak self] (success) in
             
+            guard let owner = self else { return }
+            
             if success {
-                
+                let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
+                vc.kind = owner.kind
+                owner.navigationController?.pushViewController(vc, animated: true)
             }
             else {
-                self?.popBackWithFail()
+                owner.popBackWithFail()
             }
             
         }, onError: { [weak self] (error) in
@@ -63,8 +65,21 @@ final class StartLeasingLoadingViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func cancelLeasing() {
+    private func cancelLeasing(cancelOrder: StartLeasingTypes.DTO.CancelOrder) {
+
+        //TODO: need update to real data
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let succuss = true
+            if succuss {
+                let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
+                vc.kind = self.kind
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else {
+                self.popBackWithFail()
+            }
+        }
     }
     
     private func popBackWithFail() {

@@ -799,12 +799,21 @@
 
 "sendloading.label.sending" = "Sending...";
 
+"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+"startleasingconfirmation.label.TXID" = "TXID";
 "startleasingconfirmation.label.confirmation" = "Confirmation";
 "startleasingconfirmation.label.nodeAddress" = "Node address";
 "startleasingconfirmation.label.fee" = "Fee";
 "startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+
 "startleasingloading.label.startLeasing" = "Start leasing...";
 "startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+"startleasingcomplete.button.okey" = "Okay";
 
 "startleasing.button.chooseFromAddressBook" = "Choose from Address book";
 
