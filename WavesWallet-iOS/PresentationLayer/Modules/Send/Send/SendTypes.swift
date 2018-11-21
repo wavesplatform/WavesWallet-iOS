@@ -86,7 +86,7 @@ extension Send.DTO {
             self.senderPrivateKey = senderPrivateKey
             self.isAlias = isAlias
             self.fee = fee
-            self.recipient = isAlias ? GlobalConstants.aliasPrefix + recipient : recipient
+            self.recipient = isAlias ? Environments.current.aliasScheme + recipient : recipient
             self.assetId = assetId
             self.amount = amount
             self.attachment = attachment
@@ -112,7 +112,7 @@ extension Send.DTO.Transaction {
 
     private var recipientBytes: [UInt8] {
         if isAlias {
-            let alias = (recipient as NSString).substring(from: GlobalConstants.aliasPrefix.count)
+            let alias = (recipient as NSString).substring(from: Environments.current.aliasScheme.count)
             return [aliasVersion] +
                 Environments.current.scheme.bytes +
                 alias.arrayWithSize()
