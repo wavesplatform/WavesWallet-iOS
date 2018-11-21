@@ -34,7 +34,7 @@ extension HistoryTypes.ViewModel.Section {
     static private func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
 
         let calendar = NSCalendar.current
-        let sections = transactions.reduce(into: [Date:  [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
+        let sections = transactions.reduce(into: [Date: [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
 
             let components = calendar.dateComponents([.day, .month, .year], from: tx.timestamp)
             let date = calendar.date(from: components) ?? Date()

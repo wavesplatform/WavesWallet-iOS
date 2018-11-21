@@ -1958,6 +1958,8 @@ internal enum Localizable {
         internal static var receivedFrom: String { return Localizable.tr("Waves", "transactionhistory.cell.receivedFrom") }
         /// Recipient
         internal static var recipient: String { return Localizable.tr("Waves", "transactionhistory.cell.recipient") }
+        /// Recipients
+        internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
         /// Sent to

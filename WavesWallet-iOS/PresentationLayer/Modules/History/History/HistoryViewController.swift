@@ -149,13 +149,23 @@ private extension HistoryViewController {
             return strongSelf
                 .rx
                 .viewWillAppear
-                .take(1)
                 .map { _ in HistoryTypes.Event.readyView }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
+
+        let viewDidDisappearFeedback: HistoryPresenter.Feedback = { [weak self] _ in
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .rx
+                .viewDidDisappear
+                .map { _ in HistoryTypes.Event.viewDidDisappear }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+
         
         presenter.system(feedbacks: [feedback,
-                                     readyViewFeedback])
+                                     readyViewFeedback,
+                                     viewDidDisappearFeedback])
         
     }
     
@@ -206,7 +216,7 @@ private extension HistoryViewController {
                 }
                 
                 strongSelf.sections = state.sections
-
+                strongSelf.isRefreshing = state.isRefreshing
                 strongSelf.segmentedControl.segmentedControl.selectedIndex = strongSelf.filters.firstIndex(of: state.currentFilter) ?? 0
 
                 UIView.transition(with: strongSelf.tableView,
@@ -217,14 +227,8 @@ private extension HistoryViewController {
                                     strongSelf.tableView.reloadData()
                                     
                                     
-                }, completion: { _ in
-                    
-                    if (!state.isRefreshing) {
-                        strongSelf.refreshControl.endRefreshing()
-                    }
-                    
-                    strongSelf.isRefreshing = state.isRefreshing
-                    
+                }, completion: { _ in            
+                    strongSelf.refreshControl.endRefreshing()
                 })
                 
         })

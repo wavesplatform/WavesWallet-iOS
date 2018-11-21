@@ -871,6 +871,8 @@
 
 "transactionhistory.cell.recipient" = "Recipient";
 
+"transactionhistory.cell.recipients" = "Recipients";
+
 "transactionhistory.cell.reissuable" = "Reissuable";
 
 "transactionhistory.cell.sentTo" = "Sent to";

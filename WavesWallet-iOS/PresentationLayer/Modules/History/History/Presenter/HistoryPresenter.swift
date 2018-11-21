@@ -40,19 +40,16 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-    private func queryAll() -> Feedback {
-        return react(query: { (state) -> Bool? in
 
-            if state.isAppeared == true {
-                if state.isRefreshing {
-                    return false
-                }
-                return true
-            } else {
+    private func queryAll() -> Feedback {
+        return react(query: { (state) -> HistoryTypes.RefreshData? in
+
+            if state.refreshData == .none {
                 return nil
             }
 
-        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in
+            return state.refreshData
+        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in            
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
@@ -72,11 +69,15 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            
+            state.refreshData = .refresh
             state.isAppeared = true
+
+        case .viewDidDisappear:
+            state.isAppeared = false
 
         case .refresh:
             state.isRefreshing = true
+            state.refreshData = .pullToRefresh
             
         case .tapCell(let indexPath):
             
@@ -111,14 +112,11 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
 
         case .handlerError:
-
             state.isRefreshing = false
 
         case .responseAll(let response):
-
             let sections = HistoryTypes.ViewModel.Section.map(from: response)
             state.transactions = response
-            state.currentFilter = .all
             state.sections = sections
             state.isRefreshing = false
         }
