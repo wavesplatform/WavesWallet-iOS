@@ -8,35 +8,32 @@
 
 import Foundation
 
-enum StartLeasing {
-    enum DTO {}
+protocol StartLeasingErrorDelegate: AnyObject {
+    func startLeasingDidFail()
+}
+
+enum StartLeasingTypes {
     
-    enum Event {
-        case createOrder
-        case orderDidCreate
-        case updateInputOrder(DTO.Order)
-        case handlerError
+    enum Kind {
+        case send(StartLeasingTypes.DTO.Order)
+        case cancel(StartLeasingTypes.DTO.CancelOrder)
     }
     
-    struct State: Mutating {
-        enum Action {
-            case none
-            case showCreatingOrderState
-            case orderDidFailCreate
-            case orderDidCreate
+    enum DTO {
+        
+        struct Order {
+            var recipient: String
+            var amount: Money
+            let fee = GlobalConstants.WavesTransactionFee
         }
         
-        var isNeedCreateOrder: Bool
-        var order: DTO.Order?
-        var action: Action
+        struct CancelOrder {
+            let tx: String
+            let id: String
+            let amount: Money
+            let fee = GlobalConstants.WavesTransactionFee
+        }
+       
     }
 }
 
-extension StartLeasing.DTO {
-    
-    struct Order {
-        var recipient: String
-        var amount: Money
-        let fee = GlobalConstants.WavesTransactionFee.amount
-    }
-}

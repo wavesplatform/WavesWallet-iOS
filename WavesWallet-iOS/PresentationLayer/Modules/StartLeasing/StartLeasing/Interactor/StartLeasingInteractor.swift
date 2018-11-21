@@ -14,11 +14,11 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
-    func createOrder(order: StartLeasing.DTO.Order) -> Observable<Bool> {
+    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<Bool> {
 
         let sender = LeaseTransactionSender(recipient: order.recipient,
                                             amount: order.amount.amount,
-                                            fee: GlobalConstants.WavesTransactionFeeAmount)
+                                            fee: order.fee.amount)
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ (wallet) -> Observable<Bool> in

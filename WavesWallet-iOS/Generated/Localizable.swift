@@ -1822,6 +1822,58 @@ internal enum Localizable {
       }
     }
 
+    internal enum Startleasingcomplete {
+
+      internal enum Button {
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "startleasingcomplete.button.okey") }
+      }
+
+      internal enum Label {
+        /// You have canceled a leasing transaction
+        internal static var youHaveCanceledTransaction: String { return Localizable.tr("Waves", "startleasingcomplete.label.youHaveCanceledTransaction") }
+        /// You have leased %@ %@
+        internal static func youHaveLeased(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "startleasingcomplete.label.youHaveLeased", p1, p2)
+        }
+        /// Your transaction is on way!
+        internal static var yourTransactionIsOnWay: String { return Localizable.tr("Waves", "startleasingcomplete.label.yourTransactionIsOnWay") }
+      }
+    }
+
+    internal enum Startleasingconfirmation {
+
+      internal enum Button {
+        /// Cancel leasing
+        internal static var cancelLeasing: String { return Localizable.tr("Waves", "startleasingconfirmation.button.cancelLeasing") }
+        /// Confirm
+        internal static var confirm: String { return Localizable.tr("Waves", "startleasingconfirmation.button.confirm") }
+      }
+
+      internal enum Label {
+        /// Confirmation
+        internal static var confirmation: String { return Localizable.tr("Waves", "startleasingconfirmation.label.confirmation") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "startleasingconfirmation.label.fee") }
+        /// Leasing TX
+        internal static var leasingTX: String { return Localizable.tr("Waves", "startleasingconfirmation.label.leasingTX") }
+        /// Node address
+        internal static var nodeAddress: String { return Localizable.tr("Waves", "startleasingconfirmation.label.nodeAddress") }
+        /// TXID
+        internal static var txid: String { return Localizable.tr("Waves", "startleasingconfirmation.label.TXID") }
+      }
+    }
+
+    internal enum Startleasingloading {
+
+      internal enum Label {
+        /// Cancel leasing...
+        internal static var cancelLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.cancelLeasing") }
+        /// Start leasing...
+        internal static var startLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.startLeasing") }
+      }
+    }
+
     internal enum Tokenburn {
 
       internal enum Button {
