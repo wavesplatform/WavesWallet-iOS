@@ -13,22 +13,35 @@ final class SweetSnackView: UIView, NibLoadable {
     @IBOutlet private var leftLayout: NSLayoutConstraint!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
-    @IBOutlet private var leftButton: UIButton!
+    @IBOutlet private var leftAtIconConstraint: NSLayoutConstraint!
+    @IBOutlet private var leftAtSuperviewConstraint: NSLayoutConstraint!
+    @IBOutlet private(set) var iconImageView: UIImageView!
+
+    private var isHiddenIcon: Bool = true
 
     var buttonDidTap: ((UIButton) -> Void)?
     private(set) var model: SweetSnack?
 
+    override func updateConstraints() {
+
+        leftAtIconConstraint.isActive = !isHiddenIcon
+        leftAtSuperviewConstraint.isActive = isHiddenIcon
+
+        super.updateConstraints()
+    }
+
     func update(model: SweetSnack) {
         self.model = model
 
+        backgroundColor = model.backgroundColor
         if let icon = model.icon {
-//            leftLayout.constant = 0
-//            leftButton.setImage(icon, for: .normal)
-//            leftButton.isHidden = false
+            isHiddenIcon = false
+            iconImageView.image = icon
+            iconImageView.isHidden = false
         } else {
-//            leftLayout.constant = 16
-//            leftButton.setImage(nil, for: .normal)
-//            leftButton.isHidden = true
+            isHiddenIcon = true
+            iconImageView.image = nil
+            iconImageView.isHidden = true
         }
 
         if model.subtitle != nil {
@@ -46,31 +59,6 @@ final class SweetSnackView: UIView, NibLoadable {
     }
 
     @IBAction func handlerTapButton() {
-        buttonDidTap?(leftButton)
+
     }
 }
-
-//extension SweetSnackView: ViewCalculateHeight {
-//
-//    static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
-//
-////        if let icon = model.icon {
-////            leftLayout.constant = 0
-////            leftButton.setImage(icon, for: .normal)
-////            leftButton.isHidden = false
-////        } else {
-////            leftLayout.constant = 16
-////            leftButton.setImage(nil, for: .normal)
-////            leftButton.isHidden = true
-////        }
-////
-////        if model.subtitle != nil {
-////            titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-////            subtitleLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-////        } else {
-////            titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-////        }
-//
-//    }
-//}
-

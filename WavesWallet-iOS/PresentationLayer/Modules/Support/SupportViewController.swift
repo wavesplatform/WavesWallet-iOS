@@ -54,29 +54,29 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionShowErrorSnack(_ sender: Any) {
         let error = SweetSnack.init(title: "Какая-нибудь лайтовая ошибка",
-                                    backgroundColor: .error400,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(0.94),
                                     behaviorDismiss: .popToLast,
-                                    subtitle: "Test",
-                                    icon: nil,
+                                    subtitle: nil,
+                                    icon: Images.refresh18White.image,
                                     didTap: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 
     @IBAction func actionShowWithoutInternetSnack(_ sender: Any) {
         let error = SweetSnack.init(title: "No connection to the Internet",
-                                    backgroundColor: .black,
+                                    backgroundColor: UIColor.disabled666.withAlphaComponent(0.74),
                                     behaviorDismiss: .popToLast,
-                                    subtitle: "Test",
-                                    icon: nil,
+                                    subtitle: nil,
+                                    icon: Images.refresh18White.image,
                                     didTap: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
 
     @IBAction func actionShowSuccessSnack(_ sender: Any) {
         let error = SweetSnack.init(title: "Успешный вход/успешная операция",
-                                    backgroundColor: .success400,
-                                    behaviorDismiss: .popToLast,
-                                    subtitle: "Test",
+                                    backgroundColor: UIColor.success400.withAlphaComponent(0.94),
+                                    behaviorDismiss: .popToLastWihDuration(1),
+                                    subtitle: nil,
                                     icon: nil,
                                     didTap: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
@@ -84,10 +84,10 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionShowSeedSnack(_ sender: Any) {
         let error = SweetSnack.init(title: "Save your backup phrase (SEED)",
-                                    backgroundColor: .error400,
-                                    behaviorDismiss: .popToLast,
-                                    subtitle: "Store your SEED safely, it is the only way to restore your wallet",
-                                    icon: nil,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(0.94),
+                                    behaviorDismiss: .never,
+                                    subtitle: "Store your SEED safely, it is the only way to restore your wallet Store your SEED safely, it is the only way to restore your wallet",
+                                    icon: Images.warning18White.image,
                                     didTap: nil)
         SweetSnackbar.shared.showSnack(error, on: self)
     }
