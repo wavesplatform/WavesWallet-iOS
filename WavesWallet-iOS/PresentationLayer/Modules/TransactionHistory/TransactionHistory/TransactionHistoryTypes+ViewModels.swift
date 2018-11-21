@@ -88,7 +88,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
     static func map(from transaction: DomainLayer.DTO.SmartTransaction, index: Int, count: Int) -> [TransactionHistoryTypes.ViewModel.Section] {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
-        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = [] // lisichka
+        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         var balance: Balance?
         var comment: String?
