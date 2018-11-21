@@ -119,8 +119,18 @@ private extension AssetListInteractor {
                     return asset.isFiat == false &&
                         asset.isWavesToken == true &&
                         asset.isGateway == false &&
-                        asset.isWaves == false}))
+                        asset.isWaves == false &&
+                        asset.isSpam == false }))
         }
+        
+        if filters.contains(.spam) {
+            
+            filterAssets.append(contentsOf: assets.filter({
+                guard let asset = $0.asset else { return false }
+                
+                return asset.isSpam == true }))
+        }
+        
         _assets.removeAll()
         _assets.append(contentsOf: filterAssets)
     }
