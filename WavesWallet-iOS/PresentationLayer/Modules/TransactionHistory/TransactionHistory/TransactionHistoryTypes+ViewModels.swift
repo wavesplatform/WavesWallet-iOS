@@ -24,6 +24,8 @@ extension TransactionHistoryTypes.ViewModel {
     struct Recipient {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
         let account: DomainLayer.DTO.Account
+        let amount: Money?
+        let isHiddenTitle: Bool
     }
     
     struct KeyValue: Hashable {
@@ -107,7 +109,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: model.recipient)
+                        account: model.recipient,
+                        amount: nil,
+                        isHiddenTitle: false)
                 ))
 
         case .sent(let model):
@@ -120,7 +124,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: model.recipient)
+                        account: model.recipient,
+                        amount: nil,
+                        isHiddenTitle: false)
                 ))
             
         case .startedLeasing(let model):
@@ -131,7 +137,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .exchange(let model):
@@ -192,6 +200,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             comment = model.description
             sign = .minus
+            asset = model.asset
             
             kindRows.append(
                 .keyValue(
@@ -203,6 +212,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .createdAlias(let model):
             customTitle = model
+            
         case .canceledLeasing(let model):
             balance = model.balance
             asset = model.asset
@@ -211,7 +221,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .incomingLeasing(let model):
@@ -223,7 +235,9 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.account)
+                    account: model.account,
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .massSent(let model):
@@ -232,28 +246,34 @@ extension TransactionHistoryTypes.ViewModel.Section {
             asset = model.asset
             sign = .minus
             
-            for transfer in model.transfers {
+            for element in model.transfers.enumerated() {
+
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
                  kindRows.append(
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: transfer.recipient)
+                        account: transfer.recipient,
+                        amount: transfer.amount,
+                        isHiddenTitle: isHiddenTitle)
                     ))
             }
             
         case .massReceived(let model):
             comment = model.attachment
-            balance = model.total
+            balance = model.myTotal
             asset = model.asset
             sign = .plus
 
-            for transfer in model.transfers {
-                kindRows.append(
-                    .recipient(
-                    .init(
-                        kind: transaction.kind,
-                        account: transfer.recipient)
-                    ))
+            for element in model.transfers.enumerated() {
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
+                kindRows.append(.recipient(.init(kind: transaction.kind,
+                                                 account: transfer.recipient,
+                                                 amount: nil,
+                                                 isHiddenTitle: isHiddenTitle))
+                )
             }
             
         case .spamReceive(let model):
@@ -261,28 +281,34 @@ extension TransactionHistoryTypes.ViewModel.Section {
             balance = model.balance
             asset = model.asset
             sign = .plus
-            isSpam = true
-            
+
             kindRows.append(
                 .recipient(
                 .init(
                     kind: transaction.kind,
-                    account: model.recipient)
+                    account: model.recipient,
+                    amount: nil,
+                    isHiddenTitle: false)
                 ))
             
         case .spamMassReceived(let model):
             comment = model.attachment
-            balance = model.total
+            balance = model.myTotal
             asset = model.asset
             sign = .plus
-            isSpam = true
+
             
-            for transfer in model.transfers {
+            for element in model.transfers.enumerated() {
+                let transfer = element.element
+                let isHiddenTitle = element.offset != 0
+
                 kindRows.append(
                     .recipient(
                     .init(
                         kind: transaction.kind,
-                        account: transfer.recipient)
+                        account: transfer.recipient,
+                        amount: transfer.amount,
+                        isHiddenTitle: isHiddenTitle)
                     ))
             }
             
@@ -292,7 +318,8 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .unrecognisedTransaction:
             break
         }
-        
+
+        isSpam = asset?.isSpam ?? false
         // general
         
         rows.append(
@@ -435,7 +462,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                 return .resendButton(.init(type: .cancelLeasing))
             }
             return nil
-        
+
         default:
             break
         }

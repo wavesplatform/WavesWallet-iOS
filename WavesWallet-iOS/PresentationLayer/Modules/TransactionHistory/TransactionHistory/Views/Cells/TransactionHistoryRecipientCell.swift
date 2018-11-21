@@ -15,7 +15,7 @@ private enum Constants {
     
     static let titleFont: UIFont = UIFont.systemFont(ofSize: 13)
     static let nameFont: UIFont = UIFont.systemFont(ofSize: 13)
-    static let addressFont: UIFont = UIFont.systemFont(ofSize: 10)
+    static let keyFont: UIFont = UIFont.systemFont(ofSize: 10)
 }
 
 protocol TransactionHistoryRecipientCellDelegate: class {
@@ -57,11 +57,14 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
         case .incomingLeasing:
             title = Localizable.Waves.Transactionhistory.Cell.from
 
+        case .spamReceive:
+            title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
+            
         case .massSent:
-            title = Localizable.Waves.Transactionhistory.Cell.recipient
+            title = Localizable.Waves.Transactionhistory.Cell.recipients
 
         case .massReceived:
-            title = Localizable.Waves.Transactionhistory.Cell.recipient
+            title = Localizable.Waves.Transactionhistory.Cell.recipients
 
         default:
             title = ""
@@ -83,19 +86,43 @@ extension TransactionHistoryRecipientCell: ViewCalculateHeight {
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.Recipient, width: CGFloat) -> CGFloat {
 
+        var isShort: Bool = false
+        var title: String? = nil
+        var value: String? = nil
+        var key: String? = nil
+
+        if model.isHiddenTitle {
+            title = nil
+        } else {
+            title = TransactionHistoryRecipientCell.title(for: model)
+        }
+
         let name = model.account.contact?.name
         let address = model.account.address
 
-        let titleHeight = title(for: model).maxHeight(font: Constants.titleFont, forWidth: width)
-        
-        let nameLabelText = name ?? address
-        let nameHeight = nameLabelText.maxHeight(font: Constants.nameFont, forWidth: width)
-        
-        let nameToAddressY: CGFloat = (name != nil) ? Constants.nameToAddressY : 0
-        
-        let addressHeight = (name != nil) ? address.maxHeight(font: Constants.addressFont, forWidth: width) : 0
-        
-        let height = Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + addressHeight + Constants.padding.bottom
+        if let name = name {
+            value = name
+        } else {
+            value = address
+        }
+
+        if let amount = model.amount {
+            key = amount.displayTextFull
+        } else if name != nil {
+            key = address
+        } else {
+            key = nil
+        }
+
+        isShort = (key != nil && title != nil)
+
+        let titleHeight = title?.maxHeight(font: Constants.titleFont, forWidth: width) ?? 0
+        let nameHeight = value?.maxHeight(font: Constants.nameFont, forWidth: width) ?? 0
+        let keyHeight = key?.maxHeight(font: Constants.keyFont, forWidth: width) ?? 0
+
+        let nameToAddressY: CGFloat = isShort == false ? Constants.nameToAddressY : 0
+
+        let height = Constants.padding.top + titleHeight + Constants.titleToNameY + nameHeight + nameToAddressY + keyHeight + Constants.padding.bottom
         
         return height
     }
@@ -106,23 +133,49 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
     func update(with model: TransactionHistoryTypes.ViewModel.Recipient) {
 
         self.recipient = model
-        titleLabel.text = TransactionHistoryRecipientCell.title(for: model)
+
+        var isShort: Bool = false
+        var title: String? = nil
+        var value: String? = nil
+        var key: String? = nil
+
+        if model.isHiddenTitle {
+            title = nil
+        } else {
+            title = TransactionHistoryRecipientCell.title(for: model)
+        }
 
         let name = model.account.contact?.name
         let address = model.account.address
 
-        if name != nil {
-            valueLabel.text = name
-            keyLabel.text = address
+        if let name = name {
+            value = name
             contactButton.setImage(Images.editAddressIcon.image, for: .normal)
         } else {
-            valueLabel.text = address
-            keyLabel.text = ""
+            value = address
             contactButton.setImage(Images.addAddressIcon.image, for: .normal)
         }
-        
-        nameToKeyConstraint.constant = name != nil ? Constants.nameToAddressY : 0
-        
+
+        if let amount = model.amount {
+            key = amount.displayTextFull
+        } else if name != nil {
+            key = address
+        } else {
+            key = nil
+        }
+
+        valueLabel.text = value
+        titleLabel.text = title
+        keyLabel.text = key
+
+        isShort = (key != nil && title != nil)
+
+        if isShort {
+            nameToKeyConstraint.constant = 0
+        } else {
+            nameToKeyConstraint.constant = Constants.nameToAddressY
+        }
+
         setNeedsUpdateConstraints()
     }
 }
