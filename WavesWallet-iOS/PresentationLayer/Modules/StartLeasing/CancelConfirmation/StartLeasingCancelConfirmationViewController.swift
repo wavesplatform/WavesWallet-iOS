@@ -8,8 +8,13 @@
 
 import UIKit
 
+private enum Constants {
+    static let cornerRadius: CGFloat = 2
+}
+
 final class StartLeasingCancelConfirmationViewController: UIViewController {
 
+    @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var buttonCancel: HighlightedButton!
     @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var tickerView: TickerView!
@@ -28,6 +33,11 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
         createBackWhiteButton()
         setupLocalization()
         setupData()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        viewContainer.createTopCorners(radius: Constants.cornerRadius)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -1674,13 +1674,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		044D6C8121978A8D003861A2 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		044D6C8421978C8C003861A2 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -4349,7 +4342,6 @@
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
-				044D6C8121978A8D003861A2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
