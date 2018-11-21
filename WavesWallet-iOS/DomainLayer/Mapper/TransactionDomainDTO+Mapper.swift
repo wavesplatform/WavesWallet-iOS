@@ -44,6 +44,14 @@ struct SmartTransactionMetaData {
     let mapTxs: [String: DomainLayer.DTO.AnyTransaction]
 }
 
+private func decodedString(_ string: String?) -> String? {
+    
+    if let string = string {
+        return Base58.decodeToStr(string)
+    }
+    return nil
+}
+
 extension DomainLayer.DTO.UnrecognisedTransaction {
 
     func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
@@ -133,7 +141,7 @@ extension DomainLayer.DTO.TransferTransaction {
         let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
                                                                         asset: asset,
                                                                         recipient: recipient,
-                                                                        attachment: attachment)
+                                                                        attachment: decodedString(attachment))
 
         let transactionDirection = TransactionDirection(sender: sender,
                                                         recipient: recipient)
@@ -477,7 +485,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
             let massTransfer: DomainLayer.DTO.SmartTransaction.MassTransfer = .init(total: totalBalance,
                                                                                     asset: asset,
-                                                                                    attachment: attachment,
+                                                                                    attachment: decodedString(attachment),
                                                                                     transfers: transfers)
             kind = .massSent(massTransfer)
         } else {
@@ -503,7 +511,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
             let massReceive: DomainLayer.DTO.SmartTransaction.MassReceive = .init(total: totalBalance,
                                                                                   myTotal: myTotalBalance,
                                                                                   asset: asset,
-                                                                                  attachment: attachment,
+                                                                                  attachment: decodedString(attachment),
                                                                                   transfers: transfers)
             if asset.isSpam {
                 kind = .spamMassReceived(massReceive)
