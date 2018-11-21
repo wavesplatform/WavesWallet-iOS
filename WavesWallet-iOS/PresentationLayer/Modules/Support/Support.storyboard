@@ -14,7 +14,7 @@
         <scene sceneID="Tp4-rV-NHd">
             <objects>
                 <viewController storyboardIdentifier="SupportViewController" id="KtO-Cy-mSf" customClass="SupportViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="D5F-l1-LOf">
+                    <view key="view" contentMode="scaleToFill" id="D5F-l1-LOf" customClass="B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9CU-iz-QSP">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="907"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="973"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-X0-W7d" userLabel="Info">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -69,7 +69,7 @@
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glg-Dp-B9e">
                                                 <rect key="frame" x="0.0" y="96" width="375" height="50"/>
-                                                <color key="backgroundColor" red="0.73725490199999999" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="RuM-bm-m3f"/>
                                                 </constraints>
@@ -82,7 +82,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-Qa-GJH">
                                                 <rect key="frame" x="0.0" y="162" width="375" height="50"/>
-                                                <color key="backgroundColor" red="0.96470588239999999" green="0.61960784310000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Kqy-Mq-O5w"/>
                                                 </constraints>
@@ -119,12 +119,49 @@
                                                     <constraint firstAttribute="height" constant="80" id="vma-Tk-Ujt"/>
                                                 </constraints>
                                             </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="4wY-4J-WWV">
+                                                <rect key="frame" x="0.0" y="324" width="375" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xX0-CM-TMo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" title="📡 "/>
+                                                        <connections>
+                                                            <action selector="actionShowWithoutInternetSnack:" destination="KtO-Cy-mSf" eventType="touchUpInside" id="rFw-nd-ns9"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mii-Sf-Yg3">
+                                                        <rect key="frame" x="94" y="0.0" width="93.5" height="50"/>
+                                                        <state key="normal" title="❌"/>
+                                                        <connections>
+                                                            <action selector="actionShowErrorSnack:" destination="KtO-Cy-mSf" eventType="touchUpInside" id="bzT-YB-ibB"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ya0-ns-AVP">
+                                                        <rect key="frame" x="187.5" y="0.0" width="94" height="50"/>
+                                                        <state key="normal" title="✅"/>
+                                                        <connections>
+                                                            <action selector="actionShowSuccessSnack:" destination="KtO-Cy-mSf" eventType="touchUpInside" id="e9w-mc-Nxb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYK-hH-qk2">
+                                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="50"/>
+                                                        <state key="normal" title="💾"/>
+                                                        <connections>
+                                                            <action selector="actionShowSuccessSnack:" destination="KtO-Cy-mSf" eventType="touchUpInside" id="qqK-FZ-94L"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="H5q-ai-vcO"/>
+                                                </constraints>
+                                            </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3W5-Qx-C3r">
-                                                <rect key="frame" x="0.0" y="324" width="375" height="487"/>
+                                                <rect key="frame" x="0.0" y="390" width="375" height="487"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-DP-fiR">
-                                                <rect key="frame" x="0.0" y="827" width="375" height="80"/>
+                                                <rect key="frame" x="0.0" y="893" width="375" height="80"/>
                                                 <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="5Mx-tR-9N6"/>
@@ -166,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLa-8W-vdJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="64.799999999999997" y="149.77511244377811"/>
+            <point key="canvasLocation" x="-1006" y="60"/>
         </scene>
     </scenes>
 </document>

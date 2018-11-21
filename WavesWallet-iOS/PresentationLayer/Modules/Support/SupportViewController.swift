@@ -52,6 +52,46 @@ final class SupportViewController: UIViewController {
         }.subscribe().dispose()
     }
 
+    @IBAction func actionShowErrorSnack(_ sender: Any) {
+        let error = SweetSnack.init(title: "Какая-нибудь лайтовая ошибка",
+                                    backgroundColor: .error400,
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: "Test",
+                                    icon: nil,
+                                    didTap: nil)
+        SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @IBAction func actionShowWithoutInternetSnack(_ sender: Any) {
+        let error = SweetSnack.init(title: "No connection to the Internet",
+                                    backgroundColor: .black,
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: "Test",
+                                    icon: nil,
+                                    didTap: nil)
+        SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @IBAction func actionShowSuccessSnack(_ sender: Any) {
+        let error = SweetSnack.init(title: "Успешный вход/успешная операция",
+                                    backgroundColor: .success400,
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: "Test",
+                                    icon: nil,
+                                    didTap: nil)
+        SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @IBAction func actionShowSeedSnack(_ sender: Any) {
+        let error = SweetSnack.init(title: "Save your backup phrase (SEED)",
+                                    backgroundColor: .error400,
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: "Store your SEED safely, it is the only way to restore your wallet",
+                                    icon: nil,
+                                    didTap: nil)
+        SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
     private func version() -> String {
         let dictionary = Bundle.main.infoDictionary
         let version = dictionary?["CFBundleShortVersionString"] as? String
@@ -65,3 +105,6 @@ final class SupportViewController: UIViewController {
     }
 }
 
+
+//
+//S
