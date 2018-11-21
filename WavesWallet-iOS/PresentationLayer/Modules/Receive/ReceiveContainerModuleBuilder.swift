@@ -46,7 +46,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                                                                            selectedAsset: nil,
                                                                            showAllList: showAllList)), state: .cryptoCurrency)
             
-            vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat],
+            vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat, .wavesToken],
                                                                     selectedAsset: nil,
                                                                     showAllList: showAllList)), state: .invoice)
             vc.add(ReceiveCardModuleBuilder().build(), state: .card)
