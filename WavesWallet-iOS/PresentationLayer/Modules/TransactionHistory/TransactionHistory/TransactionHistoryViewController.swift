@@ -58,7 +58,6 @@ final class TransactionHistoryViewController: UIViewController {
     private func setupBackgroundView() {
         backgroundView = UIControl()
         backgroundView.backgroundColor = UIColor.overlayDark
-        backgroundView.addTarget(self, action: #selector(backgroundTap(sender:)), for: .touchUpInside)
         view.addSubview(backgroundView)
     }
     
@@ -104,12 +103,7 @@ final class TransactionHistoryViewController: UIViewController {
     }
     
     // MARK: - Action
-    
-    @objc private func backgroundTap(sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
 
- 
     @objc private func tap(gr: UITapGestureRecognizer) {
         
         switch gr.state {
@@ -117,7 +111,7 @@ final class TransactionHistoryViewController: UIViewController {
             
             let location = gr.location(in: view)
             
-            if location.y > Constants.collectionViewTapY0 && location.y < Constants.collectionViewTapY1 {
+            if location.y < Constants.collectionViewTapY1 {
                 closeSelf()
             }
             

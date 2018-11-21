@@ -32,7 +32,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>827</string>
+	<string>796</string>
+	<key>CFBundleзShortVersionString</key>
+	<string>2.0</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
