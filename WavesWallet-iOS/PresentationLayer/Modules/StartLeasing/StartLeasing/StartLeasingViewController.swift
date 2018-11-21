@@ -67,7 +67,6 @@ final class StartLeasingViewController: UIViewController {
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
-        
         let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
         vc.order = order
         navigationController?.pushViewController(vc, animated: true)

@@ -546,6 +546,7 @@
                         <outlet property="labelTx" destination="T4s-rZ-3l6" id="NFu-XA-lAs"/>
                         <outlet property="labelTxTitle" destination="pPC-ui-Tmv" id="fh7-uM-yLl"/>
                         <outlet property="tickerView" destination="ksw-yf-86t" id="d6c-7r-821"/>
+                        <outlet property="viewContainer" destination="rPM-Ng-BWb" id="OqR-dX-NUA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zNm-QT-QQr" userLabel="First Responder" sceneMemberID="firstResponder"/>
