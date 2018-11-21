@@ -204,6 +204,13 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
 
         case .enter:
+
+            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
+                return coordinator is SlideCoordinator
+            }
+
+            guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
+
             let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
