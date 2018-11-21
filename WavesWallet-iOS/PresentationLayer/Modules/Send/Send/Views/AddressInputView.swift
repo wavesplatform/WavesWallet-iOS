@@ -8,6 +8,9 @@
 
 import UIKit
 import QRCodeReader
+import RxSwift
+import RxCocoa
+
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -44,6 +47,10 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var inputScrollViewHeight: NSLayoutConstraint!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
+    private let disposeBag = DisposeBag()
+    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
+    private let auth = FactoryInteractors.instance.authorization
+
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0
     
@@ -290,10 +297,19 @@ private extension AddressInputView {
             if let value = result?.value {
 
                 let address = QRCodeParser.parseAddress(value)
-                self.setupText(address, animation: false)
-                self.delegate?.addressInputViewDidScanAddress(address,
-                                                              amount: QRCodeParser.parseAmount(value, decimals: self.decimals),
-                                                              assetID: QRCodeParser.parseAssetID(value))
+                let assetID = QRCodeParser.parseAssetID(value)
+                self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
+                    return SharedSequence.just(0)
+                    }.drive(onNext: { (decimals) in
+                        
+                        self.setupText(address, animation: false)
+                        self.delegate?.addressInputViewDidScanAddress(address,
+                                                                      amount: QRCodeParser.parseAmount(value, decimals: decimals),
+                                                                      assetID: assetID)
+
+                      
+                    }).disposed(by: self.disposeBag)
+                
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
@@ -303,5 +319,26 @@ private extension AddressInputView {
         readerVC.modalPresentationStyle = .formSheet
         
         firstAvailableViewController().present(readerVC, animated: true)
+    }
+    
+    func getDecimals(assetID: String?) -> Observable<Int> {
+        if decimals > 0 {
+            return Observable.just(decimals)
+        }
+        
+        guard let assetID = assetID else { return Observable.just(0) }
+        return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
+                .flatMap({[weak self] (assets) -> Observable<Int> in
+                    
+                    guard let owner = self else { return Observable.empty() }
+                    if let asset = assets.first(where: {$0.id == assetID}) {
+                        owner.decimals = asset.precision
+                        return Observable.just(asset.precision)
+                    }
+                    return Observable.just(0)
+                })
+        })
     }
 }
