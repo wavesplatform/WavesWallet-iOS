@@ -85,10 +85,18 @@ extension TransactionHistoryTypes.ViewModel {
 
 extension TransactionHistoryTypes.ViewModel.Section {
     
+    private static func encodedComment(_ string: String?) -> String? {
+
+        if let comment = string {
+            return Base58.decodeToStr(comment)
+        }
+        return string
+    }
+    
     static func map(from transaction: DomainLayer.DTO.SmartTransaction, index: Int, count: Int) -> [TransactionHistoryTypes.ViewModel.Section] {
         
         var rows: [TransactionHistoryTypes.ViewModel.Row] = []
-        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = [] // lisichka
+        var kindRows: [TransactionHistoryTypes.ViewModel.Row] = []
         
         var balance: Balance?
         var comment: String?
@@ -101,7 +109,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         switch transaction.kind {
         case .receive(let model):
             balance = model.balance
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             asset = model.asset
             sign = .plus
             
@@ -116,7 +124,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
 
         case .sent(let model):
             balance = model.balance
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             asset = model.asset
             sign = .minus
 
@@ -165,12 +173,12 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .selfTransfer(let model):
             balance = model.balance
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             asset = model.asset
             
         case .tokenGeneration(let model):
             balance = model.balance
-            comment = model.description
+            comment = encodedComment(model.description)
             asset = model.asset
             
             kindRows.append(
@@ -183,7 +191,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .tokenReissue(let model):
             balance = model.balance
-            comment = model.description
+            comment = encodedComment(model.description)
             sign = .plus
             asset = model.asset
             
@@ -198,7 +206,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             
         case .tokenBurn(let model):
             balance = model.balance
-            comment = model.description
+            comment = encodedComment(model.description)
             sign = .minus
             asset = model.asset
             
@@ -241,7 +249,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 ))
             
         case .massSent(let model):
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             balance = model.total
             asset = model.asset
             sign = .minus
@@ -261,7 +269,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             }
             
         case .massReceived(let model):
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             balance = model.myTotal
             asset = model.asset
             sign = .plus
@@ -277,7 +285,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
             }
             
         case .spamReceive(let model):
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             balance = model.balance
             asset = model.asset
             sign = .plus
@@ -292,7 +300,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                 ))
             
         case .spamMassReceived(let model):
-            comment = model.attachment
+            comment = encodedComment(model.attachment)
             balance = model.myTotal
             asset = model.asset
             sign = .plus
