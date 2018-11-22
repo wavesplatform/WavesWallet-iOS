@@ -30,7 +30,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8R-9z-bG6" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="18" width="568" height="30"/>
+                                            <rect key="frame" x="16" y="18" width="343" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
@@ -46,7 +46,7 @@
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="202" id="YYb-vZ-s0g" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletQuickNoteCell" rowHeight="202" id="YYb-vZ-s0g" customClass="WalletQuickNoteCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="94" width="375" height="202"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YYb-vZ-s0g" id="7b8-Qm-uHN">
@@ -135,7 +135,7 @@
                                             <outlet property="viewContent" destination="hEI-oP-PRf" id="cmi-S7-RNO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTableAssetsCell" rowHeight="76" id="zxf-gt-R6U" customClass="WalletTableAssetsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="296" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zxf-gt-R6U" id="foS-gd-Nwu">
@@ -205,12 +205,6 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akb-TU-oMl">
-                                                            <rect key="frame" x="14" y="20.5" width="48" height="27"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lpf-8A-XFP">
                                                             <rect key="frame" x="123" y="14" width="38.5" height="16"/>
                                                             <subviews>
@@ -238,11 +232,9 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="lpf-8A-XFP" firstAttribute="centerY" secondItem="r81-tr-JyR" secondAttribute="centerY" id="1WS-Yf-P4h"/>
-                                                        <constraint firstItem="Akb-TU-oMl" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="leading" id="1wc-7d-emx"/>
                                                         <constraint firstItem="lpf-8A-XFP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="r81-tr-JyR" secondAttribute="trailing" constant="5" id="3hd-gc-eXn"/>
                                                         <constraint firstItem="wD2-di-h1U" firstAttribute="leading" secondItem="Hb5-de-rI4" secondAttribute="trailing" constant="5" id="6WD-hf-Wgx"/>
                                                         <constraint firstItem="X4B-9r-zK3" firstAttribute="leading" secondItem="r81-tr-JyR" secondAttribute="trailing" constant="3" id="6oh-Gh-RVS"/>
-                                                        <constraint firstItem="Akb-TU-oMl" firstAttribute="centerY" secondItem="13A-1j-MxJ" secondAttribute="centerY" id="ASP-Ra-OAb"/>
                                                         <constraint firstItem="X4B-9r-zK3" firstAttribute="centerY" secondItem="r81-tr-JyR" secondAttribute="centerY" constant="-1" id="BSo-be-lED"/>
                                                         <constraint firstItem="wD2-di-h1U" firstAttribute="centerY" secondItem="Hb5-de-rI4" secondAttribute="centerY" id="CV8-dn-YKa"/>
                                                         <constraint firstItem="13A-1j-MxJ" firstAttribute="leading" secondItem="Bre-o8-ieU" secondAttribute="leading" constant="14" id="EJ6-5Z-mJf"/>
@@ -254,7 +246,6 @@
                                                         <constraint firstItem="30C-GB-dJL" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="leading" id="YgA-0T-m1O"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wD2-di-h1U" secondAttribute="trailing" constant="5" id="a20-vU-IIb"/>
                                                         <constraint firstItem="r81-tr-JyR" firstAttribute="top" secondItem="Bre-o8-ieU" secondAttribute="top" constant="14" id="lia-KL-8H0"/>
-                                                        <constraint firstItem="Akb-TU-oMl" firstAttribute="trailing" secondItem="13A-1j-MxJ" secondAttribute="trailing" id="rlv-Sq-udF"/>
                                                         <constraint firstItem="r81-tr-JyR" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="trailing" constant="8" id="vhR-5j-RXZ"/>
                                                     </constraints>
                                                 </view>
@@ -271,7 +262,7 @@
                                             <outlet property="iconArrow" destination="30C-GB-dJL" id="bar-en-aiy"/>
                                             <outlet property="iconStar" destination="X4B-9r-zK3" id="xQE-nQ-6do"/>
                                             <outlet property="imageIcon" destination="13A-1j-MxJ" id="as8-Im-XXj"/>
-                                            <outlet property="labelCryptoName" destination="Akb-TU-oMl" id="jpg-o5-Oeg"/>
+                                            <outlet property="labelSpam" destination="DRV-2D-YZP" id="FEq-ds-jKZ"/>
                                             <outlet property="labelSubtitle" destination="Hb5-de-rI4" id="S3K-Xk-Jh6"/>
                                             <outlet property="labelTitle" destination="r81-tr-JyR" id="Jgd-Ck-3dV"/>
                                             <outlet property="viewContent" destination="Bre-o8-ieU" id="buG-xf-46O"/>
@@ -279,7 +270,7 @@
                                             <outlet property="viewSpam" destination="lpf-8A-XFP" id="BXh-u9-wr4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" id="Whf-q6-cMJ" userLabel="WalletAssetSkeletonCell" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" id="Whf-q6-cMJ" userLabel="WalletAssetSkeletonCell" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="372" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Whf-q6-cMJ" id="wzV-8e-5DE">
@@ -376,7 +367,7 @@
                                             <outletCollection property="views" destination="EoQ-aJ-Lp6" collectionClass="NSMutableArray" id="tCa-a2-HeR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceSkeletonCell" rowHeight="282" id="WIZ-6T-pHf" userLabel="WalletLeasingBalanceSkeletonCell" customClass="WalletLeasingBalanceSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletLeasingBalanceSkeletonCell" rowHeight="282" id="WIZ-6T-pHf" userLabel="WalletLeasingBalanceSkeletonCell" customClass="WalletLeasingBalanceSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="416" width="375" height="282"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WIZ-6T-pHf" id="hGv-jF-rP4">
@@ -605,11 +596,11 @@
                                         <rect key="frame" x="0.0" y="698" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vJG-r1-UAG" id="iph-aj-DDz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="35.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
                                                     <subviews>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-zx-4bJ" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
                                                             <rect key="frame" x="14" y="13" width="144" height="10"/>
@@ -654,7 +645,7 @@
                                         <rect key="frame" x="0.0" y="742" width="375" height="292"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q4l-dc-88O" id="kfg-x4-slT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="292"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="291.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
@@ -920,7 +911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHv-It-KZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2292" y="-226"/>
+            <point key="canvasLocation" x="-2292" y="-226.23688155922042"/>
         </scene>
         <!--Wallet Sort View Controller-->
         <scene sceneID="cjU-LW-Ws9">
@@ -938,7 +929,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="360" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortFavCell" rowHeight="48" id="c6l-TP-0O9" customClass="WalletSortFavCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortFavCell" rowHeight="48" id="c6l-TP-0O9" customClass="WalletSortFavCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="360" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c6l-TP-0O9" id="p5p-Nm-HJC">
@@ -1006,7 +997,7 @@
                                             <outlet property="viewContent" destination="p5p-Nm-HJC" id="4MV-Kw-jtW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortCell" rowHeight="56" id="rQp-SF-xxg" customClass="WalletSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="76" width="360" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rQp-SF-xxg" id="wpN-Qh-lGr">
@@ -1090,7 +1081,7 @@
                                             <outlet property="viewContent" destination="sOG-r7-BYD" id="3zG-kT-W0z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortSeparatorCell" rowHeight="30" id="uXQ-VZ-aZ7" customClass="WalletSortSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSortSeparatorCell" rowHeight="30" id="uXQ-VZ-aZ7" customClass="WalletSortSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="132" width="360" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uXQ-VZ-aZ7" id="qex-PW-27L">
