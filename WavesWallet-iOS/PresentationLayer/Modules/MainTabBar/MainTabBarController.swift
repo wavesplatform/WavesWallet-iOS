@@ -24,25 +24,21 @@ final class MainTabBarController: UITabBarController {
 
     private let disposeBag = DisposeBag()
 
-    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
-
-    convenience init() {
-        self.init(applicationCoordinator: nil)
-    }
-
-    init(applicationCoordinator: ApplicationCoordinatorProtocol?) {
-        self.applicationCoordinator = applicationCoordinator
-        super.init(nibName: nil, bundle: nil)
-    }
+    weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print(view.frame)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-
+        
         listenerWallet()
 
         walletCoordinator = WalletCoordinator(navigationController: navWallet)
@@ -106,6 +102,8 @@ final class MainTabBarController: UITabBarController {
                 } else {
                     strongSelf.addTabBarBadge()
                 }
+
+
             })
             .disposed(by: disposeBag)
     }
@@ -116,13 +114,21 @@ extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
         if viewController is DUMPVC {
-            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-            vc.moduleOutput = self
-            let popup = PopupViewController()
-            popup.contentHeight = 300
-            popup.present(contentViewController: vc)
+//            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+//            vc.moduleOutput = self
+//            let popup = PopupViewController()
+//            popup.contentHeight = 300
+//            popup.present(contentViewController: vc)
+
+            showWarningSnack(tille: "Test", subtitle: "test11", didTap: {
+
+            }, didSwipe: {
+
+            })
+
             return false
         }
+
         return true
     }
 }

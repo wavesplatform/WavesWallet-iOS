@@ -12,7 +12,7 @@ import RealmSwift
 import RxRealm
 
 private enum Constants {
-    static let stepSize: Float = 0.000000001
+    static let stepSize: Float = 0.1
 }
 
 private extension WalletSort.DTO.Asset {
