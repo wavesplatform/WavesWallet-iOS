@@ -14,6 +14,7 @@ protocol TransactionHistoryGeneralCellDelegate: class {
 }
 
 private enum Constants {
+    static let height: CGFloat = 170
     static let tickerViewContentInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
 }
 
@@ -21,22 +22,15 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 
     weak var delegate: TransactionHistoryGeneralCellDelegate?
     
-    @IBOutlet fileprivate weak var iconImageView: UIImageView!
-    @IBOutlet fileprivate weak var valueLabel: UILabel!
-    @IBOutlet fileprivate weak var currencyLabel: UILabel!
+    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet private weak var valueLabel: UILabel!
+    @IBOutlet private weak var nextButton: UIButton!
+    @IBOutlet private weak var previousButton: UIButton!
+    @IBOutlet private weak var tickerView: TickerView!
+    @IBOutlet private weak var valueLabelXConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var tickerViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var spamTicker: TickerView!
     
-    @IBOutlet fileprivate weak var nextButton: UIButton!
-    @IBOutlet fileprivate weak var previousButton: UIButton!
-    
-    @IBOutlet weak var tickerView: TickerView!
-    
-   @IBOutlet fileprivate weak var valueLabelXConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tickerViewWidthConstraint: NSLayoutConstraint!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
  
     fileprivate func icon(for kind: DomainLayer.DTO.SmartTransaction.Kind) -> UIImage {
         
@@ -102,7 +96,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
             
         } else if let balance = model.balance {
             
-            if let asset = model.asset, balance.currency.ticker == nil, (model.isSpam == false || model.isSpam == nil) {
+            if let asset = model.asset, balance.currency.ticker == nil {
                 
                 valueLabel.attributedText = .styleForBalance(text: balance.displayText(sign: model.sign ?? .none, withoutCurrency: true) + " " + asset.displayName, font: valueLabel.font)
                 
@@ -112,12 +106,11 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
                 
             }
             
-            tickerView.update(with: TickerView.Model(text: balance.currency.ticker ?? "", style: .normal))
+            tickerView.update(with: TickerView.Model(text: balance.currency.ticker ?? "", style: .soft))
             
         }
         
         iconImageView.image = icon(for: model.kind)
-        currencyLabel.text = model.currencyConversion
         nextButton.isHidden = model.canGoForward == false
         previousButton.isHidden = model.canGoBack == false
         
@@ -126,19 +119,18 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
     
     func updateTag(with model: TransactionHistoryTypes.ViewModel.General) {
         
-        if model.isSpam == true {
-            tickerView.update(with: TickerView.Model(text: Localizable.Waves.General.Ticker.Title.spam, style: .soft))
-            tickerView.isHidden = false
-        }
-        
         let tickerSize = tickerView.titleLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
         let tickerInsets = Constants.tickerViewContentInset
         let tickerWidth = tickerSize.width + tickerInsets.left + tickerInsets.right
         
         tickerViewWidthConstraint.constant = tickerWidth
         
-        if model.isSpam == true {
-            tickerView.isHidden = false
+        spamTicker.isHidden = true
+        
+        if model.isSpam {
+            spamTicker.isHidden = false
+            spamTicker.update(with: .init(text: Localizable.Waves.General.Ticker.Title.spam, style: .normal))
+            tickerView.isHidden = true
             valueLabelXConstraint.constant = tickerWidth / -2
         } else if model.balance?.currency.ticker == nil {
             tickerView.isHidden = true
@@ -157,11 +149,7 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
 extension TransactionHistoryGeneralCell: ViewCalculateHeight {
     
     static func viewHeight(model: TransactionHistoryTypes.ViewModel.General, width: CGFloat) -> CGFloat {
-        if model.currencyConversion == nil {
-            return 170
-        }
-        
-        return 192
+        return Constants.height
     }
     
 }

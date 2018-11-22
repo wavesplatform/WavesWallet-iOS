@@ -253,6 +253,14 @@ internal enum StoryboardScene {
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
 
+    internal static let startLeasingCancelConfirmationViewController = SceneType<WavesWallet_iOS.StartLeasingCancelConfirmationViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingCancelConfirmationViewController")
+
+    internal static let startLeasingCompleteViewController = SceneType<WavesWallet_iOS.StartLeasingCompleteViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingCompleteViewController")
+
+    internal static let startLeasingConfirmationViewController = SceneType<WavesWallet_iOS.StartLeasingConfirmationViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingConfirmationViewController")
+
+    internal static let startLeasingLoadingViewController = SceneType<WavesWallet_iOS.StartLeasingLoadingViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingLoadingViewController")
+
     internal static let startLeasingViewController = SceneType<WavesWallet_iOS.StartLeasingViewController>(storyboard: StartLeasing.self, identifier: "StartLeasingViewController")
   }
   internal enum Support: StoryboardType {

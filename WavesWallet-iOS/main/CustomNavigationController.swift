@@ -284,7 +284,10 @@ class CustomNavigationController: UINavigationController {
 extension CustomNavigationController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        if viewControllers.count > 1 {
+            return true
+        }
+        return false
     }
 }
 

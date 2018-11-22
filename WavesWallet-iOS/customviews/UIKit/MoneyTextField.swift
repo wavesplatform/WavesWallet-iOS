@@ -38,7 +38,7 @@ final class MoneyTextField: UITextField {
 
     weak var moneyDelegate: MoneyTextFieldDelegate?
     var isShakeView: Bool = true
-    private var decimals: Int = 0
+    private(set) var decimals: Int = 0
     private var hasSetDecimals = false
     
     var value: Money {
