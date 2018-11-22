@@ -1046,3 +1046,5 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
+
+"general.error.title.noconnectiontotheinternet" = "No connection to the Interne";

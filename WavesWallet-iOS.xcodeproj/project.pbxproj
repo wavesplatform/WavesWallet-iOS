@@ -331,6 +331,11 @@
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
 		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
 		0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */; };
+		0AACD59B21A59E7100B30815 /* SweetSnackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD59821A59E7000B30815 /* SweetSnackbar.swift */; };
+		0AACD59C21A59E7100B30815 /* SweetSnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD59921A59E7000B30815 /* SweetSnackView.swift */; };
+		0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AACD59A21A59E7100B30815 /* SweetSnackView.xib */; };
+		0AACD5A921A6B4C300B30815 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD5A821A6B4C300B30815 /* TimingFunction.swift */; };
+		0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */; };
 		0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */; };
 		0AB63C202170AC880056B17E /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C1F2170AC880056B17E /* RateApp.swift */; };
 		0AB63C222170ADD20056B17E /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */; };
@@ -1145,6 +1150,9 @@
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
+		0AACD59821A59E7000B30815 /* SweetSnackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetSnackbar.swift; sourceTree = "<group>"; };
+		0AACD59921A59E7000B30815 /* SweetSnackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetSnackView.swift; sourceTree = "<group>"; };
+		0AACD59A21A59E7100B30815 /* SweetSnackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SweetSnackView.xib; sourceTree = "<group>"; };
 		0AACD59E21A5BFBE00B30815 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		0AACD59F21A5BFBF00B30815 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Waves.strings"; sourceTree = "<group>"; };
 		0AACD5A021A5C15800B30815 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1155,6 +1163,8 @@
 		0AACD5A521A5C18300B30815 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AACD5A621A5C30A00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AACD5A721A5C30B00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Waves.strings; sourceTree = "<group>"; };
+		0AACD5A821A6B4C300B30815 /* TimingFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
+		0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SweetSnackBack+Factory.swift"; sourceTree = "<group>"; };
 		0AB63C1F2170AC880056B17E /* RateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0AB63C2B2170EBF00056B17E /* Language.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Language.storyboard; sourceTree = "<group>"; };
@@ -2595,6 +2605,16 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		0AACD59721A59E6300B30815 /* SweetSnackbar */ = {
+			isa = PBXGroup;
+			children = (
+				0AACD59821A59E7000B30815 /* SweetSnackbar.swift */,
+				0AACD59921A59E7000B30815 /* SweetSnackView.swift */,
+				0AACD59A21A59E7100B30815 /* SweetSnackView.xib */,
+			);
+			path = SweetSnackbar;
+			sourceTree = "<group>";
+		};
 		0AB63C292170CBF80056B17E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2998,6 +3018,8 @@
 				0A6AC3DB2183C396005D2525 /* PasteboardButton.swift */,
 				0A044417219D850100F837EB /* UIView+TouchInset.swift */,
 				E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */,
+				0AACD5A821A6B4C300B30815 /* TimingFunction.swift */,
+				0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3060,6 +3082,7 @@
 		0AF92281212E1234003BA067 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				0AACD59721A59E6300B30815 /* SweetSnackbar */,
 				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
@@ -4551,6 +4574,7 @@
 				F7E954F11EA8FE0700A804DE /* Assets.xcassets in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */,
+				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
 				E9B086BE2163883000937644 /* AddressBook.storyboard in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
 				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
@@ -4804,6 +4828,7 @@
 				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
+				0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */,
 				E9B087AA2163886800937644 /* DexOrderBookPresenter.swift in Sources */,
 				0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */,
 				0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */,
@@ -5197,6 +5222,7 @@
 				E9B086B32163883000937644 /* AddAddressBookViewController.swift in Sources */,
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
+				0AACD5A921A6B4C300B30815 /* TimingFunction.swift in Sources */,
 				E92E0E5521988435004EF2C5 /* WalletCoordinator.swift in Sources */,
 				E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */,
 				0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */,
@@ -5371,6 +5397,7 @@
 				0AF922CA212E1234003BA067 /* UIViewController+SafeArea.swift in Sources */,
 				0AFA0C7B2174A2300003FE3B /* CheckboxControl.swift in Sources */,
 				0A14E3EA21871B9000EA7E91 /* AliasesAliasCell.swift in Sources */,
+				0AACD59B21A59E7100B30815 /* SweetSnackbar.swift in Sources */,
 				E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */,
 				0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */,
 				0AF921EE212E07B3003BA067 /* AssetModuleBuild.swift in Sources */,
@@ -5440,6 +5467,7 @@
 				0AF922F5212E1234003BA067 /* SegmentedControlScrollView.swift in Sources */,
 				0AF922D5212E1234003BA067 /* DateExtension.swift in Sources */,
 				0A9D6B6A216E1C39006822C5 /* RxSwift+Scheduler.swift in Sources */,
+				0AACD59C21A59E7100B30815 /* SweetSnackView.swift in Sources */,
 				E9B087972163886800937644 /* DexChartConstants.swift in Sources */,
 				0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,
