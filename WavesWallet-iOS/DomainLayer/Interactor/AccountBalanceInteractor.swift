@@ -222,6 +222,8 @@ private extension AccountBalanceInteractor {
 
         var newList = newBalances
         newList.append(contentsOf: oldBalances)
+
+        newList = newList.sorted { $0.settings!.sortLevel < $1.settings!.sortLevel }
         return newList
     }
 }
