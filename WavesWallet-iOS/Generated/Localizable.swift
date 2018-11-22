@@ -2056,6 +2056,8 @@ internal enum Localizable {
         internal static var leased: String { return Localizable.tr("Waves", "wallet.label.leased") }
         /// Leased in
         internal static var leasedIn: String { return Localizable.tr("Waves", "wallet.label.leasedIn") }
+        /// My Asset
+        internal static var myAssets: String { return Localizable.tr("Waves", "wallet.label.myAssets") }
         /// Started Leasing
         internal static var startedLeasing: String { return Localizable.tr("Waves", "wallet.label.startedLeasing") }
         /// Total balance
