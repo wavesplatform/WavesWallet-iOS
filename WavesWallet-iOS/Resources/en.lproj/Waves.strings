@@ -943,6 +943,8 @@
 
 "wallet.segmentedControl.leasing" = "Leasing";
 
+"wallet.label.myAssets" = "My Asset";
+
 "walletsort.button.position" = "Position";
 
 "walletsort.button.visibility" = "Visibility";

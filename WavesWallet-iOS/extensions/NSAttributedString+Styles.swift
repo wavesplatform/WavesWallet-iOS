@@ -20,4 +20,20 @@ extension NSAttributedString {
         }
         return attrString
     }
+    
+    class func styleForMyAssetName(assetName: String, isMyAsset: Bool) -> NSAttributedString {
+        
+        var fullName = assetName
+        let myAssetString = " / \(Localizable.Waves.Wallet.Label.myAssets)"
+        
+        if isMyAsset {
+            fullName.append(myAssetString)
+        }
+        
+        let attrString = NSMutableAttributedString(string: fullName)
+        attrString.setAttributes([NSAttributedStringKey.foregroundColor : UIColor.info500,
+                                NSAttributedStringKey.font : UIFont.systemFont(ofSize: 10)],
+                               range:  (fullName as NSString).range(of: myAssetString))
+        return attrString
+    }
 }
