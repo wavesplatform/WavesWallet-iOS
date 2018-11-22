@@ -641,6 +641,16 @@
 
 "newaccount.textfield.error.passwordnotmatch" = "password not match";
 
+"newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
+
+"newaccount.textfield.error.charactersmaximum" = "%d characters maximum";
+
+"newaccount.textfield.error.doesnotmatch" = "Does not match";
+
+"newaccount.textfield.error.doesnotmatch" = "No avatar selected";
+
+"newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
+
 "passcode.button.forgotPasscode.title" = "Use account password";
 
 "passcode.label.forgotPasscode.title" = "Forgot passcode?";
@@ -1050,3 +1060,5 @@
 "general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
 
 "accountpassword.error.wrongpassword" = "Wrong password";
+
+
