@@ -884,6 +884,14 @@ internal enum Localizable {
         }
       }
 
+      internal enum Error {
+
+        internal enum Title {
+          /// No connection to the Interne
+          internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
+        }
+      }
+
       internal enum Label {
 
         internal enum Title {

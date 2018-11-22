@@ -52,6 +52,33 @@ final class SupportViewController: UIViewController {
         }.subscribe().dispose()
     }
 
+    @IBAction func actionShowErrorSnack(_ sender: Any) {
+
+        showErrorSnack(tille: "Какая-нибудь лайтовая ошибка") {
+            self.showSuccesSnack(tille: "Тебе показалось.")
+        }
+    }
+
+    @IBAction func actionShowWithoutInternetSnack(_ sender: Any) {
+        showWithoutInternetSnack() {
+            print("Привет Вася.")
+        }
+    }
+
+    @IBAction func actionShowSuccessSnack(_ sender: Any) {
+        self.showSuccesSnack(tille: "Успешный вход/успешная операция (≚ᄌ≚)ℒℴѵℯ❤")
+    }
+
+    @IBAction func actionShowSeedSnack(_ sender: Any) {
+
+        showWarningSnack(tille: "Save your backup phrase (SEED)", subtitle: "Store your SEED safely, it is the only way to restore your wallet", didTap: {
+            print("└(=^‥^=)┘")
+        }) {
+            print("ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
+        }
+    }
+
+
     private func version() -> String {
         let dictionary = Bundle.main.infoDictionary
         let version = dictionary?["CFBundleShortVersionString"] as? String
@@ -64,4 +91,3 @@ final class SupportViewController: UIViewController {
         return build ?? ""
     }
 }
-
