@@ -72,7 +72,7 @@ internal enum Localizable {
         internal enum Address {
 
           internal enum Error {
-            /// Address Exist
+            /// Already in use
             internal static var addressexist: String { return Localizable.tr("Waves", "addAddressbook.textfield.address.error.addressexist") }
           }
         }
@@ -327,7 +327,7 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n \n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n \nYou should ONLY use the official Waves client.
+          /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
           internal static var detail: String { return Localizable.tr("Waves", "backup.infobackup.label.detail") }
           /// Treat your backup phrase with care!
           internal static var title: String { return Localizable.tr("Waves", "backup.infobackup.label.title") }
@@ -362,7 +362,7 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// Since only you control your money, you’ll need to save your backup phrase in case this app is deleted or go back
+          /// Since only you control your money, you’ll need to save your backup phrase in case this app is deleted
           internal static var title: String { return Localizable.tr("Waves", "backup.savebackup.label.title") }
         }
 
@@ -666,7 +666,7 @@ internal enum Localizable {
       }
 
       internal enum Navigationbar {
-        /// Dex
+        /// DEX
         internal static var title: String { return Localizable.tr("Waves", "dexlist.navigationBar.title") }
       }
     }
@@ -953,7 +953,7 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety. 🙏\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety. \n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             /// Welcome to the Waves Platform!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
@@ -1080,9 +1080,9 @@ internal enum Localizable {
             internal enum Step {
 
               internal enum One {
-                /// Settings > Security > Pairing code
+                /// Settings — Security — Pairing code
                 internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
-                /// Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com
+                /// Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com
                 internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
               }
 
@@ -1153,7 +1153,7 @@ internal enum Localizable {
           internal enum Step {
 
             internal enum One {
-              /// Log in to your Waves Client via web or Mac/PC
+              /// Log in to your Waves Client via web or Mac, PC
               internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.one.title") }
             }
 
@@ -1163,7 +1163,7 @@ internal enum Localizable {
             }
 
             internal enum Two {
-              /// (Settings > Security > Pairing code)
+              /// Settings — Security — Pairing code
               internal static var detail: String { return Localizable.tr("Waves", "import.scan.label.step.two.detail") }
               /// Click «Show Pairing Code» to reveal a QR Code
               internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.two.title") }
@@ -1302,7 +1302,7 @@ internal enum Localizable {
       internal enum Label {
 
         internal enum Switchspam {
-          /// Switch off spam filtering
+          /// Spam filtering
           internal static var title: String { return Localizable.tr("Waves", "networksettings.label.switchspam.title") }
         }
       }
@@ -1679,6 +1679,14 @@ internal enum Localizable {
       }
     }
 
+    internal enum Receiveinvoice {
+
+      internal enum Label {
+        /// US Dollar
+        internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
+      }
+    }
+
     internal enum Send {
 
       internal enum Button {
@@ -1695,6 +1703,8 @@ internal enum Localizable {
         internal static var addressNotValid: String { return Localizable.tr("Waves", "send.label.addressNotValid") }
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "send.label.amount") }
+        /// US Dollar
+        internal static var dollar: String { return Localizable.tr("Waves", "send.label.dollar") }
         /// Gateway fee is
         internal static var gatewayFee: String { return Localizable.tr("Waves", "send.label.gatewayFee") }
         /// Monero Payment ID
