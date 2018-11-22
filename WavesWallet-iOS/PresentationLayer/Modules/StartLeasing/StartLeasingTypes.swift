@@ -8,35 +8,41 @@
 
 import Foundation
 
-enum StartLeasing {
-    enum DTO {}
+protocol StartLeasingErrorDelegate: AnyObject {
+    func startLeasingDidFail()
+}
+
+protocol StartLeasingModuleOutput: AnyObject {
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind)
+}
+
+enum StartLeasingTypes {
     
-    enum Event {
-        case createOrder
-        case orderDidCreate
-        case updateInputOrder(DTO.Order)
-        case handlerError
+    struct Input {
+        let kind: StartLeasingTypes.Kind
+        let errorDelegate: StartLeasingErrorDelegate?
+        let output: StartLeasingModuleOutput?
     }
     
-    struct State: Mutating {
-        enum Action {
-            case none
-            case showCreatingOrderState
-            case orderDidFailCreate
-            case orderDidCreate
+    enum Kind {
+        case send(StartLeasingTypes.DTO.Order)
+        case cancel(StartLeasingTypes.DTO.CancelOrder)
+    }
+    
+    enum DTO {
+        
+        struct Order {
+            var recipient: String
+            var amount: Money
+            let fee = GlobalConstants.WavesTransactionFee
         }
         
-        var isNeedCreateOrder: Bool
-        var order: DTO.Order?
-        var action: Action
+        struct CancelOrder {
+            let leasingTX: String
+            let amount: Money
+            let fee = GlobalConstants.WavesTransactionFee
+        }
+       
     }
 }
 
-extension StartLeasing.DTO {
-    
-    struct Order {
-        var recipient: String
-        var amount: Money
-        let fee = GlobalConstants.WavesTransactionFee.amount
-    }
-}

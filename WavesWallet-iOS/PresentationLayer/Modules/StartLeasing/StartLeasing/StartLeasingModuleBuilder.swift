@@ -14,16 +14,9 @@ struct StartLeasingModuleBuilder: ModuleBuilderOutput {
     
     func build(input: Money) -> UIViewController {
         
-        let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
-        
-        var presenter: StartLeasingPresenterProtocol = StartLeasingPresenter()
-        presenter.interactor = interactor
-        presenter.moduleOutput = output
-        
         let vc = StoryboardScene.StartLeasing.startLeasingViewController.instantiate()
         vc.totalBalance = input
-        vc.presenter = presenter
-        
+        vc.output = output
         return vc
     }
 }
