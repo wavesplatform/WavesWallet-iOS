@@ -1385,6 +1385,10 @@ internal enum Localizable {
         }
 
         internal enum Error {
+          /// %d characters maximum
+          internal static func (_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.", p1)
+          }
           /// at least %d characters
           internal static func atleastcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.atleastcharacters", p1)

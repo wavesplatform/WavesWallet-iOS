@@ -94,10 +94,14 @@ final class NewAccountViewController: UIViewController {
         accountNameInput.valueValidator = { value in
             if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            } else if (value?.count ?? 0) > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else {
                 return nil
             }
         }
+
+        
 
         passwordInput.valueValidator = { value in
             if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
