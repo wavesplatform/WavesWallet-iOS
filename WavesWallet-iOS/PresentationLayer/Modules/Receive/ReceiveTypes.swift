@@ -28,7 +28,7 @@ extension Receive.DTO {
                 url.append(key + "=" + value)
             }
         }
-        return url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? url
+        return url
     }
 }
 
