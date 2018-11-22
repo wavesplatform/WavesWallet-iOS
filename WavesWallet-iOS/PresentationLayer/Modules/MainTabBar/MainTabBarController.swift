@@ -109,17 +109,11 @@ extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
         if viewController is DUMPVC {
-//            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-//            vc.moduleOutput = self
-//            let popup = PopupViewController()
-//            popup.contentHeight = 300
-//            popup.present(contentViewController: vc)
-
-            showWarningSnack(tille: "Test", subtitle: "test11", didTap: {
-
-            }, didSwipe: {
-
-            })
+            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+            vc.moduleOutput = self
+            let popup = PopupViewController()
+            popup.contentHeight = 300
+            popup.present(contentViewController: vc)
 
             return false
         }
