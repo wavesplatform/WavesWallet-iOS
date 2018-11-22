@@ -334,6 +334,8 @@
 		0AACD59B21A59E7100B30815 /* SweetSnackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD59821A59E7000B30815 /* SweetSnackbar.swift */; };
 		0AACD59C21A59E7100B30815 /* SweetSnackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD59921A59E7000B30815 /* SweetSnackView.swift */; };
 		0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AACD59A21A59E7100B30815 /* SweetSnackView.xib */; };
+		0AACD5A921A6B4C300B30815 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD5A821A6B4C300B30815 /* TimingFunction.swift */; };
+		0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */; };
 		0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */; };
 		0AB63C202170AC880056B17E /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C1F2170AC880056B17E /* RateApp.swift */; };
 		0AB63C222170ADD20056B17E /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */; };
@@ -1161,6 +1163,8 @@
 		0AACD5A521A5C18300B30815 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AACD5A621A5C30A00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AACD5A721A5C30B00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Waves.strings; sourceTree = "<group>"; };
+		0AACD5A821A6B4C300B30815 /* TimingFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
+		0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SweetSnackBack+Factory.swift"; sourceTree = "<group>"; };
 		0AB63C1F2170AC880056B17E /* RateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0AB63C2B2170EBF00056B17E /* Language.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Language.storyboard; sourceTree = "<group>"; };
@@ -3014,6 +3018,8 @@
 				0A6AC3DB2183C396005D2525 /* PasteboardButton.swift */,
 				0A044417219D850100F837EB /* UIView+TouchInset.swift */,
 				E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */,
+				0AACD5A821A6B4C300B30815 /* TimingFunction.swift */,
+				0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -4822,6 +4828,7 @@
 				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
+				0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */,
 				E9B087AA2163886800937644 /* DexOrderBookPresenter.swift in Sources */,
 				0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */,
 				0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */,
@@ -5215,6 +5222,7 @@
 				E9B086B32163883000937644 /* AddAddressBookViewController.swift in Sources */,
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				0A96F1C821518CE5005E148F /* BackupCoordinator.swift in Sources */,
+				0AACD5A921A6B4C300B30815 /* TimingFunction.swift in Sources */,
 				E92E0E5521988435004EF2C5 /* WalletCoordinator.swift in Sources */,
 				E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */,
 				0AD6323921761F350047D467 /* GlobalConstants.swift in Sources */,

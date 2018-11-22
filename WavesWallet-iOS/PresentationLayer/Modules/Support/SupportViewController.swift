@@ -53,48 +53,33 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction func actionShowErrorSnack(_ sender: Any) {
-        let error = SweetSnack.init(title: "Какая-нибудь лайтовая ошибка",
-                                    backgroundColor: UIColor.error400.withAlphaComponent(0.94),
-                                    behaviorDismiss: .popToLast,
-                                    subtitle: nil,
-                                    icon: Images.refresh18White.image,
-                                    isEnabledUserHidden: false,
-                                    action: nil)
-        SweetSnackbar.shared.showSnack(error, on: self)
+
+        showErrorSnack(tille: "Какая-нибудь лайтовая ошибка") {
+            self.showSuccesSnack(tille: "Тебе показалось.")
+        }
     }
 
     @IBAction func actionShowWithoutInternetSnack(_ sender: Any) {
-        let error = SweetSnack.init(title: "No connection to the Internet",
-                                    backgroundColor: UIColor.disabled666.withAlphaComponent(0.74),
-                                    behaviorDismiss: .popToLast,
-                                    subtitle: nil,
-                                    icon: Images.refresh18White.image,
-                                    isEnabledUserHidden: false,
-                                    action: nil)
-        SweetSnackbar.shared.showSnack(error, on: self)
+        showWithoutInternetSnack() {
+            DispatchQueue.main.async {
+                self.showSuccesSnack(tille: "Привет Вася.")
+            }
+        }
     }
 
     @IBAction func actionShowSuccessSnack(_ sender: Any) {
-        let error = SweetSnack.init(title: "Успешный вход/успешная операция",
-                                    backgroundColor: UIColor.success400.withAlphaComponent(0.94),
-                                    behaviorDismiss: .popToLastWihDuration(1),
-                                    subtitle: nil,
-                                    icon: nil,
-                                    isEnabledUserHidden: true,
-                                    action: nil)
-        SweetSnackbar.shared.showSnack(error, on: self)
+        self.showSuccesSnack(tille: "Успешный вход/успешная операция (≚ᄌ≚)ℒℴѵℯ❤")
     }
 
     @IBAction func actionShowSeedSnack(_ sender: Any) {
-        let error = SweetSnack.init(title: "Save your backup phrase (SEED)",
-                                    backgroundColor: UIColor.error400.withAlphaComponent(0.94),
-                                    behaviorDismiss: .never,
-                                    subtitle: "Store your SEED safely, it is the only way to restore your wallet Store your SEED safely, it is the only way to restore your wallet",
-                                    icon: Images.warning18White.image,
-                                    isEnabledUserHidden: true,
-                                    action: nil)
-        SweetSnackbar.shared.showSnack(error, on: self)
+
+        showWarningSnack(tille: "Save your backup phrase (SEED)", subtitle: "Store your SEED safely, it is the only way to restore your wallet", didTap: {
+            self.showSuccesSnack(tille: "└(=^‥^=)┘")
+        }) {
+            self.showSuccesSnack(tille: "ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
+        }
     }
+
 
     private func version() -> String {
         let dictionary = Bundle.main.infoDictionary
