@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol SweetSnackIconTransformation {
-
+private enum Constants {
+    static let durationAnimation: TimeInterval = 0.24
+    static let percentDistanceForHidden: CGFloat = 0.3
 }
 
 protocol SweetSnackAction {
@@ -113,19 +114,16 @@ final class SweetSnackbar: NSObject {
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
         snackMap[key] = package
-
-        hideLastSnack(isNewSnack: true)
+        self.hideLastSnack(isNewSnack: true)
         self.lastSnack = package
 
-
-        DispatchQueue.main.async {
-            // It code run next loop in runloop
-            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: { 
-                view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-            }) { _ in
-                self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
-            }
+        // It code run next loop in runloop
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
+            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+        }) { animated in
+            self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
         }
+
         return key
     }
 
@@ -185,9 +183,10 @@ final class SweetSnackbar: NSObject {
         let bounds = viewController.view.bounds
         let size = view.frame.size
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
-        }) { _ in
+        }) { animated in
+            print("hide \(animated) \(snack)")
             view.removeFromSuperview()
             self.applyActionDismiss(snack: snack, isNewSnack: isNewSnack)
         }
@@ -227,11 +226,11 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
             var percent = (view.frame.origin.y - minY) / (maxY - minY)
             percent = max(percent, 0)
             percent = min(percent, 1)
-            if percent > 0.3 {
+            if percent > Constants.percentDistanceForHidden {
                 hideSnack(snack, isNewSnack: false)
                 snack.model.action?.didSwipe(snack: snack.model, view: snack.view, bar: self)
             } else {
-                UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+                UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
                     view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
                 }) { _ in }
             }

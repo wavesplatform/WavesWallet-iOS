@@ -61,9 +61,7 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionShowWithoutInternetSnack(_ sender: Any) {
         showWithoutInternetSnack() {
-            DispatchQueue.main.async {
-                self.showSuccesSnack(tille: "Привет Вася.")
-            }
+            print("Привет Вася.")
         }
     }
 
@@ -74,9 +72,9 @@ final class SupportViewController: UIViewController {
     @IBAction func actionShowSeedSnack(_ sender: Any) {
 
         showWarningSnack(tille: "Save your backup phrase (SEED)", subtitle: "Store your SEED safely, it is the only way to restore your wallet", didTap: {
-            self.showSuccesSnack(tille: "└(=^‥^=)┘")
+            print("└(=^‥^=)┘")
         }) {
-            self.showSuccesSnack(tille: "ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
+            print("ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
         }
     }
 
@@ -93,7 +91,3 @@ final class SupportViewController: UIViewController {
         return build ?? ""
     }
 }
-
-
-//
-//S

@@ -54,10 +54,7 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        let vc = StoryboardScene.Support.supportViewController.instantiate()
-        vc.delegate = self
-        self.window.rootViewController!.present(vc, animated: true, completion: nil)
-//        logInApplication()
+        logInApplication()
 
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()

@@ -8,6 +8,11 @@
 
 import UIKit
 
+private enum Constants {
+    static let durationAnimation: TimeInterval = 1.8
+    static let multiplyPIAnimation: Double = 4
+}
+
 final class SweetSnackView: UIView, NibLoadable {
 
     @IBOutlet private var leftLayout: NSLayoutConstraint!
@@ -68,8 +73,8 @@ final class SweetSnackView: UIView, NibLoadable {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = 0
         animation.repeatCount = Float.infinity
-        animation.duration = 1.8
-        animation.toValue = Double.pi * -4
+        animation.duration = Constants.durationAnimation
+        animation.toValue = Double.pi * -Constants.multiplyPIAnimation
         animation.isCumulative = true
         animation.timingFunction = TimingFunction.easeOut.caMediaTimingFuction
 
