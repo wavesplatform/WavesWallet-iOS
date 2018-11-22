@@ -29,7 +29,7 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showErrorSnack(tille: String, didTap: @escaping (() -> Void)) -> String {
+    @discardableResult func showErrorSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
 
 
         let error = SweetSnack.init(title: tille,
@@ -72,12 +72,12 @@ extension UIViewController {
 
 struct SweetSnackError: SweetSnackAction {
 
-    var didTap: (() -> Void)
+    var didTap: (() -> Void)?
 
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
         view.startAnimationIcon()
         view.isUserInteractionEnabled = false
-        didTap()
+        didTap?()
     }
 
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {}

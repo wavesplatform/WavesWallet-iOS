@@ -1047,4 +1047,6 @@
 
 "wavespopup.label.comingsoon" = "Coming soon";
 
-"general.error.title.noconnectiontotheinternet" = "No connection to the Interne";
+"general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
+
+"accountpassword.error.wrongpassword" = "Wrong password";

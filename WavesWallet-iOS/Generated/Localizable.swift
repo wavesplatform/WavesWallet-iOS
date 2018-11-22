@@ -25,6 +25,11 @@ internal enum Localizable {
         }
       }
 
+      internal enum Error {
+        /// Wrong password
+        internal static var wrongpassword: String { return Localizable.tr("Waves", "accountpassword.error.wrongpassword") }
+      }
+
       internal enum Textfield {
 
         internal enum Error {
@@ -887,7 +892,7 @@ internal enum Localizable {
       internal enum Error {
 
         internal enum Title {
-          /// No connection to the Interne
+          /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
         }
       }
