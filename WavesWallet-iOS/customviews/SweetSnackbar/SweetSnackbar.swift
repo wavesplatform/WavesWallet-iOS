@@ -12,7 +12,7 @@ protocol SweetSnackIconTransformation {
 
 }
 
-protocol SweetSnackAction: AnyObject {
+protocol SweetSnackAction {
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar)
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar)
 }
@@ -68,14 +68,30 @@ final class SweetSnackbar: NSObject {
     @discardableResult func showSnack(_ snack: SweetSnack,
                                       on viewController: UIViewController) -> String {
 
+        let view = SweetSnackView.loadFromNib()
+        let key = UUID().uuidString
+        let package = PackageSnack(key: key,
+                                   model: snack,
+                                   view: view,
+                                   viewController: viewController)
+
+        return showSnack(by: package, on: viewController)
+    }
+
+    @discardableResult private func showSnack(by package: PackageSnack,
+                                              on viewController: UIViewController) -> String {
+
         let pan = UIPanGestureRecognizer(target: self, action: #selector(hanlerPanGesture(pan:)))
         pan.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(hanlerTapGesture(tap:)))
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(hanlerSwipeGesture(swipe:)))
         swipe.direction = .down
 
+        let snack = package.model
+        let key = package.key
+
         // Initial View
-        let view = SweetSnackView.loadFromNib()
+        let view = package.view
         view.translatesAutoresizingMaskIntoConstraints = true
         let bounds = viewController.view.bounds
         view.bounds = bounds
@@ -96,21 +112,19 @@ final class SweetSnackbar: NSObject {
         let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
-        hideLastSnack(isNewSnack: true)
-
-        let key = UUID().uuidString
-        let package = PackageSnack(key: key,
-                                   model: snack,
-                                   view: view,
-                                   viewController: viewController)
-        self.lastSnack = package
         snackMap[key] = package
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
-            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-        }) { _ in
+        hideLastSnack(isNewSnack: true)
+        self.lastSnack = package
 
-            self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: true)
+
+        DispatchQueue.main.async {
+            // It code run next loop in runloop
+            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: { 
+                view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+            }) { _ in
+                self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
+            }
         }
         return key
     }
@@ -122,7 +136,7 @@ final class SweetSnackbar: NSObject {
             break
 
         case .popToLastWihDuration(let duration):
-            autoHideSnack(duration: duration, isNewSnack: isNewSnack)
+            autoHideSnack(snack: snack, duration: duration, isNewSnack: isNewSnack)
 
         case .never:
             self.neverSnack = snack
@@ -133,9 +147,9 @@ final class SweetSnackbar: NSObject {
 
         switch snack.model.behaviorDismiss {
         case .popToLast, .popToLastWihDuration:
-            if let neverSnack = self.neverSnack, isNewSnack == false {
+            if let neverSnack = self.neverSnack, isNewSnack == false, self.lastSnack?.key != self.neverSnack?.key {
                 guard let viewController = snack.viewController else { return }
-                self.showSnack(neverSnack.model, on: viewController)
+                self.showSnack(by: neverSnack, on: viewController)
             }
 
         case .never:
@@ -146,10 +160,12 @@ final class SweetSnackbar: NSObject {
         }
     }
 
-    private func autoHideSnack(duration: TimeInterval, isNewSnack: Bool) {
+    private func autoHideSnack(snack: PackageSnack, duration: TimeInterval, isNewSnack: Bool) {
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
-            self.hideLastSnack(isNewSnack: isNewSnack)
+            if self.lastSnack?.key == snack.key {
+                self.hideSnack(snack, isNewSnack: isNewSnack)
+            }
         }
     }
 
@@ -164,6 +180,7 @@ final class SweetSnackbar: NSObject {
 
         guard let viewController = snack.viewController else  { return }
         let view = snack.view
+        self.snackMap.removeValue(forKey: snack.key)
 
         let bounds = viewController.view.bounds
         let size = view.frame.size

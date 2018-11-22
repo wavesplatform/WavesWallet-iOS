@@ -18,8 +18,13 @@ final class SweetSnackView: UIView, NibLoadable {
     @IBOutlet private var iconImageView: UIImageView!
 
     private var isHiddenIcon: Bool = true
+    private var isStartedAnimation: Bool = true
     private(set) var model: SweetSnack?
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+    }
     override func updateConstraints() {
 
         leftAtIconConstraint.isActive = !isHiddenIcon
@@ -57,10 +62,33 @@ final class SweetSnackView: UIView, NibLoadable {
     }
 
     func startAnimationIcon() {
-        // TODO: Animation
+        self.isStartedAnimation = true
+        
+
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.fromValue = 0
+        animation.repeatCount = Float.infinity
+        animation.duration = 1.8
+        animation.toValue = Double.pi * -4
+        animation.isCumulative = true
+        animation.timingFunction = TimingFunction.easeOut.caMediaTimingFuction
+
+        self.iconImageView.layer.removeAllAnimations()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        self.iconImageView.layer.add(animation, forKey: "rotate")
     }
 
     func stopAnimationIcon() {
-        // TODO: Animation
+        self.isStartedAnimation = false
+        self.iconImageView.layer.removeAllAnimations()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+
+    @objc private func handlerDidBecomeActive() {
+        if self.isStartedAnimation {
+            startAnimationIcon()
+        }
     }
 }
