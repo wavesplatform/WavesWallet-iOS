@@ -29,7 +29,7 @@ extension WalletTypes.State {
             display = newState.displayState.leasing
         }
 
-        display.animateType = .refresh
+        display.animateType = .refresh(animated: false)
 
         newState.displayState.kind = kind
         newState.displayState = newState.displayState.updateCurrentDisplay(display)
