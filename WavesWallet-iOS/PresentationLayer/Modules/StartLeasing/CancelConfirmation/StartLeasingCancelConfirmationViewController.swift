@@ -18,14 +18,13 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     @IBOutlet private weak var buttonCancel: HighlightedButton!
     @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var tickerView: TickerView!
-    @IBOutlet private weak var labelTxTitle: UILabel!
-    @IBOutlet private weak var labelTx: UILabel!
-    @IBOutlet private weak var labelIDTItle: UILabel!
-    @IBOutlet private weak var labelID: UILabel!
+    @IBOutlet private weak var labelLeasingTxTitle: UILabel!
+    @IBOutlet private weak var labelLeasingTx: UILabel!
     @IBOutlet private weak var labelFeeTitle: UILabel!
     @IBOutlet private weak var labelFee: UILabel!
     
     var cancelOrder: StartLeasingTypes.DTO.CancelOrder!
+    weak var output: StartLeasingModuleOutput?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,21 +55,20 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     private func setupData() {
         tickerView.update(with: .init(text: GlobalConstants.wavesAssetId, style: .soft))
         labelAmount.text = cancelOrder.amount.displayText
-        labelID.text = cancelOrder.id
-        labelTx.text = cancelOrder.tx
+        labelLeasingTx.text = cancelOrder.leasingTX
         labelFee.text = cancelOrder.fee.displayText
     }
     
     private func setupLocalization() {
         title = Localizable.Waves.Startleasingconfirmation.Label.confirmation
-        labelTxTitle.text = Localizable.Waves.Startleasingconfirmation.Label.leasingTX
-        labelIDTItle.text = Localizable.Waves.Startleasingconfirmation.Label.txid
+        labelLeasingTxTitle.text = Localizable.Waves.Startleasingconfirmation.Label.leasingTX
         labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee + " " + "WAVES"
     }
     
     @IBAction private func cancelLeasing(_ sender: Any) {
     
-        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .cancel(cancelOrder), delegate: self))
+        let vc = StoryboardScene.StartLeasing.startLeasingLoadingViewController.instantiate()
+        vc.input = .init(kind: .cancel(cancelOrder), errorDelegate: self, output: output)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

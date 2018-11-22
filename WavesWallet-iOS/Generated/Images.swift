@@ -133,12 +133,18 @@ internal enum Images {
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
+  internal static let flag18Brazil = ImageAsset(name: "flag18Brazil")
   internal static let flag18Britain = ImageAsset(name: "flag18Britain")
   internal static let flag18China = ImageAsset(name: "flag18China")
   internal static let flag18Danish = ImageAsset(name: "flag18Danish")
+  internal static let flag18Germany = ImageAsset(name: "flag18Germany")
   internal static let flag18Hindi = ImageAsset(name: "flag18Hindi")
+  internal static let flag18Indonesia = ImageAsset(name: "flag18Indonesia")
+  internal static let flag18Japan = ImageAsset(name: "flag18Japan")
   internal static let flag18Korea = ImageAsset(name: "flag18Korea")
   internal static let flag18Nederland = ImageAsset(name: "flag18Nederland")
+  internal static let flag18Polszczyzna = ImageAsset(name: "flag18Polszczyzna")
+  internal static let flag18Portugal = ImageAsset(name: "flag18Portugal")
   internal static let flag18Rus = ImageAsset(name: "flag18Rus")
   internal static let flag18Spain = ImageAsset(name: "flag18Spain")
   internal static let flag18Turkey = ImageAsset(name: "flag18Turkey")
@@ -371,12 +377,18 @@ internal enum Images {
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
+    flag18Brazil,
     flag18Britain,
     flag18China,
     flag18Danish,
+    flag18Germany,
     flag18Hindi,
+    flag18Indonesia,
+    flag18Japan,
     flag18Korea,
     flag18Nederland,
+    flag18Polszczyzna,
+    flag18Portugal,
     flag18Rus,
     flag18Spain,
     flag18Turkey,

@@ -36,6 +36,7 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     
     private var order: StartLeasingTypes.DTO.Order!
+    weak var output: StartLeasingModuleOutput?
     
     var totalBalance: Money! {
         didSet {
@@ -67,8 +68,7 @@ final class StartLeasingViewController: UIViewController {
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
-        let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
-        vc.order = order
+        let vc = StartLeasingConfirmModuleBuilder(output: output).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
     }
 }

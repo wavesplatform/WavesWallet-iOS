@@ -12,7 +12,17 @@ protocol StartLeasingErrorDelegate: AnyObject {
     func startLeasingDidFail()
 }
 
+protocol StartLeasingModuleOutput: AnyObject {
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind)
+}
+
 enum StartLeasingTypes {
+    
+    struct Input {
+        let kind: StartLeasingTypes.Kind
+        let errorDelegate: StartLeasingErrorDelegate?
+        let output: StartLeasingModuleOutput?
+    }
     
     enum Kind {
         case send(StartLeasingTypes.DTO.Order)
@@ -28,8 +38,7 @@ enum StartLeasingTypes {
         }
         
         struct CancelOrder {
-            let tx: String
-            let id: String
+            let leasingTX: String
             let amount: Money
             let fee = GlobalConstants.WavesTransactionFee
         }

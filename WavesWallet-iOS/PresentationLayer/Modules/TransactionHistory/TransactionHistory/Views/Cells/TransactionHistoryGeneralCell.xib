@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mK7-AK-Xyq">
-                        <rect key="frame" x="163" y="44" width="48" height="48"/>
+                        <rect key="frame" x="163.5" y="44" width="48" height="48"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="48" id="4WU-LQ-mxQ"/>
                             <constraint firstAttribute="height" constant="48" id="ZKH-0E-lrC"/>
@@ -29,12 +29,6 @@
                         <rect key="frame" x="99.5" y="106" width="176" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6e-Tl-9sb">
-                        <rect key="frame" x="171" y="135" width="33" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auB-ee-hmr">
@@ -71,19 +65,27 @@
                             <constraint firstAttribute="width" constant="45" id="X6q-rC-8pK"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lvg-qu-5lv" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="167.5" y="135" width="40" height="16"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="CbA-DG-hFx"/>
+                            <constraint firstAttribute="width" constant="40" id="qxa-nw-9xK"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9x1-j2-Wbs" firstAttribute="centerX" secondItem="Rfa-4c-2EP" secondAttribute="centerX" id="5Oh-eg-okS"/>
                     <constraint firstItem="auB-ee-hmr" firstAttribute="top" secondItem="Rfa-4c-2EP" secondAttribute="top" id="8sP-Ox-V78"/>
-                    <constraint firstItem="C6e-Tl-9sb" firstAttribute="top" secondItem="9x1-j2-Wbs" secondAttribute="bottom" constant="8" id="8xi-GP-5wf"/>
                     <constraint firstItem="AuI-ET-rg6" firstAttribute="leading" secondItem="Rfa-4c-2EP" secondAttribute="leading" id="AM5-uN-E3A"/>
                     <constraint firstItem="mK7-AK-Xyq" firstAttribute="centerX" secondItem="Rfa-4c-2EP" secondAttribute="centerX" id="EpN-zW-V5K"/>
-                    <constraint firstItem="C6e-Tl-9sb" firstAttribute="centerX" secondItem="Rfa-4c-2EP" secondAttribute="centerX" id="Gaz-Qh-Eh7"/>
                     <constraint firstItem="W3r-86-Wb7" firstAttribute="leading" secondItem="9x1-j2-Wbs" secondAttribute="trailing" constant="4" id="IQH-Tt-WSz"/>
                     <constraint firstItem="auB-ee-hmr" firstAttribute="leading" secondItem="Rfa-4c-2EP" secondAttribute="leading" id="NIj-S3-P0B"/>
                     <constraint firstItem="W3r-86-Wb7" firstAttribute="height" secondItem="9x1-j2-Wbs" secondAttribute="height" id="SFx-e0-jth"/>
                     <constraint firstAttribute="trailing" secondItem="LUh-vN-npN" secondAttribute="trailing" id="X1h-Hh-ZuL"/>
                     <constraint firstAttribute="bottom" secondItem="auB-ee-hmr" secondAttribute="bottom" constant="-0.5" id="Za6-nT-qFx"/>
+                    <constraint firstItem="Lvg-qu-5lv" firstAttribute="centerX" secondItem="Rfa-4c-2EP" secondAttribute="centerX" id="Zi3-w6-Fl9"/>
+                    <constraint firstItem="Lvg-qu-5lv" firstAttribute="top" secondItem="9x1-j2-Wbs" secondAttribute="bottom" constant="8" id="bdg-k8-O3c"/>
                     <constraint firstItem="9x1-j2-Wbs" firstAttribute="top" secondItem="mK7-AK-Xyq" secondAttribute="bottom" constant="14" id="eMf-Rd-Ktm"/>
                     <constraint firstAttribute="bottom" secondItem="LUh-vN-npN" secondAttribute="bottom" id="ehP-Ow-Pun"/>
                     <constraint firstItem="mK7-AK-Xyq" firstAttribute="top" secondItem="Rfa-4c-2EP" secondAttribute="top" constant="44" id="hal-i8-r9f"/>
@@ -94,16 +96,16 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="currencyLabel" destination="C6e-Tl-9sb" id="1PA-pZ-tg3"/>
                 <outlet property="iconImageView" destination="mK7-AK-Xyq" id="75z-R0-Sw9"/>
                 <outlet property="nextButton" destination="LUh-vN-npN" id="CUg-7O-4nL"/>
                 <outlet property="previousButton" destination="auB-ee-hmr" id="4qk-KY-TR8"/>
+                <outlet property="spamTicker" destination="Lvg-qu-5lv" id="UUL-vw-7yz"/>
                 <outlet property="tickerView" destination="W3r-86-Wb7" id="wtm-Jh-NB9"/>
                 <outlet property="tickerViewWidthConstraint" destination="X6q-rC-8pK" id="R8C-Pz-g3n"/>
                 <outlet property="valueLabel" destination="9x1-j2-Wbs" id="KP5-vu-bdp"/>
                 <outlet property="valueLabelXConstraint" destination="5Oh-eg-okS" id="OE0-7Z-eGM"/>
             </connections>
-            <point key="canvasLocation" x="15.5" y="164"/>
+            <point key="canvasLocation" x="15.199999999999999" y="163.71814092953525"/>
         </tableViewCell>
     </objects>
     <resources>

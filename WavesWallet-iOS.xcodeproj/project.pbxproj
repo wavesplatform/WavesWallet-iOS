@@ -531,6 +531,7 @@
 		E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */; };
+		E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
@@ -559,7 +560,6 @@
 		E95B47D121638A9F004D4E39 /* InfoPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47BD21638A9F004D4E39 /* InfoPagesViewController.swift */; };
 		E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47D221638AF2004D4E39 /* AccountPasswordViewController.swift */; };
 		E95B47EB21638B11004D4E39 /* StartLeasingModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47D721638B11004D4E39 /* StartLeasingModuleBuilder.swift */; };
-		E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47DB21638B11004D4E39 /* StartLeasingModuleOutput.swift */; };
 		E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47DD21638B11004D4E39 /* StartLeasing.storyboard */; };
 		E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */; };
 		E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E221638B11004D4E39 /* AmountInputView.swift */; };
@@ -782,7 +782,6 @@
 		E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */; };
 		E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */; };
 		E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */; };
-		E9DB667D21A3942600962639 /* StartLeasingLoadingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667C21A3942600962639 /* StartLeasingLoadingBuilder.swift */; };
 		E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
@@ -1146,6 +1145,16 @@
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
+		0AACD59E21A5BFBE00B30815 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		0AACD59F21A5BFBF00B30815 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Waves.strings"; sourceTree = "<group>"; };
+		0AACD5A021A5C15800B30815 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AACD5A121A5C15800B30815 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Waves.strings; sourceTree = "<group>"; };
+		0AACD5A221A5C16B00B30815 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AACD5A321A5C16B00B30815 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Waves.strings; sourceTree = "<group>"; };
+		0AACD5A421A5C18300B30815 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AACD5A521A5C18300B30815 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Waves.strings; sourceTree = "<group>"; };
+		0AACD5A621A5C30A00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AACD5A721A5C30B00B30815 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AB63C1F2170AC880056B17E /* RateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0AB63C2B2170EBF00056B17E /* Language.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Language.storyboard; sourceTree = "<group>"; };
@@ -1348,6 +1357,7 @@
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		E902ADCE212E1EB8000C289A /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -1355,6 +1365,7 @@
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsViewController.swift; sourceTree = "<group>"; };
+		E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmModuleBuilder.swift; sourceTree = "<group>"; };
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
@@ -1384,7 +1395,6 @@
 		E95B47BD21638A9F004D4E39 /* InfoPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPagesViewController.swift; sourceTree = "<group>"; };
 		E95B47D221638AF2004D4E39 /* AccountPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E95B47D721638B11004D4E39 /* StartLeasingModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingModuleBuilder.swift; sourceTree = "<group>"; };
-		E95B47DB21638B11004D4E39 /* StartLeasingModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingModuleOutput.swift; sourceTree = "<group>"; };
 		E95B47DD21638B11004D4E39 /* StartLeasing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StartLeasing.storyboard; sourceTree = "<group>"; };
 		E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingViewController.swift; sourceTree = "<group>"; };
 		E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLeasingTypes.swift; sourceTree = "<group>"; };
@@ -1615,7 +1625,6 @@
 		E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCancelConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingLoadingViewController.swift; sourceTree = "<group>"; };
-		E9DB667C21A3942600962639 /* StartLeasingLoadingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingLoadingBuilder.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
@@ -3180,6 +3189,7 @@
 				3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */,
 				2A5A5CDBE4190D8A1A1C4124 /* Pods-WavesWallet-iOS.test.xcconfig */,
 				621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */,
+				E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -4159,8 +4169,8 @@
 			isa = PBXGroup;
 			children = (
 				E95B47D721638B11004D4E39 /* StartLeasingModuleBuilder.swift */,
-				E95B47DB21638B11004D4E39 /* StartLeasingModuleOutput.swift */,
 				E95B47DE21638B11004D4E39 /* StartLeasingViewController.swift */,
+				E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */,
 				E95B47E121638B11004D4E39 /* Views */,
 				E95B47E621638B11004D4E39 /* Interactor */,
 			);
@@ -4179,7 +4189,6 @@
 			isa = PBXGroup;
 			children = (
 				E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */,
-				E9DB667C21A3942600962639 /* StartLeasingLoadingBuilder.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -4431,6 +4440,11 @@
 				ru,
 				ko,
 				es,
+				"zh-Hant",
+				id,
+				hi,
+				de,
+				nl,
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -4739,7 +4753,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
-				E9DB667D21A3942600962639 /* StartLeasingLoadingBuilder.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
@@ -4747,7 +4760,6 @@
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
 				E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */,
 				E95B47EB21638B11004D4E39 /* StartLeasingModuleBuilder.swift in Sources */,
-				E95B47EE21638B11004D4E39 /* StartLeasingModuleOutput.swift in Sources */,
 				044D6C8D21978CED003861A2 /* EditAccountNameCoordinator.swift in Sources */,
 				044D6C8E21978CED003861A2 /* EditAccountNameModuleBuilder.swift in Sources */,
 				044D6C8F21978CED003861A2 /* EditAccountNameViewController.swift in Sources */,
@@ -5008,6 +5020,7 @@
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
 				04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */,
+				E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,
 				E9657041219360770052F0FC /* WalletSortInteractorProtocol.swift in Sources */,
@@ -5469,6 +5482,11 @@
 				0AF92304212E142A003BA067 /* ru */,
 				0A15081C219AE51100516037 /* ko */,
 				0A15081E219AE53700516037 /* es */,
+				0AACD59F21A5BFBF00B30815 /* zh-Hant */,
+				0AACD5A121A5C15800B30815 /* id */,
+				0AACD5A321A5C16B00B30815 /* hi */,
+				0AACD5A521A5C18300B30815 /* de */,
+				0AACD5A721A5C30B00B30815 /* nl */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -5480,6 +5498,11 @@
 				0AFBCA872113188B00285BCB /* ru */,
 				0A15081B219AE51100516037 /* ko */,
 				0A15081D219AE53600516037 /* es */,
+				0AACD59E21A5BFBE00B30815 /* zh-Hant */,
+				0AACD5A021A5C15800B30815 /* id */,
+				0AACD5A221A5C16B00B30815 /* hi */,
+				0AACD5A421A5C18300B30815 /* de */,
+				0AACD5A621A5C30A00B30815 /* nl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -5487,7 +5510,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0A15081F219B04DF00516037 /* AdHoc */ = {
+		0A15081F219B04DF00516037 /* Test-AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5517,7 +5540,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "ADHOC=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "TEST=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -5532,16 +5555,16 @@
 				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = AdHoc;
+			name = "Test-AdHoc";
 		};
-		0A150820219B04DF00516037 /* AdHoc */ = {
+		0A150820219B04DF00516037 /* Test-AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */;
+			baseConfigurationReference = E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -5551,17 +5574,17 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "Waves Wallet Ad-Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.test";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/main/ObjCBridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 			};
-			name = AdHoc;
+			name = "Test-AdHoc";
 		};
 		0A762DA4216512420019D447 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -5805,7 +5828,7 @@
 			buildConfigurations = (
 				F7E954F61EA8FE0700A804DE /* Debug */,
 				F7E954F71EA8FE0700A804DE /* Release */,
-				0A15081F219B04DF00516037 /* AdHoc */,
+				0A15081F219B04DF00516037 /* Test-AdHoc */,
 				0A762DA4216512420019D447 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5816,7 +5839,7 @@
 			buildConfigurations = (
 				F7E954F91EA8FE0700A804DE /* Debug */,
 				F7E954FA1EA8FE0700A804DE /* Release */,
-				0A150820219B04DF00516037 /* AdHoc */,
+				0A150820219B04DF00516037 /* Test-AdHoc */,
 				0A762DA5216512420019D447 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
