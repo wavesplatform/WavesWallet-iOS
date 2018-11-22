@@ -1351,6 +1351,11 @@ internal enum Localizable {
         }
       }
 
+      internal enum Error {
+        /// No avatar selected
+        internal static var noavatarselected: String { return Localizable.tr("Waves", "newaccount.error.noavatarselected") }
+      }
+
       internal enum Main {
 
         internal enum Navigation {
@@ -1385,16 +1390,24 @@ internal enum Localizable {
         }
 
         internal enum Error {
-          /// %d characters maximum
-          internal static func (_ p1: Int) -> String {
-            return Localizable.tr("Waves", "newaccount.textfield.error.", p1)
-          }
           /// at least %d characters
           internal static func atleastcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.atleastcharacters", p1)
           }
+          /// %d characters maximum
+          internal static func charactersmaximum(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.charactersmaximum", p1)
+          }
+          /// Does not match
+          internal static var doesnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.doesnotmatch") }
+          /// Minimum %d characters
+          internal static func minimumcharacters(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.minimumcharacters", p1)
+          }
           /// password not match
           internal static var passwordnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.passwordnotmatch") }
+          /// Wrong order, try again
+          internal static var wrongordertryagain: String { return Localizable.tr("Waves", "newaccount.textfield.error.wrongordertryagain") }
         }
       }
     }
