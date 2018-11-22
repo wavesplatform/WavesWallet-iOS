@@ -24,7 +24,8 @@ final class StartLeasingConfirmationViewController: UIViewController {
     @IBOutlet private weak var buttonConfirm: HighlightedButton!
     
     var order: StartLeasingTypes.DTO.Order!
-
+    weak var output: StartLeasingModuleOutput?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createBackWhiteButton()
@@ -52,7 +53,8 @@ final class StartLeasingConfirmationViewController: UIViewController {
     
     @IBAction private func confirmTapped(_ sender: Any) {
         
-        let vc = StartLeasingLoadingBuilder().build(input: .init(kind: .send(order), delegate: self))
+        let vc = StoryboardScene.StartLeasing.startLeasingLoadingViewController.instantiate()
+        vc.input = .init(kind: .send(order), errorDelegate: self, output: output)
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -150,8 +150,16 @@ extension WalletCoordinator: AssetModuleOutput {
 
 extension WalletCoordinator: StartLeasingModuleOutput {
     
-    func startLeasingDidCreateOrder() {
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
+        switch kind {
+        case .send(let sendOrder):
+        //TODO: need update Money after creating order
+        print("TODO: need update Money after creating order")
+            
+        default:
+            break
+        }
     }
 }
 

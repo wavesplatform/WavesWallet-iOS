@@ -14,17 +14,16 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
-    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<Bool> {
+    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
 
         let sender = LeaseTransactionSender(recipient: order.recipient,
                                             amount: order.amount.amount,
                                             fee: order.fee.amount)
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ (wallet) -> Observable<Bool> in
+            .flatMap({ (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
                 return self.transactionInteractor
                     .send(by: .lease(sender), wallet: wallet)
-                    .map { _ in true }
             })
     }
 }

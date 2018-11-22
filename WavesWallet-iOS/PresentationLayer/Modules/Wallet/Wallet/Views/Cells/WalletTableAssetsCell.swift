@@ -15,21 +15,21 @@ fileprivate enum Constants {
 }
 
 final class WalletTableAssetsCell: UITableViewCell, Reusable {
-    @IBOutlet var imageIcon: UIImageView!
-    @IBOutlet var viewContent: UIView!
-    @IBOutlet var iconArrow: UIImageView!
-    @IBOutlet var iconStar: UIImageView!
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var labelSubtitle: UILabel!
-    @IBOutlet var labelCryptoName: UILabel!
-    @IBOutlet var viewFiatBalance: UIView!
-    @IBOutlet var viewSpam: UIView!
-    @IBOutlet var viewAssetType: UIView!
+    @IBOutlet private var imageIcon: UIImageView!
+    @IBOutlet private var viewContent: UIView!
+    @IBOutlet private var iconArrow: UIImageView!
+    @IBOutlet private var iconStar: UIImageView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var labelSubtitle: UILabel!
+    @IBOutlet private var viewFiatBalance: UIView!
+    @IBOutlet private var viewSpam: UIView!
+    @IBOutlet private weak var labelSpam: UILabel!
     private var taskForAssetLogo: RetrieveImageDiskTask?
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContent.addTableCellShadowStyle()
+        labelSpam.text = Localizable.Waves.General.Ticker.Title.spam
     }
 
     override func layoutSubviews() {
@@ -48,8 +48,9 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 
 extension WalletTableAssetsCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Asset) {
-        let name = model.name
-        labelTitle.text = name
+        
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
+                                                                           isMyAsset: model.isMyWavesToken)
 
         viewSpam.isHidden = true
         iconStar.isHidden = !model.isFavorite
@@ -59,8 +60,6 @@ extension WalletTableAssetsCell: ViewConfiguration {
         let text = model.balance.displayTextFull
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
-        //TODO: Remove labelCryptoName
-        labelCryptoName.isHidden = true
 
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,

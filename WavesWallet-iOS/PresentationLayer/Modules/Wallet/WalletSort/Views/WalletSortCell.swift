@@ -69,8 +69,9 @@ extension WalletSortCell: ViewConfiguration {
 
     func update(with model: Model) {
         // TODO: My asset
-        let cryptoName = model.name
-        labelTitle.text = cryptoName
+
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
+                                                                           isMyAsset: model.isMyWavesToken)
         switchControl.isHidden = model.isVisibility
         switchControl.isOn = !model.isHidden
         arrowGreen.isHidden = !model.isGateway
