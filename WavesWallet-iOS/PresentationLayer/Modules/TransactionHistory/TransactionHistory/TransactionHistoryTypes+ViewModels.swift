@@ -15,7 +15,7 @@ extension TransactionHistoryTypes.ViewModel {
         let sign: Balance.Sign?
         let customTitle: String?
         let asset: DomainLayer.DTO.Asset?
-        let isSpam: Bool?
+        let isSpam: Bool
         let currencyConversion: String?
         let canGoBack: Bool?
         let canGoForward: Bool?
@@ -94,7 +94,6 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var comment: String?
         var sign: Balance.Sign = .none
         var asset: DomainLayer.DTO.Asset?
-        var isSpam: Bool?
         var customTitle: String?
         var currencyConversion: String?
         
@@ -319,7 +318,6 @@ extension TransactionHistoryTypes.ViewModel.Section {
             break
         }
 
-        isSpam = asset?.isSpam ?? false
         // general
         
         rows.append(
@@ -328,7 +326,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
                                    customTitle: customTitle,
                                    asset: asset,
                                    currencyConversion: currencyConversion,
-                                   isSpam: isSpam,
+                                   isSpam: asset?.isSpam ?? false,
                                    canGoBack: index > 0,
                                    canGoForward: index < count - 1)
         )
@@ -374,7 +372,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                     customTitle: String?,
                     asset: DomainLayer.DTO.Asset?,
                     currencyConversion: String?,
-                    isSpam: Bool?,
+                    isSpam: Bool,
                     canGoBack: Bool?,
                     canGoForward: Bool?) -> TransactionHistoryTypes.ViewModel.Row {
         
