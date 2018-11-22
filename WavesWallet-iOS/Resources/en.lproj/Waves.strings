@@ -421,6 +421,8 @@
 
 "enter.button.signIn.title" = "Sign in";
 
+"enter.label.or" = "or";
+
 "enter.language.navigation.title" = "Change language";
 
 "general.biometric.faceID.title" = "Face ID";

@@ -421,6 +421,8 @@
 
 "enter.button.signIn.title" = "Войти";
 
+"enter.label.or" = "или";
+
 "enter.language.navigation.title" = "Изменить язык";
 
 "general.biometric.faceID.title" = "Face ID";
