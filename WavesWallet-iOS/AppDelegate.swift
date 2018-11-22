@@ -26,17 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     var migrationInteractor: MigrationInteractor = MigrationInteractor()
 
-    private static var googleServiceInfo: String = {
-
-        #if DEBUG
-            return "GoogleService-Info-Dev"
-        #elseif TEST
-            return "GoogleService-Info-Test"
-        #else
-            return "GoogleService-Info-Prod"
-        #endif
-    }()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -55,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG
-            SweetLogger.current.visibleLevels = [] //.debug, .network, .error]
+            SweetLogger.current.visibleLevels = [.debug, .network, .error]
         #else
             SweetLogger.current.visibleLevels = []
         #endif

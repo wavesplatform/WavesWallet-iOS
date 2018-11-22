@@ -88,6 +88,20 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 }
 
 
+// MARK: - StartLeasingModuleOutput
+extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
+    
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
+        
+        switch kind {
+        case .cancel(let cancelOrder):
+        //TODO: need update state after cancelingOrder
+            print("need update state after cancelingOrder")
+        default:
+            break
+        }
+    }
+}
 // MARK: AddAddressBookModuleOutput
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
@@ -96,19 +110,19 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
     }
 
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
+        
+        switch transaction.kind {
+        case .startedLeasing(let leasing):
+            navigationController.dismiss(animated: false)
+            
+            let cancelOrder = StartLeasingTypes.DTO.CancelOrder(leasingTX: transaction.id,
+                                                               amount: leasing.balance.money)
+            let vc = StartLeasingConfirmModuleBuilder(output: self).build(input: .cancel(cancelOrder))
+            navigationController.pushViewController(vc, animated: true)
 
-        let transactions = FactoryInteractors.instance.transactions
-        let authorization = FactoryInteractors.instance.authorization
-
-        authorization.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
-            guard let owner = self else { return Observable.never() }
-
-            return transactions
-                .send(by: .cancelLease(CancelLeaseTransactionSender(leaseId: transaction.id, fee: GlobalConstants.WavesTransactionFeeAmount))
-                    , wallet: wallet).map { _ in true }
-            }.subscribe(onNext: { [weak self] _ in
-                self?.navigationController.dismiss(animated: true) { }
-            })
+        default:
+            break
+        }
     }
 
     func addAddressBookDidEdit(contact: DomainLayer.DTO.Contact, newContact: DomainLayer.DTO.Contact) {
