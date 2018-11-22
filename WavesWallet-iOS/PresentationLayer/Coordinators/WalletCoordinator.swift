@@ -53,13 +53,7 @@ final class WalletCoordinator: Coordinator {
                     legal.delegate = owner
                     owner.addChildCoordinatorAndStart(childCoordinator: legal)
                 })
-                .disposed(by: self.disposeBag)
-
-                self.walletViewContoller.showWarningSnack(tille: "test", subtitle: "1111", didTap: {
-
-            }, didSwipe: {
-
-            })
+                .disposed(by: self.disposeBag)            
         }
         navigationController?.pushViewController(walletViewContoller, animated: false)
         CATransaction.commit()
