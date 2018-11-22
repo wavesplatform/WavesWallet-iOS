@@ -36,7 +36,6 @@ extension Coordinator {
         return childCoordinators.first(where: { (coordinator) -> Bool in
             return coordinator is C
         }) != nil
-
     }
 
     func removeCoordinators() {

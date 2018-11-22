@@ -10,18 +10,32 @@ platform :ios do
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-    build_and_upload
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    build_projet
+    upload_testflight
   end
 
   lane :waves do
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"    
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"    
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
-    build_and_upload
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    build_projet
+    upload_testflight
   end
 
-  lane :build_and_upload do
+  lane :waves_test_adhoc do
+      ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
+      ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
+      ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
+      ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
+      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"      
+      build_projet
+      upload_crashlytics
+  end
+
+  lane :build_projet do
 
     setup_circle_ci
 
@@ -35,6 +49,13 @@ platform :ios do
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
       type: "appstore",
+      readonly: true,
+      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+
+    match(app_identifier: ["com.wavesplatform.waveswallet.test"],
+      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+      type: "adhoc",
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
@@ -53,17 +74,35 @@ platform :ios do
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
-        export_options: "#{Dir.pwd}/ExportOptions-AppStore.plist"
+        export_options: "#{ENV['EXPORT_OPTIONS']}"
     )
 
-    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-              itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",                                       
-              skip_waiting_for_build_processing: "true")
+  end
 
+  lane :upload_crashlytics do 
+
+    ENV['CRASHLYTICS_API_TOKEN']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:APIKey' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
+    ENV['CRASHLYTICS_API_TOKEN']="#{ENV['CRASHLYTICS_API_TOKEN']}"
+    ENV['CRASHLYTICS_BUILD_SECRET']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:BuildSecret' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
+    ENV['CRASHLYTICS_BUILD_SECRET']="#{ENV['CRASHLYTICS_BUILD_SECRET']}"
+    ROOT=File.expand_path("..", Dir.pwd)
+    SUMBIT_PAPTH="#{ROOT}/Pods/Crashlytics/submit"
+    IPA_PATH="#{ROOT}/WavesWallet-iOS.ipa"
+    # puts APIKey
+
+    # crashlytics()
+
+    sh("#{SUMBIT_PAPTH}", "#{ENV['CRASHLYTICS_API_TOKEN']}" "#{ENV['CRASHLYTICS_BUILD_SECRET']} -ipaPath '#{IPA_PATH}' -notifications YES")
+
+    # crashlytics(api_token: "#{ENV['CRASHLYTICS_API_TOKEN']}",
+                # build_secret: "#{ENV['CRASHLYTICS_BUILD_SECRET']}")
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+
   end
 
   lane :certificates do
+
+  
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
@@ -83,6 +122,7 @@ platform :ios do
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",      
                wait_for_uploaded_build: "false")
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
 
 end
