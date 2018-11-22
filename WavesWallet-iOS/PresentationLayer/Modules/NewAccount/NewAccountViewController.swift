@@ -92,16 +92,15 @@ final class NewAccountViewController: UIViewController {
                                                                placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
 
         accountNameInput.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
+            if count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if (value?.count ?? 0) > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
         }
-
-        
 
         passwordInput.valueValidator = { value in
             if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
@@ -112,11 +111,16 @@ final class NewAccountViewController: UIViewController {
         }
 
         confirmPasswordInput.valueValidator = { [weak self] value in
-            if self?.passwordInput.value != value {
+            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
+            if count < GlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+            } else if self?.passwordInput.value != value {
                 return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
+            } else {
+                return nil
             }
-
-            return nil
         }
 
         accountNameInput.returnKey = .next
@@ -124,11 +128,15 @@ final class NewAccountViewController: UIViewController {
         confirmPasswordInput.returnKey = .done
 
         accountNameInput.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInputAfterChoiceAvatar()
+            if self?.accountNameInput.isValidValue == true {
+                self?.passwordInput.becomeFirstResponder()
+            }
         }
 
         passwordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInputAfterChoiceAvatar()
+            if self?.passwordInput.isValidValue == true {
+                self?.confirmPasswordInput.becomeFirstResponder()
+            }
         }
 
         confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in    
@@ -152,7 +160,7 @@ final class NewAccountViewController: UIViewController {
 
                 if self?.isFirstChoiceAvatar == false {
                     self?.isFirstChoiceAvatar = true
-                    self?.nextInputAfterChoiceAvatar()
+                    self?.accountNameInput.becomeFirstResponder()
                 }
             }
 
@@ -185,6 +193,7 @@ final class NewAccountViewController: UIViewController {
         } else if currentAvatar == nil {
             self.view.endEditing(true)
             self.avatars.forEach { $0.shake() }
+            showMessageSnack(tille: Localizable.Waves.Newaccount.Error.noavatarselected)
         } else {
             continueCreateAccount()
         }
@@ -195,9 +204,9 @@ final class NewAccountViewController: UIViewController {
             return
         }
 
-        guard let name = accountNameInput.value?.value,
-            let password = passwordInput.value?.value,
-            let avatar = currentAvatar else { return }
+        guard let name = accountNameInput.value?.value?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let password = passwordInput.value?.value?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let avatar = currentAvatar else { return }
         
         let account = NewAccountTypes.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)
         output?.userCompletedCreateAccount(account)

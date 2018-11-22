@@ -647,7 +647,7 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Does not match";
 
-"newaccount.textfield.error.doesnotmatch" = "No avatar selected";
+"newaccount.error.noavatarselected" = "No avatar selected";
 
 "newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
 
