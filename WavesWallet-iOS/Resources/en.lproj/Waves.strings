@@ -17,8 +17,6 @@
 
 "addAddressbook.button.delete" = "Delete";
 
-"addAddressbook.textfield.address.error.addressexist" = "Address Exist";
-
 "addAddressbook.button.deleteAddress" = "Delete address";
 
 "addAddressbook.button.save" = "Save";
@@ -32,6 +30,8 @@
 "addAddressbook.label.edit" = "Edit";
 
 "addAddressbook.label.name" = "Name";
+
+"addAddressbook.textfield.address.error.addressexist" = "Already in use";
 
 "addressbook.label.addressBook" = "Address book";
 
@@ -79,14 +79,13 @@
 
 "aliaseswithout.view.info.label.title" = "You do not have Aliases";
 
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+
+"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+
 "asset.cell.assetInfo.description" = "Description";
 
 "asset.cell.assetInfo.id" = "ID";
-
-"asset.cell.assetInfo.totalAmount" = "Total amount";
-"asset.cell.assetInfo.decimalPoints" = "Decimal points";
-
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
 
 "asset.cell.assetInfo.issueDate" = "Issue date";
 
@@ -101,6 +100,8 @@
 "asset.cell.assetInfo.name" = "Name";
 
 "asset.cell.assetInfo.title" = "Asset Info";
+
+"asset.cell.assetInfo.totalAmount" = "Total amount";
 
 "asset.cell.balance.avaliableBalance" = "Available balance";
 
@@ -132,6 +133,8 @@
 
 "assetlist.label.loadingAssets" = "Loading assets…";
 
+"backup.backup.navigation.title" = "Backup phrase";
+
 "backup.confirmbackup.button.confirm" = "Confirm";
 
 "backup.confirmbackup.error.label" = "Wrong order, try again";
@@ -142,7 +145,7 @@
 
 "backup.infobackup.button.iunderstand" = "I understand";
 
-"backup.infobackup.label.detail" = "Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n \n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n \nYou should ONLY use the official Waves client.";
+"backup.infobackup.label.detail" = "Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.";
 
 "backup.infobackup.label.title" = "Treat your backup phrase with care!";
 
@@ -156,16 +159,17 @@
 
 "backup.savebackup.copy.label.title" = "Please carefully write down these 15 words or copy them";
 
-"backup.savebackup.label.title" = "Since only you control your money, you’ll need to save your backup phrase in case this app is deleted or go back";
-
-
-"backup.backup.navigation.title" = "Backup phrase";
+"backup.savebackup.label.title" = "Since only you control your money, you’ll need to save your backup phrase in case this app is deleted";
 
 "backup.savebackup.navigation.title" = "Save backup phrase";
 
 "backup.savebackup.next.button.title" = "I've written it down";
 
 "backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
+
+"biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
+
+"biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
 
 "changepassword.button.confirm.title" = "Confirm";
 
@@ -200,6 +204,14 @@
 "createalias.cell.input.textfiled.input.placeholder" = "Symbolic name";
 
 "createalias.cell.input.textfiled.input.title" = "Symbolic name";
+
+"createalias.error.alreadyinuse" = "Already in use";
+
+"createalias.error.charactersmaximum" = "30 characters maximum";
+
+"createalias.error.invalidcharacter" = "Invalid character";
+
+"createalias.error.minimumcharacters" = "Minimum 4 characters";
 
 "createalias.navigation.title" = "New alias";
 
@@ -259,8 +271,6 @@
 
 "dexcreateorder.label.bigValue" = "Value is too big";
 
-"dexcreateorder.label.smallValue" = "Value is too small";
-
 "dexcreateorder.label.days" = "days";
 
 "dexcreateorder.label.fee" = "Fee";
@@ -268,6 +278,8 @@
 "dexcreateorder.label.limitPriceIn" = "Limit Price in";
 
 "dexcreateorder.label.notEnough" = "Not enough";
+
+"dexcreateorder.label.smallValue" = "Value is too small";
 
 "dexcreateorder.label.totalIn" = "Total in";
 
@@ -307,7 +319,7 @@
 
 "dexlist.label.yesterday" = "yesterday";
 
-"dexlist.navigationBar.title" = "Dex";
+"dexlist.navigationBar.title" = "DEX";
 
 "dexmarket.label.loadingMarkets" = "Loading markets…";
 
@@ -401,9 +413,9 @@
 
 "enter.button.importAccount.detail" = "via pairing code or manually";
 
-"enter.button.importAccount.title" = "Import account";
-
 "enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+
+"enter.button.importAccount.title" = "Import account";
 
 "enter.button.signIn.detail" = "to a saved account";
 
@@ -449,7 +461,7 @@
 
 "hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety. 🙏\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety. \n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
 
 "hello.page.info.first.title" = "Welcome to the Waves Platform!";
 
@@ -521,9 +533,9 @@
 
 "import.account.button.scan.title" = "Scan pairing code";
 
-"import.account.label.info.step.one.detail" = "Settings > Security > Pairing code";
+"import.account.label.info.step.one.detail" = "Settings — Security — Pairing code";
 
-"import.account.label.info.step.one.title" = "Log in to your Beta Client via your PC or Mac at https://beta.wavesplatform.com";
+"import.account.label.info.step.one.title" = "Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com";
 
 "import.account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
 
@@ -545,11 +557,11 @@
 
 "import.scan.button.title" = "Scan pairing code";
 
-"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac/PC";
+"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac, PC";
 
 "import.scan.label.step.three.title" = "Scan the code with your camera";
 
-"import.scan.label.step.two.detail" = "(Settings > Security > Pairing code)";
+"import.scan.label.step.two.detail" = "Settings — Security — Pairing code";
 
 "import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
 
@@ -575,6 +587,16 @@
 
 "legal.checkbox.box.title" = "Done! Let’s review.";
 
+"menu.button.supportwavesplatform" = "Support Wavesplatform";
+
+"menu.button.termsandconditions" = "Terms and conditions";
+
+"menu.button.whitepaper" = "Whitepaper";
+
+"menu.label.communities" = "Join the Waves Community";
+
+"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Platform";
+
 "myaddress.button.copy.title" = "Copy";
 
 "myaddress.button.share.title" = "Share";
@@ -593,7 +615,7 @@
 
 "networksettings.button.setdefault.title" = "Set default";
 
-"networksettings.label.switchspam.title" = "Switch off spam filtering";
+"networksettings.label.switchspam.title" = "Spam filtering";
 
 "networksettings.navigation.title" = "Network";
 
@@ -743,6 +765,8 @@
 
 "receivegenerate.label.yourAddress" = "Your %@ address";
 
+"receiveinvoice.label.dollar" = "US Dollar";
+
 "send.button.chooseFromAddressBook" = "Choose from Address book";
 
 "send.button.continue" = "Continue";
@@ -752,6 +776,8 @@
 "send.label.addressNotValid" = "The address is not valid";
 
 "send.label.amount" = "Amount";
+
+"send.label.dollar" = "US Dollar";
 
 "send.label.error.insufficientFunds" = "Insufficient funds";
 
@@ -838,6 +864,68 @@
 "startleasing.label.startLeasing" = "Start leasing";
 
 "startleasing.label.transactionFee" = "Transaction Fee";
+
+"startleasingcomplete.button.okey" = "Okay";
+
+"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+
+"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+
+"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+
+"startleasingconfirmation.button.confirm" = "Confirm";
+
+"startleasingconfirmation.label.TXID" = "TXID";
+
+"startleasingconfirmation.label.confirmation" = "Confirmation";
+
+"startleasingconfirmation.label.fee" = "Fee";
+
+"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+
+"startleasingconfirmation.label.nodeAddress" = "Node address";
+
+"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+
+"startleasingloading.label.startLeasing" = "Start leasing...";
+
+"tokenBurn.button.burn" = "Burn";
+
+"tokenBurn.button.continue" = "Continue";
+
+"tokenBurn.button.okey" = "Okay";
+
+"tokenBurn.button.useTotalBalanace" = "Use total balance";
+
+"tokenBurn.label.confirmation" = "Confirmation";
+
+"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+
+"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
+"tokenBurn.label.fee" = "Fee";
+
+"tokenBurn.label.id" = "ID";
+
+"tokenBurn.label.loading" = "Burn...";
+
+"tokenBurn.label.notReissuable" = "Not reissuable";
+
+"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+
+"tokenBurn.label.reissuable" = "Reissuable";
+
+"tokenBurn.label.tokenBurn" = "Token Burn";
+
+"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+
+"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+
+"tokenBurn.label.type" = "Type";
+
+"tokenBurn.label.youHaveBurned" = "You have burned";
 
 "transactionhistory.button.copied" = "Copied";
 
@@ -943,46 +1031,18 @@
 
 "wallet.segmentedControl.leasing" = "Leasing";
 
+"wallet.label.myAssets" = "My Asset";
+
 "walletsort.button.position" = "Position";
 
 "walletsort.button.visibility" = "Visibility";
 
 "walletsort.navigationBar.title" = "Sorting";
 
-"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Platform";
-"menu.label.communities" = "Join the Waves Community";
-"menu.button.whitepaper" = "Whitepaper";
-"menu.button.termsandconditions" = "Terms and conditions";
-"menu.button.supportwavesplatform" = "Support Wavesplatform";
+"wavespopup.button.exchange" = "Exchange";
 
-"createalias.error.minimumcharacters" = "Minimum 4 characters";
-"createalias.error.charactersmaximum" = "30 characters maximum";
-"createalias.error.invalidcharacter" = "Invalid character";
-"createalias.error.alreadyinuse" = "Already in use";
+"wavespopup.button.receive" = "Receive";
 
 "wavespopup.button.send" = "Send";
-"wavespopup.button.receive" = "Receive";
-"wavespopup.button.exchange" = "Exchange";
+
 "wavespopup.label.comingsoon" = "Coming soon";
-
-"biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
-"biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
-
-"tokenBurn.label.tokenBurn" = "Token Burn";
-"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
-"tokenBurn.label.loading" = "Burn...";
-"tokenBurn.label.youHaveBurned" = "You have burned";
-"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
-"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
-"tokenBurn.label.id" = "ID";
-"tokenBurn.label.notReissuable" = "Not reissuable";
-"tokenBurn.label.reissuable" = "Reissuable";
-"tokenBurn.label.confirmation" = "Confirmation";
-"tokenBurn.label.fee" = "Fee";
-"tokenBurn.label.type" = "Type";
-"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
-"tokenBurn.button.useTotalBalanace" = "Use total balance";
-"tokenBurn.button.burn" = "Burn";
-"tokenBurn.button.continue" = "Continue";
-"tokenBurn.button.okey" = "Okay";

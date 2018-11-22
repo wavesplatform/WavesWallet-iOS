@@ -68,6 +68,7 @@ extension AssetList.DTO {
         case fiat
         case waves
         case wavesToken
+        case spam
     }
 }
 

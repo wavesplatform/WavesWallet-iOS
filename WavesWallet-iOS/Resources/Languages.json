@@ -15,8 +15,33 @@
       "code": "ko"
   },
   {
+      "title": "中文(简体)",
+      "icon": "flag18China",
+      "code": "zh-Hant"
+  },
+  {
+      "title": "Nederlands",
+      "icon": "flag18Nederland",
+      "code": "nl"
+  },
+  {
+      "title": "हिन्दी",
+      "icon": "flag18Hindi",
+      "code": "hi"
+  },
+  {
       "title": "Español",
       "icon": "flag18Spain",
       "code": "es"
+  },
+  {
+      "title": "Indonesia",
+      "icon": "flag18Indonesia",
+      "code": "id"
+  },
+  {
+      "title": "Deutsch",
+      "icon": "flag18Germany",
+      "code": "de"
   }
 ]
