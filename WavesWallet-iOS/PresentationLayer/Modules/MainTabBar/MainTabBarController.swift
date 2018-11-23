@@ -24,25 +24,16 @@ final class MainTabBarController: UITabBarController {
 
     private let disposeBag = DisposeBag()
 
-    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
-
-    convenience init() {
-        self.init(applicationCoordinator: nil)
-    }
-
-    init(applicationCoordinator: ApplicationCoordinatorProtocol?) {
-        self.applicationCoordinator = applicationCoordinator
-        super.init(nibName: nil, bundle: nil)
-    }
+    weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-
+        
         listenerWallet()
 
         walletCoordinator = WalletCoordinator(navigationController: navWallet)
@@ -106,6 +97,8 @@ final class MainTabBarController: UITabBarController {
                 } else {
                     strongSelf.addTabBarBadge()
                 }
+
+
             })
             .disposed(by: disposeBag)
     }
@@ -121,17 +114,10 @@ extension MainTabBarController: UITabBarControllerDelegate {
             let popup = PopupViewController()
             popup.contentHeight = 300
             popup.present(contentViewController: vc)
+
             return false
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            viewController.showWarningSnack(tille: "dsad", subtitle: "dasdadsa", didTap: {
-                
-            }) {
-                
-            }
-        }
-       
+
         return true
     }
 }

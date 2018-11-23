@@ -77,6 +77,7 @@ final class AccountPasswordViewController: UIViewController {
         }
 
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
+            self?.passwordTextField.error = nil
             self?.buttonSignIn.isEnabled = isValidValue
         }
 
@@ -136,10 +137,10 @@ private extension AccountPasswordViewController {
         if let error = state.error {
             switch error {
             case .incorrectPassword:
-                // MARK: TODO Error
-                break
-
+                passwordTextField.error = Localizable.Waves.Accountpassword.Error.wrongpassword
             }
+        } else {
+            passwordTextField.error = nil
         }
     }
 }
