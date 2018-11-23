@@ -30,6 +30,11 @@ enum HistoryTypes {
         case update
     }
 
+    enum UpdateAction {
+        case refresh
+        case pullToRefresh
+    }
+
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
@@ -38,10 +43,11 @@ enum HistoryTypes {
         var isRefreshing: Bool
         var isAppeared: Bool
         var refreshData: RefreshData
+        var updateAction: UpdateAction?
     }
     
     enum Event {
-        case responseAll([DomainLayer.DTO.SmartTransaction])
+        case responseAll([DomainLayer.DTO.SmartTransaction], RefreshData)
         case handlerError(Error)
         case readyView
         case viewDidDisappear

@@ -896,9 +896,16 @@ internal enum Localizable {
 
       internal enum Error {
 
+        internal enum Subtitle {
+          /// Soon everything will work!
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.subtitle.notfound") }
+        }
+
         internal enum Title {
           /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
+          /// Do not worry, we are already fixing this problem.
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.title.notfound") }
         }
       }
 

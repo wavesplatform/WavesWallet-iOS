@@ -31,7 +31,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
-        newFeedbacks.append(queryAll())
+        newFeedbacks.append(queryRefresh())
+        newFeedbacks.append(queryPullToRefresh())
 
         Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type),
                       reduce: reduce,
@@ -41,24 +42,54 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
 
-    private func queryAll() -> Feedback {
+    private func queryRefresh() -> Feedback {
         return react(query: { (state) -> HistoryTypes.RefreshData? in
 
-            if state.refreshData == .none {
-                return nil
+            if let action = state.updateAction, case .refresh = action  {
+                return HistoryTypes.RefreshData.refresh
+            } else if state.refreshData == .refresh {
+                return HistoryTypes.RefreshData.refresh
             }
 
-            return state.refreshData
-        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in            
+            return nil
+        }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
+            print("Loading \(query)")
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
-                .map { .responseAll($0) }                
+                .map { .responseAll($0, query) }
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
+                    print("onDispose \(query)")
+                })
         })
     }
 
+    private func queryPullToRefresh() -> Feedback {
+        return react(query: { (state) -> HistoryTypes.RefreshData? in
+
+            if let action = state.updateAction, case .pullToRefresh = action  {
+                return HistoryTypes.RefreshData.pullToRefresh
+            } else if state.refreshData == .pullToRefresh {
+                return HistoryTypes.RefreshData.pullToRefresh
+            }
+
+
+            return nil
+        }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
+            print("Loading \(query)")
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .interactor
+                .transactions(input: strongSelf.moduleInput)
+                .map { .responseAll($0, query) }
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
+                    print("onDispose \(query)")
+                })
+        })
+    }
 
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         var newState = state
@@ -69,15 +100,16 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            state.refreshData = .refresh
+            state.updateAction = .refresh
             state.isAppeared = true
 
         case .viewDidDisappear:
             state.isAppeared = false
 
         case .refresh:
+            print("pullToRefresh")
             state.isRefreshing = true
-            state.refreshData = .pullToRefresh
+            state.updateAction = .pullToRefresh
             
         case .tapCell(let indexPath):
             
@@ -114,13 +146,28 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         case .handlerError:
             state.isRefreshing = false
 
-        case .responseAll(let response):
+        case .responseAll(let response, let updateAction):
+            print("Respnse All \(updateAction)")
 
             let filteredTransactions = state.currentFilter.filtered(transactions: response)
             let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
             state.sections = sections
             state.transactions = response
             state.isRefreshing = false
+
+            switch updateAction {
+            case .refresh:
+                state.refreshData = .refresh
+
+            case .pullToRefresh:
+                state.refreshData = .pullToRefresh
+                
+            case .none:
+                break
+
+            case .update:
+                break
+            }
         }
     }
 
