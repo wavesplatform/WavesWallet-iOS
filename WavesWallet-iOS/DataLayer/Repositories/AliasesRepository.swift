@@ -13,6 +13,7 @@ import Moya
 private enum Constants {
     static var notFoundCode = 404
 }
+
 final class AliasesRepository: AliasesRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -32,10 +33,15 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .aliasNode
                     .rx
                     .request(Node.Service.Alias(environment: environment,
-                                                kind: .list(accountAddress: accountAddress)))
+                                                kind: .list(accountAddress: accountAddress)),
+                            callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .catchError({ (error) -> Observable<Response> in
+                        return Observable.error(NetworkError.error(by: error))
+                    })
                     .map([String].self)
                     .map { (aliases: $0, environment: environment) }
-                    .asObservable()
             })
             .map({ data -> [DomainLayer.DTO.Alias] in
 
@@ -65,14 +71,18 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .aliasNode
                     .rx
                     .request(Node.Service.Alias(environment: environment,
-                                                kind: .alias(name: name)))
+                                                kind: .alias(name: name)),
+                            callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
                     .map([String:String].self)
-                    .asObservable()
                     .map({ $0["address"] ?? "" })
+                    .asObservable()
                     .catchError({ e -> Observable<String> in
-                        guard let error = e as? MoyaError else { return Observable.error(AliasesRepositoryError.invalid) }
-                        guard let response = error.response else { return Observable.error(AliasesRepositoryError.invalid) }
-                        guard response.statusCode == Constants.notFoundCode else { return Observable.error(AliasesRepositoryError.invalid) }
+                        guard let error = e as? MoyaError else {
+                            return Observable.error(NetworkError.error(by: e))
+                        }
+                        guard let response = error.response else { return Observable.error(NetworkError.error(by: e)) }
+                        guard response.statusCode == Constants.notFoundCode else { return Observable.error(NetworkError.error(by: e)) }
                         return Observable.error(AliasesRepositoryError.dontExist)                    
                     })
 

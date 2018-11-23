@@ -1063,4 +1063,6 @@
 
 "accountpassword.error.wrongpassword" = "Wrong password";
 
+"general.error.title.notfound" = "Do not worry, we are already fixing this problem.";
+"general.error.subtitle.notfound" = "Soon everything will work!";
 

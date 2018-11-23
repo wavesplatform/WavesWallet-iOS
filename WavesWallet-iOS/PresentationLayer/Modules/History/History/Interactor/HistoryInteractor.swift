@@ -21,11 +21,7 @@ final class HistoryInteractor: HistoryInteractorProtocol {
     
     private let refreshTransactionsSubject: PublishSubject<[DomainLayer.DTO.SmartTransaction]> = PublishSubject<[DomainLayer.DTO.SmartTransaction]>()
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-
-    private var specifications: TransactionsSpecifications?
-
     private let disposeBag: DisposeBag = DisposeBag()
-    private let replay: PublishSubject<Bool> = PublishSubject<Bool>()
 
     func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
@@ -49,10 +45,7 @@ final class HistoryInteractor: HistoryInteractorProtocol {
                                                types: [.lease, .leaseCancel])
         }
 
-        self.specifications = specifications
-
-        let transactions = loadingTransactions(specifications: specifications)
-        return Observable.merge(transactions, refreshTransactionsSubject.asObserver())
+        return loadingTransactions(specifications: specifications)
     }
 
     private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
@@ -63,5 +56,6 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         return transactionsInteractor
             .transactions(by: accountAddress, specifications: specifications)
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .share()
     }
 }

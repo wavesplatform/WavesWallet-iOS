@@ -56,6 +56,7 @@ extension HistoryTypes.State {
                                   sections: [section],
                                   isRefreshing: false,
                                   isAppeared: false,
-                                  refreshData: .none)
+                                  refreshData: .refresh,
+                                  updateAction: nil)
     }
 }

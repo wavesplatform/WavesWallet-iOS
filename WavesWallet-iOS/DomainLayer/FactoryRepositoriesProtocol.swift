@@ -13,9 +13,6 @@ protocol FactoryRepositoriesProtocol {
     var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
 
-    var leasingRepositoryLocal: LeasingTransactionRepositoryProtocol { get }
-    var leasingRepositoryRemote: LeasingTransactionRepositoryProtocol { get }
-
     var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
