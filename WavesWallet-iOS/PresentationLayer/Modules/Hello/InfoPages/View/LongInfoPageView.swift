@@ -65,8 +65,6 @@ final class LongInfoPageView: UIView {
     @IBOutlet weak var secondImageView: UIImageView!
     @IBOutlet weak var thirdImageView: UIImageView!
     @IBOutlet weak var fourthImageView: UIImageView!
- 
-    
     
     func setupConstraints() {
         if Platform.isIphone5 {
@@ -114,7 +112,7 @@ extension LongInfoPageView: ViewConfiguration {
         thirdImageView.image = model.thirdImage
         fourthImageView.image = model.fourthImage
         
-        updateConstraints()
+        setupConstraints()
         scrollView.delegate = self
     }
     
