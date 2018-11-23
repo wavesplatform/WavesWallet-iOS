@@ -68,28 +68,11 @@ final class ShortInfoPageView: UIView {
         titleTrailingConstraint.constant = titleTrailing
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-   
-//        let contentHeight = String(describing: contentView.bounds.height)
-//        print("LAYOUT CONTENT HEIGHT: " + contentHeight)
-//        updateOnScroll()
-    }
-//
-//    override func updateConstraints() {
-//        super.updateConstraints()
-//
-//        let contentHeight = String(describing: scrollView.contentSize.height)
-//        let height = String(describing: scrollView.frame.height)
-////        print("UPDATE CONTENT HEIGHT: " + contentHeight + " " + height)
-//    }
-    
     func updateOnScroll() {
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         let contentOffsetY = scrollView.contentOffset.y
         
-        print(contentHeight, contentHeight - height - contentOffsetY)
         if contentHeight > 0 && contentHeight - height - contentOffsetY <= imageViewBottomConstraint.constant {
             delegate?.shortInfoPageViewDidScrollToBottom(view: self)
         }
