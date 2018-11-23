@@ -121,7 +121,6 @@ final class InfoPagesViewController: UIViewController {
         collectionView.frame = view.bounds
     }
 
-    
     private func setupConstraints() {
         if Platform.isIphone5 {
             toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.small.rawValue
@@ -204,7 +203,6 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         
         if let pageView = pageView as? ShortInfoPageView {
             
-//            pageView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
             pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
             
@@ -261,9 +259,8 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             
             var page = Int((offsetX + size / 2) / size)
             let maxOffset = size * CGFloat(page)
-//            print(offsetX, maxOffset)
+
             if offsetX > maxOffset && !nextControl.isEnabled && offsetX > prevOffsetX {
-                print(offsetX, maxOffset)
                 scrollView.contentOffset.x = maxOffset
             }
             
