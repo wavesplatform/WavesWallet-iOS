@@ -47,7 +47,10 @@ final class WalletCoordinator: Coordinator {
                 .subscribe(onNext: { [weak self] wallet in
 
                     guard let owner = self else { return }
-                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else { return }
+                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
+                        owner.showBackupTostIfNeed(isBackedUp: wallet.wallet.isBackedUp)
+                        return
+                    }
 
                     let legal = LegalCoordinator(viewController: owner.walletViewContoller)
                     legal.delegate = owner
@@ -57,8 +60,42 @@ final class WalletCoordinator: Coordinator {
         }
         navigationController?.pushViewController(walletViewContoller, animated: false)
         CATransaction.commit()
-
-
+    }
+    
+    private func showBackupTostIfNeed(isBackedUp: Bool) {
+        
+        if !isBackedUp {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.walletViewContoller.showWarningSnack(tille: Localizable.Waves.General.Tost.Savebackup.title,
+                                                          subtitle: Localizable.Waves.General.Tost.Savebackup.subtitle,
+                                                          icon: Images.warning18White.image, didTap: {
+                                                            
+                self.authorization.authorizedWallet().subscribe(onNext: { [weak self] (signedWallet) in
+                    
+                    guard let owner = self else { return }
+                    
+                    let seed = signedWallet.seedWords
+                    
+                    let backup = BackupCoordinator(navigationController: owner.navigationController!, seed: seed) { [weak self] _ in
+                        
+                        guard let owner = self else { return }
+                        
+                        let wallet = signedWallet.wallet.mutate {
+                            $0.isBackedUp = true
+                        }
+                        owner.authorization.changeWallet(wallet).subscribe(onNext: { (wallet) in
+                            
+                        }).disposed(by: owner.disposeBag)
+                        
+                        owner.navigationController?.popToRootViewController(animated: true)
+                    }
+                    owner.addChildCoordinator(childCoordinator: backup)
+                    backup.start()
+                }).disposed(by: self.disposeBag)
+                                                            
+                }){}
+            }
+        }
     }
 }
 
@@ -258,6 +295,8 @@ extension WalletCoordinator: LegalCoordinatorDelegate {
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Void> in
                 guard let owner = self else { return Observable.never() }
+
+                owner.showBackupTostIfNeed(isBackedUp: wallet.wallet.isBackedUp)
 
                 var newWallet = wallet.wallet
                 newWallet.isAlreadyShowLegalDisplay = true

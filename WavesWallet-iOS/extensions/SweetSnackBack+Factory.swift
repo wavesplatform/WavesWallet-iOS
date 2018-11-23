@@ -42,14 +42,14 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showWarningSnack(tille: String, subtitle: String, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
+    @discardableResult func showWarningSnack(tille: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
 
         let error = SweetSnack.init(title: tille,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
                                     behaviorDismiss: .never,
                                     subtitle: subtitle,
-                                    icon: Images.refresh18White.image,
+                                    icon: icon,
                                     isEnabledUserHidden: true,
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: didSwipe))
         return SweetSnackbar.shared.showSnack(error, on: self)

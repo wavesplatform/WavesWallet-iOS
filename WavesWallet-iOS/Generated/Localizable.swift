@@ -927,6 +927,16 @@ internal enum Localizable {
           internal static var wavestoken: String { return Localizable.tr("Waves", "general.ticker.title.wavestoken") }
         }
       }
+
+      internal enum Tost {
+
+        internal enum Savebackup {
+          /// Store your SEED safely, it is the only way to restore your wallet
+          internal static var subtitle: String { return Localizable.tr("Waves", "general.tost.saveBackup.subtitle") }
+          /// Save your backup phrase (SEED)
+          internal static var title: String { return Localizable.tr("Waves", "general.tost.saveBackup.title") }
+        }
+      }
     }
 
     internal enum Hello {
