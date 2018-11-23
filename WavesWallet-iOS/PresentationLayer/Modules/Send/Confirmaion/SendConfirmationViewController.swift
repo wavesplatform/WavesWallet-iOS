@@ -99,7 +99,7 @@ final class SendConfirmationViewController: UIViewController {
     }
     
     private var descriptionText: String {
-        return textField.text ?? ""
+        return textField.text?.trimmingCharacters(in: CharacterSet.whitespaces) ?? ""
     }
 }
 
