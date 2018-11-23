@@ -30,7 +30,7 @@ platform :ios do
       ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
       ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
       ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"      
+      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
       build_projet
       upload_crashlytics
   end
@@ -52,12 +52,12 @@ platform :ios do
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
-    match(app_identifier: ["com.wavesplatform.waveswallet.test"],
-      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "adhoc",
-      readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+    # match(app_identifier: ["com.wavesplatform.waveswallet.test"],
+    #   git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+    #   username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+    #   type: "adhoc",
+    #   readonly: true,
+    #   keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")

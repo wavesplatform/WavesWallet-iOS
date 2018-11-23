@@ -126,7 +126,7 @@ extension WalletCoordinator: AssetModuleOutput {
     func showHistory(by assetId: String) {
         guard let navigationController = navigationController else { return }
         let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .asset(assetId))
-        historyCoordinator.start()
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
