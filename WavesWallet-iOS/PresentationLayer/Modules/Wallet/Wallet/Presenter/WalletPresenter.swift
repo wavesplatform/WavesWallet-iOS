@@ -88,7 +88,11 @@ final class WalletPresenter: WalletPresenterProtocol {
             return state.mutate { $0.displayState.isAppeared = true }
 
         case .viewDidDisappear:
-            return state.mutate { $0.displayState.isAppeared = false }
+            return state.mutate {
+                $0.displayState.isAppeared = false
+                $0.displayState.leasing.animateType = .none
+                $0.displayState.assets.animateType = .none
+            }
 
         case .handlerError:
             return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: false) }

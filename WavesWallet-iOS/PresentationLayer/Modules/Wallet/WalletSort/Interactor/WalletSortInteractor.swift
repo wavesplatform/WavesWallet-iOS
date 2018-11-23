@@ -12,7 +12,7 @@ import RealmSwift
 import RxRealm
 
 private enum Constants {
-    static let stepSize: Float = 0.000000001
+    static let stepSize: Float = 0.1
 }
 
 private extension WalletSort.DTO.Asset {
@@ -143,7 +143,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
 
         authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
+            .flatMapLatest({ [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
                                                          assetBalance: DomainLayer.DTO.AssetBalance,
                                                          toAssetBalance: DomainLayer.DTO.AssetBalance)> in
 
@@ -163,7 +163,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                     .zip(assetBalance, toAssetBalance)
                     .map { (wallet: wallet.wallet, assetBalance: $0.0, toAssetBalance: $0.1) }
             })
-            .flatMap { [weak self] data -> Observable<Void> in
+            .flatMapLatest { [weak self] data -> Observable<Void> in
 
                 guard let owner = self else { return Observable.never() }
 
@@ -177,6 +177,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                     .map { _ in () }
 
             }
+            .sweetDebug("Move")
             .subscribe()
             .disposed(by: disposeBag)
     }
