@@ -104,7 +104,7 @@ extension WalletTypes.DisplayState {
         let newDisplay = WalletTypes.DisplayState.Display(sections: sections,
                                                           collapsedSections: collapsedSections,
                                                           isRefreshing: false,
-                                                          animateType: .refresh)
+                                                          animateType: .refresh(animated: false))
 
         return mutate {
             if kind == .assets {
@@ -151,7 +151,7 @@ extension WalletTypes.DisplayState.Display {
         return .init(sections: [section],
                      collapsedSections: [:],
                      isRefreshing: false,                     
-                     animateType: .refresh)
+                     animateType: .refresh(animated: false))
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.DisplayState.Display {
