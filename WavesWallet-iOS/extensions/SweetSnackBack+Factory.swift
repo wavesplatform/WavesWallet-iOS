@@ -29,7 +29,20 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showErrorSnack(tille: String, didTap: @escaping (() -> Void)) -> String {
+    @discardableResult func showMessageSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
+
+
+        let error = SweetSnack.init(title: tille,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: nil,
+                                    icon: nil,
+                                    isEnabledUserHidden: true,
+                                    action: SweetSnackCustonAction(didTap: didTap, didSwipe: nil))
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @discardableResult func showErrorSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
 
 
         let error = SweetSnack.init(title: tille,
@@ -72,12 +85,12 @@ extension UIViewController {
 
 struct SweetSnackError: SweetSnackAction {
 
-    var didTap: (() -> Void)
+    var didTap: (() -> Void)?
 
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
         view.startAnimationIcon()
         view.isUserInteractionEnabled = false
-        didTap()
+        didTap?()
     }
 
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {}
@@ -85,14 +98,14 @@ struct SweetSnackError: SweetSnackAction {
 
 struct SweetSnackCustonAction: SweetSnackAction {
 
-    var didTap: (() -> Void)
-    var didSwipe: (() -> Void)
+    var didTap: (() -> Void)?
+    var didSwipe: (() -> Void)?
 
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
-        didTap()
+        didTap?()
     }
 
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
-        didSwipe()
+        didSwipe?()
     }
 }
