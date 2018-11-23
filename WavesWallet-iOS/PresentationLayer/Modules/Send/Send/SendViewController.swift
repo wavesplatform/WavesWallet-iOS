@@ -141,9 +141,13 @@ final class SendViewController: UIViewController {
         
         var address = recipientAddressView.text
         var amount = amountWithoutFee
+        var isGateway = false
+        var attachment = ""
         
         if let gateWay = gateWayInfo, isValidCryptocyrrencyAddress {
             address = gateWay.address
+            isGateway = true
+            attachment = gateWay.attachment
             
             if selectedAsset?.asset?.isMonero == true && moneroAddress.count > 0 {
                 address = moneroAddress
@@ -164,7 +168,8 @@ final class SendViewController: UIViewController {
                          amount: amount,
                          amountWithoutFee: amountWithoutFee,
                          isAlias: isValidAlias,
-                         attachment: "")
+                         attachment: attachment,
+                         isGateway: isGateway)
         
         navigationController?.pushViewController(vc, animated: true)
     }

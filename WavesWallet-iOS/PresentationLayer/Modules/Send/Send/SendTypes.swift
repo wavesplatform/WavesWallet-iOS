@@ -101,6 +101,7 @@ extension Send.DTO {
         let maxAmount: Money
         let fee: Money
         let address: String
+        let attachment: String
     }
 }
 
