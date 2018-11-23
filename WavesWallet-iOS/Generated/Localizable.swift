@@ -2018,6 +2018,8 @@ internal enum Localizable {
       internal enum Cell {
         /// Block
         internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
+        /// Buy
+        internal static var buy: String { return Localizable.tr("Waves", "transactionhistory.cell.buy") }
         /// Confirmations
         internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
         /// Data Transaction
@@ -2042,8 +2044,12 @@ internal enum Localizable {
         internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
+        /// Sell
+        internal static var sell: String { return Localizable.tr("Waves", "transactionhistory.cell.sell") }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
+        /// Type
+        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.cell.type") }
 
         internal enum Button {
           /// Cancel Leasing
