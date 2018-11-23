@@ -188,6 +188,8 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
+    internal static let mainTabBarController = SceneType<WavesWallet_iOS.MainTabBarController>(storyboard: Main.self, identifier: "MainTabBarController")
+
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
   }
   internal enum MyAddress: StoryboardType {

@@ -22,7 +22,8 @@ final class MainTabBarCoordinator: Coordinator {
     }
 
     func start() {
-        let mainTabBar = MainTabBarController(applicationCoordinator: applicationCoordinator)        
+        let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
+        mainTabBar.applicationCoordinator = applicationCoordinator
         self.slideMenuViewController.contentViewController = mainTabBar
     }
 }

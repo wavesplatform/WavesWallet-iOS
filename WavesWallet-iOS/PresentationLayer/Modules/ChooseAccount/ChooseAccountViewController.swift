@@ -54,7 +54,7 @@ final class ChooseAccountViewController: UIViewController {
     
     // MARK: - Content
 
-    fileprivate lazy var swipeButtons: [UIView] = {
+    var swipeButtons: [UIView] {
         let edit = MGSwipeButton(title: "", icon: Images.editaddress24Submit300.image, backgroundColor: nil)
         edit.buttonWidth = Constants.swipeButtonWidth
         edit.tag = Constants.editButtonTag
@@ -64,7 +64,7 @@ final class ChooseAccountViewController: UIViewController {
         delete.tag = Constants.deleteButtonTag
         
         return [delete, edit]
-    }()
+    }
     
     fileprivate var editButtonIndex: Int {
         return swipeButtons.firstIndex(where: { (view) -> Bool in
