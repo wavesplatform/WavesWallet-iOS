@@ -27,6 +27,9 @@ final class InfoPagesViewController: UIViewController {
     @IBOutlet private weak var toolbarBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var nextControl: UIControl!
+
+    // for fixing back when scrollingBackwards
+    fileprivate(set) var prevOffsetX: CGFloat = 0
     
     weak var output: InfoPagesViewModuleOutput?
     
@@ -57,8 +60,6 @@ final class InfoPagesViewController: UIViewController {
         
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,7 +68,7 @@ final class InfoPagesViewController: UIViewController {
 
         setupCollectionView()
         setupPageControl()
-        
+        setupButtonTitle()
         setupConstraints()
         
         gradientView.endColor = .basic50
@@ -130,6 +131,16 @@ final class InfoPagesViewController: UIViewController {
         }
     }
     
+    private func setupButtonTitle() {
+        let currentPage = pageControl.currentPage
+        
+        if currentPage == pageViews.count - 1 {
+            toolbarLabel.text = Constants.buttonUnderstand
+        } else {
+            toolbarLabel.text = Constants.buttonNext
+        }
+    }
+    
     fileprivate func nextPage() {
         let page = pageControl.currentPage + 1
         
@@ -142,13 +153,9 @@ final class InfoPagesViewController: UIViewController {
     }
     
     fileprivate func changedPage() {
-        let currentPage = pageControl.currentPage
+        setupButtonTitle()
         
-        if currentPage == pageViews.count - 1 {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.understand
-        } else {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.next
-        }
+        let currentPage = pageControl.currentPage
         
         if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
             nextControl.isEnabled = currentModel.scrolledToBottom
@@ -240,18 +247,25 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             if size == 0 { return }
             
             var page = Int((offsetX + size / 2) / size)
-            
-            if offsetX > size * CGFloat(page) && !nextControl.isEnabled {
-                scrollView.contentOffset.x = size * CGFloat(page)
+            let maxOffset = size * CGFloat(page)
+//            print(offsetX, maxOffset)
+            if offsetX > maxOffset && !nextControl.isEnabled && offsetX > prevOffsetX {
+                print(offsetX, maxOffset)
+                scrollView.contentOffset.x = maxOffset
             }
             
             page = max(min(pageViews.count - 1, page), 0)
             pageControl.currentPage = page
             
             changedPage()
+            prevOffsetX = scrollView.contentOffset.x
  
         } 
         
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        scrollToRight = scro
     }
     
 }
@@ -332,4 +346,9 @@ enum InfoPagesViewControllerConstants {
         
     }()
     
+}
+
+private enum Constants {
+    static let buttonNext = Localizable.Waves.Hello.Button.next
+    static let buttonUnderstand = Localizable.Waves.Hello.Button.understand
 }

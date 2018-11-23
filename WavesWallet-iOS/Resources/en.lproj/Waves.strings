@@ -643,6 +643,16 @@
 
 "newaccount.textfield.error.passwordnotmatch" = "password not match";
 
+"newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
+
+"newaccount.textfield.error.charactersmaximum" = "%d characters maximum";
+
+"newaccount.textfield.error.doesnotmatch" = "Does not match";
+
+"newaccount.error.noavatarselected" = "No avatar selected";
+
+"newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
+
 "passcode.button.forgotPasscode.title" = "Use account password";
 
 "passcode.label.forgotPasscode.title" = "Forgot passcode?";
@@ -1049,4 +1059,8 @@
 
 "wavespopup.label.comingsoon" = "Coming soon";
 
-"general.error.title.noconnectiontotheinternet" = "No connection to the Interne";
+"general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
+
+"accountpassword.error.wrongpassword" = "Wrong password";
+
+

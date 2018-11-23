@@ -58,7 +58,7 @@ extension ShortInfoPageView: ViewConfiguration {
         thirdImageView.image = model.thirdImage
         fourthImageView.image = model.fourthImage
         
-        updateConstraints()
+        setupConstraints()
         
     }
     

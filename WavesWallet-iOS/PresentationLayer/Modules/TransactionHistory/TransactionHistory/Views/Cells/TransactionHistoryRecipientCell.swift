@@ -64,7 +64,7 @@ final class TransactionHistoryRecipientCell: UITableViewCell, NibReusable {
             title = Localizable.Waves.Transactionhistory.Cell.recipients
 
         case .massReceived:
-            title = Localizable.Waves.Transactionhistory.Cell.recipients
+            title = Localizable.Waves.Transactionhistory.Cell.receivedFrom
 
         default:
             title = ""
