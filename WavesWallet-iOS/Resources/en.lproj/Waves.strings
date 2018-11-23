@@ -279,6 +279,8 @@
 
 "dexcreateorder.label.notEnough" = "Not enough";
 
+"dexcreateorder.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
 "dexcreateorder.label.smallValue" = "Value is too small";
 
 "dexcreateorder.label.totalIn" = "Total in";
@@ -1063,6 +1065,15 @@
 
 "accountpassword.error.wrongpassword" = "Wrong password";
 
+
 "general.error.title.notfound" = "Do not worry, we are already fixing this problem.";
 "general.error.subtitle.notfound" = "Soon everything will work!";
+
+"serverError.label.title" = "Oh ... It's all broken!";
+"serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+"serverError.button.retry" = "Retry";
+"serverError.button.sendReport" = "Send a report";
+
+"dex.general.error.nothingHere" = "Nothing Here...";
+"dex.general.error.somethingWentWrong" = "Something went wrong";
 

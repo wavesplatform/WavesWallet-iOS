@@ -27,12 +27,6 @@ enum HistoryTypes {
         case none
         case pullToRefresh
         case refresh
-        case update
-    }
-
-    enum UpdateAction {
-        case refresh
-        case pullToRefresh
     }
 
     struct State: Mutating {
@@ -42,8 +36,7 @@ enum HistoryTypes {
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
-        var refreshData: RefreshData
-        var updateAction: UpdateAction?
+        var refreshData: RefreshData?
     }
     
     enum Event {
