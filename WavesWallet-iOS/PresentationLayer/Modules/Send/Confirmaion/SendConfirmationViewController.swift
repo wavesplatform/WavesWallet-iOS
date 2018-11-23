@@ -24,11 +24,11 @@ final class SendConfirmationViewController: UIViewController {
         let amountWithoutFee: Money
         let isAlias: Bool
         var attachment: String
+        let isGateway: Bool
     }
     
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelBalance: UILabel!
-    @IBOutlet private weak var labelTotalUsd: UILabel!
     @IBOutlet private weak var viewRecipient: SendConfirmationRecipientView!
     @IBOutlet private weak var labelFee: UILabel!
     @IBOutlet private weak var labelFeeAmount: UILabel!
@@ -38,6 +38,7 @@ final class SendConfirmationViewController: UIViewController {
     @IBOutlet private weak var buttonConfirm: HighlightedButton!
     @IBOutlet private weak var tickerView: TickerView!
     @IBOutlet private weak var labelAssetName: UILabel!
+    @IBOutlet private weak var viewDescription: UIView!
     
     private var isShowError = false
     
@@ -51,6 +52,8 @@ final class SendConfirmationViewController: UIViewController {
         setupLocalization()
         setupData()
         labelDescriptionError.alpha = 0
+        viewDescription.isHidden = input.isGateway
+        setupButtonState()
     }
 
     override func viewWillLayoutSubviews() {
@@ -72,8 +75,6 @@ final class SendConfirmationViewController: UIViewController {
     }
     
     @IBAction private func confirmTapped(_ sender: Any) {
-     
-        input.attachment = descriptionText
         
         let vc = StoryboardScene.Send.sendLoadingViewController.instantiate()
         vc.delegate = resultDelegate
@@ -82,7 +83,19 @@ final class SendConfirmationViewController: UIViewController {
     }
     
     @IBAction private func descriptionDidChange(_ sender: Any) {
-        showError(descriptionText.utf8.count > Send.ViewModel.maximumDescriptionLength)
+        
+        input.attachment = descriptionText
+        showError(!isValidAttachment)
+        setupButtonState()
+    }
+    
+    private var isValidAttachment: Bool {
+        return descriptionText.utf8.count <= Send.ViewModel.maximumDescriptionLength
+    }
+    
+    private func setupButtonState() {
+        buttonConfirm.isUserInteractionEnabled = isValidAttachment
+        buttonConfirm.backgroundColor = isValidAttachment ? .submit400 : .submit200
     }
     
     private var descriptionText: String {
