@@ -54,7 +54,7 @@ final class SendInteractor: SendInteractorProtocol {
             
             guard let asset = asset.asset else { return Disposables.create() }
 
-            self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, error) in
+            self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, attachment, error) in
                 
                 if let address = address {
                     subscribe.onNext(ResponseType(output: address, error: nil))
@@ -78,16 +78,17 @@ final class SendInteractor: SendInteractorProtocol {
 
                 if let fee = fee, let min = min, let max = max {
 
-                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: "", complete: { (shortName, address, error) in
+                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: "", complete: { (shortName, address, attachment, error) in
                         
-                        if let shortName = shortName, let address = address {
+                        if let shortName = shortName, let address = address, let attachment = attachment {
                             
                             let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
                                                                    assetShortName: shortName,
                                                                    minAmount: min,
                                                                    maxAmount: max,
                                                                    fee: fee,
-                                                                   address: address)
+                                                                   address: address,
+                                                                   attachment: attachment)
                             
                             subscribe.onNext(ResponseType(output: gatewayInfo, error: nil))
                         }
@@ -176,7 +177,7 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ error: ResponseTypeError?) -> Void) {
+    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: ResponseTypeError?) -> Void) {
         
         var params = ["currency_from" : asset.wavesId ?? "",
                       "currency_to" : asset.gatewayId ?? "",
@@ -201,16 +202,17 @@ private extension SendInteractor {
                         let json = info["tunnel"]
                         let shortName = asset.gatewayId ?? json["currency_from_txt"].stringValue
                         let address = json["wallet_from"].stringValue
+                        let attachment = json["attachment"].stringValue
                         
-                        complete(shortName, address, nil)
+                        complete(shortName, address, attachment, nil)
                     }
                     else {
-                        complete(nil, nil, error)
+                        complete(nil, nil, nil, error)
                     }
                 })
             }
             else {
-                complete(nil, nil, error)
+                complete(nil, nil, nil, error)
             }
         }
     }

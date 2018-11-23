@@ -31,13 +31,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPN-mA-v6F">
-                                <rect key="frame" x="24" y="167" width="150" height="40"/>
+                                <rect key="frame" x="24" y="167" width="199" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="egU-29-U7i"/>
                                 </constraints>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="wavesplatform.com">
+                                        <fragment content="forum.wavesplatform.com">
                                             <attributes>
                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="17" name=".SFNSText"/>
@@ -272,6 +272,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhT-jR-ugm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-468.75" y="-117.25352112676056"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="1oG-Do-NMu">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" id="uke-hz-VpC" customClass="MainTabBarController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Xrf-oJ-ZJ6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jq6-s9-jYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-656" y="-847"/>
         </scene>
     </scenes>
     <resources>

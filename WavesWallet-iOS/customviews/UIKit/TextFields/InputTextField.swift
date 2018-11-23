@@ -193,9 +193,12 @@ final class InputTextField: UIView, NibOwnerLoadable {
         var error: String? = nil
         var isValidValue: Bool = true
 
-        if let value = value, value.count > 0, let validator = valueValidator {
-            error = validator(value)
-            isValidValue = error == nil
+        if let value = value, value.count > 0,
+            let validator = valueValidator,
+            let errorMessage = validator(value)
+        {
+            error = errorMessage
+            isValidValue = false
         } else if let externalError = externalError {
             error = externalError
             isValidValue = false
