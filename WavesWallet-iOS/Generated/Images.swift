@@ -54,6 +54,7 @@ internal enum Images {
     internal static let token80 = ImageAsset(name: "token80")
     internal static let wallet80 = ImageAsset(name: "wallet80")
   }
+  internal static let image = ImageAsset(name: "Image")
   internal enum TabBar {
     internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
     internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
@@ -177,7 +178,7 @@ internal enum Images {
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
-  internal static let logo = ImageAsset(name: "logo")
+  internal static let launcher34 = ImageAsset(name: "launcher34")
   internal static let logo3x = ImageAsset(name: "logo3x")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
@@ -304,6 +305,7 @@ internal enum Images {
     Enter.dex80,
     Enter.token80,
     Enter.wallet80,
+    image,
     TabBar.tabBarDex,
     TabBar.tabBarDexActive,
     TabBar.tabBarHistory,
@@ -423,7 +425,7 @@ internal enum Images {
     info18Error500,
     info18Warning600,
     information22Multy,
-    logo,
+    launcher34,
     logo3x,
     logoBitcoin48,
     logoBitcoincash48,
