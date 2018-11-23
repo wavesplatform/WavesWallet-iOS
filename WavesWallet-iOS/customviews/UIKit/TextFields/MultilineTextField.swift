@@ -198,6 +198,10 @@ final class MultilineTextField: UIView {
         return textView.becomeFirstResponder()
     }
     
+    @discardableResult override func resignFirstResponder() -> Bool {
+        return textView.resignFirstResponder()
+    }
+    
 }
 
 extension MultilineTextField: ViewConfiguration {
