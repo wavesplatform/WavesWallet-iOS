@@ -32,7 +32,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryRefresh())
-        newFeedbacks.append(queryPullToRefresh())
 
         Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type),
                       reduce: reduce,
@@ -45,13 +44,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func queryRefresh() -> Feedback {
         return react(query: { (state) -> HistoryTypes.RefreshData? in
 
-            if let action = state.updateAction, case .refresh = action  {
-                return HistoryTypes.RefreshData.refresh
-            } else if state.refreshData == .refresh {
-                return HistoryTypes.RefreshData.refresh
-            }
-
-            return nil
+            return state.refreshData
         }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
             print("Loading \(query)")
             guard let strongSelf = self else { return Signal.empty() }
@@ -66,30 +59,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         })
     }
 
-    private func queryPullToRefresh() -> Feedback {
-        return react(query: { (state) -> HistoryTypes.RefreshData? in
-
-            if let action = state.updateAction, case .pullToRefresh = action  {
-                return HistoryTypes.RefreshData.pullToRefresh
-            } else if state.refreshData == .pullToRefresh {
-                return HistoryTypes.RefreshData.pullToRefresh
-            }
-
-
-            return nil
-        }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
-            print("Loading \(query)")
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
-                .interactor
-                .transactions(input: strongSelf.moduleInput)
-                .map { .responseAll($0, query) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
-                .do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
-                    print("onDispose \(query)")
-                })
-        })
-    }
 
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         var newState = state
@@ -106,8 +75,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         case .viewDidDisappear:
             state.isAppeared = false
 
-        case .refresh:
-            print("pullToRefresh")
+        case .refresh:            
             state.isRefreshing = true
             state.updateAction = .pullToRefresh
             
@@ -132,8 +100,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             if (index != NSNotFound) {
                 moduleOutput?.showTransaction(transactions: filteredTransactions, index: index)
             }
-            
-
 
         case .changeFilter(let filter):
             
@@ -141,7 +107,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
             state.sections = sections
             state.currentFilter = filter
-
 
         case .handlerError:
             state.isRefreshing = false
@@ -154,20 +119,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.sections = sections
             state.transactions = response
             state.isRefreshing = false
-
-            switch updateAction {
-            case .refresh:
-                state.refreshData = .refresh
-
-            case .pullToRefresh:
-                state.refreshData = .pullToRefresh
-                
-            case .none:
-                break
-
-            case .update:
-                break
-            }
         }
     }
 
