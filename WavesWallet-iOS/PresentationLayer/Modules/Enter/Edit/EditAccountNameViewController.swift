@@ -98,8 +98,11 @@ final class EditAccountNameViewController: UIViewController {
                                                            placeholder: Localizable.Waves.Editaccountname.Label.newName))
         
         accountNameInput.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+            let trimmedValue = value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+            if trimmedValue.count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            } else if trimmedValue.count > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.charactersmaximum(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
@@ -126,7 +129,6 @@ final class EditAccountNameViewController: UIViewController {
     // MARK: - Layout
     
     fileprivate func layoutSaveButton() {
-        
         saveButtonBottomConstraint.constant = keyboardHeight
         
         view.setNeedsLayout()
@@ -174,8 +176,9 @@ extension EditAccountNameViewController {
         let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         let animationOptions = UIViewAnimationOptions(rawValue: curve << 16)
         
+        let insets = layoutInsets
         let keyboardRect = view.convert(frameEnd, from: nil)
-        let h = max(view.bounds.height - keyboardRect.origin.y, 0)
+        let h = max(view.bounds.height - keyboardRect.origin.y - insets.bottom, 0)
         
         keyboardHeight = h
         
