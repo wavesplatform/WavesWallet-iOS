@@ -423,6 +423,10 @@
 
 "enter.language.navigation.title" = "Change language";
 
+"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+
+"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+
 "general.biometric.faceID.title" = "Face ID";
 
 "general.biometric.touchID.title" = "Touch ID";

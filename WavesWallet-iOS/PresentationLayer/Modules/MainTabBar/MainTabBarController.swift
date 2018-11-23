@@ -123,6 +123,15 @@ extension MainTabBarController: UITabBarControllerDelegate {
             popup.present(contentViewController: vc)
             return false
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            viewController.showWarningSnack(tille: "dsad", subtitle: "dasdadsa", didTap: {
+                
+            }) {
+                
+            }
+        }
+       
         return true
     }
 }
