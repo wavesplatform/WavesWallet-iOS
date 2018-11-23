@@ -16,9 +16,9 @@ extension TransactionHistoryTypes.ViewModel {
         let customTitle: String?
         let asset: DomainLayer.DTO.Asset?
         let isSpam: Bool
-        let currencyConversion: String?
         let canGoBack: Bool?
         let canGoForward: Bool?
+        let exchangeSubtitle: String?
     }
     
     struct Recipient {
@@ -95,7 +95,7 @@ extension TransactionHistoryTypes.ViewModel.Section {
         var sign: Balance.Sign = .none
         var asset: DomainLayer.DTO.Asset?
         var customTitle: String?
-        var currencyConversion: String?
+        var exchangeSubtitle: String?
         
         switch transaction.kind {
         case .receive(let model):
@@ -144,21 +144,28 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .exchange(let model):
             
             let myOrder = model.myOrder
+            var typeTitle = ""
             
             if myOrder.kind == .sell {
-                sign = .plus
-                currencyConversion = myOrder.amount.displayText(sign: .minus, withoutCurrency: false)
-            } else {
                 sign = .minus
-                currencyConversion = myOrder.amount.displayText(sign: .plus, withoutCurrency: false)
+                typeTitle = Localizable.Waves.Transactionhistory.Cell.sell
+                exchangeSubtitle = myOrder.total.displayText(sign: .plus, withoutCurrency: false)
+            } else {
+                sign = .plus
+                typeTitle = Localizable.Waves.Transactionhistory.Cell.buy
+                exchangeSubtitle = myOrder.total.displayText(sign: .minus, withoutCurrency: false)
             }
             
-            balance = model.total
+            balance = model.amount
+                        
+            let valueType = typeTitle + ": " + model.amount.currency.title + "/" + model.price.currency.title
+            kindRows.append(.keyValue(.init(title: Localizable.Waves.Transactionhistory.Cell.type,
+                                            value: valueType)))
             
             kindRows.append(
                 .keyValue(
                 .init(
-                    title: model.price.currency.title + " " + Localizable.Waves.Transactionhistory.Cell.price,
+                    title: Localizable.Waves.Transactionhistory.Cell.price,
                     value: model.price.displayText)
                 ))
             
@@ -325,10 +332,10 @@ extension TransactionHistoryTypes.ViewModel.Section {
                                    sign: sign,
                                    customTitle: customTitle,
                                    asset: asset,
-                                   currencyConversion: currencyConversion,
                                    isSpam: asset?.isSpam ?? false,
                                    canGoBack: index > 0,
-                                   canGoForward: index < count - 1)
+                                   canGoForward: index < count - 1,
+                                   exchangeSubtitle: exchangeSubtitle)
         )
         
         // custom rows
@@ -371,10 +378,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                     sign: Balance.Sign?,
                     customTitle: String?,
                     asset: DomainLayer.DTO.Asset?,
-                    currencyConversion: String?,
                     isSpam: Bool,
                     canGoBack: Bool?,
-                    canGoForward: Bool?) -> TransactionHistoryTypes.ViewModel.Row {
+                    canGoForward: Bool?,
+                    exchangeSubtitle: String?) -> TransactionHistoryTypes.ViewModel.Row {
         
         return
             .general(
@@ -385,9 +392,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                     customTitle: customTitle,
                     asset: asset,
                     isSpam: isSpam,
-                    currencyConversion: currencyConversion,
                     canGoBack: canGoBack,
-                    canGoForward: canGoForward)
+                    canGoForward: canGoForward,
+                    exchangeSubtitle: exchangeSubtitle)
             )
     }
     
