@@ -34,11 +34,15 @@ extension DomainLayer.DTO.AssetPair {
     }
 
     func priceBalance(_ amount: Int64) -> Balance {
+        
+        // TODO: this calculation was before and we find a bug. Need to good test ouput price
+        
+//        let delta = pow(10, max(1, (precisionDifference - priceAsset.precision)))
+//        let amount = Decimal(amount) / delta
+//
+//        return priceAsset.balance(amount.int64Value, precision: precisionDifference)
+        return priceAsset.balance(amount, precision: precisionDifference)
 
-        let delta = pow(10, max(1, (precisionDifference - priceAsset.precision)))
-        let amount = Decimal(amount) / delta
-
-        return priceAsset.balance(amount.int64Value, precision: precisionDifference)
     }
 
     func amountBalance(_ amount: Int64) -> Balance {
