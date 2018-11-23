@@ -43,7 +43,7 @@ final class WalletSortCell: UITableViewCell, Reusable {
         backgroundColor = .basic50
         contentView.backgroundColor = .basic50
         iconMenu.isHidden = true
-        viewContent.addTableCellShadowStyle()
+        viewContent.addTableCellShadowStyle()        
         switchControl.addTarget(self, action: #selector(changedValueSwitchAction), for: .valueChanged)
     }
 

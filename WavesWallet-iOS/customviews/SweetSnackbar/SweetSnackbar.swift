@@ -8,6 +8,21 @@
 
 import UIKit
 
+private extension UIViewController {
+
+    var _tabBarController: UITabBarController? {
+        if let viewController = self as? UITabBarController {
+            return viewController
+        } else {
+            return self.tabBarController
+        }
+    }
+
+    var tabBarHeight: CGFloat {
+        return _tabBarController?.tabBar.frame.height ?? 0
+    }
+}
+
 private enum Constants {
     static let durationAnimation: TimeInterval = 0.24
     static let percentDistanceForHidden: CGFloat = 0.3
@@ -96,7 +111,13 @@ final class SweetSnackbar: NSObject {
         view.translatesAutoresizingMaskIntoConstraints = true
         let bounds = viewController.view.bounds
         view.bounds = bounds
+
         viewController.view.addSubview(view)
+        // TODO: Need check iOS 10 version
+        if let tabBarVC = viewController as? UITabBarController {
+            tabBarVC.view.bringSubview(toFront: tabBarVC.tabBar)
+        }
+
         view.update(model: snack)
 
         pan.isEnabled = snack.isEnabledUserHidden
@@ -117,9 +138,11 @@ final class SweetSnackbar: NSObject {
         self.hideLastSnack(isNewSnack: true)
         self.lastSnack = package
 
+
+
         // It code run next loop in runloop
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+            view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
         }) { animated in
             self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
         }
@@ -186,7 +209,6 @@ final class SweetSnackbar: NSObject {
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
         }) { animated in
-            print("hide \(animated) \(snack)")
             view.removeFromSuperview()
             self.applyActionDismiss(snack: snack, isNewSnack: isNewSnack)
         }
@@ -210,7 +232,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
 
         let location = pan.location(in: view)
 
-        let minY = bounds.height - size.height
+        let minY = bounds.height - size.height - viewController.tabBarHeight
         let maxY = bounds.height - viewController.layoutInsets.bottom
         switch pan.state {
         case .began:
@@ -231,7 +253,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
                 snack.model.action?.didSwipe(snack: snack.model, view: snack.view, bar: self)
             } else {
                 UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-                    view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+                    view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
                 }) { _ in }
             }
         case .possible:

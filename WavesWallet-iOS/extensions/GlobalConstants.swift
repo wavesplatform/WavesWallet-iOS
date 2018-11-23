@@ -11,9 +11,11 @@ import Foundation
 enum GlobalConstants {
     #if DEBUG
     static let accountNameMinLimitSymbols: Int = 1
+    static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 2
     #else
     static let accountNameMinLimitSymbols: Int = 1
+    static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 6
     #endif
 

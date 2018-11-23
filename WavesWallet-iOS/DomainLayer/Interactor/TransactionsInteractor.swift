@@ -22,7 +22,7 @@ protocol TransactionsInteractorProtocol {
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 15
-    static let maxLimit: Int = 10000
+    static let maxLimit: Int = 1000
     static let offset: Int = 50
 }
 
