@@ -8,7 +8,7 @@
 
 import UIKit
 import TTTAttributedLabel
-import QRCodeReader
+import AVFoundation
 
 protocol ImportAccountViewControllerDelegate: AnyObject {
     func scanTapped()
@@ -58,7 +58,44 @@ final class ImportAccountScanViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func scanTapped(_ sender: Any) {
-        delegate?.scanTapped()
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch cameraAuthorizationStatus {
+            case .notDetermined: requestCameraPermission()
+            case .authorized: delegate?.scanTapped()
+            case .restricted, .denied: alertCameraAccessNeeded()
+        }
+//        delegate?.scanTapped()
+    }
+    
+    // MARK: - Camera
+    
+    func requestCameraPermission() {
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: { accessGranted in
+            guard accessGranted == true else { return }
+            self.delegate?.scanTapped()
+        })
+    }
+    
+    func alertCameraAccessNeeded() {
+        let settingsAppURL = URL(string: UIApplicationOpenSettingsURLString)!
+        
+        let alert = UIAlertController(
+            title: "Need Camera Access",
+            message: "Camera access is required to make full use of this app.",
+            preferredStyle: UIAlertControllerStyle.alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Allow Camera", style: .cancel, handler: { (alert) -> Void in
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+            }
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
