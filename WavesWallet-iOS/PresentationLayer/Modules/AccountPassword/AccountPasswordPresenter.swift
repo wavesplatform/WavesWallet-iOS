@@ -148,7 +148,8 @@ private extension AccountPasswordPresenter {
 
         switch event {
         case .tapLogIn(let password):
-
+            state.displayState.error = nil
+            
             switch state.kind {
             case .logIn(let wallet):
                 state.query = .logIn(wallet: wallet, password: password)
@@ -162,12 +163,14 @@ private extension AccountPasswordPresenter {
         case .completedLogIn(let wallet, let password):
             state.query = .authorizationCompleted(wallet, password)
             state.displayState.isLoading = false
+            state.displayState.error = nil
 
         case .completedVerifyAccess(let wallet, let password):
             state.query = .verifyAccessCompleted(wallet, password)
             state.displayState.isLoading = false
+            state.displayState.error = nil
 
-        case .handlerError(let error):
+        case .handlerError:
             //TODO: Error
             state.query = nil
             state.displayState.error = .incorrectPassword

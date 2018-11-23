@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9CU-iz-QSP">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="877"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="973"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-X0-W7d" userLabel="Info">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -160,8 +160,8 @@
                                                 <rect key="frame" x="0.0" y="390" width="375" height="487"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-DP-fiR">
-                                                <rect key="frame" x="0.0" y="877" width="375" height="80"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-DP-fiR">
+                                                <rect key="frame" x="0.0" y="893" width="375" height="80"/>
                                                 <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="5Mx-tR-9N6"/>
