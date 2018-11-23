@@ -516,6 +516,30 @@ internal enum Localizable {
       }
     }
 
+    internal enum Dex {
+
+      internal enum General {
+
+        internal enum Error {
+          /// Nothing Here...
+          internal static var nothingHere: String { return Localizable.tr("Waves", "dex.general.error.nothingHere") }
+          /// Something went wrong
+          internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
+          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+          internal static var subtitle: String { return Localizable.tr("Waves", "dex.general.error.subtitle") }
+          /// Oh ... It's all broken!
+          internal static var title: String { return Localizable.tr("Waves", "dex.general.error.title") }
+
+          internal enum Button {
+            /// Retry
+            internal static var retry: String { return Localizable.tr("Waves", "dex.general.error.button.retry") }
+            /// Send a report
+            internal static var sendReport: String { return Localizable.tr("Waves", "dex.general.error.button.sendReport") }
+          }
+        }
+      }
+    }
+
     internal enum Dexchart {
 
       internal enum Button {
@@ -608,6 +632,11 @@ internal enum Localizable {
         internal static var smallValue: String { return Localizable.tr("Waves", "dexcreateorder.label.smallValue") }
         /// Total in
         internal static var totalIn: String { return Localizable.tr("Waves", "dexcreateorder.label.totalIn") }
+
+        internal enum Error {
+          /// You don't have enough funds to pay the required fees.
+          internal static var notFundsFee: String { return Localizable.tr("Waves", "dexcreateorder.label.error.notFundsFee") }
+        }
       }
     }
 
