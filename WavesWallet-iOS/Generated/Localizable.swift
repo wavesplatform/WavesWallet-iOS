@@ -865,6 +865,11 @@ internal enum Localizable {
         }
       }
 
+      internal enum Label {
+        /// or
+        internal static var or: String { return Localizable.tr("Waves", "enter.label.or") }
+      }
+
       internal enum Language {
 
         internal enum Navigation {

@@ -62,6 +62,8 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet private weak var importAccountDetailLabel: UILabel!
     @IBOutlet private weak var createNewAccountButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var orLabel: UILabel!
 
     private var currentPage: Int  = 0
     private let blocks: [Block] = [.blockchain,
@@ -98,6 +100,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         collectionView.reloadData()
     createNewAccountButton.setTitle(Localizable.Waves.Enter.Button.Createnewaccount.title, for: .normal)
         
+        orLabel.text = Localizable.Waves.Enter.Label.or
         signInTitleLabel.text = Localizable.Waves.Enter.Button.Signin.title
         signInDetailLabel.text = Localizable.Waves.Enter.Button.Signin.detail
         
