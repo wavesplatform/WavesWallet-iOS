@@ -11,6 +11,10 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+private enum Constants {
+    static let animationDuration: TimeInterval = 0.34
+}
+
 protocol WalletDisplayDataDelegate: AnyObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     func tableViewDidSelect(indexPath: IndexPath)
@@ -43,11 +47,18 @@ final class WalletDisplayData: NSObject {
             completed()
         }
         switch animateType {
-        case .refresh:
+        case .none:
+            break
+            
+        case .refresh(let animated):
 
-            UIView.transition(with: tableView, duration: 0.34, options: [.transitionCrossDissolve], animations: {            
+            if animated {
+                UIView.transition(with: tableView, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
+                    self.tableView.reloadData()
+                }, completion: nil)
+            } else {
                 self.tableView.reloadData()
-            }, completion: nil)
+            }
 
         case .collapsed(let index):
             tableView.beginUpdates()

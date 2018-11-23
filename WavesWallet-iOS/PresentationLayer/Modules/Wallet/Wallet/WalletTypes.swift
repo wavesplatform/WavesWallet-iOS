@@ -27,16 +27,17 @@ extension WalletTypes {
 
         //TODO: Rename to Action
         enum AnimateType  {
-            case refresh
+            case refresh(animated: Bool)
             case collapsed(Int)
             case expanded(Int)
+            case none
         }
 
         struct Display: Mutating {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
             var isRefreshing: Bool
-            var animateType: AnimateType = .refresh
+            var animateType: AnimateType = .refresh(animated: false)
         }
 
         var kind: Kind

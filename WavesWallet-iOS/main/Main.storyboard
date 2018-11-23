@@ -273,6 +273,20 @@
             </objects>
             <point key="canvasLocation" x="-468.75" y="-117.25352112676056"/>
         </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="1oG-Do-NMu">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" id="uke-hz-VpC" customClass="MainTabBarController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Xrf-oJ-ZJ6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jq6-s9-jYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-656" y="-847"/>
+        </scene>
     </scenes>
     <resources>
         <image name="menu_discord" width="28" height="28"/>
