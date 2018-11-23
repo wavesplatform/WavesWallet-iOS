@@ -33,6 +33,8 @@ final class WalletCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
+    private var snackBackupSeedKey: String?
+    
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
@@ -64,12 +66,14 @@ final class WalletCoordinator: Coordinator {
     
     private func showBackupTostIfNeed(isBackedUp: Bool) {
         
+        guard let tabBarController = walletViewContoller.tabBarController else { return }
+        
         if !isBackedUp {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.walletViewContoller.showWarningSnack(tille: Localizable.Waves.General.Tost.Savebackup.title,
-                                                          subtitle: Localizable.Waves.General.Tost.Savebackup.subtitle,
-                                                          icon: Images.warning18White.image, didTap: {
-                                                            
+        
+        snackBackupSeedKey = tabBarController.showWarningSnack(title: Localizable.Waves.General.Tost.Savebackup.title,
+                                                                subtitle: Localizable.Waves.General.Tost.Savebackup.subtitle,
+                                                                icon: Images.warning18White.image, didTap: {
+                
                 self.authorization.authorizedWallet().subscribe(onNext: { [weak self] (signedWallet) in
                     
                     guard let owner = self else { return }
@@ -92,9 +96,15 @@ final class WalletCoordinator: Coordinator {
                     owner.addChildCoordinator(childCoordinator: backup)
                     backup.start()
                 }).disposed(by: self.disposeBag)
-                                                            
-                }){}
-            }
+
+            }) {}
+
+        }
+    }
+    
+    func removePopupBackupSeedIfNeed() {
+        if let key = snackBackupSeedKey {
+            SweetSnackbar.shared.hideSnack(key: key)
         }
     }
 }

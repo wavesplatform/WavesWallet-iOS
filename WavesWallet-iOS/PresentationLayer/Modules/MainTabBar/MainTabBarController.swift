@@ -34,8 +34,6 @@ final class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
         
-        listenerWallet()
-
         walletCoordinator = WalletCoordinator(navigationController: navWallet)
         walletCoordinator.start()
         navWallet.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
@@ -63,6 +61,8 @@ final class MainTabBarController: UITabBarController {
         fake.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
         fake.tabBarItem.imageInsets = Constants.tabBarItemImageInset
         viewControllers = [navWallet, navDex, fake, navHistory, navProfile]
+        
+        listenerWallet()
     }
 
     private func addTabBarBadge() {
@@ -94,6 +94,7 @@ final class MainTabBarController: UITabBarController {
 
                 if wallet.isBackedUp {
                     strongSelf.removeTabBarBadge()
+                    strongSelf.walletCoordinator.removePopupBackupSeedIfNeed()
                 } else {
                     strongSelf.addTabBarBadge()
                 }

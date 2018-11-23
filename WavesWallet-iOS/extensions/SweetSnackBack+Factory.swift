@@ -55,10 +55,10 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showWarningSnack(tille: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
+    @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
 
-        let error = SweetSnack.init(title: tille,
+        let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
                                     behaviorDismiss: .never,
                                     subtitle: subtitle,
@@ -69,10 +69,10 @@ extension UIViewController {
     }
 
 
-    @discardableResult func showSuccesSnack(tille: String) -> String {
+    @discardableResult func showSuccesSnack(title: String) -> String {
 
 
-        let success = SweetSnack.init(title: tille,
+        let success = SweetSnack.init(title: title,
                                       backgroundColor:  UIColor.success400.withAlphaComponent(Constants.snackAlpha),
                                       behaviorDismiss: .popToLastWihDuration(Constants.successDuration),
                                       subtitle: nil,
