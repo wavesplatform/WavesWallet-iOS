@@ -1065,9 +1065,9 @@
 
 "accountpassword.error.wrongpassword" = "Wrong password";
 
-"dex.general.error.title" = "Oh ... It's all broken!";
-"dex.general.error.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
-"dex.general.error.button.retry" = "Retry";
-"dex.general.error.button.sendReport" = "Send a report";
+"dex.serverError.label.title" = "Oh ... It's all broken!";
+"dex.serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+"dex.serverError.button.retry" = "Retry";
+"dex.serverError.button.sendReport" = "Send a report";
 "dex.general.error.nothingHere" = "Nothing Here...";
 "dex.general.error.somethingWentWrong" = "Something went wrong";
