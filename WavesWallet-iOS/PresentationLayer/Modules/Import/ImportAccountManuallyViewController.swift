@@ -69,6 +69,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         
         textFieldHeightConstraint.constant = textField.height
     }
+
     
     private func setupTextField() {
         textField.delegate = self
@@ -90,6 +91,12 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         super.viewWillAppear(animated)
         
         skeletonView.startAnimation()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        textFieldHeightConstraint.constant = textField.height
     }
     
     // MARK: - Actions
@@ -163,6 +170,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
         
         if textFieldHeightConstraint.constant != textField.height {
             textFieldHeightConstraint.constant = textField.height
+
             view.setNeedsLayout()
             view.layoutIfNeeded()
         }

@@ -31,6 +31,10 @@ class ImportAccountViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         navigationItem.title = Localizable.Waves.Import.General.Navigation.title
         view.backgroundColor = .basic50
@@ -57,7 +61,6 @@ class ImportAccountViewController: UIViewController {
         
          segmentedControl.segmentedControl.scrollView.changedValue = { newValue in
                 self.currentIndex = newValue
-                self.manuallyViewController.resignKeyboard()
         }
     }
     
@@ -124,9 +127,7 @@ class ImportAccountViewController: UIViewController {
 extension ImportAccountViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
         setupTopBarLine()
-        manuallyViewController.resignKeyboard()
     }
     
 }
