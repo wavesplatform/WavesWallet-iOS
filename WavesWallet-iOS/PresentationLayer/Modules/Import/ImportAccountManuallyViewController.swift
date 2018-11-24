@@ -26,7 +26,6 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var iconImages: UIImageView!
     @IBOutlet private weak var skeletonView: SkeletonView!
     
-    
     @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var containerViewLeftConstraint: NSLayoutConstraint!
@@ -70,7 +69,6 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         textFieldHeightConstraint.constant = textField.height
     }
 
-    
     private func setupTextField() {
         textField.delegate = self
         textField.textView.returnKeyType = .done
@@ -81,7 +79,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     }
     
     private func setupContinueButton() {
-        buttonContinue.setTitle(Localizable.Waves.Import.Manually.Button.continue, for: .normal)
+    buttonContinue.setTitle(Localizable.Waves.Import.Manually.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
         buttonContinue.isEnabled = false
