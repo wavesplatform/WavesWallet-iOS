@@ -65,7 +65,7 @@ final class ImportAccountScanViewController: UIViewController {
             case .authorized: delegate?.scanTapped()
             case .restricted, .denied: alertCameraAccessNeeded()
         }
-//        delegate?.scanTapped()
+
     }
     
     // MARK: - Camera
