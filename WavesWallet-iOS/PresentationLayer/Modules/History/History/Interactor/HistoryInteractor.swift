@@ -61,7 +61,9 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.never() }
 
         return transactionsInteractor
-            .transactions(by: accountAddress, specifications: specifications)
+            .transactionsSync(by: accountAddress, specifications: specifications).map({ (sync) -> [DomainLayer.DTO.SmartTransaction] in
+                return sync.resultIngoreError ?? []
+            })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 }

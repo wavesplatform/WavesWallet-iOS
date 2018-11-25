@@ -38,6 +38,7 @@ protocol FactoryRepositoriesProtocol {
     var dexRepository: DexRepositoryProtocol { get }
 
     var aliasesRepository: AliasesRepositoryProtocol { get }
+    var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {
