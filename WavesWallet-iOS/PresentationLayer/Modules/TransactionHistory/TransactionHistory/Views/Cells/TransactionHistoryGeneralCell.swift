@@ -30,6 +30,7 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var valueLabelXConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tickerViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var spamTicker: TickerView!
+    @IBOutlet private weak var labelSubtitle: UILabel!
     
  
     fileprivate func icon(for kind: DomainLayer.DTO.SmartTransaction.Kind) -> UIImage {
@@ -113,7 +114,8 @@ extension TransactionHistoryGeneralCell: ViewConfiguration {
         iconImageView.image = icon(for: model.kind)
         nextButton.isHidden = model.canGoForward == false
         previousButton.isHidden = model.canGoBack == false
-        
+        labelSubtitle.text = model.exchangeSubtitle
+
         updateTag(with: model)
     }
     

@@ -30,20 +30,20 @@ extension Balance {
         var text = ""
 
         if withoutCurrency {
-            text = money.displayTextFull
+            text = money.displayText
         } else {
-            text = money.displayTextFull + " " + currency.title
+            text = money.displayText + " " + currency.title
         }
 
         return sign.rawValue + text
     }
 
     var displayText: String {
-        return money.displayTextFull + " " + currency.title
+        return money.displayText + " " + currency.title
     }
 
     var displayTextWithoutCurrencyName: String {
-        return money.displayTextFull
+        return money.displayText
     }
 
 }

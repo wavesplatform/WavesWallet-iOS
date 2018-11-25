@@ -31,7 +31,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
-        newFeedbacks.append(queryAll())
+        newFeedbacks.append(queryRefresh())
 
         Driver.system(initialState: HistoryPresenter.initialState(historyType: moduleInput.type),
                       reduce: reduce,
@@ -40,25 +40,21 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-
-    private func queryAll() -> Feedback {
+    private func queryRefresh() -> Feedback {
         return react(query: { (state) -> HistoryTypes.RefreshData? in
 
-            if state.refreshData == .none {
-                return nil
-            }
-
             return state.refreshData
-        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in            
+        }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
-                .map { .responseAll($0) }                
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .map { .responseAll($0) }
+                .asSignal(onErrorRecover: { _ in
+                    return Signal.empty()
+                })
         })
     }
-
 
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         var newState = state
@@ -76,9 +72,30 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.isAppeared = false
 
         case .refresh:
-            state.isRefreshing = true
-            state.refreshData = .pullToRefresh
             
+            state.isRefreshing = true
+            if state.refreshData == .update {
+                state.refreshData = .refresh
+            } else {
+                state.refreshData = .update
+            }
+
+            switch state.errorState {
+            case .error(let error):
+
+                switch error {
+                case .globalError:
+                    state.errorState = .none
+                    state.sections = HistoryTypes.State.skeletonSections()
+
+                default:
+                    state.errorState = .waiting
+                }
+
+            default:
+                break
+            }
+
         case .tapCell(let indexPath):
             
             let item = state.sections[indexPath.section].items[indexPath.item]
@@ -100,8 +117,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             if (index != NSNotFound) {
                 moduleOutput?.showTransaction(transactions: filteredTransactions, index: index)
             }
-            
-
 
         case .changeFilter(let filter):
             
@@ -110,17 +125,53 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.sections = sections
             state.currentFilter = filter
 
-
-        case .handlerError:
-            state.isRefreshing = false
-
         case .responseAll(let response):
+            
+             state.isRefreshing = false
 
-            let filteredTransactions = state.currentFilter.filtered(transactions: response)
-            let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
-            state.sections = sections
-            state.transactions = response
-            state.isRefreshing = false
+            if let response = response.resultIngoreError {
+                let filteredTransactions = state.currentFilter.filtered(transactions: response)
+                let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
+                state.sections = sections
+                state.transactions = response
+            }
+
+            if let error = response.anyError {
+
+                let hasTransactions = (response.resultIngoreError?.count ?? 0) > 0
+                var displayError: HistoryTypes.DisplayError!
+
+                if hasTransactions == false {
+                    let isInternetNotWorking = (error as? NetworkError)?.isInternetNotWorking ?? false
+                    displayError = .globalError(isInternetNotWorking: isInternetNotWorking)
+                } else {
+
+                    switch error {
+                    case let appError as NetworkError:
+                        switch appError {
+                        case .internetNotWorking:
+                            displayError = .internetNotWorking
+
+                        case .notFound:
+                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
+
+                        case .serverError:
+                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
+
+                        case .message(let message):
+                            displayError = .message(message)
+                        }
+
+                    default:
+                         displayError = .message(Localizable.Waves.General.Error.Title.notfound)
+                    }
+                }
+
+                state.errorState = .error(displayError)
+                state.refreshData = .none
+            } else {
+                state.errorState = .none
+            }
         }
     }
 

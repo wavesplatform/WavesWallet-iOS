@@ -31,13 +31,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPN-mA-v6F">
-                                <rect key="frame" x="24" y="167" width="150" height="40"/>
+                                <rect key="frame" x="24" y="167" width="199" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="egU-29-U7i"/>
                                 </constraints>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="wavesplatform.com">
+                                        <fragment content="forum.wavesplatform.com">
                                             <attributes>
                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="17" name=".SFNSText"/>

@@ -9,11 +9,6 @@
 import UIKit
 
 private enum Constants {
-    static let cornerRadius: Float = 2
-    static let shadowOpacity: Float = 0.1
-    static let shadowOffset = CGSize(width: 0, height: 4)
-    static let shadowRadius: Float = 4
-    static let shadowColor: UIColor = .black
     
     enum CollectionTopOffset: CGFloat {
         case small = 0
@@ -62,6 +57,8 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet private weak var importAccountDetailLabel: UILabel!
     @IBOutlet private weak var createNewAccountButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var orLabel: UILabel!
 
     private var currentPage: Int  = 0
     private let blocks: [Block] = [.blockchain,
@@ -98,6 +95,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         collectionView.reloadData()
     createNewAccountButton.setTitle(Localizable.Waves.Enter.Button.Createnewaccount.title, for: .normal)
         
+        orLabel.text = Localizable.Waves.Enter.Label.or
         signInTitleLabel.text = Localizable.Waves.Enter.Button.Signin.title
         signInDetailLabel.text = Localizable.Waves.Enter.Button.Signin.detail
         
@@ -141,17 +139,9 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             
             collectionViewHeightConstraint.constant = maxHeight
             
-            let shadowOptions =
-                ShadowOptions(offset: Constants.shadowOffset,
-                              color: Constants.shadowColor,
-                              opacity: Constants.shadowOpacity,
-                              shadowRadius: Constants.shadowRadius,
-                              shouldRasterize: true)
-            
-            signInView.setupShadow(options: shadowOptions)
-            importAccountView.setupShadow(options: shadowOptions)
-            importAccountView.cornerRadius = Constants.cornerRadius
-            signInView.cornerRadius = Constants.cornerRadius
+            signInView.addTableCellShadowStyle()
+            importAccountView.addTableCellShadowStyle()
+
         }
         
     }

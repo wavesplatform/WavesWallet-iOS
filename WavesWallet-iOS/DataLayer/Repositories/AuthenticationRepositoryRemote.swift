@@ -41,9 +41,6 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 .flatMap({ ref -> Observable<DatabaseReference> in
                     ref.rx.setValue(keyForPassword)
                 })
-                .catchError({ _ -> Observable<DatabaseReference> in
-                    Observable.error(AuthenticationRepositoryError.fail)
-                })
                 .subscribe(onNext: { _ in
                     observer.onNext(true)
                     observer.onCompleted()
