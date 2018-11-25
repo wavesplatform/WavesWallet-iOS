@@ -31,7 +31,7 @@ final class HistoryViewController: UIViewController {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private var isRefreshing: Bool = false
-    private var isShowError: Bool = false
+    private var lastError: Types.DisplayError? = nil
     private var snackError: String? = nil
     
     var presenter: HistoryPresenterProtocol!
@@ -212,69 +212,82 @@ private extension HistoryViewController {
             .drive(onNext: { [weak self] (state) in
             
                 guard let strongSelf = self else { return }
-            
-                strongSelf.emptyView.isHidden = state.sections.count > 0
-                
-                if (!strongSelf.filters.elementsEqual(state.filters)) {
-                    strongSelf.filters = state.filters
-                    strongSelf.setupSegmentedControl()
-                    strongSelf.changeFilter(state.currentFilter)
-                }
-                
-                strongSelf.sections = state.sections
-                strongSelf.isRefreshing = state.isRefreshing
-                strongSelf.changeFilter(state.currentFilter)
-
-                if let error = state.error, strongSelf.isShowError == false {
-                    strongSelf.isShowError = true
-                    strongSelf.globalErrorView.isHidden = true
-
-                    switch error {
-                    case .globalError(let isInternetNotWorking):
-                        strongSelf.globalErrorView.isHidden = false
-
-                        if isInternetNotWorking {
-                            strongSelf.globalErrorView.update(with: .init(kind: .internetNotWorking))
-                        } else {
-                            strongSelf.globalErrorView.update(with: .init(kind: .serverError))
-                        }
-
-                    case .internetNotWorking:
-                        strongSelf.snackError = strongSelf.showWithoutInternetSnack { [weak self] in
-                            self?.sendEvent.accept(.refresh)
-                        }
-
-                    case .message(let message):
-                        strongSelf.snackError = strongSelf.showErrorSnack(tille: message, didTap: { [weak self] in
-                            self?.sendEvent.accept(.refresh)
-                        })
-                    }
-
-                } else {
-                    if let snackError = strongSelf.snackError {
-                        strongSelf.hideSnack(key: snackError)
-                    }
-                    strongSelf.snackError = nil
-                    strongSelf.isShowError = false
-                    strongSelf.globalErrorView.isHidden = true
-                }
-
-                UIView.transition(with: strongSelf.tableView,
-                                  duration: 0.24,
-                                  options: [.transitionCrossDissolve, .curveEaseInOut],
-                                  animations:
-                {
-                    strongSelf.tableView.reloadData()
-                }, completion: { _ in
-                    if state.isRefreshing == false {
-                        strongSelf.refreshControl.endRefreshing()
-                    }
-                })
-        })
+                strongSelf.updateView(state: state)
+            })
         
         return [subscriptionSections]
     }
-    
+
+    func updateView(state: Types.State) {
+
+        if (!filters.elementsEqual(state.filters)) {
+            filters = state.filters
+            setupSegmentedControl()
+            changeFilter(state.currentFilter)
+        }
+
+        sections = state.sections
+        isRefreshing = state.isRefreshing
+        changeFilter(state.currentFilter)
+
+        updateErrorView(state: state)
+
+        UIView.transition(with: tableView,
+                          duration: 0.24,
+                          options: [.transitionCrossDissolve, .curveEaseInOut],
+                          animations: {
+                self.tableView.reloadData()
+        }, completion: { _ in
+            if state.isRefreshing == false {
+                self.refreshControl.endRefreshing()
+            }
+        })
+    }
+
+    private func extractedFunc(_ message: (String)) -> String {
+        return showErrorSnack(tille: message, didTap: { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        })
+    }
+
+    func updateErrorView(state: Types.State) {
+
+        switch state.errorState {
+        case .none:
+            if let snackError = snackError {
+                hideSnack(key: snackError)
+            }
+            snackError = nil
+            lastError = nil
+            self.globalErrorView.isHidden = true
+            emptyView.isHidden = state.sections.count > 0
+
+        case .error(let error):
+            emptyView.isHidden = true
+            switch error {
+            case .globalError(let isInternetNotWorking):
+                self.globalErrorView.isHidden = false
+                if isInternetNotWorking {
+                    globalErrorView.update(with: .init(kind: .internetNotWorking))
+                } else {
+                    globalErrorView.update(with: .init(kind: .serverError))
+                }
+
+            case .internetNotWorking:
+                globalErrorView.isHidden = true
+                snackError = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refresh)
+                }
+
+            case .message(let message):
+                globalErrorView.isHidden = true
+                snackError = extractedFunc(message)
+            }
+
+        case .waiting:
+            break
+        }
+    }
 }
 
 // MARK: - Setup

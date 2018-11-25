@@ -192,7 +192,7 @@ You do not have any transactions</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="xV6-RC-7h2" firstAttribute="centerX" secondItem="RyW-2X-hys" secondAttribute="centerX" id="5ek-GC-8q1"/>
                                     <constraint firstItem="QZP-5T-ayU" firstAttribute="top" secondItem="xV6-RC-7h2" secondAttribute="bottom" constant="14" id="FGi-l7-dgv"/>
@@ -217,10 +217,10 @@ You do not have any transactions</string>
                             <constraint firstItem="AZa-tA-2VS" firstAttribute="leading" secondItem="E7J-O1-vd3" secondAttribute="leading" id="NTX-bG-KLw"/>
                             <constraint firstItem="AZa-tA-2VS" firstAttribute="top" secondItem="E7J-O1-vd3" secondAttribute="top" id="QZ3-EY-iVT"/>
                             <constraint firstItem="AZa-tA-2VS" firstAttribute="trailing" secondItem="E7J-O1-vd3" secondAttribute="trailing" id="Yd0-dt-3RS"/>
-                            <constraint firstItem="RyW-2X-hys" firstAttribute="top" secondItem="amR-rI-EIQ" secondAttribute="top" id="eHA-gU-Mjs"/>
-                            <constraint firstAttribute="bottom" secondItem="RyW-2X-hys" secondAttribute="bottom" id="fk1-MJ-zop"/>
+                            <constraint firstItem="RyW-2X-hys" firstAttribute="bottom" secondItem="E7J-O1-vd3" secondAttribute="bottom" id="hjw-Bx-uyF"/>
                             <constraint firstItem="E7J-O1-vd3" firstAttribute="leading" secondItem="amR-rI-EIQ" secondAttribute="leading" id="ia4-ch-YuZ"/>
                             <constraint firstItem="E7J-O1-vd3" firstAttribute="top" secondItem="amR-rI-EIQ" secondAttribute="top" id="mNh-dq-ApX"/>
+                            <constraint firstItem="RyW-2X-hys" firstAttribute="top" secondItem="E7J-O1-vd3" secondAttribute="top" id="u51-qu-fb1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3EH-0m-1dM"/>
                     </view>

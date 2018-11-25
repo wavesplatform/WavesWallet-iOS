@@ -71,9 +71,30 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         case .viewDidDisappear:
             state.isAppeared = false
 
-        case .refresh:            
+        case .refresh:
+            
             state.isRefreshing = true
-            state.refreshData = .update
+            if state.refreshData == .update {
+                state.refreshData = .refresh
+            } else {
+                state.refreshData = .update
+            }
+
+            switch state.errorState {
+            case .error(let error):
+
+                switch error {
+                case .globalError:
+                    state.errorState = .none
+                    state.sections = HistoryTypes.State.skeletonSections()
+
+                default:
+                    state.errorState = .waiting
+                }
+
+            default:
+                break
+            }
 
         case .tapCell(let indexPath):
             
@@ -115,41 +136,41 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 state.transactions = response
             }
 
-            if response.anyError != nil {
-                state.refreshData = .none
-            }
-
             if let error = response.anyError {
 
-                let hasTransactions = response.resultIngoreError?.count == 0
+                let hasTransactions = (response.resultIngoreError?.count ?? 0) > 0
+                var displayError: HistoryTypes.DisplayError!
 
                 if hasTransactions == false {
                     let isInternetNotWorking = (error as? NetworkError)?.isInternetNotWorking ?? false
-                    state.error = .globalError(isInternetNotWorking: isInternetNotWorking)
+                    displayError = .globalError(isInternetNotWorking: isInternetNotWorking)
                 } else {
 
                     switch error {
                     case let appError as NetworkError:
                         switch appError {
                         case .internetNotWorking:
-                            state.error = .internetNotWorking
+                            displayError = .internetNotWorking
 
                         case .notFound:
-                            state.error = .message("Что-то пошло не так")
+                            displayError = .message("Что-то пошло не так")
 
                         case .serverError:
-                            state.error = .message("Что-то пошло не так")
+                            displayError = .message("Что-то пошло не так")
 
                         case .message(let message):
-                            state.error = .message(message)
+                            displayError = .message(message)
                         }
 
                     default:
-                         state.error = .message("Что-то пошло не так")
+                         displayError = .message("Что-то пошло не так")
                     }
                 }
+
+                state.errorState = .error(displayError)
+                state.refreshData = .none
             } else {
-                state.error = nil
+                state.errorState = .none
             }
         }
     }
