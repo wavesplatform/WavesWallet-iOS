@@ -10,16 +10,6 @@ import UIKit
 import RxSwift
 import IdentityImg
 
-private enum Constants {
-    
-    static let shadowOptions = ShadowOptions(offset: CGSize(width: 0, height: 4),
-                                             color: .black,
-                                             opacity: 0.1,
-                                             shadowRadius: 4,
-                                             shouldRasterize: true)
-    
-}
-
 final class EditAccountNameViewController: UIViewController {
     
     @IBOutlet private weak var containerView: UIView!
@@ -59,8 +49,7 @@ final class EditAccountNameViewController: UIViewController {
         setupSaveButton()
         fillLabels()
         
-        containerView.setupShadow(options: Constants.shadowOptions)
-        containerView.cornerRadius = 2
+        containerView.addTableCellShadowStyle()
         
         setupTextField()
         setupKeyboard()
