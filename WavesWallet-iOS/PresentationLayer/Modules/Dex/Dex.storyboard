@@ -1843,7 +1843,7 @@ You do not have any orders</string>
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8x-pB-0Cg">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-20-Dd2" customClass="DexCreateOrderSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="10" width="375" height="40"/>
@@ -1945,7 +1945,7 @@ You do not have any orders</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-r8-mHL" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="575" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="582" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="jpm-Kb-eOz"/>
@@ -1962,8 +1962,45 @@ You do not have any orders</string>
                                                 </connections>
                                             </button>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WN7-jS-yUQ">
-                                                <rect key="frame" x="319" y="589" width="20" height="20"/>
+                                                <rect key="frame" x="319" y="596" width="20" height="20"/>
                                             </activityIndicatorView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5pn-0m-pyg">
+                                                <rect key="frame" x="16" y="508" width="343" height="50"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chn-Dd-Ush">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have enough funds to pay the required fees." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0w-V9-uLf">
+                                                                <rect key="frame" x="32" y="0.0" width="311" height="50"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Error500" translatesAutoresizingMaskIntoConstraints="NO" id="pDx-pd-pQH">
+                                                                <rect key="frame" x="0.0" y="16" width="18" height="18"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="18" id="ZtK-vC-xs9"/>
+                                                                    <constraint firstAttribute="width" constant="18" id="oyU-RO-50Q"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="X0w-V9-uLf" firstAttribute="leading" secondItem="pDx-pd-pQH" secondAttribute="trailing" constant="14" id="0T1-zD-SHd"/>
+                                                            <constraint firstAttribute="trailing" secondItem="X0w-V9-uLf" secondAttribute="trailing" id="6L5-rY-iE4"/>
+                                                            <constraint firstAttribute="bottom" secondItem="X0w-V9-uLf" secondAttribute="bottom" id="CcG-ga-r0K"/>
+                                                            <constraint firstItem="X0w-V9-uLf" firstAttribute="top" secondItem="Chn-Dd-Ush" secondAttribute="top" id="KZW-Es-a9L"/>
+                                                            <constraint firstItem="pDx-pd-pQH" firstAttribute="leading" secondItem="Chn-Dd-Ush" secondAttribute="leading" id="b25-Cm-Bg6"/>
+                                                            <constraint firstItem="pDx-pd-pQH" firstAttribute="centerY" secondItem="Chn-Dd-Ush" secondAttribute="centerY" id="rtC-ls-pji"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Chn-Dd-Ush" secondAttribute="trailing" id="8fu-vv-5cW"/>
+                                                    <constraint firstItem="Chn-Dd-Ush" firstAttribute="top" secondItem="5pn-0m-pyg" secondAttribute="top" id="KLv-bn-DAr"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Chn-Dd-Ush" secondAttribute="bottom" id="kW6-UQ-hrb"/>
+                                                    <constraint firstItem="Chn-Dd-Ush" firstAttribute="leading" secondItem="5pn-0m-pyg" secondAttribute="leading" id="njJ-0C-zH4"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1973,17 +2010,20 @@ You do not have any orders</string>
                                             <constraint firstAttribute="trailing" secondItem="nnp-g3-pO1" secondAttribute="trailing" id="9kk-LJ-wGc"/>
                                             <constraint firstItem="1Sf-j0-xXd" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="9zZ-at-r1E"/>
                                             <constraint firstAttribute="trailing" secondItem="PG3-20-Dd2" secondAttribute="trailing" id="DFg-4G-qLM"/>
+                                            <constraint firstItem="5pn-0m-pyg" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="14" id="S7T-to-hk5"/>
                                             <constraint firstItem="pCj-mR-Pg4" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="Sgs-2K-xQ5"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" constant="10" id="TAE-Gg-1Za"/>
+                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5pn-0m-pyg" secondAttribute="bottom" constant="24" id="VBM-UD-L0Y"/>
                                             <constraint firstAttribute="trailing" secondItem="gNA-TX-wyo" secondAttribute="trailing" id="Va6-EY-vY5"/>
-                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="10" id="XBr-A6-ZeK"/>
                                             <constraint firstItem="WN7-jS-yUQ" firstAttribute="leading" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="-40" id="a55-GS-j3s"/>
                                             <constraint firstItem="Zhj-r8-mHL" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="bHC-aE-Kmr"/>
+                                            <constraint firstAttribute="trailing" secondItem="5pn-0m-pyg" secondAttribute="trailing" constant="16" id="eIs-PD-CD6"/>
                                             <constraint firstItem="1Sf-j0-xXd" firstAttribute="top" secondItem="gNA-TX-wyo" secondAttribute="bottom" constant="25" id="ggr-8c-UgQ"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="top" secondItem="pCj-mR-Pg4" secondAttribute="bottom" constant="25" id="jVT-rW-21n"/>
                                             <constraint firstItem="PG3-20-Dd2" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="kRJ-Iv-X6h"/>
                                             <constraint firstItem="nnp-g3-pO1" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="orc-xH-ZeH"/>
                                             <constraint firstItem="WN7-jS-yUQ" firstAttribute="centerY" secondItem="Zhj-r8-mHL" secondAttribute="centerY" id="pj0-QA-UVe"/>
+                                            <constraint firstItem="5pn-0m-pyg" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="qOJ-AX-iqR"/>
                                             <constraint firstAttribute="trailing" secondItem="pCj-mR-Pg4" secondAttribute="trailing" id="rr0-Zt-O23"/>
                                             <constraint firstAttribute="trailing" secondItem="1Sf-j0-xXd" secondAttribute="trailing" constant="16" id="sTL-Jl-af1"/>
                                             <constraint firstAttribute="trailing" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="16" id="xBd-Te-x7T"/>
@@ -2019,11 +2059,13 @@ You do not have any orders</string>
                         <outlet property="inputPriceTopOffset" destination="jVT-rW-21n" id="heM-nl-suA"/>
                         <outlet property="inputTotal" destination="gNA-TX-wyo" id="adJ-01-u6N"/>
                         <outlet property="inputTotalTopOffset" destination="ycH-gE-8Fl" id="0nS-9h-3Ao"/>
+                        <outlet property="labelErrorFee" destination="X0w-V9-uLf" id="ucx-v3-7KH"/>
                         <outlet property="labelExpiration" destination="VTj-qc-GaF" id="xHi-f8-nHq"/>
                         <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
                         <outlet property="labelFee" destination="NGu-X7-Wxc" id="smc-nm-g5h"/>
                         <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
                         <outlet property="segmentedTopOffset" destination="TAE-Gg-1Za" id="UGz-vq-nSf"/>
+                        <outlet property="viewErrorFee" destination="Chn-Dd-Ush" id="NbR-bB-ABe"/>
                         <outlet property="viewFeeTopOffset" destination="ggr-8c-UgQ" id="hKt-4G-m30"/>
                     </connections>
                 </viewController>
@@ -2256,6 +2298,7 @@ You do not have any orders</string>
         <image name="chartarrow22Success400" width="22" height="22"/>
         <image name="copy_address" width="18" height="18"/>
         <image name="delete22Error500" width="22" height="22"/>
+        <image name="info18Error500" width="18" height="18"/>
         <image name="information22Multy" width="24" height="24"/>
         <image name="on" width="24" height="24"/>
         <image name="topbarClose" width="22" height="22"/>
