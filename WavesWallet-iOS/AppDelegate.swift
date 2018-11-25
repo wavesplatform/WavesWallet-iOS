@@ -49,7 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SweetLogger.current.visibleLevels = []
         #endif
 
-
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
         

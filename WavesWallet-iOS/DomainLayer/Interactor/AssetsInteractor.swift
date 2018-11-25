@@ -15,6 +15,7 @@ import RxSwift
 
 protocol AssetsInteractorProtocol {
     func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]>
+    func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
 }
 
 fileprivate enum Constants {
@@ -27,51 +28,96 @@ final class AssetsInteractor: AssetsInteractorProtocol {
     private let repositoryRemote: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
 
-    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]> {
 
-        let local = repositoryLocal.assets(by: ids, accountAddress: accountAddress)
-        return local
-            .flatMap(weak: self) { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
+        return remoteAssets(by: ids, accountAddress: accountAddress)
+            .map({ assets in
+                return .remote(assets)
+            })
+            .catchError { [weak self] remoteError -> SyncObservable<[DomainLayer.DTO.Asset]> in
 
-            let now = Date()
-            let isNeedForceUpdate = assets.count == 0 || assets.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds }  != nil || isNeedUpdated
-
-            if isNeedForceUpdate {
-                info("From Remote", type: AssetsInteractor.self)
-            } else {
-                info("From BD", type: AssetsInteractor.self)
-            }
-
-            guard isNeedForceUpdate == true else { return Observable.just(assets) }
-
-            return owner
-                .repositoryRemote
-                .assets(by: ids, accountAddress: accountAddress)
-                .flatMap(weak: owner, selector: { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
-                    return owner
-                        .repositoryLocal
-                        .saveAssets(assets, by: accountAddress)
-                        .map({ _ -> [DomainLayer.DTO.Asset] in
-                            return assets
-                        })
-                })
-            }
-            .flatMap(weak: self, selector: { owner, assets -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let owner = self else { return Observable.never() }
 
                 return owner
-                    .accountSettingsRepository
-                    .accountSettings(accountAddress: accountAddress)
-                    .map({ settings -> [DomainLayer.DTO.Asset] in
-                        if let settings = settings, settings.isEnabledSpam == false {
-                            return assets.mutate(transform: { asset in
-                                asset.isSpam = false
-                            })
+                    .localeAssets(by: ids, accountAddress: accountAddress)
+                    .map({ assets in
+                        if assets.count > 0 {
+                            return .local(assets, error: remoteError)
                         } else {
-                            return assets
+                            return .error(remoteError)
                         }
                     })
+                    .catchError({ (localError) -> SyncObservable<[DomainLayer.DTO.Asset]> in
+                        return SyncObservable<[DomainLayer.DTO.Asset]>.just(.error(remoteError))
+                    })
+            }
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+    }
+
+    private func remoteAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        return repositoryRemote
+        .assets(by: ids, accountAddress: accountAddress)
+        .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
+            guard let owner = self else { return Observable.never() }
+            return owner
+                .repositoryLocal
+                .saveAssets(assets, by: accountAddress)
+                .map({ _ -> [DomainLayer.DTO.Asset] in
+                    return assets
+                })
+        })
+        .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
+            guard let owner = self else { return Observable.never() }
+            return owner.mutableResponce(assets: assets, accountAddress: accountAddress)
+        })
+    }
+
+    private func localeAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        return repositoryLocal
+            .assets(by: ids, accountAddress: accountAddress)
+            .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let owner = self else { return Observable.never() }
+                return owner.mutableResponce(assets: assets, accountAddress: accountAddress)
+            })
+    }
+
+    private func mutableResponce(assets: [DomainLayer.DTO.Asset], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        return self
+            .accountSettingsRepository
+            .accountSettings(accountAddress: accountAddress)
+            .map({ settings -> [DomainLayer.DTO.Asset] in
+                if let settings = settings, settings.isEnabledSpam == false {
+                    return assets.mutate(transform: { asset in
+                        asset.isSpam = false
+                    })
+                } else {
+                    return assets
+                }
+            })
+    }
+
+    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]> {
+
+        return assetsSync(by: ids, accountAddress: accountAddress)
+            .flatMap({ (sync) -> Observable<[DomainLayer.DTO.Asset]> in
+
+                if let remote = sync.resultIngoreError {
+                    return Observable.just(remote)
+                }
+
+                switch sync {
+                case .remote(let model):
+                    return Observable.just(model)
+
+                case .local(_, let error):
+                    return Observable.error(error)
+
+                case .error(let error):
+                    return Observable.error(error)
+                }
             })
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 }
