@@ -18,7 +18,7 @@ class QRCodeReaderControllerCoordinator {
     }
     
     func start(completionBlock: @escaping ((QRCodeReaderResult?) -> Void)) {
-        guard QRCodeReader.isAvailable() else { return }
+//        guard QRCodeReader.isAvailable() else { return }
         
         readerVC.completionBlock = completionBlock
         readerVC.modalPresentationStyle = .formSheet

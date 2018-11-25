@@ -449,13 +449,13 @@
 
 "general.ticker.title.wavestoken" = "Waves Token";
 
-"camera.alert.title" = "Need Camera Access";
+"cameraAccess.alert.title" = "Need Camera Access";
 
-"camera.alert.message" = "Camera access is required to make full use of this app.";
+"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
 
-"camera.alert.cancel" = "Cancel";
+"cameraAccess.alert.cancel" = "Cancel";
 
-"camera.alert.allow" = "Allow Camera";
+"cameraAccess.alert.allow" = "Allow Camera";
 
 "hello.button.continue" = "Continue";
 

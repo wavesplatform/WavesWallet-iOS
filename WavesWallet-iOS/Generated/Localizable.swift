@@ -398,17 +398,17 @@ internal enum Localizable {
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
     }
 
-    internal enum Camera {
+    internal enum Cameraaccess {
 
       internal enum Alert {
         /// Allow Camera
-        internal static var allow: String { return Localizable.tr("Waves", "camera.alert.allow") }
+        internal static var allow: String { return Localizable.tr("Waves", "cameraAccess.alert.allow") }
         /// Cancel
-        internal static var cancel: String { return Localizable.tr("Waves", "camera.alert.cancel") }
-        /// Camera access is required to make full use of this app.
-        internal static var message: String { return Localizable.tr("Waves", "camera.alert.message") }
+        internal static var cancel: String { return Localizable.tr("Waves", "cameraAccess.alert.cancel") }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("Waves", "cameraAccess.alert.message") }
         /// Need Camera Access
-        internal static var title: String { return Localizable.tr("Waves", "camera.alert.title") }
+        internal static var title: String { return Localizable.tr("Waves", "cameraAccess.alert.title") }
       }
     }
 
