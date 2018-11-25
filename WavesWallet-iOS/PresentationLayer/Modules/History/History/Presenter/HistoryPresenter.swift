@@ -153,17 +153,17 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                             displayError = .internetNotWorking
 
                         case .notFound:
-                            displayError = .message("Что-то пошло не так")
+                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
 
                         case .serverError:
-                            displayError = .message("Что-то пошло не так")
+                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
 
                         case .message(let message):
                             displayError = .message(message)
                         }
 
                     default:
-                         displayError = .message("Что-то пошло не так")
+                         displayError = .message(Localizable.Waves.General.Error.Title.notfound)
                     }
                 }
 
