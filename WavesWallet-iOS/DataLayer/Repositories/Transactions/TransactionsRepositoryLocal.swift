@@ -27,7 +27,6 @@ fileprivate extension TransactionType {
     static var waves: [TransactionType] {
         return [.issue,
                 .reissue,
-                .burn,
                 .lease,
                 .leaseCancel,
                 .alias,
@@ -139,8 +138,8 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
 
             let result = owner.transactionsResultFromRealm(by: accountAddress,
-                                                        specifications: specifications,
-                                                        realm: realm)
+                                                           specifications: specifications,
+                                                           realm: realm)
 
             let transactions = owner.mapping(result: result, by: specifications)
 
