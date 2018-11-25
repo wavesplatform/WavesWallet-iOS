@@ -527,23 +527,6 @@ internal enum Localizable {
           internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
         }
       }
-
-      internal enum Servererror {
-
-        internal enum Button {
-          /// Retry
-          internal static var retry: String { return Localizable.tr("Waves", "dex.serverError.button.retry") }
-          /// Send a report
-          internal static var sendReport: String { return Localizable.tr("Waves", "dex.serverError.button.sendReport") }
-        }
-
-        internal enum Label {
-          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
-          internal static var subtitle: String { return Localizable.tr("Waves", "dex.serverError.label.subtitle") }
-          /// Oh ... It's all broken!
-          internal static var title: String { return Localizable.tr("Waves", "dex.serverError.label.title") }
-        }
-      }
     }
 
     internal enum Dexchart {
@@ -931,9 +914,16 @@ internal enum Localizable {
 
       internal enum Error {
 
+        internal enum Subtitle {
+          /// Soon everything will work!
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.subtitle.notfound") }
+        }
+
         internal enum Title {
           /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
+          /// Do not worry, we are already fixing this problem.
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.title.notfound") }
         }
       }
 
@@ -1866,6 +1856,23 @@ internal enum Localizable {
       internal enum Label {
         /// Sending...
         internal static var sending: String { return Localizable.tr("Waves", "sendloading.label.sending") }
+      }
+    }
+
+    internal enum Servererror {
+
+      internal enum Button {
+        /// Retry
+        internal static var retry: String { return Localizable.tr("Waves", "serverError.button.retry") }
+        /// Send a report
+        internal static var sendReport: String { return Localizable.tr("Waves", "serverError.button.sendReport") }
+      }
+
+      internal enum Label {
+        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverError.label.subtitle") }
+        /// Oh ... It's all broken!
+        internal static var title: String { return Localizable.tr("Waves", "serverError.label.title") }
       }
     }
 
