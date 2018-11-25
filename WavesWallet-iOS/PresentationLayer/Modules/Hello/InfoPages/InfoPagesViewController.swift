@@ -72,8 +72,7 @@ final class InfoPagesViewController: UIViewController {
         setupConstraints()
         
         gradientView.endColor = .basic50
-        toolbarView.layer.setupShadow(options: InfoPagesViewControllerConstants.toolbarShadowOptions)
-        toolbarView.cornerRadius = 2
+        toolbarView.addTableCellShadowStyle()
         
     }
     
@@ -303,8 +302,6 @@ enum InfoPagesViewControllerConstants {
         case small = 14
         case big = 24
     }
-    
-    static let toolbarShadowOptions = ShadowOptions(offset: .init(width: 0, height: 4), color: .black, opacity: 0.1, shadowRadius: 4, shouldRasterize: false)
     
     static let titleAttributes: [NSAttributedStringKey: Any] = {
         

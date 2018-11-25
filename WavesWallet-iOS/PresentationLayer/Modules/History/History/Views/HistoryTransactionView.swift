@@ -32,11 +32,12 @@ fileprivate extension HistoryTransactionView {
 
     func update(with asset: DomainLayer.DTO.Asset, balance: Balance, sign: Balance.Sign = .none) {
 
+        labelValue.attributedText = styleForBalance(balance, sign: sign, ticker: balance.currency.ticker, isSpam: asset.isSpam)
+        
         if asset.isSpam {
             tickerView.isHidden = false
             tickerView.update(with: .init(text: Localizable.Waves.General.Ticker.Title.spam,
                                           style: .normal))
-            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
             return
         }
 
@@ -44,11 +45,43 @@ fileprivate extension HistoryTransactionView {
             tickerView.isHidden = false
             tickerView.update(with: .init(text: ticker,
                                           style: .soft))
-            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: true), font: labelValue.font)
         } else {
             tickerView.isHidden = true
-            labelValue.attributedText = .styleForBalance(text: balance.displayText(sign: sign, withoutCurrency: false), font: labelValue.font)
         }
+    }
+    
+    func update(with tx: DomainLayer.DTO.SmartTransaction.Exchange) {
+        
+        var type = ""
+        let balance = tx.amount
+        let sign: Balance.Sign!
+        let ticker = balance.currency.ticker
+        
+        if tx.myOrder.kind == .sell {
+            sign = .minus
+            type = Localizable.Waves.Transactionhistory.Cell.sell
+        }
+        else {
+            sign = .plus
+            type = Localizable.Waves.Transactionhistory.Cell.buy
+        }
+        
+        labelTitle.text = type + ": " + tx.amount.currency.title + "/" + tx.price.currency.title
+        labelValue.attributedText = styleForBalance(balance, sign: sign, ticker: ticker, isSpam: false)
+        
+        if let ticker = ticker {
+            tickerView.isHidden = false
+            tickerView.update(with: .init(text: ticker, style: .soft))
+        }
+    }
+    
+    func styleForBalance(_ balance: Balance, sign: Balance.Sign, ticker: String?, isSpam: Bool) -> NSAttributedString {
+        
+        let balanceTitle = balance.displayText(sign: sign, withoutCurrency: ticker != nil || isSpam == true)
+        let attr = NSMutableAttributedString.init(attributedString: .styleForBalance(text: balanceTitle, font: labelValue.font))
+        attr.addAttributes([NSAttributedStringKey.font : UIFont.systemFont(ofSize: labelValue.font.pointSize)], range: (balanceTitle as NSString).range(of:  balance.currency.title))
+        
+        return attr
     }
 }
 
@@ -77,14 +110,8 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.balance)
 
         case .exchange(let tx):
-
-            let myOrder = tx.myOrder
-
-            if myOrder.kind == .sell {
-                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .plus)
-            } else {
-                update(with: myOrder.pair.priceAsset, balance: tx.total, sign: .minus)
-            }
+            
+            update(with: tx)
 
         case .canceledLeasing(let tx):
             update(with: tx.asset, balance: tx.balance)

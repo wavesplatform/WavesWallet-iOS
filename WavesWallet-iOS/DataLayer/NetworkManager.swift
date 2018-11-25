@@ -126,26 +126,4 @@ class NetworkManager: NSObject
         return baseRequestWithUrl(url, method: .get, parameters: parameters, headers:headers, complete: complete)
     }
 
-    
-    class func getVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
-        getRequestWithUrl( "https://waves-wallet.firebaseio.com/" + "verified-assets.json", parameters: nil) { (info, error) in
-            complete(info as? NSDictionary, error?.message)
-        }
-    }
-   
-    
-    class func getBalancePair(priceAsset: String, amountAsset: String, complete: @escaping (_ info: NSDictionary?, _ errorMessage: String?) -> Void) {
-        
-        getRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/tradableBalance/\(WalletManager.getAddress())", parameters: nil) { (info, error) in
-            complete(info as? NSDictionary, error?.message)
-        }        
-    }
-
-    class func deleteOrder(amountAsset: String, priceAsset: String, request: CancelOrderRequest, complete: @escaping (_ errorMessage: String?) -> Void) {
-        
-        postRequestWithUrl(matcherURL + "matcher/orderbook/\(amountAsset)/\(priceAsset)/delete?" + String(Date().millisecondsSince1970), parameters: request.toJSON()) { (info, error) in
-            complete(error?.message)
-        }
-    }
-
 }
