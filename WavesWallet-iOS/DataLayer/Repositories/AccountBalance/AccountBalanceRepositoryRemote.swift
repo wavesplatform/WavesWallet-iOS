@@ -88,9 +88,11 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map([String: Int64].self)
-            .asObservable()
-            .catchErrorJustReturn([String: Int64]())
     }
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
@@ -107,6 +109,10 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
     }
@@ -124,8 +130,11 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(Node.DTO.AccountBalance.self)
-            .asObservable()
     }
 }
 

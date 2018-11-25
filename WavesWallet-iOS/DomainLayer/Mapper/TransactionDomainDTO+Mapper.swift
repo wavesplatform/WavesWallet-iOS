@@ -377,10 +377,6 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
         var optionalLease = self.lease
 
-        if optionalLease == nil {
-            optionalLease = metaData.mapTxs[self.leaseId]?.leaseTransaction
-        }
-
         guard let lease = optionalLease else {
             return nil
         }
