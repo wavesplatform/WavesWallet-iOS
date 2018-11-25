@@ -955,6 +955,12 @@
 
 "transactionhistory.cell.confirmations" = "Confirmations";
 
+"transactionhistory.cell.type" = "Type";
+
+"transactionhistory.cell.sell" = "Sell";
+
+"transactionhistory.cell.buy" = "Buy";
+
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 
 "transactionhistory.cell.fee" = "Fee";

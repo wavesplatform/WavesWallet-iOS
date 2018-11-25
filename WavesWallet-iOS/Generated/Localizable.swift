@@ -527,6 +527,23 @@ internal enum Localizable {
           internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
         }
       }
+
+      internal enum Servererror {
+
+        internal enum Button {
+          /// Retry
+          internal static var retry: String { return Localizable.tr("Waves", "dex.serverError.button.retry") }
+          /// Send a report
+          internal static var sendReport: String { return Localizable.tr("Waves", "dex.serverError.button.sendReport") }
+        }
+
+        internal enum Label {
+          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+          internal static var subtitle: String { return Localizable.tr("Waves", "dex.serverError.label.subtitle") }
+          /// Oh ... It's all broken!
+          internal static var title: String { return Localizable.tr("Waves", "dex.serverError.label.title") }
+        }
+      }
     }
 
     internal enum Dexchart {
@@ -2025,6 +2042,8 @@ internal enum Localizable {
       internal enum Cell {
         /// Block
         internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
+        /// Buy
+        internal static var buy: String { return Localizable.tr("Waves", "transactionhistory.cell.buy") }
         /// Confirmations
         internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
         /// Data Transaction
@@ -2049,8 +2068,12 @@ internal enum Localizable {
         internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
+        /// Sell
+        internal static var sell: String { return Localizable.tr("Waves", "transactionhistory.cell.sell") }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
+        /// Type
+        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.cell.type") }
 
         internal enum Button {
           /// Cancel Leasing
