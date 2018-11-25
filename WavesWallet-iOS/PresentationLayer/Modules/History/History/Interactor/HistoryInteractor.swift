@@ -14,16 +14,14 @@ fileprivate enum Constants {
 }
 
 protocol HistoryInteractorProtocol {
-    func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]>
+    func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>>
 }
 
 final class HistoryInteractor: HistoryInteractorProtocol {
-    
-    private let refreshTransactionsSubject: PublishSubject<[DomainLayer.DTO.SmartTransaction]> = PublishSubject<[DomainLayer.DTO.SmartTransaction]>()
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let disposeBag: DisposeBag = DisposeBag()
 
-    func transactions(input: HistoryModuleInput) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
+    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+
+    func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
 
         var specifications: TransactionsSpecifications! = nil
 
@@ -48,13 +46,13 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         return loadingTransactions(specifications: specifications)
     }
 
-    private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
+    private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
 
         //TODO: Rmove
         guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.never() }
 
         return transactionsInteractor
-            .transactions(by: accountAddress, specifications: specifications)
+            .transactionsSync(by: accountAddress, specifications: specifications)
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
     }

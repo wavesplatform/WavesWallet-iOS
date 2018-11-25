@@ -80,6 +80,16 @@ extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
+    var isLeaseCancel: Bool {
+        switch self {
+        case .leaseCancel:
+            return true
+
+        default:
+            return false
+        }
+    }
+
     var id: String {
         switch self {
         case .unrecognised(let tx):

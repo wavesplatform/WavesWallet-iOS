@@ -39,5 +39,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     private(set) lazy var aliasesRepository: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: self.environmentRepository)
 
+    private(set) lazy var aliasesRepositoryLocal: AliasesRepositoryProtocol = AliasesRepositoryLocal()
+
     fileprivate init() {}
 }

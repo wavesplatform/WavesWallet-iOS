@@ -40,25 +40,21 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-
     private func queryRefresh() -> Feedback {
         return react(query: { (state) -> HistoryTypes.RefreshData? in
 
             return state.refreshData
         }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
-            print("Loading \(query)")
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .transactions(input: strongSelf.moduleInput)
-                .map { .responseAll($0, query) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
-                .do(onNext: nil, onCompleted: nil, onSubscribe: nil, onSubscribed: nil, onDispose: {
-                    print("onDispose \(query)")
+                .map { .responseAll($0) }
+                .asSignal(onErrorRecover: { _ in
+                    return Signal.empty()
                 })
         })
     }
-
 
     private func reduce(state: HistoryTypes.State, event: HistoryTypes.Event) -> HistoryTypes.State {
         var newState = state
@@ -69,7 +65,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            state.updateAction = .refresh
+            state.refreshData = .refresh
             state.isAppeared = true
 
         case .viewDidDisappear:
@@ -77,8 +73,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
         case .refresh:            
             state.isRefreshing = true
-            state.updateAction = .pullToRefresh
-            
+            state.refreshData = .update
+
         case .tapCell(let indexPath):
             
             let item = state.sections[indexPath.section].items[indexPath.item]
@@ -108,17 +104,53 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.sections = sections
             state.currentFilter = filter
 
-        case .handlerError:
-            state.isRefreshing = false
+        case .responseAll(let response):
+            
+             state.isRefreshing = false
 
-        case .responseAll(let response, let updateAction):
-            print("Respnse All \(updateAction)")
+            if let response = response.resultIngoreError {
+                let filteredTransactions = state.currentFilter.filtered(transactions: response)
+                let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
+                state.sections = sections
+                state.transactions = response
+            }
 
-            let filteredTransactions = state.currentFilter.filtered(transactions: response)
-            let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
-            state.sections = sections
-            state.transactions = response
-            state.isRefreshing = false
+            if response.anyError != nil {
+                state.refreshData = .none
+            }
+
+            if let error = response.anyError {
+
+                let hasTransactions = response.resultIngoreError?.count == 0
+
+                if hasTransactions == false {
+                    let isInternetNotWorking = (error as? NetworkError)?.isInternetNotWorking ?? false
+                    state.error = .globalError(isInternetNotWorking: isInternetNotWorking)
+                } else {
+
+                    switch error {
+                    case let appError as NetworkError:
+                        switch appError {
+                        case .internetNotWorking:
+                            state.error = .internetNotWorking
+
+                        case .notFound:
+                            state.error = .message("Что-то пошло не так")
+
+                        case .serverError:
+                            state.error = .message("Что-то пошло не так")
+
+                        case .message(let message):
+                            state.error = .message(message)
+                        }
+
+                    default:
+                         state.error = .message("Что-то пошло не так")
+                    }
+                }
+            } else {
+                state.error = nil
+            }
         }
     }
 

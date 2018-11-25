@@ -30,7 +30,9 @@ final class TokenBurnLoadingViewController: UIViewController {
         labelLoading.text = Localizable.Waves.Tokenburn.Label.loading
         navigationItem.hidesBackButton = true
         
-        interactor.burnAsset(asset: input.asset, fee: input.fee, quiantity: input.amount)
+        interactor
+            .burnAsset(asset: input.asset, fee: input.fee, quiantity: input.amount)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (status) in
                 
                 switch status {
@@ -42,7 +44,8 @@ final class TokenBurnLoadingViewController: UIViewController {
                     self?.navigationController?.popViewController(animated: true)
                 }
                 
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func showCompleteScreen() {

@@ -88,4 +88,9 @@ final class AliasesRepository: AliasesRepositoryProtocol {
 
             })
     }
+
+    func saveAliases(by accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
+        assert(true, "Method don't supported")
+        return Observable.never()
+    }
 }

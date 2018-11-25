@@ -128,9 +128,13 @@ final class SweetSnackbar: NSObject {
         view.addGestureRecognizer(tap)
         view.addGestureRecognizer(swipe)
 
+        let bottom = viewController.bottomLayoutGuide.length
+        view.bottomOffsetPadding = bottom
+
         // Calculate Height
         view.layoutIfNeeded()
         view.setNeedsLayout()
+
         let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
@@ -142,7 +146,7 @@ final class SweetSnackbar: NSObject {
 
         // It code run next loop in runloop
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-            view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
+            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
         }) { animated in
             self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
         }
@@ -253,7 +257,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
                 snack.model.action?.didSwipe(snack: snack.model, view: snack.view, bar: self)
             } else {
                 UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-                    view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
+                    view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
                 }) { _ in }
             }
         case .possible:

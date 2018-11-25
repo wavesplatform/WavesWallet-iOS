@@ -62,7 +62,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
                 return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
             }
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 }
 
@@ -76,8 +76,10 @@ private extension AccountBalanceInteractor {
 
         let walletAddress = wallet.address
         let balances = balanceRepositoryRemote.balances(by: wallet)
-        let activeTransactions = leasingInteractor.activeLeasingTransactions(by: wallet.address,
-                                                                             isNeedUpdate: isNeedUpdate)
+        let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
+            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                return Observable.just(txs.resultIngoreError ?? [])
+            }
 
         let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
 

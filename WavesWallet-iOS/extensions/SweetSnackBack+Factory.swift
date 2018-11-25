@@ -81,6 +81,10 @@ extension UIViewController {
                                       action: nil)
         return SweetSnackbar.shared.showSnack(success, on: self)
     }
+
+    func hideSnack(key: String) {
+         SweetSnackbar.shared.hideSnack(key: key)
+    }
 }
 
 struct SweetSnackError: SweetSnackAction {
