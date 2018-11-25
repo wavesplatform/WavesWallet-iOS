@@ -382,6 +382,7 @@
 		0AF0C67921AA25B200602197 /* AliasesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67821AA25B200602197 /* AliasesRepository.swift */; };
 		0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */; };
 		0AF0C67D21AACB3700602197 /* GlobalErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */; };
+		0AF0C67F21AB1B4D00602197 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67E21AB1B4D00602197 /* Sync.swift */; };
 		0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */; };
 		0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */; };
 		0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */; };
@@ -1215,6 +1216,7 @@
 		0AF0C67821AA25B200602197 /* AliasesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesRepository.swift; sourceTree = "<group>"; };
 		0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalErrorView.swift; sourceTree = "<group>"; };
 		0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalErrorView.xib; sourceTree = "<group>"; };
+		0AF0C67E21AB1B4D00602197 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCoordinator.swift; sourceTree = "<group>"; };
 		0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodePresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeRegistationPresenter.swift; sourceTree = "<group>"; };
@@ -1985,6 +1987,7 @@
 			isa = PBXGroup;
 			children = (
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
+				0AF0C67E21AB1B4D00602197 /* Sync.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -5394,6 +5397,7 @@
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
 				0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */,
+				0AF0C67F21AB1B4D00602197 /* Sync.swift in Sources */,
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
 				E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */,
 				0AC33AF021A826B700B66747 /* NetworkError.swift in Sources */,
