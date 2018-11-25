@@ -65,23 +65,7 @@ final class ImportAccountScanViewController: UIViewController {
                 let alert = CameraAccess.alertController
                 self?.present(alert, animated: true, completion: nil)
         })
-        
-        
-//        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-//
-//        switch cameraAuthorizationStatus {
-//            case .notDetermined: requestCameraPermission()
-//            case .authorized: delegate?.scanTapped()
-//            case .restricted, .denied: alertCameraAccessNeeded()
-//        }
     
-    }
-    
-    // MARK: - Camera
-    
-    func alertCameraAccessNeeded() {
-        
-        
     }
     
 }
