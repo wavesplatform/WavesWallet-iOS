@@ -25,8 +25,14 @@ enum HistoryTypes {
 
     enum RefreshData: Equatable {
         case none
-        case pullToRefresh
+        case update
         case refresh
+    }
+
+    enum DisplayError {
+        case globalError(isInternetNotWorking: Bool)
+        case internetNotWorking
+        case message(String)
     }
 
     struct State: Mutating {
@@ -37,14 +43,14 @@ enum HistoryTypes {
         var isRefreshing: Bool
         var isAppeared: Bool
         var refreshData: RefreshData?
+        var error: DisplayError?
     }
     
     enum Event {
-        case responseAll([DomainLayer.DTO.SmartTransaction], RefreshData)
-        case handlerError(Error)
+        case responseAll(Sync<[DomainLayer.DTO.SmartTransaction]>)        
         case readyView
         case viewDidDisappear
-        case refresh
+        case refresh        
         case changeFilter(Filter)
         case tapCell(IndexPath)
     }

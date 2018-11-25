@@ -23,13 +23,16 @@ final class HistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
-    private var refreshControl: UIRefreshControl!
-    
-    private let disposeBag: DisposeBag = DisposeBag()
-    private var isRefreshing: Bool = false
-    
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var emptyTextLabel: UILabel!
+    @IBOutlet weak var globalErrorView: GlobalErrorView!
+
+    private var refreshControl: UIRefreshControl!
+
+    private let disposeBag: DisposeBag = DisposeBag()
+    private var isRefreshing: Bool = false
+    private var isShowError: Bool = false
+    private var snackError: String? = nil
     
     var presenter: HistoryPresenterProtocol!
 
@@ -53,6 +56,9 @@ final class HistoryViewController: UIViewController {
         tableView.addGestureRecognizer(leftRightGesture)
         tableView.addGestureRecognizer(rightSwipeGesture)
 
+        globalErrorView.retryDidTap = { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
 
         emptyView.isHidden = true
         setupLocalization()
@@ -217,20 +223,53 @@ private extension HistoryViewController {
                 
                 strongSelf.sections = state.sections
                 strongSelf.isRefreshing = state.isRefreshing
-                strongSelf.segmentedControl.segmentedControl.selectedIndex = strongSelf.filters.firstIndex(of: state.currentFilter) ?? 0
+                strongSelf.changeFilter(state.currentFilter)
+
+                if let error = state.error, strongSelf.isShowError == false {
+                    strongSelf.isShowError = true
+                    strongSelf.globalErrorView.isHidden = true
+
+                    switch error {
+                    case .globalError(let isInternetNotWorking):
+                        strongSelf.globalErrorView.isHidden = false
+
+                        if isInternetNotWorking {
+                            strongSelf.globalErrorView.update(with: .init(kind: .internetNotWorking))
+                        } else {
+                            strongSelf.globalErrorView.update(with: .init(kind: .serverError))
+                        }
+
+                    case .internetNotWorking:
+                        strongSelf.snackError = strongSelf.showWithoutInternetSnack { [weak self] in
+                            self?.sendEvent.accept(.refresh)
+                        }
+
+                    case .message(let message):
+                        strongSelf.snackError = strongSelf.showErrorSnack(tille: message, didTap: { [weak self] in
+                            self?.sendEvent.accept(.refresh)
+                        })
+                    }
+
+                } else {
+                    if let snackError = strongSelf.snackError {
+                        strongSelf.hideSnack(key: snackError)
+                    }
+                    strongSelf.snackError = nil
+                    strongSelf.isShowError = false
+                    strongSelf.globalErrorView.isHidden = true
+                }
 
                 UIView.transition(with: strongSelf.tableView,
                                   duration: 0.24,
                                   options: [.transitionCrossDissolve, .curveEaseInOut],
-                                  animations: {
-                                    
-                                    strongSelf.tableView.reloadData()
-                                    
-                                    
-                }, completion: { _ in            
-                    strongSelf.refreshControl.endRefreshing()
+                                  animations:
+                {
+                    strongSelf.tableView.reloadData()
+                }, completion: { _ in
+                    if state.isRefreshing == false {
+                        strongSelf.refreshControl.endRefreshing()
+                    }
                 })
-                
         })
         
         return [subscriptionSections]
@@ -262,8 +301,6 @@ extension HistoryViewController {
             tableView.addSubview(refreshControl)
         }
     }
-
-    
 }
 
 extension HistoryViewController: UITableViewDelegate {

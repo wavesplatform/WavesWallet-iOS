@@ -900,7 +900,7 @@ fileprivate extension AuthorizationInteractor {
     }
 
     private func getPasswordByPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<String> {
-
+        
         return remoteAuthenticationRepository
             .auth(with: wallet.id, passcode: passcode)
             .flatMap({ [weak self] keyForPassword -> Observable<(String, DomainLayer.DTO.WalletEncryption)> in

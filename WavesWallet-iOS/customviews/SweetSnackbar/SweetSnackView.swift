@@ -11,6 +11,7 @@ import UIKit
 private enum Constants {
     static let durationAnimation: TimeInterval = 1.8
     static let multiplyPIAnimation: Double = 4
+    static let bottomPadding: CGFloat = 16
 }
 
 final class SweetSnackView: UIView, NibLoadable {
@@ -20,11 +21,18 @@ final class SweetSnackView: UIView, NibLoadable {
     @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var leftAtIconConstraint: NSLayoutConstraint!
     @IBOutlet private var leftAtSuperviewConstraint: NSLayoutConstraint!
+    @IBOutlet private var bottomAtSuperviewConstraint: NSLayoutConstraint!
     @IBOutlet private var iconImageView: UIImageView!
 
     private var isHiddenIcon: Bool = true
     private var isStartedAnimation: Bool = true
     private(set) var model: SweetSnack?
+
+    var bottomOffsetPadding: CGFloat = 0 {
+        didSet {
+            bottomAtSuperviewConstraint.constant = bottomOffsetPadding + Constants.bottomPadding
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
