@@ -82,28 +82,23 @@ final class AccountsInteractor: AccountsInteractorProtocol {
 
     func accounts(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Account]> {
 
-        return aliasesRepository.aliases(accountAddress: accountAddress)
-            .flatMap({ [weak self] (aliases) -> Observable<([DomainLayer.DTO.Contact], [DomainLayer.DTO.Alias])> in
+        return self.accountsSync(by: ids, accountAddress: accountAddress)
+            .flatMap({ (sync) -> Observable<[DomainLayer.DTO.Account]> in
 
-                guard let owner = self else { return Observable.never() }
+                if let remote = sync.resultIngoreError {
+                    return Observable.just(remote)
+                }
 
-                return Observable.merge(owner.addressBookRepository.listListener(by: accountAddress),
-                                        owner.addressBookRepository.list(by: accountAddress))
-                    .map { ($0, aliases) }
+                switch sync {
+                case .remote(let model):
+                    return Observable.just(model)
+
+                case .local(_, let error):
+                    return Observable.error(error)
+
+                case .error(let error):
+                    return Observable.error(error)
+                }
             })
-            .flatMap { (contacts, aliases) -> Observable<[DomainLayer.DTO.Account]> in
-
-                let maps = contacts.reduce(into: [String : DomainLayer.DTO.Contact](), { (result, contact) in
-                    result[contact.address] = contact
-                })
-
-                let accounts = ids.map({ address -> DomainLayer.DTO.Account in
-
-                    let isMyAccount = accountAddress == address || aliases.map { $0.name }.contains(address)
-                    return DomainLayer.DTO.Account(address: address, contact: maps[address], isMyAccount: isMyAccount)
-                })
-
-                return Observable.just(accounts)
-            }
     }
 }
