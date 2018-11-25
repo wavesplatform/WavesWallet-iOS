@@ -527,23 +527,6 @@ internal enum Localizable {
           internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
         }
       }
-
-      internal enum Servererror {
-
-        internal enum Button {
-          /// Retry
-          internal static var retry: String { return Localizable.tr("Waves", "dex.serverError.button.retry") }
-          /// Send a report
-          internal static var sendReport: String { return Localizable.tr("Waves", "dex.serverError.button.sendReport") }
-        }
-
-        internal enum Label {
-          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
-          internal static var subtitle: String { return Localizable.tr("Waves", "dex.serverError.label.subtitle") }
-          /// Oh ... It's all broken!
-          internal static var title: String { return Localizable.tr("Waves", "dex.serverError.label.title") }
-        }
-      }
     }
 
     internal enum Dexchart {
