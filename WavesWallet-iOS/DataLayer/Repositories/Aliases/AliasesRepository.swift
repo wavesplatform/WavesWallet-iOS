@@ -12,6 +12,7 @@ import Moya
 
 private enum Constants {
     static var notFoundCode = 404
+    static var addressKey = "address"
 }
 
 final class AliasesRepository: AliasesRepositoryProtocol {
@@ -75,7 +76,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                             callbackQueue: DispatchQueue.global(qos: .background))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map([String:String].self)
-                    .map({ $0["address"] ?? "" })
+                    .map({ $0[Constants.addressKey] ?? "" })
                     .asObservable()
                     .catchError({ e -> Observable<String> in
                         guard let error = e as? MoyaError else {

@@ -15,6 +15,7 @@ import SwiftDate
 
 fileprivate enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
+    static let animationDurationReloadTabel: TimeInterval = 0.24
 }
 
 final class HistoryViewController: UIViewController {
@@ -233,7 +234,7 @@ private extension HistoryViewController {
         updateErrorView(state: state)
 
         UIView.transition(with: tableView,
-                          duration: 0.24,
+                          duration: Constants.animationDurationReloadTabel,
                           options: [.transitionCrossDissolve, .curveEaseInOut],
                           animations: {
                 self.tableView.reloadData()
