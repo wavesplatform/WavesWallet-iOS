@@ -107,8 +107,6 @@ internal enum StoryboardScene {
   internal enum Dex: StoryboardType {
     internal static let storyboardName = "Dex"
 
-    internal static let createOrderViewController = SceneType<WavesWallet_iOS.CreateOrderViewController>(storyboard: Dex.self, identifier: "CreateOrderViewController")
-
     internal static let dexChartViewController = SceneType<WavesWallet_iOS.DexChartViewController>(storyboard: Dex.self, identifier: "DexChartViewController")
 
     internal static let dexCompleteOrderViewController = SceneType<WavesWallet_iOS.DexCompleteOrderViewController>(storyboard: Dex.self, identifier: "DexCompleteOrderViewController")
@@ -130,8 +128,6 @@ internal enum StoryboardScene {
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
     internal static let dexTraderContainerViewController = SceneType<WavesWallet_iOS.DexTraderContainerViewController>(storyboard: Dex.self, identifier: "DexTraderContainerViewController")
-
-    internal static let myOrdersViewController = SceneType<WavesWallet_iOS.MyOrdersViewController>(storyboard: Dex.self, identifier: "MyOrdersViewController")
   }
   internal enum EditAccountName: StoryboardType {
     internal static let storyboardName = "EditAccountName"

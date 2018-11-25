@@ -22,6 +22,8 @@ final class DexMarketViewController: UIViewController {
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelLoadingMarkets: UILabel!
     @IBOutlet private weak var activityIndicatorSearch: UIActivityIndicatorView!
+    @IBOutlet private weak var labelNothingHere: UILabel!
+    @IBOutlet private weak var viewNothingHere: UIView!
     
     var presenter: DexMarketPresenterProtocol!
     private var modelSection = DexMarket.ViewModel.Section(items: [])
@@ -36,6 +38,7 @@ final class DexMarketViewController: UIViewController {
         setupViews(isLoadingState: true)
         tableView.keyboardDismissMode = .onDrag
         searchBar.delegate = self
+        viewNothingHere.isHidden = true
         
         let feedback = bind(self) { owner, state -> Bindings<DexMarket.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
@@ -77,6 +80,7 @@ fileprivate extension DexMarketViewController {
                 strongSelf.setupViews(isLoadingState: false)
                 strongSelf.modelSection = state.section
                 strongSelf.tableView.reloadData()
+                strongSelf.viewNothingHere.isHidden = state.section.items.count > 0
             })
         
         return [subscriptionSections]
@@ -94,6 +98,7 @@ private extension DexMarketViewController {
     func setupLocalization() {
         title = Localizable.Waves.Dexmarket.Navigationbar.title
         labelLoadingMarkets.text = Localizable.Waves.Dexmarket.Label.loadingMarkets
+        labelNothingHere.text = Localizable.Waves.Dex.General.Error.nothingHere
     }
     
     func setupSearchingState() {
@@ -117,6 +122,7 @@ extension DexMarketViewController: SearchBarViewDelegate {
     
     func searchBarDidChangeText(_ searchText: String) {
         
+        viewNothingHere.isHidden = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         if searchText.count > 0 {
             setupSearchingState()
