@@ -26,6 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     var migrationInteractor: MigrationInteractor = MigrationInteractor()
 
+    var test = FactoryInteractors.instance.assetsInteractor
+    var accounts = FactoryInteractors.instance.accounts
+    let txs = FactoryInteractors.instance.transactions
+
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -49,6 +54,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SweetLogger.current.visibleLevels = []
         #endif
 
+//        test
+//            .assetsSync(by: ["WAVES"], accountAddress: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+//            .subscribe(onNext: { (sync) in
+//                print(sync)
+//
+//            })
+
+//        accounts
+//            .accountsSync(by: ["3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj"], accountAddress: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj")
+//            .subscribe(onNext: { (sync) in
+//                print(sync)
+//
+//            })
+
+//        let assets: [String]
+//        let senders: [String]
+//        let types: [TransactionType]
+//        txs.transactionsSync(by: "3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj",
+//                             specifications: TransactionsSpecifications(page: nil,
+//                                                                        assets: [],
+//                                                                        senders: [],
+//                                                                        types: TransactionType.all))
+//                            .subscribe(onNext: { (sync) in
+//                                print(sync)
+//
+//                            })
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
