@@ -30,7 +30,7 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func wavesTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://wavesplatform.com/")!)
+        UIApplication.shared.openURL(URL(string: "https://forum.wavesplatform.com/")!)
     }
     
     @IBAction func gitTapped(_ sender: Any) {

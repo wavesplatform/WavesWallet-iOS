@@ -102,8 +102,11 @@ fileprivate extension WalletInteractor {
             .authorizedWallet()
             .flatMap(weak: self) { owner, wallet -> Observable<Leasing> in
                 
-                let transactions = owner.leasingInteractor.activeLeasingTransactions(by: wallet.address,
-                                                                                     isNeedUpdate: isNeedUpdate)
+                let transactions = owner.leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
+                    .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                        return Observable.just(txs.resultIngoreError ?? [])
+                    }
+
                 let balance = owner.accountBalanceInteractor
                     .balances(by: wallet,
                               isNeedUpdate: isNeedUpdate)

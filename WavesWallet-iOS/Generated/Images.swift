@@ -54,6 +54,7 @@ internal enum Images {
     internal static let token80 = ImageAsset(name: "token80")
     internal static let wallet80 = ImageAsset(name: "wallet80")
   }
+  internal static let image = ImageAsset(name: "Image")
   internal enum TabBar {
     internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
     internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
@@ -177,7 +178,7 @@ internal enum Images {
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
-  internal static let logo = ImageAsset(name: "logo")
+  internal static let launcher34 = ImageAsset(name: "launcher34")
   internal static let logo3x = ImageAsset(name: "logo3x")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
@@ -275,10 +276,12 @@ internal enum Images {
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
   internal static let userimgDex80Multy = ImageAsset(name: "userimgDex80Multy")
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
+  internal static let userimgDisconnect80Multy = ImageAsset(name: "userimgDisconnect80Multy")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
+  internal static let userimgServerdown80Multy = ImageAsset(name: "userimgServerdown80Multy")
   internal static let userimgToken80White = ImageAsset(name: "userimgToken80White")
   internal static let userimgWallet80White = ImageAsset(name: "userimgWallet80White")
   internal static let verification28Error500 = ImageAsset(name: "verification28Error500")
@@ -304,6 +307,7 @@ internal enum Images {
     Enter.dex80,
     Enter.token80,
     Enter.wallet80,
+    image,
     TabBar.tabBarDex,
     TabBar.tabBarDexActive,
     TabBar.tabBarHistory,
@@ -423,7 +427,7 @@ internal enum Images {
     info18Error500,
     info18Warning600,
     information22Multy,
-    logo,
+    launcher34,
     logo3x,
     logoBitcoin48,
     logoBitcoincash48,
@@ -521,10 +525,12 @@ internal enum Images {
     userimgBlockchain80White,
     userimgDex80Multy,
     userimgDex80White,
+    userimgDisconnect80Multy,
     userimgDone80Success400,
     userimgEmpty80Multi,
     userimgPairing80,
     userimgSeed80Submit400,
+    userimgServerdown80Multy,
     userimgToken80White,
     userimgWallet80White,
     verification28Error500,

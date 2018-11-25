@@ -81,16 +81,27 @@ extension UIViewController {
                                       action: nil)
         return SweetSnackbar.shared.showSnack(success, on: self)
     }
+
+    func hideSnack(key: String) {
+         SweetSnackbar.shared.hideSnack(key: key)
+    }
 }
 
-struct SweetSnackError: SweetSnackAction {
+class SweetSnackError: SweetSnackAction {
 
     var didTap: (() -> Void)?
+    private var isIgnoreTap: Bool = false
 
+    init(didTap: (() -> Void)?) {
+        self.didTap = didTap
+    }
+    
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
         view.startAnimationIcon()
-        view.isUserInteractionEnabled = false
-        didTap?()
+        if isIgnoreTap == false {
+            isIgnoreTap = true
+            didTap?()
+        }
     }
 
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {}
