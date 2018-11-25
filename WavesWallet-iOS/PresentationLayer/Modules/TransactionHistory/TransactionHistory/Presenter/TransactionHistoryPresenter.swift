@@ -37,7 +37,6 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(showAddressBookFeedback())
         newFeedbacks.append(cancelLeasingFeedback())
-//        newFeedbacks.append(updateAddressBookFeedback())
 
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
                       reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
@@ -45,19 +44,6 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
             .drive()
             .disposed(by: disposeBag)
     }
-
-//    func updateAddressBookFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
-//
-//        return react(query: { state -> Bool in
-//            return state.isAppeared == true
-//
-//        }, effects: { [weak self] _ -> Signal<Event> in
-//
-//
-//        })
-//        .asSignal(onErrorJustReturn: .completedAction)
-//
-//    }
 
     func showAddressBookFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
 
