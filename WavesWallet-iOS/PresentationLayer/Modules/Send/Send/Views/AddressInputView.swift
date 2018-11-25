@@ -114,7 +114,14 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     }
     
     @IBAction private func scanTapped(_ sender: Any) {
-        showScanner()
+        
+        CameraAccess.requestAccess(success: { [weak self] in
+                self?.showScanner()
+            }, failure: { [weak self] in
+                let alert = CameraAccess.alertController
+                self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+        })
+        
     }
 }
 
