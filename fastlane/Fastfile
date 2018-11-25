@@ -11,6 +11,7 @@ platform :ios do
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    ENV['MATCH_TYPE'] = "appstore"
     build_projet
     upload_testflight
   end
@@ -21,6 +22,7 @@ platform :ios do
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    ENV['MATCH_TYPE'] = "appstore"
     build_projet
     upload_testflight
   end
@@ -30,7 +32,8 @@ platform :ios do
       ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
       ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
       ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
+      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"      
+      ENV['MATCH_TYPE'] = "adhoc"
       build_projet
       upload_crashlytics
   end
@@ -48,7 +51,7 @@ platform :ios do
     match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "appstore",
+      type: "#{ENV['MATCH_TYPE']}",
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
