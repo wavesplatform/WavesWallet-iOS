@@ -62,7 +62,7 @@ extension GlobalErrorView: ViewConfiguration {
             subtitleLabel.text = Localizable.Waves.Servererror.Label.subtitle
             retryButton.setTitle(Localizable.Waves.Servererror.Button.retry, for: .normal)
             sendReportButton.setTitle(Localizable.Waves.Servererror.Button.sendReport, for: .normal)
-            sendReportButton.isHidden = false
+            sendReportButton.isHidden = true
         }
     }
 }

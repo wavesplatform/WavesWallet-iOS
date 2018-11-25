@@ -54,7 +54,7 @@ extension HistoryTypes.State {
                                   isRefreshing: false,
                                   isAppeared: false,
                                   refreshData: .refresh,
-                                  error: nil)
+                                  errorState: .none)
     }
 
     static func skeletonSections() -> [HistoryTypes.ViewModel.Section] {
