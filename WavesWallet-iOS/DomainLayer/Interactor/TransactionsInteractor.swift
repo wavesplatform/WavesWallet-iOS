@@ -326,7 +326,7 @@ fileprivate extension TransactionsInteractor {
         guard query.transactions.count != 0 else { return Observable.just([]) }
         let assetsIds = query.transactions.assetsIds
         let accountsIds = query.transactions.accountsIds
-
+        
         let assets = self.assets(by: assetsIds, accountAddress: query.accountAddress)
         let accounts = self.accounts(by: accountsIds, accountAddress: query.accountAddress)
 
@@ -427,6 +427,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId]
 
         case .burn(let tx):
+            
             return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .exchange(let tx):

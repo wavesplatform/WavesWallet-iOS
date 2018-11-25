@@ -18,7 +18,7 @@ protocol AssetsInteractorProtocol {
 }
 
 fileprivate enum Constants {
-    static let durationInseconds: Double =  320
+    static let durationInseconds: Double =  0
 }
 
 final class AssetsInteractor: AssetsInteractorProtocol {
