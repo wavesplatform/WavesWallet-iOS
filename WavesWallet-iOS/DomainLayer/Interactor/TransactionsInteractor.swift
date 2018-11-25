@@ -611,6 +611,7 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId]
 
         case .burn(let tx):
+            
             return [tx.assetId, GlobalConstants.wavesAssetId]
 
         case .exchange(let tx):
