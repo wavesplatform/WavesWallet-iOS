@@ -31,6 +31,7 @@ extension InfoPagesCell: ViewConfiguration {
         contentView.addSubview(model)
         
         setNeedsLayout()
+        layoutIfNeeded()
         
     }
     

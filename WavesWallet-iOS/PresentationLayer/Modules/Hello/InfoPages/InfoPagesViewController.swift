@@ -27,6 +27,9 @@ final class InfoPagesViewController: UIViewController {
     @IBOutlet private weak var toolbarBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var nextControl: UIControl!
+
+    // for fixing back when scrollingBackwards
+    fileprivate(set) var prevOffsetX: CGFloat = 0
     
     weak var output: InfoPagesViewModuleOutput?
     
@@ -57,8 +60,6 @@ final class InfoPagesViewController: UIViewController {
         
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,13 +68,18 @@ final class InfoPagesViewController: UIViewController {
 
         setupCollectionView()
         setupPageControl()
-        
+        setupButtonTitle()
         setupConstraints()
         
         gradientView.endColor = .basic50
-        toolbarView.layer.setupShadow(options: InfoPagesViewControllerConstants.toolbarShadowOptions)
-        toolbarView.cornerRadius = 2
+        toolbarView.addTableCellShadowStyle()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        changedPage()
     }
     
     // MARK: - Setup
@@ -130,6 +136,16 @@ final class InfoPagesViewController: UIViewController {
         }
     }
     
+    private func setupButtonTitle() {
+        let currentPage = pageControl.currentPage
+        
+        if currentPage == pageViews.count - 1 {
+            toolbarLabel.text = Constants.buttonUnderstand
+        } else {
+            toolbarLabel.text = Constants.buttonNext
+        }
+    }
+    
     fileprivate func nextPage() {
         let page = pageControl.currentPage + 1
         
@@ -142,20 +158,16 @@ final class InfoPagesViewController: UIViewController {
     }
     
     fileprivate func changedPage() {
-        let currentPage = pageControl.currentPage
+        setupButtonTitle()
         
-        if currentPage == pageViews.count - 1 {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.understand
-        } else {
-            toolbarLabel.text = Localizable.Waves.Hello.Button.next
-        }
+        let currentPage = pageControl.currentPage
         
         if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
             nextControl.isEnabled = currentModel.scrolledToBottom
             toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
-        } else {
-            nextControl.isEnabled = true
-            toolbarLabel.alpha = 1
+        } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
+            nextControl.isEnabled = currentModel.scrolledToBottom
+            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
         }
         
     }
@@ -190,6 +202,7 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         
         if let pageView = pageView as? ShortInfoPageView {
             
+            pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
             
         } else if let pageView = pageView as? LongInfoPageView {
@@ -218,6 +231,10 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
             pageView.updateOnScroll()
         }
         
+        if let pageView = pageView as? ShortInfoPageView {
+            pageView.updateOnScroll()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -240,15 +257,17 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             if size == 0 { return }
             
             var page = Int((offsetX + size / 2) / size)
-            
-            if offsetX > size * CGFloat(page) && !nextControl.isEnabled {
-                scrollView.contentOffset.x = size * CGFloat(page)
+            let maxOffset = size * CGFloat(page)
+
+            if offsetX > maxOffset && !nextControl.isEnabled && offsetX > prevOffsetX {
+                scrollView.contentOffset.x = maxOffset
             }
             
             page = max(min(pageViews.count - 1, page), 0)
             pageControl.currentPage = page
             
             changedPage()
+            prevOffsetX = scrollView.contentOffset.x
  
         } 
         
@@ -273,6 +292,23 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
     
 }
 
+extension InfoPagesViewController: ShortInfoPageViewDelegate {
+    
+    func shortInfoPageViewDidScrollToBottom(view: ShortInfoPageView) {
+        
+        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
+            return pageView == view
+        }) else { return }
+        
+        if let model = pageModels[index] as? ShortInfoPageView.Model {
+            model.scrolledToBottom = true
+        }
+        
+        changedPage()
+    }
+    
+}
+
 enum InfoPagesViewControllerConstants {
     
     enum ToolbarLeadingOffset: CGFloat {
@@ -289,8 +325,6 @@ enum InfoPagesViewControllerConstants {
         case small = 14
         case big = 24
     }
-    
-    static let toolbarShadowOptions = ShadowOptions(offset: .init(width: 0, height: 4), color: .black, opacity: 0.1, shadowRadius: 4, shouldRasterize: false)
     
     static let titleAttributes: [NSAttributedStringKey: Any] = {
         
@@ -332,4 +366,9 @@ enum InfoPagesViewControllerConstants {
         
     }()
     
+}
+
+private enum Constants {
+    static let buttonNext = Localizable.Waves.Hello.Button.next
+    static let buttonUnderstand = Localizable.Waves.Hello.Button.understand
 }

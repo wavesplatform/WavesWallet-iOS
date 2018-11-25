@@ -104,6 +104,7 @@ fileprivate extension CreateAliasPresenter {
                         .send(by: .createAlias(.init(alias: name, fee: GlobalConstants.WavesTransactionFeeAmount)), wallet: wallet)
                         .map { _ in true }
                 })
+                .observeOn(MainScheduler.asyncInstance)
                 .map { _ in .aliasCreated }
                 .asSignal(onErrorRecover: { e in
                     error(e)
