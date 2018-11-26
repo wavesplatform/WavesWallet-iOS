@@ -55,8 +55,20 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
+    @discardableResult func showErrorNotFoundSnack(didTap: (() -> Void)? = nil) -> String {
+
+        let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.notfound,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: Localizable.Waves.General.Error.Subtitle.notfound,
+                                    icon: Images.refresh18White.image,
+                                    isEnabledUserHidden: false,
+                                    action: SweetSnackError(didTap: didTap))
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
         let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),

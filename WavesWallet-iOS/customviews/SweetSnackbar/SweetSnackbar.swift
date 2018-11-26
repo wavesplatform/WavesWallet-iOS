@@ -135,6 +135,7 @@ final class SweetSnackbar: NSObject {
         view.layoutIfNeeded()
         view.setNeedsLayout()
 
+        
         let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
@@ -143,9 +144,10 @@ final class SweetSnackbar: NSObject {
         let prevLastSnack = self.lastSnack
         self.lastSnack = package
 
-        self.hideSnack(prevLastSnack, isNewSnack: true, completed: {
+        self.hideSnack(prevLastSnack, isNewSnack: true, completed: { isCancel in
             // It code run next loop in runloop
-            UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
+
+            UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
             }) { animated in
                 self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
@@ -195,24 +197,24 @@ final class SweetSnackbar: NSObject {
         }
     }
 
-    private func hideLastSnack(isNewSnack: Bool, completed: (() -> Void)? = nil) {
+    private func hideLastSnack(isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
 
         guard let snack = self.lastSnack else  { return }
         hideSnack(snack, isNewSnack: isNewSnack, completed: completed)
         self.lastSnack = nil
     }
 
-    private func hideSnack(_ snack: PackageSnack?, isNewSnack: Bool, completed: (() -> Void)? = nil) {
+    private func hideSnack(_ snack: PackageSnack?, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
 
         guard let snack = snack else  {
-            completed?()
+            completed?(false)
             return
         }
 
         hideSnack(snack, isNewSnack: isNewSnack, completed: completed)
     }
 
-    private func hideSnack(_ snack: PackageSnack, isNewSnack: Bool, completed: (() -> Void)? = nil) {
+    private func hideSnack(_ snack: PackageSnack, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
 
         guard let viewController = snack.viewController else  { return }
         let view = snack.view
@@ -223,10 +225,10 @@ final class SweetSnackbar: NSObject {
 
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
-        }) { animated in
+        }) { isCancel in
             view.removeFromSuperview()
             self.applyActionDismiss(snack: snack, isNewSnack: isNewSnack)
-            completed?()
+            completed?(isCancel)
         }
     }
 }
