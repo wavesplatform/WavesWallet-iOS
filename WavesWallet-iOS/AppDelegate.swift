@@ -38,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
+        
+//        UINavigationBar.appearance().shadowImage = UIColor.black.navigationShadowImage()
+//        
+//        // We need to replace the navigation bar's background image as well
+//        // in order to make the shadowImage appear. We use the same 1px color technique
+//        UINavigationBar.appearance().setBackgroundImage(UIColor.yellow.navigationShadowImage(), for: .default)
 
         Language.load()
 
