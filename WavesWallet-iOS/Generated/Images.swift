@@ -276,10 +276,12 @@ internal enum Images {
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
   internal static let userimgDex80Multy = ImageAsset(name: "userimgDex80Multy")
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
+  internal static let userimgDisconnect80Multy = ImageAsset(name: "userimgDisconnect80Multy")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
+  internal static let userimgServerdown80Multy = ImageAsset(name: "userimgServerdown80Multy")
   internal static let userimgToken80White = ImageAsset(name: "userimgToken80White")
   internal static let userimgWallet80White = ImageAsset(name: "userimgWallet80White")
   internal static let verification28Error500 = ImageAsset(name: "verification28Error500")
@@ -523,10 +525,12 @@ internal enum Images {
     userimgBlockchain80White,
     userimgDex80Multy,
     userimgDex80White,
+    userimgDisconnect80Multy,
     userimgDone80Success400,
     userimgEmpty80Multi,
     userimgPairing80,
     userimgSeed80Submit400,
+    userimgServerdown80Multy,
     userimgToken80White,
     userimgWallet80White,
     verification28Error500,

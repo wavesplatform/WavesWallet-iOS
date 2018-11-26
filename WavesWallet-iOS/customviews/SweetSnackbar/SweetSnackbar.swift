@@ -128,24 +128,31 @@ final class SweetSnackbar: NSObject {
         view.addGestureRecognizer(tap)
         view.addGestureRecognizer(swipe)
 
+        let bottom = viewController.bottomLayoutGuide.length
+        view.bottomOffsetPadding = bottom
+
         // Calculate Height
         view.layoutIfNeeded()
         view.setNeedsLayout()
+
+        
         let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
         snackMap[key] = package
-        self.hideLastSnack(isNewSnack: true)
+
+        let prevLastSnack = self.lastSnack
         self.lastSnack = package
 
+        self.hideSnack(prevLastSnack, isNewSnack: true, completed: { isCancel in
+            // It code run next loop in runloop
 
-
-        // It code run next loop in runloop
-        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-            view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
-        }) { animated in
-            self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
-        }
+            UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+                view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+            }) { animated in
+                self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
+            }
+        })
 
         return key
     }
@@ -190,14 +197,24 @@ final class SweetSnackbar: NSObject {
         }
     }
 
-    private func hideLastSnack(isNewSnack: Bool) {
+    private func hideLastSnack(isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
 
         guard let snack = self.lastSnack else  { return }
-        hideSnack(snack, isNewSnack: isNewSnack)
+        hideSnack(snack, isNewSnack: isNewSnack, completed: completed)
         self.lastSnack = nil
     }
 
-    private func hideSnack(_ snack: PackageSnack, isNewSnack: Bool) {
+    private func hideSnack(_ snack: PackageSnack?, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
+
+        guard let snack = snack else  {
+            completed?(false)
+            return
+        }
+
+        hideSnack(snack, isNewSnack: isNewSnack, completed: completed)
+    }
+
+    private func hideSnack(_ snack: PackageSnack, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
 
         guard let viewController = snack.viewController else  { return }
         let view = snack.view
@@ -208,9 +225,10 @@ final class SweetSnackbar: NSObject {
 
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
-        }) { animated in
+        }) { isCancel in
             view.removeFromSuperview()
             self.applyActionDismiss(snack: snack, isNewSnack: isNewSnack)
+            completed?(isCancel)
         }
     }
 }
@@ -253,7 +271,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
                 snack.model.action?.didSwipe(snack: snack.model, view: snack.view, bar: self)
             } else {
                 UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-                    view.frame = CGRect(x: 0, y: bounds.height - size.height - viewController.tabBarHeight, width: bounds.width, height: size.height)
+                    view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
                 }) { _ in }
             }
         case .possible:

@@ -44,11 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG
-            SweetLogger.current.visibleLevels = [.debug]
+            SweetLogger.current.visibleLevels = [.debug, .error]
         #else
             SweetLogger.current.visibleLevels = []
         #endif
-
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
