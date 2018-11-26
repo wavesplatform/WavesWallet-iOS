@@ -30,18 +30,6 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func assets() -> Observable<[WalletTypes.DTO.Asset]> {
 
-//        let listener = authorizationInteractor
-//            .authorizedWallet()
-//            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
-//                guard let owner = self else { return Observable.never() }
-//                return owner
-//                    .accountBalanceRepositoryLocal
-//                    .listenerOfUpdatedBalances(by: wallet.address).sweetDebug("A")
-//                    .skip(1)
-//            }
-//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-//            .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-
         return assets(isNeedUpdate: true)
     }
 
