@@ -32,7 +32,6 @@ final class HistoryViewController: UIViewController {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private var isRefreshing: Bool = false
-    private var lastError: Types.DisplayError? = nil
     private var snackError: String? = nil
     
     var presenter: HistoryPresenterProtocol!
@@ -245,12 +244,6 @@ private extension HistoryViewController {
         })
     }
 
-    private func extractedFunc(_ message: (String)) -> String {
-        return showErrorSnack(tille: message, didTap: { [weak self] in
-            self?.sendEvent.accept(.refresh)
-        })
-    }
-
     func updateErrorView(state: Types.State) {
 
         switch state.errorState {
@@ -259,7 +252,6 @@ private extension HistoryViewController {
                 hideSnack(key: snackError)
             }
             snackError = nil
-            lastError = nil
             self.globalErrorView.isHidden = true
             emptyView.isHidden = state.sections.count > 0
 
@@ -276,17 +268,36 @@ private extension HistoryViewController {
 
             case .internetNotWorking:
                 globalErrorView.isHidden = true
-                snackError = showWithoutInternetSnack { [weak self] in
-                    self?.sendEvent.accept(.refresh)
-                }
+                snackError = showWithoutInternetSnack()
+
+            case .notFound:
+                snackError = showErrorNotFoundSnack()
 
             case .message(let message):
                 globalErrorView.isHidden = true
-                snackError = extractedFunc(message)
+                snackError = showErrorSnack(message)
             }
 
         case .waiting:
             break
+        }
+    }
+
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
+    }
+
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(tille: message, didTap: { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        })
+    }
+
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.sendEvent.accept(.refresh)
         }
     }
 }

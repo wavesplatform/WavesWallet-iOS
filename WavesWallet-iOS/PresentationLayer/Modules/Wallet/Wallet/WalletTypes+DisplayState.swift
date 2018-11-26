@@ -14,16 +14,29 @@ extension WalletTypes.DisplayState {
         return WalletTypes.DisplayState(kind: kind,
                                         assets: .initialState(kind: .assets),
                                         leasing: .initialState(kind: .leasing),
-                                        isAppeared: false)
+                                        isAppeared: false,
+                                        refreshData: .refresh)
     }
 
     var currentDisplay: WalletTypes.DisplayState.Display {
-        switch kind {
-        case .assets:
-            return assets
+        get {
+            switch kind {
+            case .assets:
+                return assets
 
-        case .leasing:
-            return leasing
+            case .leasing:
+                return leasing
+            }
+        }
+
+        set {
+            switch kind {
+            case .assets:
+                assets = newValue
+
+            case .leasing:
+                leasing = newValue
+            }
         }
     }
 
@@ -48,7 +61,7 @@ extension WalletTypes.DisplayState {
         return currentDisplay.visibleSections
     }
 
-    var animateType: WalletTypes.DisplayState.AnimateType {
+    var animateType: WalletTypes.DisplayState.ContentAction {
         return currentDisplay.animateType
     }
 
@@ -104,7 +117,8 @@ extension WalletTypes.DisplayState {
         let newDisplay = WalletTypes.DisplayState.Display(sections: sections,
                                                           collapsedSections: collapsedSections,
                                                           isRefreshing: false,
-                                                          animateType: .refresh(animated: false))
+                                                          animateType: .refresh(animated: false),
+                                                          errorState: .none)
 
         return mutate {
             if kind == .assets {
@@ -132,6 +146,18 @@ extension WalletTypes.DisplayState.Display {
     }
 
     static func initialState(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.DisplayState.Display {
+
+        let sections = skeletonSections(kind: kind)
+
+        return .init(sections: sections,
+                     collapsedSections: [:],
+                     isRefreshing: false,                     
+                     animateType: .refresh(animated: false),
+                     errorState: .none)
+    }
+
+
+    static func skeletonSections(kind: WalletTypes.DisplayState.Kind) -> [WalletTypes.ViewModel.Section] {
         var section: WalletTypes.ViewModel.Section!
         if kind == .assets {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
@@ -142,16 +168,12 @@ extension WalletTypes.DisplayState.Display {
                                                             .assetSkeleton],
                                                     isExpanded: true)
         } else {
-            section = WalletTypes.ViewModel.Section(kind: .skeleton,                                                    
+            section = WalletTypes.ViewModel.Section(kind: .skeleton,
                                                     items: [.balanceSkeleton,
                                                             .historySkeleton],
                                                     isExpanded: true)
         }
-
-        return .init(sections: [section],
-                     collapsedSections: [:],
-                     isRefreshing: false,                     
-                     animateType: .refresh(animated: false))
+        return [section]
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.DisplayState.Display {
@@ -170,7 +192,7 @@ extension WalletTypes.DisplayState.Display {
 
 // MARK: Get Methods
 
-extension WalletTypes.DisplayState.AnimateType {
+extension WalletTypes.DisplayState.ContentAction {
     
     var isRefresh: Bool {
         switch self {

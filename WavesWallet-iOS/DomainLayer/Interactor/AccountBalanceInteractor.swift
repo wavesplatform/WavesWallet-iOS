@@ -78,7 +78,18 @@ private extension AccountBalanceInteractor {
         let balances = balanceRepositoryRemote.balances(by: wallet)
         let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
             .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
-                return Observable.just(txs.resultIngoreError ?? [])
+
+                switch txs {
+                case .remote(let model):
+                    return Observable.just(model)
+
+                case .local(_, let error):
+                    return Observable.error(error)
+
+                case .error(let error):
+                    return Observable.error(error)
+
+                }
             }
 
         let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
@@ -163,6 +174,9 @@ private extension AccountBalanceInteractor {
                     .balanceRepositoryLocal
                     .deleteBalances(deleteBalances, accountAddress: walletAddress)
                     .map { _ in balances }
+            }
+            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                return Observable.merge(Observable.just(balances), owner.balanceRepositoryLocal.listenerOfUpdatedBalances(by: walletAddress))
             }
     }
 
