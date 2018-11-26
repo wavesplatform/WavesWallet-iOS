@@ -89,7 +89,7 @@ extension UIViewController {
     }
 
     static var shadowImage: UIImage? = {
-        return UIColor.accent100.navigationShadowImage()
+        return UIImage.shadowImage(color: .accent100)
     }()
     
     static var cleanShadowImage: UIImage = {

@@ -27,7 +27,7 @@ final class MainTabBarCoordinator: Coordinator {
         mainTabBar.tabBar.isTranslucent = false
         mainTabBar.tabBar.barTintColor = .white
         mainTabBar.tabBar.backgroundImage = UIImage()
-        mainTabBar.tabBar.shadowImage = UIColor.accent100.navigationShadowImage()
+        mainTabBar.tabBar.shadowImage = UIImage.shadowImage(color: .accent100)
         
         mainTabBar.applicationCoordinator = applicationCoordinator
         self.slideMenuViewController.contentViewController = mainTabBar
