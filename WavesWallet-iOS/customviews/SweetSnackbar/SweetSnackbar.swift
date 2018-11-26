@@ -135,7 +135,7 @@ final class SweetSnackbar: NSObject {
         view.layoutIfNeeded()
         view.setNeedsLayout()
 
-        print("showSnack")
+        
         let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 

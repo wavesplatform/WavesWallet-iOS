@@ -521,6 +521,7 @@
 
 "history.transaction.title.sent" = "Sent";
 
+
 "history.transaction.title.startedLeasing" = "Started Leasing";
 
 "history.transaction.title.tokenBurn" = "Token Burn";
@@ -1082,3 +1083,7 @@
 "dex.general.error.nothingHere" = "Nothing Here...";
 "dex.general.error.somethingWentWrong" = "Something went wrong";
 
+"history.transaction.title.masssent" = "Mass Sent";
+"history.transaction.title.massreceived" = "Mass Received";
+"history.transaction.cell.exchange.sell" = "Sell";
+"history.transaction.cell.exchange.buy" = "Buy";

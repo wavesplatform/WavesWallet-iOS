@@ -1063,6 +1063,16 @@ internal enum Localizable {
 
       internal enum Transaction {
 
+        internal enum Cell {
+
+          internal enum Exchange {
+            /// Buy
+            internal static var buy: String { return Localizable.tr("Waves", "history.transaction.cell.exchange.buy") }
+            /// Sell
+            internal static var sell: String { return Localizable.tr("Waves", "history.transaction.cell.exchange.sell") }
+          }
+        }
+
         internal enum Title {
           /// Create Alias
           internal static var alias: String { return Localizable.tr("Waves", "history.transaction.title.alias") }
@@ -1074,6 +1084,10 @@ internal enum Localizable {
           internal static var exchange: String { return Localizable.tr("Waves", "history.transaction.title.exchange") }
           /// Incoming Leasing
           internal static var incomingLeasing: String { return Localizable.tr("Waves", "history.transaction.title.incomingLeasing") }
+          /// Mass Received
+          internal static var massreceived: String { return Localizable.tr("Waves", "history.transaction.title.massreceived") }
+          /// Mass Sent
+          internal static var masssent: String { return Localizable.tr("Waves", "history.transaction.title.masssent") }
           /// Received
           internal static var received: String { return Localizable.tr("Waves", "history.transaction.title.received") }
           /// Self-transfer
@@ -2249,13 +2263,17 @@ extension Localizable {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
-        let value = String(format: format, locale: current.locale, arguments: args)
+        do {
+            let value = String(format: format, locale: current.locale, arguments: args)
 
-        if value.localizedLowercase == key.localizedLowercase {
-            let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
-            return String(format: format, locale: english.locale, arguments: args)
-        } else {
-            return value
+            if value.localizedLowercase == key.localizedLowercase {
+                let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
+                return String(format: format, locale: english.locale, arguments: args)
+            } else {
+                return value
+            }
+        } catch _ {
+            return "NOT_FOUND"
         }
     }
 }
