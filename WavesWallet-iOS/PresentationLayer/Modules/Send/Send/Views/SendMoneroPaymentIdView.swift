@@ -21,6 +21,8 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var buttonDelete: UIButton!
+    @IBOutlet private weak var buttonScan: UIButton!
     
     private var isShowError = false
     private var hasErrorFromServer = false
@@ -94,6 +96,13 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         hideError(animation: true)
     }
     
+    @IBAction private func deleteTapped(_ sender: Any) {
+    
+    }
+    
+    @IBAction private func scanTapped(_ sender: Any) {
+   
+    }
 }
 
 //MARK: - UITextFieldDelegate
