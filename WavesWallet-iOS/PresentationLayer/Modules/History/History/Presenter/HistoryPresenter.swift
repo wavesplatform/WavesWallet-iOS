@@ -139,35 +139,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             if let error = response.anyError {
 
                 let hasTransactions = (response.resultIngoreError?.count ?? 0) > 0
-                var displayError: HistoryTypes.DisplayError!
-
-                if hasTransactions == false {
-                    let isInternetNotWorking = (error as? NetworkError)?.isInternetNotWorking ?? false
-                    displayError = .globalError(isInternetNotWorking: isInternetNotWorking)
-                } else {
-
-                    switch error {
-                    case let appError as NetworkError:
-                        switch appError {
-                        case .internetNotWorking:
-                            displayError = .internetNotWorking
-
-                        case .notFound:
-                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
-
-                        case .serverError:
-                            displayError = .message(Localizable.Waves.General.Error.Title.notfound)
-
-                        case .message(let message):
-                            displayError = .message(message)
-                        }
-
-                    default:
-                         displayError = .message(Localizable.Waves.General.Error.Title.notfound)
-                    }
-                }
-
-                state.errorState = .error(displayError)
+                state.errorState = DisplayErrorState.displayErrorState(hasData: hasTransactions, error: error)
                 state.refreshData = .none
             } else {
                 state.errorState = .none
