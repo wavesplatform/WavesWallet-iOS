@@ -30,45 +30,24 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     func assets() -> Observable<[WalletTypes.DTO.Asset]> {
 
-        let listener = authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner
-                    .accountBalanceRepositoryLocal
-                    .listenerOfUpdatedBalances(by: wallet.address)
-            }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+//        let listener = authorizationInteractor
+//            .authorizedWallet()
+//            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
+//                guard let owner = self else { return Observable.never() }
+//                return owner
+//                    .accountBalanceRepositoryLocal
+//                    .listenerOfUpdatedBalances(by: wallet.address).sweetDebug("A")
+//                    .skip(1)
+//            }
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+//            .throttle(1, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
 
-        return Observable.merge(assets(isNeedUpdate: false),
-                                refreshAssetsSubject.asObserver(),
-                                mapAssets(listener))
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+        return assets(isNeedUpdate: true)
     }
 
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {
 
-        return Observable.merge(leasing(isNeedUpdate: false),
-                                refreshLeasingSubject.asObserver())
-    }
-
-    func refreshAssets() {
-        assets(isNeedUpdate: true)
-            .take(1)
-            .subscribe(weak: self, onNext: { owner, balances in
-                owner.refreshAssetsSubject.onNext(balances)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    func refreshLeasing() {
-        leasing(isNeedUpdate: true)
-            .take(1)            
-            .subscribe(weak: self, onNext: { owner, leasing in
-                owner.refreshLeasingSubject.onNext(leasing)
-            })
-            .disposed(by: disposeBag)
+        return Observable.merge(leasing(isNeedUpdate: true))
     }
 }
 

@@ -46,6 +46,7 @@ target 'WavesWallet-iOS' do
     pod 'RxOptional'
     pod 'RxGesture'
     pod 'RxFeedback'
+    pod 'RxReachability'
 
     # External Service
     pod 'Firebase/Core'
