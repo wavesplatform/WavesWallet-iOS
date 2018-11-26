@@ -24,10 +24,18 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
             let objects = realm.objects(Asset.self)
                 .filter("id in %@",ids)
                 .toArray()
-                .map { DomainLayer.DTO.Asset($0) }
 
-            observer.onNext(objects)
-            observer.onCompleted()
+            let newIds = objects.map { $0.id }
+
+            if ids.contains(where: { newIds.contains($0) }) == false {
+                observer.onError(AssetsRepositoryError.notFound)
+            } else {
+                let assets = objects
+                    .map { DomainLayer.DTO.Asset($0) }
+
+                observer.onNext(assets)
+                observer.onCompleted()
+            }
 
             return Disposables.create()
         })

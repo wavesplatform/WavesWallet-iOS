@@ -76,6 +76,12 @@ final class InfoPagesViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        changedPage()
+    }
+    
     // MARK: - Setup
 
     private func setupPageControl() {
@@ -159,9 +165,9 @@ final class InfoPagesViewController: UIViewController {
         if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
             nextControl.isEnabled = currentModel.scrolledToBottom
             toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
-        } else {
-            nextControl.isEnabled = true
-            toolbarLabel.alpha = 1
+        } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
+            nextControl.isEnabled = currentModel.scrolledToBottom
+            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
         }
         
     }
@@ -196,6 +202,7 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         
         if let pageView = pageView as? ShortInfoPageView {
             
+            pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
             
         } else if let pageView = pageView as? LongInfoPageView {
@@ -224,6 +231,10 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
             pageView.updateOnScroll()
         }
         
+        if let pageView = pageView as? ShortInfoPageView {
+            pageView.updateOnScroll()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -247,9 +258,8 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             
             var page = Int((offsetX + size / 2) / size)
             let maxOffset = size * CGFloat(page)
-//            print(offsetX, maxOffset)
+
             if offsetX > maxOffset && !nextControl.isEnabled && offsetX > prevOffsetX {
-                print(offsetX, maxOffset)
                 scrollView.contentOffset.x = maxOffset
             }
             
@@ -261,10 +271,6 @@ extension InfoPagesViewController: UIScrollViewDelegate {
  
         } 
         
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        scrollToRight = scro
     }
     
 }
@@ -279,6 +285,23 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
         
         if let model = pageModels[index] as? LongInfoPageView.Model {
              model.scrolledToBottom = true
+        }
+        
+        changedPage()
+    }
+    
+}
+
+extension InfoPagesViewController: ShortInfoPageViewDelegate {
+    
+    func shortInfoPageViewDidScrollToBottom(view: ShortInfoPageView) {
+        
+        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
+            return pageView == view
+        }) else { return }
+        
+        if let model = pageModels[index] as? ShortInfoPageView.Model {
+            model.scrolledToBottom = true
         }
         
         changedPage()

@@ -12,7 +12,4 @@ import RxSwift
 protocol WalletInteractorProtocol {
     func assets() -> Observable<[WalletTypes.DTO.Asset]>
     func leasing() -> Observable<WalletTypes.DTO.Leasing>
-
-    func refreshAssets()
-    func refreshLeasing()
 }

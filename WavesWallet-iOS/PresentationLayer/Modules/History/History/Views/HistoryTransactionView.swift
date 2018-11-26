@@ -59,11 +59,11 @@ fileprivate extension HistoryTransactionView {
         
         if tx.myOrder.kind == .sell {
             sign = .minus
-            type = Localizable.Waves.Transactionhistory.Cell.sell
+            type = Localizable.Waves.History.Transaction.Cell.Exchange.sell
         }
         else {
             sign = .plus
-            type = Localizable.Waves.Transactionhistory.Cell.buy
+            type = Localizable.Waves.History.Transaction.Cell.Exchange.buy
         }
         
         labelTitle.text = type + ": " + tx.amount.currency.title + "/" + tx.price.currency.title
@@ -203,10 +203,10 @@ extension DomainLayer.DTO.SmartTransaction {
             return Localizable.Waves.History.Transaction.Title.unrecognisedTransaction
 
         case .massSent:
-            return Localizable.Waves.History.Transaction.Title.sent
+            return Localizable.Waves.History.Transaction.Title.masssent
 
         case .massReceived:
-            return Localizable.Waves.History.Transaction.Title.received
+            return Localizable.Waves.History.Transaction.Title.massreceived
 
         case .spamReceive:
             return Localizable.Waves.History.Transaction.Title.received

@@ -96,6 +96,7 @@ PODS:
   - pop (1.0.10)
   - QRCode (2.0)
   - QRCodeReader.swift (8.2.0)
+  - ReachabilitySwift (4.3.0)
   - Realm (3.7.6):
     - Realm/Headers (= 3.7.6)
   - Realm/Headers (3.7.6)
@@ -124,6 +125,10 @@ PODS:
   - RxOptional (3.5.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
+  - RxReachability (0.1.5):
+    - ReachabilitySwift (~> 4)
+    - RxCocoa (~> 4)
+    - RxSwift (~> 4)
   - RxRealm (0.7.5):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
@@ -178,6 +183,7 @@ DEPENDENCIES:
   - RxFeedback
   - RxGesture
   - RxOptional
+  - RxReachability
   - RxRealm
   - RxSwift
   - RxSwiftExt
@@ -224,6 +230,7 @@ SPEC REPOS:
     - pop
     - QRCode
     - QRCodeReader.swift
+    - ReachabilitySwift
     - Realm
     - RealmSwift
     - Result
@@ -234,6 +241,7 @@ SPEC REPOS:
     - RxFeedback
     - RxGesture
     - RxOptional
+    - RxReachability
     - RxRealm
     - RxSwift
     - RxSwiftExt
@@ -322,6 +330,7 @@ SPEC CHECKSUMS:
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 003eb32f18a5a675b936ec82ba0ff368cddbff45
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
   RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
@@ -333,6 +342,7 @@ SPEC CHECKSUMS:
   RxFeedback: 0b032eb82a4cf858b3b97fb8eb30a895f837fbda
   RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
   RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
+  RxReachability: 2895f43994a5201f426967a50ea4259b637952f9
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
@@ -347,6 +357,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 0370be91c33df8259d86a988f3b946172d7aafec
+PODFILE CHECKSUM: 2bb6a54cb0e266aa55cfef16bf14881d0f25b9b7
 
 COCOAPODS: 1.5.3

@@ -55,24 +55,36 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showWarningSnack(tille: String, subtitle: String, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
+    @discardableResult func showErrorNotFoundSnack(didTap: (() -> Void)? = nil) -> String {
 
-        let error = SweetSnack.init(title: tille,
+        let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.notfound,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: Localizable.Waves.General.Error.Subtitle.notfound,
+                                    icon: Images.refresh18White.image,
+                                    isEnabledUserHidden: false,
+                                    action: SweetSnackError(didTap: didTap))
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
+
+        let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
                                     behaviorDismiss: .never,
                                     subtitle: subtitle,
-                                    icon: Images.refresh18White.image,
+                                    icon: icon,
                                     isEnabledUserHidden: true,
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: didSwipe))
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
 
-    @discardableResult func showSuccesSnack(tille: String) -> String {
+    @discardableResult func showSuccesSnack(title: String) -> String {
 
 
-        let success = SweetSnack.init(title: tille,
+        let success = SweetSnack.init(title: title,
                                       backgroundColor:  UIColor.success400.withAlphaComponent(Constants.snackAlpha),
                                       behaviorDismiss: .popToLastWihDuration(Constants.successDuration),
                                       subtitle: nil,
@@ -81,16 +93,27 @@ extension UIViewController {
                                       action: nil)
         return SweetSnackbar.shared.showSnack(success, on: self)
     }
+
+    func hideSnack(key: String) {
+         SweetSnackbar.shared.hideSnack(key: key)
+    }
 }
 
-struct SweetSnackError: SweetSnackAction {
+class SweetSnackError: SweetSnackAction {
 
     var didTap: (() -> Void)?
+    private var isIgnoreTap: Bool = false
 
+    init(didTap: (() -> Void)?) {
+        self.didTap = didTap
+    }
+    
     func didTap(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {
         view.startAnimationIcon()
-        view.isUserInteractionEnabled = false
-        didTap?()
+        if isIgnoreTap == false {
+            isIgnoreTap = true
+            didTap?()
+        }
     }
 
     func didSwipe(snack: SweetSnack, view: SweetSnackView, bar: SweetSnackbar) {}

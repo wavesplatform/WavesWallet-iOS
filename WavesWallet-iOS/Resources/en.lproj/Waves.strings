@@ -427,6 +427,10 @@
 
 "enter.language.navigation.title" = "Change language";
 
+"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+
+"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+
 "general.biometric.faceID.title" = "Face ID";
 
 "general.biometric.touchID.title" = "Touch ID";
@@ -520,6 +524,7 @@
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
 "history.transaction.title.sent" = "Sent";
+
 
 "history.transaction.title.startedLeasing" = "Started Leasing";
 
@@ -1071,9 +1076,18 @@
 
 "accountpassword.error.wrongpassword" = "Wrong password";
 
-"dex.serverError.label.title" = "Oh ... It's all broken!";
-"dex.serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
-"dex.serverError.button.retry" = "Retry";
-"dex.serverError.button.sendReport" = "Send a report";
+"general.error.title.notfound" = "Do not worry, we are already fixing this problem.";
+"general.error.subtitle.notfound" = "Soon everything will work!";
+
+"serverError.label.title" = "Oh ... It's all broken!";
+"serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+"serverError.button.retry" = "Retry";
+"serverError.button.sendReport" = "Send a report";
+
 "dex.general.error.nothingHere" = "Nothing Here...";
 "dex.general.error.somethingWentWrong" = "Something went wrong";
+
+"history.transaction.title.masssent" = "Mass Sent";
+"history.transaction.title.massreceived" = "Mass Received";
+"history.transaction.cell.exchange.sell" = "Sell";
+"history.transaction.cell.exchange.buy" = "Buy";
