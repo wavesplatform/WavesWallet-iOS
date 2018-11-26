@@ -45,6 +45,11 @@ class MoneyUtil {
         let units = ["K", "M", "G", "T", "P", "E"]
         let roundedNum = round(10 * num / pow(1000, Double(exp))) / 10
         
+        let floatingValue = modf(roundedNum).1
+        if floatingValue == 0 {
+            return String(Int(roundedNum)) + units[exp-1]
+        }
+
         return "\(roundedNum)\(units[exp-1])"
     }
 }
