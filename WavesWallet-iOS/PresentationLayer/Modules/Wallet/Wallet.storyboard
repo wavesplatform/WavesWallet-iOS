@@ -894,18 +894,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbz-lN-cI1" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b2m-TL-gDN" firstAttribute="top" secondItem="Q4x-oD-st2" secondAttribute="top" id="5J7-Pn-Vcm"/>
                             <constraint firstItem="b2m-TL-gDN" firstAttribute="leading" secondItem="Q4x-oD-st2" secondAttribute="leading" id="Rha-qp-0rV"/>
                             <constraint firstAttribute="trailing" secondItem="b2m-TL-gDN" secondAttribute="trailing" id="Vpp-5G-Xe9"/>
+                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="leading" secondItem="LbA-uf-tAJ" secondAttribute="leading" id="Xm3-Fu-1Su"/>
+                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="top" secondItem="b2m-TL-gDN" secondAttribute="top" id="cpP-ZL-Dkd"/>
+                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="bottom" secondItem="b2m-TL-gDN" secondAttribute="bottom" id="jlt-28-wQE"/>
+                            <constraint firstItem="LbA-uf-tAJ" firstAttribute="trailing" secondItem="Dbz-lN-cI1" secondAttribute="trailing" id="oQu-VM-NRt"/>
                             <constraint firstAttribute="bottom" secondItem="b2m-TL-gDN" secondAttribute="bottom" id="x1S-Ci-3Tx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LbA-uf-tAJ"/>
                     </view>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
+                        <outlet property="globalErrorView" destination="Dbz-lN-cI1" id="dQd-XH-9jJ"/>
                         <outlet property="segmentedControl" destination="SDa-Pg-ekZ" id="PwS-eG-iMS"/>
                         <outlet property="tableView" destination="b2m-TL-gDN" id="knk-WN-8gB"/>
                     </connections>

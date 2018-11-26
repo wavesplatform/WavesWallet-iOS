@@ -55,7 +55,7 @@ final class SupportViewController: UIViewController {
     @IBAction func actionShowErrorSnack(_ sender: Any) {
 
         showErrorSnack(tille: "Какая-нибудь лайтовая ошибка") {
-            self.showSuccesSnack(tille: "Тебе показалось.")
+            self.showSuccesSnack(title: "Тебе показалось.")
         }
     }
 
@@ -66,12 +66,12 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction func actionShowSuccessSnack(_ sender: Any) {
-        self.showSuccesSnack(tille: "Успешный вход/успешная операция (≚ᄌ≚)ℒℴѵℯ❤")
+        self.showSuccesSnack(title: "Успешный вход/успешная операция (≚ᄌ≚)ℒℴѵℯ❤")
     }
 
     @IBAction func actionShowSeedSnack(_ sender: Any) {
 
-        showWarningSnack(tille: "Save your backup phrase (SEED)", subtitle: "Store your SEED safely, it is the only way to restore your wallet", didTap: {
+        showWarningSnack(title: "Save your backup phrase (SEED)", subtitle: "Store your SEED safely, it is the only way to restore your wallet", didTap: {
             print("└(=^‥^=)┘")
         }) {
             print("ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")

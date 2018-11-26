@@ -29,18 +29,6 @@ enum HistoryTypes {
         case refresh
     }
 
-    enum DisplayError: Equatable {
-        case globalError(isInternetNotWorking: Bool)
-        case internetNotWorking
-        case message(String)
-    }
-
-    enum ErrorState {
-        case waiting
-        case error(DisplayError)
-        case none
-    }
-
     struct State: Mutating {
         var currentFilter: Filter
         var filters: [Filter]
@@ -49,7 +37,7 @@ enum HistoryTypes {
         var isRefreshing: Bool
         var isAppeared: Bool
         var refreshData: RefreshData?
-        var errorState: ErrorState
+        var errorState: DisplayErrorState
     }
     
     enum Event {

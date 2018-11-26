@@ -84,5 +84,9 @@ extension DomainLayer.DTO {
             guard let signingWallets = signingWallets else { throw SigningWalletsError.accessDenied }
             return try signingWallets.sign(input: input, kind: kind, publicKey: wallet.publicKey)
         }
+        
+        var seedWords: [String] {
+            return seed.seed.split(separator: " ").map { "\($0)" }
+        }
     }
 }
