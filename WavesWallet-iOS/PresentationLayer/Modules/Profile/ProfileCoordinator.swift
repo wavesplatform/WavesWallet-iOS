@@ -132,7 +132,7 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
 
-        let seed = signedWallet.seed.seed.split(separator: " ").map { "\($0)" }
+        let seed = signedWallet.seedWords
 
         guard let state = state else { return }
         switch state {
