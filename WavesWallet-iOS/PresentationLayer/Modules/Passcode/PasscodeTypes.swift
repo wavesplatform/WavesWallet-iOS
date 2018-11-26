@@ -73,7 +73,7 @@ extension PasscodeTypes {
         case completedLogIn(AuthorizationAuthStatus)
         case completedVerifyAccess(AuthorizationVerifyAccessStatus)
         case tapLogInByPassword
-        case handlerError(PasscodeInteractorError)
+        case handlerError(Error)
         case tapBack
         case tapLogoutButton
         case tapBiometricButton
@@ -86,6 +86,9 @@ extension PasscodeTypes {
 
         enum Error {
             case incorrectPasscode
+            case notFound
+            case internetNotWorking
+            case message(String)
         }
 
         var kind: PasscodeKind

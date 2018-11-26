@@ -69,8 +69,7 @@ extension PasscodeChangePasscodeByPasswordPresenter {
                                           passcode: query.passcode,
                                           password: query.password)
                 .map { .completedChangePasscode($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                .asSignal { (error) -> Signal<Types.Event> in                    
                     return Signal.just(.handlerError(error))
             }
         })

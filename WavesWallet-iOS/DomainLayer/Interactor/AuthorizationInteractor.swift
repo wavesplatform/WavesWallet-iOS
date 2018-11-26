@@ -964,7 +964,7 @@ fileprivate extension AuthorizationInteractor {
         return Observable.merge(wallets.map { logout(wallet: $0.publicKey) })
     }
 
-    private func handlerError(_ error: Error) -> AuthorizationInteractorError {
+    private func handlerError(_ error: Error) -> Error {
 
         switch error {
         case let error as AuthenticationRepositoryError:
@@ -998,9 +998,7 @@ fileprivate extension AuthorizationInteractor {
             break
         }
 
-
-
-        return AuthorizationInteractorError.fail
+        return error
     }
 }
 

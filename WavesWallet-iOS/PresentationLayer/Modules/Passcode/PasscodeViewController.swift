@@ -158,6 +158,20 @@ private extension PasscodeViewController {
             switch error {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
+
+            case .message(let test):
+                self.showErrorNotFoundSnack {
+
+                }
+            case .internetNotWorking:
+                self.showWithoutInternetSnack {
+                    
+                }
+
+            case .notFound:
+                self.showErrorNotFoundSnack {
+
+                }
             }
         }
 

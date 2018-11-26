@@ -47,6 +47,7 @@ final class AppCoordinator: Coordinator {
     init(_ window: UIWindow) {
         self.window = window
         let vc = UINavigationController()
+        vc.pushViewController(StoryboardScene.LaunchScreen.initialScene.instantiate(), animated: false)
         window.rootViewController = vc
         window.makeKeyAndVisible()
     }
