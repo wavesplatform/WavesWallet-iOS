@@ -74,8 +74,8 @@ extension DomainLayer.DTO.DataTransaction {
                 dataValue = .binary(value)
             }
             return DomainLayer.DTO.DataTransaction.Data(key: data.key,
-                                                                                            value: dataValue,
-                                                                                            type: data.type)
+                                                        value: dataValue,
+                                                        type: data.type)
         }
 
         proofs = transaction.proofs

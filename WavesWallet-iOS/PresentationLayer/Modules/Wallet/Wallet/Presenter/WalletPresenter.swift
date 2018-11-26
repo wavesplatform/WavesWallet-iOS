@@ -58,7 +58,6 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
-                .sweetDebugWithoutResponse("Asset")
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
@@ -130,8 +129,6 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none
-
-            print("handlerError")
 
             var hasData = false
 
@@ -213,7 +210,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             default:
                 break
             }
-
 
         case .tapSection(let section):
             state.displayState = state.displayState.toggleCollapse(index: section)
