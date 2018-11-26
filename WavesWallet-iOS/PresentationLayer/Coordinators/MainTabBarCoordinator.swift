@@ -6,7 +6,7 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class MainTabBarCoordinator: Coordinator {
 
@@ -23,6 +23,12 @@ final class MainTabBarCoordinator: Coordinator {
 
     func start() {
         let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
+        
+        mainTabBar.tabBar.isTranslucent = false
+        mainTabBar.tabBar.barTintColor = .white
+        mainTabBar.tabBar.backgroundImage = UIImage()
+        mainTabBar.tabBar.shadowImage = UIColor.accent100.navigationShadowImage()
+        
         mainTabBar.applicationCoordinator = applicationCoordinator
         self.slideMenuViewController.contentViewController = mainTabBar
     }
