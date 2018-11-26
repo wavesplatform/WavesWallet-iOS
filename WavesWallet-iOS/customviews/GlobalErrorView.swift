@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Reachability
 
 final class GlobalErrorView: UIView, NibOwnerLoadable {
 
@@ -25,7 +26,10 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
     }
 
     @IBAction func handlerActionRetry() {
-        retryDidTap?()
+        let instance = ReachabilityService.instance
+        if instance.connection != .none {
+            retryDidTap?()
+        }
     }
 
     @IBAction func handlerActionSendReport() {

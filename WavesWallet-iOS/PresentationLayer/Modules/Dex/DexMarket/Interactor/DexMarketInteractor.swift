@@ -2,10 +2,13 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 import RealmSwift
+import Alamofire
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     private static var allPairs: [DexMarket.DTO.Pair] = []
+    private static var isEnableSpam = false
+    private static var spamURL = ""
 
     private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -13,13 +16,25 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let repository: DexRepositoryProtocol = DexRepository()
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-
+    private let accountSettings: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
+    private let environment = FactoryRepositories.instance.environmentRepository
+    
     func pairs() -> Observable<[DexMarket.DTO.Pair]> {
 
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMarket.DTO.Pair]> in
             
             guard let owner = self else { return Observable.empty() }
-            return owner.allPairs(accountAddress: wallet.address)
+            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DexMarket.DTO.Pair]> in
+                
+                guard let owner = self else { return Observable.empty() }
+                let isEnableSpam = accountSettings?.isEnabledSpam ?? DexMarketInteractor.isEnableSpam
+
+                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexMarket.DTO.Pair]> in
+                    
+                    guard let owner = self else { return Observable.empty() }
+                    return owner.allPairs(accountAddress: wallet.address, isEnableSpam: isEnableSpam, spamURL: environment.servers.spamUrl.relativeString)
+                })
+            })
         })
     }
     
@@ -122,11 +137,13 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func allPairs(accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
+    func allPairs(accountAddress: String, isEnableSpam: Bool, spamURL: String) -> Observable<[DexMarket.DTO.Pair]> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
 
-            if DexMarketInteractor.allPairs.count > 0 {
+            if DexMarketInteractor.allPairs.count > 0 &&
+                isEnableSpam == DexMarketInteractor.isEnableSpam &&
+                spamURL == DexMarketInteractor.spamURL {
                 
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
                 
@@ -141,20 +158,50 @@ private extension DexMarketInteractor {
             }
             else {
                 guard let owner = self else { return Disposables.create() }
-                owner.getAllPairs(accountAddress: accountAddress, complete: { (pairs) in
-                    DexMarketInteractor.allPairs = pairs
-                    subscribe.onNext(pairs)
-                    subscribe.onCompleted()
-                })
+                
+                if isEnableSpam {
+                    owner.getSpamList(spamURL, complete: { (spamList) in
+                        owner.getAllPairs(accountAddress: accountAddress, spamList: spamList, complete: { (pairs) in
+                            DexMarketInteractor.allPairs = pairs
+                            DexMarketInteractor.isEnableSpam = isEnableSpam
+                            DexMarketInteractor.spamURL = spamURL
+                            
+                            subscribe.onNext(pairs)
+                            subscribe.onCompleted()
+                        })
+                    })
+                }
+                else {
+                    owner.getAllPairs(accountAddress: accountAddress, spamList: [], complete: { (pairs) in
+                        DexMarketInteractor.allPairs = pairs
+                        DexMarketInteractor.isEnableSpam = isEnableSpam
+                        DexMarketInteractor.spamURL = spamURL
+                        
+                        subscribe.onNext(pairs)
+                        subscribe.onCompleted()
+                    })
+                }
             }
 
             return Disposables.create()
         })
     }
     
-    func getAllPairs(accountAddress: String, complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
+    func getSpamList(_ spamURL: String, complete:@escaping(_ spamList: [String]) -> Void) {
+        
+        Alamofire.request(spamURL, method: .get, parameters: nil, headers: ["Content-type": "application/csv"])
+            .responseData { (response) in
+
+                var spamList: [String] = []
+                if let data = response.data {
+                    spamList = (try? SpamCVC.addresses(from: data)) ?? []
+                }
+                complete(spamList)
+        }
+    }
+    
+    func getAllPairs(accountAddress: String, spamList:[String], complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
       
-        //TODO: need change to Observer network
         NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
             
             var pairs: [DexMarket.DTO.Pair] = []
@@ -162,9 +209,16 @@ private extension DexMarketInteractor {
             if let info = info {
                 
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-
+                
+                let spamListKeys = spamList.reduce(into:  [String:String](), { $0[$1] = $1})
                 for item in info["markets"].arrayValue {
-                    pairs.append(DexMarket.DTO.Pair(item, realm: realm))
+                    
+                    let pair = DexMarket.DTO.Pair(item, realm: realm)
+                    
+                    if spamListKeys[pair.amountAsset.id] == nil &&
+                        spamListKeys[pair.priceAsset.id] == nil {
+                        pairs.append(pair)
+                    }
                 }
                 
                 pairs = self.sort(pairs: pairs, realm: realm)
@@ -172,7 +226,6 @@ private extension DexMarketInteractor {
             
             complete(pairs)
         })
-
     }
 }
 
