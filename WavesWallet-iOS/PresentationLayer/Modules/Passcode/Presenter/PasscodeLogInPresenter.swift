@@ -76,8 +76,7 @@ extension PasscodeLogInPresenter {
                 .interactor
                 .logInBiometric(wallet: query.wallet)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                .asSignal { (error) -> Signal<Types.Event> in                   
                     return Signal.just(.handlerError(error))
             }
         })
@@ -103,7 +102,6 @@ extension PasscodeLogInPresenter {
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -127,7 +125,6 @@ extension PasscodeLogInPresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -156,10 +153,53 @@ private extension PasscodeLogInPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
-            state.displayState.isHiddenBackButton = !state.hasBackButton
 
+            state.displayState.isHiddenBackButton = !state.hasBackButton
             //   TODO: Error
+
+            switch error {
+            case let appError as NetworkError:
+                switch appError {
+                case .internetNotWorking:
+                    state.displayState.error = .internetNotWorking
+
+                case .notFound:
+                    state.displayState.error = .notFound
+
+                case .serverError:
+                    state.displayState.error = .notFound
+
+                case .message(let message):
+                    state.displayState.error = .notFound
+                }
+
+            case let authError as AuthorizationInteractorError:
+                switch authError {
+                case .attemptsEnded:
+                    state.displayState.error = .notFound
+
+                case .biometricDisable:
+                    state.displayState.error = .notFound
+
+                case .passcodeIncorrect:
+                    state.displayState.error = .incorrectPasscode
+
+                case .passcodeNotCreated:
+                    state.displayState.error = .notFound
+
+                case .passwordIncorrect:
+                    state.displayState.error = .notFound
+
+                case .permissionDenied:
+                    state.displayState.error = .incorrectPasscode
+                    
+                case .fail:
+                    state.displayState.error = .notFound
+                }
+
+            default:
+                state.displayState.error = .notFound
+            }
 
         case .viewWillAppear:
             break

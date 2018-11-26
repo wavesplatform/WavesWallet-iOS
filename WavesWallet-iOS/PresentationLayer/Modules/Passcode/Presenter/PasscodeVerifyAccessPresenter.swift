@@ -77,7 +77,6 @@ extension PasscodeVerifyAccessPresenter {
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -103,7 +102,6 @@ extension PasscodeVerifyAccessPresenter {
                 .verifyAccessUsingBiometric(wallet: query.wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })

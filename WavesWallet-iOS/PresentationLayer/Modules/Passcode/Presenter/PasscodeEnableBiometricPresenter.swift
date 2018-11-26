@@ -109,7 +109,6 @@ extension PasscodeEnableBiometricPresenter {
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -134,8 +133,7 @@ extension PasscodeEnableBiometricPresenter {
                 .setEnableBiometric(wallet: query.wallet, passcode: query.passcode, isOn: query.isOn)
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                .asSignal { (error) -> Signal<Types.Event> in                   
                     return Signal.just(.handlerError(error))
             }
         })
