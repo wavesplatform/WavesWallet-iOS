@@ -102,15 +102,18 @@ extension AssetBalanceCell: ViewConfiguration {
 
         titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull,
+        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
                                                                          font: balanceLabel.font)
 
         viewLeased.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.leased,
-                                      money: model.leasedMoney))
+                                      money: model.leasedMoney,
+                                      isFiat: model.isFiat))
         viewInOrder.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.inOrderBalance,
-                                       money: model.inOrderMoney))
+                                       money: model.inOrderMoney,
+                                       isFiat: model.isFiat))
         viewTotal.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.totalBalance,
-                                     money: model.totalMoney))
+                                     money: model.totalMoney,
+                                     isFiat: model.isFiat))
 
         isNeedsUpdateConstraints = true
         setNeedsUpdateConstraints()

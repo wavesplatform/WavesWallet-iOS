@@ -26,6 +26,18 @@ extension Balance {
         case minus = "-"
     }
 
+    func displayShortText(sign: Sign, withoutCurrency: Bool) -> String {
+        var text = ""
+        
+        if withoutCurrency {
+            text = money.displayShortText
+        } else {
+            text = money.displayShortText + " " + currency.title
+        }
+        
+        return sign.rawValue + text
+    }
+    
     func displayText(sign: Sign, withoutCurrency: Bool) -> String {
         var text = ""
 
