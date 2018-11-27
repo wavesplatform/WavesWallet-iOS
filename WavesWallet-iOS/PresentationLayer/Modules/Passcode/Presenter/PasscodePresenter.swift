@@ -426,15 +426,7 @@ private extension PasscodePresenter {
             state.action = nil
             state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
-
-        //   TODO: Error
-        //            switch error {
-        //            case .attemptsEnded:
-        //            case .passcodeIncorrect:
-        //            case .passwordIncorrect:
-        //            case .permissionDenied:
-        //            case .fail:
-        //            }
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break

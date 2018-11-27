@@ -12,6 +12,10 @@ import RxSwift
 import RESideMenu
 import RxOptional
 
+private enum Contants {
+    static let delay: TimeInterval = 0
+}
+
 struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
@@ -46,8 +50,10 @@ final class AppCoordinator: Coordinator {
 
     init(_ window: UIWindow) {
         self.window = window
-        let vc = UINavigationController()
-        vc.pushViewController(StoryboardScene.LaunchScreen.initialScene.instantiate(), animated: false)
+        let vc = CustomNavigationController()
+        let root = StoryboardScene.LaunchScreen.initialScene.instantiate()
+        root.navigationItem.shadowImage = UIImage()
+        vc.pushViewController(root, animated: false)
         window.rootViewController = vc
         window.makeKeyAndVisible()
     }
@@ -110,7 +116,7 @@ final class AppCoordinator: Coordinator {
 
         authoAuthorizationInteractor
             .revokeAuth()
-            .delay(10, scheduler: MainScheduler.asyncInstance)
+            .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
                 
                 guard let owner = self else { return Observable.never() }

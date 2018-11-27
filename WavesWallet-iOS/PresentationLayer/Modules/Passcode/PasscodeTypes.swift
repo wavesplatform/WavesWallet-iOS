@@ -34,6 +34,62 @@ extension PasscodeTypes.DTO {
 
 extension PasscodeTypes {
 
+    static func displayError(by error: Error, kind: DTO.Kind) -> DisplayState.Error {
+
+        switch error {
+        case let appError as NetworkError:
+            switch appError {
+            case .internetNotWorking:
+                return .internetNotWorking
+
+            case .notFound:
+                return .notFound
+
+            case .serverError:
+                return .notFound
+
+            case .message(let message):
+                return .message(message)
+            }
+
+        case let authError as AuthorizationInteractorError:
+            switch authError {
+            case .attemptsEnded:
+                if case .logIn = kind {
+                    return .attemptsEnded
+                } else {
+                    return .attemptsEndedLogout
+                }
+
+            case .biometricDisable:
+                return .notFound
+
+            case .passcodeIncorrect:
+                return .incorrectPasscode
+
+            case .passcodeNotCreated:
+                return .notFound
+
+            case .passwordIncorrect:
+                return .notFound
+
+            case .permissionDenied:
+                return .incorrectPasscode
+
+            case .fail:
+                return .notFound
+            }
+
+        default:
+            return .notFound
+        }
+
+    }
+}
+
+
+extension PasscodeTypes {
+
     enum PasscodeKind: Hashable {
         case oldPasscode
         case newPasscode
@@ -87,6 +143,8 @@ extension PasscodeTypes {
         enum Error {
             case incorrectPasscode
             case notFound
+            case attemptsEnded
+            case attemptsEndedLogout
             case internetNotWorking
             case message(String)
         }

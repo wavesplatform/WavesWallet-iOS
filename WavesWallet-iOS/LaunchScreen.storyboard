@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="p9X-Zp-HIx">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="logo3x" translatesAutoresizingMaskIntoConstraints="NO" id="p9X-Zp-HIx">
                                 <rect key="frame" x="112.5" y="316.5" width="150" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="24n-3L-Kzr"/>
@@ -43,6 +43,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="150" height="34"/>
+        <image name="logo3x" width="100" height="21"/>
     </resources>
 </document>
