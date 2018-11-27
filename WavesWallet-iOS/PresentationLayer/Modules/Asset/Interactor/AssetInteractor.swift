@@ -128,7 +128,8 @@ private extension DomainLayer.DTO.AssetBalance {
         return AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
                                             avaliableMoney: avaliableMoney,
                                             leasedMoney: leasedMoney,
-                                            inOrderMoney: inOrderMoney)
+                                            inOrderMoney: inOrderMoney,
+                                            isFiat: asset?.isFiat ?? false)
     }
 
     func mapToInfo() -> AssetTypes.DTO.Asset.Info {

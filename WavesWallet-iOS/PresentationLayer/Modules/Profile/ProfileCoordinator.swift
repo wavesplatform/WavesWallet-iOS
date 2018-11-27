@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import StoreKit
 import MessageUI
 
@@ -28,6 +29,7 @@ final class ProfileCoordinator: Coordinator {
 
     private let navigationController: UINavigationController
     private var state: State?
+    private let disposeBag: DisposeBag = DisposeBag()
 
     init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.applicationCoordinator = applicationCoordinator
@@ -37,6 +39,7 @@ final class ProfileCoordinator: Coordinator {
     func start() {
         let vc = ProfileModuleBuilder(output: self).build()
         self.navigationController.pushViewController(vc, animated: true)
+        setupBackupTost(target: vc, navigationController: navigationController, disposeBag: disposeBag)
     }
 }
 
