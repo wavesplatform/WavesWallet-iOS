@@ -19,6 +19,10 @@ final class LanguageViewController: UIViewController {
     @IBOutlet private weak var buttonConfirm: UIButton!
     private var gradientLayer: CAGradientLayer!
     
+    @IBOutlet weak var buttonConfirmLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonConfirmTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonConfirmBottomConstraint: NSLayoutConstraint!
+    
     private let languages = Language.list
 
     private lazy var selectedIndex: Int = {
@@ -38,12 +42,29 @@ final class LanguageViewController: UIViewController {
         createBackButton()
         setupBigNavigationBar()
         setupLanguage()
+        setupConstraints()
     }
     
     // MARK: - Setups
 
     private func setupLanguage() {
         buttonConfirm.setTitle(Localizable.Waves.Enter.Button.Confirm.title, for: .normal)
+    }
+    
+    private func setupConstraints() {
+        
+        if Platform.isIphone5 {
+            buttonConfirmLeadingConstraint.constant = 16
+            buttonConfirmTrailingConstraint.constant = 16
+            buttonConfirmBottomConstraint.constant = 16
+        } else {
+            buttonConfirmLeadingConstraint.constant = 24
+            buttonConfirmTrailingConstraint.constant = 24
+            buttonConfirmBottomConstraint.constant = 24
+        }
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: buttonConfirmBottomConstraint.constant, right: 0)
+        
     }
     
     // MARK: - Actions
@@ -69,7 +90,6 @@ extension LanguageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
-        
         let item = languages[indexPath.row]
         
         cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: indexPath.row == selectedIndex))
@@ -91,9 +111,11 @@ extension LanguageViewController: UITableViewDelegate {
 
         selectedIndex = indexPath.row
         tableView.reloadData()
+        
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
+    
 }

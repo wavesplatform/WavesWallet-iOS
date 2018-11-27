@@ -38,8 +38,8 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
             leftConstraint.constant = 16
             rightConstraint.constant = 16
         } else {
-            leftConstraint.constant = 32
-            rightConstraint.constant = 32
+            leftConstraint.constant = 24
+            rightConstraint.constant = 24
         }
         
         selectedBackgroundView = UIView()
