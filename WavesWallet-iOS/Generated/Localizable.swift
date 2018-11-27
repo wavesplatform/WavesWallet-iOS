@@ -1472,6 +1472,25 @@ internal enum Localizable {
 
     internal enum Passcode {
 
+      internal enum Alert {
+
+        internal enum Attempsended {
+          /// To unlock, sign in with your account passord
+          internal static var subtitle: String { return Localizable.tr("Waves", "passcode.alert.attempsended.subtitle") }
+          /// To many attempts
+          internal static var title: String { return Localizable.tr("Waves", "passcode.alert.attempsended.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.cancel") }
+            /// Enter Password
+            internal static var enterpassword: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.enterpassword") }
+            /// Ok
+            internal static var ok: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.ok") }
+          }
+        }
+      }
+
       internal enum Button {
 
         internal enum Forgotpasscode {

@@ -1089,6 +1089,14 @@
 "history.transaction.title.masssent" = "Mass Sent";
 "history.transaction.title.massreceived" = "Mass Received";
 
+"history.transaction.cell.exchange.sell" = "Sell";
+"history.transaction.cell.exchange.buy" = "Buy";
+
+"passcode.alert.attempsended.title" = "To many attempts";
+"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account passord";
+"passcode.alert.attempsended.button.cancel" = "Cancel";
+"passcode.alert.attempsended.button.ok" = "Ok";
+"passcode.alert.attempsended.button.enterpassword" = "Enter Password";
 
 "history.transaction.cell.exchange.sell" = "Sell: %@/%@";
 "history.transaction.cell.exchange.buy" = "Buy: %@/%@";
