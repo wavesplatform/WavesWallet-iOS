@@ -52,21 +52,21 @@ fileprivate extension HistoryTransactionView {
     
     func update(with tx: DomainLayer.DTO.SmartTransaction.Exchange) {
         
-        var type = ""
+        var text = ""
         let balance = tx.amount
         let sign: Balance.Sign!
         let ticker = balance.currency.ticker
         
         if tx.myOrder.kind == .sell {
             sign = .minus
-            type = Localizable.Waves.History.Transaction.Cell.Exchange.sell
+            text = Localizable.Waves.History.Transaction.Cell.Exchange.buy(tx.amount.currency.title, tx.price.currency.title)
         }
         else {
             sign = .plus
-            type = Localizable.Waves.History.Transaction.Cell.Exchange.buy
+            text = Localizable.Waves.History.Transaction.Cell.Exchange.buy(tx.amount.currency.title, tx.price.currency.title)
         }
         
-        labelTitle.text = type + ": " + tx.amount.currency.title + "/" + tx.price.currency.title
+        labelTitle.text = text
         labelValue.attributedText = styleForBalance(balance, sign: sign, ticker: ticker, isSpam: false)
         
         if let ticker = ticker {

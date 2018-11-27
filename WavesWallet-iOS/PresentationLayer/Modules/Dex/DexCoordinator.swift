@@ -7,18 +7,30 @@
 //
 
 import UIKit
+import RxSwift
 
-final class DexCoordinator {
-    
+final class DexCoordinator: Coordinator {
+
+    var childCoordinators: [Coordinator] = []
+
+    weak var parent: Coordinator?
+
+    private let disposeBag: DisposeBag = DisposeBag()
+
     private lazy var dexListViewContoller: UIViewController = {
         return DexListModuleBuilder(output: self).build()
     }()
 
     private var navigationController: UINavigationController!
 
-    func start(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+
+    func start() {
+
         navigationController.pushViewController(dexListViewContoller, animated: false)
+        setupBackupTost(target: dexListViewContoller, navigationController: navigationController, disposeBag: disposeBag)
     }
     
     private var containerControllers: [UIViewController] {

@@ -964,9 +964,6 @@
 
 "transactionhistory.cell.type" = "Type";
 
-"transactionhistory.cell.sell" = "Sell";
-
-"transactionhistory.cell.buy" = "Buy";
 
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 
@@ -1091,5 +1088,10 @@
 
 "history.transaction.title.masssent" = "Mass Sent";
 "history.transaction.title.massreceived" = "Mass Received";
-"history.transaction.cell.exchange.sell" = "Sell";
-"history.transaction.cell.exchange.buy" = "Buy";
+
+
+"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+"transactionhistory.cell.sell" = "Sell: %@/%@";
+"transactionhistory.cell.buy" = "Buy: %@/%@";
+
