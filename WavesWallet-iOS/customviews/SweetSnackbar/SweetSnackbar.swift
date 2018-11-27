@@ -128,7 +128,13 @@ final class SweetSnackbar: NSObject {
         view.addGestureRecognizer(tap)
         view.addGestureRecognizer(swipe)
 
-        let bottom = viewController.bottomLayoutGuide.length
+        viewController.addObserver(self, forKeyPath: viewController.layoutInsetsKey, options: [NSKeyValueObservingOptions.new], context: nil)
+
+        var bottom = viewController.layoutInsets.bottom
+
+        if ((viewController as? UITabBarController) != nil) {
+            bottom += viewController.tabBarHeight
+        }
         view.bottomOffsetPadding = bottom
 
         // Calculate Height
@@ -220,15 +226,52 @@ final class SweetSnackbar: NSObject {
         let view = snack.view
         self.snackMap.removeValue(forKey: snack.key)
 
+        if let lastSnack = self.lastSnack, lastSnack.key == snack.key {
+            self.lastSnack = nil
+        }
+
         let bounds = viewController.view.bounds
         let size = view.frame.size
 
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
         }) { isCancel in
+            viewController.removeObserver(self, forKeyPath: viewController.layoutInsetsKey)
             view.removeFromSuperview()
             self.applyActionDismiss(snack: snack, isNewSnack: isNewSnack)
             completed?(isCancel)
+        }
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+        guard let snack = self.lastSnack else  { return }
+        guard let viewController = snack.viewController else  { return }
+
+        if let anyVC = object as? UIViewController, anyVC != viewController {
+            return
+        }
+
+        let view = snack.view
+
+        let bounds = viewController.view.bounds
+        var bottom = viewController.layoutInsets.bottom
+
+        if ((viewController as? UITabBarController) != nil) {
+            bottom += viewController.tabBarHeight
+        }
+        view.bottomOffsetPadding = bottom
+
+        // Calculate Height
+        view.layoutIfNeeded()
+        view.setNeedsLayout()
+
+
+        let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+        }) { animated in
+
         }
     }
 }
@@ -250,7 +293,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
 
         let location = pan.location(in: view)
 
-        let minY = bounds.height - size.height - viewController.tabBarHeight
+        let minY = bounds.height - size.height
         let maxY = bounds.height - viewController.layoutInsets.bottom
         switch pan.state {
         case .began:

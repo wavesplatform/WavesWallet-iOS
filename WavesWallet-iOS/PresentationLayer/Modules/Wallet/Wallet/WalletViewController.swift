@@ -83,6 +83,7 @@ final class WalletViewController: UIViewController {
         globalErrorView.retryDidTap = { [weak self] in
             self?.sendEvent.accept(.refresh)
         }
+        
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }

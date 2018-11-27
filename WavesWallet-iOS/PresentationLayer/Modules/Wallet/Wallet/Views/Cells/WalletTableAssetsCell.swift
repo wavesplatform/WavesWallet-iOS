@@ -57,7 +57,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
         viewFiatBalance.isHidden = true
         iconArrow.isHidden = model.isFiat == false && model.isGateway == false
         viewSpam.isHidden = model.isSpam == false
-        let text = model.balance.displayTextFull
+        let text = model.balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 

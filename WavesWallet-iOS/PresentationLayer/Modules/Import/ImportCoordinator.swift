@@ -40,7 +40,9 @@ final class ImportCoordinator: Coordinator {
             showAccountPassword(currentPrivateKeyAccount!)
         }
         else {
-            //TODO: need to show error Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed
+            if let vc = navigationController.viewControllers.first(where: {$0.isKind(of: ImportAccountViewController.classForCoder())}) {
+                vc.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
+            }
         }
     }
     

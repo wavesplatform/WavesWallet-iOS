@@ -52,7 +52,7 @@ extension AssetListTableViewCell: ViewConfiguration {
         iconGateway.isHidden = !model.asset.isGateway
         iconFav.isHidden = !model.isFavourite
         
-        labelAmount.text = model.balance.displayTextFull
+        labelAmount.text = model.balance.displayText
 
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in

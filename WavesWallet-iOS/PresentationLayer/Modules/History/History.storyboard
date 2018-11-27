@@ -192,7 +192,7 @@ You do not have any transactions</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="xV6-RC-7h2" firstAttribute="centerX" secondItem="RyW-2X-hys" secondAttribute="centerX" id="5ek-GC-8q1"/>
                                     <constraint firstItem="QZP-5T-ayU" firstAttribute="top" secondItem="xV6-RC-7h2" secondAttribute="bottom" constant="14" id="FGi-l7-dgv"/>

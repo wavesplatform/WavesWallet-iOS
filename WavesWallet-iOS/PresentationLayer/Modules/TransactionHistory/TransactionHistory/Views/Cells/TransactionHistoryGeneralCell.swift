@@ -71,7 +71,7 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         case .data:
             image = Images.tData48
         case .unrecognisedTransaction:
-            image = Images.tAlias48
+            image = Images.tUndefined48
         }
         
         return UIImage(asset: image)
