@@ -112,7 +112,7 @@ private extension StartLeasingViewController {
     
     func setupData() {
         
-        labelAssetAmount.text = totalBalance.displayTextFull
+        labelAssetAmount.text = totalBalance.displayText
         
         var fields: [String] = []
         
@@ -171,7 +171,7 @@ extension StartLeasingViewController: AmountInputViewDelegate {
     func amountInputView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
-        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.insufficientFunds, isShow: isNotEnoughAmount)
     }
 }
 
@@ -213,7 +213,7 @@ extension StartLeasingViewController: AddressInputViewDelegate {
         if let amount = amount {
             order.amount = amount
             amountView.setAmount(amount)
-            amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+            amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.insufficientFunds, isShow: isNotEnoughAmount)
         }
         
         setupButtonState()

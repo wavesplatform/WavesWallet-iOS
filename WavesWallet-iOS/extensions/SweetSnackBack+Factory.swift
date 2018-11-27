@@ -12,6 +12,7 @@ private enum Constants {
     static let withoutInternetSnackAlpha: CGFloat = 0.74
     static let snackAlpha: CGFloat = 0.94
     static let successDuration: TimeInterval = 1.3
+    static let messageDuration: TimeInterval = 1.5
 }
 
 extension UIViewController {
@@ -28,12 +29,12 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showMessageSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
+    @discardableResult func showMessageSnack(title: String, didTap: (() -> Void)? = nil) -> String {
 
 
-        let error = SweetSnack.init(title: tille,
+        let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
-                                    behaviorDismiss: .popToLast,
+                                    behaviorDismiss: .popToLastWihDuration(Constants.messageDuration),
                                     subtitle: nil,
                                     icon: nil,
                                     isEnabledUserHidden: true,
