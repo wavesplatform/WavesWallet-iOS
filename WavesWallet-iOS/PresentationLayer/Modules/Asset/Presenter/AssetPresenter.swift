@@ -60,21 +60,26 @@ final class AssetPresenter: AssetPresenterProtocol {
         })
     }
 
+    private struct TransactionsQuery: Hashable {
+        let id: String
+    }
+
     private func transactionsQuery() -> Feedback {
-        return react(query: { state -> String? in
+        return react(query: { state -> TransactionsQuery? in
 
             guard state.displayState.isAppeared == true else { return nil }
             guard state.transactionStatus.isLoading == true else { return nil }
 
-            return state.displayState.currentAsset.id
+            print("transactionsQuery \(state.displayState.currentAsset.id)")
+            return TransactionsQuery(id: state.displayState.currentAsset.id)
 
-        }, effects: { [weak self] id -> Signal<AssetTypes.Event> in
-
+        }, effects: { [weak self] query -> Signal<AssetTypes.Event> in
+            print("transactionsQuery \(query)")
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
-                .interactor.transactions(by: id)
+                .interactor.transactions(by: query.id)
                 .map { AssetTypes.Event.setTransactions($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })

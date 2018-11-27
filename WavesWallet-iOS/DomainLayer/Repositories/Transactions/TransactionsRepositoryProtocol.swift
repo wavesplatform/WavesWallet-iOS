@@ -30,6 +30,15 @@ enum TransactionType: Int {
     case alias = 10
     case massTransfer = 11
     case data = 12
+    case any_13 = 13
+    case any_14 = 14
+    case any_15 = 15
+    case any_16 = 16
+    case any_17 = 17
+    case any_18 = 18
+    case any_19 = 19
+    case any_20 = 20
+    case any_21 = 21
 
     static var all: [TransactionType] {
         return [.issue,
@@ -41,7 +50,16 @@ enum TransactionType: Int {
                 .leaseCancel,
                 .alias,
                 .massTransfer,
-                .data]
+                .data,
+                .any_13,
+                .any_14,
+                .any_15,
+                .any_16,
+                .any_17,
+                .any_18,
+                .any_19,
+                .any_20,
+                .any_21]
     }
 }
 

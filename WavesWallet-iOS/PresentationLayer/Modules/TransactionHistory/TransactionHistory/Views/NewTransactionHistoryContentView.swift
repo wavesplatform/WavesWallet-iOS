@@ -76,7 +76,8 @@ final class NewTransactionHistoryContentView: UIView {
         copyAllDataButton.selectedTitle = Localizable.Waves.Transactionhistory.Button.copied
         copyAllDataButton.selectedTitleColor = .success400
         copyAllDataButton.selectedImage = Images.checkSuccess.image
-        
+        copyTXButton.setState(.normal)
+        copyAllDataButton.setState(.normal)
     }
     
     override func layoutSubviews() {

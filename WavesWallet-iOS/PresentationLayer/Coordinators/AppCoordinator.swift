@@ -13,7 +13,7 @@ import RESideMenu
 import RxOptional
 
 private enum Contants {
-    static let delay: TimeInterval = 0
+    static let delay: TimeInterval = 10
 }
 
 struct Application: TSUD {
@@ -50,9 +50,8 @@ final class AppCoordinator: Coordinator {
 
     init(_ window: UIWindow) {
         self.window = window
-        let vc = CustomNavigationController()
+        let vc = UINavigationController()
         let root = StoryboardScene.LaunchScreen.initialScene.instantiate()
-        root.navigationItem.shadowImage = UIImage()
         vc.pushViewController(root, animated: false)
         window.rootViewController = vc
         window.makeKeyAndVisible()
@@ -114,8 +113,8 @@ final class AppCoordinator: Coordinator {
 
     private func revokeAuthAndOpenPasscode() {
 
-        authoAuthorizationInteractor
-            .revokeAuth()
+        Observable
+            .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
                 
@@ -125,9 +124,17 @@ final class AppCoordinator: Coordinator {
                     return Observable.never()
                 }
 
-                return owner.authoAuthorizationInteractor
-                    .lastWalletLoggedIn()
-                    .take(1)
+                return
+                    owner
+                        .authoAuthorizationInteractor
+                        .revokeAuth()
+                        .flatMap({ [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
+                            guard let owner = self else { return Observable.never() }
+
+                            return owner.authoAuthorizationInteractor
+                                    .lastWalletLoggedIn()
+                                    .take(1)
+                        })
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))

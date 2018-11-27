@@ -46,6 +46,8 @@ final class BackupTostCoordinator: Coordinator {
     private weak var navigationController: UINavigationController?
     private var snackBackupSeedKey: String?
 
+    private static var lockMap: [String] = []
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -65,13 +67,20 @@ final class BackupTostCoordinator: Coordinator {
         guard let topViewController = navigationController?.topViewController else { return }
         guard signedWallet.wallet.isBackedUp == false else { return }
 
+        if BackupTostCoordinator.lockMap.contains(signedWallet.address) {
+            return
+        }
+
         snackBackupSeedKey = topViewController.showWarningSnack(title: Localizable.Waves.General.Tost.Savebackup.title,
                                                                 subtitle: Localizable.Waves.General.Tost.Savebackup.subtitle,
                                                                 icon: Images.warning18White.image,
                                                                 didTap:
             { [weak self] in
+                BackupTostCoordinator.lockMap.append(signedWallet.address)
                 self?.showBackup(signedWallet: signedWallet)
-        }) {}
+        }) {
+            BackupTostCoordinator.lockMap.append(signedWallet.address)
+        }
     }
 
     private func hideBackupTost() {
