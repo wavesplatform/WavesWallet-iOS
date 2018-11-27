@@ -82,7 +82,7 @@ extension NetworkError {
                 return NetworkError.serverError
 
             case NSURLErrorTimedOut:
-                return NetworkError.serverError
+                return NetworkError.internetNotWorking
                 
             case NSURLErrorUnsupportedURL:
                 return NetworkError.serverError

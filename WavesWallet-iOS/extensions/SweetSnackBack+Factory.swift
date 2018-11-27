@@ -15,11 +15,13 @@ private enum Constants {
     static let messageDuration: TimeInterval = 1.5
 }
 
+// MARK: - Internet
 extension UIViewController {
 
     @discardableResult func showWithoutInternetSnack(didTap: @escaping (() -> Void)) -> String {
 
-        let error = SweetSnack.init(title: "No connection to the Internet",
+        let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.noconnectiontotheinternet,
+
                                     backgroundColor: UIColor.disabled666.withAlphaComponent(Constants.withoutInternetSnackAlpha),
                                     behaviorDismiss: .popToLast,
                                     subtitle: nil,
@@ -29,8 +31,19 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showMessageSnack(title: String, didTap: (() -> Void)? = nil) -> String {
+    @discardableResult func showWithoutInternetSnackWithoutAction() -> String {
 
+        let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.noconnectiontotheinternet,
+                                    backgroundColor: UIColor.disabled666.withAlphaComponent(Constants.withoutInternetSnackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: nil,
+                                    icon: Images.refresh18White.image,
+                                    isEnabledUserHidden: false,
+                                    action: nil)
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
+    @discardableResult func showMessageSnack(title: String, didTap: (() -> Void)? = nil) -> String {
 
         let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
@@ -41,6 +54,11 @@ extension UIViewController {
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: nil))
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
+}
+
+// MARK: - -  Error Snack
+
+extension UIViewController {
 
     @discardableResult func showErrorSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
 
@@ -55,6 +73,34 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
+    @discardableResult func showErrorSnackWithoutAction(tille: String) -> String {
+
+        let error = SweetSnack.init(title: tille,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: nil,
+                                    icon: nil,
+                                    isEnabledUserHidden: false,
+                                    action: nil)
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+}
+
+// MARK: - -  Error Not Found Snack
+
+extension UIViewController {
+
+    @discardableResult func showErrorNotFoundSnackWithoutAction() -> String {
+
+        let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.notfound,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLast,
+                                    subtitle: Localizable.Waves.General.Error.Subtitle.notfound,
+                                    icon: nil,
+                                    isEnabledUserHidden: false,
+                                    action: nil)
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
 
     @discardableResult func showErrorNotFoundSnack(didTap: (() -> Void)? = nil) -> String {
 
@@ -67,6 +113,11 @@ extension UIViewController {
                                     action: SweetSnackError(didTap: didTap))
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
+}
+
+// MARK: - -  Warning
+
+extension UIViewController {
 
     @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
 
@@ -79,7 +130,11 @@ extension UIViewController {
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: didSwipe))
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
+}
 
+// MARK: - -  Success
+
+extension UIViewController {
 
     @discardableResult func showSuccesSnack(title: String) -> String {
 

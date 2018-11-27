@@ -35,6 +35,7 @@ final class PasscodeVerifyAccessPresenter: PasscodePresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(verifyAccessBiometric())
         newFeedbacks.append(verifyAccess())
+        newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
 
@@ -77,7 +78,6 @@ extension PasscodeVerifyAccessPresenter {
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -103,7 +103,33 @@ extension PasscodeVerifyAccessPresenter {
                 .verifyAccessUsingBiometric(wallet: query.wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                    return Signal.just(.handlerError(error))
+            }
+        })
+    }
+
+    private struct LogoutQuery: Hashable {
+        let wallet: DomainLayer.DTO.Wallet
+    }
+
+    private func logout() -> Feedback {
+        return react(query: { state -> LogoutQuery? in
+
+            if case .verifyAccess(let wallet) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor.logout(wallet: query.wallet)
+                .map { _ in .completedLogout }
+                .asSignal { (error) -> Signal<Types.Event> in
                     return Signal.just(.handlerError(error))
             }
         })
@@ -135,15 +161,7 @@ private extension PasscodeVerifyAccessPresenter {
             state.action = nil
             state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
-
-            //   TODO: Error
-            //            switch error {
-            //            case .attemptsEnded:
-            //            case .passcodeIncorrect:
-            //            case .passwordIncorrect:
-            //            case .permissionDenied:
-            //            case .fail:
-        //            }
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break

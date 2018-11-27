@@ -38,13 +38,3 @@ protocol PasscodePresenterProtocol {
     var moduleOutput: PasscodeModuleOutput? { get set }
     func system(feedbacks: [Feedback])
 }
-
-//enum Kind {
-//    case verifyAccess(DomainLayer.DTO.Wallet) +
-//    case registration(Account) +
-//    case logIn(DomainLayer.DTO.Wallet) +
-//    case changePasscodeByPassword(DomainLayer.DTO.Wallet, password: String) +
-//    case changePasscode(DomainLayer.DTO.Wallet)
-//    case setEnableBiometric(Bool, wallet: DomainLayer.DTO.Wallet) +
-//    case changePassword(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String)
-//}

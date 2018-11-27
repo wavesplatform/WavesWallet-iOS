@@ -22,11 +22,13 @@ final class AddressesKeysCoordinator: Coordinator {
     private var needPrivateKeyCallback: ((DomainLayer.DTO.SignedWallet) -> Void)?
     private var rootViewController: UIViewController?
 
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private var currentPopup: PopupViewController?
 
-    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet) {
+    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet, applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.navigationController = navigationController
         self.wallet = wallet
+        self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
@@ -65,7 +67,9 @@ extension AddressesKeysCoordinator: PasscodeCoordinatorDelegate {
         }
     }
 
-    func passcodeCoordinatorWalletLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {
+        applicationCoordinator?.showEnterDisplay()
+    }
 }
 
 // MARK: AddressesKeysModuleOutput

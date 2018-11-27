@@ -28,13 +28,6 @@ protocol PasscodeInteractorProtocol {
     func verifyAccess(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationVerifyAccessStatus>
 }
 
-enum PasscodeInteractorError: Error {
-    case fail
-    case passcodeIncorrect
-    case permissionDenied
-    case attemptsEnded
-}
-
 final class PasscodeInteractor: PasscodeInteractorProtocol {
 
 
@@ -166,25 +159,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .share()
     }
 
-    private func handlerError(_ error: Error) -> PasscodeInteractorError {
-
-        switch error {
-        case let authError as AuthorizationInteractorError:
-            switch authError {
-            case .attemptsEnded:
-                return PasscodeInteractorError.attemptsEnded
-
-            case .passcodeIncorrect:
-                return PasscodeInteractorError.passcodeIncorrect
-
-            case .permissionDenied:
-                return PasscodeInteractorError.permissionDenied
-            default:
-                return PasscodeInteractorError.fail
-            }
-
-        default:
-            return PasscodeInteractorError.fail
-        }        
+    private func handlerError(_ error: Error) -> Error {
+        return error
     }
 }
