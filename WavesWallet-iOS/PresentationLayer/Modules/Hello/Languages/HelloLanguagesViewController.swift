@@ -8,8 +8,8 @@
 import UIKit
 
 private enum Constants {
-    static let contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
-    static let tableViewBottom: CGFloat = 62
+    static let logoTop: CGFloat = 44
+    static let logoBottom: CGFloat = 44
     static let animationDuration: TimeInterval = 0.24
 }
 
@@ -24,6 +24,15 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     @IBOutlet private var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var continueBtn: UIButton!
 
+    @IBOutlet weak var logoTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
+
+    
+    @IBOutlet weak var continueButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var continueButtonRightConstraint: NSLayoutConstraint!
+    
+    
     private var languages: [Language] = {
         return Language.list
     }()
@@ -36,10 +45,38 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(true, animated: false)
-        tableView.contentInset = Constants.contentInset
+        
+        tableView.showsVerticalScrollIndicator = false
         continueBtn.alpha = 0
+        setupConstraints()
     }
 
+    private func setupConstraints() {
+        
+        if Platform.isIphone5 {
+            continueButtonBottomConstraint.constant = 12
+            continueButtonLeftConstraint.constant = 12
+            continueButtonRightConstraint.constant = 12
+            logoTopConstraint.constant = 44
+        } else {
+            continueButtonBottomConstraint.constant = 24
+            continueButtonLeftConstraint.constant = 16
+            continueButtonRightConstraint.constant = 16
+            logoTopConstraint.constant = 44
+        }
+        
+    }
+    
+    // MARK: - Layout
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableView.contentInset = UIEdgeInsets(top: Constants.logoTop + logoHeightConstraint.constant + Constants.logoBottom, left: 0, bottom: continueButtonBottomConstraint.constant + continueBtn.bounds.height + continueButtonBottomConstraint.constant, right: 0)
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func continueWasPressed(_ sender: Any) {
         output?.userFinishedChangeLanguage()
     }
@@ -69,7 +106,6 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         chosenIndexPath = indexPath        
         tableView.reloadData()
 
-        tableViewBottomConstraint.constant = Constants.tableViewBottom
         UIView.animate(withDuration: Constants.animationDuration) {
             self.continueBtn.alpha = 1.0
         }
@@ -78,4 +114,16 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         output?.languageDidSelect(language: item)
         continueBtn.setTitle(Localizable.Waves.Hello.Button.continue, for: .normal)
     }
+    
+}
+
+extension HelloLanguagesViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let y = -scrollView.contentOffset.y - scrollView.contentInset.top
+        logoTopConstraint.constant = y + Constants.logoTop
+        
+    }
+    
 }
