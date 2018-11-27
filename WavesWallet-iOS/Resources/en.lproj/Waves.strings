@@ -453,6 +453,14 @@
 
 "general.ticker.title.wavestoken" = "Waves Token";
 
+"cameraAccess.alert.title" = "Need Camera Access";
+
+"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
+
+"cameraAccess.alert.cancel" = "Cancel";
+
+"cameraAccess.alert.allow" = "Allow Camera";
+
 "hello.button.continue" = "Continue";
 
 "hello.button.next" = "Next";
@@ -553,6 +561,8 @@
 "import.general.navigation.title" = "Import account";
 
 "import.general.segmentedControl.manually" = "Manually";
+
+"import.general.error.alreadyinuse" = "Already in use";
 
 "import.general.segmentedControl.scan" = "Scan";
 
@@ -1075,8 +1085,8 @@
 
 "accountpassword.error.wrongpassword" = "Wrong password";
 
-"general.error.title.notfound" = "Do not worry, we are already fixing this problem.";
-"general.error.subtitle.notfound" = "Soon everything will work!";
+"general.error.title.notfound" = "Oh ... It's all broken!";
+"general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
 
 "serverError.label.title" = "Oh ... It's all broken!";
 "serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
