@@ -30,6 +30,7 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(registration())
+        newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
 
@@ -75,6 +76,33 @@ extension PasscodeRegistationPresenter {
             }
         })
     }
+
+    private struct LogoutQuery: Hashable {
+        let wallet: DomainLayer.DTO.Wallet
+    }
+
+    private func logout() -> Feedback {
+        return react(query: { state -> LogoutQuery? in
+
+            if case .logIn(let wallet) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor.logout(wallet: query.wallet)
+                .map { _ in .completedLogout }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    return Signal.just(.handlerError(error))
+            }
+        })
+    }
 }
 
 // MARK: Core State
@@ -113,7 +141,19 @@ private extension PasscodeRegistationPresenter {
             state.action = nil
             state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
+        case .tapLogoutButton:
+            state.displayState.isLoading = true
+            state.displayState.error = nil
+            state.action = .logout
+            
+        case .completedLogout:
+            state.displayState.isLoading = false
+            state.displayState.error = nil
+            state.action = nil
+            moduleOutput?.passcodeUserLogouted()
+            
         case .viewWillAppear:
             break
 

@@ -155,51 +155,7 @@ private extension PasscodeLogInPresenter {
             state.action = nil
 
             state.displayState.isHiddenBackButton = !state.hasBackButton
-            //   TODO: Error
-
-            switch error {
-            case let appError as NetworkError:
-                switch appError {
-                case .internetNotWorking:
-                    state.displayState.error = .internetNotWorking
-
-                case .notFound:
-                    state.displayState.error = .notFound
-
-                case .serverError:
-                    state.displayState.error = .notFound
-
-                case .message(let message):
-                    state.displayState.error = .notFound
-                }
-
-            case let authError as AuthorizationInteractorError:
-                switch authError {
-                case .attemptsEnded:
-                    state.displayState.error = .notFound
-
-                case .biometricDisable:
-                    state.displayState.error = .notFound
-
-                case .passcodeIncorrect:
-                    state.displayState.error = .incorrectPasscode
-
-                case .passcodeNotCreated:
-                    state.displayState.error = .notFound
-
-                case .passwordIncorrect:
-                    state.displayState.error = .notFound
-
-                case .permissionDenied:
-                    state.displayState.error = .incorrectPasscode
-                    
-                case .fail:
-                    state.displayState.error = .notFound
-                }
-
-            default:
-                state.displayState.error = .notFound
-            }
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break

@@ -59,8 +59,8 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
-
-        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
+        guard let applicationCoordinator = self.applicationCoordinator else { return }
+        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet, applicationCoordinator: applicationCoordinator)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
@@ -98,12 +98,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
 
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .changePasscode(wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
@@ -128,7 +130,9 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
 
-    func passcodeCoordinatorWalletLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {
+        applicationCoordinator?.showEnterDisplay()
+    }
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
 
@@ -174,6 +178,7 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
                                            kind: .changePassword(wallet: wallet,
                                                                  newPassword: newPassword,
                                                                  oldPassword: oldPassword))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }

@@ -159,19 +159,21 @@ private extension PasscodeViewController {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
 
-            case .message(let test):
-                self.showErrorNotFoundSnack {
+            case .message(let message):
+                self.showErrorSnackWithoutAction(tille: message)
 
-                }
+            case .attemptsEndedLogout:
+                showAlertAttemptsEndedAndLogout()
+
+            case .attemptsEnded:
+                showAlertAttemptsEnded()
+
             case .internetNotWorking:
-                self.showWithoutInternetSnack {
-                    
-                }
+                self.showWithoutInternetSnackWithoutAction()
 
             case .notFound:
-                self.showErrorNotFoundSnack {
+                self.showErrorNotFoundSnackWithoutAction()
 
-                }
             }
         }
 
@@ -181,6 +183,32 @@ private extension PasscodeViewController {
         } else {
             passcodeView.stopLoadingIndicator()
         }
+    }
+
+    private func showAlertAttemptsEnded() {
+
+        let alert = UIAlertController(title: "To many attempts", message: "To unlock, sign in with your account passord", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        alert.addAction(UIAlertAction(title: "Enter Password", style: UIAlertActionStyle.default, handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogInByPassword)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func showAlertAttemptsEndedAndLogout() {
+
+        let alert = UIAlertController(title: "To many attempts", message: "To unlock, sign in with your account passord", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+
     }
 }
 

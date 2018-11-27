@@ -854,6 +854,29 @@ private extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
+            .catchError({ [weak self] (error) -> Observable<DomainLayer.DTO.SignedWallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+
+                if let authError = error as? AuthorizationInteractorError, authError == .attemptsEnded {
+                    return owner
+                        .localWalletRepository
+                        .walletEncryption(by: wallet.publicKey)
+                        .flatMap({ [weak self] (walletEnc) -> Observable<DomainLayer.DTO.SignedWallet> in
+
+                            guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+
+                            var newWalletEnc = walletEnc
+                            newWalletEnc.kind = .none
+
+                            return owner.localWalletRepository.saveWalletEncryption(newWalletEnc)
+                                .flatMap({ _ ->  Observable<DomainLayer.DTO.SignedWallet> in
+                                    return Observable.error(error)
+                                })
+                        })
+                } else {
+                    return Observable.error(error)
+                }
+            })
     }
 
     private func verifyAccessWalletUsingPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.SignedWallet> {
