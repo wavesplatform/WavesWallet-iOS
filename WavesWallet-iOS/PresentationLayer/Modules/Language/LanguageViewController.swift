@@ -39,6 +39,7 @@ final class LanguageViewController: UIViewController {
 
         navigationItem.barTintColor = .white
         navigationItem.title = Localizable.Waves.Profile.Language.Navigation.title
+        
         createBackButton()
         setupBigNavigationBar()
         setupLanguage()

@@ -68,7 +68,12 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
             continueButtonLeftConstraint.constant = 24
             continueButtonRightConstraint.constant = 24
             logoTopConstraint.constant = 44
-            safeAreaViewHeightConstraint.constant = 0
+            
+            if Platform.isIphone7 {
+                safeAreaViewHeightConstraint.constant = UIApplication.shared.statusBarFrame.height
+            } else {
+                safeAreaViewHeightConstraint.constant = 0
+            }
         }
         
         tableView.contentInset = UIEdgeInsets(top: Constants.logoTop + logoHeightConstraint.constant + Constants.logoBottom, left: 0, bottom: continueButtonBottomConstraint.constant + continueBtn.bounds.height + continueButtonBottomConstraint.constant, right: 0)
