@@ -37,11 +37,15 @@ extension Money {
 
 extension Money {
     var displayText: String {
-        return MoneyUtil.getScaledTextTrimZeros(amount, decimals: decimals)
+        return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
     
-    var displayTextFull: String {
-        return MoneyUtil.getScaledText(amount, decimals: decimals)
+    func displayTextFull(isFiat: Bool) -> String {
+        return MoneyUtil.getScaledFullText(amount, decimals: decimals, isFiat: isFiat)
+    }
+    
+    var displayShortText: String {
+        return MoneyUtil.getScaledShortText(amount, decimals: decimals)
     }
 }
 

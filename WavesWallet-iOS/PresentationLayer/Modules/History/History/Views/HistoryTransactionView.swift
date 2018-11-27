@@ -77,7 +77,7 @@ fileprivate extension HistoryTransactionView {
     
     func styleForBalance(_ balance: Balance, sign: Balance.Sign, ticker: String?, isSpam: Bool) -> NSAttributedString {
         
-        let balanceTitle = balance.displayText(sign: sign, withoutCurrency: ticker != nil || isSpam == true)
+        let balanceTitle = balance.displayShortText(sign: sign, withoutCurrency: ticker != nil || isSpam == true)
         let attr = NSMutableAttributedString.init(attributedString: .styleForBalance(text: balanceTitle, font: labelValue.font))
         attr.addAttributes([NSAttributedStringKey.font : UIFont.systemFont(ofSize: labelValue.font.pointSize)], range: (balanceTitle as NSString).range(of:  balance.currency.title))
         
@@ -173,9 +173,9 @@ extension DomainLayer.DTO.SmartTransaction {
             let myOrder = tx.myOrder
 
             if myOrder.kind == .sell {
-                return tx.amount.displayText(sign: .minus, withoutCurrency: false)
+                return tx.amount.displayShortText(sign: .minus, withoutCurrency: false)
             } else {
-                return tx.amount.displayText(sign: .plus, withoutCurrency: false)
+                return tx.amount.displayShortText(sign: .plus, withoutCurrency: false)
             }
 
         case .canceledLeasing:

@@ -112,7 +112,7 @@ private extension StartLeasingViewController {
     
     func setupData() {
         
-        labelAssetAmount.text = totalBalance.displayTextFull
+        labelAssetAmount.text = totalBalance.displayText
         
         var fields: [String] = []
         
