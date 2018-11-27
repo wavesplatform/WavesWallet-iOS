@@ -98,7 +98,7 @@ private extension TokenBurnConfirmationViewController {
             labelAssetName.text = input.asset.asset?.displayName
         }
         
-        labelAmount.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayTextFull, font: labelAmount.font)
+        labelAmount.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayText, font: labelAmount.font)
 
         viewId.update(with: .init(id: input.asset.assetId, description: input.asset.asset?.description ?? ""))
     }

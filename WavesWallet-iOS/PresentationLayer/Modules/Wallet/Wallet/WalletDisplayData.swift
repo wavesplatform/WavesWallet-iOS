@@ -39,7 +39,7 @@ final class WalletDisplayData: NSObject {
         tableView.dataSource = self
     }
 
-    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType, completed: @escaping (() -> Void)) {
+    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
         self.sections = sections
 
         CATransaction.begin()
@@ -51,6 +51,7 @@ final class WalletDisplayData: NSObject {
             break
             
         case .refresh(let animated):
+            print("refresh")
 
             if animated {
                 UIView.transition(with: tableView, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
@@ -70,6 +71,9 @@ final class WalletDisplayData: NSObject {
             tableView.reloadSections([index], animationStyle: .fade)
             tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             tableView.endUpdates()
+
+        default:
+            break
         }
         CATransaction.commit()
     }

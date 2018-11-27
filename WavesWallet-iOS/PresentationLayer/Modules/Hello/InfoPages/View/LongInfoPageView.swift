@@ -114,6 +114,7 @@ extension LongInfoPageView: ViewConfiguration {
         
         setupConstraints()
         scrollView.delegate = self
+
     }
     
 }

@@ -49,7 +49,7 @@ extension UIViewController {
     }
 
     func showTopBarLine() {
-        navigationItem.shadowImage = nil
+        navigationItem.shadowImage = UIViewController.shadowImage
     }
     
     var isShowNotFullBigNavigationBar: Bool {
@@ -64,15 +64,13 @@ extension UIViewController {
     func setupTopBarLine() {
         
         if let nav = navigationController {
+            
             let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
+            
             if showImage {
-                if navigationItem.shadowImage != nil {
-                    navigationItem.shadowImage = nil
-                }
+                navigationItem.shadowImage = UIViewController.shadowImage
             } else {
-                if navigationItem.shadowImage == nil {
-                    navigationItem.shadowImage = UIImage()
-                }
+                navigationItem.shadowImage = UIViewController.cleanShadowImage
             }
         }
     }
@@ -90,4 +88,12 @@ extension UIViewController {
         }
     }
 
+    static var shadowImage: UIImage? = {
+        return UIImage.shadowImage(color: .accent100)
+    }()
+    
+    static var cleanShadowImage: UIImage = {
+        return UIImage()
+    }()
+    
 }

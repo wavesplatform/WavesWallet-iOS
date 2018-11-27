@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import StoreKit
 import MessageUI
 
@@ -28,6 +29,7 @@ final class ProfileCoordinator: Coordinator {
 
     private let navigationController: UINavigationController
     private var state: State?
+    private let disposeBag: DisposeBag = DisposeBag()
 
     init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.applicationCoordinator = applicationCoordinator
@@ -37,6 +39,7 @@ final class ProfileCoordinator: Coordinator {
     func start() {
         let vc = ProfileModuleBuilder(output: self).build()
         self.navigationController.pushViewController(vc, animated: true)
+        setupBackupTost(target: vc, navigationController: navigationController, disposeBag: disposeBag)
     }
 }
 
@@ -59,8 +62,8 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
-
-        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
+        guard let applicationCoordinator = self.applicationCoordinator else { return }
+        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet, applicationCoordinator: applicationCoordinator)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
@@ -98,12 +101,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
 
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .changePasscode(wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
@@ -128,11 +133,13 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
 
-    func passcodeCoordinatorWalletLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {
+        applicationCoordinator?.showEnterDisplay()
+    }
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
 
-        let seed = signedWallet.seed.seed.split(separator: " ").map { "\($0)" }
+        let seed = signedWallet.seedWords
 
         guard let state = state else { return }
         switch state {
@@ -174,6 +181,7 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
                                            kind: .changePassword(wallet: wallet,
                                                                  newPassword: newPassword,
                                                                  oldPassword: oldPassword))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }

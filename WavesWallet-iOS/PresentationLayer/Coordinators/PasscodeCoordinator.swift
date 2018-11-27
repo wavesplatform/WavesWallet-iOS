@@ -98,17 +98,30 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
     }
 
     func passcodeUserLogouted() {
-        dissmiss()
         delegate?.passcodeCoordinatorWalletLogouted()
+        dissmiss()
     }
 
     func passcodeLogInByPassword() {
-        if case .logIn(let wallet) = kind {
-            showAccountPassword(kind: .logIn(wallet))
-        } else if case .changePasscode(let wallet) = kind {
-            showAccountPassword(kind: .logIn(wallet))
-        } else if case .verifyAccess(let wallet) = kind {
+
+        switch kind {
+        case .verifyAccess(let wallet):
             showAccountPassword(kind: .verifyAccess(wallet))
+
+        case .logIn(let wallet):
+            showAccountPassword(kind: .logIn(wallet))
+
+        case .changePasscode(let wallet):
+            showAccountPassword(kind: .verifyAccess(wallet))
+
+        case .setEnableBiometric(_, let wallet):
+            showAccountPassword(kind: .verifyAccess(wallet))
+
+        case .changePassword(let wallet, _, _):
+            showAccountPassword(kind: .verifyAccess(wallet))
+
+        default:
+            break
         }
     }
 
