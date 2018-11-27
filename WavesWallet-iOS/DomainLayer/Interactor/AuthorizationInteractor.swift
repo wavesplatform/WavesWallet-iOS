@@ -411,6 +411,25 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 // MARK: - Wallets methods
 extension AuthorizationInteractor {
 
+    func existWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
+        return self.localWalletRepository
+            .wallet(by: publicKey)
+            .catchError({ (error) -> Observable<DomainLayer.DTO.Wallet> in
+                switch error {
+                case let walletError as WalletsRepositoryError:
+                    switch walletError {
+                    case .notFound:
+                        return Observable.error(AuthorizationInteractorError.walletNotFound)
+
+                    default:
+                        return Observable.error(AuthorizationInteractorError.fail)
+                    }
+                default:
+                    return Observable.error(AuthorizationInteractorError.fail)
+                }
+            })
+    }
+
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
         return self
             .localWalletRepository
@@ -423,7 +442,19 @@ extension AuthorizationInteractor {
 
     func registerWallet(_ registration: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet> {
 
-        return registerData(registration)
+        return existWallet(by: registration.privateKey.getPublicKeyStr())
+            .flatMap({ (wallet) -> Observable<RegisterData> in
+                return Observable.error(AuthorizationInteractorError.walletAlreadyExist)
+            })
+            .catchError({ [weak self] error -> Observable<RegisterData> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+
+                if let authError = error as? AuthorizationInteractorError, case AuthorizationInteractorError.walletAlreadyExist = authError {
+                    return Observable.error(error)
+                }
+
+                 return owner.registerData(registration)
+            })
             .flatMap({ [weak self] registerData -> Observable<(RegisterData, DomainLayer.DTO.WalletSeed, DomainLayer.DTO.Wallet)> in
 
                 guard let owner = self else { return Observable.never() }
