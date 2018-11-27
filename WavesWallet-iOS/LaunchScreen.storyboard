@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waves_logo" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waves_logo" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
                                 <rect key="frame" x="112.5" y="316.5" width="150" height="34"/>
                             </imageView>
                         </subviews>
