@@ -177,7 +177,7 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: ResponseTypeError?) -> Void) {
+    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: NetworkError?) -> Void) {
         
         var params = ["currency_from" : asset.wavesId ?? "",
                       "currency_to" : asset.gatewayId ?? "",
@@ -217,7 +217,7 @@ private extension SendInteractor {
         }
     }
     
-    func getAssetRate(asset: DomainLayer.DTO.Asset, complete:@escaping(_ fee: Money?, _ min: Money?, _ max: Money?, _ error: ResponseTypeError?) -> Void) {
+    func getAssetRate(asset: DomainLayer.DTO.Asset, complete:@escaping(_ fee: Money?, _ min: Money?, _ max: Money?, _ error: NetworkError?) -> Void) {
         
         let params = ["f" : asset.wavesId ?? "",
                       "t" : asset.gatewayId ?? ""]
