@@ -28,6 +28,14 @@ extension UIViewController: LayoutInsetsProvider {
                                 right: 0)
         }
     }
+
+    var layoutInsetsKey: String {
+        if #available(iOS 11.0, *) {
+            return "view.safeAreaInsets"
+        } else {
+            return "topLayoutGuide"
+        }
+    }
 }
 
 protocol LayoutGuideProvider {

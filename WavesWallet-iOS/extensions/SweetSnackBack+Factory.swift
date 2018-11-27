@@ -18,7 +18,6 @@ extension UIViewController {
 
     @discardableResult func showWithoutInternetSnack(didTap: @escaping (() -> Void)) -> String {
 
-
         let error = SweetSnack.init(title: "No connection to the Internet",
                                     backgroundColor: UIColor.disabled666.withAlphaComponent(Constants.withoutInternetSnackAlpha),
                                     behaviorDismiss: .popToLast,

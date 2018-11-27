@@ -14,7 +14,7 @@ final class MainTabBarController: UITabBarController {
 
     private var walletCoordinator: WalletCoordinator!
     private var historyCoordinator: HistoryCoordinator!
-    private let dexListCoordinator: DexCoordinator = DexCoordinator()
+    private var dexListCoordinator: DexCoordinator!
     private var profileCoordinator: ProfileCoordinator!
 
     private let navWallet = CustomNavigationController()
@@ -46,7 +46,8 @@ final class MainTabBarController: UITabBarController {
         navHistory.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navHistory.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        dexListCoordinator.start(navigationController: navDex)
+        dexListCoordinator = DexCoordinator(navigationController: navDex)
+        dexListCoordinator.start()
         navDex.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.imageInsets = Constants.tabBarItemImageInset
@@ -94,7 +95,6 @@ final class MainTabBarController: UITabBarController {
 
                 if wallet.isBackedUp {
                     strongSelf.removeTabBarBadge()
-                    strongSelf.walletCoordinator.removePopupBackupSeedIfNeed()
                 } else {
                     strongSelf.addTabBarBadge()
                 }
