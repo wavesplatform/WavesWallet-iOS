@@ -153,7 +153,14 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> {
         return transactionsRepositoryLocal
-            .isHasTransactions(by: accountAddress, ignoreUnconfirmed: false)
+            .transactions(by: accountAddress,
+                          specifications: TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.maxLimit),
+                                                                          assets: [],
+                                                                          senders: [],
+                                                                          types: TransactionType.all))
+            .map({ (txs) -> Bool in        
+                return txs.count >= Constants.maxLimit
+            })
             .map { InitialTransactionsQuery(accountAddress: accountAddress,
                                             specifications: specifications,
                                             isHasTransactions: $0) }
@@ -273,17 +280,14 @@ fileprivate extension TransactionsInteractor {
             .transactions(by: query.accountAddress, specifications: query.specifications)
 
         var newTxs = transactionsRepositoryLocal
-            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1)
+            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1).sweetDebugWithoutResponse("newTxss")
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 
-        return txs.flatMap { (txs) -> AnyTransactionsObservable in
-            return newTxs.map({ lastTxs -> [DomainLayer.DTO.AnyTransaction] in
-                var newTxs = lastTxs
-                newTxs.append(contentsOf: txs)
-                return newTxs
-            })
-        }
+        return Observable.merge(txs, newTxs.flatMap({ _ -> AnyTransactionsObservable in
+            return txs
+        }))
+
     }
 
 
@@ -405,7 +409,7 @@ fileprivate extension TransactionsInteractor {
         let accountsIds = query.transactions.accountsIds
 
         let assets = self.assetsInteractors.assetsSync(by: assetsIds,
-                                                       accountAddress: accountAddress)
+                                                       accountAddress: accountAddress).take(1)
 
         let accounts = self.accountsInteractors.accountsSync(by: accountsIds,
                                                              accountAddress: accountAddress)
@@ -419,7 +423,7 @@ fileprivate extension TransactionsInteractor {
 
         return Observable
             .zip(blockHeight, assets)
-            .flatMapLatest { (args) -> Observable<SmartTransactionSyncData> in
+            .flatMap { (args) -> Observable<SmartTransactionSyncData> in
                 let blocks = args.0
                 let assets = args.1
                 let activeLeaseing = query.leaseTransactions ?? []
@@ -507,8 +511,7 @@ fileprivate extension TransactionsInteractor {
 
     private func isHasTransactionsSync(_ query: IsHasTransactionsSyncQuery) -> Observable<IsHasTransactionsSyncResult> {
 
-        return transactionsRepositoryLocal
-            .isHasTransactions(by: query.ids, accountAddress: query.accountAddress, ignoreUnconfirmed: true)
+        return transactionsRepositoryLocal.isHasTransactions(by: query.ids, accountAddress: query.accountAddress, ignoreUnconfirmed: true)
             .map { IsHasTransactionsSyncResult(isHasTransactions: $0,
                                                transactions: query.transactions,
                                                remoteError: query.remoteError)}
@@ -526,7 +529,9 @@ fileprivate extension TransactionsInteractor {
             .transactions(by: query.accountAddress, specifications: query.specifications)
 
         var newTxs = transactionsRepositoryLocal
-            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1)
+            .newTransactions(by: query.accountAddress, specifications: query.specifications)
+            .skip(1)
+            .sweetDebugWithoutResponse("Local")
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 

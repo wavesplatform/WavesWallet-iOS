@@ -50,9 +50,9 @@ final class AppCoordinator: Coordinator {
 
     init(_ window: UIWindow) {
         self.window = window
-        let vc = CustomNavigationController()
+        let vc = UINavigationController()
         let root = StoryboardScene.LaunchScreen.initialScene.instantiate()
-        root.navigationItem.shadowImage = UIImage()
+//        root.navigationItem.shadowImage = UIImage()
         vc.pushViewController(root, animated: false)
         window.rootViewController = vc
         window.makeKeyAndVisible()
