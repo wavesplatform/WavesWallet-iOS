@@ -118,7 +118,7 @@ class NetworkManager: NSObject
                                 complete(nil, NetworkError.error(data: data))
                             }
                             else {
-                                complete(nil, NetworkError.message(dict["error"] as? String ?? ""))
+                                complete(nil, NetworkError.notFound)
                             }
                         }
                         else if let value = parsedObjectFromResponse(response.result.value) {
