@@ -1076,10 +1076,14 @@ internal enum Localizable {
         internal enum Cell {
 
           internal enum Exchange {
-            /// Buy
-            internal static var buy: String { return Localizable.tr("Waves", "history.transaction.cell.exchange.buy") }
-            /// Sell
-            internal static var sell: String { return Localizable.tr("Waves", "history.transaction.cell.exchange.sell") }
+            /// Buy: %@/%@
+            internal static func buy(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.buy", p1, p2)
+            }
+            /// Sell: %@/%@
+            internal static func sell(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.sell", p1, p2)
+            }
           }
         }
 
@@ -2049,8 +2053,10 @@ internal enum Localizable {
       internal enum Cell {
         /// Block
         internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
-        /// Buy
-        internal static var buy: String { return Localizable.tr("Waves", "transactionhistory.cell.buy") }
+        /// Buy: %@/%@
+        internal static func buy(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.buy", p1, p2)
+        }
         /// Confirmations
         internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
         /// Data Transaction
@@ -2075,8 +2081,10 @@ internal enum Localizable {
         internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
-        /// Sell
-        internal static var sell: String { return Localizable.tr("Waves", "transactionhistory.cell.sell") }
+        /// Sell: %@/%@
+        internal static func sell(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.sell", p1, p2)
+        }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
         /// Type

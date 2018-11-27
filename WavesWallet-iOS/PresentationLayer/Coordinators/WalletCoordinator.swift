@@ -15,7 +15,6 @@ private enum Constants {
 
 final class WalletCoordinator: Coordinator {
 
-
     var childCoordinators: [Coordinator] = []
 
     weak var parent: Coordinator?
@@ -33,79 +32,52 @@ final class WalletCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
-    private var snackBackupSeedKey: String?
-    
+
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
 
     func start() {
-
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-
-            self.authorization
-                .authorizedWallet()
-                .subscribe(onNext: { [weak self] wallet in
-
-                    guard let owner = self else { return }
-                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
-                        owner.showBackupTostIfNeed(isBackedUp: wallet.wallet.isBackedUp)
-                        return
-                    }
-
-                    let legal = LegalCoordinator(viewController: owner.walletViewContoller)
-                    legal.delegate = owner
-                    owner.addChildCoordinatorAndStart(childCoordinator: legal)
-                })
-                .disposed(by: self.disposeBag)            
-        }
+        setupLifeCycleTost()
         navigationController?.pushViewController(walletViewContoller, animated: false)
-        CATransaction.commit()
     }
-    
-    private func showBackupTostIfNeed(isBackedUp: Bool) {
-        
-        guard let tabBarController = walletViewContoller.tabBarController else { return }
-        
-        if !isBackedUp {
-        
-        snackBackupSeedKey = tabBarController.showWarningSnack(title: Localizable.Waves.General.Tost.Savebackup.title,
-                                                                subtitle: Localizable.Waves.General.Tost.Savebackup.subtitle,
-                                                                icon: Images.warning18White.image, didTap: {
-                
-                self.authorization.authorizedWallet().subscribe(onNext: { [weak self] (signedWallet) in
-                    
-                    guard let owner = self else { return }
-                    
-                    let seed = signedWallet.seedWords
-                    
-                    let backup = BackupCoordinator(navigationController: owner.navigationController!, seed: seed) { [weak self] _ in
-                        
-                        guard let owner = self else { return }
-                        
-                        let wallet = signedWallet.wallet.mutate {
-                            $0.isBackedUp = true
-                        }
-                        owner.authorization.changeWallet(wallet).subscribe(onNext: { (wallet) in
-                            
-                        }).disposed(by: owner.disposeBag)
-                        
-                        owner.navigationController?.popToRootViewController(animated: true)
-                    }
-                    owner.addChildCoordinator(childCoordinator: backup)
-                    backup.start()
-                }).disposed(by: self.disposeBag)
 
-            }) {}
+    private func setupLifeCycleTost() {
+        walletViewContoller.rx.viewDidAppear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.showLegalOrBackupIfNeed()
+        }).disposed(by: disposeBag)
 
-        }
+        walletViewContoller.rx.viewDidDisappear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.childCoordinators.first(where: { (coordinator) -> Bool in
+                return coordinator is BackupTostCoordinator
+            })?.removeFromParentCoordinator()
+        }).disposed(by: disposeBag)
     }
-    
-    func removePopupBackupSeedIfNeed() {
-        if let key = snackBackupSeedKey {
-            SweetSnackbar.shared.hideSnack(key: key)
-        }
+
+    private func showBackupTostIfNeed() {
+        guard let navigationController = self.navigationController else { return }
+        let coordinator = BackupTostCoordinator(navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+
+    private func showLegalOrBackupIfNeed() {
+
+        self.authorization
+            .authorizedWallet()
+            .take(1)
+            .subscribe(onNext: { [weak self] wallet in
+                print("authorizedWallet")
+                guard let owner = self else { return }
+                guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
+                    owner.showBackupTostIfNeed()
+                    return
+                }
+
+                let legal = LegalCoordinator(viewController: owner.walletViewContoller)
+                legal.delegate = owner
+                owner.addChildCoordinatorAndStart(childCoordinator: legal)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 
@@ -306,7 +278,7 @@ extension WalletCoordinator: LegalCoordinatorDelegate {
             .flatMap({ [weak self] (wallet) -> Observable<Void> in
                 guard let owner = self else { return Observable.never() }
 
-                owner.showBackupTostIfNeed(isBackedUp: wallet.wallet.isBackedUp)
+                owner.showBackupTostIfNeed()
 
                 var newWallet = wallet.wallet
                 newWallet.isAlreadyShowLegalDisplay = true
