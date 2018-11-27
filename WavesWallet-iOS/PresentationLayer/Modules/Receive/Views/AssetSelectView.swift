@@ -125,7 +125,7 @@ extension AssetSelectView: ViewConfiguration {
        
         loadIcon(name: asset.ticker ?? asset.displayName)
         let money = Money(model.avaliableBalance, asset.precision)
-        labelAmount.text = money.displayTextFull
+        labelAmount.text = money.displayText
     }
     
     private func loadIcon(name: String) {

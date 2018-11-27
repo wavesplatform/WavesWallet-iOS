@@ -31,7 +31,7 @@ extension AssetBalanceSpamCell: ViewConfiguration {
     
     func update(with model: AssetTypes.DTO.Asset.Balance) {
         
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull,
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
                                                                          font: labelBalance.font)
     }
 }
