@@ -13,6 +13,7 @@ final class AssetBalanceMoneyInfoView: UIView, NibOwnerLoadable, ViewConfigurati
     struct Model {
         let name: String
         let money: Money
+        let isFiat: Bool
     }
 
     @IBOutlet private var namelabel: UILabel!
@@ -25,6 +26,6 @@ final class AssetBalanceMoneyInfoView: UIView, NibOwnerLoadable, ViewConfigurati
 
     func update(with model: Model) {
         namelabel.text = model.name
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.money.displayTextFull, font: balanceLabel.font)
+        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.money.displayTextFull(isFiat: model.isFiat), font: balanceLabel.font)
     }
 }

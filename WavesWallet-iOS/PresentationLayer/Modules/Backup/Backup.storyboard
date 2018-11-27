@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,16 +25,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgSeed80Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="BYb-Vo-YTK">
-                                                <rect key="frame" x="147.5" y="130" width="80" height="80"/>
+                                                <rect key="frame" x="147.5" y="100" width="80" height="80"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treat your backup phrase with care!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnh-Nd-CfI">
-                                                <rect key="frame" x="24" y="234" width="327" height="20.5"/>
+                                                <rect key="frame" x="24" y="204" width="327" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
-                                                <rect key="frame" x="24" y="268.5" width="327" height="171"/>
+                                                <rect key="frame" x="24" y="238.5" width="327" height="171"/>
                                                 <string key="text">Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.
 
 Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.
@@ -70,7 +70,7 @@ You should ONLY use the official Waves client.</string>
                                             <constraint firstItem="qra-6C-xGo" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="16" id="3Nn-2D-4bg"/>
                                             <constraint firstItem="qra-6C-xGo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xqQ-dN-ozw" secondAttribute="bottom" constant="24" id="EmT-I8-xgJ"/>
                                             <constraint firstItem="BYb-Vo-YTK" firstAttribute="centerX" secondItem="d0d-X9-f0w" secondAttribute="centerX" id="L85-5T-KL8"/>
-                                            <constraint firstItem="BYb-Vo-YTK" firstAttribute="top" secondItem="d0d-X9-f0w" secondAttribute="top" constant="130" id="O3u-IC-W6I"/>
+                                            <constraint firstItem="BYb-Vo-YTK" firstAttribute="top" secondItem="d0d-X9-f0w" secondAttribute="top" constant="100" id="O3u-IC-W6I"/>
                                             <constraint firstAttribute="trailing" secondItem="cnh-Nd-CfI" secondAttribute="trailing" constant="24" id="SYl-cH-KZr"/>
                                             <constraint firstAttribute="trailing" secondItem="xqQ-dN-ozw" secondAttribute="trailing" constant="24" id="Tzs-Xc-iiM"/>
                                             <constraint firstAttribute="bottom" secondItem="qra-6C-xGo" secondAttribute="bottom" constant="24" id="ZSB-CY-I3G"/>

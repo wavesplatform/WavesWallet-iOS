@@ -144,21 +144,20 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .exchange(let model):
             
             let myOrder = model.myOrder
-            var typeTitle = ""
+            var valueType = ""
             
             if myOrder.kind == .sell {
                 sign = .minus
-                typeTitle = Localizable.Waves.Transactionhistory.Cell.sell
+                valueType = Localizable.Waves.Transactionhistory.Cell.sell(model.amount.currency.title, model.price.currency.title)
                 exchangeSubtitle = myOrder.total.displayText(sign: .plus, withoutCurrency: false)
             } else {
                 sign = .plus
-                typeTitle = Localizable.Waves.Transactionhistory.Cell.buy
+                valueType = Localizable.Waves.Transactionhistory.Cell.buy(model.amount.currency.title, model.price.currency.title)
                 exchangeSubtitle = myOrder.total.displayText(sign: .minus, withoutCurrency: false)
             }
             
             balance = model.amount
-                        
-            let valueType = typeTitle + ": " + model.amount.currency.title + "/" + model.price.currency.title
+                                    
             kindRows.append(.keyValue(.init(title: Localizable.Waves.Transactionhistory.Cell.type,
                                             value: valueType)))
             
