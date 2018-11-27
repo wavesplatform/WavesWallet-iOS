@@ -51,6 +51,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                         return SyncObservable<[DomainLayer.DTO.Asset]>.just(.error(remoteError))
                     })
             }
+            .take(1)
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }

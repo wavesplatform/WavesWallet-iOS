@@ -45,7 +45,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                     observer.onNext(true)
                     observer.onCompleted()
                 }, onError: { error in
-                    observer.onError(error)
+                    observer.onError(self.handlerError(error: error))
                 })
 
             return Disposables.create([disposable])
@@ -77,6 +77,9 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                                 }
                         }
                 })
+                .catchError({ (error) -> Observable<String> in
+                    return Observable.error(self.handlerError(error: error))
+                })
                 .bind(to: observer)
 
             return Disposables.create([value])
@@ -91,6 +94,14 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             }
     }
 
+    private func handlerError(error: Error) -> Error {
+        if error is AuthenticationRepositoryError {
+            return error
+        } else {
+            return NetworkError.error(by: error)
+        }
+    }
+
     private func lastTry(database: DatabaseReference) -> Observable<Int> {
         return database
             .child("lastTry")
@@ -103,9 +114,6 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                     return 0
                 }
             })
-            .catchError({ _ -> Observable<Int> in
-                Observable.error(AuthenticationRepositoryError.fail)
-            })            
     }
 
     private func inputPasscode(database: DatabaseReference, passcode: String, nTry: Int) -> Observable<DatabaseReference> {
@@ -117,7 +125,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 if let error = error as NSError?, error.permissionDenied {
                     return Observable.error(AuthenticationRepositoryError.passcodeIncorrect)
                 }
-                return Observable.error(AuthenticationRepositoryError.fail)
+                return Observable.error(NetworkError.error(by: error))
             }
     }
 
@@ -130,7 +138,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 if let error = error as NSError?, error.permissionDenied {
                     return Observable.error(AuthenticationRepositoryError.attemptsEnded)
                 }
-                return Observable.error(AuthenticationRepositoryError.fail)
+                return Observable.error(NetworkError.error(by: error))
             }
     }
 

@@ -724,6 +724,8 @@
 
 "profile.navigation.title" = "Profile";
 
+"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
+
 "receive.button.card" = "Card";
 
 "receive.button.continue" = "Continue";
@@ -868,7 +870,7 @@
 
 "startleasing.button.useTotalBalance" = "Use total balance";
 
-"startleasing.label.addressIsNotValid" = "Address is not valid";
+"startleasing.label.addressIsNotValid" = "The address is not valid";
 
 "startleasing.label.amount" = "Amount";
 
@@ -878,7 +880,7 @@
 
 "startleasing.label.nodeAddress" = "Node address...";
 
-"startleasing.label.notEnough" = "Not enough";
+"startleasing.label.insufficientFunds" = "Insufficient funds";
 
 "startleasing.label.startLeasing" = "Start leasing";
 
@@ -962,9 +964,6 @@
 
 "transactionhistory.cell.type" = "Type";
 
-"transactionhistory.cell.sell" = "Sell";
-
-"transactionhistory.cell.buy" = "Buy";
 
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 
@@ -1089,5 +1088,18 @@
 
 "history.transaction.title.masssent" = "Mass Sent";
 "history.transaction.title.massreceived" = "Mass Received";
+
 "history.transaction.cell.exchange.sell" = "Sell";
 "history.transaction.cell.exchange.buy" = "Buy";
+
+"passcode.alert.attempsended.title" = "To many attempts";
+"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account passord";
+"passcode.alert.attempsended.button.cancel" = "Cancel";
+"passcode.alert.attempsended.button.ok" = "Ok";
+"passcode.alert.attempsended.button.enterpassword" = "Enter Password";
+
+"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+"transactionhistory.cell.sell" = "Sell: %@/%@";
+"transactionhistory.cell.buy" = "Buy: %@/%@";
+

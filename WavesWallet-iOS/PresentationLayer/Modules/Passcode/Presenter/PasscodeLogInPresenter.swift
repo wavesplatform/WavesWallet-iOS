@@ -76,8 +76,7 @@ extension PasscodeLogInPresenter {
                 .interactor
                 .logInBiometric(wallet: query.wallet)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                .asSignal { (error) -> Signal<Types.Event> in                   
                     return Signal.just(.handlerError(error))
             }
         })
@@ -103,7 +102,6 @@ extension PasscodeLogInPresenter {
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -127,7 +125,6 @@ extension PasscodeLogInPresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -156,10 +153,9 @@ private extension PasscodeLogInPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
-            state.displayState.isHiddenBackButton = !state.hasBackButton
 
-            //   TODO: Error
+            state.displayState.isHiddenBackButton = !state.hasBackButton
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break

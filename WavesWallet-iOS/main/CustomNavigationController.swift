@@ -56,6 +56,7 @@ extension UINavigationItem {
         static var titleTextAttributes = "titleTextAttributes"
         static var isTranslucent = "isTranslucent"
         static var backIndicatorImage = "backIndicatorImage"
+        static var isDisabledGestureBack = "isDisabledGestureBack"
         static var backIndicatorTransitionMaskImage = "backIndicatorTransitionMaskImage"
         static var largeTitleTextAttributes = "largeTitleTextAttributes"
     }
@@ -168,6 +169,16 @@ extension UINavigationItem {
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.shadowImage)
+        }
+    }
+
+    @objc var isDisabledGestureBack: Bool {
+        get {
+            return associatedObject(for: &AssociatedKeys.isDisabledGestureBack) ?? false
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.isDisabledGestureBack)
         }
     }
 }
@@ -284,7 +295,13 @@ class CustomNavigationController: UINavigationController {
 extension CustomNavigationController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
         if viewControllers.count > 1 {
+
+            if let top = viewControllers.last, top.navigationItem.isDisabledGestureBack == true {
+                return false
+            }
+
             return true
         }
         return false

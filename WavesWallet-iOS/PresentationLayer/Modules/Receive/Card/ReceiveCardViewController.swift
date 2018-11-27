@@ -138,6 +138,7 @@ private extension ReceiveCardViewController {
                     strongSelf.setupInfo()
 
                 case .didFailGetInfo(let error):
+                  
                     strongSelf.showError(error)
 
                 default:
@@ -203,6 +204,7 @@ private extension ReceiveCardViewController {
     func showError(_ error: ResponseTypeError) {
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
+        showMessageSnack(title: Localizable.Waves.Receive.Error.serviceUnavailable)
     }
     
     func setupButtonState() {

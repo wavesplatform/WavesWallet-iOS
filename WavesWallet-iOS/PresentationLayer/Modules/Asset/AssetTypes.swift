@@ -135,6 +135,7 @@ extension AssetTypes.DTO {
             let avaliableMoney: Money
             let leasedMoney: Money
             let inOrderMoney: Money
+            let isFiat: Bool
         }
 
         let info: Info
