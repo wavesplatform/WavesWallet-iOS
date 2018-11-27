@@ -5,6 +5,7 @@ class MoneyUtil {
     
     class func getScaledFullText(_ amount: Int64, decimals: Int, isFiat: Bool) -> String {
         let f = NumberFormatter()
+        f.locale = GlobalConstants.moneyLocale
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
         f.minimumFractionDigits = isFiat ? decimals : 0
@@ -14,6 +15,7 @@ class MoneyUtil {
 
     class func getScaledText(_ amount: Int64, decimals: Int) -> String {
         let f = NumberFormatter()
+        f.locale = GlobalConstants.moneyLocale
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
         f.minimumFractionDigits = 0
@@ -32,7 +34,7 @@ class MoneyUtil {
         
         let exp = Int(log10(num) / 3)
         
-        let units = ["K", "M", "G", "T", "P", "E"]
+        let units = ["K", "M", "B", "T", "P", "E"]
         let roundedNum = floor(10 * num / pow(1000, Double(exp))) / 10
         
         let floatingValue = modf(roundedNum).1
