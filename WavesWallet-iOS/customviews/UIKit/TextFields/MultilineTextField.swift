@@ -191,7 +191,9 @@ final class MultilineTextField: UIView {
         if let text = text, text.count > 0 {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
             isValidValue = errorString == nil
-        } else if let error = self.error, error.count > 0 {
+        }
+
+        if let error = self.error, error.count > 0 {
             errorString = error
             isValidValue = errorString == nil
         }
