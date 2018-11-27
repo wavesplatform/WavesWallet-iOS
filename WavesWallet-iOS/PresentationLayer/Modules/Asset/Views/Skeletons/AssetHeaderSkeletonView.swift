@@ -19,7 +19,7 @@ final class AssetHeaderSkeletonView: SkeletonTableHeaderFooterView, NibReusable 
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewContent.addTableCellShadowStyle()
+//        viewContent.addTableCellShadowStyle()
         backgroundColor = .basic50
         viewContent.backgroundColor = .basic50
     }
