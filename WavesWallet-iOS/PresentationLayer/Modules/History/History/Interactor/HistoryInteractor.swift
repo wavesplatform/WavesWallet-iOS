@@ -42,19 +42,8 @@ final class HistoryInteractor: HistoryInteractorProtocol {
                                                senders: [],
                                                types: [.lease, .leaseCancel])
         }
-
-        let test = arc4random() % 1000
-        return loadingTransactions(specifications: specifications).do(onNext: { (sync) in
-            switch sync {
-            case .local(let model, _):
-                print("Local \(model.count) - \(test)")
-
-            case .remote(let model):
-                print("remote \(model.count) - \(test)")
-            default:
-                break
-            }
-        })
+        
+        return loadingTransactions(specifications: specifications)
     }
 
     private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
