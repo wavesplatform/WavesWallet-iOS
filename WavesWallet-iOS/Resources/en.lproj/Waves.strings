@@ -724,6 +724,8 @@
 
 "profile.navigation.title" = "Profile";
 
+"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
+
 "receive.button.card" = "Card";
 
 "receive.button.continue" = "Continue";
@@ -868,7 +870,7 @@
 
 "startleasing.button.useTotalBalance" = "Use total balance";
 
-"startleasing.label.addressIsNotValid" = "Address is not valid";
+"startleasing.label.addressIsNotValid" = "The address is not valid";
 
 "startleasing.label.amount" = "Amount";
 
@@ -878,7 +880,7 @@
 
 "startleasing.label.nodeAddress" = "Node address...";
 
-"startleasing.label.notEnough" = "Not enough";
+"startleasing.label.insufficientFunds" = "Insufficient funds";
 
 "startleasing.label.startLeasing" = "Start leasing";
 

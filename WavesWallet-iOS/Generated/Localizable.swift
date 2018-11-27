@@ -1660,6 +1660,11 @@ internal enum Localizable {
         internal static var useTotalBalance: String { return Localizable.tr("Waves", "receive.button.useTotalBalance") }
       }
 
+      internal enum Error {
+        /// Service is temporarily unavailable
+        internal static var serviceUnavailable: String { return Localizable.tr("Waves", "receive.error.serviceUnavailable") }
+      }
+
       internal enum Label {
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "receive.label.amount") }
@@ -1918,7 +1923,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Address is not valid
+        /// The address is not valid
         internal static var addressIsNotValid: String { return Localizable.tr("Waves", "startleasing.label.addressIsNotValid") }
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "startleasing.label.amount") }
@@ -1926,10 +1931,10 @@ internal enum Localizable {
         internal static var balance: String { return Localizable.tr("Waves", "startleasing.label.balance") }
         /// Generator
         internal static var generator: String { return Localizable.tr("Waves", "startleasing.label.generator") }
+        /// Insufficient funds
+        internal static var insufficientFunds: String { return Localizable.tr("Waves", "startleasing.label.insufficientFunds") }
         /// Node address...
         internal static var nodeAddress: String { return Localizable.tr("Waves", "startleasing.label.nodeAddress") }
-        /// Not enough
-        internal static var notEnough: String { return Localizable.tr("Waves", "startleasing.label.notEnough") }
         /// Start leasing
         internal static var startLeasing: String { return Localizable.tr("Waves", "startleasing.label.startLeasing") }
         /// Transaction Fee
