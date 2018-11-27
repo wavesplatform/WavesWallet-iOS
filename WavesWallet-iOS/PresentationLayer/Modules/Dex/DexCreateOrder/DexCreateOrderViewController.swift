@@ -125,7 +125,7 @@ private extension DexCreateOrderViewController {
                     
                 case .orderDidFailCreate(let error):
                     
-                    strongSelf.showErrorSnack(tille: Localizable.Waves.Dex.General.Error.somethingWentWrong)
+                    strongSelf.showMessageSnack(title: Localizable.Waves.Dex.General.Error.somethingWentWrong)
                     strongSelf.setupDefaultState()
                     
                 case .orderDidCreate:

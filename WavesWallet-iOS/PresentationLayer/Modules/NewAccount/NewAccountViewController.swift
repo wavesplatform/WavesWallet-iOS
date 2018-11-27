@@ -187,7 +187,7 @@ final class NewAccountViewController: UIViewController {
         } else if currentAvatar == nil {
             self.view.endEditing(true)
             self.avatars.forEach { $0.shake() }
-            showMessageSnack(tille: Localizable.Waves.Newaccount.Error.noavatarselected)
+            showMessageSnack(title: Localizable.Waves.Newaccount.Error.noavatarselected)
         } else {
             continueCreateAccount()
         }
