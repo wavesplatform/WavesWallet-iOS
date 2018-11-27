@@ -26,6 +26,12 @@ final class MultilineTextField: UIView {
     fileprivate var placeholderLabel: UILabel!
     fileprivate var errorLabel: UILabel!
     fileprivate var separator: UIView!
+
+    var error: String? {
+        didSet {
+            checkValid()
+        }
+    }
     
     weak var delegate: MultilineTextFieldDelegate?
     
@@ -184,6 +190,9 @@ final class MultilineTextField: UIView {
         
         if let text = text, text.count > 0 {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
+            isValidValue = errorString == nil
+        } else if let error = self.error, error.count > 0 {
+            errorString = error
             isValidValue = errorString == nil
         }
         

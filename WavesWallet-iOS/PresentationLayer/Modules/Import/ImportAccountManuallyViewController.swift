@@ -9,6 +9,7 @@
 import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
+import RxSwift
 
 protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
@@ -33,7 +34,10 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     @IBOutlet weak var skeletonViewRightConstraint: NSLayoutConstraint!
     @IBOutlet weak var skeletonViewLeftConstraint: NSLayoutConstraint!
-    
+
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     
     private var currentKeyAccount: PrivateKeyAccount?
@@ -117,10 +121,18 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     private func completedInput() {
         view.endEditing(true)
-        
-        if let privateKey = currentKeyAccount {
-            delegate?.userCompletedInputSeed(privateKey)
-        }
+
+        guard let currentKeyAccount = currentKeyAccount else { return }
+
+        auth
+            .existWallet(by: currentKeyAccount.getPublicKeyStr())
+            .subscribe(onNext: { [weak self] wallet in
+                self?.textField.error = Localizable.Waves.Import.General.Error.alreadyinuse
+            }, onError: { [weak self] _ in
+                self?.delegate?.userCompletedInputSeed(currentKeyAccount)
+
+            })
+            .disposed(by: disposeBag)
     }
     
     func showKeyboard(animated: Bool = true) {
