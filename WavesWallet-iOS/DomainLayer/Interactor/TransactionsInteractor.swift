@@ -284,8 +284,13 @@ fileprivate extension TransactionsInteractor {
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 
-        return Observable.merge(txs, newTxs.flatMap({ _ -> AnyTransactionsObservable in
-            return txs
+        return Observable.merge(txs, newTxs.flatMap({ newTxs -> AnyTransactionsObservable in
+
+            if newTxs.count == 0 {
+                return Observable.empty()
+            } else {
+                return txs
+            }
         }))
 
     }
