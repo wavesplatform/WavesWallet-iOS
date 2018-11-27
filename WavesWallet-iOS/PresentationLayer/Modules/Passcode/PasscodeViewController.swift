@@ -187,13 +187,18 @@ private extension PasscodeViewController {
 
     private func showAlertAttemptsEnded() {
 
-        let alert = UIAlertController(title: "To many attempts", message: "To unlock, sign in with your account passord", preferredStyle: .alert)
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { [weak self] (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.cancel,
+                                      style: UIAlertActionStyle.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))
 
-        alert.addAction(UIAlertAction(title: "Enter Password", style: UIAlertActionStyle.default, handler: { [weak self] (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.enterpassword,
+                                      style: UIAlertActionStyle.default,
+                                      handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogInByPassword)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -201,9 +206,12 @@ private extension PasscodeViewController {
 
     private func showAlertAttemptsEndedAndLogout() {
 
-        let alert = UIAlertController(title: "To many attempts", message: "To unlock, sign in with your account passord", preferredStyle: .alert)
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: { [weak self] (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.ok,
+                                      style: UIAlertActionStyle.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))
 
