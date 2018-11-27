@@ -205,6 +205,35 @@
                                 <rect key="frame" x="0.0" y="643" width="375" height="24"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y3c-TP-v0T" customClass="CustomGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="555" width="343" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="7Y6-vr-Qfo"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="diagonalMode" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontalMode" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nM4-lN-U4J">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="W3C-Tf-lwV"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -215,12 +244,18 @@
                             <constraint firstItem="sta-v2-pGb" firstAttribute="leading" secondItem="0dx-e2-qLM" secondAttribute="leading" id="7jT-3y-omz"/>
                             <constraint firstItem="0dx-e2-qLM" firstAttribute="trailing" secondItem="sta-v2-pGb" secondAttribute="trailing" id="904-XH-fni"/>
                             <constraint firstItem="0dx-e2-qLM" firstAttribute="bottom" secondItem="sta-v2-pGb" secondAttribute="bottom" id="GzE-hb-GDD"/>
+                            <constraint firstItem="dvq-9f-ghM" firstAttribute="top" secondItem="Y3c-TP-v0T" secondAttribute="bottom" id="NcT-pk-T2W"/>
                             <constraint firstItem="0dx-e2-qLM" firstAttribute="trailing" secondItem="u2m-ow-z96" secondAttribute="trailing" id="Omq-ai-mAW"/>
                             <constraint firstItem="5AS-r0-d6C" firstAttribute="centerX" secondItem="xEl-Rk-m9E" secondAttribute="centerX" id="U94-gU-rJv"/>
+                            <constraint firstItem="0dx-e2-qLM" firstAttribute="trailing" secondItem="nM4-lN-U4J" secondAttribute="trailing" id="lfx-mb-7Wd"/>
+                            <constraint firstItem="nM4-lN-U4J" firstAttribute="leading" secondItem="0dx-e2-qLM" secondAttribute="leading" id="lhD-o5-uKR"/>
+                            <constraint firstItem="Y3c-TP-v0T" firstAttribute="leading" secondItem="dvq-9f-ghM" secondAttribute="leading" id="nN3-BT-aOc"/>
                             <constraint firstItem="0dx-e2-qLM" firstAttribute="trailing" secondItem="dvq-9f-ghM" secondAttribute="trailing" constant="16" id="nub-6k-Xi1"/>
                             <constraint firstItem="0dx-e2-qLM" firstAttribute="bottom" secondItem="u2m-ow-z96" secondAttribute="bottom" id="o5w-7J-WVR"/>
+                            <constraint firstItem="0dx-e2-qLM" firstAttribute="top" secondItem="nM4-lN-U4J" secondAttribute="top" constant="20" id="r8W-2b-QMr"/>
                             <constraint firstItem="dvq-9f-ghM" firstAttribute="leading" secondItem="0dx-e2-qLM" secondAttribute="leading" constant="16" id="rnX-wH-FBN"/>
                             <constraint firstItem="5AS-r0-d6C" firstAttribute="top" secondItem="0dx-e2-qLM" secondAttribute="top" constant="44" id="wfD-9l-oHb"/>
+                            <constraint firstItem="Y3c-TP-v0T" firstAttribute="trailing" secondItem="dvq-9f-ghM" secondAttribute="trailing" id="z5J-ba-wrp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0dx-e2-qLM"/>
                     </view>
@@ -230,9 +265,12 @@
                         <outlet property="continueButtonBottomConstraint" destination="65f-Ic-8eL" id="HzQ-XK-YJU"/>
                         <outlet property="continueButtonLeftConstraint" destination="rnX-wH-FBN" id="zqd-5x-8A3"/>
                         <outlet property="continueButtonRightConstraint" destination="nub-6k-Xi1" id="m33-Qn-nh3"/>
+                        <outlet property="gradientView" destination="Y3c-TP-v0T" id="VjO-4I-HMh"/>
                         <outlet property="logoHeightConstraint" destination="QYu-Pn-jB5" id="JJt-iZ-VKP"/>
                         <outlet property="logoTopConstraint" destination="wfD-9l-oHb" id="ZZO-32-MhQ"/>
+                        <outlet property="safeAreaViewHeightConstraint" destination="W3C-Tf-lwV" id="rh9-ZQ-bFo"/>
                         <outlet property="tableView" destination="u2m-ow-z96" id="Vv2-4k-dhP"/>
+                        <outlet property="whiteView" destination="sta-v2-pGb" id="XjV-VL-sG3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wLx-bi-UKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
