@@ -158,6 +158,22 @@ private extension PasscodeViewController {
             switch error {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
+
+            case .message(let message):
+                self.showErrorSnackWithoutAction(tille: message)
+
+            case .attemptsEndedLogout:
+                showAlertAttemptsEndedAndLogout()
+
+            case .attemptsEnded:
+                showAlertAttemptsEnded()
+
+            case .internetNotWorking:
+                self.showWithoutInternetSnackWithoutAction()
+
+            case .notFound:
+                self.showErrorNotFoundSnackWithoutAction()
+
             }
         }
 
@@ -167,6 +183,40 @@ private extension PasscodeViewController {
         } else {
             passcodeView.stopLoadingIndicator()
         }
+    }
+
+    private func showAlertAttemptsEnded() {
+
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.cancel,
+                                      style: UIAlertActionStyle.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.enterpassword,
+                                      style: UIAlertActionStyle.default,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogInByPassword)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func showAlertAttemptsEndedAndLogout() {
+
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.ok,
+                                      style: UIAlertActionStyle.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+
     }
 }
 

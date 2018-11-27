@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HistoryCoordinator: Coordinator {
 
@@ -14,18 +15,23 @@ final class HistoryCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private weak var historyViewController: UIViewController?
-    
+    private let historyType: HistoryType
     private var navigationController: UINavigationController!
+    private let disposeBag: DisposeBag = DisposeBag()
 
     func start() {
-        navigationController.pushViewController(historyViewController!, animated: true)
+
+        let historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+
+        navigationController.pushViewController(historyViewController, animated: true)
+
+        setupBackupTost(target: historyViewController, navigationController: navigationController, disposeBag: disposeBag)
     }
 
     init(navigationController: UINavigationController, historyType: HistoryType) {
 
         self.navigationController = navigationController
-        historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+        self.historyType = historyType
     }
 }
 

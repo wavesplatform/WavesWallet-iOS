@@ -25,9 +25,8 @@ enum HistoryTypes {
 
     enum RefreshData: Equatable {
         case none
-        case pullToRefresh
-        case refresh
         case update
+        case refresh
     }
 
     struct State: Mutating {
@@ -37,15 +36,15 @@ enum HistoryTypes {
         var sections: [HistoryTypes.ViewModel.Section]
         var isRefreshing: Bool
         var isAppeared: Bool
-        var refreshData: RefreshData
+        var refreshData: RefreshData?
+        var errorState: DisplayErrorState
     }
     
     enum Event {
-        case responseAll([DomainLayer.DTO.SmartTransaction])
-        case handlerError(Error)
+        case responseAll(Sync<[DomainLayer.DTO.SmartTransaction]>)        
         case readyView
         case viewDidDisappear
-        case refresh
+        case refresh        
         case changeFilter(Filter)
         case tapCell(IndexPath)
     }

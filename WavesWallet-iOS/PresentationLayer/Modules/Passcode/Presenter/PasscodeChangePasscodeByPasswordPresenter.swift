@@ -31,6 +31,7 @@ final class PasscodeChangePasscodeByPasswordPresenter: PasscodePresenterProtocol
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(changePasscodeByPassword())
+        newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
 
@@ -69,8 +70,34 @@ extension PasscodeChangePasscodeByPasswordPresenter {
                                           passcode: query.passcode,
                                           password: query.password)
                 .map { .completedChangePasscode($0) }
+                .asSignal { (error) -> Signal<Types.Event> in                    
+                    return Signal.just(.handlerError(error))
+            }
+        })
+    }
+
+    private struct LogoutQuery: Hashable {
+        let wallet: DomainLayer.DTO.Wallet
+    }
+
+    private func logout() -> Feedback {
+        return react(query: { state -> LogoutQuery? in
+
+            if case .changePasscodeByPassword(let wallet, _) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
+            }
+
+            return nil
+
+        }, effects: { [weak self] query -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor.logout(wallet: query.wallet)
+                .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -106,8 +133,7 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
             state.action = nil
             state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
-
-            //   TODO: Error
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break

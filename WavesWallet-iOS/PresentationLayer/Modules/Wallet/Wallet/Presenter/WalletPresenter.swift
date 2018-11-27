@@ -43,16 +43,16 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryAssets() -> Feedback {
-        return react(query: { (state) -> Bool? in
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.isAppeared && state.displayState.kind == .assets {
-                return true
+            if state.displayState.kind == .assets {
+                return state.displayState.refreshData
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            // TODO: Error
+            
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
@@ -63,16 +63,16 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryLeasing() -> Feedback {
-        return react(query: { (state) -> Bool? in
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.isAppeared && state.displayState.kind == .leasing {
-                return true
+            if state.displayState.kind == .leasing {
+                return state.displayState.refreshData
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            // TODO: Error
+
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
@@ -82,37 +82,102 @@ final class WalletPresenter: WalletPresenterProtocol {
         })
     }
 
+
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
+
+        var newState = state
+        reduce(state: &newState, event: event)
+        return newState
+    }
+
+    private func resetAnimateType(state: inout WalletTypes.State) {
+
+        var currentDisplay = state.displayState.currentDisplay
+        currentDisplay.animateType = .none
+        state.displayState.currentDisplay = currentDisplay
+    }
+
+    private func reduce(state: inout WalletTypes.State, event: WalletTypes.Event) {
+        resetAnimateType(state: &state)
+
         switch event {
         case .viewWillAppear:
-            return state.mutate { $0.displayState.isAppeared = true }
+            state.displayState.isAppeared = true
+            state.displayState.refreshData = .refresh
 
-        case .viewDidDisappear:
-            return state.mutate {
-                $0.displayState.isAppeared = false
-                $0.displayState.leasing.animateType = .none
-                $0.displayState.assets.animateType = .none
+            var hasData = false
+
+            switch state.displayState.kind {
+            case .assets:
+                hasData = state.assets.count > 0
+
+            case .leasing:
+                hasData = state.leasing != nil
+            }
+            if hasData == false {
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.animateType = .refresh(animated: false)
+                state.displayState.currentDisplay = currentDisplay
             }
 
-        case .handlerError:
-            return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: false) }
+        case .viewDidDisappear:
+            state.displayState.isAppeared = false
+            state.displayState.leasing.animateType = .none
+            state.displayState.assets.animateType = .none
+            state.displayState.refreshData = .none
+        
+        case .handlerError(let error):
+            state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
+            state.displayState.refreshData = .none
+
+            var hasData = false
+
+            switch state.displayState.kind {
+            case .assets:
+                hasData = state.assets.count > 0
+
+            case .leasing:
+                hasData = state.leasing != nil
+            }
+
+            let errorStatus = DisplayErrorState.displayErrorState(hasData: hasData, error: error)
+            var currentDisplay = state.displayState.currentDisplay
+            currentDisplay.errorState = errorStatus
+            currentDisplay.animateType = .refreshOnlyError
+            state.displayState.currentDisplay = currentDisplay
 
         case .tapSortButton:
             moduleOutput?.showWalletSort()
-            return state
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()
-            return state
 
         case .refresh:
+            if state.displayState.refreshData == .update {
+                state.displayState.refreshData = .refresh
+            } else {
+                state.displayState.refreshData = .update
+            }
+
+            var hasData = false
+
             switch state.displayState.kind {
             case .assets:
-                interactor.refreshAssets()
+                hasData = state.assets.count > 0
+
             case .leasing:
-                interactor.refreshLeasing()
+                hasData = state.leasing != nil
             }
-            return state.mutate { $0.displayState = $0.displayState.setIsRefreshing(isRefreshing: true) }
+
+            var currentDisplay = state.displayState.currentDisplay
+
+            if hasData == false {
+                currentDisplay.sections = WalletTypes.DisplayState.Display.skeletonSections(kind: state.displayState.kind)
+                currentDisplay.errorState = .none
+                currentDisplay.animateType = .refresh(animated: false)
+            }
+
+            state.displayState.currentDisplay = currentDisplay
 
         case .tapRow(let indexPath):
 
@@ -126,15 +191,15 @@ final class WalletPresenter: WalletPresenterProtocol {
                 }
 
             case .hidden:
-                guard let asset = section.items[indexPath.row].asset else { return state }
+                guard let asset = section.items[indexPath.row].asset else { return  }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isHidden == true } )
 
             case .spam:
-                guard let asset = section.items[indexPath.row].asset else { return state }
+                guard let asset = section.items[indexPath.row].asset else { return  }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam == true } )
 
             case .general:
-                guard let asset = section.items[indexPath.row].asset else { return state }
+                guard let asset = section.items[indexPath.row].asset else { return  }
                 moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
             case .transactions:
                 let leasingTransactions = section
@@ -146,34 +211,45 @@ final class WalletPresenter: WalletPresenterProtocol {
                 break
             }
 
-            return state
-
         case .tapSection(let section):
-            return state.mutate { $0.displayState = $0.displayState.toggleCollapse(index: section) }
+            state.displayState = state.displayState.toggleCollapse(index: section)
 
         case .changeDisplay(let kind):
-            return state.changeDisplay(kind: kind)
+            state.changeDisplay(state: &state, kind: kind)
+            var currentDisplay = state.displayState.currentDisplay
+            currentDisplay.isRefreshing = false
+            state.displayState.currentDisplay = currentDisplay
 
         case .setAssets(let response):
+            state.displayState.refreshData = .none
 
-            return state.mutate {
-                let sections = WalletTypes.ViewModel.Section.map(from: response)
-                $0.displayState = $0.displayState.updateDisplay(kind: .assets,
-                                                                sections: sections)
-                $0.assets = response
-            }
+            let sections = WalletTypes.ViewModel.Section.map(from: response)
+            state.displayState = state.displayState.updateDisplay(kind: .assets,
+                                                                  sections: sections)
+
+            state.assets = response
+
+            var currentDisplay = state.displayState.currentDisplay
+            currentDisplay.isRefreshing = false
+            currentDisplay.errorState = .none
+
+            state.displayState.currentDisplay = currentDisplay
 
         case .setLeasing(let response):
 
-            return state.mutate {
-                let sections = WalletTypes.ViewModel.Section.map(from: response)
-                $0.displayState = $0.displayState.updateDisplay(kind: .leasing,
-                                                                sections: sections)
-            }
-            
+            state.displayState.refreshData = .none
+            let sections = WalletTypes.ViewModel.Section.map(from: response)
+            state.displayState = state.displayState.updateDisplay(kind: .leasing,
+                                                                  sections: sections)
+            state.leasing = response
+
+            var currentDisplay = state.displayState.currentDisplay
+            currentDisplay.errorState = .none
+            currentDisplay.isRefreshing = false
+            state.displayState.currentDisplay = currentDisplay
+
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
-            return state
         }
     }
 

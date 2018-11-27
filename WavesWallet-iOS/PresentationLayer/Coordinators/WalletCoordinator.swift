@@ -15,7 +15,6 @@ private enum Constants {
 
 final class WalletCoordinator: Coordinator {
 
-
     var childCoordinators: [Coordinator] = []
 
     weak var parent: Coordinator?
@@ -33,32 +32,52 @@ final class WalletCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
+
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
 
     func start() {
-
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-
-            self.authorization
-                .authorizedWallet()
-                .subscribe(onNext: { [weak self] wallet in
-
-                    guard let owner = self else { return }
-                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else { return }
-
-                    let legal = LegalCoordinator(viewController: owner.walletViewContoller)
-                    legal.delegate = owner
-                    owner.addChildCoordinatorAndStart(childCoordinator: legal)
-                })
-                .disposed(by: self.disposeBag)            
-        }
+        setupLifeCycleTost()
         navigationController?.pushViewController(walletViewContoller, animated: false)
-        CATransaction.commit()
+    }
 
+    private func setupLifeCycleTost() {
+        walletViewContoller.rx.viewDidAppear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.showLegalOrBackupIfNeed()
+        }).disposed(by: disposeBag)
 
+        walletViewContoller.rx.viewDidDisappear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.childCoordinators.first(where: { (coordinator) -> Bool in
+                return coordinator is BackupTostCoordinator
+            })?.removeFromParentCoordinator()
+        }).disposed(by: disposeBag)
+    }
+
+    private func showBackupTostIfNeed() {
+        guard let navigationController = self.navigationController else { return }
+        let coordinator = BackupTostCoordinator(navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+
+    private func showLegalOrBackupIfNeed() {
+
+        self.authorization
+            .authorizedWallet()
+            .take(1)
+            .subscribe(onNext: { [weak self] wallet in
+                print("authorizedWallet")
+                guard let owner = self else { return }
+                guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
+                    owner.showBackupTostIfNeed()
+                    return
+                }
+
+                let legal = LegalCoordinator(viewController: owner.walletViewContoller)
+                legal.delegate = owner
+                owner.addChildCoordinatorAndStart(childCoordinator: legal)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 
@@ -126,7 +145,7 @@ extension WalletCoordinator: AssetModuleOutput {
     func showHistory(by assetId: String) {
         guard let navigationController = navigationController else { return }
         let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .asset(assetId))
-        historyCoordinator.start()
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -258,6 +277,8 @@ extension WalletCoordinator: LegalCoordinatorDelegate {
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Void> in
                 guard let owner = self else { return Observable.never() }
+
+                owner.showBackupTostIfNeed()
 
                 var newWallet = wallet.wallet
                 newWallet.isAlreadyShowLegalDisplay = true

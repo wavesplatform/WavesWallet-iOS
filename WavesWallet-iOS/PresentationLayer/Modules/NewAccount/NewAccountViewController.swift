@@ -34,7 +34,6 @@ final class NewAccountViewController: UIViewController {
     @IBOutlet private weak var avatarDetailLabel: UILabel!
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-    private var isFirstChoiceAvatar: Bool = false
     private var currentAvatar: Avatar? = nil
 
     weak var output: NewAccountModuleOutput?
@@ -157,11 +156,6 @@ final class NewAccountViewController: UIViewController {
 
                 self?.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
                 self?.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
-
-                if self?.isFirstChoiceAvatar == false {
-                    self?.isFirstChoiceAvatar = true
-                    self?.accountNameInput.becomeFirstResponder()
-                }
             }
 
             let image = identity.createImage(by: privateKey.address, size: view.iconSize) ?? UIImage()
@@ -193,7 +187,7 @@ final class NewAccountViewController: UIViewController {
         } else if currentAvatar == nil {
             self.view.endEditing(true)
             self.avatars.forEach { $0.shake() }
-            showMessageSnack(tille: Localizable.Waves.Newaccount.Error.noavatarselected)
+            showMessageSnack(title: Localizable.Waves.Newaccount.Error.noavatarselected)
         } else {
             continueCreateAccount()
         }

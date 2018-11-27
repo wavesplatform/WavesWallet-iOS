@@ -36,19 +36,7 @@ class DataManager: NSObject {
             return nil
         }
     }
-    
-    class func withLoadedVerifiedAssets(_ complete: @escaping (_ assets: NSDictionary?, _ errorMessage: String?) -> Void) {
-        if DataManager.shared.verifiedAssets == nil {
-            NetworkManager.getVerifiedAssets {(assets, errorMessage) in
-                if let assets = assets {
-                    shared.verifiedAssets = assets
-                }
-                complete(assets, errorMessage)
-            }
-        } else {
-            complete(shared.verifiedAssets, nil)
-        }
-    }
+ 
     
     class func getCandleTimeFrame() -> Int {
         

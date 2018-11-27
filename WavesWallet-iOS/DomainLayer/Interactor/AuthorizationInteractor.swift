@@ -854,6 +854,29 @@ private extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return Observable.error(owner.handlerError(error))
             })
+            .catchError({ [weak self] (error) -> Observable<DomainLayer.DTO.SignedWallet> in
+                guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+
+                if let authError = error as? AuthorizationInteractorError, authError == .attemptsEnded {
+                    return owner
+                        .localWalletRepository
+                        .walletEncryption(by: wallet.publicKey)
+                        .flatMap({ [weak self] (walletEnc) -> Observable<DomainLayer.DTO.SignedWallet> in
+
+                            guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+
+                            var newWalletEnc = walletEnc
+                            newWalletEnc.kind = .none
+
+                            return owner.localWalletRepository.saveWalletEncryption(newWalletEnc)
+                                .flatMap({ _ ->  Observable<DomainLayer.DTO.SignedWallet> in
+                                    return Observable.error(error)
+                                })
+                        })
+                } else {
+                    return Observable.error(error)
+                }
+            })
     }
 
     private func verifyAccessWalletUsingPassword(_ password: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.SignedWallet> {
@@ -900,7 +923,7 @@ fileprivate extension AuthorizationInteractor {
     }
 
     private func getPasswordByPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<String> {
-
+        
         return remoteAuthenticationRepository
             .auth(with: wallet.id, passcode: passcode)
             .flatMap({ [weak self] keyForPassword -> Observable<(String, DomainLayer.DTO.WalletEncryption)> in
@@ -964,7 +987,7 @@ fileprivate extension AuthorizationInteractor {
         return Observable.merge(wallets.map { logout(wallet: $0.publicKey) })
     }
 
-    private func handlerError(_ error: Error) -> AuthorizationInteractorError {
+    private func handlerError(_ error: Error) -> Error {
 
         switch error {
         case let error as AuthenticationRepositoryError:
@@ -998,9 +1021,7 @@ fileprivate extension AuthorizationInteractor {
             break
         }
 
-
-
-        return AuthorizationInteractorError.fail
+        return error
     }
 }
 

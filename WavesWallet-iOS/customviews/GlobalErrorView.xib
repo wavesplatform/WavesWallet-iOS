@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="iconImageView" destination="zMP-uM-Ofi" id="UL2-sK-1wx"/>
+                <outlet property="retryButton" destination="W9H-bo-s7u" id="rM9-Zg-jXu"/>
+                <outlet property="sendReportButton" destination="jNT-CI-igP" id="vqM-q4-Uab"/>
+                <outlet property="subtitleLabel" destination="k69-rb-gsb" id="ICU-3W-jZv"/>
+                <outlet property="titleLabel" destination="AD2-H0-WSH" id="hF1-Xy-KvH"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXd-eQ-fS2">
+                    <rect key="frame" x="24" y="194.5" width="327" height="298"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgServerdown80Multy" translatesAutoresizingMaskIntoConstraints="NO" id="zMP-uM-Ofi">
+                            <rect key="frame" x="123.5" y="0.0" width="80" height="80"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="Cvs-BP-upS"/>
+                                <constraint firstAttribute="width" constant="80" id="pbK-Mv-Dyf"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh ... It's all broken!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AD2-H0-WSH">
+                            <rect key="frame" x="0.0" y="104" width="327" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k69-rb-gsb">
+                            <rect key="frame" x="0.0" y="132.5" width="327" height="31.5"/>
+                            <string key="text">Do not worry, we are already fixing this problem.
+Soon everything will work!</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="WLZ-NT-E0m">
+                            <rect key="frame" x="0.0" y="188" width="327" height="110"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9H-bo-s7u">
+                                    <rect key="frame" x="0.0" y="0.0" width="327" height="48"/>
+                                    <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="2GY-1k-lV3"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal" title="Retry">
+                                        <color key="titleColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="handlerActionRetry" destination="-1" eventType="touchUpInside" id="bF0-nw-FIu"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNT-CI-igP">
+                                    <rect key="frame" x="0.0" y="62" width="327" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="knH-1O-zFq"/>
+                                    </constraints>
+                                    <state key="normal" title="Send a report">
+                                        <color key="titleColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="handlerActionSendReport" destination="-1" eventType="touchUpInside" id="0IZ-cM-TLm"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="k69-rb-gsb" firstAttribute="top" secondItem="AD2-H0-WSH" secondAttribute="bottom" constant="8" id="Mda-rf-ari"/>
+                        <constraint firstItem="AD2-H0-WSH" firstAttribute="leading" secondItem="BXd-eQ-fS2" secondAttribute="leading" id="PmO-UI-vhD"/>
+                        <constraint firstAttribute="trailing" secondItem="WLZ-NT-E0m" secondAttribute="trailing" id="ReG-qa-XkH"/>
+                        <constraint firstItem="WLZ-NT-E0m" firstAttribute="leading" secondItem="BXd-eQ-fS2" secondAttribute="leading" id="SIc-8E-vow"/>
+                        <constraint firstAttribute="trailing" secondItem="AD2-H0-WSH" secondAttribute="trailing" id="cPu-UR-mJA"/>
+                        <constraint firstItem="WLZ-NT-E0m" firstAttribute="top" secondItem="k69-rb-gsb" secondAttribute="bottom" constant="24" id="dSx-UF-anR"/>
+                        <constraint firstItem="zMP-uM-Ofi" firstAttribute="top" secondItem="BXd-eQ-fS2" secondAttribute="top" id="ex5-BM-iJm"/>
+                        <constraint firstItem="zMP-uM-Ofi" firstAttribute="centerX" secondItem="BXd-eQ-fS2" secondAttribute="centerX" id="h1N-6B-MBX"/>
+                        <constraint firstAttribute="bottom" secondItem="WLZ-NT-E0m" secondAttribute="bottom" id="hXV-Ar-Gp5"/>
+                        <constraint firstAttribute="trailing" secondItem="k69-rb-gsb" secondAttribute="trailing" id="oD2-qu-mXF"/>
+                        <constraint firstItem="k69-rb-gsb" firstAttribute="leading" secondItem="BXd-eQ-fS2" secondAttribute="leading" id="qRf-Ip-zxF"/>
+                        <constraint firstItem="AD2-H0-WSH" firstAttribute="top" secondItem="zMP-uM-Ofi" secondAttribute="bottom" constant="24" id="vHn-vp-jMG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BXd-eQ-fS2" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="4pa-gW-kHz"/>
+                <constraint firstItem="BXd-eQ-fS2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="JJU-4t-ame"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BXd-eQ-fS2" secondAttribute="trailing" constant="24" id="u3r-Xf-sHW"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="userimgServerdown80Multy" width="80" height="80"/>
+    </resources>
+</document>

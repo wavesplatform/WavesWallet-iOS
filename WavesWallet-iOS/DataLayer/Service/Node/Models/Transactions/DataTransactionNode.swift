@@ -37,7 +37,7 @@ extension Node.DTO {
 
         let proofs: [String]?
         let data: [Data]
-    }
+     }
 }
 
 extension Node.DTO.DataTransaction.Data {
@@ -56,7 +56,7 @@ extension Node.DTO.DataTransaction.Data {
     }
 
     init(from decoder: Decoder) throws {
-
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         if let value = try container.decodeIfPresent(String.self, forKey: .key) {

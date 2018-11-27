@@ -541,23 +541,6 @@ internal enum Localizable {
           internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
         }
       }
-
-      internal enum Servererror {
-
-        internal enum Button {
-          /// Retry
-          internal static var retry: String { return Localizable.tr("Waves", "dex.serverError.button.retry") }
-          /// Send a report
-          internal static var sendReport: String { return Localizable.tr("Waves", "dex.serverError.button.sendReport") }
-        }
-
-        internal enum Label {
-          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
-          internal static var subtitle: String { return Localizable.tr("Waves", "dex.serverError.label.subtitle") }
-          /// Oh ... It's all broken!
-          internal static var title: String { return Localizable.tr("Waves", "dex.serverError.label.title") }
-        }
-      }
     }
 
     internal enum Dexchart {
@@ -945,9 +928,16 @@ internal enum Localizable {
 
       internal enum Error {
 
+        internal enum Subtitle {
+          /// Soon everything will work!
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.subtitle.notfound") }
+        }
+
         internal enum Title {
           /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
+          /// Do not worry, we are already fixing this problem.
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.title.notfound") }
         }
       }
 
@@ -984,6 +974,16 @@ internal enum Localizable {
           internal static var spam: String { return Localizable.tr("Waves", "general.ticker.title.spam") }
           /// Waves Token
           internal static var wavestoken: String { return Localizable.tr("Waves", "general.ticker.title.wavestoken") }
+        }
+      }
+
+      internal enum Tost {
+
+        internal enum Savebackup {
+          /// Store your SEED safely, it is the only way to restore your wallet
+          internal static var subtitle: String { return Localizable.tr("Waves", "general.tost.saveBackup.subtitle") }
+          /// Save your backup phrase (SEED)
+          internal static var title: String { return Localizable.tr("Waves", "general.tost.saveBackup.title") }
         }
       }
     }
@@ -1087,6 +1087,20 @@ internal enum Localizable {
 
       internal enum Transaction {
 
+        internal enum Cell {
+
+          internal enum Exchange {
+            /// Buy: %@/%@
+            internal static func buy(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.buy", p1, p2)
+            }
+            /// Sell: %@/%@
+            internal static func sell(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.sell", p1, p2)
+            }
+          }
+        }
+
         internal enum Title {
           /// Create Alias
           internal static var alias: String { return Localizable.tr("Waves", "history.transaction.title.alias") }
@@ -1098,6 +1112,10 @@ internal enum Localizable {
           internal static var exchange: String { return Localizable.tr("Waves", "history.transaction.title.exchange") }
           /// Incoming Leasing
           internal static var incomingLeasing: String { return Localizable.tr("Waves", "history.transaction.title.incomingLeasing") }
+          /// Mass Received
+          internal static var massreceived: String { return Localizable.tr("Waves", "history.transaction.title.massreceived") }
+          /// Mass Sent
+          internal static var masssent: String { return Localizable.tr("Waves", "history.transaction.title.masssent") }
           /// Received
           internal static var received: String { return Localizable.tr("Waves", "history.transaction.title.received") }
           /// Self-transfer
@@ -1468,6 +1486,25 @@ internal enum Localizable {
 
     internal enum Passcode {
 
+      internal enum Alert {
+
+        internal enum Attempsended {
+          /// To unlock, sign in with your account passord
+          internal static var subtitle: String { return Localizable.tr("Waves", "passcode.alert.attempsended.subtitle") }
+          /// To many attempts
+          internal static var title: String { return Localizable.tr("Waves", "passcode.alert.attempsended.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.cancel") }
+            /// Enter Password
+            internal static var enterpassword: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.enterpassword") }
+            /// Ok
+            internal static var ok: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.ok") }
+          }
+        }
+      }
+
       internal enum Button {
 
         internal enum Forgotpasscode {
@@ -1654,6 +1691,11 @@ internal enum Localizable {
         internal static var invoice: String { return Localizable.tr("Waves", "receive.button.invoice") }
         /// Use total balance
         internal static var useTotalBalance: String { return Localizable.tr("Waves", "receive.button.useTotalBalance") }
+      }
+
+      internal enum Error {
+        /// Service is temporarily unavailable
+        internal static var serviceUnavailable: String { return Localizable.tr("Waves", "receive.error.serviceUnavailable") }
       }
 
       internal enum Label {
@@ -1883,6 +1925,23 @@ internal enum Localizable {
       }
     }
 
+    internal enum Servererror {
+
+      internal enum Button {
+        /// Retry
+        internal static var retry: String { return Localizable.tr("Waves", "serverError.button.retry") }
+        /// Send a report
+        internal static var sendReport: String { return Localizable.tr("Waves", "serverError.button.sendReport") }
+      }
+
+      internal enum Label {
+        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverError.label.subtitle") }
+        /// Oh ... It's all broken!
+        internal static var title: String { return Localizable.tr("Waves", "serverError.label.title") }
+      }
+    }
+
     internal enum Startleasing {
 
       internal enum Button {
@@ -1897,7 +1956,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Address is not valid
+        /// The address is not valid
         internal static var addressIsNotValid: String { return Localizable.tr("Waves", "startleasing.label.addressIsNotValid") }
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "startleasing.label.amount") }
@@ -1905,10 +1964,10 @@ internal enum Localizable {
         internal static var balance: String { return Localizable.tr("Waves", "startleasing.label.balance") }
         /// Generator
         internal static var generator: String { return Localizable.tr("Waves", "startleasing.label.generator") }
+        /// Insufficient funds
+        internal static var insufficientFunds: String { return Localizable.tr("Waves", "startleasing.label.insufficientFunds") }
         /// Node address...
         internal static var nodeAddress: String { return Localizable.tr("Waves", "startleasing.label.nodeAddress") }
-        /// Not enough
-        internal static var notEnough: String { return Localizable.tr("Waves", "startleasing.label.notEnough") }
         /// Start leasing
         internal static var startLeasing: String { return Localizable.tr("Waves", "startleasing.label.startLeasing") }
         /// Transaction Fee
@@ -2032,8 +2091,10 @@ internal enum Localizable {
       internal enum Cell {
         /// Block
         internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
-        /// Buy
-        internal static var buy: String { return Localizable.tr("Waves", "transactionhistory.cell.buy") }
+        /// Buy: %@/%@
+        internal static func buy(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.buy", p1, p2)
+        }
         /// Confirmations
         internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
         /// Data Transaction
@@ -2058,8 +2119,10 @@ internal enum Localizable {
         internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
-        /// Sell
-        internal static var sell: String { return Localizable.tr("Waves", "transactionhistory.cell.sell") }
+        /// Sell: %@/%@
+        internal static func sell(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.sell", p1, p2)
+        }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
         /// Type
@@ -2256,13 +2319,17 @@ extension Localizable {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
-        let value = String(format: format, locale: current.locale, arguments: args)
+        do {
+            let value = String(format: format, locale: current.locale, arguments: args)
 
-        if value.localizedLowercase == key.localizedLowercase {
-            let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
-            return String(format: format, locale: english.locale, arguments: args)
-        } else {
-            return value
+            if value.localizedLowercase == key.localizedLowercase {
+                let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
+                return String(format: format, locale: english.locale, arguments: args)
+            } else {
+                return value
+            }
+        } catch _ {
+            return "NOT_FOUND"
         }
     }
 }

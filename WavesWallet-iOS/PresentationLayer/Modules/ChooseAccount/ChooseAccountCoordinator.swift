@@ -19,9 +19,11 @@ final class ChooseAccountCoordinator: Coordinator {
 
     weak var delegate: ChooseAccountCoordinatorDelegate?
     private let navigationController: UINavigationController
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.navigationController = navigationController
+        self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
@@ -95,6 +97,6 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     }
 
     func passcodeCoordinatorWalletLogouted() {
-
+        self.applicationCoordinator?.showEnterDisplay()
     }
 }

@@ -59,23 +59,9 @@ final class AccountPasswordInteractor: AccountPasswordInteractorProtocol {
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
-    private func handlerError(_ error: Error) -> PasscodeInteractorError {
+    private func handlerError(_ error: Error) -> Error {
 
-        switch error {
-        case let authError as AuthorizationInteractorError:
-            switch authError {
-            case .attemptsEnded:
-                return PasscodeInteractorError.attemptsEnded
-
-            case .permissionDenied:
-                return PasscodeInteractorError.permissionDenied
-            default:
-                return PasscodeInteractorError.fail
-            }
-
-        default:
-            return PasscodeInteractorError.fail
-        }
+       return error
     }
 }
 

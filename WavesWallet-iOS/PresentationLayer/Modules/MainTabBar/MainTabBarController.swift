@@ -14,7 +14,7 @@ final class MainTabBarController: UITabBarController {
 
     private var walletCoordinator: WalletCoordinator!
     private var historyCoordinator: HistoryCoordinator!
-    private let dexListCoordinator: DexCoordinator = DexCoordinator()
+    private var dexListCoordinator: DexCoordinator!
     private var profileCoordinator: ProfileCoordinator!
 
     private let navWallet = CustomNavigationController()
@@ -34,8 +34,6 @@ final class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
         
-        listenerWallet()
-
         walletCoordinator = WalletCoordinator(navigationController: navWallet)
         walletCoordinator.start()
         navWallet.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
@@ -48,7 +46,8 @@ final class MainTabBarController: UITabBarController {
         navHistory.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navHistory.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        dexListCoordinator.start(navigationController: navDex)
+        dexListCoordinator = DexCoordinator(navigationController: navDex)
+        dexListCoordinator.start()
         navDex.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.imageInsets = Constants.tabBarItemImageInset
@@ -63,6 +62,8 @@ final class MainTabBarController: UITabBarController {
         fake.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
         fake.tabBarItem.imageInsets = Constants.tabBarItemImageInset
         viewControllers = [navWallet, navDex, fake, navHistory, navProfile]
+        
+        listenerWallet()
     }
 
     private func addTabBarBadge() {

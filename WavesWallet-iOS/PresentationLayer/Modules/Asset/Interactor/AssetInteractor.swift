@@ -57,12 +57,15 @@ final class AssetInteractor: AssetInteractorProtocol {
 
                 guard let owner = self else { return Observable.never() }
                 
-                return owner.transactionsInteractor.transactions(by: wallet.address,
-                                                                 specifications: .init(page: .init(offset: 0,
+                return owner.transactionsInteractor.transactionsSync(by: wallet.address,
+                                                                     specifications: .init(page: .init(offset: 0,
                                                                                                    limit: Constants.transactionLimit),
                                                                                        assets: [assetId],
                                                                                        senders: [],
                                                                                        types: TransactionType.all))
+                    .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                        return Observable.just(txs.resultIngoreError ?? [])
+                    }
             }
     }
 
@@ -125,7 +128,8 @@ private extension DomainLayer.DTO.AssetBalance {
         return AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
                                             avaliableMoney: avaliableMoney,
                                             leasedMoney: leasedMoney,
-                                            inOrderMoney: inOrderMoney)
+                                            inOrderMoney: inOrderMoney,
+                                            isFiat: asset?.isFiat ?? false)
     }
 
     func mapToInfo() -> AssetTypes.DTO.Asset.Info {

@@ -31,8 +31,11 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
                     .request(Node.Service.Blocks(environment: environment,
                                                  kind: .height))
             })
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(Node.DTO.Block.self)
-            .asObservable()
             .map { $0.height }        
     }
 }

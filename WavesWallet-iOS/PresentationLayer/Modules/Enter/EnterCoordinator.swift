@@ -21,11 +21,14 @@ final class EnterCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private var account: NewAccountTypes.DTO.Account?
 
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
+
     weak var delegate: EnterCoordinatorDelegate?
 
-    init(slideMenuViewController: SlideMenu) {
+    init(slideMenuViewController: SlideMenu, applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.slideMenuViewController = slideMenuViewController
         self.navigationController = CustomNavigationController()
+        self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
@@ -41,7 +44,10 @@ final class EnterCoordinator: Coordinator {
 extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showSignInAccount() {
-        let chooseAccountCoordinator = ChooseAccountCoordinator(navigationController: navigationController)
+
+        guard let applicationCoordinator = self.applicationCoordinator else { return }
+
+        let chooseAccountCoordinator = ChooseAccountCoordinator(navigationController: navigationController, applicationCoordinator: applicationCoordinator)
         chooseAccountCoordinator.delegate = self
         addChildCoordinator(childCoordinator: chooseAccountCoordinator)
         chooseAccountCoordinator.start()
@@ -97,7 +103,9 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
         delegate?.userCompletedLogIn(wallet: wallet)
     }
 
-    func passcodeCoordinatorWalletLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {
+        self.applicationCoordinator?.showEnterDisplay()
+    }
 }
 
 // MARK: PasscodeCoordinatorDelegate

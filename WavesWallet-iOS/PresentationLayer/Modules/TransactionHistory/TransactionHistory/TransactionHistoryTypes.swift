@@ -18,7 +18,7 @@ enum TransactionHistoryTypes {
         var action: Action
         var displays: [DisplayState]
         var transactions: [DomainLayer.DTO.SmartTransaction]
-        var actionDisplay: ActionDisplay
+        var actionDisplay: ActionDisplay        
     }
 
     struct DisplayState: Mutating {
@@ -31,6 +31,7 @@ enum TransactionHistoryTypes {
         case tapRecipient(DisplayState, ViewModel.Recipient)
         case tapButton(DisplayState)
         case completedAction
+        case setContacts([DomainLayer.DTO.Contact])
         case updateContact(DTO.ContactState)
     }
 

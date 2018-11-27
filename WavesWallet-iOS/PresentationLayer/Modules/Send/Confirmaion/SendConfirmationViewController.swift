@@ -171,6 +171,6 @@ private extension SendConfirmationViewController {
             labelAssetName.text = input.asset.displayName
         }
         labelFeeAmount.text = input.fee.displayText + " WAVES"
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayTextFull, font: labelBalance.font)
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
     }
 }

@@ -14,10 +14,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
     private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: self.environmentRepository)
-
-    private(set) lazy var leasingRepositoryLocal: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryLocal()
-    private(set) lazy var leasingRepositoryRemote: LeasingTransactionRepositoryProtocol = LeasingTransactionRepositoryRemote(environmentRepository: self.environmentRepository)
-
+    
     private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
     private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryRemote(environmentRepository: self.environmentRepository)
 
@@ -41,6 +38,8 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     private(set) lazy var dexRepository: DexRepositoryProtocol = DexRepository()
     
     private(set) lazy var aliasesRepository: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: self.environmentRepository)
+
+    private(set) lazy var aliasesRepositoryLocal: AliasesRepositoryProtocol = AliasesRepositoryLocal()
 
     fileprivate init() {}
 }
