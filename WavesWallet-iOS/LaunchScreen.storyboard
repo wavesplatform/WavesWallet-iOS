@@ -21,18 +21,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="logo3x" translatesAutoresizingMaskIntoConstraints="NO" id="p9X-Zp-HIx">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waves_logo" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
                                 <rect key="frame" x="112.5" y="316.5" width="150" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="24n-3L-Kzr"/>
-                                    <constraint firstAttribute="width" constant="150" id="CXc-3o-L20"/>
-                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="p9X-Zp-HIx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="I44-mw-Xnt"/>
-                            <constraint firstItem="p9X-Zp-HIx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="jK0-4g-e6t"/>
+                            <constraint firstItem="EoD-Ww-lhF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5ET-aM-uKO"/>
+                            <constraint firstItem="EoD-Ww-lhF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bYk-bM-Qw7"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -43,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo3x" width="100" height="21"/>
+        <image name="waves_logo" width="150" height="34"/>
     </resources>
 </document>

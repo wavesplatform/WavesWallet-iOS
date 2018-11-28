@@ -14,8 +14,8 @@ import RxSwift
 
 private enum Constants {
     static let collectionViewSpacing: CGFloat = 10
-    static let transitionDurationPresenting: TimeInterval = 0.4
-    static let transitionDurationDisappearing: TimeInterval = 0.3
+    static let transitionDurationPresenting: TimeInterval = 0.26
+    static let transitionDurationDisappearing: TimeInterval = 0.44
 
     // fallthrough tap
     static let collectionViewTapY0: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top
@@ -432,7 +432,7 @@ extension TransactionHistoryViewController: UIViewControllerTransitioningDelegat
 extension TransactionHistoryViewController: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return presenting ? Constants.transitionDurationPresenting : Constants.transitionDurationPresenting
+        return presenting ? Constants.transitionDurationPresenting : Constants.transitionDurationDisappearing
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -452,7 +452,7 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
             navigationBarHeight = fromVC?.navigationController?.navigationBar.frame.height ?? 44
             backgroundView.alpha = 0
             collectionView.alpha = 0
-            collectionView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.5)
+            collectionView.center = CGPoint(x: self.view.center.x, y: view.bounds.height * 1.5)
         }
         
         
