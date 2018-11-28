@@ -12,14 +12,17 @@ import RxSwift
 private enum AddAddressError: Error {
     case addressExists
 }
+
 private enum Constants {
     static let buttonSaveBottomEditModeOffset: CGFloat = 95
+    static let minNameLength = 2
+    static let maxNameLength = 24
 }
 
 final class AddAddressBookViewController: UIViewController {
     
     @IBOutlet private weak var textFieldAddress: AddAddressTextField!
-    @IBOutlet private weak var textFieldName: BaseInputTextField!
+    @IBOutlet private weak var textFieldName: InputTextField!
     @IBOutlet private weak var buttonSave: HighlightedButton!
     @IBOutlet private weak var buttonDelete: UIButton!
     @IBOutlet private weak var buttonSaveBottomOffset: NSLayoutConstraint!
@@ -33,7 +36,8 @@ final class AddAddressBookViewController: UIViewController {
     
     private var isValidInput: Bool {
         return textFieldAddress.trimmingText.count > 0 &&
-        textFieldName.trimmingText.count > 0
+        textFieldName.trimmingText.count >= Constants.minNameLength &&
+        textFieldName.trimmingText.count <= Constants.maxNameLength
     }
     
     override func viewDidLoad() {
@@ -180,20 +184,6 @@ extension AddAddressBookViewController: AddAddressTextFieldDelegate {
     }
 }
 
-//MARK: - BaseInputTextFieldDelegate
-extension AddAddressBookViewController: BaseInputTextFieldDelegate {
-
-    func baseInputTextField(_ textField: BaseInputTextField, didChange text: String) {
-        setupButtonSaveState()
-    }
-
-    func baseInputTextFieldHandlerTextFieldReturn(_ textField: BaseInputTextField) -> Bool {
-
-        saveAddressBook()
-        return true
-    }
-}
-
 private extension AddAddressBookViewController {
     
     func setupButtonSaveState() {
@@ -202,9 +192,30 @@ private extension AddAddressBookViewController {
     }
     
     func setupTextFields() {
-        textFieldName.delegate = self
         textFieldAddress.delegate = self
-        textFieldName.setupPlaceholder(Localizable.Waves.Addaddressbook.Label.name)
+    
+        textFieldName.update(with: .init(title: Localizable.Waves.Addaddressbook.Label.name,
+                                         kind: .text,
+                                         placeholder: Localizable.Waves.Addaddressbook.Label.name))
+
+        textFieldName.textFieldShouldReturn = { [weak self] _ in
+            self?.saveAddressBook()
+        }
+        
+        textFieldName.changedValue = { [weak self] isValidData, text in
+            self?.setupButtonSaveState()
+        }
+      
+        textFieldName.valueValidator = { [weak self] _ in
+            guard let text = self?.textFieldName.trimmingText else { return nil }
+            if text.count > Constants.maxNameLength {
+                return Localizable.Waves.Addaddressbook.Error.charactersMaximum(Constants.maxNameLength)
+            }
+            else if text.count < Constants.minNameLength {
+                return Localizable.Waves.Addaddressbook.Error.charactersMinimum(Constants.minNameLength)
+            }
+            return nil
+        }
     }
     
     func setupLocalization() {
@@ -223,7 +234,7 @@ private extension AddAddressBookViewController {
         buttonDelete.isHidden = input.isAdd
 
         if let contact = input.contact {
-            textFieldName.setupText(contact.name)
+            textFieldName.value = contact.name
             textFieldAddress.text = contact.address
             buttonSaveBottomOffset.constant = Constants.buttonSaveBottomEditModeOffset
         }
