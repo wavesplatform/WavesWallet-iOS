@@ -9,7 +9,7 @@
 import Foundation
 
 protocol StartLeasingErrorDelegate: AnyObject {
-    func startLeasingDidFail()
+    func startLeasingDidFail(error: NetworkError)
 }
 
 protocol StartLeasingModuleOutput: AnyObject {

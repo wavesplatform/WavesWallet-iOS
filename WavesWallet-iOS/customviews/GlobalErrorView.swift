@@ -55,15 +55,15 @@ extension GlobalErrorView: ViewConfiguration {
         switch model.kind {
         case .internetNotWorking:
             iconImageView.image = Images.userimgDisconnect80Multy.image
-            titleLabel.text = Localizable.Waves.Servererror.Label.title
-            subtitleLabel.text = Localizable.Waves.Servererror.Label.subtitle
+            titleLabel.text = Localizable.Waves.Servererror.Label.noInternetConnection
+            subtitleLabel.text = Localizable.Waves.Servererror.Label.noInternetConnectionDescription
             retryButton.setTitle(Localizable.Waves.Servererror.Button.retry, for: .normal)
             sendReportButton.isHidden = true
 
         case .serverError:
             iconImageView.image = Images.userimgServerdown80Multy.image
-            titleLabel.text = Localizable.Waves.Servererror.Label.title
-            subtitleLabel.text = Localizable.Waves.Servererror.Label.subtitle
+            titleLabel.text = Localizable.Waves.Servererror.Label.allBroken
+            subtitleLabel.text = Localizable.Waves.Servererror.Label.allBrokenDescription
             retryButton.setTitle(Localizable.Waves.Servererror.Button.retry, for: .normal)
             sendReportButton.setTitle(Localizable.Waves.Servererror.Button.sendReport, for: .normal)
             sendReportButton.isHidden = true
