@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol DexListInteractorProtocol {
-    func pairs() -> Observable<[DexList.DTO.Pair]>
+    func pairs() -> Observable<ResponseType<[DexList.DTO.Pair]>>
 }

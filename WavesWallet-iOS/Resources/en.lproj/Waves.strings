@@ -13,6 +13,9 @@
 
 "accountpassword.textfield.password.placeholder" = "Account password";
 
+"addAddressbook.error.charactersMaximum" = "%d characters maximum";
+"addAddressbook.error.charactersMinimum" = "Minimum %d characters";
+
 "addAddressbook.button.cancel" = "Cancel";
 
 "addAddressbook.button.delete" = "Delete";
@@ -1088,8 +1091,10 @@
 "general.error.title.notfound" = "Oh ... It's all broken!";
 "general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
 
-"serverError.label.title" = "Oh ... It's all broken!";
-"serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+"serverError.label.noInternetConnection" = "No connection to the Internet";
+"serverError.label.noInternetConnectionDescription" = "Check your connection to the mobile Internet\nor Wi-Fi network";
+"serverError.label.allBroken" = "Oh ... It's all broken!";
+"serverError.label.allBrokenDescription" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
 "serverError.button.retry" = "Retry";
 "serverError.button.sendReport" = "Send a report";
 

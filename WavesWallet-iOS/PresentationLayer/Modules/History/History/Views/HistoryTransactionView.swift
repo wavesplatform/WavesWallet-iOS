@@ -20,12 +20,22 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
+        
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
-    } 
+        
+        setup()
+    }
+    
+    private func setup() {
+        viewContainer.addTableCellShadowStyle()
+        clipsToBounds = false
+    }
+    
 }
 
 fileprivate extension HistoryTransactionView {
