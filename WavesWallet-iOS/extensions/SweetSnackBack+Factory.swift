@@ -60,6 +60,19 @@ extension UIViewController {
 
 extension UIViewController {
 
+    @discardableResult func showErrorSnackWithoutAction(tille: String, duration: TimeInterval) -> String {
+
+
+        let error = SweetSnack.init(title: tille,
+                                    backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
+                                    behaviorDismiss: .popToLastWihDuration(duration),
+                                    subtitle: nil,
+                                    icon: nil,
+                                    isEnabledUserHidden: false,
+                                    action: nil)
+        return SweetSnackbar.shared.showSnack(error, on: self)
+    }
+
     @discardableResult func showErrorSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
 
 

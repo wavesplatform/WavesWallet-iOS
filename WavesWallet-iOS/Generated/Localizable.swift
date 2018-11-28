@@ -398,6 +398,20 @@ internal enum Localizable {
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
     }
 
+    internal enum Cameraaccess {
+
+      internal enum Alert {
+        /// Allow Camera
+        internal static var allow: String { return Localizable.tr("Waves", "cameraAccess.alert.allow") }
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "cameraAccess.alert.cancel") }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("Waves", "cameraAccess.alert.message") }
+        /// Need Camera Access
+        internal static var title: String { return Localizable.tr("Waves", "cameraAccess.alert.title") }
+      }
+    }
+
     internal enum Changepassword {
 
       internal enum Button {
@@ -915,14 +929,14 @@ internal enum Localizable {
       internal enum Error {
 
         internal enum Subtitle {
-          /// Soon everything will work!
+          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
           internal static var notfound: String { return Localizable.tr("Waves", "general.error.subtitle.notfound") }
         }
 
         internal enum Title {
           /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
-          /// Do not worry, we are already fixing this problem.
+          /// Oh ... It's all broken!
           internal static var notfound: String { return Localizable.tr("Waves", "general.error.title.notfound") }
         }
       }
@@ -1172,6 +1186,11 @@ internal enum Localizable {
       }
 
       internal enum General {
+
+        internal enum Error {
+          /// Already in use
+          internal static var alreadyinuse: String { return Localizable.tr("Waves", "import.general.error.alreadyinuse") }
+        }
 
         internal enum Navigation {
           /// Import account

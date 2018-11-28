@@ -118,7 +118,14 @@ private extension AddAddressTextField {
     }
     
     @IBAction func scanTapped(_ sender: Any) {
-        showScanner()
+        
+        CameraAccess.requestAccess(success: { [weak self] in
+            self?.showScanner()
+        }, failure: { [weak self] in
+            let alert = CameraAccess.alertController
+            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+        })
+        
     }
 }
 
