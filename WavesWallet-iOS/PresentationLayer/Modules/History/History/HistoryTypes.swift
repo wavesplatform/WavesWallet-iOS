@@ -107,7 +107,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     var isIncludedActiveNowGroup: Bool {
         switch kind {
         case .startedLeasing:
-            return true
+            return status == .activeNow
         default:
             return false
         }
