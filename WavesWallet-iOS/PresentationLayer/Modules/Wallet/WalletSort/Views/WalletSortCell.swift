@@ -120,7 +120,7 @@ extension WalletSortCell: ViewConfiguration {
             viewContent.backgroundColor = .clear
             viewContent.removeShadow()
         } else {
-            contentView.backgroundColor = .basic50
+            viewContent.backgroundColor = .white
             viewContent.addTableCellShadowStyle()
         }
 
