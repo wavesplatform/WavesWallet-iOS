@@ -52,35 +52,48 @@ final class DexListPresenter: DexListPresenterProtocol {
                 $0.isAppear = true
                 }.changeAction(.update)
             
-        case .setModels(let models):
+        case .setModels(let response):
             
-            return state.mutate { state in
+            switch response.result {
+            
+            case .success(let models):
+                return state.mutate { state in
+                    
+                    state.isAppear = false
+                    state.isFirstLoadingData = false
+                    state.isNeedRefreshing = false
+                    
+                    if models.count > 0 {
+                        
+                        let rowHeader =  DexList.ViewModel.Row.header(Date())
+                        let sectionHeader = DexList.ViewModel.Section(items: [rowHeader])
+                        
+                        let items = models.map { DexList.ViewModel.Row.model($0) }
+                        let itemsSection = DexList.ViewModel.Section(items: items)
+                        
+                        state.sections = [sectionHeader, itemsSection]
+                    }
+                    else {
+                        state.sections = []
+                    }
+                    
+                    }.changeAction(.update)
                 
-                state.isFirstLoadingData = false
-                state.isNeedRefreshing = false
-                
-                if models.count > 0 {
-                    
-                    let rowHeader =  DexList.ViewModel.Row.header(Date())
-                    let sectionHeader = DexList.ViewModel.Section(items: [rowHeader])
-                    
-                    let items = models.map { DexList.ViewModel.Row.model($0) }
-                    let itemsSection = DexList.ViewModel.Section(items: items)
-                    
-                    state.sections = [sectionHeader, itemsSection]
+            case .error(let error):
+                return state.mutate {
+                    $0.isAppear = false
+                    $0.isNeedRefreshing = false
+                    $0.action = .didFailGetModels(error)
                 }
-                else {
-                    state.sections = []
-                }
-                
-                }.changeAction(.update)
+            }
+           
             
         case .tapSortButton:
             moduleOutput?.showDexSort()
             return state.changeAction(.none)
 
-        case .tapAddButton:
-            moduleOutput?.showAddList()
+        case .tapAddButton(let delegate):
+            moduleOutput?.showAddList(delegate: delegate)
             return state.changeAction(.none)
             
         case .refresh:
@@ -102,7 +115,13 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isAppear: false, isNeedRefreshing: false, action: .none, sections: [section], isFirstLoadingData: true, lastUpdate: Date())
+        return DexList.State(isAppear: false,
+                             isNeedRefreshing: false,
+                             action: .none,
+                             sections: [section],
+                             isFirstLoadingData: true,
+                             lastUpdate: Date(),
+                             errorState: .none)
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {

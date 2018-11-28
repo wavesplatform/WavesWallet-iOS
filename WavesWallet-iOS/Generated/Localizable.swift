@@ -1940,10 +1940,14 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
-        internal static var subtitle: String { return Localizable.tr("Waves", "serverError.label.subtitle") }
         /// Oh ... It's all broken!
-        internal static var title: String { return Localizable.tr("Waves", "serverError.label.title") }
+        internal static var allBroken: String { return Localizable.tr("Waves", "serverError.label.allBroken") }
+        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+        internal static var allBrokenDescription: String { return Localizable.tr("Waves", "serverError.label.allBrokenDescription") }
+        /// No connection to the Internet
+        internal static var noInternetConnection: String { return Localizable.tr("Waves", "serverError.label.noInternetConnection") }
+        /// Check your connection to the mobile Internet\nor Wi-Fi network
+        internal static var noInternetConnectionDescription: String { return Localizable.tr("Waves", "serverError.label.noInternetConnectionDescription") }
       }
     }
 
