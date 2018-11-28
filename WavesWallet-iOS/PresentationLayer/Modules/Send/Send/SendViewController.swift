@@ -12,7 +12,7 @@ import RxFeedback
 import RxCocoa
 
 protocol SendResultDelegate: AnyObject {
-    func sendResultDidFail(_ error: ResponseTypeError)
+    func sendResultDidFail(_ error: NetworkError)
 }
 
 private enum Constants {
@@ -192,12 +192,10 @@ final class SendViewController: UIViewController {
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
-    func sendResultDidFail(_ error: ResponseTypeError) {
+    func sendResultDidFail(_ error: NetworkError) {
         
-       navigationController?.popToViewController(self, animated: true)
-        
-        //TODO: need show view with error
-        debug(error.message)
+        navigationController?.popToViewController(self, animated: true)
+        showMessageSnack(title: error.text)
     }
 }
 
@@ -242,7 +240,7 @@ private extension SendViewController {
                     
                 case .didFailInfo(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showMessageSnack(title: error.text)
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -260,7 +258,7 @@ private extension SendViewController {
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showMessageSnack(title: error.text)
                     strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()

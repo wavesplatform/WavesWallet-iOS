@@ -63,7 +63,7 @@ private extension DexListInteractor {
         })
     }
     
-    func getListPairs(by pairs: [DexMarket.DTO.Pair], environment: Environment, complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    func getListPairs(by pairs: [DexMarket.DTO.Pair], environment: Environment, complete:@escaping(_ pairs: [DexList.DTO.Pair], _ error: NetworkError?) -> Void) -> DataRequest {
         
         var url = environment.servers.dataUrl.relativeString + Constants.pair
         

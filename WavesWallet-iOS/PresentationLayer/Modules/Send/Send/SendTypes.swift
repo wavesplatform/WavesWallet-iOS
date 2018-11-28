@@ -14,7 +14,7 @@ enum Send {
 
     enum TransactionStatus {
         case success
-        case error(ResponseTypeError)
+        case error(NetworkError)
     }
     
     enum Event {
@@ -35,11 +35,11 @@ enum Send {
         enum Action {
             case none
             case didGetInfo(DTO.GatewayInfo)
-            case didFailInfo(ResponseTypeError)
+            case didFailInfo(NetworkError)
             case aliasDidFinishCheckValidation(Bool)
             case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
             case didGenerateMoneroAddress(String)
-            case didFailGenerateMoneroAddress(ResponseTypeError)
+            case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
         }
         
