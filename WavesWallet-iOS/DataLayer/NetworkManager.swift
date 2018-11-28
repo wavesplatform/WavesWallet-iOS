@@ -66,7 +66,6 @@ class NetworkManager: NSObject
 
     private static var matcherURL: String {
         //TODO: incorrect environment
-        
         return Environments.current.servers.matcherUrl.relativeString.appending("/")
     }
    
@@ -81,13 +80,7 @@ class NetworkManager: NSObject
                     let error = response.error as NSError?
                     
                     if let error = error, error.code != NSURLErrorCancelled {
-                        
-                        if let data = response.data {
-                            complete(nil, NetworkError.error(data: data))
-                        }
-                        else {
-                            complete(nil, NetworkError.error(by: error))
-                        }
+                        complete(nil, NetworkError.error(by: error))
                     }
                 }
                 else if response.response?.statusCode != 200 {
@@ -118,7 +111,7 @@ class NetworkManager: NSObject
                                 complete(nil, NetworkError.error(data: data))
                             }
                             else {
-                                complete(nil, NetworkError.notFound)
+                                complete(nil, NetworkError.serverError)
                             }
                         }
                         else if let value = parsedObjectFromResponse(response.result.value) {

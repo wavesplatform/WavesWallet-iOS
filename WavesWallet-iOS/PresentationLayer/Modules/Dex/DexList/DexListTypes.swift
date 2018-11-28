@@ -16,7 +16,7 @@ enum DexList {
         case readyView
         case setModels(ResponseType<[DTO.Pair]>)
         case tapSortButton
-        case tapAddButton
+        case tapAddButton(DexMarketDelegate)
         case refresh
         case tapAssetPair(DTO.Pair)
     }

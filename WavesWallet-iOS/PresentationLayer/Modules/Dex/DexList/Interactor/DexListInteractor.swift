@@ -26,9 +26,7 @@ final class DexListInteractor: DexListInteractorProtocol {
         return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
             guard let owner = self else { return Observable.empty() }
             
-            return Observable.merge([owner.dexRepository.list(by: wallet.address),
-                                     owner.dexRepository.listListener(by: wallet.address)])
-                
+            return owner.dexRepository.list(by: wallet.address)
                 .flatMap({ [weak self] (pairs) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                                         
                     guard let owner = self else { return Observable.empty() }
@@ -55,7 +53,14 @@ private extension DexListInteractor {
 
             guard let owner = self else { return Disposables.create() }
             let req = owner.getListPairs(by: pairs, environment: environment, complete: { (pairs, error) in
-                subscribe.onNext(pairs)
+                
+                if let error = error {
+                    subscribe.onNext(ResponseType(output: nil, error: error))
+                }
+                else {
+                    subscribe.onNext(ResponseType(output: pairs, error: nil))
+                }
+                subscribe.onCompleted()
             })
             return Disposables.create {
                 req.cancel()
