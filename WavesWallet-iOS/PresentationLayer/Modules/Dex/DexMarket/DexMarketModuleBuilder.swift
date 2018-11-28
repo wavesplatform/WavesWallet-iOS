@@ -12,7 +12,7 @@ struct DexMarketModuleBuilder: ModuleBuilderOutput {
     
     weak var output: DexMarketModuleOutput?
    
-    func build(input: DexMarketDelegate) -> UIViewController {
+    func build(input: DexListRefreshOutput) -> UIViewController {
         
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
         

@@ -23,13 +23,21 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
             
             guard let owner = self else { return Disposables.create() }
             
+            let header = DexOrderBook.ViewModel.Header(amountName: owner.pair.amountAsset.name, priceName: owner.pair.priceAsset.name, sumName: owner.pair.priceAsset.name)
+
+            let emptyDisplayData = DexOrderBook.DTO.DisplayData(asks: [],
+                                                                lastPrice: DexOrderBook.DTO.LastPrice.empty(decimals: owner.pair.priceAsset.decimals),
+                                                                bids: [],
+                                                                header: header,
+                                                                availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
+                                                                availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
+                                                                availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
+
             //TODO: need change api to get only balances by ids
             owner.account.balances(isNeedUpdate: false).subscribe(onNext: { [weak self] (balances) in
                 
                 guard let owner = self else { return }
-
-                let header = DexOrderBook.ViewModel.Header(amountName: owner.pair.amountAsset.name, priceName: owner.pair.priceAsset.name, sumName: owner.pair.priceAsset.name)
-
+                
                 //TODO: need change to Observer network
                 let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
                 
@@ -41,16 +49,14 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                         })
                     }
                     else {
-                        subscribe.onNext(DexOrderBook.DTO.DisplayData(asks: [], lastPrice: DexOrderBook.DTO.LastPrice.empty(decimals: owner.pair.priceAsset.decimals), bids: [],
-                                                                      header: header,
-                                                                      availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
-                                                                      availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
-                                                                      availableWavesBalance: Money(0, GlobalConstants.WavesDecimals)))
+                        subscribe.onNext(emptyDisplayData)
                     }
                 })
                 
+            }, onError: { (error) in
+                subscribe.onNext(emptyDisplayData)
             }).disposed(by: owner.disposeBag)
-         
+           
             return Disposables.create()
         })
     }

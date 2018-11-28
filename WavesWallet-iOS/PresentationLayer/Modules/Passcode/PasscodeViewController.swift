@@ -160,7 +160,7 @@ private extension PasscodeViewController {
                 passcodeView.showInvalidateState()
 
             case .message(let message):
-                self.showErrorSnackWithoutAction(tille: message)
+                self.showErrorSnackWithoutAction(title: message)
 
             case .attemptsEndedLogout:
                 showAlertAttemptsEndedAndLogout()

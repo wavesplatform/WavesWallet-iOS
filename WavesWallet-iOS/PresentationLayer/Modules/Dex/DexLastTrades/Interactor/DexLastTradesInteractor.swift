@@ -51,6 +51,14 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
 
                         subscribe.onNext(display)
                         
+                    }, onError: { (error) in
+                        
+                        let display = DexLastTrades.DTO.DisplayData(trades: [], lastSell: nil, lastBuy:  nil,
+                                                                    availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
+                                                                    availablePriceAssetBalance: Money(0, owner.pair.priceAsset.decimals),
+                                                                    availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
+
+                        subscribe.onNext(display)
                     }).disposed(by: owner.disposeBag)
                     
                 })
