@@ -357,6 +357,9 @@ extension PasscodePresenter {
             if case .logIn(let wallet) = state.kind,
                 let action = state.action, case .logout = action {
                 return LogoutQuery(wallet: wallet)
+            } else if case .changePasscode(let wallet) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
             }
 
             return nil
