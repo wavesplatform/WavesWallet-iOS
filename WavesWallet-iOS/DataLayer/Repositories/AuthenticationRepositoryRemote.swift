@@ -15,7 +15,7 @@ import RxSwift
 fileprivate enum Constants {
     #if DEBUG || TEST
     static let rootPath: String = "pincodes-ios-dev"
-    #elseif Test
+    #elseif TEST
     static let rootPath: String = "pincodes-ios-dev"
     #else
     static let rootPath: String = "pincodes-ios"

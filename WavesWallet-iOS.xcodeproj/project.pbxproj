@@ -52,6 +52,7 @@
 		04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */; };
 		04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */; };
 		04F9979621AA197B0036768D /* CameraAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9979521AA197B0036768D /* CameraAccess.swift */; };
+		0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */; };
 		0A044418219D850100F837EB /* UIView+TouchInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A044417219D850100F837EB /* UIView+TouchInset.swift */; };
 		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
 		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
@@ -868,6 +869,7 @@
 		04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterStartBlockCell.xib; sourceTree = "<group>"; };
 		04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		04F9979521AA197B0036768D /* CameraAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAccess.swift; sourceTree = "<group>"; };
+		0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Appsflyer-Info.plist"; sourceTree = "<group>"; };
 		0A044417219D850100F837EB /* UIView+TouchInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TouchInset.swift"; sourceTree = "<group>"; };
 		0A071E40215AEF61007D9750 /* AccountPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountPassword.storyboard; sourceTree = "<group>"; };
 		0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
@@ -2547,6 +2549,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */,
 				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
 				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
 				0A2060632181C2C20048CF83 /* environment_testnet.json */,
@@ -4540,6 +4543,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
+				0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
 				0AF921F0212E07B3003BA067 /* Assets.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
