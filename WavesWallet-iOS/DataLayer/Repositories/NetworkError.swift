@@ -39,8 +39,12 @@ enum NetworkError: Error {
         switch self {
         case .message(let message):
             return message
+            
+        case .internetNotWorking:
+            return Localizable.Waves.General.Error.Title.noconnectiontotheinternet
+            
         default:
-            return localizedDescription
+            return Localizable.Waves.General.Error.Title.notfound
         }
     }
 }
