@@ -166,6 +166,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     func multilineTextFieldDidChange(textField: MultilineTextField) {
         
         buttonContinue.isEnabled = textField.isValidValue
+        textField.error = nil
 
         if textField.isValidValue {
             addressBar.isHidden = false
