@@ -24,7 +24,7 @@ enum DexMyOrders {
         enum Action {
             case none
             case update
-            case orderDidFailCancel(ResponseTypeError)
+            case orderDidFailCancel(NetworkError)
             case orderDidFinishCancel
         }
         

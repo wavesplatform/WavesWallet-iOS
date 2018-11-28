@@ -52,8 +52,8 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showAddList() {
-        let vc = DexMarketModuleBuilder(output: self).build()
+    func showAddList(delegate: DexMarketDelegate) {
+        let vc = DexMarketModuleBuilder(output: self).build(input: delegate)
         navigationController.pushViewController(vc, animated: true)
     }
     

@@ -8,22 +8,15 @@
 
 import Foundation
 
-//TODO: - Refactor, use asset from DomainLayer.DTO.Asset
-private enum FiatAsset {
-    static let USD = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
-    static let EUR = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
-    static let TRY = "2mX5DzVKWrAJw8iwdJnV2qtoeVG9h5nTDpTqC1wb1WEN"
-}
-
 enum DexList {
     enum DTO {}
     enum ViewModel {}
 
     enum Event {
         case readyView
-        case setModels([DTO.Pair])
+        case setModels(ResponseType<[DTO.Pair]>)
         case tapSortButton
-        case tapAddButton
+        case tapAddButton(DexMarketDelegate)
         case refresh
         case tapAssetPair(DTO.Pair)
     }
@@ -33,6 +26,7 @@ enum DexList {
         enum Action {
             case none
             case update
+            case didFailGetModels(NetworkError)
         }
         
         var isAppear: Bool
@@ -41,6 +35,7 @@ enum DexList {
         var sections: [DexList.ViewModel.Section]
         var isFirstLoadingData: Bool
         var lastUpdate: Date
+        var errorState: DisplayErrorState
     }
 }
 
@@ -75,10 +70,6 @@ extension DexList.DTO {
         let isGeneral: Bool
         let sortLevel: Int
     }
-    
-    static let fiatAssets: [String] = {
-        return [FiatAsset.USD, FiatAsset.EUR, FiatAsset.TRY]
-    }()
     
     private static func precisionDifference(_ amountDecimals: Int, _ priceDecimals: Int) -> Int {
         return priceDecimals - amountDecimals + 8
