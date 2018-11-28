@@ -137,6 +137,11 @@ You should ONLY use the official Waves client.</string>
                         <viewLayoutGuide key="safeArea" id="n3B-qW-Yjo"/>
                     </view>
                     <connections>
+                        <outlet property="buttonBottomConstraint" destination="MS2-8K-EoJ" id="kNg-ZF-HiQ"/>
+                        <outlet property="buttonLeadingConstraint" destination="EzR-Ng-jeG" id="OmE-yy-4wW"/>
+                        <outlet property="buttonTrailingConstraint" destination="Gcm-yd-D2M" id="D45-U3-db0"/>
+                        <outlet property="contentLeadingConstraint" destination="UAY-RY-X9m" id="CvB-H4-aFY"/>
+                        <outlet property="contentTrailingConstraint" destination="mkf-wA-5VT" id="9rh-cm-Su2"/>
                         <outlet property="detailLabel" destination="xqQ-dN-ozw" id="rE6-qk-fg8"/>
                         <outlet property="iUnderstandButton" destination="qra-6C-xGo" id="WbL-6a-arz"/>
                         <outlet property="titleLabel" destination="cnh-Nd-CfI" id="lLJ-Yp-sNo"/>
@@ -227,6 +232,8 @@ You should ONLY use the official Waves client.</string>
                     </view>
                     <connections>
                         <outlet property="backUpNowButton" destination="On5-B9-Zos" id="yUK-Z6-XxM"/>
+                        <outlet property="buttonLeadingConstraint" destination="VRw-ot-MAc" id="doX-VF-pxd"/>
+                        <outlet property="buttonTrailingConstraint" destination="AV6-6c-QWL" id="AIj-qh-52w"/>
                         <outlet property="detailLabel" destination="N86-FQ-Nvx" id="VxI-KE-MPA"/>
                         <outlet property="doItLaterButton" destination="ANh-Pw-lW6" id="ImK-60-dfo"/>
                         <outlet property="titleLabel" destination="neh-fX-cUY" id="Cnz-dW-hX8"/>

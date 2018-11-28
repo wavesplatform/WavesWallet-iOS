@@ -24,6 +24,9 @@ final class NeedBackupViewController: UIViewController {
     @IBOutlet private weak var backUpNowButton: UIButton!
     @IBOutlet private weak var doItLaterButton: UIButton!
 
+    @IBOutlet weak var buttonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonTrailingConstraint: NSLayoutConstraint!
+    
     private lazy var closeItem: UIBarButtonItem = UIBarButtonItem(image: Images.topbarClose.image, style: .plain, target: self, action: #selector(closeTapped(_:)))
 
     weak var output: NeedBackupModuleOutput?
@@ -33,7 +36,13 @@ final class NeedBackupViewController: UIViewController {
 
         if Platform.isIphone5 {
             topLogoOffset.constant = Constants.topLogoOffset
+            buttonLeadingConstraint.constant = 12
+            buttonTrailingConstraint.constant = 12
+        } else {
+            buttonLeadingConstraint.constant = 16
+            buttonTrailingConstraint.constant = 16
         }
+        
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()        
         navigationItem.rightBarButtonItem = closeItem
