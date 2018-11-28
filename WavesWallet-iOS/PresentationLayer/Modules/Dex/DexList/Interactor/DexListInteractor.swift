@@ -21,22 +21,22 @@ final class DexListInteractor: DexListInteractorProtocol {
     private let disposeBag = DisposeBag()
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
     
-    func pairs() -> Observable<[DexList.DTO.Pair]> {
+    func pairs() -> Observable<ResponseType<[DexList.DTO.Pair]>> {
         
-        return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexList.DTO.Pair]> in
+        return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
             guard let owner = self else { return Observable.empty() }
             
             return Observable.merge([owner.dexRepository.list(by: wallet.address),
                                      owner.dexRepository.listListener(by: wallet.address)])
                 
-                .flatMap({ [weak self] (pairs) -> Observable<[DexList.DTO.Pair]> in
+                .flatMap({ [weak self] (pairs) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                                         
                     guard let owner = self else { return Observable.empty() }
                     if pairs.count == 0 {
-                        return Observable.just([])
+                        return Observable.just(ResponseType(output: [], error: nil))
                     }
                     else {
-                        return owner.environmentRepository.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexList.DTO.Pair]> in
+                        return owner.environmentRepository.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                             
                             guard let owner = self else { return Observable.empty() }
                             return owner.getList(by: pairs, environment: environment)
@@ -49,7 +49,7 @@ final class DexListInteractor: DexListInteractorProtocol {
 
 private extension DexListInteractor {
     
-    func getList(by pairs: [DexMarket.DTO.Pair], environment: Environment) -> Observable<[DexList.DTO.Pair]> {
+    func getList(by pairs: [DexMarket.DTO.Pair], environment: Environment) -> Observable<ResponseType<[DexList.DTO.Pair]>> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
 

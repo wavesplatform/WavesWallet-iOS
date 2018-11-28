@@ -102,7 +102,13 @@ final class DexListPresenter: DexListPresenterProtocol {
 fileprivate extension DexList.State {
     static var initialState: DexList.State {
         let section = DexList.ViewModel.Section(items: [.skeleton, .skeleton, .skeleton, .skeleton])
-        return DexList.State(isAppear: false, isNeedRefreshing: false, action: .none, sections: [section], isFirstLoadingData: true, lastUpdate: Date())
+        return DexList.State(isAppear: false,
+                             isNeedRefreshing: false,
+                             action: .none,
+                             sections: [section],
+                             isFirstLoadingData: true,
+                             lastUpdate: Date(),
+                             errorState: .none)
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {
